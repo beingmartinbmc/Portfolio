@@ -1,76 +1,78 @@
 <div class="section" id="contact">
   <!-- style="background-image: url('assets/images/connect.jpg');" -->
-    <div class="cc-contact-information" >
-      <div class="container">
-        <div class="cc-contact">
-          <div class="row">
-            <div class="col-md-9">
-              <div class="card mb-0" data-aos="zoom-in">
-                <div class="h4 text-center title">Contact Me</div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="card-body">
-                      <form name="form" (ngSubmit)="f.form.valid ; f.resetForm()" #f="ngForm" novalidate>
-                        <div class="p pb-3">
-                          <strong>Feel free to contact me </strong>
-                        </div>
-                        <div class="row mb-3">
-                          <div class="col">
-                            <div class="input-group">
-                              <input class="form-control" type="text" name="name" #name placeholder="Name"
-                                [(ngModel)]="model.name" #name="ngModel"
-                                [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required />
-                            </div>
+  <div class="cc-contact-information">
+    <div class="container">
+      <div class="cc-contact">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="card mb-0" data-aos="zoom-in">
+              <div class="h4 text-center title">Contact Me</div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <form #f="ngForm" (ngSubmit)="f.form.valid ; f.resetForm()" name="form" novalidate>
+                      <div class="p pb-3">
+                        <strong>Feel free to contact me </strong>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col">
+                          <div class="input-group">
+                            <input #name #name="ngModel" [(ngModel)]="model.name" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" class="form-control"
+                                   name="name" placeholder="Name"
+                                   required type="text"/>
                           </div>
                         </div>
-                        <div class="row mb-3">
-                          <div class="col">
-                            <div class="input-container">
-                              <input class="form-control" type="text" name="subject" #subject placeholder="Subject"
-                                [(ngModel)]="model.subject" #subject="ngModel"
-                                [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" required />
-                            </div>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col">
+                          <div class="input-container">
+                            <input #subject #subject="ngModel" [(ngModel)]="model.subject" [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" class="form-control"
+                                   name="subject" placeholder="Subject"
+                                   required type="text"/>
                           </div>
                         </div>
-                        <div class="row mb-3">
-                          <div class="col">
-                            <div class="input-group">
-                              <input class="form-control" type="text" name="email"  #email placeholder="E-mail"
-                                [(ngModel)]="model.email" #email="ngModel"
-                                [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
-                                pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required />
-                            </div>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col">
+                          <div class="input-group">
+                            <input #email #email="ngModel" [(ngModel)]="model.email" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" class="form-control"
+                                   name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                                   placeholder="E-mail"
+                                   required type="text"/>
                           </div>
                         </div>
-                        <div class="row mb-3">
-                          <div class="col">
-                            <div class="form-group">
-                              <textarea class="form-control" name="message" #message placeholder="Your Message"
-                                [(ngModel)]="model.message" #message="ngModel"
-                                [ngClass]="{ 'is-invalid': f.submitted && message.invalid }" required></textarea>
-                            </div>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col">
+                          <div class="form-group">
+                              <textarea #message #message="ngModel" [(ngModel)]="model.message" [ngClass]="{ 'is-invalid': f.submitted && message.invalid }"
+                                        class="form-control" name="message"
+                                        placeholder="Your Message"
+                                        required></textarea>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            <button style="font-weight: bold;color: blanchedalmond;" class="btn bg-primary" type="submit" (click)="onSubmit(name.value, subject.value, email.value, message.value)"> Send</button>
-                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <button (click)="onSubmit(name.value, subject.value, email.value, message.value)" class="btn bg-primary" style="font-weight: bold;color: blanchedalmond;"
+                                  type="submit"> Send
+                          </button>
                         </div>
-                      </form>
-                    </div>
+                      </div>
+                    </form>
                   </div>
-                  <div class="col-md-6">
-                    <div class="card-body">
-                        <p class="mb-0">
-                            <strong>Phone</strong>
-                        </p>
-                        <p class="pb-2">+91 7055468995</p>
-                        <p class="mb-0">
-                            <strong>Email</strong>
-                        </p>
-                        <p>ankit.sharma199803@gmail.com</p>
-                    </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p class="mb-0">
+                      <strong>Phone</strong>
+                    </p>
+                    <p class="pb-2">+91 7055468995</p>
+                    <p class="mb-0">
+                      <strong>Email</strong>
+                    </p>
+                    <p>ankit.sharma199803@gmail.com</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -79,6 +81,7 @@
       </div>
     </div>
   </div>
-  <ng-snotify class="material"></ng-snotify>
+</div>
+<ng-snotify class="material"></ng-snotify>
 
 

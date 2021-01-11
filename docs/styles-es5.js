@@ -20,9 +20,9 @@
       "version": 3,
       "sources": ["F:\\portfolio\\portfolio/src\\styles.scss", "styles.scss"],
       "names": [],
-      "mappings": "AAAA;EAAO,uBAAA;ACEP",
+      "mappings": "AAAA;EACE,uBAAA;ACCF",
       "file": "styles.scss",
-      "sourcesContent": ["html { background-color: black; }", "html {\n  background-color: black;\n}"]
+      "sourcesContent": ["html {\r\n  background-color: black;\r\n}\r\n", "html {\n  background-color: black;\n}"]
     }]); // Exports
 
     module.exports = exports;

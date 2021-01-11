@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Particles } from 'particles.ts';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Particles} from 'particles.ts';
 
 @Component({
   selector: 'app-particle',
@@ -8,9 +8,11 @@ import { Particles } from 'particles.ts';
 })
 export class ParticleComponent implements OnInit, AfterViewInit {
   particles: Particles;
-  myParams : any;
+  myParams: any;
   @ViewChild('canvas') canvas: ElementRef;
-  constructor() {}
+
+  constructor() {
+  }
 
   ngOnInit(): void {
 
@@ -92,7 +94,7 @@ export class ParticleComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    //this.canvas.nativeElement;
+    // this.canvas.nativeElement;
   }
 
   objectToStringMap(obj: any) {
