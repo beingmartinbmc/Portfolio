@@ -4878,8 +4878,8 @@ img {
   width: 250px;
   position: absolute;
   left: 0;
-  -webkit-animation: pulsate 1.6s ease-out;
-          animation: pulsate 1.6s ease-out;
+  -webkit-animation: pulsate 1.2s ease-out;
+          animation: pulsate 1.2s ease-out;
   -webkit-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
   opacity: 0.0;
