@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ParticleComponent } from './particle.component';
+import {ParticleComponent} from './particle.component';
 
 describe('ParticleComponent', () => {
   let component: ParticleComponent;
@@ -8,9 +8,9 @@ describe('ParticleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ParticleComponent ]
+      declarations: [ParticleComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

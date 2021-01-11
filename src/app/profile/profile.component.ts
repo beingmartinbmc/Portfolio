@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {Component, OnInit} from '@angular/core';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile',
@@ -12,9 +12,11 @@ export class ProfileComponent implements OnInit {
   myParams: object = {};
   width: number = 100;
   height: number = 100;
+
   constructor(
     private spinner: NgxSpinnerService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.spinner.show();
@@ -22,11 +24,11 @@ export class ProfileComponent implements OnInit {
       this.spinner.hide();
     }, 2000);
 
-this.particles2();
+    this.particles2();
 
   }
 
-  particles2(){
+  particles2() {
     this.myStyle = {
       'position': 'fixed',
       'width': '100%',
@@ -36,21 +38,21 @@ this.particles2();
       'left': 0,
       'right': 0,
       'bottom': 0,
-  };
+    };
 
-this.myParams = {
+    this.myParams = {
       particles: {
-          number: {
-              value: 200,
-          },
-          color: {
-              value: '#ff0000'
-          },
-          shape: {
-              type: 'triangle',
-          },
-  }
-};
+        number: {
+          value: 200,
+        },
+        color: {
+          value: '#ff0000'
+        },
+        shape: {
+          type: 'triangle',
+        },
+      }
+    };
   }
 
   particles() {
