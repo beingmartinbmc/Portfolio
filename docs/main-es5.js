@@ -1092,13 +1092,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({
             'Content-Type': 'application/json'
           });
-          this.http.post('https://formspree.io/f/xknpknow', {
+          this.http.post('https://formspree.io/f/mbjpqzgz', {
             name: name,
             subject: subject,
             replyto: email,
             message: message
           }, {
-            'headers': headers
+            headers: headers
           }).subscribe(function (response) {
             console.log(response);
           });

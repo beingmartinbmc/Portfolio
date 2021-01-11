@@ -422,7 +422,7 @@ class ContactComponent {
     }
     onSubmit(name, subject, email, message) {
         const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({ 'Content-Type': 'application/json' });
-        this.http.post('https://formspree.io/f/xknpknow', { name: name, subject: subject, replyto: email, message: message }, { 'headers': headers }).subscribe(response => {
+        this.http.post('https://formspree.io/f/mbjpqzgz', { name, subject, replyto: email, message }, { headers }).subscribe(response => {
             console.log(response);
         });
     }
