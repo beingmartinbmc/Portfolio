@@ -1877,7 +1877,7 @@ body {
 
 .bg-primary {
   background-color: #0c5460 !important;
-  color: #000;
+  color: #ffffff;
 }
 
 .bg-skills {
@@ -5188,7 +5188,7 @@ a.credit {
 /*timmed Centered */
 .list {
   color: #000000;
-  font-family: monospace;
+  font-family: monospace, sans-serif;
   font-weight: bold;
 }
 
