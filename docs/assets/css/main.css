@@ -5003,7 +5003,7 @@ img {
 
 .profile-image a:before {
   content: "";
-  border: 15px solid rgb(226, 42, 80);
+  border: 20px solid rgb(203, 1, 1);
   border-radius: 50%;
   height: 200px;
   width: 250px;
