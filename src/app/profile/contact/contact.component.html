@@ -17,7 +17,8 @@
                       <div class="row mb-3">
                         <div class="col">
                           <div class="input-group">
-                            <input #name #name="ngModel" [(ngModel)]="model.name" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" class="form-control"
+                            <input #name #name="ngModel" [(ngModel)]="model.name"
+                                   [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" class="form-control"
                                    name="name" placeholder="Name"
                                    required type="text"/>
                           </div>
@@ -26,7 +27,8 @@
                       <div class="row mb-3">
                         <div class="col">
                           <div class="input-container">
-                            <input #subject #subject="ngModel" [(ngModel)]="model.subject" [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" class="form-control"
+                            <input #subject #subject="ngModel" [(ngModel)]="model.subject"
+                                   [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" class="form-control"
                                    name="subject" placeholder="Subject"
                                    required type="text"/>
                           </div>
@@ -35,7 +37,8 @@
                       <div class="row mb-3">
                         <div class="col">
                           <div class="input-group">
-                            <input #email #email="ngModel" [(ngModel)]="model.email" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" class="form-control"
+                            <input #email #email="ngModel" [(ngModel)]="model.email"
+                                   [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" class="form-control"
                                    name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
                                    placeholder="E-mail"
                                    required type="text"/>
@@ -45,7 +48,8 @@
                       <div class="row mb-3">
                         <div class="col">
                           <div class="form-group">
-                              <textarea #message #message="ngModel" [(ngModel)]="model.message" [ngClass]="{ 'is-invalid': f.submitted && message.invalid }"
+                              <textarea #message #message="ngModel" [(ngModel)]="model.message"
+                                        [ngClass]="{ 'is-invalid': f.submitted && message.invalid }"
                                         class="form-control" name="message"
                                         placeholder="Your Message"
                                         required></textarea>
@@ -54,7 +58,8 @@
                       </div>
                       <div class="row">
                         <div class="col">
-                          <button (click)="onSubmit(name.value, subject.value, email.value, message.value)" class="btn bg-primary" style="font-weight: bold;color: blanchedalmond;"
+                          <button (click)="onSubmit(name.value, subject.value, email.value, message.value)"
+                                  class="btn bg-primary" style="font-weight: bold;color: blanchedalmond;"
                                   type="submit"> Send
                           </button>
                         </div>
@@ -73,7 +78,9 @@
                     </p>
                     <p>ankit.sharma199803@gmail.com</p>
                     <p style="margin-top: 40px">
-                    <a href="https://info.flagcounter.com/By4O"><img src="https://s11.flagcounter.com/count2/By4O/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
+                      <a href="https://info.flagcounter.com/hZ3l"><img
+                        src="https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"
+                        alt="Flag Counter" border="0"></a>
                     </p>
                   </div>
                 </div>
