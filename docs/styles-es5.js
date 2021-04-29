@@ -18,11 +18,11 @@
 
     exports.push([module.i, "html {\n  background-color: black;\n}", "", {
       "version": 3,
-      "sources": ["F:\\portfolio\\portfolio/src\\styles.scss", "styles.scss"],
+      "sources": ["C:\\Users\\marti\\WebstormProjects\\Portfolio/src\\styles.scss", "styles.scss"],
       "names": [],
       "mappings": "AAAA;EACE,uBAAA;ACCF",
       "file": "styles.scss",
-      "sourcesContent": ["html {\r\n  background-color: black;\r\n}\r\n", "html {\n  background-color: black;\n}"]
+      "sourcesContent": ["html {\n  background-color: black;\n}\n", "html {\n  background-color: black;\n}"]
     }]); // Exports
 
     module.exports = exports;
@@ -464,7 +464,7 @@
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! F:\portfolio\portfolio\src\styles.scss */
+    /*! C:\Users\marti\WebstormProjects\Portfolio\src\styles.scss */
     "./src/styles.scss");
     /***/
   }
