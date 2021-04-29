@@ -11,7 +11,7 @@
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(true);
 // Module
-exports.push([module.i, "html {\n  background-color: black;\n}", "",{"version":3,"sources":["F:\\portfolio\\portfolio/src\\styles.scss","styles.scss"],"names":[],"mappings":"AAAA;EACE,uBAAA;ACCF","file":"styles.scss","sourcesContent":["html {\r\n  background-color: black;\r\n}\r\n","html {\n  background-color: black;\n}"]}]);
+exports.push([module.i, "html {\n  background-color: black;\n}", "",{"version":3,"sources":["C:\\Users\\marti\\WebstormProjects\\Portfolio/src\\styles.scss","styles.scss"],"names":[],"mappings":"AAAA;EACE,uBAAA;ACCF","file":"styles.scss","sourcesContent":["html {\n  background-color: black;\n}\n","html {\n  background-color: black;\n}"]}]);
 // Exports
 module.exports = exports;
 
@@ -441,7 +441,7 @@ module.exports = exported;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! F:\portfolio\portfolio\src\styles.scss */"./src/styles.scss");
+module.exports = __webpack_require__(/*! C:\Users\marti\WebstormProjects\Portfolio\src\styles.scss */"./src/styles.scss");
 
 
 /***/ })
