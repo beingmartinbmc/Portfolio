@@ -5002,10 +5002,10 @@ img {
 
 .profile-image a:before {
   content: "";
-  border: 20px solid rgb(203, 1, 1);
+  border: 20px solid rgb(142, 1, 1);
   border-radius: 50%;
-  height: 200px;
-  width: 250px;
+  height: 230px;
+  width: 230px;
   position: absolute;
   left: 0;
   -webkit-animation: pulsate 1.2s ease-out;
@@ -5019,8 +5019,8 @@ img {
 .profile-image img {
   position: relative;
   border-radius: 50%;
-  height: 200px;
-  width: 250px;
+  height: 230px;
+  width: 230px;
   padding: 0;
   margin: 0;
   border: 15px solid transparent;
