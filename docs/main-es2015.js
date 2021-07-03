@@ -1282,7 +1282,7 @@ class TimeService {
         const currentDate = new Date();
         const difference = currentDate.getTime() - joinedDate.getTime();
         const days = difference / (1000 * 3600 * 24);
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(Math.floor(days / 30));
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(days / 30);
     }
 }
 TimeService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ factory: function TimeService_Factory() { return new TimeService(); }, token: TimeService, providedIn: "root" });
