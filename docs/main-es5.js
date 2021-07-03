@@ -2759,7 +2759,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var currentDate = new Date();
           var difference = currentDate.getTime() - joinedDate.getTime();
           var days = difference / (1000 * 3600 * 24);
-          return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(days / 30);
+          var temp = days / 30;
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(Number(temp.toFixed(2)));
         }
       }]);
 
