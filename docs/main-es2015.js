@@ -1278,6 +1278,7 @@ class TimeService {
     constructor() {
     }
     getNumberOfMonths() {
+        // added date
         const joinedDate = new Date('10/1/2021');
         const currentDate = new Date();
         const difference = currentDate.getTime() - joinedDate.getTime();

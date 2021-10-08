@@ -2755,6 +2755,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(TimeService, [{
         key: "getNumberOfMonths",
         value: function getNumberOfMonths() {
+          // added date
           var joinedDate = new Date('10/1/2021');
           var currentDate = new Date();
           var difference = currentDate.getTime() - joinedDate.getTime();
