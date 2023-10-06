@@ -11,7 +11,7 @@ export class TimeService {
 
   public getNumberOfMonths(): Observable<number> {
     // added date
-    const joinedDate = new Date('10/1/2021');
+    const joinedDate = new Date('10/1/2022');
     const currentDate = new Date();
     const difference = currentDate.getTime() - joinedDate.getTime();
     const days = difference / (1000 * 3600 * 24);
