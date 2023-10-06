@@ -16,6 +16,7 @@ export class TimeService {
     const difference = currentDate.getTime() - joinedDate.getTime();
     const days = difference / (1000 * 3600 * 24);
     const temp = (days / 30);
-    return of(Number(temp.toFixed(2)));
+    const years = (temp / 12);
+    return of(Number(years.toFixed(2)));
   }
 }
