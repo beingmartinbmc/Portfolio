@@ -17,7 +17,7 @@
                       <div class="row mb-3">
                         <div class="col">
                           <div class="input-group">
-                            <input #name #name="ngModel" [(ngModel)]="model.name"
+                            <input #name="ngModel" [(ngModel)]="model.name"
                                    [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" class="form-control"
                                    name="name" placeholder="Name"
                                    required type="text"/>
@@ -27,7 +27,7 @@
                       <div class="row mb-3">
                         <div class="col">
                           <div class="input-container">
-                            <input #subject #subject="ngModel" [(ngModel)]="model.subject"
+                            <input #subject="ngModel" [(ngModel)]="model.subject"
                                    [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" class="form-control"
                                    name="subject" placeholder="Subject"
                                    required type="text"/>
@@ -37,7 +37,7 @@
                       <div class="row mb-3">
                         <div class="col">
                           <div class="input-group">
-                            <input #email #email="ngModel" [(ngModel)]="model.email"
+                            <input #email="ngModel" [(ngModel)]="model.email"
                                    [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" class="form-control"
                                    name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
                                    placeholder="E-mail"
@@ -48,7 +48,7 @@
                       <div class="row mb-3">
                         <div class="col">
                           <div class="form-group">
-                              <textarea #message #message="ngModel" [(ngModel)]="model.message"
+                              <textarea #message="ngModel" [(ngModel)]="model.message"
                                         [ngClass]="{ 'is-invalid': f.submitted && message.invalid }"
                                         class="form-control" name="message"
                                         placeholder="Your Message"
@@ -88,6 +88,5 @@
     </div>
   </div>
 </div>
-<ng-snotify class="material"></ng-snotify>
 
 
