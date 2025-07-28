@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {ProfileComponent} from './profile/profile.component';
-import {ProfileModule} from './profile/profile.module';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,17 +20,15 @@ const config: ExtraOptions = {
 };
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes, config),
-    ProfileModule,
+    ProfileComponent,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
