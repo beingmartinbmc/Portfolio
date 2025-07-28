@@ -72,18 +72,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Personal-Portfolio-Angular:build"
+            "buildTarget": "Personal-Portfolio-Angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Personal-Portfolio-Angular:build:production"
+              "buildTarget": "Personal-Portfolio-Angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Personal-Portfolio-Angular:build"
+            "buildTarget": "Personal-Portfolio-Angular:build"
           }
         },
         "test": {
