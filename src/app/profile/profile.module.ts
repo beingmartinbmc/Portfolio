@@ -1,19 +1,19 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SnotifyModule, SnotifyService, ToastDefaults} from 'ng-snotify';
+// import {SnotifyModule, SnotifyService, ToastDefaults} from 'ng-snotify';
 import {ProfileComponent} from './profile.component';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {IntroComponent} from './intro/intro.component';
 import {AboutComponent} from './about/about.component';
-import {NgxSpinnerModule} from 'ngx-spinner';
+// import {NgxSpinnerModule} from 'ngx-spinner';
 import {ContactComponent} from './contact/contact.component';
 import {EducationComponent} from './education/education.component';
 import {ExperienceComponent} from './experience/experience.component';
 import {SkillsComponent} from './skills/skills.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PublicationsComponent} from '../profile/publications/publications.component';
-import {ParticlesModule} from 'angular-particle';
+// import {ParticlesModule} from 'angular-particle';
 import {ParticleComponent} from './particle/particle.component';
 
 
@@ -21,11 +21,11 @@ import {ParticleComponent} from './particle/particle.component';
   imports: [
     CommonModule,
     FormsModule,
-    SnotifyModule,
+    // SnotifyModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule,
-    ParticlesModule
+    // NgxSpinnerModule,
+    // ParticlesModule
   ],
   declarations: [
     ProfileComponent,
@@ -41,8 +41,8 @@ import {ParticleComponent} from './particle/particle.component';
     ParticleComponent,
   ],
   providers: [
-    {provide: 'SnotifyToastConfig', useValue: ToastDefaults},
-    SnotifyService,
+    // {provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    // SnotifyService,
   ]
 })
 export class ProfileModule {
