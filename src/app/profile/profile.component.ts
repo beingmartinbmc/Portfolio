@@ -8,6 +8,7 @@ import {EducationComponent} from './education/education.component';
 import {ExperienceComponent} from './experience/experience.component';
 import {SkillsComponent} from './skills/skills.component';
 import {PublicationsComponent} from './publications/publications.component';
+import {BlogComponent} from './blog/blog.component';
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +24,8 @@ import {PublicationsComponent} from './publications/publications.component';
     EducationComponent,
     ExperienceComponent,
     SkillsComponent,
-    PublicationsComponent
+    PublicationsComponent,
+    BlogComponent
   ]
 })
 export class ProfileComponent implements OnInit {
