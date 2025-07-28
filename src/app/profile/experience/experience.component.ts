@@ -10,9 +10,19 @@ import {TimeService} from '../../time.service';
 export class ExperienceComponent implements OnInit, OnDestroy {
 
   numberOfMonths: number;
+  totalExperience: string;
   interval: any;
 
   constructor(private timeService: TimeService) {
+  }
+
+  private calculateTotalExperience(): void {
+    const startDate = new Date('2019-12-20');
+    const currentDate = new Date();
+    const diffTime = Math.abs(currentDate.getTime() - startDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffYears = diffDays / 365.25;
+    this.totalExperience = diffYears.toFixed(1);
   }
 
   private refreshData() {
@@ -20,6 +30,7 @@ export class ExperienceComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.numberOfMonths = data;
       });
+    this.calculateTotalExperience();
   }
 
   ngOnInit(): void {

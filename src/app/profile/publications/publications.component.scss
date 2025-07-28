@@ -1,1 +1,159 @@
+/* Modern Projects Component Styles */
+.projects-section {
+  background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+  padding: var(--spacing-3xl) 0;
+}
 
+.projects-grid {
+  display: grid;
+  gap: var(--spacing-2xl);
+  margin-top: var(--spacing-2xl);
+}
+
+.project-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  
+  &:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px);
+  }
+}
+
+.project-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  margin: var(--spacing-lg);
+  
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+  }
+  
+  .project-preview {
+    width: 100%;
+    height: 200px;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    text-align: center;
+    padding: var(--spacing-lg);
+    box-sizing: border-box;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    transition: all var(--transition-normal);
+    
+    h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    p {
+      margin: var(--spacing-xs) 0 0 0;
+      font-size: 0.875rem;
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+    
+    .tech-stack {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-top: var(--spacing-xs);
+    }
+    
+    .powered-by {
+      font-size: 0.7rem;
+      opacity: 0.7;
+      margin-top: var(--spacing-xs);
+    }
+  }
+  
+  &:hover img,
+  &:hover .project-preview {
+    transform: scale(1.05);
+  }
+}
+
+.project-content {
+  padding: var(--spacing-xl);
+  
+  .project-title {
+    font-family: var(--font-secondary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    color: var(--gray-900);
+  }
+  
+  .project-description {
+    color: var(--gray-600);
+    line-height: 1.7;
+    font-size: 1rem;
+    
+    b {
+      color: var(--gray-900);
+      font-weight: 600;
+    }
+  }
+}
+
+/* Modern section title */
+.projects-section .section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+  color: var(--gray-900);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 2px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .projects-grid {
+    gap: var(--spacing-lg);
+  }
+  
+  .project-content {
+    padding: var(--spacing-lg);
+  }
+  
+  .project-content .project-title {
+    font-size: 1.25rem;
+  }
+  
+  .projects-section .section-title {
+    font-size: 2rem;
+  }
+}
+
+/* Animation for project cards */
+.project-card {
+  animation: fadeInUp 0.6s ease-out;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+}
