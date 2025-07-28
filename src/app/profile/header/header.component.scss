@@ -1,0 +1,183 @@
+/* Modern Header Component Styles */
+header {
+  position: relative;
+  z-index: 1000;
+}
+
+.navbar {
+  background: linear-gradient(-45deg, #4c63d2, #5a3f8a, #d17ee8, #d13d5a, #3d8be8, #00d4d4) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift 15s ease infinite;
+  backdrop-filter: blur(10px);
+  border: none;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+  transform: translateY(-100%);
+  opacity: 0;
+  
+  &.navbar-scrolled {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  &.navbar-transparent {
+    background: linear-gradient(-45deg, #4c63d2, #5a3f8a, #d17ee8, #d13d5a, #3d8be8, #00d4d4) !important;
+    background-size: 400% 400% !important;
+    animation: gradientShift 15s ease infinite;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.navbar-brand {
+  color: var(--white) !important;
+  font-family: var(--font-secondary);
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: all var(--transition-normal);
+  
+  &:hover {
+    color: var(--white) !important;
+    transform: translateY(-1px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.navbar-nav {
+  .nav-item {
+    margin: 0 var(--spacing-sm);
+    
+    .nav-link {
+      color: var(--white) !important;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: var(--spacing-sm) var(--spacing-md) !important;
+      border-radius: var(--radius-md);
+      transition: all var(--transition-normal);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      position: relative;
+      
+      &:hover {
+        color: var(--white) !important;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-sm);
+      }
+      
+      &:focus {
+        color: var(--white) !important;
+        background: rgba(255, 255, 255, 0.15);
+      }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--white);
+        transition: width var(--transition-normal);
+        border-radius: 1px;
+      }
+      
+      &:hover::after {
+        width: 80%;
+      }
+    }
+  }
+}
+
+.navbar-toggler {
+  border: none;
+  padding: 0;
+  
+  &:focus {
+    box-shadow: none;
+  }
+  
+  .navbar-toggler-bar {
+    background: var(--white) !important;
+    height: 3px;
+    border-radius: 2px;
+    transition: all var(--transition-normal);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    
+    &.bar1 {
+      width: 25px;
+    }
+    
+    &.bar2 {
+      width: 20px;
+      margin-top: 4px;
+    }
+    
+    &.bar3 {
+      width: 15px;
+      margin-top: 4px;
+    }
+  }
+  
+  &:hover .navbar-toggler-bar {
+    background: var(--white) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .navbar-nav {
+    .nav-item {
+      margin: var(--spacing-xs) 0;
+      
+      .nav-link {
+        text-align: center;
+        padding: var(--spacing-md) !important;
+        border-radius: var(--radius-md);
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
+}
+
+/* Animation for navbar */
+.navbar {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+/* Override any conflicting styles */
+.navbar.bg-primary {
+  background: linear-gradient(-45deg, #4c63d2, #5a3f8a, #d17ee8, #d13d5a, #3d8be8, #00d4d4) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift 15s ease infinite;
+}
+
+.navbar.navbar-transparent {
+  background: linear-gradient(-45deg, #4c63d2, #5a3f8a, #d17ee8, #d13d5a, #3d8be8, #00d4d4) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift 15s ease infinite;
+}

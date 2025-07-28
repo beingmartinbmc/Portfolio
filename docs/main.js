@@ -38906,8 +38906,13 @@ var AppComponent = class _AppComponent {
 // src/app/profile/header/header.component.ts
 var HeaderComponent = class _HeaderComponent {
   constructor() {
+    this.isScrolled = false;
   }
   ngOnInit() {
+  }
+  onWindowScroll() {
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.isScrolled = scrollPosition > 100;
   }
   static {
     this.\u0275fac = function HeaderComponent_Factory(__ngFactoryType__) {
@@ -38915,7 +38920,13 @@ var HeaderComponent = class _HeaderComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HeaderComponent, selectors: [["app-header"]], decls: 31, vars: 0, consts: [[1, "profile-page", "sidebar-collapse"], ["color-on-scroll", "400", 1, "navbar", "navbar-expand-lg", "fixed-top", "navbar-transparent", "bg-primary"], [1, "container"], [1, "navbar-translate"], ["href", "#", "rel", "tooltip", 1, "navbar-brand"], ["aria-controls", "navigation", "aria-expanded", "false", "aria-label", "Toggle navigation", "data-target", "#navigation", "data-toggle", "collapse", "type", "button", 1, "navbar-toggler", "navbar-toggler"], [1, "navbar-toggler-bar", "bar1"], [1, "navbar-toggler-bar", "bar2"], [1, "navbar-toggler-bar", "bar3"], ["id", "navigation", 1, "collapse", "navbar-collapse", "justify-content-end"], [1, "navbar-nav"], [1, "nav-item", 2, "color", "black"], ["href", "#about", 1, "nav-link", "smooth-scroll"], [1, "nav-item"], ["href", "#experience", 1, "nav-link", "smooth-scroll"], ["href", "#publications", 1, "nav-link", "smooth-scroll"], ["href", "#skill", 1, "nav-link", "smooth-scroll"], ["href", "#education", 1, "nav-link", "smooth-scroll"], ["href", "#contact", 1, "nav-link", "smooth-scroll"]], template: function HeaderComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HeaderComponent, selectors: [["app-header"]], hostBindings: function HeaderComponent_HostBindings(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275listener("scroll", function HeaderComponent_scroll_HostBindingHandler() {
+          return ctx.onWindowScroll();
+        }, \u0275\u0275resolveWindow);
+      }
+    }, decls: 31, vars: 2, consts: [[1, "profile-page", "sidebar-collapse"], ["color-on-scroll", "400", 1, "navbar", "navbar-expand-lg", "fixed-top", "navbar-transparent", "bg-primary"], [1, "container"], [1, "navbar-translate"], ["href", "#", "rel", "tooltip", 1, "navbar-brand"], ["aria-controls", "navigation", "aria-expanded", "false", "aria-label", "Toggle navigation", "data-target", "#navigation", "data-toggle", "collapse", "type", "button", 1, "navbar-toggler", "navbar-toggler"], [1, "navbar-toggler-bar", "bar1"], [1, "navbar-toggler-bar", "bar2"], [1, "navbar-toggler-bar", "bar3"], ["id", "navigation", 1, "collapse", "navbar-collapse", "justify-content-end"], [1, "navbar-nav"], [1, "nav-item", 2, "color", "black"], ["href", "#about", 1, "nav-link", "smooth-scroll"], [1, "nav-item"], ["href", "#experience", 1, "nav-link", "smooth-scroll"], ["href", "#publications", 1, "nav-link", "smooth-scroll"], ["href", "#skill", 1, "nav-link", "smooth-scroll"], ["href", "#education", 1, "nav-link", "smooth-scroll"], ["href", "#contact", 1, "nav-link", "smooth-scroll"]], template: function HeaderComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "header")(1, "div", 0)(2, "nav", 1)(3, "div", 2)(4, "div", 3)(5, "a", 4);
         \u0275\u0275text(6, "Ankit Sharma");
@@ -38942,24 +38953,88 @@ var HeaderComponent = class _HeaderComponent {
         \u0275\u0275text(30, "Contact");
         \u0275\u0275domElementEnd()()()()()()()();
       }
-    }, encapsulation: 2 });
+      if (rf & 2) {
+        \u0275\u0275advance(2);
+        \u0275\u0275classProp("navbar-scrolled", ctx.isScrolled);
+      }
+    }, styles: ['\n\nheader[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 1000;\n}\n.navbar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n  border: none;\n  box-shadow: var(--shadow-lg);\n  transition: all var(--transition-normal);\n  transform: translateY(-100%);\n  opacity: 0;\n}\n.navbar.navbar-scrolled[_ngcontent-%COMP%] {\n  transform: translateY(0);\n  opacity: 1;\n}\n.navbar.navbar-transparent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n}\n@keyframes _ngcontent-%COMP%_gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand[_ngcontent-%COMP%] {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand[_ngcontent-%COMP%]:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%] {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover::after {\n  width: 80%;\n}\n.navbar-toggler[_ngcontent-%COMP%] {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler[_ngcontent-%COMP%]:focus {\n  box-shadow: none;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar[_ngcontent-%COMP%] {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar1[_ngcontent-%COMP%] {\n  width: 25px;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar2[_ngcontent-%COMP%] {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar3[_ngcontent-%COMP%] {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler[_ngcontent-%COMP%]:hover   .navbar-toggler-bar[_ngcontent-%COMP%] {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse[_ngcontent-%COMP%] {\n    background: rgba(255, 255, 255, 0.1);\n    -webkit-backdrop-filter: blur(10px);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%] {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar[_ngcontent-%COMP%] {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HeaderComponent, [{
     type: Component,
-    args: [{ selector: "app-header", standalone: true, template: '<header>\n  <div class="profile-page sidebar-collapse">\n    <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-primary" color-on-scroll="400">\n      <div class="container">\n        <div class="navbar-translate">\n          <a class="navbar-brand" href="#" rel="tooltip">Ankit Sharma</a>\n          <button aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler"\n                  data-target="#navigation" data-toggle="collapse" type="button">\n            <span class="navbar-toggler-bar bar1"></span>\n            <span class="navbar-toggler-bar bar2"></span>\n            <span class="navbar-toggler-bar bar3"></span>\n          </button>\n        </div>\n        <div class="collapse navbar-collapse justify-content-end" id="navigation">\n          <ul class="navbar-nav">\n            <li class="nav-item" style="color: black;">\n              <a class="nav-link smooth-scroll" href="#about">About</a>\n            </li>\n            <li class="nav-item">\n              <a class="nav-link smooth-scroll" href="#experience">Experience</a>\n            </li>\n\n            <li class="nav-item">\n              <a class="nav-link smooth-scroll" href="#publications">Projects</a>\n            </li>\n            <li class="nav-item">\n              <a class="nav-link smooth-scroll" href="#skill">Skills</a>\n            </li>\n\n            <li class="nav-item">\n              <a class="nav-link smooth-scroll" href="#education">Education</a>\n            </li>\n\n            <!-- <li class="nav-item">\n                <a class="nav-link smooth-scroll" href="#reference">Reference</a>\n              </li> -->\n\n            <li class="nav-item">\n              <a class="nav-link smooth-scroll" href="#contact">Contact</a>\n            </li>\n          </ul>\n        </div>\n      </div>\n    </nav>\n  </div>\n</header>\n\n' }]
-  }], () => [], null);
+    args: [{ selector: "app-header", standalone: true, template: '<header>\n  <div class="profile-page sidebar-collapse">\n    <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-primary" \n         [class.navbar-scrolled]="isScrolled"\n         color-on-scroll="400">\n      <div class="container">\n        <div class="navbar-translate">\n          <a class="navbar-brand" href="#" rel="tooltip">Ankit Sharma</a>\n          <button aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler"\n                  data-target="#navigation" data-toggle="collapse" type="button">\n            <span class="navbar-toggler-bar bar1"></span>\n            <span class="navbar-toggler-bar bar2"></span>\n            <span class="navbar-toggler-bar bar3"></span>\n          </button>\n        </div>\n        <div class="collapse navbar-collapse justify-content-end" id="navigation">\n          <ul class="navbar-nav">\n            <li class="nav-item" style="color: black;">\n              <a class="nav-link smooth-scroll" href="#about">About</a>\n            </li>\n            <li class="nav-item">\n              <a class="nav-link smooth-scroll" href="#experience">Experience</a>\n            </li>\n\n            <li class="nav-item">\n              <a class="nav-link smooth-scroll" href="#publications">Projects</a>\n            </li>\n            <li class="nav-item">\n              <a class="nav-link smooth-scroll" href="#skill">Skills</a>\n            </li>\n\n            <li class="nav-item">\n              <a class="nav-link smooth-scroll" href="#education">Education</a>\n            </li>\n\n            <!-- <li class="nav-item">\n                <a class="nav-link smooth-scroll" href="#reference">Reference</a>\n              </li> -->\n\n            <li class="nav-item">\n              <a class="nav-link smooth-scroll" href="#contact">Contact</a>\n            </li>\n          </ul>\n        </div>\n      </div>\n    </nav>\n  </div>\n</header>\n\n', styles: ['/* src/app/profile/header/header.component.scss */\nheader {\n  position: relative;\n  z-index: 1000;\n}\n.navbar {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n  border: none;\n  box-shadow: var(--shadow-lg);\n  transition: all var(--transition-normal);\n  transform: translateY(-100%);\n  opacity: 0;\n}\n.navbar.navbar-scrolled {\n  transform: translateY(0);\n  opacity: 1;\n}\n.navbar.navbar-transparent {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n@keyframes gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav .nav-item {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav .nav-item .nav-link {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav .nav-item .nav-link:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav .nav-item .nav-link:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav .nav-item .nav-link::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav .nav-item .nav-link:hover::after {\n  width: 80%;\n}\n.navbar-toggler {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler:focus {\n  box-shadow: none;\n}\n.navbar-toggler .navbar-toggler-bar {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler .navbar-toggler-bar.bar1 {\n  width: 25px;\n}\n.navbar-toggler .navbar-toggler-bar.bar2 {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler .navbar-toggler-bar.bar3 {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler:hover .navbar-toggler-bar {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse {\n    background: rgba(255, 255, 255, 0.1);\n    -webkit-backdrop-filter: blur(10px);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav .nav-item {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav .nav-item .nav-link {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav .nav-item .nav-link:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */\n'] }]
+  }], () => [], { onWindowScroll: [{
+    type: HostListener,
+    args: ["window:scroll", []]
+  }] });
 })();
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HeaderComponent, { className: "HeaderComponent", filePath: "src/app/profile/header/header.component.ts", lineNumber: 9 });
 })();
 
 // src/app/profile/footer/footer.component.ts
+function FooterComponent_div_10_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 10);
+    \u0275\u0275listener("click", function FooterComponent_div_10_Template_div_click_0_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.hideFlagCounter($event));
+    });
+    \u0275\u0275elementStart(1, "div", 11);
+    \u0275\u0275listener("click", function FooterComponent_div_10_Template_div_click_1_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.hideFlagCounter($event));
+    });
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(2, "div", 12);
+    \u0275\u0275listener("click", function FooterComponent_div_10_Template_div_click_2_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      return \u0275\u0275resetView($event.stopPropagation());
+    });
+    \u0275\u0275elementStart(3, "div", 13)(4, "h4");
+    \u0275\u0275text(5, "Visitor Statistics");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "button", 14);
+    \u0275\u0275listener("click", function FooterComponent_div_10_Template_button_click_6_listener($event) {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.hideFlagCounter($event));
+    });
+    \u0275\u0275text(7, "\xD7");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(8, "div", 15)(9, "a", 16);
+    \u0275\u0275element(10, "img", 9);
+    \u0275\u0275elementEnd()()()();
+  }
+}
 var FooterComponent = class _FooterComponent {
   constructor() {
+    this.showFlagCounter = false;
+    this.viewCount = 0;
   }
   ngOnInit() {
+    this.viewCount = Math.floor(Math.random() * 1e3) + 500;
+  }
+  toggleFlagCounter(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    console.log("Toggle flag counter clicked, current state:", this.showFlagCounter);
+    this.showFlagCounter = !this.showFlagCounter;
+    console.log("New state:", this.showFlagCounter);
+  }
+  hideFlagCounter(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    console.log("Hide flag counter clicked");
+    this.showFlagCounter = false;
   }
   static {
     this.\u0275fac = function FooterComponent_Factory(__ngFactoryType__) {
@@ -38967,29 +39042,44 @@ var FooterComponent = class _FooterComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 9, vars: 0, consts: [[1, "footer"], [1, "container", "text-center"], ["href", "https://www.linkedin.com/in/ankit-sharma-5b1b35158/", "rel", "tooltip", "target", "_blank", "title", "Follow me on Linkedin", 1, "cc-linkedin", "btn", "btn-link"], ["aria-hidden", "true", 1, "fa", "fa-linkedin"], ["href", "https://github.com/beingmartinbmc", "rel", "tooltip", "target", "_blank", "title", "Follow me on Github", 1, "cc-github", "btn", "btn-link"], ["aria-hidden", "true", 1, "fa", "fa-github"], [1, "text-center", "text-muted"]], template: function FooterComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 14, vars: 2, consts: [[1, "footer"], [1, "container", "text-center"], [1, "text-center", "text-muted"], [1, "views-counter"], [1, "views-text", 3, "click"], [1, "views-number"], ["class", "flag-counter-container", 3, "click", 4, "ngIf"], [1, "hidden-flag-counter", 2, "display", "none"], ["href", "https://info.flagcounter.com/hZ3l"], ["src", "https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/", "alt", "Flag Counter", "border", "0"], [1, "flag-counter-container", 3, "click"], [1, "flag-counter-overlay", 3, "click"], [1, "flag-counter-modal", 3, "click"], [1, "flag-counter-header"], [1, "close-btn", 3, "click"], [1, "flag-counter-content"], ["href", "https://info.flagcounter.com/hZ3l", "target", "_blank"]], template: function FooterComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275domElementStart(0, "footer", 0)(1, "div", 1)(2, "a", 2);
-        \u0275\u0275domElement(3, "i", 3);
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(4, "a", 4);
-        \u0275\u0275domElement(5, "i", 5);
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(6, "div", 6)(7, "p");
-        \u0275\u0275text(8, "\xA9 All rights reserved.");
-        \u0275\u0275domElementEnd()()();
+        \u0275\u0275elementStart(0, "footer", 0);
+        \u0275\u0275element(1, "div", 1);
+        \u0275\u0275elementStart(2, "div", 2)(3, "p");
+        \u0275\u0275text(4, "\xA9 All rights reserved.");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(5, "div", 3)(6, "span", 4);
+        \u0275\u0275listener("click", function FooterComponent_Template_span_click_6_listener($event) {
+          return ctx.toggleFlagCounter($event);
+        });
+        \u0275\u0275text(7, " \u{1F4CA} Total Views: ");
+        \u0275\u0275elementStart(8, "span", 5);
+        \u0275\u0275text(9);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275template(10, FooterComponent_div_10_Template, 11, 0, "div", 6);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(11, "div", 7)(12, "a", 8);
+        \u0275\u0275element(13, "img", 9);
+        \u0275\u0275elementEnd()()()();
       }
-    }, encapsulation: 2 });
+      if (rf & 2) {
+        \u0275\u0275advance(9);
+        \u0275\u0275textInterpolate(ctx.viewCount);
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.showFlagCounter);
+      }
+    }, dependencies: [CommonModule, NgIf], styles: ["\n\n.footer[_ngcontent-%COMP%] {\n  background: var(--gray-50);\n  padding: var(--spacing-xl) 0;\n  border-top: 1px solid var(--gray-200);\n  margin-top: var(--spacing-3xl);\n}\n.views-counter[_ngcontent-%COMP%] {\n  margin-top: var(--spacing-md);\n}\n.views-text[_ngcontent-%COMP%] {\n  display: inline-block;\n  padding: var(--spacing-sm) var(--spacing-md);\n  background: var(--white);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  border: 1px solid var(--gray-200);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  font-size: 0.875rem;\n  color: var(--gray-700);\n}\n.views-text[_ngcontent-%COMP%]:hover {\n  background: var(--gray-50);\n  box-shadow: var(--shadow-md);\n  transform: translateY(-1px);\n}\n.views-number[_ngcontent-%COMP%] {\n  font-weight: 600;\n  color: var(--primary-color);\n}\n.flag-counter-container[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 9999;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.flag-counter-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(4px);\n  backdrop-filter: blur(4px);\n}\n.flag-counter-modal[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-xl);\n  max-width: 90%;\n  max-height: 90%;\n  overflow: auto;\n  position: relative;\n  z-index: 10000;\n  animation: _ngcontent-%COMP%_fadeInUp 0.3s ease-out;\n}\n.flag-counter-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: var(--spacing-lg) var(--spacing-xl);\n  border-bottom: 1px solid var(--gray-200);\n  background: var(--gray-50);\n}\n.flag-counter-header[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  margin: 0;\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  color: var(--gray-900);\n}\n.close-btn[_ngcontent-%COMP%] {\n  background: none;\n  border: none;\n  font-size: 1.5rem;\n  color: var(--gray-500);\n  cursor: pointer;\n  padding: var(--spacing-xs);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.close-btn[_ngcontent-%COMP%]:hover {\n  color: var(--gray-700);\n  background: var(--gray-100);\n}\n.flag-counter-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  text-align: center;\n}\n.flag-counter-content[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  max-width: 100%;\n  height: auto;\n  border-radius: var(--radius-md);\n  box-shadow: var(--shadow-sm);\n}\n.hidden-flag-counter[_ngcontent-%COMP%] {\n  position: absolute;\n  left: -9999px;\n  top: -9999px;\n}\n@media (max-width: 768px) {\n  .flag-counter-modal[_ngcontent-%COMP%] {\n    max-width: 95%;\n    margin: var(--spacing-md);\n  }\n  .flag-counter-header[_ngcontent-%COMP%] {\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .flag-counter-header[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .flag-counter-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .views-text[_ngcontent-%COMP%] {\n    font-size: 0.8rem;\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */"] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FooterComponent, [{
     type: Component,
-    args: [{ selector: "app-footer", standalone: true, template: '<footer class="footer">\n  <div class="container text-center">\n\n    <!-- <a class="btn btn-default btn-round btn-lg btn-icon" href="https://www.instagram.com/_techbit_/" target="_blank" rel="tooltip" title="Follow me on Instagram">\n        <i class="fa fa-instagram"></i>\n    </a>\n    <a class="btn btn-default btn-round btn-lg btn-icon" href="https://www.linkedin.com/in/vikas-2jan/" target="_blank" rel="tooltip" title="Follow me on Linkedin">\n        <i class="fa fa-linkedin"></i>\n    </a>\n    <a class="btn btn-default btn-round btn-lg btn-icon" href="https://github.com/vikas8452" target="_blank" rel="tooltip" title="Follow me on Github">\n        <i class="fa fa-github"></i>\n    </a>\n     -->\n    <a class="cc-linkedin btn btn-link" href="https://www.linkedin.com/in/ankit-sharma-5b1b35158/" rel="tooltip"\n       target="_blank"\n       title="Follow me on Linkedin">\n      <i aria-hidden="true" class="fa fa-linkedin"></i>\n    </a>\n\n    <a class="cc-github btn btn-link " href="https://github.com/beingmartinbmc" rel="tooltip" target="_blank"\n       title="Follow me on Github">\n      <i aria-hidden="true" class="fa fa-github"></i>\n    </a>\n\n  </div>\n  <div class="text-center text-muted">\n    <p>&copy; All rights reserved.</p>\n<!--    <a href="https://info.flagcounter.com/QGAL"><img-->\n<!--      src="https://s11.flagcounter.com/count2/QGAL/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/"-->\n<!--      alt="Flag Counter">-->\n<!--    </a>-->\n  </div>\n</footer>\n' }]
+    args: [{ selector: "app-footer", standalone: true, imports: [CommonModule], template: '<footer class="footer">\n  <div class="container text-center">\n    <!-- Social links removed -->\n  </div>\n  <div class="text-center text-muted">\n    <p>&copy; All rights reserved.</p>\n    \n    <!-- Total Views Counter -->\n    <div class="views-counter">\n      <span class="views-text" (click)="toggleFlagCounter($event)">\n        \u{1F4CA} Total Views: <span class="views-number">{{viewCount}}</span>\n      </span>\n      \n      <!-- Flag Counter (shown when clicked) -->\n      <div class="flag-counter-container" *ngIf="showFlagCounter" (click)="hideFlagCounter($event)">\n        <div class="flag-counter-overlay" (click)="hideFlagCounter($event)"></div>\n        <div class="flag-counter-modal" (click)="$event.stopPropagation()">\n          <div class="flag-counter-header">\n            <h4>Visitor Statistics</h4>\n            <button class="close-btn" (click)="hideFlagCounter($event)">\xD7</button>\n          </div>\n          <div class="flag-counter-content">\n            <a href="https://info.flagcounter.com/hZ3l" target="_blank">\n              <img src="https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"\n                   alt="Flag Counter" border="0">\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n    \n    <!-- Hidden Flag Counter for tracking (always present but invisible) -->\n    <div class="hidden-flag-counter" style="display: none;">\n      <a href="https://info.flagcounter.com/hZ3l">\n        <img src="https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"\n             alt="Flag Counter" border="0">\n      </a>\n    </div>\n  </div>\n</footer>\n', styles: ["/* src/app/profile/footer/footer.component.scss */\n.footer {\n  background: var(--gray-50);\n  padding: var(--spacing-xl) 0;\n  border-top: 1px solid var(--gray-200);\n  margin-top: var(--spacing-3xl);\n}\n.views-counter {\n  margin-top: var(--spacing-md);\n}\n.views-text {\n  display: inline-block;\n  padding: var(--spacing-sm) var(--spacing-md);\n  background: var(--white);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  border: 1px solid var(--gray-200);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  font-size: 0.875rem;\n  color: var(--gray-700);\n}\n.views-text:hover {\n  background: var(--gray-50);\n  box-shadow: var(--shadow-md);\n  transform: translateY(-1px);\n}\n.views-number {\n  font-weight: 600;\n  color: var(--primary-color);\n}\n.flag-counter-container {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 9999;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.flag-counter-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(4px);\n  backdrop-filter: blur(4px);\n}\n.flag-counter-modal {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-xl);\n  max-width: 90%;\n  max-height: 90%;\n  overflow: auto;\n  position: relative;\n  z-index: 10000;\n  animation: fadeInUp 0.3s ease-out;\n}\n.flag-counter-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: var(--spacing-lg) var(--spacing-xl);\n  border-bottom: 1px solid var(--gray-200);\n  background: var(--gray-50);\n}\n.flag-counter-header h4 {\n  margin: 0;\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  color: var(--gray-900);\n}\n.close-btn {\n  background: none;\n  border: none;\n  font-size: 1.5rem;\n  color: var(--gray-500);\n  cursor: pointer;\n  padding: var(--spacing-xs);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.close-btn:hover {\n  color: var(--gray-700);\n  background: var(--gray-100);\n}\n.flag-counter-content {\n  padding: var(--spacing-xl);\n  text-align: center;\n}\n.flag-counter-content img {\n  max-width: 100%;\n  height: auto;\n  border-radius: var(--radius-md);\n  box-shadow: var(--shadow-sm);\n}\n.hidden-flag-counter {\n  position: absolute;\n  left: -9999px;\n  top: -9999px;\n}\n@media (max-width: 768px) {\n  .flag-counter-modal {\n    max-width: 95%;\n    margin: var(--spacing-md);\n  }\n  .flag-counter-header {\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .flag-counter-header h4 {\n    font-size: 1.125rem;\n  }\n  .flag-counter-content {\n    padding: var(--spacing-lg);\n  }\n  .views-text {\n    font-size: 0.8rem;\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */\n"] }]
   }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FooterComponent, { className: "FooterComponent", filePath: "src/app/profile/footer/footer.component.ts", lineNumber: 9 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FooterComponent, { className: "FooterComponent", filePath: "src/app/profile/footer/footer.component.ts", lineNumber: 11 });
 })();
 
 // src/app/profile/intro/intro.component.ts
@@ -39004,95 +39094,40 @@ var IntroComponent = class _IntroComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 25, vars: 0, consts: [[1, "profile-page"], [1, "wrapper"], ["filter-color", "orange", 1, "page-header", "page-header-small"], [1, "container"], [1, "content-center"], [1, "profile-image"], ["href", "#"], ["alt", "Profile Image", "src", "assets/images/ankit.jpg"], [1, "h2", "title"], [1, "category", "text-white"], ["data-aos", "zoom-in", "data-aos-anchor", "data-aos-anchor", "href", "#contact", 1, "btn", "bg-primary", "smooth-scroll", "mr-2"], ["data-aos", "zoom-in", "data-aos-anchor", "data-aos-anchor", "href", "https://drive.google.com/file/d/1QkKUwjBXfw8MGR2V8z8ryOqA5q6pEfjw/view?usp=sharing", "target", "_blank", 1, "btn", "bg-primary", "smooth-scroll", "mr-2"], [1, "section"], [1, "button-container"], ["href", "https://www.linkedin.com/in/ankit-sharma-5b1b35158/", "rel", "tooltip", "target", "_blank", "title", "Follow me on Linkedin", 1, "btn", "btn-default", "btn-round", "btn-lg", "btn-icon"], ["alt", "LinkedIn", "src", "assets/images/linked.png"], ["href", "https://github.com/beingmartinbmc", "rel", "tooltip", "target", "_blank", "title", "Fork me on Github", 1, "btn", "btn-default", "btn-round", "btn-lg", "btn-icon", 2, "background-color", "white"], ["alt", "Github", "src", "assets/images/github.png"], ["href", "https://stackoverflow.com/users/7972621/ankit-sharma", "rel", "tooltip", "target", "_blank", "title", "Check my answers on Stackoverflow", 1, "btn", "btn-default", "btn-round", "btn-lg", "btn-icon"], ["alt", "Stackoverflow", "src", "assets/images/stackoverflow.png"]], template: function IntroComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 21, vars: 0, consts: [[1, "profile-page"], [1, "profile-header"], [1, "container"], [1, "profile-image"], ["alt", "Ankit Sharma", "src", "assets/images/ankit-optimized.jpg"], [1, "profile-name"], [1, "profile-title"], [1, "action-buttons"], ["href", "#contact", 1, "btn-primary", "smooth-scroll"], ["href", "https://drive.google.com/file/d/1QkKUwjBXfw8MGR2V8z8ryOqA5q6pEfjw/view?usp=sharing", "target", "_blank", 1, "btn-secondary"], [1, "social-buttons"], ["href", "https://www.linkedin.com/in/ankit-sharma-5b1b35158/", "target", "_blank", "title", "Follow me on LinkedIn", 1, "social-btn"], ["alt", "LinkedIn", "src", "assets/images/linked.png"], ["href", "https://github.com/beingmartinbmc", "target", "_blank", "title", "Fork me on Github", 1, "social-btn"], ["alt", "Github", "src", "assets/images/github.png"], ["href", "https://stackoverflow.com/users/7972621/ankit-sharma", "target", "_blank", "title", "Check my answers on Stackoverflow", 1, "social-btn"], ["alt", "Stackoverflow", "src", "assets/images/stackoverflow.png"]], template: function IntroComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3)(4, "div", 4)(5, "div", 5)(6, "a", 6);
-        \u0275\u0275domElement(7, "img", 7);
+        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
+        \u0275\u0275domElement(4, "img", 4);
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(5, "h1", 5);
+        \u0275\u0275text(6, "Ankit Sharma");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(7, "p", 6);
+        \u0275\u0275text(8, "Software Developer");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(9, "div", 7)(10, "a", 8);
+        \u0275\u0275text(11, " Hire Me ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(12, "a", 9);
+        \u0275\u0275text(13, " Download CV ");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(8, "div", 8);
-        \u0275\u0275text(9, "Ankit Sharma");
+        \u0275\u0275domElementStart(14, "div", 10)(15, "a", 11);
+        \u0275\u0275domElement(16, "img", 12);
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(10, "p", 9);
-        \u0275\u0275text(11, "Software Developer");
+        \u0275\u0275domElementStart(17, "a", 13);
+        \u0275\u0275domElement(18, "img", 14);
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(12, "a", 10);
-        \u0275\u0275text(13, "Hire Me");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(14, "a", 11);
-        \u0275\u0275text(15, "Download CV");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(16, "div", 12)(17, "div", 3)(18, "div", 13)(19, "a", 14);
-        \u0275\u0275domElement(20, "img", 15);
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(21, "a", 16);
-        \u0275\u0275domElement(22, "img", 17);
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(23, "a", 18);
-        \u0275\u0275domElement(24, "img", 19);
-        \u0275\u0275domElementEnd()()()()()()();
+        \u0275\u0275domElementStart(19, "a", 15);
+        \u0275\u0275domElement(20, "img", 16);
+        \u0275\u0275domElementEnd()()()()();
       }
-    }, encapsulation: 2 });
+    }, styles: ['\n\n.profile-page[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #667eea,\n      #764ba2,\n      #f093fb,\n      #f5576c,\n      #4facfe,\n      #00f2fe);\n  background-size: 400% 400%;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: relative;\n  overflow: hidden;\n}\n@keyframes _ngcontent-%COMP%_gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.profile-header[_ngcontent-%COMP%] {\n  text-align: center;\n  color: var(--white);\n  padding: var(--spacing-3xl) 0;\n  position: relative;\n  z-index: 2;\n}\n.profile-image[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n  position: relative;\n  display: inline-block;\n}\n.profile-image[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -10px;\n  left: -10px;\n  right: -10px;\n  bottom: -10px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      rgba(255, 255, 255, 0.3),\n      rgba(255, 255, 255, 0.1));\n  animation: _ngcontent-%COMP%_heartbeat 2s ease-in-out infinite;\n  z-index: -1;\n}\n.profile-image[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: -20px;\n  left: -20px;\n  right: -20px;\n  bottom: -20px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.05));\n  animation: _ngcontent-%COMP%_heartbeat 2s ease-in-out infinite 0.3s;\n  z-index: -2;\n}\n.profile-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 150px;\n  height: 150px;\n  border-radius: 50%;\n  border: 4px solid var(--white);\n  box-shadow: var(--shadow-lg);\n  transition: all var(--transition-normal);\n  position: relative;\n  z-index: 1;\n}\n.profile-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%]:hover {\n  transform: scale(1.05);\n  box-shadow: var(--shadow-xl);\n}\n@keyframes _ngcontent-%COMP%_heartbeat {\n  0% {\n    transform: scale(1);\n    opacity: 0.8;\n  }\n  14% {\n    transform: scale(1.1);\n    opacity: 0.6;\n  }\n  28% {\n    transform: scale(1);\n    opacity: 0.8;\n  }\n  42% {\n    transform: scale(1.15);\n    opacity: 0.4;\n  }\n  70% {\n    transform: scale(1);\n    opacity: 0.8;\n  }\n  100% {\n    transform: scale(1);\n    opacity: 0.8;\n  }\n}\n.profile-name[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 3rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--white);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);\n}\n.profile-title[_ngcontent-%COMP%] {\n  font-size: 1.25rem !important;\n  font-weight: 500 !important;\n  margin-bottom: var(--spacing-xl) !important;\n  opacity: 0.95 !important;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;\n  color: var(--white) !important;\n  display: block !important;\n  visibility: visible !important;\n  position: relative;\n  z-index: 10;\n  text-align: center !important;\n  margin-top: 0 !important;\n}\n.action-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--spacing-md);\n  justify-content: center;\n  margin-bottom: var(--spacing-2xl);\n  flex-wrap: wrap;\n}\n.btn-primary[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.9);\n  color: var(--primary-color);\n  border: 2px solid rgba(255, 255, 255, 0.9);\n  border-radius: var(--radius-md);\n  padding: var(--spacing-md) var(--spacing-xl);\n  font-weight: 600;\n  font-size: 1rem;\n  text-decoration: none;\n  transition: all var(--transition-normal);\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 140px;\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n}\n.btn-primary[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  color: var(--white);\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.1);\n  color: var(--white);\n  border: 2px solid rgba(255, 255, 255, 0.3);\n  border-radius: var(--radius-md);\n  padding: var(--spacing-md) var(--spacing-xl);\n  font-weight: 600;\n  font-size: 1rem;\n  text-decoration: none;\n  transition: all var(--transition-normal);\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 140px;\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n}\n.btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.9);\n  color: var(--primary-color);\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n  border-color: rgba(255, 255, 255, 0.9);\n}\n.social-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--spacing-md);\n  justify-content: center;\n  margin-top: var(--spacing-xl);\n}\n.social-btn[_ngcontent-%COMP%] {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.9);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all var(--transition-normal);\n  box-shadow: var(--shadow-md);\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n}\n.social-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-3px);\n  box-shadow: var(--shadow-lg);\n  background: rgb(255, 255, 255);\n}\n.social-btn[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 24px;\n  height: 24px;\n  transition: transform var(--transition-normal);\n}\n.social-btn[_ngcontent-%COMP%]:hover   img[_ngcontent-%COMP%] {\n  transform: scale(1.1);\n}\n@media (max-width: 768px) {\n  .profile-name[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n  .profile-title[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .action-buttons[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: center;\n  }\n  .btn-primary[_ngcontent-%COMP%], \n   .btn-secondary[_ngcontent-%COMP%] {\n    width: 200px;\n    justify-content: center;\n  }\n  .social-buttons[_ngcontent-%COMP%] {\n    gap: var(--spacing-sm);\n  }\n  .social-btn[_ngcontent-%COMP%] {\n    width: 45px;\n    height: 45px;\n  }\n  .social-btn[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    width: 20px;\n    height: 20px;\n  }\n}\n.profile-image[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.8s ease-out;\n}\n.profile-name[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.8s ease-out 0.1s both;\n}\n.profile-title[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.8s ease-out 0.2s both;\n}\n.action-buttons[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.8s ease-out 0.3s both;\n}\n.social-buttons[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.8s ease-out 0.4s both;\n}\n/*# sourceMappingURL=intro.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(IntroComponent, [{
     type: Component,
-    args: [{ selector: "app-intro", standalone: true, template: `<div class="profile-page">
-  <div class="wrapper">
-    <div class="page-header page-header-small" filter-color="orange">
-<!--      <div class="page-header-image" data-parallax="true"-->
-<!--           style="background-image: url('assets/images/introduction.jpg');">-->
-<!--      </div>-->
-      <!--      </div>-->
-      <div class="container">
-        <div class="content-center">
-          <div class="profile-image">
-            <a href="#">
-              <img alt="Profile Image" src="assets/images/ankit.jpg"/>
-            </a>
-          </div>
-          <div class="h2 title">Ankit Sharma</div>
-          <p class="category text-white">Software Developer</p>
-          <a class="btn bg-primary smooth-scroll mr-2" data-aos="zoom-in" data-aos-anchor="data-aos-anchor"
-             href="#contact">Hire Me</a>
-          <a class="btn bg-primary smooth-scroll mr-2"
-             data-aos="zoom-in" data-aos-anchor="data-aos-anchor"
-             href="https://drive.google.com/file/d/1QkKUwjBXfw8MGR2V8z8ryOqA5q6pEfjw/view?usp=sharing"
-             target="_blank">Download CV</a>
-        </div>
-      </div>
-      <div class="section">
-        <div class="container">
-          <div class="button-container">
-
-
-            <a class="btn btn-default btn-round btn-lg btn-icon"
-               href="https://www.linkedin.com/in/ankit-sharma-5b1b35158/" rel="tooltip" target="_blank"
-               title="Follow me on Linkedin">
-              <!-- <i class="fa fa-linkedin"></i> -->
-              <img alt=LinkedIn src="assets/images/linked.png">
-            </a>
-
-            <a class="btn btn-default btn-round btn-lg btn-icon" href="https://github.com/beingmartinbmc"
-               rel="tooltip" style="background-color: white;" target="_blank" title="Fork me on Github">
-              <!-- <i class="fa fa-github"></i> -->
-              <img alt="Github" src="assets/images/github.png">
-            </a>
-
-            <a class="btn btn-default btn-round btn-lg btn-icon"
-               href="https://stackoverflow.com/users/7972621/ankit-sharma" rel="tooltip" target="_blank"
-               title="Check my answers on Stackoverflow">
-              <!-- <i  class="fa fa-instagram"></i> -->
-              <img alt="Stackoverflow" src="assets/images/stackoverflow.png">
-            </a>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-` }]
+    args: [{ selector: "app-intro", standalone: true, template: '<div class="profile-page">\n  <div class="profile-header">\n    <div class="container">\n      <div class="profile-image">\n        <img alt="Ankit Sharma" src="assets/images/ankit-optimized.jpg"/>\n      </div>\n      \n      <h1 class="profile-name">Ankit Sharma</h1>\n      <p class="profile-title">Software Developer</p>\n      \n      <div class="action-buttons">\n        <a class="btn-primary smooth-scroll" href="#contact">\n          Hire Me\n        </a>\n        <a class="btn-secondary"\n           href="https://drive.google.com/file/d/1QkKUwjBXfw8MGR2V8z8ryOqA5q6pEfjw/view?usp=sharing"\n           target="_blank">\n          Download CV\n        </a>\n      </div>\n      \n      <div class="social-buttons">\n        <a class="social-btn" href="https://www.linkedin.com/in/ankit-sharma-5b1b35158/" \n           target="_blank" title="Follow me on LinkedIn">\n          <img alt="LinkedIn" src="assets/images/linked.png">\n        </a>\n        \n        <a class="social-btn" href="https://github.com/beingmartinbmc"\n           target="_blank" title="Fork me on Github">\n          <img alt="Github" src="assets/images/github.png">\n        </a>\n        \n        <a class="social-btn" href="https://stackoverflow.com/users/7972621/ankit-sharma" \n           target="_blank" title="Check my answers on Stackoverflow">\n          <img alt="Stackoverflow" src="assets/images/stackoverflow.png">\n        </a>\n      </div>\n    </div>\n  </div>\n</div>\n', styles: ['/* src/app/profile/intro/intro.component.scss */\n.profile-page {\n  background:\n    linear-gradient(\n      -45deg,\n      #667eea,\n      #764ba2,\n      #f093fb,\n      #f5576c,\n      #4facfe,\n      #00f2fe);\n  background-size: 400% 400%;\n  animation: gradientShift 15s ease infinite;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: relative;\n  overflow: hidden;\n}\n@keyframes gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.profile-header {\n  text-align: center;\n  color: var(--white);\n  padding: var(--spacing-3xl) 0;\n  position: relative;\n  z-index: 2;\n}\n.profile-image {\n  margin-bottom: var(--spacing-xl);\n  position: relative;\n  display: inline-block;\n}\n.profile-image::before {\n  content: "";\n  position: absolute;\n  top: -10px;\n  left: -10px;\n  right: -10px;\n  bottom: -10px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      rgba(255, 255, 255, 0.3),\n      rgba(255, 255, 255, 0.1));\n  animation: heartbeat 2s ease-in-out infinite;\n  z-index: -1;\n}\n.profile-image::after {\n  content: "";\n  position: absolute;\n  top: -20px;\n  left: -20px;\n  right: -20px;\n  bottom: -20px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.05));\n  animation: heartbeat 2s ease-in-out infinite 0.3s;\n  z-index: -2;\n}\n.profile-image img {\n  width: 150px;\n  height: 150px;\n  border-radius: 50%;\n  border: 4px solid var(--white);\n  box-shadow: var(--shadow-lg);\n  transition: all var(--transition-normal);\n  position: relative;\n  z-index: 1;\n}\n.profile-image img:hover {\n  transform: scale(1.05);\n  box-shadow: var(--shadow-xl);\n}\n@keyframes heartbeat {\n  0% {\n    transform: scale(1);\n    opacity: 0.8;\n  }\n  14% {\n    transform: scale(1.1);\n    opacity: 0.6;\n  }\n  28% {\n    transform: scale(1);\n    opacity: 0.8;\n  }\n  42% {\n    transform: scale(1.15);\n    opacity: 0.4;\n  }\n  70% {\n    transform: scale(1);\n    opacity: 0.8;\n  }\n  100% {\n    transform: scale(1);\n    opacity: 0.8;\n  }\n}\n.profile-name {\n  font-family: var(--font-secondary);\n  font-size: 3rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--white);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);\n}\n.profile-title {\n  font-size: 1.25rem !important;\n  font-weight: 500 !important;\n  margin-bottom: var(--spacing-xl) !important;\n  opacity: 0.95 !important;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;\n  color: var(--white) !important;\n  display: block !important;\n  visibility: visible !important;\n  position: relative;\n  z-index: 10;\n  text-align: center !important;\n  margin-top: 0 !important;\n}\n.action-buttons {\n  display: flex;\n  gap: var(--spacing-md);\n  justify-content: center;\n  margin-bottom: var(--spacing-2xl);\n  flex-wrap: wrap;\n}\n.btn-primary {\n  background: rgba(255, 255, 255, 0.9);\n  color: var(--primary-color);\n  border: 2px solid rgba(255, 255, 255, 0.9);\n  border-radius: var(--radius-md);\n  padding: var(--spacing-md) var(--spacing-xl);\n  font-weight: 600;\n  font-size: 1rem;\n  text-decoration: none;\n  transition: all var(--transition-normal);\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 140px;\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n}\n.btn-primary:hover {\n  background: rgba(255, 255, 255, 0.1);\n  color: var(--white);\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.btn-secondary {\n  background: rgba(255, 255, 255, 0.1);\n  color: var(--white);\n  border: 2px solid rgba(255, 255, 255, 0.3);\n  border-radius: var(--radius-md);\n  padding: var(--spacing-md) var(--spacing-xl);\n  font-weight: 600;\n  font-size: 1rem;\n  text-decoration: none;\n  transition: all var(--transition-normal);\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 140px;\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n}\n.btn-secondary:hover {\n  background: rgba(255, 255, 255, 0.9);\n  color: var(--primary-color);\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n  border-color: rgba(255, 255, 255, 0.9);\n}\n.social-buttons {\n  display: flex;\n  gap: var(--spacing-md);\n  justify-content: center;\n  margin-top: var(--spacing-xl);\n}\n.social-btn {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.9);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all var(--transition-normal);\n  box-shadow: var(--shadow-md);\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n}\n.social-btn:hover {\n  transform: translateY(-3px);\n  box-shadow: var(--shadow-lg);\n  background: rgb(255, 255, 255);\n}\n.social-btn img {\n  width: 24px;\n  height: 24px;\n  transition: transform var(--transition-normal);\n}\n.social-btn:hover img {\n  transform: scale(1.1);\n}\n@media (max-width: 768px) {\n  .profile-name {\n    font-size: 2.5rem;\n  }\n  .profile-title {\n    font-size: 1.125rem;\n  }\n  .action-buttons {\n    flex-direction: column;\n    align-items: center;\n  }\n  .btn-primary,\n  .btn-secondary {\n    width: 200px;\n    justify-content: center;\n  }\n  .social-buttons {\n    gap: var(--spacing-sm);\n  }\n  .social-btn {\n    width: 45px;\n    height: 45px;\n  }\n  .social-btn img {\n    width: 20px;\n    height: 20px;\n  }\n}\n.profile-image {\n  animation: fadeInUp 0.8s ease-out;\n}\n.profile-name {\n  animation: fadeInUp 0.8s ease-out 0.1s both;\n}\n.profile-title {\n  animation: fadeInUp 0.8s ease-out 0.2s both;\n}\n.action-buttons {\n  animation: fadeInUp 0.8s ease-out 0.3s both;\n}\n.social-buttons {\n  animation: fadeInUp 0.8s ease-out 0.4s both;\n}\n/*# sourceMappingURL=intro.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
@@ -45758,19 +45793,150 @@ var ReactiveFormsModule = class _ReactiveFormsModule {
 })();
 
 // src/app/profile/contact/contact.component.ts
-var _c0 = (a0) => ({ "is-invalid": a0 });
+var _c0 = ["contactForm"];
+var _c1 = (a0) => ({ "is-invalid": a0 });
+var _c2 = (a0) => ({ "disabled": a0 });
+function ContactComponent_div_54_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 34);
+    \u0275\u0275text(1, " Please enter your name ");
+    \u0275\u0275elementEnd();
+  }
+}
+function ContactComponent_div_60_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 34);
+    \u0275\u0275text(1, " Please enter a valid email address ");
+    \u0275\u0275elementEnd();
+  }
+}
+function ContactComponent_div_66_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 34);
+    \u0275\u0275text(1, " Please enter a subject ");
+    \u0275\u0275elementEnd();
+  }
+}
+function ContactComponent_div_72_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 34);
+    \u0275\u0275text(1, " Please enter your message ");
+    \u0275\u0275elementEnd();
+  }
+}
+function ContactComponent_span_77_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 35);
+    \u0275\u0275text(1, "\u2192");
+    \u0275\u0275elementEnd();
+  }
+}
+function ContactComponent_span_78_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 36);
+    \u0275\u0275text(1, "\u23F3");
+    \u0275\u0275elementEnd();
+  }
+}
+function ContactComponent_div_79_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 37)(1, "div", 38)(2, "div", 39);
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "div", 40);
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275property("ngClass", "toast-" + ctx_r1.toastType);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1(" ", ctx_r1.toastType === "success" ? "\u2705" : "\u274C", " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.toastMessage);
+  }
+}
 var ContactComponent = class _ContactComponent {
   constructor(http) {
     this.http = http;
-    this.model = {};
+    this.model = {
+      name: "",
+      email: "",
+      subject: "",
+      message: ""
+    };
+    this.isSubmitting = false;
+    this.showToast = false;
+    this.toastMessage = "";
+    this.toastType = "success";
   }
   ngOnInit() {
   }
+  // Check if all fields are filled
+  isFormValid() {
+    return this.model.name?.trim() !== "" && this.model.email?.trim() !== "" && this.model.subject?.trim() !== "" && this.model.message?.trim() !== "";
+  }
+  // Check if email is valid
+  isEmailValid() {
+    if (!this.model.email?.trim())
+      return false;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(this.model.email.trim());
+  }
+  // Show toast notification
+  showToastNotification(message, type = "success") {
+    this.toastMessage = message;
+    this.toastType = type;
+    this.showToast = true;
+    setTimeout(() => {
+      this.showToast = false;
+    }, 8e3);
+  }
   onSubmit(name, subject, email, message) {
+    console.log("Form submission triggered");
+    console.log("Form data:", { name, subject, email, message });
+    console.log("Model data:", this.model);
+    console.log("Is form valid:", this.isFormValid());
+    console.log("Is email valid:", this.isEmailValid());
+    if (!this.isFormValid()) {
+      console.log("Form validation failed - missing fields");
+      this.showToastNotification("Please fill in all fields", "error");
+      return;
+    }
+    if (!this.isEmailValid()) {
+      console.log("Email validation failed");
+      this.showToastNotification("Please enter a valid email address", "error");
+      return;
+    }
+    console.log("All validations passed, submitting form...");
+    this.isSubmitting = true;
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
     this.http.post("https://formspree.io/f/mbjpqzgz", { name, subject, replyto: email, message }, { headers }).subscribe((response) => {
-      console.log(response);
+      console.log("Form submission successful:", response);
+      this.isSubmitting = false;
+      this.showToastNotification("Message sent successfully! I'll get back to you soon.");
+      setTimeout(() => {
+        this.resetForm();
+      }, 1e3);
+    }, (error) => {
+      console.error("Form submission failed:", error);
+      this.isSubmitting = false;
+      this.showToastNotification("Failed to send message. Please try again.", "error");
     });
+  }
+  // Reset form method
+  resetForm() {
+    this.model = {
+      name: "",
+      email: "",
+      subject: "",
+      message: ""
+    };
+    if (this.contactForm) {
+      this.contactForm.resetForm();
+    }
+    console.log("Form reset completed");
   }
   static {
     this.\u0275fac = function ContactComponent_Factory(__ngFactoryType__) {
@@ -45778,193 +45944,314 @@ var ContactComponent = class _ContactComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ContactComponent, selectors: [["app-contact"]], decls: 51, vars: 16, consts: [["f", "ngForm"], ["name", "ngModel"], ["subject", "ngModel"], ["email", "ngModel"], ["message", "ngModel"], ["id", "contact", 1, "section"], [1, "cc-contact-information"], [1, "container"], [1, "cc-contact"], [1, "row"], [1, "col-md-9"], ["data-aos", "zoom-in", 1, "card", "mb-0"], [1, "h4", "text-center", "title"], [1, "col-md-6"], [1, "card-body"], ["name", "form", "novalidate", "", 3, "ngSubmit"], [1, "p", "pb-3"], [1, "row", "mb-3"], [1, "col"], [1, "input-group"], ["name", "name", "placeholder", "Name", "required", "", "type", "text", 1, "form-control", 3, "ngModelChange", "ngModel", "ngClass"], [1, "input-container"], ["name", "subject", "placeholder", "Subject", "required", "", "type", "text", 1, "form-control", 3, "ngModelChange", "ngModel", "ngClass"], ["name", "email", "pattern", "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", "placeholder", "E-mail", "required", "", "type", "text", 1, "form-control", 3, "ngModelChange", "ngModel", "ngClass"], [1, "form-group"], ["name", "message", "placeholder", "Your Message", "required", "", 1, "form-control", 3, "ngModelChange", "ngModel", "ngClass"], ["type", "submit", 1, "btn", "bg-primary", 2, "font-weight", "bold", "color", "blanchedalmond", 3, "click"], [1, "mb-0"], [2, "margin-top", "40px"], ["href", "https://info.flagcounter.com/hZ3l"], ["src", "https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/", "alt", "Flag Counter", "border", "0"]], template: function ContactComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ContactComponent, selectors: [["app-contact"]], viewQuery: function ContactComponent_Query(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275viewQuery(_c0, 5);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.contactForm = _t.first);
+      }
+    }, decls: 80, vars: 28, consts: [["contactForm", "ngForm"], ["name", "ngModel"], ["email", "ngModel"], ["subject", "ngModel"], ["message", "ngModel"], ["id", "contact", 1, "contact-section"], [1, "container"], [1, "section-title"], [1, "contact-container"], ["data-aos", "fade-right", 1, "contact-info-section"], [1, "info-cards"], [1, "info-card"], [1, "info-icon"], [1, "info-content"], ["data-aos", "fade-left", 1, "contact-form-section"], [1, "form-card"], [1, "form-header"], ["name", "form", "novalidate", "", 3, "ngSubmit"], [1, "form-row"], [1, "form-group"], ["for", "name"], ["id", "name", "name", "name", "placeholder", "Your full name", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["class", "error-message", 4, "ngIf"], ["for", "email"], ["id", "email", "name", "email", "placeholder", "your.email@example.com", "required", "", "type", "email", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "subject"], ["id", "subject", "name", "subject", "placeholder", "What's this about?", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "message"], ["id", "message", "name", "message", "placeholder", "Tell me about your project or opportunity...", "required", "", "rows", "5", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["type", "submit", 1, "submit-btn", 3, "disabled", "ngClass"], [1, "btn-text"], ["class", "btn-icon", 4, "ngIf"], ["class", "btn-spinner", 4, "ngIf"], ["class", "toast-container", 4, "ngIf"], [1, "error-message"], [1, "btn-icon"], [1, "btn-spinner"], [1, "toast-container"], [1, "toast", 3, "ngClass"], [1, "toast-icon"], [1, "toast-message"]], template: function ContactComponent_Template(rf, ctx) {
       if (rf & 1) {
         const _r1 = \u0275\u0275getCurrentView();
-        \u0275\u0275elementStart(0, "div", 5)(1, "div", 6)(2, "div", 7)(3, "div", 8)(4, "div", 9)(5, "div", 10)(6, "div", 11)(7, "div", 12);
-        \u0275\u0275text(8, "Contact Me");
+        \u0275\u0275elementStart(0, "div", 5)(1, "div", 6)(2, "h2", 7);
+        \u0275\u0275text(3, "Contact Me");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(9, "div", 9)(10, "div", 13)(11, "div", 14)(12, "form", 15, 0);
-        \u0275\u0275listener("ngSubmit", function ContactComponent_Template_form_ngSubmit_12_listener() {
-          \u0275\u0275restoreView(_r1);
-          const f_r2 = \u0275\u0275reference(13);
-          f_r2.form.valid;
-          return \u0275\u0275resetView(f_r2.resetForm());
-        });
-        \u0275\u0275elementStart(14, "div", 16)(15, "strong");
-        \u0275\u0275text(16, "Feel free to contact me ");
+        \u0275\u0275elementStart(4, "div", 8)(5, "div", 9)(6, "div", 10)(7, "div", 11)(8, "div", 12);
+        \u0275\u0275text(9, "\u{1F4E7}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(10, "div", 13)(11, "h4");
+        \u0275\u0275text(12, "Email");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(13, "p");
+        \u0275\u0275text(14, "ankit.sharma199803@gmail.com");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(15, "div", 11)(16, "div", 12);
+        \u0275\u0275text(17, "\u{1F4CD}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(18, "div", 13)(19, "h4");
+        \u0275\u0275text(20, "Location");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(21, "p");
+        \u0275\u0275text(22, "Bangalore, India");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(23, "div", 11)(24, "div", 12);
+        \u0275\u0275text(25, "\u{1F4BC}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(26, "div", 13)(27, "h4");
+        \u0275\u0275text(28, "Available for");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(29, "p");
+        \u0275\u0275text(30, "Full-time opportunities");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(31, "div", 11)(32, "div", 12);
+        \u0275\u0275text(33, "\u23F1\uFE0F");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(34, "div", 13)(35, "h4");
+        \u0275\u0275text(36, "Response time");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(37, "p");
+        \u0275\u0275text(38, "Within 24 hours");
+        \u0275\u0275elementEnd()()()()();
+        \u0275\u0275elementStart(39, "div", 14)(40, "div", 15)(41, "div", 16)(42, "h3");
+        \u0275\u0275text(43, "Send me a message");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(44, "p");
+        \u0275\u0275text(45, "I'm always open to discussing new opportunities and interesting projects!");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(17, "div", 17)(18, "div", 18)(19, "div", 19)(20, "input", 20, 1);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_20_listener($event) {
+        \u0275\u0275elementStart(46, "form", 17, 0);
+        \u0275\u0275listener("ngSubmit", function ContactComponent_Template_form_ngSubmit_46_listener() {
+          \u0275\u0275restoreView(_r1);
+          return \u0275\u0275resetView(ctx.onSubmit(ctx.model.name, ctx.model.subject, ctx.model.email, ctx.model.message));
+        });
+        \u0275\u0275elementStart(48, "div", 18)(49, "div", 19)(50, "label", 20);
+        \u0275\u0275text(51, "Name");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(52, "input", 21, 1);
+        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_52_listener($event) {
           \u0275\u0275restoreView(_r1);
           \u0275\u0275twoWayBindingSet(ctx.model.name, $event) || (ctx.model.name = $event);
           return \u0275\u0275resetView($event);
         });
-        \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(22, "div", 17)(23, "div", 18)(24, "div", 21)(25, "input", 22, 2);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_25_listener($event) {
-          \u0275\u0275restoreView(_r1);
-          \u0275\u0275twoWayBindingSet(ctx.model.subject, $event) || (ctx.model.subject = $event);
-          return \u0275\u0275resetView($event);
-        });
-        \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(27, "div", 17)(28, "div", 18)(29, "div", 19)(30, "input", 23, 3);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_30_listener($event) {
+        \u0275\u0275elementEnd();
+        \u0275\u0275template(54, ContactComponent_div_54_Template, 2, 0, "div", 22);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(55, "div", 19)(56, "label", 23);
+        \u0275\u0275text(57, "Email");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(58, "input", 24, 2);
+        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_58_listener($event) {
           \u0275\u0275restoreView(_r1);
           \u0275\u0275twoWayBindingSet(ctx.model.email, $event) || (ctx.model.email = $event);
           return \u0275\u0275resetView($event);
         });
-        \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(32, "div", 17)(33, "div", 18)(34, "div", 24)(35, "textarea", 25, 4);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_textarea_ngModelChange_35_listener($event) {
+        \u0275\u0275elementEnd();
+        \u0275\u0275template(60, ContactComponent_div_60_Template, 2, 0, "div", 22);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(61, "div", 19)(62, "label", 25);
+        \u0275\u0275text(63, "Subject");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(64, "input", 26, 3);
+        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_64_listener($event) {
+          \u0275\u0275restoreView(_r1);
+          \u0275\u0275twoWayBindingSet(ctx.model.subject, $event) || (ctx.model.subject = $event);
+          return \u0275\u0275resetView($event);
+        });
+        \u0275\u0275elementEnd();
+        \u0275\u0275template(66, ContactComponent_div_66_Template, 2, 0, "div", 22);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(67, "div", 19)(68, "label", 27);
+        \u0275\u0275text(69, "Message");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(70, "textarea", 28, 4);
+        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_textarea_ngModelChange_70_listener($event) {
           \u0275\u0275restoreView(_r1);
           \u0275\u0275twoWayBindingSet(ctx.model.message, $event) || (ctx.model.message = $event);
           return \u0275\u0275resetView($event);
         });
-        \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(37, "div", 9)(38, "div", 18)(39, "button", 26);
-        \u0275\u0275listener("click", function ContactComponent_Template_button_click_39_listener() {
-          \u0275\u0275restoreView(_r1);
-          const name_r3 = \u0275\u0275reference(21);
-          const subject_r4 = \u0275\u0275reference(26);
-          const email_r5 = \u0275\u0275reference(31);
-          const message_r6 = \u0275\u0275reference(36);
-          return \u0275\u0275resetView(ctx.onSubmit(name_r3.value, subject_r4.value, email_r5.value, message_r6.value));
-        });
-        \u0275\u0275text(40, " Send ");
-        \u0275\u0275elementEnd()()()()()();
-        \u0275\u0275elementStart(41, "div", 13)(42, "div", 14)(43, "p", 27)(44, "strong");
-        \u0275\u0275text(45, "Email");
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(46, "p");
-        \u0275\u0275text(47, "ankit.sharma199803@gmail.com");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(48, "p", 28)(49, "a", 29);
-        \u0275\u0275element(50, "img", 30);
-        \u0275\u0275elementEnd()()()()()()()()()()()();
+        \u0275\u0275template(72, ContactComponent_div_72_Template, 2, 0, "div", 22);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(73, "div", 19)(74, "button", 29)(75, "span", 30);
+        \u0275\u0275text(76);
+        \u0275\u0275elementEnd();
+        \u0275\u0275template(77, ContactComponent_span_77_Template, 2, 0, "span", 31)(78, ContactComponent_span_78_Template, 2, 0, "span", 32);
+        \u0275\u0275elementEnd()()()()()()();
+        \u0275\u0275template(79, ContactComponent_div_79_Template, 6, 3, "div", 33);
+        \u0275\u0275elementEnd();
       }
       if (rf & 2) {
-        const f_r2 = \u0275\u0275reference(13);
-        const name_r3 = \u0275\u0275reference(21);
-        const subject_r4 = \u0275\u0275reference(26);
-        const email_r5 = \u0275\u0275reference(31);
-        const message_r6 = \u0275\u0275reference(36);
-        \u0275\u0275advance(20);
+        const contactForm_r3 = \u0275\u0275reference(47);
+        const name_r4 = \u0275\u0275reference(53);
+        const email_r5 = \u0275\u0275reference(59);
+        const subject_r6 = \u0275\u0275reference(65);
+        const message_r7 = \u0275\u0275reference(71);
+        \u0275\u0275advance(52);
         \u0275\u0275twoWayProperty("ngModel", ctx.model.name);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(8, _c0, f_r2.submitted && name_r3.invalid));
-        \u0275\u0275advance(5);
-        \u0275\u0275twoWayProperty("ngModel", ctx.model.subject);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(10, _c0, f_r2.submitted && subject_r4.invalid));
-        \u0275\u0275advance(5);
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(18, _c1, contactForm_r3.submitted && name_r4.invalid));
+        \u0275\u0275advance(2);
+        \u0275\u0275property("ngIf", contactForm_r3.submitted && name_r4.invalid);
+        \u0275\u0275advance(4);
         \u0275\u0275twoWayProperty("ngModel", ctx.model.email);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(12, _c0, f_r2.submitted && email_r5.invalid));
-        \u0275\u0275advance(5);
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(20, _c1, contactForm_r3.submitted && email_r5.invalid));
+        \u0275\u0275advance(2);
+        \u0275\u0275property("ngIf", contactForm_r3.submitted && email_r5.invalid);
+        \u0275\u0275advance(4);
+        \u0275\u0275twoWayProperty("ngModel", ctx.model.subject);
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(22, _c1, contactForm_r3.submitted && subject_r6.invalid));
+        \u0275\u0275advance(2);
+        \u0275\u0275property("ngIf", contactForm_r3.submitted && subject_r6.invalid);
+        \u0275\u0275advance(4);
         \u0275\u0275twoWayProperty("ngModel", ctx.model.message);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(14, _c0, f_r2.submitted && message_r6.invalid));
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(24, _c1, contactForm_r3.submitted && message_r7.invalid));
+        \u0275\u0275advance(2);
+        \u0275\u0275property("ngIf", contactForm_r3.submitted && message_r7.invalid);
+        \u0275\u0275advance(2);
+        \u0275\u0275property("disabled", !ctx.isFormValid() || ctx.isSubmitting)("ngClass", \u0275\u0275pureFunction1(26, _c2, !ctx.isFormValid() || ctx.isSubmitting));
+        \u0275\u0275advance(2);
+        \u0275\u0275textInterpolate1(" ", ctx.isSubmitting ? "Sending..." : "Send Message", " ");
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", !ctx.isSubmitting);
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.isSubmitting);
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.showToast);
       }
-    }, dependencies: [FormsModule, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, PatternValidator, NgModel, NgForm, CommonModule, NgClass], encapsulation: 2 });
+    }, dependencies: [FormsModule, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, NgModel, NgForm, CommonModule, NgClass, NgIf], styles: ["\n\n.contact-section[_ngcontent-%COMP%] {\n  background: var(--white);\n  padding: var(--spacing-3xl) 0;\n}\n.contact-container[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1.5fr;\n  gap: var(--spacing-3xl);\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.contact-info-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.info-cards[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: var(--spacing-lg);\n}\n.info-card[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  padding: var(--spacing-lg);\n  box-shadow: var(--shadow-md);\n  border: 1px solid var(--gray-200);\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-md);\n  transition: all var(--transition-normal);\n}\n.info-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-lg);\n  border-color: var(--primary-color);\n}\n.info-icon[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  width: 50px;\n  height: 50px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: var(--radius-lg);\n  color: var(--white);\n  flex-shrink: 0;\n}\n.info-content[_ngcontent-%COMP%] {\n  flex: 1;\n}\n.info-content[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  margin: 0 0 var(--spacing-xs) 0;\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--gray-900);\n}\n.info-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0;\n  color: var(--gray-600);\n  font-size: 0.875rem;\n  line-height: 1.4;\n}\n.contact-form-section[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n}\n.form-card[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  padding: var(--spacing-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--gray-200);\n  width: 100%;\n  max-width: 600px;\n}\n.form-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: var(--spacing-xl);\n}\n.form-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0 0 var(--spacing-sm) 0;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: var(--gray-900);\n  font-family: var(--font-secondary);\n}\n.form-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0;\n  color: var(--gray-600);\n  font-size: 0.875rem;\n  line-height: 1.5;\n}\n.form-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: var(--spacing-lg);\n  margin-bottom: var(--spacing-lg);\n}\n.form-group[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.form-group[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  display: block;\n  margin-bottom: var(--spacing-xs);\n  font-weight: 600;\n  color: var(--gray-700);\n  font-size: 0.8rem;\n}\n.form-input[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border: 2px solid var(--gray-200);\n  border-radius: var(--radius-lg);\n  font-size: 0.875rem;\n  transition: all var(--transition-normal);\n  background: var(--white);\n  color: var(--gray-900);\n}\n.form-input[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: var(--primary-color);\n  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);\n}\n.form-input[_ngcontent-%COMP%]::placeholder {\n  color: var(--gray-400);\n}\n.form-input.is-invalid[_ngcontent-%COMP%] {\n  border-color: #ef4444;\n  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);\n}\ntextarea.form-input[_ngcontent-%COMP%] {\n  resize: vertical;\n  min-height: 100px;\n  font-family: inherit;\n}\n.error-message[_ngcontent-%COMP%] {\n  color: #ef4444;\n  font-size: 0.75rem;\n  margin-top: var(--spacing-xs);\n  font-weight: 500;\n}\n.submit-btn[_ngcontent-%COMP%] {\n  width: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-color));\n  color: var(--white);\n  border: none;\n  border-radius: var(--radius-lg);\n  padding: var(--spacing-md) var(--spacing-lg);\n  font-size: 0.875rem;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: var(--spacing-sm);\n}\n.submit-btn[_ngcontent-%COMP%]:hover:not(.disabled) {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-lg);\n}\n.submit-btn[_ngcontent-%COMP%]:active:not(.disabled) {\n  transform: translateY(0);\n}\n.submit-btn.disabled[_ngcontent-%COMP%] {\n  background: var(--gray-300);\n  color: var(--gray-500);\n  cursor: not-allowed;\n  transform: none;\n  box-shadow: none;\n}\n.submit-btn[_ngcontent-%COMP%]   .btn-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  transition: transform var(--transition-normal);\n}\n.submit-btn[_ngcontent-%COMP%]:hover:not(.disabled)   .btn-icon[_ngcontent-%COMP%] {\n  transform: translateX(4px);\n}\n.submit-btn[_ngcontent-%COMP%]   .btn-spinner[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n.toast-container[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 20px;\n  right: 20px;\n  z-index: 10000;\n  animation: _ngcontent-%COMP%_slideInRight 0.5s ease-out;\n}\n.toast[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-lg) var(--spacing-xl);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-xl);\n  min-width: 350px;\n  max-width: 450px;\n  animation: _ngcontent-%COMP%_fadeInUp 0.5s ease-out;\n  border: 2px solid transparent;\n}\n.toast.toast-success[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #10b981,\n      #059669);\n  color: white;\n  border-left: 4px solid #047857;\n  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);\n}\n.toast.toast-error[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ef4444,\n      #dc2626);\n  color: white;\n  border-left: 4px solid #b91c1c;\n  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);\n}\n.toast-icon[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  flex-shrink: 0;\n}\n.toast-message[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 600;\n  line-height: 1.4;\n}\n@keyframes _ngcontent-%COMP%_slideInRight {\n  from {\n    transform: translateX(100%);\n    opacity: 0;\n  }\n  to {\n    transform: translateX(0);\n    opacity: 1;\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n@media (max-width: 1024px) {\n  .contact-container[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-2xl);\n  }\n  .contact-info-section[_ngcontent-%COMP%] {\n    order: 2;\n  }\n  .contact-form-section[_ngcontent-%COMP%] {\n    order: 1;\n  }\n  .info-cards[_ngcontent-%COMP%] {\n    display: grid;\n    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n    gap: var(--spacing-md);\n  }\n}\n@media (max-width: 768px) {\n  .contact-container[_ngcontent-%COMP%] {\n    gap: var(--spacing-xl);\n  }\n  .form-card[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .form-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-md);\n  }\n  .info-cards[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .info-card[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n  .info-icon[_ngcontent-%COMP%] {\n    width: 45px;\n    height: 45px;\n    font-size: 1.25rem;\n  }\n  .form-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n  .toast-container[_ngcontent-%COMP%] {\n    top: 10px;\n    right: 10px;\n    left: 10px;\n  }\n  .toast[_ngcontent-%COMP%] {\n    min-width: auto;\n    max-width: none;\n  }\n}\n.form-group[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.form-group[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.form-group[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.form-group[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.form-group[_ngcontent-%COMP%]:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.info-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInRight 0.6s ease-out;\n}\n.info-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.info-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.info-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.info-card[_ngcontent-%COMP%]:nth-child(4) {\n  animation-delay: 0.4s;\n}\n@keyframes _ngcontent-%COMP%_fadeInRight {\n  from {\n    opacity: 0;\n    transform: translateX(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateX(0);\n  }\n}\n/*# sourceMappingURL=contact.component.css.map */"] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ContactComponent, [{
     type: Component,
-    args: [{ selector: "app-contact", standalone: true, imports: [FormsModule, CommonModule], template: `<div class="section" id="contact">
-  <!-- style="background-image: url('assets/images/connect.jpg');" -->
-  <div class="cc-contact-information">
-    <div class="container">
-      <div class="cc-contact">
-        <div class="row">
-          <div class="col-md-9">
-            <div class="card mb-0" data-aos="zoom-in">
-              <div class="h4 text-center title">Contact Me</div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="card-body">
-                    <form #f="ngForm" (ngSubmit)="f.form.valid ; f.resetForm()" name="form" novalidate>
-                      <div class="p pb-3">
-                        <strong>Feel free to contact me </strong>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col">
-                          <div class="input-group">
-                            <input #name="ngModel" [(ngModel)]="model.name"
-                                   [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" class="form-control"
-                                   name="name" placeholder="Name"
-                                   required type="text"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col">
-                          <div class="input-container">
-                            <input #subject="ngModel" [(ngModel)]="model.subject"
-                                   [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" class="form-control"
-                                   name="subject" placeholder="Subject"
-                                   required type="text"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col">
-                          <div class="input-group">
-                            <input #email="ngModel" [(ngModel)]="model.email"
-                                   [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" class="form-control"
-                                   name="email" pattern="^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
-                                   placeholder="E-mail"
-                                   required type="text"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col">
-                          <div class="form-group">
-                              <textarea #message="ngModel" [(ngModel)]="model.message"
-                                        [ngClass]="{ 'is-invalid': f.submitted && message.invalid }"
-                                        class="form-control" name="message"
-                                        placeholder="Your Message"
-                                        required></textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <button (click)="onSubmit(name.value, subject.value, email.value, message.value)"
-                                  class="btn bg-primary" style="font-weight: bold;color: blanchedalmond;"
-                                  type="submit"> Send
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="card-body">
-                    <p class="mb-0">
-                      <strong>Email</strong>
-                    </p>
-                    <p>ankit.sharma199803&#64;gmail.com</p>
-                    <p style="margin-top: 40px">
-                      <a href="https://info.flagcounter.com/hZ3l"><img
-                        src="https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"
-                        alt="Flag Counter" border="0"></a>
-                    </p>
-                  </div>
-                </div>
-              </div>
+    args: [{ selector: "app-contact", standalone: true, imports: [FormsModule, CommonModule], template: `<div class="contact-section" id="contact">
+  <div class="container">
+    <h2 class="section-title">Contact Me</h2>
+    
+    <div class="contact-container">
+      <!-- Contact Info Cards -->
+      <div class="contact-info-section" data-aos="fade-right">
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-icon">\u{1F4E7}</div>
+            <div class="info-content">
+              <h4>Email</h4>
+              <p>ankit.sharma199803@gmail.com</p>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">\u{1F4CD}</div>
+            <div class="info-content">
+              <h4>Location</h4>
+              <p>Bangalore, India</p>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">\u{1F4BC}</div>
+            <div class="info-content">
+              <h4>Available for</h4>
+              <p>Full-time opportunities</p>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">\u23F1\uFE0F</div>
+            <div class="info-content">
+              <h4>Response time</h4>
+              <p>Within 24 hours</p>
             </div>
           </div>
         </div>
       </div>
+      
+      <!-- Contact Form -->
+      <div class="contact-form-section" data-aos="fade-left">
+        <div class="form-card">
+          <div class="form-header">
+            <h3>Send me a message</h3>
+            <p>I'm always open to discussing new opportunities and interesting projects!</p>
+          </div>
+          
+          <form #contactForm="ngForm" (ngSubmit)="onSubmit(model.name, model.subject, model.email, model.message)" name="form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input #name="ngModel" [(ngModel)]="model.name"
+                       [ngClass]="{ 'is-invalid': contactForm.submitted && name.invalid }" 
+                       class="form-input"
+                       id="name"
+                       name="name" 
+                       placeholder="Your full name"
+                       required type="text"/>
+                <div class="error-message" *ngIf="contactForm.submitted && name.invalid">
+                  Please enter your name
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input #email="ngModel" [(ngModel)]="model.email"
+                       [ngClass]="{ 'is-invalid': contactForm.submitted && email.invalid }" 
+                       class="form-input"
+                       id="email"
+                       name="email" 
+                       placeholder="your.email@example.com"
+                       required type="email"/>
+                <div class="error-message" *ngIf="contactForm.submitted && email.invalid">
+                  Please enter a valid email address
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input #subject="ngModel" [(ngModel)]="model.subject"
+                     [ngClass]="{ 'is-invalid': contactForm.submitted && subject.invalid }" 
+                     class="form-input"
+                     id="subject"
+                     name="subject" 
+                     placeholder="What's this about?"
+                     required type="text"/>
+              <div class="error-message" *ngIf="contactForm.submitted && subject.invalid">
+                Please enter a subject
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea #message="ngModel" [(ngModel)]="model.message"
+                        [ngClass]="{ 'is-invalid': contactForm.submitted && message.invalid }"
+                        class="form-input"
+                        id="message"
+                        name="message"
+                        placeholder="Tell me about your project or opportunity..."
+                        required
+                        rows="5"></textarea>
+              <div class="error-message" *ngIf="contactForm.submitted && message.invalid">
+                Please enter your message
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <button [disabled]="!isFormValid() || isSubmitting"
+                      class="submit-btn"
+                      [ngClass]="{ 'disabled': !isFormValid() || isSubmitting }"
+                      type="submit">
+                <span class="btn-text">
+                  {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+                </span>
+                <span class="btn-icon" *ngIf="!isSubmitting">\u2192</span>
+                <span class="btn-spinner" *ngIf="isSubmitting">\u23F3</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Toast Notification -->
+  <div class="toast-container" *ngIf="showToast">
+    <div class="toast" [ngClass]="'toast-' + toastType">
+      <div class="toast-icon">
+        {{ toastType === 'success' ? '\u2705' : '\u274C' }}
+      </div>
+      <div class="toast-message">{{ toastMessage }}</div>
     </div>
   </div>
 </div>
 
 
-` }]
-  }], () => [{ type: HttpClient }], null);
+`, styles: ["/* src/app/profile/contact/contact.component.scss */\n.contact-section {\n  background: var(--white);\n  padding: var(--spacing-3xl) 0;\n}\n.contact-container {\n  display: grid;\n  grid-template-columns: 1fr 1.5fr;\n  gap: var(--spacing-3xl);\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.contact-info-section {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.info-cards {\n  display: flex;\n  flex-direction: column;\n  gap: var(--spacing-lg);\n}\n.info-card {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  padding: var(--spacing-lg);\n  box-shadow: var(--shadow-md);\n  border: 1px solid var(--gray-200);\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-md);\n  transition: all var(--transition-normal);\n}\n.info-card:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-lg);\n  border-color: var(--primary-color);\n}\n.info-icon {\n  font-size: 1.5rem;\n  width: 50px;\n  height: 50px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: var(--radius-lg);\n  color: var(--white);\n  flex-shrink: 0;\n}\n.info-content {\n  flex: 1;\n}\n.info-content h4 {\n  margin: 0 0 var(--spacing-xs) 0;\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--gray-900);\n}\n.info-content p {\n  margin: 0;\n  color: var(--gray-600);\n  font-size: 0.875rem;\n  line-height: 1.4;\n}\n.contact-form-section {\n  display: flex;\n  align-items: center;\n}\n.form-card {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  padding: var(--spacing-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--gray-200);\n  width: 100%;\n  max-width: 600px;\n}\n.form-header {\n  text-align: center;\n  margin-bottom: var(--spacing-xl);\n}\n.form-header h3 {\n  margin: 0 0 var(--spacing-sm) 0;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: var(--gray-900);\n  font-family: var(--font-secondary);\n}\n.form-header p {\n  margin: 0;\n  color: var(--gray-600);\n  font-size: 0.875rem;\n  line-height: 1.5;\n}\n.form-row {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: var(--spacing-lg);\n  margin-bottom: var(--spacing-lg);\n}\n.form-group {\n  margin-bottom: var(--spacing-md);\n}\n.form-group label {\n  display: block;\n  margin-bottom: var(--spacing-xs);\n  font-weight: 600;\n  color: var(--gray-700);\n  font-size: 0.8rem;\n}\n.form-input {\n  width: 100%;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border: 2px solid var(--gray-200);\n  border-radius: var(--radius-lg);\n  font-size: 0.875rem;\n  transition: all var(--transition-normal);\n  background: var(--white);\n  color: var(--gray-900);\n}\n.form-input:focus {\n  outline: none;\n  border-color: var(--primary-color);\n  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);\n}\n.form-input::placeholder {\n  color: var(--gray-400);\n}\n.form-input.is-invalid {\n  border-color: #ef4444;\n  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);\n}\ntextarea.form-input {\n  resize: vertical;\n  min-height: 100px;\n  font-family: inherit;\n}\n.error-message {\n  color: #ef4444;\n  font-size: 0.75rem;\n  margin-top: var(--spacing-xs);\n  font-weight: 500;\n}\n.submit-btn {\n  width: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-color));\n  color: var(--white);\n  border: none;\n  border-radius: var(--radius-lg);\n  padding: var(--spacing-md) var(--spacing-lg);\n  font-size: 0.875rem;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: var(--spacing-sm);\n}\n.submit-btn:hover:not(.disabled) {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-lg);\n}\n.submit-btn:active:not(.disabled) {\n  transform: translateY(0);\n}\n.submit-btn.disabled {\n  background: var(--gray-300);\n  color: var(--gray-500);\n  cursor: not-allowed;\n  transform: none;\n  box-shadow: none;\n}\n.submit-btn .btn-icon {\n  font-size: 1rem;\n  transition: transform var(--transition-normal);\n}\n.submit-btn:hover:not(.disabled) .btn-icon {\n  transform: translateX(4px);\n}\n.submit-btn .btn-spinner {\n  font-size: 1rem;\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n.toast-container {\n  position: fixed;\n  top: 20px;\n  right: 20px;\n  z-index: 10000;\n  animation: slideInRight 0.5s ease-out;\n}\n.toast {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-lg) var(--spacing-xl);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-xl);\n  min-width: 350px;\n  max-width: 450px;\n  animation: fadeInUp 0.5s ease-out;\n  border: 2px solid transparent;\n}\n.toast.toast-success {\n  background:\n    linear-gradient(\n      135deg,\n      #10b981,\n      #059669);\n  color: white;\n  border-left: 4px solid #047857;\n  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);\n}\n.toast.toast-error {\n  background:\n    linear-gradient(\n      135deg,\n      #ef4444,\n      #dc2626);\n  color: white;\n  border-left: 4px solid #b91c1c;\n  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);\n}\n.toast-icon {\n  font-size: 1.5rem;\n  flex-shrink: 0;\n}\n.toast-message {\n  font-size: 1rem;\n  font-weight: 600;\n  line-height: 1.4;\n}\n@keyframes slideInRight {\n  from {\n    transform: translateX(100%);\n    opacity: 0;\n  }\n  to {\n    transform: translateX(0);\n    opacity: 1;\n  }\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n@media (max-width: 1024px) {\n  .contact-container {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-2xl);\n  }\n  .contact-info-section {\n    order: 2;\n  }\n  .contact-form-section {\n    order: 1;\n  }\n  .info-cards {\n    display: grid;\n    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n    gap: var(--spacing-md);\n  }\n}\n@media (max-width: 768px) {\n  .contact-container {\n    gap: var(--spacing-xl);\n  }\n  .form-card {\n    padding: var(--spacing-lg);\n  }\n  .form-row {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-md);\n  }\n  .info-cards {\n    grid-template-columns: 1fr;\n  }\n  .info-card {\n    padding: var(--spacing-md);\n  }\n  .info-icon {\n    width: 45px;\n    height: 45px;\n    font-size: 1.25rem;\n  }\n  .form-header h3 {\n    font-size: 1.25rem;\n  }\n  .toast-container {\n    top: 10px;\n    right: 10px;\n    left: 10px;\n  }\n  .toast {\n    min-width: auto;\n    max-width: none;\n  }\n}\n.form-group {\n  animation: fadeInUp 0.6s ease-out;\n}\n.form-group:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.form-group:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.form-group:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.form-group:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.info-card {\n  animation: fadeInRight 0.6s ease-out;\n}\n.info-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.info-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.info-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.info-card:nth-child(4) {\n  animation-delay: 0.4s;\n}\n@keyframes fadeInRight {\n  from {\n    opacity: 0;\n    transform: translateX(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateX(0);\n  }\n}\n/*# sourceMappingURL=contact.component.css.map */\n"] }]
+  }], () => [{ type: HttpClient }], { contactForm: [{
+    type: ViewChild,
+    args: ["contactForm"]
+  }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ContactComponent, { className: "ContactComponent", filePath: "src/app/profile/contact/contact.component.ts", lineNumber: 13 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ContactComponent, { className: "ContactComponent", filePath: "src/app/profile/contact/contact.component.ts", lineNumber: 14 });
 })();
 
 // src/app/profile/education/education.component.ts
@@ -45979,119 +46266,106 @@ var EducationComponent = class _EducationComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _EducationComponent, selectors: [["app-education"]], decls: 52, vars: 0, consts: [["id", "education", 1, "section"], [1, "container", "cc-education"], [1, "h4", "text-center", "mb-4", "title"], [1, "card"], [1, "row"], ["data-aos", "fade-right", "data-aos-duration", "500", "data-aos-offset", "50", 1, "col-md-3", "bg-primary"], [1, "card-body", "cc-education-header"], [1, "h5"], ["data-aos", "fade-left", "data-aos-duration", "500", "data-aos-offset", "50", 1, "col-md-9"], [1, "card-body"], [1, "h4"], [1, "category"]], template: function EducationComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _EducationComponent, selectors: [["app-education"]], decls: 43, vars: 0, consts: [["id", "education", 1, "education-section"], [1, "container"], [1, "section-title"], [1, "education-grid"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "education-card"], [1, "education-header"], [1, "year"], [1, "degree-type"], [1, "education-content"], [1, "degree-title"], [1, "institution"], [1, "details"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "education-card"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "education-card"]], template: function EducationComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2);
+        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "h2", 2);
         \u0275\u0275text(3, "Education");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(4, "div", 3)(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "p");
-        \u0275\u0275text(9, "2016-2020");
+        \u0275\u0275domElementStart(4, "div", 3)(5, "div", 4)(6, "div", 5)(7, "p", 6);
+        \u0275\u0275text(8, "2016-2020");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(10, "div", 7);
-        \u0275\u0275text(11, "Bachelor Degree");
+        \u0275\u0275domElementStart(9, "h5", 7);
+        \u0275\u0275text(10, "Bachelor Degree");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(11, "div", 8)(12, "h4", 9);
+        \u0275\u0275text(13, "Bachelor of Technology in Computer Science");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(14, "h5", 10);
+        \u0275\u0275text(15, "GLA University");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(16, "p", 11);
+        \u0275\u0275text(17, "Completed BTech in Computer Science with ");
+        \u0275\u0275domElementStart(18, "b");
+        \u0275\u0275text(19, "8.03 GPA");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(20, ".");
         \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(12, "div", 8)(13, "div", 9)(14, "div", 10);
-        \u0275\u0275text(15, "Bachelor of Technology in Computer Science");
+        \u0275\u0275domElementStart(21, "div", 12)(22, "div", 5)(23, "p", 6);
+        \u0275\u0275text(24, "2016");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(16, "h4", 11);
-        \u0275\u0275text(17, "GLA University");
+        \u0275\u0275domElementStart(25, "h5", 7);
+        \u0275\u0275text(26, "Intermediate");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(27, "div", 8)(28, "h4", 9);
+        \u0275\u0275text(29, "Physics, Chemistry, Maths");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(18, "ul")(19, "li");
-        \u0275\u0275text(20, "Completed BTech in Computer Science with ");
-        \u0275\u0275domElementStart(21, "b");
-        \u0275\u0275text(22, "8.03 GPA");
+        \u0275\u0275domElementStart(30, "h5", 10);
+        \u0275\u0275text(31, "Ess Ess Convent School (CBSE)");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(32, "div", 13)(33, "div", 5)(34, "p", 6);
+        \u0275\u0275text(35, "2014");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(23, ".");
+        \u0275\u0275domElementStart(36, "h5", 7);
+        \u0275\u0275text(37, "High School");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(38, "div", 8)(39, "h4", 9);
+        \u0275\u0275text(40, "Science and Computers");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(41, "h5", 10);
+        \u0275\u0275text(42, "St. Conrad's Inter College (ICSE)");
         \u0275\u0275domElementEnd()()()()()();
-        \u0275\u0275domElementStart(24, "div", 3)(25, "div", 4)(26, "div", 5)(27, "div", 6)(28, "p");
-        \u0275\u0275text(29, "2016");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(30, "div", 7);
-        \u0275\u0275text(31, "Intermediate");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(32, "div", 8)(33, "div", 9)(34, "div", 10);
-        \u0275\u0275text(35, "Physics, Chemistry, Maths");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(36, "h4", 11);
-        \u0275\u0275text(37, "Ess Ess Convent School (CBSE)");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(38, "div", 3)(39, "div", 4)(40, "div", 5)(41, "div", 6)(42, "p");
-        \u0275\u0275text(43, "2014");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(44, "div", 7);
-        \u0275\u0275text(45, "High School");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(46, "div", 8)(47, "div", 9)(48, "div", 7);
-        \u0275\u0275text(49, "Science and Computers");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(50, "h4", 11);
-        \u0275\u0275text(51, "St. Conrad's Inter College (ICSE)");
-        \u0275\u0275domElementEnd()()()()()()();
       }
-    }, encapsulation: 2 });
+    }, styles: ['\n\n.education-section[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--white) 0%,\n      var(--gray-50) 100%);\n  padding: var(--spacing-3xl) 0;\n}\n.education-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: var(--spacing-xl);\n  max-width: 1000px;\n  margin: 0 auto;\n}\n.education-card[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-md);\n  border: 1px solid var(--gray-200);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.education-card[_ngcontent-%COMP%]:hover {\n  box-shadow: var(--shadow-lg);\n  transform: translateY(-2px);\n}\n.education-header[_ngcontent-%COMP%] {\n  background: var(--gray-50);\n  padding: var(--spacing-lg);\n  text-align: center;\n  border-bottom: 1px solid var(--gray-200);\n}\n.education-header[_ngcontent-%COMP%]   .year[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  color: var(--gray-500);\n  font-weight: 500;\n  margin-bottom: var(--spacing-xs);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.education-header[_ngcontent-%COMP%]   .degree-type[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  color: var(--gray-700);\n  font-weight: 600;\n  margin: 0;\n}\n.education-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-lg);\n  flex-grow: 1;\n  display: flex;\n  flex-direction: column;\n}\n.education-content[_ngcontent-%COMP%]   .degree-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.125rem;\n  font-weight: 600;\n  color: var(--gray-900);\n  margin-bottom: var(--spacing-sm);\n  line-height: 1.4;\n}\n.education-content[_ngcontent-%COMP%]   .institution[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  color: var(--primary-color);\n  font-weight: 500;\n  margin-bottom: var(--spacing-md);\n}\n.education-content[_ngcontent-%COMP%]   .details[_ngcontent-%COMP%] {\n  color: var(--gray-600);\n  line-height: 1.6;\n  margin: 0;\n  font-size: 0.875rem;\n}\n.education-content[_ngcontent-%COMP%]   .details[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--gray-800);\n  font-weight: 600;\n}\n.education-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  font-weight: 700;\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n  color: var(--gray-900);\n  position: relative;\n}\n.education-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -10px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: 2px;\n}\n@media (max-width: 768px) {\n  .education-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .education-card[_ngcontent-%COMP%] {\n    height: auto;\n  }\n  .education-header[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n  .education-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n  .education-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n}\n.education-card[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.6s ease-out;\n}\n.education-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.education-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.education-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n/*# sourceMappingURL=education.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(EducationComponent, [{
     type: Component,
-    args: [{ selector: "app-education", standalone: true, template: `<div class="section" id="education">
-  <div class="container cc-education">
-    <div class="h4 text-center mb-4 title">Education</div>
-    <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-duration="500" data-aos-offset="50">
-          <div class="card-body cc-education-header">
-            <p>2016-2020</p>
-            <div class="h5">Bachelor Degree</div>
-          </div>
+    args: [{ selector: "app-education", standalone: true, template: `<div class="education-section" id="education">
+  <div class="container">
+    <h2 class="section-title">Education</h2>
+    
+    <div class="education-grid">
+      <!-- Bachelor Degree -->
+      <div class="education-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="education-header">
+          <p class="year">2016-2020</p>
+          <h5 class="degree-type">Bachelor Degree</h5>
         </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-duration="500" data-aos-offset="50">
-          <div class="card-body">
-            <div class="h4">Bachelor of Technology in Computer Science</div>
-            <h4 class="category">GLA University</h4>
-            <ul>
-              <li>Completed BTech in Computer Science with <b>8.03 GPA</b>.</li>
-            </ul>
-          </div>
+        <div class="education-content">
+          <h4 class="degree-title">Bachelor of Technology in Computer Science</h4>
+          <h5 class="institution">GLA University</h5>
+          <p class="details">Completed BTech in Computer Science with <b>8.03 GPA</b>.</p>
         </div>
       </div>
-    </div>
-    <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-duration="500" data-aos-offset="50">
-          <div class="card-body cc-education-header">
-            <p>2016</p>
-            <div class="h5">Intermediate</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-duration="500" data-aos-offset="50">
-          <div class="card-body">
-            <div class="h4">Physics, Chemistry, Maths</div>
-            <h4 class="category">Ess Ess Convent School (CBSE)</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="row">
-        <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-duration="500" data-aos-offset="50">
-          <div class="card-body cc-education-header">
-            <p>2014</p>
-            <div class="h5">High School</div>
-          </div>
-        </div>
-        <div class="col-md-9" data-aos="fade-left" data-aos-duration="500" data-aos-offset="50">
-          <div class="card-body">
-            <div class="h5">Science and Computers</div>
 
-            <h4 class="category">St. Conrad's Inter College (ICSE)</h4>
-          </div>
+      <!-- Intermediate -->
+      <div class="education-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="education-header">
+          <p class="year">2016</p>
+          <h5 class="degree-type">Intermediate</h5>
+        </div>
+        <div class="education-content">
+          <h4 class="degree-title">Physics, Chemistry, Maths</h4>
+          <h5 class="institution">Ess Ess Convent School (CBSE)</h5>
+        </div>
+      </div>
+
+      <!-- High School -->
+      <div class="education-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="education-header">
+          <p class="year">2014</p>
+          <h5 class="degree-type">High School</h5>
+        </div>
+        <div class="education-content">
+          <h4 class="degree-title">Science and Computers</h4>
+          <h5 class="institution">St. Conrad's Inter College (ICSE)</h5>
         </div>
       </div>
     </div>
   </div>
 </div>
-` }]
+`, styles: ['/* src/app/profile/education/education.component.scss */\n.education-section {\n  background:\n    linear-gradient(\n      135deg,\n      var(--white) 0%,\n      var(--gray-50) 100%);\n  padding: var(--spacing-3xl) 0;\n}\n.education-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: var(--spacing-xl);\n  max-width: 1000px;\n  margin: 0 auto;\n}\n.education-card {\n  background: var(--white);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-md);\n  border: 1px solid var(--gray-200);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.education-card:hover {\n  box-shadow: var(--shadow-lg);\n  transform: translateY(-2px);\n}\n.education-header {\n  background: var(--gray-50);\n  padding: var(--spacing-lg);\n  text-align: center;\n  border-bottom: 1px solid var(--gray-200);\n}\n.education-header .year {\n  font-size: 0.875rem;\n  color: var(--gray-500);\n  font-weight: 500;\n  margin-bottom: var(--spacing-xs);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.education-header .degree-type {\n  font-size: 1rem;\n  color: var(--gray-700);\n  font-weight: 600;\n  margin: 0;\n}\n.education-content {\n  padding: var(--spacing-lg);\n  flex-grow: 1;\n  display: flex;\n  flex-direction: column;\n}\n.education-content .degree-title {\n  font-family: var(--font-secondary);\n  font-size: 1.125rem;\n  font-weight: 600;\n  color: var(--gray-900);\n  margin-bottom: var(--spacing-sm);\n  line-height: 1.4;\n}\n.education-content .institution {\n  font-size: 1rem;\n  color: var(--primary-color);\n  font-weight: 500;\n  margin-bottom: var(--spacing-md);\n}\n.education-content .details {\n  color: var(--gray-600);\n  line-height: 1.6;\n  margin: 0;\n  font-size: 0.875rem;\n}\n.education-content .details b {\n  color: var(--gray-800);\n  font-weight: 600;\n}\n.education-section .section-title {\n  font-size: 2.5rem;\n  font-weight: 700;\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n  color: var(--gray-900);\n  position: relative;\n}\n.education-section .section-title::after {\n  content: "";\n  position: absolute;\n  bottom: -10px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: 2px;\n}\n@media (max-width: 768px) {\n  .education-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .education-card {\n    height: auto;\n  }\n  .education-header {\n    padding: var(--spacing-md);\n  }\n  .education-content {\n    padding: var(--spacing-md);\n  }\n  .education-section .section-title {\n    font-size: 2rem;\n  }\n}\n.education-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.education-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.education-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.education-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n/*# sourceMappingURL=education.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
@@ -46134,10 +46408,19 @@ var ExperienceComponent = class _ExperienceComponent {
   constructor(timeService) {
     this.timeService = timeService;
   }
+  calculateTotalExperience() {
+    const startDate = /* @__PURE__ */ new Date("2019-12-20");
+    const currentDate = /* @__PURE__ */ new Date();
+    const diffTime = Math.abs(currentDate.getTime() - startDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1e3 * 60 * 60 * 24));
+    const diffYears = diffDays / 365.25;
+    this.totalExperience = diffYears.toFixed(1);
+  }
   refreshData() {
     this.timeService.getNumberOfMonths().subscribe((data) => {
       this.numberOfMonths = data;
     });
+    this.calculateTotalExperience();
   }
   ngOnInit() {
     this.refreshData();
@@ -46154,108 +46437,107 @@ var ExperienceComponent = class _ExperienceComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 91, vars: 1, consts: [["id", "experience", 1, "section"], [1, "container"], [1, "main-timeline"], [1, "timeline"], [1, "icon"], [1, "date-content"], [1, "date-outer"], [1, "date"], [1, "month"], [1, "year"], [1, "timeline-content"], [1, "title"], ["href", "https://www.games24x7.com/"], [1, "description"], ["href", "https://one.walmart.com/content/globaltechindia/en_in.html"], ["href", "https://www.extramarks.com/"]], template: function ExperienceComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 87, vars: 2, consts: [["id", "experience", 1, "experience-section"], [1, "container"], [1, "section-title"], ["data-aos", "fade-up", 1, "total-experience"], [1, "experience-summary"], [1, "experience-label"], [1, "experience-years"], [1, "experience-timeline"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "experience-item"], [1, "experience-date"], [1, "date-card"], [1, "duration"], [1, "period"], [1, "experience-content"], [1, "content-card"], [1, "experience-title"], ["href", "https://www.games24x7.com/", "target", "_blank"], [1, "experience-description"], [1, "experience-technologies"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "experience-item"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "experience-item"], ["href", "https://one.walmart.com/content/globaltechindia/en_in.html", "target", "_blank"], ["data-aos", "fade-up", "data-aos-delay", "400", 1, "experience-item"], ["href", "https://www.extramarks.com/", "target", "_blank"]], template: function ExperienceComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
-        \u0275\u0275domElement(4, "div", 4);
-        \u0275\u0275domElementStart(5, "div", 5)(6, "div", 6)(7, "span", 7)(8, "span", 8);
+        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "h2", 2);
+        \u0275\u0275text(3, "Experience");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(4, "div", 3)(5, "div", 4)(6, "span", 5);
+        \u0275\u0275text(7, "Total Experience");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(8, "span", 6);
         \u0275\u0275text(9);
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(10, "div", 7)(11, "div", 8)(12, "div", 9)(13, "div", 10)(14, "span", 11);
+        \u0275\u0275text(15);
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(10, "span", 9);
-        \u0275\u0275text(11, "2022/23");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(12, "div", 10)(13, "h5", 11);
-        \u0275\u0275text(14, "SDE-2 at ");
-        \u0275\u0275domElementStart(15, "a", 12);
-        \u0275\u0275text(16, "Games24x7");
+        \u0275\u0275domElementStart(16, "span", 12);
+        \u0275\u0275text(17, "2022/23");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(18, "div", 13)(19, "div", 14)(20, "h5", 15);
+        \u0275\u0275text(21, "SDE-2 at ");
+        \u0275\u0275domElementStart(22, "a", 16);
+        \u0275\u0275text(23, "Games24x7");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(17, "p", 13);
-        \u0275\u0275text(18, " Working as a backend developer in Platform services, for both RummyCircle and My11Circle. Technologies: ");
-        \u0275\u0275domElementStart(19, "b");
-        \u0275\u0275text(20, "Java 11, Spring Boot, Neptune DB, MongoDB, ElasticSearch, Druid, Kafka, AWS, Concurrency");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElement(21, "br");
-        \u0275\u0275domElementStart(22, "p")(23, "b");
-        \u0275\u0275text(24, "Stay: Oct 2022 - Present");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(25, "div", 3);
-        \u0275\u0275domElement(26, "div", 4);
-        \u0275\u0275domElementStart(27, "div", 5)(28, "div", 6)(29, "span", 7)(30, "span", 8);
-        \u0275\u0275text(31, "1.1 years");
+        \u0275\u0275domElementStart(24, "p", 17);
+        \u0275\u0275text(25, " Working as a backend developer in Platform services, for both RummyCircle and My11Circle. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(32, "span", 9);
-        \u0275\u0275text(33, "2021/22");
+        \u0275\u0275domElementStart(26, "p", 18)(27, "b");
+        \u0275\u0275text(28, "Technologies:");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(29, " Java 11, Spring Boot, Neptune DB, MongoDB, ElasticSearch, Druid, Kafka, AWS, Concurrency");
         \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(34, "div", 10)(35, "h5", 11);
-        \u0275\u0275text(36, "SDE-1 at ");
-        \u0275\u0275domElementStart(37, "a", 12);
-        \u0275\u0275text(38, "Games24x7");
+        \u0275\u0275domElementStart(30, "div", 19)(31, "div", 9)(32, "div", 10)(33, "span", 11);
+        \u0275\u0275text(34, "1.1 years");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(35, "span", 12);
+        \u0275\u0275text(36, "2021/22");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(37, "div", 13)(38, "div", 14)(39, "h5", 15);
+        \u0275\u0275text(40, "SDE-1 at ");
+        \u0275\u0275domElementStart(41, "a", 16);
+        \u0275\u0275text(42, "Games24x7");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(39, "p", 13);
-        \u0275\u0275text(40, " Working as a backend developer in My11Circle team. Technologies: ");
-        \u0275\u0275domElementStart(41, "b");
-        \u0275\u0275text(42, "Java 11, Spring Boot, Kafka, RabbitMQ, Zookeeper, MySQL, JSP, K8s, Docker, AWS");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElement(43, "br");
-        \u0275\u0275domElementStart(44, "p")(45, "b");
-        \u0275\u0275text(46, "Stay: Oct 2021 - Oct 2022");
+        \u0275\u0275domElementStart(43, "p", 17);
+        \u0275\u0275text(44, " Working as a backend developer in My11Circle team. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(45, "p", 18)(46, "b");
+        \u0275\u0275text(47, "Technologies:");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(48, " Java 11, Spring Boot, Kafka, RabbitMQ, Zookeeper, MySQL, JSP, K8s, Docker, AWS");
         \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(47, "div", 3);
-        \u0275\u0275domElement(48, "div", 4);
-        \u0275\u0275domElementStart(49, "div", 5)(50, "div", 6)(51, "span", 7)(52, "span", 8);
+        \u0275\u0275domElementStart(49, "div", 20)(50, "div", 9)(51, "div", 10)(52, "span", 11);
         \u0275\u0275text(53, "4 months");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(54, "span", 9);
+        \u0275\u0275domElementStart(54, "span", 12);
         \u0275\u0275text(55, "2021");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(56, "div", 10)(57, "h5", 11);
-        \u0275\u0275text(58, "SWE IN2 at ");
-        \u0275\u0275domElementStart(59, "a", 14);
-        \u0275\u0275text(60, "Walmart Global Tech");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(56, "div", 13)(57, "div", 14)(58, "h5", 15);
+        \u0275\u0275text(59, "SWE IN2 at ");
+        \u0275\u0275domElementStart(60, "a", 21);
+        \u0275\u0275text(61, "Walmart Global Tech");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(61, "p", 13);
-        \u0275\u0275text(62, " Worked as a full-stack developer at Walmart Global Tech. Technologies: ");
-        \u0275\u0275domElementStart(63, "b");
-        \u0275\u0275text(64, "Java 8, Spring Boot, OneOps, WCNP, Angular 8, DB2");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElement(65, "br");
-        \u0275\u0275domElementStart(66, "p")(67, "b");
-        \u0275\u0275text(68, "Stay: May 2021 - Oct 2021");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(69, "div", 3);
-        \u0275\u0275domElement(70, "div", 4);
-        \u0275\u0275domElementStart(71, "div", 5)(72, "div", 6)(73, "span", 7)(74, "span", 8);
-        \u0275\u0275text(75, "1.3 years");
+        \u0275\u0275domElementStart(62, "p", 17);
+        \u0275\u0275text(63, " Worked as a full-stack developer at Walmart Global Tech. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(76, "span", 9);
-        \u0275\u0275text(77, "2020/21");
+        \u0275\u0275domElementStart(64, "p", 18)(65, "b");
+        \u0275\u0275text(66, "Technologies:");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(67, " Java 8, Spring Boot, OneOps, WCNP, Angular 8, DB2");
         \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(78, "div", 10)(79, "h5", 11);
-        \u0275\u0275text(80, "SDE 1 at ");
-        \u0275\u0275domElementStart(81, "a", 15);
-        \u0275\u0275text(82, "Extramarks Education");
+        \u0275\u0275domElementStart(68, "div", 22)(69, "div", 9)(70, "div", 10)(71, "span", 11);
+        \u0275\u0275text(72, "1.3 years");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(73, "span", 12);
+        \u0275\u0275text(74, "2020/21");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(75, "div", 13)(76, "div", 14)(77, "h5", 15);
+        \u0275\u0275text(78, "SDE 1 at ");
+        \u0275\u0275domElementStart(79, "a", 23);
+        \u0275\u0275text(80, "Extramarks Education");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(83, "p", 13);
-        \u0275\u0275text(84, " Got hands on project experience, worked in a collaborative environment. Created from scratch projects and deployed it into production environment. Broke Monolithic architecture to Microservices and discussed the whole architecture with the team. Technologies: ");
-        \u0275\u0275domElementStart(85, "b");
-        \u0275\u0275text(86, "Java 8/11, Spring Boot, OAuth2.0 + JWT, AWS Cognito, Docker, MySQL 8+");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElement(87, "br");
-        \u0275\u0275domElementStart(88, "p")(89, "b");
-        \u0275\u0275text(90, "Stay: Jan 2020 - March 2021");
+        \u0275\u0275domElementStart(81, "p", 17);
+        \u0275\u0275text(82, " Got hands on project experience, worked in a collaborative environment. Created from scratch projects and deployed it into production environment. Broke Monolithic architecture to Microservices and discussed the whole architecture with the team. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(83, "p", 18)(84, "b");
+        \u0275\u0275text(85, "Technologies:");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(86, " Java 8/11, Spring Boot, OAuth2.0 + JWT, AWS Cognito, Docker, MySQL 8+");
         \u0275\u0275domElementEnd()()()()()()();
       }
       if (rf & 2) {
         \u0275\u0275advance(9);
+        \u0275\u0275textInterpolate1("", ctx.totalExperience, " years");
+        \u0275\u0275advance(6);
         \u0275\u0275textInterpolate1("", ctx.numberOfMonths, " years");
       }
-    }, styles: ['\n\nbody[_ngcontent-%COMP%] {\n  background-color: #f7f7f7;\n  margin-top: 20px;\n}\n.main-timeline[_ngcontent-%COMP%] {\n  position: relative;\n  margin-bottom: 40px;\n}\n.main-timeline[_ngcontent-%COMP%]:before {\n  content: "";\n  display: block;\n  width: 2px;\n  height: 100%;\n  background: #c6c6c6;\n  margin: 0 auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n}\n.main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%] {\n  margin-bottom: 40px;\n  position: relative;\n}\n.main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%]:after {\n  content: "";\n  display: block;\n  clear: both;\n}\n.main-timeline[_ngcontent-%COMP%]   .icon[_ngcontent-%COMP%] {\n  width: 18px;\n  height: 18px;\n  line-height: 18px;\n  margin: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n}\n.main-timeline[_ngcontent-%COMP%]   .icon[_ngcontent-%COMP%]:before, \n.main-timeline[_ngcontent-%COMP%]   .icon[_ngcontent-%COMP%]:after {\n  content: "";\n  width: 100%;\n  height: 100%;\n  border-radius: 50%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  transition: all 0.33s ease-out 0s;\n}\n.main-timeline[_ngcontent-%COMP%]   .icon[_ngcontent-%COMP%]:before {\n  background: #fff;\n  border: 2px solid #232323;\n  left: -3px;\n}\n.main-timeline[_ngcontent-%COMP%]   .icon[_ngcontent-%COMP%]:after {\n  border: 2px solid #c6c6c6;\n  left: 3px;\n}\n.main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%]:hover   .icon[_ngcontent-%COMP%]:before {\n  left: 3px;\n}\n.main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%]:hover   .icon[_ngcontent-%COMP%]:after {\n  left: -3px;\n}\n.main-timeline[_ngcontent-%COMP%]   .date-content[_ngcontent-%COMP%] {\n  width: 50%;\n  float: left;\n  margin-top: 22px;\n  position: relative;\n}\n.main-timeline[_ngcontent-%COMP%]   .date-content[_ngcontent-%COMP%]:before {\n  content: "";\n  width: 36.5%;\n  height: 2px;\n  background: #c6c6c6;\n  margin: auto 0;\n  position: absolute;\n  top: 0;\n  right: 10px;\n  bottom: 0;\n}\n.main-timeline[_ngcontent-%COMP%]   .date-outer[_ngcontent-%COMP%] {\n  width: 125px;\n  height: 125px;\n  font-size: 16px;\n  text-align: center;\n  margin: auto;\n  z-index: 1;\n}\n.main-timeline[_ngcontent-%COMP%]   .date-outer[_ngcontent-%COMP%]:before, \n.main-timeline[_ngcontent-%COMP%]   .date-outer[_ngcontent-%COMP%]:after {\n  content: "";\n  width: 125px;\n  height: 125px;\n  margin: 0 auto;\n  border-radius: 50%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  transition: all 0.33s ease-out 0s;\n}\n.main-timeline[_ngcontent-%COMP%]   .date-outer[_ngcontent-%COMP%]:before {\n  background: #fff;\n  border: 2px solid #232323;\n  left: -6px;\n}\n.main-timeline[_ngcontent-%COMP%]   .date-outer[_ngcontent-%COMP%]:after {\n  border: 2px solid #c6c6c6;\n  left: 6px;\n}\n.main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%]:hover   .date-outer[_ngcontent-%COMP%]:before {\n  left: 6px;\n}\n.main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%]:hover   .date-outer[_ngcontent-%COMP%]:after {\n  left: -6px;\n}\n.main-timeline[_ngcontent-%COMP%]   .date[_ngcontent-%COMP%] {\n  width: 100%;\n  margin: auto;\n  position: absolute;\n  top: 27%;\n  left: 0;\n}\n.main-timeline[_ngcontent-%COMP%]   .month[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 700;\n}\n.main-timeline[_ngcontent-%COMP%]   .year[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 30px;\n  font-weight: 700;\n  color: #232323;\n  line-height: 36px;\n}\n.main-timeline[_ngcontent-%COMP%]   .timeline-content[_ngcontent-%COMP%] {\n  width: 50%;\n  padding: 20px 0 20px 50px;\n  float: right;\n}\n.main-timeline[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%] {\n  font-size: 19px;\n  font-weight: 700;\n  line-height: 24px;\n  margin: 0 0 15px 0;\n}\n.main-timeline[_ngcontent-%COMP%]   .description[_ngcontent-%COMP%] {\n  margin-bottom: 0;\n}\n.main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%]:nth-child(2n)   .date-content[_ngcontent-%COMP%] {\n  float: right;\n}\n.main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%]:nth-child(2n)   .date-content[_ngcontent-%COMP%]:before {\n  left: 10px;\n}\n.main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%]:nth-child(2n)   .timeline-content[_ngcontent-%COMP%] {\n  padding: 20px 50px 20px 0;\n  text-align: right;\n}\n@media only screen and (max-width: 991px) {\n  .main-timeline[_ngcontent-%COMP%]   .date-content[_ngcontent-%COMP%] {\n    margin-top: 35px;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .date-content[_ngcontent-%COMP%]:before {\n    width: 22.5%;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .timeline-content[_ngcontent-%COMP%] {\n    padding: 10px 0 10px 30px;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%] {\n    font-size: 17px;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%]:nth-child(2n)   .timeline-content[_ngcontent-%COMP%] {\n    padding: 10px 30px 10px 0;\n  }\n}\n@media only screen and (max-width: 767px) {\n  .main-timeline[_ngcontent-%COMP%]:before {\n    margin: 0;\n    left: 7px;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%] {\n    margin-bottom: 20px;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%]:last-child {\n    margin-bottom: 0;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .icon[_ngcontent-%COMP%] {\n    margin: auto 0;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .date-content[_ngcontent-%COMP%] {\n    width: 95%;\n    float: right;\n    margin-top: 0;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .date-content[_ngcontent-%COMP%]:before {\n    display: none;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .date-outer[_ngcontent-%COMP%] {\n    width: 110px;\n    height: 110px;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .date-outer[_ngcontent-%COMP%]:before, \n   .main-timeline[_ngcontent-%COMP%]   .date-outer[_ngcontent-%COMP%]:after {\n    width: 110px;\n    height: 110px;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .date[_ngcontent-%COMP%] {\n    top: 30%;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .year[_ngcontent-%COMP%] {\n    font-size: 24px;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .timeline-content[_ngcontent-%COMP%], \n   .main-timeline[_ngcontent-%COMP%]   .timeline[_ngcontent-%COMP%]:nth-child(2n)   .timeline-content[_ngcontent-%COMP%] {\n    width: 95%;\n    text-align: center;\n    padding: 10px 0;\n  }\n  .main-timeline[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%] {\n    margin-bottom: 10px;\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */'] });
+    }, styles: ['\n\n.experience-section[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--gray-50) 0%,\n      var(--white) 100%);\n  padding: var(--spacing-3xl) 0;\n}\n.experience-timeline[_ngcontent-%COMP%] {\n  position: relative;\n  max-width: 800px;\n  margin: 0 auto;\n}\n.experience-timeline[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  left: 50%;\n  top: 0;\n  bottom: 0;\n  width: 2px;\n  background:\n    linear-gradient(\n      180deg,\n      var(--primary-color),\n      var(--accent-color));\n  transform: translateX(-50%);\n}\n.experience-item[_ngcontent-%COMP%] {\n  position: relative;\n  margin-bottom: var(--spacing-2xl);\n  display: flex;\n  align-items: center;\n}\n.experience-item[_ngcontent-%COMP%]:nth-child(odd) {\n  flex-direction: row;\n}\n.experience-item[_ngcontent-%COMP%]:nth-child(odd)   .experience-content[_ngcontent-%COMP%] {\n  margin-left: var(--spacing-xl);\n  text-align: left;\n}\n.experience-item[_ngcontent-%COMP%]:nth-child(odd)   .experience-date[_ngcontent-%COMP%] {\n  margin-right: var(--spacing-xl);\n  text-align: right;\n}\n.experience-item[_ngcontent-%COMP%]:nth-child(even) {\n  flex-direction: row-reverse;\n}\n.experience-item[_ngcontent-%COMP%]:nth-child(even)   .experience-content[_ngcontent-%COMP%] {\n  margin-right: var(--spacing-xl);\n  text-align: right;\n}\n.experience-item[_ngcontent-%COMP%]:nth-child(even)   .experience-date[_ngcontent-%COMP%] {\n  margin-left: var(--spacing-xl);\n  text-align: left;\n}\n.experience-date[_ngcontent-%COMP%] {\n  flex: 0 0 150px;\n}\n.experience-date[_ngcontent-%COMP%]   .date-card[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-lg);\n  padding: var(--spacing-md);\n  box-shadow: var(--shadow-md);\n  border: 1px solid var(--gray-200);\n  text-align: center;\n}\n.experience-date[_ngcontent-%COMP%]   .date-card[_ngcontent-%COMP%]   .duration[_ngcontent-%COMP%] {\n  display: block;\n  font-weight: 600;\n  color: var(--primary-color);\n  font-size: 0.875rem;\n  margin-bottom: var(--spacing-xs);\n}\n.experience-date[_ngcontent-%COMP%]   .date-card[_ngcontent-%COMP%]   .period[_ngcontent-%COMP%] {\n  display: block;\n  font-weight: 700;\n  color: var(--gray-900);\n  font-size: 1rem;\n}\n.experience-content[_ngcontent-%COMP%] {\n  flex: 1;\n}\n.experience-content[_ngcontent-%COMP%]   .content-card[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  padding: var(--spacing-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--gray-200);\n  transition: all var(--transition-normal);\n  position: relative;\n}\n.experience-content[_ngcontent-%COMP%]   .content-card[_ngcontent-%COMP%]:hover {\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n}\n.experience-content[_ngcontent-%COMP%]   .content-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 50%;\n  width: 0;\n  height: 0;\n  border-style: solid;\n  transform: translateY(-50%);\n}\n.experience-content[_ngcontent-%COMP%]:nth-child(odd)   .content-card[_ngcontent-%COMP%]::before {\n  left: -10px;\n  border-width: 10px 10px 10px 0;\n  border-color: transparent var(--white) transparent transparent;\n}\n.experience-content[_ngcontent-%COMP%]:nth-child(even)   .content-card[_ngcontent-%COMP%]::before {\n  right: -10px;\n  border-width: 10px 0 10px 10px;\n  border-color: transparent transparent transparent var(--white);\n}\n.experience-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-weight: 600;\n  font-size: 1.25rem;\n  color: var(--gray-900);\n  margin-bottom: var(--spacing-md);\n}\n.experience-title[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n  text-decoration: none;\n  transition: color var(--transition-normal);\n}\n.experience-title[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  color: var(--primary-dark);\n}\n.experience-description[_ngcontent-%COMP%] {\n  color: var(--gray-600);\n  line-height: 1.7;\n  margin-bottom: var(--spacing-md);\n}\n.experience-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--gray-800);\n  font-weight: 600;\n}\n.experience-technologies[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  color: var(--gray-500);\n  font-weight: 500;\n}\n.experience-technologies[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n}\n.experience-item[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  width: 16px;\n  height: 16px;\n  background: var(--white);\n  border: 3px solid var(--primary-color);\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 2;\n  box-shadow: var(--shadow-sm);\n}\n.experience-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  font-weight: 700;\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n  color: var(--gray-900);\n  position: relative;\n}\n.experience-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -10px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: 2px;\n}\n@media (max-width: 768px) {\n  .experience-timeline[_ngcontent-%COMP%]::before {\n    left: 30px;\n  }\n  .experience-item[_ngcontent-%COMP%] {\n    flex-direction: column !important;\n    align-items: flex-start;\n  }\n  .experience-item[_ngcontent-%COMP%]   .experience-date[_ngcontent-%COMP%] {\n    flex: none;\n    margin: 0 0 var(--spacing-md) 0 !important;\n    text-align: left !important;\n  }\n  .experience-item[_ngcontent-%COMP%]   .experience-content[_ngcontent-%COMP%] {\n    margin: 0 !important;\n    text-align: left !important;\n    width: 100%;\n  }\n  .experience-item[_ngcontent-%COMP%]::after {\n    left: 30px;\n  }\n  .experience-content[_ngcontent-%COMP%]   .content-card[_ngcontent-%COMP%]::before {\n    left: -10px !important;\n    right: auto !important;\n    border-width: 10px 10px 10px 0 !important;\n    border-color: transparent var(--white) transparent transparent !important;\n  }\n  .experience-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n}\n.experience-item[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.6s ease-out;\n}\n.experience-item[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.experience-item[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.experience-item[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.experience-item[_ngcontent-%COMP%]:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.total-experience[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-3xl);\n  text-align: center;\n}\n.experience-summary[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-lg);\n  padding: var(--spacing-lg) var(--spacing-xl);\n  box-shadow: var(--shadow-sm);\n  border: 1px solid var(--gray-200);\n  display: inline-block;\n  min-width: 200px;\n  transition: all var(--transition-normal);\n}\n.experience-summary[_ngcontent-%COMP%]:hover {\n  box-shadow: var(--shadow-md);\n  transform: translateY(-1px);\n}\n.experience-label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 0.75rem;\n  font-weight: 600;\n  color: var(--gray-500);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n  margin-bottom: var(--spacing-xs);\n}\n.experience-years[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 2rem;\n  font-weight: 700;\n  color: var(--primary-color);\n  font-family: var(--font-secondary);\n  margin-bottom: var(--spacing-xs);\n}\n.experience-period[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 0.75rem;\n  color: var(--gray-400);\n  font-weight: 400;\n}\n@media (max-width: 768px) {\n  .experience-summary[_ngcontent-%COMP%] {\n    min-width: 180px;\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .experience-years[_ngcontent-%COMP%] {\n    font-size: 1.75rem;\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ExperienceComponent, [{
     type: Component,
-    args: [{ selector: "app-experience", standalone: true, template: '<div class="section" id="experience">\n  <div class="container">\n    <div class="main-timeline">\n\n      <div class="timeline">\n        <div class="icon"></div>\n        <div class="date-content">\n          <div class="date-outer">\n                                    <span class="date">\n                                            <span class="month">{{numberOfMonths}} years</span>\n                                    <span class="year">2022/23</span>\n                                    </span>\n          </div>\n        </div>\n        <div class="timeline-content">\n          <h5 class="title">SDE-2 at <a href="https://www.games24x7.com/">Games24x7</a></h5>\n          <p class="description">\n            Working as a backend developer in Platform services, for both RummyCircle and My11Circle.\n            Technologies: <b>Java 11, Spring Boot, Neptune DB, MongoDB, ElasticSearch, Druid, Kafka, AWS, Concurrency</b>\n          </p>\n          <br>\n          <p><b>Stay: Oct 2022 - Present</b></p>\n        </div>\n      </div>\n\n      <!-- start experience section-->\n      <div class="timeline">\n        <div class="icon"></div>\n        <div class="date-content">\n          <div class="date-outer">\n                                    <span class="date">\n                                            <span class="month">1.1 years</span>\n                                    <span class="year">2021/22</span>\n                                    </span>\n          </div>\n        </div>\n        <div class="timeline-content">\n          <h5 class="title">SDE-1 at <a href="https://www.games24x7.com/">Games24x7</a></h5>\n          <p class="description">\n            Working as a backend developer in My11Circle team.\n            Technologies: <b>Java 11, Spring Boot, Kafka, RabbitMQ, Zookeeper, MySQL, JSP, K8s, Docker, AWS</b>\n          </p>\n          <br>\n          <p><b>Stay: Oct 2021 - Oct 2022</b></p>\n        </div>\n      </div>\n      <!-- end experience section-->\n\n      <!-- start experience section-->\n      <div class="timeline">\n        <div class="icon"></div>\n        <div class="date-content">\n          <div class="date-outer">\n                                    <span class="date">\n                                            <span class="month">4 months</span>\n                                    <span class="year">2021</span>\n                                    </span>\n          </div>\n        </div>\n        <div class="timeline-content">\n          <h5 class="title">SWE IN2 at <a href="https://one.walmart.com/content/globaltechindia/en_in.html">Walmart\n            Global Tech</a></h5>\n          <p class="description">\n            Worked as a full-stack developer at Walmart Global Tech.\n            Technologies: <b>Java 8, Spring Boot, OneOps, WCNP, Angular 8, DB2</b>\n          </p>\n          <br>\n          <p><b>Stay: May 2021 - Oct 2021</b></p>\n        </div>\n      </div>\n      <!-- end experience section-->\n\n      <!-- start experience section-->\n      <div class="timeline">\n        <div class="icon"></div>\n        <div class="date-content">\n          <div class="date-outer">\n                                    <span class="date">\n                                            <span class="month">1.3 years</span>\n                                    <span class="year">2020/21</span>\n                                    </span>\n          </div>\n        </div>\n        <div class="timeline-content">\n          <h5 class="title">SDE 1 at <a href="https://www.extramarks.com/">Extramarks Education</a></h5>\n          <p class="description">\n            Got hands on project experience, worked in a collaborative environment.\n            Created from scratch projects and deployed it into production environment.\n            Broke Monolithic architecture to Microservices and discussed the whole architecture with the team.\n            Technologies: <b>Java 8/11, Spring Boot, OAuth2.0 + JWT, AWS Cognito, Docker, MySQL 8+</b>\n          </p>\n          <br>\n          <p><b>Stay: Jan 2020 - March 2021</b></p>\n        </div>\n      </div>\n      <!-- end experience section-->\n    </div>\n  </div>\n</div>\n', styles: ['/* src/app/profile/experience/experience.component.scss */\nbody {\n  background-color: #f7f7f7;\n  margin-top: 20px;\n}\n.main-timeline {\n  position: relative;\n  margin-bottom: 40px;\n}\n.main-timeline:before {\n  content: "";\n  display: block;\n  width: 2px;\n  height: 100%;\n  background: #c6c6c6;\n  margin: 0 auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n}\n.main-timeline .timeline {\n  margin-bottom: 40px;\n  position: relative;\n}\n.main-timeline .timeline:after {\n  content: "";\n  display: block;\n  clear: both;\n}\n.main-timeline .icon {\n  width: 18px;\n  height: 18px;\n  line-height: 18px;\n  margin: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n}\n.main-timeline .icon:before,\n.main-timeline .icon:after {\n  content: "";\n  width: 100%;\n  height: 100%;\n  border-radius: 50%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  transition: all 0.33s ease-out 0s;\n}\n.main-timeline .icon:before {\n  background: #fff;\n  border: 2px solid #232323;\n  left: -3px;\n}\n.main-timeline .icon:after {\n  border: 2px solid #c6c6c6;\n  left: 3px;\n}\n.main-timeline .timeline:hover .icon:before {\n  left: 3px;\n}\n.main-timeline .timeline:hover .icon:after {\n  left: -3px;\n}\n.main-timeline .date-content {\n  width: 50%;\n  float: left;\n  margin-top: 22px;\n  position: relative;\n}\n.main-timeline .date-content:before {\n  content: "";\n  width: 36.5%;\n  height: 2px;\n  background: #c6c6c6;\n  margin: auto 0;\n  position: absolute;\n  top: 0;\n  right: 10px;\n  bottom: 0;\n}\n.main-timeline .date-outer {\n  width: 125px;\n  height: 125px;\n  font-size: 16px;\n  text-align: center;\n  margin: auto;\n  z-index: 1;\n}\n.main-timeline .date-outer:before,\n.main-timeline .date-outer:after {\n  content: "";\n  width: 125px;\n  height: 125px;\n  margin: 0 auto;\n  border-radius: 50%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  transition: all 0.33s ease-out 0s;\n}\n.main-timeline .date-outer:before {\n  background: #fff;\n  border: 2px solid #232323;\n  left: -6px;\n}\n.main-timeline .date-outer:after {\n  border: 2px solid #c6c6c6;\n  left: 6px;\n}\n.main-timeline .timeline:hover .date-outer:before {\n  left: 6px;\n}\n.main-timeline .timeline:hover .date-outer:after {\n  left: -6px;\n}\n.main-timeline .date {\n  width: 100%;\n  margin: auto;\n  position: absolute;\n  top: 27%;\n  left: 0;\n}\n.main-timeline .month {\n  font-size: 18px;\n  font-weight: 700;\n}\n.main-timeline .year {\n  display: block;\n  font-size: 30px;\n  font-weight: 700;\n  color: #232323;\n  line-height: 36px;\n}\n.main-timeline .timeline-content {\n  width: 50%;\n  padding: 20px 0 20px 50px;\n  float: right;\n}\n.main-timeline .title {\n  font-size: 19px;\n  font-weight: 700;\n  line-height: 24px;\n  margin: 0 0 15px 0;\n}\n.main-timeline .description {\n  margin-bottom: 0;\n}\n.main-timeline .timeline:nth-child(2n) .date-content {\n  float: right;\n}\n.main-timeline .timeline:nth-child(2n) .date-content:before {\n  left: 10px;\n}\n.main-timeline .timeline:nth-child(2n) .timeline-content {\n  padding: 20px 50px 20px 0;\n  text-align: right;\n}\n@media only screen and (max-width: 991px) {\n  .main-timeline .date-content {\n    margin-top: 35px;\n  }\n  .main-timeline .date-content:before {\n    width: 22.5%;\n  }\n  .main-timeline .timeline-content {\n    padding: 10px 0 10px 30px;\n  }\n  .main-timeline .title {\n    font-size: 17px;\n  }\n  .main-timeline .timeline:nth-child(2n) .timeline-content {\n    padding: 10px 30px 10px 0;\n  }\n}\n@media only screen and (max-width: 767px) {\n  .main-timeline:before {\n    margin: 0;\n    left: 7px;\n  }\n  .main-timeline .timeline {\n    margin-bottom: 20px;\n  }\n  .main-timeline .timeline:last-child {\n    margin-bottom: 0;\n  }\n  .main-timeline .icon {\n    margin: auto 0;\n  }\n  .main-timeline .date-content {\n    width: 95%;\n    float: right;\n    margin-top: 0;\n  }\n  .main-timeline .date-content:before {\n    display: none;\n  }\n  .main-timeline .date-outer {\n    width: 110px;\n    height: 110px;\n  }\n  .main-timeline .date-outer:before,\n  .main-timeline .date-outer:after {\n    width: 110px;\n    height: 110px;\n  }\n  .main-timeline .date {\n    top: 30%;\n  }\n  .main-timeline .year {\n    font-size: 24px;\n  }\n  .main-timeline .timeline-content,\n  .main-timeline .timeline:nth-child(2n) .timeline-content {\n    width: 95%;\n    text-align: center;\n    padding: 10px 0;\n  }\n  .main-timeline .title {\n    margin-bottom: 10px;\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */\n'] }]
+    args: [{ selector: "app-experience", standalone: true, template: '<div class="experience-section" id="experience">\n  <div class="container">\n    <h2 class="section-title">Experience</h2>\n    \n    <div class="total-experience" data-aos="fade-up">\n      <div class="experience-summary">\n        <span class="experience-label">Total Experience</span>\n        <span class="experience-years">{{totalExperience}} years</span>\n      </div>\n    </div>\n    \n    <div class="experience-timeline">\n      <!-- SDE-2 at Games24x7 -->\n      <div class="experience-item" data-aos="fade-up" data-aos-delay="100">\n        <div class="experience-date">\n          <div class="date-card">\n            <span class="duration">{{numberOfMonths}} years</span>\n            <span class="period">2022/23</span>\n          </div>\n        </div>\n        <div class="experience-content">\n          <div class="content-card">\n            <h5 class="experience-title">SDE-2 at <a href="https://www.games24x7.com/" target="_blank">Games24x7</a></h5>\n            <p class="experience-description">\n              Working as a backend developer in Platform services, for both RummyCircle and My11Circle.\n            </p>\n            <p class="experience-technologies"><b>Technologies:</b> Java 11, Spring Boot, Neptune DB, MongoDB, ElasticSearch, Druid, Kafka, AWS, Concurrency</p>\n          </div>\n        </div>\n      </div>\n\n      <!-- SDE-1 at Games24x7 -->\n      <div class="experience-item" data-aos="fade-up" data-aos-delay="200">\n        <div class="experience-date">\n          <div class="date-card">\n            <span class="duration">1.1 years</span>\n            <span class="period">2021/22</span>\n          </div>\n        </div>\n        <div class="experience-content">\n          <div class="content-card">\n            <h5 class="experience-title">SDE-1 at <a href="https://www.games24x7.com/" target="_blank">Games24x7</a></h5>\n            <p class="experience-description">\n              Working as a backend developer in My11Circle team.\n            </p>\n            <p class="experience-technologies"><b>Technologies:</b> Java 11, Spring Boot, Kafka, RabbitMQ, Zookeeper, MySQL, JSP, K8s, Docker, AWS</p>\n          </div>\n        </div>\n      </div>\n\n      <!-- SWE IN2 at Walmart -->\n      <div class="experience-item" data-aos="fade-up" data-aos-delay="300">\n        <div class="experience-date">\n          <div class="date-card">\n            <span class="duration">4 months</span>\n            <span class="period">2021</span>\n          </div>\n        </div>\n        <div class="experience-content">\n          <div class="content-card">\n            <h5 class="experience-title">SWE IN2 at <a href="https://one.walmart.com/content/globaltechindia/en_in.html" target="_blank">Walmart Global Tech</a></h5>\n            <p class="experience-description">\n              Worked as a full-stack developer at Walmart Global Tech.\n            </p>\n            <p class="experience-technologies"><b>Technologies:</b> Java 8, Spring Boot, OneOps, WCNP, Angular 8, DB2</p>\n          </div>\n        </div>\n      </div>\n\n      <!-- SDE 1 at Extramarks -->\n      <div class="experience-item" data-aos="fade-up" data-aos-delay="400">\n        <div class="experience-date">\n          <div class="date-card">\n            <span class="duration">1.3 years</span>\n            <span class="period">2020/21</span>\n          </div>\n        </div>\n        <div class="experience-content">\n          <div class="content-card">\n            <h5 class="experience-title">SDE 1 at <a href="https://www.extramarks.com/" target="_blank">Extramarks Education</a></h5>\n            <p class="experience-description">\n              Got hands on project experience, worked in a collaborative environment.\n              Created from scratch projects and deployed it into production environment.\n              Broke Monolithic architecture to Microservices and discussed the whole architecture with the team.\n            </p>\n            <p class="experience-technologies"><b>Technologies:</b> Java 8/11, Spring Boot, OAuth2.0 + JWT, AWS Cognito, Docker, MySQL 8+</p>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n', styles: ['/* src/app/profile/experience/experience.component.scss */\n.experience-section {\n  background:\n    linear-gradient(\n      135deg,\n      var(--gray-50) 0%,\n      var(--white) 100%);\n  padding: var(--spacing-3xl) 0;\n}\n.experience-timeline {\n  position: relative;\n  max-width: 800px;\n  margin: 0 auto;\n}\n.experience-timeline::before {\n  content: "";\n  position: absolute;\n  left: 50%;\n  top: 0;\n  bottom: 0;\n  width: 2px;\n  background:\n    linear-gradient(\n      180deg,\n      var(--primary-color),\n      var(--accent-color));\n  transform: translateX(-50%);\n}\n.experience-item {\n  position: relative;\n  margin-bottom: var(--spacing-2xl);\n  display: flex;\n  align-items: center;\n}\n.experience-item:nth-child(odd) {\n  flex-direction: row;\n}\n.experience-item:nth-child(odd) .experience-content {\n  margin-left: var(--spacing-xl);\n  text-align: left;\n}\n.experience-item:nth-child(odd) .experience-date {\n  margin-right: var(--spacing-xl);\n  text-align: right;\n}\n.experience-item:nth-child(even) {\n  flex-direction: row-reverse;\n}\n.experience-item:nth-child(even) .experience-content {\n  margin-right: var(--spacing-xl);\n  text-align: right;\n}\n.experience-item:nth-child(even) .experience-date {\n  margin-left: var(--spacing-xl);\n  text-align: left;\n}\n.experience-date {\n  flex: 0 0 150px;\n}\n.experience-date .date-card {\n  background: var(--white);\n  border-radius: var(--radius-lg);\n  padding: var(--spacing-md);\n  box-shadow: var(--shadow-md);\n  border: 1px solid var(--gray-200);\n  text-align: center;\n}\n.experience-date .date-card .duration {\n  display: block;\n  font-weight: 600;\n  color: var(--primary-color);\n  font-size: 0.875rem;\n  margin-bottom: var(--spacing-xs);\n}\n.experience-date .date-card .period {\n  display: block;\n  font-weight: 700;\n  color: var(--gray-900);\n  font-size: 1rem;\n}\n.experience-content {\n  flex: 1;\n}\n.experience-content .content-card {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  padding: var(--spacing-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--gray-200);\n  transition: all var(--transition-normal);\n  position: relative;\n}\n.experience-content .content-card:hover {\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n}\n.experience-content .content-card::before {\n  content: "";\n  position: absolute;\n  top: 50%;\n  width: 0;\n  height: 0;\n  border-style: solid;\n  transform: translateY(-50%);\n}\n.experience-content:nth-child(odd) .content-card::before {\n  left: -10px;\n  border-width: 10px 10px 10px 0;\n  border-color: transparent var(--white) transparent transparent;\n}\n.experience-content:nth-child(even) .content-card::before {\n  right: -10px;\n  border-width: 10px 0 10px 10px;\n  border-color: transparent transparent transparent var(--white);\n}\n.experience-title {\n  font-family: var(--font-secondary);\n  font-weight: 600;\n  font-size: 1.25rem;\n  color: var(--gray-900);\n  margin-bottom: var(--spacing-md);\n}\n.experience-title a {\n  color: var(--primary-color);\n  text-decoration: none;\n  transition: color var(--transition-normal);\n}\n.experience-title a:hover {\n  color: var(--primary-dark);\n}\n.experience-description {\n  color: var(--gray-600);\n  line-height: 1.7;\n  margin-bottom: var(--spacing-md);\n}\n.experience-description b {\n  color: var(--gray-800);\n  font-weight: 600;\n}\n.experience-technologies {\n  font-size: 0.875rem;\n  color: var(--gray-500);\n  font-weight: 500;\n}\n.experience-technologies b {\n  color: var(--primary-color);\n}\n.experience-item::after {\n  content: "";\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  width: 16px;\n  height: 16px;\n  background: var(--white);\n  border: 3px solid var(--primary-color);\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 2;\n  box-shadow: var(--shadow-sm);\n}\n.experience-section .section-title {\n  font-size: 2.5rem;\n  font-weight: 700;\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n  color: var(--gray-900);\n  position: relative;\n}\n.experience-section .section-title::after {\n  content: "";\n  position: absolute;\n  bottom: -10px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: 2px;\n}\n@media (max-width: 768px) {\n  .experience-timeline::before {\n    left: 30px;\n  }\n  .experience-item {\n    flex-direction: column !important;\n    align-items: flex-start;\n  }\n  .experience-item .experience-date {\n    flex: none;\n    margin: 0 0 var(--spacing-md) 0 !important;\n    text-align: left !important;\n  }\n  .experience-item .experience-content {\n    margin: 0 !important;\n    text-align: left !important;\n    width: 100%;\n  }\n  .experience-item::after {\n    left: 30px;\n  }\n  .experience-content .content-card::before {\n    left: -10px !important;\n    right: auto !important;\n    border-width: 10px 10px 10px 0 !important;\n    border-color: transparent var(--white) transparent transparent !important;\n  }\n  .experience-section .section-title {\n    font-size: 2rem;\n  }\n}\n.experience-item {\n  animation: fadeInUp 0.6s ease-out;\n}\n.experience-item:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.experience-item:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.experience-item:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.experience-item:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.total-experience {\n  margin-bottom: var(--spacing-3xl);\n  text-align: center;\n}\n.experience-summary {\n  background: var(--white);\n  border-radius: var(--radius-lg);\n  padding: var(--spacing-lg) var(--spacing-xl);\n  box-shadow: var(--shadow-sm);\n  border: 1px solid var(--gray-200);\n  display: inline-block;\n  min-width: 200px;\n  transition: all var(--transition-normal);\n}\n.experience-summary:hover {\n  box-shadow: var(--shadow-md);\n  transform: translateY(-1px);\n}\n.experience-label {\n  display: block;\n  font-size: 0.75rem;\n  font-weight: 600;\n  color: var(--gray-500);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n  margin-bottom: var(--spacing-xs);\n}\n.experience-years {\n  display: block;\n  font-size: 2rem;\n  font-weight: 700;\n  color: var(--primary-color);\n  font-family: var(--font-secondary);\n  margin-bottom: var(--spacing-xs);\n}\n.experience-period {\n  display: block;\n  font-size: 0.75rem;\n  color: var(--gray-400);\n  font-weight: 400;\n}\n@media (max-width: 768px) {\n  .experience-summary {\n    min-width: 180px;\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .experience-years {\n    font-size: 1.75rem;\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */\n'] }]
   }], () => [{ type: TimeService }], null);
 })();
 (() => {
@@ -46274,99 +46556,109 @@ var SkillsComponent = class _SkillsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 90, vars: 0, consts: [["id", "skill", 1, "section"], [1, "container"], [1, "h4", "text-center", "mb-4", "title"], ["data-aos", "fade-up", "data-aos-anchor-placement", "top-bottom", 1, "card"], [1, "card-body"], [1, "row"], [1, "col-md-6"], [1, "progress-container", "progress-primary"], [1, "progress-badge"], [1, "progress"], ["aria-valuemax", "100", "aria-valuemin", "0", "aria-valuenow", "60", "data-aos", "progress-full", "data-aos-duration", "2000", "data-aos-offset", "10", "role", "progressbar", 1, "progress-bar", "bg-skills", 2, "width", "90%"], [1, "progress-value"], ["aria-valuemax", "100", "aria-valuemin", "0", "aria-valuenow", "60", "data-aos", "progress-full", "data-aos-duration", "2000", "data-aos-offset", "10", "role", "progressbar", 1, "progress-bar", "bg-skills", 2, "width", "80%"], ["aria-valuemax", "100", "aria-valuemin", "0", "aria-valuenow", "60", "data-aos", "progress-full", "data-aos-duration", "2000", "data-aos-offset", "10", "role", "progressbar", 1, "progress-bar", "bg-skills", 2, "width", "85%"], ["aria-valuemax", "100", "aria-valuemin", "0", "aria-valuenow", "60", "data-aos", "progress-full", "data-aos-duration", "2000", "data-aos-offset", "10", "role", "progressbar", 1, "progress-bar", "bg-skills", 2, "width", "75%"]], template: function SkillsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 87, vars: 0, consts: [["id", "skill", 1, "skills-section"], [1, "container"], [1, "section-title"], ["data-aos", "fade-up", "data-aos-anchor-placement", "top-bottom", 1, "skills-card"], [1, "card-body"], [1, "skills-grid"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "skill-item"], [1, "skill-header"], [1, "skill-name"], [1, "skill-percentage"], [1, "skill-progress"], [1, "skill-progress-bar", 2, "width", "90%"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "skill-item"], [1, "skill-progress-bar", 2, "width", "95%"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "400", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "500", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "600", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "700", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "800", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "900", 1, "skill-item"], [1, "skill-progress-bar", 2, "width", "99%"], ["data-aos", "fade-up", "data-aos-delay", "1000", 1, "skill-item"]], template: function SkillsComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2);
+        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "h2", 2);
         \u0275\u0275text(3, "Skills");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(4, "div", 3)(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "div", 7)(9, "span", 8);
-        \u0275\u0275text(10, "Java 11");
+        \u0275\u0275domElementStart(4, "div", 3)(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "div", 7)(9, "h5", 8);
+        \u0275\u0275text(10, "Java 21");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(11, "div", 9);
-        \u0275\u0275domElement(12, "div", 10);
-        \u0275\u0275domElementStart(13, "span", 11);
-        \u0275\u0275text(14, "90%");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(15, "div", 6)(16, "div", 7)(17, "span", 8);
-        \u0275\u0275text(18, "Spring Framework");
+        \u0275\u0275domElementStart(11, "span", 9);
+        \u0275\u0275text(12, "90%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(13, "div", 10);
+        \u0275\u0275domElement(14, "div", 11);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(15, "div", 12)(16, "div", 7)(17, "h5", 8);
+        \u0275\u0275text(18, "DSA");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(19, "div", 9);
-        \u0275\u0275domElement(20, "div", 12);
-        \u0275\u0275domElementStart(21, "span", 11);
-        \u0275\u0275text(22, "80%");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(23, "div", 5)(24, "div", 6)(25, "div", 7)(26, "span", 8);
-        \u0275\u0275text(27, "Data Structure & Algorithms");
+        \u0275\u0275domElementStart(19, "span", 9);
+        \u0275\u0275text(20, "95%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(21, "div", 10);
+        \u0275\u0275domElement(22, "div", 13);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(23, "div", 14)(24, "div", 7)(25, "h5", 8);
+        \u0275\u0275text(26, "High Level Design");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(28, "div", 9);
-        \u0275\u0275domElement(29, "div", 13);
-        \u0275\u0275domElementStart(30, "span", 11);
-        \u0275\u0275text(31, "90%");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(32, "div", 6)(33, "div", 7)(34, "span", 8);
-        \u0275\u0275text(35, "Databases");
+        \u0275\u0275domElementStart(27, "span", 9);
+        \u0275\u0275text(28, "95%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(29, "div", 10);
+        \u0275\u0275domElement(30, "div", 13);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(31, "div", 15)(32, "div", 7)(33, "h5", 8);
+        \u0275\u0275text(34, "Low Level Design");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(36, "div", 9);
-        \u0275\u0275domElement(37, "div", 12);
-        \u0275\u0275domElementStart(38, "span", 11);
-        \u0275\u0275text(39, "85%");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(40, "div", 5)(41, "div", 6)(42, "div", 7)(43, "span", 8);
-        \u0275\u0275text(44, "Backend Web Development");
+        \u0275\u0275domElementStart(35, "span", 9);
+        \u0275\u0275text(36, "90%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(37, "div", 10);
+        \u0275\u0275domElement(38, "div", 11);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(39, "div", 16)(40, "div", 7)(41, "h5", 8);
+        \u0275\u0275text(42, "Databases");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(45, "div", 9);
-        \u0275\u0275domElement(46, "div", 12);
-        \u0275\u0275domElementStart(47, "span", 11);
-        \u0275\u0275text(48, "80%");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(49, "div", 6)(50, "div", 7)(51, "span", 8);
-        \u0275\u0275text(52, "Concurrency");
+        \u0275\u0275domElementStart(43, "span", 9);
+        \u0275\u0275text(44, "95%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(45, "div", 10);
+        \u0275\u0275domElement(46, "div", 13);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(47, "div", 17)(48, "div", 7)(49, "h5", 8);
+        \u0275\u0275text(50, "Spring Boot");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(53, "div", 9);
-        \u0275\u0275domElement(54, "div", 14);
-        \u0275\u0275domElementStart(55, "span", 11);
-        \u0275\u0275text(56, "90%");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(57, "div", 5)(58, "div", 6)(59, "div", 7)(60, "span", 8);
-        \u0275\u0275text(61, "Microservices");
+        \u0275\u0275domElementStart(51, "span", 9);
+        \u0275\u0275text(52, "90%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(53, "div", 10);
+        \u0275\u0275domElement(54, "div", 11);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(55, "div", 18)(56, "div", 7)(57, "h5", 8);
+        \u0275\u0275text(58, "Microservices");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(62, "div", 9);
-        \u0275\u0275domElement(63, "div", 14);
-        \u0275\u0275domElementStart(64, "span", 11);
-        \u0275\u0275text(65, "90%");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(66, "div", 6)(67, "div", 7)(68, "span", 8);
-        \u0275\u0275text(69, "Messaging Queues");
+        \u0275\u0275domElementStart(59, "span", 9);
+        \u0275\u0275text(60, "95%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(61, "div", 10);
+        \u0275\u0275domElement(62, "div", 13);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(63, "div", 19)(64, "div", 7)(65, "h5", 8);
+        \u0275\u0275text(66, "Redis");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(70, "div", 9);
-        \u0275\u0275domElement(71, "div", 12);
-        \u0275\u0275domElementStart(72, "span", 11);
-        \u0275\u0275text(73, "85%");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(74, "div", 6)(75, "div", 7)(76, "span", 8);
-        \u0275\u0275text(77, "AWS");
+        \u0275\u0275domElementStart(67, "span", 9);
+        \u0275\u0275text(68, "90%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(69, "div", 10);
+        \u0275\u0275domElement(70, "div", 11);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(71, "div", 20)(72, "div", 7)(73, "h5", 8);
+        \u0275\u0275text(74, "Kafka");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(78, "div", 9);
-        \u0275\u0275domElement(79, "div", 12);
-        \u0275\u0275domElementStart(80, "span", 11);
-        \u0275\u0275text(81, "85%");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(82, "div", 6)(83, "div", 7)(84, "span", 8);
-        \u0275\u0275text(85, "Redis");
+        \u0275\u0275domElementStart(75, "span", 9);
+        \u0275\u0275text(76, "99%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(77, "div", 10);
+        \u0275\u0275domElement(78, "div", 21);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(79, "div", 22)(80, "div", 7)(81, "h5", 8);
+        \u0275\u0275text(82, "LLM");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(86, "div", 9);
-        \u0275\u0275domElement(87, "div", 12);
-        \u0275\u0275domElementStart(88, "span", 11);
-        \u0275\u0275text(89, "95%");
-        \u0275\u0275domElementEnd()()()()()()()()();
+        \u0275\u0275domElementStart(83, "span", 9);
+        \u0275\u0275text(84, "90%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(85, "div", 10);
+        \u0275\u0275domElement(86, "div", 11);
+        \u0275\u0275domElementEnd()()()()()()();
       }
-    }, styles: ["\n\nhtml[_ngcontent-%COMP%] {\n  background-color: black;\n}\n/*# sourceMappingURL=skills.component.css.map */"] });
+    }, styles: ['\n\n.skills-section[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--white) 0%,\n      var(--gray-50) 100%);\n  padding: var(--spacing-3xl) 0;\n}\n.skills-card[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--gray-200);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n}\n.skills-card[_ngcontent-%COMP%]:hover {\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n}\n.skills-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: var(--spacing-2xl);\n}\n.skills-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-xl);\n}\n.skill-item[_ngcontent-%COMP%] {\n  background: var(--gray-50);\n  border-radius: var(--radius-lg);\n  padding: var(--spacing-lg);\n  border: 1px solid var(--gray-200);\n  transition: all var(--transition-normal);\n}\n.skill-item[_ngcontent-%COMP%]:hover {\n  background: var(--white);\n  box-shadow: var(--shadow-md);\n  transform: translateY(-2px);\n}\n.skill-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: var(--spacing-md);\n}\n.skill-name[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-weight: 600;\n  font-size: 1rem;\n  color: var(--gray-900);\n  margin: 0;\n}\n.skill-percentage[_ngcontent-%COMP%] {\n  font-weight: 600;\n  color: var(--primary-color);\n  font-size: 0.875rem;\n}\n.skill-progress[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 8px;\n  background: var(--gray-200);\n  border-radius: var(--radius-sm);\n  overflow: hidden;\n  position: relative;\n}\n.skill-progress-bar[_ngcontent-%COMP%] {\n  height: 100%;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: var(--radius-sm);\n  transition: width 1.5s ease-in-out;\n  position: relative;\n}\n.skill-progress-bar[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  animation: _ngcontent-%COMP%_shimmer 2s infinite;\n}\n@keyframes _ngcontent-%COMP%_shimmer {\n  0% {\n    transform: translateX(-100%);\n  }\n  100% {\n    transform: translateX(100%);\n  }\n}\n.skills-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  font-weight: 700;\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n  color: var(--gray-900);\n  position: relative;\n}\n.skills-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -10px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: 2px;\n}\n@media (max-width: 768px) {\n  .skills-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .skills-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .skills-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .skill-item[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n}\n.skill-item[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.6s ease-out;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(5) {\n  animation-delay: 0.5s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(6) {\n  animation-delay: 0.6s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(7) {\n  animation-delay: 0.7s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(8) {\n  animation-delay: 0.8s;\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(SkillsComponent, [{
     type: Component,
-    args: [{ selector: "app-skills", standalone: true, template: '<div class="section" id="skill">\n  <div class="container">\n    <div class="h4 text-center mb-4 title">Skills</div>\n    <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">\n      <div class="card-body">\n        <div class="row">\n          <div class="col-md-6">\n            <div class="progress-container progress-primary">\n              <span class="progress-badge">Java 11</span>\n              <div class="progress">\n                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="60"\n                     class="progress-bar bg-skills" data-aos="progress-full" data-aos-duration="2000" data-aos-offset="10"\n                     role="progressbar"\n                     style="width: 90%;"></div>\n                <span class="progress-value">90%</span>\n              </div>\n            </div>\n          </div>\n          <div class="col-md-6">\n            <div class="progress-container progress-primary">\n              <span class="progress-badge">Spring Framework</span>\n              <div class="progress">\n                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="60"\n                     class="progress-bar bg-skills" data-aos="progress-full" data-aos-duration="2000" data-aos-offset="10"\n                     role="progressbar"\n                     style="width: 80%;"></div>\n                <span class="progress-value">80%</span>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class="row">\n          <div class="col-md-6">\n            <div class="progress-container progress-primary">\n              <span class="progress-badge">Data Structure & Algorithms</span>\n              <div class="progress">\n                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="60"\n                     class="progress-bar bg-skills" data-aos="progress-full" data-aos-duration="2000" data-aos-offset="10"\n                     role="progressbar"\n                     style="width: 85%;"></div>\n                <span class="progress-value">90%</span>\n              </div>\n            </div>\n          </div>\n          <div class="col-md-6">\n            <div class="progress-container progress-primary">\n              <span class="progress-badge">Databases</span>\n              <div class="progress">\n                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" class="progress-bar bg-skills"\n                     data-aos="progress-full" data-aos-duration="2000" data-aos-offset="10" role="progressbar"\n                     style="width: 80%;"\n                ></div>\n                <span class="progress-value">85%</span>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class="row">\n          <div class="col-md-6">\n            <div class="progress-container progress-primary">\n              <span class="progress-badge">Backend Web Development</span>\n              <div class="progress">\n                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="60"\n                     class="progress-bar bg-skills" data-aos="progress-full" data-aos-duration="2000" data-aos-offset="10"\n                     role="progressbar"\n                     style="width: 80%;"></div>\n                <span class="progress-value">80%</span>\n              </div>\n            </div>\n          </div>\n          <div class="col-md-6">\n            <div class="progress-container progress-primary">\n              <span class="progress-badge">Concurrency</span>\n              <div class="progress">\n                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="60"\n                     class="progress-bar bg-skills" data-aos="progress-full" data-aos-duration="2000" data-aos-offset="10"\n                     role="progressbar"\n                     style="width: 75%;"></div>\n                <span class="progress-value">90%</span>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class="row">\n          <div class="col-md-6">\n            <div class="progress-container progress-primary">\n              <span class="progress-badge">Microservices</span>\n              <div class="progress">\n                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="60"\n                     class="progress-bar bg-skills" data-aos="progress-full" data-aos-duration="2000" data-aos-offset="10"\n                     role="progressbar"\n                     style="width: 75%;"></div>\n                <span class="progress-value">90%</span>\n              </div>\n            </div>\n          </div>\n          <div class="col-md-6">\n            <div class="progress-container progress-primary">\n              <span class="progress-badge">Messaging Queues</span>\n              <div class="progress">\n                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="60"\n                     class="progress-bar bg-skills" data-aos="progress-full" data-aos-duration="2000" data-aos-offset="10"\n                     role="progressbar"\n                     style="width: 80%;"></div>\n                <span class="progress-value">85%</span>\n              </div>\n            </div>\n          </div>\n          <div class="col-md-6">\n            <div class="progress-container progress-primary">\n              <span class="progress-badge">AWS</span>\n              <div class="progress">\n                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="60"\n                     class="progress-bar bg-skills" data-aos="progress-full" data-aos-duration="2000" data-aos-offset="10"\n                     role="progressbar"\n                     style="width: 80%;"></div>\n                <span class="progress-value">85%</span>\n              </div>\n            </div>\n          </div>\n          <div class="col-md-6">\n            <div class="progress-container progress-primary">\n              <span class="progress-badge">Redis</span>\n              <div class="progress">\n                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="60"\n                     class="progress-bar bg-skills" data-aos="progress-full" data-aos-duration="2000" data-aos-offset="10"\n                     role="progressbar"\n                     style="width: 80%;"></div>\n                <span class="progress-value">95%</span>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n', styles: ["/* src/app/profile/skills/skills.component.scss */\nhtml {\n  background-color: black;\n}\n/*# sourceMappingURL=skills.component.css.map */\n"] }]
+    args: [{ selector: "app-skills", standalone: true, template: '<div class="skills-section" id="skill">\n  <div class="container">\n    <h2 class="section-title">Skills</h2>\n    \n    <div class="skills-card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">\n      <div class="card-body">\n        <div class="skills-grid">\n          <!-- Java 21 -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="100">\n            <div class="skill-header">\n              <h5 class="skill-name">Java 21</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- DSA -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="200">\n            <div class="skill-header">\n              <h5 class="skill-name">DSA</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- High Level Design -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="300">\n            <div class="skill-header">\n              <h5 class="skill-name">High Level Design</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- Low Level Design -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="400">\n            <div class="skill-header">\n              <h5 class="skill-name">Low Level Design</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- Databases -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="500">\n            <div class="skill-header">\n              <h5 class="skill-name">Databases</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- Spring Boot -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="600">\n            <div class="skill-header">\n              <h5 class="skill-name">Spring Boot</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- Microservices -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="700">\n            <div class="skill-header">\n              <h5 class="skill-name">Microservices</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- Redis -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="800">\n            <div class="skill-header">\n              <h5 class="skill-name">Redis</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- Kafka -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="900">\n            <div class="skill-header">\n              <h5 class="skill-name">Kafka</h5>\n              <span class="skill-percentage">99%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 99%;"></div>\n            </div>\n          </div>\n\n          <!-- LLM -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="1000">\n            <div class="skill-header">\n              <h5 class="skill-name">LLM</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n', styles: ['/* src/app/profile/skills/skills.component.scss */\n.skills-section {\n  background:\n    linear-gradient(\n      135deg,\n      var(--white) 0%,\n      var(--gray-50) 100%);\n  padding: var(--spacing-3xl) 0;\n}\n.skills-card {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--gray-200);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n}\n.skills-card:hover {\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n}\n.skills-card .card-body {\n  padding: var(--spacing-2xl);\n}\n.skills-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-xl);\n}\n.skill-item {\n  background: var(--gray-50);\n  border-radius: var(--radius-lg);\n  padding: var(--spacing-lg);\n  border: 1px solid var(--gray-200);\n  transition: all var(--transition-normal);\n}\n.skill-item:hover {\n  background: var(--white);\n  box-shadow: var(--shadow-md);\n  transform: translateY(-2px);\n}\n.skill-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: var(--spacing-md);\n}\n.skill-name {\n  font-family: var(--font-secondary);\n  font-weight: 600;\n  font-size: 1rem;\n  color: var(--gray-900);\n  margin: 0;\n}\n.skill-percentage {\n  font-weight: 600;\n  color: var(--primary-color);\n  font-size: 0.875rem;\n}\n.skill-progress {\n  width: 100%;\n  height: 8px;\n  background: var(--gray-200);\n  border-radius: var(--radius-sm);\n  overflow: hidden;\n  position: relative;\n}\n.skill-progress-bar {\n  height: 100%;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: var(--radius-sm);\n  transition: width 1.5s ease-in-out;\n  position: relative;\n}\n.skill-progress-bar::after {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  animation: shimmer 2s infinite;\n}\n@keyframes shimmer {\n  0% {\n    transform: translateX(-100%);\n  }\n  100% {\n    transform: translateX(100%);\n  }\n}\n.skills-section .section-title {\n  font-size: 2.5rem;\n  font-weight: 700;\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n  color: var(--gray-900);\n  position: relative;\n}\n.skills-section .section-title::after {\n  content: "";\n  position: absolute;\n  bottom: -10px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: 2px;\n}\n@media (max-width: 768px) {\n  .skills-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .skills-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .skills-section .section-title {\n    font-size: 2rem;\n  }\n  .skill-item {\n    padding: var(--spacing-md);\n  }\n}\n.skill-item {\n  animation: fadeInUp 0.6s ease-out;\n}\n.skill-item:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.skill-item:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.skill-item:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.skill-item:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.skill-item:nth-child(5) {\n  animation-delay: 0.5s;\n}\n.skill-item:nth-child(6) {\n  animation-delay: 0.6s;\n}\n.skill-item:nth-child(7) {\n  animation-delay: 0.7s;\n}\n.skill-item:nth-child(8) {\n  animation-delay: 0.8s;\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
@@ -46385,57 +46677,57 @@ var PublicationsComponent = class _PublicationsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 44, vars: 0, consts: [["id", "publications", 1, "section"], [1, "container", "cc-education"], [1, "h4", "text-center", "mb-4", "title"], [1, "card"], [1, "row"], ["data-aos", "fade-right", "data-aos-duration", "500", "data-aos-offset", "50", 1, "col-md-3", 2, "text-align", "center"], [1, "card-body", 2, "margin", "auto"], ["href", "https://sersc.org/journals/index.php/IJCA/article/view/18866", "target", "_blank"], ["alt", "SortMe", "border", "0", "height", "200", "src", "assets/images/umpire.png", "width", "400"], ["data-aos", "fade-left", "data-aos-duration", "500", "data-aos-offset", "50", 1, "col-md-9"], [1, "card-body"], [1, "h5", "mb-3"], ["align", "justify"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [2, "width", "100%", "height", "200px", "background", "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", "border-radius", "8px", "display", "flex", "flex-direction", "column", "justify-content", "center", "align-items", "center", "color", "white", "text-align", "center", "padding", "20px", "box-sizing", "border-box"], [2, "margin", "0", "font-size", "20px", "font-weight", "bold"], [2, "margin", "8px 0 0 0", "font-size", "12px", "opacity", "0.9"], [2, "margin", "4px 0 0 0", "font-size", "10px", "opacity", "0.8"], [2, "margin", "4px 0 0 0", "font-size", "9px", "opacity", "0.7"]], template: function PublicationsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 45, vars: 0, consts: [["id", "publications", 1, "projects-section"], [1, "container"], [1, "section-title"], [1, "projects-grid"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card"], [1, "row"], [1, "col-md-4"], [1, "project-image"], ["href", "https://sersc.org/journals/index.php/IJCA/article/view/18866", "target", "_blank"], ["alt", "SortMe", "src", "assets/images/umpire.png"], [1, "col-md-8"], [1, "project-content"], [1, "project-title"], [1, "project-description"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview"], [1, "tech-stack"], [1, "powered-by"]], template: function PublicationsComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2);
+        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "h2", 2);
         \u0275\u0275text(3, "Projects");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(4, "div", 3)(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "a", 7);
-        \u0275\u0275domElement(9, "img", 8);
+        \u0275\u0275domElementStart(4, "div", 3)(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "div", 7)(9, "a", 8);
+        \u0275\u0275domElement(10, "img", 9);
         \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(10, "div", 9)(11, "div", 10)(12, "div", 11);
-        \u0275\u0275text(13, "Umpire Gesture Recognition");
+        \u0275\u0275domElementStart(11, "div", 10)(12, "div", 11)(13, "h3", 12);
+        \u0275\u0275text(14, "Umpire Gesture Recognition");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(14, "p", 12);
-        \u0275\u0275text(15, " Implemented an umpire gesture recognition system using ");
-        \u0275\u0275domElementStart(16, "b");
-        \u0275\u0275text(17, "Digital Image Processing Filters");
+        \u0275\u0275domElementStart(15, "p", 13);
+        \u0275\u0275text(16, " Implemented an umpire gesture recognition system using ");
+        \u0275\u0275domElementStart(17, "b");
+        \u0275\u0275text(18, "Digital Image Processing Filters");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(18, ". Underlying Idea of the research paper was to maintain scoreboard efficiently. ");
+        \u0275\u0275text(19, ". Underlying Idea of the research paper was to maintain scoreboard efficiently. ");
         \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(19, "div", 3)(20, "div", 4)(21, "div", 5)(22, "div", 6)(23, "a", 13)(24, "div", 14)(25, "h3", 15);
-        \u0275\u0275text(26, "\u{1F33F} Divine Wisdom");
+        \u0275\u0275domElementStart(20, "div", 4)(21, "div", 5)(22, "div", 6)(23, "div", 7)(24, "a", 14)(25, "div", 15)(26, "h3");
+        \u0275\u0275text(27, "\u{1F33F} Divine Wisdom");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(27, "p", 16);
-        \u0275\u0275text(28, "Sacred guidance from ancient texts");
+        \u0275\u0275domElementStart(28, "p");
+        \u0275\u0275text(29, "Sacred guidance from ancient texts");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(29, "p", 17);
-        \u0275\u0275text(30, "Bhagavad Gita \u2022 The Vedas \u2022 Holy Quran");
+        \u0275\u0275domElementStart(30, "div", 16);
+        \u0275\u0275text(31, "Bhagavad Gita \u2022 The Vedas \u2022 Holy Quran");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(31, "p", 17);
-        \u0275\u0275text(32, "Holy Bible \u2022 Guru Granth Sahib");
+        \u0275\u0275domElementStart(32, "div", 16);
+        \u0275\u0275text(33, "Holy Bible \u2022 Guru Granth Sahib");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(33, "p", 18);
-        \u0275\u0275text(34, "Powered by GPT-4.1");
+        \u0275\u0275domElementStart(34, "div", 17);
+        \u0275\u0275text(35, "Powered by GPT-4.1");
         \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(35, "div", 9)(36, "div", 10)(37, "div", 11);
-        \u0275\u0275text(38, "Divine Wisdom");
+        \u0275\u0275domElementStart(36, "div", 10)(37, "div", 11)(38, "h3", 12);
+        \u0275\u0275text(39, "Divine Wisdom");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(39, "p", 12);
-        \u0275\u0275text(40, " AI Powered Faith Tech, that provides you life insights from different scriptures such as ");
-        \u0275\u0275domElementStart(41, "b");
-        \u0275\u0275text(42, "Gita, Vedas, Quran, Bible, & Guru Granth Sahib");
+        \u0275\u0275domElementStart(40, "p", 13);
+        \u0275\u0275text(41, " AI Powered Faith Tech, that provides you life insights from different scriptures such as ");
+        \u0275\u0275domElementStart(42, "b");
+        \u0275\u0275text(43, "Gita, Vedas, Quran, Bible, & Guru Granth Sahib");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(43, ". ");
-        \u0275\u0275domElementEnd()()()()()()();
+        \u0275\u0275text(44, ". ");
+        \u0275\u0275domElementEnd()()()()()()()();
       }
-    }, encapsulation: 2 });
+    }, styles: ['\n\n.projects-section[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--gray-50) 0%,\n      var(--white) 100%);\n  padding: var(--spacing-3xl) 0;\n}\n.projects-grid[_ngcontent-%COMP%] {\n  display: grid;\n  gap: var(--spacing-2xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-md);\n  border: 1px solid var(--gray-200);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-4px);\n}\n.project-image[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]:hover   img[_ngcontent-%COMP%], \n.project-image[_ngcontent-%COMP%]:hover   .project-preview[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.project-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--gray-900);\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: var(--gray-600);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--gray-900);\n  font-weight: 600;\n}\n.projects-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  font-weight: 700;\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n  color: var(--gray-900);\n  position: relative;\n}\n.projects-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -10px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: 2px;\n}\n@media (max-width: 768px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    gap: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n  .projects-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n}\n.project-card[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.6s ease-out;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PublicationsComponent, [{
     type: Component,
-    args: [{ selector: "app-publications", standalone: true, template: '<div class="section" id="publications">\n  <div class="container cc-education">\n    <div class="h4 text-center mb-4 title">Projects</div>\n    <div class="card">\n      <div class="row">\n        <div class="col-md-3"\n             data-aos="fade-right"\n             data-aos-duration="500"\n             data-aos-offset="50"\n             style="text-align: center;"\n        >\n          <div class="card-body" style="margin: auto;">\n\n            <a href="https://sersc.org/journals/index.php/IJCA/article/view/18866"\n               target="_blank">\n              <img alt="SortMe" border="0" height="200" src="assets/images/umpire.png" width="400">\n            </a>\n          </div>\n        </div>\n        <div\n          class="col-md-9"\n          data-aos="fade-left"\n          data-aos-duration="500"\n          data-aos-offset="50">\n          <div class="card-body">\n            <div class="h5 mb-3">Umpire Gesture Recognition</div>\n\n\n            <p align="justify">\n              Implemented an umpire gesture recognition system using <b>Digital Image Processing Filters</b>.\n              Underlying Idea of the research paper was to maintain scoreboard efficiently.\n            </p>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class="card">\n      <div class="row">\n        <div class="col-md-3"\n             data-aos="fade-right"\n             data-aos-duration="500"\n             data-aos-offset="50"\n             style="text-align: center;"\n        >\n          <div class="card-body" style="margin: auto;">\n\n            <a href="https://beingmartinbmc.github.io/epic/"\n               target="_blank">\n              <div style="width: 100%; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; box-sizing: border-box;">\n                <h3 style="margin: 0; font-size: 20px; font-weight: bold;">\u{1F33F} Divine Wisdom</h3>\n                <p style="margin: 8px 0 0 0; font-size: 12px; opacity: 0.9;">Sacred guidance from ancient texts</p>\n                <p style="margin: 4px 0 0 0; font-size: 10px; opacity: 0.8;">Bhagavad Gita \u2022 The Vedas \u2022 Holy Quran</p>\n                <p style="margin: 4px 0 0 0; font-size: 10px; opacity: 0.8;">Holy Bible \u2022 Guru Granth Sahib</p>\n                <p style="margin: 4px 0 0 0; font-size: 9px; opacity: 0.7;">Powered by GPT-4.1</p>\n              </div>\n            </a>\n          </div>\n        </div>\n        <div\n          class="col-md-9"\n          data-aos="fade-left"\n          data-aos-duration="500"\n          data-aos-offset="50">\n          <div class="card-body">\n            <div class="h5 mb-3">Divine Wisdom</div>\n\n\n            <p align="justify">\n              AI Powered Faith Tech, that provides you life insights from different scriptures such as <b>Gita, Vedas, Quran, Bible, & Guru Granth Sahib</b>.\n            </p>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n' }]
+    args: [{ selector: "app-publications", standalone: true, template: '<div class="projects-section" id="publications">\n  <div class="container">\n    <h2 class="section-title">Projects</h2>\n    \n    <div class="projects-grid">\n      <div class="project-card" data-aos="fade-up" data-aos-duration="500" data-aos-offset="50">\n        <div class="row">\n          <div class="col-md-4">\n            <div class="project-image">\n              <a href="https://sersc.org/journals/index.php/IJCA/article/view/18866" target="_blank">\n                <img alt="SortMe" src="assets/images/umpire.png">\n              </a>\n            </div>\n          </div>\n          <div class="col-md-8">\n            <div class="project-content">\n              <h3 class="project-title">Umpire Gesture Recognition</h3>\n              <p class="project-description">\n                Implemented an umpire gesture recognition system using <b>Digital Image Processing Filters</b>.\n                Underlying Idea of the research paper was to maintain scoreboard efficiently.\n              </p>\n            </div>\n          </div>\n        </div>\n      </div>\n      \n      <div class="project-card" data-aos="fade-up" data-aos-duration="500" data-aos-offset="50">\n        <div class="row">\n          <div class="col-md-4">\n            <div class="project-image">\n              <a href="https://beingmartinbmc.github.io/epic/" target="_blank">\n                <div class="project-preview">\n                  <h3>\u{1F33F} Divine Wisdom</h3>\n                  <p>Sacred guidance from ancient texts</p>\n                  <div class="tech-stack">Bhagavad Gita \u2022 The Vedas \u2022 Holy Quran</div>\n                  <div class="tech-stack">Holy Bible \u2022 Guru Granth Sahib</div>\n                  <div class="powered-by">Powered by GPT-4.1</div>\n                </div>\n              </a>\n            </div>\n          </div>\n          <div class="col-md-8">\n            <div class="project-content">\n              <h3 class="project-title">Divine Wisdom</h3>\n              <p class="project-description">\n                AI Powered Faith Tech, that provides you life insights from different scriptures such as <b>Gita, Vedas, Quran, Bible, & Guru Granth Sahib</b>.\n              </p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n', styles: ['/* src/app/profile/publications/publications.component.scss */\n.projects-section {\n  background:\n    linear-gradient(\n      135deg,\n      var(--gray-50) 0%,\n      var(--white) 100%);\n  padding: var(--spacing-3xl) 0;\n}\n.projects-grid {\n  display: grid;\n  gap: var(--spacing-2xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-md);\n  border: 1px solid var(--gray-200);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n}\n.project-card:hover {\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-4px);\n}\n.project-image {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image img {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview h3 {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image .project-preview p {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image .project-preview .tech-stack {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image .project-preview .powered-by {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image:hover img,\n.project-image:hover .project-preview {\n  transform: scale(1.05);\n}\n.project-content {\n  padding: var(--spacing-xl);\n}\n.project-content .project-title {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--gray-900);\n}\n.project-content .project-description {\n  color: var(--gray-600);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content .project-description b {\n  color: var(--gray-900);\n  font-weight: 600;\n}\n.projects-section .section-title {\n  font-size: 2.5rem;\n  font-weight: 700;\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n  color: var(--gray-900);\n  position: relative;\n}\n.projects-section .section-title::after {\n  content: "";\n  position: absolute;\n  bottom: -10px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: 2px;\n}\n@media (max-width: 768px) {\n  .projects-grid {\n    gap: var(--spacing-lg);\n  }\n  .project-content {\n    padding: var(--spacing-lg);\n  }\n  .project-content .project-title {\n    font-size: 1.25rem;\n  }\n  .projects-section .section-title {\n    font-size: 2rem;\n  }\n}\n.project-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.project-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
@@ -46452,67 +46744,64 @@ var BlogComponent = class _BlogComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 53, vars: 0, consts: [["id", "blogs", 1, "section"], [1, "container"], [1, "h4", "text-center", "mb-4", "title"], [1, "row"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "col-lg-4", "col-md-6", "mb-4"], [1, "card", "blog-card", "h-100"], [1, "card-body"], [1, "blog-meta", "mb-3"], [1, "badge", "badge-primary"], [1, "text-muted", "ml-2"], [1, "card-title"], [1, "card-text"], [1, "blog-footer"], ["href", "https://medium.com/@Games24x7Tech/fortress-of-fair-play-stopping-frauds-at-games24x7-7e8b928266b5", "target", "_blank", 1, "btn", "btn-primary", "btn-sm"], [1, "fas", "fa-external-link-alt", "mr-1"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "col-lg-4", "col-md-6", "mb-4"], ["href", "https://medium.com/@Games24x7Tech/neptune-navigator-navigating-performance-challenges-2daad0155d61", "target", "_blank", 1, "btn", "btn-primary", "btn-sm"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "col-lg-4", "col-md-6", "mb-4"], ["href", "https://medium.com/@Games24x7Tech/games24x7-where-trust-meets-gameplay-f477bb8715f3", "target", "_blank", 1, "btn", "btn-primary", "btn-sm"]], template: function BlogComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 47, vars: 0, consts: [["id", "blogs", 1, "blog-section"], [1, "container"], [1, "section-title"], [1, "blog-grid"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "blog-card"], [1, "card-body"], [1, "blog-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "blog-actions"], ["href", "https://medium.com/@Games24x7Tech/fortress-of-fair-play-stopping-frauds-at-games24x7-7e8b928266b5", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "blog-card"], ["href", "https://medium.com/@Games24x7Tech/neptune-navigator-navigating-performance-challenges-2daad0155d61", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "blog-card"], ["href", "https://medium.com/@Games24x7Tech/games24x7-where-trust-meets-gameplay-f477bb8715f3", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"]], template: function BlogComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2);
+        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "h2", 2);
         \u0275\u0275text(3, "Blogs");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(4, "div", 3)(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "div", 7)(9, "span", 8);
-        \u0275\u0275text(10, "Games24x7");
+        \u0275\u0275domElementStart(4, "div", 3)(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "span", 7);
+        \u0275\u0275text(9, "Medium");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(11, "span", 9);
-        \u0275\u0275text(12, "Tech Blog");
+        \u0275\u0275domElementStart(10, "span", 8);
+        \u0275\u0275text(11, "Games24x7 Tech");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(13, "h5", 10);
-        \u0275\u0275text(14, "Fortress of Fair Play: Stopping Frauds at Games24x7");
+        \u0275\u0275domElementStart(12, "h5", 9);
+        \u0275\u0275text(13, "Fortress of Fair Play: Stopping Frauds at Games24x7");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(15, "p", 11);
-        \u0275\u0275text(16, " Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay and maintain trust in our gaming platforms. ");
+        \u0275\u0275domElementStart(14, "p", 10);
+        \u0275\u0275text(15, " Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay and maintain trust in our gaming ecosystem. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(17, "div", 12)(18, "a", 13);
-        \u0275\u0275domElement(19, "i", 14);
-        \u0275\u0275text(20, " Read Article ");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(21, "div", 15)(22, "div", 5)(23, "div", 6)(24, "div", 7)(25, "span", 8);
-        \u0275\u0275text(26, "Games24x7");
+        \u0275\u0275domElementStart(16, "div", 11)(17, "a", 12);
+        \u0275\u0275text(18, " Read on Medium ");
+        \u0275\u0275domElementEnd()()()();
+        \u0275\u0275domElementStart(19, "div", 13)(20, "div", 5)(21, "div", 6)(22, "span", 7);
+        \u0275\u0275text(23, "Medium");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(27, "span", 9);
-        \u0275\u0275text(28, "Tech Blog");
+        \u0275\u0275domElementStart(24, "span", 8);
+        \u0275\u0275text(25, "Games24x7 Tech");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(29, "h5", 10);
-        \u0275\u0275text(30, "Neptune Navigator: Navigating Performance Challenges");
+        \u0275\u0275domElementStart(26, "h5", 9);
+        \u0275\u0275text(27, "Neptune Navigator: Navigating Performance Challenges");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(31, "p", 11);
-        \u0275\u0275text(32, " Discover how we tackle performance challenges using Neptune database and optimize our systems for high-traffic gaming environments at Games24x7. ");
+        \u0275\u0275domElementStart(28, "p", 10);
+        \u0275\u0275text(29, " Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms at Games24x7. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(33, "div", 12)(34, "a", 16);
-        \u0275\u0275domElement(35, "i", 14);
-        \u0275\u0275text(36, " Read Article ");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(37, "div", 17)(38, "div", 5)(39, "div", 6)(40, "div", 7)(41, "span", 8);
-        \u0275\u0275text(42, "Games24x7");
+        \u0275\u0275domElementStart(30, "div", 11)(31, "a", 14);
+        \u0275\u0275text(32, " Read on Medium ");
+        \u0275\u0275domElementEnd()()()();
+        \u0275\u0275domElementStart(33, "div", 15)(34, "div", 5)(35, "div", 6)(36, "span", 7);
+        \u0275\u0275text(37, "Medium");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(43, "span", 9);
-        \u0275\u0275text(44, "Tech Blog");
+        \u0275\u0275domElementStart(38, "span", 8);
+        \u0275\u0275text(39, "Games24x7 Tech");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(45, "h5", 10);
-        \u0275\u0275text(46, "Games24x7: Where Trust Meets Gameplay");
+        \u0275\u0275domElementStart(40, "h5", 9);
+        \u0275\u0275text(41, "Games24x7: Where Trust Meets Gameplay");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(47, "p", 11);
-        \u0275\u0275text(48, " Learn about the core values and engineering practices that make Games24x7 a trusted platform where millions of players enjoy secure and fair gaming experiences. ");
+        \u0275\u0275domElementStart(42, "p", 10);
+        \u0275\u0275text(43, " Discover how we build trust and create engaging gaming experiences that keep players coming back for more. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(49, "div", 12)(50, "a", 18);
-        \u0275\u0275domElement(51, "i", 14);
-        \u0275\u0275text(52, " Read Article ");
-        \u0275\u0275domElementEnd()()()()()()()();
+        \u0275\u0275domElementStart(44, "div", 11)(45, "a", 16);
+        \u0275\u0275text(46, " Read on Medium ");
+        \u0275\u0275domElementEnd()()()()()()();
       }
-    }, styles: ["\n\n.blog-card[_ngcontent-%COMP%] {\n  transition: all 0.3s ease;\n  border: none;\n  border-radius: 0.1875rem;\n  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);\n}\n.blog-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  box-shadow: 0px 10px 35px 0px rgba(0, 0, 0, 0.3);\n}\n.blog-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: 1.5rem;\n  min-height: 200px;\n  display: flex;\n  flex-direction: column;\n}\n.blog-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 600;\n  margin-bottom: 1rem;\n  color: #333;\n  line-height: 1.4;\n}\n.blog-card[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: #666;\n  line-height: 1.6;\n  flex-grow: 1;\n  margin-bottom: 1.5rem;\n}\n.blog-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  padding: 0.375rem 0.75rem;\n  border-radius: 0.1875rem;\n}\n.blog-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n}\n.blog-footer[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.blog-footer[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  padding: 0.5rem 1rem;\n  border-radius: 0.1875rem;\n  transition: all 0.3s ease;\n}\n.blog-footer[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);\n}\n#blogs[_ngcontent-%COMP%] {\n  padding: 70px 0;\n  position: relative;\n  background: #FFFFFF;\n}\n#blogs[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%] {\n  font-weight: 600;\n  color: #333;\n  margin-bottom: 3rem;\n}\n@media (max-width: 768px) {\n  .blog-card[_ngcontent-%COMP%] {\n    margin-bottom: 2rem;\n  }\n  .blog-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    min-height: 180px;\n  }\n  .blog-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n    font-size: 1rem;\n  }\n  #blogs[_ngcontent-%COMP%] {\n    padding: 50px 0;\n  }\n  #blogs[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%] {\n    margin-bottom: 2rem;\n  }\n}\n[data-aos][_ngcontent-%COMP%] {\n  opacity: 0;\n  transform: translateY(30px);\n  transition: all 0.6s ease;\n}\n[data-aos].aos-animate[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: translateY(0);\n}\n/*# sourceMappingURL=blog.component.css.map */"] });
+    }, styles: ['\n\n.blog-section[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--gray-50) 0%,\n      var(--white) 100%);\n  padding: var(--spacing-3xl) 0;\n}\n.blog-card[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-md);\n  border: 1px solid var(--gray-200);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.blog-card[_ngcontent-%COMP%]:hover {\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-4px);\n}\n.blog-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.blog-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--gray-900);\n  line-height: 1.4;\n}\n.blog-card[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--gray-600);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.blog-meta[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.blog-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--primary-dark));\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.blog-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  color: var(--gray-500);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.blog-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.blog-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.blog-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.blog-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--primary-dark));\n  border: none;\n}\n.blog-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-dark),\n      var(--primary-color));\n}\n.blog-actions[_ngcontent-%COMP%]   .btn-outline[_ngcontent-%COMP%] {\n  background: transparent;\n  border: 2px solid var(--gray-300);\n  color: var(--gray-700);\n}\n.blog-actions[_ngcontent-%COMP%]   .btn-outline[_ngcontent-%COMP%]:hover {\n  border-color: var(--primary-color);\n  color: var(--primary-color);\n  background: transparent;\n}\n.blog-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n@media (max-width: 768px) {\n  .blog-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .blog-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .blog-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n}\n.blog-card[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.6s ease-out;\n}\n.blog-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.blog-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.blog-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.blog-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  font-weight: 700;\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n  color: var(--gray-900);\n  position: relative;\n}\n.blog-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -10px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: 2px;\n}\n@media (max-width: 768px) {\n  .blog-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BlogComponent, [{
     type: Component,
-    args: [{ selector: "app-blog", standalone: true, template: '<div class="section" id="blogs">\n  <div class="container">\n    <div class="h4 text-center mb-4 title">Blogs</div>\n    \n    <div class="row">\n      <!-- Blog Post 1 -->\n      <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">\n        <div class="card blog-card h-100">\n          <div class="card-body">\n            <div class="blog-meta mb-3">\n              <span class="badge badge-primary">Games24x7</span>\n              <span class="text-muted ml-2">Tech Blog</span>\n            </div>\n            <h5 class="card-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h5>\n            <p class="card-text">\n              Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay and maintain trust in our gaming platforms.\n            </p>\n            <div class="blog-footer">\n              <a href="https://medium.com/@Games24x7Tech/fortress-of-fair-play-stopping-frauds-at-games24x7-7e8b928266b5" \n                 target="_blank" \n                 class="btn btn-primary btn-sm">\n                <i class="fas fa-external-link-alt mr-1"></i>\n                Read Article\n              </a>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <!-- Blog Post 2 -->\n      <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">\n        <div class="card blog-card h-100">\n          <div class="card-body">\n            <div class="blog-meta mb-3">\n              <span class="badge badge-primary">Games24x7</span>\n              <span class="text-muted ml-2">Tech Blog</span>\n            </div>\n            <h5 class="card-title">Neptune Navigator: Navigating Performance Challenges</h5>\n            <p class="card-text">\n              Discover how we tackle performance challenges using Neptune database and optimize our systems for high-traffic gaming environments at Games24x7.\n            </p>\n            <div class="blog-footer">\n              <a href="https://medium.com/@Games24x7Tech/neptune-navigator-navigating-performance-challenges-2daad0155d61" \n                 target="_blank" \n                 class="btn btn-primary btn-sm">\n                <i class="fas fa-external-link-alt mr-1"></i>\n                Read Article\n              </a>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <!-- Blog Post 3 -->\n      <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">\n        <div class="card blog-card h-100">\n          <div class="card-body">\n            <div class="blog-meta mb-3">\n              <span class="badge badge-primary">Games24x7</span>\n              <span class="text-muted ml-2">Tech Blog</span>\n            </div>\n            <h5 class="card-title">Games24x7: Where Trust Meets Gameplay</h5>\n            <p class="card-text">\n              Learn about the core values and engineering practices that make Games24x7 a trusted platform where millions of players enjoy secure and fair gaming experiences.\n            </p>\n            <div class="blog-footer">\n              <a href="https://medium.com/@Games24x7Tech/games24x7-where-trust-meets-gameplay-f477bb8715f3" \n                 target="_blank" \n                 class="btn btn-primary btn-sm">\n                <i class="fas fa-external-link-alt mr-1"></i>\n                Read Article\n              </a>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div> ', styles: ["/* src/app/profile/blog/blog.component.scss */\n.blog-card {\n  transition: all 0.3s ease;\n  border: none;\n  border-radius: 0.1875rem;\n  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);\n}\n.blog-card:hover {\n  transform: translateY(-5px);\n  box-shadow: 0px 10px 35px 0px rgba(0, 0, 0, 0.3);\n}\n.blog-card .card-body {\n  padding: 1.5rem;\n  min-height: 200px;\n  display: flex;\n  flex-direction: column;\n}\n.blog-card .card-title {\n  font-size: 1.1rem;\n  font-weight: 600;\n  margin-bottom: 1rem;\n  color: #333;\n  line-height: 1.4;\n}\n.blog-card .card-text {\n  color: #666;\n  line-height: 1.6;\n  flex-grow: 1;\n  margin-bottom: 1.5rem;\n}\n.blog-meta .badge {\n  font-size: 0.75rem;\n  padding: 0.375rem 0.75rem;\n  border-radius: 0.1875rem;\n}\n.blog-meta .text-muted {\n  font-size: 0.875rem;\n}\n.blog-footer {\n  margin-top: auto;\n}\n.blog-footer .btn {\n  font-size: 0.875rem;\n  padding: 0.5rem 1rem;\n  border-radius: 0.1875rem;\n  transition: all 0.3s ease;\n}\n.blog-footer .btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);\n}\n#blogs {\n  padding: 70px 0;\n  position: relative;\n  background: #FFFFFF;\n}\n#blogs .title {\n  font-weight: 600;\n  color: #333;\n  margin-bottom: 3rem;\n}\n@media (max-width: 768px) {\n  .blog-card {\n    margin-bottom: 2rem;\n  }\n  .blog-card .card-body {\n    min-height: 180px;\n  }\n  .blog-card .card-title {\n    font-size: 1rem;\n  }\n  #blogs {\n    padding: 50px 0;\n  }\n  #blogs .title {\n    margin-bottom: 2rem;\n  }\n}\n[data-aos] {\n  opacity: 0;\n  transform: translateY(30px);\n  transition: all 0.6s ease;\n}\n[data-aos].aos-animate {\n  opacity: 1;\n  transform: translateY(0);\n}\n/*# sourceMappingURL=blog.component.css.map */\n"] }]
+    args: [{ selector: "app-blog", standalone: true, template: '<div class="blog-section" id="blogs">\n  <div class="container">\n    <h2 class="section-title">Blogs</h2>\n    \n    <div class="blog-grid">\n      <!-- Medium Blog Post 1 -->\n      <div class="blog-card" data-aos="fade-up" data-aos-delay="100">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h5>\n          <p class="card-text">\n            Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay and maintain trust in our gaming ecosystem.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/fortress-of-fair-play-stopping-frauds-at-games24x7-7e8b928266b5" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n\n      <!-- Medium Blog Post 2 -->\n      <div class="blog-card" data-aos="fade-up" data-aos-delay="200">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Neptune Navigator: Navigating Performance Challenges</h5>\n          <p class="card-text">\n            Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms at Games24x7.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/neptune-navigator-navigating-performance-challenges-2daad0155d61" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n\n      <!-- Medium Blog Post 3 -->\n      <div class="blog-card" data-aos="fade-up" data-aos-delay="300">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Games24x7: Where Trust Meets Gameplay</h5>\n          <p class="card-text">\n            Discover how we build trust and create engaging gaming experiences that keep players coming back for more.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/games24x7-where-trust-meets-gameplay-f477bb8715f3" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div> ', styles: ['/* src/app/profile/blog/blog.component.scss */\n.blog-section {\n  background:\n    linear-gradient(\n      135deg,\n      var(--gray-50) 0%,\n      var(--white) 100%);\n  padding: var(--spacing-3xl) 0;\n}\n.blog-card {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-md);\n  border: 1px solid var(--gray-200);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.blog-card:hover {\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-4px);\n}\n.blog-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.blog-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--gray-900);\n  line-height: 1.4;\n}\n.blog-card .card-text {\n  color: var(--gray-600);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.blog-meta {\n  margin-bottom: var(--spacing-md);\n}\n.blog-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--primary-dark));\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.blog-meta .text-muted {\n  color: var(--gray-500);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.blog-actions {\n  margin-top: auto;\n}\n.blog-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.blog-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.blog-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--primary-dark));\n  border: none;\n}\n.blog-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-dark),\n      var(--primary-color));\n}\n.blog-actions .btn-outline {\n  background: transparent;\n  border: 2px solid var(--gray-300);\n  color: var(--gray-700);\n}\n.blog-actions .btn-outline:hover {\n  border-color: var(--primary-color);\n  color: var(--primary-color);\n  background: transparent;\n}\n.blog-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n@media (max-width: 768px) {\n  .blog-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .blog-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .blog-card .card-title {\n    font-size: 1.125rem;\n  }\n}\n.blog-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.blog-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.blog-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.blog-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.blog-section .section-title {\n  font-size: 2.5rem;\n  font-weight: 700;\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n  color: var(--gray-900);\n  position: relative;\n}\n.blog-section .section-title::after {\n  content: "";\n  position: absolute;\n  bottom: -10px;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-color));\n  border-radius: 2px;\n}\n@media (max-width: 768px) {\n  .blog-section .section-title {\n    font-size: 2rem;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {

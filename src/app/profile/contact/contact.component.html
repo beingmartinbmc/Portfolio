@@ -1,90 +1,138 @@
-<div class="section" id="contact">
-  <!-- style="background-image: url('assets/images/connect.jpg');" -->
-  <div class="cc-contact-information">
-    <div class="container">
-      <div class="cc-contact">
-        <div class="row">
-          <div class="col-md-9">
-            <div class="card mb-0" data-aos="zoom-in">
-              <div class="h4 text-center title">Contact Me</div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="card-body">
-                    <form #f="ngForm" (ngSubmit)="f.form.valid ; f.resetForm()" name="form" novalidate>
-                      <div class="p pb-3">
-                        <strong>Feel free to contact me </strong>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col">
-                          <div class="input-group">
-                            <input #name="ngModel" [(ngModel)]="model.name"
-                                   [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" class="form-control"
-                                   name="name" placeholder="Name"
-                                   required type="text"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col">
-                          <div class="input-container">
-                            <input #subject="ngModel" [(ngModel)]="model.subject"
-                                   [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" class="form-control"
-                                   name="subject" placeholder="Subject"
-                                   required type="text"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col">
-                          <div class="input-group">
-                            <input #email="ngModel" [(ngModel)]="model.email"
-                                   [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" class="form-control"
-                                   name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
-                                   placeholder="E-mail"
-                                   required type="text"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col">
-                          <div class="form-group">
-                              <textarea #message="ngModel" [(ngModel)]="model.message"
-                                        [ngClass]="{ 'is-invalid': f.submitted && message.invalid }"
-                                        class="form-control" name="message"
-                                        placeholder="Your Message"
-                                        required></textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <button (click)="onSubmit(name.value, subject.value, email.value, message.value)"
-                                  class="btn bg-primary" style="font-weight: bold;color: blanchedalmond;"
-                                  type="submit"> Send
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="card-body">
-                    <p class="mb-0">
-                      <strong>Email</strong>
-                    </p>
-                    <p>ankit.sharma199803&#64;gmail.com</p>
-                    <p style="margin-top: 40px">
-                      <a href="https://info.flagcounter.com/hZ3l"><img
-                        src="https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"
-                        alt="Flag Counter" border="0"></a>
-                    </p>
-                  </div>
-                </div>
-              </div>
+<div class="contact-section" id="contact">
+  <div class="container">
+    <h2 class="section-title">Contact Me</h2>
+    
+    <div class="contact-container">
+      <!-- Contact Info Cards -->
+      <div class="contact-info-section" data-aos="fade-right">
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-icon">📧</div>
+            <div class="info-content">
+              <h4>Email</h4>
+              <p>ankit.sharma199803@gmail.com</p>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">📍</div>
+            <div class="info-content">
+              <h4>Location</h4>
+              <p>Bangalore, India</p>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">💼</div>
+            <div class="info-content">
+              <h4>Available for</h4>
+              <p>Full-time opportunities</p>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">⏱️</div>
+            <div class="info-content">
+              <h4>Response time</h4>
+              <p>Within 24 hours</p>
             </div>
           </div>
         </div>
       </div>
+      
+      <!-- Contact Form -->
+      <div class="contact-form-section" data-aos="fade-left">
+        <div class="form-card">
+          <div class="form-header">
+            <h3>Send me a message</h3>
+            <p>I'm always open to discussing new opportunities and interesting projects!</p>
+          </div>
+          
+          <form #contactForm="ngForm" (ngSubmit)="onSubmit(model.name, model.subject, model.email, model.message)" name="form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input #name="ngModel" [(ngModel)]="model.name"
+                       [ngClass]="{ 'is-invalid': contactForm.submitted && name.invalid }" 
+                       class="form-input"
+                       id="name"
+                       name="name" 
+                       placeholder="Your full name"
+                       required type="text"/>
+                <div class="error-message" *ngIf="contactForm.submitted && name.invalid">
+                  Please enter your name
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input #email="ngModel" [(ngModel)]="model.email"
+                       [ngClass]="{ 'is-invalid': contactForm.submitted && email.invalid }" 
+                       class="form-input"
+                       id="email"
+                       name="email" 
+                       placeholder="your.email@example.com"
+                       required type="email"/>
+                <div class="error-message" *ngIf="contactForm.submitted && email.invalid">
+                  Please enter a valid email address
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input #subject="ngModel" [(ngModel)]="model.subject"
+                     [ngClass]="{ 'is-invalid': contactForm.submitted && subject.invalid }" 
+                     class="form-input"
+                     id="subject"
+                     name="subject" 
+                     placeholder="What's this about?"
+                     required type="text"/>
+              <div class="error-message" *ngIf="contactForm.submitted && subject.invalid">
+                Please enter a subject
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea #message="ngModel" [(ngModel)]="model.message"
+                        [ngClass]="{ 'is-invalid': contactForm.submitted && message.invalid }"
+                        class="form-input"
+                        id="message"
+                        name="message"
+                        placeholder="Tell me about your project or opportunity..."
+                        required
+                        rows="5"></textarea>
+              <div class="error-message" *ngIf="contactForm.submitted && message.invalid">
+                Please enter your message
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <button [disabled]="!isFormValid() || isSubmitting"
+                      class="submit-btn"
+                      [ngClass]="{ 'disabled': !isFormValid() || isSubmitting }"
+                      type="submit">
+                <span class="btn-text">
+                  {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+                </span>
+                <span class="btn-icon" *ngIf="!isSubmitting">→</span>
+                <span class="btn-spinner" *ngIf="isSubmitting">⏳</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Toast Notification -->
+  <div class="toast-container" *ngIf="showToast">
+    <div class="toast" [ngClass]="'toast-' + toastType">
+      <div class="toast-icon">
+        {{ toastType === 'success' ? '✅' : '❌' }}
+      </div>
+      <div class="toast-message">{{ toastMessage }}</div>
     </div>
   </div>
 </div>

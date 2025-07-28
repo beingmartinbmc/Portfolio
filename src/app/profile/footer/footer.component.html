@@ -1,33 +1,40 @@
 <footer class="footer">
   <div class="container text-center">
-
-    <!-- <a class="btn btn-default btn-round btn-lg btn-icon" href="https://www.instagram.com/_techbit_/" target="_blank" rel="tooltip" title="Follow me on Instagram">
-        <i class="fa fa-instagram"></i>
-    </a>
-    <a class="btn btn-default btn-round btn-lg btn-icon" href="https://www.linkedin.com/in/vikas-2jan/" target="_blank" rel="tooltip" title="Follow me on Linkedin">
-        <i class="fa fa-linkedin"></i>
-    </a>
-    <a class="btn btn-default btn-round btn-lg btn-icon" href="https://github.com/vikas8452" target="_blank" rel="tooltip" title="Follow me on Github">
-        <i class="fa fa-github"></i>
-    </a>
-     -->
-    <a class="cc-linkedin btn btn-link" href="https://www.linkedin.com/in/ankit-sharma-5b1b35158/" rel="tooltip"
-       target="_blank"
-       title="Follow me on Linkedin">
-      <i aria-hidden="true" class="fa fa-linkedin"></i>
-    </a>
-
-    <a class="cc-github btn btn-link " href="https://github.com/beingmartinbmc" rel="tooltip" target="_blank"
-       title="Follow me on Github">
-      <i aria-hidden="true" class="fa fa-github"></i>
-    </a>
-
+    <!-- Social links removed -->
   </div>
   <div class="text-center text-muted">
     <p>&copy; All rights reserved.</p>
-<!--    <a href="https://info.flagcounter.com/QGAL"><img-->
-<!--      src="https://s11.flagcounter.com/count2/QGAL/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/"-->
-<!--      alt="Flag Counter">-->
-<!--    </a>-->
+    
+    <!-- Total Views Counter -->
+    <div class="views-counter">
+      <span class="views-text" (click)="toggleFlagCounter($event)">
+        📊 Total Views: <span class="views-number">{{viewCount}}</span>
+      </span>
+      
+      <!-- Flag Counter (shown when clicked) -->
+      <div class="flag-counter-container" *ngIf="showFlagCounter" (click)="hideFlagCounter($event)">
+        <div class="flag-counter-overlay" (click)="hideFlagCounter($event)"></div>
+        <div class="flag-counter-modal" (click)="$event.stopPropagation()">
+          <div class="flag-counter-header">
+            <h4>Visitor Statistics</h4>
+            <button class="close-btn" (click)="hideFlagCounter($event)">×</button>
+          </div>
+          <div class="flag-counter-content">
+            <a href="https://info.flagcounter.com/hZ3l" target="_blank">
+              <img src="https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"
+                   alt="Flag Counter" border="0">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Hidden Flag Counter for tracking (always present but invisible) -->
+    <div class="hidden-flag-counter" style="display: none;">
+      <a href="https://info.flagcounter.com/hZ3l">
+        <img src="https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"
+             alt="Flag Counter" border="0">
+      </a>
+    </div>
   </div>
 </footer>
