@@ -4,7 +4,8 @@ body{
 }
 
 .main-timeline {
-  position: relative
+  position: relative;
+  margin-bottom: 40px; /* Add bottom margin to prevent line from extending */
 }
 
 .main-timeline:before {

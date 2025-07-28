@@ -1,0 +1,111 @@
+// Blog component styles matching the portfolio theme
+.blog-card {
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 0.1875rem;
+  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 35px 0px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
+    line-height: 1.4;
+  }
+  
+  .card-text {
+    color: #666;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.blog-meta {
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.1875rem;
+  }
+  
+  .text-muted {
+    font-size: 0.875rem;
+  }
+}
+
+.blog-footer {
+  margin-top: auto;
+  
+  .btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.1875rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
+    }
+  }
+}
+
+// Section styling to match portfolio
+#blogs {
+  padding: 70px 0;
+  position: relative;
+  background: #FFFFFF;
+  
+  .title {
+    // Remove custom font-size to use standard h4 styling
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 3rem;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .blog-card {
+    margin-bottom: 2rem;
+    
+    .card-body {
+      min-height: 180px;
+    }
+    
+    .card-title {
+      font-size: 1rem;
+    }
+  }
+  
+  #blogs {
+    padding: 50px 0;
+    
+    .title {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+// Animation for AOS
+[data-aos] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+  
+  &.aos-animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 
