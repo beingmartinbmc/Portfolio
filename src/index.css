@@ -1,0 +1,367 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: black !important;
+}
+
+html, body { 
+  height: 100%; 
+}
+
+body { 
+  margin: 0 !important; 
+  font-family: Roboto, "Helvetica Neue", sans-serif !important; 
+  background-color: #000 !important;
+  color: #FFFFFF !important;
+}
+
+#root {
+  height: 100%;
+  background-color: #000 !important;
+}
+
+/* Override main.css body rule */
+body {
+  background-color: #000 !important;
+  color: #FFFFFF !important;
+}
+
+/* Force the original styling to work */
+.profile-page {
+  background-color: #000 !important;
+  min-height: 100vh;
+}
+
+.profile-page .page-header {
+  min-height: 550px !important;
+  background-color: #000 !important;
+}
+
+.profile-page .profile-container {
+  color: #FFFFFF !important;
+}
+
+.profile-page .photo-container {
+  width: 123px !important;
+  height: 123px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  margin: 0 auto !important;
+  -webkit-box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3) !important;
+}
+
+.profile-page .title {
+  text-align: center !important;
+  margin-top: 30px !important;
+  color: #FFFFFF !important;
+}
+
+.profile-page .description,
+.profile-page .category {
+  text-align: center !important;
+  color: #FFFFFF !important;
+}
+
+.profile-page h5.description {
+  max-width: 700px !important;
+  margin: 20px auto 75px !important;
+}
+
+.profile-page .nav-align-center {
+  margin-top: 30px !important;
+}
+
+.profile-page .content {
+  max-width: 450px !important;
+  margin: 0 auto !important;
+}
+
+.profile-page .content .social-description {
+  display: inline-block !important;
+  max-width: 150px !important;
+  width: 145px !important;
+  text-align: center !important;
+  margin: 15px 0 0px !important;
+}
+
+.profile-page .content .social-description h2 {
+  margin-bottom: 15px !important;
+}
+
+.profile-page .button-container {
+  text-align: center !important;
+  margin-top: -106px !important;
+}
+
+.profile-page .collections img {
+  margin-bottom: 30px !important;
+}
+
+.profile-page .gallery {
+  margin-top: 45px !important;
+  padding-bottom: 50px !important;
+}
+
+.page-header {
+  height: 100vh !important;
+  max-height: 1050px !important;
+  padding: 0 !important;
+  color: #FFFFFF !important;
+  position: relative !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-color: #000 !important;
+}
+
+.page-header .page-header-image {
+  position: absolute !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -1 !important;
+}
+
+.page-header footer {
+  position: absolute !important;
+  bottom: 0 !important;
+  width: 100% !important;
+}
+
+.page-header .container {
+  height: 100% !important;
+  z-index: 1 !important;
+  text-align: center !important;
+  position: relative !important;
+}
+
+.page-header .container > .content-center {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  -webkit-transform: translate(-50%, -50%) !important;
+  transform: translate(-50%, -50%) !important;
+  text-align: center !important;
+  padding: 0 15px !important;
+  color: #FFFFFF !important;
+  width: 100% !important;
+  max-width: 880px !important;
+}
+
+.page-header .category,
+.page-header .description {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.page-header.page-header-small {
+  height: 60vh !important;
+  max-height: 440px !important;
+}
+
+.page-header:after, .page-header:before {
+  position: absolute !important;
+  z-index: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  left: 0 !important;
+  top: 0 !important;
+  content: "" !important;
+}
+
+.page-header:before {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.page-header[filter-color="orange"] {
+  background: rgba(44, 44, 44, 0.2) !important;
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(44, 44, 44, 0.2)), to(rgba(224, 23, 3, 0.6))) !important;
+  background: linear-gradient(0deg, rgba(44, 44, 44, 0.2), rgba(224, 23, 3, 0.6)) !important;
+}
+
+.page-header .container {
+  z-index: 2 !important;
+}
+
+.clear-filter:after, .clear-filter:before {
+  display: none !important;
+}
+
+.section {
+  padding: 70px 0 !important;
+  position: relative !important;
+  background: #FFFFFF !important;
+}
+
+.section .row + .category {
+  margin-top: 15px !important;
+}
+
+.section-navbars {
+  padding-bottom: 0 !important;
+}
+
+.section-full-screen {
+  height: 100vh !important;
+}
+
+.section-signup {
+  padding-top: 20vh !important;
+}
+
+.navbar {
+  background-color: #033d5b !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-weight: bold !important;
+}
+
+.nav-link {
+  color: white !important;
+}
+
+.nav-link:hover {
+  color: #f0f0f0 !important;
+}
+
+.card {
+  border-radius: 15px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+  margin-bottom: 30px !important;
+}
+
+.profile-image {
+  position: relative !important;
+  display: inline-block !important;
+}
+
+.profile-image a {
+  display: block !important;
+  position: relative !important;
+}
+
+.profile-image a:before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  border-radius: 50% !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  opacity: 0 !important;
+  -webkit-transition: all 0.3s ease !important;
+  -moz-transition: all 0.3s ease !important;
+  -o-transition: all 0.3s ease !important;
+  -ms-transition: all 0.3s ease !important;
+  transition: all 0.3s ease !important;
+}
+
+.profile-image img {
+  width: 123px !important;
+  height: 123px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  -webkit-box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3) !important;
+  -webkit-transition: all 0.3s ease !important;
+  -moz-transition: all 0.3s ease !important;
+  -o-transition: all 0.3s ease !important;
+  -ms-transition: all 0.3s ease !important;
+  transition: all 0.3s ease !important;
+}
+
+.profile-image a:hover img {
+  -webkit-transform: scale(1.1) !important;
+  -moz-transform: scale(1.1) !important;
+  -o-transform: scale(1.1) !important;
+  -ms-transform: scale(1.1) !important;
+  transform: scale(1.1) !important;
+}
+
+.profile-image a:hover:before {
+  opacity: 1 !important;
+}
+
+.button-container .btn-default {
+  background-color: #FFFFFF !important;
+  color: #333333 !important;
+}
+
+.progress-container {
+  margin-bottom: 30px !important;
+}
+
+.progress-container .progress-bar {
+  background-color: #033d5b !important;
+}
+
+.progress-container .progress {
+  height: 6px !important;
+  border-radius: 3px !important;
+  background-color: #e9ecef !important;
+}
+
+.progress-container .aos-animate {
+  -webkit-transition: width 2s ease !important;
+  -moz-transition: width 2s ease !important;
+  -o-transition: width 2s ease !important;
+  -ms-transition: width 2s ease !important;
+  transition: width 2s ease !important;
+}
+
+/* Force text colors */
+.h2.title {
+  color: #FFFFFF !important;
+}
+
+.category.text-white {
+  color: #FFFFFF !important;
+}
+
+/* Force button styling */
+.btn {
+  margin: 5px !important;
+  border-radius: 25px !important;
+  padding: 10px 25px !important;
+  font-weight: bold !important;
+}
+
+.btn.bg-primary {
+  background-color: #033d5b !important;
+  color: white !important;
+}
+
+.btn.btn-default {
+  background-color: #FFFFFF !important;
+  color: #333333 !important;
+}
+
+.btn.btn-round {
+  border-radius: 50% !important;
+  width: 50px !important;
+  height: 50px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.btn.btn-lg {
+  width: 60px !important;
+  height: 60px !important;
+}
+
+.btn.btn-icon img {
+  width: 30px !important;
+  height: 30px !important;
+} 
