@@ -4,15 +4,16 @@ import {TimeService} from '../../time.service';
 @Component({
   selector: 'app-experience',
   templateUrl: './experience.component.html',
-  styleUrls: ['./experience.component.scss']
+  styleUrls: ['./experience.component.scss'],
+  standalone: true
 })
 export class ExperienceComponent implements OnInit, OnDestroy {
 
-  constructor(private timeService: TimeService) {
-  }
-
   numberOfMonths: number;
   interval: any;
+
+  constructor(private timeService: TimeService) {
+  }
 
   private refreshData() {
     this.timeService.getNumberOfMonths()
@@ -20,7 +21,6 @@ export class ExperienceComponent implements OnInit, OnDestroy {
         this.numberOfMonths = data;
       });
   }
-
 
   ngOnInit(): void {
     this.refreshData();

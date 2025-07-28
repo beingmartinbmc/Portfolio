@@ -1,10 +1,30 @@
 import {Component, OnInit} from '@angular/core';
-import {NgxSpinnerService} from 'ngx-spinner';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
+import {IntroComponent} from './intro/intro.component';
+import {AboutComponent} from './about/about.component';
+import {ContactComponent} from './contact/contact.component';
+import {EducationComponent} from './education/education.component';
+import {ExperienceComponent} from './experience/experience.component';
+import {SkillsComponent} from './skills/skills.component';
+import {PublicationsComponent} from './publications/publications.component';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  standalone: true,
+  imports: [
+    HeaderComponent,
+    FooterComponent,
+    IntroComponent,
+    AboutComponent,
+    ContactComponent,
+    EducationComponent,
+    ExperienceComponent,
+    SkillsComponent,
+    PublicationsComponent
+  ]
 })
 export class ProfileComponent implements OnInit {
 
@@ -13,19 +33,12 @@ export class ProfileComponent implements OnInit {
   width = 100;
   height = 100;
 
-  constructor(
-    private spinner: NgxSpinnerService
-  ) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 2000);
-
+    // Removed spinner functionality since ngx-spinner is disabled
     this.particles2();
-
   }
 
   particles2() {

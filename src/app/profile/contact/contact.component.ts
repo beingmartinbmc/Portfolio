@@ -1,21 +1,23 @@
 import {Component, OnInit} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  standalone: true,
+  imports: [FormsModule, CommonModule]
 })
 export class ContactComponent implements OnInit {
 
   model: any = {};
 
-  constructor(
-    private http: HttpClient
-  ) {
+  constructor(private http: HttpClient) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   onSubmit(name, subject, email, message) {
