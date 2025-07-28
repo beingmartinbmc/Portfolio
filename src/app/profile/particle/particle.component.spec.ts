@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ParticleComponent} from './particle.component';
 
@@ -6,7 +6,7 @@ describe('ParticleComponent', () => {
   let component: ParticleComponent;
   let fixture: ComponentFixture<ParticleComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ParticleComponent]
     })
