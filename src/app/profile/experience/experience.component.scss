@@ -1,262 +1,169 @@
-/* Modern Experience Timeline - 2024 Design */
+/* Simple Experience List Design */
 
-.experience-timeline {
-  position: relative;
-  max-width: 1400px;
+.experience-list {
+  max-width: 800px;
   margin: 0 auto;
   padding: 2rem 0;
-  overflow: visible;
-}
-
-/* Central Timeline Line with Gradient */
-.experience-timeline::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(180deg, 
-    #667eea 0%, 
-    #764ba2 25%, 
-    #f093fb 50%, 
-    #f5576c 75%, 
-    #4facfe 100%);
-  transform: translateX(-50%);
-  border-radius: 4px;
-  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
 }
 
 .experience-item {
-  position: relative;
-  margin-bottom: 4rem;
-  display: flex;
-  align-items: center;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: slideInUp 0.8s ease-out forwards;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 2rem;
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   
-  &:nth-child(odd) {
-    flex-direction: row;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  &.expanded {
+    margin-bottom: 2rem;
     
     .experience-content {
-      margin-left: 3rem;
-      text-align: left;
-      flex: 1;
-      max-width: calc(50% - 3rem);
-    }
-    
-    .experience-date {
-      margin-right: 3rem;
-      text-align: right;
-      flex: 0 0 200px;
-    }
-  }
-  
-  &:nth-child(even) {
-    flex-direction: row-reverse;
-    
-    .experience-content {
-      margin-right: 3rem;
-      text-align: right;
-      flex: 1;
-      max-width: calc(50% - 3rem);
-    }
-    
-    .experience-date {
-      margin-left: 3rem;
-      text-align: left;
-      flex: 0 0 200px;
-    }
-  }
-  
-  &:nth-child(1) { animation-delay: 0.1s; }
-  &:nth-child(2) { animation-delay: 0.3s; }
-  &:nth-child(3) { animation-delay: 0.5s; }
-  &:nth-child(4) { animation-delay: 0.7s; }
-}
-
-/* Horizontal Connection Lines - Cleaner Design */
-.experience-item::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 2rem;
-  height: 2px;
-  background: #667eea;
-  transform: translateY(-50%);
-  z-index: 1;
-  border-radius: 1px;
-  opacity: 0.6;
-}
-
-.experience-item:nth-child(odd)::before {
-  left: calc(50% + 2px);
-}
-
-.experience-item:nth-child(even)::before {
-  right: calc(50% + 2px);
-}
-
-/* Modern Date Cards with Dark Theme */
-.experience-date {
-  .date-card {
-    background: var(--bg-secondary);
-    border-radius: 16px;
-    padding: 1.25rem;
-    box-shadow: var(--glass-shadow);
-    border: 1px solid var(--glass-border);
-    text-align: center;
-    transition: all 0.3s ease;
-    position: relative;
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .duration {
-      display: block;
-      font-weight: 600;
-      color: #667eea;
-      font-size: 0.875rem;
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    
-    .period {
-      display: block;
-      font-weight: 700;
-      color: var(--text-primary);
-      font-size: 1.125rem;
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-  }
-}
-
-/* Modern Content Cards with Dark Theme */
-.experience-content {
-  .content-card {
-    background: var(--bg-secondary);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: var(--glass-shadow);
-    border: 1px solid var(--glass-border);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      border-radius: 20px 20px 0 0;
-    }
-    
-    &:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-  }
-}
-
-/* Modern Typography */
-.experience-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-  line-height: 1.3;
-  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  
-  a {
-    color: #667eea;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    position: relative;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      transition: width 0.3s ease;
-    }
-    
-    &:hover {
-      color: #764ba2;
-      
-      &::after {
-        width: 100%;
+      .job-info {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
       }
     }
   }
 }
 
-.experience-description {
-  color: var(--text-secondary);
-  line-height: 1.7;
+.experience-content {
+  .job-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    
+    .job-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
+    .job-duration {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+  }
+}
+
+/* Expandable Content */
+.expandable-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  
+  &.show {
+    max-height: 800px;
+    opacity: 1;
+  }
+}
+
+/* Job Details */
+.job-details {
+  .location-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    
+    i {
+      margin-right: 0.5rem;
+      color: #667eea;
+      font-size: 0.8rem;
+    }
+  }
+  
+  .job-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+/* Technologies Section */
+.technologies-section {
   margin-bottom: 1.5rem;
-  font-size: 0.95rem;
-  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
   
-  b {
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    
+    .tech-tag {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+      padding: 0.375rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      transition: all 0.3s ease;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+      
+      &:hover {
+        background: rgba(102, 126, 234, 0.2);
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+/* Achievements Section */
+.achievements-section {
+  .achievements-title {
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--text-primary);
-    font-weight: 600;
+    margin-bottom: 1rem;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
   }
-}
-
-.experience-technologies {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-  padding: 1rem 1.25rem;
-  background: var(--bg-tertiary);
-  border-radius: 16px;
-  border-left: 4px solid #667eea;
-  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
   
-  b {
-    color: #667eea;
-    font-weight: 600;
+  .achievements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      font-size: 0.9rem;
+      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+      
+      &::before {
+        content: '▸';
+        position: absolute;
+        left: 0;
+        color: #667eea;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
-}
-
-/* Clean Timeline Dots */
-.experience-item::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 16px;
-  height: 16px;
-  background: #667eea;
-  border: 3px solid #ffffff;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-  transition: all 0.3s ease;
-}
-
-.experience-item:hover::after {
-  transform: translate(-50%, -50%) scale(1.2);
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
 }
 
 /* Modern Section Header */
@@ -264,7 +171,6 @@
   text-align: center;
   margin-bottom: 4rem;
   width: 100%;
-  overflow: visible;
 }
 
 .section-title {
@@ -277,9 +183,6 @@
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  white-space: nowrap;
-  overflow: visible;
-  text-overflow: unset;
   line-height: 1.2;
 }
 
@@ -299,7 +202,6 @@
   min-width: 280px;
   transition: all 0.3s ease;
   position: relative;
-  overflow: visible;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   
@@ -330,9 +232,6 @@
   letter-spacing: 1.5px;
   margin-bottom: 0.5rem;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-  white-space: nowrap;
-  overflow: visible;
-  text-overflow: unset;
 }
 
 .experience-years {
@@ -345,9 +244,6 @@
   background-clip: text;
   margin-bottom: 0.25rem;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  white-space: nowrap;
-  overflow: visible;
-  text-overflow: unset;
   line-height: 1.2;
 }
 
@@ -365,74 +261,26 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .experience-timeline {
+  .experience-list {
     max-width: 100%;
     padding: 1rem 0;
-    position: relative;
-  }
-  
-  .experience-timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #667eea;
-    transform: translateX(-50%);
-    border-radius: 1px;
-    opacity: 0.6;
   }
   
   .experience-item {
-    flex-direction: column !important;
-    align-items: center;
-    margin-bottom: 2rem;
-    position: relative;
-    
-    &::before {
-      display: none;
-    }
-    
-    .experience-date {
-      flex: none;
-      margin: 0 0 1rem 0 !important;
-      text-align: center !important;
-      width: 100%;
-      max-width: none;
-      
-      .date-card {
-        display: inline-block;
-        min-width: 140px;
-        padding: 1rem;
-      }
-    }
+    margin-bottom: 1rem;
+    padding: 1.25rem 1.5rem;
     
     .experience-content {
-      margin: 0 !important;
-      text-align: center !important;
-      width: 100%;
-      max-width: none;
-      
-      .content-card {
-        padding: 1.5rem;
+      .job-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        
+        .job-duration {
+          align-self: flex-end;
+        }
       }
     }
-  }
-  
-  .experience-item::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 12px;
-    height: 12px;
-    background: #667eea;
-    border: 2px solid var(--bg-secondary);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
   }
   
   .section-title {
@@ -454,40 +302,20 @@
 }
 
 @media (max-width: 480px) {
-  .experience-timeline {
-    padding: 0.5rem 0;
-  }
-  
-  .experience-timeline::before {
-    width: 2px;
-  }
-  
   .experience-item {
-    margin-bottom: 1.5rem;
-    
-    &::before {
-      display: none;
-    }
-    
-    .experience-date {
-      margin: 0 0 0.75rem 0 !important;
-      
-      .date-card {
-        min-width: 120px;
-        padding: 0.75rem;
-      }
-    }
+    padding: 1rem;
     
     .experience-content {
-      .content-card {
-        padding: 1rem;
+      .job-info {
+        .job-title {
+          font-size: 1.1rem;
+        }
+        
+        .job-duration {
+          font-size: 0.9rem;
+        }
       }
     }
-  }
-  
-  .experience-item::after {
-    width: 10px;
-    height: 10px;
   }
   
   .section-title {
@@ -506,6 +334,15 @@
   .apple-container {
     padding: 0 0.75rem;
   }
+  
+  .tech-tags {
+    gap: 0.25rem;
+    
+    .tech-tag {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.5rem;
+    }
+  }
 }
 
 /* Apple-inspired container styles */
@@ -521,7 +358,6 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
-  overflow: visible;
 }
 
 .apple-fade-in {

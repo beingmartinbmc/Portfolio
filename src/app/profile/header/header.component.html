@@ -37,6 +37,11 @@
           </a>
         </div>
         
+        <!-- Music Toggle -->
+        <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying" title="Toggle Piano Music">
+          <span class="music-emoji">🎵</span>
+        </button>
+        
         <!-- Mobile Menu Button -->
         <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen">
           <span class="hamburger-line"></span>
