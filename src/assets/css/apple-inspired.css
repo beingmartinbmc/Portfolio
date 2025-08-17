@@ -30,7 +30,7 @@
   --accent-pink: #FF2D92;
   
   /* Apple's Signature Gradients */
-  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8B5CF6 100%);
   --gradient-secondary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   --gradient-accent: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
   --gradient-dark: linear-gradient(135deg, #000000 0%, #1c1c1e 50%, #2c2c2e 100%);
