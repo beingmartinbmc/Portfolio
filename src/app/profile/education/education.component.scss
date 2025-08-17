@@ -1,8 +1,4 @@
-/* Modern Education Component Styles */
-.education-section {
-  background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
-  padding: var(--spacing-3xl) 0;
-}
+/* Apple-Inspired Education Component Styles */
 
 .education-grid {
   display: grid;
@@ -13,31 +9,34 @@
 }
 
 .education-card {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--gray-200);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--glass-border);
   transition: all var(--transition-normal);
   overflow: hidden;
   height: 100%;
   display: flex;
   flex-direction: column;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   
   &:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 }
 
 .education-header {
-  background: var(--gray-50);
+  background: var(--bg-tertiary);
   padding: var(--spacing-lg);
   text-align: center;
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--glass-border);
   
   .year {
     font-size: 0.875rem;
-    color: var(--gray-500);
+    color: var(--text-tertiary);
     font-weight: 500;
     margin-bottom: var(--spacing-xs);
     text-transform: uppercase;
@@ -46,7 +45,7 @@
   
   .degree-type {
     font-size: 1rem;
-    color: var(--gray-700);
+    color: var(--text-primary);
     font-weight: 600;
     margin: 0;
   }
@@ -62,51 +61,78 @@
     font-family: var(--font-secondary);
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--gray-900);
+    color: var(--text-primary);
     margin-bottom: var(--spacing-sm);
     line-height: 1.4;
   }
   
   .institution {
     font-size: 1rem;
-    color: var(--primary-color);
+    color: #667eea !important;
     font-weight: 500;
     margin-bottom: var(--spacing-md);
   }
   
+  /* Ensure institution names are purple */
+  .education-content .institution {
+    color: #667eea !important;
+  }
+  
+  /* Force purple color with maximum specificity */
+  .education-card .education-content h5.institution {
+    color: #667eea !important;
+  }
+  
+  /* Alternative approach - target by element type */
+  .education-content h5 {
+    color: #667eea !important;
+  }
+  
+  /* Try with RGB values */
+  .education-content .institution {
+    color: rgb(102, 126, 234) !important;
+  }
+  
+  /* Try with HSL values */
+  .education-content h5.institution {
+    color: hsl(230, 60%, 66%) !important;
+  }
+  
   .details {
-    color: var(--gray-600);
+    color: var(--text-secondary);
     line-height: 1.6;
     margin: 0;
     font-size: 0.875rem;
     
     b {
-      color: var(--gray-800);
+      color: var(--text-primary);
       font-weight: 600;
     }
   }
 }
 
-/* Modern section title */
-.education-section .section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
+/* Modern Section Header */
+.section-header {
   text-align: center;
-  margin-bottom: var(--spacing-2xl);
-  color: var(--gray-900);
-  position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    border-radius: 2px;
-  }
+  margin-bottom: 4rem;
+  width: 100%;
+  overflow: visible;
+}
+
+.section-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+  line-height: 1.2;
 }
 
 /* Responsive Design */

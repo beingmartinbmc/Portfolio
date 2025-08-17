@@ -2,26 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Ankit Sharma</title>
+  <title>Ankit Sharma - Software Developer</title>
   <base href="/">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <link href="./assets/css/aos.css" rel="stylesheet">
-  <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./assets/css/main.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta name="description" content="Ankit Sharma - Software Developer Portfolio. Full-stack developer with expertise in modern web technologies.">
+  
+  <!-- Apple-inspired fonts and icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Modern icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Apple-inspired CSS -->
+  <link href="./assets/css/apple-inspired.css" rel="stylesheet">
 </head>
 <body class="mat-typography">
 <app-root></app-root>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="./assets/js/core/popper.min.js"></script>
-<script src="./assets/js/core/bootstrap.min.js"></script>
-<script src="./assets/js/now-ui-kit.js?v=1.3.0"></script>
-<script src="./assets/js/aos.js"></script>
-<script src="./assets/js/main.js"></script>
+<!-- Preload critical resources -->
+<link rel="preload" href="./assets/css/apple-inspired.css" as="style">
+<link rel="preload" href="./assets/js/apple-animations.js" as="script">
+<link rel="preload" href="./assets/images/ankit-optimized.jpg" as="image">
+
+<!-- Optimized script loading -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
+<script src="./assets/js/core/popper.min.js" defer></script>
+<script src="./assets/js/core/bootstrap.min.js" defer></script>
+<script src="./assets/js/now-ui-kit.js?v=1.3.0" defer></script>
+<script src="./assets/js/aos.js" defer></script>
+<script src="./assets/js/main.js" defer></script>
+<script src="./assets/js/apple-animations.js" defer></script>
+
+<!-- Service Worker Registration -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          console.log('SW registered: ', registration);
+        })
+        .catch(registrationError => {
+          console.log('SW registration failed: ', registrationError);
+        });
+    });
+  }
+</script>
 </body>
 </html>

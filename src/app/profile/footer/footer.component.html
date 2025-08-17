@@ -1,15 +1,14 @@
-<footer class="footer">
-  <div class="container text-center">
-    <!-- Social links removed -->
-  </div>
-  <div class="text-center text-muted">
-    <p>&copy; All rights reserved.</p>
-    
-    <!-- Total Views Counter -->
-    <div class="views-counter">
-      <span class="views-text" (click)="toggleFlagCounter($event)">
-        📊 Total Views: <span class="views-number">{{viewCount}}</span>
-      </span>
+<footer class="apple-footer">
+  <div class="apple-container">
+    <div class="footer-content">
+      <p class="copyright">&copy; All rights reserved.</p>
+      
+      <!-- Total Views Counter -->
+      <div class="views-counter">
+        <span class="views-text" (click)="toggleFlagCounter($event)">
+          📊 Total Views: <span class="views-number">{{viewCount}}</span>
+        </span>
+      </div>
       
       <!-- Flag Counter (shown when clicked) -->
       <div class="flag-counter-container" *ngIf="showFlagCounter" (click)="hideFlagCounter($event)">
