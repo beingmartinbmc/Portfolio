@@ -38629,152 +38629,40 @@ var HeaderComponent = class _HeaderComponent {
 })();
 
 // src/app/profile/footer/footer.component.ts
-function FooterComponent_div_8_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 10);
-    \u0275\u0275listener("click", function FooterComponent_div_8_Template_div_click_0_listener($event) {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.hideFlagCounter($event));
-    });
-    \u0275\u0275elementStart(1, "div", 11);
-    \u0275\u0275listener("click", function FooterComponent_div_8_Template_div_click_1_listener($event) {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.hideFlagCounter($event));
-    });
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(2, "div", 12);
-    \u0275\u0275listener("click", function FooterComponent_div_8_Template_div_click_2_listener($event) {
-      \u0275\u0275restoreView(_r1);
-      return \u0275\u0275resetView($event.stopPropagation());
-    });
-    \u0275\u0275elementStart(3, "div", 13)(4, "h4");
-    \u0275\u0275text(5, "Visitor Statistics");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "button", 14);
-    \u0275\u0275listener("click", function FooterComponent_div_8_Template_button_click_6_listener($event) {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.hideFlagCounter($event));
-    });
-    \u0275\u0275text(7, "\xD7");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(8, "div", 15)(9, "a", 16);
-    \u0275\u0275element(10, "img", 9);
-    \u0275\u0275elementEnd()()()();
-  }
-}
 var FooterComponent = class _FooterComponent {
-  constructor(http) {
-    this.http = http;
-    this.showFlagCounter = false;
-    this.viewCount = 0;
-    this.isLoading = true;
-  }
   ngOnInit() {
-    this.loadFlagCounterData();
-  }
-  loadFlagCounterData() {
-    return __async(this, null, function* () {
-      try {
-        yield this.incrementFlagCounter();
-        yield this.getActualPageViewCount();
-      } catch (error) {
-        console.error("Error loading flag counter:", error);
-        this.isLoading = false;
-        this.viewCount = 558;
-      }
-    });
+    this.incrementFlagCounter();
   }
   incrementFlagCounter() {
-    return __async(this, null, function* () {
-      return new Promise((resolve) => {
-        const flagCounterUrl = "https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/";
-        const img = new Image();
-        img.onload = () => resolve();
-        img.onerror = () => resolve();
-        img.src = flagCounterUrl;
-        setTimeout(() => resolve(), 1e3);
-      });
-    });
-  }
-  getActualPageViewCount() {
-    return __async(this, null, function* () {
-      this.parsePageViewFromImage();
-    });
-  }
-  parsePageViewFromImage() {
     const img = new Image();
-    img.onload = () => {
-      this.calculateAccuratePageViews();
-    };
-    img.onerror = () => {
-      this.calculateAccuratePageViews();
-    };
     img.src = "https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/";
-  }
-  calculateAccuratePageViews() {
-    const baseCount = 3102;
-    const daysSinceLastUpdate = Math.floor((Date.now() - (/* @__PURE__ */ new Date("2024-08-16")).getTime()) / (1e3 * 60 * 60 * 24));
-    const estimatedDailyGrowth = 1;
-    this.viewCount = baseCount + daysSinceLastUpdate * estimatedDailyGrowth;
-    this.isLoading = false;
-    console.log("Fallback calculated page views:", this.viewCount);
-  }
-  toggleFlagCounter(event) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    console.log("Toggle flag counter clicked, current state:", this.showFlagCounter);
-    this.showFlagCounter = !this.showFlagCounter;
-    console.log("New state:", this.showFlagCounter);
-  }
-  hideFlagCounter(event) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    console.log("Hide flag counter clicked");
-    this.showFlagCounter = false;
   }
   static {
     this.\u0275fac = function FooterComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _FooterComponent)(\u0275\u0275directiveInject(HttpClient));
+      return new (__ngFactoryType__ || _FooterComponent)();
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 12, vars: 1, consts: [[1, "apple-footer"], [1, "apple-container"], [1, "footer-content"], [1, "copyright"], [1, "views-counter"], ["href", "https://s05.flagcounter.com/more/hZ3l/", "target", "_blank", 1, "views-link"], ["class", "flag-counter-container", 3, "click", 4, "ngIf"], [1, "hidden-flag-counter", 2, "display", "none"], ["href", "https://info.flagcounter.com/hZ3l"], ["src", "https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/", "alt", "Flag Counter", "border", "0"], [1, "flag-counter-container", 3, "click"], [1, "flag-counter-overlay", 3, "click"], [1, "flag-counter-modal", 3, "click"], [1, "flag-counter-header"], [1, "close-btn", 3, "click"], [1, "flag-counter-content"], ["href", "https://info.flagcounter.com/hZ3l", "target", "_blank"]], template: function FooterComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 8, vars: 0, consts: [[1, "apple-footer"], [1, "apple-container"], [1, "footer-content"], [1, "copyright"], [1, "views-counter"], ["href", "https://s05.flagcounter.com/more/hZ3l/", "target", "_blank", 1, "views-link"]], template: function FooterComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275elementStart(0, "footer", 0)(1, "div", 1)(2, "div", 2)(3, "p", 3);
+        \u0275\u0275domElementStart(0, "footer", 0)(1, "div", 1)(2, "div", 2)(3, "p", 3);
         \u0275\u0275text(4, "\xA9 All rights reserved.");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(5, "div", 4)(6, "a", 5);
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(5, "div", 4)(6, "a", 5);
         \u0275\u0275text(7, " \u{1F4CA} Views ");
-        \u0275\u0275elementEnd()();
-        \u0275\u0275template(8, FooterComponent_div_8_Template, 11, 0, "div", 6);
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(9, "div", 7)(10, "a", 8);
-        \u0275\u0275element(11, "img", 9);
-        \u0275\u0275elementEnd()()()();
+        \u0275\u0275domElementEnd()()()()();
       }
-      if (rf & 2) {
-        \u0275\u0275advance(8);
-        \u0275\u0275property("ngIf", ctx.showFlagCounter);
-      }
-    }, dependencies: [CommonModule, NgIf], styles: ["\n\n.apple-footer[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  padding: var(--spacing-xl) 0;\n  border-top: 1px solid var(--glass-border);\n  margin-top: var(--spacing-3xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.footer-content[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n  gap: var(--spacing-md);\n}\n.copyright[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-size: var(--text-sm);\n  margin: 0;\n}\n.views-counter[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.views-text[_ngcontent-%COMP%] {\n  display: inline-block;\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--bg-glass);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  font-size: var(--text-base);\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.views-text[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.views-link[_ngcontent-%COMP%] {\n  display: inline-block;\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--bg-glass);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  font-size: var(--text-base);\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n}\n.views-link[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.views-number[_ngcontent-%COMP%] {\n  font-weight: 600;\n  color: var(--primary-color);\n}\n.flag-counter-container[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 9999;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.flag-counter-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(4px);\n  backdrop-filter: blur(4px);\n}\n.flag-counter-modal[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-xl);\n  max-width: 90%;\n  max-height: 90%;\n  overflow: auto;\n  position: relative;\n  z-index: 10000;\n  animation: _ngcontent-%COMP%_fadeInUp 0.3s ease-out;\n}\n.flag-counter-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: var(--spacing-lg) var(--spacing-xl);\n  border-bottom: 1px solid var(--gray-200);\n  background: var(--gray-50);\n}\n.flag-counter-header[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  margin: 0;\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  color: var(--gray-900);\n}\n.close-btn[_ngcontent-%COMP%] {\n  background: none;\n  border: none;\n  font-size: 1.5rem;\n  color: var(--gray-500);\n  cursor: pointer;\n  padding: var(--spacing-xs);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.close-btn[_ngcontent-%COMP%]:hover {\n  color: var(--gray-700);\n  background: var(--gray-100);\n}\n.flag-counter-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  text-align: center;\n}\n.flag-counter-content[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  max-width: 100%;\n  height: auto;\n  border-radius: var(--radius-md);\n  box-shadow: var(--shadow-sm);\n}\n.hidden-flag-counter[_ngcontent-%COMP%] {\n  position: absolute;\n  left: -9999px;\n  top: -9999px;\n}\n@media (max-width: 768px) {\n  .flag-counter-modal[_ngcontent-%COMP%] {\n    max-width: 95%;\n    margin: var(--spacing-md);\n  }\n  .flag-counter-header[_ngcontent-%COMP%] {\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .flag-counter-header[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .flag-counter-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .views-text[_ngcontent-%COMP%] {\n    font-size: 0.8rem;\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */"] });
+    }, dependencies: [CommonModule], styles: ["\n\n.apple-footer[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  padding: var(--spacing-xl) 0;\n  border-top: 1px solid var(--glass-border);\n  margin-top: var(--spacing-3xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.footer-content[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n  gap: var(--spacing-md);\n}\n.copyright[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n  font-size: var(--text-sm);\n  margin: 0;\n}\n.views-counter[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.views-text[_ngcontent-%COMP%] {\n  display: inline-block;\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--bg-glass);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  font-size: var(--text-base);\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.views-text[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.views-link[_ngcontent-%COMP%] {\n  display: inline-block;\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--bg-glass);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  font-size: var(--text-base);\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n}\n.views-link[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.views-number[_ngcontent-%COMP%] {\n  font-weight: 600;\n  color: var(--primary-color);\n}\n.flag-counter-container[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 9999;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.flag-counter-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(4px);\n  backdrop-filter: blur(4px);\n}\n.flag-counter-modal[_ngcontent-%COMP%] {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-xl);\n  max-width: 90%;\n  max-height: 90%;\n  overflow: auto;\n  position: relative;\n  z-index: 10000;\n  animation: _ngcontent-%COMP%_fadeInUp 0.3s ease-out;\n}\n.flag-counter-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: var(--spacing-lg) var(--spacing-xl);\n  border-bottom: 1px solid var(--gray-200);\n  background: var(--gray-50);\n}\n.flag-counter-header[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  margin: 0;\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  color: var(--gray-900);\n}\n.close-btn[_ngcontent-%COMP%] {\n  background: none;\n  border: none;\n  font-size: 1.5rem;\n  color: var(--gray-500);\n  cursor: pointer;\n  padding: var(--spacing-xs);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.close-btn[_ngcontent-%COMP%]:hover {\n  color: var(--gray-700);\n  background: var(--gray-100);\n}\n.flag-counter-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  text-align: center;\n}\n.flag-counter-content[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  max-width: 100%;\n  height: auto;\n  border-radius: var(--radius-md);\n  box-shadow: var(--shadow-sm);\n}\n.hidden-flag-counter[_ngcontent-%COMP%] {\n  position: absolute;\n  left: -9999px;\n  top: -9999px;\n}\n@media (max-width: 768px) {\n  .flag-counter-modal[_ngcontent-%COMP%] {\n    max-width: 95%;\n    margin: var(--spacing-md);\n  }\n  .flag-counter-header[_ngcontent-%COMP%] {\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .flag-counter-header[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .flag-counter-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .views-text[_ngcontent-%COMP%] {\n    font-size: 0.8rem;\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */"] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FooterComponent, [{
     type: Component,
-    args: [{ selector: "app-footer", standalone: true, imports: [CommonModule], template: '<footer class="apple-footer">\n  <div class="apple-container">\n    <div class="footer-content">\n      <p class="copyright">&copy; All rights reserved.</p>\n      \n      <!-- Views Counter -->\n      <div class="views-counter">\n        <a href="https://s05.flagcounter.com/more/hZ3l/" target="_blank" class="views-link">\n          \u{1F4CA} Views\n        </a>\n      </div>\n      \n      <!-- Flag Counter (shown when clicked) -->\n      <div class="flag-counter-container" *ngIf="showFlagCounter" (click)="hideFlagCounter($event)">\n        <div class="flag-counter-overlay" (click)="hideFlagCounter($event)"></div>\n        <div class="flag-counter-modal" (click)="$event.stopPropagation()">\n          <div class="flag-counter-header">\n            <h4>Visitor Statistics</h4>\n            <button class="close-btn" (click)="hideFlagCounter($event)">\xD7</button>\n          </div>\n          <div class="flag-counter-content">\n            <a href="https://info.flagcounter.com/hZ3l" target="_blank">\n              <img src="https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"\n                   alt="Flag Counter" border="0">\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n    \n    <!-- Hidden Flag Counter for tracking (always present but invisible) -->\n    <div class="hidden-flag-counter" style="display: none;">\n      <a href="https://info.flagcounter.com/hZ3l">\n        <img src="https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"\n             alt="Flag Counter" border="0">\n      </a>\n    </div>\n  </div>\n</footer>\n', styles: ["/* src/app/profile/footer/footer.component.scss */\n.apple-footer {\n  background: var(--bg-secondary);\n  padding: var(--spacing-xl) 0;\n  border-top: 1px solid var(--glass-border);\n  margin-top: var(--spacing-3xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.footer-content {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n  gap: var(--spacing-md);\n}\n.copyright {\n  color: var(--text-secondary);\n  font-size: var(--text-sm);\n  margin: 0;\n}\n.views-counter {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.views-text {\n  display: inline-block;\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--bg-glass);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  font-size: var(--text-base);\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.views-text:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.views-link {\n  display: inline-block;\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--bg-glass);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  font-size: var(--text-base);\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n}\n.views-link:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.views-number {\n  font-weight: 600;\n  color: var(--primary-color);\n}\n.flag-counter-container {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 9999;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.flag-counter-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(4px);\n  backdrop-filter: blur(4px);\n}\n.flag-counter-modal {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-xl);\n  max-width: 90%;\n  max-height: 90%;\n  overflow: auto;\n  position: relative;\n  z-index: 10000;\n  animation: fadeInUp 0.3s ease-out;\n}\n.flag-counter-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: var(--spacing-lg) var(--spacing-xl);\n  border-bottom: 1px solid var(--gray-200);\n  background: var(--gray-50);\n}\n.flag-counter-header h4 {\n  margin: 0;\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  color: var(--gray-900);\n}\n.close-btn {\n  background: none;\n  border: none;\n  font-size: 1.5rem;\n  color: var(--gray-500);\n  cursor: pointer;\n  padding: var(--spacing-xs);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.close-btn:hover {\n  color: var(--gray-700);\n  background: var(--gray-100);\n}\n.flag-counter-content {\n  padding: var(--spacing-xl);\n  text-align: center;\n}\n.flag-counter-content img {\n  max-width: 100%;\n  height: auto;\n  border-radius: var(--radius-md);\n  box-shadow: var(--shadow-sm);\n}\n.hidden-flag-counter {\n  position: absolute;\n  left: -9999px;\n  top: -9999px;\n}\n@media (max-width: 768px) {\n  .flag-counter-modal {\n    max-width: 95%;\n    margin: var(--spacing-md);\n  }\n  .flag-counter-header {\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .flag-counter-header h4 {\n    font-size: 1.125rem;\n  }\n  .flag-counter-content {\n    padding: var(--spacing-lg);\n  }\n  .views-text {\n    font-size: 0.8rem;\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */\n"] }]
-  }], () => [{ type: HttpClient }], null);
+    args: [{ selector: "app-footer", standalone: true, imports: [CommonModule], template: '<footer class="apple-footer">\n  <div class="apple-container">\n    <div class="footer-content">\n      <p class="copyright">&copy; All rights reserved.</p>\n      \n      <!-- Views Counter -->\n      <div class="views-counter">\n        <a href="https://s05.flagcounter.com/more/hZ3l/" target="_blank" class="views-link">\n          \u{1F4CA} Views\n        </a>\n      </div>\n    </div>\n  </div>\n</footer>\n', styles: ["/* src/app/profile/footer/footer.component.scss */\n.apple-footer {\n  background: var(--bg-secondary);\n  padding: var(--spacing-xl) 0;\n  border-top: 1px solid var(--glass-border);\n  margin-top: var(--spacing-3xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.footer-content {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n  gap: var(--spacing-md);\n}\n.copyright {\n  color: var(--primary-color);\n  font-size: var(--text-sm);\n  margin: 0;\n}\n.views-counter {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.views-text {\n  display: inline-block;\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--bg-glass);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  font-size: var(--text-base);\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.views-text:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.views-link {\n  display: inline-block;\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--bg-glass);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-lg);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  font-size: var(--text-base);\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n}\n.views-link:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: var(--shadow-xl);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.views-number {\n  font-weight: 600;\n  color: var(--primary-color);\n}\n.flag-counter-container {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 9999;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.flag-counter-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(4px);\n  backdrop-filter: blur(4px);\n}\n.flag-counter-modal {\n  background: var(--white);\n  border-radius: var(--radius-xl);\n  box-shadow: var(--shadow-xl);\n  max-width: 90%;\n  max-height: 90%;\n  overflow: auto;\n  position: relative;\n  z-index: 10000;\n  animation: fadeInUp 0.3s ease-out;\n}\n.flag-counter-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: var(--spacing-lg) var(--spacing-xl);\n  border-bottom: 1px solid var(--gray-200);\n  background: var(--gray-50);\n}\n.flag-counter-header h4 {\n  margin: 0;\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  color: var(--gray-900);\n}\n.close-btn {\n  background: none;\n  border: none;\n  font-size: 1.5rem;\n  color: var(--gray-500);\n  cursor: pointer;\n  padding: var(--spacing-xs);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.close-btn:hover {\n  color: var(--gray-700);\n  background: var(--gray-100);\n}\n.flag-counter-content {\n  padding: var(--spacing-xl);\n  text-align: center;\n}\n.flag-counter-content img {\n  max-width: 100%;\n  height: auto;\n  border-radius: var(--radius-md);\n  box-shadow: var(--shadow-sm);\n}\n.hidden-flag-counter {\n  position: absolute;\n  left: -9999px;\n  top: -9999px;\n}\n@media (max-width: 768px) {\n  .flag-counter-modal {\n    max-width: 95%;\n    margin: var(--spacing-md);\n  }\n  .flag-counter-header {\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .flag-counter-header h4 {\n    font-size: 1.125rem;\n  }\n  .flag-counter-content {\n    padding: var(--spacing-lg);\n  }\n  .views-text {\n    font-size: 0.8rem;\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */\n"] }]
+  }], null, null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FooterComponent, { className: "FooterComponent", filePath: "src/app/profile/footer/footer.component.ts", lineNumber: 12 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FooterComponent, { className: "FooterComponent", filePath: "src/app/profile/footer/footer.component.ts", lineNumber: 11 });
 })();
 
 // src/app/profile/intro/intro.component.ts
