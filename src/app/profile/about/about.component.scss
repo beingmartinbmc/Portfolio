@@ -214,6 +214,23 @@
   .info-heading {
     font-size: var(--text-base);
   }
+  
+  /* Override Apple animations on mobile to ensure visibility */
+  .apple-fade-in,
+  .apple-slide-up,
+  .apple-scale-in {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  .section-header,
+  .about-text,
+  .about-content {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -231,5 +248,22 @@
     width: 35px;
     height: 35px;
     font-size: var(--text-sm);
+  }
+  
+  /* Override Apple animations on mobile to ensure visibility */
+  .apple-fade-in,
+  .apple-slide-up,
+  .apple-scale-in {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  .section-header,
+  .about-text,
+  .about-content {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
