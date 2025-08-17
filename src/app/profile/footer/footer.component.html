@@ -6,7 +6,7 @@
       <!-- Total Views Counter -->
       <div class="views-counter">
         <span class="views-text" (click)="toggleFlagCounter($event)">
-          📊 Total Views: <span class="views-number">{{viewCount}}</span>
+          📊 Total Views: <span class="views-number">{{isLoading ? '...' : viewCount}}</span>
         </span>
       </div>
       
