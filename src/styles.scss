@@ -527,6 +527,24 @@ p {
   -webkit-backface-visibility: hidden;
 }
 
+/* Mobile Animation Override - Ensure elements are always visible on mobile */
+@media (max-width: 768px) {
+  .apple-fade-in,
+  .apple-slide-up,
+  .apple-scale-in {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  /* Ensure all animated elements are visible on mobile */
+  [class*="apple-"] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* Optimize animations for GPU */
 .hover-lift,
 .hover-scale,

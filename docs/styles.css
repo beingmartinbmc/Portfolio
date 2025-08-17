@@ -2811,6 +2811,20 @@ p {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+@media (max-width: 768px) {
+  .apple-fade-in,
+  .apple-slide-up,
+  .apple-scale-in {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  [class*=apple-] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
 .hover-lift,
 .hover-scale,
 .hover-glow,
