@@ -9,31 +9,6 @@
           📊 Views
         </a>
       </div>
-      
-      <!-- Flag Counter (shown when clicked) -->
-      <div class="flag-counter-container" *ngIf="showFlagCounter" (click)="hideFlagCounter($event)">
-        <div class="flag-counter-overlay" (click)="hideFlagCounter($event)"></div>
-        <div class="flag-counter-modal" (click)="$event.stopPropagation()">
-          <div class="flag-counter-header">
-            <h4>Visitor Statistics</h4>
-            <button class="close-btn" (click)="hideFlagCounter($event)">×</button>
-          </div>
-          <div class="flag-counter-content">
-            <a href="https://info.flagcounter.com/hZ3l" target="_blank">
-              <img src="https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"
-                   alt="Flag Counter" border="0">
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Hidden Flag Counter for tracking (always present but invisible) -->
-    <div class="hidden-flag-counter" style="display: none;">
-      <a href="https://info.flagcounter.com/hZ3l">
-        <img src="https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"
-             alt="Flag Counter" border="0">
-      </a>
     </div>
   </div>
 </footer>
