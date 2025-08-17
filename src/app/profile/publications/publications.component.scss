@@ -1,8 +1,4 @@
-/* Modern Projects Component Styles */
-.projects-section {
-  background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
-  padding: var(--spacing-3xl) 0;
-}
+/* Apple-Inspired Projects Component Styles */
 
 .projects-grid {
   display: grid;
@@ -11,16 +7,58 @@
 }
 
 .project-card {
-  background: var(--white);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--gray-200);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--glass-border);
   overflow: hidden;
   transition: all var(--transition-normal);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   
   &:hover {
-    box-shadow: var(--shadow-xl);
-    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  // Divine Wisdom Card Enhancement
+  &.divine-card {
+    background: linear-gradient(135deg, 
+      rgba(26, 26, 46, 0.9) 0%, 
+      rgba(22, 33, 62, 0.9) 50%, 
+      rgba(15, 52, 96, 0.9) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 
+      0 10px 30px rgba(0, 0, 0, 0.5),
+      0 0 20px rgba(255, 215, 0, 0.1);
+    
+    &:hover {
+      border-color: rgba(255, 215, 0, 0.4);
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(255, 215, 0, 0.2);
+      transform: translateY(-12px);
+    }
+    
+    .project-content {
+      .project-title {
+        background: linear-gradient(45deg, #ffd700, #ffed4e, #fff8dc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+      }
+      
+      .project-description {
+        color: #e6e6fa;
+        
+        b {
+          color: #ffd700;
+          text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+      }
+    }
   }
 }
 
@@ -29,6 +67,12 @@
   overflow: hidden;
   border-radius: var(--radius-lg);
   margin: var(--spacing-lg);
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
   
   img {
     width: 100%;
@@ -79,6 +123,112 @@
       margin-top: var(--spacing-xs);
     }
   }
+
+  // Divine Wisdom Special Styling
+  .project-preview.divine-wisdom {
+    background: linear-gradient(135deg, 
+      #1a1a2e 0%, 
+      #16213e 25%, 
+      #0f3460 50%, 
+      #533483 75%, 
+      #7209b7 100%);
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 
+      0 0 30px rgba(255, 215, 0, 0.2),
+      inset 0 0 30px rgba(255, 215, 0, 0.1);
+    text-decoration: none;
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+      animation: divineGlow 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    
+    &::after {
+      content: 'ॐ';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.8rem;
+      color: rgba(255, 215, 0, 0.9);
+      animation: divineRotate 8s linear infinite;
+      font-weight: bold;
+    }
+    
+    h3 {
+      background: linear-gradient(45deg, #ffd700, #ffed4e, #fff8dc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      position: relative;
+      z-index: 2;
+    }
+    
+    p {
+      color: #e6e6fa;
+      font-weight: 500;
+      text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .tech-stack {
+      color: #ffd700;
+      font-weight: 600;
+      text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+      position: relative;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      margin: 4px 0;
+    }
+    
+    .powered-by {
+      color: #87ceeb;
+      font-weight: 500;
+      text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);
+      position: relative;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(135, 206, 235, 0.3);
+    }
+    
+    &:hover {
+      transform: scale(1.05);
+      border-color: rgba(255, 215, 0, 0.6);
+      box-shadow: 
+        0 0 50px rgba(255, 215, 0, 0.4),
+        inset 0 0 50px rgba(255, 215, 0, 0.2);
+      
+      &::before {
+        animation: divineGlow 2s ease-in-out infinite;
+      }
+      
+      h3 {
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+      }
+    }
+  }
   
   &:hover img,
   &:hover .project-preview {
@@ -94,41 +244,43 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: var(--spacing-md);
-    color: var(--gray-900);
+    color: var(--text-primary);
   }
   
   .project-description {
-    color: var(--gray-600);
+    color: var(--text-secondary);
     line-height: 1.7;
     font-size: 1rem;
     
     b {
-      color: var(--gray-900);
+      color: var(--text-primary);
       font-weight: 600;
     }
   }
 }
 
-/* Modern section title */
-.projects-section .section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
+/* Modern Section Header */
+.section-header {
   text-align: center;
-  margin-bottom: var(--spacing-2xl);
-  color: var(--gray-900);
-  position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    border-radius: 2px;
-  }
+  margin-bottom: 4rem;
+  width: 100%;
+  overflow: visible;
+}
+
+.section-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+  line-height: 1.2;
 }
 
 /* Responsive Design */
@@ -145,8 +297,8 @@
     font-size: 1.25rem;
   }
   
-  .projects-section .section-title {
-    font-size: 2rem;
+  .section-title {
+    font-size: 2.5rem;
   }
 }
 
@@ -156,4 +308,180 @@
   
   &:nth-child(1) { animation-delay: 0.1s; }
   &:nth-child(2) { animation-delay: 0.2s; }
+}
+
+/* Divine Wisdom Animations */
+@keyframes divineGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes divineRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Open Source Section Styles */
+.open-source-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-2xl);
+}
+
+.open-source-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+  transition: all var(--transition-normal);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  
+  &:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .card-body {
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .card-title {
+    font-family: var(--font-secondary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+  
+  .card-text {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    flex-grow: 1;
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+.project-meta {
+  margin-bottom: var(--spacing-md);
+  
+  .badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .text-muted {
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+    margin-left: var(--spacing-sm);
+  }
+}
+
+.project-stats {
+  margin-bottom: var(--spacing-lg);
+  
+  .stat {
+    display: inline-block;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-right: var(--spacing-md);
+    font-weight: 500;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.project-actions {
+  margin-top: auto;
+  
+  .btn {
+    font-size: 0.875rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: all var(--transition-normal);
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    
+    &:hover {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+  }
+}
+
+/* Responsive Design for Open Source */
+@media (max-width: 768px) {
+  .open-source-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .open-source-card .card-body {
+    padding: var(--spacing-lg);
+  }
+  
+  .open-source-card .card-title {
+    font-size: 1.125rem;
+  }
+  
+  .project-stats .stat {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+  }
+}
+
+/* Animation for open source cards */
+.open-source-card {
+  animation: fadeInUp 0.6s ease-out;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
 }

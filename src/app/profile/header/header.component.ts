@@ -8,6 +8,7 @@ import {Component, OnInit, HostListener} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   isScrolled = false;
+  isMenuOpen = false;
 
   constructor() {
   }
@@ -19,5 +20,13 @@ export class HeaderComponent implements OnInit {
   onWindowScroll() {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     this.isScrolled = scrollPosition > 100;
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
   }
 }
