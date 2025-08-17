@@ -34,20 +34,5 @@
 <script src="./assets/js/aos.js" defer></script>
 <script src="./assets/js/main.js" defer></script>
 <script src="./assets/js/apple-animations.js" defer></script>
-
-<!-- Service Worker Registration -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .then(registration => {
-          console.log('SW registered: ', registration);
-        })
-        .catch(registrationError => {
-          console.log('SW registration failed: ', registrationError);
-        });
-    });
-  }
-</script>
 </body>
 </html>
