@@ -428,6 +428,41 @@
       margin-right: 0;
     }
   }
+  
+  .npm-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    
+    .npm-badge {
+      height: 28px;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-normal);
+      filter: brightness(0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      
+      &:hover {
+        filter: brightness(1.1);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      
+      // Fallback styling if badge fails to load
+      &:not([src]), &[src=""] {
+        background: linear-gradient(135deg, #cb3837, #e53e3e);
+        color: white;
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 80px;
+        text-align: center;
+      }
+    }
+  }
 }
 
 .project-actions {
@@ -474,6 +509,14 @@
   .project-stats .stat {
     display: block;
     margin-bottom: var(--spacing-xs);
+  }
+  
+  .project-stats .npm-badges {
+    justify-content: center;
+    
+    .npm-badge {
+      height: 24px;
+    }
   }
 }
 
