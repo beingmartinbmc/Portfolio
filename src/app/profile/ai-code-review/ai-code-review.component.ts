@@ -38,7 +38,6 @@ export class AiCodeReviewComponent implements OnInit {
   isGenerating = false;
   showReview = false;
   userScore = 0;
-  totalReviewed = 0;
 
   codeSnippets: CodeSnippet[] = [
     {
@@ -431,7 +430,6 @@ Please provide a concise, professional review suitable for a portfolio showcase.
     } finally {
       this.isLoading = false;
       this.showReview = true;
-      this.totalReviewed++;
     }
   }
 
@@ -471,13 +469,7 @@ Please provide a concise, professional review suitable for a portfolio showcase.
     return scoreMatch ? parseInt(scoreMatch[1] || scoreMatch[2]) : 8;
   }
 
-  resetGame(): void {
-    this.userCode = '';
-    this.userScore = 0;
-    this.totalReviewed = 0;
-    this.aiReview = null;
-    this.showReview = false;
-  }
+
 
 
 
