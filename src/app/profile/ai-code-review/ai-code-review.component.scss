@@ -424,16 +424,38 @@
         }
       }
       
-      .complexity-text {
-        font-size: var(--text-base);
-        line-height: 1.6;
-        color: var(--text-secondary);
-        background: var(--apple-glass);
-        padding: var(--spacing-md);
-        border-radius: var(--radius-md);
-        border: 1px solid var(--glass-border);
-        
-                 strong {
+             .complexity-text {
+         font-size: var(--text-base);
+         line-height: 1.6;
+         color: var(--text-secondary);
+         background: var(--apple-glass);
+         padding: var(--spacing-md);
+         border-radius: var(--radius-md);
+         border: 1px solid var(--glass-border);
+         max-height: 200px;
+         overflow-y: auto;
+         scrollbar-width: thin;
+         scrollbar-color: var(--primary-color) transparent;
+         
+         &::-webkit-scrollbar {
+           width: 6px;
+         }
+         
+         &::-webkit-scrollbar-track {
+           background: transparent;
+           border-radius: var(--radius-sm);
+         }
+         
+         &::-webkit-scrollbar-thumb {
+           background: linear-gradient(135deg, var(--primary-color), var(--accent-purple));
+           border-radius: var(--radius-sm);
+           
+           &:hover {
+             background: linear-gradient(135deg, var(--accent-purple), var(--primary-color));
+           }
+         }
+         
+         strong {
            color: var(--text-primary);
            font-weight: var(--font-semibold);
          }
