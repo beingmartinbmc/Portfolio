@@ -19,7 +19,22 @@
       <!-- Code Input Section -->
       <div class="code-input-section">
         <div class="input-header">
-          <h3 class="input-title">Write Your Java Code</h3>
+          <h3 class="input-title">Write Your Code</h3>
+          <div class="language-selector">
+            <label for="language-select">Language:</label>
+            <select id="language-select" [(ngModel)]="selectedLanguage" (change)="onLanguageChange()">
+              <option value="java">Java</option>
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+              <option value="typescript">TypeScript</option>
+              <option value="cpp">C++</option>
+              <option value="csharp">C#</option>
+              <option value="go">Go</option>
+              <option value="rust">Rust</option>
+              <option value="php">PHP</option>
+              <option value="ruby">Ruby</option>
+            </select>
+          </div>
           <div class="input-options">
             <button class="option-btn" (click)="generateRandomCode()" [disabled]="isGenerating">
               <span class="btn-icon">🎲</span>
@@ -34,21 +49,15 @@
         
         <div class="code-editor-container">
           <div class="editor-header">
-            <span class="file-name">Main.java</span>
-            <span class="language-indicator">Java</span>
+            <span class="file-name">{{ getFileName() }}</span>
+            <span class="language-indicator">{{ getLanguageDisplayName() }}</span>
           </div>
-          <textarea 
-            class="code-editor" 
-            [(ngModel)]="userCode" 
-            placeholder="Write your Java code here...
-Example:
-public class Main {
-    public static void main(String[] args) {
-        System.out.println(&quot;Hello World!&quot;);
-    }
-}"
-            (input)="onCodeChange()"
-            rows="15"></textarea>
+                      <textarea 
+              class="code-editor" 
+              [(ngModel)]="userCode" 
+              [placeholder]="getPlaceholderText()"
+              (input)="onCodeChange()"
+              rows="15"></textarea>
         </div>
         
         <div class="code-actions">
