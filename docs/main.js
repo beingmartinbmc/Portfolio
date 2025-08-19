@@ -89,12 +89,11 @@ var REACTIVE_NODE = {
   version: 0,
   lastCleanEpoch: 0,
   dirty: false,
-  producerNode: void 0,
-  producerLastReadVersion: void 0,
-  producerIndexOfThis: void 0,
-  nextProducerIndex: 0,
-  liveConsumerNode: void 0,
-  liveConsumerIndexOfThis: void 0,
+  producers: void 0,
+  producersTail: void 0,
+  consumers: void 0,
+  consumersTail: void 0,
+  recomputing: false,
   consumerAllowSignalWrites: false,
   consumerIsAlwaysLive: false,
   kind: "unknown",
@@ -114,19 +113,45 @@ function producerAccessed(node) {
     return;
   }
   activeConsumer.consumerOnSignalRead(node);
-  const idx = activeConsumer.nextProducerIndex++;
-  assertConsumerNode(activeConsumer);
-  if (idx < activeConsumer.producerNode.length && activeConsumer.producerNode[idx] !== node) {
-    if (consumerIsLive(activeConsumer)) {
-      const staleProducer = activeConsumer.producerNode[idx];
-      producerRemoveLiveConsumerAtIndex(staleProducer, activeConsumer.producerIndexOfThis[idx]);
+  const prevProducerLink = activeConsumer.producersTail;
+  if (prevProducerLink !== void 0 && prevProducerLink.producer === node) {
+    return;
+  }
+  let nextProducerLink = void 0;
+  const isRecomputing = activeConsumer.recomputing;
+  if (isRecomputing) {
+    nextProducerLink = prevProducerLink !== void 0 ? prevProducerLink.nextProducer : activeConsumer.producers;
+    if (nextProducerLink !== void 0 && nextProducerLink.producer === node) {
+      activeConsumer.producersTail = nextProducerLink;
+      nextProducerLink.lastReadVersion = node.version;
+      return;
     }
   }
-  if (activeConsumer.producerNode[idx] !== node) {
-    activeConsumer.producerNode[idx] = node;
-    activeConsumer.producerIndexOfThis[idx] = consumerIsLive(activeConsumer) ? producerAddLiveConsumer(node, activeConsumer, idx) : 0;
+  const prevConsumerLink = node.consumersTail;
+  if (prevConsumerLink !== void 0 && prevConsumerLink.consumer === activeConsumer && // However, we have to make sure that the link we've discovered isn't from a node that is incrementally rebuilding its producer list
+  (!isRecomputing || isValidLink(prevConsumerLink, activeConsumer))) {
+    return;
   }
-  activeConsumer.producerLastReadVersion[idx] = node.version;
+  const isLive = consumerIsLive(activeConsumer);
+  const newLink = {
+    producer: node,
+    consumer: activeConsumer,
+    // instead of eagerly destroying the previous link, we delay until we've finished recomputing
+    // the producers list, so that we can destroy all of the old links at once.
+    nextProducer: nextProducerLink,
+    prevConsumer: prevConsumerLink,
+    lastReadVersion: node.version,
+    nextConsumer: void 0
+  };
+  activeConsumer.producersTail = newLink;
+  if (prevProducerLink !== void 0) {
+    prevProducerLink.nextProducer = newLink;
+  } else {
+    activeConsumer.producers = newLink;
+  }
+  if (isLive) {
+    producerAddLiveConsumer(node, newLink);
+  }
 }
 function producerIncrementEpoch() {
   epoch++;
@@ -146,13 +171,14 @@ function producerUpdateValueVersion(node) {
   producerMarkClean(node);
 }
 function producerNotifyConsumers(node) {
-  if (node.liveConsumerNode === void 0) {
+  if (node.consumers === void 0) {
     return;
   }
   const prev = inNotificationPhase;
   inNotificationPhase = true;
   try {
-    for (const consumer of node.liveConsumerNode) {
+    for (let link = node.consumers; link !== void 0; link = link.nextConsumer) {
+      const consumer = link.consumer;
       if (!consumer.dirty) {
         consumerMarkDirty(consumer);
       }
@@ -174,30 +200,37 @@ function producerMarkClean(node) {
   node.lastCleanEpoch = epoch;
 }
 function consumerBeforeComputation(node) {
-  node && (node.nextProducerIndex = 0);
+  if (node) {
+    node.producersTail = void 0;
+    node.recomputing = true;
+  }
   return setActiveConsumer(node);
 }
 function consumerAfterComputation(node, prevConsumer) {
   setActiveConsumer(prevConsumer);
-  if (!node || node.producerNode === void 0 || node.producerIndexOfThis === void 0 || node.producerLastReadVersion === void 0) {
+  if (!node) {
     return;
   }
-  if (consumerIsLive(node)) {
-    for (let i = node.nextProducerIndex; i < node.producerNode.length; i++) {
-      producerRemoveLiveConsumerAtIndex(node.producerNode[i], node.producerIndexOfThis[i]);
+  node.recomputing = false;
+  const producersTail = node.producersTail;
+  let toRemove = producersTail !== void 0 ? producersTail.nextProducer : node.producers;
+  if (toRemove !== void 0) {
+    if (consumerIsLive(node)) {
+      do {
+        toRemove = producerRemoveLiveConsumerLink(toRemove);
+      } while (toRemove !== void 0);
     }
-  }
-  while (node.producerNode.length > node.nextProducerIndex) {
-    node.producerNode.pop();
-    node.producerLastReadVersion.pop();
-    node.producerIndexOfThis.pop();
+    if (producersTail !== void 0) {
+      producersTail.nextProducer = void 0;
+    } else {
+      node.producers = void 0;
+    }
   }
 }
 function consumerPollProducersForChange(node) {
-  assertConsumerNode(node);
-  for (let i = 0; i < node.producerNode.length; i++) {
-    const producer = node.producerNode[i];
-    const seenVersion = node.producerLastReadVersion[i];
+  for (let link = node.producers; link !== void 0; link = link.nextProducer) {
+    const producer = link.producer;
+    const seenVersion = link.lastReadVersion;
     if (seenVersion !== producer.version) {
       return true;
     }
@@ -209,66 +242,81 @@ function consumerPollProducersForChange(node) {
   return false;
 }
 function consumerDestroy(node) {
-  assertConsumerNode(node);
   if (consumerIsLive(node)) {
-    for (let i = 0; i < node.producerNode.length; i++) {
-      producerRemoveLiveConsumerAtIndex(node.producerNode[i], node.producerIndexOfThis[i]);
+    let link = node.producers;
+    while (link !== void 0) {
+      link = producerRemoveLiveConsumerLink(link);
     }
   }
-  node.producerNode.length = node.producerLastReadVersion.length = node.producerIndexOfThis.length = 0;
-  if (node.liveConsumerNode) {
-    node.liveConsumerNode.length = node.liveConsumerIndexOfThis.length = 0;
+  node.producers = void 0;
+  node.producersTail = void 0;
+  node.consumers = void 0;
+  node.consumersTail = void 0;
+}
+function producerAddLiveConsumer(node, link) {
+  const consumersTail = node.consumersTail;
+  const wasLive = consumerIsLive(node);
+  if (consumersTail !== void 0) {
+    link.nextConsumer = consumersTail.nextConsumer;
+    consumersTail.nextConsumer = link;
+  } else {
+    link.nextConsumer = void 0;
+    node.consumers = link;
+  }
+  link.prevConsumer = consumersTail;
+  node.consumersTail = link;
+  if (!wasLive) {
+    for (let link2 = node.producers; link2 !== void 0; link2 = link2.nextProducer) {
+      producerAddLiveConsumer(link2.producer, link2);
+    }
   }
 }
-function producerAddLiveConsumer(node, consumer, indexOfThis) {
-  assertProducerNode(node);
-  if (node.liveConsumerNode.length === 0 && isConsumerNode(node)) {
-    for (let i = 0; i < node.producerNode.length; i++) {
-      node.producerIndexOfThis[i] = producerAddLiveConsumer(node.producerNode[i], node, i);
+function producerRemoveLiveConsumerLink(link) {
+  const producer = link.producer;
+  const nextProducer = link.nextProducer;
+  const nextConsumer = link.nextConsumer;
+  const prevConsumer = link.prevConsumer;
+  link.nextConsumer = void 0;
+  link.prevConsumer = void 0;
+  if (nextConsumer !== void 0) {
+    nextConsumer.prevConsumer = prevConsumer;
+  } else {
+    producer.consumersTail = prevConsumer;
+  }
+  if (prevConsumer !== void 0) {
+    prevConsumer.nextConsumer = nextConsumer;
+  } else {
+    producer.consumers = nextConsumer;
+    if (!consumerIsLive(producer)) {
+      let producerLink = producer.producers;
+      while (producerLink !== void 0) {
+        producerLink = producerRemoveLiveConsumerLink(producerLink);
+      }
     }
   }
-  node.liveConsumerIndexOfThis.push(indexOfThis);
-  return node.liveConsumerNode.push(consumer) - 1;
-}
-function producerRemoveLiveConsumerAtIndex(node, idx) {
-  assertProducerNode(node);
-  if (typeof ngDevMode !== "undefined" && ngDevMode && idx >= node.liveConsumerNode.length) {
-    throw new Error(`Assertion error: active consumer index ${idx} is out of bounds of ${node.liveConsumerNode.length} consumers)`);
-  }
-  if (node.liveConsumerNode.length === 1 && isConsumerNode(node)) {
-    for (let i = 0; i < node.producerNode.length; i++) {
-      producerRemoveLiveConsumerAtIndex(node.producerNode[i], node.producerIndexOfThis[i]);
-    }
-  }
-  const lastIdx = node.liveConsumerNode.length - 1;
-  node.liveConsumerNode[idx] = node.liveConsumerNode[lastIdx];
-  node.liveConsumerIndexOfThis[idx] = node.liveConsumerIndexOfThis[lastIdx];
-  node.liveConsumerNode.length--;
-  node.liveConsumerIndexOfThis.length--;
-  if (idx < node.liveConsumerNode.length) {
-    const idxProducer = node.liveConsumerIndexOfThis[idx];
-    const consumer = node.liveConsumerNode[idx];
-    assertConsumerNode(consumer);
-    consumer.producerIndexOfThis[idxProducer] = idx;
-  }
+  return nextProducer;
 }
 function consumerIsLive(node) {
-  return node.consumerIsAlwaysLive || (node?.liveConsumerNode?.length ?? 0) > 0;
-}
-function assertConsumerNode(node) {
-  node.producerNode ??= [];
-  node.producerIndexOfThis ??= [];
-  node.producerLastReadVersion ??= [];
-}
-function assertProducerNode(node) {
-  node.liveConsumerNode ??= [];
-  node.liveConsumerIndexOfThis ??= [];
-}
-function isConsumerNode(node) {
-  return node.producerNode !== void 0;
+  return node.consumerIsAlwaysLive || node.consumers !== void 0;
 }
 function runPostProducerCreatedFn(node) {
   postProducerCreatedFn?.(node);
+}
+function isValidLink(checkLink, consumer) {
+  const producersTail = consumer.producersTail;
+  if (producersTail !== void 0) {
+    let link = consumer.producers;
+    do {
+      if (link === checkLink) {
+        return true;
+      }
+      if (link === producersTail) {
+        break;
+      }
+      link = link.nextProducer;
+    } while (link !== void 0);
+  }
+  return false;
 }
 function createComputed(computation, equal) {
   const node = Object.create(COMPUTED_NODE);
@@ -11472,7 +11520,7 @@ var ComponentFactory2 = class extends ComponentFactory$1 {
   }
 };
 function createRootTView(rootSelectorOrNode, componentDef, componentBindings, directives) {
-  const tAttributes = rootSelectorOrNode ? ["ng-version", "20.1.3"] : (
+  const tAttributes = rootSelectorOrNode ? ["ng-version", "20.1.7"] : (
     // Extract attributes and classes from the first selector only to match VE behavior.
     extractAttrsAndClassesFromSelector(componentDef.selectors[0])
   );
@@ -12275,7 +12323,7 @@ function resolveComponentResources(resourceResolver) {
     let promise = urlMap.get(url);
     if (!promise) {
       const resp = resourceResolver(url);
-      urlMap.set(url, promise = resp.then(unwrapResponse));
+      urlMap.set(url, promise = resp.then((res) => unwrapResponse(url, res)));
     }
     return promise;
   }
@@ -12334,8 +12382,14 @@ function clearResolutionOfComponentResourcesQueue() {
 function isComponentResourceResolutionQueueEmpty() {
   return componentResourceResolutionQueue.size === 0;
 }
-function unwrapResponse(response) {
-  return typeof response == "string" ? response : response.text();
+function unwrapResponse(url, response) {
+  if (typeof response === "string") {
+    return response;
+  }
+  if (response.status !== void 0 && response.status !== 200) {
+    return Promise.reject(new RuntimeError(918, ngDevMode && `Could not load resource: ${url}. Response status: ${response.status}`));
+  }
+  return response.text();
 }
 function componentDefResolved(type) {
   componentDefPendingResolution.delete(type);
@@ -15026,6 +15080,9 @@ function getNodesAndEdgesFromSignalMap(signalMap) {
         label: consumer.debugName ?? consumer.lView?.[HOST]?.tagName?.toLowerCase?.(),
         kind: consumer.kind,
         epoch: consumer.version,
+        // The `lView[CONTEXT]` is a reference to an instance of the component's class.
+        // We get the constructor so that `inspect(.constructor)` shows the component class.
+        debuggableFn: consumer.lView?.[CONTEXT]?.constructor,
         id
       });
     } else {
@@ -15057,7 +15114,11 @@ function extractSignalNodesAndEdgesFromRoots(nodes, signalDependenciesMap = /* @
     if (signalDependenciesMap.has(node)) {
       continue;
     }
-    const producerNodes = node.producerNode ?? [];
+    const producerNodes = [];
+    for (let link = node.producers; link !== void 0; link = link.nextProducer) {
+      const producer = link.producer;
+      producerNodes.push(producer);
+    }
     signalDependenciesMap.set(node, producerNodes);
     extractSignalNodesAndEdgesFromRoots(producerNodes, signalDependenciesMap);
   }
@@ -22236,7 +22297,7 @@ var Version = class {
     this.patch = parts.slice(2).join(".");
   }
 };
-var VERSION = new Version("20.1.3");
+var VERSION = new Version("20.1.7");
 function compileNgModuleFactory(injector, options, moduleType) {
   ngDevMode && assertNgModuleType(moduleType);
   const moduleFactory = new NgModuleFactory2(moduleType);
@@ -25961,7 +26022,7 @@ var NgForOf = class _NgForOf {
    */
   set ngForTrackBy(fn) {
     if ((typeof ngDevMode === "undefined" || ngDevMode) && fn != null && typeof fn !== "function") {
-      console.warn(`trackBy must be a function, but received ${JSON.stringify(fn)}. See https://angular.io/api/common/NgForOf#change-propagation for more information.`);
+      console.warn(`trackBy must be a function, but received ${JSON.stringify(fn)}. See https://angular.dev/api/common/NgForOf#change-propagation for more information.`);
     }
     this._trackByFn = fn;
   }
@@ -27319,7 +27380,7 @@ var XhrFactory = class {
 
 // node_modules/@angular/common/fesm2022/common.mjs
 var PLATFORM_BROWSER_ID = "browser";
-var VERSION2 = new Version("20.1.3");
+var VERSION2 = new Version("20.1.7");
 var ViewportScroller = class _ViewportScroller {
   // De-sugared tree-shakable injection
   // See #23917
@@ -31118,7 +31179,7 @@ var FetchBackend = class _FetchBackend {
         const chunksAll = this.concatChunks(chunks, receivedLength);
         try {
           const contentType = response.headers.get(CONTENT_TYPE_HEADER) ?? "";
-          body = this.parseBody(request, chunksAll, contentType);
+          body = this.parseBody(request, chunksAll, contentType, status);
         } catch (error) {
           observer.error(new HttpErrorResponse({
             error,
@@ -31154,11 +31215,21 @@ var FetchBackend = class _FetchBackend {
       }
     });
   }
-  parseBody(request, binContent, contentType) {
+  parseBody(request, binContent, contentType, status) {
     switch (request.responseType) {
       case "json":
         const text = new TextDecoder().decode(binContent).replace(XSSI_PREFIX$1, "");
-        return text === "" ? null : JSON.parse(text);
+        if (text === "") {
+          return null;
+        }
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          if (status < 200 || status >= 300) {
+            return text;
+          }
+          throw e;
+        }
       case "text":
         return new TextDecoder().decode(binContent);
       case "blob":
@@ -32168,6 +32239,12 @@ var HttpResourceImpl = class extends ResourceImpl {
     }, defaultValue, equal, injector);
     this.client = injector.get(HttpClient);
   }
+  set(value) {
+    super.set(value);
+    this._headers.set(void 0);
+    this._progress.set(void 0);
+    this._statusCode.set(void 0);
+  }
 };
 var HTTP_TRANSFER_CACHE_ORIGIN_MAP = new InjectionToken(ngDevMode ? "HTTP_TRANSFER_CACHE_ORIGIN_MAP" : "");
 var CACHE_OPTIONS = new InjectionToken(ngDevMode ? "HTTP_TRANSFER_STATE_CACHE_OPTIONS" : "");
@@ -32744,7 +32821,7 @@ var HydrationFeatureKind;
   HydrationFeatureKind2[HydrationFeatureKind2["EventReplay"] = 3] = "EventReplay";
   HydrationFeatureKind2[HydrationFeatureKind2["IncrementalHydration"] = 4] = "IncrementalHydration";
 })(HydrationFeatureKind || (HydrationFeatureKind = {}));
-var VERSION3 = new Version("20.1.3");
+var VERSION3 = new Version("20.1.7");
 
 // src/app/profile/header/header.component.ts
 var _c0 = ["audioCanvas"];
@@ -38118,8 +38195,6 @@ var SelectControlValueAccessor = class _SelectControlValueAccessor extends Built
   // Attempting to use afterNextRender with the node injector would evntually
   // run into that already destroyed injector.
   appRefInjector = inject2(ApplicationRef).injector;
-  // TODO(atscott): Remove once destroyed is exposed on EnvironmentInjector
-  appRefDestroyRef = this.appRefInjector.get(DestroyRef);
   destroyRef = inject2(DestroyRef);
   cdr = inject2(ChangeDetectorRef);
   _queuedWrite = false;
@@ -38144,7 +38219,7 @@ var SelectControlValueAccessor = class _SelectControlValueAccessor extends Built
    * @internal
    */
   _writeValueAfterRender() {
-    if (this._queuedWrite || this.appRefDestroyRef.destroyed) {
+    if (this._queuedWrite || this.appRefInjector.destroyed) {
       return;
     }
     this._queuedWrite = true;
@@ -39706,7 +39781,7 @@ var UntypedFormBuilder = class _UntypedFormBuilder extends FormBuilder {
     }]
   }], null, null);
 })();
-var VERSION4 = new Version("20.1.3");
+var VERSION4 = new Version("20.1.7");
 var FormsModule = class _FormsModule {
   /**
    * @description
@@ -45381,7 +45456,7 @@ var RouterConfigLoader = class _RouterConfigLoader {
     if (this.onLoadStartListener) {
       this.onLoadStartListener(route);
     }
-    const loadRunner = wrapIntoObservable(runInInjectionContext(injector, () => route.loadComponent())).pipe(map(maybeUnwrapDefaultExport), tap((component) => {
+    const loadRunner = wrapIntoObservable(runInInjectionContext(injector, () => route.loadComponent())).pipe(map(maybeUnwrapDefaultExport), switchMap(maybeResolveResources), tap((component) => {
       if (this.onLoadEndListener) {
         this.onLoadEndListener(route);
       }
@@ -45432,7 +45507,7 @@ var RouterConfigLoader = class _RouterConfigLoader {
   }], null, null);
 })();
 function loadChildren(route, compiler, parentInjector, onLoadEndListener) {
-  return wrapIntoObservable(runInInjectionContext(parentInjector, () => route.loadChildren())).pipe(map(maybeUnwrapDefaultExport), mergeMap((t) => {
+  return wrapIntoObservable(runInInjectionContext(parentInjector, () => route.loadChildren())).pipe(map(maybeUnwrapDefaultExport), switchMap(maybeResolveResources), mergeMap((t) => {
     if (t instanceof NgModuleFactory$1 || Array.isArray(t)) {
       return of(t);
     } else {
@@ -45468,6 +45543,15 @@ function isWrappedDefaultExport(value) {
 }
 function maybeUnwrapDefaultExport(input2) {
   return isWrappedDefaultExport(input2) ? input2["default"] : input2;
+}
+function maybeResolveResources(value) {
+  if (false) {
+    return resolveComponentResources(fetch).catch((error) => {
+      console.error(error);
+      return Promise.resolve();
+    }).then(() => value);
+  }
+  return of(value);
 }
 var UrlHandlingStrategy = class _UrlHandlingStrategy {
   static \u0275fac = function UrlHandlingStrategy_Factory(__ngFactoryType__) {
@@ -47861,7 +47945,7 @@ function provideRouterInitializer() {
 }
 
 // node_modules/@angular/router/fesm2022/router.mjs
-var VERSION5 = new Version("20.1.3");
+var VERSION5 = new Version("20.1.7");
 
 // node_modules/@angular/animations/fesm2022/private_export.mjs
 var AnimationMetadataType;
@@ -48581,13 +48665,13 @@ function _convertTimeValueToMS(value, unit) {
 function resolveTiming(timings, errors, allowNegativeValues) {
   return timings.hasOwnProperty("duration") ? timings : parseTimeExpression(timings, errors, allowNegativeValues);
 }
+var PARSE_TIME_EXPRESSION_REGEX = /^(-?[\.\d]+)(m?s)(?:\s+(-?[\.\d]+)(m?s))?(?:\s+([-a-z]+(?:\(.+?\))?))?$/i;
 function parseTimeExpression(exp, errors, allowNegativeValues) {
-  const regex = /^(-?[\.\d]+)(m?s)(?:\s+(-?[\.\d]+)(m?s))?(?:\s+([-a-z]+(?:\(.+?\))?))?$/i;
   let duration;
   let delay = 0;
   let easing = "";
   if (typeof exp === "string") {
-    const matches = exp.match(regex);
+    const matches = exp.match(PARSE_TIME_EXPRESSION_REGEX);
     if (matches === null) {
       errors.push(invalidTimingValue(exp));
       return { duration: 0, delay: 0, easing: "" };
@@ -52532,7 +52616,7 @@ platformBrowser().bootstrapModule(AppModule).catch((err) => console.error(err));
 @angular/animations/fesm2022/browser.mjs:
 @angular/platform-browser/fesm2022/animations.mjs:
   (**
-   * @license Angular v20.1.3
+   * @license Angular v20.1.7
    * (c) 2010-2025 Google LLC. https://angular.io/
    * License: MIT
    *)
