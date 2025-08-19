@@ -2,7 +2,6 @@
   <div class="apple-container">
     <div class="section-header apple-fade-in">
       <h2 class="section-title apple-text-display">🤖 AI Code Review Game</h2>
-      <p class="section-subtitle">Test your code review skills with AI-powered feedback</p>
     </div>
     
     <div class="game-container" data-aos="fade-up">
@@ -65,18 +64,8 @@
         
         <div class="review-content">
           <div class="feedback-section">
-            <h4 class="feedback-title">Feedback</h4>
-            <p class="feedback-text">{{ aiReview.feedback }}</p>
-          </div>
-          
-          <div class="suggestions-section">
-            <h4 class="suggestions-title">Suggestions for Improvement</h4>
-            <ul class="suggestions-list">
-              <li *ngFor="let suggestion of aiReview.suggestions" class="suggestion-item">
-                <span class="suggestion-icon">💡</span>
-                <span class="suggestion-text">{{ suggestion }}</span>
-              </li>
-            </ul>
+            <h4 class="feedback-title">Feedback from AI</h4>
+            <div class="feedback-text" [innerHTML]="formattedFeedback"></div>
           </div>
           
           <div class="improvements-section">

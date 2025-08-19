@@ -14,7 +14,6 @@ interface CodeSnippet {
 
 interface AIReview {
   feedback: string;
-  suggestions: string[];
   score: number;
   improvements: string[];
 }
@@ -31,6 +30,7 @@ export class AiCodeReviewComponent implements OnInit {
   currentSnippet: CodeSnippet | null = null;
   currentIndex = 0;
   aiReview: AIReview | null = null;
+  formattedFeedback = '';
   isLoading = false;
   showReview = false;
   userScore = 0;
@@ -186,9 +186,9 @@ Please provide a concise, professional review suitable for a portfolio showcase.
     } catch (error) {
       console.error('Error getting AI review:', error);
       // Fallback to a sample review
+      this.formattedFeedback = "Great code structure! The implementation follows good practices.<br><br><strong>Suggestions:</strong><br><span class=\"bullet\">•</span> Add error handling<br><span class=\"bullet\">•</span> Consider performance optimization<br><span class=\"bullet\">•</span> Add documentation";
       this.aiReview = {
         feedback: "Great code structure! The implementation follows good practices.",
-        suggestions: ["Add error handling", "Consider performance optimization", "Add documentation"],
         score: 8,
         improvements: ["Error handling", "Performance", "Documentation"]
       };
@@ -200,15 +200,34 @@ Please provide a concise, professional review suitable for a portfolio showcase.
   }
 
   private parseAIResponse(response: string): void {
-    // Simple parsing of AI response
-    const lines = response.split('\n').filter(line => line.trim());
+    // Format the AI response for better display
+    this.formattedFeedback = this.formatAIResponse(response);
     
     this.aiReview = {
-      feedback: lines[0] || "Good code structure and implementation.",
-      suggestions: lines.slice(1, 5).filter(line => line.includes('-') || line.includes('•')),
+      feedback: response,
       score: this.extractScore(response),
       improvements: ["Code Quality", "Best Practices", "Performance"]
     };
+  }
+
+  private formatAIResponse(response: string): string {
+    // Clean up markdown formatting and improve readability
+    let formatted = response
+      // Remove markdown bold syntax
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      // Convert bullet points to proper HTML
+      .replace(/^[-•]\s*/gm, '<span class="bullet">•</span> ')
+      // Convert numbered lists
+      .replace(/^\d+\.\s*/gm, '<span class="number">$&</span>')
+      // Convert code blocks
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      // Convert line breaks to HTML
+      .replace(/\n/g, '<br>')
+      // Clean up extra spaces
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    return formatted;
   }
 
   private extractScore(response: string): number {
