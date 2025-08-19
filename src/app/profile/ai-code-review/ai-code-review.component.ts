@@ -31,6 +31,7 @@ export class AiCodeReviewComponent implements OnInit {
   currentIndex = 0;
   aiReview: AIReview | null = null;
   formattedFeedback = '';
+  highlightedCode = '';
   isLoading = false;
   showReview = false;
   userScore = 0;
@@ -142,6 +143,7 @@ public class UserController {
   loadNextSnippet(): void {
     if (this.currentIndex < this.codeSnippets.length) {
       this.currentSnippet = this.codeSnippets[this.currentIndex];
+      this.highlightedCode = this.highlightCode(this.currentSnippet.code, this.currentSnippet.language);
       this.aiReview = null;
       this.showReview = false;
     }
@@ -256,5 +258,36 @@ Please provide a concise, professional review suitable for a portfolio showcase.
 
   getProgressPercentage(): number {
     return (this.currentIndex / this.codeSnippets.length) * 100;
+  }
+
+  private highlightCode(code: string, language: string): string {
+    if (language.toLowerCase() === 'java') {
+      return this.highlightJava(code);
+    }
+    return code; // Fallback for unsupported languages
+  }
+
+  private highlightJava(code: string): string {
+    return code
+      // Keywords
+      .replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|new|return|if|else|for|while|do|switch|case|default|break|continue|try|catch|finally|throw|throws|void|int|long|float|double|boolean|char|byte|short|String|List|Map|Set|ArrayList|HashMap|HashSet)\b/g, '<span class="keyword">$1</span>')
+      // Annotations
+      .replace(/(@\w+)/g, '<span class="annotation">$1</span>')
+      // String literals
+      .replace(/"([^"]*)"/g, '<span class="string">"$1"</span>')
+      // Numbers
+      .replace(/\b(\d+)\b/g, '<span class="number">$1</span>')
+      // Comments
+      .replace(/(\/\/.*$)/gm, '<span class="comment">$1</span>')
+      // Method calls
+      .replace(/(\w+)\s*\(/g, '<span class="method">$1</span>(')
+      // Variable declarations
+      .replace(/(\w+)\s+(\w+)\s*=/g, '<span class="type">$1</span> <span class="variable">$2</span> =')
+      // Class names
+      .replace(/(\w+)\s+(\w+)\s*\{/g, '<span class="type">$1</span> <span class="class-name">$2</span> {')
+      // Line breaks
+      .replace(/\n/g, '<br>')
+      // Spaces
+      .replace(/ /g, '&nbsp;');
   }
 }

@@ -158,6 +158,47 @@
         line-height: 1.6;
         color: var(--text-primary);
         white-space: pre;
+        
+        .keyword {
+          color: #ff6b6b;
+          font-weight: bold;
+        }
+        
+        .annotation {
+          color: #4ecdc4;
+          font-weight: bold;
+        }
+        
+        .string {
+          color: #ffe66d;
+        }
+        
+        .number {
+          color: #a8e6cf;
+        }
+        
+        .comment {
+          color: #6c757d;
+          font-style: italic;
+        }
+        
+        .method {
+          color: #74b9ff;
+        }
+        
+        .type {
+          color: #fd79a8;
+          font-weight: bold;
+        }
+        
+        .variable {
+          color: #fdcb6e;
+        }
+        
+        .class-name {
+          color: #00b894;
+          font-weight: bold;
+        }
       }
     }
   }
