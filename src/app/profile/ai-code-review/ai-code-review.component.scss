@@ -567,47 +567,97 @@
          }
        }
        
-       .standards-grid {
-         display: grid;
-         grid-template-columns: 1fr 1fr;
-         gap: var(--spacing-lg);
-         
-         .standards-section,
-         .deviations-section {
-           .standards-subtitle,
-           .deviations-subtitle {
-             font-size: var(--text-base);
-             font-weight: var(--font-semibold);
-             color: var(--text-primary);
-             margin-bottom: var(--spacing-sm);
-           }
-           
-           .standards-tags,
-           .deviations-tags {
-             display: flex;
-             flex-direction: column;
-             gap: var(--spacing-xs);
-             
-             .standard-tag {
-               padding: var(--spacing-xs) var(--spacing-sm);
-               background: linear-gradient(135deg, #66bb6a, #4caf50);
-               color: var(--white);
-               border-radius: var(--radius-sm);
-               font-size: var(--text-xs);
-               font-weight: var(--font-medium);
-             }
-             
-             .deviation-tag {
-               padding: var(--spacing-xs) var(--spacing-sm);
-               background: linear-gradient(135deg, #ffa726, #ff9800);
-               color: var(--white);
-               border-radius: var(--radius-sm);
-               font-size: var(--text-xs);
-               font-weight: var(--font-medium);
-             }
-           }
-         }
-       }
+               .standards-table-container {
+          margin-top: var(--spacing-lg);
+          
+          .standards-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--apple-glass);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            
+            thead {
+              background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+              
+              th {
+                padding: var(--spacing-md);
+                text-align: left;
+                font-size: var(--text-sm);
+                font-weight: var(--font-semibold);
+                color: var(--text-primary);
+                border-bottom: 1px solid var(--glass-border);
+                
+                &:first-child {
+                  width: 20%;
+                }
+                
+                &:nth-child(2) {
+                  width: 40%;
+                }
+                
+                &:nth-child(3) {
+                  width: 25%;
+                }
+                
+                &:last-child {
+                  width: 15%;
+                  text-align: center;
+                }
+              }
+            }
+            
+            tbody {
+              tr {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                transition: all var(--transition-normal);
+                
+                &:hover {
+                  background: rgba(255, 255, 255, 0.05);
+                }
+                
+                &:last-child {
+                  border-bottom: none;
+                }
+                
+                td {
+                  padding: var(--spacing-md);
+                  font-size: var(--text-sm);
+                  color: var(--text-secondary);
+                  vertical-align: middle;
+                  
+                  &:first-child {
+                    font-weight: var(--font-medium);
+                    color: var(--text-primary);
+                  }
+                  
+                  &:nth-child(2) {
+                    color: var(--text-secondary);
+                  }
+                  
+                  &.implementation-cell {
+                    font-weight: var(--font-medium);
+                  }
+                  
+                  &.compliance-good {
+                    color: #4caf50;
+                    font-weight: var(--font-bold);
+                    font-size: var(--text-lg);
+                    text-align: center;
+                  }
+                  
+                  &.compliance-bad {
+                    color: #f44336;
+                    font-weight: var(--font-bold);
+                    font-size: var(--text-lg);
+                    text-align: center;
+                  }
+                }
+              }
+            }
+          }
+        }
      }
 
      // Learning Path Section
