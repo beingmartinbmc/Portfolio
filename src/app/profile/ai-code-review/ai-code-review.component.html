@@ -80,16 +80,144 @@
         
         <div class="review-content">
           <div class="feedback-section">
-            <h4 class="feedback-title">Feedback from AI</h4>
+            <h4 class="feedback-title">📋 Overall Feedback</h4>
             <div class="feedback-text" [innerHTML]="formattedFeedback"></div>
           </div>
           
           <div class="improvements-section">
-            <h4 class="improvements-title">Areas to Focus On</h4>
+            <h4 class="improvements-title">🎯 Key Improvements</h4>
             <div class="improvements-tags">
               <span class="improvement-tag" *ngFor="let improvement of aiReview.improvements">
                 {{ improvement }}
               </span>
+            </div>
+          </div>
+
+          <div class="security-section" *ngIf="aiReview.securityIssues && aiReview.securityIssues.length > 0">
+            <h4 class="security-title">🔒 Security Issues</h4>
+            <div class="security-tags">
+              <span class="security-tag" *ngFor="let issue of aiReview.securityIssues">
+                {{ issue }}
+              </span>
+            </div>
+          </div>
+
+          <div class="performance-section" *ngIf="aiReview.performanceIssues && aiReview.performanceIssues.length > 0">
+            <h4 class="performance-title">⚡ Performance Issues</h4>
+            <div class="performance-tags">
+              <span class="performance-tag" *ngFor="let issue of aiReview.performanceIssues">
+                {{ issue }}
+              </span>
+            </div>
+          </div>
+
+          <div class="complexity-section" *ngIf="aiReview.complexityAnalysis">
+            <h4 class="complexity-title">📊 Complexity Analysis</h4>
+            <div class="complexity-text" [innerHTML]="aiReview.complexityAnalysis"></div>
+          </div>
+
+          <div class="best-practices-section" *ngIf="aiReview.bestPractices && aiReview.bestPractices.length > 0">
+            <h4 class="best-practices-title">📚 Best Practices</h4>
+            <div class="best-practices-tags">
+              <span class="best-practice-tag" *ngFor="let practice of aiReview.bestPractices">
+                {{ practice }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Code Quality Metrics -->
+          <div class="metrics-section" *ngIf="aiReview.metrics">
+            <h4 class="metrics-title">📊 Code Quality Metrics</h4>
+            <div class="metrics-grid">
+              <div class="metric-item">
+                <span class="metric-label">Cyclomatic Complexity</span>
+                <span class="metric-value" [class]="getComplexityClass(aiReview.metrics.cyclomaticComplexity)">
+                  {{ aiReview.metrics.cyclomaticComplexity }}
+                </span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-label">Maintainability Index</span>
+                <span class="metric-value" [class]="getMaintainabilityClass(aiReview.metrics.maintainabilityIndex)">
+                  {{ aiReview.metrics.maintainabilityIndex }}
+                </span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-label">Code Smells</span>
+                <span class="metric-value" [class]="getSmellsClass(aiReview.metrics.codeSmells)">
+                  {{ aiReview.metrics.codeSmells }}
+                </span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-label">Technical Debt</span>
+                <span class="metric-value" [class]="getDebtClass(aiReview.metrics.technicalDebt)">
+                  {{ aiReview.metrics.technicalDebt }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Industry Standards Comparison -->
+          <div class="industry-section" *ngIf="aiReview.industryComparison">
+            <h4 class="industry-title">🏭 Industry Standards Comparison</h4>
+            <div class="compliance-meter">
+              <div class="compliance-bar">
+                <div class="compliance-fill" [style.width.%]="aiReview.industryComparison.compliance"></div>
+              </div>
+              <span class="compliance-text">{{ aiReview.industryComparison.compliance }}% Compliance</span>
+            </div>
+            
+            <div class="standards-grid">
+              <div class="standards-section">
+                <h5 class="standards-subtitle">✅ Met Standards</h5>
+                <div class="standards-tags">
+                  <span class="standard-tag" *ngFor="let standard of aiReview.industryComparison.standards">
+                    {{ standard }}
+                  </span>
+                </div>
+              </div>
+              
+              <div class="deviations-section">
+                <h5 class="deviations-subtitle">⚠️ Deviations</h5>
+                <div class="deviations-tags">
+                  <span class="deviation-tag" *ngFor="let deviation of aiReview.industryComparison.deviations">
+                    {{ deviation }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Learning Path -->
+          <div class="learning-section" *ngIf="aiReview.learningResources">
+            <h4 class="learning-title">🎓 Learning Path</h4>
+            <div class="learning-grid">
+              <div class="learning-category" *ngIf="aiReview.learningResources.tutorials.length > 0">
+                <h5 class="learning-subtitle">📖 Tutorials & Guides</h5>
+                <ul class="learning-list">
+                  <li *ngFor="let tutorial of aiReview.learningResources.tutorials">{{ tutorial }}</li>
+                </ul>
+              </div>
+              
+              <div class="learning-category" *ngIf="aiReview.learningResources.documentation.length > 0">
+                <h5 class="learning-subtitle">📚 Documentation</h5>
+                <ul class="learning-list">
+                  <li *ngFor="let doc of aiReview.learningResources.documentation">{{ doc }}</li>
+                </ul>
+              </div>
+              
+              <div class="learning-category" *ngIf="aiReview.learningResources.courses.length > 0">
+                <h5 class="learning-subtitle">🎯 Courses</h5>
+                <ul class="learning-list">
+                  <li *ngFor="let course of aiReview.learningResources.courses">{{ course }}</li>
+                </ul>
+              </div>
+              
+              <div class="learning-category" *ngIf="aiReview.learningResources.books.length > 0">
+                <h5 class="learning-subtitle">📚 Books & Resources</h5>
+                <ul class="learning-list">
+                  <li *ngFor="let book of aiReview.learningResources.books">{{ book }}</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
