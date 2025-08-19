@@ -523,16 +523,20 @@ Provide comprehensive, actionable feedback with specific metrics, comparisons, a
     let formatted = response
       // Remove markdown bold syntax
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      // Convert bullet points to proper HTML
+      // Convert bullet points to proper HTML (handle both • and -)
       .replace(/^[-•]\s*/gm, '<span class="bullet">•</span> ')
       // Convert numbered lists
       .replace(/^\d+\.\s*/gm, '<span class="number">$&</span>')
       // Convert code blocks
       .replace(/`([^`]+)`/g, '<code>$1</code>')
+      // Convert markdown headers to HTML
+      .replace(/^#{1,6}\s+(.+)$/gm, '<strong>$1</strong>')
+      // Convert tables to readable format
+      .replace(/\|(.+)\|/g, '<span class="table-cell">$1</span>')
       // Convert line breaks to HTML
       .replace(/\n/g, '<br>')
-      // Clean up extra spaces
-      .replace(/\s+/g, ' ')
+      // Clean up extra spaces but preserve structure
+      .replace(/\s{2,}/g, ' ')
       .trim();
 
     return formatted;
@@ -544,10 +548,29 @@ Provide comprehensive, actionable feedback with specific metrics, comparisons, a
   }
 
   private extractImprovements(response: string): string[] {
-    const improvements = response.match(/(?:improvement|suggestion|recommendation)[s]?[:\s]+([^.\n]+)/gi);
-    if (improvements) {
-      return improvements.slice(0, 4).map(imp => imp.replace(/^(?:improvement|suggestion|recommendation)[s]?[:\s]+/i, '').trim());
+    // Look for the "Key Improvements" section specifically
+    const keyImprovementsMatch = response.match(/key improvements?[:\s]*\n?([^•]*?)(?=most critical|summary|overall assessment|$)/is);
+    
+    if (keyImprovementsMatch) {
+      const improvementsText = keyImprovementsMatch[1];
+      // Extract numbered improvements
+      const numberedImprovements = improvementsText.match(/\d+\.\s*([^.\n]+)/g);
+      if (numberedImprovements) {
+        return numberedImprovements.slice(0, 4).map(imp => 
+          imp.replace(/^\d+\.\s*/, '').trim()
+        );
+      }
     }
+    
+    // Fallback: look for bullet points or other patterns
+    const bulletImprovements = response.match(/^[-•]\s*([^.\n]+)/gm);
+    if (bulletImprovements) {
+      return bulletImprovements.slice(0, 4).map(imp => 
+        imp.replace(/^[-•]\s*/, '').trim()
+      );
+    }
+    
+    // Final fallback
     return ["Code Quality", "Best Practices", "Performance"];
   }
 
@@ -570,7 +593,14 @@ Provide comprehensive, actionable feedback with specific metrics, comparisons, a
   }
 
   private extractComplexityAnalysis(response: string): string {
-    const complexityMatch = response.match(/complexity[^]*?(?=security|performance|best practices|overall|$)/i);
+    // Look for the "Code Quality Metrics" section specifically
+    const metricsSection = response.match(/code quality metrics[^]*?(?=security|performance|best practices|overall|$)/is);
+    if (metricsSection) {
+      return metricsSection[0].substring(0, 300) + '...';
+    }
+    
+    // Fallback: look for complexity-related content
+    const complexityMatch = response.match(/complexity[^]*?(?=security|performance|best practices|overall|$)/is);
     return complexityMatch ? complexityMatch[0].substring(0, 200) + '...' : '';
   }
 
@@ -600,38 +630,104 @@ Provide comprehensive, actionable feedback with specific metrics, comparisons, a
   }
 
   private extractLearningResources(response: string): any {
-    const learningSection = response.match(/learning[^]*?(?=overall|$)/i);
+    // Look for the "Learning Path Recommendations" section specifically
+    const learningSection = response.match(/learning path recommendations?[^]*?(?=overall assessment|summary|$)/is);
     if (learningSection) {
-      const tutorials = learningSection[0].match(/(?:tutorial|guide|example)[:\s]+([^.\n]+)/gi);
-      const documentation = learningSection[0].match(/(?:documentation|reference|api)[:\s]+([^.\n]+)/gi);
-      const courses = learningSection[0].match(/(?:course|training|lesson)[:\s]+([^.\n]+)/gi);
-      const books = learningSection[0].match(/(?:book|resource|material)[:\s]+([^.\n]+)/gi);
+      const sectionText = learningSection[0];
+      
+      // Extract tutorials
+      const tutorialsMatch = sectionText.match(/tutorials?[:\s]*\n?([^•]*?)(?=courses|books|documentation|$)/is);
+      const tutorials = tutorialsMatch ? 
+        tutorialsMatch[1].match(/•\s*([^.\n]+)/g)?.map(t => t.replace(/^•\s*/, '').trim()) || [] : [];
+      
+      // Extract documentation
+      const docsMatch = sectionText.match(/documentation[:\s]*\n?([^•]*?)(?=courses|books|tutorials|$)/is);
+      const documentation = docsMatch ? 
+        docsMatch[1].match(/•\s*([^.\n]+)/g)?.map(d => d.replace(/^•\s*/, '').trim()) || [] : [];
+      
+      // Extract courses
+      const coursesMatch = sectionText.match(/courses?[:\s]*\n?([^•]*?)(?=books|tutorials|documentation|$)/is);
+      const courses = coursesMatch ? 
+        coursesMatch[1].match(/•\s*([^.\n]+)/g)?.map(c => c.replace(/^•\s*/, '').trim()) || [] : [];
+      
+      // Extract books
+      const booksMatch = sectionText.match(/books?[:\s]*\n?([^•]*?)(?=courses|tutorials|documentation|$)/is);
+      const books = booksMatch ? 
+        booksMatch[1].match(/•\s*([^.\n]+)/g)?.map(b => b.replace(/^•\s*/, '').trim()) || [] : [];
       
       return {
-        tutorials: tutorials ? tutorials.slice(0, 2).map(t => t.replace(/^(?:tutorial|guide|example)[:\s]+/i, '').trim()) : [],
-        documentation: documentation ? documentation.slice(0, 2).map(d => d.replace(/^(?:documentation|reference|api)[:\s]+/i, '').trim()) : [],
-        courses: courses ? courses.slice(0, 2).map(c => c.replace(/^(?:course|training|lesson)[:\s]+/i, '').trim()) : [],
-        books: books ? books.slice(0, 2).map(b => b.replace(/^(?:book|resource|material)[:\s]+/i, '').trim()) : []
+        tutorials: tutorials.slice(0, 2),
+        documentation: documentation.slice(0, 2),
+        courses: courses.slice(0, 2),
+        books: books.slice(0, 2)
       };
     }
+    
+    // Fallback: look for any learning-related content
+    const fallbackLearning = response.match(/learning[^]*?(?=overall|summary|$)/is);
+    if (fallbackLearning) {
+      const text = fallbackLearning[0];
+      const links = text.match(/\[([^\]]+)\]\([^)]+\)/g);
+      const resources = links ? links.map(link => link.replace(/\[([^\]]+)\]\([^)]+\)/, '$1')) : [];
+      
+      return {
+        tutorials: resources.slice(0, 1),
+        documentation: resources.slice(1, 2),
+        courses: [],
+        books: []
+      };
+    }
+    
     return { tutorials: [], documentation: [], courses: [], books: [] };
   }
 
   private extractMetrics(response: string): any {
-    const metricsSection = response.match(/metrics[^]*?(?=security|performance|$)/i);
+    // Look for the "Code Quality Metrics" section specifically
+    const metricsSection = response.match(/code quality metrics[^]*?(?=security|performance|best practices|$)/is);
     if (metricsSection) {
-      const complexityMatch = metricsSection[0].match(/complexity[:\s]*(\d+)/i);
-      const maintainabilityMatch = metricsSection[0].match(/maintainability[:\s]*(\d+)/i);
-      const smellsMatch = metricsSection[0].match(/smells[:\s]*(\d+)/i);
-      const debtMatch = metricsSection[0].match(/debt[:\s]+([^.\n]+)/i);
+      const sectionText = metricsSection[0];
+      
+      // Extract cyclomatic complexity - look for actual complexity values
+      const complexityMatch = sectionText.match(/cyclomatic complexity[:\s]*(\d+(?:\.\d+)?)/i);
+      const complexityValue = complexityMatch ? parseFloat(complexityMatch[1]) : 5;
+      
+      // Extract maintainability index - look for percentage or score
+      const maintainabilityMatch = sectionText.match(/maintainability[:\s]*(\d+)/i);
+      const maintainabilityValue = maintainabilityMatch ? parseInt(maintainabilityMatch[1]) : 70;
+      
+      // Extract code smells count
+      const smellsMatch = sectionText.match(/smells?[:\s]*(\d+)/i);
+      const smellsValue = smellsMatch ? parseInt(smellsMatch[1]) : 2;
+      
+      // Extract technical debt level
+      const debtMatch = sectionText.match(/debt[:\s]+([^.\n]+)/i);
+      const debtValue = debtMatch ? debtMatch[1].trim() : "Low";
       
       return {
-        cyclomaticComplexity: complexityMatch ? parseInt(complexityMatch[1]) : 5,
+        cyclomaticComplexity: Math.round(complexityValue),
+        maintainabilityIndex: maintainabilityValue,
+        codeSmells: smellsValue,
+        technicalDebt: debtValue
+      };
+    }
+    
+    // Fallback: look for any metrics-related content
+    const fallbackMetrics = response.match(/metrics[^]*?(?=security|performance|$)/is);
+    if (fallbackMetrics) {
+      const text = fallbackMetrics[0];
+      const complexityMatch = text.match(/complexity[:\s]*(\d+(?:\.\d+)?)/i);
+      const maintainabilityMatch = text.match(/maintainability[:\s]*(\d+)/i);
+      const smellsMatch = text.match(/smells?[:\s]*(\d+)/i);
+      const debtMatch = text.match(/debt[:\s]+([^.\n]+)/i);
+      
+      return {
+        cyclomaticComplexity: complexityMatch ? Math.round(parseFloat(complexityMatch[1])) : 5,
         maintainabilityIndex: maintainabilityMatch ? parseInt(maintainabilityMatch[1]) : 70,
         codeSmells: smellsMatch ? parseInt(smellsMatch[1]) : 2,
         technicalDebt: debtMatch ? debtMatch[1].trim() : "Low"
       };
     }
+    
     return { cyclomaticComplexity: 5, maintainabilityIndex: 70, codeSmells: 2, technicalDebt: "Low" };
   }
 

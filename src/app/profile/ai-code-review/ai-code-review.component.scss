@@ -440,63 +440,96 @@
        }
      }
 
-     // Metrics Section
-     .metrics-section {
-       margin-bottom: var(--spacing-xl);
-       
-       .metrics-title {
-         font-size: var(--text-lg);
-         font-weight: var(--font-semibold);
-         color: var(--text-primary);
-         margin-bottom: var(--spacing-md);
-       }
-       
-       .metrics-grid {
-         display: grid;
-         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-         gap: var(--spacing-md);
-         
-         .metric-item {
-           background: var(--apple-glass);
-           padding: var(--spacing-md);
-           border-radius: var(--radius-md);
-           border: 1px solid var(--glass-border);
-           display: flex;
-           justify-content: space-between;
-           align-items: center;
-           
-           .metric-label {
-             font-size: var(--text-sm);
-             color: var(--text-secondary);
-             font-weight: var(--font-medium);
-           }
-           
-           .metric-value {
-             font-size: var(--text-lg);
-             font-weight: var(--font-bold);
-             padding: var(--spacing-xs) var(--spacing-sm);
-             border-radius: var(--radius-sm);
-             min-width: 40px;
-             text-align: center;
-             
-             &.metric-good {
-               background: linear-gradient(135deg, #66bb6a, #4caf50);
-               color: var(--white);
-             }
-             
-             &.metric-warning {
-               background: linear-gradient(135deg, #ffa726, #ff9800);
-               color: var(--white);
-             }
-             
-             &.metric-danger {
-               background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-               color: var(--white);
-             }
-           }
-         }
-       }
-     }
+           // Metrics Section
+      .metrics-section {
+        margin-bottom: var(--spacing-xl);
+        
+        .metrics-title {
+          font-size: var(--text-lg);
+          font-weight: var(--font-semibold);
+          color: var(--text-primary);
+          margin-bottom: var(--spacing-md);
+        }
+        
+        .metrics-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: var(--spacing-lg);
+          
+          .metric-item {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            
+            &:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+              border-color: rgba(255, 255, 255, 0.3);
+            }
+            
+            &::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 3px;
+              background: linear-gradient(90deg, var(--primary-color), var(--accent-purple));
+            }
+            
+            .metric-label {
+              font-size: var(--text-sm);
+              color: var(--text-secondary);
+              font-weight: var(--font-medium);
+              margin-bottom: var(--spacing-sm);
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
+            
+            .metric-value {
+              font-size: var(--text-2xl);
+              font-weight: var(--font-bold);
+              padding: var(--spacing-sm) var(--spacing-md);
+              border-radius: var(--radius-lg);
+              min-width: 60px;
+              text-align: center;
+              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+              border: 2px solid transparent;
+              
+              &.metric-good {
+                background: linear-gradient(135deg, #4caf50, #66bb6a);
+                color: var(--white);
+                border-color: rgba(76, 175, 80, 0.3);
+                box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+              }
+              
+              &.metric-warning {
+                background: linear-gradient(135deg, #ff9800, #ffa726);
+                color: var(--white);
+                border-color: rgba(255, 152, 0, 0.3);
+                box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+              }
+              
+              &.metric-danger {
+                background: linear-gradient(135deg, #f44336, #ff6b6b);
+                color: var(--white);
+                border-color: rgba(244, 67, 54, 0.3);
+                box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+              }
+            }
+          }
+        }
+      }
 
      // Industry Standards Section
      .industry-section {
@@ -590,20 +623,44 @@
        
        .learning-grid {
          display: grid;
-         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
          gap: var(--spacing-lg);
          
          .learning-category {
-           background: var(--apple-glass);
-           padding: var(--spacing-md);
-           border-radius: var(--radius-md);
-           border: 1px solid var(--glass-border);
+           background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+           padding: var(--spacing-lg);
+           border-radius: var(--radius-xl);
+           border: 1px solid rgba(255, 255, 255, 0.2);
+           backdrop-filter: blur(20px);
+           -webkit-backdrop-filter: blur(20px);
+           transition: all var(--transition-normal);
+           position: relative;
+           overflow: hidden;
+           
+           &:hover {
+             transform: translateY(-2px);
+             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+             border-color: rgba(255, 255, 255, 0.3);
+           }
+           
+           &::before {
+             content: '';
+             position: absolute;
+             top: 0;
+             left: 0;
+             right: 0;
+             height: 3px;
+             background: linear-gradient(90deg, var(--primary-color), var(--accent-purple));
+           }
            
            .learning-subtitle {
              font-size: var(--text-base);
              font-weight: var(--font-semibold);
              color: var(--text-primary);
-             margin-bottom: var(--spacing-sm);
+             margin-bottom: var(--spacing-md);
+             display: flex;
+             align-items: center;
+             gap: var(--spacing-sm);
            }
            
            .learning-list {
@@ -614,18 +671,34 @@
              li {
                font-size: var(--text-sm);
                color: var(--text-secondary);
-               padding: var(--spacing-xs) 0;
+               padding: var(--spacing-sm) 0;
                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+               display: flex;
+               align-items: center;
+               transition: all var(--transition-normal);
                
                &:last-child {
                  border-bottom: none;
                }
                
+               &:hover {
+                 color: var(--text-primary);
+                 transform: translateX(4px);
+               }
+               
                &:before {
-                 content: "→";
-                 color: var(--primary-color);
-                 margin-right: var(--spacing-xs);
-                 font-weight: var(--font-bold);
+                 content: "📚";
+                 margin-right: var(--spacing-sm);
+                 font-size: var(--text-base);
+                 opacity: 0.8;
+               }
+               
+               &:nth-child(1):before {
+                 content: "📖";
+               }
+               
+               &:nth-child(2):before {
+                 content: "🎯";
                }
              }
            }
