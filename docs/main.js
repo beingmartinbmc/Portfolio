@@ -32937,22 +32937,25 @@ var FooterComponent = class _FooterComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 9, vars: 0, consts: [[1, "footer-section"], [1, "footer-container"], [1, "footer-content"], [1, "footer-text"], [1, "views-counter"], ["href", "https://s05.flagcounter.com/more/hZ3l/", "target", "_blank", 1, "views-link"]], template: function FooterComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 13, vars: 0, consts: [[1, "footer-section"], [1, "footer-container"], [1, "footer-content"], [1, "footer-text"], [1, "portfolio-analytics"], [1, "analytics-item"], ["href", "https://s05.flagcounter.com/more/hZ3l/", "target", "_blank", 1, "analytics-link"], [1, "analytics-icon"], [1, "analytics-text"]], template: function FooterComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "footer", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3)(4, "p");
         \u0275\u0275text(5, "\xA9 2024 Ankit. Made with passion and creativity.");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(6, "div", 4)(7, "a", 5);
-        \u0275\u0275text(8, " \u{1F4CA} Views ");
-        \u0275\u0275domElementEnd()()()()()();
+        \u0275\u0275domElementStart(6, "div", 4)(7, "div", 5)(8, "a", 6)(9, "span", 7);
+        \u0275\u0275text(10, "\u{1F4CA}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(11, "span", 8);
+        \u0275\u0275text(12, "View Analytics");
+        \u0275\u0275domElementEnd()()()()()()()();
       }
-    }, dependencies: [CommonModule], styles: ['\n\n.footer-section[_ngcontent-%COMP%] {\n  background: var(--bg-primary);\n  padding: 4rem 0 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-container[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n}\n.footer-content[_ngcontent-%COMP%] {\n  text-align: center;\n  padding-top: 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-text[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0.5rem 0;\n  color: var(--text-secondary);\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.views-counter[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-top: 1rem;\n}\n.views-link[_ngcontent-%COMP%] {\n  display: inline-block;\n  padding: 0.75rem 1.5rem;\n  background: var(--bg-secondary);\n  border-radius: 12px;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-size: 0.9rem;\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.views-link[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n@media (max-width: 768px) {\n  .footer-container[_ngcontent-%COMP%] {\n    padding: 0 1rem;\n  }\n  .views-link[_ngcontent-%COMP%] {\n    padding: 0.625rem 1.25rem;\n    font-size: 0.875rem;\n  }\n}\n@media (max-width: 480px) {\n  .views-link[_ngcontent-%COMP%] {\n    padding: 0.5rem 1rem;\n    font-size: 0.8rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */'] });
+    }, dependencies: [CommonModule], styles: ['\n\n.footer-section[_ngcontent-%COMP%] {\n  background: var(--bg-primary);\n  padding: 4rem 0 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-container[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n}\n.footer-content[_ngcontent-%COMP%] {\n  text-align: center;\n  padding-top: 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-text[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0.5rem 0;\n  color: var(--text-secondary);\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.portfolio-analytics[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 1rem;\n  margin-top: 1.5rem;\n  flex-wrap: wrap;\n}\n.analytics-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n}\n.analytics-link[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.75rem 1.25rem;\n  background: var(--bg-secondary);\n  border-radius: 12px;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-size: 0.9rem;\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.analytics-link[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.analytics-icon[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  filter: brightness(1.1);\n}\n.analytics-text[_ngcontent-%COMP%] {\n  font-weight: 500;\n  letter-spacing: 0.5px;\n}\n@media (max-width: 768px) {\n  .footer-container[_ngcontent-%COMP%] {\n    padding: 0 1rem;\n  }\n  .portfolio-analytics[_ngcontent-%COMP%] {\n    gap: 0.75rem;\n  }\n  .analytics-link[_ngcontent-%COMP%] {\n    padding: 0.625rem 1rem;\n    font-size: 0.875rem;\n  }\n}\n@media (max-width: 480px) {\n  .portfolio-analytics[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: 0.5rem;\n  }\n  .analytics-link[_ngcontent-%COMP%] {\n    padding: 0.5rem 0.875rem;\n    font-size: 0.8rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FooterComponent, [{
     type: Component,
-    args: [{ selector: "app-footer", standalone: true, imports: [CommonModule], template: '<footer class="footer-section">\n  <div class="footer-container">\n    <div class="footer-content">\n      <div class="footer-text">\n        <p>&copy; 2024 Ankit. Made with passion and creativity.</p>\n        \n        <!-- Views Counter -->\n        <div class="views-counter">\n          <a href="https://s05.flagcounter.com/more/hZ3l/" target="_blank" class="views-link">\n            \u{1F4CA} Views\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n</footer>\n', styles: ['/* src/app/profile/footer/footer.component.scss */\n.footer-section {\n  background: var(--bg-primary);\n  padding: 4rem 0 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-container {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n}\n.footer-content {\n  text-align: center;\n  padding-top: 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-text p {\n  margin: 0.5rem 0;\n  color: var(--text-secondary);\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.views-counter {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-top: 1rem;\n}\n.views-link {\n  display: inline-block;\n  padding: 0.75rem 1.5rem;\n  background: var(--bg-secondary);\n  border-radius: 12px;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-size: 0.9rem;\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.views-link:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n@media (max-width: 768px) {\n  .footer-container {\n    padding: 0 1rem;\n  }\n  .views-link {\n    padding: 0.625rem 1.25rem;\n    font-size: 0.875rem;\n  }\n}\n@media (max-width: 480px) {\n  .views-link {\n    padding: 0.5rem 1rem;\n    font-size: 0.8rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */\n'] }]
+    args: [{ selector: "app-footer", standalone: true, imports: [CommonModule], template: '<footer class="footer-section">\n  <div class="footer-container">\n    <div class="footer-content">\n      <div class="footer-text">\n        <p>&copy; 2024 Ankit. Made with passion and creativity.</p>\n        \n        <!-- Portfolio Analytics -->\n        <div class="portfolio-analytics">\n          <div class="analytics-item">\n            <a href="https://s05.flagcounter.com/more/hZ3l/" target="_blank" class="analytics-link">\n              <span class="analytics-icon">\u{1F4CA}</span>\n              <span class="analytics-text">View Analytics</span>\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</footer>\n', styles: ['/* src/app/profile/footer/footer.component.scss */\n.footer-section {\n  background: var(--bg-primary);\n  padding: 4rem 0 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-container {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n}\n.footer-content {\n  text-align: center;\n  padding-top: 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-text p {\n  margin: 0.5rem 0;\n  color: var(--text-secondary);\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.portfolio-analytics {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 1rem;\n  margin-top: 1.5rem;\n  flex-wrap: wrap;\n}\n.analytics-item {\n  display: flex;\n  align-items: center;\n}\n.analytics-link {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.75rem 1.25rem;\n  background: var(--bg-secondary);\n  border-radius: 12px;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-size: 0.9rem;\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.analytics-link:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.analytics-icon {\n  font-size: 1.1rem;\n  filter: brightness(1.1);\n}\n.analytics-text {\n  font-weight: 500;\n  letter-spacing: 0.5px;\n}\n@media (max-width: 768px) {\n  .footer-container {\n    padding: 0 1rem;\n  }\n  .portfolio-analytics {\n    gap: 0.75rem;\n  }\n  .analytics-link {\n    padding: 0.625rem 1rem;\n    font-size: 0.875rem;\n  }\n}\n@media (max-width: 480px) {\n  .portfolio-analytics {\n    flex-direction: column;\n    gap: 0.5rem;\n  }\n  .analytics-link {\n    padding: 0.5rem 0.875rem;\n    font-size: 0.8rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */\n'] }]
   }], null, null);
 })();
 (() => {
@@ -40975,6 +40978,567 @@ var PublicationsComponent = class _PublicationsComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 9 });
 })();
 
+// src/app/profile/ai-code-review/ai-code-review.component.ts
+function AiCodeReviewComponent_div_17_span_22_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 40);
+    \u0275\u0275text(1, "\u23F3");
+    \u0275\u0275elementEnd();
+  }
+}
+function AiCodeReviewComponent_div_17_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 25)(1, "div", 26)(2, "div", 27)(3, "h3", 28);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "div", 29)(6, "span", 30);
+    \u0275\u0275text(7);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "span", 31);
+    \u0275\u0275text(9);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(10, "span", 32);
+    \u0275\u0275text(11);
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(12, "div", 33)(13, "pre", 34)(14, "code");
+    \u0275\u0275text(15);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(16, "div", 35)(17, "button", 36);
+    \u0275\u0275listener("click", function AiCodeReviewComponent_div_17_Template_button_click_17_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.getAIReview());
+    });
+    \u0275\u0275elementStart(18, "span", 37);
+    \u0275\u0275text(19, "\u{1F916}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(20, "span", 38);
+    \u0275\u0275text(21);
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(22, AiCodeReviewComponent_div_17_span_22_Template, 2, 0, "span", 39);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(ctx_r1.currentSnippet.title);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r1.currentSnippet.language);
+    \u0275\u0275advance();
+    \u0275\u0275classMap("difficulty-" + ctx_r1.currentSnippet.difficulty.toLowerCase());
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r1.currentSnippet.difficulty, " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.currentSnippet.category);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(ctx_r1.currentSnippet.code);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r1.isLoading);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1(" ", ctx_r1.isLoading ? "Getting AI Review..." : "Get AI Review", " ");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.isLoading);
+  }
+}
+function AiCodeReviewComponent_div_18_li_21_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "li", 60)(1, "span", 61);
+    \u0275\u0275text(2, "\u{1F4A1}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 62);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const suggestion_r3 = ctx.$implicit;
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(suggestion_r3);
+  }
+}
+function AiCodeReviewComponent_div_18_span_26_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 63);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const improvement_r4 = ctx.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", improvement_r4, " ");
+  }
+}
+function AiCodeReviewComponent_div_18_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 41)(1, "div", 42)(2, "h3", 43)(3, "span", 44);
+    \u0275\u0275text(4, "\u{1F916}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(5, " AI Code Review ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "div", 45)(7, "span", 46);
+    \u0275\u0275text(8, "Score:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "span", 47);
+    \u0275\u0275text(10);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(11, "div", 48)(12, "div", 49)(13, "h4", 50);
+    \u0275\u0275text(14, "Feedback");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(15, "p", 51);
+    \u0275\u0275text(16);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(17, "div", 52)(18, "h4", 53);
+    \u0275\u0275text(19, "Suggestions for Improvement");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(20, "ul", 54);
+    \u0275\u0275template(21, AiCodeReviewComponent_div_18_li_21_Template, 5, 1, "li", 55);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(22, "div", 56)(23, "h4", 57);
+    \u0275\u0275text(24, "Areas to Focus On");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "div", 58);
+    \u0275\u0275template(26, AiCodeReviewComponent_div_18_span_26_Template, 2, 1, "span", 59);
+    \u0275\u0275elementEnd()()()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(10);
+    \u0275\u0275textInterpolate1("", ctx_r1.aiReview.score, "/10");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate(ctx_r1.aiReview.feedback);
+    \u0275\u0275advance(5);
+    \u0275\u0275property("ngForOf", ctx_r1.aiReview.suggestions);
+    \u0275\u0275advance(5);
+    \u0275\u0275property("ngForOf", ctx_r1.aiReview.improvements);
+  }
+}
+var AiCodeReviewComponent = class _AiCodeReviewComponent {
+  constructor(http) {
+    this.http = http;
+    this.currentSnippet = null;
+    this.currentIndex = 0;
+    this.aiReview = null;
+    this.isLoading = false;
+    this.showReview = false;
+    this.userScore = 0;
+    this.totalReviewed = 0;
+    this.codeSnippets = [
+      {
+        id: 1,
+        title: "Bubble Sort Implementation",
+        language: "Java",
+        code: `public void bubbleSort(int[] arr) {
+  for(int i = 0; i < arr.length; i++) {
+    for(int j = 0; j < arr.length-1; j++) {
+      if(arr[j] > arr[j+1]) {
+        int temp = arr[j];
+        arr[j] = arr[j+1];
+        arr[j+1] = temp;
+      }
+    }
+  }
+}`,
+        difficulty: "Easy",
+        category: "Algorithms"
+      },
+      {
+        id: 2,
+        title: "Spring Boot Service",
+        language: "Java",
+        code: `@Service
+public class UserService {
+  @Autowired
+  private UserRepository userRepository;
+  
+  public User createUser(User user) {
+    return userRepository.save(user);
+  }
+  
+  public List<User> getAllUsers() {
+    return userRepository.findAll();
+  }
+}`,
+        difficulty: "Medium",
+        category: "Spring Boot"
+      },
+      {
+        id: 3,
+        title: "Kafka Consumer",
+        language: "Java",
+        code: `@KafkaListener(topics = "user-events")
+public void handleUserEvent(String message) {
+  try {
+    UserEvent event = objectMapper.readValue(message, UserEvent.class);
+    processUserEvent(event);
+  } catch (Exception e) {
+    log.error("Error processing message: " + message, e);
+  }
+}`,
+        difficulty: "Medium",
+        category: "Kafka"
+      },
+      {
+        id: 4,
+        title: "Redis Cache Service",
+        language: "Java",
+        code: `@Service
+public class CacheService {
+  @Autowired
+  private RedisTemplate<String, Object> redisTemplate;
+  
+  public void setValue(String key, Object value) {
+    redisTemplate.opsForValue().set(key, value);
+  }
+  
+  public Object getValue(String key) {
+    return redisTemplate.opsForValue().get(key);
+  }
+}`,
+        difficulty: "Medium",
+        category: "Redis"
+      },
+      {
+        id: 5,
+        title: "Microservice Controller",
+        language: "Java",
+        code: `@RestController
+@RequestMapping("/api/users")
+public class UserController {
+  
+  @GetMapping("/{id}")
+  public ResponseEntity<User> getUser(@PathVariable Long id) {
+    User user = userService.findById(id);
+    if (user == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(user);
+  }
+}`,
+        difficulty: "Easy",
+        category: "REST API"
+      }
+    ];
+  }
+  ngOnInit() {
+    this.loadNextSnippet();
+  }
+  loadNextSnippet() {
+    if (this.currentIndex < this.codeSnippets.length) {
+      this.currentSnippet = this.codeSnippets[this.currentIndex];
+      this.aiReview = null;
+      this.showReview = false;
+    }
+  }
+  getAIReview() {
+    return __async(this, null, function* () {
+      if (!this.currentSnippet)
+        return;
+      this.isLoading = true;
+      const prompt = `Please review this ${this.currentSnippet.language} code snippet titled "${this.currentSnippet.title}" and provide:
+1. A brief feedback on code quality, best practices, and potential issues
+2. 3-4 specific suggestions for improvement
+3. A score out of 10 for code quality
+4. Areas that could be improved
+
+Code:
+${this.currentSnippet.code}
+
+Please provide a concise, professional review suitable for a portfolio showcase.`;
+      const context2 = `You are an expert ${this.currentSnippet.language} developer and code reviewer with deep knowledge of ${this.currentSnippet.category}. Provide constructive, actionable feedback.`;
+      try {
+        const response = yield this.http.post("https://epic-backend-myxdxwn4m-beingmartinbmcs-projects.vercel.app/api/generic", {
+          prompt,
+          context: context2
+        }, {
+          headers: new HttpHeaders({
+            "Content-Type": "application/json",
+            "Origin": "https://beingmartinbmc.github.io"
+          })
+        }).toPromise();
+        if (response && typeof response === "object" && "data" in response) {
+          const responseData = response.data;
+          if (responseData && "choices" in responseData && Array.isArray(responseData.choices) && responseData.choices.length > 0) {
+            const aiResponse = responseData.choices[0].message.content;
+            this.parseAIResponse(aiResponse);
+          }
+        }
+      } catch (error) {
+        console.error("Error getting AI review:", error);
+        this.aiReview = {
+          feedback: "Great code structure! The implementation follows good practices.",
+          suggestions: ["Add error handling", "Consider performance optimization", "Add documentation"],
+          score: 8,
+          improvements: ["Error handling", "Performance", "Documentation"]
+        };
+      } finally {
+        this.isLoading = false;
+        this.showReview = true;
+        this.totalReviewed++;
+      }
+    });
+  }
+  parseAIResponse(response) {
+    const lines = response.split("\n").filter((line) => line.trim());
+    this.aiReview = {
+      feedback: lines[0] || "Good code structure and implementation.",
+      suggestions: lines.slice(1, 5).filter((line) => line.includes("-") || line.includes("\u2022")),
+      score: this.extractScore(response),
+      improvements: ["Code Quality", "Best Practices", "Performance"]
+    };
+  }
+  extractScore(response) {
+    const scoreMatch = response.match(/(\d+)\/10|score.*?(\d+)/i);
+    return scoreMatch ? parseInt(scoreMatch[1] || scoreMatch[2]) : 8;
+  }
+  nextSnippet() {
+    this.currentIndex++;
+    this.loadNextSnippet();
+  }
+  previousSnippet() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+      this.loadNextSnippet();
+    }
+  }
+  resetGame() {
+    this.currentIndex = 0;
+    this.userScore = 0;
+    this.totalReviewed = 0;
+    this.loadNextSnippet();
+  }
+  getProgressPercentage() {
+    return this.currentIndex / this.codeSnippets.length * 100;
+  }
+  static {
+    this.\u0275fac = function AiCodeReviewComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _AiCodeReviewComponent)(\u0275\u0275directiveInject(HttpClient));
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AiCodeReviewComponent, selectors: [["app-ai-code-review"]], decls: 44, vars: 14, consts: [["id", "ai-code-review", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "section-subtitle"], ["data-aos", "fade-up", 1, "game-container"], [1, "progress-section"], [1, "progress-info"], [1, "progress-text"], [1, "progress-percentage"], [1, "progress-bar"], [1, "progress-fill"], ["class", "code-snippet-card", 4, "ngIf"], ["class", "ai-review-section", "data-aos", "fade-up", 4, "ngIf"], ["data-aos", "fade-up", 1, "navigation-controls"], [1, "nav-btn", "nav-prev", 3, "click", "disabled"], [1, "nav-icon"], [1, "nav-btn", "nav-next", 3, "click", "disabled"], ["data-aos", "fade-up", 1, "game-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], ["data-aos", "fade-up", 1, "reset-section"], [1, "reset-btn", 3, "click"], [1, "reset-icon"], [1, "code-snippet-card"], [1, "snippet-header"], [1, "snippet-info"], [1, "snippet-title"], [1, "snippet-meta"], [1, "language-badge"], [1, "difficulty-badge"], [1, "category-badge"], [1, "code-container"], [1, "code-block"], [1, "snippet-actions"], [1, "review-btn", 3, "click", "disabled"], [1, "btn-icon"], [1, "btn-text"], ["class", "btn-spinner", 4, "ngIf"], [1, "btn-spinner"], ["data-aos", "fade-up", 1, "ai-review-section"], [1, "review-header"], [1, "review-title"], [1, "ai-icon"], [1, "review-score"], [1, "score-label"], [1, "score-value"], [1, "review-content"], [1, "feedback-section"], [1, "feedback-title"], [1, "feedback-text"], [1, "suggestions-section"], [1, "suggestions-title"], [1, "suggestions-list"], ["class", "suggestion-item", 4, "ngFor", "ngForOf"], [1, "improvements-section"], [1, "improvements-title"], [1, "improvements-tags"], ["class", "improvement-tag", 4, "ngFor", "ngForOf"], [1, "suggestion-item"], [1, "suggestion-icon"], [1, "suggestion-text"], [1, "improvement-tag"]], template: function AiCodeReviewComponent_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
+        \u0275\u0275text(4, "\u{1F916} AI Code Review Game");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(5, "p", 4);
+        \u0275\u0275text(6, "Test your code review skills with AI-powered feedback");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(7, "div", 5)(8, "div", 6)(9, "div", 7)(10, "span", 8);
+        \u0275\u0275text(11);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(12, "span", 9);
+        \u0275\u0275text(13);
+        \u0275\u0275pipe(14, "number");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(15, "div", 10);
+        \u0275\u0275element(16, "div", 11);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275template(17, AiCodeReviewComponent_div_17_Template, 23, 10, "div", 12)(18, AiCodeReviewComponent_div_18_Template, 27, 4, "div", 13);
+        \u0275\u0275elementStart(19, "div", 14)(20, "button", 15);
+        \u0275\u0275listener("click", function AiCodeReviewComponent_Template_button_click_20_listener() {
+          return ctx.previousSnippet();
+        });
+        \u0275\u0275elementStart(21, "span", 16);
+        \u0275\u0275text(22, "\u2190");
+        \u0275\u0275elementEnd();
+        \u0275\u0275text(23, " Previous ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(24, "button", 17);
+        \u0275\u0275listener("click", function AiCodeReviewComponent_Template_button_click_24_listener() {
+          return ctx.nextSnippet();
+        });
+        \u0275\u0275text(25, " Next ");
+        \u0275\u0275elementStart(26, "span", 16);
+        \u0275\u0275text(27, "\u2192");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(28, "div", 18)(29, "div", 19)(30, "span", 20);
+        \u0275\u0275text(31, "Reviewed:");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(32, "span", 21);
+        \u0275\u0275text(33);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(34, "div", 19)(35, "span", 20);
+        \u0275\u0275text(36, "Remaining:");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(37, "span", 21);
+        \u0275\u0275text(38);
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(39, "div", 22)(40, "button", 23);
+        \u0275\u0275listener("click", function AiCodeReviewComponent_Template_button_click_40_listener() {
+          return ctx.resetGame();
+        });
+        \u0275\u0275elementStart(41, "span", 24);
+        \u0275\u0275text(42, "\u{1F504}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275text(43, " Start Over ");
+        \u0275\u0275elementEnd()()()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance(11);
+        \u0275\u0275textInterpolate2("Code Review ", ctx.currentIndex + 1, " of ", ctx.codeSnippets.length);
+        \u0275\u0275advance(2);
+        \u0275\u0275textInterpolate1("", \u0275\u0275pipeBind2(14, 11, ctx.getProgressPercentage(), "1.0-0"), "%");
+        \u0275\u0275advance(3);
+        \u0275\u0275styleProp("width", ctx.getProgressPercentage(), "%");
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.currentSnippet);
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.showReview && ctx.aiReview);
+        \u0275\u0275advance(2);
+        \u0275\u0275property("disabled", ctx.currentIndex === 0);
+        \u0275\u0275advance(4);
+        \u0275\u0275property("disabled", ctx.currentIndex >= ctx.codeSnippets.length - 1);
+        \u0275\u0275advance(9);
+        \u0275\u0275textInterpolate(ctx.totalReviewed);
+        \u0275\u0275advance(5);
+        \u0275\u0275textInterpolate(ctx.codeSnippets.length - ctx.currentIndex - 1);
+      }
+    }, dependencies: [CommonModule, NgForOf, NgIf, FormsModule, DecimalPipe], styles: ['\n\n.game-container[_ngcontent-%COMP%] {\n  max-width: 1000px;\n  margin: 0 auto;\n  padding: var(--spacing-xl) 0;\n}\n.progress-section[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-2xl);\n}\n.progress-section[_ngcontent-%COMP%]   .progress-info[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: var(--spacing-md);\n}\n.progress-section[_ngcontent-%COMP%]   .progress-info[_ngcontent-%COMP%]   .progress-text[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  font-weight: var(--font-medium);\n  color: var(--text-primary);\n}\n.progress-section[_ngcontent-%COMP%]   .progress-info[_ngcontent-%COMP%]   .progress-percentage[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  font-weight: var(--font-bold);\n  color: var(--primary-color);\n}\n.progress-section[_ngcontent-%COMP%]   .progress-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 8px;\n  background: var(--bg-secondary);\n  border-radius: var(--radius-full);\n  overflow: hidden;\n  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);\n}\n.progress-section[_ngcontent-%COMP%]   .progress-bar[_ngcontent-%COMP%]   .progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  border-radius: var(--radius-full);\n  transition: width 0.5s ease-in-out;\n  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);\n}\n.code-snippet-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  margin-bottom: var(--spacing-2xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  border-bottom: 1px solid var(--glass-border);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-title[_ngcontent-%COMP%] {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--spacing-md);\n  flex-wrap: wrap;\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .language-badge[_ngcontent-%COMP%], \n.code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .difficulty-badge[_ngcontent-%COMP%], \n.code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .category-badge[_ngcontent-%COMP%] {\n  padding: var(--spacing-xs) var(--spacing-md);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .language-badge[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .difficulty-badge.difficulty-easy[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #4ade80,\n      #22c55e);\n  color: var(--white);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .difficulty-badge.difficulty-medium[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #fbbf24,\n      #f59e0b);\n  color: var(--white);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .difficulty-badge.difficulty-hard[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ef4444,\n      #dc2626);\n  color: var(--white);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .category-badge[_ngcontent-%COMP%] {\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .code-container[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .code-container[_ngcontent-%COMP%]   .code-block[_ngcontent-%COMP%] {\n  background: var(--bg-dark);\n  border-radius: var(--radius-lg);\n  padding: var(--spacing-lg);\n  margin: 0;\n  overflow-x: auto;\n  border: 1px solid var(--glass-border);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .code-container[_ngcontent-%COMP%]   .code-block[_ngcontent-%COMP%]   code[_ngcontent-%COMP%] {\n  font-family:\n    "Fira Code",\n    "Monaco",\n    "Consolas",\n    monospace;\n  font-size: var(--text-sm);\n  line-height: 1.6;\n  color: var(--text-primary);\n  white-space: pre;\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-actions[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  border-top: 1px solid var(--glass-border);\n  display: flex;\n  justify-content: center;\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: var(--spacing-md);\n  padding: var(--spacing-md) var(--spacing-xl);\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  color: var(--white);\n  border: none;\n  border-radius: var(--radius-lg);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  box-shadow: var(--shadow-md);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-xl);\n  background:\n    linear-gradient(\n      135deg,\n      var(--accent-purple),\n      var(--primary-color));\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%]   .btn-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-xl);\n}\n.code-snippet-card[_ngcontent-%COMP%]   .snippet-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%]   .btn-spinner[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n.ai-review-section[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  margin-bottom: var(--spacing-2xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  border-bottom: 1px solid var(--glass-border);\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-title[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-md);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  margin: 0;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-title[_ngcontent-%COMP%]   .ai-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-2xl);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-score[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-score[_ngcontent-%COMP%]   .score-label[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-score[_ngcontent-%COMP%]   .score-value[_ngcontent-%COMP%] {\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--primary-color);\n  background: var(--apple-glass);\n  padding: var(--spacing-xs) var(--spacing-md);\n  border-radius: var(--radius-md);\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]:last-child, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]:last-child, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%] {\n  font-size: var(--text-base);\n  line-height: 1.6;\n  color: var(--text-secondary);\n  background: var(--apple-glass);\n  padding: var(--spacing-md);\n  border-radius: var(--radius-md);\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--spacing-md);\n  padding: var(--spacing-md);\n  background: var(--apple-glass);\n  border-radius: var(--radius-md);\n  margin-bottom: var(--spacing-sm);\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]:last-child, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]:last-child, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-icon[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-icon[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  flex-shrink: 0;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-text[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-text[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-text[_ngcontent-%COMP%] {\n  font-size: var(--text-base);\n  line-height: 1.5;\n  color: var(--text-secondary);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--spacing-sm);\n  flex-wrap: wrap;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%] {\n  padding: var(--spacing-xs) var(--spacing-md);\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  color: var(--white);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.navigation-controls[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  gap: var(--spacing-lg);\n  margin-bottom: var(--spacing-2xl);\n}\n.navigation-controls[_ngcontent-%COMP%]   .nav-btn[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.navigation-controls[_ngcontent-%COMP%]   .nav-btn[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n}\n.navigation-controls[_ngcontent-%COMP%]   .nav-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n  transform: none;\n}\n.navigation-controls[_ngcontent-%COMP%]   .nav-btn[_ngcontent-%COMP%]   .nav-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n}\n.game-stats[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  gap: var(--spacing-2xl);\n  margin-bottom: var(--spacing-2xl);\n}\n.game-stats[_ngcontent-%COMP%]   .stat-item[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: var(--spacing-xs);\n}\n.game-stats[_ngcontent-%COMP%]   .stat-item[_ngcontent-%COMP%]   .stat-label[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.game-stats[_ngcontent-%COMP%]   .stat-item[_ngcontent-%COMP%]   .stat-value[_ngcontent-%COMP%] {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-bold);\n  color: var(--primary-color);\n}\n.reset-section[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n}\n.reset-section[_ngcontent-%COMP%]   .reset-btn[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-md) var(--spacing-xl);\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.reset-section[_ngcontent-%COMP%]   .reset-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n}\n.reset-section[_ngcontent-%COMP%]   .reset-btn[_ngcontent-%COMP%]   .reset-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n}\n@keyframes _ngcontent-%COMP%_spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 768px) {\n  .game-container[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg) 0;\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-title[_ngcontent-%COMP%] {\n    font-size: var(--text-xl);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%] {\n    gap: var(--spacing-sm);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .language-badge[_ngcontent-%COMP%], \n   .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .difficulty-badge[_ngcontent-%COMP%], \n   .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .category-badge[_ngcontent-%COMP%] {\n    font-size: var(--text-xs);\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .code-container[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .code-container[_ngcontent-%COMP%]   .code-block[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .code-container[_ngcontent-%COMP%]   .code-block[_ngcontent-%COMP%]   code[_ngcontent-%COMP%] {\n    font-size: var(--text-xs);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-actions[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: center;\n    font-size: var(--text-base);\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n    flex-direction: column;\n    gap: var(--spacing-md);\n    align-items: flex-start;\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-title[_ngcontent-%COMP%] {\n    font-size: var(--text-lg);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%] {\n    margin-bottom: var(--spacing-lg);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%] {\n    font-size: var(--text-base);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%] {\n    font-size: var(--text-sm);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%] {\n    padding: var(--spacing-sm);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-text[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-text[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-text[_ngcontent-%COMP%] {\n    font-size: var(--text-sm);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%] {\n    font-size: var(--text-xs);\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n  .navigation-controls[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: var(--spacing-md);\n  }\n  .navigation-controls[_ngcontent-%COMP%]   .nav-btn[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: center;\n  }\n  .game-stats[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: var(--spacing-lg);\n  }\n  .game-stats[_ngcontent-%COMP%]   .stat-item[_ngcontent-%COMP%]   .stat-value[_ngcontent-%COMP%] {\n    font-size: var(--text-xl);\n  }\n}\n@media (max-width: 480px) {\n  .code-snippet-card[_ngcontent-%COMP%]   .code-container[_ngcontent-%COMP%]   .code-block[_ngcontent-%COMP%]   code[_ngcontent-%COMP%] {\n    font-size: 10px;\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: var(--spacing-xs);\n    text-align: center;\n  }\n}\n/*# sourceMappingURL=ai-code-review.component.css.map */'] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AiCodeReviewComponent, [{
+    type: Component,
+    args: [{ selector: "app-ai-code-review", standalone: true, imports: [CommonModule, FormsModule], template: `<div class="apple-section" id="ai-code-review">
+  <div class="apple-container">
+    <div class="section-header apple-fade-in">
+      <h2 class="section-title apple-text-display">\u{1F916} AI Code Review Game</h2>
+      <p class="section-subtitle">Test your code review skills with AI-powered feedback</p>
+    </div>
+    
+    <div class="game-container" data-aos="fade-up">
+      <!-- Progress Bar -->
+      <div class="progress-section">
+        <div class="progress-info">
+          <span class="progress-text">Code Review {{ currentIndex + 1 }} of {{ codeSnippets.length }}</span>
+          <span class="progress-percentage">{{ getProgressPercentage() | number:'1.0-0' }}%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getProgressPercentage()"></div>
+        </div>
+      </div>
+
+      <!-- Code Snippet Card -->
+      <div class="code-snippet-card" *ngIf="currentSnippet">
+        <div class="snippet-header">
+          <div class="snippet-info">
+            <h3 class="snippet-title">{{ currentSnippet.title }}</h3>
+            <div class="snippet-meta">
+              <span class="language-badge">{{ currentSnippet.language }}</span>
+              <span class="difficulty-badge" [class]="'difficulty-' + currentSnippet.difficulty.toLowerCase()">
+                {{ currentSnippet.difficulty }}
+              </span>
+              <span class="category-badge">{{ currentSnippet.category }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="code-container">
+          <pre class="code-block"><code>{{ currentSnippet.code }}</code></pre>
+        </div>
+        
+        <div class="snippet-actions">
+          <button 
+            class="review-btn" 
+            (click)="getAIReview()" 
+            [disabled]="isLoading">
+            <span class="btn-icon">\u{1F916}</span>
+            <span class="btn-text">
+              {{ isLoading ? 'Getting AI Review...' : 'Get AI Review' }}
+            </span>
+            <span class="btn-spinner" *ngIf="isLoading">\u23F3</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- AI Review Section -->
+      <div class="ai-review-section" *ngIf="showReview && aiReview" data-aos="fade-up">
+        <div class="review-header">
+          <h3 class="review-title">
+            <span class="ai-icon">\u{1F916}</span>
+            AI Code Review
+          </h3>
+          <div class="review-score">
+            <span class="score-label">Score:</span>
+            <span class="score-value">{{ aiReview.score }}/10</span>
+          </div>
+        </div>
+        
+        <div class="review-content">
+          <div class="feedback-section">
+            <h4 class="feedback-title">Feedback</h4>
+            <p class="feedback-text">{{ aiReview.feedback }}</p>
+          </div>
+          
+          <div class="suggestions-section">
+            <h4 class="suggestions-title">Suggestions for Improvement</h4>
+            <ul class="suggestions-list">
+              <li *ngFor="let suggestion of aiReview.suggestions" class="suggestion-item">
+                <span class="suggestion-icon">\u{1F4A1}</span>
+                <span class="suggestion-text">{{ suggestion }}</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="improvements-section">
+            <h4 class="improvements-title">Areas to Focus On</h4>
+            <div class="improvements-tags">
+              <span class="improvement-tag" *ngFor="let improvement of aiReview.improvements">
+                {{ improvement }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Controls -->
+      <div class="navigation-controls" data-aos="fade-up">
+        <button 
+          class="nav-btn nav-prev" 
+          (click)="previousSnippet()" 
+          [disabled]="currentIndex === 0">
+          <span class="nav-icon">\u2190</span>
+          Previous
+        </button>
+        
+        <button 
+          class="nav-btn nav-next" 
+          (click)="nextSnippet()" 
+          [disabled]="currentIndex >= codeSnippets.length - 1">
+          Next
+          <span class="nav-icon">\u2192</span>
+        </button>
+      </div>
+
+      <!-- Game Stats -->
+      <div class="game-stats" data-aos="fade-up">
+        <div class="stat-item">
+          <span class="stat-label">Reviewed:</span>
+          <span class="stat-value">{{ totalReviewed }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Remaining:</span>
+          <span class="stat-value">{{ codeSnippets.length - currentIndex - 1 }}</span>
+        </div>
+      </div>
+
+      <!-- Reset Button -->
+      <div class="reset-section" data-aos="fade-up">
+        <button class="reset-btn" (click)="resetGame()">
+          <span class="reset-icon">\u{1F504}</span>
+          Start Over
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`, styles: ['/* src/app/profile/ai-code-review/ai-code-review.component.scss */\n.game-container {\n  max-width: 1000px;\n  margin: 0 auto;\n  padding: var(--spacing-xl) 0;\n}\n.progress-section {\n  margin-bottom: var(--spacing-2xl);\n}\n.progress-section .progress-info {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: var(--spacing-md);\n}\n.progress-section .progress-info .progress-text {\n  font-size: var(--text-lg);\n  font-weight: var(--font-medium);\n  color: var(--text-primary);\n}\n.progress-section .progress-info .progress-percentage {\n  font-size: var(--text-lg);\n  font-weight: var(--font-bold);\n  color: var(--primary-color);\n}\n.progress-section .progress-bar {\n  width: 100%;\n  height: 8px;\n  background: var(--bg-secondary);\n  border-radius: var(--radius-full);\n  overflow: hidden;\n  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);\n}\n.progress-section .progress-bar .progress-fill {\n  height: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  border-radius: var(--radius-full);\n  transition: width 0.5s ease-in-out;\n  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);\n}\n.code-snippet-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  margin-bottom: var(--spacing-2xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.code-snippet-card .snippet-header {\n  padding: var(--spacing-xl);\n  border-bottom: 1px solid var(--glass-border);\n}\n.code-snippet-card .snippet-header .snippet-info .snippet-title {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.code-snippet-card .snippet-header .snippet-info .snippet-meta {\n  display: flex;\n  gap: var(--spacing-md);\n  flex-wrap: wrap;\n}\n.code-snippet-card .snippet-header .snippet-info .snippet-meta .language-badge,\n.code-snippet-card .snippet-header .snippet-info .snippet-meta .difficulty-badge,\n.code-snippet-card .snippet-header .snippet-info .snippet-meta .category-badge {\n  padding: var(--spacing-xs) var(--spacing-md);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.code-snippet-card .snippet-header .snippet-info .snippet-meta .language-badge {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n}\n.code-snippet-card .snippet-header .snippet-info .snippet-meta .difficulty-badge.difficulty-easy {\n  background:\n    linear-gradient(\n      135deg,\n      #4ade80,\n      #22c55e);\n  color: var(--white);\n}\n.code-snippet-card .snippet-header .snippet-info .snippet-meta .difficulty-badge.difficulty-medium {\n  background:\n    linear-gradient(\n      135deg,\n      #fbbf24,\n      #f59e0b);\n  color: var(--white);\n}\n.code-snippet-card .snippet-header .snippet-info .snippet-meta .difficulty-badge.difficulty-hard {\n  background:\n    linear-gradient(\n      135deg,\n      #ef4444,\n      #dc2626);\n  color: var(--white);\n}\n.code-snippet-card .snippet-header .snippet-info .snippet-meta .category-badge {\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n}\n.code-snippet-card .code-container {\n  padding: var(--spacing-xl);\n}\n.code-snippet-card .code-container .code-block {\n  background: var(--bg-dark);\n  border-radius: var(--radius-lg);\n  padding: var(--spacing-lg);\n  margin: 0;\n  overflow-x: auto;\n  border: 1px solid var(--glass-border);\n}\n.code-snippet-card .code-container .code-block code {\n  font-family:\n    "Fira Code",\n    "Monaco",\n    "Consolas",\n    monospace;\n  font-size: var(--text-sm);\n  line-height: 1.6;\n  color: var(--text-primary);\n  white-space: pre;\n}\n.code-snippet-card .snippet-actions {\n  padding: var(--spacing-xl);\n  border-top: 1px solid var(--glass-border);\n  display: flex;\n  justify-content: center;\n}\n.code-snippet-card .snippet-actions .review-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: var(--spacing-md);\n  padding: var(--spacing-md) var(--spacing-xl);\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  color: var(--white);\n  border: none;\n  border-radius: var(--radius-lg);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  box-shadow: var(--shadow-md);\n}\n.code-snippet-card .snippet-actions .review-btn:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-xl);\n  background:\n    linear-gradient(\n      135deg,\n      var(--accent-purple),\n      var(--primary-color));\n}\n.code-snippet-card .snippet-actions .review-btn:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.code-snippet-card .snippet-actions .review-btn .btn-icon {\n  font-size: var(--text-xl);\n}\n.code-snippet-card .snippet-actions .review-btn .btn-spinner {\n  animation: spin 1s linear infinite;\n}\n.ai-review-section {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  margin-bottom: var(--spacing-2xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.ai-review-section .review-header {\n  padding: var(--spacing-xl);\n  border-bottom: 1px solid var(--glass-border);\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.ai-review-section .review-header .review-title {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-md);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  margin: 0;\n}\n.ai-review-section .review-header .review-title .ai-icon {\n  font-size: var(--text-2xl);\n}\n.ai-review-section .review-header .review-score {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n}\n.ai-review-section .review-header .review-score .score-label {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n}\n.ai-review-section .review-header .review-score .score-value {\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--primary-color);\n  background: var(--apple-glass);\n  padding: var(--spacing-xs) var(--spacing-md);\n  border-radius: var(--radius-md);\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section .review-content {\n  padding: var(--spacing-xl);\n}\n.ai-review-section .review-content .feedback-section,\n.ai-review-section .review-content .suggestions-section,\n.ai-review-section .review-content .improvements-section {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section .review-content .feedback-section:last-child,\n.ai-review-section .review-content .suggestions-section:last-child,\n.ai-review-section .review-content .improvements-section:last-child {\n  margin-bottom: 0;\n}\n.ai-review-section .review-content .feedback-section .feedback-title,\n.ai-review-section .review-content .feedback-section .suggestions-title,\n.ai-review-section .review-content .feedback-section .improvements-title,\n.ai-review-section .review-content .suggestions-section .feedback-title,\n.ai-review-section .review-content .suggestions-section .suggestions-title,\n.ai-review-section .review-content .suggestions-section .improvements-title,\n.ai-review-section .review-content .improvements-section .feedback-title,\n.ai-review-section .review-content .improvements-section .suggestions-title,\n.ai-review-section .review-content .improvements-section .improvements-title {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section .review-content .feedback-section .feedback-text,\n.ai-review-section .review-content .suggestions-section .feedback-text,\n.ai-review-section .review-content .improvements-section .feedback-text {\n  font-size: var(--text-base);\n  line-height: 1.6;\n  color: var(--text-secondary);\n  background: var(--apple-glass);\n  padding: var(--spacing-md);\n  border-radius: var(--radius-md);\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section .review-content .feedback-section .suggestions-list,\n.ai-review-section .review-content .suggestions-section .suggestions-list,\n.ai-review-section .review-content .improvements-section .suggestions-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.ai-review-section .review-content .feedback-section .suggestions-list .suggestion-item,\n.ai-review-section .review-content .suggestions-section .suggestions-list .suggestion-item,\n.ai-review-section .review-content .improvements-section .suggestions-list .suggestion-item {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--spacing-md);\n  padding: var(--spacing-md);\n  background: var(--apple-glass);\n  border-radius: var(--radius-md);\n  margin-bottom: var(--spacing-sm);\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section .review-content .feedback-section .suggestions-list .suggestion-item:last-child,\n.ai-review-section .review-content .suggestions-section .suggestions-list .suggestion-item:last-child,\n.ai-review-section .review-content .improvements-section .suggestions-list .suggestion-item:last-child {\n  margin-bottom: 0;\n}\n.ai-review-section .review-content .feedback-section .suggestions-list .suggestion-item .suggestion-icon,\n.ai-review-section .review-content .suggestions-section .suggestions-list .suggestion-item .suggestion-icon,\n.ai-review-section .review-content .improvements-section .suggestions-list .suggestion-item .suggestion-icon {\n  font-size: var(--text-lg);\n  flex-shrink: 0;\n}\n.ai-review-section .review-content .feedback-section .suggestions-list .suggestion-item .suggestion-text,\n.ai-review-section .review-content .suggestions-section .suggestions-list .suggestion-item .suggestion-text,\n.ai-review-section .review-content .improvements-section .suggestions-list .suggestion-item .suggestion-text {\n  font-size: var(--text-base);\n  line-height: 1.5;\n  color: var(--text-secondary);\n}\n.ai-review-section .review-content .feedback-section .improvements-tags,\n.ai-review-section .review-content .suggestions-section .improvements-tags,\n.ai-review-section .review-content .improvements-section .improvements-tags {\n  display: flex;\n  gap: var(--spacing-sm);\n  flex-wrap: wrap;\n}\n.ai-review-section .review-content .feedback-section .improvements-tags .improvement-tag,\n.ai-review-section .review-content .suggestions-section .improvements-tags .improvement-tag,\n.ai-review-section .review-content .improvements-section .improvements-tags .improvement-tag {\n  padding: var(--spacing-xs) var(--spacing-md);\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  color: var(--white);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.navigation-controls {\n  display: flex;\n  justify-content: space-between;\n  gap: var(--spacing-lg);\n  margin-bottom: var(--spacing-2xl);\n}\n.navigation-controls .nav-btn {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.navigation-controls .nav-btn:hover:not(:disabled) {\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n}\n.navigation-controls .nav-btn:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n  transform: none;\n}\n.navigation-controls .nav-btn .nav-icon {\n  font-size: var(--text-lg);\n}\n.game-stats {\n  display: flex;\n  justify-content: center;\n  gap: var(--spacing-2xl);\n  margin-bottom: var(--spacing-2xl);\n}\n.game-stats .stat-item {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: var(--spacing-xs);\n}\n.game-stats .stat-item .stat-label {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.game-stats .stat-item .stat-value {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-bold);\n  color: var(--primary-color);\n}\n.reset-section {\n  display: flex;\n  justify-content: center;\n}\n.reset-section .reset-btn {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-md) var(--spacing-xl);\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.reset-section .reset-btn:hover {\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n}\n.reset-section .reset-btn .reset-icon {\n  font-size: var(--text-lg);\n}\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 768px) {\n  .game-container {\n    padding: var(--spacing-lg) 0;\n  }\n  .code-snippet-card .snippet-header {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card .snippet-header .snippet-info .snippet-title {\n    font-size: var(--text-xl);\n  }\n  .code-snippet-card .snippet-header .snippet-info .snippet-meta {\n    gap: var(--spacing-sm);\n  }\n  .code-snippet-card .snippet-header .snippet-info .snippet-meta .language-badge,\n  .code-snippet-card .snippet-header .snippet-info .snippet-meta .difficulty-badge,\n  .code-snippet-card .snippet-header .snippet-info .snippet-meta .category-badge {\n    font-size: var(--text-xs);\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n  .code-snippet-card .code-container {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card .code-container .code-block {\n    padding: var(--spacing-md);\n  }\n  .code-snippet-card .code-container .code-block code {\n    font-size: var(--text-xs);\n  }\n  .code-snippet-card .snippet-actions {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card .snippet-actions .review-btn {\n    width: 100%;\n    justify-content: center;\n    font-size: var(--text-base);\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .ai-review-section .review-header {\n    padding: var(--spacing-lg);\n    flex-direction: column;\n    gap: var(--spacing-md);\n    align-items: flex-start;\n  }\n  .ai-review-section .review-header .review-title {\n    font-size: var(--text-lg);\n  }\n  .ai-review-section .review-content {\n    padding: var(--spacing-lg);\n  }\n  .ai-review-section .review-content .feedback-section,\n  .ai-review-section .review-content .suggestions-section,\n  .ai-review-section .review-content .improvements-section {\n    margin-bottom: var(--spacing-lg);\n  }\n  .ai-review-section .review-content .feedback-section .feedback-title,\n  .ai-review-section .review-content .feedback-section .suggestions-title,\n  .ai-review-section .review-content .feedback-section .improvements-title,\n  .ai-review-section .review-content .suggestions-section .feedback-title,\n  .ai-review-section .review-content .suggestions-section .suggestions-title,\n  .ai-review-section .review-content .suggestions-section .improvements-title,\n  .ai-review-section .review-content .improvements-section .feedback-title,\n  .ai-review-section .review-content .improvements-section .suggestions-title,\n  .ai-review-section .review-content .improvements-section .improvements-title {\n    font-size: var(--text-base);\n  }\n  .ai-review-section .review-content .feedback-section .feedback-text,\n  .ai-review-section .review-content .suggestions-section .feedback-text,\n  .ai-review-section .review-content .improvements-section .feedback-text {\n    font-size: var(--text-sm);\n  }\n  .ai-review-section .review-content .feedback-section .suggestions-list .suggestion-item,\n  .ai-review-section .review-content .suggestions-section .suggestions-list .suggestion-item,\n  .ai-review-section .review-content .improvements-section .suggestions-list .suggestion-item {\n    padding: var(--spacing-sm);\n  }\n  .ai-review-section .review-content .feedback-section .suggestions-list .suggestion-item .suggestion-text,\n  .ai-review-section .review-content .suggestions-section .suggestions-list .suggestion-item .suggestion-text,\n  .ai-review-section .review-content .improvements-section .suggestions-list .suggestion-item .suggestion-text {\n    font-size: var(--text-sm);\n  }\n  .ai-review-section .review-content .feedback-section .improvements-tags .improvement-tag,\n  .ai-review-section .review-content .suggestions-section .improvements-tags .improvement-tag,\n  .ai-review-section .review-content .improvements-section .improvements-tags .improvement-tag {\n    font-size: var(--text-xs);\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n  .navigation-controls {\n    flex-direction: column;\n    gap: var(--spacing-md);\n  }\n  .navigation-controls .nav-btn {\n    width: 100%;\n    justify-content: center;\n  }\n  .game-stats {\n    flex-direction: column;\n    gap: var(--spacing-lg);\n  }\n  .game-stats .stat-item .stat-value {\n    font-size: var(--text-xl);\n  }\n}\n@media (max-width: 480px) {\n  .code-snippet-card .code-container .code-block code {\n    font-size: 10px;\n  }\n  .ai-review-section .review-content .suggestions-list .suggestion-item {\n    flex-direction: column;\n    gap: var(--spacing-xs);\n    text-align: center;\n  }\n}\n/*# sourceMappingURL=ai-code-review.component.css.map */\n'] }]
+  }], () => [{ type: HttpClient }], null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiCodeReviewComponent, { className: "AiCodeReviewComponent", filePath: "src/app/profile/ai-code-review/ai-code-review.component.ts", lineNumber: 29 });
+})();
+
 // src/app/profile/blog/blog.component.ts
 var BlogComponent = class _BlogComponent {
   constructor() {
@@ -41173,13 +41737,13 @@ var ProfileComponent = class _ProfileComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProfileComponent, selectors: [["app-profile"]], decls: 11, vars: 0, consts: [[1, "page-content"]], template: function ProfileComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProfileComponent, selectors: [["app-profile"]], decls: 12, vars: 0, consts: [[1, "page-content"]], template: function ProfileComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275element(0, "app-header");
         \u0275\u0275elementStart(1, "div", 0);
-        \u0275\u0275element(2, "app-intro")(3, "app-about")(4, "app-skills")(5, "app-experience")(6, "app-publications")(7, "app-blog")(8, "app-education")(9, "app-contact");
+        \u0275\u0275element(2, "app-intro")(3, "app-about")(4, "app-skills")(5, "app-experience")(6, "app-publications")(7, "app-ai-code-review")(8, "app-blog")(9, "app-education")(10, "app-contact");
         \u0275\u0275elementEnd();
-        \u0275\u0275element(10, "app-footer");
+        \u0275\u0275element(11, "app-footer");
       }
     }, dependencies: [
       HeaderComponent,
@@ -41191,6 +41755,7 @@ var ProfileComponent = class _ProfileComponent {
       ExperienceComponent,
       SkillsComponent,
       PublicationsComponent,
+      AiCodeReviewComponent,
       BlogComponent
     ], encapsulation: 2 });
   }
@@ -41208,12 +41773,13 @@ var ProfileComponent = class _ProfileComponent {
       ExperienceComponent,
       SkillsComponent,
       PublicationsComponent,
+      AiCodeReviewComponent,
       BlogComponent
-    ], template: '<app-header></app-header>\n\n<div class="page-content">\n  <!-- <app-particle></app-particle> -->\n  <app-intro></app-intro>\n  <app-about></app-about>\n  <app-skills></app-skills>\n  <app-experience></app-experience>\n  <app-publications></app-publications>\n  <app-blog></app-blog>\n  <app-education></app-education>\n\n  <app-contact></app-contact>\n</div>\n<app-footer></app-footer>\n' }]
+    ], template: '<app-header></app-header>\n\n<div class="page-content">\n  <!-- <app-particle></app-particle> -->\n  <app-intro></app-intro>\n  <app-about></app-about>\n  <app-skills></app-skills>\n  <app-experience></app-experience>\n  <app-publications></app-publications>\n  <app-ai-code-review></app-ai-code-review>\n  <app-blog></app-blog>\n  <app-education></app-education>\n\n  <app-contact></app-contact>\n</div>\n<app-footer></app-footer>\n' }]
   }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProfileComponent, { className: "ProfileComponent", filePath: "src/app/profile/profile.component.ts", lineNumber: 31 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProfileComponent, { className: "ProfileComponent", filePath: "src/app/profile/profile.component.ts", lineNumber: 33 });
 })();
 
 // src/app/app.component.ts

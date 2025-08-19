@@ -8,6 +8,7 @@ import {EducationComponent} from './education/education.component';
 import {ExperienceComponent} from './experience/experience.component';
 import {SkillsComponent} from './skills/skills.component';
 import {PublicationsComponent} from './publications/publications.component';
+import {AiCodeReviewComponent} from './ai-code-review/ai-code-review.component';
 import {BlogComponent} from './blog/blog.component';
 
 @Component({
@@ -25,6 +26,7 @@ import {BlogComponent} from './blog/blog.component';
     ExperienceComponent,
     SkillsComponent,
     PublicationsComponent,
+    AiCodeReviewComponent,
     BlogComponent
   ]
 })

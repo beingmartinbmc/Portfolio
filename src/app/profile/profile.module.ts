@@ -13,6 +13,7 @@ import {ExperienceComponent} from './experience/experience.component';
 import {SkillsComponent} from './skills/skills.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PublicationsComponent} from '../profile/publications/publications.component';
+import {AiCodeReviewComponent} from './ai-code-review/ai-code-review.component';
 // import {ParticlesModule} from 'angular-particle';
 import {ParticleComponent} from './particle/particle.component';
 
@@ -38,6 +39,7 @@ import {ParticleComponent} from './particle/particle.component';
     ExperienceComponent,
     SkillsComponent,
     PublicationsComponent,
+    AiCodeReviewComponent,
     ParticleComponent,
   ],
   providers: [
