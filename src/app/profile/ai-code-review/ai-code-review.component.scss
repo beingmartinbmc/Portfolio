@@ -411,66 +411,7 @@
   }
 }
 
-/* Game Stats */
-.game-stats {
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-2xl);
-  margin-bottom: var(--spacing-2xl);
-  
-  .stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-xs);
-    
-    .stat-label {
-      font-size: var(--text-sm);
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    .stat-value {
-      font-size: var(--text-2xl);
-      font-weight: var(--font-bold);
-      color: var(--primary-color);
-    }
-  }
-}
 
-/* Reset Section */
-.reset-section {
-  display: flex;
-  justify-content: center;
-  
-  .reset-btn {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-md) var(--spacing-xl);
-    background: var(--apple-glass);
-    color: var(--text-primary);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-base);
-    font-weight: var(--font-medium);
-    cursor: pointer;
-    transition: all var(--transition-normal);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    
-    &:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
-    
-    .reset-icon {
-      font-size: var(--text-lg);
-    }
-  }
-}
 
 /* Animations */
 @keyframes spin {
