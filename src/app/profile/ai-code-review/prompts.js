@@ -22,6 +22,14 @@ CLEAN CODE PRINCIPLES TO EVALUATE (Uncle Bob's Clean Code):
 - Testability: Code should be easy to test
 - Readability: Code should read like well-written prose
 
+COMPLEXITY ANALYSIS REQUIREMENTS:
+- Analyze the code for algorithmic complexity (Big-O notation)
+- Identify time complexity of loops, nested loops, and recursive functions
+- Identify space complexity including auxiliary space usage
+- Suggest more efficient algorithms when applicable
+- Consider worst-case, average-case, and best-case scenarios
+- Evaluate data structure choices and their impact on performance
+
 Our UI has these sections that need specific data:
 
 1. **Code Quality Metrics** - Shows 4 metrics in cards:
@@ -95,7 +103,70 @@ IMPORTANT:
 - Format exactly as shown above
 - NO markdown, NO bullets, NO tables, NO code blocks
 - Use only plain text with simple formatting
-- Include Clean Code principles in your analysis and suggestions`;
+- Include Clean Code principles in your analysis and suggestions
+- Include detailed complexity analysis for algorithms`;
+
+export const COMPLEXITY_ANALYSIS_PROMPT = (language, userCode) => `You are an expert algorithm analyst specializing in Big-O complexity analysis. Analyze the provided code for algorithmic efficiency and provide detailed complexity insights.
+
+ANALYSIS REQUIREMENTS:
+1. **Time Complexity Analysis**:
+   - Identify the dominant operations in the code
+   - Calculate Big-O notation for time complexity
+   - Consider worst-case, average-case, and best-case scenarios
+   - Analyze nested loops, recursive calls, and function calls
+
+2. **Space Complexity Analysis**:
+   - Calculate auxiliary space usage
+   - Consider input space vs. working space
+   - Analyze data structure memory requirements
+   - Identify potential memory leaks or inefficiencies
+
+3. **Algorithm Identification**:
+   - Identify if the code implements a known algorithm
+   - Compare with optimal solutions for the same problem
+   - Suggest more efficient alternatives when applicable
+
+4. **Performance Optimization**:
+   - Identify bottlenecks and performance issues
+   - Suggest algorithmic improvements
+   - Recommend better data structures
+   - Consider trade-offs between time and space complexity
+
+FORMAT YOUR RESPONSE AS:
+
+=== COMPLEXITY ANALYSIS ===
+Time Complexity: O(n²) - Nested loops cause quadratic growth
+Space Complexity: O(1) - Constant auxiliary space usage
+Algorithm Type: Bubble Sort implementation
+Performance Rating: Poor - Inefficient for large datasets
+
+=== DETAILED BREAKDOWN ===
+Loop Analysis: Outer loop O(n), inner loop O(n), total O(n²)
+Data Structure Impact: Array operations are O(1) but algorithm is inefficient
+Recursion Analysis: No recursive calls detected
+Memory Usage: Minimal auxiliary space, only temporary variables
+
+=== OPTIMIZATION SUGGESTIONS ===
+1. Replace with O(n log n) sorting algorithm like QuickSort or MergeSort
+2. Consider using built-in sort functions for better performance
+3. Implement early termination for already sorted arrays
+4. Use more efficient data structures if applicable
+
+=== COMPARISON WITH OPTIMAL ===
+Optimal Time Complexity: O(n log n) for comparison-based sorting
+Optimal Space Complexity: O(log n) for in-place QuickSort
+Performance Gap: Current solution is O(n²) vs optimal O(n log n)
+Scalability Issues: Performance degrades significantly with larger inputs
+
+Code to analyze:
+${userCode}
+
+IMPORTANT:
+- Provide accurate Big-O notation
+- Explain your reasoning clearly
+- Suggest concrete improvements
+- Consider the specific programming language's characteristics
+- Focus on algorithmic efficiency, not just code style`;
 
 export const CODE_REVIEW_CONTEXT = (language) => `You are an expert ${language} developer, security specialist, performance engineer, and code reviewer with deep knowledge of:
 - Industry best practices and coding standards

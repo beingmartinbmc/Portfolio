@@ -984,3 +984,153 @@
     }
   }
 }
+
+// Detailed Complexity Analysis Styles
+.detailed-complexity-section {
+  margin-bottom: var(--spacing-xl);
+  
+  .complexity-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    
+    .complexity-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      padding: var(--spacing-lg);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      text-align: center;
+      transition: all var(--transition-normal);
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      
+      .complexity-card-title {
+        font-size: var(--text-sm);
+        font-weight: var(--font-medium);
+        color: var(--text-secondary);
+        margin-bottom: var(--spacing-sm);
+      }
+      
+      .complexity-value {
+        font-size: var(--text-base);
+        font-weight: var(--font-semibold);
+        color: var(--text-primary);
+        line-height: 1.4;
+      }
+    }
+  }
+  
+  .complexity-breakdown {
+    background: var(--apple-glass);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
+    margin-bottom: var(--spacing-lg);
+    
+    .breakdown-title {
+      font-size: var(--text-base);
+      font-weight: var(--font-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .breakdown-text {
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      color: var(--text-secondary);
+      
+      strong {
+        color: var(--text-primary);
+        font-weight: var(--font-semibold);
+      }
+    }
+  }
+  
+  .optimization-suggestions {
+    background: linear-gradient(135deg, rgba(102, 187, 106, 0.1), rgba(76, 175, 80, 0.05));
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    margin-bottom: var(--spacing-lg);
+    
+    .suggestions-title {
+      font-size: var(--text-base);
+      font-weight: var(--font-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .suggestions-list {
+      .suggestion-item {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-sm);
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        .suggestion-number {
+          font-size: var(--text-sm);
+          font-weight: var(--font-semibold);
+          color: var(--accent-green);
+          min-width: 20px;
+        }
+        
+        .suggestion-text {
+          font-size: var(--text-sm);
+          line-height: 1.5;
+          color: var(--text-secondary);
+        }
+      }
+    }
+  }
+  
+  .optimal-comparison {
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(30, 136, 229, 0.05));
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(33, 150, 243, 0.2);
+    
+    .comparison-title {
+      font-size: var(--text-base);
+      font-weight: var(--font-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .comparison-text {
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      color: var(--text-secondary);
+      
+      strong {
+        color: var(--text-primary);
+        font-weight: var(--font-semibold);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .detailed-complexity-section {
+    .complexity-details-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    .complexity-breakdown,
+    .optimization-suggestions,
+    .optimal-comparison {
+      padding: var(--spacing-md);
+    }
+  }
+}
