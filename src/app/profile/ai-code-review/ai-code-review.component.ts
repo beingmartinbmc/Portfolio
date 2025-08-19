@@ -32,7 +32,9 @@ export class AiCodeReviewComponent implements OnInit {
   aiReview: AIReview | null = null;
   formattedFeedback = '';
   highlightedCode = '';
+  userCode = '';
   isLoading = false;
+  isGenerating = false;
   showReview = false;
   userScore = 0;
   totalReviewed = 0;
@@ -137,35 +139,48 @@ public class UserController {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.loadNextSnippet();
+    // Start with empty code editor
+    this.userCode = '';
   }
 
-  loadNextSnippet(): void {
-    if (this.currentIndex < this.codeSnippets.length) {
-      this.currentSnippet = this.codeSnippets[this.currentIndex];
-      this.highlightedCode = this.highlightCode(this.currentSnippet.code, this.currentSnippet.language);
-      this.aiReview = null;
-      this.showReview = false;
-    }
+  onCodeChange(): void {
+    // Real-time syntax highlighting could be added here
+  }
+
+  generateRandomCode(): void {
+    this.isGenerating = true;
+    
+    // Simulate generation delay
+    setTimeout(() => {
+      const randomSnippet = this.codeSnippets[Math.floor(Math.random() * this.codeSnippets.length)];
+      this.userCode = randomSnippet.code;
+      this.isGenerating = false;
+    }, 1000);
+  }
+
+  clearCode(): void {
+    this.userCode = '';
+    this.aiReview = null;
+    this.showReview = false;
   }
 
   async getAIReview(): Promise<void> {
-    if (!this.currentSnippet) return;
+    if (!this.userCode.trim()) return;
 
     this.isLoading = true;
     
-    const prompt = `Please review this ${this.currentSnippet.language} code snippet titled "${this.currentSnippet.title}" and provide:
+    const prompt = `Please review this Java code and provide:
 1. A brief feedback on code quality, best practices, and potential issues
 2. 3-4 specific suggestions for improvement
 3. A score out of 10 for code quality
 4. Areas that could be improved
 
 Code:
-${this.currentSnippet.code}
+${this.userCode}
 
 Please provide a concise, professional review suitable for a portfolio showcase.`;
 
-    const context = `You are an expert ${this.currentSnippet.language} developer and code reviewer with deep knowledge of ${this.currentSnippet.category}. Provide constructive, actionable feedback.`;
+    const context = `You are an expert Java developer and code reviewer. Provide constructive, actionable feedback.`;
 
     try {
       const response = await this.http.post('https://epic-backend-myxdxwn4m-beingmartinbmcs-projects.vercel.app/api/generic', {
@@ -237,23 +252,12 @@ Please provide a concise, professional review suitable for a portfolio showcase.
     return scoreMatch ? parseInt(scoreMatch[1] || scoreMatch[2]) : 8;
   }
 
-  nextSnippet(): void {
-    this.currentIndex++;
-    this.loadNextSnippet();
-  }
-
-  previousSnippet(): void {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-      this.loadNextSnippet();
-    }
-  }
-
   resetGame(): void {
-    this.currentIndex = 0;
+    this.userCode = '';
     this.userScore = 0;
     this.totalReviewed = 0;
-    this.loadNextSnippet();
+    this.aiReview = null;
+    this.showReview = false;
   }
 
   getProgressPercentage(): number {
@@ -268,26 +272,33 @@ Please provide a concise, professional review suitable for a portfolio showcase.
   }
 
   private highlightJava(code: string): string {
-    return code
-      // Keywords
-      .replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|new|return|if|else|for|while|do|switch|case|default|break|continue|try|catch|finally|throw|throws|void|int|long|float|double|boolean|char|byte|short|String|List|Map|Set|ArrayList|HashMap|HashSet)\b/g, '<span class="keyword">$1</span>')
-      // Annotations
-      .replace(/(@\w+)/g, '<span class="annotation">$1</span>')
+    // IDE-like syntax highlighting
+    let highlighted = code
+      // Comments first
+      .replace(/(\/\/.*$)/gm, '<span class="comment">$1</span>')
       // String literals
       .replace(/"([^"]*)"/g, '<span class="string">"$1"</span>')
       // Numbers
       .replace(/\b(\d+)\b/g, '<span class="number">$1</span>')
-      // Comments
-      .replace(/(\/\/.*$)/gm, '<span class="comment">$1</span>')
-      // Method calls
+      // Keywords
+      .replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|new|return|if|else|for|while|do|switch|case|default|break|continue|try|catch|finally|throw|throws|void|int|long|float|double|boolean|char|byte|short|String|List|Map|Set|ArrayList|HashMap|HashSet)\b/g, '<span class="keyword">$1</span>')
+      // Annotations
+      .replace(/(@\w+)/g, '<span class="annotation">$1</span>')
+      // Method calls (simplified)
       .replace(/(\w+)\s*\(/g, '<span class="method">$1</span>(')
-      // Variable declarations
-      .replace(/(\w+)\s+(\w+)\s*=/g, '<span class="type">$1</span> <span class="variable">$2</span> =')
-      // Class names
-      .replace(/(\w+)\s+(\w+)\s*\{/g, '<span class="type">$1</span> <span class="class-name">$2</span> {')
+      // Variable types
+      .replace(/\b(int|String|boolean|double|float|long|char|byte|short|void)\b/g, '<span class="type">$1</span>')
+      // Operators
+      .replace(/([+\-*/=<>!&|])/g, '<span class="operator">$1</span>')
+      // Brackets
+      .replace(/([{}[\]()])/g, '<span class="bracket">$1</span>')
+      // Semicolons
+      .replace(/;/g, '<span class="semicolon">;</span>')
       // Line breaks
       .replace(/\n/g, '<br>')
       // Spaces
       .replace(/ /g, '&nbsp;');
+    
+    return highlighted;
   }
 }

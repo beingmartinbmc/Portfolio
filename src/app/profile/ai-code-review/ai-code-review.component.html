@@ -1,7 +1,7 @@
 <div class="apple-section" id="ai-code-review">
   <div class="apple-container">
     <div class="section-header apple-fade-in">
-      <h2 class="section-title apple-text-display">🤖 AI Code Review Game</h2>
+      <h2 class="section-title apple-text-display"><span class="emoji">🤖</span> AI Code Review Game</h2>
     </div>
     
     <div class="game-container" data-aos="fade-up">
@@ -16,30 +16,46 @@
         </div>
       </div>
 
-      <!-- Code Snippet Card -->
-      <div class="code-snippet-card" *ngIf="currentSnippet">
-        <div class="snippet-header">
-          <div class="snippet-info">
-            <h3 class="snippet-title">{{ currentSnippet.title }}</h3>
-            <div class="snippet-meta">
-              <span class="language-badge">{{ currentSnippet.language }}</span>
-              <span class="difficulty-badge" [class]="'difficulty-' + currentSnippet.difficulty.toLowerCase()">
-                {{ currentSnippet.difficulty }}
-              </span>
-              <span class="category-badge">{{ currentSnippet.category }}</span>
-            </div>
+      <!-- Code Input Section -->
+      <div class="code-input-section">
+        <div class="input-header">
+          <h3 class="input-title">Write Your Java Code</h3>
+          <div class="input-options">
+            <button class="option-btn" (click)="generateRandomCode()" [disabled]="isGenerating">
+              <span class="btn-icon">🎲</span>
+              <span class="btn-text">{{ isGenerating ? 'Generating...' : 'Generate Random Code' }}</span>
+            </button>
+            <button class="option-btn" (click)="clearCode()">
+              <span class="btn-icon">🗑️</span>
+              <span class="btn-text">Clear Code</span>
+            </button>
           </div>
         </div>
         
-        <div class="code-container">
-          <pre class="code-block"><code [innerHTML]="highlightedCode"></code></pre>
+        <div class="code-editor-container">
+          <div class="editor-header">
+            <span class="file-name">Main.java</span>
+            <span class="language-indicator">Java</span>
+          </div>
+          <textarea 
+            class="code-editor" 
+            [(ngModel)]="userCode" 
+            placeholder="Write your Java code here...
+Example:
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello World!&quot;);
+    }
+}"
+            (input)="onCodeChange()"
+            rows="15"></textarea>
         </div>
         
-        <div class="snippet-actions">
+        <div class="code-actions">
           <button 
             class="review-btn" 
             (click)="getAIReview()" 
-            [disabled]="isLoading">
+            [disabled]="isLoading || !userCode.trim()">
             <span class="btn-icon">🤖</span>
             <span class="btn-text">
               {{ isLoading ? 'Getting AI Review...' : 'Get AI Review' }}
@@ -79,34 +95,11 @@
         </div>
       </div>
 
-      <!-- Navigation Controls -->
-      <div class="navigation-controls" data-aos="fade-up">
-        <button 
-          class="nav-btn nav-prev" 
-          (click)="previousSnippet()" 
-          [disabled]="currentIndex === 0">
-          <span class="nav-icon">←</span>
-          Previous
-        </button>
-        
-        <button 
-          class="nav-btn nav-next" 
-          (click)="nextSnippet()" 
-          [disabled]="currentIndex >= codeSnippets.length - 1">
-          Next
-          <span class="nav-icon">→</span>
-        </button>
-      </div>
-
       <!-- Game Stats -->
       <div class="game-stats" data-aos="fade-up">
         <div class="stat-item">
-          <span class="stat-label">Reviewed:</span>
+          <span class="stat-label">Reviews:</span>
           <span class="stat-value">{{ totalReviewed }}</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Remaining:</span>
-          <span class="stat-value">{{ codeSnippets.length - currentIndex - 1 }}</span>
         </div>
       </div>
 
