@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CODE_REVIEW_PROMPT, CODE_REVIEW_CONTEXT, LANGUAGE_PLACEHOLDERS } from './prompts.js';
 
 interface CodeSnippet {
   id: number;
@@ -408,66 +409,9 @@ class UserService {
 
     this.isLoading = true;
     
-    const prompt = `Please provide a comprehensive code review for this ${this.getLanguageDisplayName()} code in the EXACT format specified below:
-
-=== CODE QUALITY METRICS ===
-Cyclomatic Complexity: [NUMBER]
-Maintainability Index: [NUMBER]
-Code Smells: [NUMBER]
-Technical Debt: [Low/Medium/High]
-
-=== SECURITY ISSUES ===
-[Issue 1]
-[Issue 2]
-[Issue 3]
-
-=== PERFORMANCE ISSUES ===
-[Issue 1]
-[Issue 2]
-[Issue 3]
-
-=== BEST PRACTICES ===
-[Practice 1]
-[Practice 2]
-[Practice 3]
-
-=== INDUSTRY STANDARDS ===
-Compliance: [NUMBER]%
-Standards Met: [Standard 1], [Standard 2], [Standard 3]
-Deviations: [Deviation 1], [Deviation 2], [Deviation 3]
-
-=== LEARNING RESOURCES ===
-Tutorials: [Tutorial 1], [Tutorial 2]
-Documentation: [Doc 1], [Doc 2]
-Courses: [Course 1], [Course 2]
-Books: [Book 1], [Book 2]
-
-=== KEY IMPROVEMENTS ===
-1. [Improvement 1]
-2. [Improvement 2]
-3. [Improvement 3]
-4. [Improvement 4]
-
-=== OVERALL SCORE ===
-Score: [NUMBER]/10
-
-=== DETAILED FEEDBACK ===
-[Provide detailed analysis here with proper formatting]
-
-Code to review:
-${this.userCode}
-
-IMPORTANT: Follow this EXACT format with the section headers and structure. Use actual values, not placeholders.`;
-
-    const context = `You are an expert ${this.getLanguageDisplayName()} developer, security specialist, performance engineer, and code reviewer with deep knowledge of:
-- Industry best practices and coding standards
-- Security vulnerabilities and mitigation strategies
-- Performance optimization and scalability
-- Code quality metrics and maintainability
-- Modern development patterns and architectural decisions
-- Learning resources and educational materials
-
-Provide comprehensive, actionable feedback with specific metrics, comparisons, and learning recommendations.`;
+    const language = this.getLanguageDisplayName();
+    const prompt = CODE_REVIEW_PROMPT(language, this.userCode);
+    const context = CODE_REVIEW_CONTEXT(language);
 
     try {
       const response = await this.http.post('https://epic-backend-myxdxwn4m-beingmartinbmcs-projects.vercel.app/api/generic', {
@@ -506,18 +450,39 @@ Provide comprehensive, actionable feedback with specific metrics, comparisons, a
     // Format the AI response for better display
     this.formattedFeedback = this.formatAIResponse(response);
     
-    this.aiReview = {
-      feedback: response,
-      score: this.extractScore(response),
-      improvements: this.extractImprovements(response),
-      securityIssues: this.extractSecurityIssues(response),
-      performanceIssues: this.extractPerformanceIssues(response),
-      complexityAnalysis: this.extractComplexityAnalysis(response),
-      bestPractices: this.extractBestPractices(response),
-      industryComparison: this.extractIndustryComparison(response),
-      learningResources: this.extractLearningResources(response),
-      metrics: this.extractMetrics(response)
-    };
+    // Check if response follows our expected format
+    const hasStructuredFormat = response.includes('=== CODE QUALITY METRICS ===');
+    
+    if (hasStructuredFormat) {
+      // Use structured parsing
+      this.aiReview = {
+        feedback: response,
+        score: this.extractScore(response),
+        improvements: this.extractImprovements(response),
+        securityIssues: this.extractSecurityIssues(response),
+        performanceIssues: this.extractPerformanceIssues(response),
+        complexityAnalysis: this.extractComplexityAnalysis(response),
+        bestPractices: this.extractBestPractices(response),
+        industryComparison: this.extractIndustryComparison(response),
+        learningResources: this.extractLearningResources(response),
+        metrics: this.extractMetrics(response)
+      };
+    } else {
+      // Fallback to basic parsing for unstructured responses
+      console.warn('AI response does not follow expected format, using fallback parsing');
+      this.aiReview = {
+        feedback: response,
+        score: this.extractScore(response),
+        improvements: ["Code Quality", "Best Practices", "Performance"],
+        securityIssues: [],
+        performanceIssues: [],
+        complexityAnalysis: response.substring(0, 300) + '...',
+        bestPractices: [],
+        industryComparison: { standards: [], deviations: [], compliance: 70 },
+        learningResources: { tutorials: [], documentation: [], courses: [], books: [] },
+        metrics: { cyclomaticComplexity: 5, maintainabilityIndex: 70, codeSmells: 2, technicalDebt: "Low" }
+      };
+    }
   }
 
   private formatAIResponse(response: string): string {
@@ -743,6 +708,16 @@ Provide comprehensive, actionable feedback with specific metrics, comparisons, a
     if (debtLower.includes('low')) return 'metric-good';
     if (debtLower.includes('medium')) return 'metric-warning';
     return 'metric-danger';
+  }
+
+  getStandardAspect(index: number): string {
+    const aspects = ['Code Formatting', 'Naming Conventions', 'Documentation', 'Error Handling', 'Testing', 'Performance'];
+    return aspects[index] || 'Standard';
+  }
+
+  getDeviationAspect(index: number): string {
+    const aspects = ['Missing Documentation', 'No Unit Tests', 'Inefficient Algorithm', 'Poor Error Handling', 'Security Issues', 'Performance Issues'];
+    return aspects[index] || 'Deviation';
   }
 
 

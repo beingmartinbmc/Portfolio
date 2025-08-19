@@ -166,24 +166,31 @@
               <span class="compliance-text">{{ aiReview.industryComparison.compliance }}% Compliance</span>
             </div>
             
-            <div class="standards-grid">
-              <div class="standards-section">
-                <h5 class="standards-subtitle">✅ Met Standards</h5>
-                <div class="standards-tags">
-                  <span class="standard-tag" *ngFor="let standard of aiReview.industryComparison.standards">
-                    {{ standard }}
-                  </span>
-                </div>
-              </div>
-              
-              <div class="deviations-section">
-                <h5 class="deviations-subtitle">⚠️ Deviations</h5>
-                <div class="deviations-tags">
-                  <span class="deviation-tag" *ngFor="let deviation of aiReview.industryComparison.deviations">
-                    {{ deviation }}
-                  </span>
-                </div>
-              </div>
+            <div class="standards-table-container">
+              <table class="standards-table">
+                <thead>
+                  <tr>
+                    <th>Aspect</th>
+                    <th>Industry Standard</th>
+                    <th>Your Implementation</th>
+                    <th>Compliance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let standard of aiReview.industryComparison.standards; let i = index">
+                    <td>{{ getStandardAspect(i) }}</td>
+                    <td>{{ standard }}</td>
+                    <td class="implementation-cell">✅ Met</td>
+                    <td class="compliance-good">✓</td>
+                  </tr>
+                  <tr *ngFor="let deviation of aiReview.industryComparison.deviations; let i = index">
+                    <td>{{ getDeviationAspect(i) }}</td>
+                    <td>{{ deviation }}</td>
+                    <td class="implementation-cell">❌ Missing</td>
+                    <td class="compliance-bad">✗</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
