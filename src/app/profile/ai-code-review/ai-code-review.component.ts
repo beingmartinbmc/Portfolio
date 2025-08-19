@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CODE_REVIEW_PROMPT, CODE_REVIEW_CONTEXT, LANGUAGE_PLACEHOLDERS } from './prompts.js';
+import { CODE_REVIEW_PROMPT, CODE_REVIEW_CONTEXT, LANGUAGE_PLACEHOLDERS, COMPLEXITY_ANALYSIS_PROMPT } from './prompts.js';
 
 interface CodeSnippet {
   id: number;
@@ -37,6 +37,15 @@ interface AIReview {
     maintainabilityIndex: number;
     codeSmells: number;
     technicalDebt: string;
+  };
+  complexityDetails?: {
+    timeComplexity: string;
+    spaceComplexity: string;
+    algorithmType: string;
+    performanceRating: string;
+    detailedBreakdown: string;
+    optimizationSuggestions: string[];
+    comparisonWithOptimal: string;
   };
 }
 
@@ -429,6 +438,11 @@ class UserService {
         if (responseData && 'choices' in responseData && Array.isArray(responseData.choices) && responseData.choices.length > 0) {
           const aiResponse = responseData.choices[0].message.content;
           this.parseAIResponse(aiResponse);
+          
+          // Perform complexity analysis if the code looks like an algorithm
+          if (this.isAlgorithmCode(this.userCode)) {
+            await this.performComplexityAnalysis();
+          }
         }
       }
     } catch (error) {
@@ -443,6 +457,58 @@ class UserService {
     } finally {
       this.isLoading = false;
       this.showReview = true;
+    }
+  }
+
+  private isAlgorithmCode(code: string): boolean {
+    const algorithmPatterns = [
+      /for\s*\(.*\)\s*\{/i,
+      /while\s*\(.*\)\s*\{/i,
+      /if\s*\(.*\)\s*\{/i,
+      /sort/i,
+      /search/i,
+      /find/i,
+      /algorithm/i,
+      /complexity/i,
+      /recursive/i,
+      /loop/i,
+      /array/i,
+      /list/i,
+      /tree/i,
+      /graph/i,
+      /queue/i,
+      /stack/i
+    ];
+    
+    return algorithmPatterns.some(pattern => pattern.test(code));
+  }
+
+  async performComplexityAnalysis(): Promise<void> {
+    if (!this.userCode.trim()) return;
+
+    const language = this.getLanguageDisplayName();
+    const prompt = COMPLEXITY_ANALYSIS_PROMPT(language, this.userCode);
+
+    try {
+      const response = await this.http.post('https://epic-backend-myxdxwn4m-beingmartinbmcs-projects.vercel.app/api/generic', {
+        prompt: prompt,
+        context: `You are an expert algorithm analyst specializing in Big-O complexity analysis for ${language} code.`
+      }, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Origin': 'https://beingmartinbmc.github.io'
+        })
+      }).toPromise();
+
+      if (response && typeof response === 'object' && 'data' in response) {
+        const responseData = response.data as any;
+        if (responseData && 'choices' in responseData && Array.isArray(responseData.choices) && responseData.choices.length > 0) {
+          const complexityResponse = responseData.choices[0].message.content;
+          this.parseComplexityAnalysis(complexityResponse);
+        }
+      }
+    } catch (error) {
+      console.error('Error performing complexity analysis:', error);
     }
   }
 
@@ -483,6 +549,67 @@ class UserService {
         metrics: { cyclomaticComplexity: 5, maintainabilityIndex: 70, codeSmells: 2, technicalDebt: "Low" }
       };
     }
+  }
+
+  private parseComplexityAnalysis(response: string): void {
+    if (!this.aiReview) return;
+
+    // Extract complexity analysis data from the response
+    const complexityDetails = {
+      timeComplexity: this.extractTimeComplexity(response),
+      spaceComplexity: this.extractSpaceComplexity(response),
+      algorithmType: this.extractAlgorithmType(response),
+      performanceRating: this.extractPerformanceRating(response),
+      detailedBreakdown: this.extractDetailedBreakdown(response),
+      optimizationSuggestions: this.extractOptimizationSuggestions(response),
+      comparisonWithOptimal: this.extractComparisonWithOptimal(response)
+    };
+
+    this.aiReview.complexityDetails = complexityDetails;
+  }
+
+  private extractTimeComplexity(response: string): string {
+    const match = response.match(/Time Complexity:\s*([^.\n]+)/i);
+    return match ? match[1].trim() : 'O(n) - Unable to determine';
+  }
+
+  private extractSpaceComplexity(response: string): string {
+    const match = response.match(/Space Complexity:\s*([^.\n]+)/i);
+    return match ? match[1].trim() : 'O(1) - Unable to determine';
+  }
+
+  private extractAlgorithmType(response: string): string {
+    const match = response.match(/Algorithm Type:\s*([^.\n]+)/i);
+    return match ? match[1].trim() : 'Unknown algorithm';
+  }
+
+  private extractPerformanceRating(response: string): string {
+    const match = response.match(/Performance Rating:\s*([^.\n]+)/i);
+    return match ? match[1].trim() : 'Unknown performance';
+  }
+
+  private extractDetailedBreakdown(response: string): string {
+    const match = response.match(/=== DETAILED BREAKDOWN ===\n([^=]*?)(?===|$)/is);
+    return match ? match[1].trim() : 'No detailed breakdown available';
+  }
+
+  private extractOptimizationSuggestions(response: string): string[] {
+    const match = response.match(/=== OPTIMIZATION SUGGESTIONS ===\n([^=]*?)(?===|$)/is);
+    if (match) {
+      const suggestionsText = match[1];
+      const numberedSuggestions = suggestionsText.match(/\d+\.\s*([^.\n]+)/g);
+      if (numberedSuggestions) {
+        return numberedSuggestions.slice(0, 4).map(suggestion => 
+          suggestion.replace(/^\d+\.\s*/, '').trim()
+        );
+      }
+    }
+    return ['Consider algorithmic improvements', 'Optimize data structures', 'Reduce complexity'];
+  }
+
+  private extractComparisonWithOptimal(response: string): string {
+    const match = response.match(/=== COMPARISON WITH OPTIMAL ===\n([^=]*?)(?===|$)/is);
+    return match ? match[1].trim() : 'No comparison with optimal solution available';
   }
 
   private formatAIResponse(response: string): string {

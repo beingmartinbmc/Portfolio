@@ -116,6 +116,52 @@
             <div class="complexity-text" [innerHTML]="aiReview.complexityAnalysis"></div>
           </div>
 
+          <!-- Detailed Complexity Analysis -->
+          <div class="detailed-complexity-section" *ngIf="aiReview.complexityDetails">
+            <h4 class="complexity-title">🔬 Detailed Algorithm Analysis</h4>
+            <div class="complexity-details-grid">
+              <div class="complexity-card">
+                <h5 class="complexity-card-title">⏱️ Time Complexity</h5>
+                <div class="complexity-value">{{ aiReview.complexityDetails.timeComplexity }}</div>
+              </div>
+              
+              <div class="complexity-card">
+                <h5 class="complexity-card-title">💾 Space Complexity</h5>
+                <div class="complexity-value">{{ aiReview.complexityDetails.spaceComplexity }}</div>
+              </div>
+              
+              <div class="complexity-card">
+                <h5 class="complexity-card-title">🎯 Algorithm Type</h5>
+                <div class="complexity-value">{{ aiReview.complexityDetails.algorithmType }}</div>
+              </div>
+              
+              <div class="complexity-card">
+                <h5 class="complexity-card-title">📈 Performance Rating</h5>
+                <div class="complexity-value">{{ aiReview.complexityDetails.performanceRating }}</div>
+              </div>
+            </div>
+            
+            <div class="complexity-breakdown">
+              <h5 class="breakdown-title">📋 Detailed Breakdown</h5>
+              <div class="breakdown-text" [innerHTML]="aiReview.complexityDetails.detailedBreakdown"></div>
+            </div>
+            
+            <div class="optimization-suggestions" *ngIf="aiReview.complexityDetails.optimizationSuggestions.length > 0">
+              <h5 class="suggestions-title">🚀 Optimization Suggestions</h5>
+              <div class="suggestions-list">
+                <div class="suggestion-item" *ngFor="let suggestion of aiReview.complexityDetails.optimizationSuggestions; let i = index">
+                  <span class="suggestion-number">{{ i + 1 }}.</span>
+                  <span class="suggestion-text">{{ suggestion }}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="optimal-comparison">
+              <h5 class="comparison-title">⚡ Comparison with Optimal Solution</h5>
+              <div class="comparison-text" [innerHTML]="aiReview.complexityDetails.comparisonWithOptimal"></div>
+            </div>
+          </div>
+
           <div class="best-practices-section" *ngIf="aiReview.bestPractices && aiReview.bestPractices.length > 0">
             <h4 class="best-practices-title">📚 Best Practices</h4>
             <div class="best-practices-tags">
