@@ -56,8 +56,8 @@ Standards Met: Code formatting, Variable naming, Basic structure
 Deviations: Missing documentation, No unit tests, Inefficient algorithm
 
 === LEARNING RESOURCES ===
-Tutorials: ${language} Sorting Algorithms, Clean Code Principles
-Documentation: ${language} API docs, Algorithm complexity guide
+Tutorials: ${language} Best Practices, Clean Code Principles
+Documentation: ${language} API docs, Official Documentation
 Courses: Data Structures & Algorithms, Advanced ${language}
 Books: Effective ${language}, Clean Code
 

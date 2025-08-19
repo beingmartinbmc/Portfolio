@@ -486,8 +486,21 @@ class UserService {
   }
 
   private formatAIResponse(response: string): string {
-    // Clean up markdown formatting and improve readability
-    let formatted = response
+    // If response follows our structured format, extract only the detailed feedback
+    if (response.includes('=== DETAILED FEEDBACK ===')) {
+      const feedbackMatch = response.match(/=== DETAILED FEEDBACK ===\n([^=]*?)(?===|$)/is);
+      if (feedbackMatch) {
+        return this.formatDetailedFeedback(feedbackMatch[1].trim());
+      }
+    }
+    
+    // Fallback: format the entire response
+    return this.formatDetailedFeedback(response);
+  }
+
+  private formatDetailedFeedback(text: string): string {
+    // Clean up formatting and improve readability
+    let formatted = text
       // Remove markdown bold syntax
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       // Convert bullet points to proper HTML (handle both • and -)
@@ -640,6 +653,16 @@ class UserService {
       const books = booksMatch ? 
         booksMatch[1].split(',').map(b => b.trim()) : [];
       
+      // If no structured format found, try to parse a single line of resources
+      if (tutorials.length === 0 && documentation.length === 0 && courses.length === 0 && books.length === 0) {
+        const allResources = learningText.trim().split(',').map(r => r.trim());
+        if (allResources.length > 0) {
+          // Distribute resources across categories
+          const distributed = this.distributeLearningResources(allResources);
+          return distributed;
+        }
+      }
+      
       return {
         tutorials: tutorials.slice(0, 2),
         documentation: documentation.slice(0, 2),
@@ -649,6 +672,38 @@ class UserService {
     }
     
     return { tutorials: [], documentation: [], courses: [], books: [] };
+  }
+
+  private distributeLearningResources(resources: string[]): any {
+    const tutorials = [];
+    const documentation = [];
+    const courses = [];
+    const books = [];
+    
+    resources.forEach((resource, index) => {
+      const lowerResource = resource.toLowerCase();
+      
+      if (lowerResource.includes('documentation') || lowerResource.includes('docs') || lowerResource.includes('api')) {
+        documentation.push(resource);
+      } else if (lowerResource.includes('course') || lowerResource.includes('tutorial') || lowerResource.includes('guide')) {
+        tutorials.push(resource);
+      } else if (lowerResource.includes('book') || lowerResource.includes('effective') || lowerResource.includes('practice')) {
+        books.push(resource);
+      } else {
+        // Default distribution based on index
+        if (index % 4 === 0) tutorials.push(resource);
+        else if (index % 4 === 1) documentation.push(resource);
+        else if (index % 4 === 2) courses.push(resource);
+        else books.push(resource);
+      }
+    });
+    
+    return {
+      tutorials: tutorials.slice(0, 2),
+      documentation: documentation.slice(0, 2),
+      courses: courses.slice(0, 2),
+      books: books.slice(0, 2)
+    };
   }
 
   private extractMetrics(response: string): any {

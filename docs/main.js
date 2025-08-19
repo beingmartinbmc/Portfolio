@@ -41210,8 +41210,8 @@ Standards Met: Code formatting, Variable naming, Basic structure
 Deviations: Missing documentation, No unit tests, Inefficient algorithm
 
 === LEARNING RESOURCES ===
-Tutorials: ${language} Sorting Algorithms, Clean Code Principles
-Documentation: ${language} API docs, Algorithm complexity guide
+Tutorials: ${language} Best Practices, Clean Code Principles
+Documentation: ${language} API docs, Official Documentation
 Courses: Data Structures & Algorithms, Advanced ${language}
 Books: Effective ${language}, Clean Code
 
@@ -42104,7 +42104,16 @@ class UserService {
     }
   }
   formatAIResponse(response) {
-    let formatted = response.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/^[-•]\s*/gm, '<span class="bullet">\u2022</span> ').replace(/^\d+\.\s*/gm, '<span class="number">$&</span>').replace(/`([^`]+)`/g, "<code>$1</code>").replace(/^#{1,6}\s+(.+)$/gm, "<strong>$1</strong>").replace(/\|(.+)\|/g, '<span class="table-cell">$1</span>').replace(/^>\s*(.+)$/gm, "<blockquote>$1</blockquote>").replace(/\n/g, "<br>").replace(/\s{2,}/g, " ").trim();
+    if (response.includes("=== DETAILED FEEDBACK ===")) {
+      const feedbackMatch = response.match(/=== DETAILED FEEDBACK ===\n([^=]*?)(?===|$)/is);
+      if (feedbackMatch) {
+        return this.formatDetailedFeedback(feedbackMatch[1].trim());
+      }
+    }
+    return this.formatDetailedFeedback(response);
+  }
+  formatDetailedFeedback(text) {
+    let formatted = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/^[-•]\s*/gm, '<span class="bullet">\u2022</span> ').replace(/^\d+\.\s*/gm, '<span class="number">$&</span>').replace(/`([^`]+)`/g, "<code>$1</code>").replace(/^#{1,6}\s+(.+)$/gm, "<strong>$1</strong>").replace(/\|(.+)\|/g, '<span class="table-cell">$1</span>').replace(/^>\s*(.+)$/gm, "<blockquote>$1</blockquote>").replace(/\n/g, "<br>").replace(/\s{2,}/g, " ").trim();
     return formatted;
   }
   extractScore(response) {
@@ -42191,6 +42200,13 @@ class UserService {
       const courses = coursesMatch ? coursesMatch[1].split(",").map((c) => c.trim()) : [];
       const booksMatch = learningText.match(/Books:\s*([^.\n]+)/i);
       const books = booksMatch ? booksMatch[1].split(",").map((b) => b.trim()) : [];
+      if (tutorials.length === 0 && documentation.length === 0 && courses.length === 0 && books.length === 0) {
+        const allResources = learningText.trim().split(",").map((r) => r.trim());
+        if (allResources.length > 0) {
+          const distributed = this.distributeLearningResources(allResources);
+          return distributed;
+        }
+      }
       return {
         tutorials: tutorials.slice(0, 2),
         documentation: documentation.slice(0, 2),
@@ -42199,6 +42215,37 @@ class UserService {
       };
     }
     return { tutorials: [], documentation: [], courses: [], books: [] };
+  }
+  distributeLearningResources(resources) {
+    const tutorials = [];
+    const documentation = [];
+    const courses = [];
+    const books = [];
+    resources.forEach((resource2, index) => {
+      const lowerResource = resource2.toLowerCase();
+      if (lowerResource.includes("documentation") || lowerResource.includes("docs") || lowerResource.includes("api")) {
+        documentation.push(resource2);
+      } else if (lowerResource.includes("course") || lowerResource.includes("tutorial") || lowerResource.includes("guide")) {
+        tutorials.push(resource2);
+      } else if (lowerResource.includes("book") || lowerResource.includes("effective") || lowerResource.includes("practice")) {
+        books.push(resource2);
+      } else {
+        if (index % 4 === 0)
+          tutorials.push(resource2);
+        else if (index % 4 === 1)
+          documentation.push(resource2);
+        else if (index % 4 === 2)
+          courses.push(resource2);
+        else
+          books.push(resource2);
+      }
+    });
+    return {
+      tutorials: tutorials.slice(0, 2),
+      documentation: documentation.slice(0, 2),
+      courses: courses.slice(0, 2),
+      books: books.slice(0, 2)
+    };
   }
   extractMetrics(response) {
     const metricsMatch = response.match(/=== CODE QUALITY METRICS ===\n([^=]*?)(?===|$)/is);
