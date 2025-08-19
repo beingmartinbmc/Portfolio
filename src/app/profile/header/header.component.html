@@ -40,10 +40,18 @@
           </a>
         </div>
         
-        <!-- Music Toggle -->
-        <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying" title="Toggle Piano Music">
-          <span class="music-emoji">🎵</span>
-        </button>
+        <!-- Music Controls -->
+        <div class="music-controls">
+          <!-- Music Toggle -->
+          <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying" title="Toggle Piano Music">
+            <span class="music-emoji">🎵</span>
+          </button>
+          
+          <!-- Audio Visualizer -->
+          <div class="audio-visualizer" [class.active]="isPlaying">
+            <canvas #audioCanvas class="visualizer-canvas" width="120" height="40"></canvas>
+          </div>
+        </div>
         
         <!-- Mobile Menu Button -->
         <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen">
