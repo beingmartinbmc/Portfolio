@@ -479,9 +479,7 @@ Please provide a concise, professional review suitable for a portfolio showcase.
     this.showReview = false;
   }
 
-  getProgressPercentage(): number {
-    return (this.currentIndex / this.codeSnippets.length) * 100;
-  }
+
 
   private highlightCode(code: string, language: string): string {
     if (language.toLowerCase() === 'java') {

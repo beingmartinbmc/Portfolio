@@ -5,16 +5,7 @@
     </div>
     
     <div class="game-container" data-aos="fade-up">
-      <!-- Progress Bar -->
-      <div class="progress-section">
-        <div class="progress-info">
-          <span class="progress-text">Code Review {{ currentIndex + 1 }} of {{ codeSnippets.length }}</span>
-          <span class="progress-percentage">{{ getProgressPercentage() | number:'1.0-0' }}%</span>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-fill" [style.width.%]="getProgressPercentage()"></div>
-        </div>
-      </div>
+
 
       <!-- Code Input Section -->
       <div class="code-input-section">
