@@ -11,6 +11,17 @@ FORMATTING REQUIREMENTS:
 - Keep each item on a single line
 - Use commas to separate multiple items in a single field
 
+CLEAN CODE PRINCIPLES TO EVALUATE (Uncle Bob's Clean Code):
+- Meaningful Names: Variables, functions, and classes should have descriptive names
+- Small Functions: Functions should be small and do one thing
+- Single Responsibility: Each class/module should have one reason to change
+- DRY (Don't Repeat Yourself): Avoid code duplication
+- SOLID Principles: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion
+- Comments: Code should be self-documenting, comments should explain why not what
+- Error Handling: Proper exception handling and error management
+- Testability: Code should be easy to test
+- Readability: Code should read like well-written prose
+
 Our UI has these sections that need specific data:
 
 1. **Code Quality Metrics** - Shows 4 metrics in cards:
@@ -56,10 +67,10 @@ Standards Met: Code formatting, Variable naming, Basic structure
 Deviations: Missing documentation, No unit tests, Inefficient algorithm
 
 === LEARNING RESOURCES ===
-Tutorials: ${language} Best Practices, Clean Code Principles
-Documentation: ${language} API docs, Official Documentation
-Courses: Data Structures & Algorithms, Advanced ${language}
-Books: Effective ${language}, Clean Code
+Tutorials: ${language} Best Practices, Clean Code Principles, SOLID Design
+Documentation: ${language} API docs, Official Documentation, Clean Code Guidelines
+Courses: Data Structures & Algorithms, Advanced ${language}, Clean Architecture
+Books: Effective ${language}, Clean Code, Clean Architecture
 
 === KEY IMPROVEMENTS ===
 1. Add input validation and error handling
@@ -71,7 +82,7 @@ Books: Effective ${language}, Clean Code
 Score: 6/10
 
 === DETAILED FEEDBACK ===
-Your detailed analysis here with proper formatting but NO markdown
+Your detailed analysis here with proper formatting but NO markdown. Include specific Clean Code principles evaluation and suggestions based on Uncle Bob's guidelines.
 
 Code to review:
 ${userCode}
@@ -83,7 +94,8 @@ IMPORTANT:
 - Make sure all sections are present
 - Format exactly as shown above
 - NO markdown, NO bullets, NO tables, NO code blocks
-- Use only plain text with simple formatting`;
+- Use only plain text with simple formatting
+- Include Clean Code principles in your analysis and suggestions`;
 
 export const CODE_REVIEW_CONTEXT = (language) => `You are an expert ${language} developer, security specialist, performance engineer, and code reviewer with deep knowledge of:
 - Industry best practices and coding standards
@@ -92,6 +104,9 @@ export const CODE_REVIEW_CONTEXT = (language) => `You are an expert ${language} 
 - Code quality metrics and maintainability
 - Modern development patterns and architectural decisions
 - Learning resources and educational materials
+- Clean Code principles (Uncle Bob's methodology)
+- SOLID principles and design patterns
+- Code refactoring and maintainability best practices
 
 OUTPUT FORMAT REQUIREMENTS:
 - Your response will be parsed by a UI system that expects EXACT section headers
@@ -103,26 +118,35 @@ OUTPUT FORMAT REQUIREMENTS:
 - Keep each item on a single line
 - Do not use bullet points, asterisks, or other formatting symbols
 
+CLEAN CODE EVALUATION FOCUS:
+- Evaluate naming conventions and meaningful names
+- Assess function and class sizes and responsibilities
+- Check for code duplication and DRY violations
+- Review SOLID principles adherence
+- Analyze code readability and self-documentation
+- Evaluate error handling and exception management
+- Assess testability and testing practices
+
 CRITICAL: You MUST follow the exact format provided in the prompt. Your response will be parsed by a UI system that expects specific section headers and data formats. Do not deviate from the format.`;
 
 export const LANGUAGE_PLACEHOLDERS = {
   'java': {
-    tutorials: 'Java Sorting Algorithms, Clean Code Principles',
-    documentation: 'Java API docs, Algorithm complexity guide',
-    courses: 'Data Structures & Algorithms, Advanced Java',
-    books: 'Effective Java, Clean Code'
+    tutorials: 'Java Best Practices, Clean Code Principles, SOLID Design Patterns',
+    documentation: 'Java API docs, Clean Code Guidelines, Spring Framework Docs',
+    courses: 'Data Structures & Algorithms, Advanced Java, Clean Architecture',
+    books: 'Effective Java, Clean Code, Clean Architecture, Refactoring'
   },
   'javascript': {
-    tutorials: 'JavaScript Best Practices, ES6+ Features',
-    documentation: 'MDN Web Docs, JavaScript API reference',
-    courses: 'Modern JavaScript, Advanced JS Patterns',
-    books: 'Eloquent JavaScript, You Don\'t Know JS'
+    tutorials: 'JavaScript Best Practices, Clean Code Principles, ES6+ Features',
+    documentation: 'MDN Web Docs, JavaScript API reference, Clean Code Guidelines',
+    courses: 'Modern JavaScript, Advanced JS Patterns, Clean Architecture',
+    books: 'Eloquent JavaScript, You Don\'t Know JS, Clean Code'
   },
   'python': {
-    tutorials: 'Python Best Practices, PEP 8 Guidelines',
-    documentation: 'Python Official Docs, Standard Library',
-    courses: 'Python for Data Science, Advanced Python',
-    books: 'Fluent Python, Python Cookbook'
+    tutorials: 'Python Best Practices, Clean Code Principles, PEP 8 Guidelines',
+    documentation: 'Python Official Docs, Standard Library, Clean Code Guidelines',
+    courses: 'Python for Data Science, Advanced Python, Clean Architecture',
+    books: 'Fluent Python, Python Cookbook, Clean Code'
   },
   'typescript': {
     tutorials: 'TypeScript Best Practices, Type Safety',
