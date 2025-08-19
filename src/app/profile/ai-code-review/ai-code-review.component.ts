@@ -33,6 +33,7 @@ export class AiCodeReviewComponent implements OnInit {
   formattedFeedback = '';
   highlightedCode = '';
   userCode = '';
+  selectedLanguage = 'java';
   isLoading = false;
   isGenerating = false;
   showReview = false;
@@ -147,15 +148,233 @@ public class UserController {
     // Real-time syntax highlighting could be added here
   }
 
+  onLanguageChange(): void {
+    // Update placeholder and clear any existing review
+    this.aiReview = null;
+    this.showReview = false;
+  }
+
+  getFileName(): string {
+    const extensions: { [key: string]: string } = {
+      'java': 'Main.java',
+      'javascript': 'script.js',
+      'python': 'main.py',
+      'typescript': 'script.ts',
+      'cpp': 'main.cpp',
+      'csharp': 'Program.cs',
+      'go': 'main.go',
+      'rust': 'main.rs',
+      'php': 'index.php',
+      'ruby': 'main.rb'
+    };
+    return extensions[this.selectedLanguage] || 'main.txt';
+  }
+
+  getLanguageDisplayName(): string {
+    const displayNames: { [key: string]: string } = {
+      'java': 'Java',
+      'javascript': 'JavaScript',
+      'python': 'Python',
+      'typescript': 'TypeScript',
+      'cpp': 'C++',
+      'csharp': 'C#',
+      'go': 'Go',
+      'rust': 'Rust',
+      'php': 'PHP',
+      'ruby': 'Ruby'
+    };
+    return displayNames[this.selectedLanguage] || 'Text';
+  }
+
+  getPlaceholderText(): string {
+    const placeholders: { [key: string]: string } = {
+      'java': `Write your Java code here...
+Example:
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}`,
+      'javascript': `Write your JavaScript code here...
+Example:
+function greet(name) {
+    return \`Hello, \${name}!\`;
+}
+
+console.log(greet("World"));`,
+      'python': `Write your Python code here...
+Example:
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("World"))`,
+      'typescript': `Write your TypeScript code here...
+Example:
+interface User {
+    name: string;
+    age: number;
+}
+
+function greet(user: User): string {
+    return \`Hello, \${user.name}!\`;
+}`,
+      'cpp': `Write your C++ code here...
+Example:
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string name = "World";
+    std::cout << "Hello, " << name << "!" << std::endl;
+    return 0;
+}`,
+      'csharp': `Write your C# code here...
+Example:
+using System;
+
+class Program {
+    static void Main() {
+        string name = "World";
+        Console.WriteLine($"Hello, {name}!");
+    }
+}`,
+      'go': `Write your Go code here...
+Example:
+package main
+
+import "fmt"
+
+func main() {
+    name := "World"
+    fmt.Printf("Hello, %s!\\n", name)
+}`,
+      'rust': `Write your Rust code here...
+Example:
+fn main() {
+    let name = "World";
+    println!("Hello, {}!", name);
+}`,
+      'php': `Write your PHP code here...
+Example:
+<?php
+function greet($name) {
+    return "Hello, $name!";
+}
+
+echo greet("World");
+?>`,
+      'ruby': `Write your Ruby code here...
+Example:
+def greet(name)
+  "Hello, #{name}!"
+end
+
+puts greet("World")`
+    };
+    return placeholders[this.selectedLanguage] || 'Write your code here...';
+  }
+
   generateRandomCode(): void {
     this.isGenerating = true;
     
     // Simulate generation delay
     setTimeout(() => {
-      const randomSnippet = this.codeSnippets[Math.floor(Math.random() * this.codeSnippets.length)];
-      this.userCode = randomSnippet.code;
+      const randomSnippet = this.getRandomCodeForLanguage(this.selectedLanguage);
+      this.userCode = randomSnippet;
       this.isGenerating = false;
     }, 1000);
+  }
+
+  getRandomCodeForLanguage(language: string): string {
+    const codeSnippets: { [key: string]: string[] } = {
+      'java': [
+        `public class BubbleSort {
+    public static void bubbleSort(int[] arr) {
+        for(int i = 0; i < arr.length; i++) {
+            for(int j = 0; j < arr.length-1; j++) {
+                if(arr[j] > arr[j+1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+            }
+        }
+    }
+}`,
+        `@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+    
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
+}`
+      ],
+      'javascript': [
+        `function bubbleSort(arr) {
+    for(let i = 0; i < arr.length; i++) {
+        for(let j = 0; j < arr.length-1; j++) {
+            if(arr[j] > arr[j+1]) {
+                [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+            }
+        }
+    }
+    return arr;
+}`,
+        `class UserService {
+    constructor(userRepository) {
+        this.userRepository = userRepository;
+    }
+    
+    async createUser(user) {
+        return await this.userRepository.save(user);
+    }
+}`
+      ],
+      'python': [
+        `def bubble_sort(arr):
+    for i in range(len(arr)):
+        for j in range(len(arr)-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr`,
+        `class UserService:
+    def __init__(self, user_repository):
+        self.user_repository = user_repository
+    
+    def create_user(self, user):
+        return self.user_repository.save(user)`
+      ],
+      'typescript': [
+        `function bubbleSort(arr: number[]): number[] {
+    for(let i = 0; i < arr.length; i++) {
+        for(let j = 0; j < arr.length-1; j++) {
+            if(arr[j] > arr[j+1]) {
+                [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+            }
+        }
+    }
+    return arr;
+}`,
+        `interface User {
+    id: number;
+    name: string;
+    email: string;
+}
+
+class UserService {
+    constructor(private userRepository: UserRepository) {}
+    
+    async createUser(user: User): Promise<User> {
+        return await this.userRepository.save(user);
+    }
+}`
+      ]
+    };
+    
+    const snippets = codeSnippets[language] || codeSnippets['java'];
+    return snippets[Math.floor(Math.random() * snippets.length)];
   }
 
   clearCode(): void {
@@ -169,7 +388,7 @@ public class UserController {
 
     this.isLoading = true;
     
-    const prompt = `Please review this Java code and provide:
+    const prompt = `Please review this ${this.getLanguageDisplayName()} code and provide:
 1. A brief feedback on code quality, best practices, and potential issues
 2. 3-4 specific suggestions for improvement
 3. A score out of 10 for code quality
@@ -180,7 +399,7 @@ ${this.userCode}
 
 Please provide a concise, professional review suitable for a portfolio showcase.`;
 
-    const context = `You are an expert Java developer and code reviewer. Provide constructive, actionable feedback.`;
+    const context = `You are an expert ${this.getLanguageDisplayName()} developer and code reviewer. Provide constructive, actionable feedback.`;
 
     try {
       const response = await this.http.post('https://epic-backend-myxdxwn4m-beingmartinbmcs-projects.vercel.app/api/generic', {
