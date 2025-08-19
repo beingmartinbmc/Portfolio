@@ -1,0 +1,133 @@
+<div class="apple-section" id="ai-code-review">
+  <div class="apple-container">
+    <div class="section-header apple-fade-in">
+      <h2 class="section-title apple-text-display">🤖 AI Code Review Game</h2>
+      <p class="section-subtitle">Test your code review skills with AI-powered feedback</p>
+    </div>
+    
+    <div class="game-container" data-aos="fade-up">
+      <!-- Progress Bar -->
+      <div class="progress-section">
+        <div class="progress-info">
+          <span class="progress-text">Code Review {{ currentIndex + 1 }} of {{ codeSnippets.length }}</span>
+          <span class="progress-percentage">{{ getProgressPercentage() | number:'1.0-0' }}%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getProgressPercentage()"></div>
+        </div>
+      </div>
+
+      <!-- Code Snippet Card -->
+      <div class="code-snippet-card" *ngIf="currentSnippet">
+        <div class="snippet-header">
+          <div class="snippet-info">
+            <h3 class="snippet-title">{{ currentSnippet.title }}</h3>
+            <div class="snippet-meta">
+              <span class="language-badge">{{ currentSnippet.language }}</span>
+              <span class="difficulty-badge" [class]="'difficulty-' + currentSnippet.difficulty.toLowerCase()">
+                {{ currentSnippet.difficulty }}
+              </span>
+              <span class="category-badge">{{ currentSnippet.category }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="code-container">
+          <pre class="code-block"><code>{{ currentSnippet.code }}</code></pre>
+        </div>
+        
+        <div class="snippet-actions">
+          <button 
+            class="review-btn" 
+            (click)="getAIReview()" 
+            [disabled]="isLoading">
+            <span class="btn-icon">🤖</span>
+            <span class="btn-text">
+              {{ isLoading ? 'Getting AI Review...' : 'Get AI Review' }}
+            </span>
+            <span class="btn-spinner" *ngIf="isLoading">⏳</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- AI Review Section -->
+      <div class="ai-review-section" *ngIf="showReview && aiReview" data-aos="fade-up">
+        <div class="review-header">
+          <h3 class="review-title">
+            <span class="ai-icon">🤖</span>
+            AI Code Review
+          </h3>
+          <div class="review-score">
+            <span class="score-label">Score:</span>
+            <span class="score-value">{{ aiReview.score }}/10</span>
+          </div>
+        </div>
+        
+        <div class="review-content">
+          <div class="feedback-section">
+            <h4 class="feedback-title">Feedback</h4>
+            <p class="feedback-text">{{ aiReview.feedback }}</p>
+          </div>
+          
+          <div class="suggestions-section">
+            <h4 class="suggestions-title">Suggestions for Improvement</h4>
+            <ul class="suggestions-list">
+              <li *ngFor="let suggestion of aiReview.suggestions" class="suggestion-item">
+                <span class="suggestion-icon">💡</span>
+                <span class="suggestion-text">{{ suggestion }}</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="improvements-section">
+            <h4 class="improvements-title">Areas to Focus On</h4>
+            <div class="improvements-tags">
+              <span class="improvement-tag" *ngFor="let improvement of aiReview.improvements">
+                {{ improvement }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Controls -->
+      <div class="navigation-controls" data-aos="fade-up">
+        <button 
+          class="nav-btn nav-prev" 
+          (click)="previousSnippet()" 
+          [disabled]="currentIndex === 0">
+          <span class="nav-icon">←</span>
+          Previous
+        </button>
+        
+        <button 
+          class="nav-btn nav-next" 
+          (click)="nextSnippet()" 
+          [disabled]="currentIndex >= codeSnippets.length - 1">
+          Next
+          <span class="nav-icon">→</span>
+        </button>
+      </div>
+
+      <!-- Game Stats -->
+      <div class="game-stats" data-aos="fade-up">
+        <div class="stat-item">
+          <span class="stat-label">Reviewed:</span>
+          <span class="stat-value">{{ totalReviewed }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Remaining:</span>
+          <span class="stat-value">{{ codeSnippets.length - currentIndex - 1 }}</span>
+        </div>
+      </div>
+
+      <!-- Reset Button -->
+      <div class="reset-section" data-aos="fade-up">
+        <button class="reset-btn" (click)="resetGame()">
+          <span class="reset-icon">🔄</span>
+          Start Over
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
