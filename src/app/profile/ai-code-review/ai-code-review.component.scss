@@ -367,8 +367,273 @@
         }
       }
     }
-  }
-}
+
+    // New sections styling
+    .security-section,
+    .performance-section,
+    .complexity-section,
+    .best-practices-section {
+      margin-bottom: var(--spacing-xl);
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      .security-title,
+      .performance-title,
+      .complexity-title,
+      .best-practices-title {
+        font-size: var(--text-lg);
+        font-weight: var(--font-semibold);
+        color: var(--text-primary);
+        margin-bottom: var(--spacing-md);
+      }
+      
+      .security-tags,
+      .performance-tags,
+      .best-practices-tags {
+        display: flex;
+        gap: var(--spacing-sm);
+        flex-wrap: wrap;
+        
+        .security-tag {
+          padding: var(--spacing-xs) var(--spacing-md);
+          background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+          color: var(--white);
+          border-radius: var(--radius-full);
+          font-size: var(--text-sm);
+          font-weight: var(--font-medium);
+        }
+        
+        .performance-tag {
+          padding: var(--spacing-xs) var(--spacing-md);
+          background: linear-gradient(135deg, #ffa726, #ff9800);
+          color: var(--white);
+          border-radius: var(--radius-full);
+          font-size: var(--text-sm);
+          font-weight: var(--font-medium);
+        }
+        
+        .best-practice-tag {
+          padding: var(--spacing-xs) var(--spacing-md);
+          background: linear-gradient(135deg, #66bb6a, #4caf50);
+          color: var(--white);
+          border-radius: var(--radius-full);
+          font-size: var(--text-sm);
+          font-weight: var(--font-medium);
+        }
+      }
+      
+      .complexity-text {
+        font-size: var(--text-base);
+        line-height: 1.6;
+        color: var(--text-secondary);
+        background: var(--apple-glass);
+        padding: var(--spacing-md);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--glass-border);
+        
+                 strong {
+           color: var(--text-primary);
+           font-weight: var(--font-semibold);
+         }
+       }
+     }
+
+     // Metrics Section
+     .metrics-section {
+       margin-bottom: var(--spacing-xl);
+       
+       .metrics-title {
+         font-size: var(--text-lg);
+         font-weight: var(--font-semibold);
+         color: var(--text-primary);
+         margin-bottom: var(--spacing-md);
+       }
+       
+       .metrics-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+         gap: var(--spacing-md);
+         
+         .metric-item {
+           background: var(--apple-glass);
+           padding: var(--spacing-md);
+           border-radius: var(--radius-md);
+           border: 1px solid var(--glass-border);
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           
+           .metric-label {
+             font-size: var(--text-sm);
+             color: var(--text-secondary);
+             font-weight: var(--font-medium);
+           }
+           
+           .metric-value {
+             font-size: var(--text-lg);
+             font-weight: var(--font-bold);
+             padding: var(--spacing-xs) var(--spacing-sm);
+             border-radius: var(--radius-sm);
+             min-width: 40px;
+             text-align: center;
+             
+             &.metric-good {
+               background: linear-gradient(135deg, #66bb6a, #4caf50);
+               color: var(--white);
+             }
+             
+             &.metric-warning {
+               background: linear-gradient(135deg, #ffa726, #ff9800);
+               color: var(--white);
+             }
+             
+             &.metric-danger {
+               background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+               color: var(--white);
+             }
+           }
+         }
+       }
+     }
+
+     // Industry Standards Section
+     .industry-section {
+       margin-bottom: var(--spacing-xl);
+       
+       .industry-title {
+         font-size: var(--text-lg);
+         font-weight: var(--font-semibold);
+         color: var(--text-primary);
+         margin-bottom: var(--spacing-md);
+       }
+       
+       .compliance-meter {
+         margin-bottom: var(--spacing-lg);
+         
+         .compliance-bar {
+           width: 100%;
+           height: 12px;
+           background: var(--bg-dark);
+           border-radius: var(--radius-full);
+           overflow: hidden;
+           margin-bottom: var(--spacing-sm);
+           
+           .compliance-fill {
+             height: 100%;
+             background: linear-gradient(135deg, var(--primary-color), var(--accent-purple));
+             transition: width 0.3s ease;
+           }
+         }
+         
+         .compliance-text {
+           font-size: var(--text-sm);
+           color: var(--text-secondary);
+           font-weight: var(--font-medium);
+         }
+       }
+       
+       .standards-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: var(--spacing-lg);
+         
+         .standards-section,
+         .deviations-section {
+           .standards-subtitle,
+           .deviations-subtitle {
+             font-size: var(--text-base);
+             font-weight: var(--font-semibold);
+             color: var(--text-primary);
+             margin-bottom: var(--spacing-sm);
+           }
+           
+           .standards-tags,
+           .deviations-tags {
+             display: flex;
+             flex-direction: column;
+             gap: var(--spacing-xs);
+             
+             .standard-tag {
+               padding: var(--spacing-xs) var(--spacing-sm);
+               background: linear-gradient(135deg, #66bb6a, #4caf50);
+               color: var(--white);
+               border-radius: var(--radius-sm);
+               font-size: var(--text-xs);
+               font-weight: var(--font-medium);
+             }
+             
+             .deviation-tag {
+               padding: var(--spacing-xs) var(--spacing-sm);
+               background: linear-gradient(135deg, #ffa726, #ff9800);
+               color: var(--white);
+               border-radius: var(--radius-sm);
+               font-size: var(--text-xs);
+               font-weight: var(--font-medium);
+             }
+           }
+         }
+       }
+     }
+
+     // Learning Path Section
+     .learning-section {
+       margin-bottom: var(--spacing-xl);
+       
+       .learning-title {
+         font-size: var(--text-lg);
+         font-weight: var(--font-semibold);
+         color: var(--text-primary);
+         margin-bottom: var(--spacing-md);
+       }
+       
+       .learning-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+         gap: var(--spacing-lg);
+         
+         .learning-category {
+           background: var(--apple-glass);
+           padding: var(--spacing-md);
+           border-radius: var(--radius-md);
+           border: 1px solid var(--glass-border);
+           
+           .learning-subtitle {
+             font-size: var(--text-base);
+             font-weight: var(--font-semibold);
+             color: var(--text-primary);
+             margin-bottom: var(--spacing-sm);
+           }
+           
+           .learning-list {
+             list-style: none;
+             padding: 0;
+             margin: 0;
+             
+             li {
+               font-size: var(--text-sm);
+               color: var(--text-secondary);
+               padding: var(--spacing-xs) 0;
+               border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+               
+               &:last-child {
+                 border-bottom: none;
+               }
+               
+               &:before {
+                 content: "→";
+                 color: var(--primary-color);
+                 margin-right: var(--spacing-xs);
+                 font-weight: var(--font-bold);
+               }
+             }
+           }
+         }
+       }
+     }
+   }
+ }
 
 /* Navigation Controls */
 .navigation-controls {
