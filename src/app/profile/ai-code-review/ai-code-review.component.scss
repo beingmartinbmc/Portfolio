@@ -432,13 +432,13 @@
          padding: var(--spacing-md);
          border-radius: var(--radius-md);
          border: 1px solid var(--glass-border);
-         max-height: 200px;
+         max-height: 150px;
          overflow-y: auto;
          scrollbar-width: thin;
          scrollbar-color: var(--primary-color) transparent;
          
          &::-webkit-scrollbar {
-           width: 6px;
+           width: 8px;
          }
          
          &::-webkit-scrollbar-track {

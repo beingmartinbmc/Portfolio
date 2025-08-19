@@ -476,7 +476,7 @@ class UserService {
         improvements: ["Code Quality", "Best Practices", "Performance"],
         securityIssues: [],
         performanceIssues: [],
-        complexityAnalysis: response.substring(0, 300) + '...',
+        complexityAnalysis: response,
         bestPractices: [],
         industryComparison: { standards: [], deviations: [], compliance: 70 },
         learningResources: { tutorials: [], documentation: [], courses: [], books: [] },
