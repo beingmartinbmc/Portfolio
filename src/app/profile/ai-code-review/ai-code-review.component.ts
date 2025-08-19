@@ -579,12 +579,12 @@ class UserService {
     // Look for the "DETAILED FEEDBACK" section
     const feedbackMatch = response.match(/=== DETAILED FEEDBACK ===\n([^=]*?)(?===|$)/is);
     if (feedbackMatch) {
-      return feedbackMatch[1].substring(0, 300) + '...';
+      return feedbackMatch[1].trim();
     }
     
     // Fallback: look for any detailed content
     const fallbackMatch = response.match(/detailed[^]*?(?===|$)/is);
-    return fallbackMatch ? fallbackMatch[0].substring(0, 200) + '...' : '';
+    return fallbackMatch ? fallbackMatch[0].trim() : '';
   }
 
   private extractBestPractices(response: string): string[] {
