@@ -40886,10 +40886,195 @@ var SkillsComponent = class _SkillsComponent {
 })();
 
 // src/app/profile/publications/publications.component.ts
+var _c03 = (a0, a1) => ({ "npm-badges": a0, "maven-badges": a1 });
+function PublicationsComponent_button_59_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 23);
+    \u0275\u0275listener("click", function PublicationsComponent_button_59_Template_button_click_0_listener() {
+      const category_r2 = \u0275\u0275restoreView(_r1).$implicit;
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.filterByCategory(category_r2));
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const category_r2 = ctx.$implicit;
+    const i_r4 = ctx.index;
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("active", ctx_r2.selectedCategory === category_r2);
+    \u0275\u0275attribute("data-aos-delay", (i_r4 + 1) * 100);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", category_r2, " ");
+  }
+}
+function PublicationsComponent_div_61_img_13_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "img", 39);
+  }
+  if (rf & 2) {
+    const project_r5 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275property("src", project_r5.badges.version, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_div_61_img_14_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "img", 40);
+  }
+  if (rf & 2) {
+    const project_r5 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275property("src", project_r5.badges.downloads, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_div_61_img_15_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "img", 41);
+  }
+  if (rf & 2) {
+    const project_r5 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275property("src", project_r5.badges.total, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_div_61_img_16_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "img", 42);
+  }
+  if (rf & 2) {
+    const project_r5 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275property("src", project_r5.badges.java, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_div_61_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 24)(1, "div", 25)(2, "div", 26)(3, "span", 27);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 28);
+    \u0275\u0275text(6, "Published Package");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(7, "h5", 29);
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "p", 30);
+    \u0275\u0275text(10);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "div", 31)(12, "div", 32);
+    \u0275\u0275template(13, PublicationsComponent_div_61_img_13_Template, 1, 1, "img", 33)(14, PublicationsComponent_div_61_img_14_Template, 1, 1, "img", 34)(15, PublicationsComponent_div_61_img_15_Template, 1, 1, "img", 35)(16, PublicationsComponent_div_61_img_16_Template, 1, 1, "img", 36);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(17, "div", 37)(18, "a", 38);
+    \u0275\u0275text(19);
+    \u0275\u0275elementEnd()()()();
+  }
+  if (rf & 2) {
+    const project_r5 = ctx.$implicit;
+    const i_r6 = ctx.index;
+    \u0275\u0275attribute("data-aos-delay", (i_r6 + 1) * 100);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(project_r5.category);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(project_r5.title);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(project_r5.description);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(11, _c03, project_r5.category === "NPM", project_r5.category === "Maven Central"));
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", project_r5.badges.version);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", project_r5.badges.downloads);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", project_r5.badges.total);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", project_r5.badges.java);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("href", project_r5.link, \u0275\u0275sanitizeUrl);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", project_r5.linkText, " ");
+  }
+}
 var PublicationsComponent = class _PublicationsComponent {
   constructor() {
+    this.openSourceProjects = [
+      {
+        id: "node-actuator-lite",
+        title: "node-actuator-lite",
+        description: "A lightweight Node.js actuator similar to Spring Boot actuator with Prometheus integration, built with minimal external dependencies for maximum performance. Perfect for serverless platforms like Vercel, AWS Lambda, and microservices.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
+          total: "https://img.shields.io/npm/dt/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: "https://www.npmjs.com/package/node-actuator-lite",
+        linkText: "View on NPM"
+      },
+      {
+        id: "meme-as-a-service",
+        title: "meme-as-a-service",
+        description: "A fun and lightweight service for generating and serving memes programmatically. Provides easy-to-use APIs for creating custom memes with text overlays and various templates.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
+          total: "https://img.shields.io/npm/dt/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: "https://www.npmjs.com/package/meme-as-a-service",
+        linkText: "View on NPM"
+      },
+      {
+        id: "roastcode",
+        title: "roastcode",
+        description: "\u{1F525} A CLI tool that humorously roasts your code files, commit messages, and diffs with AI-powered savagery. Features multiple roast modes (Gentle, Savage, Toxic), AI engines (OpenAI, Ollama), git integration, meme generation, and smart code analysis. Perfect for code reviews, team bonding, and keeping your codebase honest.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/roastcode?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/roastcode?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
+          total: "https://img.shields.io/npm/dt/roastcode?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: "https://www.npmjs.com/package/roastcode",
+        linkText: "View on NPM"
+      },
+      {
+        id: "readme-cinema",
+        title: "readme-cinema",
+        description: "\u{1F3AC} Transform your README files into cinematic terminal experiences with ASCII art, typewriter effects, and dramatic transitions. Features 8 color themes, progress bars, syntax highlighting, and movie-like scene transitions for creating engaging documentation.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=downloads/week",
+          total: "https://img.shields.io/npm/dt/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: "https://www.npmjs.com/package/readme-cinema",
+        linkText: "View on NPM"
+      },
+      {
+        id: "eli5",
+        title: "eli5",
+        description: "Explain Like I'm 5 annotations for Java code documentation with AI-powered explanations. A Maven plugin that helps developers create simple, understandable documentation for complex code by generating child-friendly explanations.",
+        category: "Maven Central",
+        badges: {
+          version: "https://img.shields.io/maven-central/v/io.github.beingmartinbmc/eli5?style=flat-square&logo=apache-maven&color=c71a36&label=version",
+          java: "https://img.shields.io/badge/Java-11+-orange?style=flat-square&logo=java&color=ED8B00"
+        },
+        link: "https://central.sonatype.com/artifact/io.github.beingmartinbmc/eli5/1.0.1/overview",
+        linkText: "View on Maven Central"
+      }
+    ];
+    this.availableCategories = [];
+    this.selectedCategory = "All";
+    this.filteredProjects = [];
   }
   ngOnInit() {
+    this.availableCategories = ["All", ...Array.from(new Set(this.openSourceProjects.map((p) => p.category)))];
+    this.filteredProjects = this.openSourceProjects;
+  }
+  filterByCategory(category) {
+    this.selectedCategory = category;
+    if (category === "All") {
+      this.filteredProjects = this.openSourceProjects;
+    } else {
+      this.filteredProjects = this.openSourceProjects.filter((project) => project.category === category);
+    }
   }
   static {
     this.\u0275fac = function PublicationsComponent_Factory(__ngFactoryType__) {
@@ -40897,125 +41082,83 @@ var PublicationsComponent = class _PublicationsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 115, vars: 0, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "projects-grid"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "divine-card"], [1, "row"], [1, "col-md-4"], [1, "project-image"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview", "divine-wisdom"], [1, "tech-stack"], [1, "powered-by"], [1, "col-md-8"], [1, "project-content"], [1, "project-title"], [1, "project-description"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], [1, "open-source-grid"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "open-source-card"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "npm-badges"], ["src", "https://img.shields.io/npm/v/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=version", "alt", "npm version", 1, "npm-badge"], ["src", "https://img.shields.io/npm/dm/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=downloads/month", "alt", "npm downloads", 1, "npm-badge"], ["src", "https://img.shields.io/npm/dt/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=total", "alt", "npm total downloads", 1, "npm-badge"], [1, "project-actions"], ["href", "https://www.npmjs.com/package/node-actuator-lite", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "open-source-card"], ["src", "https://img.shields.io/npm/v/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=version", "alt", "npm version", 1, "npm-badge"], ["src", "https://img.shields.io/npm/dm/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=downloads/month", "alt", "npm downloads", 1, "npm-badge"], ["src", "https://img.shields.io/npm/dt/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=total", "alt", "npm total downloads", 1, "npm-badge"], ["href", "https://www.npmjs.com/package/meme-as-a-service", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "open-source-card"], ["src", "https://img.shields.io/npm/v/roastcode?style=flat-square&logo=npm&color=cb3837&label=version", "alt", "npm version", 1, "npm-badge"], ["src", "https://img.shields.io/npm/dm/roastcode?style=flat-square&logo=npm&color=cb3837&label=downloads/month", "alt", "npm downloads", 1, "npm-badge"], ["src", "https://img.shields.io/npm/dt/roastcode?style=flat-square&logo=npm&color=cb3837&label=total", "alt", "npm total downloads", 1, "npm-badge"], ["href", "https://www.npmjs.com/package/roastcode", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"]], template: function PublicationsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 62, vars: 2, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "projects-grid"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "divine-card"], [1, "row"], [1, "col-md-4"], [1, "project-image"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview", "divine-wisdom"], [1, "tech-stack"], [1, "powered-by"], [1, "col-md-8"], [1, "project-content"], [1, "project-title"], [1, "project-description"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-aos", "fade-up", "data-aos-delay", "50", 1, "category-filters"], [1, "filter-buttons"], ["class", "filter-btn", 3, "active", "click", 4, "ngFor", "ngForOf"], [1, "open-source-grid"], ["class", "open-source-card", "data-aos", "fade-up", 4, "ngFor", "ngForOf"], [1, "filter-btn", 3, "click"], ["data-aos", "fade-up", 1, "open-source-card"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "package-badges", 3, "ngClass"], ["alt", "version", "class", "package-badge", 3, "src", 4, "ngIf"], ["alt", "downloads", "class", "package-badge", 3, "src", 4, "ngIf"], ["alt", "total downloads", "class", "package-badge", 3, "src", 4, "ngIf"], ["alt", "java version", "class", "package-badge", 3, "src", 4, "ngIf"], [1, "project-actions"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"]], template: function PublicationsComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
+        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Projects");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "div", 7)(9, "div", 8)(10, "a", 9)(11, "div", 10)(12, "h3");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "div", 7)(9, "div", 8)(10, "a", 9)(11, "div", 10)(12, "h3");
         \u0275\u0275text(13, "\u{1F33F} Divine Wisdom");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(14, "p");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(14, "p");
         \u0275\u0275text(15, "Sacred guidance from ancient texts");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(16, "div", 11);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(16, "div", 11);
         \u0275\u0275text(17, "Ancient Scriptures \u2022 Sacred Texts \u2022 Divine Knowledge");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(18, "div", 11);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(18, "div", 11);
         \u0275\u0275text(19, "Spiritual Wisdom \u2022 Universal Truths");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(20, "div", 12);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(20, "div", 12);
         \u0275\u0275text(21, "Powered by GPT-4.1");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(22, "div", 13)(23, "div", 14)(24, "h3", 15);
+        \u0275\u0275elementEnd()()()()();
+        \u0275\u0275elementStart(22, "div", 13)(23, "div", 14)(24, "h3", 15);
         \u0275\u0275text(25, "Divine Wisdom");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(26, "p", 16);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(26, "p", 16);
         \u0275\u0275text(27, " An AI-powered spiritual companion that offers guidance and wisdom from the world's most revered ancient texts and sacred scriptures. Drawing insights from ");
-        \u0275\u0275domElementStart(28, "b");
+        \u0275\u0275elementStart(28, "b");
         \u0275\u0275text(29, "The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Analects of Confucius, The Dhammapada, The Upanishads, The Talmud, and The Avesta");
-        \u0275\u0275domElementEnd();
+        \u0275\u0275elementEnd();
         \u0275\u0275text(30, ". ");
-        \u0275\u0275domElement(31, "br")(32, "br");
-        \u0275\u0275domElementStart(33, "b");
+        \u0275\u0275element(31, "br")(32, "br");
+        \u0275\u0275elementStart(33, "b");
         \u0275\u0275text(34, "Tech Stack:");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElement(35, "br");
+        \u0275\u0275elementEnd();
+        \u0275\u0275element(35, "br");
         \u0275\u0275text(36, "\u2022 ");
-        \u0275\u0275domElementStart(37, "b");
+        \u0275\u0275elementStart(37, "b");
         \u0275\u0275text(38, "Frontend:");
-        \u0275\u0275domElementEnd();
+        \u0275\u0275elementEnd();
         \u0275\u0275text(39, " React 18.2.0 (deployed on GitHub Pages) ");
-        \u0275\u0275domElement(40, "br");
+        \u0275\u0275element(40, "br");
         \u0275\u0275text(41, "\u2022 ");
-        \u0275\u0275domElementStart(42, "b");
+        \u0275\u0275elementStart(42, "b");
         \u0275\u0275text(43, "Backend:");
-        \u0275\u0275domElementEnd();
+        \u0275\u0275elementEnd();
         \u0275\u0275text(44, " Node.js (deployed on Vercel) ");
-        \u0275\u0275domElement(45, "br");
+        \u0275\u0275element(45, "br");
         \u0275\u0275text(46, "\u2022 ");
-        \u0275\u0275domElementStart(47, "b");
+        \u0275\u0275elementStart(47, "b");
         \u0275\u0275text(48, "AI Engine:");
-        \u0275\u0275domElementEnd();
+        \u0275\u0275elementEnd();
         \u0275\u0275text(49, " GPT-4.1 nano (core LLM) ");
-        \u0275\u0275domElement(50, "br")(51, "br");
+        \u0275\u0275element(50, "br")(51, "br");
         \u0275\u0275text(52, " Experience universal wisdom and spiritual guidance through cutting-edge AI technology, helping you find answers to life's profound questions across diverse faith traditions. ");
-        \u0275\u0275domElementEnd()()()()()()();
-        \u0275\u0275domElementStart(53, "div", 17)(54, "div", 2)(55, "h2", 3);
+        \u0275\u0275elementEnd()()()()()()();
+        \u0275\u0275elementStart(53, "div", 17)(54, "div", 2)(55, "h2", 3);
         \u0275\u0275text(56, "Open Source");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(57, "div", 18)(58, "div", 19)(59, "div", 20)(60, "div", 21)(61, "span", 22);
-        \u0275\u0275text(62, "NPM");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(63, "span", 23);
-        \u0275\u0275text(64, "Published Package");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(65, "h5", 24);
-        \u0275\u0275text(66, "node-actuator-lite");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(67, "p", 25);
-        \u0275\u0275text(68, " A lightweight Node.js actuator similar to Spring Boot actuator with Prometheus integration, built with minimal external dependencies for maximum performance. Perfect for serverless platforms like Vercel, AWS Lambda, and microservices. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(69, "div", 26)(70, "div", 27);
-        \u0275\u0275domElement(71, "img", 28)(72, "img", 29)(73, "img", 30);
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(74, "div", 31)(75, "a", 32);
-        \u0275\u0275text(76, " View on NPM ");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(77, "div", 33)(78, "div", 20)(79, "div", 21)(80, "span", 22);
-        \u0275\u0275text(81, "NPM");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(82, "span", 23);
-        \u0275\u0275text(83, "Published Package");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(84, "h5", 24);
-        \u0275\u0275text(85, "meme-as-a-service");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(86, "p", 25);
-        \u0275\u0275text(87, " A fun and lightweight service for generating and serving memes programmatically. Provides easy-to-use APIs for creating custom memes with text overlays and various templates. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(88, "div", 26)(89, "div", 27);
-        \u0275\u0275domElement(90, "img", 34)(91, "img", 35)(92, "img", 36);
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(93, "div", 31)(94, "a", 37);
-        \u0275\u0275text(95, " View on NPM ");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(96, "div", 38)(97, "div", 20)(98, "div", 21)(99, "span", 22);
-        \u0275\u0275text(100, "NPM");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(101, "span", 23);
-        \u0275\u0275text(102, "Published Package");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(103, "h5", 24);
-        \u0275\u0275text(104, "roastcode");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(105, "p", 25);
-        \u0275\u0275text(106, " \u{1F525} A CLI tool that humorously roasts your code files, commit messages, and diffs with AI-powered savagery. Features multiple roast modes (Gentle, Savage, Toxic), AI engines (OpenAI, Ollama), git integration, meme generation, and smart code analysis. Perfect for code reviews, team bonding, and keeping your codebase honest. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(107, "div", 26)(108, "div", 27);
-        \u0275\u0275domElement(109, "img", 39)(110, "img", 40)(111, "img", 41);
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(112, "div", 31)(113, "a", 42);
-        \u0275\u0275text(114, " View on NPM ");
-        \u0275\u0275domElementEnd()()()()()()();
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(57, "div", 18)(58, "div", 19);
+        \u0275\u0275template(59, PublicationsComponent_button_59_Template, 2, 4, "button", 20);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(60, "div", 21);
+        \u0275\u0275template(61, PublicationsComponent_div_61_Template, 20, 14, "div", 22);
+        \u0275\u0275elementEnd()()();
       }
-    }, styles: ['@charset "UTF-8";\n\n\n\n.projects-grid[_ngcontent-%COMP%] {\n  display: grid;\n  gap: var(--spacing-2xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.project-card.divine-card[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(26, 26, 46, 0.9) 0%,\n      rgba(22, 33, 62, 0.9) 50%,\n      rgba(15, 52, 96, 0.9) 100%);\n  border: 2px solid rgba(255, 215, 0, 0.2);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.1);\n}\n.project-card.divine-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 215, 0, 0.4);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.2);\n  transform: translateY(-12px);\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: #ffd700;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n}\n.project-image[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #533483 75%,\n      #7209b7 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(255, 215, 0, 0.3);\n  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2), inset 0 0 30px rgba(255, 215, 0, 0.1);\n  text-decoration: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 215, 0, 0.1) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_divineGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]::after {\n  content: "\\950";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(255, 215, 0, 0.9);\n  animation: _ngcontent-%COMP%_divineRotate 8s linear infinite;\n  font-weight: bold;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  color: #ffd700;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(255, 215, 0, 0.3);\n  margin: 4px 0;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover {\n  transform: scale(1.05);\n  border-color: rgba(255, 215, 0, 0.6);\n  box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 50px rgba(255, 215, 0, 0.2);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover::before {\n  animation: _ngcontent-%COMP%_divineGlow 2s ease-in-out infinite;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover   h3[_ngcontent-%COMP%] {\n  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);\n}\n.project-image[_ngcontent-%COMP%]:hover   img[_ngcontent-%COMP%], \n.project-image[_ngcontent-%COMP%]:hover   .project-preview[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.project-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    gap: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n}\n.project-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n@keyframes _ngcontent-%COMP%_divineGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes _ngcontent-%COMP%_divineRotate {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.open-source-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%]:last-child {\n  margin-right: 0;\n}\n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .npm-badge[_ngcontent-%COMP%] {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .npm-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .npm-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .open-source-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .npm-badge[_ngcontent-%COMP%] {\n    height: 24px;\n  }\n}\n.open-source-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
+      if (rf & 2) {
+        \u0275\u0275advance(59);
+        \u0275\u0275property("ngForOf", ctx.availableCategories);
+        \u0275\u0275advance(2);
+        \u0275\u0275property("ngForOf", ctx.filteredProjects);
+      }
+    }, dependencies: [CommonModule, NgClass, NgForOf, NgIf], styles: ['@charset "UTF-8";\n\n\n\n.projects-grid[_ngcontent-%COMP%] {\n  display: grid;\n  gap: var(--spacing-2xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.project-card.divine-card[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(26, 26, 46, 0.9) 0%,\n      rgba(22, 33, 62, 0.9) 50%,\n      rgba(15, 52, 96, 0.9) 100%);\n  border: 2px solid rgba(255, 215, 0, 0.2);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.1);\n}\n.project-card.divine-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 215, 0, 0.4);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.2);\n  transform: translateY(-12px);\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: #ffd700;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n}\n.project-image[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #533483 75%,\n      #7209b7 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(255, 215, 0, 0.3);\n  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2), inset 0 0 30px rgba(255, 215, 0, 0.1);\n  text-decoration: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 215, 0, 0.1) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_divineGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]::after {\n  content: "\\950";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(255, 215, 0, 0.9);\n  animation: _ngcontent-%COMP%_divineRotate 8s linear infinite;\n  font-weight: bold;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  color: #ffd700;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(255, 215, 0, 0.3);\n  margin: 4px 0;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover {\n  transform: scale(1.05);\n  border-color: rgba(255, 215, 0, 0.6);\n  box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 50px rgba(255, 215, 0, 0.2);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover::before {\n  animation: _ngcontent-%COMP%_divineGlow 2s ease-in-out infinite;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover   h3[_ngcontent-%COMP%] {\n  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);\n}\n.project-image[_ngcontent-%COMP%]:hover   img[_ngcontent-%COMP%], \n.project-image[_ngcontent-%COMP%]:hover   .project-preview[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.project-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    gap: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n}\n.project-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n@keyframes _ngcontent-%COMP%_divineGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes _ngcontent-%COMP%_divineRotate {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.category-filters[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%]:last-child {\n  margin-right: 0;\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters[_ngcontent-%COMP%] {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n    gap: var(--spacing-xs);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n    height: 24px;\n  }\n}\n.open-source-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PublicationsComponent, [{
     type: Component,
-    args: [{ selector: "app-publications", standalone: true, template: `<div class="apple-section" id="publications">
+    args: [{ selector: "app-publications", standalone: true, imports: [CommonModule], template: `<div class="apple-section" id="publications">
   <div class="apple-container">
     <div class="section-header apple-fade-in">
       <h2 class="section-title apple-text-display">Projects</h2>
@@ -41063,80 +41206,44 @@ var PublicationsComponent = class _PublicationsComponent {
       <h2 class="section-title apple-text-display">Open Source</h2>
     </div>
     
+    <!-- Category Filters -->
+    <div class="category-filters" data-aos="fade-up" data-aos-delay="50">
+      <div class="filter-buttons">
+        <button 
+          *ngFor="let category of availableCategories; let i = index" 
+          class="filter-btn" 
+          [class.active]="selectedCategory === category"
+          (click)="filterByCategory(category)"
+          [attr.data-aos-delay]="(i + 1) * 100">
+          {{ category }}
+        </button>
+      </div>
+    </div>
+    
     <div class="open-source-grid">
-      <!-- Node Actuator Lite -->
-      <div class="open-source-card" data-aos="fade-up" data-aos-delay="100">
+      <div 
+        *ngFor="let project of filteredProjects; let i = index" 
+        class="open-source-card" 
+        [attr.data-aos-delay]="(i + 1) * 100"
+        data-aos="fade-up">
         <div class="card-body">
           <div class="project-meta">
-            <span class="badge">NPM</span>
+            <span class="badge">{{ project.category }}</span>
             <span class="text-muted">Published Package</span>
           </div>
-          <h5 class="card-title">node-actuator-lite</h5>
-          <p class="card-text">
-            A lightweight Node.js actuator similar to Spring Boot actuator with Prometheus integration, built with minimal external dependencies for maximum performance. Perfect for serverless platforms like Vercel, AWS Lambda, and microservices.
-          </p>
+          <h5 class="card-title">{{ project.title }}</h5>
+          <p class="card-text">{{ project.description }}</p>
           <div class="project-stats">
-            <div class="npm-badges">
-              <img src="https://img.shields.io/npm/v/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=version" alt="npm version" class="npm-badge">
-              <img src="https://img.shields.io/npm/dm/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=downloads/month" alt="npm downloads" class="npm-badge">
-              <img src="https://img.shields.io/npm/dt/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=total" alt="npm total downloads" class="npm-badge">
+            <div class="package-badges" [ngClass]="{'npm-badges': project.category === 'NPM', 'maven-badges': project.category === 'Maven Central'}">
+              <img *ngIf="project.badges.version" [src]="project.badges.version" alt="version" class="package-badge">
+              <img *ngIf="project.badges.downloads" [src]="project.badges.downloads" alt="downloads" class="package-badge">
+              <img *ngIf="project.badges.total" [src]="project.badges.total" alt="total downloads" class="package-badge">
+              <img *ngIf="project.badges.java" [src]="project.badges.java" alt="java version" class="package-badge">
             </div>
           </div>
           <div class="project-actions">
-            <a href="https://www.npmjs.com/package/node-actuator-lite" class="btn btn-primary" target="_blank" rel="noopener">
-              View on NPM
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Meme as a Service -->
-      <div class="open-source-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="card-body">
-          <div class="project-meta">
-            <span class="badge">NPM</span>
-            <span class="text-muted">Published Package</span>
-          </div>
-          <h5 class="card-title">meme-as-a-service</h5>
-          <p class="card-text">
-            A fun and lightweight service for generating and serving memes programmatically. Provides easy-to-use APIs for creating custom memes with text overlays and various templates.
-          </p>
-          <div class="project-stats">
-            <div class="npm-badges">
-              <img src="https://img.shields.io/npm/v/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=version" alt="npm version" class="npm-badge">
-              <img src="https://img.shields.io/npm/dm/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=downloads/month" alt="npm downloads" class="npm-badge">
-              <img src="https://img.shields.io/npm/dt/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=total" alt="npm total downloads" class="npm-badge">
-            </div>
-          </div>
-          <div class="project-actions">
-            <a href="https://www.npmjs.com/package/meme-as-a-service" class="btn btn-primary" target="_blank" rel="noopener">
-              View on NPM
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- RoastCode -->
-      <div class="open-source-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-body">
-          <div class="project-meta">
-            <span class="badge">NPM</span>
-            <span class="text-muted">Published Package</span>
-          </div>
-          <h5 class="card-title">roastcode</h5>
-          <p class="card-text">
-            \u{1F525} A CLI tool that humorously roasts your code files, commit messages, and diffs with AI-powered savagery. Features multiple roast modes (Gentle, Savage, Toxic), AI engines (OpenAI, Ollama), git integration, meme generation, and smart code analysis. Perfect for code reviews, team bonding, and keeping your codebase honest.
-          </p>
-          <div class="project-stats">
-            <div class="npm-badges">
-              <img src="https://img.shields.io/npm/v/roastcode?style=flat-square&logo=npm&color=cb3837&label=version" alt="npm version" class="npm-badge">
-              <img src="https://img.shields.io/npm/dm/roastcode?style=flat-square&logo=npm&color=cb3837&label=downloads/month" alt="npm downloads" class="npm-badge">
-              <img src="https://img.shields.io/npm/dt/roastcode?style=flat-square&logo=npm&color=cb3837&label=total" alt="npm total downloads" class="npm-badge">
-            </div>
-          </div>
-          <div class="project-actions">
-            <a href="https://www.npmjs.com/package/roastcode" class="btn btn-primary" target="_blank" rel="noopener">
-              View on NPM
+            <a [href]="project.link" class="btn btn-primary" target="_blank" rel="noopener">
+              {{ project.linkText }}
             </a>
           </div>
         </div>
@@ -41144,11 +41251,11 @@ var PublicationsComponent = class _PublicationsComponent {
     </div>
   </div>
 </div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n.projects-grid {\n  display: grid;\n  gap: var(--spacing-2xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.project-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.project-card.divine-card {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(26, 26, 46, 0.9) 0%,\n      rgba(22, 33, 62, 0.9) 50%,\n      rgba(15, 52, 96, 0.9) 100%);\n  border: 2px solid rgba(255, 215, 0, 0.2);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.1);\n}\n.project-card.divine-card:hover {\n  border-color: rgba(255, 215, 0, 0.4);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.2);\n  transform: translateY(-12px);\n}\n.project-card.divine-card .project-content .project-title {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);\n}\n.project-card.divine-card .project-content .project-description {\n  color: #e6e6fa;\n}\n.project-card.divine-card .project-content .project-description b {\n  color: #ffd700;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n}\n.project-image {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-image img {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview h3 {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image .project-preview p {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image .project-preview .tech-stack {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image .project-preview .powered-by {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image .project-preview.divine-wisdom {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #533483 75%,\n      #7209b7 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(255, 215, 0, 0.3);\n  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2), inset 0 0 30px rgba(255, 215, 0, 0.1);\n  text-decoration: none;\n}\n.project-image .project-preview.divine-wisdom a {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image .project-preview.divine-wisdom::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 215, 0, 0.1) 0%,\n      transparent 70%);\n  animation: divineGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image .project-preview.divine-wisdom::after {\n  content: "\\950";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(255, 215, 0, 0.9);\n  animation: divineRotate 8s linear infinite;\n  font-weight: bold;\n}\n.project-image .project-preview.divine-wisdom h3 {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.divine-wisdom p {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.divine-wisdom .tech-stack {\n  color: #ffd700;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(255, 215, 0, 0.3);\n  margin: 4px 0;\n}\n.project-image .project-preview.divine-wisdom .powered-by {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image .project-preview.divine-wisdom:hover {\n  transform: scale(1.05);\n  border-color: rgba(255, 215, 0, 0.6);\n  box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 50px rgba(255, 215, 0, 0.2);\n}\n.project-image .project-preview.divine-wisdom:hover::before {\n  animation: divineGlow 2s ease-in-out infinite;\n}\n.project-image .project-preview.divine-wisdom:hover h3 {\n  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);\n}\n.project-image:hover img,\n.project-image:hover .project-preview {\n  transform: scale(1.05);\n}\n.project-content {\n  padding: var(--spacing-xl);\n}\n.project-content .project-title {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content .project-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content .project-description b {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .projects-grid {\n    gap: var(--spacing-lg);\n  }\n  .project-content {\n    padding: var(--spacing-lg);\n  }\n  .project-content .project-title {\n    font-size: 1.25rem;\n  }\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n.project-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.project-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n@keyframes divineGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes divineRotate {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.open-source-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats .stat {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats .stat:last-child {\n  margin-right: 0;\n}\n.project-stats .npm-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats .npm-badges .npm-badge {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats .npm-badges .npm-badge:not([src]),\n.project-stats .npm-badges .npm-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-actions {\n  margin-top: auto;\n}\n.project-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .open-source-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card .card-title {\n    font-size: 1.125rem;\n  }\n  .project-stats .stat {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats .npm-badges {\n    justify-content: center;\n  }\n  .project-stats .npm-badges .npm-badge {\n    height: 24px;\n  }\n}\n.open-source-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.open-source-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n.projects-grid {\n  display: grid;\n  gap: var(--spacing-2xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.project-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.project-card.divine-card {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(26, 26, 46, 0.9) 0%,\n      rgba(22, 33, 62, 0.9) 50%,\n      rgba(15, 52, 96, 0.9) 100%);\n  border: 2px solid rgba(255, 215, 0, 0.2);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.1);\n}\n.project-card.divine-card:hover {\n  border-color: rgba(255, 215, 0, 0.4);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.2);\n  transform: translateY(-12px);\n}\n.project-card.divine-card .project-content .project-title {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);\n}\n.project-card.divine-card .project-content .project-description {\n  color: #e6e6fa;\n}\n.project-card.divine-card .project-content .project-description b {\n  color: #ffd700;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n}\n.project-image {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-image img {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview h3 {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image .project-preview p {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image .project-preview .tech-stack {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image .project-preview .powered-by {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image .project-preview.divine-wisdom {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #533483 75%,\n      #7209b7 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(255, 215, 0, 0.3);\n  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2), inset 0 0 30px rgba(255, 215, 0, 0.1);\n  text-decoration: none;\n}\n.project-image .project-preview.divine-wisdom a {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image .project-preview.divine-wisdom::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 215, 0, 0.1) 0%,\n      transparent 70%);\n  animation: divineGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image .project-preview.divine-wisdom::after {\n  content: "\\950";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(255, 215, 0, 0.9);\n  animation: divineRotate 8s linear infinite;\n  font-weight: bold;\n}\n.project-image .project-preview.divine-wisdom h3 {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.divine-wisdom p {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.divine-wisdom .tech-stack {\n  color: #ffd700;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(255, 215, 0, 0.3);\n  margin: 4px 0;\n}\n.project-image .project-preview.divine-wisdom .powered-by {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image .project-preview.divine-wisdom:hover {\n  transform: scale(1.05);\n  border-color: rgba(255, 215, 0, 0.6);\n  box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 50px rgba(255, 215, 0, 0.2);\n}\n.project-image .project-preview.divine-wisdom:hover::before {\n  animation: divineGlow 2s ease-in-out infinite;\n}\n.project-image .project-preview.divine-wisdom:hover h3 {\n  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);\n}\n.project-image:hover img,\n.project-image:hover .project-preview {\n  transform: scale(1.05);\n}\n.project-content {\n  padding: var(--spacing-xl);\n}\n.project-content .project-title {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content .project-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content .project-description b {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .projects-grid {\n    gap: var(--spacing-lg);\n  }\n  .project-content {\n    padding: var(--spacing-lg);\n  }\n  .project-content .project-title {\n    font-size: 1.25rem;\n  }\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n.project-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.project-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n@keyframes divineGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes divineRotate {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.category-filters {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters .filter-buttons {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters .filter-btn {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters .filter-btn:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters .filter-btn.active {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats .stat {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats .stat:last-child {\n  margin-right: 0;\n}\n.project-stats .package-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats .package-badges .package-badge {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats .package-badges .package-badge:not([src]),\n.project-stats .package-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats .npm-badges .package-badge:not([src]),\n.project-stats .npm-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats .maven-badges .package-badge:not([src]),\n.project-stats .maven-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions {\n  margin-top: auto;\n}\n.project-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters .filter-buttons {\n    gap: var(--spacing-xs);\n  }\n  .category-filters .filter-btn {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card .card-title {\n    font-size: 1.125rem;\n  }\n  .project-stats .stat {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats .package-badges {\n    justify-content: center;\n  }\n  .project-stats .package-badges .package-badge {\n    height: 24px;\n  }\n}\n.open-source-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.open-source-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 9 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 26 });
 })();
 
 // src/app/profile/ai-code-review/prompts.js
