@@ -343,6 +343,48 @@
 }
 
 /* Open Source Section Styles */
+
+/* Category Filters */
+.category-filters {
+  margin-bottom: var(--spacing-2xl);
+  
+  .filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .filter-btn {
+    background: var(--bg-secondary);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-xl);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+    
+    &.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-color: transparent;
+      color: var(--white);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+  }
+}
+
 .open-source-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -429,13 +471,13 @@
     }
   }
   
-  .npm-badges {
+  .package-badges {
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-sm);
     
-    .npm-badge {
+    .package-badge {
       height: 28px;
       border-radius: var(--radius-sm);
       filter: brightness(0.9);
@@ -453,6 +495,24 @@
         justify-content: center;
         min-width: 80px;
         text-align: center;
+      }
+    }
+  }
+  
+  .npm-badges {
+    .package-badge {
+      // NPM-specific styling
+      &:not([src]), &[src=""] {
+        background: linear-gradient(135deg, #cb3837, #e53e3e);
+      }
+    }
+  }
+  
+  .maven-badges {
+    .package-badge {
+      // Maven Central-specific styling
+      &:not([src]), &[src=""] {
+        background: linear-gradient(135deg, #c71a36, #e53e3e);
       }
     }
   }
@@ -486,6 +546,19 @@
 
 /* Responsive Design for Open Source */
 @media (max-width: 768px) {
+  .category-filters {
+    margin-bottom: var(--spacing-xl);
+    
+    .filter-buttons {
+      gap: var(--spacing-xs);
+    }
+    
+    .filter-btn {
+      padding: var(--spacing-xs) var(--spacing-md);
+      font-size: 0.8rem;
+    }
+  }
+  
   .open-source-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
@@ -504,10 +577,10 @@
     margin-bottom: var(--spacing-xs);
   }
   
-  .project-stats .npm-badges {
+  .project-stats .package-badges {
     justify-content: center;
     
-    .npm-badge {
+    .package-badge {
       height: 24px;
     }
   }

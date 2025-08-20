@@ -46,80 +46,44 @@
       <h2 class="section-title apple-text-display">Open Source</h2>
     </div>
     
+    <!-- Category Filters -->
+    <div class="category-filters" data-aos="fade-up" data-aos-delay="50">
+      <div class="filter-buttons">
+        <button 
+          *ngFor="let category of availableCategories; let i = index" 
+          class="filter-btn" 
+          [class.active]="selectedCategory === category"
+          (click)="filterByCategory(category)"
+          [attr.data-aos-delay]="(i + 1) * 100">
+          {{ category }}
+        </button>
+      </div>
+    </div>
+    
     <div class="open-source-grid">
-      <!-- Node Actuator Lite -->
-      <div class="open-source-card" data-aos="fade-up" data-aos-delay="100">
+      <div 
+        *ngFor="let project of filteredProjects; let i = index" 
+        class="open-source-card" 
+        [attr.data-aos-delay]="(i + 1) * 100"
+        data-aos="fade-up">
         <div class="card-body">
           <div class="project-meta">
-            <span class="badge">NPM</span>
+            <span class="badge">{{ project.category }}</span>
             <span class="text-muted">Published Package</span>
           </div>
-          <h5 class="card-title">node-actuator-lite</h5>
-          <p class="card-text">
-            A lightweight Node.js actuator similar to Spring Boot actuator with Prometheus integration, built with minimal external dependencies for maximum performance. Perfect for serverless platforms like Vercel, AWS Lambda, and microservices.
-          </p>
+          <h5 class="card-title">{{ project.title }}</h5>
+          <p class="card-text">{{ project.description }}</p>
           <div class="project-stats">
-            <div class="npm-badges">
-              <img src="https://img.shields.io/npm/v/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=version" alt="npm version" class="npm-badge">
-              <img src="https://img.shields.io/npm/dm/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=downloads/month" alt="npm downloads" class="npm-badge">
-              <img src="https://img.shields.io/npm/dt/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=total" alt="npm total downloads" class="npm-badge">
+            <div class="package-badges" [ngClass]="{'npm-badges': project.category === 'NPM', 'maven-badges': project.category === 'Maven Central'}">
+              <img *ngIf="project.badges.version" [src]="project.badges.version" alt="version" class="package-badge">
+              <img *ngIf="project.badges.downloads" [src]="project.badges.downloads" alt="downloads" class="package-badge">
+              <img *ngIf="project.badges.total" [src]="project.badges.total" alt="total downloads" class="package-badge">
+              <img *ngIf="project.badges.java" [src]="project.badges.java" alt="java version" class="package-badge">
             </div>
           </div>
           <div class="project-actions">
-            <a href="https://www.npmjs.com/package/node-actuator-lite" class="btn btn-primary" target="_blank" rel="noopener">
-              View on NPM
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Meme as a Service -->
-      <div class="open-source-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="card-body">
-          <div class="project-meta">
-            <span class="badge">NPM</span>
-            <span class="text-muted">Published Package</span>
-          </div>
-          <h5 class="card-title">meme-as-a-service</h5>
-          <p class="card-text">
-            A fun and lightweight service for generating and serving memes programmatically. Provides easy-to-use APIs for creating custom memes with text overlays and various templates.
-          </p>
-          <div class="project-stats">
-            <div class="npm-badges">
-              <img src="https://img.shields.io/npm/v/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=version" alt="npm version" class="npm-badge">
-              <img src="https://img.shields.io/npm/dm/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=downloads/month" alt="npm downloads" class="npm-badge">
-              <img src="https://img.shields.io/npm/dt/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=total" alt="npm total downloads" class="npm-badge">
-            </div>
-          </div>
-          <div class="project-actions">
-            <a href="https://www.npmjs.com/package/meme-as-a-service" class="btn btn-primary" target="_blank" rel="noopener">
-              View on NPM
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- RoastCode -->
-      <div class="open-source-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-body">
-          <div class="project-meta">
-            <span class="badge">NPM</span>
-            <span class="text-muted">Published Package</span>
-          </div>
-          <h5 class="card-title">roastcode</h5>
-          <p class="card-text">
-            🔥 A CLI tool that humorously roasts your code files, commit messages, and diffs with AI-powered savagery. Features multiple roast modes (Gentle, Savage, Toxic), AI engines (OpenAI, Ollama), git integration, meme generation, and smart code analysis. Perfect for code reviews, team bonding, and keeping your codebase honest.
-          </p>
-          <div class="project-stats">
-            <div class="npm-badges">
-              <img src="https://img.shields.io/npm/v/roastcode?style=flat-square&logo=npm&color=cb3837&label=version" alt="npm version" class="npm-badge">
-              <img src="https://img.shields.io/npm/dm/roastcode?style=flat-square&logo=npm&color=cb3837&label=downloads/month" alt="npm downloads" class="npm-badge">
-              <img src="https://img.shields.io/npm/dt/roastcode?style=flat-square&logo=npm&color=cb3837&label=total" alt="npm total downloads" class="npm-badge">
-            </div>
-          </div>
-          <div class="project-actions">
-            <a href="https://www.npmjs.com/package/roastcode" class="btn btn-primary" target="_blank" rel="noopener">
-              View on NPM
+            <a [href]="project.link" class="btn btn-primary" target="_blank" rel="noopener">
+              {{ project.linkText }}
             </a>
           </div>
         </div>
