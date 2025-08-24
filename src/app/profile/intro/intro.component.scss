@@ -251,12 +251,115 @@
   color: var(--white);
 }
 
-.hero-description {
+.hero-experience {
   font-size: var(--text-lg);
-  opacity: 0.8;
+  opacity: 0.9;
+  color: var(--white);
+  margin-bottom: var(--space-6);
+  font-weight: var(--font-medium);
+}
+
+.hero-achievements-container {
   max-width: 600px;
   margin: 0 auto;
-  line-height: 1.6;
+}
+
+.achievements-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-6);
+  color: var(--white);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0 auto;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
+  
+  &.expanded {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent;
+  }
+}
+
+.toggle-text {
+  font-weight: var(--font-medium);
+}
+
+.toggle-icon {
+  font-size: var(--text-sm);
+  transition: transform var(--transition-normal);
+  
+  &.expanded {
+    transform: rotate(180deg);
+  }
+}
+
+.hero-achievements {
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: 0;
+  backdrop-filter: blur(20px);
+  max-height: 0;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  opacity: 0;
+  border-color: transparent;
+  
+  &.show {
+    max-height: 300px;
+    padding: var(--space-6);
+    opacity: 1;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.achievement {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  opacity: 0.9;
+  color: var(--white);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.achievement-icon {
+  font-size: var(--text-lg);
+  margin-top: 2px;
+  flex-shrink: 0;
+  animation: achievementGlow 2s ease-in-out infinite;
+}
+
+@keyframes achievementGlow {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 }
 
 /* Action Buttons */

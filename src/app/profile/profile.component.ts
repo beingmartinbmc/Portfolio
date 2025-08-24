@@ -1,4 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
+import {filter, takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {IntroComponent} from './intro/intro.component';
@@ -30,19 +33,51 @@ import {BlogComponent} from './blog/blog.component';
     BlogComponent
   ]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   myStyle: object = {};
   myParams: object = {};
   width = 100;
   height = 100;
+  private destroy$ = new Subject<void>();
 
-  constructor() {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
     // Removed spinner functionality since ngx-spinner is disabled
     this.particles2();
+    
+    // Handle navigation and scroll to fragments
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      this.handleFragmentNavigation();
+    });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private handleFragmentNavigation() {
+    this.route.fragment.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(fragment => {
+      if (fragment) {
+        setTimeout(() => {
+          const element = document.getElementById(fragment);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
+    });
   }
 
   particles2() {

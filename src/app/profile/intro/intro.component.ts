@@ -7,6 +7,7 @@ import {Component, OnInit} from '@angular/core';
   standalone: true
 })
 export class IntroComponent implements OnInit {
+  showAchievements = true;
 
   constructor() {
   }
@@ -14,4 +15,7 @@ export class IntroComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toggleAchievements(): void {
+    this.showAchievements = !this.showAchievements;
+  }
 }

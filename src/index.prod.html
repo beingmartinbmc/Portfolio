@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Ankit Sharma - Software Developer</title>
-  <base href="/">
+  <base href="/Portfolio/">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta name="description" content="Ankit Sharma - Software Developer Portfolio. Full-stack developer with expertise in modern web technologies.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -34,7 +34,24 @@
 <link rel="preload" href="./assets/js/apple-animations.js" as="script">
 <link rel="preload" href="./assets/images/ankit-optimized.jpg" as="image">
 
+<!-- SPA Routing for GitHub Pages -->
+<script type="text/javascript">
+  // Single Page Apps for GitHub Pages
+  // MIT License - https://github.com/rafgraph/spa-github-pages
+  // This script takes the current url and converts the path and query
+  // string into just a query string, and then redirects the browser
+  // to the new url with only a query string and hash fragment.
+  var pathSegmentsToKeep = 0;
 
+  var l = window.location;
+  l.replace(
+    l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+    l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+    l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+    (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+    l.hash
+  );
+</script>
 
 <!-- Optimized script loading -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
