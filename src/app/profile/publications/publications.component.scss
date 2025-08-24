@@ -198,13 +198,13 @@
     }
     
     &::after {
-      content: '🌙';
+      content: '⚙️';
       position: absolute;
       top: 10px;
       right: 10px;
       font-size: 1.8rem;
       color: rgba(97, 218, 251, 0.9);
-      animation: moonFloat 3s ease-in-out infinite;
+      animation: gearFloat 3s ease-in-out infinite;
       font-weight: bold;
     }
     
@@ -479,7 +479,7 @@
   }
 }
 
-@keyframes moonFloat {
+@keyframes gearFloat {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
     opacity: 0.9;
