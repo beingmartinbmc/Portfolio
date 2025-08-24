@@ -704,14 +704,7 @@
     }
   }
   
-  .webapp-badges {
-    .package-badge {
-      // Web App-specific styling
-      &:not([src]), &[src=""] {
-        background: linear-gradient(135deg, #61dafb, #00d4ff);
-      }
-    }
-  }
+
 }
 
 .project-actions {
