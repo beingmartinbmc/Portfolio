@@ -224,8 +224,9 @@
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 2;
+  z-index: 1000;
   padding: 0;
+  position: relative;
 }
 
 .hamburger-line {
@@ -265,13 +266,15 @@
     gap: var(--space-8);
     transform: translateX(-100%);
     transition: transform var(--transition-normal);
-    z-index: 1;
+    z-index: 999;
     display: flex !important;
     visibility: visible !important;
+    pointer-events: auto;
   }
   
   .nav-links.active {
     transform: translateX(0);
+    pointer-events: auto;
   }
   
   /* Prevent body scrolling when menu is active */
@@ -286,6 +289,7 @@
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
+    pointer-events: auto;
   }
   
   .nav-link {
@@ -294,6 +298,8 @@
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    pointer-events: auto;
+    cursor: pointer;
     
     &::before {
       display: none;
@@ -302,6 +308,10 @@
     &:hover {
       background: rgba(255, 255, 255, 0.1);
       border-radius: var(--radius-lg);
+    }
+    
+    &:active {
+      background: rgba(255, 255, 255, 0.2);
     }
   }
   

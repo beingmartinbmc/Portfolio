@@ -53,6 +53,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       
       // Prevent touch scrolling
       document.body.style.touchAction = 'none';
+      
+      // Add class to body for additional styling
+      document.body.classList.add('menu-open');
     } else {
       // Restore scroll position and normal behavior
       const scrollY = document.body.style.top;
@@ -62,6 +65,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       document.body.style.width = '';
       document.body.style.height = '';
       document.body.style.touchAction = '';
+      
+      // Remove class from body
+      document.body.classList.remove('menu-open');
       
       // Restore scroll position
       if (scrollY) {
@@ -80,9 +86,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     document.body.style.height = '';
     document.body.style.touchAction = '';
     
+    // Remove class from body
+    document.body.classList.remove('menu-open');
+    
     // Restore scroll position
     if (scrollY) {
       window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+  }
+
+  onNavLinkClick() {
+    // Close mobile menu when a navigation link is clicked
+    if (this.isMenuOpen) {
+      this.closeMenu();
     }
   }
 
