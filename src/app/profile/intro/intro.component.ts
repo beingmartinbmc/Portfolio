@@ -7,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
   standalone: true
 })
 export class IntroComponent implements OnInit {
-  showAchievements = true;
+  showAchievements = false;
 
   constructor() {
   }
