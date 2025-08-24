@@ -5,12 +5,13 @@ interface OpenSourceProject {
   id: string;
   title: string;
   description: string;
-  category: 'NPM' | 'Maven Central' | 'GitHub' | 'PyPI';
+  category: 'NPM' | 'Maven Central' | 'GitHub' | 'PyPI' | 'Web App';
   badges: {
     version?: string;
     downloads?: string;
     total?: string;
     java?: string;
+    tech?: string;
   };
   link: string;
   linkText: string;
@@ -25,6 +26,17 @@ interface OpenSourceProject {
 })
 export class PublicationsComponent implements OnInit {
   openSourceProjects: OpenSourceProject[] = [
+    {
+      id: 'flowforge',
+      title: 'FlowForge',
+      description: '🌙 A comprehensive workflow management system similar to Apache Airflow, built with modern web technologies. Features dead letter queue management, workflow scheduling, real-time monitoring, and execution tracking. Provides an intuitive interface for creating, managing, and monitoring complex data pipelines and automated workflows.',
+      category: 'Web App',
+      badges: {
+        tech: 'https://img.shields.io/badge/React-Next.js-Node.js-MongoDB-Redis-61DAFB?style=flat-square&logo=react&logoColor=white'
+      },
+      link: 'https://beingmartinbmc.github.io/flowforge/',
+      linkText: 'View Live Demo'
+    },
     {
       id: 'node-actuator-lite',
       title: 'node-actuator-lite',

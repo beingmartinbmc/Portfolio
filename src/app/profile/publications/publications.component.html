@@ -74,11 +74,12 @@
           <h5 class="card-title">{{ project.title }}</h5>
           <p class="card-text">{{ project.description }}</p>
           <div class="project-stats">
-            <div class="package-badges" [ngClass]="{'npm-badges': project.category === 'NPM', 'maven-badges': project.category === 'Maven Central'}">
+            <div class="package-badges" [ngClass]="{'npm-badges': project.category === 'NPM', 'maven-badges': project.category === 'Maven Central', 'webapp-badges': project.category === 'Web App'}">
               <img *ngIf="project.badges.version" [src]="project.badges.version" alt="version" class="package-badge">
               <img *ngIf="project.badges.downloads" [src]="project.badges.downloads" alt="downloads" class="package-badge">
               <img *ngIf="project.badges.total" [src]="project.badges.total" alt="total downloads" class="package-badge">
               <img *ngIf="project.badges.java" [src]="project.badges.java" alt="java version" class="package-badge">
+              <img *ngIf="project.badges.tech" [src]="project.badges.tech" alt="tech stack" class="package-badge">
             </div>
           </div>
           <div class="project-actions">
