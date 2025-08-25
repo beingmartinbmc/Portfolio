@@ -88,6 +88,19 @@ export class PublicationsComponent implements OnInit {
       },
       link: 'https://central.sonatype.com/artifact/io.github.beingmartinbmc/eli5/1.0.1/overview',
       linkText: 'View on Maven Central'
+    },
+    {
+      id: 'git-history-ui',
+      title: 'git-history-ui',
+      description: 'A beautiful, modern web UI for visualizing git history with interactive commit graphs, search, filtering, and diff visualization. Built with Angular and Node.js. Features D3.js-powered visualizations, advanced search & filtering, dual view modes, color palette system, and responsive design.',
+      category: 'NPM',
+      badges: {
+        version: 'https://img.shields.io/npm/v/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=version',
+        downloads: 'https://img.shields.io/npm/dm/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=downloads/week',
+        total: 'https://img.shields.io/npm/dt/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=total'
+      },
+      link: 'https://www.npmjs.com/package/git-history-ui',
+      linkText: 'View on NPM'
     }
   ];
 
