@@ -13,6 +13,7 @@ import {SkillsComponent} from './skills/skills.component';
 import {PublicationsComponent} from './publications/publications.component';
 import {AiCodeReviewComponent} from './ai-code-review/ai-code-review.component';
 import {BlogComponent} from './blog/blog.component';
+import {AiFaceComponent} from '../ai-face/ai-face.component';
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +31,8 @@ import {BlogComponent} from './blog/blog.component';
     SkillsComponent,
     PublicationsComponent,
     AiCodeReviewComponent,
-    BlogComponent
+    BlogComponent,
+    AiFaceComponent
   ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {

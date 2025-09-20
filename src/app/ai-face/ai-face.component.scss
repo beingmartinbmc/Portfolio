@@ -1,0 +1,30 @@
+
+.ai-face-container {
+	position: fixed;
+	right: 2vw;
+	bottom: 2vw;
+	z-index: 1000;
+	width: 90px;
+	height: 90px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 4px 24px 0 rgba(0,0,0,0.12);
+	border-radius: 50%;
+	background: #f9f9f9;
+	opacity: 0.92;
+	transition: opacity 0.2s, transform 0.2s;
+	pointer-events: auto;
+	user-select: none;
+}
+.ai-face-container:hover {
+	opacity: 1;
+	transform: scale(1.07);
+}
+svg {
+	width: 80px;
+	height: 80px;
+	display: block;
+	background: none;
+	border-radius: 50%;
+}
