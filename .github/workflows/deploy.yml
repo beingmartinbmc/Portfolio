@@ -32,7 +32,7 @@ jobs:
       run: npm install
       
     - name: Build application
-      run: npm run build
+      run: npx ng build --configuration production --output-path docs
       
     - name: Create .nojekyll file
       run: touch docs/.nojekyll
