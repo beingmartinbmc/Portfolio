@@ -16,6 +16,7 @@ import {PublicationsComponent} from '../profile/publications/publications.compon
 import {AiCodeReviewComponent} from './ai-code-review/ai-code-review.component';
 // import {ParticlesModule} from 'angular-particle';
 import {ParticleComponent} from './particle/particle.component';
+import {AiFaceComponent} from '../ai-face/ai-face.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {ParticleComponent} from './particle/particle.component';
     FormsModule,
     ReactiveFormsModule,
     // NgxSpinnerModule,
-    // ParticlesModule
+    // ParticlesModule,
+    AiFaceComponent
   ],
   declarations: [
     ProfileComponent,
@@ -40,7 +42,7 @@ import {ParticleComponent} from './particle/particle.component';
     SkillsComponent,
     PublicationsComponent,
     AiCodeReviewComponent,
-    ParticleComponent,
+    ParticleComponent
   ],
   providers: [
     // {provide: 'SnotifyToastConfig', useValue: ToastDefaults},
