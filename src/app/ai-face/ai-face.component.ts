@@ -10,27 +10,8 @@ import { Component, ElementRef, HostListener, AfterViewInit, ViewChild } from '@
 export class AiFaceComponent implements AfterViewInit {
   @ViewChild('aiFaceContainer', { static: false }) aiFaceContainer!: ElementRef;
 
-  mood: 'happy' | 'wink' | 'surprised' | 'neutral' = 'happy';
-  private moodInterval: any;
-
   ngAfterViewInit() {
-    this.startMoodCycle();
-  }
-
-  ngOnDestroy() {
-    if (this.moodInterval) clearInterval(this.moodInterval);
-  }
-
-  startMoodCycle() {
-    this.moodInterval = setInterval(() => {
-      const moods = ['happy', 'wink', 'surprised', 'neutral'];
-      // Avoid repeating the same mood
-      let nextMood;
-      do {
-        nextMood = moods[Math.floor(Math.random() * moods.length)];
-      } while (nextMood === this.mood);
-      this.mood = nextMood as any;
-    }, 2500);
+    // Nothing needed here for now
   }
 
   @HostListener('document:mousemove', ['$event'])
@@ -59,29 +40,18 @@ export class AiFaceComponent implements AfterViewInit {
       };
     }
 
-    // Only move pupils if not winking or surprised
-    if (this.mood !== 'wink' && this.mood !== 'surprised') {
-      const left = getPupilPos(leftEye);
-      const right = getPupilPos(rightEye);
+    const left = getPupilPos(leftEye);
+    const right = getPupilPos(rightEye);
 
-      const leftPupil = svg.querySelector('#left-pupil') as SVGCircleElement;
-      const rightPupil = svg.querySelector('#right-pupil') as SVGCircleElement;
-      if (leftPupil) {
-        leftPupil.setAttribute('cx', left.x.toString());
-        leftPupil.setAttribute('cy', left.y.toString());
-      }
-      if (rightPupil) {
-        rightPupil.setAttribute('cx', right.x.toString());
-        rightPupil.setAttribute('cy', right.y.toString());
-      }
+    const leftPupil = svg.querySelector('#left-pupil') as SVGCircleElement;
+    const rightPupil = svg.querySelector('#right-pupil') as SVGCircleElement;
+    if (leftPupil) {
+      leftPupil.setAttribute('cx', left.x.toString());
+      leftPupil.setAttribute('cy', left.y.toString());
     }
-  }
-
-  reactToClick() {
-    // On click, force a wink mood for a short time
-    this.mood = 'wink';
-    setTimeout(() => {
-      this.mood = 'happy';
-    }, 900);
+    if (rightPupil) {
+      rightPupil.setAttribute('cx', right.x.toString());
+      rightPupil.setAttribute('cy', right.y.toString());
+    }
   }
 }

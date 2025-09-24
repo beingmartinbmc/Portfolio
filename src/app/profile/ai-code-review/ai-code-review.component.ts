@@ -423,7 +423,7 @@ class UserService {
     const context = CODE_REVIEW_CONTEXT(language);
 
     try {
-      const response = await this.http.post('https://epic-backend-myxdxwn4m-beingmartinbmcs-projects.vercel.app/api/generic', {
+      const response = await this.http.post('https://epic-backend-qt7w2jqhj-beingmartinbmcs-projects.vercel.app/api/generic', {
         prompt: prompt,
         context: context
       }, {
@@ -490,7 +490,7 @@ class UserService {
     const prompt = COMPLEXITY_ANALYSIS_PROMPT(language, this.userCode);
 
     try {
-      const response = await this.http.post('https://epic-backend-myxdxwn4m-beingmartinbmcs-projects.vercel.app/api/generic', {
+      const response = await this.http.post('https://epic-backend-qt7w2jqhj-beingmartinbmcs-projects.vercel.app/api/generic', {
         prompt: prompt,
         context: `You are an expert algorithm analyst specializing in Big-O complexity analysis for ${language} code.`
       }, {
