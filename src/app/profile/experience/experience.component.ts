@@ -32,14 +32,31 @@ export class ExperienceComponent implements OnInit, OnDestroy {
 
   experienceItems: ExperienceItem[] = [
     {
+      id: 'smts-salesforce',
+      title: 'SMTS (Senior Member of Technical Staff)',
+      company: 'Salesforce',
+      companyUrl: 'https://www.salesforce.com/',
+      location: 'Hybrid in Hyderabad, India',
+      duration: 'Current',
+      period: '2025 - Present',
+      description: 'Senior Member of Technical Staff role at Salesforce, exploring new challenges and opportunities in enterprise cloud solutions.',
+      technologies: ['Salesforce Platform', 'Apex', 'Lightning', 'Java', 'Cloud Technologies'],
+      achievements: [
+        'Still exploring and learning the Salesforce ecosystem',
+        'Transitioning into enterprise cloud solutions',
+        'Working on scalable cloud-based applications'
+      ],
+      isExpanded: false
+    },
+    {
       id: 'sde2-games24x7',
       title: 'SDE-2',
       company: 'Games24x7',
       companyUrl: 'https://www.games24x7.com/',
       location: 'Bangalore, India',
-      duration: '1.5+ years',
-      period: '2022 - Present',
-      description: 'Working as a backend developer in Platform services, for both RummyCircle and My11Circle. Leading critical platform initiatives and mentoring junior developers.',
+      duration: '3 years',
+      period: '2022 - 2025',
+      description: 'Worked as a backend developer in Platform services, for both RummyCircle and My11Circle. Led critical platform initiatives and mentored junior developers.',
       technologies: ['Kafka', 'Spring Cloud', 'LLM', 'AWS Sage Maker', 'Google AD APIs', 'Elasti-cache', 'JDK 21', 'Neptune DB', 'Gremlin', 'Grafana', 'Prometheus', 'Pager Duty'],
       achievements: [
         'Developed Risk Rule Engine for Games24x7 that works in My11Circle and RummyCircle, that identifies Fraud done by users in real time',
@@ -110,7 +127,7 @@ export class ExperienceComponent implements OnInit, OnDestroy {
   }
 
   private calculateTotalExperience(): void {
-    const startDate = new Date('2019-12-20');
+    const startDate = new Date('2019-12-20'); // First professional role start date
     const currentDate = new Date();
     const diffTime = Math.abs(currentDate.getTime() - startDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
