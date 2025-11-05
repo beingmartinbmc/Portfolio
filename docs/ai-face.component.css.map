@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/ai-face/ai-face.component.scss"],
+  "sourcesContent": ["\n.ai-face-container {\n\tposition: fixed;\n\tright: 2vw;\n\tbottom: 2vw;\n\tz-index: 1000;\n\twidth: 90px;\n\theight: 90px;\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\tbox-shadow: 0 4px 24px 0 rgba(0,0,0,0.12);\n\tborder-radius: 50%;\n\tbackground: #f9f9f9;\n\topacity: 0.92;\n\ttransition: opacity 0.2s, transform 0.2s;\n\tpointer-events: auto;\n\tuser-select: none;\n}\n.ai-face-container:hover {\n\topacity: 1;\n\ttransform: scale(1.07);\n}\nsvg {\n\twidth: 80px;\n\theight: 80px;\n\tdisplay: block;\n\tbackground: none;\n\tborder-radius: 50%;\n}\n"],
+  "mappings": ";AACA,CAAA;AACC,YAAA;AACA,SAAA;AACA,UAAA;AACA,WAAA;AACA,SAAA;AACA,UAAA;AACA,WAAA;AACA,mBAAA;AACA,eAAA;AACA,cAAA,EAAA,IAAA,KAAA,EAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA;AACA,iBAAA;AACA,cAAA;AACA,WAAA;AACA,cAAA,QAAA,IAAA,EAAA,UAAA;AACA,kBAAA;AACA,uBAAA;AAAA,eAAA;;AAED,CAlBA,iBAkBA;AACC,WAAA;AACA,aAAA,MAAA;;AAED;AACC,SAAA;AACA,UAAA;AACA,WAAA;AACA,cAAA;AACA,iBAAA;;",
+  "names": []
+}

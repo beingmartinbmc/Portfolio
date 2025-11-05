@@ -38994,10 +38994,10 @@ var IntroComponent = class _IntroComponent {
         \u0275\u0275text(17, " Ankit Sharma ");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(18, "p", 17);
-        \u0275\u0275text(19, " Backend Engineer \u2014 Scalable Systems & ML Fraud Detection ");
+        \u0275\u0275text(19, " SMTS at Salesforce \u2014 Enterprise Cloud Solutions & Platform Development ");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(20, "p", 18);
-        \u0275\u0275text(21, " 6 years experience | Games24x7 | ex-Walmart ");
+        \u0275\u0275text(21, " 6+ years experience | Salesforce | ex-Games24x7 | ex-Walmart ");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(22, "div", 19)(23, "button", 20);
         \u0275\u0275domListener("click", function IntroComponent_Template_button_click_23_listener() {
@@ -39090,10 +39090,10 @@ var IntroComponent = class _IntroComponent {
           Ankit Sharma
         </h1>
         <p class="hero-subtitle apple-text-body apple-slide-up">
-          Backend Engineer \u2014 Scalable Systems & ML Fraud Detection
+          SMTS at Salesforce \u2014 Enterprise Cloud Solutions & Platform Development
         </p>
         <p class="hero-experience apple-text-body apple-slide-up">
-          6 years experience | Games24x7 | ex-Walmart
+          6+ years experience | Salesforce | ex-Games24x7 | ex-Walmart
         </p>
         <div class="hero-achievements-container apple-slide-up">
           <button class="achievements-toggle" (click)="toggleAchievements()" [class.expanded]="showAchievements">
@@ -39174,7 +39174,7 @@ var AboutComponent = class _AboutComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AboutComponent, selectors: [["app-about"]], decls: 50, vars: 0, consts: [["id", "about", 1, "apple-section"], [1, "apple-container"], [1, "about-content"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "section-subtitle", "apple-text-body"], [1, "about-grid"], [1, "about-text", "apple-card", "apple-slide-up"], [1, "card-content"], [1, "about-description"], [1, "apple-text-body"]], template: function AboutComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AboutComponent, selectors: [["app-about"]], decls: 47, vars: 0, consts: [["id", "about", 1, "apple-section"], [1, "apple-container"], [1, "about-content"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "section-subtitle", "apple-text-body"], [1, "about-grid"], [1, "about-text", "apple-card", "apple-slide-up"], [1, "card-content"], [1, "about-description"], [1, "apple-text-body"]], template: function AboutComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3)(4, "h2", 4);
         \u0275\u0275text(5, "About Me");
@@ -39187,52 +39187,48 @@ var AboutComponent = class _AboutComponent {
         \u0275\u0275domElementStart(14, "strong");
         \u0275\u0275text(15, "passionate software developer");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(16, " with close to ");
+        \u0275\u0275text(16, " with ");
         \u0275\u0275domElementStart(17, "strong");
-        \u0275\u0275text(18, "6 years of experience");
+        \u0275\u0275text(18, "6+ years of experience");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(19, " in building innovative digital solutions. Currently seeking ");
+        \u0275\u0275text(19, " in building innovative digital solutions. Currently working as ");
         \u0275\u0275domElementStart(20, "strong");
-        \u0275\u0275text(21, "full-time opportunities");
+        \u0275\u0275text(21, "Senior Member of Technical Staff (SMTS) at Salesforce");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(22, " where I can leverage my expertise in ");
-        \u0275\u0275domElementStart(23, "strong");
-        \u0275\u0275text(24, "backend technologies");
+        \u0275\u0275text(22, ", where I'm exploring enterprise cloud solutions and contributing to cutting-edge platform development. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(25, " and contribute to cutting-edge projects. ");
+        \u0275\u0275domElementStart(23, "p", 10);
+        \u0275\u0275text(24, " \u{1F680} My technical passion lies in ");
+        \u0275\u0275domElementStart(25, "strong");
+        \u0275\u0275text(26, "backend development");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(26, "p", 10);
-        \u0275\u0275text(27, " \u{1F680} My technical passion lies in ");
+        \u0275\u0275text(27, " and ");
         \u0275\u0275domElementStart(28, "strong");
-        \u0275\u0275text(29, "backend development");
+        \u0275\u0275text(29, "Large Language Models (LLMs)");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(30, " and ");
-        \u0275\u0275domElementStart(31, "strong");
-        \u0275\u0275text(32, "Large Language Models (LLMs)");
+        \u0275\u0275text(30, ". I love diving deep into complex systems, optimizing performance, and creating scalable architectures that can handle real-world challenges. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(33, ". I love diving deep into complex systems, optimizing performance, and creating scalable architectures that can handle real-world challenges. ");
+        \u0275\u0275domElementStart(31, "p", 10);
+        \u0275\u0275text(32, " \u{1F30D} Beyond coding, I'm an ");
+        \u0275\u0275domElementStart(33, "strong");
+        \u0275\u0275text(34, "avid traveler and adventure seeker");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(34, "p", 10);
-        \u0275\u0275text(35, " \u{1F30D} Beyond coding, I'm an ");
+        \u0275\u0275text(35, " who thrives on challenges. I've completed ");
         \u0275\u0275domElementStart(36, "strong");
-        \u0275\u0275text(37, "avid traveler and adventure seeker");
+        \u0275\u0275text(37, "solo trips across 7 countries");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(38, " who thrives on challenges. I've completed ");
-        \u0275\u0275domElementStart(39, "strong");
-        \u0275\u0275text(40, "solo trips across 7 countries");
+        \u0275\u0275text(38, ", embracing new cultures and pushing my boundaries. This same spirit of exploration and resilience translates into my work - I approach every technical challenge with curiosity, determination, and a drive to find elegant solutions. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(41, ", embracing new cultures and pushing my boundaries. This same spirit of exploration and resilience translates into my work - I approach every technical challenge with curiosity, determination, and a drive to find elegant solutions. ");
+        \u0275\u0275domElementStart(39, "p", 10);
+        \u0275\u0275text(40, " \u{1F4C8} I believe in ");
+        \u0275\u0275domElementStart(41, "strong");
+        \u0275\u0275text(42, "continuous learning and growth");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(42, "p", 10);
-        \u0275\u0275text(43, " \u{1F4C8} I believe in ");
+        \u0275\u0275text(43, ", both professionally and personally. Every day is an opportunity to become a better developer, problem solver, and human being. My goal is to create applications that not only solve problems but also make a ");
         \u0275\u0275domElementStart(44, "strong");
-        \u0275\u0275text(45, "continuous learning and growth");
+        \u0275\u0275text(45, "meaningful impact");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(46, ", both professionally and personally. Every day is an opportunity to become a better developer, problem solver, and human being. My goal is to create applications that not only solve problems but also make a ");
-        \u0275\u0275domElementStart(47, "strong");
-        \u0275\u0275text(48, "meaningful impact");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(49, " on people's lives. ");
+        \u0275\u0275text(46, " on people's lives. ");
         \u0275\u0275domElementEnd()()()()()()()();
       }
     }, styles: ['\n\n.about-content[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  color: var(--text-secondary);\n  max-width: 600px;\n  margin: 0 auto;\n}\n.about-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr;\n  gap: var(--space-4);\n  margin-top: var(--space-6);\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.about-text[_ngcontent-%COMP%], \n.personal-info[_ngcontent-%COMP%] {\n  padding: var(--space-4);\n  border-radius: var(--radius-xl);\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: var(--glass-shadow);\n  transition: all var(--transition-normal);\n  position: relative;\n  overflow: hidden;\n}\n.about-text[_ngcontent-%COMP%]::before, \n.personal-info[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 3px;\n  background: var(--gradient-primary);\n}\n.about-text[_ngcontent-%COMP%]:hover, \n.personal-info[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.card-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 1;\n}\n.about-icon[_ngcontent-%COMP%], \n.info-icon[_ngcontent-%COMP%] {\n  width: 40px;\n  height: 40px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-bottom: var(--space-3);\n  color: var(--white);\n  font-size: var(--text-base);\n  box-shadow: var(--shadow-sm);\n}\n.about-heading[_ngcontent-%COMP%], \n.info-heading[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  margin-bottom: var(--space-3);\n  color: var(--text-primary);\n  font-weight: var(--font-semibold);\n}\n.about-description[_ngcontent-%COMP%] {\n}\n.about-description[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin-bottom: var(--space-4);\n  line-height: 1.7;\n  color: var(--text-secondary);\n  font-size: var(--text-base);\n  font-weight: 400;\n  text-align: justify;\n  letter-spacing: 0.01em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    "Segoe UI",\n    Roboto,\n    "Helvetica Neue",\n    Arial,\n    sans-serif;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);\n}\n.about-description[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.about-description[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.about-description[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]    + p[_ngcontent-%COMP%] {\n  margin-top: var(--space-3);\n}\n.info-grid[_ngcontent-%COMP%] {\n  display: grid;\n  gap: var(--space-2);\n}\n.info-item[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: var(--space-1);\n  padding: var(--space-2);\n  border-radius: var(--radius-md);\n  background: var(--bg-secondary);\n  transition: all var(--transition-normal);\n}\n.info-item[_ngcontent-%COMP%]:hover {\n  background: var(--bg-tertiary);\n  transform: translateX(2px);\n}\n.info-label[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--space-1);\n  color: var(--text-tertiary);\n  font-size: var(--text-xs);\n}\n.info-label[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: var(--primary-blue);\n  width: 14px;\n}\n.info-value[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: var(--font-medium);\n  font-size: var(--text-sm);\n}\n.info-link[_ngcontent-%COMP%] {\n  color: var(--primary-blue);\n  text-decoration: none;\n  transition: all var(--transition-normal);\n}\n.info-link[_ngcontent-%COMP%]:hover {\n  color: var(--primary-blue-dark);\n  text-decoration: underline;\n}\n@media (max-width: 768px) {\n  .about-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--space-3);\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: var(--text-3xl);\n  }\n  .section-subtitle[_ngcontent-%COMP%] {\n    font-size: var(--text-base);\n  }\n  .about-text[_ngcontent-%COMP%], \n   .personal-info[_ngcontent-%COMP%] {\n    padding: var(--space-3);\n  }\n  .about-heading[_ngcontent-%COMP%], \n   .info-heading[_ngcontent-%COMP%] {\n    font-size: var(--text-base);\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .section-header[_ngcontent-%COMP%], \n   .about-text[_ngcontent-%COMP%], \n   .about-content[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: var(--text-2xl);\n  }\n  .about-text[_ngcontent-%COMP%], \n   .personal-info[_ngcontent-%COMP%] {\n    padding: var(--space-2);\n  }\n  .about-icon[_ngcontent-%COMP%], \n   .info-icon[_ngcontent-%COMP%] {\n    width: 35px;\n    height: 35px;\n    font-size: var(--text-sm);\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .section-header[_ngcontent-%COMP%], \n   .about-text[_ngcontent-%COMP%], \n   .about-content[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n/*# sourceMappingURL=about.component.css.map */'] });
@@ -39256,8 +39252,8 @@ var AboutComponent = class _AboutComponent {
           <div class="card-content">
             <div class="about-description">
               <p class="apple-text-body">
-                \u{1F4BB} I'm a <strong>passionate software developer</strong> with close to <strong>6 years of experience</strong> in building innovative digital solutions. 
-                Currently seeking <strong>full-time opportunities</strong> where I can leverage my expertise in <strong>backend technologies</strong> and contribute to cutting-edge projects.
+                \u{1F4BB} I'm a <strong>passionate software developer</strong> with <strong>6+ years of experience</strong> in building innovative digital solutions. 
+                Currently working as <strong>Senior Member of Technical Staff (SMTS) at Salesforce</strong>, where I'm exploring enterprise cloud solutions and contributing to cutting-edge platform development.
               </p>
               <p class="apple-text-body">
                 \u{1F680} My technical passion lies in <strong>backend development</strong> and <strong>Large Language Models (LLMs)</strong>. I love diving deep into complex systems, 
@@ -46415,7 +46411,7 @@ var TimeService = class _TimeService {
   constructor() {
   }
   getNumberOfMonths() {
-    const joinedDate = /* @__PURE__ */ new Date("10/1/2022");
+    const joinedDate = /* @__PURE__ */ new Date("11/3/2025");
     const currentDate = /* @__PURE__ */ new Date();
     const difference = currentDate.getTime() - joinedDate.getTime();
     const days = difference / (1e3 * 3600 * 24);
@@ -46526,14 +46522,31 @@ var ExperienceComponent = class _ExperienceComponent {
     this.expandedItem = null;
     this.experienceItems = [
       {
+        id: "smts-salesforce",
+        title: "SMTS (Senior Member of Technical Staff)",
+        company: "Salesforce",
+        companyUrl: "https://www.salesforce.com/",
+        location: "Hybrid in Hyderabad, India",
+        duration: "Current",
+        period: "2025 - Present",
+        description: "Senior Member of Technical Staff role at Salesforce, exploring new challenges and opportunities in enterprise cloud solutions.",
+        technologies: ["Salesforce Platform", "Apex", "Lightning", "Java", "Cloud Technologies"],
+        achievements: [
+          "Still exploring and learning the Salesforce ecosystem",
+          "Transitioning into enterprise cloud solutions",
+          "Working on scalable cloud-based applications"
+        ],
+        isExpanded: false
+      },
+      {
         id: "sde2-games24x7",
         title: "SDE-2",
         company: "Games24x7",
         companyUrl: "https://www.games24x7.com/",
         location: "Bangalore, India",
-        duration: "1.5+ years",
-        period: "2022 - Present",
-        description: "Working as a backend developer in Platform services, for both RummyCircle and My11Circle. Leading critical platform initiatives and mentoring junior developers.",
+        duration: "3 years",
+        period: "2022 - 2025",
+        description: "Worked as a backend developer in Platform services, for both RummyCircle and My11Circle. Led critical platform initiatives and mentored junior developers.",
         technologies: ["Kafka", "Spring Cloud", "LLM", "AWS Sage Maker", "Google AD APIs", "Elasti-cache", "JDK 21", "Neptune DB", "Gremlin", "Grafana", "Prometheus", "Pager Duty"],
         achievements: [
           "Developed Risk Rule Engine for Games24x7 that works in My11Circle and RummyCircle, that identifies Fraud done by users in real time",
@@ -47055,7 +47068,7 @@ var PublicationsComponent = class _PublicationsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 93, vars: 2, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "projects-grid"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "flowforge-card"], [1, "project-preview-container"], ["href", "https://beingmartinbmc.github.io/flowforge/", "target", "_blank"], [1, "project-preview", "flowforge-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["href", "https://beingmartinbmc.github.io/flowforge/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "divine-card"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-aos", "fade-up", "data-aos-delay", "50", 1, "category-filters"], [1, "filter-buttons"], ["class", "filter-btn", 3, "active", "click", 4, "ngFor", "ngForOf"], [1, "open-source-grid"], ["class", "open-source-card", "data-aos", "fade-up", 4, "ngFor", "ngForOf"], [1, "filter-btn", 3, "click"], ["data-aos", "fade-up", 1, "open-source-card"], [1, "package-badges", 3, "ngClass"], ["alt", "version", "class", "package-badge", 3, "src", 4, "ngIf"], ["alt", "downloads", "class", "package-badge", 3, "src", 4, "ngIf"], ["alt", "total downloads", "class", "package-badge", 3, "src", 4, "ngIf"], ["alt", "java version", "class", "package-badge", 3, "src", 4, "ngIf"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"]], template: function PublicationsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 93, vars: 2, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "projects-grid"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "flowforge-card"], [1, "project-preview-container"], ["href", "https://beingmartinbmc.github.io/flowforge/login/", "target", "_blank"], [1, "project-preview", "flowforge-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["href", "https://beingmartinbmc.github.io/flowforge/login/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "divine-card"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-aos", "fade-up", "data-aos-delay", "50", 1, "category-filters"], [1, "filter-buttons"], ["class", "filter-btn", 3, "active", "click", 4, "ngFor", "ngForOf"], [1, "open-source-grid"], ["class", "open-source-card", "data-aos", "fade-up", 4, "ngFor", "ngForOf"], [1, "filter-btn", 3, "click"], ["data-aos", "fade-up", 1, "open-source-card"], [1, "package-badges", 3, "ngClass"], ["alt", "version", "class", "package-badge", 3, "src", 4, "ngIf"], ["alt", "downloads", "class", "package-badge", 3, "src", 4, "ngIf"], ["alt", "total downloads", "class", "package-badge", 3, "src", 4, "ngIf"], ["alt", "java version", "class", "package-badge", 3, "src", 4, "ngIf"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"]], template: function PublicationsComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Projects");
@@ -47182,7 +47195,7 @@ var PublicationsComponent = class _PublicationsComponent {
       <div class="project-card flowforge-card" data-aos="fade-up" data-aos-duration="500" data-aos-offset="50">
                   <!-- Project Preview -->
           <div class="project-preview-container">
-            <a href="https://beingmartinbmc.github.io/flowforge/" target="_blank">
+            <a href="https://beingmartinbmc.github.io/flowforge/login/" target="_blank">
               <div class="project-preview flowforge-preview">
                 <h3>\u2699\uFE0F FlowForge</h3>
                 <p>Workflow Management System</p>
@@ -47213,7 +47226,7 @@ var PublicationsComponent = class _PublicationsComponent {
             </div>
           </div>
           <div class="project-actions">
-            <a href="https://beingmartinbmc.github.io/flowforge/" class="btn btn-primary" target="_blank" rel="noopener">
+            <a href="https://beingmartinbmc.github.io/flowforge/login/" class="btn btn-primary" target="_blank" rel="noopener">
               View Live Demo
             </a>
           </div>
@@ -48399,7 +48412,7 @@ class UserService {
       const prompt = CODE_REVIEW_PROMPT(language, this.userCode);
       const context2 = CODE_REVIEW_CONTEXT(language);
       try {
-        const response = yield this.http.post("https://epic-backend-myxdxwn4m-beingmartinbmcs-projects.vercel.app/api/generic", {
+        const response = yield this.http.post("https://epic-backend-qt7w2jqhj-beingmartinbmcs-projects.vercel.app/api/generic", {
           prompt,
           context: context2
         }, {
@@ -48460,7 +48473,7 @@ class UserService {
       const language = this.getLanguageDisplayName();
       const prompt = COMPLEXITY_ANALYSIS_PROMPT(language, this.userCode);
       try {
-        const response = yield this.http.post("https://epic-backend-myxdxwn4m-beingmartinbmcs-projects.vercel.app/api/generic", {
+        const response = yield this.http.post("https://epic-backend-qt7w2jqhj-beingmartinbmcs-projects.vercel.app/api/generic", {
           prompt,
           context: `You are an expert algorithm analyst specializing in Big-O complexity analysis for ${language} code.`
         }, {
@@ -49274,6 +49287,91 @@ var BlogComponent = class _BlogComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(BlogComponent, { className: "BlogComponent", filePath: "src/app/profile/blog/blog.component.ts", lineNumber: 9 });
 })();
 
+// src/app/ai-face/ai-face.component.ts
+var _c04 = ["aiFaceContainer"];
+var AiFaceComponent = class _AiFaceComponent {
+  ngAfterViewInit() {
+  }
+  onMouseMove(event) {
+    const svg = document.querySelector(".ai-face-container svg");
+    if (!svg)
+      return;
+    const rect = svg.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    const leftEye = { x: 55, y: 80 };
+    const rightEye = { x: 105, y: 80 };
+    const radius = 7;
+    function getPupilPos(eye) {
+      const dx = mouseX - eye.x * (rect.width / 160);
+      const dy = mouseY - eye.y * (rect.height / 160);
+      const angle = Math.atan2(dy, dx);
+      const dist = Math.min(Math.sqrt(dx * dx + dy * dy), radius * 2);
+      return {
+        x: eye.x + Math.cos(angle) * Math.min(dist, radius),
+        y: eye.y + Math.sin(angle) * Math.min(dist, radius)
+      };
+    }
+    const left = getPupilPos(leftEye);
+    const right = getPupilPos(rightEye);
+    const leftPupil = svg.querySelector("#left-pupil");
+    const rightPupil = svg.querySelector("#right-pupil");
+    if (leftPupil) {
+      leftPupil.setAttribute("cx", left.x.toString());
+      leftPupil.setAttribute("cy", left.y.toString());
+    }
+    if (rightPupil) {
+      rightPupil.setAttribute("cx", right.x.toString());
+      rightPupil.setAttribute("cy", right.y.toString());
+    }
+  }
+  static {
+    this.\u0275fac = function AiFaceComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _AiFaceComponent)();
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AiFaceComponent, selectors: [["app-ai-face"]], viewQuery: function AiFaceComponent_Query(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275viewQuery(_c04, 5);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.aiFaceContainer = _t.first);
+      }
+    }, hostBindings: function AiFaceComponent_HostBindings(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275listener("mousemove", function AiFaceComponent_mousemove_HostBindingHandler($event) {
+          return ctx.onMouseMove($event);
+        }, \u0275\u0275resolveDocument);
+      }
+    }, decls: 8, vars: 0, consts: [[1, "ai-face-container"], ["width", "160", "height", "160", "viewBox", "0 0 160 160"], ["cx", "80", "cy", "80", "r", "70", "fill", "#ede7f6", "stroke", "#b39ddb", "stroke-width", "4"], ["id", "left-eye", "cx", "55", "cy", "80", "rx", "18", "ry", "22", "fill", "#fff", "stroke", "#888", "stroke-width", "2"], ["id", "right-eye", "cx", "105", "cy", "80", "rx", "18", "ry", "22", "fill", "#fff", "stroke", "#888", "stroke-width", "2"], ["id", "left-pupil", "cx", "55", "cy", "80", "r", "7", "fill", "#222"], ["id", "right-pupil", "cx", "105", "cy", "80", "r", "7", "fill", "#222"], ["d", "M60 110 Q80 130 100 110", "stroke", "#b39ddb", "stroke-width", "3", "fill", "none"]], template: function AiFaceComponent_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275domElementStart(0, "div", 0);
+        \u0275\u0275namespaceSVG();
+        \u0275\u0275domElementStart(1, "svg", 1);
+        \u0275\u0275domElement(2, "circle", 2)(3, "ellipse", 3)(4, "ellipse", 4)(5, "circle", 5)(6, "circle", 6)(7, "path", 7);
+        \u0275\u0275domElementEnd()();
+      }
+    }, styles: ["\n\n.ai-face-container[_ngcontent-%COMP%] {\n  position: fixed;\n  right: 2vw;\n  bottom: 2vw;\n  z-index: 1000;\n  width: 90px;\n  height: 90px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.12);\n  border-radius: 50%;\n  background: #f9f9f9;\n  opacity: 0.92;\n  transition: opacity 0.2s, transform 0.2s;\n  pointer-events: auto;\n  -webkit-user-select: none;\n  user-select: none;\n}\n.ai-face-container[_ngcontent-%COMP%]:hover {\n  opacity: 1;\n  transform: scale(1.07);\n}\nsvg[_ngcontent-%COMP%] {\n  width: 80px;\n  height: 80px;\n  display: block;\n  background: none;\n  border-radius: 50%;\n}\n/*# sourceMappingURL=ai-face.component.css.map */"] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AiFaceComponent, [{
+    type: Component,
+    args: [{ selector: "app-ai-face", standalone: true, template: '\n<div class="ai-face-container">\n		<svg width="160" height="160" viewBox="0 0 160 160">\n			<!-- Face Circle -->\n			<circle cx="80" cy="80" r="70" fill="#ede7f6" stroke="#b39ddb" stroke-width="4"/>\n			<!-- Left Eye White -->\n			<ellipse id="left-eye" cx="55" cy="80" rx="18" ry="22" fill="#fff" stroke="#888" stroke-width="2"/>\n			<!-- Right Eye White -->\n			<ellipse id="right-eye" cx="105" cy="80" rx="18" ry="22" fill="#fff" stroke="#888" stroke-width="2"/>\n			<!-- Left Pupil -->\n			<circle id="left-pupil" cx="55" cy="80" r="7" fill="#222"/>\n			<!-- Right Pupil -->\n			<circle id="right-pupil" cx="105" cy="80" r="7" fill="#222"/>\n			<!-- Smile -->\n			<path d="M60 110 Q80 130 100 110" stroke="#b39ddb" stroke-width="3" fill="none"/>\n		</svg>\n</div>\n', styles: ["/* src/app/ai-face/ai-face.component.scss */\n.ai-face-container {\n  position: fixed;\n  right: 2vw;\n  bottom: 2vw;\n  z-index: 1000;\n  width: 90px;\n  height: 90px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.12);\n  border-radius: 50%;\n  background: #f9f9f9;\n  opacity: 0.92;\n  transition: opacity 0.2s, transform 0.2s;\n  pointer-events: auto;\n  -webkit-user-select: none;\n  user-select: none;\n}\n.ai-face-container:hover {\n  opacity: 1;\n  transform: scale(1.07);\n}\nsvg {\n  width: 80px;\n  height: 80px;\n  display: block;\n  background: none;\n  border-radius: 50%;\n}\n/*# sourceMappingURL=ai-face.component.css.map */\n"] }]
+  }], null, { aiFaceContainer: [{
+    type: ViewChild,
+    args: ["aiFaceContainer", { static: false }]
+  }], onMouseMove: [{
+    type: HostListener,
+    args: ["document:mousemove", ["$event"]]
+  }] });
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiFaceComponent, { className: "AiFaceComponent", filePath: "src/app/ai-face/ai-face.component.ts", lineNumber: 10 });
+})();
+
 // src/app/profile/profile.component.ts
 var ProfileComponent = class _ProfileComponent {
   constructor(route, router) {
@@ -49420,13 +49518,13 @@ var ProfileComponent = class _ProfileComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProfileComponent, selectors: [["app-profile"]], decls: 12, vars: 0, consts: [[1, "page-content"]], template: function ProfileComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProfileComponent, selectors: [["app-profile"]], decls: 13, vars: 0, consts: [[1, "page-content"]], template: function ProfileComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275element(0, "app-header");
-        \u0275\u0275elementStart(1, "div", 0);
-        \u0275\u0275element(2, "app-intro")(3, "app-about")(4, "app-skills")(5, "app-experience")(6, "app-publications")(7, "app-blog")(8, "app-education")(9, "app-contact")(10, "app-ai-code-review");
+        \u0275\u0275element(0, "app-ai-face")(1, "app-header");
+        \u0275\u0275elementStart(2, "div", 0);
+        \u0275\u0275element(3, "app-intro")(4, "app-about")(5, "app-skills")(6, "app-experience")(7, "app-publications")(8, "app-blog")(9, "app-education")(10, "app-contact")(11, "app-ai-code-review");
         \u0275\u0275elementEnd();
-        \u0275\u0275element(11, "app-footer");
+        \u0275\u0275element(12, "app-footer");
       }
     }, dependencies: [
       HeaderComponent,
@@ -49439,7 +49537,8 @@ var ProfileComponent = class _ProfileComponent {
       SkillsComponent,
       PublicationsComponent,
       AiCodeReviewComponent,
-      BlogComponent
+      BlogComponent,
+      AiFaceComponent
     ], encapsulation: 2 });
   }
 };
@@ -49457,12 +49556,13 @@ var ProfileComponent = class _ProfileComponent {
       SkillsComponent,
       PublicationsComponent,
       AiCodeReviewComponent,
-      BlogComponent
-    ], template: '<app-header></app-header>\n\n<div class="page-content">\n  <!-- <app-particle></app-particle> -->\n  <app-intro></app-intro>\n  <app-about></app-about>\n  <app-skills></app-skills>\n  <app-experience></app-experience>\n  <app-publications></app-publications>\n  <app-blog></app-blog>\n  <app-education></app-education>\n\n  <app-contact></app-contact>\n  <app-ai-code-review></app-ai-code-review>\n</div>\n<app-footer></app-footer>\n' }]
+      BlogComponent,
+      AiFaceComponent
+    ], template: '\n<app-ai-face></app-ai-face>\n<app-header></app-header>\n\n<div class="page-content">\n  <!-- <app-particle></app-particle> -->\n  <app-intro></app-intro>\n  <app-about></app-about>\n  <app-skills></app-skills>\n  <app-experience></app-experience>\n  <app-publications></app-publications>\n  <app-blog></app-blog>\n  <app-education></app-education>\n\n  <app-contact></app-contact>\n  <app-ai-code-review></app-ai-code-review>\n</div>\n<app-footer></app-footer>\n' }]
   }], () => [{ type: ActivatedRoute }, { type: Router }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProfileComponent, { className: "ProfileComponent", filePath: "src/app/profile/profile.component.ts", lineNumber: 36 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProfileComponent, { className: "ProfileComponent", filePath: "src/app/profile/profile.component.ts", lineNumber: 38 });
 })();
 
 // src/app/app.component.ts

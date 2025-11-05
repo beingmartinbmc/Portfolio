@@ -10,8 +10,8 @@ export class TimeService {
   }
 
   public getNumberOfMonths(): Observable<number> {
-    // added date
-    const joinedDate = new Date('10/1/2022');
+    // Salesforce joined date
+    const joinedDate = new Date('11/3/2025');
     const currentDate = new Date();
     const difference = currentDate.getTime() - joinedDate.getTime();
     const days = difference / (1000 * 3600 * 24);
