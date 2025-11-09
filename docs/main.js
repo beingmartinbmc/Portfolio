@@ -66,9 +66,6 @@ function isNotFound(e) {
 }
 
 // node_modules/@angular/core/fesm2022/signal.mjs
-function defaultEquals(a, b) {
-  return Object.is(a, b);
-}
 var activeConsumer = null;
 var inNotificationPhase = false;
 var epoch = 1;
@@ -200,17 +197,20 @@ function producerMarkClean(node) {
   node.lastCleanEpoch = epoch;
 }
 function consumerBeforeComputation(node) {
-  if (node) {
-    node.producersTail = void 0;
-    node.recomputing = true;
-  }
+  if (node)
+    resetConsumerBeforeComputation(node);
   return setActiveConsumer(node);
+}
+function resetConsumerBeforeComputation(node) {
+  node.producersTail = void 0;
+  node.recomputing = true;
 }
 function consumerAfterComputation(node, prevConsumer) {
   setActiveConsumer(prevConsumer);
-  if (!node) {
-    return;
-  }
+  if (node)
+    finalizeConsumerAfterComputation(node);
+}
+function finalizeConsumerAfterComputation(node) {
   node.recomputing = false;
   const producersTail = node.producersTail;
   let toRemove = producersTail !== void 0 ? producersTail.nextProducer : node.producers;
@@ -318,6 +318,9 @@ function isValidLink(checkLink, consumer) {
   }
   return false;
 }
+function defaultEquals(a, b) {
+  return Object.is(a, b);
+}
 function createComputed(computation, equal) {
   const node = Object.create(COMPUTED_NODE);
   node.computation = computation;
@@ -398,7 +401,7 @@ function createSignal(initialValue, equal) {
   if (equal !== void 0) {
     node.equal = equal;
   }
-  const getter = () => signalGetFn(node);
+  const getter = (() => signalGetFn(node));
   getter[SIGNAL] = node;
   if (typeof ngDevMode !== "undefined" && ngDevMode) {
     const debugName = node.debugName ? " (" + node.debugName + ")" : "";
@@ -1353,7 +1356,7 @@ function __asyncValues(o) {
 }
 
 // node_modules/rxjs/dist/esm/internal/util/isArrayLike.js
-var isArrayLike = (x) => x && typeof x.length === "number" && typeof x !== "function";
+var isArrayLike = ((x) => x && typeof x.length === "number" && typeof x !== "function");
 
 // node_modules/rxjs/dist/esm/internal/util/isPromise.js
 function isPromise(value) {
@@ -2101,7 +2104,7 @@ function tap(observerOrNext, error, complete) {
   }) : identity;
 }
 
-// node_modules/@angular/core/fesm2022/untracked.mjs
+// node_modules/@angular/core/fesm2022/effect.mjs
 function createLinkedSignal(sourceFn, computationFn, equalityFn) {
   const node = Object.create(LINKED_SIGNAL_NODE);
   node.source = sourceFn;
@@ -2185,9 +2188,149 @@ function untracked(nonReactiveReadsFn) {
     setActiveConsumer(prevConsumer);
   }
 }
+var BASE_EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, REACTIVE_NODE), {
+  consumerIsAlwaysLive: true,
+  consumerAllowSignalWrites: true,
+  dirty: true,
+  kind: "effect"
+}))();
+function runEffect(node) {
+  node.dirty = false;
+  if (node.version > 0 && !consumerPollProducersForChange(node)) {
+    return;
+  }
+  node.version++;
+  const prevNode = consumerBeforeComputation(node);
+  try {
+    node.cleanup();
+    node.fn();
+  } finally {
+    consumerAfterComputation(node, prevNode);
+  }
+}
+
+// node_modules/@angular/core/fesm2022/primitives/signals.mjs
+var formatter = {
+  /**
+   *  If the function returns `null`, the formatter is not used for this reference
+   */
+  header: (sig, config3) => {
+    if (!isSignal(sig) || config3?.ngSkipFormatting)
+      return null;
+    let value;
+    try {
+      value = sig();
+    } catch {
+      return ["span", "Signal(\u26A0\uFE0F Error)"];
+    }
+    const kind = "computation" in sig[SIGNAL] ? "Computed" : "Signal";
+    const isPrimitive = value === null || !Array.isArray(value) && typeof value !== "object";
+    return [
+      "span",
+      {},
+      ["span", {}, `${kind}(`],
+      (() => {
+        if (isSignal(value)) {
+          return formatter.header(value, config3);
+        } else if (isPrimitive && value !== void 0 && typeof value !== "function") {
+          return ["object", { object: value }];
+        } else {
+          return prettifyPreview(value);
+        }
+      })(),
+      ["span", {}, `)`]
+    ];
+  },
+  hasBody: (sig, config3) => {
+    if (!isSignal(sig))
+      return false;
+    try {
+      sig();
+    } catch {
+      return false;
+    }
+    return !config3?.ngSkipFormatting;
+  },
+  body: (sig, config3) => {
+    const color = "var(--sys-color-primary)";
+    return [
+      "div",
+      { style: `background: #FFFFFF10; padding-left: 4px; padding-top: 2px; padding-bottom: 2px;` },
+      ["div", { style: `color: ${color}` }, "Signal value: "],
+      ["div", { style: `padding-left: .5rem;` }, ["object", { object: sig(), config: config3 }]],
+      ["div", { style: `color: ${color}` }, "Signal function: "],
+      [
+        "div",
+        { style: `padding-left: .5rem;` },
+        ["object", { object: sig, config: __spreadProps(__spreadValues({}, config3), { skipFormatting: true }) }]
+      ]
+    ];
+  }
+};
+function prettifyPreview(value) {
+  if (value === null)
+    return "null";
+  if (Array.isArray(value))
+    return `Array(${value.length})`;
+  if (value instanceof Element)
+    return `<${value.tagName.toLowerCase()}>`;
+  if (value instanceof URL)
+    return `URL`;
+  switch (typeof value) {
+    case "undefined": {
+      return "undefined";
+    }
+    case "function": {
+      if ("prototype" in value) {
+        return "class";
+      } else {
+        return "() => {\u2026}";
+      }
+    }
+    case "object": {
+      if (value.constructor.name === "Object") {
+        return "{\u2026}";
+      } else {
+        return `${value.constructor.name} {}`;
+      }
+    }
+    default: {
+      return ["object", { object: value, config: { skipFormatting: true } }];
+    }
+  }
+}
+function isSignal(value) {
+  return value[SIGNAL] !== void 0;
+}
+function installDevToolsSignalFormatter() {
+  globalThis.devtoolsFormatters ??= [];
+  if (!globalThis.devtoolsFormatters.some((f) => f === formatter)) {
+    globalThis.devtoolsFormatters.push(formatter);
+  }
+}
+if (typeof ngDevMode !== "undefined" && ngDevMode) {
+  installDevToolsSignalFormatter();
+}
 
 // node_modules/@angular/core/fesm2022/root_effect_scheduler.mjs
-var ERROR_DETAILS_PAGE_BASE_URL = "https://angular.dev/errors";
+var Version = class {
+  full;
+  major;
+  minor;
+  patch;
+  constructor(full) {
+    this.full = full;
+    const parts = full.split(".");
+    this.major = parts[0];
+    this.minor = parts[1];
+    this.patch = parts.slice(2).join(".");
+  }
+};
+var VERSION = /* @__PURE__ */ new Version("20.3.10");
+var ERROR_DETAILS_PAGE_BASE_URL = (() => {
+  const versionSubDomain = VERSION.major !== "0" ? `v${VERSION.major}.` : "";
+  return `https://${versionSubDomain}angular.dev/errors`;
+})();
 var XSS_SECURITY_URL = "https://angular.dev/best-practices/security#preventing-cross-site-scripting-xss";
 var RuntimeError = class extends Error {
   code;
@@ -3283,14 +3426,15 @@ var R3Injector = class extends EnvironmentInjector {
     } catch (error) {
       const errorCode = getRuntimeErrorCode(error);
       if (errorCode === -200 || errorCode === -201) {
-        if (!ngDevMode) {
-          throw new RuntimeError(errorCode, null);
-        }
-        prependTokenToDependencyPath(error, token);
-        if (previousInjector) {
-          throw error;
+        if (ngDevMode) {
+          prependTokenToDependencyPath(error, token);
+          if (previousInjector) {
+            throw error;
+          } else {
+            throw augmentRuntimeError(error, this.source);
+          }
         } else {
-          throw augmentRuntimeError(error, this.source);
+          throw new RuntimeError(errorCode, null);
         }
       } else {
         throw error;
@@ -3566,7 +3710,8 @@ var EFFECTS_TO_SCHEDULE = 22;
 var EFFECTS = 23;
 var REACTIVE_TEMPLATE_CONSUMER = 24;
 var AFTER_RENDER_SEQUENCES_TO_ADD = 25;
-var HEADER_OFFSET = 26;
+var ANIMATIONS = 26;
+var HEADER_OFFSET = 27;
 var TYPE = 1;
 var DEHYDRATED_VIEWS = 6;
 var NATIVE = 7;
@@ -4309,7 +4454,7 @@ var globalErrorListeners = new InjectionToken(ngDevMode ? "GlobalErrorListeners"
     });
   }
 });
-function isSignal(value) {
+function isSignal2(value) {
   return typeof value === "function" && value[SIGNAL] !== void 0;
 }
 function signal(initialValue, options) {
@@ -4335,14 +4480,8 @@ function signalAsReadonlyFn() {
   return node.readonlyFn;
 }
 function isWritableSignal(value) {
-  return isSignal(value) && typeof value.set === "function";
+  return isSignal2(value) && typeof value.set === "function";
 }
-var ChangeDetectionScheduler = class {
-};
-var ZONELESS_ENABLED = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "Zoneless enabled" : "", { providedIn: "root", factory: () => false });
-var PROVIDED_ZONELESS = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "Zoneless provided" : "", { providedIn: "root", factory: () => false });
-var ZONELESS_SCHEDULER_DISABLED = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "scheduler disabled" : "");
-var SCHEDULE_IN_ROOT_ZONE = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "run changes outside zone in root" : "");
 function assertNotInReactiveContext(debugFn, extraContext) {
   if (getActiveConsumer() !== null) {
     throw new RuntimeError(-602, ngDevMode && `${debugFn.name}() cannot be called from within a reactive context.${extraContext ? ` ${extraContext}` : ""}`);
@@ -4364,6 +4503,12 @@ var ViewContext = class {
 function injectViewContext() {
   return new ViewContext(getLView(), getCurrentTNode());
 }
+var ChangeDetectionScheduler = class {
+};
+var ZONELESS_ENABLED = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "Zoneless enabled" : "", { providedIn: "root", factory: () => false });
+var PROVIDED_ZONELESS = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "Zoneless provided" : "", { providedIn: "root", factory: () => false });
+var ZONELESS_SCHEDULER_DISABLED = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "scheduler disabled" : "");
+var SCHEDULE_IN_ROOT_ZONE = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "run changes outside zone in root" : "");
 var PendingTasksInternal = class _PendingTasksInternal {
   taskId = 0;
   pendingTasks = /* @__PURE__ */ new Set();
@@ -6670,19 +6815,20 @@ var NUM_ROOT_NODES = "r";
 var DEFER_BLOCK_ID = "di";
 var DEFER_BLOCK_STATE$1 = "s";
 var DEFER_PARENT_BLOCK_ID = "p";
-var IS_HYDRATION_DOM_REUSE_ENABLED = new InjectionToken(typeof ngDevMode === "undefined" || !!ngDevMode ? "IS_HYDRATION_DOM_REUSE_ENABLED" : "");
+var IS_HYDRATION_DOM_REUSE_ENABLED = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "IS_HYDRATION_DOM_REUSE_ENABLED" : "");
 var PRESERVE_HOST_CONTENT_DEFAULT = false;
-var PRESERVE_HOST_CONTENT = new InjectionToken(typeof ngDevMode === "undefined" || !!ngDevMode ? "PRESERVE_HOST_CONTENT" : "", {
+var PRESERVE_HOST_CONTENT = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "PRESERVE_HOST_CONTENT" : "", {
   providedIn: "root",
   factory: () => PRESERVE_HOST_CONTENT_DEFAULT
 });
-var IS_I18N_HYDRATION_ENABLED = new InjectionToken(typeof ngDevMode === "undefined" || !!ngDevMode ? "IS_I18N_HYDRATION_ENABLED" : "");
-var IS_EVENT_REPLAY_ENABLED = new InjectionToken(typeof ngDevMode === "undefined" || !!ngDevMode ? "IS_EVENT_REPLAY_ENABLED" : "");
-var IS_INCREMENTAL_HYDRATION_ENABLED = new InjectionToken(typeof ngDevMode === "undefined" || !!ngDevMode ? "IS_INCREMENTAL_HYDRATION_ENABLED" : "");
+var IS_I18N_HYDRATION_ENABLED = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "IS_I18N_HYDRATION_ENABLED" : "");
+var IS_EVENT_REPLAY_ENABLED = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "IS_EVENT_REPLAY_ENABLED" : "");
+var IS_INCREMENTAL_HYDRATION_ENABLED = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "IS_INCREMENTAL_HYDRATION_ENABLED" : "");
 var JSACTION_BLOCK_ELEMENT_MAP = new InjectionToken(ngDevMode ? "JSACTION_BLOCK_ELEMENT_MAP" : "", {
   providedIn: "root",
   factory: () => /* @__PURE__ */ new Map()
 });
+var IS_ENABLED_BLOCKING_INITIAL_NAVIGATION = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "IS_ENABLED_BLOCKING_INITIAL_NAVIGATION" : "");
 var eventListenerOptions = {
   passive: true,
   capture: true
@@ -6796,6 +6942,9 @@ var TRANSFER_STATE_TOKEN_ID = "__nghData__";
 var NGH_DATA_KEY = makeStateKey(TRANSFER_STATE_TOKEN_ID);
 var TRANSFER_STATE_DEFER_BLOCKS_INFO = "__nghDeferData__";
 var NGH_DEFER_BLOCKS_KEY = makeStateKey(TRANSFER_STATE_DEFER_BLOCKS_INFO);
+function isInternalHydrationTransferStateKey(key) {
+  return key === TRANSFER_STATE_TOKEN_ID || key === TRANSFER_STATE_DEFER_BLOCKS_INFO;
+}
 var _retrieveHydrationInfoImpl = () => null;
 function retrieveHydrationInfo(rNode, injector, isRootView2 = false) {
   return _retrieveHydrationInfoImpl(rNode, injector, isRootView2);
@@ -6841,9 +6990,11 @@ function isIncrementalHydrationEnabled(injector) {
     optional: true
   });
 }
-function assertIncrementalHydrationIsConfigured(injector) {
-  if (!isIncrementalHydrationEnabled(injector)) {
-    throw new RuntimeError(508, "Angular has detected that some `@defer` blocks use `hydrate` triggers, but incremental hydration was not enabled. Please ensure that the `withIncrementalHydration()` call is added as an argument for the `provideClientHydration()` function call in your application config.");
+var incrementalHydrationEnabledWarned = false;
+function warnIncrementalHydrationNotConfigured() {
+  if (!incrementalHydrationEnabledWarned) {
+    incrementalHydrationEnabledWarned = true;
+    console.warn(formatRuntimeError(508, "Angular has detected that some `@defer` blocks use `hydrate` triggers, but incremental hydration was not enabled. Please ensure that the `withIncrementalHydration()` call is added as an argument for the `provideClientHydration()` function call in your application config."));
   }
 }
 function assertSsrIdDefined(ssrUniqueId) {
@@ -7913,8 +8064,8 @@ function nativeAppendOrInsertBefore(renderer, parent, child, beforeNode, isMove)
     nativeAppendChild(renderer, parent, child);
   }
 }
-function nativeRemoveNode(renderer, rNode, isHostElement) {
-  renderer.removeChild(null, rNode, isHostElement);
+function nativeRemoveNode(renderer, rNode, isHostElement, requireSynchronousElementRemoval) {
+  renderer.removeChild(null, rNode, isHostElement, requireSynchronousElementRemoval);
 }
 function writeDirectStyle(renderer, element, newValue) {
   ngDevMode && assertString(newValue, "'newValue' should be a string");
@@ -8138,7 +8289,823 @@ function ensureIcuContainerVisitorLoaded(loader) {
     _icuContainerIterate = loader();
   }
 }
-function applyToElementOrContainer(action, renderer, parent, lNodeToHandle, beforeNode) {
+function parseCssTimeUnitsToMs(value) {
+  if (!value)
+    return 0;
+  const multiplier = value.toLowerCase().indexOf("ms") > -1 ? 1 : 1e3;
+  return parseFloat(value) * multiplier;
+}
+function parseCssPropertyValue(computedStyle, name) {
+  const value = computedStyle.getPropertyValue(name);
+  return value.split(",").map((part) => part.trim());
+}
+function getLongestComputedTransition(computedStyle) {
+  const transitionedProperties = parseCssPropertyValue(computedStyle, "transition-property");
+  const rawDurations = parseCssPropertyValue(computedStyle, "transition-duration");
+  const rawDelays = parseCssPropertyValue(computedStyle, "transition-delay");
+  const longest = { propertyName: "", duration: 0, animationName: void 0 };
+  for (let i = 0; i < transitionedProperties.length; i++) {
+    const duration = parseCssTimeUnitsToMs(rawDelays[i]) + parseCssTimeUnitsToMs(rawDurations[i]);
+    if (duration > longest.duration) {
+      longest.propertyName = transitionedProperties[i];
+      longest.duration = duration;
+    }
+  }
+  return longest;
+}
+function getLongestComputedAnimation(computedStyle) {
+  const rawNames = parseCssPropertyValue(computedStyle, "animation-name");
+  const rawDelays = parseCssPropertyValue(computedStyle, "animation-delay");
+  const rawDurations = parseCssPropertyValue(computedStyle, "animation-duration");
+  const longest = { animationName: "", propertyName: void 0, duration: 0 };
+  for (let i = 0; i < rawNames.length; i++) {
+    const duration = parseCssTimeUnitsToMs(rawDelays[i]) + parseCssTimeUnitsToMs(rawDurations[i]);
+    if (duration > longest.duration) {
+      longest.animationName = rawNames[i];
+      longest.duration = duration;
+    }
+  }
+  return longest;
+}
+function isShorterThanExistingAnimation(existing, longest) {
+  return existing !== void 0 && existing.duration > longest.duration;
+}
+function longestExists(longest) {
+  return (longest.animationName != void 0 || longest.propertyName != void 0) && longest.duration > 0;
+}
+function determineLongestAnimationFromComputedStyles(el, animationsMap) {
+  const computedStyle = getComputedStyle(el);
+  const longestAnimation = getLongestComputedAnimation(computedStyle);
+  const longestTransition = getLongestComputedTransition(computedStyle);
+  const longest = longestAnimation.duration > longestTransition.duration ? longestAnimation : longestTransition;
+  if (isShorterThanExistingAnimation(animationsMap.get(el), longest))
+    return;
+  if (longestExists(longest)) {
+    animationsMap.set(el, longest);
+  }
+}
+function determineLongestAnimation(el, animationsMap, areAnimationSupported2) {
+  if (!areAnimationSupported2)
+    return;
+  const animations = el.getAnimations();
+  return animations.length === 0 ? (
+    // fallback to computed styles if getAnimations is empty. This would happen if styles are
+    // currently recalculating due to a reflow happening elsewhere.
+    determineLongestAnimationFromComputedStyles(el, animationsMap)
+  ) : determineLongestAnimationFromElementAnimations(el, animationsMap, animations);
+}
+function determineLongestAnimationFromElementAnimations(el, animationsMap, animations) {
+  let longest = {
+    animationName: void 0,
+    propertyName: void 0,
+    duration: 0
+  };
+  for (const animation of animations) {
+    const timing = animation.effect?.getTiming();
+    const animDuration = typeof timing?.duration === "number" ? timing.duration : 0;
+    let duration = (timing?.delay ?? 0) + animDuration;
+    let propertyName;
+    let animationName;
+    if (animation.animationName) {
+      animationName = animation.animationName;
+    } else {
+      propertyName = animation.transitionProperty;
+    }
+    if (duration >= longest.duration) {
+      longest = { animationName, propertyName, duration };
+    }
+  }
+  if (isShorterThanExistingAnimation(animationsMap.get(el), longest))
+    return;
+  if (longestExists(longest)) {
+    animationsMap.set(el, longest);
+  }
+}
+var allLeavingAnimations = /* @__PURE__ */ new Set();
+var TracingAction;
+(function(TracingAction2) {
+  TracingAction2[TracingAction2["CHANGE_DETECTION"] = 0] = "CHANGE_DETECTION";
+  TracingAction2[TracingAction2["AFTER_NEXT_RENDER"] = 1] = "AFTER_NEXT_RENDER";
+})(TracingAction || (TracingAction = {}));
+var TracingService = new InjectionToken(ngDevMode ? "TracingService" : "");
+var markedFeatures = /* @__PURE__ */ new Set();
+function performanceMarkFeature(feature) {
+  if (markedFeatures.has(feature)) {
+    return;
+  }
+  markedFeatures.add(feature);
+  performance?.mark?.("mark_feature_usage", { detail: { feature } });
+}
+var SCHEDULE_IN_ROOT_ZONE_DEFAULT = false;
+var EventEmitter_ = class extends Subject {
+  // tslint:disable-next-line:require-internal-with-underscore
+  __isAsync;
+  destroyRef = void 0;
+  pendingTasks = void 0;
+  constructor(isAsync = false) {
+    super();
+    this.__isAsync = isAsync;
+    if (isInInjectionContext()) {
+      this.destroyRef = inject2(DestroyRef, { optional: true }) ?? void 0;
+      this.pendingTasks = inject2(PendingTasksInternal, { optional: true }) ?? void 0;
+    }
+  }
+  emit(value) {
+    const prevConsumer = setActiveConsumer(null);
+    try {
+      super.next(value);
+    } finally {
+      setActiveConsumer(prevConsumer);
+    }
+  }
+  subscribe(observerOrNext, error, complete) {
+    let nextFn = observerOrNext;
+    let errorFn = error || (() => null);
+    let completeFn = complete;
+    if (observerOrNext && typeof observerOrNext === "object") {
+      const observer = observerOrNext;
+      nextFn = observer.next?.bind(observer);
+      errorFn = observer.error?.bind(observer);
+      completeFn = observer.complete?.bind(observer);
+    }
+    if (this.__isAsync) {
+      errorFn = this.wrapInTimeout(errorFn);
+      if (nextFn) {
+        nextFn = this.wrapInTimeout(nextFn);
+      }
+      if (completeFn) {
+        completeFn = this.wrapInTimeout(completeFn);
+      }
+    }
+    const sink = super.subscribe({ next: nextFn, error: errorFn, complete: completeFn });
+    if (observerOrNext instanceof Subscription) {
+      observerOrNext.add(sink);
+    }
+    return sink;
+  }
+  wrapInTimeout(fn) {
+    return (value) => {
+      const taskId = this.pendingTasks?.add();
+      setTimeout(() => {
+        try {
+          fn(value);
+        } finally {
+          if (taskId !== void 0) {
+            this.pendingTasks?.remove(taskId);
+          }
+        }
+      });
+    };
+  }
+};
+var EventEmitter = EventEmitter_;
+function scheduleCallbackWithRafRace(callback) {
+  let timeoutId;
+  let animationFrameId;
+  function cleanup() {
+    callback = noop2;
+    try {
+      if (animationFrameId !== void 0 && typeof cancelAnimationFrame === "function") {
+        cancelAnimationFrame(animationFrameId);
+      }
+      if (timeoutId !== void 0) {
+        clearTimeout(timeoutId);
+      }
+    } catch {
+    }
+  }
+  timeoutId = setTimeout(() => {
+    callback();
+    cleanup();
+  });
+  if (typeof requestAnimationFrame === "function") {
+    animationFrameId = requestAnimationFrame(() => {
+      callback();
+      cleanup();
+    });
+  }
+  return () => cleanup();
+}
+function scheduleCallbackWithMicrotask(callback) {
+  queueMicrotask(() => callback());
+  return () => {
+    callback = noop2;
+  };
+}
+var AsyncStackTaggingZoneSpec = class {
+  createTask;
+  constructor(namePrefix, consoleAsyncStackTaggingImpl = console) {
+    this.name = "asyncStackTagging for " + namePrefix;
+    this.createTask = consoleAsyncStackTaggingImpl?.createTask ?? (() => null);
+  }
+  // ZoneSpec implementation below.
+  name;
+  onScheduleTask(delegate, _current, target, task) {
+    task.consoleTask = this.createTask(`Zone - ${task.source || task.type}`);
+    return delegate.scheduleTask(target, task);
+  }
+  onInvokeTask(delegate, _currentZone, targetZone, task, applyThis, applyArgs) {
+    let ret;
+    if (task.consoleTask) {
+      ret = task.consoleTask.run(() => delegate.invokeTask(targetZone, task, applyThis, applyArgs));
+    } else {
+      ret = delegate.invokeTask(targetZone, task, applyThis, applyArgs);
+    }
+    return ret;
+  }
+};
+var isAngularZoneProperty = "isAngularZone";
+var angularZoneInstanceIdProperty = isAngularZoneProperty + "_ID";
+var ngZoneInstanceId = 0;
+var NgZone = class _NgZone {
+  hasPendingMacrotasks = false;
+  hasPendingMicrotasks = false;
+  /**
+   * Whether there are no outstanding microtasks or macrotasks.
+   */
+  isStable = true;
+  /**
+   * Notifies when code enters Angular Zone. This gets fired first on VM Turn.
+   */
+  onUnstable = new EventEmitter(false);
+  /**
+   * Notifies when there is no more microtasks enqueued in the current VM Turn.
+   * This is a hint for Angular to do change detection, which may enqueue more microtasks.
+   * For this reason this event can fire multiple times per VM Turn.
+   */
+  onMicrotaskEmpty = new EventEmitter(false);
+  /**
+   * Notifies when the last `onMicrotaskEmpty` has run and there are no more microtasks, which
+   * implies we are about to relinquish VM turn.
+   * This event gets called just once.
+   */
+  onStable = new EventEmitter(false);
+  /**
+   * Notifies that an error has been delivered.
+   */
+  onError = new EventEmitter(false);
+  constructor(options) {
+    const { enableLongStackTrace = false, shouldCoalesceEventChangeDetection = false, shouldCoalesceRunChangeDetection = false, scheduleInRootZone = SCHEDULE_IN_ROOT_ZONE_DEFAULT } = options;
+    if (typeof Zone == "undefined") {
+      throw new RuntimeError(908, ngDevMode && `In this configuration Angular requires Zone.js`);
+    }
+    Zone.assertZonePatched();
+    const self = this;
+    self._nesting = 0;
+    self._outer = self._inner = Zone.current;
+    if (ngDevMode) {
+      self._inner = self._inner.fork(new AsyncStackTaggingZoneSpec("Angular"));
+    }
+    if (Zone["TaskTrackingZoneSpec"]) {
+      self._inner = self._inner.fork(new Zone["TaskTrackingZoneSpec"]());
+    }
+    if (enableLongStackTrace && Zone["longStackTraceZoneSpec"]) {
+      self._inner = self._inner.fork(Zone["longStackTraceZoneSpec"]);
+    }
+    self.shouldCoalesceEventChangeDetection = !shouldCoalesceRunChangeDetection && shouldCoalesceEventChangeDetection;
+    self.shouldCoalesceRunChangeDetection = shouldCoalesceRunChangeDetection;
+    self.callbackScheduled = false;
+    self.scheduleInRootZone = scheduleInRootZone;
+    forkInnerZoneWithAngularBehavior(self);
+  }
+  /**
+    This method checks whether the method call happens within an Angular Zone instance.
+  */
+  static isInAngularZone() {
+    return typeof Zone !== "undefined" && Zone.current.get(isAngularZoneProperty) === true;
+  }
+  /**
+    Assures that the method is called within the Angular Zone, otherwise throws an error.
+  */
+  static assertInAngularZone() {
+    if (!_NgZone.isInAngularZone()) {
+      throw new RuntimeError(909, ngDevMode && "Expected to be in Angular Zone, but it is not!");
+    }
+  }
+  /**
+    Assures that the method is called outside of the Angular Zone, otherwise throws an error.
+  */
+  static assertNotInAngularZone() {
+    if (_NgZone.isInAngularZone()) {
+      throw new RuntimeError(909, ngDevMode && "Expected to not be in Angular Zone, but it is!");
+    }
+  }
+  /**
+   * Executes the `fn` function synchronously within the Angular zone and returns value returned by
+   * the function.
+   *
+   * Running functions via `run` allows you to reenter Angular zone from a task that was executed
+   * outside of the Angular zone (typically started via {@link #runOutsideAngular}).
+   *
+   * Any future tasks or microtasks scheduled from within this function will continue executing from
+   * within the Angular zone.
+   *
+   * If a synchronous error happens it will be rethrown and not reported via `onError`.
+   */
+  run(fn, applyThis, applyArgs) {
+    return this._inner.run(fn, applyThis, applyArgs);
+  }
+  /**
+   * Executes the `fn` function synchronously within the Angular zone as a task and returns value
+   * returned by the function.
+   *
+   * Running functions via `runTask` allows you to reenter Angular zone from a task that was executed
+   * outside of the Angular zone (typically started via {@link #runOutsideAngular}).
+   *
+   * Any future tasks or microtasks scheduled from within this function will continue executing from
+   * within the Angular zone.
+   *
+   * If a synchronous error happens it will be rethrown and not reported via `onError`.
+   */
+  runTask(fn, applyThis, applyArgs, name) {
+    const zone = this._inner;
+    const task = zone.scheduleEventTask("NgZoneEvent: " + name, fn, EMPTY_PAYLOAD, noop2, noop2);
+    try {
+      return zone.runTask(task, applyThis, applyArgs);
+    } finally {
+      zone.cancelTask(task);
+    }
+  }
+  /**
+   * Same as `run`, except that synchronous errors are caught and forwarded via `onError` and not
+   * rethrown.
+   */
+  runGuarded(fn, applyThis, applyArgs) {
+    return this._inner.runGuarded(fn, applyThis, applyArgs);
+  }
+  /**
+   * Executes the `fn` function synchronously in Angular's parent zone and returns value returned by
+   * the function.
+   *
+   * Running functions via {@link #runOutsideAngular} allows you to escape Angular's zone and do
+   * work that
+   * doesn't trigger Angular change-detection or is subject to Angular's error handling.
+   *
+   * Any future tasks or microtasks scheduled from within this function will continue executing from
+   * outside of the Angular zone.
+   *
+   * Use {@link #run} to reenter the Angular zone and do work that updates the application model.
+   */
+  runOutsideAngular(fn) {
+    return this._outer.run(fn);
+  }
+};
+var EMPTY_PAYLOAD = {};
+function checkStable(zone) {
+  if (zone._nesting == 0 && !zone.hasPendingMicrotasks && !zone.isStable) {
+    try {
+      zone._nesting++;
+      zone.onMicrotaskEmpty.emit(null);
+    } finally {
+      zone._nesting--;
+      if (!zone.hasPendingMicrotasks) {
+        try {
+          zone.runOutsideAngular(() => zone.onStable.emit(null));
+        } finally {
+          zone.isStable = true;
+        }
+      }
+    }
+  }
+}
+function delayChangeDetectionForEvents(zone) {
+  if (zone.isCheckStableRunning || zone.callbackScheduled) {
+    return;
+  }
+  zone.callbackScheduled = true;
+  function scheduleCheckStable() {
+    scheduleCallbackWithRafRace(() => {
+      zone.callbackScheduled = false;
+      updateMicroTaskStatus(zone);
+      zone.isCheckStableRunning = true;
+      checkStable(zone);
+      zone.isCheckStableRunning = false;
+    });
+  }
+  if (zone.scheduleInRootZone) {
+    Zone.root.run(() => {
+      scheduleCheckStable();
+    });
+  } else {
+    zone._outer.run(() => {
+      scheduleCheckStable();
+    });
+  }
+  updateMicroTaskStatus(zone);
+}
+function forkInnerZoneWithAngularBehavior(zone) {
+  const delayChangeDetectionForEventsDelegate = () => {
+    delayChangeDetectionForEvents(zone);
+  };
+  const instanceId = ngZoneInstanceId++;
+  zone._inner = zone._inner.fork({
+    name: "angular",
+    properties: {
+      [isAngularZoneProperty]: true,
+      [angularZoneInstanceIdProperty]: instanceId,
+      [angularZoneInstanceIdProperty + instanceId]: true
+    },
+    onInvokeTask: (delegate, current, target, task, applyThis, applyArgs) => {
+      if (shouldBeIgnoredByZone(applyArgs)) {
+        return delegate.invokeTask(target, task, applyThis, applyArgs);
+      }
+      try {
+        onEnter(zone);
+        return delegate.invokeTask(target, task, applyThis, applyArgs);
+      } finally {
+        if (zone.shouldCoalesceEventChangeDetection && task.type === "eventTask" || zone.shouldCoalesceRunChangeDetection) {
+          delayChangeDetectionForEventsDelegate();
+        }
+        onLeave(zone);
+      }
+    },
+    onInvoke: (delegate, current, target, callback, applyThis, applyArgs, source) => {
+      try {
+        onEnter(zone);
+        return delegate.invoke(target, callback, applyThis, applyArgs, source);
+      } finally {
+        if (zone.shouldCoalesceRunChangeDetection && // Do not delay change detection when the task is the scheduler's tick.
+        // We need to synchronously trigger the stability logic so that the
+        // zone-based scheduler can prevent a duplicate ApplicationRef.tick
+        // by first checking if the scheduler tick is running. This does seem a bit roundabout,
+        // but we _do_ still want to trigger all the correct events when we exit the zone.run
+        // (`onMicrotaskEmpty` and `onStable` _should_ emit; developers can have code which
+        // relies on these events happening after change detection runs).
+        // Note: `zone.callbackScheduled` is already in delayChangeDetectionForEventsDelegate
+        // but is added here as well to prevent reads of applyArgs when not necessary
+        !zone.callbackScheduled && !isSchedulerTick(applyArgs)) {
+          delayChangeDetectionForEventsDelegate();
+        }
+        onLeave(zone);
+      }
+    },
+    onHasTask: (delegate, current, target, hasTaskState) => {
+      delegate.hasTask(target, hasTaskState);
+      if (current === target) {
+        if (hasTaskState.change == "microTask") {
+          zone._hasPendingMicrotasks = hasTaskState.microTask;
+          updateMicroTaskStatus(zone);
+          checkStable(zone);
+        } else if (hasTaskState.change == "macroTask") {
+          zone.hasPendingMacrotasks = hasTaskState.macroTask;
+        }
+      }
+    },
+    onHandleError: (delegate, current, target, error) => {
+      delegate.handleError(target, error);
+      zone.runOutsideAngular(() => zone.onError.emit(error));
+      return false;
+    }
+  });
+}
+function updateMicroTaskStatus(zone) {
+  if (zone._hasPendingMicrotasks || (zone.shouldCoalesceEventChangeDetection || zone.shouldCoalesceRunChangeDetection) && zone.callbackScheduled === true) {
+    zone.hasPendingMicrotasks = true;
+  } else {
+    zone.hasPendingMicrotasks = false;
+  }
+}
+function onEnter(zone) {
+  zone._nesting++;
+  if (zone.isStable) {
+    zone.isStable = false;
+    zone.onUnstable.emit(null);
+  }
+}
+function onLeave(zone) {
+  zone._nesting--;
+  checkStable(zone);
+}
+var NoopNgZone = class {
+  hasPendingMicrotasks = false;
+  hasPendingMacrotasks = false;
+  isStable = true;
+  onUnstable = new EventEmitter();
+  onMicrotaskEmpty = new EventEmitter();
+  onStable = new EventEmitter();
+  onError = new EventEmitter();
+  run(fn, applyThis, applyArgs) {
+    return fn.apply(applyThis, applyArgs);
+  }
+  runGuarded(fn, applyThis, applyArgs) {
+    return fn.apply(applyThis, applyArgs);
+  }
+  runOutsideAngular(fn) {
+    return fn();
+  }
+  runTask(fn, applyThis, applyArgs, name) {
+    return fn.apply(applyThis, applyArgs);
+  }
+};
+function shouldBeIgnoredByZone(applyArgs) {
+  return hasApplyArgsData(applyArgs, "__ignore_ng_zone__");
+}
+function isSchedulerTick(applyArgs) {
+  return hasApplyArgsData(applyArgs, "__scheduler_tick__");
+}
+function hasApplyArgsData(applyArgs, key) {
+  if (!Array.isArray(applyArgs)) {
+    return false;
+  }
+  if (applyArgs.length !== 1) {
+    return false;
+  }
+  return applyArgs[0]?.data?.[key] === true;
+}
+function getNgZone(ngZoneToUse = "zone.js", options) {
+  if (ngZoneToUse === "noop") {
+    return new NoopNgZone();
+  }
+  if (ngZoneToUse === "zone.js") {
+    return new NgZone(options);
+  }
+  return ngZoneToUse;
+}
+var AfterRenderManager = class _AfterRenderManager {
+  impl = null;
+  execute() {
+    this.impl?.execute();
+  }
+  /** @nocollapse */
+  static \u0275prov = (
+    /** @pureOrBreakMyCode */
+    /* @__PURE__ */ \u0275\u0275defineInjectable({
+      token: _AfterRenderManager,
+      providedIn: "root",
+      factory: () => new _AfterRenderManager()
+    })
+  );
+};
+var AFTER_RENDER_PHASES = /* @__PURE__ */ (() => [
+  0,
+  1,
+  2,
+  3
+])();
+var AfterRenderImpl = class _AfterRenderImpl {
+  ngZone = inject2(NgZone);
+  scheduler = inject2(ChangeDetectionScheduler);
+  errorHandler = inject2(ErrorHandler, { optional: true });
+  /** Current set of active sequences. */
+  sequences = /* @__PURE__ */ new Set();
+  /** Tracks registrations made during the current set of executions. */
+  deferredRegistrations = /* @__PURE__ */ new Set();
+  /** Whether the `AfterRenderManager` is currently executing hooks. */
+  executing = false;
+  constructor() {
+    inject2(TracingService, { optional: true });
+  }
+  /**
+   * Run the sequence of phases of hooks, once through. As a result of executing some hooks, more
+   * might be scheduled.
+   */
+  execute() {
+    const hasSequencesToExecute = this.sequences.size > 0;
+    if (hasSequencesToExecute) {
+      profiler(
+        16
+        /* ProfilerEvent.AfterRenderHooksStart */
+      );
+    }
+    this.executing = true;
+    for (const phase of AFTER_RENDER_PHASES) {
+      for (const sequence2 of this.sequences) {
+        if (sequence2.erroredOrDestroyed || !sequence2.hooks[phase]) {
+          continue;
+        }
+        try {
+          sequence2.pipelinedValue = this.ngZone.runOutsideAngular(() => this.maybeTrace(() => {
+            const hookFn = sequence2.hooks[phase];
+            const value = hookFn(sequence2.pipelinedValue);
+            return value;
+          }, sequence2.snapshot));
+        } catch (err) {
+          sequence2.erroredOrDestroyed = true;
+          this.errorHandler?.handleError(err);
+        }
+      }
+    }
+    this.executing = false;
+    for (const sequence2 of this.sequences) {
+      sequence2.afterRun();
+      if (sequence2.once) {
+        this.sequences.delete(sequence2);
+        sequence2.destroy();
+      }
+    }
+    for (const sequence2 of this.deferredRegistrations) {
+      this.sequences.add(sequence2);
+    }
+    if (this.deferredRegistrations.size > 0) {
+      this.scheduler.notify(
+        7
+        /* NotificationSource.RenderHook */
+      );
+    }
+    this.deferredRegistrations.clear();
+    if (hasSequencesToExecute) {
+      profiler(
+        17
+        /* ProfilerEvent.AfterRenderHooksEnd */
+      );
+    }
+  }
+  register(sequence2) {
+    const { view } = sequence2;
+    if (view !== void 0) {
+      (view[AFTER_RENDER_SEQUENCES_TO_ADD] ??= []).push(sequence2);
+      markAncestorsForTraversal(view);
+      view[FLAGS] |= 8192;
+    } else if (!this.executing) {
+      this.addSequence(sequence2);
+    } else {
+      this.deferredRegistrations.add(sequence2);
+    }
+  }
+  addSequence(sequence2) {
+    this.sequences.add(sequence2);
+    this.scheduler.notify(
+      7
+      /* NotificationSource.RenderHook */
+    );
+  }
+  unregister(sequence2) {
+    if (this.executing && this.sequences.has(sequence2)) {
+      sequence2.erroredOrDestroyed = true;
+      sequence2.pipelinedValue = void 0;
+      sequence2.once = true;
+    } else {
+      this.sequences.delete(sequence2);
+      this.deferredRegistrations.delete(sequence2);
+    }
+  }
+  maybeTrace(fn, snapshot) {
+    return snapshot ? snapshot.run(TracingAction.AFTER_NEXT_RENDER, fn) : fn();
+  }
+  /** @nocollapse */
+  static \u0275prov = (
+    /** @pureOrBreakMyCode */
+    /* @__PURE__ */ \u0275\u0275defineInjectable({
+      token: _AfterRenderImpl,
+      providedIn: "root",
+      factory: () => new _AfterRenderImpl()
+    })
+  );
+};
+var AfterRenderSequence = class {
+  impl;
+  hooks;
+  view;
+  once;
+  snapshot;
+  /**
+   * Whether this sequence errored or was destroyed during this execution, and hooks should no
+   * longer run for it.
+   */
+  erroredOrDestroyed = false;
+  /**
+   * The value returned by the last hook execution (if any), ready to be pipelined into the next
+   * one.
+   */
+  pipelinedValue = void 0;
+  unregisterOnDestroy;
+  constructor(impl, hooks, view, once, destroyRef, snapshot = null) {
+    this.impl = impl;
+    this.hooks = hooks;
+    this.view = view;
+    this.once = once;
+    this.snapshot = snapshot;
+    this.unregisterOnDestroy = destroyRef?.onDestroy(() => this.destroy());
+  }
+  afterRun() {
+    this.erroredOrDestroyed = false;
+    this.pipelinedValue = void 0;
+    this.snapshot?.dispose();
+    this.snapshot = null;
+  }
+  destroy() {
+    this.impl.unregister(this);
+    this.unregisterOnDestroy?.();
+    const scheduled2 = this.view?.[AFTER_RENDER_SEQUENCES_TO_ADD];
+    if (scheduled2) {
+      this.view[AFTER_RENDER_SEQUENCES_TO_ADD] = scheduled2.filter((s) => s !== this);
+    }
+  }
+};
+function afterEveryRender(callbackOrSpec, options) {
+  ngDevMode && assertNotInReactiveContext(afterEveryRender, "Call `afterEveryRender` outside of a reactive context. For example, schedule the render callback inside the component constructor`.");
+  if (ngDevMode && !options?.injector) {
+    assertInInjectionContext(afterEveryRender);
+  }
+  const injector = options?.injector ?? inject2(Injector);
+  if (false) {
+    return NOOP_AFTER_RENDER_REF;
+  }
+  performanceMarkFeature("NgAfterRender");
+  return afterEveryRenderImpl(
+    callbackOrSpec,
+    injector,
+    options,
+    /* once */
+    false
+  );
+}
+function afterNextRender(callbackOrSpec, options) {
+  if (ngDevMode && !options?.injector) {
+    assertInInjectionContext(afterNextRender);
+  }
+  const injector = options?.injector ?? inject2(Injector);
+  if (false) {
+    return NOOP_AFTER_RENDER_REF;
+  }
+  performanceMarkFeature("NgAfterNextRender");
+  return afterEveryRenderImpl(
+    callbackOrSpec,
+    injector,
+    options,
+    /* once */
+    true
+  );
+}
+function getHooks(callbackOrSpec) {
+  if (callbackOrSpec instanceof Function) {
+    return [
+      void 0,
+      void 0,
+      /* MixedReadWrite */
+      callbackOrSpec,
+      void 0
+    ];
+  } else {
+    return [
+      callbackOrSpec.earlyRead,
+      callbackOrSpec.write,
+      callbackOrSpec.mixedReadWrite,
+      callbackOrSpec.read
+    ];
+  }
+}
+function afterEveryRenderImpl(callbackOrSpec, injector, options, once) {
+  const manager = injector.get(AfterRenderManager);
+  manager.impl ??= injector.get(AfterRenderImpl);
+  const tracing = injector.get(TracingService, null, { optional: true });
+  const destroyRef = options?.manualCleanup !== true ? injector.get(DestroyRef) : null;
+  const viewContext = injector.get(ViewContext, null, { optional: true });
+  const sequence2 = new AfterRenderSequence(manager.impl, getHooks(callbackOrSpec), viewContext?.view, once, destroyRef, tracing?.snapshot(null));
+  manager.impl.register(sequence2);
+  return sequence2;
+}
+var ANIMATION_QUEUE = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "AnimationQueue" : "", {
+  providedIn: "root",
+  factory: () => {
+    return {
+      queue: /* @__PURE__ */ new Set(),
+      isScheduled: false,
+      scheduler: null
+    };
+  }
+});
+function addToAnimationQueue(injector, animationFns) {
+  const animationQueue = injector.get(ANIMATION_QUEUE);
+  if (Array.isArray(animationFns)) {
+    for (const animateFn of animationFns) {
+      animationQueue.queue.add(animateFn);
+    }
+  } else {
+    animationQueue.queue.add(animationFns);
+  }
+  animationQueue.scheduler && animationQueue.scheduler(injector);
+}
+function scheduleAnimationQueue(injector) {
+  const animationQueue = injector.get(ANIMATION_QUEUE);
+  if (!animationQueue.isScheduled) {
+    afterNextRender(() => {
+      animationQueue.isScheduled = false;
+      for (let animateFn of animationQueue.queue) {
+        animateFn();
+      }
+      animationQueue.queue.clear();
+    }, { injector });
+    animationQueue.isScheduled = true;
+  }
+}
+function initializeAnimationQueueScheduler(injector) {
+  const animationQueue = injector.get(ANIMATION_QUEUE);
+  animationQueue.scheduler = scheduleAnimationQueue;
+  animationQueue.scheduler(injector);
+}
+function queueEnterAnimations(injector, enterAnimations) {
+  for (const [_, nodeAnimations] of enterAnimations) {
+    addToAnimationQueue(injector, nodeAnimations.animateFns);
+  }
+}
+function maybeQueueEnterAnimation(parentLView, parent, tNode, injector) {
+  const enterAnimations = parentLView?.[ANIMATIONS]?.enter;
+  if (parent !== null && enterAnimations && enterAnimations.has(tNode.index)) {
+    queueEnterAnimations(injector, enterAnimations);
+  }
+}
+function applyToElementOrContainer(action, renderer, injector, parent, lNodeToHandle, tNode, beforeNode, parentLView) {
   if (lNodeToHandle != null) {
     let lContainer;
     let isComponent2 = false;
@@ -8151,20 +9118,26 @@ function applyToElementOrContainer(action, renderer, parent, lNodeToHandle, befo
     }
     const rNode = unwrapRNode(lNodeToHandle);
     if (action === 0 && parent !== null) {
+      maybeQueueEnterAnimation(parentLView, parent, tNode, injector);
       if (beforeNode == null) {
         nativeAppendChild(renderer, parent, rNode);
       } else {
         nativeInsertBefore(renderer, parent, rNode, beforeNode || null, true);
       }
     } else if (action === 1 && parent !== null) {
+      maybeQueueEnterAnimation(parentLView, parent, tNode, injector);
       nativeInsertBefore(renderer, parent, rNode, beforeNode || null, true);
     } else if (action === 2) {
-      nativeRemoveNode(renderer, rNode, isComponent2);
+      runLeaveAnimationsWithCallback(parentLView, tNode, injector, (nodeHasLeaveAnimations) => {
+        nativeRemoveNode(renderer, rNode, isComponent2, nodeHasLeaveAnimations);
+      });
     } else if (action === 3) {
-      renderer.destroyNode(rNode);
+      runLeaveAnimationsWithCallback(parentLView, tNode, injector, () => {
+        renderer.destroyNode(rNode);
+      });
     }
     if (lContainer != null) {
-      applyContainer(renderer, action, lContainer, parent, beforeNode);
+      applyContainer(renderer, action, injector, lContainer, tNode, parent, beforeNode);
     }
   }
 }
@@ -8262,6 +9235,49 @@ function cleanUpView(tView, lView) {
   } finally {
     setActiveConsumer(prevConsumer);
   }
+}
+function runLeaveAnimationsWithCallback(lView, tNode, injector, callback) {
+  const animations = lView?.[ANIMATIONS];
+  if (animations == null || animations.leave == void 0 || !animations.leave.has(tNode.index))
+    return callback(false);
+  if (animations.skipLeaveAnimations) {
+    animations.skipLeaveAnimations = false;
+    return callback(false);
+  }
+  if (lView)
+    allLeavingAnimations.add(lView);
+  addToAnimationQueue(injector, () => {
+    if (animations.leave && animations.leave.has(tNode.index)) {
+      const leaveAnimationMap = animations.leave;
+      const leaveAnimations = leaveAnimationMap.get(tNode.index);
+      const runningAnimations = [];
+      if (leaveAnimations) {
+        for (let index = 0; index < leaveAnimations.animateFns.length; index++) {
+          const animationFn = leaveAnimations.animateFns[index];
+          const { promise } = animationFn();
+          runningAnimations.push(promise);
+        }
+      }
+      animations.running = Promise.allSettled(runningAnimations);
+      runAfterLeaveAnimations(lView, callback);
+    } else {
+      if (lView)
+        allLeavingAnimations.delete(lView);
+      callback(false);
+    }
+  });
+}
+function runAfterLeaveAnimations(lView, callback) {
+  const runningAnimations = lView[ANIMATIONS]?.running;
+  if (runningAnimations) {
+    runningAnimations.then(() => {
+      lView[ANIMATIONS].running = void 0;
+      allLeavingAnimations.delete(lView);
+      callback(true);
+    });
+    return;
+  }
+  callback(false);
 }
 function processCleanups(tView, lView) {
   ngDevMode && assertNotReactive(processCleanups.name);
@@ -8463,6 +9479,7 @@ function getBeforeNodeForView(viewIndexInContainer, lContainer) {
 function applyNodes(renderer, action, tNode, lView, parentRElement, beforeNode, isProjection) {
   while (tNode != null) {
     ngDevMode && assertTNodeForLView(tNode, lView);
+    const injector = lView[INJECTOR];
     if (tNode.type === 128) {
       tNode = tNode.next;
       continue;
@@ -8483,14 +9500,14 @@ function applyNodes(renderer, action, tNode, lView, parentRElement, beforeNode, 
     if (!isDetachedByI18n(tNode)) {
       if (tNodeType & 8) {
         applyNodes(renderer, action, tNode.child, lView, parentRElement, beforeNode, false);
-        applyToElementOrContainer(action, renderer, parentRElement, rawSlotValue, beforeNode);
+        applyToElementOrContainer(action, renderer, injector, parentRElement, rawSlotValue, tNode, beforeNode, lView);
       } else if (tNodeType & 32) {
         const nextRNode = icuContainerIterate(tNode, lView);
         let rNode;
         while (rNode = nextRNode()) {
-          applyToElementOrContainer(action, renderer, parentRElement, rNode, beforeNode);
+          applyToElementOrContainer(action, renderer, injector, parentRElement, rNode, tNode, beforeNode, lView);
         }
-        applyToElementOrContainer(action, renderer, parentRElement, rawSlotValue, beforeNode);
+        applyToElementOrContainer(action, renderer, injector, parentRElement, rawSlotValue, tNode, beforeNode, lView);
       } else if (tNodeType & 16) {
         applyProjectionRecursive(renderer, action, lView, tNode, parentRElement, beforeNode);
       } else {
@@ -8499,7 +9516,7 @@ function applyNodes(renderer, action, tNode, lView, parentRElement, beforeNode, 
           3 | 4
           /* TNodeType.Container */
         );
-        applyToElementOrContainer(action, renderer, parentRElement, rawSlotValue, beforeNode);
+        applyToElementOrContainer(action, renderer, injector, parentRElement, rawSlotValue, tNode, beforeNode, lView);
       }
     }
     tNode = isProjection ? tNode.projectionNext : tNode.next;
@@ -8523,7 +9540,7 @@ function applyProjectionRecursive(renderer, action, lView, tProjectionNode, pare
   if (Array.isArray(nodeToProjectOrRNodes)) {
     for (let i = 0; i < nodeToProjectOrRNodes.length; i++) {
       const rNode = nodeToProjectOrRNodes[i];
-      applyToElementOrContainer(action, renderer, parentRElement, rNode, beforeNode);
+      applyToElementOrContainer(action, renderer, lView[INJECTOR], parentRElement, rNode, tProjectionNode, beforeNode, lView);
     }
   } else {
     let nodeToProject = nodeToProjectOrRNodes;
@@ -8534,12 +9551,12 @@ function applyProjectionRecursive(renderer, action, lView, tProjectionNode, pare
     applyNodes(renderer, action, nodeToProject, projectedComponentLView, parentRElement, beforeNode, true);
   }
 }
-function applyContainer(renderer, action, lContainer, parentRElement, beforeNode) {
+function applyContainer(renderer, action, injector, lContainer, tNode, parentRElement, beforeNode) {
   ngDevMode && assertLContainer(lContainer);
   const anchor = lContainer[NATIVE];
   const native = unwrapRNode(lContainer);
   if (anchor !== native) {
-    applyToElementOrContainer(action, renderer, parentRElement, anchor, beforeNode);
+    applyToElementOrContainer(action, renderer, injector, parentRElement, anchor, tNode, beforeNode);
   }
   for (let i = CONTAINER_HEADER_OFFSET; i < lContainer.length; i++) {
     const lView = lContainer[i];
@@ -8881,7 +9898,12 @@ function handleUncaughtError(lView, error) {
   if (!injector) {
     return;
   }
-  const errorHandler2 = injector.get(INTERNAL_APPLICATION_ERROR_HANDLER, null);
+  let errorHandler2;
+  try {
+    errorHandler2 = injector.get(INTERNAL_APPLICATION_ERROR_HANDLER, null);
+  } catch {
+    errorHandler2 = null;
+  }
   errorHandler2?.(error);
 }
 function setAllInputsForProperty(tNode, tView, lView, publicName, value) {
@@ -9840,14 +10862,14 @@ var ViewRef = class {
    * introduce other changes.
    */
   checkNoChanges() {
-    if (!ngDevMode)
-      return;
-    try {
-      this.exhaustive ??= this._lView[INJECTOR].get(UseExhaustiveCheckNoChanges, USE_EXHAUSTIVE_CHECK_NO_CHANGES_DEFAULT);
-    } catch {
-      this.exhaustive = USE_EXHAUSTIVE_CHECK_NO_CHANGES_DEFAULT;
+    if (ngDevMode) {
+      try {
+        this.exhaustive ??= this._lView[INJECTOR].get(UseExhaustiveCheckNoChanges, USE_EXHAUSTIVE_CHECK_NO_CHANGES_DEFAULT);
+      } catch {
+        this.exhaustive = USE_EXHAUSTIVE_CHECK_NO_CHANGES_DEFAULT;
+      }
+      checkNoChangesInternal(this._lView, this.exhaustive);
     }
-    checkNoChangesInternal(this._lView, this.exhaustive);
   }
   attachToViewContainerRef() {
     if (this._appRef) {
@@ -10375,6 +11397,7 @@ function icuContainerIteratorNext(state) {
     }
   } else {
     if (state.stack.length === 0) {
+      state.lView = void 0;
       return null;
     } else {
       state.removes = state.stack.pop();
@@ -11315,10 +12338,15 @@ function listenToDomEvent(tNode, tView, lView, eventTargetResolver, renderer, ev
     const target = eventTargetResolver ? eventTargetResolver(native) : native;
     stashEventListenerImpl(lView, target, eventName, wrappedListener);
     const cleanupFn = renderer.listen(target, eventName, wrappedListener);
-    const idxOrTargetGetter = eventTargetResolver ? (_lView) => eventTargetResolver(unwrapRNode(_lView[tNode.index])) : tNode.index;
-    storeListenerCleanup(idxOrTargetGetter, tView, lView, eventName, wrappedListener, cleanupFn, false);
+    if (!isAnimationEventType(eventName)) {
+      const idxOrTargetGetter = eventTargetResolver ? (_lView) => eventTargetResolver(unwrapRNode(_lView[tNode.index])) : tNode.index;
+      storeListenerCleanup(idxOrTargetGetter, tView, lView, eventName, wrappedListener, cleanupFn, false);
+    }
   }
   return hasCoalesced;
+}
+function isAnimationEventType(eventName) {
+  return eventName.startsWith("animation") || eventName.startsWith("transition");
 }
 function findExistingListener(tView, lView, eventName, tNodeIndex) {
   const tCleanup = tView.cleanup;
@@ -11426,10 +12454,13 @@ function createRootLViewEnvironment(rootLViewInjector) {
     ngReflect
   };
 }
-function createHostElement(componentDef, render) {
-  const tagName = (componentDef.selectors[0][0] || "div").toLowerCase();
+function createHostElement(componentDef, renderer) {
+  const tagName = inferTagNameFromDefinition(componentDef);
   const namespace = tagName === "svg" ? SVG_NAMESPACE : tagName === "math" ? MATH_ML_NAMESPACE : null;
-  return createElementNode(render, tagName, namespace);
+  return createElementNode(renderer, tagName, namespace);
+}
+function inferTagNameFromDefinition(componentDef) {
+  return (componentDef.selectors[0][0] || "div").toLowerCase();
 }
 var ComponentFactory2 = class extends ComponentFactory$1 {
   componentDef;
@@ -11487,10 +12518,8 @@ var ComponentFactory2 = class extends ComponentFactory$1 {
       let componentView = null;
       try {
         const hostTNode = directiveHostFirstCreatePass(HEADER_OFFSET, rootLView, 2, "#host", () => rootTView.directiveRegistry, true, 0);
-        if (hostElement) {
-          setupStaticAttributes(hostRenderer, hostElement, hostTNode);
-          attachPatchData(hostElement, rootLView);
-        }
+        setupStaticAttributes(hostRenderer, hostElement, hostTNode);
+        attachPatchData(hostElement, rootLView);
         createDirectivesInstances(rootTView, rootLView, hostTNode);
         executeContentQueries(rootTView, hostTNode, rootLView);
         directiveHostEndFirstCreatePass(rootTView, hostTNode);
@@ -11520,7 +12549,7 @@ var ComponentFactory2 = class extends ComponentFactory$1 {
   }
 };
 function createRootTView(rootSelectorOrNode, componentDef, componentBindings, directives) {
-  const tAttributes = rootSelectorOrNode ? ["ng-version", "20.1.7"] : (
+  const tAttributes = rootSelectorOrNode ? ["ng-version", "20.3.10"] : (
     // Extract attributes and classes from the first selector only to match VE behavior.
     extractAttrsAndClassesFromSelector(componentDef.selectors[0])
   );
@@ -11639,7 +12668,7 @@ var ComponentRef2 = class extends ComponentRef$1 {
     if (ngDevMode && !hasSetInput) {
       const cmpNameForError = stringifyForError(this.componentType);
       let message = `Can't set value of the '${name}' input on the '${cmpNameForError}' component. `;
-      message += `Make sure that the '${name}' property is declared as an input using the @Input() decorator or the input() function.`;
+      message += `Make sure that the '${name}' property is declared as an input using the input() or model() function or the @Input() decorator.`;
       reportUnknownPropertyError(message);
     }
   }
@@ -12420,14 +13449,6 @@ To fix this, switch the \`${attrName}\` binding to a static attribute in a templ
     throw new RuntimeError(-910, errorMessage);
   }
   return attrValue;
-}
-var markedFeatures = /* @__PURE__ */ new Set();
-function performanceMarkFeature(feature) {
-  if (markedFeatures.has(feature)) {
-    return;
-  }
-  markedFeatures.add(feature);
-  performance?.mark?.("mark_feature_usage", { detail: { feature } });
 }
 var NgModuleRef$1 = class NgModuleRef {
 };
@@ -13219,671 +14240,6 @@ function getCleanupFnKeyByType(type) {
     key = HYDRATE_TRIGGER_CLEANUP_FNS;
   }
   return key;
-}
-var TracingAction;
-(function(TracingAction2) {
-  TracingAction2[TracingAction2["CHANGE_DETECTION"] = 0] = "CHANGE_DETECTION";
-  TracingAction2[TracingAction2["AFTER_NEXT_RENDER"] = 1] = "AFTER_NEXT_RENDER";
-})(TracingAction || (TracingAction = {}));
-var TracingService = new InjectionToken(ngDevMode ? "TracingService" : "");
-var SCHEDULE_IN_ROOT_ZONE_DEFAULT = false;
-var EventEmitter_ = class extends Subject {
-  // tslint:disable-next-line:require-internal-with-underscore
-  __isAsync;
-  destroyRef = void 0;
-  pendingTasks = void 0;
-  constructor(isAsync = false) {
-    super();
-    this.__isAsync = isAsync;
-    if (isInInjectionContext()) {
-      this.destroyRef = inject2(DestroyRef, { optional: true }) ?? void 0;
-      this.pendingTasks = inject2(PendingTasksInternal, { optional: true }) ?? void 0;
-    }
-  }
-  emit(value) {
-    const prevConsumer = setActiveConsumer(null);
-    try {
-      super.next(value);
-    } finally {
-      setActiveConsumer(prevConsumer);
-    }
-  }
-  subscribe(observerOrNext, error, complete) {
-    let nextFn = observerOrNext;
-    let errorFn = error || (() => null);
-    let completeFn = complete;
-    if (observerOrNext && typeof observerOrNext === "object") {
-      const observer = observerOrNext;
-      nextFn = observer.next?.bind(observer);
-      errorFn = observer.error?.bind(observer);
-      completeFn = observer.complete?.bind(observer);
-    }
-    if (this.__isAsync) {
-      errorFn = this.wrapInTimeout(errorFn);
-      if (nextFn) {
-        nextFn = this.wrapInTimeout(nextFn);
-      }
-      if (completeFn) {
-        completeFn = this.wrapInTimeout(completeFn);
-      }
-    }
-    const sink = super.subscribe({ next: nextFn, error: errorFn, complete: completeFn });
-    if (observerOrNext instanceof Subscription) {
-      observerOrNext.add(sink);
-    }
-    return sink;
-  }
-  wrapInTimeout(fn) {
-    return (value) => {
-      const taskId = this.pendingTasks?.add();
-      setTimeout(() => {
-        try {
-          fn(value);
-        } finally {
-          if (taskId !== void 0) {
-            this.pendingTasks?.remove(taskId);
-          }
-        }
-      });
-    };
-  }
-};
-var EventEmitter = EventEmitter_;
-function scheduleCallbackWithRafRace(callback) {
-  let timeoutId;
-  let animationFrameId;
-  function cleanup() {
-    callback = noop2;
-    try {
-      if (animationFrameId !== void 0 && typeof cancelAnimationFrame === "function") {
-        cancelAnimationFrame(animationFrameId);
-      }
-      if (timeoutId !== void 0) {
-        clearTimeout(timeoutId);
-      }
-    } catch {
-    }
-  }
-  timeoutId = setTimeout(() => {
-    callback();
-    cleanup();
-  });
-  if (typeof requestAnimationFrame === "function") {
-    animationFrameId = requestAnimationFrame(() => {
-      callback();
-      cleanup();
-    });
-  }
-  return () => cleanup();
-}
-function scheduleCallbackWithMicrotask(callback) {
-  queueMicrotask(() => callback());
-  return () => {
-    callback = noop2;
-  };
-}
-var AsyncStackTaggingZoneSpec = class {
-  createTask;
-  constructor(namePrefix, consoleAsyncStackTaggingImpl = console) {
-    this.name = "asyncStackTagging for " + namePrefix;
-    this.createTask = consoleAsyncStackTaggingImpl?.createTask ?? (() => null);
-  }
-  // ZoneSpec implementation below.
-  name;
-  onScheduleTask(delegate, _current, target, task) {
-    task.consoleTask = this.createTask(`Zone - ${task.source || task.type}`);
-    return delegate.scheduleTask(target, task);
-  }
-  onInvokeTask(delegate, _currentZone, targetZone, task, applyThis, applyArgs) {
-    let ret;
-    if (task.consoleTask) {
-      ret = task.consoleTask.run(() => delegate.invokeTask(targetZone, task, applyThis, applyArgs));
-    } else {
-      ret = delegate.invokeTask(targetZone, task, applyThis, applyArgs);
-    }
-    return ret;
-  }
-};
-var isAngularZoneProperty = "isAngularZone";
-var angularZoneInstanceIdProperty = isAngularZoneProperty + "_ID";
-var ngZoneInstanceId = 0;
-var NgZone = class _NgZone {
-  hasPendingMacrotasks = false;
-  hasPendingMicrotasks = false;
-  /**
-   * Whether there are no outstanding microtasks or macrotasks.
-   */
-  isStable = true;
-  /**
-   * Notifies when code enters Angular Zone. This gets fired first on VM Turn.
-   */
-  onUnstable = new EventEmitter(false);
-  /**
-   * Notifies when there is no more microtasks enqueued in the current VM Turn.
-   * This is a hint for Angular to do change detection, which may enqueue more microtasks.
-   * For this reason this event can fire multiple times per VM Turn.
-   */
-  onMicrotaskEmpty = new EventEmitter(false);
-  /**
-   * Notifies when the last `onMicrotaskEmpty` has run and there are no more microtasks, which
-   * implies we are about to relinquish VM turn.
-   * This event gets called just once.
-   */
-  onStable = new EventEmitter(false);
-  /**
-   * Notifies that an error has been delivered.
-   */
-  onError = new EventEmitter(false);
-  constructor(options) {
-    const { enableLongStackTrace = false, shouldCoalesceEventChangeDetection = false, shouldCoalesceRunChangeDetection = false, scheduleInRootZone = SCHEDULE_IN_ROOT_ZONE_DEFAULT } = options;
-    if (typeof Zone == "undefined") {
-      throw new RuntimeError(908, ngDevMode && `In this configuration Angular requires Zone.js`);
-    }
-    Zone.assertZonePatched();
-    const self = this;
-    self._nesting = 0;
-    self._outer = self._inner = Zone.current;
-    if (ngDevMode) {
-      self._inner = self._inner.fork(new AsyncStackTaggingZoneSpec("Angular"));
-    }
-    if (Zone["TaskTrackingZoneSpec"]) {
-      self._inner = self._inner.fork(new Zone["TaskTrackingZoneSpec"]());
-    }
-    if (enableLongStackTrace && Zone["longStackTraceZoneSpec"]) {
-      self._inner = self._inner.fork(Zone["longStackTraceZoneSpec"]);
-    }
-    self.shouldCoalesceEventChangeDetection = !shouldCoalesceRunChangeDetection && shouldCoalesceEventChangeDetection;
-    self.shouldCoalesceRunChangeDetection = shouldCoalesceRunChangeDetection;
-    self.callbackScheduled = false;
-    self.scheduleInRootZone = scheduleInRootZone;
-    forkInnerZoneWithAngularBehavior(self);
-  }
-  /**
-    This method checks whether the method call happens within an Angular Zone instance.
-  */
-  static isInAngularZone() {
-    return typeof Zone !== "undefined" && Zone.current.get(isAngularZoneProperty) === true;
-  }
-  /**
-    Assures that the method is called within the Angular Zone, otherwise throws an error.
-  */
-  static assertInAngularZone() {
-    if (!_NgZone.isInAngularZone()) {
-      throw new RuntimeError(909, ngDevMode && "Expected to be in Angular Zone, but it is not!");
-    }
-  }
-  /**
-    Assures that the method is called outside of the Angular Zone, otherwise throws an error.
-  */
-  static assertNotInAngularZone() {
-    if (_NgZone.isInAngularZone()) {
-      throw new RuntimeError(909, ngDevMode && "Expected to not be in Angular Zone, but it is!");
-    }
-  }
-  /**
-   * Executes the `fn` function synchronously within the Angular zone and returns value returned by
-   * the function.
-   *
-   * Running functions via `run` allows you to reenter Angular zone from a task that was executed
-   * outside of the Angular zone (typically started via {@link #runOutsideAngular}).
-   *
-   * Any future tasks or microtasks scheduled from within this function will continue executing from
-   * within the Angular zone.
-   *
-   * If a synchronous error happens it will be rethrown and not reported via `onError`.
-   */
-  run(fn, applyThis, applyArgs) {
-    return this._inner.run(fn, applyThis, applyArgs);
-  }
-  /**
-   * Executes the `fn` function synchronously within the Angular zone as a task and returns value
-   * returned by the function.
-   *
-   * Running functions via `runTask` allows you to reenter Angular zone from a task that was executed
-   * outside of the Angular zone (typically started via {@link #runOutsideAngular}).
-   *
-   * Any future tasks or microtasks scheduled from within this function will continue executing from
-   * within the Angular zone.
-   *
-   * If a synchronous error happens it will be rethrown and not reported via `onError`.
-   */
-  runTask(fn, applyThis, applyArgs, name) {
-    const zone = this._inner;
-    const task = zone.scheduleEventTask("NgZoneEvent: " + name, fn, EMPTY_PAYLOAD, noop2, noop2);
-    try {
-      return zone.runTask(task, applyThis, applyArgs);
-    } finally {
-      zone.cancelTask(task);
-    }
-  }
-  /**
-   * Same as `run`, except that synchronous errors are caught and forwarded via `onError` and not
-   * rethrown.
-   */
-  runGuarded(fn, applyThis, applyArgs) {
-    return this._inner.runGuarded(fn, applyThis, applyArgs);
-  }
-  /**
-   * Executes the `fn` function synchronously in Angular's parent zone and returns value returned by
-   * the function.
-   *
-   * Running functions via {@link #runOutsideAngular} allows you to escape Angular's zone and do
-   * work that
-   * doesn't trigger Angular change-detection or is subject to Angular's error handling.
-   *
-   * Any future tasks or microtasks scheduled from within this function will continue executing from
-   * outside of the Angular zone.
-   *
-   * Use {@link #run} to reenter the Angular zone and do work that updates the application model.
-   */
-  runOutsideAngular(fn) {
-    return this._outer.run(fn);
-  }
-};
-var EMPTY_PAYLOAD = {};
-function checkStable(zone) {
-  if (zone._nesting == 0 && !zone.hasPendingMicrotasks && !zone.isStable) {
-    try {
-      zone._nesting++;
-      zone.onMicrotaskEmpty.emit(null);
-    } finally {
-      zone._nesting--;
-      if (!zone.hasPendingMicrotasks) {
-        try {
-          zone.runOutsideAngular(() => zone.onStable.emit(null));
-        } finally {
-          zone.isStable = true;
-        }
-      }
-    }
-  }
-}
-function delayChangeDetectionForEvents(zone) {
-  if (zone.isCheckStableRunning || zone.callbackScheduled) {
-    return;
-  }
-  zone.callbackScheduled = true;
-  function scheduleCheckStable() {
-    scheduleCallbackWithRafRace(() => {
-      zone.callbackScheduled = false;
-      updateMicroTaskStatus(zone);
-      zone.isCheckStableRunning = true;
-      checkStable(zone);
-      zone.isCheckStableRunning = false;
-    });
-  }
-  if (zone.scheduleInRootZone) {
-    Zone.root.run(() => {
-      scheduleCheckStable();
-    });
-  } else {
-    zone._outer.run(() => {
-      scheduleCheckStable();
-    });
-  }
-  updateMicroTaskStatus(zone);
-}
-function forkInnerZoneWithAngularBehavior(zone) {
-  const delayChangeDetectionForEventsDelegate = () => {
-    delayChangeDetectionForEvents(zone);
-  };
-  const instanceId = ngZoneInstanceId++;
-  zone._inner = zone._inner.fork({
-    name: "angular",
-    properties: {
-      [isAngularZoneProperty]: true,
-      [angularZoneInstanceIdProperty]: instanceId,
-      [angularZoneInstanceIdProperty + instanceId]: true
-    },
-    onInvokeTask: (delegate, current, target, task, applyThis, applyArgs) => {
-      if (shouldBeIgnoredByZone(applyArgs)) {
-        return delegate.invokeTask(target, task, applyThis, applyArgs);
-      }
-      try {
-        onEnter(zone);
-        return delegate.invokeTask(target, task, applyThis, applyArgs);
-      } finally {
-        if (zone.shouldCoalesceEventChangeDetection && task.type === "eventTask" || zone.shouldCoalesceRunChangeDetection) {
-          delayChangeDetectionForEventsDelegate();
-        }
-        onLeave(zone);
-      }
-    },
-    onInvoke: (delegate, current, target, callback, applyThis, applyArgs, source) => {
-      try {
-        onEnter(zone);
-        return delegate.invoke(target, callback, applyThis, applyArgs, source);
-      } finally {
-        if (zone.shouldCoalesceRunChangeDetection && // Do not delay change detection when the task is the scheduler's tick.
-        // We need to synchronously trigger the stability logic so that the
-        // zone-based scheduler can prevent a duplicate ApplicationRef.tick
-        // by first checking if the scheduler tick is running. This does seem a bit roundabout,
-        // but we _do_ still want to trigger all the correct events when we exit the zone.run
-        // (`onMicrotaskEmpty` and `onStable` _should_ emit; developers can have code which
-        // relies on these events happening after change detection runs).
-        // Note: `zone.callbackScheduled` is already in delayChangeDetectionForEventsDelegate
-        // but is added here as well to prevent reads of applyArgs when not necessary
-        !zone.callbackScheduled && !isSchedulerTick(applyArgs)) {
-          delayChangeDetectionForEventsDelegate();
-        }
-        onLeave(zone);
-      }
-    },
-    onHasTask: (delegate, current, target, hasTaskState) => {
-      delegate.hasTask(target, hasTaskState);
-      if (current === target) {
-        if (hasTaskState.change == "microTask") {
-          zone._hasPendingMicrotasks = hasTaskState.microTask;
-          updateMicroTaskStatus(zone);
-          checkStable(zone);
-        } else if (hasTaskState.change == "macroTask") {
-          zone.hasPendingMacrotasks = hasTaskState.macroTask;
-        }
-      }
-    },
-    onHandleError: (delegate, current, target, error) => {
-      delegate.handleError(target, error);
-      zone.runOutsideAngular(() => zone.onError.emit(error));
-      return false;
-    }
-  });
-}
-function updateMicroTaskStatus(zone) {
-  if (zone._hasPendingMicrotasks || (zone.shouldCoalesceEventChangeDetection || zone.shouldCoalesceRunChangeDetection) && zone.callbackScheduled === true) {
-    zone.hasPendingMicrotasks = true;
-  } else {
-    zone.hasPendingMicrotasks = false;
-  }
-}
-function onEnter(zone) {
-  zone._nesting++;
-  if (zone.isStable) {
-    zone.isStable = false;
-    zone.onUnstable.emit(null);
-  }
-}
-function onLeave(zone) {
-  zone._nesting--;
-  checkStable(zone);
-}
-var NoopNgZone = class {
-  hasPendingMicrotasks = false;
-  hasPendingMacrotasks = false;
-  isStable = true;
-  onUnstable = new EventEmitter();
-  onMicrotaskEmpty = new EventEmitter();
-  onStable = new EventEmitter();
-  onError = new EventEmitter();
-  run(fn, applyThis, applyArgs) {
-    return fn.apply(applyThis, applyArgs);
-  }
-  runGuarded(fn, applyThis, applyArgs) {
-    return fn.apply(applyThis, applyArgs);
-  }
-  runOutsideAngular(fn) {
-    return fn();
-  }
-  runTask(fn, applyThis, applyArgs, name) {
-    return fn.apply(applyThis, applyArgs);
-  }
-};
-function shouldBeIgnoredByZone(applyArgs) {
-  return hasApplyArgsData(applyArgs, "__ignore_ng_zone__");
-}
-function isSchedulerTick(applyArgs) {
-  return hasApplyArgsData(applyArgs, "__scheduler_tick__");
-}
-function hasApplyArgsData(applyArgs, key) {
-  if (!Array.isArray(applyArgs)) {
-    return false;
-  }
-  if (applyArgs.length !== 1) {
-    return false;
-  }
-  return applyArgs[0]?.data?.[key] === true;
-}
-function getNgZone(ngZoneToUse = "zone.js", options) {
-  if (ngZoneToUse === "noop") {
-    return new NoopNgZone();
-  }
-  if (ngZoneToUse === "zone.js") {
-    return new NgZone(options);
-  }
-  return ngZoneToUse;
-}
-var AfterRenderManager = class _AfterRenderManager {
-  impl = null;
-  execute() {
-    this.impl?.execute();
-  }
-  /** @nocollapse */
-  static \u0275prov = (
-    /** @pureOrBreakMyCode */
-    /* @__PURE__ */ \u0275\u0275defineInjectable({
-      token: _AfterRenderManager,
-      providedIn: "root",
-      factory: () => new _AfterRenderManager()
-    })
-  );
-};
-var AFTER_RENDER_PHASES = /* @__PURE__ */ (() => [
-  0,
-  1,
-  2,
-  3
-])();
-var AfterRenderImpl = class _AfterRenderImpl {
-  ngZone = inject2(NgZone);
-  scheduler = inject2(ChangeDetectionScheduler);
-  errorHandler = inject2(ErrorHandler, { optional: true });
-  /** Current set of active sequences. */
-  sequences = /* @__PURE__ */ new Set();
-  /** Tracks registrations made during the current set of executions. */
-  deferredRegistrations = /* @__PURE__ */ new Set();
-  /** Whether the `AfterRenderManager` is currently executing hooks. */
-  executing = false;
-  constructor() {
-    inject2(TracingService, { optional: true });
-  }
-  /**
-   * Run the sequence of phases of hooks, once through. As a result of executing some hooks, more
-   * might be scheduled.
-   */
-  execute() {
-    const hasSequencesToExecute = this.sequences.size > 0;
-    if (hasSequencesToExecute) {
-      profiler(
-        16
-        /* ProfilerEvent.AfterRenderHooksStart */
-      );
-    }
-    this.executing = true;
-    for (const phase of AFTER_RENDER_PHASES) {
-      for (const sequence2 of this.sequences) {
-        if (sequence2.erroredOrDestroyed || !sequence2.hooks[phase]) {
-          continue;
-        }
-        try {
-          sequence2.pipelinedValue = this.ngZone.runOutsideAngular(() => this.maybeTrace(() => {
-            const hookFn = sequence2.hooks[phase];
-            const value = hookFn(sequence2.pipelinedValue);
-            return value;
-          }, sequence2.snapshot));
-        } catch (err) {
-          sequence2.erroredOrDestroyed = true;
-          this.errorHandler?.handleError(err);
-        }
-      }
-    }
-    this.executing = false;
-    for (const sequence2 of this.sequences) {
-      sequence2.afterRun();
-      if (sequence2.once) {
-        this.sequences.delete(sequence2);
-        sequence2.destroy();
-      }
-    }
-    for (const sequence2 of this.deferredRegistrations) {
-      this.sequences.add(sequence2);
-    }
-    if (this.deferredRegistrations.size > 0) {
-      this.scheduler.notify(
-        7
-        /* NotificationSource.RenderHook */
-      );
-    }
-    this.deferredRegistrations.clear();
-    if (hasSequencesToExecute) {
-      profiler(
-        17
-        /* ProfilerEvent.AfterRenderHooksEnd */
-      );
-    }
-  }
-  register(sequence2) {
-    const { view } = sequence2;
-    if (view !== void 0) {
-      (view[AFTER_RENDER_SEQUENCES_TO_ADD] ??= []).push(sequence2);
-      markAncestorsForTraversal(view);
-      view[FLAGS] |= 8192;
-    } else if (!this.executing) {
-      this.addSequence(sequence2);
-    } else {
-      this.deferredRegistrations.add(sequence2);
-    }
-  }
-  addSequence(sequence2) {
-    this.sequences.add(sequence2);
-    this.scheduler.notify(
-      7
-      /* NotificationSource.RenderHook */
-    );
-  }
-  unregister(sequence2) {
-    if (this.executing && this.sequences.has(sequence2)) {
-      sequence2.erroredOrDestroyed = true;
-      sequence2.pipelinedValue = void 0;
-      sequence2.once = true;
-    } else {
-      this.sequences.delete(sequence2);
-      this.deferredRegistrations.delete(sequence2);
-    }
-  }
-  maybeTrace(fn, snapshot) {
-    return snapshot ? snapshot.run(TracingAction.AFTER_NEXT_RENDER, fn) : fn();
-  }
-  /** @nocollapse */
-  static \u0275prov = (
-    /** @pureOrBreakMyCode */
-    /* @__PURE__ */ \u0275\u0275defineInjectable({
-      token: _AfterRenderImpl,
-      providedIn: "root",
-      factory: () => new _AfterRenderImpl()
-    })
-  );
-};
-var AfterRenderSequence = class {
-  impl;
-  hooks;
-  view;
-  once;
-  snapshot;
-  /**
-   * Whether this sequence errored or was destroyed during this execution, and hooks should no
-   * longer run for it.
-   */
-  erroredOrDestroyed = false;
-  /**
-   * The value returned by the last hook execution (if any), ready to be pipelined into the next
-   * one.
-   */
-  pipelinedValue = void 0;
-  unregisterOnDestroy;
-  constructor(impl, hooks, view, once, destroyRef, snapshot = null) {
-    this.impl = impl;
-    this.hooks = hooks;
-    this.view = view;
-    this.once = once;
-    this.snapshot = snapshot;
-    this.unregisterOnDestroy = destroyRef?.onDestroy(() => this.destroy());
-  }
-  afterRun() {
-    this.erroredOrDestroyed = false;
-    this.pipelinedValue = void 0;
-    this.snapshot?.dispose();
-    this.snapshot = null;
-  }
-  destroy() {
-    this.impl.unregister(this);
-    this.unregisterOnDestroy?.();
-    const scheduled2 = this.view?.[AFTER_RENDER_SEQUENCES_TO_ADD];
-    if (scheduled2) {
-      this.view[AFTER_RENDER_SEQUENCES_TO_ADD] = scheduled2.filter((s) => s !== this);
-    }
-  }
-};
-function afterEveryRender(callbackOrSpec, options) {
-  ngDevMode && assertNotInReactiveContext(afterEveryRender, "Call `afterEveryRender` outside of a reactive context. For example, schedule the render callback inside the component constructor`.");
-  if (ngDevMode && !options?.injector) {
-    assertInInjectionContext(afterEveryRender);
-  }
-  const injector = options?.injector ?? inject2(Injector);
-  if (false) {
-    return NOOP_AFTER_RENDER_REF;
-  }
-  performanceMarkFeature("NgAfterRender");
-  return afterEveryRenderImpl(
-    callbackOrSpec,
-    injector,
-    options,
-    /* once */
-    false
-  );
-}
-function afterNextRender(callbackOrSpec, options) {
-  if (ngDevMode && !options?.injector) {
-    assertInInjectionContext(afterNextRender);
-  }
-  const injector = options?.injector ?? inject2(Injector);
-  if (false) {
-    return NOOP_AFTER_RENDER_REF;
-  }
-  performanceMarkFeature("NgAfterNextRender");
-  return afterEveryRenderImpl(
-    callbackOrSpec,
-    injector,
-    options,
-    /* once */
-    true
-  );
-}
-function getHooks(callbackOrSpec) {
-  if (callbackOrSpec instanceof Function) {
-    return [
-      void 0,
-      void 0,
-      /* MixedReadWrite */
-      callbackOrSpec,
-      void 0
-    ];
-  } else {
-    return [
-      callbackOrSpec.earlyRead,
-      callbackOrSpec.write,
-      callbackOrSpec.mixedReadWrite,
-      callbackOrSpec.read
-    ];
-  }
-}
-function afterEveryRenderImpl(callbackOrSpec, injector, options, once) {
-  const manager = injector.get(AfterRenderManager);
-  manager.impl ??= injector.get(AfterRenderImpl);
-  const tracing = injector.get(TracingService, null, { optional: true });
-  const destroyRef = options?.manualCleanup !== true ? injector.get(DestroyRef) : null;
-  const viewContext = injector.get(ViewContext, null, { optional: true });
-  const sequence2 = new AfterRenderSequence(manager.impl, getHooks(callbackOrSpec), viewContext?.view, once, destroyRef, tracing?.snapshot(null));
-  manager.impl.register(sequence2);
-  return sequence2;
 }
 function getDeferBlockDataIndex(deferBlockIndex) {
   return deferBlockIndex + 1;
@@ -15265,6 +15621,18 @@ function enableProfiling() {
   return () => {
   };
 }
+function getTransferState(injector) {
+  const doc = getDocument();
+  const appId = injector.get(APP_ID);
+  const transferState = retrieveTransferredState(doc, appId);
+  const filteredEntries = {};
+  for (const [key, value] of Object.entries(transferState)) {
+    if (!isInternalHydrationTransferStateKey(key)) {
+      filteredEntries[key] = value;
+    }
+  }
+  return filteredEntries;
+}
 var GLOBAL_PUBLISH_EXPANDO_KEY = "ng";
 var globalUtilsFunctions = {
   /**
@@ -15279,6 +15647,7 @@ var globalUtilsFunctions = {
   "\u0275setProfiler": setProfiler,
   "\u0275getSignalGraph": getSignalGraph,
   "\u0275getDeferBlocks": getDeferBlocks,
+  "\u0275getTransferState": getTransferState,
   "getDirectiveMetadata": getDirectiveMetadata$1,
   "getComponent": getComponent,
   "getContext": getContext,
@@ -15289,7 +15658,7 @@ var globalUtilsFunctions = {
   "getRootComponents": getRootComponents,
   "getDirectives": getDirectives,
   "applyChanges": applyChanges,
-  "isSignal": isSignal,
+  "isSignal": isSignal2,
   "enableProfiling": enableProfiling
 };
 var _published = false;
@@ -16060,6 +16429,15 @@ function remove(list, el) {
     list.splice(index, 1);
   }
 }
+function promiseWithResolvers() {
+  let resolve;
+  let reject;
+  const promise = new Promise((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+  return { promise, resolve, reject };
+}
 function scheduleDelayedTrigger(scheduleFn) {
   const lView = getLView();
   const tNode = getCurrentTNode();
@@ -16071,7 +16449,7 @@ function scheduleDelayedTrigger(scheduleFn) {
   const cleanupFn = scheduleFn(() => triggerDeferBlock(0, lView, tNode), injector);
   storeTriggerCleanupFn(0, lDetails, cleanupFn);
 }
-function scheduleDelayedPrefetching(scheduleFn, trigger) {
+function scheduleDelayedPrefetching(scheduleFn) {
   if (false)
     return;
   const lView = getLView();
@@ -16298,7 +16676,7 @@ function cleanupRemainingHydrationQueue(hydrationQueue, dehydratedBlockRegistry)
 }
 function populateHydratingStateForQueue(registry, queue) {
   for (let blockId of queue) {
-    registry.hydrating.set(blockId, Promise.withResolvers());
+    registry.hydrating.set(blockId, promiseWithResolvers());
   }
 }
 function nextRender(injector) {
@@ -16356,14 +16734,15 @@ function \u0275\u0275defer(index, primaryTmplIndex, dependencyResolverFn, loadin
   const adjustedIndex = index + HEADER_OFFSET;
   const tNode = declareNoDirectiveHostTemplate(lView, tView, index, null, 0, 0);
   const injector = lView[INJECTOR];
+  const incrementalHydrationEnabled = isIncrementalHydrationEnabled(injector);
   if (tView.firstCreatePass) {
     performanceMarkFeature("NgDefer");
     if (ngDevMode) {
       if (false) {
         logHmrWarning(injector);
       }
-      if (hasHydrateTriggers(flags)) {
-        assertIncrementalHydrationIsConfigured(injector);
+      if (hasHydrateTriggers(flags) && !incrementalHydrationEnabled) {
+        warnIncrementalHydrationNotConfigured();
       }
     }
     const tDetails = {
@@ -16417,7 +16796,7 @@ function \u0275\u0275defer(index, primaryTmplIndex, dependencyResolverFn, loadin
   ];
   setLDeferBlockDetails(lView, adjustedIndex, lDetails);
   let registry = null;
-  if (ssrUniqueId !== null) {
+  if (ssrUniqueId !== null && incrementalHydrationEnabled) {
     registry = injector.get(DEHYDRATED_BLOCK_REGISTRY);
     registry.add(ssrUniqueId, { lView, tNode, lContainer });
   }
@@ -16469,10 +16848,9 @@ function \u0275\u0275deferPrefetchWhen(rawValue) {
     try {
       const value = Boolean(rawValue);
       const tView = lView[TVIEW];
-      const tNode2 = getSelectedTNode();
-      const tDetails = getTDeferBlockDetails(tView, tNode2);
+      const tDetails = getTDeferBlockDetails(tView, tNode);
       if (value === true && tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
-        triggerPrefetching(tDetails, lView, tNode2);
+        triggerPrefetching(tDetails, lView, tNode);
       }
     } finally {
       setActiveConsumer(prevConsumer);
@@ -16822,6 +17200,29 @@ function \u0275\u0275deferHydrateOnViewport() {
     triggerDeferBlock(2, lView, tNode);
   }
 }
+function \u0275\u0275ariaProperty(name, value) {
+  const lView = getLView();
+  const bindingIndex = nextBindingIndex();
+  if (bindingUpdated(lView, bindingIndex, value)) {
+    const tView = getTView();
+    const tNode = getSelectedTNode();
+    const hasSetInput = setAllInputsForProperty(tNode, tView, lView, name, value);
+    if (hasSetInput) {
+      isComponentHost(tNode) && markDirtyIfOnPush(lView, tNode.index);
+      ngDevMode && setNgReflectProperties(lView, tView, tNode, name, value);
+    } else {
+      ngDevMode && assertTNodeType(
+        tNode,
+        2
+        /* TNodeType.Element */
+      );
+      const element = getNativeByTNode(tNode, lView);
+      setElementAttribute(lView[RENDERER], element, null, tNode.value, name, value, null);
+    }
+    ngDevMode && storePropertyBindingMetadata(tView.data, tNode, name, bindingIndex);
+  }
+  return \u0275\u0275ariaProperty;
+}
 function \u0275\u0275attribute(name, value, sanitizer, namespace) {
   const lView = getLView();
   const bindingIndex = nextBindingIndex();
@@ -16832,6 +17233,366 @@ function \u0275\u0275attribute(name, value, sanitizer, namespace) {
     ngDevMode && storePropertyBindingMetadata(tView.data, tNode, "attr." + name, bindingIndex);
   }
   return \u0275\u0275attribute;
+}
+var ANIMATIONS_DISABLED = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "AnimationsDisabled" : "", {
+  providedIn: "root",
+  factory: () => false
+});
+var MAX_ANIMATION_TIMEOUT = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "MaxAnimationTimeout" : "", {
+  providedIn: "root",
+  factory: () => MAX_ANIMATION_TIMEOUT_DEFAULT
+});
+var MAX_ANIMATION_TIMEOUT_DEFAULT = 4e3;
+var DEFAULT_ANIMATIONS_DISABLED = false;
+var areAnimationSupported = typeof document !== "undefined" && // tslint:disable-next-line:no-toplevel-property-access
+typeof document?.documentElement?.getAnimations === "function";
+function areAnimationsDisabled(lView) {
+  const injector = lView[INJECTOR];
+  return injector.get(ANIMATIONS_DISABLED, DEFAULT_ANIMATIONS_DISABLED);
+}
+function assertAnimationTypes(value, instruction) {
+  if (value == null || typeof value !== "string" && typeof value !== "function") {
+    throw new RuntimeError(650, `'${instruction}' value must be a string of CSS classes or an animation function, got ${stringify(value)}`);
+  }
+}
+function assertElementNodes(nativeElement, instruction) {
+  if (nativeElement.nodeType !== Node.ELEMENT_NODE) {
+    throw new RuntimeError(650, `'${instruction}' can only be used on an element node, got ${stringify(nativeElement.nodeType)}`);
+  }
+}
+function trackEnterClasses(el, classList, cleanupFns) {
+  const elementData = enterClassMap.get(el);
+  if (elementData) {
+    for (const klass of classList) {
+      elementData.classList.push(klass);
+    }
+    for (const fn of cleanupFns) {
+      elementData.cleanupFns.push(fn);
+    }
+  } else {
+    enterClassMap.set(el, { classList, cleanupFns });
+  }
+}
+function cleanupEnterClassData(element) {
+  const elementData = enterClassMap.get(element);
+  if (elementData) {
+    for (const fn of elementData.cleanupFns) {
+      fn();
+    }
+    enterClassMap.delete(element);
+  }
+  longestAnimations.delete(element);
+}
+var noOpAnimationComplete = () => {
+};
+var enterClassMap = /* @__PURE__ */ new WeakMap();
+var longestAnimations = /* @__PURE__ */ new WeakMap();
+var leavingNodes = /* @__PURE__ */ new WeakMap();
+function clearLeavingNodes(tNode, el) {
+  const nodes = leavingNodes.get(tNode);
+  if (nodes && nodes.length > 0) {
+    const ix = nodes.findIndex((node) => node === el);
+    if (ix > -1)
+      nodes.splice(ix, 1);
+  }
+  if (nodes?.length === 0) {
+    leavingNodes.delete(tNode);
+  }
+}
+function cancelLeavingNodes(tNode, lView) {
+  const leavingEl = leavingNodes.get(tNode)?.shift();
+  const lContainer = lView[DECLARATION_LCONTAINER];
+  if (lContainer) {
+    const beforeNode = getBeforeNodeForView(tNode.index, lContainer);
+    const previousNode = beforeNode?.previousSibling;
+    if (leavingEl && previousNode && leavingEl === previousNode) {
+      leavingEl.dispatchEvent(new CustomEvent("animationend", { detail: { cancel: true } }));
+    }
+  }
+}
+function trackLeavingNodes(tNode, el) {
+  if (leavingNodes.has(tNode)) {
+    leavingNodes.get(tNode)?.push(el);
+  } else {
+    leavingNodes.set(tNode, [el]);
+  }
+}
+function getLViewEnterAnimations(lView) {
+  const animationData = lView[ANIMATIONS] ??= {};
+  return animationData.enter ??= /* @__PURE__ */ new Map();
+}
+function getLViewLeaveAnimations(lView) {
+  const animationData = lView[ANIMATIONS] ??= {};
+  return animationData.leave ??= /* @__PURE__ */ new Map();
+}
+function getClassListFromValue(value) {
+  const classes = typeof value === "function" ? value() : value;
+  let classList = Array.isArray(classes) ? classes : null;
+  if (typeof classes === "string") {
+    classList = classes.trim().split(/\s+/).filter((k) => k);
+  }
+  return classList;
+}
+function cancelAnimationsIfRunning(element, renderer) {
+  if (!areAnimationSupported)
+    return;
+  const elementData = enterClassMap.get(element);
+  if (elementData && elementData.classList.length > 0 && elementHasClassList(element, elementData.classList)) {
+    for (const klass of elementData.classList) {
+      renderer.removeClass(element, klass);
+    }
+  }
+  cleanupEnterClassData(element);
+}
+function elementHasClassList(element, classList) {
+  for (const className of classList) {
+    if (element.classList.contains(className))
+      return true;
+  }
+  return false;
+}
+function isLongestAnimation(event, nativeElement) {
+  const longestAnimation = longestAnimations.get(nativeElement);
+  if (longestAnimation === void 0)
+    return true;
+  return nativeElement === event.target && (longestAnimation.animationName !== void 0 && event.animationName === longestAnimation.animationName || longestAnimation.propertyName !== void 0 && event.propertyName === longestAnimation.propertyName);
+}
+function addAnimationToLView(animations, tNode, fn) {
+  const nodeAnimations = animations.get(tNode.index) ?? { animateFns: [] };
+  nodeAnimations.animateFns.push(fn);
+  animations.set(tNode.index, nodeAnimations);
+}
+function cleanupAfterLeaveAnimations(resolvers, cleanupFns) {
+  if (resolvers) {
+    for (const fn of resolvers) {
+      fn();
+    }
+  }
+  for (const fn of cleanupFns) {
+    fn();
+  }
+}
+function clearLViewNodeAnimationResolvers(lView, tNode) {
+  const nodeAnimations = getLViewLeaveAnimations(lView).get(tNode.index);
+  if (nodeAnimations)
+    nodeAnimations.resolvers = void 0;
+}
+function leaveAnimationFunctionCleanup(lView, tNode, nativeElement, resolvers, cleanupFns) {
+  clearLeavingNodes(tNode, nativeElement);
+  cleanupAfterLeaveAnimations(resolvers, cleanupFns);
+  clearLViewNodeAnimationResolvers(lView, tNode);
+}
+function \u0275\u0275animateEnter(value) {
+  performanceMarkFeature("NgAnimateEnter");
+  if (!areAnimationSupported) {
+    return \u0275\u0275animateEnter;
+  }
+  ngDevMode && assertAnimationTypes(value, "animate.enter");
+  const lView = getLView();
+  if (areAnimationsDisabled(lView)) {
+    return \u0275\u0275animateEnter;
+  }
+  const tNode = getCurrentTNode();
+  cancelLeavingNodes(tNode, lView);
+  addAnimationToLView(getLViewEnterAnimations(lView), tNode, () => runEnterAnimation(lView, tNode, value));
+  initializeAnimationQueueScheduler(lView[INJECTOR]);
+  queueEnterAnimations(lView[INJECTOR], getLViewEnterAnimations(lView));
+  return \u0275\u0275animateEnter;
+}
+function runEnterAnimation(lView, tNode, value) {
+  const nativeElement = getNativeByTNode(tNode, lView);
+  ngDevMode && assertElementNodes(nativeElement, "animate.enter");
+  const renderer = lView[RENDERER];
+  const ngZone = lView[INJECTOR].get(NgZone);
+  const activeClasses = getClassListFromValue(value);
+  const cleanupFns = [];
+  const handleEnterAnimationStart = (event) => {
+    if (event.target !== nativeElement)
+      return;
+    const eventName = event instanceof AnimationEvent ? "animationend" : "transitionend";
+    ngZone.runOutsideAngular(() => {
+      renderer.listen(nativeElement, eventName, handleEnterAnimationEnd);
+    });
+  };
+  const handleEnterAnimationEnd = (event) => {
+    if (event.target !== nativeElement)
+      return;
+    enterAnimationEnd(event, nativeElement, renderer);
+  };
+  if (activeClasses && activeClasses.length > 0) {
+    ngZone.runOutsideAngular(() => {
+      cleanupFns.push(renderer.listen(nativeElement, "animationstart", handleEnterAnimationStart));
+      cleanupFns.push(renderer.listen(nativeElement, "transitionstart", handleEnterAnimationStart));
+    });
+    trackEnterClasses(nativeElement, activeClasses, cleanupFns);
+    for (const klass of activeClasses) {
+      renderer.addClass(nativeElement, klass);
+    }
+    ngZone.runOutsideAngular(() => {
+      requestAnimationFrame(() => {
+        determineLongestAnimation(nativeElement, longestAnimations, areAnimationSupported);
+        if (!longestAnimations.has(nativeElement)) {
+          for (const klass of activeClasses) {
+            renderer.removeClass(nativeElement, klass);
+          }
+          cleanupEnterClassData(nativeElement);
+        }
+      });
+    });
+  }
+}
+function enterAnimationEnd(event, nativeElement, renderer) {
+  const elementData = enterClassMap.get(nativeElement);
+  if (event.target !== nativeElement || !elementData)
+    return;
+  if (isLongestAnimation(event, nativeElement)) {
+    event.stopImmediatePropagation();
+    for (const klass of elementData.classList) {
+      renderer.removeClass(nativeElement, klass);
+    }
+    cleanupEnterClassData(nativeElement);
+  }
+}
+function \u0275\u0275animateEnterListener(value) {
+  performanceMarkFeature("NgAnimateEnter");
+  if (!areAnimationSupported) {
+    return \u0275\u0275animateEnterListener;
+  }
+  ngDevMode && assertAnimationTypes(value, "animate.enter");
+  const lView = getLView();
+  if (areAnimationsDisabled(lView)) {
+    return \u0275\u0275animateEnterListener;
+  }
+  const tNode = getCurrentTNode();
+  cancelLeavingNodes(tNode, lView);
+  addAnimationToLView(getLViewEnterAnimations(lView), tNode, () => runEnterAnimationFunction(lView, tNode, value));
+  initializeAnimationQueueScheduler(lView[INJECTOR]);
+  queueEnterAnimations(lView[INJECTOR], getLViewEnterAnimations(lView));
+  return \u0275\u0275animateEnterListener;
+}
+function runEnterAnimationFunction(lView, tNode, value) {
+  const nativeElement = getNativeByTNode(tNode, lView);
+  ngDevMode && assertElementNodes(nativeElement, "animate.enter");
+  value.call(lView[CONTEXT], { target: nativeElement, animationComplete: noOpAnimationComplete });
+}
+function \u0275\u0275animateLeave(value) {
+  performanceMarkFeature("NgAnimateLeave");
+  if (!areAnimationSupported) {
+    return \u0275\u0275animateLeave;
+  }
+  ngDevMode && assertAnimationTypes(value, "animate.leave");
+  const lView = getLView();
+  const animationsDisabled = areAnimationsDisabled(lView);
+  if (animationsDisabled) {
+    return \u0275\u0275animateLeave;
+  }
+  const tNode = getCurrentTNode();
+  cancelLeavingNodes(tNode, lView);
+  addAnimationToLView(getLViewLeaveAnimations(lView), tNode, () => runLeaveAnimations(lView, tNode, value));
+  initializeAnimationQueueScheduler(lView[INJECTOR]);
+  return \u0275\u0275animateLeave;
+}
+function runLeaveAnimations(lView, tNode, value) {
+  const { promise, resolve } = promiseWithResolvers();
+  const nativeElement = getNativeByTNode(tNode, lView);
+  ngDevMode && assertElementNodes(nativeElement, "animate.leave");
+  const renderer = lView[RENDERER];
+  const ngZone = lView[INJECTOR].get(NgZone);
+  allLeavingAnimations.add(lView);
+  (getLViewLeaveAnimations(lView).get(tNode.index).resolvers ??= []).push(resolve);
+  const activeClasses = getClassListFromValue(value);
+  if (activeClasses && activeClasses.length > 0) {
+    animateLeaveClassRunner(nativeElement, tNode, lView, activeClasses, renderer, ngZone);
+  } else {
+    resolve();
+  }
+  return { promise, resolve };
+}
+function animateLeaveClassRunner(el, tNode, lView, classList, renderer, ngZone) {
+  cancelAnimationsIfRunning(el, renderer);
+  const cleanupFns = [];
+  const resolvers = getLViewLeaveAnimations(lView).get(tNode.index)?.resolvers;
+  const handleOutAnimationEnd = (event) => {
+    if (event.target !== el)
+      return;
+    if (event instanceof CustomEvent || isLongestAnimation(event, el)) {
+      event.stopImmediatePropagation();
+      longestAnimations.delete(el);
+      clearLeavingNodes(tNode, el);
+      if (Array.isArray(tNode.projection)) {
+        for (const item of classList) {
+          renderer.removeClass(el, item);
+        }
+      }
+      cleanupAfterLeaveAnimations(resolvers, cleanupFns);
+      clearLViewNodeAnimationResolvers(lView, tNode);
+    }
+  };
+  ngZone.runOutsideAngular(() => {
+    cleanupFns.push(renderer.listen(el, "animationend", handleOutAnimationEnd));
+    cleanupFns.push(renderer.listen(el, "transitionend", handleOutAnimationEnd));
+  });
+  trackLeavingNodes(tNode, el);
+  for (const item of classList) {
+    renderer.addClass(el, item);
+  }
+  ngZone.runOutsideAngular(() => {
+    requestAnimationFrame(() => {
+      determineLongestAnimation(el, longestAnimations, areAnimationSupported);
+      if (!longestAnimations.has(el)) {
+        clearLeavingNodes(tNode, el);
+        cleanupAfterLeaveAnimations(resolvers, cleanupFns);
+        clearLViewNodeAnimationResolvers(lView, tNode);
+      }
+    });
+  });
+}
+function \u0275\u0275animateLeaveListener(value) {
+  performanceMarkFeature("NgAnimateLeave");
+  if (!areAnimationSupported) {
+    return \u0275\u0275animateLeaveListener;
+  }
+  ngDevMode && assertAnimationTypes(value, "animate.leave");
+  const lView = getLView();
+  const tNode = getCurrentTNode();
+  cancelLeavingNodes(tNode, lView);
+  allLeavingAnimations.add(lView);
+  addAnimationToLView(getLViewLeaveAnimations(lView), tNode, () => runLeaveAnimationFunction(lView, tNode, value));
+  initializeAnimationQueueScheduler(lView[INJECTOR]);
+  return \u0275\u0275animateLeaveListener;
+}
+function runLeaveAnimationFunction(lView, tNode, value) {
+  const { promise, resolve } = promiseWithResolvers();
+  const nativeElement = getNativeByTNode(tNode, lView);
+  ngDevMode && assertElementNodes(nativeElement, "animate.leave");
+  const cleanupFns = [];
+  const renderer = lView[RENDERER];
+  const animationsDisabled = areAnimationsDisabled(lView);
+  const ngZone = lView[INJECTOR].get(NgZone);
+  const maxAnimationTimeout = lView[INJECTOR].get(MAX_ANIMATION_TIMEOUT);
+  (getLViewLeaveAnimations(lView).get(tNode.index).resolvers ??= []).push(resolve);
+  const resolvers = getLViewLeaveAnimations(lView).get(tNode.index)?.resolvers;
+  if (animationsDisabled) {
+    leaveAnimationFunctionCleanup(lView, tNode, nativeElement, resolvers, cleanupFns);
+  } else {
+    const timeoutId = setTimeout(() => leaveAnimationFunctionCleanup(lView, tNode, nativeElement, resolvers, cleanupFns), maxAnimationTimeout);
+    const event = {
+      target: nativeElement,
+      animationComplete: () => {
+        leaveAnimationFunctionCleanup(lView, tNode, nativeElement, resolvers, cleanupFns);
+        clearTimeout(timeoutId);
+      }
+    };
+    trackLeavingNodes(tNode, nativeElement);
+    ngZone.runOutsideAngular(() => {
+      cleanupFns.push(renderer.listen(nativeElement, "animationend", () => {
+        leaveAnimationFunctionCleanup(lView, tNode, nativeElement, resolvers, cleanupFns);
+        clearTimeout(timeoutId);
+      }, { once: true }));
+    });
+    value.call(lView[CONTEXT], event);
+  }
+  return { promise, resolve };
 }
 function \u0275\u0275componentInstance() {
   const instance = getLView()[DECLARATION_COMPONENT_VIEW][CONTEXT];
@@ -16859,7 +17620,11 @@ var LiveCollection = class {
     }
   }
   move(prevIndex, newIdx) {
-    this.attach(newIdx, this.detach(prevIndex));
+    this.attach(newIdx, this.detach(
+      prevIndex,
+      true
+      /* skipLeaveAnimations */
+    ));
   }
 };
 function valuesMatching(liveIdx, liveValue, newIdx, newValue, trackBy) {
@@ -17270,8 +18035,10 @@ var LiveCollectionLContainerImpl = class extends LiveCollection {
     this.needsIndexUpdate ||= index !== this.length;
     addLViewToLContainer(this.lContainer, lView, index, shouldAddViewToDom(this.templateTNode, dehydratedView));
   }
-  detach(index) {
+  detach(index, skipLeaveAnimations) {
     this.needsIndexUpdate ||= index !== this.length - 1;
+    if (skipLeaveAnimations)
+      setSkipLeaveAnimations(this.lContainer, index);
     return detachExistingView(this.lContainer, index);
   }
   create(index, value) {
@@ -17351,6 +18118,15 @@ function getLContainer(lView, index) {
   const lContainer = lView[index];
   ngDevMode && assertLContainer(lContainer);
   return lContainer;
+}
+function setSkipLeaveAnimations(lContainer, index) {
+  if (lContainer.length <= CONTAINER_HEADER_OFFSET)
+    return;
+  const indexInContainer = CONTAINER_HEADER_OFFSET + index;
+  const viewToDetach = lContainer[indexInContainer];
+  if (viewToDetach && viewToDetach[ANIMATIONS]) {
+    viewToDetach[ANIMATIONS].skipLeaveAnimations = true;
+  }
 }
 function detachExistingView(lContainer, index) {
   const existingLView = detachView(lContainer, index);
@@ -17573,7 +18349,7 @@ function plural(val) {
     return 1;
   return 5;
 }
-var localeEn = ["en", [["a", "p"], ["AM", "PM"], u], [["AM", "PM"], u, u], [["S", "M", "T", "W", "T", "F", "S"], ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]], u, [["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"], ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]], u, [["B", "A"], ["BC", "AD"], ["Before Christ", "Anno Domini"]], 0, [6, 0], ["M/d/yy", "MMM d, y", "MMMM d, y", "EEEE, MMMM d, y"], ["h:mm a", "h:mm:ss a", "h:mm:ss a z", "h:mm:ss a zzzz"], ["{1}, {0}", u, "{1} 'at' {0}", u], [".", ",", ";", "%", "+", "-", "E", "\xD7", "\u2030", "\u221E", "NaN", ":"], ["#,##0.###", "#,##0%", "\xA4#,##0.00", "#E0"], "USD", "$", "US Dollar", {}, "ltr", plural];
+var localeEn = ["en", [["a", "p"], ["AM", "PM"]], [["AM", "PM"]], [["S", "M", "T", "W", "T", "F", "S"], ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]], u, [["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"], ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]], u, [["B", "A"], ["BC", "AD"], ["Before Christ", "Anno Domini"]], 0, [6, 0], ["M/d/yy", "MMM d, y", "MMMM d, y", "EEEE, MMMM d, y"], ["h:mm a", "h:mm:ss a", "h:mm:ss a z", "h:mm:ss a zzzz"], ["{1}, {0}", u, "{1} 'at' {0}", u], [".", ",", ";", "%", "+", "-", "E", "\xD7", "\u2030", "\u221E", "NaN", ":"], ["#,##0.###", "#,##0%", "\xA4#,##0.00", "#E0"], "USD", "$", "US Dollar", {}, "ltr", plural];
 var LOCALE_DATA = {};
 function findLocaleData(locale) {
   const normalizedLocale = normalizeLocale(locale);
@@ -20256,6 +21032,10 @@ function resetProjectionState(tNode) {
   }
 }
 var angularCoreEnv = /* @__PURE__ */ (() => ({
+  "\u0275\u0275animateEnter": \u0275\u0275animateEnter,
+  "\u0275\u0275animateEnterListener": \u0275\u0275animateEnterListener,
+  "\u0275\u0275animateLeave": \u0275\u0275animateLeave,
+  "\u0275\u0275animateLeaveListener": \u0275\u0275animateLeaveListener,
   "\u0275\u0275attribute": \u0275\u0275attribute,
   "\u0275\u0275defineComponent": \u0275\u0275defineComponent,
   "\u0275\u0275defineDirective": \u0275\u0275defineDirective,
@@ -20320,6 +21100,7 @@ var angularCoreEnv = /* @__PURE__ */ (() => ({
   "\u0275\u0275pipeBindV": \u0275\u0275pipeBindV,
   "\u0275\u0275projectionDef": \u0275\u0275projectionDef,
   "\u0275\u0275domProperty": \u0275\u0275domProperty,
+  "\u0275\u0275ariaProperty": \u0275\u0275ariaProperty,
   "\u0275\u0275property": \u0275\u0275property,
   "\u0275\u0275pipe": \u0275\u0275pipe,
   "\u0275\u0275queryRefresh": \u0275\u0275queryRefresh,
@@ -21721,36 +22502,22 @@ function effect(effectFn, options) {
   }
   return effectRef;
 }
-var BASE_EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, REACTIVE_NODE), {
-  consumerIsAlwaysLive: true,
-  consumerAllowSignalWrites: true,
-  dirty: true,
-  hasRun: false,
+var EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, BASE_EFFECT_NODE), {
   cleanupFns: void 0,
   zone: null,
-  kind: "effect",
   onDestroyFn: noop2,
   run() {
-    this.dirty = false;
     if (ngDevMode && isInNotificationPhase()) {
       throw new Error(`Schedulers cannot synchronously execute watches while scheduling.`);
     }
-    if (this.hasRun && !consumerPollProducersForChange(this)) {
-      return;
-    }
-    this.hasRun = true;
-    const registerCleanupFn = (cleanupFn) => (this.cleanupFns ??= []).push(cleanupFn);
-    const prevNode = consumerBeforeComputation(this);
     const prevRefreshingViews = setIsRefreshingViews(false);
     try {
-      this.maybeCleanup();
-      this.fn(registerCleanupFn);
+      runEffect(this);
     } finally {
       setIsRefreshingViews(prevRefreshingViews);
-      consumerAfterComputation(this, prevNode);
     }
   },
-  maybeCleanup() {
+  cleanup() {
     if (!this.cleanupFns?.length) {
       return;
     }
@@ -21765,7 +22532,7 @@ var BASE_EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, R
     }
   }
 }))();
-var ROOT_EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, BASE_EFFECT_NODE), {
+var ROOT_EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, EFFECT_NODE), {
   consumerMarkedDirty() {
     this.scheduler.schedule(this);
     this.notifier.notify(
@@ -21776,11 +22543,11 @@ var ROOT_EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, B
   destroy() {
     consumerDestroy(this);
     this.onDestroyFn();
-    this.maybeCleanup();
+    this.cleanup();
     this.scheduler.remove(this);
   }
 }))();
-var VIEW_EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, BASE_EFFECT_NODE), {
+var VIEW_EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, EFFECT_NODE), {
   consumerMarkedDirty() {
     this.view[FLAGS] |= 8192;
     markAncestorsForTraversal(this.view);
@@ -21792,7 +22559,7 @@ var VIEW_EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, B
   destroy() {
     consumerDestroy(this);
     this.onDestroyFn();
-    this.maybeCleanup();
+    this.cleanup();
     this.view[EFFECTS]?.delete(this);
   }
 }))();
@@ -21801,7 +22568,7 @@ function createViewEffect(view, notifier, fn) {
   node.view = view;
   node.zone = typeof Zone !== "undefined" ? Zone.current : null;
   node.notifier = notifier;
-  node.fn = fn;
+  node.fn = createEffectFn(node, fn);
   view[EFFECTS] ??= /* @__PURE__ */ new Set();
   view[EFFECTS].add(node);
   node.consumerMarkedDirty(node);
@@ -21809,7 +22576,7 @@ function createViewEffect(view, notifier, fn) {
 }
 function createRootEffect(fn, scheduler, notifier) {
   const node = Object.create(ROOT_EFFECT_NODE);
-  node.fn = fn;
+  node.fn = createEffectFn(node, fn);
   node.scheduler = scheduler;
   node.notifier = notifier;
   node.zone = typeof Zone !== "undefined" ? Zone.current : null;
@@ -21820,19 +22587,25 @@ function createRootEffect(fn, scheduler, notifier) {
   );
   return node;
 }
+function createEffectFn(node, fn) {
+  return () => {
+    fn((cleanupFn) => (node.cleanupFns ??= []).push(cleanupFn));
+  };
+}
 var identityFn = (v) => v;
 function linkedSignal(optionsOrComputation, options) {
   if (typeof optionsOrComputation === "function") {
     const getter = createLinkedSignal(optionsOrComputation, identityFn, options?.equal);
-    return upgradeLinkedSignalGetter(getter);
+    return upgradeLinkedSignalGetter(getter, options?.debugName);
   } else {
     const getter = createLinkedSignal(optionsOrComputation.source, optionsOrComputation.computation, optionsOrComputation.equal);
-    return upgradeLinkedSignalGetter(getter);
+    return upgradeLinkedSignalGetter(getter, optionsOrComputation.debugName);
   }
 }
-function upgradeLinkedSignalGetter(getter) {
+function upgradeLinkedSignalGetter(getter, debugName) {
   if (ngDevMode) {
     getter.toString = () => `[LinkedSignal: ${getter()}]`;
+    getter[SIGNAL].debugName = debugName;
   }
   const node = getter[SIGNAL];
   const upgradedGetter = getter;
@@ -22284,20 +23057,6 @@ var ViewChild = makePropDecorator("ViewChild", (selector, opts) => __spreadValue
   isViewQuery: true,
   descendants: true
 }, opts), Query);
-var Version = class {
-  full;
-  major;
-  minor;
-  patch;
-  constructor(full) {
-    this.full = full;
-    const parts = full.split(".");
-    this.major = parts[0];
-    this.minor = parts[1];
-    this.patch = parts.slice(2).join(".");
-  }
-};
-var VERSION = new Version("20.1.7");
 function compileNgModuleFactory(injector, options, moduleType) {
   ngDevMode && assertNgModuleType(moduleType);
   const moduleFactory = new NgModuleFactory2(moduleType);
@@ -22519,8 +23278,8 @@ function bootstrap(config3) {
       return initStatus.donePromise.then(() => {
         const localeId = envInjector.get(LOCALE_ID, DEFAULT_LOCALE_ID);
         setLocaleId(localeId || DEFAULT_LOCALE_ID);
-        const enableRootComponentBoostrap = envInjector.get(ENABLE_ROOT_COMPONENT_BOOTSTRAP, true);
-        if (!enableRootComponentBoostrap) {
+        const enableRootComponentbootstrap = envInjector.get(ENABLE_ROOT_COMPONENT_BOOTSTRAP, true);
+        if (!enableRootComponentbootstrap) {
           if (isApplicationBootstrapConfig(config3)) {
             return envInjector.get(ApplicationRef);
           }
@@ -22684,14 +23443,13 @@ var PlatformRef = class _PlatformRef {
   }], () => [{ type: Injector }], null);
 })();
 var _platformInjector = null;
-var ALLOW_MULTIPLE_PLATFORMS = new InjectionToken(ngDevMode ? "AllowMultipleToken" : "");
 function createPlatform(injector) {
-  if (_platformInjector && !_platformInjector.get(ALLOW_MULTIPLE_PLATFORMS, false)) {
+  if (getPlatform()) {
     throw new RuntimeError(400, ngDevMode && "There can be only one platform. Destroy the previous one to create a new one.");
   }
   publishDefaultGlobalUtils();
   publishSignalConfiguration();
-  _platformInjector = injector;
+  _platformInjector = true ? injector : null;
   const platform = injector.get(PlatformRef);
   runPlatformInitializers(injector);
   return platform;
@@ -22701,19 +23459,15 @@ function createPlatformFactory(parentPlatformFactory, name, providers = []) {
   const marker = new InjectionToken(desc);
   return (extraProviders = []) => {
     let platform = getPlatform();
-    if (!platform || platform.injector.get(ALLOW_MULTIPLE_PLATFORMS, false)) {
+    if (!platform) {
       const platformProviders = [
         ...providers,
         ...extraProviders,
         { provide: marker, useValue: true }
       ];
-      if (parentPlatformFactory) {
-        parentPlatformFactory(platformProviders);
-      } else {
-        createPlatform(createPlatformInjector(platformProviders, desc));
-      }
+      platform = parentPlatformFactory?.(platformProviders) ?? createPlatform(createPlatformInjector(platformProviders, desc));
     }
-    return assertPlatform(marker);
+    return false ? platform : assertPlatform(marker);
   };
 }
 function createPlatformInjector(providers = [], name) {
@@ -22729,7 +23483,7 @@ function createPlatformInjector(providers = [], name) {
 function assertPlatform(requiredToken) {
   const platform = getPlatform();
   if (!platform) {
-    throw new RuntimeError(401, ngDevMode && "No platform exists!");
+    throw new RuntimeError(-401, ngDevMode && "No platform exists!");
   }
   if ((typeof ngDevMode === "undefined" || ngDevMode) && !platform.injector.get(requiredToken, null)) {
     throw new RuntimeError(400, "A platform with a different configuration has been created. Please destroy it first.");
@@ -22737,6 +23491,9 @@ function assertPlatform(requiredToken) {
   return platform;
 }
 function getPlatform() {
+  if (false) {
+    return null;
+  }
   return _platformInjector?.get(PlatformRef) ?? null;
 }
 function runPlatformInitializers(injector) {
@@ -23620,11 +24377,10 @@ var IterableDiffers = class _IterableDiffers {
   static extend(factories) {
     return {
       provide: _IterableDiffers,
-      useFactory: (parent) => {
+      useFactory: () => {
+        const parent = inject2(_IterableDiffers, { optional: true, skipSelf: true });
         return _IterableDiffers.create(factories, parent || defaultIterableDiffersFactory());
-      },
-      // Dependency technically isn't optional, but we can provide a better error message this way.
-      deps: [[_IterableDiffers, new SkipSelf(), new Optional()]]
+      }
     };
   }
   find(iterable) {
@@ -23686,11 +24442,10 @@ var KeyValueDiffers = class _KeyValueDiffers {
   static extend(factories) {
     return {
       provide: _KeyValueDiffers,
-      useFactory: (parent) => {
+      useFactory: () => {
+        const parent = inject2(_KeyValueDiffers, { optional: true, skipSelf: true });
         return _KeyValueDiffers.create(factories, parent || defaultKeyValueDiffersFactory());
-      },
-      // Dependency technically isn't optional, but we can provide a better error message this way.
-      deps: [[_KeyValueDiffers, new SkipSelf(), new Optional()]]
+      }
     };
   }
   find(kv) {
@@ -24975,7 +25730,7 @@ function timeZoneGetter(width) {
           return (zone >= 0 ? "+" : "") + padNumber(hours, 2, minusSign) + ":" + padNumber(Math.abs(zone % 60), 2, minusSign);
         }
       default:
-        throw new RuntimeError(2302, ngDevMode && `Unknown zone width "${width}"`);
+        throw new RuntimeError(2310, ngDevMode && `Unknown zone width "${width}"`);
     }
   };
 }
@@ -25018,220 +25773,220 @@ function getDateFormatter(format) {
   if (DATE_FORMATS[format]) {
     return DATE_FORMATS[format];
   }
-  let formatter;
+  let formatter2;
   switch (format) {
     // Era name (AD/BC)
     case "G":
     case "GG":
     case "GGG":
-      formatter = dateStrGetter(3, TranslationWidth.Abbreviated);
+      formatter2 = dateStrGetter(3, TranslationWidth.Abbreviated);
       break;
     case "GGGG":
-      formatter = dateStrGetter(3, TranslationWidth.Wide);
+      formatter2 = dateStrGetter(3, TranslationWidth.Wide);
       break;
     case "GGGGG":
-      formatter = dateStrGetter(3, TranslationWidth.Narrow);
+      formatter2 = dateStrGetter(3, TranslationWidth.Narrow);
       break;
     // 1 digit representation of the year, e.g. (AD 1 => 1, AD 199 => 199)
     case "y":
-      formatter = dateGetter(0, 1, 0, false, true);
+      formatter2 = dateGetter(0, 1, 0, false, true);
       break;
     // 2 digit representation of the year, padded (00-99). (e.g. AD 2001 => 01, AD 2010 => 10)
     case "yy":
-      formatter = dateGetter(0, 2, 0, true, true);
+      formatter2 = dateGetter(0, 2, 0, true, true);
       break;
     // 3 digit representation of the year, padded (000-999). (e.g. AD 2001 => 01, AD 2010 => 10)
     case "yyy":
-      formatter = dateGetter(0, 3, 0, false, true);
+      formatter2 = dateGetter(0, 3, 0, false, true);
       break;
     // 4 digit representation of the year (e.g. AD 1 => 0001, AD 2010 => 2010)
     case "yyyy":
-      formatter = dateGetter(0, 4, 0, false, true);
+      formatter2 = dateGetter(0, 4, 0, false, true);
       break;
     // 1 digit representation of the week-numbering year, e.g. (AD 1 => 1, AD 199 => 199)
     case "Y":
-      formatter = weekNumberingYearGetter(1);
+      formatter2 = weekNumberingYearGetter(1);
       break;
     // 2 digit representation of the week-numbering year, padded (00-99). (e.g. AD 2001 => 01, AD
     // 2010 => 10)
     case "YY":
-      formatter = weekNumberingYearGetter(2, true);
+      formatter2 = weekNumberingYearGetter(2, true);
       break;
     // 3 digit representation of the week-numbering year, padded (000-999). (e.g. AD 1 => 001, AD
     // 2010 => 2010)
     case "YYY":
-      formatter = weekNumberingYearGetter(3);
+      formatter2 = weekNumberingYearGetter(3);
       break;
     // 4 digit representation of the week-numbering year (e.g. AD 1 => 0001, AD 2010 => 2010)
     case "YYYY":
-      formatter = weekNumberingYearGetter(4);
+      formatter2 = weekNumberingYearGetter(4);
       break;
     // Month of the year (1-12), numeric
     case "M":
     case "L":
-      formatter = dateGetter(1, 1, 1);
+      formatter2 = dateGetter(1, 1, 1);
       break;
     case "MM":
     case "LL":
-      formatter = dateGetter(1, 2, 1);
+      formatter2 = dateGetter(1, 2, 1);
       break;
     // Month of the year (January, ...), string, format
     case "MMM":
-      formatter = dateStrGetter(2, TranslationWidth.Abbreviated);
+      formatter2 = dateStrGetter(2, TranslationWidth.Abbreviated);
       break;
     case "MMMM":
-      formatter = dateStrGetter(2, TranslationWidth.Wide);
+      formatter2 = dateStrGetter(2, TranslationWidth.Wide);
       break;
     case "MMMMM":
-      formatter = dateStrGetter(2, TranslationWidth.Narrow);
+      formatter2 = dateStrGetter(2, TranslationWidth.Narrow);
       break;
     // Month of the year (January, ...), string, standalone
     case "LLL":
-      formatter = dateStrGetter(2, TranslationWidth.Abbreviated, FormStyle.Standalone);
+      formatter2 = dateStrGetter(2, TranslationWidth.Abbreviated, FormStyle.Standalone);
       break;
     case "LLLL":
-      formatter = dateStrGetter(2, TranslationWidth.Wide, FormStyle.Standalone);
+      formatter2 = dateStrGetter(2, TranslationWidth.Wide, FormStyle.Standalone);
       break;
     case "LLLLL":
-      formatter = dateStrGetter(2, TranslationWidth.Narrow, FormStyle.Standalone);
+      formatter2 = dateStrGetter(2, TranslationWidth.Narrow, FormStyle.Standalone);
       break;
     // Week of the year (1, ... 52)
     case "w":
-      formatter = weekGetter(1);
+      formatter2 = weekGetter(1);
       break;
     case "ww":
-      formatter = weekGetter(2);
+      formatter2 = weekGetter(2);
       break;
     // Week of the month (1, ...)
     case "W":
-      formatter = weekGetter(1, true);
+      formatter2 = weekGetter(1, true);
       break;
     // Day of the month (1-31)
     case "d":
-      formatter = dateGetter(2, 1);
+      formatter2 = dateGetter(2, 1);
       break;
     case "dd":
-      formatter = dateGetter(2, 2);
+      formatter2 = dateGetter(2, 2);
       break;
     // Day of the Week StandAlone (1, 1, Mon, Monday, M, Mo)
     case "c":
     case "cc":
-      formatter = dateGetter(7, 1);
+      formatter2 = dateGetter(7, 1);
       break;
     case "ccc":
-      formatter = dateStrGetter(1, TranslationWidth.Abbreviated, FormStyle.Standalone);
+      formatter2 = dateStrGetter(1, TranslationWidth.Abbreviated, FormStyle.Standalone);
       break;
     case "cccc":
-      formatter = dateStrGetter(1, TranslationWidth.Wide, FormStyle.Standalone);
+      formatter2 = dateStrGetter(1, TranslationWidth.Wide, FormStyle.Standalone);
       break;
     case "ccccc":
-      formatter = dateStrGetter(1, TranslationWidth.Narrow, FormStyle.Standalone);
+      formatter2 = dateStrGetter(1, TranslationWidth.Narrow, FormStyle.Standalone);
       break;
     case "cccccc":
-      formatter = dateStrGetter(1, TranslationWidth.Short, FormStyle.Standalone);
+      formatter2 = dateStrGetter(1, TranslationWidth.Short, FormStyle.Standalone);
       break;
     // Day of the Week
     case "E":
     case "EE":
     case "EEE":
-      formatter = dateStrGetter(1, TranslationWidth.Abbreviated);
+      formatter2 = dateStrGetter(1, TranslationWidth.Abbreviated);
       break;
     case "EEEE":
-      formatter = dateStrGetter(1, TranslationWidth.Wide);
+      formatter2 = dateStrGetter(1, TranslationWidth.Wide);
       break;
     case "EEEEE":
-      formatter = dateStrGetter(1, TranslationWidth.Narrow);
+      formatter2 = dateStrGetter(1, TranslationWidth.Narrow);
       break;
     case "EEEEEE":
-      formatter = dateStrGetter(1, TranslationWidth.Short);
+      formatter2 = dateStrGetter(1, TranslationWidth.Short);
       break;
     // Generic period of the day (am-pm)
     case "a":
     case "aa":
     case "aaa":
-      formatter = dateStrGetter(0, TranslationWidth.Abbreviated);
+      formatter2 = dateStrGetter(0, TranslationWidth.Abbreviated);
       break;
     case "aaaa":
-      formatter = dateStrGetter(0, TranslationWidth.Wide);
+      formatter2 = dateStrGetter(0, TranslationWidth.Wide);
       break;
     case "aaaaa":
-      formatter = dateStrGetter(0, TranslationWidth.Narrow);
+      formatter2 = dateStrGetter(0, TranslationWidth.Narrow);
       break;
     // Extended period of the day (midnight, at night, ...), standalone
     case "b":
     case "bb":
     case "bbb":
-      formatter = dateStrGetter(0, TranslationWidth.Abbreviated, FormStyle.Standalone, true);
+      formatter2 = dateStrGetter(0, TranslationWidth.Abbreviated, FormStyle.Standalone, true);
       break;
     case "bbbb":
-      formatter = dateStrGetter(0, TranslationWidth.Wide, FormStyle.Standalone, true);
+      formatter2 = dateStrGetter(0, TranslationWidth.Wide, FormStyle.Standalone, true);
       break;
     case "bbbbb":
-      formatter = dateStrGetter(0, TranslationWidth.Narrow, FormStyle.Standalone, true);
+      formatter2 = dateStrGetter(0, TranslationWidth.Narrow, FormStyle.Standalone, true);
       break;
     // Extended period of the day (midnight, night, ...), standalone
     case "B":
     case "BB":
     case "BBB":
-      formatter = dateStrGetter(0, TranslationWidth.Abbreviated, FormStyle.Format, true);
+      formatter2 = dateStrGetter(0, TranslationWidth.Abbreviated, FormStyle.Format, true);
       break;
     case "BBBB":
-      formatter = dateStrGetter(0, TranslationWidth.Wide, FormStyle.Format, true);
+      formatter2 = dateStrGetter(0, TranslationWidth.Wide, FormStyle.Format, true);
       break;
     case "BBBBB":
-      formatter = dateStrGetter(0, TranslationWidth.Narrow, FormStyle.Format, true);
+      formatter2 = dateStrGetter(0, TranslationWidth.Narrow, FormStyle.Format, true);
       break;
     // Hour in AM/PM, (1-12)
     case "h":
-      formatter = dateGetter(3, 1, -12);
+      formatter2 = dateGetter(3, 1, -12);
       break;
     case "hh":
-      formatter = dateGetter(3, 2, -12);
+      formatter2 = dateGetter(3, 2, -12);
       break;
     // Hour of the day (0-23)
     case "H":
-      formatter = dateGetter(3, 1);
+      formatter2 = dateGetter(3, 1);
       break;
     // Hour in day, padded (00-23)
     case "HH":
-      formatter = dateGetter(3, 2);
+      formatter2 = dateGetter(3, 2);
       break;
     // Minute of the hour (0-59)
     case "m":
-      formatter = dateGetter(4, 1);
+      formatter2 = dateGetter(4, 1);
       break;
     case "mm":
-      formatter = dateGetter(4, 2);
+      formatter2 = dateGetter(4, 2);
       break;
     // Second of the minute (0-59)
     case "s":
-      formatter = dateGetter(5, 1);
+      formatter2 = dateGetter(5, 1);
       break;
     case "ss":
-      formatter = dateGetter(5, 2);
+      formatter2 = dateGetter(5, 2);
       break;
     // Fractional second
     case "S":
-      formatter = dateGetter(6, 1);
+      formatter2 = dateGetter(6, 1);
       break;
     case "SS":
-      formatter = dateGetter(6, 2);
+      formatter2 = dateGetter(6, 2);
       break;
     case "SSS":
-      formatter = dateGetter(6, 3);
+      formatter2 = dateGetter(6, 3);
       break;
     // Timezone ISO8601 short format (-0430)
     case "Z":
     case "ZZ":
     case "ZZZ":
-      formatter = timeZoneGetter(
+      formatter2 = timeZoneGetter(
         0
         /* ZoneWidth.Short */
       );
       break;
     // Timezone ISO8601 extended format (-04:30)
     case "ZZZZZ":
-      formatter = timeZoneGetter(
+      formatter2 = timeZoneGetter(
         3
         /* ZoneWidth.Extended */
       );
@@ -25244,7 +25999,7 @@ function getDateFormatter(format) {
     case "z":
     case "zz":
     case "zzz":
-      formatter = timeZoneGetter(
+      formatter2 = timeZoneGetter(
         1
         /* ZoneWidth.ShortGMT */
       );
@@ -25254,7 +26009,7 @@ function getDateFormatter(format) {
     case "ZZZZ":
     // Should be location, but fallback to format O instead because we don't have the data yet
     case "zzzz":
-      formatter = timeZoneGetter(
+      formatter2 = timeZoneGetter(
         2
         /* ZoneWidth.Long */
       );
@@ -25262,8 +26017,8 @@ function getDateFormatter(format) {
     default:
       return null;
   }
-  DATE_FORMATS[format] = formatter;
-  return formatter;
+  DATE_FORMATS[format] = formatter2;
+  return formatter2;
 }
 function timezoneToOffset(timezone, fallback) {
   timezone = timezone.replace(/:/g, "");
@@ -25305,7 +26060,7 @@ function toDate(value) {
   }
   const date = new Date(value);
   if (!isDate(date)) {
-    throw new RuntimeError(2302, ngDevMode && `Unable to convert "${value}" into a date`);
+    throw new RuntimeError(2311, ngDevMode && `Unable to convert "${value}" into a date`);
   }
   return date;
 }
@@ -27380,7 +28135,7 @@ var XhrFactory = class {
 
 // node_modules/@angular/common/fesm2022/common.mjs
 var PLATFORM_BROWSER_ID = "browser";
-var VERSION2 = new Version("20.1.7");
+var VERSION2 = new Version("20.3.10");
 var ViewportScroller = class _ViewportScroller {
   // De-sugared tree-shakable injection
   // See #23917
@@ -27744,7 +28499,7 @@ function logModifiedWarning(ngSrc) {
   const directiveDetails = imgDirectiveDetails(ngSrc);
   console.warn(formatRuntimeError(2964, `${directiveDetails} this image is the Largest Contentful Paint (LCP) element and has had its "ngSrc" attribute modified. This can cause slower loading performance. It is recommended not to modify the "ngSrc" property on any image which could be the LCP element.`));
 }
-var INTERNAL_PRECONNECT_CHECK_BLOCKLIST = /* @__PURE__ */ new Set(["localhost", "127.0.0.1", "0.0.0.0"]);
+var INTERNAL_PRECONNECT_CHECK_BLOCKLIST = /* @__PURE__ */ new Set(["localhost", "127.0.0.1", "0.0.0.0", "[::1]"]);
 var PRECONNECT_CHECK_BLOCKLIST = new InjectionToken(ngDevMode ? "PRECONNECT_CHECK_BLOCKLIST" : "");
 var PreconnectLinkChecker = class _PreconnectLinkChecker {
   document = inject2(DOCUMENT);
@@ -28679,6 +29434,50 @@ function booleanOrUrlAttribute(value) {
 }
 
 // node_modules/@angular/platform-browser/fesm2022/dom_renderer.mjs
+var EventManagerPlugin = class {
+  _doc;
+  // TODO: remove (has some usage in G3)
+  constructor(_doc) {
+    this._doc = _doc;
+  }
+  // Using non-null assertion because it's set by EventManager's constructor
+  manager;
+};
+var DomEventsPlugin = class _DomEventsPlugin extends EventManagerPlugin {
+  constructor(doc) {
+    super(doc);
+  }
+  // This plugin should come last in the list of plugins, because it accepts all
+  // events.
+  supports(eventName) {
+    return true;
+  }
+  addEventListener(element, eventName, handler, options) {
+    element.addEventListener(eventName, handler, options);
+    return () => this.removeEventListener(element, eventName, handler, options);
+  }
+  removeEventListener(target, eventName, callback, options) {
+    return target.removeEventListener(eventName, callback, options);
+  }
+  static \u0275fac = function DomEventsPlugin_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _DomEventsPlugin)(\u0275\u0275inject(DOCUMENT));
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _DomEventsPlugin,
+    factory: _DomEventsPlugin.\u0275fac
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DomEventsPlugin, [{
+    type: Injectable
+  }], () => [{
+    type: void 0,
+    decorators: [{
+      type: Inject,
+      args: [DOCUMENT]
+    }]
+  }], null);
+})();
 var EVENT_MANAGER_PLUGINS = new InjectionToken(ngDevMode ? "EventManagerPlugins" : "");
 var EventManager = class _EventManager {
   _zone;
@@ -28692,7 +29491,12 @@ var EventManager = class _EventManager {
     plugins.forEach((plugin) => {
       plugin.manager = this;
     });
-    this._plugins = plugins.slice().reverse();
+    const otherPlugins = plugins.filter((p) => !(p instanceof DomEventsPlugin));
+    this._plugins = otherPlugins.slice().reverse();
+    const domEventPlugin = plugins.find((p) => p instanceof DomEventsPlugin);
+    if (domEventPlugin) {
+      this._plugins.push(domEventPlugin);
+    }
   }
   /**
    * Registers a handler for a specific element and event.
@@ -28749,15 +29553,6 @@ var EventManager = class _EventManager {
     type: NgZone
   }], null);
 })();
-var EventManagerPlugin = class {
-  _doc;
-  // TODO: remove (has some usage in G3)
-  constructor(_doc) {
-    this._doc = _doc;
-  }
-  // Using non-null assertion because it's set by EventManager's constructor
-  manager;
-};
 var APP_ID_ATTRIBUTE_NAME = "ng-app-id";
 function removeElements(elements) {
   for (const element of elements) {
@@ -29360,7 +30155,9 @@ var NoneEncapsulationDomRenderer = class extends DefaultDomRenderer2 {
     if (!this.removeStylesOnCompDestroy) {
       return;
     }
-    this.sharedStylesHost.removeStyles(this.styles, this.styleUrls);
+    if (allLeavingAnimations.size === 0) {
+      this.sharedStylesHost.removeStyles(this.styles, this.styleUrls);
+    }
   }
 };
 var EmulatedEncapsulationDomRenderer2 = class extends NoneEncapsulationDomRenderer {
@@ -29513,41 +30310,6 @@ var BrowserXhr = class _BrowserXhr {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BrowserXhr, [{
     type: Injectable
   }], null, null);
-})();
-var DomEventsPlugin = class _DomEventsPlugin extends EventManagerPlugin {
-  constructor(doc) {
-    super(doc);
-  }
-  // This plugin should come last in the list of plugins, because it accepts all
-  // events.
-  supports(eventName) {
-    return true;
-  }
-  addEventListener(element, eventName, handler, options) {
-    element.addEventListener(eventName, handler, options);
-    return () => this.removeEventListener(element, eventName, handler, options);
-  }
-  removeEventListener(target, eventName, callback, options) {
-    return target.removeEventListener(eventName, callback, options);
-  }
-  static \u0275fac = function DomEventsPlugin_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _DomEventsPlugin)(\u0275\u0275inject(DOCUMENT));
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _DomEventsPlugin,
-    factory: _DomEventsPlugin.\u0275fac
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DomEventsPlugin, [{
-    type: Injectable
-  }], () => [{
-    type: void 0,
-    decorators: [{
-      type: Inject,
-      args: [DOCUMENT]
-    }]
-  }], null);
 })();
 var MODIFIER_KEYS = ["alt", "control", "meta", "shift"];
 var _keyMap = {
@@ -30450,6 +31212,17 @@ var HttpRequest = class _HttpRequest {
    */
   redirect;
   /**
+   * The referrer of the request, which can be used to indicate the origin of the request.
+   * This is useful for security and analytics purposes.
+   * Value is a same-origin URL, "about:client", or the empty string, to set request's referrer.
+   */
+  referrer;
+  /**
+   * The integrity metadata of the request, which can be used to ensure the request is made with the expected content.
+   * A cryptographic hash of the resource to be fetched by request
+   */
+  integrity;
+  /**
    * The expected response type of the server.
    *
    * This is used to parse the response appropriately before returning it to
@@ -30520,7 +31293,7 @@ var HttpRequest = class _HttpRequest {
       }
       if (typeof options.timeout === "number") {
         if (options.timeout < 1 || !Number.isInteger(options.timeout)) {
-          throw new Error(ngDevMode ? "`timeout` must be a positive integer value" : "");
+          throw new RuntimeError(2822, ngDevMode ? "`timeout` must be a positive integer value" : "");
         }
         this.timeout = options.timeout;
       }
@@ -30529,6 +31302,12 @@ var HttpRequest = class _HttpRequest {
       }
       if (options.redirect) {
         this.redirect = options.redirect;
+      }
+      if (options.integrity) {
+        this.integrity = options.integrity;
+      }
+      if (options.referrer) {
+        this.referrer = options.referrer;
       }
       this.transferCache = options.transferCache;
     }
@@ -30607,6 +31386,8 @@ var HttpRequest = class _HttpRequest {
     const mode = update.mode || this.mode;
     const redirect = update.redirect || this.redirect;
     const credentials = update.credentials || this.credentials;
+    const referrer = update.referrer || this.referrer;
+    const integrity = update.integrity || this.integrity;
     const transferCache = update.transferCache ?? this.transferCache;
     const timeout = update.timeout ?? this.timeout;
     const body = update.body !== void 0 ? update.body : this.body;
@@ -30635,7 +31416,9 @@ var HttpRequest = class _HttpRequest {
       timeout,
       mode,
       redirect,
-      credentials
+      credentials,
+      referrer,
+      integrity
     });
   }
 };
@@ -30676,6 +31459,12 @@ var HttpResponseBase = class {
    */
   type;
   /**
+   * Indicates whether the HTTP response was redirected during the request.
+   * This property is only available when using the Fetch API using `withFetch()`
+   * When using the default XHR Request this property will be `undefined`
+   */
+  redirected;
+  /**
    * Super-constructor for all responses.
    *
    * The single parameter accepted is an initialization hash. Any properties
@@ -30686,6 +31475,7 @@ var HttpResponseBase = class {
     this.status = init.status !== void 0 ? init.status : defaultStatus;
     this.statusText = init.statusText || defaultStatusText;
     this.url = init.url || null;
+    this.redirected = init.redirected;
     this.ok = this.status >= 200 && this.status < 300;
   }
 };
@@ -30729,7 +31519,8 @@ var HttpResponse = class _HttpResponse extends HttpResponseBase {
       headers: update.headers || this.headers,
       status: update.status !== void 0 ? update.status : this.status,
       statusText: update.statusText || this.statusText,
-      url: update.url || this.url || void 0
+      url: update.url || this.url || void 0,
+      redirected: update.redirected ?? this.redirected
     });
   }
 };
@@ -30829,12 +31620,16 @@ function addBody(options, body) {
     reportProgress: options.reportProgress,
     responseType: options.responseType,
     withCredentials: options.withCredentials,
+    credentials: options.credentials,
     transferCache: options.transferCache,
+    timeout: options.timeout,
     keepalive: options.keepalive,
     priority: options.priority,
     cache: options.cache,
     mode: options.mode,
-    redirect: options.redirect
+    redirect: options.redirect,
+    integrity: options.integrity,
+    referrer: options.referrer
   };
 }
 var HttpClient = class _HttpClient {
@@ -30903,7 +31698,10 @@ var HttpClient = class _HttpClient {
         cache: options.cache,
         mode: options.mode,
         redirect: options.redirect,
-        credentials: options.credentials
+        credentials: options.credentials,
+        referrer: options.referrer,
+        integrity: options.integrity,
+        timeout: options.timeout
       });
     }
     const events$ = of(req).pipe(concatMap((req2) => this.handler.handle(req2)));
@@ -31069,12 +31867,6 @@ var FetchBackend = class _FetchBackend {
   })?.fetch ?? ((...args) => globalThis.fetch(...args));
   ngZone = inject2(NgZone);
   destroyRef = inject2(DestroyRef);
-  destroyed = false;
-  constructor() {
-    this.destroyRef.onDestroy(() => {
-      this.destroyed = true;
-    });
-  }
   handle(request) {
     return new Observable((observer) => {
       const aborter = new AbortController();
@@ -31144,7 +31936,7 @@ var FetchBackend = class _FetchBackend {
         let canceled = false;
         yield this.ngZone.runOutsideAngular(() => __async(this, null, function* () {
           while (true) {
-            if (this.destroyed) {
+            if (this.destroyRef.destroyed) {
               yield reader.cancel();
               canceled = true;
               break;
@@ -31195,13 +31987,15 @@ var FetchBackend = class _FetchBackend {
         status = body ? HTTP_STATUS_CODE_OK : 0;
       }
       const ok = status >= 200 && status < 300;
+      const redirected = response.redirected;
       if (ok) {
         observer.next(new HttpResponse({
           body,
           headers,
           status,
           statusText,
-          url
+          url,
+          redirected
         }));
         observer.complete();
       } else {
@@ -31210,7 +32004,8 @@ var FetchBackend = class _FetchBackend {
           headers,
           status,
           statusText,
-          url
+          url,
+          redirected
         }));
       }
     });
@@ -31267,7 +32062,9 @@ var FetchBackend = class _FetchBackend {
       cache: req.cache,
       priority: req.priority,
       mode: req.mode,
-      redirect: req.redirect
+      redirect: req.redirect,
+      referrer: req.referrer,
+      integrity: req.integrity
     };
   }
   concatChunks(chunks, totalLength) {
@@ -31290,7 +32087,7 @@ var FetchBackend = class _FetchBackend {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FetchBackend, [{
     type: Injectable
-  }], () => [], null);
+  }], null, null);
 })();
 var FetchFactory = class {
 };
@@ -31594,6 +32391,14 @@ function validateXhrCompatibility(req) {
     property: "credentials",
     errorCode: 2818
     /* RuntimeErrorCode.CREDENTIALS_NOT_SUPPORTED_WITH_XHR */
+  }, {
+    property: "integrity",
+    errorCode: 2820
+    /* RuntimeErrorCode.INTEGRITY_NOT_SUPPORTED_WITH_XHR */
+  }, {
+    property: "referrer",
+    errorCode: 2821
+    /* RuntimeErrorCode.REFERRER_NOT_SUPPORTED_WITH_XHR */
   }];
   for (const {
     property,
@@ -32168,23 +32973,37 @@ function normalizeRequest(request, responseType) {
     context: unwrappedRequest.context,
     transferCache: unwrappedRequest.transferCache,
     credentials: unwrappedRequest.credentials,
+    referrer: unwrappedRequest.referrer,
+    integrity: unwrappedRequest.integrity,
     timeout: unwrappedRequest.timeout
   });
 }
 var HttpResourceImpl = class extends ResourceImpl {
   client;
-  _headers = linkedSignal({
+  _headers = linkedSignal(...ngDevMode ? [{
+    debugName: "_headers",
     source: this.extRequest,
     computation: () => void 0
-  });
-  _progress = linkedSignal({
+  }] : [{
     source: this.extRequest,
     computation: () => void 0
-  });
-  _statusCode = linkedSignal({
+  }]);
+  _progress = linkedSignal(...ngDevMode ? [{
+    debugName: "_progress",
     source: this.extRequest,
     computation: () => void 0
-  });
+  }] : [{
+    source: this.extRequest,
+    computation: () => void 0
+  }]);
+  _statusCode = linkedSignal(...ngDevMode ? [{
+    debugName: "_statusCode",
+    source: this.extRequest,
+    computation: () => void 0
+  }] : [{
+    source: this.extRequest,
+    computation: () => void 0
+  }]);
   headers = computed(() => this.status() === "resolved" || this.status() === "error" ? this._headers() : void 0, ...ngDevMode ? [{ debugName: "headers" }] : []);
   progress = this._progress.asReadonly();
   statusCode = this._statusCode.asReadonly();
@@ -32821,7 +33640,7 @@ var HydrationFeatureKind;
   HydrationFeatureKind2[HydrationFeatureKind2["EventReplay"] = 3] = "EventReplay";
   HydrationFeatureKind2[HydrationFeatureKind2["IncrementalHydration"] = 4] = "IncrementalHydration";
 })(HydrationFeatureKind || (HydrationFeatureKind = {}));
-var VERSION3 = new Version("20.1.7");
+var VERSION3 = new Version("20.3.10");
 
 // node_modules/@angular/router/fesm2022/router2.mjs
 var PRIMARY_OUTLET = "primary";
@@ -33314,7 +34133,7 @@ var UrlParser = class {
       if (next !== "/" && next !== ")" && next !== ";") {
         throw new RuntimeError(4010, (typeof ngDevMode === "undefined" || ngDevMode) && `Cannot parse url '${this.url}'`);
       }
-      let outletName = void 0;
+      let outletName;
       if (path.indexOf(":") > -1) {
         outletName = path.slice(0, path.indexOf(":"));
         this.capture(outletName);
@@ -33323,7 +34142,7 @@ var UrlParser = class {
         outletName = PRIMARY_OUTLET;
       }
       const children = this.parseChildren();
-      segments[outletName] = Object.keys(children).length === 1 ? children[PRIMARY_OUTLET] : new UrlSegmentGroup([], children);
+      segments[outletName ?? PRIMARY_OUTLET] = Object.keys(children).length === 1 && children[PRIMARY_OUTLET] ? children[PRIMARY_OUTLET] : new UrlSegmentGroup([], children);
       this.consumeOptional("//");
     }
     return segments;
@@ -34595,7 +35414,7 @@ var RouterOutlet = class _RouterOutlet {
    *
    * When unset, the value of the token is `undefined` by default.
    */
-  routerOutletData = input(void 0, ...ngDevMode ? [{
+  routerOutletData = input(...ngDevMode ? [void 0, {
     debugName: "routerOutletData"
   }] : []);
   parentContexts = inject2(ChildrenOutletContexts);
@@ -34768,6 +35587,14 @@ var RouterOutlet = class _RouterOutlet {
     detachEvents: [{
       type: Output,
       args: ["detach"]
+    }],
+    routerOutletData: [{
+      type: Input,
+      args: [{
+        isSignal: true,
+        alias: "routerOutletData",
+        required: false
+      }]
     }]
   });
 })();
@@ -36294,7 +37121,13 @@ function createRenderPromise(injector) {
 }
 var NAVIGATION_ERROR_HANDLER = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "navigation error handler" : "");
 var NavigationTransitions = class _NavigationTransitions {
-  currentNavigation = null;
+  // Some G3 targets expect the navigation object to be mutated (and not getting a new reference on changes).
+  currentNavigation = signal(null, ...ngDevMode ? [{
+    debugName: "currentNavigation",
+    equal: () => false
+  }] : [{
+    equal: () => false
+  }]);
   currentTransition = null;
   lastSuccessfulNavigation = null;
   /**
@@ -36357,18 +37190,20 @@ var NavigationTransitions = class _NavigationTransitions {
   }
   handleNavigationRequest(request) {
     const id = ++this.navigationId;
-    this.transitions?.next(__spreadProps(__spreadValues({}, request), {
-      extractedUrl: this.urlHandlingStrategy.extract(request.rawUrl),
-      targetSnapshot: null,
-      targetRouterState: null,
-      guards: {
-        canActivateChecks: [],
-        canDeactivateChecks: []
-      },
-      guardsResult: null,
-      abortController: new AbortController(),
-      id
-    }));
+    untracked2(() => {
+      this.transitions?.next(__spreadProps(__spreadValues({}, request), {
+        extractedUrl: this.urlHandlingStrategy.extract(request.rawUrl),
+        targetSnapshot: null,
+        targetRouterState: null,
+        guards: {
+          canActivateChecks: [],
+          canDeactivateChecks: []
+        },
+        guardsResult: null,
+        abortController: new AbortController(),
+        id
+      }));
+    });
   }
   setupNavigations(router) {
     this.transitions = new BehaviorSubject(null);
@@ -36385,7 +37220,7 @@ var NavigationTransitions = class _NavigationTransitions {
               return EMPTY;
             }
             this.currentTransition = overallTransitionState;
-            this.currentNavigation = {
+            this.currentNavigation.set({
               id: t.id,
               initialUrl: t.rawUrl,
               extractedUrl: t.extractedUrl,
@@ -36396,7 +37231,7 @@ var NavigationTransitions = class _NavigationTransitions {
                 previousNavigation: null
               }),
               abort: () => t.abortController.abort()
-            };
+            });
             const urlTransition = !router.navigated || this.isUpdatingInternalState() || this.isUpdatedBrowserUrl();
             const onSameUrlNavigation = t.extras.onSameUrlNavigation ?? router.onSameUrlNavigation;
             if (!urlTransition && onSameUrlNavigation !== "reload") {
@@ -36421,8 +37256,9 @@ var NavigationTransitions = class _NavigationTransitions {
                 tap((t2) => {
                   overallTransitionState.targetSnapshot = t2.targetSnapshot;
                   overallTransitionState.urlAfterRedirects = t2.urlAfterRedirects;
-                  this.currentNavigation = __spreadProps(__spreadValues({}, this.currentNavigation), {
-                    finalUrl: t2.urlAfterRedirects
+                  this.currentNavigation.update((nav) => {
+                    nav.finalUrl = t2.urlAfterRedirects;
+                    return nav;
                   });
                   const routesRecognized = new RoutesRecognized(t2.id, this.urlSerializer.serialize(t2.extractedUrl), this.urlSerializer.serialize(t2.urlAfterRedirects), t2.targetSnapshot);
                   this.events.next(routesRecognized);
@@ -36447,7 +37283,10 @@ var NavigationTransitions = class _NavigationTransitions {
                   replaceUrl: false
                 })
               });
-              this.currentNavigation.finalUrl = extractedUrl;
+              this.currentNavigation.update((nav) => {
+                nav.finalUrl = extractedUrl;
+                return nav;
+              });
               return of(overallTransitionState);
             } else {
               const reason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation was ignored because the UrlHandlingStrategy indicated neither the current URL ${t.currentRawUrl} nor target URL ${t.rawUrl} should be processed.` : "";
@@ -36510,7 +37349,7 @@ var NavigationTransitions = class _NavigationTransitions {
           switchTap((t) => {
             const loadComponents = (route) => {
               const loaders = [];
-              if (route.routeConfig?.loadComponent && !route.routeConfig._loadedComponent) {
+              if (route.routeConfig?.loadComponent) {
                 const injector = getClosestRouteInjector(route) ?? this.environmentInjector;
                 loaders.push(this.configLoader.loadComponent(injector, route.routeConfig).pipe(tap((loadedComponent) => {
                   route.component = loadedComponent;
@@ -36537,7 +37376,10 @@ var NavigationTransitions = class _NavigationTransitions {
             this.currentTransition = overallTransitionState = __spreadProps(__spreadValues({}, t), {
               targetRouterState
             });
-            this.currentNavigation.targetRouterState = targetRouterState;
+            this.currentNavigation.update((nav) => {
+              nav.targetRouterState = targetRouterState;
+              return nav;
+            });
             return overallTransitionState;
           }),
           tap(() => {
@@ -36563,7 +37405,7 @@ var NavigationTransitions = class _NavigationTransitions {
           tap({
             next: (t) => {
               completedOrAborted = true;
-              this.lastSuccessfulNavigation = this.currentNavigation;
+              this.lastSuccessfulNavigation = untracked2(this.currentNavigation);
               this.events.next(new NavigationEnd(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects)));
               this.titleStrategy?.updateTitle(t.targetRouterState.snapshot);
               t.resolve(true);
@@ -36588,7 +37430,7 @@ var NavigationTransitions = class _NavigationTransitions {
               this.cancelNavigationTransition(overallTransitionState, cancelationReason, NavigationCancellationCode.SupersededByNewNavigation);
             }
             if (this.currentTransition?.id === overallTransitionState.id) {
-              this.currentNavigation = null;
+              this.currentNavigation.set(null);
               this.currentTransition = null;
             }
           }),
@@ -36653,8 +37495,9 @@ var NavigationTransitions = class _NavigationTransitions {
    */
   isUpdatedBrowserUrl() {
     const currentBrowserUrl = this.urlHandlingStrategy.extract(this.urlSerializer.parse(this.location.path(true)));
-    const targetBrowserUrl = this.currentNavigation?.targetBrowserUrl ?? this.currentNavigation?.extractedUrl;
-    return currentBrowserUrl.toString() !== targetBrowserUrl?.toString() && !this.currentNavigation?.extras.skipLocationChange;
+    const currentNavigation = untracked2(this.currentNavigation);
+    const targetBrowserUrl = currentNavigation?.targetBrowserUrl ?? currentNavigation?.extractedUrl;
+    return currentBrowserUrl.toString() !== targetBrowserUrl?.toString() && !currentNavigation?.extras.skipLocationChange;
   }
   static \u0275fac = function NavigationTransitions_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _NavigationTransitions)();
@@ -37091,6 +37934,12 @@ var Router = class _Router {
   componentInputBindingEnabled = !!inject2(INPUT_BINDER, {
     optional: true
   });
+  /**
+   * Signal of the current `Navigation` object when the router is navigating, and `null` when idle.
+   *
+   * Note: The current navigation becomes to null after the NavigationEnd event is emitted.
+   */
+  currentNavigation = this.navigationTransitions.currentNavigation.asReadonly();
   constructor() {
     this.resetConfig(this.config);
     this.navigationTransitions.setupNavigations(this).subscribe({
@@ -37105,7 +37954,7 @@ var Router = class _Router {
     const subscription = this.navigationTransitions.events.subscribe((e) => {
       try {
         const currentTransition = this.navigationTransitions.currentTransition;
-        const currentNavigation = this.navigationTransitions.currentNavigation;
+        const currentNavigation = untracked2(this.navigationTransitions.currentNavigation);
         if (currentTransition !== null && currentNavigation !== null) {
           this.stateManager.handleRouterEvent(e, currentNavigation);
           if (e instanceof NavigationCancel && e.code !== NavigationCancellationCode.Redirect && e.code !== NavigationCancellationCode.SupersededByNewNavigation) {
@@ -37200,9 +38049,11 @@ var Router = class _Router {
   /**
    * Returns the current `Navigation` object when the router is navigating,
    * and `null` when idle.
+   *
+   * @deprecated 20.2 Use the `currentNavigation` signal instead.
    */
   getCurrentNavigation() {
-    return this.navigationTransitions.currentNavigation;
+    return untracked2(this.navigationTransitions.currentNavigation);
   }
   /**
    * The `Navigation` object of the most recent navigation to succeed and `null` if there
@@ -37405,7 +38256,9 @@ var Router = class _Router {
   parseUrl(url) {
     try {
       return this.urlSerializer.parse(url);
-    } catch {
+    } catch (e) {
+      this.console.warn(formatRuntimeError(4018, ngDevMode && `Error parsing URL ${url}. Falling back to '/' instead. 
+` + e));
       return this.urlSerializer.parse("/");
     }
   }
@@ -37653,7 +38506,7 @@ var RouterLink = class _RouterLink {
   // TODO(atscott): Remove changes parameter in major version as a breaking change.
   ngOnChanges(changes) {
     if (ngDevMode && isUrlTree(this.routerLinkInput) && (this.fragment !== void 0 || this.queryParams || this.queryParamsHandling || this.preserveFragment || this.relativeTo)) {
-      throw new RuntimeError(4016, "Cannot configure queryParams or fragment when using a UrlTree as the routerLink input value.");
+      throw new RuntimeError(4017, "Cannot configure queryParams or fragment when using a UrlTree as the routerLink input value.");
     }
     if (this.isAnchorElement) {
       this.updateHref();
@@ -38234,11 +39087,14 @@ var RouterScroller = class _RouterScroller {
   consumeScrollEvents() {
     return this.transitions.events.subscribe((e) => {
       if (!(e instanceof Scroll)) return;
+      const instantScroll = {
+        behavior: "instant"
+      };
       if (e.position) {
         if (this.options.scrollPositionRestoration === "top") {
-          this.viewportScroller.scrollToPosition([0, 0]);
+          this.viewportScroller.scrollToPosition([0, 0], instantScroll);
         } else if (this.options.scrollPositionRestoration === "enabled") {
-          this.viewportScroller.scrollToPosition(e.position);
+          this.viewportScroller.scrollToPosition(e.position, instantScroll);
         }
       } else {
         if (e.anchor && this.options.anchorScrolling === "enabled") {
@@ -38341,6 +39197,9 @@ var INITIAL_NAVIGATION = new InjectionToken(typeof ngDevMode === "undefined" || 
 });
 function withEnabledBlockingInitialNavigation() {
   const providers = [{
+    provide: IS_ENABLED_BLOCKING_INITIAL_NAVIGATION,
+    useValue: true
+  }, {
     provide: INITIAL_NAVIGATION,
     useValue: 0
     /* InitialNavigation.EnabledBlocking */
@@ -38595,7 +39454,7 @@ function provideRouterInitializer() {
 }
 
 // node_modules/@angular/router/fesm2022/router.mjs
-var VERSION4 = new Version("20.1.7");
+var VERSION4 = new Version("20.3.10");
 
 // src/app/profile/header/header.component.ts
 var _c0 = ["audioCanvas"];
@@ -38905,13 +39764,13 @@ var HeaderComponent = class _HeaderComponent {
         \u0275\u0275advance(3);
         \u0275\u0275classProp("active", ctx.isMenuOpen);
       }
-    }, styles: ['\n\n.apple-header[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  transition: all var(--transition-normal);\n}\n.apple-header.scrolled[_ngcontent-%COMP%] {\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);\n}\n.apple-nav[_ngcontent-%COMP%] {\n  padding: var(--space-4) 0;\n}\n.nav-content[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.nav-logo[_ngcontent-%COMP%] {\n  z-index: 2;\n}\n.logo-link[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: var(--text-primary);\n  transition: all var(--transition-normal);\n}\n.logo-text[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.apple-header.scrolled[_ngcontent-%COMP%]   .logo-text[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--space-8);\n  align-items: center;\n}\n.nav-link[_ngcontent-%COMP%] {\n  position: relative;\n  text-decoration: none;\n  color: var(--text-primary);\n  font-family: var(--font-primary);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  padding: var(--space-2) var(--space-3);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.nav-link[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  width: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  transition: all var(--transition-normal);\n  transform: translateX(-50%);\n}\n.nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--primary-blue);\n}\n.nav-link[_ngcontent-%COMP%]:hover::before {\n  width: 100%;\n}\n.apple-header.scrolled[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n}\n.music-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n}\n.music-toggle[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 44px;\n  height: 44px;\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 50%;\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n  margin-right: 1rem;\n  position: relative;\n  overflow: hidden;\n}\n.music-toggle[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.1),\n      rgba(118, 75, 162, 0.1));\n  opacity: 0;\n  transition: opacity 0.3s ease;\n  border-radius: 50%;\n}\n.music-toggle[_ngcontent-%COMP%]:hover {\n  transform: scale(1.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.3);\n  background: rgba(255, 255, 255, 0.15);\n}\n.music-toggle[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.music-toggle[_ngcontent-%COMP%]:active {\n  transform: scale(0.95);\n}\n.music-toggle[_ngcontent-%COMP%]   .music-emoji[_ngcontent-%COMP%] {\n  font-size: 1.4rem;\n  transition: all 0.3s ease;\n  position: relative;\n  z-index: 1;\n  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));\n}\n.music-toggle.playing[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n  border-color: rgba(102, 126, 234, 0.4);\n  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);\n}\n.music-toggle.playing[_ngcontent-%COMP%]::before {\n  opacity: 1;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n}\n.music-toggle.playing[_ngcontent-%COMP%]   .music-emoji[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_musicPulse 2s ease-in-out infinite;\n  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));\n}\n@keyframes _ngcontent-%COMP%_musicPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.8;\n  }\n}\n.audio-visualizer[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 40px;\n  background: transparent;\n  border: 1px solid transparent;\n  border-radius: var(--radius-md);\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n  overflow: hidden;\n  opacity: 0;\n  transform: scale(0.8);\n  transition: all var(--transition-normal);\n}\n.audio-visualizer.active[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: scale(1);\n  background: rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.1);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n}\n.visualizer-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  border-radius: var(--radius-md);\n}\n.mobile-menu-btn[_ngcontent-%COMP%] {\n  display: none;\n  flex-direction: column;\n  justify-content: space-between;\n  width: 30px;\n  height: 24px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  z-index: 1000;\n  padding: 0;\n  position: relative;\n}\n.hamburger-line[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 3px;\n  background: var(--text-primary);\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  transform-origin: center;\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(1) {\n  transform: rotate(45deg) translate(6px, 6px);\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(3) {\n  transform: rotate(-45deg) translate(6px, -6px);\n}\n@media (max-width: 768px) {\n  .nav-links[_ngcontent-%COMP%] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.95);\n    backdrop-filter: blur(30px);\n    -webkit-backdrop-filter: blur(30px);\n    flex-direction: column;\n    justify-content: center;\n    gap: var(--space-8);\n    transform: translateX(-100%);\n    transition: transform var(--transition-normal);\n    z-index: 999;\n    display: flex !important;\n    visibility: visible !important;\n    pointer-events: auto;\n  }\n  .nav-links.active[_ngcontent-%COMP%] {\n    transform: translateX(0);\n    pointer-events: auto;\n  }\n  body.menu-open[_ngcontent-%COMP%] {\n    overflow: hidden;\n    position: fixed;\n    width: 100%;\n    height: 100%;\n  }\n  .mobile-menu-btn[_ngcontent-%COMP%] {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n  }\n  .nav-link[_ngcontent-%COMP%] {\n    font-size: var(--text-xl);\n    padding: var(--space-4);\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n    cursor: pointer;\n  }\n  .nav-link[_ngcontent-%COMP%]::before {\n    display: none;\n  }\n  .nav-link[_ngcontent-%COMP%]:hover {\n    background: rgba(255, 255, 255, 0.1);\n    border-radius: var(--radius-lg);\n  }\n  .nav-link[_ngcontent-%COMP%]:active {\n    background: rgba(255, 255, 255, 0.2);\n  }\n  .music-toggle[_ngcontent-%COMP%] {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    margin-right: 0.5rem;\n  }\n}\n@keyframes _ngcontent-%COMP%_gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand[_ngcontent-%COMP%] {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand[_ngcontent-%COMP%]:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%] {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover::after {\n  width: 80%;\n}\n.navbar-toggler[_ngcontent-%COMP%] {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler[_ngcontent-%COMP%]:focus {\n  box-shadow: none;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar[_ngcontent-%COMP%] {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar1[_ngcontent-%COMP%] {\n  width: 25px;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar2[_ngcontent-%COMP%] {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar3[_ngcontent-%COMP%] {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler[_ngcontent-%COMP%]:hover   .navbar-toggler-bar[_ngcontent-%COMP%] {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse[_ngcontent-%COMP%] {\n    background: rgba(255, 255, 255, 0.1);\n    -webkit-backdrop-filter: blur(10px);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%] {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar[_ngcontent-%COMP%] {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */'] });
+    }, styles: ['\n\n.apple-header[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  transition: all var(--transition-normal);\n}\n.apple-header.scrolled[_ngcontent-%COMP%] {\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);\n}\n.apple-nav[_ngcontent-%COMP%] {\n  padding: var(--space-4) 0;\n}\n.nav-content[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.nav-logo[_ngcontent-%COMP%] {\n  z-index: 2;\n}\n.logo-link[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: var(--text-primary);\n  transition: all var(--transition-normal);\n}\n.logo-text[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.apple-header.scrolled[_ngcontent-%COMP%]   .logo-text[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--space-8);\n  align-items: center;\n}\n.nav-link[_ngcontent-%COMP%] {\n  position: relative;\n  text-decoration: none;\n  color: var(--text-primary);\n  font-family: var(--font-primary);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  padding: var(--space-2) var(--space-3);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.nav-link[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  width: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  transition: all var(--transition-normal);\n  transform: translateX(-50%);\n}\n.nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--primary-blue);\n}\n.nav-link[_ngcontent-%COMP%]:hover::before {\n  width: 100%;\n}\n.apple-header.scrolled[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n}\n.music-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n}\n.music-toggle[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 44px;\n  height: 44px;\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 50%;\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n  margin-right: 1rem;\n  position: relative;\n  overflow: hidden;\n}\n.music-toggle[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.1),\n      rgba(118, 75, 162, 0.1));\n  opacity: 0;\n  transition: opacity 0.3s ease;\n  border-radius: 50%;\n}\n.music-toggle[_ngcontent-%COMP%]:hover {\n  transform: scale(1.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.3);\n  background: rgba(255, 255, 255, 0.15);\n}\n.music-toggle[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.music-toggle[_ngcontent-%COMP%]:active {\n  transform: scale(0.95);\n}\n.music-toggle[_ngcontent-%COMP%]   .music-emoji[_ngcontent-%COMP%] {\n  font-size: 1.4rem;\n  transition: all 0.3s ease;\n  position: relative;\n  z-index: 1;\n  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));\n}\n.music-toggle.playing[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n  border-color: rgba(102, 126, 234, 0.4);\n  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);\n}\n.music-toggle.playing[_ngcontent-%COMP%]::before {\n  opacity: 1;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n}\n.music-toggle.playing[_ngcontent-%COMP%]   .music-emoji[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_musicPulse 2s ease-in-out infinite;\n  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));\n}\n@keyframes _ngcontent-%COMP%_musicPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.8;\n  }\n}\n.audio-visualizer[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 40px;\n  background: transparent;\n  border: 1px solid transparent;\n  border-radius: var(--radius-md);\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n  overflow: hidden;\n  opacity: 0;\n  transform: scale(0.8);\n  transition: all var(--transition-normal);\n}\n.audio-visualizer.active[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: scale(1);\n  background: rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.1);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n}\n.visualizer-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  border-radius: var(--radius-md);\n}\n.mobile-menu-btn[_ngcontent-%COMP%] {\n  display: none;\n  flex-direction: column;\n  justify-content: space-between;\n  width: 30px;\n  height: 24px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  z-index: 1000;\n  padding: 0;\n  position: relative;\n}\n.hamburger-line[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 3px;\n  background: var(--text-primary);\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  transform-origin: center;\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(1) {\n  transform: rotate(45deg) translate(6px, 6px);\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(3) {\n  transform: rotate(-45deg) translate(6px, -6px);\n}\n@media (max-width: 768px) {\n  .nav-links[_ngcontent-%COMP%] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.95);\n    backdrop-filter: blur(30px);\n    -webkit-backdrop-filter: blur(30px);\n    flex-direction: column;\n    justify-content: center;\n    gap: var(--space-8);\n    transform: translateX(-100%);\n    transition: transform var(--transition-normal);\n    z-index: 999;\n    display: flex !important;\n    visibility: visible !important;\n    pointer-events: auto;\n  }\n  .nav-links.active[_ngcontent-%COMP%] {\n    transform: translateX(0);\n    pointer-events: auto;\n  }\n  body.menu-open[_ngcontent-%COMP%] {\n    overflow: hidden;\n    position: fixed;\n    width: 100%;\n    height: 100%;\n  }\n  .mobile-menu-btn[_ngcontent-%COMP%] {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n  }\n  .nav-link[_ngcontent-%COMP%] {\n    font-size: var(--text-xl);\n    padding: var(--space-4);\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n    cursor: pointer;\n  }\n  .nav-link[_ngcontent-%COMP%]::before {\n    display: none;\n  }\n  .nav-link[_ngcontent-%COMP%]:hover {\n    background: rgba(255, 255, 255, 0.1);\n    border-radius: var(--radius-lg);\n  }\n  .nav-link[_ngcontent-%COMP%]:active {\n    background: rgba(255, 255, 255, 0.2);\n  }\n  .music-toggle[_ngcontent-%COMP%] {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    margin-right: 0.5rem;\n  }\n}\n@keyframes _ngcontent-%COMP%_gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand[_ngcontent-%COMP%] {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand[_ngcontent-%COMP%]:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%] {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover::after {\n  width: 80%;\n}\n.navbar-toggler[_ngcontent-%COMP%] {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler[_ngcontent-%COMP%]:focus {\n  box-shadow: none;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar[_ngcontent-%COMP%] {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar1[_ngcontent-%COMP%] {\n  width: 25px;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar2[_ngcontent-%COMP%] {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar3[_ngcontent-%COMP%] {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler[_ngcontent-%COMP%]:hover   .navbar-toggler-bar[_ngcontent-%COMP%] {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse[_ngcontent-%COMP%] {\n    background: rgba(255, 255, 255, 0.1);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%] {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar[_ngcontent-%COMP%] {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HeaderComponent, [{
     type: Component,
-    args: [{ selector: "app-header", standalone: true, template: '<header class="apple-header" [class.scrolled]="isScrolled">\n  <nav class="apple-nav">\n    <div class="apple-container">\n      <div class="nav-content">\n        <!-- Logo -->\n        <div class="nav-logo">\n          <a href="#" class="logo-link">\n            <span class="logo-text">Ankit Sharma</span>\n          </a>\n        </div>\n        \n        <!-- Navigation Links -->\n        <div class="nav-links" [class.active]="isMenuOpen">\n          <a href="#about" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">About</span>\n          </a>\n          <a href="#experience" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Experience</span>\n          </a>\n          <a href="#publications" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Projects</span>\n          </a>\n          <a href="#blogs" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Blogs</span>\n          </a>\n          <a href="#open-source" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Open Source</span>\n          </a>\n          <a href="#skill" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Skills</span>\n          </a>\n          <a href="#ai-code-review" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Code Review</span>\n          </a>\n          <a href="#education" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Education</span>\n          </a>\n          <a href="#contact" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Contact</span>\n          </a>\n        </div>\n        \n        <!-- Music Controls -->\n        <div class="music-controls">\n          <!-- Music Toggle -->\n          <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying" title="Toggle Piano Music">\n            <span class="music-emoji">\u{1F3B5}</span>\n          </button>\n          \n          <!-- Audio Visualizer -->\n          <div class="audio-visualizer" [class.active]="isPlaying">\n            <canvas #audioCanvas class="visualizer-canvas" width="120" height="40"></canvas>\n          </div>\n        </div>\n        \n        <!-- Mobile Menu Button -->\n        <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen">\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n        </button>\n      </div>\n    </div>\n  </nav>\n</header>\n\n', styles: ['/* src/app/profile/header/header.component.scss */\n.apple-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  transition: all var(--transition-normal);\n}\n.apple-header.scrolled {\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);\n}\n.apple-nav {\n  padding: var(--space-4) 0;\n}\n.nav-content {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.nav-logo {\n  z-index: 2;\n}\n.logo-link {\n  text-decoration: none;\n  color: var(--text-primary);\n  transition: all var(--transition-normal);\n}\n.logo-text {\n  font-family: var(--font-display);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.apple-header.scrolled .logo-text {\n  color: var(--text-primary);\n}\n.nav-links {\n  display: flex;\n  gap: var(--space-8);\n  align-items: center;\n}\n.nav-link {\n  position: relative;\n  text-decoration: none;\n  color: var(--text-primary);\n  font-family: var(--font-primary);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  padding: var(--space-2) var(--space-3);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.nav-link::before {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  width: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  transition: all var(--transition-normal);\n  transform: translateX(-50%);\n}\n.nav-link:hover {\n  color: var(--primary-blue);\n}\n.nav-link:hover::before {\n  width: 100%;\n}\n.apple-header.scrolled .nav-link {\n  color: var(--text-primary);\n}\n.music-controls {\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n}\n.music-toggle {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 44px;\n  height: 44px;\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 50%;\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n  margin-right: 1rem;\n  position: relative;\n  overflow: hidden;\n}\n.music-toggle::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.1),\n      rgba(118, 75, 162, 0.1));\n  opacity: 0;\n  transition: opacity 0.3s ease;\n  border-radius: 50%;\n}\n.music-toggle:hover {\n  transform: scale(1.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.3);\n  background: rgba(255, 255, 255, 0.15);\n}\n.music-toggle:hover::before {\n  opacity: 1;\n}\n.music-toggle:active {\n  transform: scale(0.95);\n}\n.music-toggle .music-emoji {\n  font-size: 1.4rem;\n  transition: all 0.3s ease;\n  position: relative;\n  z-index: 1;\n  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));\n}\n.music-toggle.playing {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n  border-color: rgba(102, 126, 234, 0.4);\n  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);\n}\n.music-toggle.playing::before {\n  opacity: 1;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n}\n.music-toggle.playing .music-emoji {\n  animation: musicPulse 2s ease-in-out infinite;\n  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));\n}\n@keyframes musicPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.8;\n  }\n}\n.audio-visualizer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 40px;\n  background: transparent;\n  border: 1px solid transparent;\n  border-radius: var(--radius-md);\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n  overflow: hidden;\n  opacity: 0;\n  transform: scale(0.8);\n  transition: all var(--transition-normal);\n}\n.audio-visualizer.active {\n  opacity: 1;\n  transform: scale(1);\n  background: rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.1);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n}\n.visualizer-canvas {\n  width: 100%;\n  height: 100%;\n  border-radius: var(--radius-md);\n}\n.mobile-menu-btn {\n  display: none;\n  flex-direction: column;\n  justify-content: space-between;\n  width: 30px;\n  height: 24px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  z-index: 1000;\n  padding: 0;\n  position: relative;\n}\n.hamburger-line {\n  width: 100%;\n  height: 3px;\n  background: var(--text-primary);\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  transform-origin: center;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(1) {\n  transform: rotate(45deg) translate(6px, 6px);\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(3) {\n  transform: rotate(-45deg) translate(6px, -6px);\n}\n@media (max-width: 768px) {\n  .nav-links {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.95);\n    backdrop-filter: blur(30px);\n    -webkit-backdrop-filter: blur(30px);\n    flex-direction: column;\n    justify-content: center;\n    gap: var(--space-8);\n    transform: translateX(-100%);\n    transition: transform var(--transition-normal);\n    z-index: 999;\n    display: flex !important;\n    visibility: visible !important;\n    pointer-events: auto;\n  }\n  .nav-links.active {\n    transform: translateX(0);\n    pointer-events: auto;\n  }\n  body.menu-open {\n    overflow: hidden;\n    position: fixed;\n    width: 100%;\n    height: 100%;\n  }\n  .mobile-menu-btn {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n  }\n  .nav-link {\n    font-size: var(--text-xl);\n    padding: var(--space-4);\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n    cursor: pointer;\n  }\n  .nav-link::before {\n    display: none;\n  }\n  .nav-link:hover {\n    background: rgba(255, 255, 255, 0.1);\n    border-radius: var(--radius-lg);\n  }\n  .nav-link:active {\n    background: rgba(255, 255, 255, 0.2);\n  }\n  .music-toggle {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    margin-right: 0.5rem;\n  }\n}\n@keyframes gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav .nav-item {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav .nav-item .nav-link {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav .nav-item .nav-link:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav .nav-item .nav-link:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav .nav-item .nav-link::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav .nav-item .nav-link:hover::after {\n  width: 80%;\n}\n.navbar-toggler {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler:focus {\n  box-shadow: none;\n}\n.navbar-toggler .navbar-toggler-bar {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler .navbar-toggler-bar.bar1 {\n  width: 25px;\n}\n.navbar-toggler .navbar-toggler-bar.bar2 {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler .navbar-toggler-bar.bar3 {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler:hover .navbar-toggler-bar {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse {\n    background: rgba(255, 255, 255, 0.1);\n    -webkit-backdrop-filter: blur(10px);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav .nav-item {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav .nav-item .nav-link {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav .nav-item .nav-link:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */\n'] }]
+    args: [{ selector: "app-header", standalone: true, template: '<header class="apple-header" [class.scrolled]="isScrolled">\n  <nav class="apple-nav">\n    <div class="apple-container">\n      <div class="nav-content">\n        <!-- Logo -->\n        <div class="nav-logo">\n          <a href="#" class="logo-link">\n            <span class="logo-text">Ankit Sharma</span>\n          </a>\n        </div>\n        \n        <!-- Navigation Links -->\n        <div class="nav-links" [class.active]="isMenuOpen">\n          <a href="#about" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">About</span>\n          </a>\n          <a href="#experience" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Experience</span>\n          </a>\n          <a href="#publications" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Projects</span>\n          </a>\n          <a href="#blogs" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Blogs</span>\n          </a>\n          <a href="#open-source" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Open Source</span>\n          </a>\n          <a href="#skill" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Skills</span>\n          </a>\n          <a href="#ai-code-review" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Code Review</span>\n          </a>\n          <a href="#education" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Education</span>\n          </a>\n          <a href="#contact" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Contact</span>\n          </a>\n        </div>\n        \n        <!-- Music Controls -->\n        <div class="music-controls">\n          <!-- Music Toggle -->\n          <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying" title="Toggle Piano Music">\n            <span class="music-emoji">\u{1F3B5}</span>\n          </button>\n          \n          <!-- Audio Visualizer -->\n          <div class="audio-visualizer" [class.active]="isPlaying">\n            <canvas #audioCanvas class="visualizer-canvas" width="120" height="40"></canvas>\n          </div>\n        </div>\n        \n        <!-- Mobile Menu Button -->\n        <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen">\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n        </button>\n      </div>\n    </div>\n  </nav>\n</header>\n\n', styles: ['/* src/app/profile/header/header.component.scss */\n.apple-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  transition: all var(--transition-normal);\n}\n.apple-header.scrolled {\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);\n}\n.apple-nav {\n  padding: var(--space-4) 0;\n}\n.nav-content {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.nav-logo {\n  z-index: 2;\n}\n.logo-link {\n  text-decoration: none;\n  color: var(--text-primary);\n  transition: all var(--transition-normal);\n}\n.logo-text {\n  font-family: var(--font-display);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.apple-header.scrolled .logo-text {\n  color: var(--text-primary);\n}\n.nav-links {\n  display: flex;\n  gap: var(--space-8);\n  align-items: center;\n}\n.nav-link {\n  position: relative;\n  text-decoration: none;\n  color: var(--text-primary);\n  font-family: var(--font-primary);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  padding: var(--space-2) var(--space-3);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.nav-link::before {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  width: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  transition: all var(--transition-normal);\n  transform: translateX(-50%);\n}\n.nav-link:hover {\n  color: var(--primary-blue);\n}\n.nav-link:hover::before {\n  width: 100%;\n}\n.apple-header.scrolled .nav-link {\n  color: var(--text-primary);\n}\n.music-controls {\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n}\n.music-toggle {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 44px;\n  height: 44px;\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 50%;\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n  margin-right: 1rem;\n  position: relative;\n  overflow: hidden;\n}\n.music-toggle::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.1),\n      rgba(118, 75, 162, 0.1));\n  opacity: 0;\n  transition: opacity 0.3s ease;\n  border-radius: 50%;\n}\n.music-toggle:hover {\n  transform: scale(1.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.3);\n  background: rgba(255, 255, 255, 0.15);\n}\n.music-toggle:hover::before {\n  opacity: 1;\n}\n.music-toggle:active {\n  transform: scale(0.95);\n}\n.music-toggle .music-emoji {\n  font-size: 1.4rem;\n  transition: all 0.3s ease;\n  position: relative;\n  z-index: 1;\n  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));\n}\n.music-toggle.playing {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n  border-color: rgba(102, 126, 234, 0.4);\n  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);\n}\n.music-toggle.playing::before {\n  opacity: 1;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n}\n.music-toggle.playing .music-emoji {\n  animation: musicPulse 2s ease-in-out infinite;\n  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));\n}\n@keyframes musicPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.8;\n  }\n}\n.audio-visualizer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 40px;\n  background: transparent;\n  border: 1px solid transparent;\n  border-radius: var(--radius-md);\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n  overflow: hidden;\n  opacity: 0;\n  transform: scale(0.8);\n  transition: all var(--transition-normal);\n}\n.audio-visualizer.active {\n  opacity: 1;\n  transform: scale(1);\n  background: rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.1);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n}\n.visualizer-canvas {\n  width: 100%;\n  height: 100%;\n  border-radius: var(--radius-md);\n}\n.mobile-menu-btn {\n  display: none;\n  flex-direction: column;\n  justify-content: space-between;\n  width: 30px;\n  height: 24px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  z-index: 1000;\n  padding: 0;\n  position: relative;\n}\n.hamburger-line {\n  width: 100%;\n  height: 3px;\n  background: var(--text-primary);\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  transform-origin: center;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(1) {\n  transform: rotate(45deg) translate(6px, 6px);\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(3) {\n  transform: rotate(-45deg) translate(6px, -6px);\n}\n@media (max-width: 768px) {\n  .nav-links {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.95);\n    backdrop-filter: blur(30px);\n    -webkit-backdrop-filter: blur(30px);\n    flex-direction: column;\n    justify-content: center;\n    gap: var(--space-8);\n    transform: translateX(-100%);\n    transition: transform var(--transition-normal);\n    z-index: 999;\n    display: flex !important;\n    visibility: visible !important;\n    pointer-events: auto;\n  }\n  .nav-links.active {\n    transform: translateX(0);\n    pointer-events: auto;\n  }\n  body.menu-open {\n    overflow: hidden;\n    position: fixed;\n    width: 100%;\n    height: 100%;\n  }\n  .mobile-menu-btn {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n  }\n  .nav-link {\n    font-size: var(--text-xl);\n    padding: var(--space-4);\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n    cursor: pointer;\n  }\n  .nav-link::before {\n    display: none;\n  }\n  .nav-link:hover {\n    background: rgba(255, 255, 255, 0.1);\n    border-radius: var(--radius-lg);\n  }\n  .nav-link:active {\n    background: rgba(255, 255, 255, 0.2);\n  }\n  .music-toggle {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    margin-right: 0.5rem;\n  }\n}\n@keyframes gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav .nav-item {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav .nav-item .nav-link {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav .nav-item .nav-link:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav .nav-item .nav-link:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav .nav-item .nav-link::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav .nav-item .nav-link:hover::after {\n  width: 80%;\n}\n.navbar-toggler {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler:focus {\n  box-shadow: none;\n}\n.navbar-toggler .navbar-toggler-bar {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler .navbar-toggler-bar.bar1 {\n  width: 25px;\n}\n.navbar-toggler .navbar-toggler-bar.bar2 {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler .navbar-toggler-bar.bar3 {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler:hover .navbar-toggler-bar {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse {\n    background: rgba(255, 255, 255, 0.1);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav .nav-item {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav .nav-item .nav-link {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav .nav-item .nav-link:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */\n'] }]
   }], () => [], { audioCanvas: [{
     type: ViewChild,
     args: ["audioCanvas", { static: true }]
@@ -39055,7 +39914,7 @@ var IntroComponent = class _IntroComponent {
         \u0275\u0275advance(2);
         \u0275\u0275classProp("show", ctx.showAchievements);
       }
-    }, styles: ['\n\n.apple-hero[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  background: var(--gradient-dark);\n}\n.hero-background[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.floating-shapes[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.shape[_ngcontent-%COMP%] {\n  position: absolute;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.1);\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n  animation: _ngcontent-%COMP%_float 6s ease-in-out infinite;\n  display: block !important;\n  visibility: visible !important;\n  opacity: 0.3 !important;\n}\n.shape-1[_ngcontent-%COMP%] {\n  width: 80px;\n  height: 80px;\n  top: 20%;\n  left: 10%;\n  animation-delay: 0s;\n  background: rgba(102, 126, 234, 0.2);\n}\n.shape-2[_ngcontent-%COMP%] {\n  width: 120px;\n  height: 120px;\n  top: 60%;\n  right: 15%;\n  animation-delay: 2s;\n  background: rgba(118, 75, 162, 0.2);\n}\n.shape-3[_ngcontent-%COMP%] {\n  width: 60px;\n  height: 60px;\n  top: 80%;\n  left: 20%;\n  animation-delay: 4s;\n  background: rgba(245, 87, 108, 0.2);\n}\n.shape-4[_ngcontent-%COMP%] {\n  width: 100px;\n  height: 100px;\n  top: 30%;\n  right: 30%;\n  animation-delay: 1s;\n  background: rgba(240, 147, 251, 0.2);\n}\n.shape-5[_ngcontent-%COMP%] {\n  width: 40px;\n  height: 40px;\n  top: 10%;\n  right: 60%;\n  animation-delay: 3s;\n  background: rgba(79, 172, 254, 0.2);\n}\n@keyframes _ngcontent-%COMP%_float {\n  0%, 100% {\n    transform: translateY(0px) rotate(0deg) scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: translateY(-15px) rotate(90deg) scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: translateY(-20px) rotate(180deg) scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: translateY(-15px) rotate(270deg) scale(1.05);\n    opacity: 0.4;\n  }\n}\n.gradient-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.3;\n}\n.hero-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 2;\n  text-align: center;\n  color: var(--white);\n  max-width: 800px;\n  margin: 0 auto;\n  padding: 0 var(--space-6);\n}\n.hero-profile-image[_ngcontent-%COMP%] {\n  margin-bottom: var(--space-12);\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n}\n.image-container[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n}\n.image-container[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -20px;\n  left: -20px;\n  right: -20px;\n  bottom: -20px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  opacity: 0.3;\n  animation: _ngcontent-%COMP%_heartbeat 2s ease-in-out infinite;\n}\n.image-container[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: -40px;\n  left: -40px;\n  right: -40px;\n  bottom: -40px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--accent-purple),\n      var(--accent-pink));\n  opacity: 0.2;\n  animation: _ngcontent-%COMP%_heartbeat 2s ease-in-out infinite 0.5s;\n}\n.image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 200px;\n  height: 200px;\n  border-radius: 50%;\n  border: 6px solid var(--white);\n  box-shadow: var(--shadow-2xl);\n  position: relative;\n  z-index: 2;\n  transition: all var(--transition-normal);\n  display: block !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n  object-fit: cover;\n}\n.image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%]:hover {\n  transform: scale(1.05);\n  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n}\n.image-glow[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 220px;\n  height: 220px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.2) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_glow 3s ease-in-out infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_heartbeat {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n}\n@keyframes _ngcontent-%COMP%_glow {\n  0% {\n    opacity: 0.3;\n    transform: translate(-50%, -50%) scale(1);\n  }\n  100% {\n    opacity: 0.6;\n    transform: translate(-50%, -50%) scale(1.1);\n  }\n}\n.hero-text[_ngcontent-%COMP%] {\n  margin-bottom: var(--space-12);\n}\n.hero-title[_ngcontent-%COMP%] {\n  font-size: var(--text-8xl);\n  font-weight: var(--font-extrabold);\n  margin-bottom: var(--space-6);\n  color: var(--text-primary);\n  text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n  letter-spacing: -0.02em;\n  line-height: 0.9;\n}\n.hero-subtitle[_ngcontent-%COMP%] {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-medium);\n  margin-bottom: var(--space-4);\n  opacity: 0.95;\n  color: var(--white);\n}\n.hero-experience[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  opacity: 0.9;\n  color: var(--white);\n  margin-bottom: var(--space-6);\n  font-weight: var(--font-medium);\n}\n.hero-achievements-container[_ngcontent-%COMP%] {\n  max-width: 600px;\n  margin: 0 auto;\n}\n.achievements-toggle[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-lg);\n  padding: var(--space-3) var(--space-6);\n  color: var(--white);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  -webkit-backdrop-filter: blur(20px);\n  backdrop-filter: blur(20px);\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n  margin: 0 auto;\n}\n.achievements-toggle[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n.achievements-toggle.expanded[_ngcontent-%COMP%] {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  border-bottom-color: transparent;\n}\n.toggle-text[_ngcontent-%COMP%] {\n  font-weight: var(--font-medium);\n}\n.toggle-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  transition: transform var(--transition-normal);\n}\n.toggle-icon.expanded[_ngcontent-%COMP%] {\n  transform: rotate(180deg);\n}\n.hero-achievements[_ngcontent-%COMP%] {\n  max-width: 600px;\n  margin: 0 auto;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-top: none;\n  border-radius: 0 0 var(--radius-lg) var(--radius-lg);\n  padding: 0;\n  -webkit-backdrop-filter: blur(20px);\n  backdrop-filter: blur(20px);\n  max-height: 0;\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  opacity: 0;\n  border-color: transparent;\n}\n.hero-achievements.show[_ngcontent-%COMP%] {\n  max-height: 300px;\n  padding: var(--space-6);\n  opacity: 1;\n  border-color: rgba(255, 255, 255, 0.1);\n}\n.achievement[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--space-4);\n  margin-bottom: var(--space-4);\n  font-size: var(--text-base);\n  line-height: 1.5;\n  opacity: 0.9;\n  color: var(--white);\n}\n.achievement[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.achievement-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  margin-top: 2px;\n  flex-shrink: 0;\n  animation: _ngcontent-%COMP%_achievementGlow 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_achievementGlow {\n  0%, 100% {\n    opacity: 0.8;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.1);\n  }\n}\n.hero-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n  margin-bottom: var(--space-12);\n  flex-wrap: wrap;\n}\n.hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%] {\n  padding: var(--space-4) var(--space-8);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  min-width: 180px;\n}\n.hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  margin-right: var(--space-2);\n}\n.hero-social[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n}\n.social-link[_ngcontent-%COMP%] {\n  width: 60px;\n  height: 60px;\n  border-radius: 50%;\n  background: var(--apple-glass);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--white);\n  font-size: var(--text-xl);\n  transition: all var(--transition-normal);\n  -webkit-backdrop-filter: blur(20px);\n  backdrop-filter: blur(20px);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n.social-link[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  background: rgba(255, 255, 255, 0.2);\n  box-shadow: var(--shadow-xl);\n  color: var(--white);\n}\n.scroll-indicator[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: var(--space-8);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 2;\n}\n.scroll-arrow[_ngcontent-%COMP%] {\n  width: 30px;\n  height: 30px;\n  border: 2px solid var(--white);\n  border-top: none;\n  border-left: none;\n  transform: rotate(45deg);\n  animation: _ngcontent-%COMP%_bounce 2s infinite;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  0%, 20%, 50%, 80%, 100% {\n    transform: translateY(0) rotate(45deg);\n  }\n  40% {\n    transform: translateY(-10px) rotate(45deg);\n  }\n  60% {\n    transform: translateY(-5px) rotate(45deg);\n  }\n}\n@media (max-width: 768px) {\n  .hero-title[_ngcontent-%COMP%] {\n    font-size: var(--text-5xl);\n  }\n  .hero-subtitle[_ngcontent-%COMP%] {\n    font-size: var(--text-xl);\n  }\n  .hero-description[_ngcontent-%COMP%] {\n    font-size: var(--text-base);\n  }\n  .hero-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: center;\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n  }\n  .hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%] {\n    width: 100%;\n    max-width: 280px;\n    margin: 0;\n  }\n  .hero-social[_ngcontent-%COMP%] {\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n  }\n  .social-link[_ngcontent-%COMP%] {\n    width: 50px;\n    height: 50px;\n    font-size: var(--text-lg);\n  }\n  .hero-profile-image[_ngcontent-%COMP%] {\n    margin-bottom: var(--space-6);\n  }\n  .image-container[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    width: 150px;\n    height: 150px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow[_ngcontent-%COMP%] {\n    width: 170px;\n    height: 170px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.3 !important;\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text[_ngcontent-%COMP%], \n   .hero-actions[_ngcontent-%COMP%], \n   .hero-social[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .hero-title[_ngcontent-%COMP%] {\n    font-size: var(--text-4xl);\n  }\n  .hero-subtitle[_ngcontent-%COMP%] {\n    font-size: var(--text-lg);\n  }\n  .hero-description[_ngcontent-%COMP%] {\n    font-size: var(--text-sm);\n    padding: 0 var(--space-4);\n  }\n  .hero-actions[_ngcontent-%COMP%] {\n    padding: 0 var(--space-4);\n  }\n  .hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%] {\n    width: 100%;\n    max-width: 250px;\n    font-size: var(--text-sm);\n    padding: var(--space-3) var(--space-4);\n  }\n  .hero-social[_ngcontent-%COMP%] {\n    padding: 0 var(--space-4);\n  }\n  .social-link[_ngcontent-%COMP%] {\n    width: 45px;\n    height: 45px;\n    font-size: var(--text-base);\n  }\n  .image-container[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    width: 120px;\n    height: 120px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow[_ngcontent-%COMP%] {\n    width: 140px;\n    height: 140px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.2 !important;\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text[_ngcontent-%COMP%], \n   .hero-actions[_ngcontent-%COMP%], \n   .hero-social[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */'] });
+    }, styles: ['\n\n.apple-hero[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  background: var(--gradient-dark);\n}\n.hero-background[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.floating-shapes[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.shape[_ngcontent-%COMP%] {\n  position: absolute;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.1);\n  backdrop-filter: blur(10px);\n  animation: _ngcontent-%COMP%_float 6s ease-in-out infinite;\n  display: block !important;\n  visibility: visible !important;\n  opacity: 0.3 !important;\n}\n.shape-1[_ngcontent-%COMP%] {\n  width: 80px;\n  height: 80px;\n  top: 20%;\n  left: 10%;\n  animation-delay: 0s;\n  background: rgba(102, 126, 234, 0.2);\n}\n.shape-2[_ngcontent-%COMP%] {\n  width: 120px;\n  height: 120px;\n  top: 60%;\n  right: 15%;\n  animation-delay: 2s;\n  background: rgba(118, 75, 162, 0.2);\n}\n.shape-3[_ngcontent-%COMP%] {\n  width: 60px;\n  height: 60px;\n  top: 80%;\n  left: 20%;\n  animation-delay: 4s;\n  background: rgba(245, 87, 108, 0.2);\n}\n.shape-4[_ngcontent-%COMP%] {\n  width: 100px;\n  height: 100px;\n  top: 30%;\n  right: 30%;\n  animation-delay: 1s;\n  background: rgba(240, 147, 251, 0.2);\n}\n.shape-5[_ngcontent-%COMP%] {\n  width: 40px;\n  height: 40px;\n  top: 10%;\n  right: 60%;\n  animation-delay: 3s;\n  background: rgba(79, 172, 254, 0.2);\n}\n@keyframes _ngcontent-%COMP%_float {\n  0%, 100% {\n    transform: translateY(0px) rotate(0deg) scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: translateY(-15px) rotate(90deg) scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: translateY(-20px) rotate(180deg) scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: translateY(-15px) rotate(270deg) scale(1.05);\n    opacity: 0.4;\n  }\n}\n.gradient-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.3;\n}\n.hero-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 2;\n  text-align: center;\n  color: var(--white);\n  max-width: 800px;\n  margin: 0 auto;\n  padding: 0 var(--space-6);\n}\n.hero-profile-image[_ngcontent-%COMP%] {\n  margin-bottom: var(--space-12);\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n}\n.image-container[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n}\n.image-container[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -20px;\n  left: -20px;\n  right: -20px;\n  bottom: -20px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  opacity: 0.3;\n  animation: _ngcontent-%COMP%_heartbeat 2s ease-in-out infinite;\n}\n.image-container[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: -40px;\n  left: -40px;\n  right: -40px;\n  bottom: -40px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--accent-purple),\n      var(--accent-pink));\n  opacity: 0.2;\n  animation: _ngcontent-%COMP%_heartbeat 2s ease-in-out infinite 0.5s;\n}\n.image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 200px;\n  height: 200px;\n  border-radius: 50%;\n  border: 6px solid var(--white);\n  box-shadow: var(--shadow-2xl);\n  position: relative;\n  z-index: 2;\n  transition: all var(--transition-normal);\n  display: block !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n  object-fit: cover;\n}\n.image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%]:hover {\n  transform: scale(1.05);\n  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n}\n.image-glow[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 220px;\n  height: 220px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.2) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_glow 3s ease-in-out infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_heartbeat {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n}\n@keyframes _ngcontent-%COMP%_glow {\n  0% {\n    opacity: 0.3;\n    transform: translate(-50%, -50%) scale(1);\n  }\n  100% {\n    opacity: 0.6;\n    transform: translate(-50%, -50%) scale(1.1);\n  }\n}\n.hero-text[_ngcontent-%COMP%] {\n  margin-bottom: var(--space-12);\n}\n.hero-title[_ngcontent-%COMP%] {\n  font-size: var(--text-8xl);\n  font-weight: var(--font-extrabold);\n  margin-bottom: var(--space-6);\n  color: var(--text-primary);\n  text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n  letter-spacing: -0.02em;\n  line-height: 0.9;\n}\n.hero-subtitle[_ngcontent-%COMP%] {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-medium);\n  margin-bottom: var(--space-4);\n  opacity: 0.95;\n  color: var(--white);\n}\n.hero-experience[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  opacity: 0.9;\n  color: var(--white);\n  margin-bottom: var(--space-6);\n  font-weight: var(--font-medium);\n}\n.hero-achievements-container[_ngcontent-%COMP%] {\n  max-width: 600px;\n  margin: 0 auto;\n}\n.achievements-toggle[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-lg);\n  padding: var(--space-3) var(--space-6);\n  color: var(--white);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n  margin: 0 auto;\n}\n.achievements-toggle[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n.achievements-toggle.expanded[_ngcontent-%COMP%] {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  border-bottom-color: transparent;\n}\n.toggle-text[_ngcontent-%COMP%] {\n  font-weight: var(--font-medium);\n}\n.toggle-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  transition: transform var(--transition-normal);\n}\n.toggle-icon.expanded[_ngcontent-%COMP%] {\n  transform: rotate(180deg);\n}\n.hero-achievements[_ngcontent-%COMP%] {\n  max-width: 600px;\n  margin: 0 auto;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-top: none;\n  border-radius: 0 0 var(--radius-lg) var(--radius-lg);\n  padding: 0;\n  backdrop-filter: blur(20px);\n  max-height: 0;\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  opacity: 0;\n  border-color: transparent;\n}\n.hero-achievements.show[_ngcontent-%COMP%] {\n  max-height: 300px;\n  padding: var(--space-6);\n  opacity: 1;\n  border-color: rgba(255, 255, 255, 0.1);\n}\n.achievement[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--space-4);\n  margin-bottom: var(--space-4);\n  font-size: var(--text-base);\n  line-height: 1.5;\n  opacity: 0.9;\n  color: var(--white);\n}\n.achievement[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.achievement-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  margin-top: 2px;\n  flex-shrink: 0;\n  animation: _ngcontent-%COMP%_achievementGlow 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_achievementGlow {\n  0%, 100% {\n    opacity: 0.8;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.1);\n  }\n}\n.hero-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n  margin-bottom: var(--space-12);\n  flex-wrap: wrap;\n}\n.hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%] {\n  padding: var(--space-4) var(--space-8);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  min-width: 180px;\n}\n.hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  margin-right: var(--space-2);\n}\n.hero-social[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n}\n.social-link[_ngcontent-%COMP%] {\n  width: 60px;\n  height: 60px;\n  border-radius: 50%;\n  background: var(--apple-glass);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--white);\n  font-size: var(--text-xl);\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n.social-link[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  background: rgba(255, 255, 255, 0.2);\n  box-shadow: var(--shadow-xl);\n  color: var(--white);\n}\n.scroll-indicator[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: var(--space-8);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 2;\n}\n.scroll-arrow[_ngcontent-%COMP%] {\n  width: 30px;\n  height: 30px;\n  border: 2px solid var(--white);\n  border-top: none;\n  border-left: none;\n  transform: rotate(45deg);\n  animation: _ngcontent-%COMP%_bounce 2s infinite;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  0%, 20%, 50%, 80%, 100% {\n    transform: translateY(0) rotate(45deg);\n  }\n  40% {\n    transform: translateY(-10px) rotate(45deg);\n  }\n  60% {\n    transform: translateY(-5px) rotate(45deg);\n  }\n}\n@media (max-width: 768px) {\n  .hero-title[_ngcontent-%COMP%] {\n    font-size: var(--text-5xl);\n  }\n  .hero-subtitle[_ngcontent-%COMP%] {\n    font-size: var(--text-xl);\n  }\n  .hero-description[_ngcontent-%COMP%] {\n    font-size: var(--text-base);\n  }\n  .hero-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: center;\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n  }\n  .hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%] {\n    width: 100%;\n    max-width: 280px;\n    margin: 0;\n  }\n  .hero-social[_ngcontent-%COMP%] {\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n  }\n  .social-link[_ngcontent-%COMP%] {\n    width: 50px;\n    height: 50px;\n    font-size: var(--text-lg);\n  }\n  .hero-profile-image[_ngcontent-%COMP%] {\n    margin-bottom: var(--space-6);\n  }\n  .image-container[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    width: 150px;\n    height: 150px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow[_ngcontent-%COMP%] {\n    width: 170px;\n    height: 170px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.3 !important;\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text[_ngcontent-%COMP%], \n   .hero-actions[_ngcontent-%COMP%], \n   .hero-social[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .hero-title[_ngcontent-%COMP%] {\n    font-size: var(--text-4xl);\n  }\n  .hero-subtitle[_ngcontent-%COMP%] {\n    font-size: var(--text-lg);\n  }\n  .hero-description[_ngcontent-%COMP%] {\n    font-size: var(--text-sm);\n    padding: 0 var(--space-4);\n  }\n  .hero-actions[_ngcontent-%COMP%] {\n    padding: 0 var(--space-4);\n  }\n  .hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%] {\n    width: 100%;\n    max-width: 250px;\n    font-size: var(--text-sm);\n    padding: var(--space-3) var(--space-4);\n  }\n  .hero-social[_ngcontent-%COMP%] {\n    padding: 0 var(--space-4);\n  }\n  .social-link[_ngcontent-%COMP%] {\n    width: 45px;\n    height: 45px;\n    font-size: var(--text-base);\n  }\n  .image-container[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    width: 120px;\n    height: 120px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow[_ngcontent-%COMP%] {\n    width: 140px;\n    height: 140px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.2 !important;\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text[_ngcontent-%COMP%], \n   .hero-actions[_ngcontent-%COMP%], \n   .hero-social[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */'] });
   }
 };
 (() => {
@@ -39155,7 +40014,7 @@ var IntroComponent = class _IntroComponent {
     <div class="scroll-arrow"></div>
   </div>
 </div>
-`, styles: ['/* src/app/profile/intro/intro.component.scss */\n.apple-hero {\n  min-height: 100vh;\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  background: var(--gradient-dark);\n}\n.hero-background {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.floating-shapes {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.shape {\n  position: absolute;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.1);\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n  animation: float 6s ease-in-out infinite;\n  display: block !important;\n  visibility: visible !important;\n  opacity: 0.3 !important;\n}\n.shape-1 {\n  width: 80px;\n  height: 80px;\n  top: 20%;\n  left: 10%;\n  animation-delay: 0s;\n  background: rgba(102, 126, 234, 0.2);\n}\n.shape-2 {\n  width: 120px;\n  height: 120px;\n  top: 60%;\n  right: 15%;\n  animation-delay: 2s;\n  background: rgba(118, 75, 162, 0.2);\n}\n.shape-3 {\n  width: 60px;\n  height: 60px;\n  top: 80%;\n  left: 20%;\n  animation-delay: 4s;\n  background: rgba(245, 87, 108, 0.2);\n}\n.shape-4 {\n  width: 100px;\n  height: 100px;\n  top: 30%;\n  right: 30%;\n  animation-delay: 1s;\n  background: rgba(240, 147, 251, 0.2);\n}\n.shape-5 {\n  width: 40px;\n  height: 40px;\n  top: 10%;\n  right: 60%;\n  animation-delay: 3s;\n  background: rgba(79, 172, 254, 0.2);\n}\n@keyframes float {\n  0%, 100% {\n    transform: translateY(0px) rotate(0deg) scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: translateY(-15px) rotate(90deg) scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: translateY(-20px) rotate(180deg) scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: translateY(-15px) rotate(270deg) scale(1.05);\n    opacity: 0.4;\n  }\n}\n.gradient-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.3;\n}\n.hero-content {\n  position: relative;\n  z-index: 2;\n  text-align: center;\n  color: var(--white);\n  max-width: 800px;\n  margin: 0 auto;\n  padding: 0 var(--space-6);\n}\n.hero-profile-image {\n  margin-bottom: var(--space-12);\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n}\n.image-container {\n  position: relative;\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n}\n.image-container::before {\n  content: "";\n  position: absolute;\n  top: -20px;\n  left: -20px;\n  right: -20px;\n  bottom: -20px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  opacity: 0.3;\n  animation: heartbeat 2s ease-in-out infinite;\n}\n.image-container::after {\n  content: "";\n  position: absolute;\n  top: -40px;\n  left: -40px;\n  right: -40px;\n  bottom: -40px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--accent-purple),\n      var(--accent-pink));\n  opacity: 0.2;\n  animation: heartbeat 2s ease-in-out infinite 0.5s;\n}\n.image-container img {\n  width: 200px;\n  height: 200px;\n  border-radius: 50%;\n  border: 6px solid var(--white);\n  box-shadow: var(--shadow-2xl);\n  position: relative;\n  z-index: 2;\n  transition: all var(--transition-normal);\n  display: block !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n  object-fit: cover;\n}\n.image-container img:hover {\n  transform: scale(1.05);\n  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n}\n.image-glow {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 220px;\n  height: 220px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.2) 0%,\n      transparent 70%);\n  animation: glow 3s ease-in-out infinite alternate;\n}\n@keyframes heartbeat {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n}\n@keyframes glow {\n  0% {\n    opacity: 0.3;\n    transform: translate(-50%, -50%) scale(1);\n  }\n  100% {\n    opacity: 0.6;\n    transform: translate(-50%, -50%) scale(1.1);\n  }\n}\n.hero-text {\n  margin-bottom: var(--space-12);\n}\n.hero-title {\n  font-size: var(--text-8xl);\n  font-weight: var(--font-extrabold);\n  margin-bottom: var(--space-6);\n  color: var(--text-primary);\n  text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n  letter-spacing: -0.02em;\n  line-height: 0.9;\n}\n.hero-subtitle {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-medium);\n  margin-bottom: var(--space-4);\n  opacity: 0.95;\n  color: var(--white);\n}\n.hero-experience {\n  font-size: var(--text-lg);\n  opacity: 0.9;\n  color: var(--white);\n  margin-bottom: var(--space-6);\n  font-weight: var(--font-medium);\n}\n.hero-achievements-container {\n  max-width: 600px;\n  margin: 0 auto;\n}\n.achievements-toggle {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-lg);\n  padding: var(--space-3) var(--space-6);\n  color: var(--white);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  -webkit-backdrop-filter: blur(20px);\n  backdrop-filter: blur(20px);\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n  margin: 0 auto;\n}\n.achievements-toggle:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n.achievements-toggle.expanded {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  border-bottom-color: transparent;\n}\n.toggle-text {\n  font-weight: var(--font-medium);\n}\n.toggle-icon {\n  font-size: var(--text-sm);\n  transition: transform var(--transition-normal);\n}\n.toggle-icon.expanded {\n  transform: rotate(180deg);\n}\n.hero-achievements {\n  max-width: 600px;\n  margin: 0 auto;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-top: none;\n  border-radius: 0 0 var(--radius-lg) var(--radius-lg);\n  padding: 0;\n  -webkit-backdrop-filter: blur(20px);\n  backdrop-filter: blur(20px);\n  max-height: 0;\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  opacity: 0;\n  border-color: transparent;\n}\n.hero-achievements.show {\n  max-height: 300px;\n  padding: var(--space-6);\n  opacity: 1;\n  border-color: rgba(255, 255, 255, 0.1);\n}\n.achievement {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--space-4);\n  margin-bottom: var(--space-4);\n  font-size: var(--text-base);\n  line-height: 1.5;\n  opacity: 0.9;\n  color: var(--white);\n}\n.achievement:last-child {\n  margin-bottom: 0;\n}\n.achievement-icon {\n  font-size: var(--text-lg);\n  margin-top: 2px;\n  flex-shrink: 0;\n  animation: achievementGlow 2s ease-in-out infinite;\n}\n@keyframes achievementGlow {\n  0%, 100% {\n    opacity: 0.8;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.1);\n  }\n}\n.hero-actions {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n  margin-bottom: var(--space-12);\n  flex-wrap: wrap;\n}\n.hero-actions .apple-btn {\n  padding: var(--space-4) var(--space-8);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  min-width: 180px;\n}\n.hero-actions .apple-btn i {\n  margin-right: var(--space-2);\n}\n.hero-social {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n}\n.social-link {\n  width: 60px;\n  height: 60px;\n  border-radius: 50%;\n  background: var(--apple-glass);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--white);\n  font-size: var(--text-xl);\n  transition: all var(--transition-normal);\n  -webkit-backdrop-filter: blur(20px);\n  backdrop-filter: blur(20px);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n.social-link:hover {\n  transform: translateY(-4px);\n  background: rgba(255, 255, 255, 0.2);\n  box-shadow: var(--shadow-xl);\n  color: var(--white);\n}\n.scroll-indicator {\n  position: absolute;\n  bottom: var(--space-8);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 2;\n}\n.scroll-arrow {\n  width: 30px;\n  height: 30px;\n  border: 2px solid var(--white);\n  border-top: none;\n  border-left: none;\n  transform: rotate(45deg);\n  animation: bounce 2s infinite;\n}\n@keyframes bounce {\n  0%, 20%, 50%, 80%, 100% {\n    transform: translateY(0) rotate(45deg);\n  }\n  40% {\n    transform: translateY(-10px) rotate(45deg);\n  }\n  60% {\n    transform: translateY(-5px) rotate(45deg);\n  }\n}\n@media (max-width: 768px) {\n  .hero-title {\n    font-size: var(--text-5xl);\n  }\n  .hero-subtitle {\n    font-size: var(--text-xl);\n  }\n  .hero-description {\n    font-size: var(--text-base);\n  }\n  .hero-actions {\n    flex-direction: column;\n    align-items: center;\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n  }\n  .hero-actions .apple-btn {\n    width: 100%;\n    max-width: 280px;\n    margin: 0;\n  }\n  .hero-social {\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n  }\n  .social-link {\n    width: 50px;\n    height: 50px;\n    font-size: var(--text-lg);\n  }\n  .hero-profile-image {\n    margin-bottom: var(--space-6);\n  }\n  .image-container {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container img {\n    width: 150px;\n    height: 150px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow {\n    width: 170px;\n    height: 170px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.3 !important;\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text,\n  .hero-actions,\n  .hero-social {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .hero-title {\n    font-size: var(--text-4xl);\n  }\n  .hero-subtitle {\n    font-size: var(--text-lg);\n  }\n  .hero-description {\n    font-size: var(--text-sm);\n    padding: 0 var(--space-4);\n  }\n  .hero-actions {\n    padding: 0 var(--space-4);\n  }\n  .hero-actions .apple-btn {\n    width: 100%;\n    max-width: 250px;\n    font-size: var(--text-sm);\n    padding: var(--space-3) var(--space-4);\n  }\n  .hero-social {\n    padding: 0 var(--space-4);\n  }\n  .social-link {\n    width: 45px;\n    height: 45px;\n    font-size: var(--text-base);\n  }\n  .image-container {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container img {\n    width: 120px;\n    height: 120px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow {\n    width: 140px;\n    height: 140px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.2 !important;\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text,\n  .hero-actions,\n  .hero-social {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */\n'] }]
+`, styles: ['/* src/app/profile/intro/intro.component.scss */\n.apple-hero {\n  min-height: 100vh;\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  background: var(--gradient-dark);\n}\n.hero-background {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.floating-shapes {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.shape {\n  position: absolute;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.1);\n  backdrop-filter: blur(10px);\n  animation: float 6s ease-in-out infinite;\n  display: block !important;\n  visibility: visible !important;\n  opacity: 0.3 !important;\n}\n.shape-1 {\n  width: 80px;\n  height: 80px;\n  top: 20%;\n  left: 10%;\n  animation-delay: 0s;\n  background: rgba(102, 126, 234, 0.2);\n}\n.shape-2 {\n  width: 120px;\n  height: 120px;\n  top: 60%;\n  right: 15%;\n  animation-delay: 2s;\n  background: rgba(118, 75, 162, 0.2);\n}\n.shape-3 {\n  width: 60px;\n  height: 60px;\n  top: 80%;\n  left: 20%;\n  animation-delay: 4s;\n  background: rgba(245, 87, 108, 0.2);\n}\n.shape-4 {\n  width: 100px;\n  height: 100px;\n  top: 30%;\n  right: 30%;\n  animation-delay: 1s;\n  background: rgba(240, 147, 251, 0.2);\n}\n.shape-5 {\n  width: 40px;\n  height: 40px;\n  top: 10%;\n  right: 60%;\n  animation-delay: 3s;\n  background: rgba(79, 172, 254, 0.2);\n}\n@keyframes float {\n  0%, 100% {\n    transform: translateY(0px) rotate(0deg) scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: translateY(-15px) rotate(90deg) scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: translateY(-20px) rotate(180deg) scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: translateY(-15px) rotate(270deg) scale(1.05);\n    opacity: 0.4;\n  }\n}\n.gradient-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.3;\n}\n.hero-content {\n  position: relative;\n  z-index: 2;\n  text-align: center;\n  color: var(--white);\n  max-width: 800px;\n  margin: 0 auto;\n  padding: 0 var(--space-6);\n}\n.hero-profile-image {\n  margin-bottom: var(--space-12);\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n}\n.image-container {\n  position: relative;\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n}\n.image-container::before {\n  content: "";\n  position: absolute;\n  top: -20px;\n  left: -20px;\n  right: -20px;\n  bottom: -20px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  opacity: 0.3;\n  animation: heartbeat 2s ease-in-out infinite;\n}\n.image-container::after {\n  content: "";\n  position: absolute;\n  top: -40px;\n  left: -40px;\n  right: -40px;\n  bottom: -40px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--accent-purple),\n      var(--accent-pink));\n  opacity: 0.2;\n  animation: heartbeat 2s ease-in-out infinite 0.5s;\n}\n.image-container img {\n  width: 200px;\n  height: 200px;\n  border-radius: 50%;\n  border: 6px solid var(--white);\n  box-shadow: var(--shadow-2xl);\n  position: relative;\n  z-index: 2;\n  transition: all var(--transition-normal);\n  display: block !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n  object-fit: cover;\n}\n.image-container img:hover {\n  transform: scale(1.05);\n  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n}\n.image-glow {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 220px;\n  height: 220px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.2) 0%,\n      transparent 70%);\n  animation: glow 3s ease-in-out infinite alternate;\n}\n@keyframes heartbeat {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n}\n@keyframes glow {\n  0% {\n    opacity: 0.3;\n    transform: translate(-50%, -50%) scale(1);\n  }\n  100% {\n    opacity: 0.6;\n    transform: translate(-50%, -50%) scale(1.1);\n  }\n}\n.hero-text {\n  margin-bottom: var(--space-12);\n}\n.hero-title {\n  font-size: var(--text-8xl);\n  font-weight: var(--font-extrabold);\n  margin-bottom: var(--space-6);\n  color: var(--text-primary);\n  text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n  letter-spacing: -0.02em;\n  line-height: 0.9;\n}\n.hero-subtitle {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-medium);\n  margin-bottom: var(--space-4);\n  opacity: 0.95;\n  color: var(--white);\n}\n.hero-experience {\n  font-size: var(--text-lg);\n  opacity: 0.9;\n  color: var(--white);\n  margin-bottom: var(--space-6);\n  font-weight: var(--font-medium);\n}\n.hero-achievements-container {\n  max-width: 600px;\n  margin: 0 auto;\n}\n.achievements-toggle {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-lg);\n  padding: var(--space-3) var(--space-6);\n  color: var(--white);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n  margin: 0 auto;\n}\n.achievements-toggle:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n.achievements-toggle.expanded {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  border-bottom-color: transparent;\n}\n.toggle-text {\n  font-weight: var(--font-medium);\n}\n.toggle-icon {\n  font-size: var(--text-sm);\n  transition: transform var(--transition-normal);\n}\n.toggle-icon.expanded {\n  transform: rotate(180deg);\n}\n.hero-achievements {\n  max-width: 600px;\n  margin: 0 auto;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-top: none;\n  border-radius: 0 0 var(--radius-lg) var(--radius-lg);\n  padding: 0;\n  backdrop-filter: blur(20px);\n  max-height: 0;\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  opacity: 0;\n  border-color: transparent;\n}\n.hero-achievements.show {\n  max-height: 300px;\n  padding: var(--space-6);\n  opacity: 1;\n  border-color: rgba(255, 255, 255, 0.1);\n}\n.achievement {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--space-4);\n  margin-bottom: var(--space-4);\n  font-size: var(--text-base);\n  line-height: 1.5;\n  opacity: 0.9;\n  color: var(--white);\n}\n.achievement:last-child {\n  margin-bottom: 0;\n}\n.achievement-icon {\n  font-size: var(--text-lg);\n  margin-top: 2px;\n  flex-shrink: 0;\n  animation: achievementGlow 2s ease-in-out infinite;\n}\n@keyframes achievementGlow {\n  0%, 100% {\n    opacity: 0.8;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.1);\n  }\n}\n.hero-actions {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n  margin-bottom: var(--space-12);\n  flex-wrap: wrap;\n}\n.hero-actions .apple-btn {\n  padding: var(--space-4) var(--space-8);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  min-width: 180px;\n}\n.hero-actions .apple-btn i {\n  margin-right: var(--space-2);\n}\n.hero-social {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n}\n.social-link {\n  width: 60px;\n  height: 60px;\n  border-radius: 50%;\n  background: var(--apple-glass);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--white);\n  font-size: var(--text-xl);\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n.social-link:hover {\n  transform: translateY(-4px);\n  background: rgba(255, 255, 255, 0.2);\n  box-shadow: var(--shadow-xl);\n  color: var(--white);\n}\n.scroll-indicator {\n  position: absolute;\n  bottom: var(--space-8);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 2;\n}\n.scroll-arrow {\n  width: 30px;\n  height: 30px;\n  border: 2px solid var(--white);\n  border-top: none;\n  border-left: none;\n  transform: rotate(45deg);\n  animation: bounce 2s infinite;\n}\n@keyframes bounce {\n  0%, 20%, 50%, 80%, 100% {\n    transform: translateY(0) rotate(45deg);\n  }\n  40% {\n    transform: translateY(-10px) rotate(45deg);\n  }\n  60% {\n    transform: translateY(-5px) rotate(45deg);\n  }\n}\n@media (max-width: 768px) {\n  .hero-title {\n    font-size: var(--text-5xl);\n  }\n  .hero-subtitle {\n    font-size: var(--text-xl);\n  }\n  .hero-description {\n    font-size: var(--text-base);\n  }\n  .hero-actions {\n    flex-direction: column;\n    align-items: center;\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n  }\n  .hero-actions .apple-btn {\n    width: 100%;\n    max-width: 280px;\n    margin: 0;\n  }\n  .hero-social {\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n  }\n  .social-link {\n    width: 50px;\n    height: 50px;\n    font-size: var(--text-lg);\n  }\n  .hero-profile-image {\n    margin-bottom: var(--space-6);\n  }\n  .image-container {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container img {\n    width: 150px;\n    height: 150px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow {\n    width: 170px;\n    height: 170px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.3 !important;\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text,\n  .hero-actions,\n  .hero-social {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .hero-title {\n    font-size: var(--text-4xl);\n  }\n  .hero-subtitle {\n    font-size: var(--text-lg);\n  }\n  .hero-description {\n    font-size: var(--text-sm);\n    padding: 0 var(--space-4);\n  }\n  .hero-actions {\n    padding: 0 var(--space-4);\n  }\n  .hero-actions .apple-btn {\n    width: 100%;\n    max-width: 250px;\n    font-size: var(--text-sm);\n    padding: var(--space-3) var(--space-4);\n  }\n  .hero-social {\n    padding: 0 var(--space-4);\n  }\n  .social-link {\n    width: 45px;\n    height: 45px;\n    font-size: var(--text-base);\n  }\n  .image-container {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container img {\n    width: 120px;\n    height: 120px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow {\n    width: 140px;\n    height: 140px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.2 !important;\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text,\n  .hero-actions,\n  .hero-social {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
@@ -40661,6 +41520,7 @@ var AbstractControl = class {
    * `events` of the parent control instead.
    * For other event types, the events are emitted after the parent control has been updated.
    *
+   * @see [Unified control state change events](guide/forms/reactive-forms#unified-control-state-change-events)
    */
   events = this._events.asObservable();
   /**
@@ -41565,6 +42425,9 @@ var FormGroup = class extends AbstractControl {
     this._updatePristine(options, this);
     this._updateTouched(options, this);
     this.updateValueAndValidity(options);
+    if (options?.emitEvent !== false) {
+      this._events.next(new FormResetEvent(this));
+    }
   }
   /**
    * The aggregate value of the `FormGroup`, including any disabled controls.
@@ -42087,7 +42950,6 @@ var NgForm = class _NgForm extends ControlContainer {
   resetForm(value = void 0) {
     this.form.reset(value);
     this.submittedReactive.set(false);
-    this.form._events.next(new FormResetEvent(this.form));
   }
   _setUpdateStrategy() {
     if (this.options && this.options.updateOn != null) {
@@ -42226,6 +43088,9 @@ var FormControl = class FormControl2 extends AbstractControl {
     this.markAsUntouched(options);
     this.setValue(this.value, options);
     this._pendingChange = false;
+    if (options?.emitEvent !== false) {
+      this._events.next(new FormResetEvent(this));
+    }
   }
   /**  @internal */
   _updateValue() {
@@ -43563,9 +44428,6 @@ var FormGroupDirective = class _FormGroupDirective extends ControlContainer {
   resetForm(value = void 0, options = {}) {
     this.form.reset(value, options);
     this._submittedReactive.set(false);
-    if (options?.emitEvent !== false) {
-      this.form._events.next(new FormResetEvent(this.form));
-    }
   }
   /** @internal */
   _updateDomValue() {
@@ -45165,10 +46027,19 @@ var FormArray = class extends AbstractControl {
    * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
    * `valueChanges` observables emit events with the latest status and value when the control is
    * inserted. When false, no events are emitted.
+   *
+   * NOTE: Pushing to the FormArray will not mark it dirty. If you want to mark if dirty, call `markAsDirty()`.
    */
   push(control, options = {}) {
-    this.controls.push(control);
-    this._registerControl(control);
+    if (Array.isArray(control)) {
+      control.forEach((ctrl) => {
+        this.controls.push(ctrl);
+        this._registerControl(ctrl);
+      });
+    } else {
+      this.controls.push(control);
+      this._registerControl(control);
+    }
     this.updateValueAndValidity({
       emitEvent: options.emitEvent
     });
@@ -45186,6 +46057,8 @@ var FormArray = class extends AbstractControl {
    * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
    * `valueChanges` observables emit events with the latest status and value when the control is
    * inserted. When false, no events are emitted.
+   *
+   * NOTE: Inserting to the FormArray will not mark it dirty. If you want to mark if dirty, call `markAsDirty()`.
    */
   insert(index, control, options = {}) {
     this.controls.splice(index, 0, control);
@@ -45205,6 +46078,8 @@ var FormArray = class extends AbstractControl {
    * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
    * `valueChanges` observables emit events with the latest status and value when the control is
    * removed. When false, no events are emitted.
+   *
+   * NOTE: Removing the FormArray will not mark it dirty. If you want to mark if dirty, call `markAsDirty()`.
    */
   removeAt(index, options = {}) {
     let adjustedIndex = this._adjustIndex(index);
@@ -45396,6 +46271,9 @@ var FormArray = class extends AbstractControl {
     this._updatePristine(options, this);
     this._updateTouched(options, this);
     this.updateValueAndValidity(options);
+    if (options?.emitEvent !== false) {
+      this._events.next(new FormResetEvent(this));
+    }
   }
   /**
    * The aggregate value of the array, including any disabled controls.
@@ -45737,7 +46615,7 @@ var UntypedFormBuilder = class _UntypedFormBuilder extends FormBuilder {
     }]
   }], null, null);
 })();
-var VERSION5 = new Version("20.1.7");
+var VERSION5 = new Version("20.3.10");
 var FormsModule = class _FormsModule {
   /**
    * @description
@@ -47179,7 +48057,7 @@ var PublicationsComponent = class _PublicationsComponent {
         \u0275\u0275advance(2);
         \u0275\u0275property("ngForOf", ctx.filteredProjects);
       }
-    }, dependencies: [CommonModule, NgClass, NgForOf, NgIf], styles: ['@charset "UTF-8";\n\n\n\n.projects-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.project-card.flowforge-card[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(97, 218, 251, 0.1) 0%,\n      rgba(0, 212, 255, 0.1) 50%,\n      rgba(0, 150, 255, 0.1) 100%);\n  border: 2px solid rgba(97, 218, 251, 0.3);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(97, 218, 251, 0.2);\n}\n.project-card.flowforge-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(97, 218, 251, 0.6);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(97, 218, 251, 0.4);\n  transform: translateY(-12px);\n}\n.project-card.flowforge-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #61dafb,\n      #00d4ff,\n      #0096ff);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(97, 218, 251, 0.3);\n}\n.project-card.flowforge-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n}\n.project-card.flowforge-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: #61dafb;\n  text-shadow: 0 0 5px rgba(97, 218, 251, 0.5);\n}\n.project-card.divine-card[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(26, 26, 46, 0.9) 0%,\n      rgba(22, 33, 62, 0.9) 50%,\n      rgba(15, 52, 96, 0.9) 100%);\n  border: 2px solid rgba(255, 215, 0, 0.2);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.1);\n}\n.project-card.divine-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 215, 0, 0.4);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.2);\n  transform: translateY(-12px);\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: #ffd700;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n}\n.project-image[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #1e3a8a 75%,\n      #3b82f6 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(97, 218, 251, 0.3);\n  box-shadow: 0 0 30px rgba(97, 218, 251, 0.2), inset 0 0 30px rgba(97, 218, 251, 0.1);\n  text-decoration: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(97, 218, 251, 0.1) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_flowforgeGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]::after {\n  content: "\\2699\\fe0f";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(97, 218, 251, 0.9);\n  animation: _ngcontent-%COMP%_gearFloat 3s ease-in-out infinite;\n  font-weight: bold;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #61dafb,\n      #00d4ff,\n      #0096ff);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(97, 218, 251, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  color: #61dafb;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(97, 218, 251, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(97, 218, 251, 0.3);\n  margin: 4px 0;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]:hover {\n  transform: scale(1.05);\n  border-color: rgba(97, 218, 251, 0.6);\n  box-shadow: 0 0 50px rgba(97, 218, 251, 0.4), inset 0 0 50px rgba(97, 218, 251, 0.2);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]:hover::before {\n  animation: _ngcontent-%COMP%_flowforgeGlow 2s ease-in-out infinite;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]:hover   h3[_ngcontent-%COMP%] {\n  text-shadow: 0 0 20px rgba(97, 218, 251, 0.8);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #533483 75%,\n      #7209b7 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(255, 215, 0, 0.3);\n  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2), inset 0 0 30px rgba(255, 215, 0, 0.1);\n  text-decoration: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 215, 0, 0.1) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_divineGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]::after {\n  content: "\\950";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(255, 215, 0, 0.9);\n  animation: _ngcontent-%COMP%_divineRotate 8s linear infinite;\n  font-weight: bold;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  color: #ffd700;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(255, 215, 0, 0.3);\n  margin: 4px 0;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover {\n  transform: scale(1.05);\n  border-color: rgba(255, 215, 0, 0.6);\n  box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 50px rgba(255, 215, 0, 0.2);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover::before {\n  animation: _ngcontent-%COMP%_divineGlow 2s ease-in-out infinite;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover   h3[_ngcontent-%COMP%] {\n  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);\n}\n.project-image[_ngcontent-%COMP%]:hover   img[_ngcontent-%COMP%], \n.project-image[_ngcontent-%COMP%]:hover   .project-preview[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.project-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    gap: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n}\n.project-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n@keyframes _ngcontent-%COMP%_flowforgeGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes _ngcontent-%COMP%_flowforgePulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 0.9;\n  }\n  50% {\n    transform: scale(1.2);\n    opacity: 1;\n  }\n}\n@keyframes _ngcontent-%COMP%_gearFloat {\n  0%, 100% {\n    transform: translateY(0px) rotate(0deg);\n    opacity: 0.9;\n  }\n  25% {\n    transform: translateY(-8px) rotate(5deg);\n    opacity: 1;\n  }\n  50% {\n    transform: translateY(-12px) rotate(0deg);\n    opacity: 0.95;\n  }\n  75% {\n    transform: translateY(-6px) rotate(-5deg);\n    opacity: 1;\n  }\n}\n@keyframes _ngcontent-%COMP%_omFloat {\n  0%, 100% {\n    transform: translateY(0px) scale(1);\n    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));\n  }\n  25% {\n    transform: translateY(-8px) scale(1.1);\n    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));\n  }\n  50% {\n    transform: translateY(-12px) scale(1.05);\n    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9));\n  }\n  75% {\n    transform: translateY(-6px) scale(1.15);\n    filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.8));\n  }\n}\n@keyframes _ngcontent-%COMP%_divineGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes _ngcontent-%COMP%_divineRotate {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.category-filters[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%]:last-child {\n  margin-right: 0;\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters[_ngcontent-%COMP%] {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n    gap: var(--spacing-xs);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n    height: 24px;\n  }\n}\n.open-source-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  transition: all var(--transition-normal);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .om-symbol[_ngcontent-%COMP%] {\n  font-size: 2rem;\n  margin: var(--spacing-sm) 0;\n  animation: _ngcontent-%COMP%_omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.tech-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-sm);\n  padding: var(--spacing-xs) var(--spacing-sm);\n  font-size: 0.75rem;\n  font-weight: 500;\n  color: var(--white);\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n  transition: all var(--transition-normal);\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
+    }, dependencies: [CommonModule, NgClass, NgForOf, NgIf], styles: ['@charset "UTF-8";\n\n\n\n.projects-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.project-card.flowforge-card[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(97, 218, 251, 0.1) 0%,\n      rgba(0, 212, 255, 0.1) 50%,\n      rgba(0, 150, 255, 0.1) 100%);\n  border: 2px solid rgba(97, 218, 251, 0.3);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(97, 218, 251, 0.2);\n}\n.project-card.flowforge-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(97, 218, 251, 0.6);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(97, 218, 251, 0.4);\n  transform: translateY(-12px);\n}\n.project-card.flowforge-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #61dafb,\n      #00d4ff,\n      #0096ff);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(97, 218, 251, 0.3);\n}\n.project-card.flowforge-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n}\n.project-card.flowforge-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: #61dafb;\n  text-shadow: 0 0 5px rgba(97, 218, 251, 0.5);\n}\n.project-card.divine-card[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(26, 26, 46, 0.9) 0%,\n      rgba(22, 33, 62, 0.9) 50%,\n      rgba(15, 52, 96, 0.9) 100%);\n  border: 2px solid rgba(255, 215, 0, 0.2);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.1);\n}\n.project-card.divine-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 215, 0, 0.4);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.2);\n  transform: translateY(-12px);\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n}\n.project-card.divine-card[_ngcontent-%COMP%]   .project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: #ffd700;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n}\n.project-image[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #1e3a8a 75%,\n      #3b82f6 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(97, 218, 251, 0.3);\n  box-shadow: 0 0 30px rgba(97, 218, 251, 0.2), inset 0 0 30px rgba(97, 218, 251, 0.1);\n  text-decoration: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(97, 218, 251, 0.1) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_flowforgeGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]::after {\n  content: "\\2699\\fe0f";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(97, 218, 251, 0.9);\n  animation: _ngcontent-%COMP%_gearFloat 3s ease-in-out infinite;\n  font-weight: bold;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #61dafb,\n      #00d4ff,\n      #0096ff);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(97, 218, 251, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  color: #61dafb;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(97, 218, 251, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(97, 218, 251, 0.3);\n  margin: 4px 0;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]:hover {\n  transform: scale(1.05);\n  border-color: rgba(97, 218, 251, 0.6);\n  box-shadow: 0 0 50px rgba(97, 218, 251, 0.4), inset 0 0 50px rgba(97, 218, 251, 0.2);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]:hover::before {\n  animation: _ngcontent-%COMP%_flowforgeGlow 2s ease-in-out infinite;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.flowforge-preview[_ngcontent-%COMP%]:hover   h3[_ngcontent-%COMP%] {\n  text-shadow: 0 0 20px rgba(97, 218, 251, 0.8);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #533483 75%,\n      #7209b7 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(255, 215, 0, 0.3);\n  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2), inset 0 0 30px rgba(255, 215, 0, 0.1);\n  text-decoration: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 215, 0, 0.1) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_divineGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]::after {\n  content: "\\950";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(255, 215, 0, 0.9);\n  animation: _ngcontent-%COMP%_divineRotate 8s linear infinite;\n  font-weight: bold;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  color: #ffd700;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(255, 215, 0, 0.3);\n  margin: 4px 0;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover {\n  transform: scale(1.05);\n  border-color: rgba(255, 215, 0, 0.6);\n  box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 50px rgba(255, 215, 0, 0.2);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover::before {\n  animation: _ngcontent-%COMP%_divineGlow 2s ease-in-out infinite;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview.divine-wisdom[_ngcontent-%COMP%]:hover   h3[_ngcontent-%COMP%] {\n  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);\n}\n.project-image[_ngcontent-%COMP%]:hover   img[_ngcontent-%COMP%], \n.project-image[_ngcontent-%COMP%]:hover   .project-preview[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.project-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    gap: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n}\n.project-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n@keyframes _ngcontent-%COMP%_flowforgeGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes _ngcontent-%COMP%_flowforgePulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 0.9;\n  }\n  50% {\n    transform: scale(1.2);\n    opacity: 1;\n  }\n}\n@keyframes _ngcontent-%COMP%_gearFloat {\n  0%, 100% {\n    transform: translateY(0px) rotate(0deg);\n    opacity: 0.9;\n  }\n  25% {\n    transform: translateY(-8px) rotate(5deg);\n    opacity: 1;\n  }\n  50% {\n    transform: translateY(-12px) rotate(0deg);\n    opacity: 0.95;\n  }\n  75% {\n    transform: translateY(-6px) rotate(-5deg);\n    opacity: 1;\n  }\n}\n@keyframes _ngcontent-%COMP%_omFloat {\n  0%, 100% {\n    transform: translateY(0px) scale(1);\n    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));\n  }\n  25% {\n    transform: translateY(-8px) scale(1.1);\n    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));\n  }\n  50% {\n    transform: translateY(-12px) scale(1.05);\n    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9));\n  }\n  75% {\n    transform: translateY(-6px) scale(1.15);\n    filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.8));\n  }\n}\n@keyframes _ngcontent-%COMP%_divineGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes _ngcontent-%COMP%_divineRotate {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.category-filters[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%]:last-child {\n  margin-right: 0;\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters[_ngcontent-%COMP%] {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n    gap: var(--spacing-xs);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n    height: 24px;\n  }\n}\n.open-source-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  transition: all var(--transition-normal);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .om-symbol[_ngcontent-%COMP%] {\n  font-size: 2rem;\n  margin: var(--spacing-sm) 0;\n  animation: _ngcontent-%COMP%_omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.tech-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-sm);\n  padding: var(--spacing-xs) var(--spacing-sm);\n  font-size: 0.75rem;\n  font-weight: 500;\n  color: var(--white);\n  backdrop-filter: blur(10px);\n  transition: all var(--transition-normal);\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
   }
 };
 (() => {
@@ -47327,7 +48205,7 @@ var PublicationsComponent = class _PublicationsComponent {
     </div>
   </div>
 </div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n.projects-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.project-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.project-card.flowforge-card {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(97, 218, 251, 0.1) 0%,\n      rgba(0, 212, 255, 0.1) 50%,\n      rgba(0, 150, 255, 0.1) 100%);\n  border: 2px solid rgba(97, 218, 251, 0.3);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(97, 218, 251, 0.2);\n}\n.project-card.flowforge-card:hover {\n  border-color: rgba(97, 218, 251, 0.6);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(97, 218, 251, 0.4);\n  transform: translateY(-12px);\n}\n.project-card.flowforge-card .project-content .project-title {\n  background:\n    linear-gradient(\n      45deg,\n      #61dafb,\n      #00d4ff,\n      #0096ff);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(97, 218, 251, 0.3);\n}\n.project-card.flowforge-card .project-content .project-description {\n  color: #e6e6fa;\n}\n.project-card.flowforge-card .project-content .project-description b {\n  color: #61dafb;\n  text-shadow: 0 0 5px rgba(97, 218, 251, 0.5);\n}\n.project-card.divine-card {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(26, 26, 46, 0.9) 0%,\n      rgba(22, 33, 62, 0.9) 50%,\n      rgba(15, 52, 96, 0.9) 100%);\n  border: 2px solid rgba(255, 215, 0, 0.2);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.1);\n}\n.project-card.divine-card:hover {\n  border-color: rgba(255, 215, 0, 0.4);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.2);\n  transform: translateY(-12px);\n}\n.project-card.divine-card .project-content .project-title {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);\n}\n.project-card.divine-card .project-content .project-description {\n  color: #e6e6fa;\n}\n.project-card.divine-card .project-content .project-description b {\n  color: #ffd700;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n}\n.project-image {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-image img {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview h3 {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image .project-preview p {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image .project-preview .tech-stack {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image .project-preview .powered-by {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image .project-preview.flowforge-preview {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #1e3a8a 75%,\n      #3b82f6 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(97, 218, 251, 0.3);\n  box-shadow: 0 0 30px rgba(97, 218, 251, 0.2), inset 0 0 30px rgba(97, 218, 251, 0.1);\n  text-decoration: none;\n}\n.project-image .project-preview.flowforge-preview a {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image .project-preview.flowforge-preview::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(97, 218, 251, 0.1) 0%,\n      transparent 70%);\n  animation: flowforgeGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image .project-preview.flowforge-preview::after {\n  content: "\\2699\\fe0f";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(97, 218, 251, 0.9);\n  animation: gearFloat 3s ease-in-out infinite;\n  font-weight: bold;\n}\n.project-image .project-preview.flowforge-preview h3 {\n  background:\n    linear-gradient(\n      45deg,\n      #61dafb,\n      #00d4ff,\n      #0096ff);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(97, 218, 251, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.flowforge-preview p {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.flowforge-preview .tech-stack {\n  color: #61dafb;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(97, 218, 251, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(97, 218, 251, 0.3);\n  margin: 4px 0;\n}\n.project-image .project-preview.flowforge-preview .powered-by {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image .project-preview.flowforge-preview:hover {\n  transform: scale(1.05);\n  border-color: rgba(97, 218, 251, 0.6);\n  box-shadow: 0 0 50px rgba(97, 218, 251, 0.4), inset 0 0 50px rgba(97, 218, 251, 0.2);\n}\n.project-image .project-preview.flowforge-preview:hover::before {\n  animation: flowforgeGlow 2s ease-in-out infinite;\n}\n.project-image .project-preview.flowforge-preview:hover h3 {\n  text-shadow: 0 0 20px rgba(97, 218, 251, 0.8);\n}\n.project-image .project-preview.divine-wisdom {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #533483 75%,\n      #7209b7 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(255, 215, 0, 0.3);\n  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2), inset 0 0 30px rgba(255, 215, 0, 0.1);\n  text-decoration: none;\n}\n.project-image .project-preview.divine-wisdom a {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image .project-preview.divine-wisdom::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 215, 0, 0.1) 0%,\n      transparent 70%);\n  animation: divineGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image .project-preview.divine-wisdom::after {\n  content: "\\950";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(255, 215, 0, 0.9);\n  animation: divineRotate 8s linear infinite;\n  font-weight: bold;\n}\n.project-image .project-preview.divine-wisdom h3 {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.divine-wisdom p {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.divine-wisdom .tech-stack {\n  color: #ffd700;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(255, 215, 0, 0.3);\n  margin: 4px 0;\n}\n.project-image .project-preview.divine-wisdom .powered-by {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image .project-preview.divine-wisdom:hover {\n  transform: scale(1.05);\n  border-color: rgba(255, 215, 0, 0.6);\n  box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 50px rgba(255, 215, 0, 0.2);\n}\n.project-image .project-preview.divine-wisdom:hover::before {\n  animation: divineGlow 2s ease-in-out infinite;\n}\n.project-image .project-preview.divine-wisdom:hover h3 {\n  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);\n}\n.project-image:hover img,\n.project-image:hover .project-preview {\n  transform: scale(1.05);\n}\n.project-content {\n  padding: var(--spacing-xl);\n}\n.project-content .project-title {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content .project-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content .project-description b {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .projects-grid {\n    gap: var(--spacing-lg);\n  }\n  .project-content {\n    padding: var(--spacing-lg);\n  }\n  .project-content .project-title {\n    font-size: 1.25rem;\n  }\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n.project-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.project-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n@keyframes flowforgeGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes flowforgePulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 0.9;\n  }\n  50% {\n    transform: scale(1.2);\n    opacity: 1;\n  }\n}\n@keyframes gearFloat {\n  0%, 100% {\n    transform: translateY(0px) rotate(0deg);\n    opacity: 0.9;\n  }\n  25% {\n    transform: translateY(-8px) rotate(5deg);\n    opacity: 1;\n  }\n  50% {\n    transform: translateY(-12px) rotate(0deg);\n    opacity: 0.95;\n  }\n  75% {\n    transform: translateY(-6px) rotate(-5deg);\n    opacity: 1;\n  }\n}\n@keyframes omFloat {\n  0%, 100% {\n    transform: translateY(0px) scale(1);\n    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));\n  }\n  25% {\n    transform: translateY(-8px) scale(1.1);\n    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));\n  }\n  50% {\n    transform: translateY(-12px) scale(1.05);\n    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9));\n  }\n  75% {\n    transform: translateY(-6px) scale(1.15);\n    filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.8));\n  }\n}\n@keyframes divineGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes divineRotate {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.category-filters {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters .filter-buttons {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters .filter-btn {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters .filter-btn:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters .filter-btn.active {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats .stat {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats .stat:last-child {\n  margin-right: 0;\n}\n.project-stats .package-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats .package-badges .package-badge {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats .package-badges .package-badge:not([src]),\n.project-stats .package-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats .npm-badges .package-badge:not([src]),\n.project-stats .npm-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats .maven-badges .package-badge:not([src]),\n.project-stats .maven-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions {\n  margin-top: auto;\n}\n.project-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters .filter-buttons {\n    gap: var(--spacing-xs);\n  }\n  .category-filters .filter-btn {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card .card-title {\n    font-size: 1.125rem;\n  }\n  .project-stats .stat {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats .package-badges {\n    justify-content: center;\n  }\n  .project-stats .package-badges .package-badge {\n    height: 24px;\n  }\n}\n.open-source-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.open-source-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container .project-preview {\n  width: 100%;\n  height: 200px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  transition: all var(--transition-normal);\n}\n.project-preview-container .project-preview h3 {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-preview-container .project-preview p {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-preview-container .project-preview .om-symbol {\n  font-size: 2rem;\n  margin: var(--spacing-sm) 0;\n  animation: omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));\n}\n.project-preview-container .project-preview .tech-stack {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-preview-container .project-preview .powered-by {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.tech-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.tech-badges .tech-badge {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-sm);\n  padding: var(--spacing-xs) var(--spacing-sm);\n  font-size: 0.75rem;\n  font-weight: 500;\n  color: var(--white);\n  -webkit-backdrop-filter: blur(10px);\n  backdrop-filter: blur(10px);\n  transition: all var(--transition-normal);\n}\n.tech-badges .tech-badge:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n.projects-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.project-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.project-card.flowforge-card {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(97, 218, 251, 0.1) 0%,\n      rgba(0, 212, 255, 0.1) 50%,\n      rgba(0, 150, 255, 0.1) 100%);\n  border: 2px solid rgba(97, 218, 251, 0.3);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(97, 218, 251, 0.2);\n}\n.project-card.flowforge-card:hover {\n  border-color: rgba(97, 218, 251, 0.6);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(97, 218, 251, 0.4);\n  transform: translateY(-12px);\n}\n.project-card.flowforge-card .project-content .project-title {\n  background:\n    linear-gradient(\n      45deg,\n      #61dafb,\n      #00d4ff,\n      #0096ff);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(97, 218, 251, 0.3);\n}\n.project-card.flowforge-card .project-content .project-description {\n  color: #e6e6fa;\n}\n.project-card.flowforge-card .project-content .project-description b {\n  color: #61dafb;\n  text-shadow: 0 0 5px rgba(97, 218, 251, 0.5);\n}\n.project-card.divine-card {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(26, 26, 46, 0.9) 0%,\n      rgba(22, 33, 62, 0.9) 50%,\n      rgba(15, 52, 96, 0.9) 100%);\n  border: 2px solid rgba(255, 215, 0, 0.2);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.1);\n}\n.project-card.divine-card:hover {\n  border-color: rgba(255, 215, 0, 0.4);\n  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.2);\n  transform: translateY(-12px);\n}\n.project-card.divine-card .project-content .project-title {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);\n}\n.project-card.divine-card .project-content .project-description {\n  color: #e6e6fa;\n}\n.project-card.divine-card .project-content .project-description b {\n  color: #ffd700;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n}\n.project-image {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-image img {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview h3 {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image .project-preview p {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image .project-preview .tech-stack {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image .project-preview .powered-by {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image .project-preview.flowforge-preview {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #1e3a8a 75%,\n      #3b82f6 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(97, 218, 251, 0.3);\n  box-shadow: 0 0 30px rgba(97, 218, 251, 0.2), inset 0 0 30px rgba(97, 218, 251, 0.1);\n  text-decoration: none;\n}\n.project-image .project-preview.flowforge-preview a {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image .project-preview.flowforge-preview::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(97, 218, 251, 0.1) 0%,\n      transparent 70%);\n  animation: flowforgeGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image .project-preview.flowforge-preview::after {\n  content: "\\2699\\fe0f";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(97, 218, 251, 0.9);\n  animation: gearFloat 3s ease-in-out infinite;\n  font-weight: bold;\n}\n.project-image .project-preview.flowforge-preview h3 {\n  background:\n    linear-gradient(\n      45deg,\n      #61dafb,\n      #00d4ff,\n      #0096ff);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(97, 218, 251, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.flowforge-preview p {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.flowforge-preview .tech-stack {\n  color: #61dafb;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(97, 218, 251, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(97, 218, 251, 0.3);\n  margin: 4px 0;\n}\n.project-image .project-preview.flowforge-preview .powered-by {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image .project-preview.flowforge-preview:hover {\n  transform: scale(1.05);\n  border-color: rgba(97, 218, 251, 0.6);\n  box-shadow: 0 0 50px rgba(97, 218, 251, 0.4), inset 0 0 50px rgba(97, 218, 251, 0.2);\n}\n.project-image .project-preview.flowforge-preview:hover::before {\n  animation: flowforgeGlow 2s ease-in-out infinite;\n}\n.project-image .project-preview.flowforge-preview:hover h3 {\n  text-shadow: 0 0 20px rgba(97, 218, 251, 0.8);\n}\n.project-image .project-preview.divine-wisdom {\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 25%,\n      #0f3460 50%,\n      #533483 75%,\n      #7209b7 100%);\n  position: relative;\n  overflow: hidden;\n  border: 2px solid rgba(255, 215, 0, 0.3);\n  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2), inset 0 0 30px rgba(255, 215, 0, 0.1);\n  text-decoration: none;\n}\n.project-image .project-preview.divine-wisdom a {\n  text-decoration: none;\n  color: inherit;\n}\n.project-image .project-preview.divine-wisdom::before {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 215, 0, 0.1) 0%,\n      transparent 70%);\n  animation: divineGlow 4s ease-in-out infinite;\n  pointer-events: none;\n}\n.project-image .project-preview.divine-wisdom::after {\n  content: "\\950";\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 1.8rem;\n  color: rgba(255, 215, 0, 0.9);\n  animation: divineRotate 8s linear infinite;\n  font-weight: bold;\n}\n.project-image .project-preview.divine-wisdom h3 {\n  background:\n    linear-gradient(\n      45deg,\n      #ffd700,\n      #ffed4e,\n      #fff8dc);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 1.4rem;\n  font-weight: 800;\n  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.divine-wisdom p {\n  color: #e6e6fa;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(230, 230, 250, 0.3);\n  position: relative;\n  z-index: 2;\n}\n.project-image .project-preview.divine-wisdom .tech-stack {\n  color: #ffd700;\n  font-weight: 600;\n  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.3);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(255, 215, 0, 0.3);\n  margin: 4px 0;\n}\n.project-image .project-preview.divine-wisdom .powered-by {\n  color: #87ceeb;\n  font-weight: 500;\n  text-shadow: 0 0 5px rgba(135, 206, 235, 0.5);\n  position: relative;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.4);\n  padding: 4px 8px;\n  border-radius: 12px;\n  border: 1px solid rgba(135, 206, 235, 0.3);\n}\n.project-image .project-preview.divine-wisdom:hover {\n  transform: scale(1.05);\n  border-color: rgba(255, 215, 0, 0.6);\n  box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 50px rgba(255, 215, 0, 0.2);\n}\n.project-image .project-preview.divine-wisdom:hover::before {\n  animation: divineGlow 2s ease-in-out infinite;\n}\n.project-image .project-preview.divine-wisdom:hover h3 {\n  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);\n}\n.project-image:hover img,\n.project-image:hover .project-preview {\n  transform: scale(1.05);\n}\n.project-content {\n  padding: var(--spacing-xl);\n}\n.project-content .project-title {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content .project-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content .project-description b {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .projects-grid {\n    gap: var(--spacing-lg);\n  }\n  .project-content {\n    padding: var(--spacing-lg);\n  }\n  .project-content .project-title {\n    font-size: 1.25rem;\n  }\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n.project-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.project-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n@keyframes flowforgeGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes flowforgePulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 0.9;\n  }\n  50% {\n    transform: scale(1.2);\n    opacity: 1;\n  }\n}\n@keyframes gearFloat {\n  0%, 100% {\n    transform: translateY(0px) rotate(0deg);\n    opacity: 0.9;\n  }\n  25% {\n    transform: translateY(-8px) rotate(5deg);\n    opacity: 1;\n  }\n  50% {\n    transform: translateY(-12px) rotate(0deg);\n    opacity: 0.95;\n  }\n  75% {\n    transform: translateY(-6px) rotate(-5deg);\n    opacity: 1;\n  }\n}\n@keyframes omFloat {\n  0%, 100% {\n    transform: translateY(0px) scale(1);\n    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));\n  }\n  25% {\n    transform: translateY(-8px) scale(1.1);\n    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));\n  }\n  50% {\n    transform: translateY(-12px) scale(1.05);\n    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9));\n  }\n  75% {\n    transform: translateY(-6px) scale(1.15);\n    filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.8));\n  }\n}\n@keyframes divineGlow {\n  0%, 100% {\n    opacity: 0.3;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.6;\n    transform: scale(1.1);\n  }\n}\n@keyframes divineRotate {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.category-filters {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters .filter-buttons {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters .filter-btn {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters .filter-btn:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters .filter-btn.active {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats .stat {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats .stat:last-child {\n  margin-right: 0;\n}\n.project-stats .package-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats .package-badges .package-badge {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats .package-badges .package-badge:not([src]),\n.project-stats .package-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats .npm-badges .package-badge:not([src]),\n.project-stats .npm-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats .maven-badges .package-badge:not([src]),\n.project-stats .maven-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions {\n  margin-top: auto;\n}\n.project-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters .filter-buttons {\n    gap: var(--spacing-xs);\n  }\n  .category-filters .filter-btn {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card .card-title {\n    font-size: 1.125rem;\n  }\n  .project-stats .stat {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats .package-badges {\n    justify-content: center;\n  }\n  .project-stats .package-badges .package-badge {\n    height: 24px;\n  }\n}\n.open-source-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.open-source-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container .project-preview {\n  width: 100%;\n  height: 200px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  transition: all var(--transition-normal);\n}\n.project-preview-container .project-preview h3 {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-preview-container .project-preview p {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-preview-container .project-preview .om-symbol {\n  font-size: 2rem;\n  margin: var(--spacing-sm) 0;\n  animation: omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));\n}\n.project-preview-container .project-preview .tech-stack {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-preview-container .project-preview .powered-by {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.tech-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.tech-badges .tech-badge {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-sm);\n  padding: var(--spacing-xs) var(--spacing-sm);\n  font-size: 0.75rem;\n  font-weight: 500;\n  color: var(--white);\n  backdrop-filter: blur(10px);\n  transition: all var(--transition-normal);\n}\n.tech-badges .tech-badge:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
@@ -53579,8 +54457,7 @@ var WebAnimationsPlayer = class {
   // (since the _onStartFns and _onDoneFns get deleted after they are called)
   _originalOnDoneFns = [];
   _originalOnStartFns = [];
-  // using non-null assertion because it's re(set) by init();
-  domPlayer;
+  domPlayer = null;
   time = 0;
   parentPlayer = null;
   currentSnapshot = /* @__PURE__ */ new Map();
@@ -53601,26 +54478,34 @@ var WebAnimationsPlayer = class {
     }
   }
   init() {
-    this._buildPlayer();
+    if (!this._buildPlayer()) {
+      return;
+    }
     this._preparePlayerBeforeStart();
   }
   _buildPlayer() {
-    if (this._initialized) return;
+    if (this._initialized) return this.domPlayer;
     this._initialized = true;
     const keyframes = this.keyframes;
-    this.domPlayer = this._triggerWebAnimation(this.element, keyframes, this.options);
+    const animation = this._triggerWebAnimation(this.element, keyframes, this.options);
+    if (!animation) {
+      this._onFinish();
+      return null;
+    }
+    this.domPlayer = animation;
     this._finalKeyframe = keyframes.length ? keyframes[keyframes.length - 1] : /* @__PURE__ */ new Map();
     const onFinish = () => this._onFinish();
-    this.domPlayer.addEventListener("finish", onFinish);
+    animation.addEventListener("finish", onFinish);
     this.onDestroy(() => {
-      this.domPlayer.removeEventListener("finish", onFinish);
+      animation.removeEventListener("finish", onFinish);
     });
+    return animation;
   }
   _preparePlayerBeforeStart() {
     if (this._delay) {
       this._resetDomPlayerState();
     } else {
-      this.domPlayer.pause();
+      this.domPlayer?.pause();
     }
   }
   _convertKeyframesToObject(keyframes) {
@@ -53632,7 +54517,12 @@ var WebAnimationsPlayer = class {
   }
   /** @internal */
   _triggerWebAnimation(element, keyframes, options) {
-    return element.animate(this._convertKeyframesToObject(keyframes), options);
+    const keyframesObject = this._convertKeyframesToObject(keyframes);
+    try {
+      return element.animate(keyframesObject, options);
+    } catch {
+      return null;
+    }
   }
   onStart(fn) {
     this._originalOnStartFns.push(fn);
@@ -53646,7 +54536,10 @@ var WebAnimationsPlayer = class {
     this._onDestroyFns.push(fn);
   }
   play() {
-    this._buildPlayer();
+    const player = this._buildPlayer();
+    if (!player) {
+      return;
+    }
     if (!this.hasStarted()) {
       this._onStartFns.forEach((fn) => fn());
       this._onStartFns = [];
@@ -53655,14 +54548,15 @@ var WebAnimationsPlayer = class {
         this._specialStyles.start();
       }
     }
-    this.domPlayer.play();
+    player.play();
   }
   pause() {
     this.init();
-    this.domPlayer.pause();
+    this.domPlayer?.pause();
   }
   finish() {
     this.init();
+    if (!this.domPlayer) return;
     if (this._specialStyles) {
       this._specialStyles.finish();
     }
@@ -53678,9 +54572,7 @@ var WebAnimationsPlayer = class {
     this._onDoneFns = this._originalOnDoneFns;
   }
   _resetDomPlayerState() {
-    if (this.domPlayer) {
-      this.domPlayer.cancel();
-    }
+    this.domPlayer?.cancel();
   }
   restart() {
     this.reset();
@@ -53702,12 +54594,17 @@ var WebAnimationsPlayer = class {
     }
   }
   setPosition(p) {
-    if (this.domPlayer === void 0) {
+    if (!this.domPlayer) {
       this.init();
     }
-    this.domPlayer.currentTime = p * this.time;
+    if (this.domPlayer) {
+      this.domPlayer.currentTime = p * this.time;
+    }
   }
   getPosition() {
+    if (!this.domPlayer) {
+      return this._initialized ? 1 : 0;
+    }
     return +(this.domPlayer.currentTime ?? 0) / this.time;
   }
   get totalTime() {
@@ -53829,7 +54726,13 @@ var BaseAnimationRenderer = class {
     this.delegate.insertBefore(parent, newChild, refChild);
     this.engine.onInsert(this.namespaceId, newChild, parent, isMove);
   }
-  removeChild(parent, oldChild, isHostElement) {
+  // TODO(thePunderWoman): remove the requireSynchronousElementRemoval flag after the
+  // animations package has been fully deleted post v23.
+  removeChild(parent, oldChild, isHostElement, requireSynchronousElementRemoval) {
+    if (requireSynchronousElementRemoval) {
+      this.delegate.removeChild(parent, oldChild, isHostElement, requireSynchronousElementRemoval);
+      return;
+    }
     if (this.parentNode(oldChild)) {
       this.engine.onRemove(this.namespaceId, oldChild, this.delegate);
     }
@@ -54237,7 +55140,7 @@ platformBrowser().bootstrapModule(AppModule).catch((err) => console.error(err));
 
 @angular/core/fesm2022/not_found.mjs:
 @angular/core/fesm2022/signal.mjs:
-@angular/core/fesm2022/untracked.mjs:
+@angular/core/fesm2022/effect.mjs:
 @angular/core/fesm2022/primitives/signals.mjs:
 @angular/core/fesm2022/primitives/di.mjs:
 @angular/core/fesm2022/root_effect_scheduler.mjs:
@@ -54262,8 +55165,8 @@ platformBrowser().bootstrapModule(AppModule).catch((err) => console.error(err));
 @angular/animations/fesm2022/browser.mjs:
 @angular/platform-browser/fesm2022/animations.mjs:
   (**
-   * @license Angular v20.1.7
-   * (c) 2010-2025 Google LLC. https://angular.io/
+   * @license Angular v20.3.10
+   * (c) 2010-2025 Google LLC. https://angular.dev/
    * License: MIT
    *)
 
