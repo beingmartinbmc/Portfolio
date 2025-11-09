@@ -48681,6 +48681,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     this.gameEnded = false;
     this.selectedCategory = "technology";
     this.selectedDifficulty = "Medium";
+    this.askedQuestions = [];
     this.quizStats = {
       totalQuestions: 0,
       correctAnswers: 0,
@@ -48786,6 +48787,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     });
   }
   resetQuizStats() {
+    this.askedQuestions = [];
     this.quizStats = {
       totalQuestions: 0,
       correctAnswers: 0,
@@ -48805,12 +48807,28 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
         const aiQuestion = yield this.generateAIQuestion();
         if (aiQuestion) {
           this.currentQuestion = aiQuestion;
+          this.askedQuestions.push(aiQuestion.question);
+          if (this.askedQuestions.length > 10) {
+            this.askedQuestions = this.askedQuestions.slice(-10);
+          }
         } else {
           this.currentQuestion = this.getFallbackQuestion();
+          if (this.currentQuestion) {
+            this.askedQuestions.push(this.currentQuestion.question);
+            if (this.askedQuestions.length > 10) {
+              this.askedQuestions = this.askedQuestions.slice(-10);
+            }
+          }
         }
       } catch (error) {
         console.error("Error generating question:", error);
         this.currentQuestion = this.getFallbackQuestion();
+        if (this.currentQuestion) {
+          this.askedQuestions.push(this.currentQuestion.question);
+          if (this.askedQuestions.length > 10) {
+            this.askedQuestions = this.askedQuestions.slice(-10);
+          }
+        }
       }
       this.isLoading = false;
     });
@@ -48844,7 +48862,18 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
   generateQuestionPrompt() {
     const categoryInfo = this.categories.find((c) => c.value === this.selectedCategory);
     const difficultyInfo = this.difficulties.find((d) => d.value === this.selectedDifficulty);
-    return `Generate a ${this.selectedDifficulty} difficulty quiz question about ${categoryInfo?.label}.
+    const recentQuestions = this.askedQuestions.slice(-5);
+    const questionContext = recentQuestions.length > 0 ? `AVOID REPEATING these recent topics: ${recentQuestions.join(", ")}` : "This is the first question in this session.";
+    return `Generate a UNIQUE ${this.selectedDifficulty} difficulty quiz question about ${categoryInfo?.label}.
+
+${questionContext}
+
+CRITICAL REQUIREMENTS:
+- Generate a COMPLETELY DIFFERENT question from any mentioned above
+- Focus on DIVERSE subtopics within ${categoryInfo?.description}
+- Vary question types: definitions, applications, history, facts, comparisons
+- Use CURRENT and RELEVANT examples (2020-2025 preferred)
+- Make each question EDUCATIONAL and INTERESTING
 
 STRICT FORMAT REQUIREMENTS:
 - Respond with ONLY the formatted question data
@@ -48852,32 +48881,43 @@ STRICT FORMAT REQUIREMENTS:
 - Use the EXACT format below
 
 FORMAT:
-QUESTION: [Your question here]
+QUESTION: [Your unique question here]
 OPTION_A: [First option]
 OPTION_B: [Second option]  
 OPTION_C: [Third option]
 OPTION_D: [Fourth option]
 CORRECT: [Letter of correct answer: A, B, C, or D]
-EXPLANATION: [Brief explanation of why the answer is correct]
+EXPLANATION: [Brief explanation with additional context]
 
-REQUIREMENTS:
-- Make the question challenging but fair for ${this.selectedDifficulty} difficulty
-- Ensure all 4 options are plausible and realistic
-- Provide a clear, educational explanation
-- Keep question and options concise (under 100 characters each)
-- Make it interesting and engaging
-- Avoid overly obscure or trick questions
-- Focus on widely known facts and concepts
+CONTENT GUIDELINES:
+- ${this.selectedDifficulty} level: ${difficultyInfo?.description}
+- Keep question and options under 80 characters each
+- All options must be plausible and realistic
+- Include modern examples and recent developments when possible
+- Focus on practical knowledge and real-world applications
 
-Category: ${categoryInfo?.description}
-Difficulty: ${this.selectedDifficulty} (${difficultyInfo?.description})
+TOPIC VARIETY FOR ${categoryInfo?.label}:
+${this.getTopicSuggestions(this.selectedCategory)}
 
-Examples of good questions:
-- Technology: "Which company created the TypeScript programming language?"
-- Science: "What is the most abundant gas in Earth's atmosphere?"
-- General: "Which country has the most time zones?"
+QUESTION STYLES TO ROTATE:
+- "Which/What/Who/When/Where/How" questions
+- "What is the primary purpose of..." 
+- "Which company/person/technology..." 
+- "In what year was..." 
+- "What programming concept/scientific principle..."
 
-Generate ONE question now:`;
+Generate ONE completely unique question now:`;
+  }
+  getTopicSuggestions(category) {
+    const suggestions = {
+      "technology": "Programming languages, frameworks (React, Angular, Vue), databases, cloud computing, AI/ML, cybersecurity, mobile development, DevOps, blockchain, web standards",
+      "science": "Physics discoveries, chemistry elements, biology evolution, space exploration, medical breakthroughs, environmental science, quantum mechanics, genetics, neuroscience",
+      "general": "World records, cultural facts, geography trivia, current events, inventions, languages, literature, movies, music, social phenomena",
+      "history": "Ancient civilizations, world wars, revolutions, famous leaders, empires, discoveries, cultural movements, important dates, historical innovations",
+      "geography": "Countries and capitals, natural landmarks, climate zones, oceans and seas, mountain ranges, deserts, rivers, islands, population facts",
+      "sports": "Olympic records, famous athletes, team histories, sporting innovations, championships, world cups, athletic achievements, sports science"
+    };
+    return suggestions[category] || "Various topics within this category";
   }
   parseAIQuestion(aiResponse) {
     try {
