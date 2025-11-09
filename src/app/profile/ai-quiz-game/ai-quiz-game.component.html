@@ -1,0 +1,266 @@
+<div class="ai-quiz-game" id="ai-quiz-game">
+  <div class="apple-container">
+    <div class="quiz-content">
+      
+      <!-- Game Header -->
+      <div class="section-header apple-fade-in">
+        <h2 class="section-title apple-text-display">🧠 AI Quiz Challenge</h2>
+        <p class="section-subtitle apple-text-body">Test your knowledge with AI-powered quiz questions</p>
+      </div>
+
+      <!-- Game Setup Screen -->
+      <div class="quiz-setup apple-card" *ngIf="!gameStarted && !gameEnded">
+        <div class="card-content">
+          <div class="setup-header">
+            <h3 class="setup-title">Ready for a Brain Challenge? 🎯</h3>
+            <p class="setup-description">Choose your category and difficulty level, then challenge yourself with AI-generated quiz questions!</p>
+          </div>
+
+          <div class="setup-options">
+            <!-- Category Selection -->
+            <div class="option-group">
+              <label class="option-label">Choose Your Topic</label>
+              <div class="category-grid">
+                <button 
+                  *ngFor="let category of categories" 
+                  class="category-btn"
+                  [class.active]="selectedCategory === category.value"
+                  (click)="selectedCategory = category.value">
+                  <span class="category-icon">{{ category.icon }}</span>
+                  <div class="category-info">
+                    <span class="category-text">{{ category.label }}</span>
+                    <span class="category-desc">{{ category.description }}</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Difficulty Selection -->
+            <div class="option-group">
+              <label class="option-label">Choose Difficulty Level</label>
+              <div class="difficulty-buttons">
+                <button 
+                  *ngFor="let difficulty of difficulties" 
+                  class="difficulty-btn"
+                  [class.active]="selectedDifficulty === difficulty.value"
+                  [class]="difficulty.color"
+                  (click)="selectedDifficulty = difficulty.value">
+                  <span class="diff-label">{{ difficulty.label }}</span>
+                  <span class="diff-desc">{{ difficulty.description }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="setup-footer">
+            <button class="apple-btn apple-btn-primary start-game-btn" (click)="startGame()">
+              <i class="fas fa-play"></i>
+              Start Quiz Challenge
+            </button>
+            <div class="game-info">
+              <span class="info-item">📝 10 Questions</span>
+              <span class="info-item">⏱️ 30 seconds each</span>
+              <span class="info-item">🤖 AI Generated</span>
+              <span class="info-item">🏆 Score & Streak</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Playing Screen -->
+      <div class="quiz-playing apple-card" *ngIf="gameStarted && !gameEnded && !isLoading">
+        <div class="card-content">
+          <!-- Game Progress -->
+          <div class="quiz-progress">
+            <div class="progress-info">
+              <span class="question-counter">Question {{ quizStats.totalQuestions + 1 }} of 10</span>
+              <div class="timer-display" [class.warning]="quizStats.timeLeft <= 10" [class.danger]="quizStats.timeLeft <= 5">
+                <i class="fas fa-clock"></i>
+                <span class="time-left">{{ quizStats.timeLeft }}s</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="((quizStats.totalQuestions + 1) / 10) * 100"></div>
+            </div>
+            <div class="timer-bar">
+              <div class="timer-fill" [style.width.%]="(quizStats.timeLeft / 30) * 100" 
+                   [class.warning]="quizStats.timeLeft <= 10" 
+                   [class.danger]="quizStats.timeLeft <= 5"></div>
+            </div>
+          </div>
+
+          <!-- Game Stats -->
+          <div class="quiz-stats-live" *ngIf="quizStats.totalQuestions > 0">
+            <div class="stat-item">
+              <span class="stat-value">{{ quizStats.totalPoints }}</span>
+              <span class="stat-label">Points</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{{ quizStats.streak }}</span>
+              <span class="stat-label">Streak</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{{ getScorePercentage() }}%</span>
+              <span class="stat-label">Accuracy</span>
+            </div>
+          </div>
+
+          <!-- Current Question -->
+          <div class="question-container" *ngIf="currentQuestion">
+            <div class="question-header">
+              <div class="question-meta">
+                <span class="difficulty-badge" [class]="getDifficultyColor()">
+                  {{ currentQuestion.difficulty }}
+                </span>
+                <span class="category-badge">
+                  {{ getCategoryIcon() }} {{ getCategoryLabel() }}
+                </span>
+                <span class="points-badge">
+                  {{ currentQuestion.points }} pts
+                </span>
+              </div>
+            </div>
+            
+            <h3 class="question-text">{{ currentQuestion.question }}</h3>
+            
+            <div class="answer-options">
+              <button 
+                *ngFor="let option of currentQuestion.options; let i = index"
+                class="answer-option"
+                [class.selected]="selectedAnswer === i"
+                [class.correct]="showAnswer && i === currentQuestion.correctAnswer"
+                [class.incorrect]="showAnswer && selectedAnswer === i && i !== currentQuestion.correctAnswer"
+                [class.disabled]="showAnswer || quizStats.timeLeft <= 0"
+                (click)="selectAnswer(i)">
+                <span class="option-letter">{{ ['A', 'B', 'C', 'D'][i] }}</span>
+                <span class="option-text">{{ option }}</span>
+                <span class="option-indicator" *ngIf="showAnswer && i === currentQuestion.correctAnswer">✓</span>
+                <span class="option-indicator incorrect" *ngIf="showAnswer && selectedAnswer === i && i !== currentQuestion.correctAnswer">✗</span>
+              </button>
+            </div>
+
+            <!-- Answer Explanation -->
+            <div class="answer-explanation" *ngIf="showAnswer">
+              <div class="explanation-header">
+                <span class="result-icon" 
+                      [class.correct]="selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1"
+                      [class.incorrect]="selectedAnswer !== currentQuestion.correctAnswer || selectedAnswer === -1">
+                  {{ selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1 ? '🎉' : 
+                     selectedAnswer === -1 ? '⏰' : '💡' }}
+                </span>
+                <span class="result-text">
+                  {{ selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1 ? 'Correct!' : 
+                     selectedAnswer === -1 ? 'Time\'s up!' : 'Not quite right' }}
+                </span>
+                <span class="points-earned" *ngIf="selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1">
+                  +{{ getTotalPoints() }} points
+                </span>
+              </div>
+              <p class="explanation-text">{{ currentQuestion.explanation }}</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="question-actions">
+              <button 
+                class="apple-btn apple-btn-primary"
+                *ngIf="!showAnswer && selectedAnswer !== null && quizStats.timeLeft > 0"
+                (click)="submitAnswer()">
+                Submit Answer
+              </button>
+              
+              <button 
+                class="apple-btn apple-btn-primary"
+                *ngIf="showAnswer"
+                (click)="nextQuestion()">
+                {{ quizStats.totalQuestions >= 10 ? 'View Results' : 'Next Question' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Screen -->
+      <div class="quiz-loading apple-card" *ngIf="isLoading">
+        <div class="card-content">
+          <div class="loading-content">
+            <div class="ai-loader">
+              <div class="loader-brain">🤖</div>
+              <div class="loader-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            <h3 class="loading-title">AI is crafting your question...</h3>
+            <p class="loading-subtitle">Generating {{ selectedDifficulty.toLowerCase() }} {{ getCategoryLabel() }} question</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Results Screen -->
+      <div class="quiz-results apple-card" *ngIf="gameEnded">
+        <div class="card-content">
+          <div class="results-header">
+            <div class="score-circle">
+              <div class="score-value">{{ getScorePercentage() }}%</div>
+              <div class="score-grade">{{ getScoreGrade() }}</div>
+            </div>
+            <h3 class="results-title">Quiz Complete! 🎊</h3>
+            <p class="results-subtitle">{{ getPerformanceMessage() }}</p>
+          </div>
+
+          <div class="results-stats">
+            <div class="stat-card">
+              <div class="stat-icon">📊</div>
+              <div class="stat-info">
+                <div class="stat-number">{{ quizStats.correctAnswers }}/{{ quizStats.totalQuestions }}</div>
+                <div class="stat-description">Correct Answers</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">⚡</div>
+              <div class="stat-info">
+                <div class="stat-number">{{ quizStats.bestStreak }}</div>
+                <div class="stat-description">Best Streak</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">🏆</div>
+              <div class="stat-info">
+                <div class="stat-number">{{ quizStats.totalPoints }}</div>
+                <div class="stat-description">Total Points</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">🎯</div>
+              <div class="stat-info">
+                <div class="stat-number">{{ getCategoryIcon() }}</div>
+                <div class="stat-description">{{ selectedCategory | titlecase }} {{ selectedDifficulty }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="results-actions">
+            <button class="apple-btn apple-btn-primary" (click)="restartGame()">
+              <i class="fas fa-redo"></i>
+              Play Again
+            </button>
+            <button class="apple-btn apple-btn-secondary" (click)="gameEnded = false; gameStarted = false">
+              <i class="fas fa-cog"></i>
+              Change Settings
+            </button>
+          </div>
+
+          <div class="results-footer">
+            <div class="challenge-message">
+              <p>Want a bigger challenge? Try a different category or increase the difficulty!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

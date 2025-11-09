@@ -39656,7 +39656,7 @@ var HeaderComponent = class _HeaderComponent {
           return ctx.onWindowScroll();
         }, \u0275\u0275resolveWindow);
       }
-    }, decls: 47, vars: 10, consts: [["audioCanvas", ""], [1, "apple-header"], [1, "apple-nav"], [1, "apple-container"], [1, "nav-content"], [1, "nav-logo"], ["href", "#", 1, "logo-link"], [1, "logo-text"], [1, "nav-links"], ["href", "#about", 1, "nav-link", "smooth-scroll", 3, "click"], [1, "link-text"], ["href", "#experience", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#publications", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#blogs", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#open-source", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#skill", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#ai-code-review", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#education", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#contact", 1, "nav-link", "smooth-scroll", 3, "click"], [1, "music-controls"], ["title", "Toggle Piano Music", 1, "music-toggle", 3, "click"], [1, "music-emoji"], [1, "audio-visualizer"], ["width", "120", "height", "40", 1, "visualizer-canvas"], [1, "mobile-menu-btn", 3, "click"], [1, "hamburger-line"]], template: function HeaderComponent_Template(rf, ctx) {
+    }, decls: 47, vars: 10, consts: [["audioCanvas", ""], [1, "apple-header"], [1, "apple-nav"], [1, "apple-container"], [1, "nav-content"], [1, "nav-logo"], ["href", "#", 1, "logo-link"], [1, "logo-text"], [1, "nav-links"], ["href", "#about", 1, "nav-link", "smooth-scroll", 3, "click"], [1, "link-text"], ["href", "#experience", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#publications", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#blogs", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#open-source", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#skill", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#ai-quiz-game", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#education", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#contact", 1, "nav-link", "smooth-scroll", 3, "click"], [1, "music-controls"], ["title", "Toggle Piano Music", 1, "music-toggle", 3, "click"], [1, "music-emoji"], [1, "audio-visualizer"], ["width", "120", "height", "40", 1, "visualizer-canvas"], [1, "mobile-menu-btn", 3, "click"], [1, "hamburger-line"]], template: function HeaderComponent_Template(rf, ctx) {
       if (rf & 1) {
         const _r1 = \u0275\u0275getCurrentView();
         \u0275\u0275domElementStart(0, "header", 1)(1, "nav", 2)(2, "div", 3)(3, "div", 4)(4, "div", 5)(5, "a", 6)(6, "span", 7);
@@ -39716,7 +39716,7 @@ var HeaderComponent = class _HeaderComponent {
           return \u0275\u0275resetView(ctx.onNavLinkClick());
         });
         \u0275\u0275domElementStart(28, "span", 10);
-        \u0275\u0275text(29, "Code Review");
+        \u0275\u0275text(29, "AI Quiz");
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(30, "a", 17);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_30_listener() {
@@ -39770,7 +39770,7 @@ var HeaderComponent = class _HeaderComponent {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HeaderComponent, [{
     type: Component,
-    args: [{ selector: "app-header", standalone: true, template: '<header class="apple-header" [class.scrolled]="isScrolled">\n  <nav class="apple-nav">\n    <div class="apple-container">\n      <div class="nav-content">\n        <!-- Logo -->\n        <div class="nav-logo">\n          <a href="#" class="logo-link">\n            <span class="logo-text">Ankit Sharma</span>\n          </a>\n        </div>\n        \n        <!-- Navigation Links -->\n        <div class="nav-links" [class.active]="isMenuOpen">\n          <a href="#about" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">About</span>\n          </a>\n          <a href="#experience" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Experience</span>\n          </a>\n          <a href="#publications" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Projects</span>\n          </a>\n          <a href="#blogs" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Blogs</span>\n          </a>\n          <a href="#open-source" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Open Source</span>\n          </a>\n          <a href="#skill" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Skills</span>\n          </a>\n          <a href="#ai-code-review" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Code Review</span>\n          </a>\n          <a href="#education" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Education</span>\n          </a>\n          <a href="#contact" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Contact</span>\n          </a>\n        </div>\n        \n        <!-- Music Controls -->\n        <div class="music-controls">\n          <!-- Music Toggle -->\n          <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying" title="Toggle Piano Music">\n            <span class="music-emoji">\u{1F3B5}</span>\n          </button>\n          \n          <!-- Audio Visualizer -->\n          <div class="audio-visualizer" [class.active]="isPlaying">\n            <canvas #audioCanvas class="visualizer-canvas" width="120" height="40"></canvas>\n          </div>\n        </div>\n        \n        <!-- Mobile Menu Button -->\n        <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen">\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n        </button>\n      </div>\n    </div>\n  </nav>\n</header>\n\n', styles: ['/* src/app/profile/header/header.component.scss */\n.apple-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  transition: all var(--transition-normal);\n}\n.apple-header.scrolled {\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);\n}\n.apple-nav {\n  padding: var(--space-4) 0;\n}\n.nav-content {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.nav-logo {\n  z-index: 2;\n}\n.logo-link {\n  text-decoration: none;\n  color: var(--text-primary);\n  transition: all var(--transition-normal);\n}\n.logo-text {\n  font-family: var(--font-display);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.apple-header.scrolled .logo-text {\n  color: var(--text-primary);\n}\n.nav-links {\n  display: flex;\n  gap: var(--space-8);\n  align-items: center;\n}\n.nav-link {\n  position: relative;\n  text-decoration: none;\n  color: var(--text-primary);\n  font-family: var(--font-primary);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  padding: var(--space-2) var(--space-3);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.nav-link::before {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  width: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  transition: all var(--transition-normal);\n  transform: translateX(-50%);\n}\n.nav-link:hover {\n  color: var(--primary-blue);\n}\n.nav-link:hover::before {\n  width: 100%;\n}\n.apple-header.scrolled .nav-link {\n  color: var(--text-primary);\n}\n.music-controls {\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n}\n.music-toggle {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 44px;\n  height: 44px;\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 50%;\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n  margin-right: 1rem;\n  position: relative;\n  overflow: hidden;\n}\n.music-toggle::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.1),\n      rgba(118, 75, 162, 0.1));\n  opacity: 0;\n  transition: opacity 0.3s ease;\n  border-radius: 50%;\n}\n.music-toggle:hover {\n  transform: scale(1.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.3);\n  background: rgba(255, 255, 255, 0.15);\n}\n.music-toggle:hover::before {\n  opacity: 1;\n}\n.music-toggle:active {\n  transform: scale(0.95);\n}\n.music-toggle .music-emoji {\n  font-size: 1.4rem;\n  transition: all 0.3s ease;\n  position: relative;\n  z-index: 1;\n  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));\n}\n.music-toggle.playing {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n  border-color: rgba(102, 126, 234, 0.4);\n  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);\n}\n.music-toggle.playing::before {\n  opacity: 1;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n}\n.music-toggle.playing .music-emoji {\n  animation: musicPulse 2s ease-in-out infinite;\n  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));\n}\n@keyframes musicPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.8;\n  }\n}\n.audio-visualizer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 40px;\n  background: transparent;\n  border: 1px solid transparent;\n  border-radius: var(--radius-md);\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n  overflow: hidden;\n  opacity: 0;\n  transform: scale(0.8);\n  transition: all var(--transition-normal);\n}\n.audio-visualizer.active {\n  opacity: 1;\n  transform: scale(1);\n  background: rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.1);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n}\n.visualizer-canvas {\n  width: 100%;\n  height: 100%;\n  border-radius: var(--radius-md);\n}\n.mobile-menu-btn {\n  display: none;\n  flex-direction: column;\n  justify-content: space-between;\n  width: 30px;\n  height: 24px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  z-index: 1000;\n  padding: 0;\n  position: relative;\n}\n.hamburger-line {\n  width: 100%;\n  height: 3px;\n  background: var(--text-primary);\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  transform-origin: center;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(1) {\n  transform: rotate(45deg) translate(6px, 6px);\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(3) {\n  transform: rotate(-45deg) translate(6px, -6px);\n}\n@media (max-width: 768px) {\n  .nav-links {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.95);\n    backdrop-filter: blur(30px);\n    -webkit-backdrop-filter: blur(30px);\n    flex-direction: column;\n    justify-content: center;\n    gap: var(--space-8);\n    transform: translateX(-100%);\n    transition: transform var(--transition-normal);\n    z-index: 999;\n    display: flex !important;\n    visibility: visible !important;\n    pointer-events: auto;\n  }\n  .nav-links.active {\n    transform: translateX(0);\n    pointer-events: auto;\n  }\n  body.menu-open {\n    overflow: hidden;\n    position: fixed;\n    width: 100%;\n    height: 100%;\n  }\n  .mobile-menu-btn {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n  }\n  .nav-link {\n    font-size: var(--text-xl);\n    padding: var(--space-4);\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n    cursor: pointer;\n  }\n  .nav-link::before {\n    display: none;\n  }\n  .nav-link:hover {\n    background: rgba(255, 255, 255, 0.1);\n    border-radius: var(--radius-lg);\n  }\n  .nav-link:active {\n    background: rgba(255, 255, 255, 0.2);\n  }\n  .music-toggle {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    margin-right: 0.5rem;\n  }\n}\n@keyframes gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav .nav-item {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav .nav-item .nav-link {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav .nav-item .nav-link:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav .nav-item .nav-link:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav .nav-item .nav-link::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav .nav-item .nav-link:hover::after {\n  width: 80%;\n}\n.navbar-toggler {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler:focus {\n  box-shadow: none;\n}\n.navbar-toggler .navbar-toggler-bar {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler .navbar-toggler-bar.bar1 {\n  width: 25px;\n}\n.navbar-toggler .navbar-toggler-bar.bar2 {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler .navbar-toggler-bar.bar3 {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler:hover .navbar-toggler-bar {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse {\n    background: rgba(255, 255, 255, 0.1);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav .nav-item {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav .nav-item .nav-link {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav .nav-item .nav-link:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */\n'] }]
+    args: [{ selector: "app-header", standalone: true, template: '<header class="apple-header" [class.scrolled]="isScrolled">\n  <nav class="apple-nav">\n    <div class="apple-container">\n      <div class="nav-content">\n        <!-- Logo -->\n        <div class="nav-logo">\n          <a href="#" class="logo-link">\n            <span class="logo-text">Ankit Sharma</span>\n          </a>\n        </div>\n        \n        <!-- Navigation Links -->\n        <div class="nav-links" [class.active]="isMenuOpen">\n          <a href="#about" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">About</span>\n          </a>\n          <a href="#experience" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Experience</span>\n          </a>\n          <a href="#publications" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Projects</span>\n          </a>\n          <a href="#blogs" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Blogs</span>\n          </a>\n          <a href="#open-source" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Open Source</span>\n          </a>\n          <a href="#skill" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Skills</span>\n          </a>\n                    <a href="#ai-quiz-game" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">AI Quiz</span>\n          </a>\n          <a href="#education" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Education</span>\n          </a>\n          <a href="#contact" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Contact</span>\n          </a>\n        </div>\n        \n        <!-- Music Controls -->\n        <div class="music-controls">\n          <!-- Music Toggle -->\n          <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying" title="Toggle Piano Music">\n            <span class="music-emoji">\u{1F3B5}</span>\n          </button>\n          \n          <!-- Audio Visualizer -->\n          <div class="audio-visualizer" [class.active]="isPlaying">\n            <canvas #audioCanvas class="visualizer-canvas" width="120" height="40"></canvas>\n          </div>\n        </div>\n        \n        <!-- Mobile Menu Button -->\n        <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen">\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n        </button>\n      </div>\n    </div>\n  </nav>\n</header>\n\n', styles: ['/* src/app/profile/header/header.component.scss */\n.apple-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  transition: all var(--transition-normal);\n}\n.apple-header.scrolled {\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);\n}\n.apple-nav {\n  padding: var(--space-4) 0;\n}\n.nav-content {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.nav-logo {\n  z-index: 2;\n}\n.logo-link {\n  text-decoration: none;\n  color: var(--text-primary);\n  transition: all var(--transition-normal);\n}\n.logo-text {\n  font-family: var(--font-display);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.apple-header.scrolled .logo-text {\n  color: var(--text-primary);\n}\n.nav-links {\n  display: flex;\n  gap: var(--space-8);\n  align-items: center;\n}\n.nav-link {\n  position: relative;\n  text-decoration: none;\n  color: var(--text-primary);\n  font-family: var(--font-primary);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  padding: var(--space-2) var(--space-3);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.nav-link::before {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  width: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  transition: all var(--transition-normal);\n  transform: translateX(-50%);\n}\n.nav-link:hover {\n  color: var(--primary-blue);\n}\n.nav-link:hover::before {\n  width: 100%;\n}\n.apple-header.scrolled .nav-link {\n  color: var(--text-primary);\n}\n.music-controls {\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n}\n.music-toggle {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 44px;\n  height: 44px;\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 50%;\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n  margin-right: 1rem;\n  position: relative;\n  overflow: hidden;\n}\n.music-toggle::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.1),\n      rgba(118, 75, 162, 0.1));\n  opacity: 0;\n  transition: opacity 0.3s ease;\n  border-radius: 50%;\n}\n.music-toggle:hover {\n  transform: scale(1.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.3);\n  background: rgba(255, 255, 255, 0.15);\n}\n.music-toggle:hover::before {\n  opacity: 1;\n}\n.music-toggle:active {\n  transform: scale(0.95);\n}\n.music-toggle .music-emoji {\n  font-size: 1.4rem;\n  transition: all 0.3s ease;\n  position: relative;\n  z-index: 1;\n  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));\n}\n.music-toggle.playing {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n  border-color: rgba(102, 126, 234, 0.4);\n  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);\n}\n.music-toggle.playing::before {\n  opacity: 1;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n}\n.music-toggle.playing .music-emoji {\n  animation: musicPulse 2s ease-in-out infinite;\n  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));\n}\n@keyframes musicPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.8;\n  }\n}\n.audio-visualizer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 40px;\n  background: transparent;\n  border: 1px solid transparent;\n  border-radius: var(--radius-md);\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n  overflow: hidden;\n  opacity: 0;\n  transform: scale(0.8);\n  transition: all var(--transition-normal);\n}\n.audio-visualizer.active {\n  opacity: 1;\n  transform: scale(1);\n  background: rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.1);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n}\n.visualizer-canvas {\n  width: 100%;\n  height: 100%;\n  border-radius: var(--radius-md);\n}\n.mobile-menu-btn {\n  display: none;\n  flex-direction: column;\n  justify-content: space-between;\n  width: 30px;\n  height: 24px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  z-index: 1000;\n  padding: 0;\n  position: relative;\n}\n.hamburger-line {\n  width: 100%;\n  height: 3px;\n  background: var(--text-primary);\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  transform-origin: center;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(1) {\n  transform: rotate(45deg) translate(6px, 6px);\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(3) {\n  transform: rotate(-45deg) translate(6px, -6px);\n}\n@media (max-width: 768px) {\n  .nav-links {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.95);\n    backdrop-filter: blur(30px);\n    -webkit-backdrop-filter: blur(30px);\n    flex-direction: column;\n    justify-content: center;\n    gap: var(--space-8);\n    transform: translateX(-100%);\n    transition: transform var(--transition-normal);\n    z-index: 999;\n    display: flex !important;\n    visibility: visible !important;\n    pointer-events: auto;\n  }\n  .nav-links.active {\n    transform: translateX(0);\n    pointer-events: auto;\n  }\n  body.menu-open {\n    overflow: hidden;\n    position: fixed;\n    width: 100%;\n    height: 100%;\n  }\n  .mobile-menu-btn {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n  }\n  .nav-link {\n    font-size: var(--text-xl);\n    padding: var(--space-4);\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n    cursor: pointer;\n  }\n  .nav-link::before {\n    display: none;\n  }\n  .nav-link:hover {\n    background: rgba(255, 255, 255, 0.1);\n    border-radius: var(--radius-lg);\n  }\n  .nav-link:active {\n    background: rgba(255, 255, 255, 0.2);\n  }\n  .music-toggle {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    margin-right: 0.5rem;\n  }\n}\n@keyframes gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav .nav-item {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav .nav-item .nav-link {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav .nav-item .nav-link:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav .nav-item .nav-link:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav .nav-item .nav-link::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav .nav-item .nav-link:hover::after {\n  width: 80%;\n}\n.navbar-toggler {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler:focus {\n  box-shadow: none;\n}\n.navbar-toggler .navbar-toggler-bar {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler .navbar-toggler-bar.bar1 {\n  width: 25px;\n}\n.navbar-toggler .navbar-toggler-bar.bar2 {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler .navbar-toggler-bar.bar3 {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler:hover .navbar-toggler-bar {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse {\n    background: rgba(255, 255, 255, 0.1);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav .nav-item {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav .nav-item .nav-link {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav .nav-item .nav-link:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */\n'] }]
   }], () => [], { audioCanvas: [{
     type: ViewChild,
     args: ["audioCanvas", { static: true }]
@@ -48212,1087 +48212,616 @@ var PublicationsComponent = class _PublicationsComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 26 });
 })();
 
-// src/app/profile/ai-code-review/prompts.js
-var CODE_REVIEW_PROMPT = (language, userCode) => `You are a code review AI that MUST return responses in a specific format for our UI to display properly.
-
-FORMATTING REQUIREMENTS:
-- NO markdown formatting (no **, *, #, etc.)
-- NO bullet points (no \u2022, -, * lists)
-- NO tables (no | characters)
-- NO code blocks (no \`\`\` or \` symbols)
-- NO HTML tags
-- Use ONLY plain text with === section headers
-- Use simple numbered lists (1. 2. 3.) for improvements
-- Keep each item on a single line
-- Use commas to separate multiple items in a single field
-
-CLEAN CODE PRINCIPLES TO EVALUATE (Uncle Bob's Clean Code):
-- Meaningful Names: Variables, functions, and classes should have descriptive names
-- Small Functions: Functions should be small and do one thing
-- Single Responsibility: Each class/module should have one reason to change
-- DRY (Don't Repeat Yourself): Avoid code duplication
-- SOLID Principles: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion
-- Comments: Code should be self-documenting, comments should explain why not what
-- Error Handling: Proper exception handling and error management
-- Testability: Code should be easy to test
-- Readability: Code should read like well-written prose
-
-COMPLEXITY ANALYSIS REQUIREMENTS:
-- Analyze the code for algorithmic complexity (Big-O notation)
-- Identify time complexity of loops, nested loops, and recursive functions
-- Identify space complexity including auxiliary space usage
-- Suggest more efficient algorithms when applicable
-- Consider worst-case, average-case, and best-case scenarios
-- Evaluate data structure choices and their impact on performance
-
-Our UI has these sections that need specific data:
-
-1. **Code Quality Metrics** - Shows 4 metrics in cards:
-   - Cyclomatic Complexity: A number (1-20, typically 2-10)
-   - Maintainability Index: A number (0-100, higher is better)
-   - Code Smells: A number (0-10, lower is better)
-   - Technical Debt: Text (Low/Medium/High)
-
-2. **Security Issues** - Shows red tags with security problems (2-4 short phrases)
-3. **Performance Issues** - Shows orange tags with performance problems (2-4 short phrases)
-4. **Best Practices** - Shows green tags with good practices (2-4 short phrases)
-5. **Industry Standards** - Shows compliance percentage and lists
-6. **Learning Resources** - Shows educational materials (comma-separated)
-7. **Key Improvements** - Shows numbered improvement suggestions (4 items)
-8. **Overall Score** - Shows score out of 10
-
-CRITICAL: You MUST format your response EXACTLY like this:
-
-=== CODE QUALITY METRICS ===
-Cyclomatic Complexity: 5
-Maintainability Index: 75
-Code Smells: 2
-Technical Debt: Low
-
-=== SECURITY ISSUES ===
-No input validation
-Missing authentication checks
-Potential data exposure
-
-=== PERFORMANCE ISSUES ===
-O(n\xB2) time complexity
-Memory inefficient algorithm
-No caching implementation
-
-=== BEST PRACTICES ===
-Follows naming conventions
-Uses appropriate data structures
-Implements error handling
-
-=== INDUSTRY STANDARDS ===
-Compliance: 65%
-Standards Met: Code formatting, Variable naming, Basic structure
-Deviations: Missing documentation, No unit tests, Inefficient algorithm
-
-=== LEARNING RESOURCES ===
-Tutorials: ${language} Best Practices, Clean Code Principles, SOLID Design
-Documentation: ${language} API docs, Official Documentation, Clean Code Guidelines
-Courses: Data Structures & Algorithms, Advanced ${language}, Clean Architecture
-Books: Effective ${language}, Clean Code, Clean Architecture
-
-=== KEY IMPROVEMENTS ===
-1. Add input validation and error handling
-2. Replace with more efficient sorting algorithm
-3. Add comprehensive documentation
-4. Implement unit tests
-
-=== OVERALL SCORE ===
-Score: 6/10
-
-=== DETAILED FEEDBACK ===
-Your detailed analysis here with proper formatting but NO markdown. Include specific Clean Code principles evaluation and suggestions based on Uncle Bob's guidelines.
-
-Code to review:
-${userCode}
-
-IMPORTANT: 
-- Use the EXACT section headers with ===
-- Provide REAL values, not placeholders
-- Keep each section concise but informative
-- Make sure all sections are present
-- Format exactly as shown above
-- NO markdown, NO bullets, NO tables, NO code blocks
-- Use only plain text with simple formatting
-- Include Clean Code principles in your analysis and suggestions
-- Include detailed complexity analysis for algorithms`;
-var COMPLEXITY_ANALYSIS_PROMPT = (language, userCode) => `You are an expert algorithm analyst specializing in Big-O complexity analysis. Analyze the provided code for algorithmic efficiency and provide detailed complexity insights.
-
-ANALYSIS REQUIREMENTS:
-1. **Time Complexity Analysis**:
-   - Identify the dominant operations in the code
-   - Calculate Big-O notation for time complexity
-   - Consider worst-case, average-case, and best-case scenarios
-   - Analyze nested loops, recursive calls, and function calls
-
-2. **Space Complexity Analysis**:
-   - Calculate auxiliary space usage
-   - Consider input space vs. working space
-   - Analyze data structure memory requirements
-   - Identify potential memory leaks or inefficiencies
-
-3. **Algorithm Identification**:
-   - Identify if the code implements a known algorithm
-   - Compare with optimal solutions for the same problem
-   - Suggest more efficient alternatives when applicable
-
-4. **Performance Optimization**:
-   - Identify bottlenecks and performance issues
-   - Suggest algorithmic improvements
-   - Recommend better data structures
-   - Consider trade-offs between time and space complexity
-
-FORMAT YOUR RESPONSE AS:
-
-=== COMPLEXITY ANALYSIS ===
-Time Complexity: O(n\xB2) - Nested loops cause quadratic growth
-Space Complexity: O(1) - Constant auxiliary space usage
-Algorithm Type: Bubble Sort implementation
-Performance Rating: Poor - Inefficient for large datasets
-
-=== DETAILED BREAKDOWN ===
-Loop Analysis: Outer loop O(n), inner loop O(n), total O(n\xB2)
-Data Structure Impact: Array operations are O(1) but algorithm is inefficient
-Recursion Analysis: No recursive calls detected
-Memory Usage: Minimal auxiliary space, only temporary variables
-
-=== OPTIMIZATION SUGGESTIONS ===
-1. Replace with O(n log n) sorting algorithm like QuickSort or MergeSort
-2. Consider using built-in sort functions for better performance
-3. Implement early termination for already sorted arrays
-4. Use more efficient data structures if applicable
-
-=== COMPARISON WITH OPTIMAL ===
-Optimal Time Complexity: O(n log n) for comparison-based sorting
-Optimal Space Complexity: O(log n) for in-place QuickSort
-Performance Gap: Current solution is O(n\xB2) vs optimal O(n log n)
-Scalability Issues: Performance degrades significantly with larger inputs
-
-Code to analyze:
-${userCode}
-
-IMPORTANT:
-- Provide accurate Big-O notation
-- Explain your reasoning clearly
-- Suggest concrete improvements
-- Consider the specific programming language's characteristics
-- Focus on algorithmic efficiency, not just code style`;
-var CODE_REVIEW_CONTEXT = (language) => `You are an expert ${language} developer, security specialist, performance engineer, and code reviewer with deep knowledge of:
-- Industry best practices and coding standards
-- Security vulnerabilities and mitigation strategies
-- Performance optimization and scalability
-- Code quality metrics and maintainability
-- Modern development patterns and architectural decisions
-- Learning resources and educational materials
-- Clean Code principles (Uncle Bob's methodology)
-- SOLID principles and design patterns
-- Code refactoring and maintainability best practices
-
-OUTPUT FORMAT REQUIREMENTS:
-- Your response will be parsed by a UI system that expects EXACT section headers
-- Each section must contain the specified data types
-- Use ONLY plain text - no markdown, no HTML, no special characters
-- Numbers should be integers (no decimals unless necessary)
-- Text should be concise phrases (not long sentences)
-- Lists should be comma-separated or numbered (1. 2. 3.)
-- Keep each item on a single line
-- Do not use bullet points, asterisks, or other formatting symbols
-
-CLEAN CODE EVALUATION FOCUS:
-- Evaluate naming conventions and meaningful names
-- Assess function and class sizes and responsibilities
-- Check for code duplication and DRY violations
-- Review SOLID principles adherence
-- Analyze code readability and self-documentation
-- Evaluate error handling and exception management
-- Assess testability and testing practices
-
-CRITICAL: You MUST follow the exact format provided in the prompt. Your response will be parsed by a UI system that expects specific section headers and data formats. Do not deviate from the format.`;
-
-// src/app/profile/ai-code-review/ai-code-review.component.ts
-function AiCodeReviewComponent_span_60_Template(rf, ctx) {
+// src/app/profile/ai-quiz-game/ai-quiz-game.component.ts
+var _c04 = () => ["A", "B", "C", "D"];
+function AiQuizGameComponent_div_8_button_12_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 36);
-    \u0275\u0275text(1, "\u23F3");
+    const _r2 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 27);
+    \u0275\u0275listener("click", function AiQuizGameComponent_div_8_button_12_Template_button_click_0_listener() {
+      const category_r3 = \u0275\u0275restoreView(_r2).$implicit;
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.selectedCategory = category_r3.value);
+    });
+    \u0275\u0275elementStart(1, "span", 28);
+    \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-  }
-}
-function AiCodeReviewComponent_div_61_span_20_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 60);
-    \u0275\u0275text(1);
+    \u0275\u0275elementStart(3, "div", 29)(4, "span", 30);
+    \u0275\u0275text(5);
     \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "span", 31);
+    \u0275\u0275text(7);
+    \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const improvement_r1 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", improvement_r1, " ");
+    const category_r3 = ctx.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275classProp("active", ctx_r3.selectedCategory === category_r3.value);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(category_r3.icon);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(category_r3.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(category_r3.description);
   }
 }
-function AiCodeReviewComponent_div_61_div_21_span_4_Template(rf, ctx) {
+function AiQuizGameComponent_div_8_button_17_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 65);
-    \u0275\u0275text(1);
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 32);
+    \u0275\u0275listener("click", function AiQuizGameComponent_div_8_button_17_Template_button_click_0_listener() {
+      const difficulty_r6 = \u0275\u0275restoreView(_r5).$implicit;
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.selectedDifficulty = difficulty_r6.value);
+    });
+    \u0275\u0275elementStart(1, "span", 33);
+    \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const issue_r2 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", issue_r2, " ");
-  }
-}
-function AiCodeReviewComponent_div_61_div_21_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 61)(1, "h4", 62);
-    \u0275\u0275text(2, "\u{1F512} Security Issues");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 63);
-    \u0275\u0275template(4, AiCodeReviewComponent_div_61_div_21_span_4_Template, 2, 1, "span", 64);
+    \u0275\u0275elementStart(3, "span", 34);
+    \u0275\u0275text(4);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(4);
-    \u0275\u0275property("ngForOf", ctx_r2.aiReview.securityIssues);
+    const difficulty_r6 = ctx.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275classMap(difficulty_r6.color);
+    \u0275\u0275classProp("active", ctx_r3.selectedDifficulty === difficulty_r6.value);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(difficulty_r6.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(difficulty_r6.description);
   }
 }
-function AiCodeReviewComponent_div_61_div_22_span_4_Template(rf, ctx) {
+function AiQuizGameComponent_div_8_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 10)(1, "div", 11)(2, "div", 12)(3, "h3", 13);
+    \u0275\u0275text(4, "Ready for a Brain Challenge? \u{1F3AF}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "p", 14);
+    \u0275\u0275text(6, "Choose your category and difficulty level, then challenge yourself with AI-generated quiz questions!");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(7, "div", 15)(8, "div", 16)(9, "label", 17);
+    \u0275\u0275text(10, "Choose Your Topic");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "div", 18);
+    \u0275\u0275template(12, AiQuizGameComponent_div_8_button_12_Template, 8, 5, "button", 19);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(13, "div", 16)(14, "label", 17);
+    \u0275\u0275text(15, "Choose Difficulty Level");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(16, "div", 20);
+    \u0275\u0275template(17, AiQuizGameComponent_div_8_button_17_Template, 5, 6, "button", 21);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(18, "div", 22)(19, "button", 23);
+    \u0275\u0275listener("click", function AiQuizGameComponent_div_8_Template_button_click_19_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.startGame());
+    });
+    \u0275\u0275element(20, "i", 24);
+    \u0275\u0275text(21, " Start Quiz Challenge ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "div", 25)(23, "span", 26);
+    \u0275\u0275text(24, "\u{1F4DD} 10 Questions");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "span", 26);
+    \u0275\u0275text(26, "\u23F1\uFE0F 30 seconds each");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(27, "span", 26);
+    \u0275\u0275text(28, "\u{1F916} AI Generated");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(29, "span", 26);
+    \u0275\u0275text(30, "\u{1F3C6} Score & Streak");
+    \u0275\u0275elementEnd()()()()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance(12);
+    \u0275\u0275property("ngForOf", ctx_r3.categories);
+    \u0275\u0275advance(5);
+    \u0275\u0275property("ngForOf", ctx_r3.difficulties);
+  }
+}
+function AiQuizGameComponent_div_9_div_14_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 48)(1, "div", 49)(2, "span", 50);
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "span", 51);
+    \u0275\u0275text(5, "Points");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(6, "div", 49)(7, "span", 50);
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "span", 51);
+    \u0275\u0275text(10, "Streak");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(11, "div", 49)(12, "span", 50);
+    \u0275\u0275text(13);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(14, "span", 51);
+    \u0275\u0275text(15, "Accuracy");
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.quizStats.totalPoints);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(ctx_r3.quizStats.streak);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1("", ctx_r3.getScorePercentage(), "%");
+  }
+}
+function AiQuizGameComponent_div_9_div_15_button_12_span_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 69);
+    \u0275\u0275text(1, "\u2713");
+    \u0275\u0275elementEnd();
+  }
+}
+function AiQuizGameComponent_div_9_div_15_button_12_span_6_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span", 70);
-    \u0275\u0275text(1);
+    \u0275\u0275text(1, "\u2717");
     \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const issue_r4 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", issue_r4, " ");
   }
 }
-function AiCodeReviewComponent_div_61_div_22_Template(rf, ctx) {
+function AiQuizGameComponent_div_9_div_15_button_12_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 66)(1, "h4", 67);
-    \u0275\u0275text(2, "\u26A1 Performance Issues");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 68);
-    \u0275\u0275template(4, AiCodeReviewComponent_div_61_div_22_span_4_Template, 2, 1, "span", 69);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(4);
-    \u0275\u0275property("ngForOf", ctx_r2.aiReview.performanceIssues);
-  }
-}
-function AiCodeReviewComponent_div_61_div_23_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 71)(1, "h4", 72);
-    \u0275\u0275text(2, "\u{1F4CA} Complexity Analysis");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(3, "div", 73);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(3);
-    \u0275\u0275property("innerHTML", ctx_r2.aiReview.complexityAnalysis, \u0275\u0275sanitizeHtml);
-  }
-}
-function AiCodeReviewComponent_div_61_div_24_div_28_div_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 90)(1, "span", 91);
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 64);
+    \u0275\u0275listener("click", function AiQuizGameComponent_div_9_div_15_button_12_Template_button_click_0_listener() {
+      const i_r8 = \u0275\u0275restoreView(_r7).index;
+      const ctx_r3 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r3.selectAnswer(i_r8));
+    });
+    \u0275\u0275elementStart(1, "span", 65);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 92);
+    \u0275\u0275elementStart(3, "span", 66);
     \u0275\u0275text(4);
-    \u0275\u0275elementEnd()();
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(5, AiQuizGameComponent_div_9_div_15_button_12_span_5_Template, 2, 0, "span", 67)(6, AiQuizGameComponent_div_9_div_15_button_12_span_6_Template, 2, 0, "span", 68);
+    \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const suggestion_r5 = ctx.$implicit;
-    const i_r6 = ctx.index;
+    const option_r9 = ctx.$implicit;
+    const i_r8 = ctx.index;
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275classProp("selected", ctx_r3.selectedAnswer === i_r8)("correct", ctx_r3.showAnswer && i_r8 === ctx_r3.currentQuestion.correctAnswer)("incorrect", ctx_r3.showAnswer && ctx_r3.selectedAnswer === i_r8 && i_r8 !== ctx_r3.currentQuestion.correctAnswer)("disabled", ctx_r3.showAnswer || ctx_r3.quizStats.timeLeft <= 0);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("", i_r6 + 1, ".");
+    \u0275\u0275textInterpolate(\u0275\u0275pureFunction0(12, _c04)[i_r8]);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(suggestion_r5);
-  }
-}
-function AiCodeReviewComponent_div_61_div_24_div_28_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 86)(1, "h5", 87);
-    \u0275\u0275text(2, "\u{1F680} Optimization Suggestions");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 88);
-    \u0275\u0275template(4, AiCodeReviewComponent_div_61_div_24_div_28_div_4_Template, 5, 2, "div", 89);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance(4);
-    \u0275\u0275property("ngForOf", ctx_r2.aiReview.complexityDetails.optimizationSuggestions);
-  }
-}
-function AiCodeReviewComponent_div_61_div_24_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 74)(1, "h4", 72);
-    \u0275\u0275text(2, "\u{1F52C} Detailed Algorithm Analysis");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 75)(4, "div", 76)(5, "h5", 77);
-    \u0275\u0275text(6, "\u23F1\uFE0F Time Complexity");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "div", 78);
-    \u0275\u0275text(8);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "div", 76)(10, "h5", 77);
-    \u0275\u0275text(11, "\u{1F4BE} Space Complexity");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "div", 78);
-    \u0275\u0275text(13);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(14, "div", 76)(15, "h5", 77);
-    \u0275\u0275text(16, "\u{1F3AF} Algorithm Type");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "div", 78);
-    \u0275\u0275text(18);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "div", 76)(20, "h5", 77);
-    \u0275\u0275text(21, "\u{1F4C8} Performance Rating");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "div", 78);
-    \u0275\u0275text(23);
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(24, "div", 79)(25, "h5", 80);
-    \u0275\u0275text(26, "\u{1F4CB} Detailed Breakdown");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(27, "div", 81);
-    \u0275\u0275elementEnd();
-    \u0275\u0275template(28, AiCodeReviewComponent_div_61_div_24_div_28_Template, 5, 1, "div", 82);
-    \u0275\u0275elementStart(29, "div", 83)(30, "h5", 84);
-    \u0275\u0275text(31, "\u26A1 Comparison with Optimal Solution");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(32, "div", 85);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(8);
-    \u0275\u0275textInterpolate(ctx_r2.aiReview.complexityDetails.timeComplexity);
-    \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r2.aiReview.complexityDetails.spaceComplexity);
-    \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r2.aiReview.complexityDetails.algorithmType);
-    \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r2.aiReview.complexityDetails.performanceRating);
-    \u0275\u0275advance(4);
-    \u0275\u0275property("innerHTML", ctx_r2.aiReview.complexityDetails.detailedBreakdown, \u0275\u0275sanitizeHtml);
+    \u0275\u0275textInterpolate(option_r9);
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.complexityDetails.optimizationSuggestions.length > 0);
-    \u0275\u0275advance(4);
-    \u0275\u0275property("innerHTML", ctx_r2.aiReview.complexityDetails.comparisonWithOptimal, \u0275\u0275sanitizeHtml);
+    \u0275\u0275property("ngIf", ctx_r3.showAnswer && i_r8 === ctx_r3.currentQuestion.correctAnswer);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r3.showAnswer && ctx_r3.selectedAnswer === i_r8 && i_r8 !== ctx_r3.currentQuestion.correctAnswer);
   }
 }
-function AiCodeReviewComponent_div_61_div_25_span_4_Template(rf, ctx) {
+function AiQuizGameComponent_div_9_div_15_div_13_span_6_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 97);
+    \u0275\u0275elementStart(0, "span", 77);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const practice_r7 = ctx.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(4);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", practice_r7, " ");
+    \u0275\u0275textInterpolate1(" +", ctx_r3.getTotalPoints(), " points ");
   }
 }
-function AiCodeReviewComponent_div_61_div_25_Template(rf, ctx) {
+function AiQuizGameComponent_div_9_div_15_div_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 93)(1, "h4", 94);
-    \u0275\u0275text(2, "\u{1F4DA} Best Practices");
+    \u0275\u0275elementStart(0, "div", 71)(1, "div", 72)(2, "span", 73);
+    \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 95);
-    \u0275\u0275template(4, AiCodeReviewComponent_div_61_div_25_span_4_Template, 2, 1, "span", 96);
+    \u0275\u0275elementStart(4, "span", 74);
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(6, AiQuizGameComponent_div_9_div_15_div_13_span_6_Template, 2, 1, "span", 75);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "p", 76);
+    \u0275\u0275text(8);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(4);
-    \u0275\u0275property("ngForOf", ctx_r2.aiReview.bestPractices);
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("correct", ctx_r3.selectedAnswer === ctx_r3.currentQuestion.correctAnswer && ctx_r3.selectedAnswer !== -1)("incorrect", ctx_r3.selectedAnswer !== ctx_r3.currentQuestion.correctAnswer || ctx_r3.selectedAnswer === -1);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r3.selectedAnswer === ctx_r3.currentQuestion.correctAnswer && ctx_r3.selectedAnswer !== -1 ? "\u{1F389}" : ctx_r3.selectedAnswer === -1 ? "\u23F0" : "\u{1F4A1}", " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1(" ", ctx_r3.selectedAnswer === ctx_r3.currentQuestion.correctAnswer && ctx_r3.selectedAnswer !== -1 ? "Correct!" : ctx_r3.selectedAnswer === -1 ? "Time's up!" : "Not quite right", " ");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r3.selectedAnswer === ctx_r3.currentQuestion.correctAnswer && ctx_r3.selectedAnswer !== -1);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.currentQuestion.explanation);
   }
 }
-function AiCodeReviewComponent_div_61_div_26_Template(rf, ctx) {
+function AiQuizGameComponent_div_9_div_15_button_15_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 98)(1, "h4", 99);
-    \u0275\u0275text(2, "\u{1F4CA} Code Quality Metrics");
+    const _r10 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 78);
+    \u0275\u0275listener("click", function AiQuizGameComponent_div_9_div_15_button_15_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r10);
+      const ctx_r3 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r3.submitAnswer());
+    });
+    \u0275\u0275text(1, " Submit Answer ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 100)(4, "div", 101)(5, "span", 102);
-    \u0275\u0275text(6, "Cyclomatic Complexity");
+  }
+}
+function AiQuizGameComponent_div_9_div_15_button_16_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r11 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 78);
+    \u0275\u0275listener("click", function AiQuizGameComponent_div_9_div_15_button_16_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r3.nextQuestion());
+    });
+    \u0275\u0275text(1);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "span", 103);
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r3.quizStats.totalQuestions >= 10 ? "View Results" : "Next Question", " ");
+  }
+}
+function AiQuizGameComponent_div_9_div_15_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 52)(1, "div", 53)(2, "div", 54)(3, "span", 55);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 56);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "span", 57);
     \u0275\u0275text(8);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "div", 101)(10, "span", 102);
-    \u0275\u0275text(11, "Maintainability Index");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(9, "h3", 58);
+    \u0275\u0275text(10);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "span", 103);
+    \u0275\u0275elementStart(11, "div", 59);
+    \u0275\u0275template(12, AiQuizGameComponent_div_9_div_15_button_12_Template, 7, 13, "button", 60);
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(13, AiQuizGameComponent_div_9_div_15_div_13_Template, 9, 8, "div", 61);
+    \u0275\u0275elementStart(14, "div", 62);
+    \u0275\u0275template(15, AiQuizGameComponent_div_9_div_15_button_15_Template, 2, 0, "button", 63)(16, AiQuizGameComponent_div_9_div_15_button_16_Template, 2, 1, "button", 63);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(3);
+    \u0275\u0275classMap(ctx_r3.getDifficultyColor());
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r3.currentQuestion.difficulty, " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate2(" ", ctx_r3.getCategoryIcon(), " ", ctx_r3.getCategoryLabel(), " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1(" ", ctx_r3.currentQuestion.points, " pts ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.currentQuestion.question);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngForOf", ctx_r3.currentQuestion.options);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r3.showAnswer);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngIf", !ctx_r3.showAnswer && ctx_r3.selectedAnswer !== null && ctx_r3.quizStats.timeLeft > 0);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r3.showAnswer);
+  }
+}
+function AiQuizGameComponent_div_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 35)(1, "div", 11)(2, "div", 36)(3, "div", 37)(4, "span", 38);
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "div", 39);
+    \u0275\u0275element(7, "i", 40);
+    \u0275\u0275elementStart(8, "span", 41);
+    \u0275\u0275text(9);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(10, "div", 42);
+    \u0275\u0275element(11, "div", 43);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "div", 44);
+    \u0275\u0275element(13, "div", 45);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275template(14, AiQuizGameComponent_div_9_div_14_Template, 16, 3, "div", 46)(15, AiQuizGameComponent_div_9_div_15_Template, 17, 11, "div", 47);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1("Question ", ctx_r3.quizStats.totalQuestions + 1, " of 10");
+    \u0275\u0275advance();
+    \u0275\u0275classProp("warning", ctx_r3.quizStats.timeLeft <= 10)("danger", ctx_r3.quizStats.timeLeft <= 5);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate1("", ctx_r3.quizStats.timeLeft, "s");
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("width", (ctx_r3.quizStats.totalQuestions + 1) / 10 * 100, "%");
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("width", ctx_r3.quizStats.timeLeft / 30 * 100, "%");
+    \u0275\u0275classProp("warning", ctx_r3.quizStats.timeLeft <= 10)("danger", ctx_r3.quizStats.timeLeft <= 5);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r3.quizStats.totalQuestions > 0);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r3.currentQuestion);
+  }
+}
+function AiQuizGameComponent_div_10_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 79)(1, "div", 11)(2, "div", 80)(3, "div", 81)(4, "div", 82);
+    \u0275\u0275text(5, "\u{1F916}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "div", 83);
+    \u0275\u0275element(7, "span")(8, "span")(9, "span");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(10, "h3", 84);
+    \u0275\u0275text(11, "AI is crafting your question...");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "p", 85);
     \u0275\u0275text(13);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(14, "div", 101)(15, "span", 102);
-    \u0275\u0275text(16, "Code Smells");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "span", 103);
-    \u0275\u0275text(18);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "div", 101)(20, "span", 102);
-    \u0275\u0275text(21, "Technical Debt");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "span", 103);
-    \u0275\u0275text(23);
     \u0275\u0275elementEnd()()()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(7);
-    \u0275\u0275classMap(ctx_r2.getComplexityClass(ctx_r2.aiReview.metrics.cyclomaticComplexity));
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r2.aiReview.metrics.cyclomaticComplexity, " ");
-    \u0275\u0275advance(4);
-    \u0275\u0275classMap(ctx_r2.getMaintainabilityClass(ctx_r2.aiReview.metrics.maintainabilityIndex));
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r2.aiReview.metrics.maintainabilityIndex, " ");
-    \u0275\u0275advance(4);
-    \u0275\u0275classMap(ctx_r2.getSmellsClass(ctx_r2.aiReview.metrics.codeSmells));
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r2.aiReview.metrics.codeSmells, " ");
-    \u0275\u0275advance(4);
-    \u0275\u0275classMap(ctx_r2.getDebtClass(ctx_r2.aiReview.metrics.technicalDebt));
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r2.aiReview.metrics.technicalDebt, " ");
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance(13);
+    \u0275\u0275textInterpolate2("Generating ", ctx_r3.selectedDifficulty.toLowerCase(), " ", ctx_r3.getCategoryLabel(), " question");
   }
 }
-function AiCodeReviewComponent_div_61_div_27_tr_21_Template(rf, ctx) {
+function AiQuizGameComponent_div_11_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "tr")(1, "td");
-    \u0275\u0275text(2);
+    const _r12 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 86)(1, "div", 11)(2, "div", 87)(3, "div", 88)(4, "div", 89);
+    \u0275\u0275text(5);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "td");
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "td", 113);
-    \u0275\u0275text(6, "\u2705 Met");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "td", 114);
-    \u0275\u0275text(8, "\u2713");
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const standard_r8 = ctx.$implicit;
-    const i_r9 = ctx.index;
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r2.getStandardAspect(i_r9));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(standard_r8);
-  }
-}
-function AiCodeReviewComponent_div_61_div_27_tr_22_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "tr")(1, "td");
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "td");
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "td", 113);
-    \u0275\u0275text(6, "\u274C Missing");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "td", 115);
-    \u0275\u0275text(8, "\u2717");
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const deviation_r10 = ctx.$implicit;
-    const i_r11 = ctx.index;
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r2.getDeviationAspect(i_r11));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(deviation_r10);
-  }
-}
-function AiCodeReviewComponent_div_61_div_27_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 104)(1, "h4", 105);
-    \u0275\u0275text(2, "\u{1F3ED} Industry Standards Comparison");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 106)(4, "div", 107);
-    \u0275\u0275element(5, "div", 108);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "span", 109);
+    \u0275\u0275elementStart(6, "div", 90);
     \u0275\u0275text(7);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(8, "div", 110)(9, "table", 111)(10, "thead")(11, "tr")(12, "th");
-    \u0275\u0275text(13, "Aspect");
+    \u0275\u0275elementStart(8, "h3", 91);
+    \u0275\u0275text(9, "Quiz Complete! \u{1F38A}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "th");
-    \u0275\u0275text(15, "Industry Standard");
+    \u0275\u0275elementStart(10, "p", 92);
+    \u0275\u0275text(11);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(12, "div", 93)(13, "div", 94)(14, "div", 95);
+    \u0275\u0275text(15, "\u{1F4CA}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(16, "th");
-    \u0275\u0275text(17, "Your Implementation");
+    \u0275\u0275elementStart(16, "div", 96)(17, "div", 97);
+    \u0275\u0275text(18);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "th");
-    \u0275\u0275text(19, "Compliance");
+    \u0275\u0275elementStart(19, "div", 98);
+    \u0275\u0275text(20, "Correct Answers");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(20, "tbody");
-    \u0275\u0275template(21, AiCodeReviewComponent_div_61_div_27_tr_21_Template, 9, 2, "tr", 112)(22, AiCodeReviewComponent_div_61_div_27_tr_22_Template, 9, 2, "tr", 112);
+    \u0275\u0275elementStart(21, "div", 94)(22, "div", 95);
+    \u0275\u0275text(23, "\u26A1");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(24, "div", 96)(25, "div", 97);
+    \u0275\u0275text(26);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(27, "div", 98);
+    \u0275\u0275text(28, "Best Streak");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(29, "div", 94)(30, "div", 95);
+    \u0275\u0275text(31, "\u{1F3C6}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(32, "div", 96)(33, "div", 97);
+    \u0275\u0275text(34);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(35, "div", 98);
+    \u0275\u0275text(36, "Total Points");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(37, "div", 94)(38, "div", 95);
+    \u0275\u0275text(39, "\u{1F3AF}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(40, "div", 96)(41, "div", 97);
+    \u0275\u0275text(42);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(43, "div", 98);
+    \u0275\u0275text(44);
+    \u0275\u0275pipe(45, "titlecase");
     \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(46, "div", 99)(47, "button", 78);
+    \u0275\u0275listener("click", function AiQuizGameComponent_div_11_Template_button_click_47_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.restartGame());
+    });
+    \u0275\u0275element(48, "i", 100);
+    \u0275\u0275text(49, " Play Again ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(50, "button", 101);
+    \u0275\u0275listener("click", function AiQuizGameComponent_div_11_Template_button_click_50_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r3 = \u0275\u0275nextContext();
+      ctx_r3.gameEnded = false;
+      return \u0275\u0275resetView(ctx_r3.gameStarted = false);
+    });
+    \u0275\u0275element(51, "i", 102);
+    \u0275\u0275text(52, " Change Settings ");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(53, "div", 103)(54, "div", 104)(55, "p");
+    \u0275\u0275text(56, "Want a bigger challenge? Try a different category or increase the difficulty!");
+    \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
+    const ctx_r3 = \u0275\u0275nextContext();
     \u0275\u0275advance(5);
-    \u0275\u0275styleProp("width", ctx_r2.aiReview.industryComparison.compliance, "%");
+    \u0275\u0275textInterpolate1("", ctx_r3.getScorePercentage(), "%");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("", ctx_r2.aiReview.industryComparison.compliance, "% Compliance");
-    \u0275\u0275advance(14);
-    \u0275\u0275property("ngForOf", ctx_r2.aiReview.industryComparison.standards);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngForOf", ctx_r2.aiReview.industryComparison.deviations);
-  }
-}
-function AiCodeReviewComponent_div_61_div_28_div_4_li_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "li");
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const tutorial_r12 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(tutorial_r12);
-  }
-}
-function AiCodeReviewComponent_div_61_div_28_div_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 120)(1, "h5", 121);
-    \u0275\u0275text(2, "\u{1F4D6} Tutorials & Guides");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "ul", 122);
-    \u0275\u0275template(4, AiCodeReviewComponent_div_61_div_28_div_4_li_4_Template, 2, 1, "li", 112);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
+    \u0275\u0275textInterpolate(ctx_r3.getScoreGrade());
     \u0275\u0275advance(4);
-    \u0275\u0275property("ngForOf", ctx_r2.aiReview.learningResources.tutorials);
+    \u0275\u0275textInterpolate(ctx_r3.getPerformanceMessage());
+    \u0275\u0275advance(7);
+    \u0275\u0275textInterpolate2("", ctx_r3.quizStats.correctAnswers, "/", ctx_r3.quizStats.totalQuestions);
+    \u0275\u0275advance(8);
+    \u0275\u0275textInterpolate(ctx_r3.quizStats.bestStreak);
+    \u0275\u0275advance(8);
+    \u0275\u0275textInterpolate(ctx_r3.quizStats.totalPoints);
+    \u0275\u0275advance(8);
+    \u0275\u0275textInterpolate(ctx_r3.getCategoryIcon());
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate2("", \u0275\u0275pipeBind1(45, 10, ctx_r3.selectedCategory), " ", ctx_r3.selectedDifficulty);
   }
 }
-function AiCodeReviewComponent_div_61_div_28_div_5_li_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "li");
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const doc_r13 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(doc_r13);
-  }
-}
-function AiCodeReviewComponent_div_61_div_28_div_5_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 120)(1, "h5", 121);
-    \u0275\u0275text(2, "\u{1F4DA} Documentation");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "ul", 122);
-    \u0275\u0275template(4, AiCodeReviewComponent_div_61_div_28_div_5_li_4_Template, 2, 1, "li", 112);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance(4);
-    \u0275\u0275property("ngForOf", ctx_r2.aiReview.learningResources.documentation);
-  }
-}
-function AiCodeReviewComponent_div_61_div_28_div_6_li_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "li");
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const course_r14 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(course_r14);
-  }
-}
-function AiCodeReviewComponent_div_61_div_28_div_6_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 120)(1, "h5", 121);
-    \u0275\u0275text(2, "\u{1F3AF} Courses");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "ul", 122);
-    \u0275\u0275template(4, AiCodeReviewComponent_div_61_div_28_div_6_li_4_Template, 2, 1, "li", 112);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance(4);
-    \u0275\u0275property("ngForOf", ctx_r2.aiReview.learningResources.courses);
-  }
-}
-function AiCodeReviewComponent_div_61_div_28_div_7_li_4_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "li");
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const book_r15 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(book_r15);
-  }
-}
-function AiCodeReviewComponent_div_61_div_28_div_7_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 120)(1, "h5", 121);
-    \u0275\u0275text(2, "\u{1F4DA} Books & Resources");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "ul", 122);
-    \u0275\u0275template(4, AiCodeReviewComponent_div_61_div_28_div_7_li_4_Template, 2, 1, "li", 112);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance(4);
-    \u0275\u0275property("ngForOf", ctx_r2.aiReview.learningResources.books);
-  }
-}
-function AiCodeReviewComponent_div_61_div_28_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 116)(1, "h4", 117);
-    \u0275\u0275text(2, "\u{1F393} Learning Path");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 118);
-    \u0275\u0275template(4, AiCodeReviewComponent_div_61_div_28_div_4_Template, 5, 1, "div", 119)(5, AiCodeReviewComponent_div_61_div_28_div_5_Template, 5, 1, "div", 119)(6, AiCodeReviewComponent_div_61_div_28_div_6_Template, 5, 1, "div", 119)(7, AiCodeReviewComponent_div_61_div_28_div_7_Template, 5, 1, "div", 119);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(4);
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.learningResources.tutorials.length > 0);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.learningResources.documentation.length > 0);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.learningResources.courses.length > 0);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.learningResources.books.length > 0);
-  }
-}
-function AiCodeReviewComponent_div_61_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 37)(1, "div", 38)(2, "h3", 39)(3, "span", 40);
-    \u0275\u0275text(4, "\u{1F916}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(5, " AI Code Review ");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "div", 41)(7, "span", 42);
-    \u0275\u0275text(8, "Score:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "span", 43);
-    \u0275\u0275text(10);
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(11, "div", 44)(12, "div", 45)(13, "h4", 46);
-    \u0275\u0275text(14, "\u{1F4CB} Overall Feedback");
-    \u0275\u0275elementEnd();
-    \u0275\u0275element(15, "div", 47);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(16, "div", 48)(17, "h4", 49);
-    \u0275\u0275text(18, "\u{1F3AF} Key Improvements");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(19, "div", 50);
-    \u0275\u0275template(20, AiCodeReviewComponent_div_61_span_20_Template, 2, 1, "span", 51);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275template(21, AiCodeReviewComponent_div_61_div_21_Template, 5, 1, "div", 52)(22, AiCodeReviewComponent_div_61_div_22_Template, 5, 1, "div", 53)(23, AiCodeReviewComponent_div_61_div_23_Template, 4, 1, "div", 54)(24, AiCodeReviewComponent_div_61_div_24_Template, 33, 7, "div", 55)(25, AiCodeReviewComponent_div_61_div_25_Template, 5, 1, "div", 56)(26, AiCodeReviewComponent_div_61_div_26_Template, 24, 12, "div", 57)(27, AiCodeReviewComponent_div_61_div_27_Template, 23, 5, "div", 58)(28, AiCodeReviewComponent_div_61_div_28_Template, 8, 4, "div", 59);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
-    \u0275\u0275advance(10);
-    \u0275\u0275textInterpolate1("", ctx_r2.aiReview.score, "/10");
-    \u0275\u0275advance(5);
-    \u0275\u0275property("innerHTML", ctx_r2.formattedFeedback, \u0275\u0275sanitizeHtml);
-    \u0275\u0275advance(5);
-    \u0275\u0275property("ngForOf", ctx_r2.aiReview.improvements);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.securityIssues && ctx_r2.aiReview.securityIssues.length > 0);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.performanceIssues && ctx_r2.aiReview.performanceIssues.length > 0);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.complexityAnalysis);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.complexityDetails);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.bestPractices && ctx_r2.aiReview.bestPractices.length > 0);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.metrics);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.industryComparison);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.aiReview.learningResources);
-  }
-}
-var AiCodeReviewComponent = class _AiCodeReviewComponent {
+var AiQuizGameComponent = class _AiQuizGameComponent {
   constructor(http) {
     this.http = http;
-    this.currentSnippet = null;
-    this.currentIndex = 0;
-    this.aiReview = null;
-    this.formattedFeedback = "";
-    this.highlightedCode = "";
-    this.userCode = "";
-    this.selectedLanguage = "java";
+    this.currentQuestion = null;
+    this.selectedAnswer = null;
+    this.showAnswer = false;
     this.isLoading = false;
-    this.isGenerating = false;
-    this.showReview = false;
-    this.userScore = 0;
-    this.codeSnippets = [
-      {
-        id: 1,
-        title: "Bubble Sort Implementation",
-        language: "Java",
-        code: `public void bubbleSort(int[] arr) {
-  for(int i = 0; i < arr.length; i++) {
-    for(int j = 0; j < arr.length-1; j++) {
-      if(arr[j] > arr[j+1]) {
-        int temp = arr[j];
-        arr[j] = arr[j+1];
-        arr[j+1] = temp;
-      }
-    }
-  }
-}`,
-        difficulty: "Easy",
-        category: "Algorithms"
-      },
-      {
-        id: 2,
-        title: "Spring Boot Service",
-        language: "Java",
-        code: `@Service
-public class UserService {
-  @Autowired
-  private UserRepository userRepository;
-  
-  public User createUser(User user) {
-    return userRepository.save(user);
-  }
-  
-  public List<User> getAllUsers() {
-    return userRepository.findAll();
-  }
-}`,
-        difficulty: "Medium",
-        category: "Spring Boot"
-      },
-      {
-        id: 3,
-        title: "Kafka Consumer",
-        language: "Java",
-        code: `@KafkaListener(topics = "user-events")
-public void handleUserEvent(String message) {
-  try {
-    UserEvent event = objectMapper.readValue(message, UserEvent.class);
-    processUserEvent(event);
-  } catch (Exception e) {
-    log.error("Error processing message: " + message, e);
-  }
-}`,
-        difficulty: "Medium",
-        category: "Kafka"
-      },
-      {
-        id: 4,
-        title: "Redis Cache Service",
-        language: "Java",
-        code: `@Service
-public class CacheService {
-  @Autowired
-  private RedisTemplate<String, Object> redisTemplate;
-  
-  public void setValue(String key, Object value) {
-    redisTemplate.opsForValue().set(key, value);
-  }
-  
-  public Object getValue(String key) {
-    return redisTemplate.opsForValue().get(key);
-  }
-}`,
-        difficulty: "Medium",
-        category: "Redis"
-      },
-      {
-        id: 5,
-        title: "Microservice Controller",
-        language: "Java",
-        code: `@RestController
-@RequestMapping("/api/users")
-public class UserController {
-  
-  @GetMapping("/{id}")
-  public ResponseEntity<User> getUser(@PathVariable Long id) {
-    User user = userService.findById(id);
-    if (user == null) {
-      return ResponseEntity.notFound().build();
-    }
-    return ResponseEntity.ok(user);
-  }
-}`,
-        difficulty: "Easy",
-        category: "REST API"
-      }
+    this.gameStarted = false;
+    this.gameEnded = false;
+    this.selectedCategory = "technology";
+    this.selectedDifficulty = "Medium";
+    this.quizStats = {
+      totalQuestions: 0,
+      correctAnswers: 0,
+      streak: 0,
+      bestStreak: 0,
+      totalPoints: 0,
+      timeLeft: 30
+    };
+    this.categories = [
+      { value: "technology", label: "\u{1F4BB} Technology & Programming", icon: "\u{1F680}", description: "Web dev, programming languages, frameworks" },
+      { value: "science", label: "\u{1F9EC} Science & Innovation", icon: "\u2697\uFE0F", description: "Physics, chemistry, biology, discoveries" },
+      { value: "general", label: "\u{1F9E0} General Knowledge", icon: "\u{1F31F}", description: "Mixed topics, current events, facts" },
+      { value: "history", label: "\u{1F4DA} History & Culture", icon: "\u{1F3DB}\uFE0F", description: "World history, civilizations, events" },
+      { value: "geography", label: "\u{1F30D} Geography & Nature", icon: "\u{1F5FA}\uFE0F", description: "Countries, capitals, landmarks, nature" },
+      { value: "sports", label: "\u26BD Sports & Games", icon: "\u{1F3C6}", description: "Sports facts, Olympics, records" }
     ];
-  }
-  ngOnInit() {
-    this.userCode = "";
-  }
-  onCodeChange() {
-  }
-  onLanguageChange() {
-    this.aiReview = null;
-    this.showReview = false;
-  }
-  getFileName() {
-    const extensions = {
-      "java": "Main.java",
-      "javascript": "script.js",
-      "python": "main.py",
-      "typescript": "script.ts",
-      "cpp": "main.cpp",
-      "csharp": "Program.cs",
-      "go": "main.go",
-      "rust": "main.rs",
-      "php": "index.php",
-      "ruby": "main.rb"
-    };
-    return extensions[this.selectedLanguage] || "main.txt";
-  }
-  getLanguageDisplayName() {
-    const displayNames = {
-      "java": "Java",
-      "javascript": "JavaScript",
-      "python": "Python",
-      "typescript": "TypeScript",
-      "cpp": "C++",
-      "csharp": "C#",
-      "go": "Go",
-      "rust": "Rust",
-      "php": "PHP",
-      "ruby": "Ruby"
-    };
-    return displayNames[this.selectedLanguage] || "Text";
-  }
-  getPlaceholderText() {
-    const placeholders = {
-      "java": `Write your Java code here...
-Example:
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
-}`,
-      "javascript": `Write your JavaScript code here...
-Example:
-function greet(name) {
-    return \`Hello, \${name}!\`;
-}
-
-console.log(greet("World"));`,
-      "python": `Write your Python code here...
-Example:
-def greet(name):
-    return f"Hello, {name}!"
-
-print(greet("World"))`,
-      "typescript": `Write your TypeScript code here...
-Example:
-interface User {
-    name: string;
-    age: number;
-}
-
-function greet(user: User): string {
-    return \`Hello, \${user.name}!\`;
-}`,
-      "cpp": `Write your C++ code here...
-Example:
-#include <iostream>
-#include <string>
-
-int main() {
-    std::string name = "World";
-    std::cout << "Hello, " << name << "!" << std::endl;
-    return 0;
-}`,
-      "csharp": `Write your C# code here...
-Example:
-using System;
-
-class Program {
-    static void Main() {
-        string name = "World";
-        Console.WriteLine($"Hello, {name}!");
-    }
-}`,
-      "go": `Write your Go code here...
-Example:
-package main
-
-import "fmt"
-
-func main() {
-    name := "World"
-    fmt.Printf("Hello, %s!\\n", name)
-}`,
-      "rust": `Write your Rust code here...
-Example:
-fn main() {
-    let name = "World";
-    println!("Hello, {}!", name);
-}`,
-      "php": `Write your PHP code here...
-Example:
-<?php
-function greet($name) {
-    return "Hello, $name!";
-}
-
-echo greet("World");
-?>`,
-      "ruby": `Write your Ruby code here...
-Example:
-def greet(name)
-  "Hello, #{name}!"
-end
-
-puts greet("World")`
-    };
-    return placeholders[this.selectedLanguage] || "Write your code here...";
-  }
-  generateRandomCode() {
-    this.isGenerating = true;
-    setTimeout(() => {
-      const randomSnippet = this.getRandomCodeForLanguage(this.selectedLanguage);
-      this.userCode = randomSnippet;
-      this.isGenerating = false;
-    }, 1e3);
-  }
-  getRandomCodeForLanguage(language) {
-    const codeSnippets = {
-      "java": [
-        `public class BubbleSort {
-    public static void bubbleSort(int[] arr) {
-        for(int i = 0; i < arr.length; i++) {
-            for(int j = 0; j < arr.length-1; j++) {
-                if(arr[j] > arr[j+1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = temp;
-                }
-            }
+    this.difficulties = [
+      { value: "Easy", label: "Easy", description: "10 points per question", color: "success" },
+      { value: "Medium", label: "Medium", description: "20 points per question", color: "warning" },
+      { value: "Hard", label: "Hard", description: "30 points per question", color: "danger" }
+    ];
+    this.fallbackQuestions = {
+      technology: [
+        {
+          id: 1,
+          question: "Which programming language was created by Brendan Eich in 1995?",
+          options: ["Python", "JavaScript", "Java", "C++"],
+          correctAnswer: 1,
+          explanation: "JavaScript was created by Brendan Eich in just 10 days in 1995 while he was working at Netscape.",
+          difficulty: "Medium",
+          category: "Technology",
+          points: 20
+        },
+        {
+          id: 2,
+          question: "What does 'API' stand for in software development?",
+          options: ["Application Programming Interface", "Automated Program Integration", "Advanced Programming Instructions", "Application Process Indicator"],
+          correctAnswer: 0,
+          explanation: "API stands for Application Programming Interface, which allows different software applications to communicate with each other.",
+          difficulty: "Easy",
+          category: "Technology",
+          points: 10
+        },
+        {
+          id: 3,
+          question: "Which company developed React.js?",
+          options: ["Google", "Microsoft", "Facebook (Meta)", "Twitter"],
+          correctAnswer: 2,
+          explanation: "React.js was developed by Facebook (now Meta) and was first released in 2013.",
+          difficulty: "Medium",
+          category: "Technology",
+          points: 20
         }
-    }
-}`,
-        `@Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-    
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
-}`
       ],
-      "javascript": [
-        `function bubbleSort(arr) {
-    for(let i = 0; i < arr.length; i++) {
-        for(let j = 0; j < arr.length-1; j++) {
-            if(arr[j] > arr[j+1]) {
-                [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
-            }
+      science: [
+        {
+          id: 4,
+          question: "What is the chemical symbol for Gold?",
+          options: ["Go", "Gd", "Au", "Ag"],
+          correctAnswer: 2,
+          explanation: "The chemical symbol for Gold is Au, which comes from the Latin word 'aurum' meaning gold.",
+          difficulty: "Medium",
+          category: "Science",
+          points: 20
+        },
+        {
+          id: 5,
+          question: "How many chambers does a human heart have?",
+          options: ["2", "3", "4", "5"],
+          correctAnswer: 2,
+          explanation: "The human heart has 4 chambers: two atria (upper chambers) and two ventricles (lower chambers).",
+          difficulty: "Easy",
+          category: "Science",
+          points: 10
         }
-    }
-    return arr;
-}`,
-        `class UserService {
-    constructor(userRepository) {
-        this.userRepository = userRepository;
-    }
-    
-    async createUser(user) {
-        return await this.userRepository.save(user);
-    }
-}`
       ],
-      "python": [
-        `def bubble_sort(arr):
-    for i in range(len(arr)):
-        for j in range(len(arr)-1):
-            if arr[j] > arr[j+1]:
-                arr[j], arr[j+1] = arr[j+1], arr[j]
-    return arr`,
-        `class UserService:
-    def __init__(self, user_repository):
-        self.user_repository = user_repository
-    
-    def create_user(self, user):
-        return self.user_repository.save(user)`
-      ],
-      "typescript": [
-        `function bubbleSort(arr: number[]): number[] {
-    for(let i = 0; i < arr.length; i++) {
-        for(let j = 0; j < arr.length-1; j++) {
-            if(arr[j] > arr[j+1]) {
-                [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
-            }
+      general: [
+        {
+          id: 6,
+          question: "Which planet is known as the 'Red Planet'?",
+          options: ["Venus", "Mars", "Jupiter", "Saturn"],
+          correctAnswer: 1,
+          explanation: "Mars is called the 'Red Planet' because of its reddish appearance, caused by iron oxide (rust) on its surface.",
+          difficulty: "Easy",
+          category: "General",
+          points: 10
         }
-    }
-    return arr;
-}`,
-        `interface User {
-    id: number;
-    name: string;
-    email: string;
-}
-
-class UserService {
-    constructor(private userRepository: UserRepository) {}
-    
-    async createUser(user: User): Promise<User> {
-        return await this.userRepository.save(user);
-    }
-}`
       ]
     };
-    const snippets = codeSnippets[language] || codeSnippets["java"];
-    return snippets[Math.floor(Math.random() * snippets.length)];
   }
-  clearCode() {
-    this.userCode = "";
-    this.aiReview = null;
-    this.showReview = false;
+  ngOnInit() {
   }
-  getAIReview() {
+  ngOnDestroy() {
+    this.clearTimers();
+  }
+  startGame() {
     return __async(this, null, function* () {
-      if (!this.userCode.trim())
-        return;
+      this.gameStarted = true;
+      this.gameEnded = false;
+      this.resetQuizStats();
+      yield this.generateNewQuestion();
+      this.startQuestionTimer();
+    });
+  }
+  resetQuizStats() {
+    this.quizStats = {
+      totalQuestions: 0,
+      correctAnswers: 0,
+      streak: 0,
+      bestStreak: 0,
+      totalPoints: 0,
+      timeLeft: 30
+    };
+  }
+  generateNewQuestion() {
+    return __async(this, null, function* () {
       this.isLoading = true;
-      const language = this.getLanguageDisplayName();
-      const prompt = CODE_REVIEW_PROMPT(language, this.userCode);
-      const context2 = CODE_REVIEW_CONTEXT(language);
+      this.selectedAnswer = null;
+      this.showAnswer = false;
+      this.quizStats.timeLeft = 30;
+      try {
+        const aiQuestion = yield this.generateAIQuestion();
+        if (aiQuestion) {
+          this.currentQuestion = aiQuestion;
+        } else {
+          this.currentQuestion = this.getFallbackQuestion();
+        }
+      } catch (error) {
+        console.error("Error generating question:", error);
+        this.currentQuestion = this.getFallbackQuestion();
+      }
+      this.isLoading = false;
+    });
+  }
+  generateAIQuestion() {
+    return __async(this, null, function* () {
+      const prompt = this.generateQuestionPrompt();
       try {
         const response = yield this.http.post("https://epic-backend-qt7w2jqhj-beingmartinbmcs-projects.vercel.app/api/generic", {
           prompt,
-          context: context2
+          context: "Generate a single quiz question with exactly 4 multiple choice options. Follow the exact format specified in the prompt."
         }, {
           headers: new HttpHeaders({
             "Content-Type": "application/json",
@@ -49303,792 +48832,520 @@ class UserService {
           const responseData = response.data;
           if (responseData && "choices" in responseData && Array.isArray(responseData.choices) && responseData.choices.length > 0) {
             const aiResponse = responseData.choices[0].message.content;
-            this.parseAIResponse(aiResponse);
-            if (this.isAlgorithmCode(this.userCode)) {
-              yield this.performComplexityAnalysis();
-            }
+            return this.parseAIQuestion(aiResponse);
           }
         }
       } catch (error) {
-        console.error("Error getting AI review:", error);
-        this.formattedFeedback = 'Great code structure! The implementation follows good practices.<br><br><strong>Suggestions:</strong><br><span class="bullet">\u2022</span> Add error handling<br><span class="bullet">\u2022</span> Consider performance optimization<br><span class="bullet">\u2022</span> Add documentation';
-        this.aiReview = {
-          feedback: "Great code structure! The implementation follows good practices.",
-          score: 8,
-          improvements: ["Error handling", "Performance", "Documentation"]
+        console.error("Error calling AI API:", error);
+      }
+      return null;
+    });
+  }
+  generateQuestionPrompt() {
+    const categoryInfo = this.categories.find((c) => c.value === this.selectedCategory);
+    const difficultyInfo = this.difficulties.find((d) => d.value === this.selectedDifficulty);
+    return `Generate a ${this.selectedDifficulty} difficulty quiz question about ${categoryInfo?.label}.
+
+STRICT FORMAT REQUIREMENTS:
+- Respond with ONLY the formatted question data
+- NO additional text, explanations, or markdown
+- Use the EXACT format below
+
+FORMAT:
+QUESTION: [Your question here]
+OPTION_A: [First option]
+OPTION_B: [Second option]  
+OPTION_C: [Third option]
+OPTION_D: [Fourth option]
+CORRECT: [Letter of correct answer: A, B, C, or D]
+EXPLANATION: [Brief explanation of why the answer is correct]
+
+REQUIREMENTS:
+- Make the question challenging but fair for ${this.selectedDifficulty} difficulty
+- Ensure all 4 options are plausible and realistic
+- Provide a clear, educational explanation
+- Keep question and options concise (under 100 characters each)
+- Make it interesting and engaging
+- Avoid overly obscure or trick questions
+- Focus on widely known facts and concepts
+
+Category: ${categoryInfo?.description}
+Difficulty: ${this.selectedDifficulty} (${difficultyInfo?.description})
+
+Examples of good questions:
+- Technology: "Which company created the TypeScript programming language?"
+- Science: "What is the most abundant gas in Earth's atmosphere?"
+- General: "Which country has the most time zones?"
+
+Generate ONE question now:`;
+  }
+  parseAIQuestion(aiResponse) {
+    try {
+      const lines = aiResponse.trim().split("\n").map((line) => line.trim());
+      let question = "";
+      let options = [];
+      let correctAnswer = 0;
+      let explanation = "";
+      for (const line of lines) {
+        if (line.startsWith("QUESTION:")) {
+          question = line.substring("QUESTION:".length).trim();
+        } else if (line.startsWith("OPTION_A:")) {
+          options[0] = line.substring("OPTION_A:".length).trim();
+        } else if (line.startsWith("OPTION_B:")) {
+          options[1] = line.substring("OPTION_B:".length).trim();
+        } else if (line.startsWith("OPTION_C:")) {
+          options[2] = line.substring("OPTION_C:".length).trim();
+        } else if (line.startsWith("OPTION_D:")) {
+          options[3] = line.substring("OPTION_D:".length).trim();
+        } else if (line.startsWith("CORRECT:")) {
+          const correctLetter = line.substring("CORRECT:".length).trim().toUpperCase();
+          correctAnswer = ["A", "B", "C", "D"].indexOf(correctLetter);
+        } else if (line.startsWith("EXPLANATION:")) {
+          explanation = line.substring("EXPLANATION:".length).trim();
+        }
+      }
+      if (question && options.length === 4 && correctAnswer >= 0 && explanation) {
+        const points = this.selectedDifficulty === "Easy" ? 10 : this.selectedDifficulty === "Medium" ? 20 : 30;
+        return {
+          id: Date.now(),
+          question,
+          options,
+          correctAnswer,
+          explanation,
+          difficulty: this.selectedDifficulty,
+          category: this.selectedCategory,
+          points
         };
-      } finally {
-        this.isLoading = false;
-        this.showReview = true;
       }
-    });
-  }
-  isAlgorithmCode(code) {
-    const algorithmPatterns = [
-      /for\s*\(.*\)\s*\{/i,
-      /while\s*\(.*\)\s*\{/i,
-      /if\s*\(.*\)\s*\{/i,
-      /sort/i,
-      /search/i,
-      /find/i,
-      /algorithm/i,
-      /complexity/i,
-      /recursive/i,
-      /loop/i,
-      /array/i,
-      /list/i,
-      /tree/i,
-      /graph/i,
-      /queue/i,
-      /stack/i
-    ];
-    return algorithmPatterns.some((pattern) => pattern.test(code));
-  }
-  performComplexityAnalysis() {
-    return __async(this, null, function* () {
-      if (!this.userCode.trim())
-        return;
-      const language = this.getLanguageDisplayName();
-      const prompt = COMPLEXITY_ANALYSIS_PROMPT(language, this.userCode);
-      try {
-        const response = yield this.http.post("https://epic-backend-qt7w2jqhj-beingmartinbmcs-projects.vercel.app/api/generic", {
-          prompt,
-          context: `You are an expert algorithm analyst specializing in Big-O complexity analysis for ${language} code.`
-        }, {
-          headers: new HttpHeaders({
-            "Content-Type": "application/json",
-            "Origin": "https://beingmartinbmc.github.io"
-          })
-        }).toPromise();
-        if (response && typeof response === "object" && "data" in response) {
-          const responseData = response.data;
-          if (responseData && "choices" in responseData && Array.isArray(responseData.choices) && responseData.choices.length > 0) {
-            const complexityResponse = responseData.choices[0].message.content;
-            this.parseComplexityAnalysis(complexityResponse);
-          }
-        }
-      } catch (error) {
-        console.error("Error performing complexity analysis:", error);
-      }
-    });
-  }
-  parseAIResponse(response) {
-    this.formattedFeedback = this.formatAIResponse(response);
-    const hasStructuredFormat = response.includes("=== CODE QUALITY METRICS ===");
-    if (hasStructuredFormat) {
-      this.aiReview = {
-        feedback: response,
-        score: this.extractScore(response),
-        improvements: this.extractImprovements(response),
-        securityIssues: this.extractSecurityIssues(response),
-        performanceIssues: this.extractPerformanceIssues(response),
-        complexityAnalysis: this.extractComplexityAnalysis(response),
-        bestPractices: this.extractBestPractices(response),
-        industryComparison: this.extractIndustryComparison(response),
-        learningResources: this.extractLearningResources(response),
-        metrics: this.extractMetrics(response)
-      };
-    } else {
-      console.warn("AI response does not follow expected format, using fallback parsing");
-      this.aiReview = {
-        feedback: response,
-        score: this.extractScore(response),
-        improvements: ["Code Quality", "Best Practices", "Performance"],
-        securityIssues: [],
-        performanceIssues: [],
-        complexityAnalysis: response,
-        bestPractices: [],
-        industryComparison: { standards: [], deviations: [], compliance: 70 },
-        learningResources: { tutorials: [], documentation: [], courses: [], books: [] },
-        metrics: { cyclomaticComplexity: 5, maintainabilityIndex: 70, codeSmells: 2, technicalDebt: "Low" }
-      };
+    } catch (error) {
+      console.error("Error parsing AI question:", error);
     }
+    return null;
   }
-  parseComplexityAnalysis(response) {
-    if (!this.aiReview)
+  getFallbackQuestion() {
+    const categoryQuestions = this.fallbackQuestions[this.selectedCategory] || this.fallbackQuestions.technology;
+    const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
+    const question = __spreadProps(__spreadValues({}, categoryQuestions[randomIndex]), { id: Date.now() });
+    const points = this.selectedDifficulty === "Easy" ? 10 : this.selectedDifficulty === "Medium" ? 20 : 30;
+    question.points = points;
+    question.difficulty = this.selectedDifficulty;
+    return question;
+  }
+  selectAnswer(answerIndex) {
+    if (this.showAnswer || this.quizStats.timeLeft <= 0)
       return;
-    const complexityDetails = {
-      timeComplexity: this.extractTimeComplexity(response),
-      spaceComplexity: this.extractSpaceComplexity(response),
-      algorithmType: this.extractAlgorithmType(response),
-      performanceRating: this.extractPerformanceRating(response),
-      detailedBreakdown: this.extractDetailedBreakdown(response),
-      optimizationSuggestions: this.extractOptimizationSuggestions(response),
-      comparisonWithOptimal: this.extractComparisonWithOptimal(response)
-    };
-    this.aiReview.complexityDetails = complexityDetails;
+    this.selectedAnswer = answerIndex;
   }
-  extractTimeComplexity(response) {
-    const match2 = response.match(/Time Complexity:\s*([^.\n]+)/i);
-    return match2 ? match2[1].trim() : "O(n) - Unable to determine";
-  }
-  extractSpaceComplexity(response) {
-    const match2 = response.match(/Space Complexity:\s*([^.\n]+)/i);
-    return match2 ? match2[1].trim() : "O(1) - Unable to determine";
-  }
-  extractAlgorithmType(response) {
-    const match2 = response.match(/Algorithm Type:\s*([^.\n]+)/i);
-    return match2 ? match2[1].trim() : "Unknown algorithm";
-  }
-  extractPerformanceRating(response) {
-    const match2 = response.match(/Performance Rating:\s*([^.\n]+)/i);
-    return match2 ? match2[1].trim() : "Unknown performance";
-  }
-  extractDetailedBreakdown(response) {
-    const match2 = response.match(/=== DETAILED BREAKDOWN ===\n([^=]*?)(?===|$)/is);
-    return match2 ? match2[1].trim() : "No detailed breakdown available";
-  }
-  extractOptimizationSuggestions(response) {
-    const match2 = response.match(/=== OPTIMIZATION SUGGESTIONS ===\n([^=]*?)(?===|$)/is);
-    if (match2) {
-      const suggestionsText = match2[1];
-      const numberedSuggestions = suggestionsText.match(/\d+\.\s*([^.\n]+)/g);
-      if (numberedSuggestions) {
-        return numberedSuggestions.slice(0, 4).map((suggestion) => suggestion.replace(/^\d+\.\s*/, "").trim());
-      }
+  submitAnswer() {
+    if (this.selectedAnswer === null || !this.currentQuestion)
+      return;
+    this.showAnswer = true;
+    this.clearTimers();
+    this.quizStats.totalQuestions++;
+    const isCorrect = this.selectedAnswer === this.currentQuestion.correctAnswer;
+    if (isCorrect) {
+      this.quizStats.correctAnswers++;
+      this.quizStats.streak++;
+      this.quizStats.bestStreak = Math.max(this.quizStats.bestStreak, this.quizStats.streak);
+      let points = this.currentQuestion.points;
+      const timeBonus = Math.max(0, Math.floor(this.quizStats.timeLeft / 30 * 10));
+      this.quizStats.totalPoints += points + timeBonus;
+    } else {
+      this.quizStats.streak = 0;
     }
-    return ["Consider algorithmic improvements", "Optimize data structures", "Reduce complexity"];
   }
-  extractComparisonWithOptimal(response) {
-    const match2 = response.match(/=== COMPARISON WITH OPTIMAL ===\n([^=]*?)(?===|$)/is);
-    return match2 ? match2[1].trim() : "No comparison with optimal solution available";
-  }
-  formatAIResponse(response) {
-    if (response.includes("=== DETAILED FEEDBACK ===")) {
-      const feedbackMatch = response.match(/=== DETAILED FEEDBACK ===\n([^=]*?)(?===|$)/is);
-      if (feedbackMatch) {
-        return this.formatDetailedFeedback(feedbackMatch[1].trim());
-      }
-    }
-    return this.formatDetailedFeedback(response);
-  }
-  formatDetailedFeedback(text) {
-    let formatted = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/^[-•]\s*/gm, '<span class="bullet">\u2022</span> ').replace(/^\d+\.\s*/gm, '<span class="number">$&</span>').replace(/`([^`]+)`/g, "<code>$1</code>").replace(/^#{1,6}\s+(.+)$/gm, "<strong>$1</strong>").replace(/\|(.+)\|/g, '<span class="table-cell">$1</span>').replace(/^>\s*(.+)$/gm, "<blockquote>$1</blockquote>").replace(/\n/g, "<br>").replace(/\s{2,}/g, " ").trim();
-    return formatted;
-  }
-  extractScore(response) {
-    const scoreMatch = response.match(/=== OVERALL SCORE ===\n.*?Score:\s*(\d+)\/10/is);
-    if (scoreMatch) {
-      return parseInt(scoreMatch[1]);
-    }
-    const fallbackScore = response.match(/(\d+)\/10|score.*?(\d+)/i);
-    return fallbackScore ? parseInt(fallbackScore[1] || fallbackScore[2]) : 8;
-  }
-  extractImprovements(response) {
-    const improvementsMatch = response.match(/=== KEY IMPROVEMENTS ===\n([^=]*?)(?===|$)/is);
-    if (improvementsMatch) {
-      const improvementsText = improvementsMatch[1];
-      const numberedImprovements = improvementsText.match(/\d+\.\s*([^.\n]+)/g);
-      if (numberedImprovements) {
-        return numberedImprovements.slice(0, 4).map((imp) => imp.replace(/^\d+\.\s*/, "").trim());
-      }
-    }
-    return ["Code Quality", "Best Practices", "Performance"];
-  }
-  extractSecurityIssues(response) {
-    const securityMatch = response.match(/=== SECURITY ISSUES ===\n([^=]*?)(?===|$)/is);
-    if (securityMatch) {
-      const securityText = securityMatch[1];
-      const issues = securityText.split("\n").filter((line) => line.trim() && !line.includes("==="));
-      return issues.slice(0, 3).map((issue) => issue.trim());
-    }
-    return [];
-  }
-  extractPerformanceIssues(response) {
-    const performanceMatch = response.match(/=== PERFORMANCE ISSUES ===\n([^=]*?)(?===|$)/is);
-    if (performanceMatch) {
-      const performanceText = performanceMatch[1];
-      const issues = performanceText.split("\n").filter((line) => line.trim() && !line.includes("==="));
-      return issues.slice(0, 3).map((issue) => issue.trim());
-    }
-    return [];
-  }
-  extractComplexityAnalysis(response) {
-    const feedbackMatch = response.match(/=== DETAILED FEEDBACK ===\n([^=]*?)(?===|$)/is);
-    if (feedbackMatch) {
-      return feedbackMatch[1].trim();
-    }
-    const fallbackMatch = response.match(/detailed[^]*?(?===|$)/is);
-    return fallbackMatch ? fallbackMatch[0].trim() : "";
-  }
-  extractBestPractices(response) {
-    const practicesMatch = response.match(/=== BEST PRACTICES ===\n([^=]*?)(?===|$)/is);
-    if (practicesMatch) {
-      const practicesText = practicesMatch[1];
-      const practices = practicesText.split("\n").filter((line) => line.trim() && !line.includes("==="));
-      return practices.slice(0, 3).map((practice) => practice.trim());
-    }
-    return [];
-  }
-  extractIndustryComparison(response) {
-    const standardsMatch = response.match(/=== INDUSTRY STANDARDS ===\n([^=]*?)(?===|$)/is);
-    if (standardsMatch) {
-      const standardsText = standardsMatch[1];
-      const complianceMatch = standardsText.match(/Compliance:\s*(\d+)%/i);
-      const compliance = complianceMatch ? parseInt(complianceMatch[1]) : 75;
-      const standardsMetMatch = standardsText.match(/Standards Met:\s*([^.\n]+)/i);
-      const standards = standardsMetMatch ? standardsMetMatch[1].split(",").map((s) => s.trim()) : [];
-      const deviationsMatch = standardsText.match(/Deviations:\s*([^.\n]+)/i);
-      const deviations = deviationsMatch ? deviationsMatch[1].split(",").map((d) => d.trim()) : [];
-      return {
-        standards: standards.slice(0, 3),
-        deviations: deviations.slice(0, 3),
-        compliance
-      };
-    }
-    return { standards: [], deviations: [], compliance: 75 };
-  }
-  extractLearningResources(response) {
-    const learningMatch = response.match(/=== LEARNING RESOURCES ===\n([^=]*?)(?===|$)/is);
-    if (learningMatch) {
-      const learningText = learningMatch[1];
-      const tutorialsMatch = learningText.match(/Tutorials:\s*([^.\n]+)/i);
-      const tutorials = tutorialsMatch ? tutorialsMatch[1].split(",").map((t) => t.trim()) : [];
-      const docsMatch = learningText.match(/Documentation:\s*([^.\n]+)/i);
-      const documentation = docsMatch ? docsMatch[1].split(",").map((d) => d.trim()) : [];
-      const coursesMatch = learningText.match(/Courses:\s*([^.\n]+)/i);
-      const courses = coursesMatch ? coursesMatch[1].split(",").map((c) => c.trim()) : [];
-      const booksMatch = learningText.match(/Books:\s*([^.\n]+)/i);
-      const books = booksMatch ? booksMatch[1].split(",").map((b) => b.trim()) : [];
-      if (tutorials.length === 0 && documentation.length === 0 && courses.length === 0 && books.length === 0) {
-        const allResources = learningText.trim().split(",").map((r) => r.trim());
-        if (allResources.length > 0) {
-          const distributed = this.distributeLearningResources(allResources);
-          return distributed;
-        }
-      }
-      return {
-        tutorials: tutorials.slice(0, 2),
-        documentation: documentation.slice(0, 2),
-        courses: courses.slice(0, 2),
-        books: books.slice(0, 2)
-      };
-    }
-    return { tutorials: [], documentation: [], courses: [], books: [] };
-  }
-  distributeLearningResources(resources) {
-    const tutorials = [];
-    const documentation = [];
-    const courses = [];
-    const books = [];
-    resources.forEach((resource2, index) => {
-      const lowerResource = resource2.toLowerCase();
-      if (lowerResource.includes("documentation") || lowerResource.includes("docs") || lowerResource.includes("api")) {
-        documentation.push(resource2);
-      } else if (lowerResource.includes("course") || lowerResource.includes("tutorial") || lowerResource.includes("guide")) {
-        tutorials.push(resource2);
-      } else if (lowerResource.includes("book") || lowerResource.includes("effective") || lowerResource.includes("practice")) {
-        books.push(resource2);
+  nextQuestion() {
+    return __async(this, null, function* () {
+      if (this.quizStats.totalQuestions >= 10) {
+        this.endGame();
       } else {
-        if (index % 4 === 0)
-          tutorials.push(resource2);
-        else if (index % 4 === 1)
-          documentation.push(resource2);
-        else if (index % 4 === 2)
-          courses.push(resource2);
-        else
-          books.push(resource2);
+        yield this.generateNewQuestion();
+        this.startQuestionTimer();
       }
     });
-    return {
-      tutorials: tutorials.slice(0, 2),
-      documentation: documentation.slice(0, 2),
-      courses: courses.slice(0, 2),
-      books: books.slice(0, 2)
-    };
   }
-  extractMetrics(response) {
-    const metricsMatch = response.match(/=== CODE QUALITY METRICS ===\n([^=]*?)(?===|$)/is);
-    if (metricsMatch) {
-      const metricsText = metricsMatch[1];
-      const complexityMatch = metricsText.match(/Cyclomatic Complexity:\s*(\d+)/i);
-      const complexity = complexityMatch ? parseInt(complexityMatch[1]) : 5;
-      const maintainabilityMatch = metricsText.match(/Maintainability Index:\s*(\d+)/i);
-      const maintainability = maintainabilityMatch ? parseInt(maintainabilityMatch[1]) : 70;
-      const smellsMatch = metricsText.match(/Code Smells:\s*(\d+)/i);
-      const smells = smellsMatch ? parseInt(smellsMatch[1]) : 2;
-      const debtMatch = metricsText.match(/Technical Debt:\s*([^.\n]+)/i);
-      const debt = debtMatch ? debtMatch[1].trim() : "Low";
-      return {
-        cyclomaticComplexity: complexity,
-        maintainabilityIndex: maintainability,
-        codeSmells: smells,
-        technicalDebt: debt
-      };
+  startQuestionTimer() {
+    this.quizStats.timeLeft = 30;
+    this.questionTimer = setInterval(() => {
+      this.quizStats.timeLeft--;
+      if (this.quizStats.timeLeft <= 0) {
+        this.timeUp();
+      }
+    }, 1e3);
+  }
+  timeUp() {
+    if (!this.showAnswer) {
+      this.selectedAnswer = -1;
+      this.submitAnswer();
     }
-    return { cyclomaticComplexity: 5, maintainabilityIndex: 70, codeSmells: 2, technicalDebt: "Low" };
   }
-  // Helper methods for CSS classes
-  getComplexityClass(complexity) {
-    if (complexity <= 5)
-      return "metric-good";
-    if (complexity <= 10)
-      return "metric-warning";
-    return "metric-danger";
-  }
-  getMaintainabilityClass(index) {
-    if (index >= 80)
-      return "metric-good";
-    if (index >= 60)
-      return "metric-warning";
-    return "metric-danger";
-  }
-  getSmellsClass(smells) {
-    if (smells <= 2)
-      return "metric-good";
-    if (smells <= 5)
-      return "metric-warning";
-    return "metric-danger";
-  }
-  getDebtClass(debt) {
-    const debtLower = debt.toLowerCase();
-    if (debtLower.includes("low"))
-      return "metric-good";
-    if (debtLower.includes("medium"))
-      return "metric-warning";
-    return "metric-danger";
-  }
-  getStandardAspect(index) {
-    const aspects = ["Code Formatting", "Naming Conventions", "Documentation", "Error Handling", "Testing", "Performance"];
-    return aspects[index] || "Standard";
-  }
-  getDeviationAspect(index) {
-    const aspects = ["Missing Documentation", "No Unit Tests", "Inefficient Algorithm", "Poor Error Handling", "Security Issues", "Performance Issues"];
-    return aspects[index] || "Deviation";
-  }
-  highlightCode(code, language) {
-    if (language.toLowerCase() === "java") {
-      return this.highlightJava(code);
+  clearTimers() {
+    if (this.questionTimer) {
+      clearInterval(this.questionTimer);
+      this.questionTimer = null;
     }
-    return code;
+    if (this.gameTimer) {
+      clearInterval(this.gameTimer);
+      this.gameTimer = null;
+    }
   }
-  highlightJava(code) {
-    let highlighted = code.replace(/(\/\/.*$)/gm, '<span class="comment">$1</span>').replace(/"([^"]*)"/g, '<span class="string">"$1"</span>').replace(/\b(\d+)\b/g, '<span class="number">$1</span>').replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|new|return|if|else|for|while|do|switch|case|default|break|continue|try|catch|finally|throw|throws|void|int|long|float|double|boolean|char|byte|short|String|List|Map|Set|ArrayList|HashMap|HashSet)\b/g, '<span class="keyword">$1</span>').replace(/(@\w+)/g, '<span class="annotation">$1</span>').replace(/(\w+)\s*\(/g, '<span class="method">$1</span>(').replace(/\b(int|String|boolean|double|float|long|char|byte|short|void)\b/g, '<span class="type">$1</span>').replace(/([+\-*/=<>!&|])/g, '<span class="operator">$1</span>').replace(/([{}[\]()])/g, '<span class="bracket">$1</span>').replace(/;/g, '<span class="semicolon">;</span>').replace(/\n/g, "<br>").replace(/ /g, "&nbsp;");
-    return highlighted;
+  endGame() {
+    this.gameEnded = true;
+    this.gameStarted = false;
+    this.clearTimers();
+  }
+  restartGame() {
+    this.clearTimers();
+    this.gameEnded = false;
+    this.startGame();
+  }
+  getScorePercentage() {
+    return this.quizStats.totalQuestions > 0 ? Math.round(this.quizStats.correctAnswers / this.quizStats.totalQuestions * 100) : 0;
+  }
+  getScoreGrade() {
+    const percentage = this.getScorePercentage();
+    if (percentage >= 90)
+      return "A+";
+    if (percentage >= 80)
+      return "A";
+    if (percentage >= 70)
+      return "B";
+    if (percentage >= 60)
+      return "C";
+    return "D";
+  }
+  getPerformanceMessage() {
+    const percentage = this.getScorePercentage();
+    if (percentage >= 90)
+      return "\u{1F31F} Outstanding! You're a quiz master!";
+    if (percentage >= 80)
+      return "\u{1F389} Excellent work! Very impressive!";
+    if (percentage >= 70)
+      return "\u{1F44D} Good job! You know your stuff!";
+    if (percentage >= 60)
+      return "\u{1F4AA} Not bad! Keep learning and improving!";
+    return "\u{1F4DA} Great effort! Practice makes perfect!";
+  }
+  getCategoryIcon() {
+    return this.categories.find((c) => c.value === this.selectedCategory)?.icon || "\u{1F3AE}";
+  }
+  getCategoryLabel() {
+    return this.categories.find((c) => c.value === this.selectedCategory)?.label || "Quiz";
+  }
+  getDifficultyColor() {
+    return this.difficulties.find((d) => d.value === this.selectedDifficulty)?.color || "primary";
+  }
+  getTimeBonus() {
+    return Math.max(0, Math.floor(this.quizStats.timeLeft / 30 * 10));
+  }
+  getTotalPoints() {
+    if (!this.currentQuestion)
+      return 0;
+    return this.currentQuestion.points + this.getTimeBonus();
   }
   static {
-    this.\u0275fac = function AiCodeReviewComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _AiCodeReviewComponent)(\u0275\u0275directiveInject(HttpClient));
+    this.\u0275fac = function AiQuizGameComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _AiQuizGameComponent)(\u0275\u0275directiveInject(HttpClient));
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AiCodeReviewComponent, selectors: [["app-ai-code-review"]], decls: 62, vars: 11, consts: [["id", "ai-code-review", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "emoji"], ["data-aos", "fade-up", 1, "game-container"], [1, "code-input-section"], [1, "input-header"], [1, "input-title"], [1, "language-selector"], ["for", "language-select"], ["id", "language-select", 3, "ngModelChange", "change", "ngModel"], ["value", "java"], ["value", "javascript"], ["value", "python"], ["value", "typescript"], ["value", "cpp"], ["value", "csharp"], ["value", "go"], ["value", "rust"], ["value", "php"], ["value", "ruby"], [1, "input-options"], [1, "option-btn", 3, "click", "disabled"], [1, "btn-icon"], [1, "btn-text"], [1, "option-btn", 3, "click"], [1, "code-editor-container"], [1, "editor-header"], [1, "file-name"], [1, "language-indicator"], ["rows", "15", 1, "code-editor", 3, "ngModelChange", "input", "ngModel", "placeholder"], [1, "code-actions"], [1, "review-btn", 3, "click", "disabled"], ["class", "btn-spinner", 4, "ngIf"], ["class", "ai-review-section", "data-aos", "fade-up", 4, "ngIf"], [1, "btn-spinner"], ["data-aos", "fade-up", 1, "ai-review-section"], [1, "review-header"], [1, "review-title"], [1, "ai-icon"], [1, "review-score"], [1, "score-label"], [1, "score-value"], [1, "review-content"], [1, "feedback-section"], [1, "feedback-title"], [1, "feedback-text", 3, "innerHTML"], [1, "improvements-section"], [1, "improvements-title"], [1, "improvements-tags"], ["class", "improvement-tag", 4, "ngFor", "ngForOf"], ["class", "security-section", 4, "ngIf"], ["class", "performance-section", 4, "ngIf"], ["class", "complexity-section", 4, "ngIf"], ["class", "detailed-complexity-section", 4, "ngIf"], ["class", "best-practices-section", 4, "ngIf"], ["class", "metrics-section", 4, "ngIf"], ["class", "industry-section", 4, "ngIf"], ["class", "learning-section", 4, "ngIf"], [1, "improvement-tag"], [1, "security-section"], [1, "security-title"], [1, "security-tags"], ["class", "security-tag", 4, "ngFor", "ngForOf"], [1, "security-tag"], [1, "performance-section"], [1, "performance-title"], [1, "performance-tags"], ["class", "performance-tag", 4, "ngFor", "ngForOf"], [1, "performance-tag"], [1, "complexity-section"], [1, "complexity-title"], [1, "complexity-text", 3, "innerHTML"], [1, "detailed-complexity-section"], [1, "complexity-details-grid"], [1, "complexity-card"], [1, "complexity-card-title"], [1, "complexity-value"], [1, "complexity-breakdown"], [1, "breakdown-title"], [1, "breakdown-text", 3, "innerHTML"], ["class", "optimization-suggestions", 4, "ngIf"], [1, "optimal-comparison"], [1, "comparison-title"], [1, "comparison-text", 3, "innerHTML"], [1, "optimization-suggestions"], [1, "suggestions-title"], [1, "suggestions-list"], ["class", "suggestion-item", 4, "ngFor", "ngForOf"], [1, "suggestion-item"], [1, "suggestion-number"], [1, "suggestion-text"], [1, "best-practices-section"], [1, "best-practices-title"], [1, "best-practices-tags"], ["class", "best-practice-tag", 4, "ngFor", "ngForOf"], [1, "best-practice-tag"], [1, "metrics-section"], [1, "metrics-title"], [1, "metrics-grid"], [1, "metric-item"], [1, "metric-label"], [1, "metric-value"], [1, "industry-section"], [1, "industry-title"], [1, "compliance-meter"], [1, "compliance-bar"], [1, "compliance-fill"], [1, "compliance-text"], [1, "standards-table-container"], [1, "standards-table"], [4, "ngFor", "ngForOf"], [1, "implementation-cell"], [1, "compliance-good"], [1, "compliance-bad"], [1, "learning-section"], [1, "learning-title"], [1, "learning-grid"], ["class", "learning-category", 4, "ngIf"], [1, "learning-category"], [1, "learning-subtitle"], [1, "learning-list"]], template: function AiCodeReviewComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AiQuizGameComponent, selectors: [["app-ai-quiz-game"]], decls: 12, vars: 4, consts: [["id", "ai-quiz-game", 1, "ai-quiz-game"], [1, "apple-container"], [1, "quiz-content"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "section-subtitle", "apple-text-body"], ["class", "quiz-setup apple-card", 4, "ngIf"], ["class", "quiz-playing apple-card", 4, "ngIf"], ["class", "quiz-loading apple-card", 4, "ngIf"], ["class", "quiz-results apple-card", 4, "ngIf"], [1, "quiz-setup", "apple-card"], [1, "card-content"], [1, "setup-header"], [1, "setup-title"], [1, "setup-description"], [1, "setup-options"], [1, "option-group"], [1, "option-label"], [1, "category-grid"], ["class", "category-btn", 3, "active", "click", 4, "ngFor", "ngForOf"], [1, "difficulty-buttons"], ["class", "difficulty-btn", 3, "active", "class", "click", 4, "ngFor", "ngForOf"], [1, "setup-footer"], [1, "apple-btn", "apple-btn-primary", "start-game-btn", 3, "click"], [1, "fas", "fa-play"], [1, "game-info"], [1, "info-item"], [1, "category-btn", 3, "click"], [1, "category-icon"], [1, "category-info"], [1, "category-text"], [1, "category-desc"], [1, "difficulty-btn", 3, "click"], [1, "diff-label"], [1, "diff-desc"], [1, "quiz-playing", "apple-card"], [1, "quiz-progress"], [1, "progress-info"], [1, "question-counter"], [1, "timer-display"], [1, "fas", "fa-clock"], [1, "time-left"], [1, "progress-bar"], [1, "progress-fill"], [1, "timer-bar"], [1, "timer-fill"], ["class", "quiz-stats-live", 4, "ngIf"], ["class", "question-container", 4, "ngIf"], [1, "quiz-stats-live"], [1, "stat-item"], [1, "stat-value"], [1, "stat-label"], [1, "question-container"], [1, "question-header"], [1, "question-meta"], [1, "difficulty-badge"], [1, "category-badge"], [1, "points-badge"], [1, "question-text"], [1, "answer-options"], ["class", "answer-option", 3, "selected", "correct", "incorrect", "disabled", "click", 4, "ngFor", "ngForOf"], ["class", "answer-explanation", 4, "ngIf"], [1, "question-actions"], ["class", "apple-btn apple-btn-primary", 3, "click", 4, "ngIf"], [1, "answer-option", 3, "click"], [1, "option-letter"], [1, "option-text"], ["class", "option-indicator", 4, "ngIf"], ["class", "option-indicator incorrect", 4, "ngIf"], [1, "option-indicator"], [1, "option-indicator", "incorrect"], [1, "answer-explanation"], [1, "explanation-header"], [1, "result-icon"], [1, "result-text"], ["class", "points-earned", 4, "ngIf"], [1, "explanation-text"], [1, "points-earned"], [1, "apple-btn", "apple-btn-primary", 3, "click"], [1, "quiz-loading", "apple-card"], [1, "loading-content"], [1, "ai-loader"], [1, "loader-brain"], [1, "loader-dots"], [1, "loading-title"], [1, "loading-subtitle"], [1, "quiz-results", "apple-card"], [1, "results-header"], [1, "score-circle"], [1, "score-value"], [1, "score-grade"], [1, "results-title"], [1, "results-subtitle"], [1, "results-stats"], [1, "stat-card"], [1, "stat-icon"], [1, "stat-info"], [1, "stat-number"], [1, "stat-description"], [1, "results-actions"], [1, "fas", "fa-redo"], [1, "apple-btn", "apple-btn-secondary", 3, "click"], [1, "fas", "fa-cog"], [1, "results-footer"], [1, "challenge-message"]], template: function AiQuizGameComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3)(4, "span", 4);
-        \u0275\u0275text(5, "\u{1F4BB}");
+        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3)(4, "h2", 4);
+        \u0275\u0275text(5, "\u{1F9E0} AI Quiz Challenge");
         \u0275\u0275elementEnd();
-        \u0275\u0275text(6, " Interactive Code Review");
+        \u0275\u0275elementStart(6, "p", 5);
+        \u0275\u0275text(7, "Test your knowledge with AI-powered quiz questions");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(7, "div", 5)(8, "div", 6)(9, "div", 7)(10, "h3", 8);
-        \u0275\u0275text(11, "Write Your Code");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(12, "div", 9)(13, "label", 10);
-        \u0275\u0275text(14, "Language:");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(15, "select", 11);
-        \u0275\u0275twoWayListener("ngModelChange", function AiCodeReviewComponent_Template_select_ngModelChange_15_listener($event) {
-          \u0275\u0275twoWayBindingSet(ctx.selectedLanguage, $event) || (ctx.selectedLanguage = $event);
-          return $event;
-        });
-        \u0275\u0275listener("change", function AiCodeReviewComponent_Template_select_change_15_listener() {
-          return ctx.onLanguageChange();
-        });
-        \u0275\u0275elementStart(16, "option", 12);
-        \u0275\u0275text(17, "Java");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(18, "option", 13);
-        \u0275\u0275text(19, "JavaScript");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(20, "option", 14);
-        \u0275\u0275text(21, "Python");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(22, "option", 15);
-        \u0275\u0275text(23, "TypeScript");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(24, "option", 16);
-        \u0275\u0275text(25, "C++");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(26, "option", 17);
-        \u0275\u0275text(27, "C#");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(28, "option", 18);
-        \u0275\u0275text(29, "Go");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(30, "option", 19);
-        \u0275\u0275text(31, "Rust");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(32, "option", 20);
-        \u0275\u0275text(33, "PHP");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(34, "option", 21);
-        \u0275\u0275text(35, "Ruby");
-        \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(36, "div", 22)(37, "button", 23);
-        \u0275\u0275listener("click", function AiCodeReviewComponent_Template_button_click_37_listener() {
-          return ctx.generateRandomCode();
-        });
-        \u0275\u0275elementStart(38, "span", 24);
-        \u0275\u0275text(39, "\u{1F3B2}");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(40, "span", 25);
-        \u0275\u0275text(41);
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(42, "button", 26);
-        \u0275\u0275listener("click", function AiCodeReviewComponent_Template_button_click_42_listener() {
-          return ctx.clearCode();
-        });
-        \u0275\u0275elementStart(43, "span", 24);
-        \u0275\u0275text(44, "\u{1F5D1}\uFE0F");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(45, "span", 25);
-        \u0275\u0275text(46, "Clear Code");
-        \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(47, "div", 27)(48, "div", 28)(49, "span", 29);
-        \u0275\u0275text(50);
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(51, "span", 30);
-        \u0275\u0275text(52);
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(53, "textarea", 31);
-        \u0275\u0275twoWayListener("ngModelChange", function AiCodeReviewComponent_Template_textarea_ngModelChange_53_listener($event) {
-          \u0275\u0275twoWayBindingSet(ctx.userCode, $event) || (ctx.userCode = $event);
-          return $event;
-        });
-        \u0275\u0275listener("input", function AiCodeReviewComponent_Template_textarea_input_53_listener() {
-          return ctx.onCodeChange();
-        });
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(54, "div", 32)(55, "button", 33);
-        \u0275\u0275listener("click", function AiCodeReviewComponent_Template_button_click_55_listener() {
-          return ctx.getAIReview();
-        });
-        \u0275\u0275elementStart(56, "span", 24);
-        \u0275\u0275text(57, "\u{1F916}");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(58, "span", 25);
-        \u0275\u0275text(59);
-        \u0275\u0275elementEnd();
-        \u0275\u0275template(60, AiCodeReviewComponent_span_60_Template, 2, 0, "span", 34);
-        \u0275\u0275elementEnd()()();
-        \u0275\u0275template(61, AiCodeReviewComponent_div_61_Template, 29, 11, "div", 35);
+        \u0275\u0275template(8, AiQuizGameComponent_div_8_Template, 31, 2, "div", 6)(9, AiQuizGameComponent_div_9_Template, 16, 16, "div", 7)(10, AiQuizGameComponent_div_10_Template, 14, 2, "div", 8)(11, AiQuizGameComponent_div_11_Template, 57, 12, "div", 9);
         \u0275\u0275elementEnd()()();
       }
       if (rf & 2) {
-        \u0275\u0275advance(15);
-        \u0275\u0275twoWayProperty("ngModel", ctx.selectedLanguage);
-        \u0275\u0275advance(22);
-        \u0275\u0275property("disabled", ctx.isGenerating);
-        \u0275\u0275advance(4);
-        \u0275\u0275textInterpolate(ctx.isGenerating ? "Generating..." : "Generate Random Code");
-        \u0275\u0275advance(9);
-        \u0275\u0275textInterpolate(ctx.getFileName());
-        \u0275\u0275advance(2);
-        \u0275\u0275textInterpolate(ctx.getLanguageDisplayName());
+        \u0275\u0275advance(8);
+        \u0275\u0275property("ngIf", !ctx.gameStarted && !ctx.gameEnded);
         \u0275\u0275advance();
-        \u0275\u0275twoWayProperty("ngModel", ctx.userCode);
-        \u0275\u0275property("placeholder", ctx.getPlaceholderText());
-        \u0275\u0275advance(2);
-        \u0275\u0275property("disabled", ctx.isLoading || !ctx.userCode.trim());
-        \u0275\u0275advance(4);
-        \u0275\u0275textInterpolate1(" ", ctx.isLoading ? "Getting AI Review..." : "Get AI Review", " ");
+        \u0275\u0275property("ngIf", ctx.gameStarted && !ctx.gameEnded && !ctx.isLoading);
         \u0275\u0275advance();
         \u0275\u0275property("ngIf", ctx.isLoading);
         \u0275\u0275advance();
-        \u0275\u0275property("ngIf", ctx.showReview && ctx.aiReview);
+        \u0275\u0275property("ngIf", ctx.gameEnded);
       }
-    }, dependencies: [CommonModule, NgForOf, NgIf, FormsModule, NgSelectOption, \u0275NgSelectMultipleOption, DefaultValueAccessor, SelectControlValueAccessor, NgControlStatus, NgModel], styles: ['@charset "UTF-8";\n\n\n\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n.section-title[_ngcontent-%COMP%]   .emoji[_ngcontent-%COMP%] {\n  -webkit-background-clip: initial;\n  -webkit-text-fill-color: initial;\n  background: none;\n  color: #f093fb;\n}\n.game-container[_ngcontent-%COMP%] {\n  max-width: 1000px;\n  margin: 0 auto;\n  padding: var(--spacing-xl) 0;\n}\n.code-input-section[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  margin-bottom: var(--spacing-2xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  border-bottom: 1px solid var(--glass-border);\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: var(--spacing-md);\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .input-title[_ngcontent-%COMP%] {\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  margin: 0;\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .language-selector[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .language-selector[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  font-weight: var(--font-medium);\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .language-selector[_ngcontent-%COMP%]   select[_ngcontent-%COMP%] {\n  padding: var(--spacing-xs) var(--spacing-sm);\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .language-selector[_ngcontent-%COMP%]   select[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .language-selector[_ngcontent-%COMP%]   select[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: var(--primary-color);\n  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .language-selector[_ngcontent-%COMP%]   select[_ngcontent-%COMP%]   option[_ngcontent-%COMP%] {\n  background: var(--bg-dark);\n  color: var(--text-primary);\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .input-options[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--spacing-md);\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .input-options[_ngcontent-%COMP%]   .option-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-sm) var(--spacing-md);\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .input-options[_ngcontent-%COMP%]   .option-btn[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .input-options[_ngcontent-%COMP%]   .option-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.code-input-section[_ngcontent-%COMP%]   .input-header[_ngcontent-%COMP%]   .input-options[_ngcontent-%COMP%]   .option-btn[_ngcontent-%COMP%]   .btn-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-base);\n}\n.code-input-section[_ngcontent-%COMP%]   .code-editor-container[_ngcontent-%COMP%]   .editor-header[_ngcontent-%COMP%] {\n  background: #2d2d2d;\n  padding: var(--spacing-sm) var(--spacing-lg);\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-bottom: 1px solid #3c3c3c;\n}\n.code-input-section[_ngcontent-%COMP%]   .code-editor-container[_ngcontent-%COMP%]   .editor-header[_ngcontent-%COMP%]   .file-name[_ngcontent-%COMP%] {\n  color: #d4d4d4;\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.code-input-section[_ngcontent-%COMP%]   .code-editor-container[_ngcontent-%COMP%]   .editor-header[_ngcontent-%COMP%]   .language-indicator[_ngcontent-%COMP%] {\n  color: #4ec9b0;\n  font-size: var(--text-xs);\n  font-weight: var(--font-medium);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.code-input-section[_ngcontent-%COMP%]   .code-editor-container[_ngcontent-%COMP%]   .code-editor[_ngcontent-%COMP%] {\n  width: 100%;\n  min-height: 400px;\n  background: #1e1e1e;\n  border: none;\n  padding: var(--spacing-lg);\n  font-family:\n    "JetBrains Mono",\n    "Fira Code",\n    "Monaco",\n    "Consolas",\n    monospace;\n  font-size: var(--text-sm);\n  line-height: 1.6;\n  color: #d4d4d4;\n  resize: vertical;\n  outline: none;\n  border-radius: 0;\n}\n.code-input-section[_ngcontent-%COMP%]   .code-editor-container[_ngcontent-%COMP%]   .code-editor[_ngcontent-%COMP%]::placeholder {\n  color: #6a9955;\n  font-style: italic;\n}\n.code-input-section[_ngcontent-%COMP%]   .code-editor-container[_ngcontent-%COMP%]   .code-editor[_ngcontent-%COMP%]:focus {\n  box-shadow: inset 0 0 0 2px #007acc;\n}\n.code-input-section[_ngcontent-%COMP%]   .code-actions[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  border-top: 1px solid var(--glass-border);\n  display: flex;\n  justify-content: center;\n}\n.code-input-section[_ngcontent-%COMP%]   .code-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: var(--spacing-md);\n  padding: var(--spacing-md) var(--spacing-xl);\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  color: var(--white);\n  border: none;\n  border-radius: var(--radius-lg);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  box-shadow: var(--shadow-md);\n}\n.code-input-section[_ngcontent-%COMP%]   .code-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-xl);\n  background:\n    linear-gradient(\n      135deg,\n      var(--accent-purple),\n      var(--primary-color));\n}\n.code-input-section[_ngcontent-%COMP%]   .code-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.code-input-section[_ngcontent-%COMP%]   .code-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%]   .btn-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-xl);\n}\n.code-input-section[_ngcontent-%COMP%]   .code-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%]   .btn-spinner[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n.ai-review-section[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  margin-bottom: var(--spacing-2xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  border-bottom: 1px solid var(--glass-border);\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-title[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-md);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  margin: 0;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-title[_ngcontent-%COMP%]   .ai-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-2xl);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-score[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-score[_ngcontent-%COMP%]   .score-label[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-score[_ngcontent-%COMP%]   .score-value[_ngcontent-%COMP%] {\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--primary-color);\n  background: var(--apple-glass);\n  padding: var(--spacing-xs) var(--spacing-md);\n  border-radius: var(--radius-md);\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]:last-child, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]:last-child, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%] {\n  font-size: var(--text-base);\n  line-height: 1.6;\n  color: var(--text-secondary);\n  background: var(--apple-glass);\n  padding: var(--spacing-md);\n  border-radius: var(--radius-md);\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: var(--font-semibold);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   code[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   code[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   code[_ngcontent-%COMP%] {\n  background: var(--bg-dark);\n  color: var(--primary-color);\n  padding: 2px 6px;\n  border-radius: var(--radius-sm);\n  font-family: "Fira Code", monospace;\n  font-size: 0.9em;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   .bullet[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   .bullet[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   .bullet[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n  font-weight: var(--font-bold);\n  margin-right: var(--spacing-xs);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   .number[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   .number[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%]   .number[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n  font-weight: var(--font-semibold);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--spacing-sm);\n  flex-wrap: wrap;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%] {\n  padding: var(--spacing-xs) var(--spacing-md);\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  color: var(--white);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]:last-child, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]:last-child, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]:last-child, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .security-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .performance-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .complexity-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .best-practices-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .security-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .performance-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .complexity-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .best-practices-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .security-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .performance-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .complexity-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .best-practices-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .security-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .performance-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .complexity-title[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .best-practices-title[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--spacing-sm);\n  flex-wrap: wrap;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .security-tag[_ngcontent-%COMP%] {\n  padding: var(--spacing-xs) var(--spacing-md);\n  background:\n    linear-gradient(\n      135deg,\n      #ff6b6b,\n      #ee5a52);\n  color: var(--white);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .performance-tag[_ngcontent-%COMP%] {\n  padding: var(--spacing-xs) var(--spacing-md);\n  background:\n    linear-gradient(\n      135deg,\n      #ffa726,\n      #ff9800);\n  color: var(--white);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .security-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .performance-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .best-practices-tags[_ngcontent-%COMP%]   .best-practice-tag[_ngcontent-%COMP%] {\n  padding: var(--spacing-xs) var(--spacing-md);\n  background:\n    linear-gradient(\n      135deg,\n      #66bb6a,\n      #4caf50);\n  color: var(--white);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%] {\n  font-size: var(--text-base);\n  line-height: 1.6;\n  color: var(--text-secondary);\n  background: var(--apple-glass);\n  padding: var(--spacing-md);\n  border-radius: var(--radius-md);\n  border: 1px solid var(--glass-border);\n  max-height: 150px;\n  overflow-y: auto;\n  scrollbar-width: thin;\n  scrollbar-color: var(--primary-color) transparent;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar {\n  width: 8px;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-track, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-track, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-track, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-track {\n  background: transparent;\n  border-radius: var(--radius-sm);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-thumb, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-thumb, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-thumb, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-thumb {\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  border-radius: var(--radius-sm);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-thumb:hover, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-thumb:hover, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-thumb:hover, \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]::-webkit-scrollbar-thumb:hover {\n  background:\n    linear-gradient(\n      135deg,\n      var(--accent-purple),\n      var(--primary-color));\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .security-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .performance-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .complexity-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%], \n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .best-practices-section[_ngcontent-%COMP%]   .complexity-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: var(--font-semibold);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .metrics-section[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .metrics-section[_ngcontent-%COMP%]   .metrics-title[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .metrics-section[_ngcontent-%COMP%]   .metrics-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n  gap: var(--spacing-lg);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .metrics-section[_ngcontent-%COMP%]   .metrics-grid[_ngcontent-%COMP%]   .metric-item[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.1),\n      rgba(255, 255, 255, 0.05));\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  transition: all var(--transition-normal);\n  position: relative;\n  overflow: hidden;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .metrics-section[_ngcontent-%COMP%]   .metrics-grid[_ngcontent-%COMP%]   .metric-item[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .metrics-section[_ngcontent-%COMP%]   .metrics-grid[_ngcontent-%COMP%]   .metric-item[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-purple));\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .metrics-section[_ngcontent-%COMP%]   .metrics-grid[_ngcontent-%COMP%]   .metric-item[_ngcontent-%COMP%]   .metric-label[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  font-weight: var(--font-medium);\n  margin-bottom: var(--spacing-sm);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .metrics-section[_ngcontent-%COMP%]   .metrics-grid[_ngcontent-%COMP%]   .metric-item[_ngcontent-%COMP%]   .metric-value[_ngcontent-%COMP%] {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-bold);\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-lg);\n  min-width: 60px;\n  text-align: center;\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);\n  border: 2px solid transparent;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .metrics-section[_ngcontent-%COMP%]   .metrics-grid[_ngcontent-%COMP%]   .metric-item[_ngcontent-%COMP%]   .metric-value.metric-good[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #4caf50,\n      #66bb6a);\n  color: var(--white);\n  border-color: rgba(76, 175, 80, 0.3);\n  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .metrics-section[_ngcontent-%COMP%]   .metrics-grid[_ngcontent-%COMP%]   .metric-item[_ngcontent-%COMP%]   .metric-value.metric-warning[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ff9800,\n      #ffa726);\n  color: var(--white);\n  border-color: rgba(255, 152, 0, 0.3);\n  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .metrics-section[_ngcontent-%COMP%]   .metrics-grid[_ngcontent-%COMP%]   .metric-item[_ngcontent-%COMP%]   .metric-value.metric-danger[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #f44336,\n      #ff6b6b);\n  color: var(--white);\n  border-color: rgba(244, 67, 54, 0.3);\n  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .industry-title[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .compliance-meter[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-lg);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .compliance-meter[_ngcontent-%COMP%]   .compliance-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 12px;\n  background: var(--bg-dark);\n  border-radius: var(--radius-full);\n  overflow: hidden;\n  margin-bottom: var(--spacing-sm);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .compliance-meter[_ngcontent-%COMP%]   .compliance-bar[_ngcontent-%COMP%]   .compliance-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  transition: width 0.3s ease;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .compliance-meter[_ngcontent-%COMP%]   .compliance-text[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  font-weight: var(--font-medium);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%] {\n  margin-top: var(--spacing-lg);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%] {\n  width: 100%;\n  border-collapse: collapse;\n  background: var(--apple-glass);\n  border-radius: var(--radius-md);\n  overflow: hidden;\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   thead[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.1),\n      rgba(255, 255, 255, 0.05));\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   thead[_ngcontent-%COMP%]   th[_ngcontent-%COMP%] {\n  padding: var(--spacing-md);\n  text-align: left;\n  font-size: var(--text-sm);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  border-bottom: 1px solid var(--glass-border);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   thead[_ngcontent-%COMP%]   th[_ngcontent-%COMP%]:first-child {\n  width: 20%;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   thead[_ngcontent-%COMP%]   th[_ngcontent-%COMP%]:nth-child(2) {\n  width: 40%;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   thead[_ngcontent-%COMP%]   th[_ngcontent-%COMP%]:nth-child(3) {\n  width: 25%;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   thead[_ngcontent-%COMP%]   th[_ngcontent-%COMP%]:last-child {\n  width: 15%;\n  text-align: center;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%] {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  transition: all var(--transition-normal);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.05);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]:last-child {\n  border-bottom: none;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]   td[_ngcontent-%COMP%] {\n  padding: var(--spacing-md);\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  vertical-align: middle;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]   td[_ngcontent-%COMP%]:first-child {\n  font-weight: var(--font-medium);\n  color: var(--text-primary);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]   td[_ngcontent-%COMP%]:nth-child(2) {\n  color: var(--text-secondary);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]   td.implementation-cell[_ngcontent-%COMP%] {\n  font-weight: var(--font-medium);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]   td.compliance-good[_ngcontent-%COMP%] {\n  color: #4caf50;\n  font-weight: var(--font-bold);\n  font-size: var(--text-lg);\n  text-align: center;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .industry-section[_ngcontent-%COMP%]   .standards-table-container[_ngcontent-%COMP%]   .standards-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]   td.compliance-bad[_ngcontent-%COMP%] {\n  color: #f44336;\n  font-weight: var(--font-bold);\n  font-size: var(--text-lg);\n  text-align: center;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-title[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\n  gap: var(--spacing-lg);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%]   .learning-category[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.1),\n      rgba(255, 255, 255, 0.05));\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  transition: all var(--transition-normal);\n  position: relative;\n  overflow: hidden;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%]   .learning-category[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%]   .learning-category[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-purple));\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%]   .learning-category[_ngcontent-%COMP%]   .learning-subtitle[_ngcontent-%COMP%] {\n  font-size: var(--text-base);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%]   .learning-category[_ngcontent-%COMP%]   .learning-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%]   .learning-category[_ngcontent-%COMP%]   .learning-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) 0;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  display: flex;\n  align-items: center;\n  transition: all var(--transition-normal);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%]   .learning-category[_ngcontent-%COMP%]   .learning-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  border-bottom: none;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%]   .learning-category[_ngcontent-%COMP%]   .learning-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:hover {\n  color: var(--text-primary);\n  transform: translateX(4px);\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%]   .learning-category[_ngcontent-%COMP%]   .learning-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:before {\n  content: "\\1f4da";\n  margin-right: var(--spacing-sm);\n  font-size: var(--text-base);\n  opacity: 0.8;\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%]   .learning-category[_ngcontent-%COMP%]   .learning-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:nth-child(1):before {\n  content: "\\1f4d6";\n}\n.ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .learning-section[_ngcontent-%COMP%]   .learning-grid[_ngcontent-%COMP%]   .learning-category[_ngcontent-%COMP%]   .learning-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:nth-child(2):before {\n  content: "\\1f3af";\n}\n.navigation-controls[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  gap: var(--spacing-lg);\n  margin-bottom: var(--spacing-2xl);\n}\n.navigation-controls[_ngcontent-%COMP%]   .nav-btn[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.navigation-controls[_ngcontent-%COMP%]   .nav-btn[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n}\n.navigation-controls[_ngcontent-%COMP%]   .nav-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n  transform: none;\n}\n.navigation-controls[_ngcontent-%COMP%]   .nav-btn[_ngcontent-%COMP%]   .nav-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n}\n@keyframes _ngcontent-%COMP%_spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 768px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n  .game-container[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg) 0;\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-title[_ngcontent-%COMP%] {\n    font-size: var(--text-xl);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%] {\n    gap: var(--spacing-sm);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .language-badge[_ngcontent-%COMP%], \n   .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .difficulty-badge[_ngcontent-%COMP%], \n   .code-snippet-card[_ngcontent-%COMP%]   .snippet-header[_ngcontent-%COMP%]   .snippet-info[_ngcontent-%COMP%]   .snippet-meta[_ngcontent-%COMP%]   .category-badge[_ngcontent-%COMP%] {\n    font-size: var(--text-xs);\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .code-container[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .code-container[_ngcontent-%COMP%]   .code-block[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .code-container[_ngcontent-%COMP%]   .code-block[_ngcontent-%COMP%]   code[_ngcontent-%COMP%] {\n    font-size: var(--text-xs);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-actions[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card[_ngcontent-%COMP%]   .snippet-actions[_ngcontent-%COMP%]   .review-btn[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: center;\n    font-size: var(--text-base);\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n    flex-direction: column;\n    gap: var(--spacing-md);\n    align-items: flex-start;\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-header[_ngcontent-%COMP%]   .review-title[_ngcontent-%COMP%] {\n    font-size: var(--text-lg);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%] {\n    margin-bottom: var(--spacing-lg);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .improvements-title[_ngcontent-%COMP%] {\n    font-size: var(--text-base);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .feedback-text[_ngcontent-%COMP%] {\n    font-size: var(--text-sm);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%] {\n    padding: var(--spacing-sm);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-text[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-text[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-text[_ngcontent-%COMP%] {\n    font-size: var(--text-sm);\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .feedback-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%], \n   .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .improvements-section[_ngcontent-%COMP%]   .improvements-tags[_ngcontent-%COMP%]   .improvement-tag[_ngcontent-%COMP%] {\n    font-size: var(--text-xs);\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n  .navigation-controls[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: var(--spacing-md);\n  }\n  .navigation-controls[_ngcontent-%COMP%]   .nav-btn[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: center;\n  }\n  .game-stats[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: var(--spacing-lg);\n  }\n  .game-stats[_ngcontent-%COMP%]   .stat-item[_ngcontent-%COMP%]   .stat-value[_ngcontent-%COMP%] {\n    font-size: var(--text-xl);\n  }\n}\n@media (max-width: 480px) {\n  .code-snippet-card[_ngcontent-%COMP%]   .code-container[_ngcontent-%COMP%]   .code-block[_ngcontent-%COMP%]   code[_ngcontent-%COMP%] {\n    font-size: 10px;\n  }\n  .ai-review-section[_ngcontent-%COMP%]   .review-content[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: var(--spacing-xs);\n    text-align: center;\n  }\n}\n.detailed-complexity-section[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .complexity-details-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: var(--spacing-lg);\n  margin-bottom: var(--spacing-lg);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .complexity-details-grid[_ngcontent-%COMP%]   .complexity-card[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.1),\n      rgba(255, 255, 255, 0.05));\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  text-align: center;\n  transition: all var(--transition-normal);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .complexity-details-grid[_ngcontent-%COMP%]   .complexity-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .complexity-details-grid[_ngcontent-%COMP%]   .complexity-card[_ngcontent-%COMP%]   .complexity-card-title[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n  color: var(--text-secondary);\n  margin-bottom: var(--spacing-sm);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .complexity-details-grid[_ngcontent-%COMP%]   .complexity-card[_ngcontent-%COMP%]   .complexity-value[_ngcontent-%COMP%] {\n  font-size: var(--text-base);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .complexity-breakdown[_ngcontent-%COMP%] {\n  background: var(--apple-glass);\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-lg);\n  border: 1px solid var(--glass-border);\n  margin-bottom: var(--spacing-lg);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .complexity-breakdown[_ngcontent-%COMP%]   .breakdown-title[_ngcontent-%COMP%] {\n  font-size: var(--text-base);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .complexity-breakdown[_ngcontent-%COMP%]   .breakdown-text[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  line-height: 1.6;\n  color: var(--text-secondary);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .complexity-breakdown[_ngcontent-%COMP%]   .breakdown-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: var(--font-semibold);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .optimization-suggestions[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 187, 106, 0.1),\n      rgba(76, 175, 80, 0.05));\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-lg);\n  border: 1px solid rgba(76, 175, 80, 0.2);\n  margin-bottom: var(--spacing-lg);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .optimization-suggestions[_ngcontent-%COMP%]   .suggestions-title[_ngcontent-%COMP%] {\n  font-size: var(--text-base);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .optimization-suggestions[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--spacing-sm);\n  margin-bottom: var(--spacing-sm);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .optimization-suggestions[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .optimization-suggestions[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-number[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  font-weight: var(--font-semibold);\n  color: var(--accent-green);\n  min-width: 20px;\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .optimization-suggestions[_ngcontent-%COMP%]   .suggestions-list[_ngcontent-%COMP%]   .suggestion-item[_ngcontent-%COMP%]   .suggestion-text[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  line-height: 1.5;\n  color: var(--text-secondary);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .optimal-comparison[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(33, 150, 243, 0.1),\n      rgba(30, 136, 229, 0.05));\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-lg);\n  border: 1px solid rgba(33, 150, 243, 0.2);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .optimal-comparison[_ngcontent-%COMP%]   .comparison-title[_ngcontent-%COMP%] {\n  font-size: var(--text-base);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .optimal-comparison[_ngcontent-%COMP%]   .comparison-text[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  line-height: 1.6;\n  color: var(--text-secondary);\n}\n.detailed-complexity-section[_ngcontent-%COMP%]   .optimal-comparison[_ngcontent-%COMP%]   .comparison-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: var(--font-semibold);\n}\n@media (max-width: 768px) {\n  .detailed-complexity-section[_ngcontent-%COMP%]   .complexity-details-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-md);\n  }\n  .detailed-complexity-section[_ngcontent-%COMP%]   .complexity-breakdown[_ngcontent-%COMP%], \n   .detailed-complexity-section[_ngcontent-%COMP%]   .optimization-suggestions[_ngcontent-%COMP%], \n   .detailed-complexity-section[_ngcontent-%COMP%]   .optimal-comparison[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n}\n/*# sourceMappingURL=ai-code-review.component.css.map */'] });
+    }, dependencies: [CommonModule, NgForOf, NgIf, FormsModule, TitleCasePipe], styles: ["\n\n.ai-quiz-game[_ngcontent-%COMP%] {\n  padding: var(--spacing-3xl) 0;\n  background: var(--bg-primary);\n  min-height: 100vh;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .apple-container[_ngcontent-%COMP%] {\n  max-width: 1000px;\n  margin: 0 auto;\n  padding: 0 var(--spacing-lg);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: var(--spacing-3xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .section-header[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n  background: var(--gradient-primary);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .section-header[_ngcontent-%COMP%]   .section-subtitle[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n  color: var(--text-secondary);\n  max-width: 600px;\n  margin: 0 auto;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .apple-card[_ngcontent-%COMP%] {\n  background: var(--bg-glass);\n  backdrop-filter: blur(20px);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: var(--radius-lg);\n  overflow: hidden;\n  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .apple-card[_ngcontent-%COMP%]   .card-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-2xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .setup-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .setup-header[_ngcontent-%COMP%]   .setup-title[_ngcontent-%COMP%] {\n  font-size: 2rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .setup-header[_ngcontent-%COMP%]   .setup-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-size: 1.1rem;\n  line-height: 1.6;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .setup-options[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-2xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .setup-options[_ngcontent-%COMP%]   .option-group[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .setup-options[_ngcontent-%COMP%]   .option-group[_ngcontent-%COMP%]   .option-label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 1.1rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .category-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\n  gap: var(--spacing-md);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .category-grid[_ngcontent-%COMP%]   .category-btn[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: var(--spacing-lg);\n  background: var(--bg-secondary);\n  border: 2px solid transparent;\n  border-radius: var(--radius-md);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  text-align: left;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .category-grid[_ngcontent-%COMP%]   .category-btn[_ngcontent-%COMP%]:hover {\n  background: var(--bg-tertiary);\n  color: var(--text-primary);\n  transform: translateY(-2px);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .category-grid[_ngcontent-%COMP%]   .category-btn.active[_ngcontent-%COMP%] {\n  background: var(--primary-color);\n  color: white;\n  border-color: var(--primary-color);\n  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .category-grid[_ngcontent-%COMP%]   .category-btn[_ngcontent-%COMP%]   .category-icon[_ngcontent-%COMP%] {\n  font-size: 2rem;\n  margin-right: var(--spacing-md);\n  flex-shrink: 0;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .category-grid[_ngcontent-%COMP%]   .category-btn[_ngcontent-%COMP%]   .category-info[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .category-grid[_ngcontent-%COMP%]   .category-btn[_ngcontent-%COMP%]   .category-info[_ngcontent-%COMP%]   .category-text[_ngcontent-%COMP%] {\n  font-weight: 600;\n  font-size: 1rem;\n  margin-bottom: var(--spacing-xs);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .category-grid[_ngcontent-%COMP%]   .category-btn[_ngcontent-%COMP%]   .category-info[_ngcontent-%COMP%]   .category-desc[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  opacity: 0.8;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: var(--spacing-md);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%]   .difficulty-btn[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: var(--spacing-lg);\n  background: var(--bg-secondary);\n  border: 2px solid transparent;\n  border-radius: var(--radius-md);\n  color: var(--text-secondary);\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%]   .difficulty-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%]   .difficulty-btn.success[_ngcontent-%COMP%]:hover, \n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%]   .difficulty-btn.success.active[_ngcontent-%COMP%] {\n  background: var(--success-color);\n  color: white;\n  border-color: var(--success-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%]   .difficulty-btn.warning[_ngcontent-%COMP%]:hover, \n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%]   .difficulty-btn.warning.active[_ngcontent-%COMP%] {\n  background: var(--warning-color);\n  color: white;\n  border-color: var(--warning-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%]   .difficulty-btn.danger[_ngcontent-%COMP%]:hover, \n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%]   .difficulty-btn.danger.active[_ngcontent-%COMP%] {\n  background: var(--danger-color);\n  color: white;\n  border-color: var(--danger-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%]   .difficulty-btn[_ngcontent-%COMP%]   .diff-label[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  margin-bottom: var(--spacing-xs);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%]   .difficulty-btn[_ngcontent-%COMP%]   .diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  opacity: 0.8;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .setup-footer[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .setup-footer[_ngcontent-%COMP%]   .start-game-btn[_ngcontent-%COMP%] {\n  padding: var(--spacing-md) var(--spacing-2xl);\n  font-size: 1.1rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-lg);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .setup-footer[_ngcontent-%COMP%]   .game-info[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  gap: var(--spacing-lg);\n  flex-wrap: wrap;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-setup[_ngcontent-%COMP%]   .setup-footer[_ngcontent-%COMP%]   .game-info[_ngcontent-%COMP%]   .info-item[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .progress-info[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: var(--spacing-sm);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .progress-info[_ngcontent-%COMP%]   .question-counter[_ngcontent-%COMP%] {\n  font-weight: 600;\n  color: var(--text-primary);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .progress-info[_ngcontent-%COMP%]   .timer-display[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-xs);\n  padding: var(--spacing-xs) var(--spacing-md);\n  background: var(--bg-secondary);\n  border-radius: var(--radius-sm);\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .progress-info[_ngcontent-%COMP%]   .timer-display.warning[_ngcontent-%COMP%] {\n  background: var(--warning-color);\n  color: white;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .progress-info[_ngcontent-%COMP%]   .timer-display.danger[_ngcontent-%COMP%] {\n  background: var(--danger-color);\n  color: white;\n  animation: _ngcontent-%COMP%_pulse 1s infinite;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .progress-info[_ngcontent-%COMP%]   .timer-display[_ngcontent-%COMP%]   .time-left[_ngcontent-%COMP%] {\n  font-family: monospace;\n  font-size: 1.1rem;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .progress-bar[_ngcontent-%COMP%] {\n  height: 4px;\n  background: var(--bg-tertiary);\n  border-radius: 2px;\n  overflow: hidden;\n  margin-bottom: var(--spacing-xs);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .progress-bar[_ngcontent-%COMP%]   .progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background: var(--gradient-primary);\n  border-radius: 2px;\n  transition: width 0.3s ease;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .timer-bar[_ngcontent-%COMP%] {\n  height: 3px;\n  background: var(--bg-tertiary);\n  border-radius: 2px;\n  overflow: hidden;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .timer-bar[_ngcontent-%COMP%]   .timer-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background: var(--success-color);\n  border-radius: 2px;\n  transition: width 1s linear, background-color 0.3s ease;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .timer-bar[_ngcontent-%COMP%]   .timer-fill.warning[_ngcontent-%COMP%] {\n  background: var(--warning-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-progress[_ngcontent-%COMP%]   .timer-bar[_ngcontent-%COMP%]   .timer-fill.danger[_ngcontent-%COMP%] {\n  background: var(--danger-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-stats-live[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  gap: var(--spacing-xl);\n  margin-bottom: var(--spacing-xl);\n  padding: var(--spacing-md);\n  background: var(--bg-secondary);\n  border-radius: var(--radius-md);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-stats-live[_ngcontent-%COMP%]   .stat-item[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-stats-live[_ngcontent-%COMP%]   .stat-item[_ngcontent-%COMP%]   .stat-value[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: var(--primary-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .quiz-stats-live[_ngcontent-%COMP%]   .stat-item[_ngcontent-%COMP%]   .stat-label[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  color: var(--text-tertiary);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-header[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-lg);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-header[_ngcontent-%COMP%]   .question-meta[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--spacing-md);\n  flex-wrap: wrap;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-header[_ngcontent-%COMP%]   .question-meta[_ngcontent-%COMP%]   .difficulty-badge[_ngcontent-%COMP%], \n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-header[_ngcontent-%COMP%]   .question-meta[_ngcontent-%COMP%]   .category-badge[_ngcontent-%COMP%], \n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-header[_ngcontent-%COMP%]   .question-meta[_ngcontent-%COMP%]   .points-badge[_ngcontent-%COMP%] {\n  padding: var(--spacing-xs) var(--spacing-md);\n  border-radius: var(--radius-sm);\n  font-size: 0.8rem;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-header[_ngcontent-%COMP%]   .question-meta[_ngcontent-%COMP%]   .difficulty-badge.success[_ngcontent-%COMP%] {\n  background: var(--success-color);\n  color: white;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-header[_ngcontent-%COMP%]   .question-meta[_ngcontent-%COMP%]   .difficulty-badge.warning[_ngcontent-%COMP%] {\n  background: var(--warning-color);\n  color: white;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-header[_ngcontent-%COMP%]   .question-meta[_ngcontent-%COMP%]   .difficulty-badge.danger[_ngcontent-%COMP%] {\n  background: var(--danger-color);\n  color: white;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-header[_ngcontent-%COMP%]   .question-meta[_ngcontent-%COMP%]   .category-badge[_ngcontent-%COMP%] {\n  background: var(--primary-color);\n  color: white;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-header[_ngcontent-%COMP%]   .question-meta[_ngcontent-%COMP%]   .points-badge[_ngcontent-%COMP%] {\n  background: var(--accent-color);\n  color: white;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-text[_ngcontent-%COMP%] {\n  font-size: 1.4rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  line-height: 1.4;\n  margin-bottom: var(--spacing-xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  width: 100%;\n  padding: var(--spacing-lg);\n  margin-bottom: var(--spacing-md);\n  background: var(--bg-secondary);\n  border: 2px solid transparent;\n  border-radius: var(--radius-md);\n  color: var(--text-primary);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  text-align: left;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option[_ngcontent-%COMP%]:hover:not(.disabled) {\n  background: var(--bg-tertiary);\n  transform: translateX(8px);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option.selected[_ngcontent-%COMP%] {\n  border-color: var(--primary-color);\n  background: rgba(102, 126, 234, 0.1);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option.correct[_ngcontent-%COMP%] {\n  border-color: var(--success-color);\n  background: rgba(52, 199, 89, 0.1);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option.incorrect[_ngcontent-%COMP%] {\n  border-color: var(--danger-color);\n  background: rgba(255, 59, 48, 0.1);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option.disabled[_ngcontent-%COMP%] {\n  cursor: default;\n  opacity: 0.7;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option[_ngcontent-%COMP%]   .option-letter[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 32px;\n  height: 32px;\n  background: var(--primary-color);\n  color: white;\n  border-radius: 50%;\n  font-weight: 600;\n  margin-right: var(--spacing-md);\n  flex-shrink: 0;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option[_ngcontent-%COMP%]   .option-text[_ngcontent-%COMP%] {\n  flex: 1;\n  font-size: 1rem;\n  line-height: 1.4;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option[_ngcontent-%COMP%]   .option-indicator[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n  font-weight: 600;\n  margin-left: var(--spacing-md);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option[_ngcontent-%COMP%]   .option-indicator.incorrect[_ngcontent-%COMP%] {\n  color: var(--danger-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option.correct[_ngcontent-%COMP%]   .option-letter[_ngcontent-%COMP%] {\n  background: var(--success-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-options[_ngcontent-%COMP%]   .answer-option.incorrect[_ngcontent-%COMP%]   .option-letter[_ngcontent-%COMP%] {\n  background: var(--danger-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-explanation[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-md);\n  margin-bottom: var(--spacing-xl);\n  border-left: 4px solid var(--primary-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-explanation[_ngcontent-%COMP%]   .explanation-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  margin-bottom: var(--spacing-md);\n  flex-wrap: wrap;\n  gap: var(--spacing-md);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-explanation[_ngcontent-%COMP%]   .explanation-header[_ngcontent-%COMP%]   .result-icon[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-explanation[_ngcontent-%COMP%]   .explanation-header[_ngcontent-%COMP%]   .result-text[_ngcontent-%COMP%] {\n  font-weight: 600;\n  color: var(--text-primary);\n}\n.correct[_ngcontent-%COMP%]   .ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-explanation[_ngcontent-%COMP%]   .explanation-header[_ngcontent-%COMP%]   .result-text[_ngcontent-%COMP%] {\n  color: var(--success-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-explanation[_ngcontent-%COMP%]   .explanation-header[_ngcontent-%COMP%]   .points-earned[_ngcontent-%COMP%] {\n  background: var(--success-color);\n  color: white;\n  padding: var(--spacing-xs) var(--spacing-md);\n  border-radius: var(--radius-sm);\n  font-size: 0.85rem;\n  font-weight: 600;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .answer-explanation[_ngcontent-%COMP%]   .explanation-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.6;\n  margin: 0;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-playing[_ngcontent-%COMP%]   .question-container[_ngcontent-%COMP%]   .question-actions[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-loading[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%] {\n  text-align: center;\n  padding: var(--spacing-2xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-loading[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .ai-loader[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-loading[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .ai-loader[_ngcontent-%COMP%]   .loader-brain[_ngcontent-%COMP%] {\n  font-size: 4rem;\n  animation: _ngcontent-%COMP%_pulse 2s infinite;\n  margin-bottom: var(--spacing-md);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-loading[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .ai-loader[_ngcontent-%COMP%]   .loader-dots[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  gap: var(--spacing-sm);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-loading[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .ai-loader[_ngcontent-%COMP%]   .loader-dots[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background: var(--primary-color);\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_bounce 1.4s infinite ease-in-out;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-loading[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .ai-loader[_ngcontent-%COMP%]   .loader-dots[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: -0.32s;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-loading[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .ai-loader[_ngcontent-%COMP%]   .loader-dots[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: -0.16s;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-loading[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-title[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-loading[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-subtitle[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-size: 1rem;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-header[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-2xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-header[_ngcontent-%COMP%]   .score-circle[_ngcontent-%COMP%] {\n  display: inline-flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 120px;\n  background: var(--gradient-primary);\n  border-radius: 50%;\n  margin-bottom: var(--spacing-lg);\n  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-header[_ngcontent-%COMP%]   .score-circle[_ngcontent-%COMP%]   .score-value[_ngcontent-%COMP%] {\n  font-size: 2rem;\n  font-weight: 700;\n  color: white;\n  line-height: 1;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-header[_ngcontent-%COMP%]   .score-circle[_ngcontent-%COMP%]   .score-grade[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 600;\n  color: rgba(255, 255, 255, 0.8);\n  margin-top: var(--spacing-xs);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-header[_ngcontent-%COMP%]   .results-title[_ngcontent-%COMP%] {\n  font-size: 2rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-header[_ngcontent-%COMP%]   .results-subtitle[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-size: 1.1rem;\n  font-weight: 500;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: var(--spacing-lg);\n  margin-bottom: var(--spacing-2xl);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-stats[_ngcontent-%COMP%]   .stat-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: var(--spacing-lg);\n  background: var(--bg-secondary);\n  border-radius: var(--radius-md);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-stats[_ngcontent-%COMP%]   .stat-card[_ngcontent-%COMP%]   .stat-icon[_ngcontent-%COMP%] {\n  font-size: 2rem;\n  margin-right: var(--spacing-md);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-stats[_ngcontent-%COMP%]   .stat-card[_ngcontent-%COMP%]   .stat-info[_ngcontent-%COMP%] {\n  text-align: left;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-stats[_ngcontent-%COMP%]   .stat-card[_ngcontent-%COMP%]   .stat-info[_ngcontent-%COMP%]   .stat-number[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: var(--primary-color);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-stats[_ngcontent-%COMP%]   .stat-card[_ngcontent-%COMP%]   .stat-info[_ngcontent-%COMP%]   .stat-description[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-actions[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  gap: var(--spacing-md);\n  margin-bottom: var(--spacing-xl);\n  flex-wrap: wrap;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .quiz-results[_ngcontent-%COMP%]   .results-footer[_ngcontent-%COMP%]   .challenge-message[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-style: italic;\n  margin: 0;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-md) var(--spacing-xl);\n  background: var(--primary-color);\n  color: white;\n  border: none;\n  border-radius: var(--radius-md);\n  font-size: 1rem;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  text-decoration: none;\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%]:hover {\n  background: var(--primary-dark);\n  transform: translateY(-2px);\n  box-shadow: 0 12px 25px rgba(102, 126, 234, 0.3);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%]:active {\n  transform: translateY(0);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .apple-btn.apple-btn-secondary[_ngcontent-%COMP%] {\n  background: var(--bg-tertiary);\n  color: var(--text-primary);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n.ai-quiz-game[_ngcontent-%COMP%]   .apple-btn.apple-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: var(--bg-secondary);\n  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);\n}\n@keyframes _ngcontent-%COMP%_pulse {\n  0%, 100% {\n    transform: scale(1);\n  }\n  50% {\n    transform: scale(1.1);\n  }\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  0%, 80%, 100% {\n    transform: scale(0);\n  }\n  40% {\n    transform: scale(1);\n  }\n}\n@media (max-width: 768px) {\n  .ai-quiz-game[_ngcontent-%COMP%]   .apple-container[_ngcontent-%COMP%] {\n    padding: 0 var(--spacing-md);\n  }\n  .ai-quiz-game[_ngcontent-%COMP%]   .section-header[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n  .ai-quiz-game[_ngcontent-%COMP%]   .apple-card[_ngcontent-%COMP%]   .card-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .ai-quiz-game[_ngcontent-%COMP%]   .category-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .ai-quiz-game[_ngcontent-%COMP%]   .difficulty-buttons[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .ai-quiz-game[_ngcontent-%COMP%]   .quiz-stats-live[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: var(--spacing-md);\n  }\n  .ai-quiz-game[_ngcontent-%COMP%]   .results-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: center;\n  }\n  .ai-quiz-game[_ngcontent-%COMP%]   .question-meta[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .ai-quiz-game[_ngcontent-%COMP%]   .progress-info[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: var(--spacing-sm);\n    text-align: center;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */"] });
   }
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AiCodeReviewComponent, [{
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AiQuizGameComponent, [{
     type: Component,
-    args: [{ selector: "app-ai-code-review", standalone: true, imports: [CommonModule, FormsModule], template: `<div class="apple-section" id="ai-code-review">
+    args: [{ selector: "app-ai-quiz-game", standalone: true, imports: [CommonModule, FormsModule], template: `<div class="ai-quiz-game" id="ai-quiz-game">
   <div class="apple-container">
-    <div class="section-header apple-fade-in">
-      <h2 class="section-title apple-text-display"><span class="emoji">\u{1F4BB}</span> Interactive Code Review</h2>
-    </div>
-    
-    <div class="game-container" data-aos="fade-up">
-
-
-      <!-- Code Input Section -->
-      <div class="code-input-section">
-        <div class="input-header">
-          <h3 class="input-title">Write Your Code</h3>
-          <div class="language-selector">
-            <label for="language-select">Language:</label>
-            <select id="language-select" [(ngModel)]="selectedLanguage" (change)="onLanguageChange()">
-              <option value="java">Java</option>
-              <option value="javascript">JavaScript</option>
-              <option value="python">Python</option>
-              <option value="typescript">TypeScript</option>
-              <option value="cpp">C++</option>
-              <option value="csharp">C#</option>
-              <option value="go">Go</option>
-              <option value="rust">Rust</option>
-              <option value="php">PHP</option>
-              <option value="ruby">Ruby</option>
-            </select>
-          </div>
-          <div class="input-options">
-            <button class="option-btn" (click)="generateRandomCode()" [disabled]="isGenerating">
-              <span class="btn-icon">\u{1F3B2}</span>
-              <span class="btn-text">{{ isGenerating ? 'Generating...' : 'Generate Random Code' }}</span>
-            </button>
-            <button class="option-btn" (click)="clearCode()">
-              <span class="btn-icon">\u{1F5D1}\uFE0F</span>
-              <span class="btn-text">Clear Code</span>
-            </button>
-          </div>
-        </div>
-        
-        <div class="code-editor-container">
-          <div class="editor-header">
-            <span class="file-name">{{ getFileName() }}</span>
-            <span class="language-indicator">{{ getLanguageDisplayName() }}</span>
-          </div>
-                      <textarea 
-              class="code-editor" 
-              [(ngModel)]="userCode" 
-              [placeholder]="getPlaceholderText()"
-              (input)="onCodeChange()"
-              rows="15"></textarea>
-        </div>
-        
-        <div class="code-actions">
-          <button 
-            class="review-btn" 
-            (click)="getAIReview()" 
-            [disabled]="isLoading || !userCode.trim()">
-            <span class="btn-icon">\u{1F916}</span>
-            <span class="btn-text">
-              {{ isLoading ? 'Getting AI Review...' : 'Get AI Review' }}
-            </span>
-            <span class="btn-spinner" *ngIf="isLoading">\u23F3</span>
-          </button>
-        </div>
+    <div class="quiz-content">
+      
+      <!-- Game Header -->
+      <div class="section-header apple-fade-in">
+        <h2 class="section-title apple-text-display">\u{1F9E0} AI Quiz Challenge</h2>
+        <p class="section-subtitle apple-text-body">Test your knowledge with AI-powered quiz questions</p>
       </div>
 
-      <!-- AI Review Section -->
-      <div class="ai-review-section" *ngIf="showReview && aiReview" data-aos="fade-up">
-        <div class="review-header">
-          <h3 class="review-title">
-            <span class="ai-icon">\u{1F916}</span>
-            AI Code Review
-          </h3>
-          <div class="review-score">
-            <span class="score-label">Score:</span>
-            <span class="score-value">{{ aiReview.score }}/10</span>
-          </div>
-        </div>
-        
-        <div class="review-content">
-          <div class="feedback-section">
-            <h4 class="feedback-title">\u{1F4CB} Overall Feedback</h4>
-            <div class="feedback-text" [innerHTML]="formattedFeedback"></div>
-          </div>
-          
-          <div class="improvements-section">
-            <h4 class="improvements-title">\u{1F3AF} Key Improvements</h4>
-            <div class="improvements-tags">
-              <span class="improvement-tag" *ngFor="let improvement of aiReview.improvements">
-                {{ improvement }}
-              </span>
-            </div>
+      <!-- Game Setup Screen -->
+      <div class="quiz-setup apple-card" *ngIf="!gameStarted && !gameEnded">
+        <div class="card-content">
+          <div class="setup-header">
+            <h3 class="setup-title">Ready for a Brain Challenge? \u{1F3AF}</h3>
+            <p class="setup-description">Choose your category and difficulty level, then challenge yourself with AI-generated quiz questions!</p>
           </div>
 
-          <div class="security-section" *ngIf="aiReview.securityIssues && aiReview.securityIssues.length > 0">
-            <h4 class="security-title">\u{1F512} Security Issues</h4>
-            <div class="security-tags">
-              <span class="security-tag" *ngFor="let issue of aiReview.securityIssues">
-                {{ issue }}
-              </span>
+          <div class="setup-options">
+            <!-- Category Selection -->
+            <div class="option-group">
+              <label class="option-label">Choose Your Topic</label>
+              <div class="category-grid">
+                <button 
+                  *ngFor="let category of categories" 
+                  class="category-btn"
+                  [class.active]="selectedCategory === category.value"
+                  (click)="selectedCategory = category.value">
+                  <span class="category-icon">{{ category.icon }}</span>
+                  <div class="category-info">
+                    <span class="category-text">{{ category.label }}</span>
+                    <span class="category-desc">{{ category.description }}</span>
+                  </div>
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div class="performance-section" *ngIf="aiReview.performanceIssues && aiReview.performanceIssues.length > 0">
-            <h4 class="performance-title">\u26A1 Performance Issues</h4>
-            <div class="performance-tags">
-              <span class="performance-tag" *ngFor="let issue of aiReview.performanceIssues">
-                {{ issue }}
-              </span>
-            </div>
-          </div>
-
-          <div class="complexity-section" *ngIf="aiReview.complexityAnalysis">
-            <h4 class="complexity-title">\u{1F4CA} Complexity Analysis</h4>
-            <div class="complexity-text" [innerHTML]="aiReview.complexityAnalysis"></div>
-          </div>
-
-          <!-- Detailed Complexity Analysis -->
-          <div class="detailed-complexity-section" *ngIf="aiReview.complexityDetails">
-            <h4 class="complexity-title">\u{1F52C} Detailed Algorithm Analysis</h4>
-            <div class="complexity-details-grid">
-              <div class="complexity-card">
-                <h5 class="complexity-card-title">\u23F1\uFE0F Time Complexity</h5>
-                <div class="complexity-value">{{ aiReview.complexityDetails.timeComplexity }}</div>
-              </div>
-              
-              <div class="complexity-card">
-                <h5 class="complexity-card-title">\u{1F4BE} Space Complexity</h5>
-                <div class="complexity-value">{{ aiReview.complexityDetails.spaceComplexity }}</div>
-              </div>
-              
-              <div class="complexity-card">
-                <h5 class="complexity-card-title">\u{1F3AF} Algorithm Type</h5>
-                <div class="complexity-value">{{ aiReview.complexityDetails.algorithmType }}</div>
-              </div>
-              
-              <div class="complexity-card">
-                <h5 class="complexity-card-title">\u{1F4C8} Performance Rating</h5>
-                <div class="complexity-value">{{ aiReview.complexityDetails.performanceRating }}</div>
-              </div>
-            </div>
-            
-            <div class="complexity-breakdown">
-              <h5 class="breakdown-title">\u{1F4CB} Detailed Breakdown</h5>
-              <div class="breakdown-text" [innerHTML]="aiReview.complexityDetails.detailedBreakdown"></div>
-            </div>
-            
-            <div class="optimization-suggestions" *ngIf="aiReview.complexityDetails.optimizationSuggestions.length > 0">
-              <h5 class="suggestions-title">\u{1F680} Optimization Suggestions</h5>
-              <div class="suggestions-list">
-                <div class="suggestion-item" *ngFor="let suggestion of aiReview.complexityDetails.optimizationSuggestions; let i = index">
-                  <span class="suggestion-number">{{ i + 1 }}.</span>
-                  <span class="suggestion-text">{{ suggestion }}</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="optimal-comparison">
-              <h5 class="comparison-title">\u26A1 Comparison with Optimal Solution</h5>
-              <div class="comparison-text" [innerHTML]="aiReview.complexityDetails.comparisonWithOptimal"></div>
-            </div>
-          </div>
-
-          <div class="best-practices-section" *ngIf="aiReview.bestPractices && aiReview.bestPractices.length > 0">
-            <h4 class="best-practices-title">\u{1F4DA} Best Practices</h4>
-            <div class="best-practices-tags">
-              <span class="best-practice-tag" *ngFor="let practice of aiReview.bestPractices">
-                {{ practice }}
-              </span>
-            </div>
-          </div>
-
-          <!-- Code Quality Metrics -->
-          <div class="metrics-section" *ngIf="aiReview.metrics">
-            <h4 class="metrics-title">\u{1F4CA} Code Quality Metrics</h4>
-            <div class="metrics-grid">
-              <div class="metric-item">
-                <span class="metric-label">Cyclomatic Complexity</span>
-                <span class="metric-value" [class]="getComplexityClass(aiReview.metrics.cyclomaticComplexity)">
-                  {{ aiReview.metrics.cyclomaticComplexity }}
-                </span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-label">Maintainability Index</span>
-                <span class="metric-value" [class]="getMaintainabilityClass(aiReview.metrics.maintainabilityIndex)">
-                  {{ aiReview.metrics.maintainabilityIndex }}
-                </span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-label">Code Smells</span>
-                <span class="metric-value" [class]="getSmellsClass(aiReview.metrics.codeSmells)">
-                  {{ aiReview.metrics.codeSmells }}
-                </span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-label">Technical Debt</span>
-                <span class="metric-value" [class]="getDebtClass(aiReview.metrics.technicalDebt)">
-                  {{ aiReview.metrics.technicalDebt }}
-                </span>
+            <!-- Difficulty Selection -->
+            <div class="option-group">
+              <label class="option-label">Choose Difficulty Level</label>
+              <div class="difficulty-buttons">
+                <button 
+                  *ngFor="let difficulty of difficulties" 
+                  class="difficulty-btn"
+                  [class.active]="selectedDifficulty === difficulty.value"
+                  [class]="difficulty.color"
+                  (click)="selectedDifficulty = difficulty.value">
+                  <span class="diff-label">{{ difficulty.label }}</span>
+                  <span class="diff-desc">{{ difficulty.description }}</span>
+                </button>
               </div>
             </div>
           </div>
 
-          <!-- Industry Standards Comparison -->
-          <div class="industry-section" *ngIf="aiReview.industryComparison">
-            <h4 class="industry-title">\u{1F3ED} Industry Standards Comparison</h4>
-            <div class="compliance-meter">
-              <div class="compliance-bar">
-                <div class="compliance-fill" [style.width.%]="aiReview.industryComparison.compliance"></div>
-              </div>
-              <span class="compliance-text">{{ aiReview.industryComparison.compliance }}% Compliance</span>
-            </div>
-            
-            <div class="standards-table-container">
-              <table class="standards-table">
-                <thead>
-                  <tr>
-                    <th>Aspect</th>
-                    <th>Industry Standard</th>
-                    <th>Your Implementation</th>
-                    <th>Compliance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let standard of aiReview.industryComparison.standards; let i = index">
-                    <td>{{ getStandardAspect(i) }}</td>
-                    <td>{{ standard }}</td>
-                    <td class="implementation-cell">\u2705 Met</td>
-                    <td class="compliance-good">\u2713</td>
-                  </tr>
-                  <tr *ngFor="let deviation of aiReview.industryComparison.deviations; let i = index">
-                    <td>{{ getDeviationAspect(i) }}</td>
-                    <td>{{ deviation }}</td>
-                    <td class="implementation-cell">\u274C Missing</td>
-                    <td class="compliance-bad">\u2717</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Learning Path -->
-          <div class="learning-section" *ngIf="aiReview.learningResources">
-            <h4 class="learning-title">\u{1F393} Learning Path</h4>
-            <div class="learning-grid">
-              <div class="learning-category" *ngIf="aiReview.learningResources.tutorials.length > 0">
-                <h5 class="learning-subtitle">\u{1F4D6} Tutorials & Guides</h5>
-                <ul class="learning-list">
-                  <li *ngFor="let tutorial of aiReview.learningResources.tutorials">{{ tutorial }}</li>
-                </ul>
-              </div>
-              
-              <div class="learning-category" *ngIf="aiReview.learningResources.documentation.length > 0">
-                <h5 class="learning-subtitle">\u{1F4DA} Documentation</h5>
-                <ul class="learning-list">
-                  <li *ngFor="let doc of aiReview.learningResources.documentation">{{ doc }}</li>
-                </ul>
-              </div>
-              
-              <div class="learning-category" *ngIf="aiReview.learningResources.courses.length > 0">
-                <h5 class="learning-subtitle">\u{1F3AF} Courses</h5>
-                <ul class="learning-list">
-                  <li *ngFor="let course of aiReview.learningResources.courses">{{ course }}</li>
-                </ul>
-              </div>
-              
-              <div class="learning-category" *ngIf="aiReview.learningResources.books.length > 0">
-                <h5 class="learning-subtitle">\u{1F4DA} Books & Resources</h5>
-                <ul class="learning-list">
-                  <li *ngFor="let book of aiReview.learningResources.books">{{ book }}</li>
-                </ul>
-              </div>
+          <div class="setup-footer">
+            <button class="apple-btn apple-btn-primary start-game-btn" (click)="startGame()">
+              <i class="fas fa-play"></i>
+              Start Quiz Challenge
+            </button>
+            <div class="game-info">
+              <span class="info-item">\u{1F4DD} 10 Questions</span>
+              <span class="info-item">\u23F1\uFE0F 30 seconds each</span>
+              <span class="info-item">\u{1F916} AI Generated</span>
+              <span class="info-item">\u{1F3C6} Score & Streak</span>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Game Playing Screen -->
+      <div class="quiz-playing apple-card" *ngIf="gameStarted && !gameEnded && !isLoading">
+        <div class="card-content">
+          <!-- Game Progress -->
+          <div class="quiz-progress">
+            <div class="progress-info">
+              <span class="question-counter">Question {{ quizStats.totalQuestions + 1 }} of 10</span>
+              <div class="timer-display" [class.warning]="quizStats.timeLeft <= 10" [class.danger]="quizStats.timeLeft <= 5">
+                <i class="fas fa-clock"></i>
+                <span class="time-left">{{ quizStats.timeLeft }}s</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="((quizStats.totalQuestions + 1) / 10) * 100"></div>
+            </div>
+            <div class="timer-bar">
+              <div class="timer-fill" [style.width.%]="(quizStats.timeLeft / 30) * 100" 
+                   [class.warning]="quizStats.timeLeft <= 10" 
+                   [class.danger]="quizStats.timeLeft <= 5"></div>
+            </div>
+          </div>
 
+          <!-- Game Stats -->
+          <div class="quiz-stats-live" *ngIf="quizStats.totalQuestions > 0">
+            <div class="stat-item">
+              <span class="stat-value">{{ quizStats.totalPoints }}</span>
+              <span class="stat-label">Points</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{{ quizStats.streak }}</span>
+              <span class="stat-label">Streak</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{{ getScorePercentage() }}%</span>
+              <span class="stat-label">Accuracy</span>
+            </div>
+          </div>
+
+          <!-- Current Question -->
+          <div class="question-container" *ngIf="currentQuestion">
+            <div class="question-header">
+              <div class="question-meta">
+                <span class="difficulty-badge" [class]="getDifficultyColor()">
+                  {{ currentQuestion.difficulty }}
+                </span>
+                <span class="category-badge">
+                  {{ getCategoryIcon() }} {{ getCategoryLabel() }}
+                </span>
+                <span class="points-badge">
+                  {{ currentQuestion.points }} pts
+                </span>
+              </div>
+            </div>
+            
+            <h3 class="question-text">{{ currentQuestion.question }}</h3>
+            
+            <div class="answer-options">
+              <button 
+                *ngFor="let option of currentQuestion.options; let i = index"
+                class="answer-option"
+                [class.selected]="selectedAnswer === i"
+                [class.correct]="showAnswer && i === currentQuestion.correctAnswer"
+                [class.incorrect]="showAnswer && selectedAnswer === i && i !== currentQuestion.correctAnswer"
+                [class.disabled]="showAnswer || quizStats.timeLeft <= 0"
+                (click)="selectAnswer(i)">
+                <span class="option-letter">{{ ['A', 'B', 'C', 'D'][i] }}</span>
+                <span class="option-text">{{ option }}</span>
+                <span class="option-indicator" *ngIf="showAnswer && i === currentQuestion.correctAnswer">\u2713</span>
+                <span class="option-indicator incorrect" *ngIf="showAnswer && selectedAnswer === i && i !== currentQuestion.correctAnswer">\u2717</span>
+              </button>
+            </div>
+
+            <!-- Answer Explanation -->
+            <div class="answer-explanation" *ngIf="showAnswer">
+              <div class="explanation-header">
+                <span class="result-icon" 
+                      [class.correct]="selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1"
+                      [class.incorrect]="selectedAnswer !== currentQuestion.correctAnswer || selectedAnswer === -1">
+                  {{ selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1 ? '\u{1F389}' : 
+                     selectedAnswer === -1 ? '\u23F0' : '\u{1F4A1}' }}
+                </span>
+                <span class="result-text">
+                  {{ selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1 ? 'Correct!' : 
+                     selectedAnswer === -1 ? 'Time\\'s up!' : 'Not quite right' }}
+                </span>
+                <span class="points-earned" *ngIf="selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1">
+                  +{{ getTotalPoints() }} points
+                </span>
+              </div>
+              <p class="explanation-text">{{ currentQuestion.explanation }}</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="question-actions">
+              <button 
+                class="apple-btn apple-btn-primary"
+                *ngIf="!showAnswer && selectedAnswer !== null && quizStats.timeLeft > 0"
+                (click)="submitAnswer()">
+                Submit Answer
+              </button>
+              
+              <button 
+                class="apple-btn apple-btn-primary"
+                *ngIf="showAnswer"
+                (click)="nextQuestion()">
+                {{ quizStats.totalQuestions >= 10 ? 'View Results' : 'Next Question' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Screen -->
+      <div class="quiz-loading apple-card" *ngIf="isLoading">
+        <div class="card-content">
+          <div class="loading-content">
+            <div class="ai-loader">
+              <div class="loader-brain">\u{1F916}</div>
+              <div class="loader-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            <h3 class="loading-title">AI is crafting your question...</h3>
+            <p class="loading-subtitle">Generating {{ selectedDifficulty.toLowerCase() }} {{ getCategoryLabel() }} question</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Results Screen -->
+      <div class="quiz-results apple-card" *ngIf="gameEnded">
+        <div class="card-content">
+          <div class="results-header">
+            <div class="score-circle">
+              <div class="score-value">{{ getScorePercentage() }}%</div>
+              <div class="score-grade">{{ getScoreGrade() }}</div>
+            </div>
+            <h3 class="results-title">Quiz Complete! \u{1F38A}</h3>
+            <p class="results-subtitle">{{ getPerformanceMessage() }}</p>
+          </div>
+
+          <div class="results-stats">
+            <div class="stat-card">
+              <div class="stat-icon">\u{1F4CA}</div>
+              <div class="stat-info">
+                <div class="stat-number">{{ quizStats.correctAnswers }}/{{ quizStats.totalQuestions }}</div>
+                <div class="stat-description">Correct Answers</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">\u26A1</div>
+              <div class="stat-info">
+                <div class="stat-number">{{ quizStats.bestStreak }}</div>
+                <div class="stat-description">Best Streak</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">\u{1F3C6}</div>
+              <div class="stat-info">
+                <div class="stat-number">{{ quizStats.totalPoints }}</div>
+                <div class="stat-description">Total Points</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">\u{1F3AF}</div>
+              <div class="stat-info">
+                <div class="stat-number">{{ getCategoryIcon() }}</div>
+                <div class="stat-description">{{ selectedCategory | titlecase }} {{ selectedDifficulty }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="results-actions">
+            <button class="apple-btn apple-btn-primary" (click)="restartGame()">
+              <i class="fas fa-redo"></i>
+              Play Again
+            </button>
+            <button class="apple-btn apple-btn-secondary" (click)="gameEnded = false; gameStarted = false">
+              <i class="fas fa-cog"></i>
+              Change Settings
+            </button>
+          </div>
+
+          <div class="results-footer">
+            <div class="challenge-message">
+              <p>Want a bigger challenge? Try a different category or increase the difficulty!</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/ai-code-review/ai-code-review.component.scss */\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n.section-title .emoji {\n  -webkit-background-clip: initial;\n  -webkit-text-fill-color: initial;\n  background: none;\n  color: #f093fb;\n}\n.game-container {\n  max-width: 1000px;\n  margin: 0 auto;\n  padding: var(--spacing-xl) 0;\n}\n.code-input-section {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  margin-bottom: var(--spacing-2xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.code-input-section .input-header {\n  padding: var(--spacing-xl);\n  border-bottom: 1px solid var(--glass-border);\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: var(--spacing-md);\n}\n.code-input-section .input-header .input-title {\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  margin: 0;\n}\n.code-input-section .input-header .language-selector {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n}\n.code-input-section .input-header .language-selector label {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  font-weight: var(--font-medium);\n}\n.code-input-section .input-header .language-selector select {\n  padding: var(--spacing-xs) var(--spacing-sm);\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.code-input-section .input-header .language-selector select:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.code-input-section .input-header .language-selector select:focus {\n  outline: none;\n  border-color: var(--primary-color);\n  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);\n}\n.code-input-section .input-header .language-selector select option {\n  background: var(--bg-dark);\n  color: var(--text-primary);\n}\n.code-input-section .input-header .input-options {\n  display: flex;\n  gap: var(--spacing-md);\n}\n.code-input-section .input-header .input-options .option-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-sm) var(--spacing-md);\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.code-input-section .input-header .input-options .option-btn:hover:not(:disabled) {\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.code-input-section .input-header .input-options .option-btn:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.code-input-section .input-header .input-options .option-btn .btn-icon {\n  font-size: var(--text-base);\n}\n.code-input-section .code-editor-container .editor-header {\n  background: #2d2d2d;\n  padding: var(--spacing-sm) var(--spacing-lg);\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-bottom: 1px solid #3c3c3c;\n}\n.code-input-section .code-editor-container .editor-header .file-name {\n  color: #d4d4d4;\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.code-input-section .code-editor-container .editor-header .language-indicator {\n  color: #4ec9b0;\n  font-size: var(--text-xs);\n  font-weight: var(--font-medium);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.code-input-section .code-editor-container .code-editor {\n  width: 100%;\n  min-height: 400px;\n  background: #1e1e1e;\n  border: none;\n  padding: var(--spacing-lg);\n  font-family:\n    "JetBrains Mono",\n    "Fira Code",\n    "Monaco",\n    "Consolas",\n    monospace;\n  font-size: var(--text-sm);\n  line-height: 1.6;\n  color: #d4d4d4;\n  resize: vertical;\n  outline: none;\n  border-radius: 0;\n}\n.code-input-section .code-editor-container .code-editor::placeholder {\n  color: #6a9955;\n  font-style: italic;\n}\n.code-input-section .code-editor-container .code-editor:focus {\n  box-shadow: inset 0 0 0 2px #007acc;\n}\n.code-input-section .code-actions {\n  padding: var(--spacing-xl);\n  border-top: 1px solid var(--glass-border);\n  display: flex;\n  justify-content: center;\n}\n.code-input-section .code-actions .review-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: var(--spacing-md);\n  padding: var(--spacing-md) var(--spacing-xl);\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  color: var(--white);\n  border: none;\n  border-radius: var(--radius-lg);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  box-shadow: var(--shadow-md);\n}\n.code-input-section .code-actions .review-btn:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-xl);\n  background:\n    linear-gradient(\n      135deg,\n      var(--accent-purple),\n      var(--primary-color));\n}\n.code-input-section .code-actions .review-btn:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.code-input-section .code-actions .review-btn .btn-icon {\n  font-size: var(--text-xl);\n}\n.code-input-section .code-actions .review-btn .btn-spinner {\n  animation: spin 1s linear infinite;\n}\n.ai-review-section {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  margin-bottom: var(--spacing-2xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.ai-review-section .review-header {\n  padding: var(--spacing-xl);\n  border-bottom: 1px solid var(--glass-border);\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.ai-review-section .review-header .review-title {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-md);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  margin: 0;\n}\n.ai-review-section .review-header .review-title .ai-icon {\n  font-size: var(--text-2xl);\n}\n.ai-review-section .review-header .review-score {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n}\n.ai-review-section .review-header .review-score .score-label {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n}\n.ai-review-section .review-header .review-score .score-value {\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--primary-color);\n  background: var(--apple-glass);\n  padding: var(--spacing-xs) var(--spacing-md);\n  border-radius: var(--radius-md);\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section .review-content {\n  padding: var(--spacing-xl);\n}\n.ai-review-section .review-content .feedback-section,\n.ai-review-section .review-content .suggestions-section,\n.ai-review-section .review-content .improvements-section {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section .review-content .feedback-section:last-child,\n.ai-review-section .review-content .suggestions-section:last-child,\n.ai-review-section .review-content .improvements-section:last-child {\n  margin-bottom: 0;\n}\n.ai-review-section .review-content .feedback-section .feedback-title,\n.ai-review-section .review-content .feedback-section .suggestions-title,\n.ai-review-section .review-content .feedback-section .improvements-title,\n.ai-review-section .review-content .suggestions-section .feedback-title,\n.ai-review-section .review-content .suggestions-section .suggestions-title,\n.ai-review-section .review-content .suggestions-section .improvements-title,\n.ai-review-section .review-content .improvements-section .feedback-title,\n.ai-review-section .review-content .improvements-section .suggestions-title,\n.ai-review-section .review-content .improvements-section .improvements-title {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section .review-content .feedback-section .feedback-text,\n.ai-review-section .review-content .suggestions-section .feedback-text,\n.ai-review-section .review-content .improvements-section .feedback-text {\n  font-size: var(--text-base);\n  line-height: 1.6;\n  color: var(--text-secondary);\n  background: var(--apple-glass);\n  padding: var(--spacing-md);\n  border-radius: var(--radius-md);\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section .review-content .feedback-section .feedback-text strong,\n.ai-review-section .review-content .suggestions-section .feedback-text strong,\n.ai-review-section .review-content .improvements-section .feedback-text strong {\n  color: var(--text-primary);\n  font-weight: var(--font-semibold);\n}\n.ai-review-section .review-content .feedback-section .feedback-text code,\n.ai-review-section .review-content .suggestions-section .feedback-text code,\n.ai-review-section .review-content .improvements-section .feedback-text code {\n  background: var(--bg-dark);\n  color: var(--primary-color);\n  padding: 2px 6px;\n  border-radius: var(--radius-sm);\n  font-family: "Fira Code", monospace;\n  font-size: 0.9em;\n}\n.ai-review-section .review-content .feedback-section .feedback-text .bullet,\n.ai-review-section .review-content .suggestions-section .feedback-text .bullet,\n.ai-review-section .review-content .improvements-section .feedback-text .bullet {\n  color: var(--primary-color);\n  font-weight: var(--font-bold);\n  margin-right: var(--spacing-xs);\n}\n.ai-review-section .review-content .feedback-section .feedback-text .number,\n.ai-review-section .review-content .suggestions-section .feedback-text .number,\n.ai-review-section .review-content .improvements-section .feedback-text .number {\n  color: var(--primary-color);\n  font-weight: var(--font-semibold);\n}\n.ai-review-section .review-content .feedback-section .improvements-tags,\n.ai-review-section .review-content .suggestions-section .improvements-tags,\n.ai-review-section .review-content .improvements-section .improvements-tags {\n  display: flex;\n  gap: var(--spacing-sm);\n  flex-wrap: wrap;\n}\n.ai-review-section .review-content .feedback-section .improvements-tags .improvement-tag,\n.ai-review-section .review-content .suggestions-section .improvements-tags .improvement-tag,\n.ai-review-section .review-content .improvements-section .improvements-tags .improvement-tag {\n  padding: var(--spacing-xs) var(--spacing-md);\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  color: var(--white);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.ai-review-section .review-content .security-section,\n.ai-review-section .review-content .performance-section,\n.ai-review-section .review-content .complexity-section,\n.ai-review-section .review-content .best-practices-section {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section .review-content .security-section:last-child,\n.ai-review-section .review-content .performance-section:last-child,\n.ai-review-section .review-content .complexity-section:last-child,\n.ai-review-section .review-content .best-practices-section:last-child {\n  margin-bottom: 0;\n}\n.ai-review-section .review-content .security-section .security-title,\n.ai-review-section .review-content .security-section .performance-title,\n.ai-review-section .review-content .security-section .complexity-title,\n.ai-review-section .review-content .security-section .best-practices-title,\n.ai-review-section .review-content .performance-section .security-title,\n.ai-review-section .review-content .performance-section .performance-title,\n.ai-review-section .review-content .performance-section .complexity-title,\n.ai-review-section .review-content .performance-section .best-practices-title,\n.ai-review-section .review-content .complexity-section .security-title,\n.ai-review-section .review-content .complexity-section .performance-title,\n.ai-review-section .review-content .complexity-section .complexity-title,\n.ai-review-section .review-content .complexity-section .best-practices-title,\n.ai-review-section .review-content .best-practices-section .security-title,\n.ai-review-section .review-content .best-practices-section .performance-title,\n.ai-review-section .review-content .best-practices-section .complexity-title,\n.ai-review-section .review-content .best-practices-section .best-practices-title {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section .review-content .security-section .security-tags,\n.ai-review-section .review-content .security-section .performance-tags,\n.ai-review-section .review-content .security-section .best-practices-tags,\n.ai-review-section .review-content .performance-section .security-tags,\n.ai-review-section .review-content .performance-section .performance-tags,\n.ai-review-section .review-content .performance-section .best-practices-tags,\n.ai-review-section .review-content .complexity-section .security-tags,\n.ai-review-section .review-content .complexity-section .performance-tags,\n.ai-review-section .review-content .complexity-section .best-practices-tags,\n.ai-review-section .review-content .best-practices-section .security-tags,\n.ai-review-section .review-content .best-practices-section .performance-tags,\n.ai-review-section .review-content .best-practices-section .best-practices-tags {\n  display: flex;\n  gap: var(--spacing-sm);\n  flex-wrap: wrap;\n}\n.ai-review-section .review-content .security-section .security-tags .security-tag,\n.ai-review-section .review-content .security-section .performance-tags .security-tag,\n.ai-review-section .review-content .security-section .best-practices-tags .security-tag,\n.ai-review-section .review-content .performance-section .security-tags .security-tag,\n.ai-review-section .review-content .performance-section .performance-tags .security-tag,\n.ai-review-section .review-content .performance-section .best-practices-tags .security-tag,\n.ai-review-section .review-content .complexity-section .security-tags .security-tag,\n.ai-review-section .review-content .complexity-section .performance-tags .security-tag,\n.ai-review-section .review-content .complexity-section .best-practices-tags .security-tag,\n.ai-review-section .review-content .best-practices-section .security-tags .security-tag,\n.ai-review-section .review-content .best-practices-section .performance-tags .security-tag,\n.ai-review-section .review-content .best-practices-section .best-practices-tags .security-tag {\n  padding: var(--spacing-xs) var(--spacing-md);\n  background:\n    linear-gradient(\n      135deg,\n      #ff6b6b,\n      #ee5a52);\n  color: var(--white);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.ai-review-section .review-content .security-section .security-tags .performance-tag,\n.ai-review-section .review-content .security-section .performance-tags .performance-tag,\n.ai-review-section .review-content .security-section .best-practices-tags .performance-tag,\n.ai-review-section .review-content .performance-section .security-tags .performance-tag,\n.ai-review-section .review-content .performance-section .performance-tags .performance-tag,\n.ai-review-section .review-content .performance-section .best-practices-tags .performance-tag,\n.ai-review-section .review-content .complexity-section .security-tags .performance-tag,\n.ai-review-section .review-content .complexity-section .performance-tags .performance-tag,\n.ai-review-section .review-content .complexity-section .best-practices-tags .performance-tag,\n.ai-review-section .review-content .best-practices-section .security-tags .performance-tag,\n.ai-review-section .review-content .best-practices-section .performance-tags .performance-tag,\n.ai-review-section .review-content .best-practices-section .best-practices-tags .performance-tag {\n  padding: var(--spacing-xs) var(--spacing-md);\n  background:\n    linear-gradient(\n      135deg,\n      #ffa726,\n      #ff9800);\n  color: var(--white);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.ai-review-section .review-content .security-section .security-tags .best-practice-tag,\n.ai-review-section .review-content .security-section .performance-tags .best-practice-tag,\n.ai-review-section .review-content .security-section .best-practices-tags .best-practice-tag,\n.ai-review-section .review-content .performance-section .security-tags .best-practice-tag,\n.ai-review-section .review-content .performance-section .performance-tags .best-practice-tag,\n.ai-review-section .review-content .performance-section .best-practices-tags .best-practice-tag,\n.ai-review-section .review-content .complexity-section .security-tags .best-practice-tag,\n.ai-review-section .review-content .complexity-section .performance-tags .best-practice-tag,\n.ai-review-section .review-content .complexity-section .best-practices-tags .best-practice-tag,\n.ai-review-section .review-content .best-practices-section .security-tags .best-practice-tag,\n.ai-review-section .review-content .best-practices-section .performance-tags .best-practice-tag,\n.ai-review-section .review-content .best-practices-section .best-practices-tags .best-practice-tag {\n  padding: var(--spacing-xs) var(--spacing-md);\n  background:\n    linear-gradient(\n      135deg,\n      #66bb6a,\n      #4caf50);\n  color: var(--white);\n  border-radius: var(--radius-full);\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n}\n.ai-review-section .review-content .security-section .complexity-text,\n.ai-review-section .review-content .performance-section .complexity-text,\n.ai-review-section .review-content .complexity-section .complexity-text,\n.ai-review-section .review-content .best-practices-section .complexity-text {\n  font-size: var(--text-base);\n  line-height: 1.6;\n  color: var(--text-secondary);\n  background: var(--apple-glass);\n  padding: var(--spacing-md);\n  border-radius: var(--radius-md);\n  border: 1px solid var(--glass-border);\n  max-height: 150px;\n  overflow-y: auto;\n  scrollbar-width: thin;\n  scrollbar-color: var(--primary-color) transparent;\n}\n.ai-review-section .review-content .security-section .complexity-text::-webkit-scrollbar,\n.ai-review-section .review-content .performance-section .complexity-text::-webkit-scrollbar,\n.ai-review-section .review-content .complexity-section .complexity-text::-webkit-scrollbar,\n.ai-review-section .review-content .best-practices-section .complexity-text::-webkit-scrollbar {\n  width: 8px;\n}\n.ai-review-section .review-content .security-section .complexity-text::-webkit-scrollbar-track,\n.ai-review-section .review-content .performance-section .complexity-text::-webkit-scrollbar-track,\n.ai-review-section .review-content .complexity-section .complexity-text::-webkit-scrollbar-track,\n.ai-review-section .review-content .best-practices-section .complexity-text::-webkit-scrollbar-track {\n  background: transparent;\n  border-radius: var(--radius-sm);\n}\n.ai-review-section .review-content .security-section .complexity-text::-webkit-scrollbar-thumb,\n.ai-review-section .review-content .performance-section .complexity-text::-webkit-scrollbar-thumb,\n.ai-review-section .review-content .complexity-section .complexity-text::-webkit-scrollbar-thumb,\n.ai-review-section .review-content .best-practices-section .complexity-text::-webkit-scrollbar-thumb {\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  border-radius: var(--radius-sm);\n}\n.ai-review-section .review-content .security-section .complexity-text::-webkit-scrollbar-thumb:hover,\n.ai-review-section .review-content .performance-section .complexity-text::-webkit-scrollbar-thumb:hover,\n.ai-review-section .review-content .complexity-section .complexity-text::-webkit-scrollbar-thumb:hover,\n.ai-review-section .review-content .best-practices-section .complexity-text::-webkit-scrollbar-thumb:hover {\n  background:\n    linear-gradient(\n      135deg,\n      var(--accent-purple),\n      var(--primary-color));\n}\n.ai-review-section .review-content .security-section .complexity-text strong,\n.ai-review-section .review-content .performance-section .complexity-text strong,\n.ai-review-section .review-content .complexity-section .complexity-text strong,\n.ai-review-section .review-content .best-practices-section .complexity-text strong {\n  color: var(--text-primary);\n  font-weight: var(--font-semibold);\n}\n.ai-review-section .review-content .metrics-section {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section .review-content .metrics-section .metrics-title {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section .review-content .metrics-section .metrics-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n  gap: var(--spacing-lg);\n}\n.ai-review-section .review-content .metrics-section .metrics-grid .metric-item {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.1),\n      rgba(255, 255, 255, 0.05));\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  transition: all var(--transition-normal);\n  position: relative;\n  overflow: hidden;\n}\n.ai-review-section .review-content .metrics-section .metrics-grid .metric-item:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.ai-review-section .review-content .metrics-section .metrics-grid .metric-item::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-purple));\n}\n.ai-review-section .review-content .metrics-section .metrics-grid .metric-item .metric-label {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  font-weight: var(--font-medium);\n  margin-bottom: var(--spacing-sm);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.ai-review-section .review-content .metrics-section .metrics-grid .metric-item .metric-value {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-bold);\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-lg);\n  min-width: 60px;\n  text-align: center;\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);\n  border: 2px solid transparent;\n}\n.ai-review-section .review-content .metrics-section .metrics-grid .metric-item .metric-value.metric-good {\n  background:\n    linear-gradient(\n      135deg,\n      #4caf50,\n      #66bb6a);\n  color: var(--white);\n  border-color: rgba(76, 175, 80, 0.3);\n  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);\n}\n.ai-review-section .review-content .metrics-section .metrics-grid .metric-item .metric-value.metric-warning {\n  background:\n    linear-gradient(\n      135deg,\n      #ff9800,\n      #ffa726);\n  color: var(--white);\n  border-color: rgba(255, 152, 0, 0.3);\n  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);\n}\n.ai-review-section .review-content .metrics-section .metrics-grid .metric-item .metric-value.metric-danger {\n  background:\n    linear-gradient(\n      135deg,\n      #f44336,\n      #ff6b6b);\n  color: var(--white);\n  border-color: rgba(244, 67, 54, 0.3);\n  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);\n}\n.ai-review-section .review-content .industry-section {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section .review-content .industry-section .industry-title {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section .review-content .industry-section .compliance-meter {\n  margin-bottom: var(--spacing-lg);\n}\n.ai-review-section .review-content .industry-section .compliance-meter .compliance-bar {\n  width: 100%;\n  height: 12px;\n  background: var(--bg-dark);\n  border-radius: var(--radius-full);\n  overflow: hidden;\n  margin-bottom: var(--spacing-sm);\n}\n.ai-review-section .review-content .industry-section .compliance-meter .compliance-bar .compliance-fill {\n  height: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color),\n      var(--accent-purple));\n  transition: width 0.3s ease;\n}\n.ai-review-section .review-content .industry-section .compliance-meter .compliance-text {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  font-weight: var(--font-medium);\n}\n.ai-review-section .review-content .industry-section .standards-table-container {\n  margin-top: var(--spacing-lg);\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table {\n  width: 100%;\n  border-collapse: collapse;\n  background: var(--apple-glass);\n  border-radius: var(--radius-md);\n  overflow: hidden;\n  border: 1px solid var(--glass-border);\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table thead {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.1),\n      rgba(255, 255, 255, 0.05));\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table thead th {\n  padding: var(--spacing-md);\n  text-align: left;\n  font-size: var(--text-sm);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  border-bottom: 1px solid var(--glass-border);\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table thead th:first-child {\n  width: 20%;\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table thead th:nth-child(2) {\n  width: 40%;\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table thead th:nth-child(3) {\n  width: 25%;\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table thead th:last-child {\n  width: 15%;\n  text-align: center;\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table tbody tr {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  transition: all var(--transition-normal);\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table tbody tr:hover {\n  background: rgba(255, 255, 255, 0.05);\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table tbody tr:last-child {\n  border-bottom: none;\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table tbody tr td {\n  padding: var(--spacing-md);\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  vertical-align: middle;\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table tbody tr td:first-child {\n  font-weight: var(--font-medium);\n  color: var(--text-primary);\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table tbody tr td:nth-child(2) {\n  color: var(--text-secondary);\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table tbody tr td.implementation-cell {\n  font-weight: var(--font-medium);\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table tbody tr td.compliance-good {\n  color: #4caf50;\n  font-weight: var(--font-bold);\n  font-size: var(--text-lg);\n  text-align: center;\n}\n.ai-review-section .review-content .industry-section .standards-table-container .standards-table tbody tr td.compliance-bad {\n  color: #f44336;\n  font-weight: var(--font-bold);\n  font-size: var(--text-lg);\n  text-align: center;\n}\n.ai-review-section .review-content .learning-section {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-review-section .review-content .learning-section .learning-title {\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-review-section .review-content .learning-section .learning-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\n  gap: var(--spacing-lg);\n}\n.ai-review-section .review-content .learning-section .learning-grid .learning-category {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.1),\n      rgba(255, 255, 255, 0.05));\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  transition: all var(--transition-normal);\n  position: relative;\n  overflow: hidden;\n}\n.ai-review-section .review-content .learning-section .learning-grid .learning-category:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.ai-review-section .review-content .learning-section .learning-grid .learning-category::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      var(--primary-color),\n      var(--accent-purple));\n}\n.ai-review-section .review-content .learning-section .learning-grid .learning-category .learning-subtitle {\n  font-size: var(--text-base);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n}\n.ai-review-section .review-content .learning-section .learning-grid .learning-category .learning-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.ai-review-section .review-content .learning-section .learning-grid .learning-category .learning-list li {\n  font-size: var(--text-sm);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) 0;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  display: flex;\n  align-items: center;\n  transition: all var(--transition-normal);\n}\n.ai-review-section .review-content .learning-section .learning-grid .learning-category .learning-list li:last-child {\n  border-bottom: none;\n}\n.ai-review-section .review-content .learning-section .learning-grid .learning-category .learning-list li:hover {\n  color: var(--text-primary);\n  transform: translateX(4px);\n}\n.ai-review-section .review-content .learning-section .learning-grid .learning-category .learning-list li:before {\n  content: "\\1f4da";\n  margin-right: var(--spacing-sm);\n  font-size: var(--text-base);\n  opacity: 0.8;\n}\n.ai-review-section .review-content .learning-section .learning-grid .learning-category .learning-list li:nth-child(1):before {\n  content: "\\1f4d6";\n}\n.ai-review-section .review-content .learning-section .learning-grid .learning-category .learning-list li:nth-child(2):before {\n  content: "\\1f3af";\n}\n.navigation-controls {\n  display: flex;\n  justify-content: space-between;\n  gap: var(--spacing-lg);\n  margin-bottom: var(--spacing-2xl);\n}\n.navigation-controls .nav-btn {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-md) var(--spacing-lg);\n  background: var(--apple-glass);\n  color: var(--text-primary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.navigation-controls .nav-btn:hover:not(:disabled) {\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n}\n.navigation-controls .nav-btn:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n  transform: none;\n}\n.navigation-controls .nav-btn .nav-icon {\n  font-size: var(--text-lg);\n}\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 768px) {\n  .section-title {\n    font-size: 2.5rem;\n  }\n  .game-container {\n    padding: var(--spacing-lg) 0;\n  }\n  .code-snippet-card .snippet-header {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card .snippet-header .snippet-info .snippet-title {\n    font-size: var(--text-xl);\n  }\n  .code-snippet-card .snippet-header .snippet-info .snippet-meta {\n    gap: var(--spacing-sm);\n  }\n  .code-snippet-card .snippet-header .snippet-info .snippet-meta .language-badge,\n  .code-snippet-card .snippet-header .snippet-info .snippet-meta .difficulty-badge,\n  .code-snippet-card .snippet-header .snippet-info .snippet-meta .category-badge {\n    font-size: var(--text-xs);\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n  .code-snippet-card .code-container {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card .code-container .code-block {\n    padding: var(--spacing-md);\n  }\n  .code-snippet-card .code-container .code-block code {\n    font-size: var(--text-xs);\n  }\n  .code-snippet-card .snippet-actions {\n    padding: var(--spacing-lg);\n  }\n  .code-snippet-card .snippet-actions .review-btn {\n    width: 100%;\n    justify-content: center;\n    font-size: var(--text-base);\n    padding: var(--spacing-md) var(--spacing-lg);\n  }\n  .ai-review-section .review-header {\n    padding: var(--spacing-lg);\n    flex-direction: column;\n    gap: var(--spacing-md);\n    align-items: flex-start;\n  }\n  .ai-review-section .review-header .review-title {\n    font-size: var(--text-lg);\n  }\n  .ai-review-section .review-content {\n    padding: var(--spacing-lg);\n  }\n  .ai-review-section .review-content .feedback-section,\n  .ai-review-section .review-content .suggestions-section,\n  .ai-review-section .review-content .improvements-section {\n    margin-bottom: var(--spacing-lg);\n  }\n  .ai-review-section .review-content .feedback-section .feedback-title,\n  .ai-review-section .review-content .feedback-section .suggestions-title,\n  .ai-review-section .review-content .feedback-section .improvements-title,\n  .ai-review-section .review-content .suggestions-section .feedback-title,\n  .ai-review-section .review-content .suggestions-section .suggestions-title,\n  .ai-review-section .review-content .suggestions-section .improvements-title,\n  .ai-review-section .review-content .improvements-section .feedback-title,\n  .ai-review-section .review-content .improvements-section .suggestions-title,\n  .ai-review-section .review-content .improvements-section .improvements-title {\n    font-size: var(--text-base);\n  }\n  .ai-review-section .review-content .feedback-section .feedback-text,\n  .ai-review-section .review-content .suggestions-section .feedback-text,\n  .ai-review-section .review-content .improvements-section .feedback-text {\n    font-size: var(--text-sm);\n  }\n  .ai-review-section .review-content .feedback-section .suggestions-list .suggestion-item,\n  .ai-review-section .review-content .suggestions-section .suggestions-list .suggestion-item,\n  .ai-review-section .review-content .improvements-section .suggestions-list .suggestion-item {\n    padding: var(--spacing-sm);\n  }\n  .ai-review-section .review-content .feedback-section .suggestions-list .suggestion-item .suggestion-text,\n  .ai-review-section .review-content .suggestions-section .suggestions-list .suggestion-item .suggestion-text,\n  .ai-review-section .review-content .improvements-section .suggestions-list .suggestion-item .suggestion-text {\n    font-size: var(--text-sm);\n  }\n  .ai-review-section .review-content .feedback-section .improvements-tags .improvement-tag,\n  .ai-review-section .review-content .suggestions-section .improvements-tags .improvement-tag,\n  .ai-review-section .review-content .improvements-section .improvements-tags .improvement-tag {\n    font-size: var(--text-xs);\n    padding: var(--spacing-xs) var(--spacing-sm);\n  }\n  .navigation-controls {\n    flex-direction: column;\n    gap: var(--spacing-md);\n  }\n  .navigation-controls .nav-btn {\n    width: 100%;\n    justify-content: center;\n  }\n  .game-stats {\n    flex-direction: column;\n    gap: var(--spacing-lg);\n  }\n  .game-stats .stat-item .stat-value {\n    font-size: var(--text-xl);\n  }\n}\n@media (max-width: 480px) {\n  .code-snippet-card .code-container .code-block code {\n    font-size: 10px;\n  }\n  .ai-review-section .review-content .suggestions-list .suggestion-item {\n    flex-direction: column;\n    gap: var(--spacing-xs);\n    text-align: center;\n  }\n}\n.detailed-complexity-section {\n  margin-bottom: var(--spacing-xl);\n}\n.detailed-complexity-section .complexity-details-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: var(--spacing-lg);\n  margin-bottom: var(--spacing-lg);\n}\n.detailed-complexity-section .complexity-details-grid .complexity-card {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.1),\n      rgba(255, 255, 255, 0.05));\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  text-align: center;\n  transition: all var(--transition-normal);\n}\n.detailed-complexity-section .complexity-details-grid .complexity-card:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n}\n.detailed-complexity-section .complexity-details-grid .complexity-card .complexity-card-title {\n  font-size: var(--text-sm);\n  font-weight: var(--font-medium);\n  color: var(--text-secondary);\n  margin-bottom: var(--spacing-sm);\n}\n.detailed-complexity-section .complexity-details-grid .complexity-card .complexity-value {\n  font-size: var(--text-base);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.detailed-complexity-section .complexity-breakdown {\n  background: var(--apple-glass);\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-lg);\n  border: 1px solid var(--glass-border);\n  margin-bottom: var(--spacing-lg);\n}\n.detailed-complexity-section .complexity-breakdown .breakdown-title {\n  font-size: var(--text-base);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.detailed-complexity-section .complexity-breakdown .breakdown-text {\n  font-size: var(--text-sm);\n  line-height: 1.6;\n  color: var(--text-secondary);\n}\n.detailed-complexity-section .complexity-breakdown .breakdown-text strong {\n  color: var(--text-primary);\n  font-weight: var(--font-semibold);\n}\n.detailed-complexity-section .optimization-suggestions {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 187, 106, 0.1),\n      rgba(76, 175, 80, 0.05));\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-lg);\n  border: 1px solid rgba(76, 175, 80, 0.2);\n  margin-bottom: var(--spacing-lg);\n}\n.detailed-complexity-section .optimization-suggestions .suggestions-title {\n  font-size: var(--text-base);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.detailed-complexity-section .optimization-suggestions .suggestions-list .suggestion-item {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--spacing-sm);\n  margin-bottom: var(--spacing-sm);\n}\n.detailed-complexity-section .optimization-suggestions .suggestions-list .suggestion-item:last-child {\n  margin-bottom: 0;\n}\n.detailed-complexity-section .optimization-suggestions .suggestions-list .suggestion-item .suggestion-number {\n  font-size: var(--text-sm);\n  font-weight: var(--font-semibold);\n  color: var(--accent-green);\n  min-width: 20px;\n}\n.detailed-complexity-section .optimization-suggestions .suggestions-list .suggestion-item .suggestion-text {\n  font-size: var(--text-sm);\n  line-height: 1.5;\n  color: var(--text-secondary);\n}\n.detailed-complexity-section .optimal-comparison {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(33, 150, 243, 0.1),\n      rgba(30, 136, 229, 0.05));\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-lg);\n  border: 1px solid rgba(33, 150, 243, 0.2);\n}\n.detailed-complexity-section .optimal-comparison .comparison-title {\n  font-size: var(--text-base);\n  font-weight: var(--font-semibold);\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.detailed-complexity-section .optimal-comparison .comparison-text {\n  font-size: var(--text-sm);\n  line-height: 1.6;\n  color: var(--text-secondary);\n}\n.detailed-complexity-section .optimal-comparison .comparison-text strong {\n  color: var(--text-primary);\n  font-weight: var(--font-semibold);\n}\n@media (max-width: 768px) {\n  .detailed-complexity-section .complexity-details-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-md);\n  }\n  .detailed-complexity-section .complexity-breakdown,\n  .detailed-complexity-section .optimization-suggestions,\n  .detailed-complexity-section .optimal-comparison {\n    padding: var(--spacing-md);\n  }\n}\n/*# sourceMappingURL=ai-code-review.component.css.map */\n'] }]
+</div>`, styles: ["/* src/app/profile/ai-quiz-game/ai-quiz-game.component.scss */\n.ai-quiz-game {\n  padding: var(--spacing-3xl) 0;\n  background: var(--bg-primary);\n  min-height: 100vh;\n}\n.ai-quiz-game .apple-container {\n  max-width: 1000px;\n  margin: 0 auto;\n  padding: 0 var(--spacing-lg);\n}\n.ai-quiz-game .section-header {\n  text-align: center;\n  margin-bottom: var(--spacing-3xl);\n}\n.ai-quiz-game .section-header .section-title {\n  font-size: 3.5rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n  background: var(--gradient-primary);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.ai-quiz-game .section-header .section-subtitle {\n  font-size: 1.2rem;\n  color: var(--text-secondary);\n  max-width: 600px;\n  margin: 0 auto;\n}\n.ai-quiz-game .apple-card {\n  background: var(--bg-glass);\n  backdrop-filter: blur(20px);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: var(--radius-lg);\n  overflow: hidden;\n  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);\n}\n.ai-quiz-game .apple-card .card-content {\n  padding: var(--spacing-2xl);\n}\n.ai-quiz-game .quiz-setup .setup-header {\n  text-align: center;\n  margin-bottom: var(--spacing-2xl);\n}\n.ai-quiz-game .quiz-setup .setup-header .setup-title {\n  font-size: 2rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-quiz-game .quiz-setup .setup-header .setup-description {\n  color: var(--text-secondary);\n  font-size: 1.1rem;\n  line-height: 1.6;\n}\n.ai-quiz-game .quiz-setup .setup-options {\n  margin-bottom: var(--spacing-2xl);\n}\n.ai-quiz-game .quiz-setup .setup-options .option-group {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-quiz-game .quiz-setup .setup-options .option-group .option-label {\n  display: block;\n  font-size: 1.1rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-quiz-game .quiz-setup .category-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\n  gap: var(--spacing-md);\n}\n.ai-quiz-game .quiz-setup .category-grid .category-btn {\n  display: flex;\n  align-items: center;\n  padding: var(--spacing-lg);\n  background: var(--bg-secondary);\n  border: 2px solid transparent;\n  border-radius: var(--radius-md);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  text-align: left;\n}\n.ai-quiz-game .quiz-setup .category-grid .category-btn:hover {\n  background: var(--bg-tertiary);\n  color: var(--text-primary);\n  transform: translateY(-2px);\n}\n.ai-quiz-game .quiz-setup .category-grid .category-btn.active {\n  background: var(--primary-color);\n  color: white;\n  border-color: var(--primary-color);\n  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);\n}\n.ai-quiz-game .quiz-setup .category-grid .category-btn .category-icon {\n  font-size: 2rem;\n  margin-right: var(--spacing-md);\n  flex-shrink: 0;\n}\n.ai-quiz-game .quiz-setup .category-grid .category-btn .category-info {\n  display: flex;\n  flex-direction: column;\n}\n.ai-quiz-game .quiz-setup .category-grid .category-btn .category-info .category-text {\n  font-weight: 600;\n  font-size: 1rem;\n  margin-bottom: var(--spacing-xs);\n}\n.ai-quiz-game .quiz-setup .category-grid .category-btn .category-info .category-desc {\n  font-size: 0.85rem;\n  opacity: 0.8;\n}\n.ai-quiz-game .quiz-setup .difficulty-buttons {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: var(--spacing-md);\n}\n.ai-quiz-game .quiz-setup .difficulty-buttons .difficulty-btn {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: var(--spacing-lg);\n  background: var(--bg-secondary);\n  border: 2px solid transparent;\n  border-radius: var(--radius-md);\n  color: var(--text-secondary);\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.ai-quiz-game .quiz-setup .difficulty-buttons .difficulty-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);\n}\n.ai-quiz-game .quiz-setup .difficulty-buttons .difficulty-btn.success:hover,\n.ai-quiz-game .quiz-setup .difficulty-buttons .difficulty-btn.success.active {\n  background: var(--success-color);\n  color: white;\n  border-color: var(--success-color);\n}\n.ai-quiz-game .quiz-setup .difficulty-buttons .difficulty-btn.warning:hover,\n.ai-quiz-game .quiz-setup .difficulty-buttons .difficulty-btn.warning.active {\n  background: var(--warning-color);\n  color: white;\n  border-color: var(--warning-color);\n}\n.ai-quiz-game .quiz-setup .difficulty-buttons .difficulty-btn.danger:hover,\n.ai-quiz-game .quiz-setup .difficulty-buttons .difficulty-btn.danger.active {\n  background: var(--danger-color);\n  color: white;\n  border-color: var(--danger-color);\n}\n.ai-quiz-game .quiz-setup .difficulty-buttons .difficulty-btn .diff-label {\n  font-size: 1.1rem;\n  margin-bottom: var(--spacing-xs);\n}\n.ai-quiz-game .quiz-setup .difficulty-buttons .difficulty-btn .diff-desc {\n  font-size: 0.85rem;\n  opacity: 0.8;\n}\n.ai-quiz-game .quiz-setup .setup-footer {\n  text-align: center;\n}\n.ai-quiz-game .quiz-setup .setup-footer .start-game-btn {\n  padding: var(--spacing-md) var(--spacing-2xl);\n  font-size: 1.1rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-lg);\n}\n.ai-quiz-game .quiz-setup .setup-footer .game-info {\n  display: flex;\n  justify-content: center;\n  gap: var(--spacing-lg);\n  flex-wrap: wrap;\n}\n.ai-quiz-game .quiz-setup .setup-footer .game-info .info-item {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n}\n.ai-quiz-game .quiz-playing .quiz-progress {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-quiz-game .quiz-playing .quiz-progress .progress-info {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: var(--spacing-sm);\n}\n.ai-quiz-game .quiz-playing .quiz-progress .progress-info .question-counter {\n  font-weight: 600;\n  color: var(--text-primary);\n}\n.ai-quiz-game .quiz-playing .quiz-progress .progress-info .timer-display {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-xs);\n  padding: var(--spacing-xs) var(--spacing-md);\n  background: var(--bg-secondary);\n  border-radius: var(--radius-sm);\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.ai-quiz-game .quiz-playing .quiz-progress .progress-info .timer-display.warning {\n  background: var(--warning-color);\n  color: white;\n}\n.ai-quiz-game .quiz-playing .quiz-progress .progress-info .timer-display.danger {\n  background: var(--danger-color);\n  color: white;\n  animation: pulse 1s infinite;\n}\n.ai-quiz-game .quiz-playing .quiz-progress .progress-info .timer-display .time-left {\n  font-family: monospace;\n  font-size: 1.1rem;\n}\n.ai-quiz-game .quiz-playing .quiz-progress .progress-bar {\n  height: 4px;\n  background: var(--bg-tertiary);\n  border-radius: 2px;\n  overflow: hidden;\n  margin-bottom: var(--spacing-xs);\n}\n.ai-quiz-game .quiz-playing .quiz-progress .progress-bar .progress-fill {\n  height: 100%;\n  background: var(--gradient-primary);\n  border-radius: 2px;\n  transition: width 0.3s ease;\n}\n.ai-quiz-game .quiz-playing .quiz-progress .timer-bar {\n  height: 3px;\n  background: var(--bg-tertiary);\n  border-radius: 2px;\n  overflow: hidden;\n}\n.ai-quiz-game .quiz-playing .quiz-progress .timer-bar .timer-fill {\n  height: 100%;\n  background: var(--success-color);\n  border-radius: 2px;\n  transition: width 1s linear, background-color 0.3s ease;\n}\n.ai-quiz-game .quiz-playing .quiz-progress .timer-bar .timer-fill.warning {\n  background: var(--warning-color);\n}\n.ai-quiz-game .quiz-playing .quiz-progress .timer-bar .timer-fill.danger {\n  background: var(--danger-color);\n}\n.ai-quiz-game .quiz-playing .quiz-stats-live {\n  display: flex;\n  justify-content: center;\n  gap: var(--spacing-xl);\n  margin-bottom: var(--spacing-xl);\n  padding: var(--spacing-md);\n  background: var(--bg-secondary);\n  border-radius: var(--radius-md);\n}\n.ai-quiz-game .quiz-playing .quiz-stats-live .stat-item {\n  text-align: center;\n}\n.ai-quiz-game .quiz-playing .quiz-stats-live .stat-item .stat-value {\n  display: block;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: var(--primary-color);\n}\n.ai-quiz-game .quiz-playing .quiz-stats-live .stat-item .stat-label {\n  font-size: 0.85rem;\n  color: var(--text-tertiary);\n}\n.ai-quiz-game .quiz-playing .question-container .question-header {\n  margin-bottom: var(--spacing-lg);\n}\n.ai-quiz-game .quiz-playing .question-container .question-header .question-meta {\n  display: flex;\n  gap: var(--spacing-md);\n  flex-wrap: wrap;\n}\n.ai-quiz-game .quiz-playing .question-container .question-header .question-meta .difficulty-badge,\n.ai-quiz-game .quiz-playing .question-container .question-header .question-meta .category-badge,\n.ai-quiz-game .quiz-playing .question-container .question-header .question-meta .points-badge {\n  padding: var(--spacing-xs) var(--spacing-md);\n  border-radius: var(--radius-sm);\n  font-size: 0.8rem;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n.ai-quiz-game .quiz-playing .question-container .question-header .question-meta .difficulty-badge.success {\n  background: var(--success-color);\n  color: white;\n}\n.ai-quiz-game .quiz-playing .question-container .question-header .question-meta .difficulty-badge.warning {\n  background: var(--warning-color);\n  color: white;\n}\n.ai-quiz-game .quiz-playing .question-container .question-header .question-meta .difficulty-badge.danger {\n  background: var(--danger-color);\n  color: white;\n}\n.ai-quiz-game .quiz-playing .question-container .question-header .question-meta .category-badge {\n  background: var(--primary-color);\n  color: white;\n}\n.ai-quiz-game .quiz-playing .question-container .question-header .question-meta .points-badge {\n  background: var(--accent-color);\n  color: white;\n}\n.ai-quiz-game .quiz-playing .question-container .question-text {\n  font-size: 1.4rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  line-height: 1.4;\n  margin-bottom: var(--spacing-xl);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option {\n  display: flex;\n  align-items: center;\n  width: 100%;\n  padding: var(--spacing-lg);\n  margin-bottom: var(--spacing-md);\n  background: var(--bg-secondary);\n  border: 2px solid transparent;\n  border-radius: var(--radius-md);\n  color: var(--text-primary);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  text-align: left;\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option:hover:not(.disabled) {\n  background: var(--bg-tertiary);\n  transform: translateX(8px);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option.selected {\n  border-color: var(--primary-color);\n  background: rgba(102, 126, 234, 0.1);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option.correct {\n  border-color: var(--success-color);\n  background: rgba(52, 199, 89, 0.1);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option.incorrect {\n  border-color: var(--danger-color);\n  background: rgba(255, 59, 48, 0.1);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option.disabled {\n  cursor: default;\n  opacity: 0.7;\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option .option-letter {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 32px;\n  height: 32px;\n  background: var(--primary-color);\n  color: white;\n  border-radius: 50%;\n  font-weight: 600;\n  margin-right: var(--spacing-md);\n  flex-shrink: 0;\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option .option-text {\n  flex: 1;\n  font-size: 1rem;\n  line-height: 1.4;\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option .option-indicator {\n  font-size: 1.2rem;\n  font-weight: 600;\n  margin-left: var(--spacing-md);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option .option-indicator.incorrect {\n  color: var(--danger-color);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option.correct .option-letter {\n  background: var(--success-color);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-options .answer-option.incorrect .option-letter {\n  background: var(--danger-color);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-explanation {\n  background: var(--bg-secondary);\n  padding: var(--spacing-lg);\n  border-radius: var(--radius-md);\n  margin-bottom: var(--spacing-xl);\n  border-left: 4px solid var(--primary-color);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-explanation .explanation-header {\n  display: flex;\n  align-items: center;\n  margin-bottom: var(--spacing-md);\n  flex-wrap: wrap;\n  gap: var(--spacing-md);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-explanation .explanation-header .result-icon {\n  font-size: 1.5rem;\n}\n.ai-quiz-game .quiz-playing .question-container .answer-explanation .explanation-header .result-text {\n  font-weight: 600;\n  color: var(--text-primary);\n}\n.correct .ai-quiz-game .quiz-playing .question-container .answer-explanation .explanation-header .result-text {\n  color: var(--success-color);\n}\n.ai-quiz-game .quiz-playing .question-container .answer-explanation .explanation-header .points-earned {\n  background: var(--success-color);\n  color: white;\n  padding: var(--spacing-xs) var(--spacing-md);\n  border-radius: var(--radius-sm);\n  font-size: 0.85rem;\n  font-weight: 600;\n}\n.ai-quiz-game .quiz-playing .question-container .answer-explanation .explanation-text {\n  color: var(--text-secondary);\n  line-height: 1.6;\n  margin: 0;\n}\n.ai-quiz-game .quiz-playing .question-container .question-actions {\n  text-align: center;\n}\n.ai-quiz-game .quiz-loading .loading-content {\n  text-align: center;\n  padding: var(--spacing-2xl);\n}\n.ai-quiz-game .quiz-loading .loading-content .ai-loader {\n  margin-bottom: var(--spacing-xl);\n}\n.ai-quiz-game .quiz-loading .loading-content .ai-loader .loader-brain {\n  font-size: 4rem;\n  animation: pulse 2s infinite;\n  margin-bottom: var(--spacing-md);\n}\n.ai-quiz-game .quiz-loading .loading-content .ai-loader .loader-dots {\n  display: flex;\n  justify-content: center;\n  gap: var(--spacing-sm);\n}\n.ai-quiz-game .quiz-loading .loading-content .ai-loader .loader-dots span {\n  width: 8px;\n  height: 8px;\n  background: var(--primary-color);\n  border-radius: 50%;\n  animation: bounce 1.4s infinite ease-in-out;\n}\n.ai-quiz-game .quiz-loading .loading-content .ai-loader .loader-dots span:nth-child(1) {\n  animation-delay: -0.32s;\n}\n.ai-quiz-game .quiz-loading .loading-content .ai-loader .loader-dots span:nth-child(2) {\n  animation-delay: -0.16s;\n}\n.ai-quiz-game .quiz-loading .loading-content .loading-title {\n  font-size: 1.5rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-quiz-game .quiz-loading .loading-content .loading-subtitle {\n  color: var(--text-secondary);\n  font-size: 1rem;\n}\n.ai-quiz-game .quiz-results {\n  text-align: center;\n}\n.ai-quiz-game .quiz-results .results-header {\n  margin-bottom: var(--spacing-2xl);\n}\n.ai-quiz-game .quiz-results .results-header .score-circle {\n  display: inline-flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 120px;\n  background: var(--gradient-primary);\n  border-radius: 50%;\n  margin-bottom: var(--spacing-lg);\n  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);\n}\n.ai-quiz-game .quiz-results .results-header .score-circle .score-value {\n  font-size: 2rem;\n  font-weight: 700;\n  color: white;\n  line-height: 1;\n}\n.ai-quiz-game .quiz-results .results-header .score-circle .score-grade {\n  font-size: 1rem;\n  font-weight: 600;\n  color: rgba(255, 255, 255, 0.8);\n  margin-top: var(--spacing-xs);\n}\n.ai-quiz-game .quiz-results .results-header .results-title {\n  font-size: 2rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-md);\n}\n.ai-quiz-game .quiz-results .results-header .results-subtitle {\n  color: var(--text-secondary);\n  font-size: 1.1rem;\n  font-weight: 500;\n}\n.ai-quiz-game .quiz-results .results-stats {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: var(--spacing-lg);\n  margin-bottom: var(--spacing-2xl);\n}\n.ai-quiz-game .quiz-results .results-stats .stat-card {\n  display: flex;\n  align-items: center;\n  padding: var(--spacing-lg);\n  background: var(--bg-secondary);\n  border-radius: var(--radius-md);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.ai-quiz-game .quiz-results .results-stats .stat-card .stat-icon {\n  font-size: 2rem;\n  margin-right: var(--spacing-md);\n}\n.ai-quiz-game .quiz-results .results-stats .stat-card .stat-info {\n  text-align: left;\n}\n.ai-quiz-game .quiz-results .results-stats .stat-card .stat-info .stat-number {\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: var(--primary-color);\n}\n.ai-quiz-game .quiz-results .results-stats .stat-card .stat-info .stat-description {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n}\n.ai-quiz-game .quiz-results .results-actions {\n  display: flex;\n  justify-content: center;\n  gap: var(--spacing-md);\n  margin-bottom: var(--spacing-xl);\n  flex-wrap: wrap;\n}\n.ai-quiz-game .quiz-results .results-footer .challenge-message {\n  color: var(--text-secondary);\n  font-style: italic;\n  margin: 0;\n}\n.ai-quiz-game .apple-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-md) var(--spacing-xl);\n  background: var(--primary-color);\n  color: white;\n  border: none;\n  border-radius: var(--radius-md);\n  font-size: 1rem;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  text-decoration: none;\n}\n.ai-quiz-game .apple-btn:hover {\n  background: var(--primary-dark);\n  transform: translateY(-2px);\n  box-shadow: 0 12px 25px rgba(102, 126, 234, 0.3);\n}\n.ai-quiz-game .apple-btn:active {\n  transform: translateY(0);\n}\n.ai-quiz-game .apple-btn.apple-btn-secondary {\n  background: var(--bg-tertiary);\n  color: var(--text-primary);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n.ai-quiz-game .apple-btn.apple-btn-secondary:hover {\n  background: var(--bg-secondary);\n  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);\n}\n@keyframes pulse {\n  0%, 100% {\n    transform: scale(1);\n  }\n  50% {\n    transform: scale(1.1);\n  }\n}\n@keyframes bounce {\n  0%, 80%, 100% {\n    transform: scale(0);\n  }\n  40% {\n    transform: scale(1);\n  }\n}\n@media (max-width: 768px) {\n  .ai-quiz-game .apple-container {\n    padding: 0 var(--spacing-md);\n  }\n  .ai-quiz-game .section-header .section-title {\n    font-size: 2.5rem;\n  }\n  .ai-quiz-game .apple-card .card-content {\n    padding: var(--spacing-lg);\n  }\n  .ai-quiz-game .category-grid {\n    grid-template-columns: 1fr;\n  }\n  .ai-quiz-game .difficulty-buttons {\n    grid-template-columns: 1fr;\n  }\n  .ai-quiz-game .quiz-stats-live {\n    flex-direction: column;\n    gap: var(--spacing-md);\n  }\n  .ai-quiz-game .results-actions {\n    flex-direction: column;\n    align-items: center;\n  }\n  .ai-quiz-game .question-meta {\n    justify-content: center;\n  }\n  .ai-quiz-game .progress-info {\n    flex-direction: column;\n    gap: var(--spacing-sm);\n    text-align: center;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */\n"] }]
   }], () => [{ type: HttpClient }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiCodeReviewComponent, { className: "AiCodeReviewComponent", filePath: "src/app/profile/ai-code-review/ai-code-review.component.ts", lineNumber: 59 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 33 });
 })();
 
 // src/app/profile/blog/blog.component.ts
@@ -50166,7 +49423,7 @@ var BlogComponent = class _BlogComponent {
 })();
 
 // src/app/ai-face/ai-face.component.ts
-var _c04 = ["aiFaceContainer"];
+var _c05 = ["aiFaceContainer"];
 var AiFaceComponent = class _AiFaceComponent {
   ngAfterViewInit() {
   }
@@ -50211,7 +49468,7 @@ var AiFaceComponent = class _AiFaceComponent {
   static {
     this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AiFaceComponent, selectors: [["app-ai-face"]], viewQuery: function AiFaceComponent_Query(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275viewQuery(_c04, 5);
+        \u0275\u0275viewQuery(_c05, 5);
       }
       if (rf & 2) {
         let _t;
@@ -50400,7 +49657,7 @@ var ProfileComponent = class _ProfileComponent {
       if (rf & 1) {
         \u0275\u0275element(0, "app-ai-face")(1, "app-header");
         \u0275\u0275elementStart(2, "div", 0);
-        \u0275\u0275element(3, "app-intro")(4, "app-about")(5, "app-skills")(6, "app-experience")(7, "app-publications")(8, "app-blog")(9, "app-education")(10, "app-contact")(11, "app-ai-code-review");
+        \u0275\u0275element(3, "app-intro")(4, "app-about")(5, "app-skills")(6, "app-experience")(7, "app-publications")(8, "app-blog")(9, "app-education")(10, "app-contact")(11, "app-ai-quiz-game");
         \u0275\u0275elementEnd();
         \u0275\u0275element(12, "app-footer");
       }
@@ -50414,7 +49671,7 @@ var ProfileComponent = class _ProfileComponent {
       ExperienceComponent,
       SkillsComponent,
       PublicationsComponent,
-      AiCodeReviewComponent,
+      AiQuizGameComponent,
       BlogComponent,
       AiFaceComponent
     ], encapsulation: 2 });
@@ -50433,10 +49690,10 @@ var ProfileComponent = class _ProfileComponent {
       ExperienceComponent,
       SkillsComponent,
       PublicationsComponent,
-      AiCodeReviewComponent,
+      AiQuizGameComponent,
       BlogComponent,
       AiFaceComponent
-    ], template: '\n<app-ai-face></app-ai-face>\n<app-header></app-header>\n\n<div class="page-content">\n  <!-- <app-particle></app-particle> -->\n  <app-intro></app-intro>\n  <app-about></app-about>\n  <app-skills></app-skills>\n  <app-experience></app-experience>\n  <app-publications></app-publications>\n  <app-blog></app-blog>\n  <app-education></app-education>\n\n  <app-contact></app-contact>\n  <app-ai-code-review></app-ai-code-review>\n</div>\n<app-footer></app-footer>\n' }]
+    ], template: '\n<app-ai-face></app-ai-face>\n<app-header></app-header>\n\n<div class="page-content">\n  <!-- <app-particle></app-particle> -->\n  <app-intro></app-intro>\n  <app-about></app-about>\n  <app-skills></app-skills>\n  <app-experience></app-experience>\n  <app-publications></app-publications>\n  <app-blog></app-blog>\n  <app-education></app-education>\n\n  <app-contact></app-contact>\n  <app-ai-quiz-game></app-ai-quiz-game>\n</div>\n<app-footer></app-footer>\n' }]
   }], () => [{ type: ActivatedRoute }, { type: Router }], null);
 })();
 (() => {

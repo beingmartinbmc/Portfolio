@@ -11,7 +11,7 @@ import {EducationComponent} from './education/education.component';
 import {ExperienceComponent} from './experience/experience.component';
 import {SkillsComponent} from './skills/skills.component';
 import {PublicationsComponent} from './publications/publications.component';
-import {AiCodeReviewComponent} from './ai-code-review/ai-code-review.component';
+import {AiQuizGameComponent} from './ai-quiz-game/ai-quiz-game.component';
 import {BlogComponent} from './blog/blog.component';
 import {AiFaceComponent} from '../ai-face/ai-face.component';
 
@@ -30,7 +30,7 @@ import {AiFaceComponent} from '../ai-face/ai-face.component';
     ExperienceComponent,
     SkillsComponent,
     PublicationsComponent,
-    AiCodeReviewComponent,
+    AiQuizGameComponent,
     BlogComponent,
     AiFaceComponent
   ]
