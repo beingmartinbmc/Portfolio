@@ -725,6 +725,7 @@ html {
   --mat-slide-toggle-visible-track-opacity: 1;
   --mat-slide-toggle-visible-track-transition: transform 75ms 0ms cubic-bezier(0, 0, 0.2, 1);
   --mat-slide-toggle-with-icon-handle-size: 20px;
+  --mat-slide-toggle-touch-target-size: 48px;
 }
 html {
   --mat-slide-toggle-selected-icon-color: white;
@@ -801,6 +802,7 @@ html {
 }
 html {
   --mat-slide-toggle-state-layer-size: 40px;
+  --mat-slide-toggle-touch-target-display: block;
 }
 html {
   --mat-slide-toggle-label-text-font: Roboto, sans-serif;
@@ -820,6 +822,7 @@ html {
   --mat-radio-disabled-selected-icon-opacity: 0.38;
   --mat-radio-disabled-unselected-icon-opacity: 0.38;
   --mat-radio-state-layer-size: 40px;
+  --mat-radio-touch-target-size: 48px;
 }
 .mat-mdc-radio-button.mat-primary {
   --mat-radio-checked-ripple-color: #673ab7;
@@ -904,6 +907,7 @@ html {
   --mat-slider-with-tick-marks-container-shape: 50%;
   --mat-slider-with-tick-marks-container-size: 2px;
   --mat-slider-with-tick-marks-inactive-container-opacity: 0.6;
+  --mat-slider-value-indicator-transform-origin: bottom;
 }
 html {
   --mat-slider-active-track-color: #673ab7;
@@ -1188,6 +1192,10 @@ html {
   letter-spacing: .009375em;
 }
 html {
+  --mat-paginator-page-size-select-width: 84px;
+  --mat-paginator-page-size-select-touch-target-height: 48px;
+}
+html {
   --mat-paginator-container-text-color: rgba(0, 0, 0, 0.87);
   --mat-paginator-container-background-color: white;
   --mat-paginator-enabled-icon-color: rgba(0, 0, 0, 0.54);
@@ -1295,6 +1303,7 @@ html {
   --mat-checkbox-unselected-focus-state-layer-opacity: 0.12;
   --mat-checkbox-unselected-hover-state-layer-opacity: 0.04;
   --mat-checkbox-unselected-pressed-state-layer-opacity: 0.12;
+  --mat-checkbox-touch-target-size: 48px;
 }
 html {
   --mat-checkbox-disabled-label-color: color-mix(in srgb, rgba(0, 0, 0, 0.87) 38%, transparent);
@@ -1368,12 +1377,14 @@ html {
   --mat-button-filled-horizontal-padding: 16px;
   --mat-button-filled-icon-offset: -4px;
   --mat-button-filled-icon-spacing: 8px;
+  --mat-button-filled-touch-target-size: 48px;
   --mat-button-outlined-container-shape: 4px;
   --mat-button-outlined-horizontal-padding: 15px;
   --mat-button-outlined-icon-offset: -4px;
   --mat-button-outlined-icon-spacing: 8px;
   --mat-button-outlined-keep-touch-target: false;
   --mat-button-outlined-outline-width: 1px;
+  --mat-button-outlined-touch-target-size: 48px;
   --mat-button-protected-container-elevation-shadow:
     0px 3px 1px -2px rgba(0, 0, 0, 0.2),
     0px 2px 2px 0px rgba(0, 0, 0, 0.14),
@@ -1398,15 +1409,18 @@ html {
     0px 5px 5px -3px rgba(0, 0, 0, 0.2),
     0px 8px 10px 1px rgba(0, 0, 0, 0.14),
     0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  --mat-button-protected-touch-target-size: 48px;
   --mat-button-text-container-shape: 4px;
   --mat-button-text-horizontal-padding: 8px;
   --mat-button-text-icon-offset: 0;
   --mat-button-text-icon-spacing: 8px;
   --mat-button-text-with-icon-horizontal-padding: 8px;
+  --mat-button-text-touch-target-size: 48px;
   --mat-button-tonal-container-shape: 4px;
   --mat-button-tonal-horizontal-padding: 16px;
   --mat-button-tonal-icon-offset: -4px;
   --mat-button-tonal-icon-spacing: 8px;
+  --mat-button-tonal-touch-target-size: 48px;
 }
 html {
   --mat-button-filled-container-color: white;
@@ -1575,6 +1589,7 @@ html {
 html {
   --mat-icon-button-icon-size: 24px;
   --mat-icon-button-container-shape: 50%;
+  --mat-icon-button-touch-target-size: 48px;
 }
 html {
   --mat-icon-button-disabled-icon-color: color-mix(in srgb, rgba(0, 0, 0, 0.87) 38%, transparent);
@@ -1617,6 +1632,7 @@ html {
     0px 6px 10px 0px rgba(0, 0, 0, 0.14),
     0px 1px 18px 0px rgba(0, 0, 0, 0.12);
   --mat-fab-container-shape: 50%;
+  --mat-fab-touch-target-size: 48px;
   --mat-fab-extended-container-elevation-shadow:
     0px 3px 5px -1px rgba(0, 0, 0, 0.2),
     0px 6px 10px 0px rgba(0, 0, 0, 0.14),
@@ -1652,6 +1668,7 @@ html {
     0px 6px 10px 0px rgba(0, 0, 0, 0.14),
     0px 1px 18px 0px rgba(0, 0, 0, 0.12);
   --mat-fab-small-container-shape: 50%;
+  --mat-fab-small-touch-target-size: 48px;
   --mat-fab-small-focus-container-elevation-shadow:
     0px 5px 5px -3px rgba(0, 0, 0, 0.2),
     0px 8px 10px 1px rgba(0, 0, 0, 0.14),
