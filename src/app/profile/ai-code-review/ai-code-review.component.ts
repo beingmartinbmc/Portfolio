@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CODE_REVIEW_PROMPT, CODE_REVIEW_CONTEXT, LANGUAGE_PLACEHOLDERS, COMPLEXITY_ANALYSIS_PROMPT } from './prompts.js';
+import { AI_API_URL } from '../../config/api-config';
 
 interface CodeSnippet {
   id: number;
@@ -423,7 +424,7 @@ class UserService {
     const context = CODE_REVIEW_CONTEXT(language);
 
     try {
-      const response = await this.http.post('https://epic-backend-nppkq806l-beingmartinbmcs-projects.vercel.app/api/generic', {
+      const response = await this.http.post(AI_API_URL, {
         prompt: prompt,
         context: context
       }, {
@@ -490,7 +491,7 @@ class UserService {
     const prompt = COMPLEXITY_ANALYSIS_PROMPT(language, this.userCode);
 
     try {
-      const response = await this.http.post('https://epic-backend-nppkq806l-beingmartinbmcs-projects.vercel.app/api/generic', {
+      const response = await this.http.post(AI_API_URL, {
         prompt: prompt,
         context: `You are an expert algorithm analyst specializing in Big-O complexity analysis for ${language} code.`
       }, {

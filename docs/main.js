@@ -48245,6 +48245,28 @@ var PublicationsComponent = class _PublicationsComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 26 });
 })();
 
+// src/app/config/api-config.ts
+var API_CONFIG = {
+  // Base URL for all APIs
+  BASE_URL: "https://epic-backend-nppkq806l-beingmartinbmcs-projects.vercel.app",
+  // API Endpoints
+  ENDPOINTS: {
+    // AI Chat API - used in environment files
+    AI_GENERIC: "/api/generic",
+    // Text-to-Speech API
+    TEXT_TO_SPEECH: "/api/text-to-speech"
+    // Add other endpoints here as needed
+    // MUSIC: '/api/music',
+    // PROFILE: '/api/profile',
+  },
+  // Helper method to get full URL
+  getUrl(endpoint) {
+    return `${this.BASE_URL}${endpoint}`;
+  }
+};
+var AI_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.AI_GENERIC);
+var TTS_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.TEXT_TO_SPEECH);
+
 // src/app/profile/ai-quiz-game/ai-quiz-game.component.ts
 var _c04 = () => ["A", "B", "C", "D"];
 function AiQuizGameComponent_div_8_button_12_Template(rf, ctx) {
@@ -48870,7 +48892,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     return __async(this, null, function* () {
       const prompt = this.generateQuestionPrompt();
       try {
-        const response = yield this.http.post("https://epic-backend-nppkq806l-beingmartinbmcs-projects.vercel.app/api/generic", {
+        const response = yield this.http.post(AI_API_URL, {
           prompt,
           context: "Generate a single quiz question with exactly 4 multiple choice options. Follow the exact format specified in the prompt."
         }, {
@@ -49418,7 +49440,7 @@ Generate ONE completely unique question now:`;
   }], () => [{ type: HttpClient }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 33 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 34 });
 })();
 
 // src/app/profile/blog/blog.component.ts
@@ -83512,28 +83534,6 @@ function interceptControlUp(event) {
     document2.removeEventListener("keyup", this._interceptControlUp, { passive: true, capture: true });
   }
 }
-
-// src/app/config/api-config.ts
-var API_CONFIG = {
-  // Base URL for all APIs
-  BASE_URL: "https://epic-backend-nppkq806l-beingmartinbmcs-projects.vercel.app",
-  // API Endpoints
-  ENDPOINTS: {
-    // AI Chat API - used in environment files
-    AI_GENERIC: "/api/generic",
-    // Text-to-Speech API
-    TEXT_TO_SPEECH: "/api/text-to-speech"
-    // Add other endpoints here as needed
-    // MUSIC: '/api/music',
-    // PROFILE: '/api/profile',
-  },
-  // Helper method to get full URL
-  getUrl(endpoint) {
-    return `${this.BASE_URL}${endpoint}`;
-  }
-};
-var AI_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.AI_GENERIC);
-var TTS_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.TEXT_TO_SPEECH);
 
 // src/environments/environment.ts
 var environment = {

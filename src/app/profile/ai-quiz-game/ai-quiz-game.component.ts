@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AI_API_URL } from '../../config/api-config';
 
 interface QuizQuestion {
   id: number;
@@ -213,7 +214,7 @@ export class AiQuizGameComponent implements OnInit {
     const prompt = this.generateQuestionPrompt();
 
     try {
-      const response = await this.http.post('https://epic-backend-nppkq806l-beingmartinbmcs-projects.vercel.app/api/generic', {
+      const response = await this.http.post(AI_API_URL, {
         prompt: prompt,
         context: "Generate a single quiz question with exactly 4 multiple choice options. Follow the exact format specified in the prompt."
       }, {
