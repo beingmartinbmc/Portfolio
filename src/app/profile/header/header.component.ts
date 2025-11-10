@@ -1,4 +1,5 @@
 import {Component, OnInit, HostListener, OnDestroy, ViewChild, ElementRef} from '@angular/core';
+import { MusicService } from '../../services/music.service';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private animationId: number | null = null;
   private dataArray: Uint8Array | null = null;
 
-  constructor() {
+  constructor(private musicService: MusicService) {
   }
 
   ngOnInit(): void {
@@ -159,6 +160,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       
       await this.audioElement.play();
       this.isPlaying = true;
+      this.musicService.setMusicPlaying(true);
       this.startVisualizer();
     } catch (error) {
       console.error('Error playing audio:', error);
@@ -170,6 +172,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     
     this.audioElement.pause();
     this.isPlaying = false;
+    this.musicService.setMusicPlaying(false);
     this.stopVisualizer();
   }
 
