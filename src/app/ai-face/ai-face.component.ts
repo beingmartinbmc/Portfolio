@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AI_CONTEXT } from './ai-context';
 
 interface Message {
   text: string;
@@ -42,13 +43,11 @@ export class AiFaceComponent implements AfterViewInit {
   hasNewMessage = false;
   mouthPath = 'M55 105 Q80 115 105 105'; // Default smile
   
-  private readonly CONTEXT = `You are a friendly AI assistant on Ankit Sharma's portfolio website. 
-Be helpful, concise, and professional. You can answer questions about Ankit's skills, experience, 
-projects, or general programming questions. Keep responses brief and engaging.`;
+  private readonly CONTEXT = AI_CONTEXT;
 
   constructor(private http: HttpClient) {
     // Welcome message
-    this.addMessage('Hi! 👋 I\'m your AI assistant. Ask me anything!', false);
+    this.addMessage('Hi! 👋 I\'m Nova, your AI assistant. Ask me anything!', false);
   }
 
   ngAfterViewInit() {
