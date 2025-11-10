@@ -46,23 +46,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private controls!: OrbitControls;
   private model!: THREE.Group;
   private animationFrameId?: number;
-  private mixer?: THREE.AnimationMixer;
-  private animations: THREE.AnimationAction[] = [];
-  private clock = new THREE.Clock();
-  
-  // Animation state
-  public isTalking = false;
-  private headBob = 0;
-  private blinkTimer = 0;
-  private nextBlinkTime = Math.random() * 3 + 2;
-  
-  // Talking animation variables
-  private mouthOpenness = 0;
-  private jawBone?: THREE.Bone;
-  private headBone?: THREE.Bone;
-  private eyeBones: THREE.Bone[] = [];
-  private talkingSpeed = 0;
-  private talkingIntensity = 0;
 
   // Chat functionality
   public isChatOpen = false;
@@ -154,15 +137,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       (gltf) => {
         this.model = gltf.scene;
         
-        // Set up animation mixer if animations exist
-        if (gltf.animations && gltf.animations.length > 0) {
-          this.mixer = new THREE.AnimationMixer(this.model);
-          gltf.animations.forEach((clip) => {
-            const action = this.mixer!.clipAction(clip);
-            this.animations.push(action);
-          });
-        }
-        
         // Center the model
         const box = new THREE.Box3().setFromObject(this.model);
         const center = box.getCenter(new THREE.Vector3());
@@ -174,34 +148,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         const scale = 2.275 / maxDim; // 65% of the original 3.5 scale
         this.model.scale.setScalar(scale);
         
-        // Enable shadows and find bones for animation
+        // Enable shadows
         this.model.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {
             child.castShadow = true;
             child.receiveShadow = true;
-          }
-          
-          // Look for bones that we can animate for talking
-          if (child instanceof THREE.Bone) {
-            const boneName = child.name.toLowerCase();
-            
-            // Look for jaw/mouth bones
-            if (boneName.includes('jaw') || boneName.includes('mouth') || boneName.includes('chin')) {
-              this.jawBone = child;
-              console.log('Found jaw bone:', child.name);
-            }
-            
-            // Look for head bone
-            if (boneName.includes('head') || boneName.includes('neck')) {
-              this.headBone = child;
-              console.log('Found head bone:', child.name);
-            }
-            
-            // Look for eye bones
-            if (boneName.includes('eye')) {
-              this.eyeBones.push(child);
-              console.log('Found eye bone:', child.name);
-            }
           }
         });
 
@@ -219,111 +170,8 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private animate(): void {
     this.animationFrameId = requestAnimationFrame(() => this.animate());
     
-    const deltaTime = this.clock.getDelta();
-    
-    // Update animation mixer if it exists
-    if (this.mixer) {
-      this.mixer.update(deltaTime);
-    }
-    
-    // Enhanced talking animations
-    if (this.model) {
-      if (this.isTalking) {
-        this.headBob += deltaTime * 6;
-        this.talkingSpeed += deltaTime * 12; // Speed for mouth movements
-        
-        // More realistic head movements
-        const headMovementX = Math.sin(this.headBob * 0.8) * 0.03;
-        const headMovementY = Math.sin(this.headBob * 0.6) * 0.02;
-        const headMovementZ = Math.sin(this.headBob * 0.4) * 0.015;
-        
-        // Apply head movements
-        if (this.headBone) {
-          this.headBone.rotation.x = headMovementX;
-          this.headBone.rotation.y = headMovementY;
-          this.headBone.rotation.z = headMovementZ;
-        } else {
-          // Fallback to model rotation if no head bone found
-          this.model.rotation.x = headMovementX * 0.5;
-        }
-        
-        // Simulate mouth/jaw movement
-        this.mouthOpenness = (Math.sin(this.talkingSpeed) + 1) * 0.5; // 0 to 1
-        const jawRotation = this.mouthOpenness * 0.15; // Max jaw opening
-        
-        if (this.jawBone) {
-          this.jawBone.rotation.x = jawRotation;
-        }
-        
-        // Subtle body language - shoulders and torso
-        const bodyMovement = Math.sin(this.headBob * 0.3) * 0.01;
-        this.model.rotation.z = bodyMovement;
-        
-        // Breathing effect
-        const breathingScale = 1 + Math.sin(this.headBob * 0.5) * 0.005;
-        this.model.scale.y = this.model.scale.x * breathingScale;
-        
-      } else {
-        // Reset to neutral pose when not talking
-        if (this.headBone) {
-          this.headBone.rotation.x = THREE.MathUtils.lerp(this.headBone.rotation.x, 0, deltaTime * 2);
-          this.headBone.rotation.y = THREE.MathUtils.lerp(this.headBone.rotation.y, 0, deltaTime * 2);
-          this.headBone.rotation.z = THREE.MathUtils.lerp(this.headBone.rotation.z, 0, deltaTime * 2);
-        }
-        
-        if (this.jawBone) {
-          this.jawBone.rotation.x = THREE.MathUtils.lerp(this.jawBone.rotation.x, 0, deltaTime * 3);
-        }
-        
-        // Reset model rotations
-        this.model.rotation.x = THREE.MathUtils.lerp(this.model.rotation.x, 0, deltaTime * 2);
-        this.model.rotation.z = THREE.MathUtils.lerp(this.model.rotation.z, 0, deltaTime * 2);
-        
-        // Reset scale
-        const targetScale = 2.275 / Math.max(1, 1, 1); // Original scale calculation (65%)
-        this.model.scale.y = THREE.MathUtils.lerp(this.model.scale.y, this.model.scale.x, deltaTime * 2);
-      }
-      
-      // Enhanced blinking
-      this.blinkTimer += deltaTime;
-      if (this.blinkTimer >= this.nextBlinkTime) {
-        this.blink();
-        this.blinkTimer = 0;
-        this.nextBlinkTime = Math.random() * 4 + 2;
-      }
-    }
-    
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
-  }
-
-  private blink(): void {
-    // Enhanced blink effect for eyes
-    if (this.eyeBones.length > 0) {
-      this.eyeBones.forEach(eyeBone => {
-        const originalScale = eyeBone.scale.y;
-        
-        // Quick close
-        eyeBone.scale.y = 0.1;
-        
-        // Quick open
-        setTimeout(() => {
-          if (eyeBone) {
-            eyeBone.scale.y = originalScale;
-          }
-        }, 120);
-      });
-    } else {
-      // Fallback blink using model scale
-      const originalScale = this.model.scale.clone();
-      this.model.scale.y *= 0.98;
-      
-      setTimeout(() => {
-        if (this.model) {
-          this.model.scale.copy(originalScale);
-        }
-      }, 100);
-    }
   }
 
 
@@ -357,7 +205,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     this.userInput = '';
     
     this.isTyping = true;
-    this.isTalking = true; // Start talking animation when AI is thinking
     
     try {
       const response = await this.http.post<any>(environment.aiApiUrl, {
@@ -380,13 +227,9 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       
       this.addMessage(aiResponse, false);
       
-      // Stop the temporary talking animation since TTS will control it now
-      this.isTalking = false;
-      
     } catch (error) {
       console.error('AI API Error:', error);
       this.addMessage('Oops! Something went wrong. Please try again later. 😅', false);
-      this.isTalking = false;
     } finally {
       this.isTyping = false;
     }
