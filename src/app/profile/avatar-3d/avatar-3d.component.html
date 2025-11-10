@@ -7,6 +7,20 @@
     <div class="avatar-container">
       <canvas #canvas class="avatar-canvas"></canvas>
       
+      <!-- Loading Overlay -->
+      <div class="loading-overlay" *ngIf="isLoading" [@chatAnimation]>
+        <div class="loading-content">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">{{ loadingText }}</div>
+          <div class="loading-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="loadingProgress"></div>
+            </div>
+            <div class="progress-percentage">{{ loadingProgress }}%</div>
+          </div>
+        </div>
+      </div>
+      
       <div class="controls-hint">
         <span>🖱️ Drag to rotate</span>
         <span>🔍 Scroll to zoom</span>
