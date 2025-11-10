@@ -84453,13 +84453,16 @@ var Avatar3dComponent = class _Avatar3dComponent {
     fetch(STREAMING_VOICE_API_URL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Origin": "https://beingmartinbmc.github.io"
       },
       body: JSON.stringify({
-        text: cleanText,
-        format: "mp3",
-        // or wav depending on your API
-        streaming: true
+        prompt: cleanText,
+        context: "You are Nova, an AI assistant on Ankit Sharma's portfolio website.",
+        voiceSettings: {
+          model: "aura-2-draco-en",
+          chunkSize: 25
+        }
       })
     }).then((response) => {
       if (!response.ok) {
