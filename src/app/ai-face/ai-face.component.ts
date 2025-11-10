@@ -192,26 +192,8 @@ export class AiFaceComponent implements AfterViewInit, OnDestroy {
   private whistleInterval: any;
   
   private startWhistlingAnimation() {
-    // Animate mouth in a whistling motion
-    let frame = 0;
-    this.whistleInterval = setInterval(() => {
-      frame = (frame + 1) % 4;
-      
-      switch(frame) {
-        case 0:
-          this.mouthPath = 'M70 105 Q80 100 90 105'; // Small O shape
-          break;
-        case 1:
-          this.mouthPath = 'M68 105 Q80 98 92 105'; // Medium O shape
-          break;
-        case 2:
-          this.mouthPath = 'M70 105 Q80 100 90 105'; // Small O shape
-          break;
-        case 3:
-          this.mouthPath = 'M72 105 Q80 102 88 105'; // Tiny O shape
-          break;
-      }
-    }, 200);
+    // Keep mouth in a small O shape while whistling
+    this.mouthPath = 'M72 108 Q80 103 88 108';
   }
 
   private stopWhistlingAnimation() {

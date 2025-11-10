@@ -94,6 +94,13 @@
       <circle cx="120" cy="90" r="8" fill="#ff6b9d" opacity="0.3" class="cheek right-cheek"/>
     </svg>
     
+    <!-- Music Notes for whistling -->
+    <div class="music-notes" *ngIf="isWhistling">
+      <span class="music-note note-1">🎵</span>
+      <span class="music-note note-2">🎶</span>
+      <span class="music-note note-3">🎵</span>
+    </div>
+    
     <!-- Notification badge -->
     <div class="notification-badge" *ngIf="!isChatOpen && hasNewMessage">!</div>
   </div>
