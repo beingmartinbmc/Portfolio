@@ -23,10 +23,12 @@
     "@angular/platform-browser": "^20.3.10",
     "@angular/platform-browser-dynamic": "^20.3.10",
     "@angular/router": "^20.3.10",
+    "@types/three": "^0.181.0",
     "bootstrap": "^5.3.7",
     "karma-coverage": "^2.2.1",
     "ngx-spinner": "^19.0.0",
     "rxjs": "^7.8.2",
+    "three": "^0.181.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.15.1"
   },
