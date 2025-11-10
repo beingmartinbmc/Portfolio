@@ -332,7 +332,7 @@
     animation: whistling 0.6s ease-in-out infinite;
     
     .cheek {
-      opacity: 0.4 !important;
+      opacity: 0.5 !important;
     }
     
     #left-eyebrow,
@@ -358,6 +358,69 @@
     .cheek {
       transition: opacity 0.3s ease;
     }
+  }
+}
+
+// Music notes animation
+.music-notes {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  width: 120px;
+  height: 120px;
+  
+  .music-note {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: floatNote 2s ease-in-out infinite;
+    opacity: 0;
+    
+    &.note-1 {
+      left: 50%;
+      top: 60%;
+      animation-delay: 0s;
+    }
+    
+    &.note-2 {
+      left: 65%;
+      top: 55%;
+      animation-delay: 0.7s;
+    }
+    
+    &.note-3 {
+      left: 35%;
+      top: 55%;
+      animation-delay: 1.4s;
+    }
+  }
+}
+
+@keyframes floatNote {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg) scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-5px, -15px) rotate(-10deg) scale(1);
+  }
+  40% {
+    opacity: 0.9;
+    transform: translate(-10px, -35px) rotate(-15deg) scale(0.9);
+  }
+  60% {
+    opacity: 0.7;
+    transform: translate(-12px, -55px) rotate(-20deg) scale(0.8);
+  }
+  80% {
+    opacity: 0.3;
+    transform: translate(-15px, -75px) rotate(-25deg) scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-18px, -95px) rotate(-30deg) scale(0.4);
   }
 }
 
