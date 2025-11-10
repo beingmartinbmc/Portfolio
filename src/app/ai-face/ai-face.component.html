@@ -12,7 +12,7 @@
            [class.ai-message]="!message.isUser"
            class="message">
         <div class="message-content">
-          <span class="message-text">{{ message.text }}</span>
+          <span class="message-text" [innerHTML]="message.text | markdown"></span>
           <span class="message-time">{{ message.time }}</span>
         </div>
       </div>

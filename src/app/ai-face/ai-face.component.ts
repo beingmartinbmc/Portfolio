@@ -5,6 +5,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AI_CONTEXT } from './ai-context';
+import { MarkdownPipe } from './markdown.pipe';
 
 interface Message {
   text: string;
@@ -15,7 +16,7 @@ interface Message {
 @Component({
   selector: 'app-ai-face',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, MarkdownPipe],
   templateUrl: './ai-face.component.html',
   styleUrls: ['./ai-face.component.scss'],
   animations: [

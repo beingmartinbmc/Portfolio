@@ -145,6 +145,51 @@
   .message-text {
     line-height: 1.5;
     word-wrap: break-word;
+    
+    ::ng-deep {
+      a.message-link {
+        color: inherit;
+        text-decoration: underline;
+        font-weight: 500;
+        transition: opacity 0.2s;
+        
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+      
+      strong {
+        font-weight: 700;
+      }
+      
+      em {
+        font-style: italic;
+      }
+      
+      code {
+        background: rgba(0, 0, 0, 0.1);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9em;
+      }
+    }
+  }
+  
+  // Links in user messages (white background)
+  .user-message .message-content ::ng-deep a.message-link {
+    color: rgba(255, 255, 255, 0.95);
+    text-decoration-color: rgba(255, 255, 255, 0.7);
+  }
+  
+  // Links in AI messages (colored background)
+  .ai-message .message-content ::ng-deep a.message-link {
+    color: #667eea;
+    text-decoration-color: rgba(102, 126, 234, 0.5);
+    
+    &:hover {
+      color: #764ba2;
+    }
   }
   
   .message-time {
