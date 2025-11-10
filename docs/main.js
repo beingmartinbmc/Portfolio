@@ -83518,7 +83518,7 @@ var environment = {
   production: false,
   //baseUrl : `${window.location.protocol}//${window.location.hostname}/portfolio/`,
   baseUrl: `http://localhost:4200/`,
-  aiApiUrl: "https://epic-backend-3n9kp4iyq-beingmartinbmcs-projects.vercel.app/api/generic"
+  aiApiUrl: "https://epic-backend-ofr9df23x-beingmartinbmcs-projects.vercel.app/api/generic"
 };
 
 // src/app/ai-face/ai-context.ts
