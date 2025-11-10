@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 import { AI_CONTEXT } from '../../ai-face/ai-context';
 import { MarkdownPipe } from '../../ai-face/markdown.pipe';
 import { MusicService } from '../../services/music.service';
-import { TTS_API_URL } from '../../config/api-config';
+import { TTS_API_URL, STREAMING_VOICE_API_URL } from '../../config/api-config';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 interface Message {
@@ -64,6 +64,9 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   public ttsEnabled = true;
   private currentAudio?: HTMLAudioElement;
   private ttsCache = new Map<string, Blob>(); // Cache for faster repeated phrases
+  public streamingEnabled = true; // Enable streaming voice by default
+  private audioContext?: AudioContext;
+  private audioSource?: AudioBufferSourceNode;
   
   private readonly CONTEXT = AI_CONTEXT;
 
@@ -88,6 +91,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     
     // Stop any ongoing speech and cleanup
     this.stopSpeech();
+    
+    // Clean up audio context
+    if (this.audioContext) {
+      this.audioContext.close();
+    }
   }
 
   private initThreeJS(): void {
@@ -321,7 +329,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Text-to-Speech methods - Optimized for minimal latency
+  // Text-to-Speech methods - Optimized for minimal latency with streaming support
   private speakText(text: string, addMessageAfterTTS: boolean = false): void {
     if (!text.trim()) return;
 
@@ -344,6 +352,137 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       return;
     }
     
+    // Use streaming voice if enabled, fallback to regular TTS
+    if (this.streamingEnabled) {
+      this.speakTextStreaming(cleanText, text, addMessageAfterTTS);
+    } else {
+      this.speakTextRegular(cleanText, text, addMessageAfterTTS);
+    }
+  }
+
+  private speakTextStreaming(cleanText: string, originalText: string, addMessageAfterTTS: boolean): void {
+    // Add message immediately when starting streaming (better UX)
+    if (addMessageAfterTTS) {
+      this.addMessage(originalText, false, false);
+      this.isTyping = false;
+    }
+
+    // Initialize Web Audio API if not already done
+    if (!this.audioContext) {
+      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+
+    // Start streaming voice
+    fetch(STREAMING_VOICE_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: cleanText,
+        format: 'mp3', // or wav depending on your API
+        streaming: true
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Streaming API error: ${response.status}`);
+      }
+      
+      // Handle streaming response
+      const reader = response.body?.getReader();
+      if (!reader) {
+        throw new Error('Streaming not supported');
+      }
+
+      // Process streaming audio chunks
+      this.processAudioStream(reader, cleanText);
+    })
+    .catch(error => {
+      console.error('Streaming TTS Error:', error);
+      // Fallback to regular TTS
+      this.speakTextRegular(cleanText, originalText, false); // Don't add message again
+    });
+  }
+
+  private async processAudioStream(reader: ReadableStreamDefaultReader<Uint8Array>, cleanText: string): Promise<void> {
+    const audioChunks: Uint8Array[] = [];
+    
+    try {
+      while (this.isSpeaking) {
+        const { done, value } = await reader.read();
+        
+        if (done) {
+          break;
+        }
+        
+        if (value) {
+          audioChunks.push(value);
+          
+          // If this is the first chunk, start playing immediately
+          if (audioChunks.length === 1 && this.audioContext) {
+            this.playStreamingAudio(audioChunks);
+          }
+        }
+      }
+      
+      // Cache the complete audio for future use
+      if (audioChunks.length > 0) {
+        const completeAudio = this.mergeAudioChunks(audioChunks);
+        this.ttsCache.set(cleanText, completeAudio);
+      }
+      
+    } catch (error) {
+      console.error('Stream processing error:', error);
+    } finally {
+      reader.releaseLock();
+    }
+  }
+
+  private async playStreamingAudio(chunks: Uint8Array[]): Promise<void> {
+    try {
+      const audioBlob = new Blob(chunks as BlobPart[], { type: 'audio/mpeg' });
+      const arrayBuffer = await audioBlob.arrayBuffer();
+      
+      if (this.audioContext && this.isSpeaking) {
+        const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+        
+        // Stop any current source
+        if (this.audioSource) {
+          this.audioSource.stop();
+        }
+        
+        // Create and play new source
+        this.audioSource = this.audioContext.createBufferSource();
+        this.audioSource.buffer = audioBuffer;
+        this.audioSource.connect(this.audioContext.destination);
+        
+        this.audioSource.onended = () => {
+          this.isSpeaking = false;
+          this.cleanupAudio();
+        };
+        
+        this.audioSource.start();
+      }
+    } catch (error) {
+      console.error('Streaming audio playback error:', error);
+    }
+  }
+
+  private mergeAudioChunks(chunks: Uint8Array[]): Blob {
+    const totalLength = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
+    const merged = new Uint8Array(totalLength);
+    let offset = 0;
+    
+    for (const chunk of chunks) {
+      merged.set(chunk, offset);
+      offset += chunk.length;
+    }
+    
+    return new Blob([merged as BlobPart], { type: 'audio/mpeg' });
+  }
+
+  private speakTextRegular(cleanText: string, originalText: string, addMessageAfterTTS: boolean): void {
     // Fire TTS API call immediately
     this.http.post(TTS_API_URL, {
       text: cleanText
@@ -359,7 +498,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           
           // Add message to UI now that TTS response is ready
           if (addMessageAfterTTS) {
-            this.addMessage(text, false, false);
+            this.addMessage(originalText, false, false);
             this.isTyping = false; // Stop typing indicator
           }
           
@@ -368,7 +507,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         }
       },
       error: (error) => {
-        console.error('TTS Error:', error);
+        console.error('Regular TTS Error:', error);
         if (error.status === 0 || error.status === undefined) {
           console.error('CORS or network error detected. API might be unreachable.');
           console.error('TTS API URL:', TTS_API_URL);
@@ -380,7 +519,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         
         // Add message even if TTS fails
         if (addMessageAfterTTS) {
-          this.addMessage(text, false, false);
+          this.addMessage(originalText, false, false);
           this.isTyping = false; // Stop typing indicator even on error
         }
         
@@ -441,12 +580,25 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
   }
 
+  public toggleStreaming(): void {
+    this.streamingEnabled = !this.streamingEnabled;
+    console.log(`Streaming voice ${this.streamingEnabled ? 'enabled' : 'disabled'}`);
+  }
+
   public stopSpeech(): void {
+    // Stop regular audio
     if (this.currentAudio) {
       this.currentAudio.pause();
       this.currentAudio.currentTime = 0;
       this.cleanupAudio();
     }
+    
+    // Stop streaming audio
+    if (this.audioSource) {
+      this.audioSource.stop();
+      this.audioSource = undefined;
+    }
+    
     this.isSpeaking = false;
   }
 

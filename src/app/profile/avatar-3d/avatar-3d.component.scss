@@ -255,6 +255,7 @@
       gap: 10px;
 
       .tts-toggle-btn,
+      .streaming-toggle-btn,
       .stop-speech-btn,
       .close-btn {
         background: none;
@@ -293,6 +294,17 @@
       .tts-toggle-btn {
         &.active {
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: #fff;
+        }
+
+        &:not(.active) {
+          opacity: 0.6;
+        }
+      }
+
+      .streaming-toggle-btn {
+        &.active {
+          background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
           color: #fff;
         }
 
