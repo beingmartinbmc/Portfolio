@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 import { AI_CONTEXT } from '../../ai-face/ai-context';
 import { MarkdownPipe } from '../../ai-face/markdown.pipe';
 import { MusicService } from '../../services/music.service';
-import { TTS_API_URL, STREAMING_VOICE_API_URL } from '../../config/api-config';
+import { TTS_API_URL } from '../../config/api-config';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 interface Message {
@@ -64,9 +64,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   public ttsEnabled = true;
   private currentAudio?: HTMLAudioElement;
   private ttsCache = new Map<string, Blob>(); // Cache for faster repeated phrases
-  public streamingEnabled = true; // Enable streaming voice by default
-  private audioContext?: AudioContext;
-  private audioSource?: AudioBufferSourceNode;
   
   private readonly CONTEXT = AI_CONTEXT;
 
@@ -91,11 +88,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     
     // Stop any ongoing speech and cleanup
     this.stopSpeech();
-    
-    // Clean up audio context
-    if (this.audioContext) {
-      this.audioContext.close();
-    }
   }
 
   private initThreeJS(): void {
@@ -329,7 +321,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Text-to-Speech methods - Optimized for minimal latency with streaming support
+  // Text-to-Speech methods - Simple TTS implementation
   private speakText(text: string, addMessageAfterTTS: boolean = false): void {
     if (!text.trim()) return;
 
@@ -352,244 +344,8 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       return;
     }
     
-    // Use streaming voice if enabled, fallback to regular TTS
-    if (this.streamingEnabled) {
-      this.speakTextStreaming(cleanText, text, addMessageAfterTTS);
-    } else {
-      this.speakTextRegular(cleanText, text, addMessageAfterTTS);
-    }
-  }
-
-  private speakTextStreaming(cleanText: string, originalText: string, addMessageAfterTTS: boolean): void {
-    // Add message immediately when starting streaming (better UX)
-    if (addMessageAfterTTS) {
-      this.addMessage(originalText, false, false);
-      this.isTyping = false;
-    }
-
-    console.log('🎵 Starting streaming voice for:', cleanText);
-
-    // Start streaming voice with correct API structure
-    fetch(STREAMING_VOICE_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Origin': 'https://beingmartinbmc.github.io'
-      },
-      body: JSON.stringify({
-        prompt: cleanText,
-        context: "You are Nova, an AI assistant on Ankit Sharma's portfolio website.",
-        voiceSettings: {
-          model: "aura-2-draco-en",
-          chunkSize: 20
-        }
-      })
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Streaming API error: ${response.status}`);
-      }
-      
-      console.log('✅ Streaming API response received');
-      
-      // Handle Server-Sent Events streaming response
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error('Streaming not supported');
-      }
-
-      // Process Server-Sent Events audio stream
-      this.processSSEAudioStream(reader, cleanText);
-    })
-    .catch(error => {
-      console.error('❌ Streaming TTS Error:', error);
-      // Fallback to regular TTS
-      this.speakTextRegular(cleanText, originalText, false); // Don't add message again
-    });
-  }
-
-  private async processSSEAudioStream(reader: ReadableStreamDefaultReader<Uint8Array>, cleanText: string): Promise<void> {
-    const decoder = new TextDecoder();
-    let buffer = '';
-    let eventType = '';
-    const audioChunks: { chunkIndex: number; audio: string }[] = [];
-    
-    try {
-      console.log('📡 Starting to process SSE stream...');
-      
-      while (this.isSpeaking) {
-        const { done, value } = await reader.read();
-        
-        if (done) {
-          console.log('📡 Stream ended');
-          break;
-        }
-        
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() || '';
-        
-        for (const line of lines) {
-          if (line.startsWith('event: ')) {
-            eventType = line.slice(7).trim();
-            console.log('📡 Event:', eventType);
-          } else if (line.startsWith('data: ') && line.slice(6).trim()) {
-            try {
-              const data = JSON.parse(line.slice(6));
-              console.log('📦 Data:', eventType, data);
-              
-              switch (eventType) {
-                case 'text':
-                  // Text streaming - we already display the message
-                  console.log('📝 Text chunk:', data.content);
-                  break;
-                  
-                case 'audio':
-                  audioChunks.push({
-                    chunkIndex: data.chunkIndex,
-                    audio: data.audio
-                  });
-                  console.log('🎵 Audio chunk received:', data.chunkIndex, 'Total chunks:', audioChunks.length);
-                  
-                  // Start playing audio as soon as we have the first chunk
-                  if (audioChunks.length === 1) {
-                    this.playStreamingAudioChunks(audioChunks, cleanText);
-                  }
-                  break;
-                  
-                case 'done':
-                  console.log('✅ Stream done. Total audio chunks:', audioChunks.length);
-                  // If we haven't started playing yet (no audio chunks), cache what we have
-                  if (audioChunks.length === 0) {
-                    console.log('⚠️ No audio chunks received');
-                  }
-                  break;
-              }
-            } catch (e) {
-              console.warn('Parse error:', e, line);
-            }
-          }
-        }
-      }
-      
-      // Cache the complete audio for future use
-      if (audioChunks.length > 0) {
-        const completeAudio = await this.mergeBase64AudioChunks(audioChunks);
-        this.ttsCache.set(cleanText, completeAudio);
-        console.log('💾 Cached complete audio for future use');
-      }
-      
-    } catch (error) {
-      console.error('❌ SSE stream processing error:', error);
-    } finally {
-      reader.releaseLock();
-    }
-  }
-
-  private async playStreamingAudioChunks(audioChunks: { chunkIndex: number; audio: string }[], cleanText: string): Promise<void> {
-    console.log('🔊 Starting to play streaming audio chunks:', audioChunks.length);
-    
-    try {
-      // Sort chunks by index to ensure correct order
-      const sortedChunks = audioChunks.sort((a, b) => a.chunkIndex - b.chunkIndex);
-      
-      for (let i = 0; i < sortedChunks.length; i++) {
-        if (!this.isSpeaking) {
-          console.log('🛑 Playback stopped by user');
-          break;
-        }
-        
-        const chunk = sortedChunks[i];
-        console.log(`🎵 Playing chunk ${i + 1}/${sortedChunks.length} (index: ${chunk.chunkIndex})`);
-        
-        try {
-          await this.playBase64AudioChunk(chunk.audio);
-          console.log(`✅ Played chunk ${i + 1} successfully`);
-        } catch (error) {
-          console.error(`❌ Failed to play chunk ${i + 1}:`, error);
-          // Continue with next chunk instead of stopping
-        }
-        
-        // Small delay between chunks for smoother playback
-        if (i < sortedChunks.length - 1) {
-          await this.delay(50);
-        }
-      }
-      
-      console.log('🎉 Streaming audio playback complete');
-      this.isSpeaking = false;
-      
-    } catch (error) {
-      console.error('❌ Streaming audio playback error:', error);
-      this.isSpeaking = false;
-    }
-  }
-
-  private async playBase64AudioChunk(base64Audio: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      try {
-        // Convert base64 to blob
-        const byteCharacters = atob(base64Audio);
-        const byteNumbers = new Array(byteCharacters.length);
-        
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray], { type: 'audio/mpeg' });
-        const audioUrl = URL.createObjectURL(blob);
-        
-        const audio = new Audio(audioUrl);
-        
-        audio.onended = () => {
-          URL.revokeObjectURL(audioUrl);
-          resolve();
-        };
-        
-        audio.onerror = (error) => {
-          URL.revokeObjectURL(audioUrl);
-          reject(error);
-        };
-        
-        audio.play().catch(reject);
-        
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
-
-  private async mergeBase64AudioChunks(chunks: { chunkIndex: number; audio: string }[]): Promise<Blob> {
-    // Sort chunks by index to ensure correct order
-    const sortedChunks = chunks.sort((a, b) => a.chunkIndex - b.chunkIndex);
-    
-    // Convert all base64 chunks to byte arrays
-    const byteArrays: Uint8Array[] = [];
-    let totalLength = 0;
-    
-    for (const chunk of sortedChunks) {
-      const byteCharacters = atob(chunk.audio);
-      const byteArray = new Uint8Array(byteCharacters.length);
-      
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteArray[i] = byteCharacters.charCodeAt(i);
-      }
-      
-      byteArrays.push(byteArray);
-      totalLength += byteArray.length;
-    }
-    
-    // Merge all byte arrays into one
-    const merged = new Uint8Array(totalLength);
-    let offset = 0;
-    
-    for (const byteArray of byteArrays) {
-      merged.set(byteArray, offset);
-      offset += byteArray.length;
-    }
-    
-    return new Blob([merged], { type: 'audio/mpeg' });
+    // Use regular TTS
+    this.speakTextRegular(cleanText, text, addMessageAfterTTS);
   }
 
   private speakTextRegular(cleanText: string, originalText: string, addMessageAfterTTS: boolean): void {
@@ -690,14 +446,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
   }
 
-  public toggleStreaming(): void {
-    this.streamingEnabled = !this.streamingEnabled;
-    console.log(`Streaming voice ${this.streamingEnabled ? 'enabled' : 'disabled'}`);
-  }
-
   public stopSpeech(): void {
-    console.log('🛑 Stopping all speech/audio');
-    
     // Stop regular audio
     if (this.currentAudio) {
       this.currentAudio.pause();
@@ -705,13 +454,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       this.cleanupAudio();
     }
     
-    // Stop legacy streaming audio (Web Audio API)
-    if (this.audioSource) {
-      this.audioSource.stop();
-      this.audioSource = undefined;
-    }
-    
-    // Set flag to stop streaming playback
     this.isSpeaking = false;
   }
 
