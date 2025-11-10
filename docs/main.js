@@ -84365,11 +84365,11 @@ var Avatar3dComponent = class _Avatar3dComponent {
           this.speakText(aiResponse, true);
         } else {
           this.addMessage(aiResponse, false, false);
+          this.isTyping = false;
         }
       } catch (error2) {
         console.error("AI API Error:", error2);
         this.addMessage("Oops! Something went wrong. Please try again later. \u{1F605}", false);
-      } finally {
         this.isTyping = false;
       }
     });
@@ -84402,6 +84402,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
     if (cachedAudio) {
       if (addMessageAfterTTS) {
         this.addMessage(text, false, false);
+        this.isTyping = false;
       }
       this.playAudioBlob(cachedAudio);
       return;
@@ -84417,6 +84418,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
           this.ttsCache.set(cleanText, audioBlob);
           if (addMessageAfterTTS) {
             this.addMessage(text, false, false);
+            this.isTyping = false;
           }
           this.playAudioBlob(audioBlob);
         }
@@ -84433,6 +84435,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
         }
         if (addMessageAfterTTS) {
           this.addMessage(text, false, false);
+          this.isTyping = false;
         }
         this.isSpeaking = false;
       }

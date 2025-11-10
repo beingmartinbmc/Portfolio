@@ -281,18 +281,20 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       // Start TTS and display message only when audio is ready
       if (this.ttsEnabled) {
         // Don't add message to UI yet - wait for TTS response
+        // Keep typing indicator active until message is displayed
         this.speakText(aiResponse, true); // Pass true to indicate we should add message after TTS
       } else {
-        // If TTS is disabled, add message immediately
+        // If TTS is disabled, add message immediately and stop typing
         this.addMessage(aiResponse, false, false);
+        this.isTyping = false;
       }
       
     } catch (error) {
       console.error('AI API Error:', error);
       this.addMessage('Oops! Something went wrong. Please try again later. 😅', false);
-    } finally {
       this.isTyping = false;
     }
+    // Note: isTyping will be set to false when message is actually displayed
   }
 
   private addMessage(text: string, isUser: boolean, triggerTTS: boolean = true): void {
@@ -336,6 +338,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       // If we have cached audio, add message immediately since there's no API delay
       if (addMessageAfterTTS) {
         this.addMessage(text, false, false);
+        this.isTyping = false; // Stop typing indicator
       }
       this.playAudioBlob(cachedAudio);
       return;
@@ -357,6 +360,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           // Add message to UI now that TTS response is ready
           if (addMessageAfterTTS) {
             this.addMessage(text, false, false);
+            this.isTyping = false; // Stop typing indicator
           }
           
           // Play immediately
@@ -377,6 +381,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         // Add message even if TTS fails
         if (addMessageAfterTTS) {
           this.addMessage(text, false, false);
+          this.isTyping = false; // Stop typing indicator even on error
         }
         
         this.isSpeaking = false;
