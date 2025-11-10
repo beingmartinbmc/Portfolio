@@ -2,12 +2,13 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { AI_API_URL } from '../app/config/api-config';
 
 export const environment = {
   production: false,
   //baseUrl : `${window.location.protocol}//${window.location.hostname}/portfolio/`,
   baseUrl: `http://localhost:4200/`,
-  aiApiUrl: 'https://epic-backend-ofr9df23x-beingmartinbmcs-projects.vercel.app/api/generic'
+  aiApiUrl: AI_API_URL
 };
 
 /*
