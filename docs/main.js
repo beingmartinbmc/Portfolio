@@ -84222,24 +84222,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.initThreeJS();
     this.loadAvatar();
     this.animate();
-    this.preWarmTTS();
-  }
-  preWarmTTS() {
-    if (this.ttsEnabled) {
-      this.http.post(TTS_API_URL, {
-        text: "Hi"
-      }, {
-        responseType: "blob"
-      }).subscribe({
-        next: (response) => {
-          if (response) {
-            this.ttsCache.set("Hi", response);
-          }
-        },
-        error: () => {
-        }
-      });
-    }
   }
   ngOnDestroy() {
     if (this.animationFrameId) {
@@ -84290,8 +84272,11 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.loadingText = "Loading 3D Avatar...";
     loader.load("assets/3d/avatar.glb", (gltf) => {
       this.model = gltf.scene;
+      this.loadingProgress = 85;
       this.loadingText = "Setting up 3D scene...";
-      this.loadingProgress = 90;
+      setTimeout(() => {
+        this.loadingProgress = 90;
+      }, 100);
       const box = new Box3().setFromObject(this.model);
       const center = box.getCenter(new Vector3());
       this.model.position.sub(center);
@@ -84306,17 +84291,24 @@ var Avatar3dComponent = class _Avatar3dComponent {
         }
       });
       this.scene.add(this.model);
-      this.loadingProgress = 100;
-      this.loadingText = "Ready!";
       setTimeout(() => {
-        this.isLoading = false;
-      }, 500);
+        this.loadingProgress = 95;
+        this.loadingText = "Almost ready...";
+      }, 200);
+      setTimeout(() => {
+        this.loadingProgress = 100;
+        this.loadingText = "Ready!";
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 300);
+      }, 400);
     }, (progress) => {
       if (progress.total > 0) {
-        this.loadingProgress = Math.round(progress.loaded / progress.total * 85);
+        const rawProgress = progress.loaded / progress.total * 85;
+        this.loadingProgress = Math.min(Math.round(rawProgress), 85);
         this.loadingText = `Loading 3D Avatar... ${this.loadingProgress}%`;
       }
-      console.log("Loading progress:", progress.loaded / progress.total * 100 + "%");
+      console.log("Loading progress:", Math.min(progress.loaded / progress.total * 100, 100) + "%");
     }, (error2) => {
       console.error("Error loading 3D model:", error2);
       this.loadingText = "Failed to load 3D Avatar";
@@ -84413,11 +84405,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.http.post(TTS_API_URL, {
       text: cleanText
     }, {
-      responseType: "blob",
-      headers: {
-        "Cache-Control": "no-cache",
-        "Pragma": "no-cache"
-      }
+      responseType: "blob"
     }).subscribe({
       next: (response) => {
         if (response && this.isSpeaking) {
@@ -84428,6 +84416,14 @@ var Avatar3dComponent = class _Avatar3dComponent {
       },
       error: (error2) => {
         console.error("TTS Error:", error2);
+        if (error2.status === 0 || error2.status === void 0) {
+          console.error("CORS or network error detected. API might be unreachable.");
+          console.error("TTS API URL:", TTS_API_URL);
+        } else if (error2.status === 404) {
+          console.error("TTS API endpoint not found. Check API configuration.");
+        } else if (error2.status >= 500) {
+          console.error("TTS API server error. Service might be down.");
+        }
         this.isSpeaking = false;
       }
     });
