@@ -54,6 +54,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   public messages: Message[] = [];
   public isTyping = false;
   
+  // Loading state
+  public isLoading = true;
+  public loadingProgress = 0;
+  public loadingText = 'Loading 3D Avatar...';
+  
   // Text-to-Speech functionality
   public isSpeaking = false;
   public ttsEnabled = true;
@@ -141,10 +146,18 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private loadAvatar(): void {
     const loader = new GLTFLoader();
     
+    this.isLoading = true;
+    this.loadingProgress = 0;
+    this.loadingText = 'Loading 3D Avatar...';
+    
     loader.load(
       'assets/3d/avatar.glb',
       (gltf) => {
         this.model = gltf.scene;
+        
+        // Update loading text
+        this.loadingText = 'Setting up 3D scene...';
+        this.loadingProgress = 90;
         
         // Center the model
         const box = new THREE.Box3().setFromObject(this.model);
@@ -166,12 +179,32 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         });
 
         this.scene.add(this.model);
+        
+        // Complete loading
+        this.loadingProgress = 100;
+        this.loadingText = 'Ready!';
+        
+        // Hide loading after a short delay
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 500);
       },
       (progress) => {
+        // Update loading progress
+        if (progress.total > 0) {
+          this.loadingProgress = Math.round((progress.loaded / progress.total) * 85); // Reserve 85% for actual loading
+          this.loadingText = `Loading 3D Avatar... ${this.loadingProgress}%`;
+        }
         console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%');
       },
       (error) => {
         console.error('Error loading 3D model:', error);
+        this.loadingText = 'Failed to load 3D Avatar';
+        this.loadingProgress = 0;
+        // Hide loading on error after delay
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
       }
     );
   }
@@ -221,9 +254,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         context: this.CONTEXT
       }).toPromise();
       
-      // Simulate typing delay
-      await this.delay(800);
-      
       let aiResponse = 'Sorry, I couldn\'t process that. Please try again!';
       
       if (response?.data?.choices?.[0]?.message?.content) {
@@ -234,7 +264,16 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         aiResponse = response.message;
       }
       
-      this.addMessage(aiResponse, false);
+      // Immediately add message and start TTS in parallel
+      this.addMessage(aiResponse, false, false); // Don't trigger TTS via addMessage
+      
+      // Start TTS immediately for faster response
+      if (this.ttsEnabled) {
+        // Don't await TTS to avoid blocking the UI
+        this.speakText(aiResponse).catch(error => {
+          console.error('TTS failed:', error);
+        });
+      }
       
     } catch (error) {
       console.error('AI API Error:', error);
@@ -244,7 +283,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
   }
 
-  private addMessage(text: string, isUser: boolean): void {
+  private addMessage(text: string, isUser: boolean, triggerTTS: boolean = true): void {
     const time = new Date().toLocaleTimeString('en-US', { 
       hour: '2-digit', 
       minute: '2-digit' 
@@ -252,8 +291,8 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     
     this.messages.push({ text, isUser, time });
     
-    // If it's an AI message and TTS is enabled, speak it
-    if (!isUser && this.ttsEnabled) {
+    // If it's an AI message and TTS is enabled, speak it (only if triggerTTS is true)
+    if (!isUser && this.ttsEnabled && triggerTTS) {
       this.speakText(text);
     }
     
@@ -281,7 +320,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       // Clean text for speech (remove markdown and special characters)
       const cleanText = this.cleanTextForSpeech(text);
       
-      // Call your TTS API
+      // Call your TTS API with optimized settings for faster response
       const response = await this.http.post(TTS_API_URL, {
         text: cleanText
       }, {
@@ -289,16 +328,44 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       }).toPromise();
 
       if (response) {
-        // Create audio from blob
+        // Create audio from blob immediately
         const audioBlob = response as Blob;
         const audioUrl = URL.createObjectURL(audioBlob);
         this.currentAudio = new Audio(audioUrl);
         
-        // Set up event handlers
-        this.currentAudio.onloadeddata = () => {
-          console.log('Audio loaded, starting playback');
-        };
+        // Optimize audio for fastest possible playback
+        this.currentAudio.preload = 'auto';
+        this.currentAudio.volume = 1.0;
+        this.currentAudio.autoplay = false; // Explicitly control playback
         
+        // Use promise-based approach for immediate playback
+        const playPromise = new Promise<void>((resolve, reject) => {
+          this.currentAudio!.oncanplaythrough = () => {
+            // Audio can start playing immediately
+            this.currentAudio!.play().then(resolve).catch(reject);
+          };
+          
+          this.currentAudio!.onloadeddata = () => {
+            // Try to play as soon as some data is loaded
+            if (this.currentAudio!.readyState >= 2) { // HAVE_CURRENT_DATA
+              this.currentAudio!.play().then(resolve).catch(reject);
+            }
+          };
+          
+          this.currentAudio!.onerror = (error) => {
+            console.error('Audio load error:', error);
+            reject(error);
+          };
+          
+          // Fallback: try to play after a short delay
+          setTimeout(() => {
+            if (this.currentAudio && this.currentAudio.readyState > 0) {
+              this.currentAudio.play().then(resolve).catch(reject);
+            }
+          }, 100);
+        });
+        
+        // Set up ongoing event handlers
         this.currentAudio.onplay = () => {
           this.isSpeaking = true;
         };
@@ -314,8 +381,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           this.cleanupAudio();
         };
         
-        // Play the audio
-        await this.currentAudio.play();
+        // Start loading the audio immediately
+        this.currentAudio.load();
+        
+        // Wait for audio to start playing
+        await playPromise;
       }
     } catch (error) {
       console.error('TTS Error:', error);

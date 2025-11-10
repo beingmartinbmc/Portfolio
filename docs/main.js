@@ -84070,25 +84070,50 @@ function isAnimationRenderer(renderer) {
 var _c05 = ["canvas"];
 var _c12 = ["chatMessages"];
 var _c22 = ["messageInput"];
-function Avatar3dComponent_div_17_button_7_Template(rf, ctx) {
+function Avatar3dComponent_div_10_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 12)(1, "div", 13);
+    \u0275\u0275element(2, "div", 14);
+    \u0275\u0275elementStart(3, "div", 15);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "div", 16)(6, "div", 17);
+    \u0275\u0275element(7, "div", 18);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "div", 19);
+    \u0275\u0275text(9);
+    \u0275\u0275elementEnd()()()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275property("@chatAnimation", void 0);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(ctx_r1.loadingText);
+    \u0275\u0275advance(3);
+    \u0275\u0275styleProp("width", ctx_r1.loadingProgress, "%");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("", ctx_r1.loadingProgress, "%");
+  }
+}
+function Avatar3dComponent_div_18_button_7_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 23);
-    \u0275\u0275listener("click", function Avatar3dComponent_div_17_button_7_Template_button_click_0_listener() {
+    \u0275\u0275elementStart(0, "button", 32);
+    \u0275\u0275listener("click", function Avatar3dComponent_div_18_button_7_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r4);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.stopSpeech());
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.stopSpeech());
     });
     \u0275\u0275text(1, " \u23F9\uFE0F ");
     \u0275\u0275elementEnd();
   }
 }
-function Avatar3dComponent_div_17_div_12_Template(rf, ctx) {
+function Avatar3dComponent_div_18_div_12_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 24)(1, "div", 25);
-    \u0275\u0275element(2, "span", 26);
+    \u0275\u0275elementStart(0, "div", 33)(1, "div", 34);
+    \u0275\u0275element(2, "span", 35);
     \u0275\u0275pipe(3, "markdown");
-    \u0275\u0275elementStart(4, "span", 27);
+    \u0275\u0275elementStart(4, "span", 36);
     \u0275\u0275text(5);
     \u0275\u0275elementEnd()()();
   }
@@ -84101,81 +84126,81 @@ function Avatar3dComponent_div_17_div_12_Template(rf, ctx) {
     \u0275\u0275textInterpolate(message_r5.time);
   }
 }
-function Avatar3dComponent_div_17_div_13_Template(rf, ctx) {
+function Avatar3dComponent_div_18_div_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 28);
+    \u0275\u0275elementStart(0, "div", 37);
     \u0275\u0275element(1, "span")(2, "span")(3, "span");
     \u0275\u0275elementEnd();
   }
 }
-function Avatar3dComponent_div_17_Template(rf, ctx) {
+function Avatar3dComponent_div_18_Template(rf, ctx) {
   if (rf & 1) {
-    const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 11)(1, "div", 12)(2, "h3");
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 20)(1, "div", 21)(2, "h3");
     \u0275\u0275text(3, "\u{1F4AC} Chat with Me");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "div", 13)(5, "button", 14);
-    \u0275\u0275listener("click", function Avatar3dComponent_div_17_Template_button_click_5_listener() {
-      \u0275\u0275restoreView(_r2);
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.toggleTTS());
+    \u0275\u0275elementStart(4, "div", 22)(5, "button", 23);
+    \u0275\u0275listener("click", function Avatar3dComponent_div_18_Template_button_click_5_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.toggleTTS());
     });
     \u0275\u0275text(6);
     \u0275\u0275elementEnd();
-    \u0275\u0275template(7, Avatar3dComponent_div_17_button_7_Template, 2, 0, "button", 15);
-    \u0275\u0275elementStart(8, "button", 16);
-    \u0275\u0275listener("click", function Avatar3dComponent_div_17_Template_button_click_8_listener() {
-      \u0275\u0275restoreView(_r2);
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.toggleChat());
+    \u0275\u0275template(7, Avatar3dComponent_div_18_button_7_Template, 2, 0, "button", 24);
+    \u0275\u0275elementStart(8, "button", 25);
+    \u0275\u0275listener("click", function Avatar3dComponent_div_18_Template_button_click_8_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.toggleChat());
     });
     \u0275\u0275text(9, "\u2715");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(10, "div", 17, 1);
-    \u0275\u0275template(12, Avatar3dComponent_div_17_div_12_Template, 6, 8, "div", 18)(13, Avatar3dComponent_div_17_div_13_Template, 4, 0, "div", 19);
+    \u0275\u0275elementStart(10, "div", 26, 1);
+    \u0275\u0275template(12, Avatar3dComponent_div_18_div_12_Template, 6, 8, "div", 27)(13, Avatar3dComponent_div_18_div_13_Template, 4, 0, "div", 28);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "div", 20)(15, "input", 21, 2);
-    \u0275\u0275twoWayListener("ngModelChange", function Avatar3dComponent_div_17_Template_input_ngModelChange_15_listener($event) {
-      \u0275\u0275restoreView(_r2);
-      const ctx_r2 = \u0275\u0275nextContext();
-      \u0275\u0275twoWayBindingSet(ctx_r2.userInput, $event) || (ctx_r2.userInput = $event);
+    \u0275\u0275elementStart(14, "div", 29)(15, "input", 30, 2);
+    \u0275\u0275twoWayListener("ngModelChange", function Avatar3dComponent_div_18_Template_input_ngModelChange_15_listener($event) {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      \u0275\u0275twoWayBindingSet(ctx_r1.userInput, $event) || (ctx_r1.userInput = $event);
       return \u0275\u0275resetView($event);
     });
-    \u0275\u0275listener("keyup.enter", function Avatar3dComponent_div_17_Template_input_keyup_enter_15_listener() {
-      \u0275\u0275restoreView(_r2);
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.sendMessage());
+    \u0275\u0275listener("keyup.enter", function Avatar3dComponent_div_18_Template_input_keyup_enter_15_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.sendMessage());
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "button", 22);
-    \u0275\u0275listener("click", function Avatar3dComponent_div_17_Template_button_click_17_listener() {
-      \u0275\u0275restoreView(_r2);
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.sendMessage());
+    \u0275\u0275elementStart(17, "button", 31);
+    \u0275\u0275listener("click", function Avatar3dComponent_div_18_Template_button_click_17_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.sendMessage());
     });
     \u0275\u0275text(18);
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext();
     \u0275\u0275property("@chatAnimation", void 0);
     \u0275\u0275advance(5);
-    \u0275\u0275classProp("active", ctx_r2.ttsEnabled);
-    \u0275\u0275property("title", \u0275\u0275interpolate1("", ctx_r2.ttsEnabled ? "Disable" : "Enable", " Text-to-Speech"));
+    \u0275\u0275classProp("active", ctx_r1.ttsEnabled);
+    \u0275\u0275property("title", \u0275\u0275interpolate1("", ctx_r1.ttsEnabled ? "Disable" : "Enable", " Text-to-Speech"));
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r2.ttsEnabled ? "\u{1F50A}" : "\u{1F507}", " ");
+    \u0275\u0275textInterpolate1(" ", ctx_r1.ttsEnabled ? "\u{1F50A}" : "\u{1F507}", " ");
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.isSpeaking);
+    \u0275\u0275property("ngIf", ctx_r1.isSpeaking);
     \u0275\u0275advance(5);
-    \u0275\u0275property("ngForOf", ctx_r2.messages);
+    \u0275\u0275property("ngForOf", ctx_r1.messages);
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r2.isTyping);
+    \u0275\u0275property("ngIf", ctx_r1.isTyping);
     \u0275\u0275advance(2);
-    \u0275\u0275twoWayProperty("ngModel", ctx_r2.userInput);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.userInput);
     \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r2.isTyping || !ctx_r2.userInput.trim());
+    \u0275\u0275property("disabled", ctx_r1.isTyping || !ctx_r1.userInput.trim());
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r2.isTyping ? "\u23F3" : "\uFFFD", " ");
+    \u0275\u0275textInterpolate1(" ", ctx_r1.isTyping ? "\u23F3" : "\uFFFD", " ");
   }
 }
 var Avatar3dComponent = class _Avatar3dComponent {
@@ -84185,6 +84210,9 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.userInput = "";
     this.messages = [];
     this.isTyping = false;
+    this.isLoading = true;
+    this.loadingProgress = 0;
+    this.loadingText = "Loading 3D Avatar...";
     this.isSpeaking = false;
     this.ttsEnabled = true;
     this.CONTEXT = AI_CONTEXT;
@@ -84238,8 +84266,13 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }
   loadAvatar() {
     const loader = new GLTFLoader();
+    this.isLoading = true;
+    this.loadingProgress = 0;
+    this.loadingText = "Loading 3D Avatar...";
     loader.load("assets/3d/avatar.glb", (gltf) => {
       this.model = gltf.scene;
+      this.loadingText = "Setting up 3D scene...";
+      this.loadingProgress = 90;
       const box = new Box3().setFromObject(this.model);
       const center = box.getCenter(new Vector3());
       this.model.position.sub(center);
@@ -84254,10 +84287,24 @@ var Avatar3dComponent = class _Avatar3dComponent {
         }
       });
       this.scene.add(this.model);
+      this.loadingProgress = 100;
+      this.loadingText = "Ready!";
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 500);
     }, (progress) => {
+      if (progress.total > 0) {
+        this.loadingProgress = Math.round(progress.loaded / progress.total * 85);
+        this.loadingText = `Loading 3D Avatar... ${this.loadingProgress}%`;
+      }
       console.log("Loading progress:", progress.loaded / progress.total * 100 + "%");
     }, (error2) => {
       console.error("Error loading 3D model:", error2);
+      this.loadingText = "Failed to load 3D Avatar";
+      this.loadingProgress = 0;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 2e3);
     });
   }
   animate() {
@@ -84295,7 +84342,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
           prompt: userMessage,
           context: this.CONTEXT
         }).toPromise();
-        yield this.delay(800);
         let aiResponse = "Sorry, I couldn't process that. Please try again!";
         if (response?.data?.choices?.[0]?.message?.content) {
           aiResponse = response.data.choices[0].message.content;
@@ -84304,7 +84350,12 @@ var Avatar3dComponent = class _Avatar3dComponent {
         } else if (response?.message) {
           aiResponse = response.message;
         }
-        this.addMessage(aiResponse, false);
+        this.addMessage(aiResponse, false, false);
+        if (this.ttsEnabled) {
+          this.speakText(aiResponse).catch((error2) => {
+            console.error("TTS failed:", error2);
+          });
+        }
       } catch (error2) {
         console.error("AI API Error:", error2);
         this.addMessage("Oops! Something went wrong. Please try again later. \u{1F605}", false);
@@ -84313,13 +84364,13 @@ var Avatar3dComponent = class _Avatar3dComponent {
       }
     });
   }
-  addMessage(text, isUser) {
+  addMessage(text, isUser, triggerTTS = true) {
     const time = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit"
     });
     this.messages.push({ text, isUser, time });
-    if (!isUser && this.ttsEnabled) {
+    if (!isUser && this.ttsEnabled && triggerTTS) {
       this.speakText(text);
     }
     setTimeout(() => this.scrollToBottom(), 100);
@@ -84348,9 +84399,28 @@ var Avatar3dComponent = class _Avatar3dComponent {
           const audioBlob = response;
           const audioUrl = URL.createObjectURL(audioBlob);
           this.currentAudio = new Audio(audioUrl);
-          this.currentAudio.onloadeddata = () => {
-            console.log("Audio loaded, starting playback");
-          };
+          this.currentAudio.preload = "auto";
+          this.currentAudio.volume = 1;
+          this.currentAudio.autoplay = false;
+          const playPromise = new Promise((resolve, reject) => {
+            this.currentAudio.oncanplaythrough = () => {
+              this.currentAudio.play().then(resolve).catch(reject);
+            };
+            this.currentAudio.onloadeddata = () => {
+              if (this.currentAudio.readyState >= 2) {
+                this.currentAudio.play().then(resolve).catch(reject);
+              }
+            };
+            this.currentAudio.onerror = (error2) => {
+              console.error("Audio load error:", error2);
+              reject(error2);
+            };
+            setTimeout(() => {
+              if (this.currentAudio && this.currentAudio.readyState > 0) {
+                this.currentAudio.play().then(resolve).catch(reject);
+              }
+            }, 100);
+          });
           this.currentAudio.onplay = () => {
             this.isSpeaking = true;
           };
@@ -84363,7 +84433,8 @@ var Avatar3dComponent = class _Avatar3dComponent {
             this.isSpeaking = false;
             this.cleanupAudio();
           };
-          yield this.currentAudio.play();
+          this.currentAudio.load();
+          yield playPromise;
         }
       } catch (error2) {
         console.error("TTS Error:", error2);
@@ -84421,7 +84492,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.chatMessages = _t.first);
         \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.messageInput = _t.first);
       }
-    }, decls: 18, vars: 2, consts: [["canvas", ""], ["chatMessages", ""], ["messageInput", ""], ["id", "avatar-3d", 1, "avatar-3d-section"], [1, "container"], [1, "section-title"], [1, "avatar-container"], [1, "avatar-canvas"], [1, "controls-hint"], [1, "chat-button", 3, "click"], ["class", "chat-window", 4, "ngIf"], [1, "chat-window"], [1, "chat-header"], [1, "header-controls"], [1, "tts-toggle-btn", 3, "click", "title"], ["class", "stop-speech-btn", "title", "Stop Speech", 3, "click", 4, "ngIf"], [1, "close-btn", 3, "click"], [1, "chat-messages"], ["class", "message", 3, "user-message", "ai-message", 4, "ngFor", "ngForOf"], ["class", "typing-indicator", 4, "ngIf"], [1, "chat-input-container"], ["type", "text", "placeholder", "Ask me anything about my portfolio...", 1, "chat-input", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "send-btn", 3, "click", "disabled"], ["title", "Stop Speech", 1, "stop-speech-btn", 3, "click"], [1, "message"], [1, "message-content"], [1, "message-text", 3, "innerHTML"], [1, "message-time"], [1, "typing-indicator"]], template: function Avatar3dComponent_Template(rf, ctx) {
+    }, decls: 19, vars: 3, consts: [["canvas", ""], ["chatMessages", ""], ["messageInput", ""], ["id", "avatar-3d", 1, "avatar-3d-section"], [1, "container"], [1, "section-title"], [1, "avatar-container"], [1, "avatar-canvas"], ["class", "loading-overlay", 4, "ngIf"], [1, "controls-hint"], [1, "chat-button", 3, "click"], ["class", "chat-window", 4, "ngIf"], [1, "loading-overlay"], [1, "loading-content"], [1, "loading-spinner"], [1, "loading-text"], [1, "loading-progress"], [1, "progress-bar"], [1, "progress-fill"], [1, "progress-percentage"], [1, "chat-window"], [1, "chat-header"], [1, "header-controls"], [1, "tts-toggle-btn", 3, "click", "title"], ["class", "stop-speech-btn", "title", "Stop Speech", 3, "click", 4, "ngIf"], [1, "close-btn", 3, "click"], [1, "chat-messages"], ["class", "message", 3, "user-message", "ai-message", 4, "ngFor", "ngForOf"], ["class", "typing-indicator", 4, "ngIf"], [1, "chat-input-container"], ["type", "text", "placeholder", "Ask me anything about my portfolio...", 1, "chat-input", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "send-btn", 3, "click", "disabled"], ["title", "Stop Speech", 1, "stop-speech-btn", 3, "click"], [1, "message"], [1, "message-content"], [1, "message-text", 3, "innerHTML"], [1, "message-time"], [1, "typing-indicator"]], template: function Avatar3dComponent_Template(rf, ctx) {
       if (rf & 1) {
         const _r1 = \u0275\u0275getCurrentView();
         \u0275\u0275elementStart(0, "section", 3)(1, "div", 4)(2, "div", 5)(3, "h2");
@@ -84432,29 +84503,32 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275elementEnd()();
         \u0275\u0275elementStart(7, "div", 6);
         \u0275\u0275element(8, "canvas", 7, 0);
-        \u0275\u0275elementStart(10, "div", 8)(11, "span");
-        \u0275\u0275text(12, "\u{1F5B1}\uFE0F Drag to rotate");
+        \u0275\u0275template(10, Avatar3dComponent_div_10_Template, 10, 5, "div", 8);
+        \u0275\u0275elementStart(11, "div", 9)(12, "span");
+        \u0275\u0275text(13, "\u{1F5B1}\uFE0F Drag to rotate");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(13, "span");
-        \u0275\u0275text(14, "\u{1F50D} Scroll to zoom");
+        \u0275\u0275elementStart(14, "span");
+        \u0275\u0275text(15, "\u{1F50D} Scroll to zoom");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(15, "button", 9);
-        \u0275\u0275listener("click", function Avatar3dComponent_Template_button_click_15_listener() {
+        \u0275\u0275elementStart(16, "button", 10);
+        \u0275\u0275listener("click", function Avatar3dComponent_Template_button_click_16_listener() {
           \u0275\u0275restoreView(_r1);
           return \u0275\u0275resetView(ctx.toggleChat());
         });
-        \u0275\u0275text(16);
+        \u0275\u0275text(17);
         \u0275\u0275elementEnd()()();
-        \u0275\u0275template(17, Avatar3dComponent_div_17_Template, 19, 12, "div", 10);
+        \u0275\u0275template(18, Avatar3dComponent_div_18_Template, 19, 12, "div", 11);
         \u0275\u0275elementEnd()();
       }
       if (rf & 2) {
-        \u0275\u0275advance(16);
+        \u0275\u0275advance(10);
+        \u0275\u0275property("ngIf", ctx.isLoading);
+        \u0275\u0275advance(7);
         \u0275\u0275textInterpolate1(" ", ctx.isChatOpen ? "\u{1F4AD} Close Chat" : "\u{1F916} Chat with Me", " ");
         \u0275\u0275advance();
         \u0275\u0275property("ngIf", ctx.isChatOpen);
       }
-    }, dependencies: [CommonModule, NgForOf, NgIf, FormsModule, DefaultValueAccessor, NgControlStatus, NgModel, HttpClientModule, MarkdownPipe], styles: ["\n\n.avatar-3d-section[_ngcontent-%COMP%] {\n  padding: 80px 0;\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 100%);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .container[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 30px;\n  width: 100%;\n  box-sizing: border-box;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 50px;\n  padding: 0 20px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-size: 3rem;\n  font-weight: 700;\n  color: #764ba2;\n  margin-bottom: 10px;\n  text-shadow: 0 2px 15px rgba(118, 75, 162, 0.4);\n  word-wrap: break-word;\n  overflow-wrap: break-word;\n  padding: 0 10px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n  color: #b8b9c0;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  max-width: 800px;\n  margin: 0 auto;\n  border-radius: 20px;\n  overflow: hidden;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  background: rgba(255, 255, 255, 0.02);\n  backdrop-filter: blur(10px);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 700px;\n  display: block;\n  cursor: grab;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%]:active {\n  cursor: grabbing;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 15px;\n  background: rgba(0, 0, 0, 0.6);\n  padding: 12px 24px;\n  border-radius: 30px;\n  backdrop-filter: blur(10px);\n  align-items: center;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  color: #fff;\n  font-size: 0.9rem;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2 0%,\n      #667eea 100%);\n  border: none;\n  padding: 8px 16px;\n  border-radius: 20px;\n  color: white;\n  font-size: 0.85rem;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-weight: 500;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%]:active {\n  transform: translateY(0);\n}\n@media (max-width: 768px) {\n  .avatar-3d-section[_ngcontent-%COMP%] {\n    padding: 60px 0;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .container[_ngcontent-%COMP%] {\n    padding: 0 20px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    padding: 0 10px;\n    margin-bottom: 30px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n    font-size: 2.2rem;\n    line-height: 1.2;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n    font-size: 1rem;\n    padding: 0 10px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%] {\n    height: 500px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: 8px;\n    padding: 10px 20px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    font-size: 0.8rem;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%] {\n    font-size: 0.8rem;\n    padding: 6px 12px;\n    margin-top: 5px;\n  }\n}\n.chat-window[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 20px;\n  right: 20px;\n  width: 400px;\n  max-width: 90vw;\n  max-height: 80vh;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(20px);\n  border-radius: 20px;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  z-index: 9999;\n  display: flex;\n  flex-direction: column;\n  pointer-events: auto;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 20px;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  color: #fff;\n  font-size: 1.1rem;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%], \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%], \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%] {\n  background: none;\n  border: none;\n  color: #fff;\n  font-size: 1.2rem;\n  cursor: pointer;\n  padding: 8px;\n  border-radius: 50%;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 36px;\n  min-height: 36px;\n  position: relative;\n  z-index: 10001;\n  pointer-events: auto;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:hover, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:hover, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  transform: scale(1.1);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:active, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:active, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:active {\n  transform: scale(0.95);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 0, 0, 0.2);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: #fff;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:not(.active) {\n  opacity: 0.6;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ff6b6b 0%,\n      #ee5a52 100%);\n  animation: _ngcontent-%COMP%_pulse 1.5s infinite;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #ff5252 0%,\n      #d32f2f 100%);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%] {\n  flex: 1;\n  padding: 20px;\n  overflow-y: auto;\n  max-height: 400px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%] {\n  margin-bottom: 15px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message.user-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  margin-left: 40px;\n  border-radius: 20px 20px 5px 20px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message.ai-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  margin-right: 40px;\n  border-radius: 20px 20px 20px 5px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  padding: 12px 16px;\n  border-radius: 20px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%]   .message-text[_ngcontent-%COMP%] {\n  color: #fff;\n  font-size: 0.9rem;\n  line-height: 1.4;\n  display: block;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%]   .message-time[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.6);\n  font-size: 0.75rem;\n  margin-top: 5px;\n  display: block;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  padding: 12px 16px;\n  background: rgba(255, 255, 255, 0.05);\n  border-radius: 20px 20px 20px 5px;\n  margin-right: 40px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background: #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_typing 1.4s infinite;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.4s;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%] {\n  display: flex;\n  padding: 20px;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n  gap: 10px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%] {\n  flex: 1;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 25px;\n  padding: 12px 16px;\n  color: #fff;\n  font-size: 0.9rem;\n  outline: none;\n  transition: all 0.3s ease;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%]:focus {\n  border-color: #667eea;\n  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%]::placeholder {\n  color: rgba(255, 255, 255, 0.5);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  border: none;\n  border-radius: 50%;\n  width: 45px;\n  height: 45px;\n  color: white;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: scale(1.05);\n  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n@keyframes _ngcontent-%COMP%_pulse {\n  0% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);\n  }\n  70% {\n    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);\n  }\n  100% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);\n  }\n}\n@keyframes _ngcontent-%COMP%_bounceIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n  70% {\n    transform: scale(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n@keyframes _ngcontent-%COMP%_typing {\n  0%, 60%, 100% {\n    transform: translateY(0);\n  }\n  30% {\n    transform: translateY(-10px);\n  }\n}\n@media (max-width: 768px) {\n  .avatar-3d-section[_ngcontent-%COMP%] {\n    padding: 60px 0;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */"], data: { animation: [
+    }, dependencies: [CommonModule, NgForOf, NgIf, FormsModule, DefaultValueAccessor, NgControlStatus, NgModel, HttpClientModule, MarkdownPipe], styles: ["\n\n.avatar-3d-section[_ngcontent-%COMP%] {\n  padding: 80px 0;\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 100%);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .container[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 30px;\n  width: 100%;\n  box-sizing: border-box;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 50px;\n  padding: 0 20px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-size: 3rem;\n  font-weight: 700;\n  color: #764ba2;\n  margin-bottom: 10px;\n  text-shadow: 0 2px 15px rgba(118, 75, 162, 0.4);\n  word-wrap: break-word;\n  overflow-wrap: break-word;\n  padding: 0 10px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n  color: #b8b9c0;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  max-width: 800px;\n  margin: 0 auto;\n  border-radius: 20px;\n  overflow: hidden;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  background: rgba(255, 255, 255, 0.02);\n  backdrop-filter: blur(10px);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 700px;\n  display: block;\n  cursor: grab;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%]:active {\n  cursor: grabbing;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 700px;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(10px);\n  border-radius: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%] {\n  text-align: center;\n  color: #fff;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-spinner[_ngcontent-%COMP%] {\n  width: 60px;\n  height: 60px;\n  border: 3px solid rgba(255, 255, 255, 0.1);\n  border-top: 3px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n  margin: 0 auto 20px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-text[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 500;\n  margin-bottom: 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-progress[_ngcontent-%COMP%]   .progress-bar[_ngcontent-%COMP%] {\n  width: 200px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.1);\n  border-radius: 3px;\n  overflow: hidden;\n  margin: 0 auto 10px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-progress[_ngcontent-%COMP%]   .progress-bar[_ngcontent-%COMP%]   .progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  transition: width 0.3s ease;\n  border-radius: 3px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-progress[_ngcontent-%COMP%]   .progress-percentage[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  opacity: 0.8;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 15px;\n  background: rgba(0, 0, 0, 0.6);\n  padding: 12px 24px;\n  border-radius: 30px;\n  backdrop-filter: blur(10px);\n  align-items: center;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  color: #fff;\n  font-size: 0.9rem;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2 0%,\n      #667eea 100%);\n  border: none;\n  padding: 8px 16px;\n  border-radius: 20px;\n  color: white;\n  font-size: 0.85rem;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-weight: 500;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%]:active {\n  transform: translateY(0);\n}\n@media (max-width: 768px) {\n  .avatar-3d-section[_ngcontent-%COMP%] {\n    padding: 60px 0;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .container[_ngcontent-%COMP%] {\n    padding: 0 20px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    padding: 0 10px;\n    margin-bottom: 30px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n    font-size: 2.2rem;\n    line-height: 1.2;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n    font-size: 1rem;\n    padding: 0 10px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%] {\n    height: 500px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: 8px;\n    padding: 10px 20px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    font-size: 0.8rem;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%] {\n    font-size: 0.8rem;\n    padding: 6px 12px;\n    margin-top: 5px;\n  }\n}\n.chat-window[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 20px;\n  right: 20px;\n  width: 400px;\n  max-width: 90vw;\n  max-height: 80vh;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(20px);\n  border-radius: 20px;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  z-index: 9999;\n  display: flex;\n  flex-direction: column;\n  pointer-events: auto;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 20px;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  color: #fff;\n  font-size: 1.1rem;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%], \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%], \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%] {\n  background: none;\n  border: none;\n  color: #fff;\n  font-size: 1.2rem;\n  cursor: pointer;\n  padding: 8px;\n  border-radius: 50%;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 36px;\n  min-height: 36px;\n  position: relative;\n  z-index: 10001;\n  pointer-events: auto;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:hover, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:hover, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  transform: scale(1.1);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:active, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:active, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:active {\n  transform: scale(0.95);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 0, 0, 0.2);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: #fff;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:not(.active) {\n  opacity: 0.6;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ff6b6b 0%,\n      #ee5a52 100%);\n  animation: _ngcontent-%COMP%_pulse 1.5s infinite;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #ff5252 0%,\n      #d32f2f 100%);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%] {\n  flex: 1;\n  padding: 20px;\n  overflow-y: auto;\n  max-height: 400px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%] {\n  margin-bottom: 15px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message.user-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  margin-left: 40px;\n  border-radius: 20px 20px 5px 20px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message.ai-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  margin-right: 40px;\n  border-radius: 20px 20px 20px 5px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  padding: 12px 16px;\n  border-radius: 20px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%]   .message-text[_ngcontent-%COMP%] {\n  color: #fff;\n  font-size: 0.9rem;\n  line-height: 1.4;\n  display: block;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%]   .message-time[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.6);\n  font-size: 0.75rem;\n  margin-top: 5px;\n  display: block;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  padding: 12px 16px;\n  background: rgba(255, 255, 255, 0.05);\n  border-radius: 20px 20px 20px 5px;\n  margin-right: 40px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background: #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_typing 1.4s infinite;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.4s;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%] {\n  display: flex;\n  padding: 20px;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n  gap: 10px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%] {\n  flex: 1;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 25px;\n  padding: 12px 16px;\n  color: #fff;\n  font-size: 0.9rem;\n  outline: none;\n  transition: all 0.3s ease;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%]:focus {\n  border-color: #667eea;\n  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%]::placeholder {\n  color: rgba(255, 255, 255, 0.5);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  border: none;\n  border-radius: 50%;\n  width: 45px;\n  height: 45px;\n  color: white;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: scale(1.05);\n  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n@keyframes _ngcontent-%COMP%_pulse {\n  0% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);\n  }\n  70% {\n    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);\n  }\n  100% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);\n  }\n}\n@keyframes _ngcontent-%COMP%_bounceIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n  70% {\n    transform: scale(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n@keyframes _ngcontent-%COMP%_typing {\n  0%, 60%, 100% {\n    transform: translateY(0);\n  }\n  30% {\n    transform: translateY(-10px);\n  }\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 768px) {\n  .avatar-3d-section[_ngcontent-%COMP%] {\n    padding: 60px 0;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */"], data: { animation: [
       trigger("chatAnimation", [
         transition(":enter", [
           style({ opacity: 0, transform: "scale(0.8) translateY(20px)" }),
@@ -84488,6 +84562,20 @@ var Avatar3dComponent = class _Avatar3dComponent {
     </div>
     <div class="avatar-container">
       <canvas #canvas class="avatar-canvas"></canvas>
+      
+      <!-- Loading Overlay -->
+      <div class="loading-overlay" *ngIf="isLoading" [@chatAnimation]>
+        <div class="loading-content">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">{{ loadingText }}</div>
+          <div class="loading-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="loadingProgress"></div>
+            </div>
+            <div class="progress-percentage">{{ loadingProgress }}%</div>
+          </div>
+        </div>
+      </div>
       
       <div class="controls-hint">
         <span>\u{1F5B1}\uFE0F Drag to rotate</span>
@@ -84552,7 +84640,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
     </div>
   </div>
 </section>
-`, styles: ["/* src/app/profile/avatar-3d/avatar-3d.component.scss */\n.avatar-3d-section {\n  padding: 80px 0;\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 100%);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.avatar-3d-section .container {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 30px;\n  width: 100%;\n  box-sizing: border-box;\n}\n.avatar-3d-section .section-title {\n  text-align: center;\n  margin-bottom: 50px;\n  padding: 0 20px;\n}\n.avatar-3d-section .section-title h2 {\n  font-size: 3rem;\n  font-weight: 700;\n  color: #764ba2;\n  margin-bottom: 10px;\n  text-shadow: 0 2px 15px rgba(118, 75, 162, 0.4);\n  word-wrap: break-word;\n  overflow-wrap: break-word;\n  padding: 0 10px;\n}\n.avatar-3d-section .section-title p {\n  font-size: 1.2rem;\n  color: #b8b9c0;\n}\n.avatar-3d-section .avatar-container {\n  position: relative;\n  width: 100%;\n  max-width: 800px;\n  margin: 0 auto;\n  border-radius: 20px;\n  overflow: hidden;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  background: rgba(255, 255, 255, 0.02);\n  backdrop-filter: blur(10px);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.avatar-3d-section .avatar-container .avatar-canvas {\n  width: 100%;\n  height: 700px;\n  display: block;\n  cursor: grab;\n}\n.avatar-3d-section .avatar-container .avatar-canvas:active {\n  cursor: grabbing;\n}\n.avatar-3d-section .avatar-container .controls-hint {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 15px;\n  background: rgba(0, 0, 0, 0.6);\n  padding: 12px 24px;\n  border-radius: 30px;\n  backdrop-filter: blur(10px);\n  align-items: center;\n}\n.avatar-3d-section .avatar-container .controls-hint span {\n  color: #fff;\n  font-size: 0.9rem;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.avatar-3d-section .avatar-container .controls-hint .chat-button {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2 0%,\n      #667eea 100%);\n  border: none;\n  padding: 8px 16px;\n  border-radius: 20px;\n  color: white;\n  font-size: 0.85rem;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-weight: 500;\n}\n.avatar-3d-section .avatar-container .controls-hint .chat-button:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);\n}\n.avatar-3d-section .avatar-container .controls-hint .chat-button:active {\n  transform: translateY(0);\n}\n@media (max-width: 768px) {\n  .avatar-3d-section {\n    padding: 60px 0;\n  }\n  .avatar-3d-section .container {\n    padding: 0 20px;\n  }\n  .avatar-3d-section .section-title {\n    padding: 0 10px;\n    margin-bottom: 30px;\n  }\n  .avatar-3d-section .section-title h2 {\n    font-size: 2.2rem;\n    line-height: 1.2;\n  }\n  .avatar-3d-section .section-title p {\n    font-size: 1rem;\n    padding: 0 10px;\n  }\n  .avatar-3d-section .avatar-container .avatar-canvas {\n    height: 500px;\n  }\n  .avatar-3d-section .avatar-container .controls-hint {\n    flex-direction: column;\n    gap: 8px;\n    padding: 10px 20px;\n  }\n  .avatar-3d-section .avatar-container .controls-hint span {\n    font-size: 0.8rem;\n  }\n  .avatar-3d-section .avatar-container .controls-hint .chat-button {\n    font-size: 0.8rem;\n    padding: 6px 12px;\n    margin-top: 5px;\n  }\n}\n.chat-window {\n  position: fixed;\n  top: 20px;\n  right: 20px;\n  width: 400px;\n  max-width: 90vw;\n  max-height: 80vh;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(20px);\n  border-radius: 20px;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  z-index: 9999;\n  display: flex;\n  flex-direction: column;\n  pointer-events: auto;\n}\n.chat-window .chat-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 20px;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.chat-window .chat-header h3 {\n  margin: 0;\n  color: #fff;\n  font-size: 1.1rem;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.chat-window .chat-header .header-controls {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn,\n.chat-window .chat-header .header-controls .stop-speech-btn,\n.chat-window .chat-header .header-controls .close-btn {\n  background: none;\n  border: none;\n  color: #fff;\n  font-size: 1.2rem;\n  cursor: pointer;\n  padding: 8px;\n  border-radius: 50%;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 36px;\n  min-height: 36px;\n  position: relative;\n  z-index: 10001;\n  pointer-events: auto;\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn:hover,\n.chat-window .chat-header .header-controls .stop-speech-btn:hover,\n.chat-window .chat-header .header-controls .close-btn:hover {\n  background: rgba(255, 255, 255, 0.1);\n  transform: scale(1.1);\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn:active,\n.chat-window .chat-header .header-controls .stop-speech-btn:active,\n.chat-window .chat-header .header-controls .close-btn:active {\n  transform: scale(0.95);\n}\n.chat-window .chat-header .header-controls .close-btn:hover {\n  background: rgba(255, 0, 0, 0.2);\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn.active {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: #fff;\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn:not(.active) {\n  opacity: 0.6;\n}\n.chat-window .chat-header .header-controls .stop-speech-btn {\n  background:\n    linear-gradient(\n      135deg,\n      #ff6b6b 0%,\n      #ee5a52 100%);\n  animation: pulse 1.5s infinite;\n}\n.chat-window .chat-header .header-controls .stop-speech-btn:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #ff5252 0%,\n      #d32f2f 100%);\n}\n.chat-window .chat-messages {\n  flex: 1;\n  padding: 20px;\n  overflow-y: auto;\n  max-height: 400px;\n}\n.chat-window .chat-messages .message {\n  margin-bottom: 15px;\n}\n.chat-window .chat-messages .message.user-message .message-content {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  margin-left: 40px;\n  border-radius: 20px 20px 5px 20px;\n}\n.chat-window .chat-messages .message.ai-message .message-content {\n  background: rgba(255, 255, 255, 0.05);\n  margin-right: 40px;\n  border-radius: 20px 20px 20px 5px;\n}\n.chat-window .chat-messages .message .message-content {\n  padding: 12px 16px;\n  border-radius: 20px;\n}\n.chat-window .chat-messages .message .message-content .message-text {\n  color: #fff;\n  font-size: 0.9rem;\n  line-height: 1.4;\n  display: block;\n}\n.chat-window .chat-messages .message .message-content .message-time {\n  color: rgba(255, 255, 255, 0.6);\n  font-size: 0.75rem;\n  margin-top: 5px;\n  display: block;\n}\n.chat-window .chat-messages .typing-indicator {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  padding: 12px 16px;\n  background: rgba(255, 255, 255, 0.05);\n  border-radius: 20px 20px 20px 5px;\n  margin-right: 40px;\n}\n.chat-window .chat-messages .typing-indicator span {\n  width: 8px;\n  height: 8px;\n  background: #667eea;\n  border-radius: 50%;\n  animation: typing 1.4s infinite;\n}\n.chat-window .chat-messages .typing-indicator span:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.chat-window .chat-messages .typing-indicator span:nth-child(3) {\n  animation-delay: 0.4s;\n}\n.chat-window .chat-input-container {\n  display: flex;\n  padding: 20px;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n  gap: 10px;\n}\n.chat-window .chat-input-container .chat-input {\n  flex: 1;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 25px;\n  padding: 12px 16px;\n  color: #fff;\n  font-size: 0.9rem;\n  outline: none;\n  transition: all 0.3s ease;\n}\n.chat-window .chat-input-container .chat-input:focus {\n  border-color: #667eea;\n  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);\n}\n.chat-window .chat-input-container .chat-input::placeholder {\n  color: rgba(255, 255, 255, 0.5);\n}\n.chat-window .chat-input-container .send-btn {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  border: none;\n  border-radius: 50%;\n  width: 45px;\n  height: 45px;\n  color: white;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.chat-window .chat-input-container .send-btn:hover:not(:disabled) {\n  transform: scale(1.05);\n  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);\n}\n.chat-window .chat-input-container .send-btn:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n@keyframes pulse {\n  0% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);\n  }\n  70% {\n    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);\n  }\n  100% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);\n  }\n}\n@keyframes bounceIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n  70% {\n    transform: scale(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n@keyframes typing {\n  0%, 60%, 100% {\n    transform: translateY(0);\n  }\n  30% {\n    transform: translateY(-10px);\n  }\n}\n@media (max-width: 768px) {\n  .avatar-3d-section {\n    padding: 60px 0;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */\n"] }]
+`, styles: ["/* src/app/profile/avatar-3d/avatar-3d.component.scss */\n.avatar-3d-section {\n  padding: 80px 0;\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 100%);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.avatar-3d-section .container {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 30px;\n  width: 100%;\n  box-sizing: border-box;\n}\n.avatar-3d-section .section-title {\n  text-align: center;\n  margin-bottom: 50px;\n  padding: 0 20px;\n}\n.avatar-3d-section .section-title h2 {\n  font-size: 3rem;\n  font-weight: 700;\n  color: #764ba2;\n  margin-bottom: 10px;\n  text-shadow: 0 2px 15px rgba(118, 75, 162, 0.4);\n  word-wrap: break-word;\n  overflow-wrap: break-word;\n  padding: 0 10px;\n}\n.avatar-3d-section .section-title p {\n  font-size: 1.2rem;\n  color: #b8b9c0;\n}\n.avatar-3d-section .avatar-container {\n  position: relative;\n  width: 100%;\n  max-width: 800px;\n  margin: 0 auto;\n  border-radius: 20px;\n  overflow: hidden;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  background: rgba(255, 255, 255, 0.02);\n  backdrop-filter: blur(10px);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.avatar-3d-section .avatar-container .avatar-canvas {\n  width: 100%;\n  height: 700px;\n  display: block;\n  cursor: grab;\n}\n.avatar-3d-section .avatar-container .avatar-canvas:active {\n  cursor: grabbing;\n}\n.avatar-3d-section .avatar-container .loading-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 700px;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(10px);\n  border-radius: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content {\n  text-align: center;\n  color: #fff;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content .loading-spinner {\n  width: 60px;\n  height: 60px;\n  border: 3px solid rgba(255, 255, 255, 0.1);\n  border-top: 3px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n  margin: 0 auto 20px;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content .loading-text {\n  font-size: 1.1rem;\n  font-weight: 500;\n  margin-bottom: 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content .loading-progress .progress-bar {\n  width: 200px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.1);\n  border-radius: 3px;\n  overflow: hidden;\n  margin: 0 auto 10px;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content .loading-progress .progress-bar .progress-fill {\n  height: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  transition: width 0.3s ease;\n  border-radius: 3px;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content .loading-progress .progress-percentage {\n  font-size: 0.9rem;\n  opacity: 0.8;\n}\n.avatar-3d-section .avatar-container .controls-hint {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 15px;\n  background: rgba(0, 0, 0, 0.6);\n  padding: 12px 24px;\n  border-radius: 30px;\n  backdrop-filter: blur(10px);\n  align-items: center;\n}\n.avatar-3d-section .avatar-container .controls-hint span {\n  color: #fff;\n  font-size: 0.9rem;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.avatar-3d-section .avatar-container .controls-hint .chat-button {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2 0%,\n      #667eea 100%);\n  border: none;\n  padding: 8px 16px;\n  border-radius: 20px;\n  color: white;\n  font-size: 0.85rem;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-weight: 500;\n}\n.avatar-3d-section .avatar-container .controls-hint .chat-button:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);\n}\n.avatar-3d-section .avatar-container .controls-hint .chat-button:active {\n  transform: translateY(0);\n}\n@media (max-width: 768px) {\n  .avatar-3d-section {\n    padding: 60px 0;\n  }\n  .avatar-3d-section .container {\n    padding: 0 20px;\n  }\n  .avatar-3d-section .section-title {\n    padding: 0 10px;\n    margin-bottom: 30px;\n  }\n  .avatar-3d-section .section-title h2 {\n    font-size: 2.2rem;\n    line-height: 1.2;\n  }\n  .avatar-3d-section .section-title p {\n    font-size: 1rem;\n    padding: 0 10px;\n  }\n  .avatar-3d-section .avatar-container .avatar-canvas {\n    height: 500px;\n  }\n  .avatar-3d-section .avatar-container .controls-hint {\n    flex-direction: column;\n    gap: 8px;\n    padding: 10px 20px;\n  }\n  .avatar-3d-section .avatar-container .controls-hint span {\n    font-size: 0.8rem;\n  }\n  .avatar-3d-section .avatar-container .controls-hint .chat-button {\n    font-size: 0.8rem;\n    padding: 6px 12px;\n    margin-top: 5px;\n  }\n}\n.chat-window {\n  position: fixed;\n  top: 20px;\n  right: 20px;\n  width: 400px;\n  max-width: 90vw;\n  max-height: 80vh;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(20px);\n  border-radius: 20px;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  z-index: 9999;\n  display: flex;\n  flex-direction: column;\n  pointer-events: auto;\n}\n.chat-window .chat-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 20px;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.chat-window .chat-header h3 {\n  margin: 0;\n  color: #fff;\n  font-size: 1.1rem;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.chat-window .chat-header .header-controls {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn,\n.chat-window .chat-header .header-controls .stop-speech-btn,\n.chat-window .chat-header .header-controls .close-btn {\n  background: none;\n  border: none;\n  color: #fff;\n  font-size: 1.2rem;\n  cursor: pointer;\n  padding: 8px;\n  border-radius: 50%;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 36px;\n  min-height: 36px;\n  position: relative;\n  z-index: 10001;\n  pointer-events: auto;\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn:hover,\n.chat-window .chat-header .header-controls .stop-speech-btn:hover,\n.chat-window .chat-header .header-controls .close-btn:hover {\n  background: rgba(255, 255, 255, 0.1);\n  transform: scale(1.1);\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn:active,\n.chat-window .chat-header .header-controls .stop-speech-btn:active,\n.chat-window .chat-header .header-controls .close-btn:active {\n  transform: scale(0.95);\n}\n.chat-window .chat-header .header-controls .close-btn:hover {\n  background: rgba(255, 0, 0, 0.2);\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn.active {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: #fff;\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn:not(.active) {\n  opacity: 0.6;\n}\n.chat-window .chat-header .header-controls .stop-speech-btn {\n  background:\n    linear-gradient(\n      135deg,\n      #ff6b6b 0%,\n      #ee5a52 100%);\n  animation: pulse 1.5s infinite;\n}\n.chat-window .chat-header .header-controls .stop-speech-btn:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #ff5252 0%,\n      #d32f2f 100%);\n}\n.chat-window .chat-messages {\n  flex: 1;\n  padding: 20px;\n  overflow-y: auto;\n  max-height: 400px;\n}\n.chat-window .chat-messages .message {\n  margin-bottom: 15px;\n}\n.chat-window .chat-messages .message.user-message .message-content {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  margin-left: 40px;\n  border-radius: 20px 20px 5px 20px;\n}\n.chat-window .chat-messages .message.ai-message .message-content {\n  background: rgba(255, 255, 255, 0.05);\n  margin-right: 40px;\n  border-radius: 20px 20px 20px 5px;\n}\n.chat-window .chat-messages .message .message-content {\n  padding: 12px 16px;\n  border-radius: 20px;\n}\n.chat-window .chat-messages .message .message-content .message-text {\n  color: #fff;\n  font-size: 0.9rem;\n  line-height: 1.4;\n  display: block;\n}\n.chat-window .chat-messages .message .message-content .message-time {\n  color: rgba(255, 255, 255, 0.6);\n  font-size: 0.75rem;\n  margin-top: 5px;\n  display: block;\n}\n.chat-window .chat-messages .typing-indicator {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  padding: 12px 16px;\n  background: rgba(255, 255, 255, 0.05);\n  border-radius: 20px 20px 20px 5px;\n  margin-right: 40px;\n}\n.chat-window .chat-messages .typing-indicator span {\n  width: 8px;\n  height: 8px;\n  background: #667eea;\n  border-radius: 50%;\n  animation: typing 1.4s infinite;\n}\n.chat-window .chat-messages .typing-indicator span:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.chat-window .chat-messages .typing-indicator span:nth-child(3) {\n  animation-delay: 0.4s;\n}\n.chat-window .chat-input-container {\n  display: flex;\n  padding: 20px;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n  gap: 10px;\n}\n.chat-window .chat-input-container .chat-input {\n  flex: 1;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 25px;\n  padding: 12px 16px;\n  color: #fff;\n  font-size: 0.9rem;\n  outline: none;\n  transition: all 0.3s ease;\n}\n.chat-window .chat-input-container .chat-input:focus {\n  border-color: #667eea;\n  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);\n}\n.chat-window .chat-input-container .chat-input::placeholder {\n  color: rgba(255, 255, 255, 0.5);\n}\n.chat-window .chat-input-container .send-btn {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  border: none;\n  border-radius: 50%;\n  width: 45px;\n  height: 45px;\n  color: white;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.chat-window .chat-input-container .send-btn:hover:not(:disabled) {\n  transform: scale(1.05);\n  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);\n}\n.chat-window .chat-input-container .send-btn:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n@keyframes pulse {\n  0% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);\n  }\n  70% {\n    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);\n  }\n  100% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);\n  }\n}\n@keyframes bounceIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n  70% {\n    transform: scale(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n@keyframes typing {\n  0%, 60%, 100% {\n    transform: translateY(0);\n  }\n  30% {\n    transform: translateY(-10px);\n  }\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 768px) {\n  .avatar-3d-section {\n    padding: 60px 0;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */\n"] }]
   }], () => [{ type: HttpClient }], { canvasRef: [{
     type: ViewChild,
     args: ["canvas", { static: true }]
