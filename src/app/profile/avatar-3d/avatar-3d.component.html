@@ -41,6 +41,13 @@
                   title="{{ ttsEnabled ? 'Disable' : 'Enable' }} Text-to-Speech">
             {{ ttsEnabled ? '🔊' : '🔇' }}
           </button>
+          <button class="streaming-toggle-btn" 
+                  (click)="toggleStreaming()" 
+                  [class.active]="streamingEnabled"
+                  *ngIf="ttsEnabled"
+                  title="{{ streamingEnabled ? 'Disable' : 'Enable' }} Streaming Voice">
+            {{ streamingEnabled ? '📡' : '📻' }}
+          </button>
           <button class="stop-speech-btn" 
                   (click)="stopSpeech()" 
                   *ngIf="isSpeaking"
