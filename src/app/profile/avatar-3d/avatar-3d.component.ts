@@ -372,16 +372,20 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
 
-    // Start streaming voice
+    // Start streaming voice with correct API structure
     fetch(STREAMING_VOICE_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Origin': 'https://beingmartinbmc.github.io'
       },
       body: JSON.stringify({
-        text: cleanText,
-        format: 'mp3', // or wav depending on your API
-        streaming: true
+        prompt: cleanText,
+        context: "You are Nova, an AI assistant on Ankit Sharma's portfolio website.",
+        voiceSettings: {
+          model: "aura-2-draco-en",
+          chunkSize: 25
+        }
       })
     })
     .then(response => {
