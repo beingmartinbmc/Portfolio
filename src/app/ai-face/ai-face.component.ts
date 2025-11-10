@@ -90,7 +90,17 @@ projects, or general programming questions. Keep responses brief and engaging.`;
       // Simulate typing delay for more natural feel
       await this.delay(500);
       
-      const aiResponse = response?.response || response?.message || 'Sorry, I couldn\'t process that. Please try again!';
+      // Parse the response - it comes in data.choices[0].message.content
+      let aiResponse = 'Sorry, I couldn\'t process that. Please try again!';
+      
+      if (response?.data?.choices?.[0]?.message?.content) {
+        aiResponse = response.data.choices[0].message.content;
+      } else if (response?.response) {
+        aiResponse = response.response;
+      } else if (response?.message) {
+        aiResponse = response.message;
+      }
+      
       this.addMessage(aiResponse, false);
       
       // Talking animation
