@@ -84215,12 +84215,31 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.loadingText = "Loading 3D Avatar...";
     this.isSpeaking = false;
     this.ttsEnabled = true;
+    this.ttsCache = /* @__PURE__ */ new Map();
     this.CONTEXT = AI_CONTEXT;
   }
   ngOnInit() {
     this.initThreeJS();
     this.loadAvatar();
     this.animate();
+    this.preWarmTTS();
+  }
+  preWarmTTS() {
+    if (this.ttsEnabled) {
+      this.http.post(TTS_API_URL, {
+        text: "Hi"
+      }, {
+        responseType: "blob"
+      }).subscribe({
+        next: (response) => {
+          if (response) {
+            this.ttsCache.set("Hi", response);
+          }
+        },
+        error: () => {
+        }
+      });
+    }
   }
   ngOnDestroy() {
     if (this.animationFrameId) {
@@ -84350,12 +84369,10 @@ var Avatar3dComponent = class _Avatar3dComponent {
         } else if (response?.message) {
           aiResponse = response.message;
         }
-        this.addMessage(aiResponse, false, false);
         if (this.ttsEnabled) {
-          this.speakText(aiResponse).catch((error2) => {
-            console.error("TTS failed:", error2);
-          });
+          this.speakText(aiResponse);
         }
+        this.addMessage(aiResponse, false, false);
       } catch (error2) {
         console.error("AI API Error:", error2);
         this.addMessage("Oops! Something went wrong. Please try again later. \u{1F605}", false);
@@ -84381,65 +84398,61 @@ var Avatar3dComponent = class _Avatar3dComponent {
       element.scrollTop = element.scrollHeight;
     }
   }
-  // Text-to-Speech methods
+  // Text-to-Speech methods - Optimized for minimal latency
   speakText(text) {
-    return __async(this, null, function* () {
-      if (!text.trim())
-        return;
-      this.stopSpeech();
-      try {
-        this.isSpeaking = true;
-        const cleanText = this.cleanTextForSpeech(text);
-        const response = yield this.http.post(TTS_API_URL, {
-          text: cleanText
-        }, {
-          responseType: "blob"
-        }).toPromise();
-        if (response) {
+    if (!text.trim())
+      return;
+    this.stopSpeech();
+    this.isSpeaking = true;
+    const cleanText = this.cleanTextForSpeech(text);
+    const cachedAudio = this.ttsCache.get(cleanText);
+    if (cachedAudio) {
+      this.playAudioBlob(cachedAudio);
+      return;
+    }
+    this.http.post(TTS_API_URL, {
+      text: cleanText
+    }, {
+      responseType: "blob",
+      headers: {
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache"
+      }
+    }).subscribe({
+      next: (response) => {
+        if (response && this.isSpeaking) {
           const audioBlob = response;
-          const audioUrl = URL.createObjectURL(audioBlob);
-          this.currentAudio = new Audio(audioUrl);
-          this.currentAudio.preload = "auto";
-          this.currentAudio.volume = 1;
-          this.currentAudio.autoplay = false;
-          const playPromise = new Promise((resolve, reject) => {
-            this.currentAudio.oncanplaythrough = () => {
-              this.currentAudio.play().then(resolve).catch(reject);
-            };
-            this.currentAudio.onloadeddata = () => {
-              if (this.currentAudio.readyState >= 2) {
-                this.currentAudio.play().then(resolve).catch(reject);
-              }
-            };
-            this.currentAudio.onerror = (error2) => {
-              console.error("Audio load error:", error2);
-              reject(error2);
-            };
-            setTimeout(() => {
-              if (this.currentAudio && this.currentAudio.readyState > 0) {
-                this.currentAudio.play().then(resolve).catch(reject);
-              }
-            }, 100);
-          });
-          this.currentAudio.onplay = () => {
-            this.isSpeaking = true;
-          };
-          this.currentAudio.onended = () => {
-            this.isSpeaking = false;
-            this.cleanupAudio();
-          };
-          this.currentAudio.onerror = (error2) => {
-            console.error("Audio playback error:", error2);
-            this.isSpeaking = false;
-            this.cleanupAudio();
-          };
-          this.currentAudio.load();
-          yield playPromise;
+          this.ttsCache.set(cleanText, audioBlob);
+          this.playAudioBlob(audioBlob);
         }
-      } catch (error2) {
+      },
+      error: (error2) => {
         console.error("TTS Error:", error2);
         this.isSpeaking = false;
       }
+    });
+  }
+  playAudioBlob(audioBlob) {
+    const audioUrl = URL.createObjectURL(audioBlob);
+    this.currentAudio = new Audio(audioUrl);
+    this.currentAudio.preload = "auto";
+    this.currentAudio.volume = 1;
+    this.currentAudio.onplay = () => {
+      this.isSpeaking = true;
+    };
+    this.currentAudio.onended = () => {
+      this.isSpeaking = false;
+      this.cleanupAudio();
+    };
+    this.currentAudio.onerror = (error2) => {
+      console.error("Audio playback error:", error2);
+      this.isSpeaking = false;
+      this.cleanupAudio();
+    };
+    this.currentAudio.play().catch((error2) => {
+      console.error("Audio play error:", error2);
+      this.isSpeaking = false;
+      this.cleanupAudio();
     });
   }
   cleanTextForSpeech(text) {

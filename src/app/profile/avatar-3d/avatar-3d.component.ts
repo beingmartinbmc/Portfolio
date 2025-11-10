@@ -63,6 +63,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   public isSpeaking = false;
   public ttsEnabled = true;
   private currentAudio?: HTMLAudioElement;
+  private ttsCache = new Map<string, Blob>(); // Cache for faster repeated phrases
   
   private readonly CONTEXT = AI_CONTEXT;
 
@@ -264,16 +265,14 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         aiResponse = response.message;
       }
       
-      // Immediately add message and start TTS in parallel
-      this.addMessage(aiResponse, false, false); // Don't trigger TTS via addMessage
-      
-      // Start TTS immediately for faster response
+      // Start TTS IMMEDIATELY - don't wait for anything
       if (this.ttsEnabled) {
-        // Don't await TTS to avoid blocking the UI
-        this.speakText(aiResponse).catch(error => {
-          console.error('TTS failed:', error);
-        });
+        // Fire and forget - start TTS as fast as possible
+        this.speakText(aiResponse);
       }
+      
+      // Add message to UI (without TTS since we already started it)
+      this.addMessage(aiResponse, false, false);
       
     } catch (error) {
       console.error('AI API Error:', error);
@@ -307,90 +306,82 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Text-to-Speech methods
-  private async speakText(text: string): Promise<void> {
+  // Text-to-Speech methods - Optimized for minimal latency
+  private speakText(text: string): void {
     if (!text.trim()) return;
 
     // Stop any current speech
     this.stopSpeech();
-
-    try {
-      this.isSpeaking = true;
-      
-      // Clean text for speech (remove markdown and special characters)
-      const cleanText = this.cleanTextForSpeech(text);
-      
-      // Call your TTS API with optimized settings for faster response
-      const response = await this.http.post(TTS_API_URL, {
-        text: cleanText
-      }, {
-        responseType: 'blob'
-      }).toPromise();
-
-      if (response) {
-        // Create audio from blob immediately
-        const audioBlob = response as Blob;
-        const audioUrl = URL.createObjectURL(audioBlob);
-        this.currentAudio = new Audio(audioUrl);
-        
-        // Optimize audio for fastest possible playback
-        this.currentAudio.preload = 'auto';
-        this.currentAudio.volume = 1.0;
-        this.currentAudio.autoplay = false; // Explicitly control playback
-        
-        // Use promise-based approach for immediate playback
-        const playPromise = new Promise<void>((resolve, reject) => {
-          this.currentAudio!.oncanplaythrough = () => {
-            // Audio can start playing immediately
-            this.currentAudio!.play().then(resolve).catch(reject);
-          };
-          
-          this.currentAudio!.onloadeddata = () => {
-            // Try to play as soon as some data is loaded
-            if (this.currentAudio!.readyState >= 2) { // HAVE_CURRENT_DATA
-              this.currentAudio!.play().then(resolve).catch(reject);
-            }
-          };
-          
-          this.currentAudio!.onerror = (error) => {
-            console.error('Audio load error:', error);
-            reject(error);
-          };
-          
-          // Fallback: try to play after a short delay
-          setTimeout(() => {
-            if (this.currentAudio && this.currentAudio.readyState > 0) {
-              this.currentAudio.play().then(resolve).catch(reject);
-            }
-          }, 100);
-        });
-        
-        // Set up ongoing event handlers
-        this.currentAudio.onplay = () => {
-          this.isSpeaking = true;
-        };
-        
-        this.currentAudio.onended = () => {
-          this.isSpeaking = false;
-          this.cleanupAudio();
-        };
-        
-        this.currentAudio.onerror = (error) => {
-          console.error('Audio playback error:', error);
-          this.isSpeaking = false;
-          this.cleanupAudio();
-        };
-        
-        // Start loading the audio immediately
-        this.currentAudio.load();
-        
-        // Wait for audio to start playing
-        await playPromise;
-      }
-    } catch (error) {
-      console.error('TTS Error:', error);
-      this.isSpeaking = false;
+    this.isSpeaking = true;
+    
+    // Clean text for speech (remove markdown and special characters)
+    const cleanText = this.cleanTextForSpeech(text);
+    
+    // Check cache first for instant playback
+    const cachedAudio = this.ttsCache.get(cleanText);
+    if (cachedAudio) {
+      this.playAudioBlob(cachedAudio);
+      return;
     }
+    
+    // Fire TTS API call immediately - no awaiting, with optimized headers
+    this.http.post(TTS_API_URL, {
+      text: cleanText
+    }, {
+      responseType: 'blob',
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      }
+    }).subscribe({
+      next: (response) => {
+        if (response && this.isSpeaking) { // Check if still needed
+          const audioBlob = response as Blob;
+          
+          // Cache the audio for faster future playback
+          this.ttsCache.set(cleanText, audioBlob);
+          
+          // Play immediately
+          this.playAudioBlob(audioBlob);
+        }
+      },
+      error: (error) => {
+        console.error('TTS Error:', error);
+        this.isSpeaking = false;
+      }
+    });
+  }
+
+  private playAudioBlob(audioBlob: Blob): void {
+    const audioUrl = URL.createObjectURL(audioBlob);
+    this.currentAudio = new Audio(audioUrl);
+    
+    // Optimize for fastest playback
+    this.currentAudio.preload = 'auto';
+    this.currentAudio.volume = 1.0;
+    
+    // Set up event handlers
+    this.currentAudio.onplay = () => {
+      this.isSpeaking = true;
+    };
+    
+    this.currentAudio.onended = () => {
+      this.isSpeaking = false;
+      this.cleanupAudio();
+    };
+    
+    this.currentAudio.onerror = (error) => {
+      console.error('Audio playback error:', error);
+      this.isSpeaking = false;
+      this.cleanupAudio();
+    };
+    
+    // Play immediately - no await
+    this.currentAudio.play().catch(error => {
+      console.error('Audio play error:', error);
+      this.isSpeaking = false;
+      this.cleanupAudio();
+    });
   }
 
   private cleanTextForSpeech(text: string): string {
