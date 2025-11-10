@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -6,6 +6,8 @@ import { environment } from '../../environments/environment';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AI_CONTEXT } from './ai-context';
 import { MarkdownPipe } from './markdown.pipe';
+import { MusicService } from '../services/music.service';
+import { Subscription } from 'rxjs';
 
 interface Message {
   text: string;
@@ -31,7 +33,7 @@ interface Message {
     ])
   ]
 })
-export class AiFaceComponent implements AfterViewInit {
+export class AiFaceComponent implements AfterViewInit, OnDestroy {
   @ViewChild('aiFaceContainer', { static: false }) aiFaceContainer!: ElementRef;
   @ViewChild('chatMessages') chatMessages!: ElementRef;
   @ViewChild('messageInput') messageInput!: ElementRef;
@@ -43,16 +45,34 @@ export class AiFaceComponent implements AfterViewInit {
   isTalking = false;
   hasNewMessage = false;
   mouthPath = 'M55 105 Q80 115 105 105'; // Default smile
+  isWhistling = false;
+  private musicSubscription?: Subscription;
   
   private readonly CONTEXT = AI_CONTEXT;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private musicService: MusicService) {
     // Welcome message
     this.addMessage('Hi! 👋 I\'m Nova, your AI assistant. Ask me anything!', false);
   }
 
   ngAfterViewInit() {
     this.startIdleAnimation();
+    
+    // Subscribe to music playing state
+    this.musicSubscription = this.musicService.musicPlaying$.subscribe(isPlaying => {
+      this.isWhistling = isPlaying;
+      if (isPlaying) {
+        this.startWhistlingAnimation();
+      } else {
+        this.stopWhistlingAnimation();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.musicSubscription) {
+      this.musicSubscription.unsubscribe();
+    }
   }
 
   toggleChat() {
@@ -152,7 +172,7 @@ export class AiFaceComponent implements AfterViewInit {
   private startIdleAnimation() {
     // Blink animation
     setInterval(() => {
-      if (!this.isTyping && !this.isTalking) {
+      if (!this.isTyping && !this.isTalking && !this.isWhistling) {
         const leftEye = document.querySelector('#left-eye-container');
         const rightEye = document.querySelector('#right-eye-container');
         
@@ -169,9 +189,43 @@ export class AiFaceComponent implements AfterViewInit {
     }, 4000);
   }
 
+  private whistleInterval: any;
+  
+  private startWhistlingAnimation() {
+    // Animate mouth in a whistling motion
+    let frame = 0;
+    this.whistleInterval = setInterval(() => {
+      frame = (frame + 1) % 4;
+      
+      switch(frame) {
+        case 0:
+          this.mouthPath = 'M70 105 Q80 100 90 105'; // Small O shape
+          break;
+        case 1:
+          this.mouthPath = 'M68 105 Q80 98 92 105'; // Medium O shape
+          break;
+        case 2:
+          this.mouthPath = 'M70 105 Q80 100 90 105'; // Small O shape
+          break;
+        case 3:
+          this.mouthPath = 'M72 105 Q80 102 88 105'; // Tiny O shape
+          break;
+      }
+    }, 200);
+  }
+
+  private stopWhistlingAnimation() {
+    if (this.whistleInterval) {
+      clearInterval(this.whistleInterval);
+      this.whistleInterval = null;
+    }
+    // Return to normal smile
+    this.mouthPath = 'M55 105 Q80 115 105 105';
+  }
+
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
-    if (this.isTyping || this.isTalking) return;
+    if (this.isTyping || this.isTalking || this.isWhistling) return;
     
     const svg = document.querySelector('.ai-face-container svg');
     if (!svg) return;

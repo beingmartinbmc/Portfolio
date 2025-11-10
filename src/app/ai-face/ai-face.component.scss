@@ -328,6 +328,19 @@
     }
   }
   
+  &.whistling {
+    animation: whistling 0.6s ease-in-out infinite;
+    
+    .cheek {
+      opacity: 0.4 !important;
+    }
+    
+    #left-eyebrow,
+    #right-eyebrow {
+      transform: translateY(-2px);
+    }
+  }
+  
   svg {
     width: 85px;
     height: 85px;
@@ -372,6 +385,21 @@
   }
   50% {
     transform: scale(1.05);
+  }
+}
+
+@keyframes whistling {
+  0%, 100% {
+    transform: scale(1) rotate(-1deg);
+  }
+  25% {
+    transform: scale(1.02) rotate(1deg);
+  }
+  50% {
+    transform: scale(1.04) rotate(-1deg);
+  }
+  75% {
+    transform: scale(1.02) rotate(1deg);
   }
 }
 
