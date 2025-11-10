@@ -84447,9 +84447,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
       this.addMessage(originalText, false, false);
       this.isTyping = false;
     }
-    if (!this.audioContext) {
-      this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    }
+    console.log("\u{1F3B5} Starting streaming voice for:", cleanText);
     fetch(STREAMING_VOICE_API_URL, {
       method: "POST",
       headers: {
@@ -84461,83 +84459,168 @@ var Avatar3dComponent = class _Avatar3dComponent {
         context: "You are Nova, an AI assistant on Ankit Sharma's portfolio website.",
         voiceSettings: {
           model: "aura-2-draco-en",
-          chunkSize: 25
+          chunkSize: 20
         }
       })
     }).then((response) => {
       if (!response.ok) {
         throw new Error(`Streaming API error: ${response.status}`);
       }
+      console.log("\u2705 Streaming API response received");
       const reader = response.body?.getReader();
       if (!reader) {
         throw new Error("Streaming not supported");
       }
-      this.processAudioStream(reader, cleanText);
+      this.processSSEAudioStream(reader, cleanText);
     }).catch((error2) => {
-      console.error("Streaming TTS Error:", error2);
+      console.error("\u274C Streaming TTS Error:", error2);
       this.speakTextRegular(cleanText, originalText, false);
     });
   }
-  processAudioStream(reader, cleanText) {
+  processSSEAudioStream(reader, cleanText) {
     return __async(this, null, function* () {
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let eventType = "";
       const audioChunks = [];
       try {
+        console.log("\u{1F4E1} Starting to process SSE stream...");
         while (this.isSpeaking) {
           const { done, value } = yield reader.read();
           if (done) {
+            console.log("\u{1F4E1} Stream ended");
             break;
           }
-          if (value) {
-            audioChunks.push(value);
-            if (audioChunks.length === 1 && this.audioContext) {
-              this.playStreamingAudio(audioChunks);
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+          for (const line of lines) {
+            if (line.startsWith("event: ")) {
+              eventType = line.slice(7).trim();
+              console.log("\u{1F4E1} Event:", eventType);
+            } else if (line.startsWith("data: ") && line.slice(6).trim()) {
+              try {
+                const data = JSON.parse(line.slice(6));
+                console.log("\u{1F4E6} Data:", eventType, data);
+                switch (eventType) {
+                  case "text":
+                    console.log("\u{1F4DD} Text chunk:", data.content);
+                    break;
+                  case "audio":
+                    audioChunks.push({
+                      chunkIndex: data.chunkIndex,
+                      audio: data.audio
+                    });
+                    console.log("\u{1F3B5} Audio chunk received:", data.chunkIndex, "Total chunks:", audioChunks.length);
+                    if (audioChunks.length === 1) {
+                      this.playStreamingAudioChunks(audioChunks, cleanText);
+                    }
+                    break;
+                  case "done":
+                    console.log("\u2705 Stream done. Total audio chunks:", audioChunks.length);
+                    if (audioChunks.length === 0) {
+                      console.log("\u26A0\uFE0F No audio chunks received");
+                    }
+                    break;
+                }
+              } catch (e) {
+                console.warn("Parse error:", e, line);
+              }
             }
           }
         }
         if (audioChunks.length > 0) {
-          const completeAudio = this.mergeAudioChunks(audioChunks);
+          const completeAudio = yield this.mergeBase64AudioChunks(audioChunks);
           this.ttsCache.set(cleanText, completeAudio);
+          console.log("\u{1F4BE} Cached complete audio for future use");
         }
       } catch (error2) {
-        console.error("Stream processing error:", error2);
+        console.error("\u274C SSE stream processing error:", error2);
       } finally {
         reader.releaseLock();
       }
     });
   }
-  playStreamingAudio(chunks) {
+  playStreamingAudioChunks(audioChunks, cleanText) {
     return __async(this, null, function* () {
+      console.log("\u{1F50A} Starting to play streaming audio chunks:", audioChunks.length);
       try {
-        const audioBlob = new Blob(chunks, { type: "audio/mpeg" });
-        const arrayBuffer = yield audioBlob.arrayBuffer();
-        if (this.audioContext && this.isSpeaking) {
-          const audioBuffer = yield this.audioContext.decodeAudioData(arrayBuffer);
-          if (this.audioSource) {
-            this.audioSource.stop();
+        const sortedChunks = audioChunks.sort((a, b) => a.chunkIndex - b.chunkIndex);
+        for (let i = 0; i < sortedChunks.length; i++) {
+          if (!this.isSpeaking) {
+            console.log("\u{1F6D1} Playback stopped by user");
+            break;
           }
-          this.audioSource = this.audioContext.createBufferSource();
-          this.audioSource.buffer = audioBuffer;
-          this.audioSource.connect(this.audioContext.destination);
-          this.audioSource.onended = () => {
-            this.isSpeaking = false;
-            this.cleanupAudio();
-          };
-          this.audioSource.start();
+          const chunk = sortedChunks[i];
+          console.log(`\u{1F3B5} Playing chunk ${i + 1}/${sortedChunks.length} (index: ${chunk.chunkIndex})`);
+          try {
+            yield this.playBase64AudioChunk(chunk.audio);
+            console.log(`\u2705 Played chunk ${i + 1} successfully`);
+          } catch (error2) {
+            console.error(`\u274C Failed to play chunk ${i + 1}:`, error2);
+          }
+          if (i < sortedChunks.length - 1) {
+            yield this.delay(50);
+          }
         }
+        console.log("\u{1F389} Streaming audio playback complete");
+        this.isSpeaking = false;
       } catch (error2) {
-        console.error("Streaming audio playback error:", error2);
+        console.error("\u274C Streaming audio playback error:", error2);
+        this.isSpeaking = false;
       }
     });
   }
-  mergeAudioChunks(chunks) {
-    const totalLength = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
-    const merged = new Uint8Array(totalLength);
-    let offset = 0;
-    for (const chunk of chunks) {
-      merged.set(chunk, offset);
-      offset += chunk.length;
-    }
-    return new Blob([merged], { type: "audio/mpeg" });
+  playBase64AudioChunk(base64Audio) {
+    return __async(this, null, function* () {
+      return new Promise((resolve, reject) => {
+        try {
+          const byteCharacters = atob(base64Audio);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: "audio/mpeg" });
+          const audioUrl = URL.createObjectURL(blob);
+          const audio = new Audio(audioUrl);
+          audio.onended = () => {
+            URL.revokeObjectURL(audioUrl);
+            resolve();
+          };
+          audio.onerror = (error2) => {
+            URL.revokeObjectURL(audioUrl);
+            reject(error2);
+          };
+          audio.play().catch(reject);
+        } catch (error2) {
+          reject(error2);
+        }
+      });
+    });
+  }
+  mergeBase64AudioChunks(chunks) {
+    return __async(this, null, function* () {
+      const sortedChunks = chunks.sort((a, b) => a.chunkIndex - b.chunkIndex);
+      const byteArrays = [];
+      let totalLength = 0;
+      for (const chunk of sortedChunks) {
+        const byteCharacters = atob(chunk.audio);
+        const byteArray = new Uint8Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteArray[i] = byteCharacters.charCodeAt(i);
+        }
+        byteArrays.push(byteArray);
+        totalLength += byteArray.length;
+      }
+      const merged = new Uint8Array(totalLength);
+      let offset = 0;
+      for (const byteArray of byteArrays) {
+        merged.set(byteArray, offset);
+        offset += byteArray.length;
+      }
+      return new Blob([merged], { type: "audio/mpeg" });
+    });
   }
   speakTextRegular(cleanText, originalText, addMessageAfterTTS) {
     this.http.post(TTS_API_URL, {
@@ -84611,6 +84694,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
     console.log(`Streaming voice ${this.streamingEnabled ? "enabled" : "disabled"}`);
   }
   stopSpeech() {
+    console.log("\u{1F6D1} Stopping all speech/audio");
     if (this.currentAudio) {
       this.currentAudio.pause();
       this.currentAudio.currentTime = 0;
