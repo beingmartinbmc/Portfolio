@@ -191,6 +191,8 @@
       align-items: center;
       gap: 10px;
 
+      .tts-toggle-btn,
+      .stop-speech-btn,
       .close-btn {
         background: none;
         border: none;
@@ -210,12 +212,38 @@
         pointer-events: auto;
 
         &:hover {
-          background: rgba(255, 0, 0, 0.2);
+          background: rgba(255, 255, 255, 0.1);
           transform: scale(1.1);
         }
         
         &:active {
           transform: scale(0.95);
+        }
+      }
+      
+      .close-btn {
+        &:hover {
+          background: rgba(255, 0, 0, 0.2);
+        }
+      }
+
+      .tts-toggle-btn {
+        &.active {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: #fff;
+        }
+
+        &:not(.active) {
+          opacity: 0.6;
+        }
+      }
+
+      .stop-speech-btn {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+        animation: pulse 1.5s infinite;
+
+        &:hover {
+          background: linear-gradient(135deg, #ff5252 0%, #d32f2f 100%);
         }
       }
     }
@@ -347,6 +375,18 @@
 }
 
 // Animations
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+  }
+}
+
 @keyframes bounceIn {
   0% {
     opacity: 0;

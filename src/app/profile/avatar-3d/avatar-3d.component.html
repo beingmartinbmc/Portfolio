@@ -21,6 +21,18 @@
       <div class="chat-header">
         <h3>💬 Chat with Me</h3>
         <div class="header-controls">
+          <button class="tts-toggle-btn" 
+                  (click)="toggleTTS()" 
+                  [class.active]="ttsEnabled"
+                  title="{{ ttsEnabled ? 'Disable' : 'Enable' }} Text-to-Speech">
+            {{ ttsEnabled ? '🔊' : '🔇' }}
+          </button>
+          <button class="stop-speech-btn" 
+                  (click)="stopSpeech()" 
+                  *ngIf="isSpeaking"
+                  title="Stop Speech">
+            ⏹️
+          </button>
           <button class="close-btn" (click)="toggleChat()">✕</button>
         </div>
       </div>

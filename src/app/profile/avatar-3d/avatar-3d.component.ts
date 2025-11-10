@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import { AI_CONTEXT } from '../../ai-face/ai-context';
 import { MarkdownPipe } from '../../ai-face/markdown.pipe';
 import { MusicService } from '../../services/music.service';
+import { TTS_API_URL } from '../../config/api-config';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 interface Message {
@@ -53,6 +54,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   public messages: Message[] = [];
   public isTyping = false;
   
+  // Text-to-Speech functionality
+  public isSpeaking = false;
+  public ttsEnabled = true;
+  private currentAudio?: HTMLAudioElement;
+  
   private readonly CONTEXT = AI_CONTEXT;
 
   constructor(private http: HttpClient) {
@@ -73,6 +79,9 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
     this.controls?.dispose();
     this.renderer?.dispose();
+    
+    // Stop any ongoing speech and cleanup
+    this.stopSpeech();
   }
 
   private initThreeJS(): void {
@@ -243,6 +252,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     
     this.messages.push({ text, isUser, time });
     
+    // If it's an AI message and TTS is enabled, speak it
+    if (!isUser && this.ttsEnabled) {
+      this.speakText(text);
+    }
+    
     // Scroll to bottom after a short delay
     setTimeout(() => this.scrollToBottom(), 100);
   }
@@ -251,6 +265,98 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     if (this.chatMessages) {
       const element = this.chatMessages.nativeElement;
       element.scrollTop = element.scrollHeight;
+    }
+  }
+
+  // Text-to-Speech methods
+  private async speakText(text: string): Promise<void> {
+    if (!text.trim()) return;
+
+    // Stop any current speech
+    this.stopSpeech();
+
+    try {
+      this.isSpeaking = true;
+      
+      // Clean text for speech (remove markdown and special characters)
+      const cleanText = this.cleanTextForSpeech(text);
+      
+      // Call your TTS API
+      const response = await this.http.post(TTS_API_URL, {
+        text: cleanText
+      }, {
+        responseType: 'blob'
+      }).toPromise();
+
+      if (response) {
+        // Create audio from blob
+        const audioBlob = response as Blob;
+        const audioUrl = URL.createObjectURL(audioBlob);
+        this.currentAudio = new Audio(audioUrl);
+        
+        // Set up event handlers
+        this.currentAudio.onloadeddata = () => {
+          console.log('Audio loaded, starting playback');
+        };
+        
+        this.currentAudio.onplay = () => {
+          this.isSpeaking = true;
+        };
+        
+        this.currentAudio.onended = () => {
+          this.isSpeaking = false;
+          this.cleanupAudio();
+        };
+        
+        this.currentAudio.onerror = (error) => {
+          console.error('Audio playback error:', error);
+          this.isSpeaking = false;
+          this.cleanupAudio();
+        };
+        
+        // Play the audio
+        await this.currentAudio.play();
+      }
+    } catch (error) {
+      console.error('TTS Error:', error);
+      this.isSpeaking = false;
+    }
+  }
+
+  private cleanTextForSpeech(text: string): string {
+    // Remove markdown formatting and special characters
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
+      .replace(/\*(.*?)\*/g, '$1')     // Remove italic
+      .replace(/`(.*?)`/g, '$1')       // Remove code blocks
+      .replace(/#{1,6}\s/g, '')        // Remove headers
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links, keep text
+      .replace(/[#*`_~]/g, '')         // Remove remaining markdown chars
+      .replace(/[👋😅🤖💡]/g, '')        // Remove emojis
+      .trim();
+  }
+
+  public toggleTTS(): void {
+    this.ttsEnabled = !this.ttsEnabled;
+    if (!this.ttsEnabled) {
+      this.stopSpeech();
+    }
+  }
+
+  public stopSpeech(): void {
+    if (this.currentAudio) {
+      this.currentAudio.pause();
+      this.currentAudio.currentTime = 0;
+      this.cleanupAudio();
+    }
+    this.isSpeaking = false;
+  }
+
+  private cleanupAudio(): void {
+    if (this.currentAudio) {
+      // Revoke the object URL to free memory
+      URL.revokeObjectURL(this.currentAudio.src);
+      this.currentAudio = undefined;
     }
   }
 
