@@ -13,7 +13,7 @@ import {SkillsComponent} from './skills/skills.component';
 import {PublicationsComponent} from './publications/publications.component';
 import {AiQuizGameComponent} from './ai-quiz-game/ai-quiz-game.component';
 import {BlogComponent} from './blog/blog.component';
-import {AiFaceComponent} from '../ai-face/ai-face.component';
+import {Avatar3dComponent} from './avatar-3d/avatar-3d.component';
 
 @Component({
   selector: 'app-profile',
@@ -24,6 +24,7 @@ import {AiFaceComponent} from '../ai-face/ai-face.component';
     HeaderComponent,
     FooterComponent,
     IntroComponent,
+    Avatar3dComponent,
     AboutComponent,
     ContactComponent,
     EducationComponent,
@@ -31,8 +32,7 @@ import {AiFaceComponent} from '../ai-face/ai-face.component';
     SkillsComponent,
     PublicationsComponent,
     AiQuizGameComponent,
-    BlogComponent,
-    AiFaceComponent
+    BlogComponent
   ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {

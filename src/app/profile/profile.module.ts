@@ -17,6 +17,7 @@ import {AiCodeReviewComponent} from './ai-code-review/ai-code-review.component';
 // import {ParticlesModule} from 'angular-particle';
 import {ParticleComponent} from './particle/particle.component';
 import {AiFaceComponent} from '../ai-face/ai-face.component';
+import {Avatar3dComponent} from './avatar-3d/avatar-3d.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {AiFaceComponent} from '../ai-face/ai-face.component';
     ReactiveFormsModule,
     // NgxSpinnerModule,
     // ParticlesModule,
-    AiFaceComponent
+    AiFaceComponent,
+    Avatar3dComponent
   ],
   declarations: [
     ProfileComponent,

@@ -1,0 +1,60 @@
+<section id="avatar-3d" class="avatar-3d-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Meet Me in 3D</h2>
+      <p>Interactive 3D Avatar - Drag to rotate, scroll to zoom, chat with me</p>
+    </div>
+    <div class="avatar-container">
+      <canvas #canvas class="avatar-canvas"></canvas>
+      
+      <div class="controls-hint">
+        <span>🖱️ Drag to rotate</span>
+        <span>🔍 Scroll to zoom</span>
+        <button class="chat-button" (click)="toggleChat()">
+          {{ isChatOpen ? '💭 Close Chat' : '🤖 Chat with Me' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="chat-window" *ngIf="isChatOpen" [@chatAnimation]>
+      <div class="chat-header">
+        <h3>💬 Chat with Me</h3>
+        <div class="header-controls">
+          <button class="close-btn" (click)="toggleChat()">✕</button>
+        </div>
+      </div>
+      
+      <div class="chat-messages" #chatMessages>
+        <div *ngFor="let message of messages" 
+             [class.user-message]="message.isUser"
+             [class.ai-message]="!message.isUser"
+             class="message">
+          <div class="message-content">
+            <span class="message-text" [innerHTML]="message.text | markdown"></span>
+            <span class="message-time">{{ message.time }}</span>
+          </div>
+        </div>
+        
+        <div *ngIf="isTyping" class="typing-indicator">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      
+      <div class="chat-input-container">
+        <input 
+          type="text" 
+          [(ngModel)]="userInput" 
+          (keyup.enter)="sendMessage()"
+          placeholder="Ask me anything about my portfolio..."
+          #messageInput
+          class="chat-input">
+        <button (click)="sendMessage()" 
+                [disabled]="isTyping || !userInput.trim()"
+                class="send-btn">
+          {{ isTyping ? '⏳' : '�' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
