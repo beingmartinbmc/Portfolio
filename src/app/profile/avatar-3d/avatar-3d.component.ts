@@ -278,14 +278,14 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         aiResponse = response.message;
       }
       
-      // Start TTS IMMEDIATELY - don't wait for anything
+      // Start TTS and display message only when audio is ready
       if (this.ttsEnabled) {
-        // Fire and forget - start TTS as fast as possible
-        this.speakText(aiResponse);
+        // Don't add message to UI yet - wait for TTS response
+        this.speakText(aiResponse, true); // Pass true to indicate we should add message after TTS
+      } else {
+        // If TTS is disabled, add message immediately
+        this.addMessage(aiResponse, false, false);
       }
-      
-      // Add message to UI (without TTS since we already started it)
-      this.addMessage(aiResponse, false, false);
       
     } catch (error) {
       console.error('AI API Error:', error);
@@ -320,7 +320,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   // Text-to-Speech methods - Optimized for minimal latency
-  private speakText(text: string): void {
+  private speakText(text: string, addMessageAfterTTS: boolean = false): void {
     if (!text.trim()) return;
 
     // Stop any current speech
@@ -333,11 +333,15 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     // Check cache first for instant playback
     const cachedAudio = this.ttsCache.get(cleanText);
     if (cachedAudio) {
+      // If we have cached audio, add message immediately since there's no API delay
+      if (addMessageAfterTTS) {
+        this.addMessage(text, false, false);
+      }
       this.playAudioBlob(cachedAudio);
       return;
     }
     
-    // Fire TTS API call immediately - no awaiting, without custom headers to avoid CORS
+    // Fire TTS API call immediately
     this.http.post(TTS_API_URL, {
       text: cleanText
     }, {
@@ -349,6 +353,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           
           // Cache the audio for faster future playback
           this.ttsCache.set(cleanText, audioBlob);
+          
+          // Add message to UI now that TTS response is ready
+          if (addMessageAfterTTS) {
+            this.addMessage(text, false, false);
+          }
           
           // Play immediately
           this.playAudioBlob(audioBlob);
@@ -364,6 +373,12 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         } else if (error.status >= 500) {
           console.error('TTS API server error. Service might be down.');
         }
+        
+        // Add message even if TTS fails
+        if (addMessageAfterTTS) {
+          this.addMessage(text, false, false);
+        }
+        
         this.isSpeaking = false;
       }
     });

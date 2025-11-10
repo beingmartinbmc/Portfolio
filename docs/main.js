@@ -84362,9 +84362,10 @@ var Avatar3dComponent = class _Avatar3dComponent {
           aiResponse = response.message;
         }
         if (this.ttsEnabled) {
-          this.speakText(aiResponse);
+          this.speakText(aiResponse, true);
+        } else {
+          this.addMessage(aiResponse, false, false);
         }
-        this.addMessage(aiResponse, false, false);
       } catch (error2) {
         console.error("AI API Error:", error2);
         this.addMessage("Oops! Something went wrong. Please try again later. \u{1F605}", false);
@@ -84391,7 +84392,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
     }
   }
   // Text-to-Speech methods - Optimized for minimal latency
-  speakText(text) {
+  speakText(text, addMessageAfterTTS = false) {
     if (!text.trim())
       return;
     this.stopSpeech();
@@ -84399,6 +84400,9 @@ var Avatar3dComponent = class _Avatar3dComponent {
     const cleanText = this.cleanTextForSpeech(text);
     const cachedAudio = this.ttsCache.get(cleanText);
     if (cachedAudio) {
+      if (addMessageAfterTTS) {
+        this.addMessage(text, false, false);
+      }
       this.playAudioBlob(cachedAudio);
       return;
     }
@@ -84411,6 +84415,9 @@ var Avatar3dComponent = class _Avatar3dComponent {
         if (response && this.isSpeaking) {
           const audioBlob = response;
           this.ttsCache.set(cleanText, audioBlob);
+          if (addMessageAfterTTS) {
+            this.addMessage(text, false, false);
+          }
           this.playAudioBlob(audioBlob);
         }
       },
@@ -84423,6 +84430,9 @@ var Avatar3dComponent = class _Avatar3dComponent {
           console.error("TTS API endpoint not found. Check API configuration.");
         } else if (error2.status >= 500) {
           console.error("TTS API server error. Service might be down.");
+        }
+        if (addMessageAfterTTS) {
+          this.addMessage(text, false, false);
         }
         this.isSpeaking = false;
       }
