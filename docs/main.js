@@ -48870,7 +48870,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     return __async(this, null, function* () {
       const prompt = this.generateQuestionPrompt();
       try {
-        const response = yield this.http.post("https://epic-backend-qt7w2jqhj-beingmartinbmcs-projects.vercel.app/api/generic", {
+        const response = yield this.http.post("https://epic-backend-nppkq806l-beingmartinbmcs-projects.vercel.app/api/generic", {
           prompt,
           context: "Generate a single quiz question with exactly 4 multiple choice options. Follow the exact format specified in the prompt."
         }, {
@@ -48916,7 +48916,7 @@ STRICT FORMAT REQUIREMENTS:
 FORMAT:
 QUESTION: [Your unique question here]
 OPTION_A: [First option]
-OPTION_B: [Second option]  
+OPTION_B: [Second option]
 OPTION_C: [Third option]
 OPTION_D: [Fourth option]
 CORRECT: [Letter of correct answer: A, B, C, or D]
@@ -48934,9 +48934,9 @@ ${this.getTopicSuggestions(this.selectedCategory)}
 
 QUESTION STYLES TO ROTATE:
 - "Which/What/Who/When/Where/How" questions
-- "What is the primary purpose of..." 
-- "Which company/person/technology..." 
-- "In what year was..." 
+- "What is the primary purpose of..."
+- "Which company/person/technology..."
+- "In what year was..."
 - "What programming concept/scientific principle..."
 
 Generate ONE completely unique question now:`;

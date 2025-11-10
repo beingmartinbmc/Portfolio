@@ -31,7 +31,7 @@ interface QuizStats {
   imports: [CommonModule, FormsModule]
 })
 export class AiQuizGameComponent implements OnInit {
-  
+
   currentQuestion: QuizQuestion | null = null;
   selectedAnswer: number | null = null;
   showAnswer = false;
@@ -43,7 +43,7 @@ export class AiQuizGameComponent implements OnInit {
   questionTimer: any;
   gameTimer: any;
   askedQuestions: string[] = []; // Track previously asked questions
-  
+
   quizStats: QuizStats = {
     totalQuestions: 0,
     correctAnswers: 0,
@@ -211,9 +211,9 @@ export class AiQuizGameComponent implements OnInit {
 
   async generateAIQuestion(): Promise<QuizQuestion | null> {
     const prompt = this.generateQuestionPrompt();
-    
+
     try {
-      const response = await this.http.post('https://epic-backend-qt7w2jqhj-beingmartinbmcs-projects.vercel.app/api/generic', {
+      const response = await this.http.post('https://epic-backend-nppkq806l-beingmartinbmcs-projects.vercel.app/api/generic', {
         prompt: prompt,
         context: "Generate a single quiz question with exactly 4 multiple choice options. Follow the exact format specified in the prompt."
       }, {
@@ -240,10 +240,10 @@ export class AiQuizGameComponent implements OnInit {
   generateQuestionPrompt(): string {
     const categoryInfo = this.categories.find(c => c.value === this.selectedCategory);
     const difficultyInfo = this.difficulties.find(d => d.value === this.selectedDifficulty);
-    
+
     // Create context about previously asked questions
     const recentQuestions = this.askedQuestions.slice(-5); // Last 5 questions
-    const questionContext = recentQuestions.length > 0 
+    const questionContext = recentQuestions.length > 0
       ? `AVOID REPEATING these recent topics: ${recentQuestions.join(', ')}`
       : 'This is the first question in this session.';
 
@@ -266,7 +266,7 @@ STRICT FORMAT REQUIREMENTS:
 FORMAT:
 QUESTION: [Your unique question here]
 OPTION_A: [First option]
-OPTION_B: [Second option]  
+OPTION_B: [Second option]
 OPTION_C: [Third option]
 OPTION_D: [Fourth option]
 CORRECT: [Letter of correct answer: A, B, C, or D]
@@ -284,9 +284,9 @@ ${this.getTopicSuggestions(this.selectedCategory)}
 
 QUESTION STYLES TO ROTATE:
 - "Which/What/Who/When/Where/How" questions
-- "What is the primary purpose of..." 
-- "Which company/person/technology..." 
-- "In what year was..." 
+- "What is the primary purpose of..."
+- "Which company/person/technology..."
+- "In what year was..."
 - "What programming concept/scientific principle..."
 
 Generate ONE completely unique question now:`;
@@ -307,7 +307,7 @@ Generate ONE completely unique question now:`;
   parseAIQuestion(aiResponse: string): QuizQuestion | null {
     try {
       const lines = aiResponse.trim().split('\n').map(line => line.trim());
-      
+
       let question = '';
       let options: string[] = [];
       let correctAnswer = 0;
@@ -356,12 +356,12 @@ Generate ONE completely unique question now:`;
     const categoryQuestions = this.fallbackQuestions[this.selectedCategory] || this.fallbackQuestions.technology;
     const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
     const question = { ...categoryQuestions[randomIndex], id: Date.now() };
-    
+
     // Update points based on selected difficulty
     const points = this.selectedDifficulty === 'Easy' ? 10 : this.selectedDifficulty === 'Medium' ? 20 : 30;
     question.points = points;
     question.difficulty = this.selectedDifficulty as 'Easy' | 'Medium' | 'Hard';
-    
+
     return question;
   }
 
@@ -378,12 +378,12 @@ Generate ONE completely unique question now:`;
     this.quizStats.totalQuestions++;
 
     const isCorrect = this.selectedAnswer === this.currentQuestion.correctAnswer;
-    
+
     if (isCorrect) {
       this.quizStats.correctAnswers++;
       this.quizStats.streak++;
       this.quizStats.bestStreak = Math.max(this.quizStats.bestStreak, this.quizStats.streak);
-      
+
       // Points based on difficulty and time bonus
       let points = this.currentQuestion.points;
       const timeBonus = Math.max(0, Math.floor((this.quizStats.timeLeft / 30) * 10)); // Up to 10 bonus points
@@ -443,7 +443,7 @@ Generate ONE completely unique question now:`;
   }
 
   getScorePercentage(): number {
-    return this.quizStats.totalQuestions > 0 ? 
+    return this.quizStats.totalQuestions > 0 ?
       Math.round((this.quizStats.correctAnswers / this.quizStats.totalQuestions) * 100) : 0;
   }
 

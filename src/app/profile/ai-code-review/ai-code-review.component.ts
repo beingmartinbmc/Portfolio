@@ -57,7 +57,7 @@ interface AIReview {
   imports: [CommonModule, FormsModule]
 })
 export class AiCodeReviewComponent implements OnInit {
-  
+
   currentSnippet: CodeSnippet | null = null;
   currentIndex = 0;
   aiReview: AIReview | null = null;
@@ -97,11 +97,11 @@ export class AiCodeReviewComponent implements OnInit {
 public class UserService {
   @Autowired
   private UserRepository userRepository;
-  
+
   public User createUser(User user) {
     return userRepository.save(user);
   }
-  
+
   public List<User> getAllUsers() {
     return userRepository.findAll();
   }
@@ -133,11 +133,11 @@ public void handleUserEvent(String message) {
 public class CacheService {
   @Autowired
   private RedisTemplate<String, Object> redisTemplate;
-  
+
   public void setValue(String key, Object value) {
     redisTemplate.opsForValue().set(key, value);
   }
-  
+
   public Object getValue(String key) {
     return redisTemplate.opsForValue().get(key);
   }
@@ -152,7 +152,7 @@ public class CacheService {
       code: `@RestController
 @RequestMapping("/api/users")
 public class UserController {
-  
+
   @GetMapping("/{id}")
   public ResponseEntity<User> getUser(@PathVariable Long id) {
     User user = userService.findById(id);
@@ -306,7 +306,7 @@ puts greet("World")`
 
   generateRandomCode(): void {
     this.isGenerating = true;
-    
+
     // Simulate generation delay
     setTimeout(() => {
       const randomSnippet = this.getRandomCodeForLanguage(this.selectedLanguage);
@@ -335,7 +335,7 @@ puts greet("World")`
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    
+
     public User createUser(User user) {
         return userRepository.save(user);
     }
@@ -356,7 +356,7 @@ public class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
-    
+
     async createUser(user) {
         return await this.userRepository.save(user);
     }
@@ -372,7 +372,7 @@ public class UserService {
         `class UserService:
     def __init__(self, user_repository):
         self.user_repository = user_repository
-    
+
     def create_user(self, user):
         return self.user_repository.save(user)`
       ],
@@ -395,14 +395,14 @@ public class UserService {
 
 class UserService {
     constructor(private userRepository: UserRepository) {}
-    
+
     async createUser(user: User): Promise<User> {
         return await this.userRepository.save(user);
     }
 }`
       ]
     };
-    
+
     const snippets = codeSnippets[language] || codeSnippets['java'];
     return snippets[Math.floor(Math.random() * snippets.length)];
   }
@@ -417,13 +417,13 @@ class UserService {
     if (!this.userCode.trim()) return;
 
     this.isLoading = true;
-    
+
     const language = this.getLanguageDisplayName();
     const prompt = CODE_REVIEW_PROMPT(language, this.userCode);
     const context = CODE_REVIEW_CONTEXT(language);
 
     try {
-      const response = await this.http.post('https://epic-backend-qt7w2jqhj-beingmartinbmcs-projects.vercel.app/api/generic', {
+      const response = await this.http.post('https://epic-backend-nppkq806l-beingmartinbmcs-projects.vercel.app/api/generic', {
         prompt: prompt,
         context: context
       }, {
@@ -438,7 +438,7 @@ class UserService {
         if (responseData && 'choices' in responseData && Array.isArray(responseData.choices) && responseData.choices.length > 0) {
           const aiResponse = responseData.choices[0].message.content;
           this.parseAIResponse(aiResponse);
-          
+
           // Perform complexity analysis if the code looks like an algorithm
           if (this.isAlgorithmCode(this.userCode)) {
             await this.performComplexityAnalysis();
@@ -479,7 +479,7 @@ class UserService {
       /queue/i,
       /stack/i
     ];
-    
+
     return algorithmPatterns.some(pattern => pattern.test(code));
   }
 
@@ -490,7 +490,7 @@ class UserService {
     const prompt = COMPLEXITY_ANALYSIS_PROMPT(language, this.userCode);
 
     try {
-      const response = await this.http.post('https://epic-backend-qt7w2jqhj-beingmartinbmcs-projects.vercel.app/api/generic', {
+      const response = await this.http.post('https://epic-backend-nppkq806l-beingmartinbmcs-projects.vercel.app/api/generic', {
         prompt: prompt,
         context: `You are an expert algorithm analyst specializing in Big-O complexity analysis for ${language} code.`
       }, {
@@ -515,10 +515,10 @@ class UserService {
   private parseAIResponse(response: string): void {
     // Format the AI response for better display
     this.formattedFeedback = this.formatAIResponse(response);
-    
+
     // Check if response follows our expected format
     const hasStructuredFormat = response.includes('=== CODE QUALITY METRICS ===');
-    
+
     if (hasStructuredFormat) {
       // Use structured parsing
       this.aiReview = {
@@ -599,7 +599,7 @@ class UserService {
       const suggestionsText = match[1];
       const numberedSuggestions = suggestionsText.match(/\d+\.\s*([^.\n]+)/g);
       if (numberedSuggestions) {
-        return numberedSuggestions.slice(0, 4).map(suggestion => 
+        return numberedSuggestions.slice(0, 4).map(suggestion =>
           suggestion.replace(/^\d+\.\s*/, '').trim()
         );
       }
@@ -620,7 +620,7 @@ class UserService {
         return this.formatDetailedFeedback(feedbackMatch[1].trim());
       }
     }
-    
+
     // Fallback: format the entire response
     return this.formatDetailedFeedback(response);
   }
@@ -657,7 +657,7 @@ class UserService {
     if (scoreMatch) {
       return parseInt(scoreMatch[1]);
     }
-    
+
     // Fallback: look for any score pattern
     const fallbackScore = response.match(/(\d+)\/10|score.*?(\d+)/i);
     return fallbackScore ? parseInt(fallbackScore[1] || fallbackScore[2]) : 8;
@@ -670,12 +670,12 @@ class UserService {
       const improvementsText = improvementsMatch[1];
       const numberedImprovements = improvementsText.match(/\d+\.\s*([^.\n]+)/g);
       if (numberedImprovements) {
-        return numberedImprovements.slice(0, 4).map(imp => 
+        return numberedImprovements.slice(0, 4).map(imp =>
           imp.replace(/^\d+\.\s*/, '').trim()
         );
       }
     }
-    
+
     // Fallback
     return ["Code Quality", "Best Practices", "Performance"];
   }
@@ -708,7 +708,7 @@ class UserService {
     if (feedbackMatch) {
       return feedbackMatch[1].trim();
     }
-    
+
     // Fallback: look for any detailed content
     const fallbackMatch = response.match(/detailed[^]*?(?===|$)/is);
     return fallbackMatch ? fallbackMatch[0].trim() : '';
@@ -730,21 +730,21 @@ class UserService {
     const standardsMatch = response.match(/=== INDUSTRY STANDARDS ===\n([^=]*?)(?===|$)/is);
     if (standardsMatch) {
       const standardsText = standardsMatch[1];
-      
+
       // Extract compliance percentage
       const complianceMatch = standardsText.match(/Compliance:\s*(\d+)%/i);
       const compliance = complianceMatch ? parseInt(complianceMatch[1]) : 75;
-      
+
       // Extract standards met
       const standardsMetMatch = standardsText.match(/Standards Met:\s*([^.\n]+)/i);
-      const standards = standardsMetMatch ? 
+      const standards = standardsMetMatch ?
         standardsMetMatch[1].split(',').map(s => s.trim()) : [];
-      
+
       // Extract deviations
       const deviationsMatch = standardsText.match(/Deviations:\s*([^.\n]+)/i);
-      const deviations = deviationsMatch ? 
+      const deviations = deviationsMatch ?
         deviationsMatch[1].split(',').map(d => d.trim()) : [];
-      
+
       return {
         standards: standards.slice(0, 3),
         deviations: deviations.slice(0, 3),
@@ -759,27 +759,27 @@ class UserService {
     const learningMatch = response.match(/=== LEARNING RESOURCES ===\n([^=]*?)(?===|$)/is);
     if (learningMatch) {
       const learningText = learningMatch[1];
-      
+
       // Extract tutorials
       const tutorialsMatch = learningText.match(/Tutorials:\s*([^.\n]+)/i);
-      const tutorials = tutorialsMatch ? 
+      const tutorials = tutorialsMatch ?
         tutorialsMatch[1].split(',').map(t => t.trim()) : [];
-      
+
       // Extract documentation
       const docsMatch = learningText.match(/Documentation:\s*([^.\n]+)/i);
-      const documentation = docsMatch ? 
+      const documentation = docsMatch ?
         docsMatch[1].split(',').map(d => d.trim()) : [];
-      
+
       // Extract courses
       const coursesMatch = learningText.match(/Courses:\s*([^.\n]+)/i);
-      const courses = coursesMatch ? 
+      const courses = coursesMatch ?
         coursesMatch[1].split(',').map(c => c.trim()) : [];
-      
+
       // Extract books
       const booksMatch = learningText.match(/Books:\s*([^.\n]+)/i);
-      const books = booksMatch ? 
+      const books = booksMatch ?
         booksMatch[1].split(',').map(b => b.trim()) : [];
-      
+
       // If no structured format found, try to parse a single line of resources
       if (tutorials.length === 0 && documentation.length === 0 && courses.length === 0 && books.length === 0) {
         const allResources = learningText.trim().split(',').map(r => r.trim());
@@ -789,7 +789,7 @@ class UserService {
           return distributed;
         }
       }
-      
+
       return {
         tutorials: tutorials.slice(0, 2),
         documentation: documentation.slice(0, 2),
@@ -797,7 +797,7 @@ class UserService {
         books: books.slice(0, 2)
       };
     }
-    
+
     return { tutorials: [], documentation: [], courses: [], books: [] };
   }
 
@@ -806,10 +806,10 @@ class UserService {
     const documentation = [];
     const courses = [];
     const books = [];
-    
+
     resources.forEach((resource, index) => {
       const lowerResource = resource.toLowerCase();
-      
+
       if (lowerResource.includes('documentation') || lowerResource.includes('docs') || lowerResource.includes('api')) {
         documentation.push(resource);
       } else if (lowerResource.includes('course') || lowerResource.includes('tutorial') || lowerResource.includes('guide')) {
@@ -824,7 +824,7 @@ class UserService {
         else books.push(resource);
       }
     });
-    
+
     return {
       tutorials: tutorials.slice(0, 2),
       documentation: documentation.slice(0, 2),
@@ -838,23 +838,23 @@ class UserService {
     const metricsMatch = response.match(/=== CODE QUALITY METRICS ===\n([^=]*?)(?===|$)/is);
     if (metricsMatch) {
       const metricsText = metricsMatch[1];
-      
+
       // Extract cyclomatic complexity
       const complexityMatch = metricsText.match(/Cyclomatic Complexity:\s*(\d+)/i);
       const complexity = complexityMatch ? parseInt(complexityMatch[1]) : 5;
-      
+
       // Extract maintainability index
       const maintainabilityMatch = metricsText.match(/Maintainability Index:\s*(\d+)/i);
       const maintainability = maintainabilityMatch ? parseInt(maintainabilityMatch[1]) : 70;
-      
+
       // Extract code smells
       const smellsMatch = metricsText.match(/Code Smells:\s*(\d+)/i);
       const smells = smellsMatch ? parseInt(smellsMatch[1]) : 2;
-      
+
       // Extract technical debt
       const debtMatch = metricsText.match(/Technical Debt:\s*([^.\n]+)/i);
       const debt = debtMatch ? debtMatch[1].trim() : "Low";
-      
+
       return {
         cyclomaticComplexity: complexity,
         maintainabilityIndex: maintainability,
@@ -862,7 +862,7 @@ class UserService {
         technicalDebt: debt
       };
     }
-    
+
     return { cyclomaticComplexity: 5, maintainabilityIndex: 70, codeSmells: 2, technicalDebt: "Low" };
   }
 
@@ -940,7 +940,7 @@ class UserService {
       .replace(/\n/g, '<br>')
       // Spaces
       .replace(/ /g, '&nbsp;');
-    
+
     return highlighted;
   }
 }
