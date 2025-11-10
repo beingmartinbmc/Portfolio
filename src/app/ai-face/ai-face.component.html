@@ -1,17 +1,99 @@
+<div class="ai-assistant-wrapper" [class.chat-open]="isChatOpen">
+  <!-- Chat Bubble -->
+  <div class="chat-bubble" *ngIf="isChatOpen" [@chatAnimation]>
+    <div class="chat-header">
+      <h3>💬 Chat with AI</h3>
+      <button class="close-btn" (click)="toggleChat()">✕</button>
+    </div>
+    
+    <div class="chat-messages" #chatMessages>
+      <div *ngFor="let message of messages" 
+           [class.user-message]="message.isUser"
+           [class.ai-message]="!message.isUser"
+           class="message">
+        <div class="message-content">
+          <span class="message-text">{{ message.text }}</span>
+          <span class="message-time">{{ message.time }}</span>
+        </div>
+      </div>
+      
+      <div *ngIf="isTyping" class="typing-indicator">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    
+    <div class="chat-input-container">
+      <input 
+        type="text" 
+        [(ngModel)]="userInput" 
+        (keyup.enter)="sendMessage()"
+        placeholder="Ask me anything..."
+        class="chat-input"
+        [disabled]="isTyping"
+        #messageInput>
+      <button 
+        class="send-btn" 
+        (click)="sendMessage()"
+        [disabled]="!userInput.trim() || isTyping">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
 
-<div class="ai-face-container">
-		<svg width="160" height="160" viewBox="0 0 160 160">
-			<!-- Face Circle -->
-			<circle cx="80" cy="80" r="70" fill="#ede7f6" stroke="#b39ddb" stroke-width="4"/>
-			<!-- Left Eye White -->
-			<ellipse id="left-eye" cx="55" cy="80" rx="18" ry="22" fill="#fff" stroke="#888" stroke-width="2"/>
-			<!-- Right Eye White -->
-			<ellipse id="right-eye" cx="105" cy="80" rx="18" ry="22" fill="#fff" stroke="#888" stroke-width="2"/>
-			<!-- Left Pupil -->
-			<circle id="left-pupil" cx="55" cy="80" r="7" fill="#222"/>
-			<!-- Right Pupil -->
-			<circle id="right-pupil" cx="105" cy="80" r="7" fill="#222"/>
-			<!-- Smile -->
-			<path d="M60 110 Q80 130 100 110" stroke="#b39ddb" stroke-width="3" fill="none"/>
-		</svg>
+  <!-- AI Face -->
+  <div class="ai-face-container" 
+       (click)="toggleChat()"
+       [class.thinking]="isTyping"
+       [class.talking]="isTalking">
+    <svg width="160" height="160" viewBox="0 0 160 160">
+      <!-- Face Circle with gradient -->
+      <defs>
+        <linearGradient id="faceGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#667eea;stop-opacity:0.2" />
+          <stop offset="100%" style="stop-color:#764ba2;stop-opacity:0.3" />
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      <!-- Face -->
+      <circle cx="80" cy="80" r="70" fill="url(#faceGradient)" stroke="#667eea" stroke-width="3" filter="url(#glow)"/>
+      
+      <!-- Left Eye Container -->
+      <g id="left-eye-container">
+        <ellipse cx="55" cy="75" rx="15" ry="20" fill="#fff" stroke="#667eea" stroke-width="2"/>
+        <circle id="left-pupil" cx="55" cy="75" r="8" fill="#667eea"/>
+        <circle cx="57" cy="73" r="3" fill="#fff" opacity="0.8"/>
+      </g>
+      
+      <!-- Right Eye Container -->
+      <g id="right-eye-container">
+        <ellipse cx="105" cy="75" rx="15" ry="20" fill="#fff" stroke="#667eea" stroke-width="2"/>
+        <circle id="right-pupil" cx="105" cy="75" r="8" fill="#667eea"/>
+        <circle cx="107" cy="73" r="3" fill="#fff" opacity="0.8"/>
+      </g>
+      
+      <!-- Eyebrows -->
+      <path id="left-eyebrow" d="M40 55 Q55 50 65 55" stroke="#667eea" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path id="right-eyebrow" d="M95 55 Q105 50 120 55" stroke="#667eea" stroke-width="3" fill="none" stroke-linecap="round"/>
+      
+      <!-- Mouth (changes based on state) -->
+      <path id="mouth" [attr.d]="mouthPath" stroke="#667eea" stroke-width="3" fill="none" stroke-linecap="round"/>
+      
+      <!-- Cheeks (blush when talking) -->
+      <circle cx="40" cy="90" r="8" fill="#ff6b9d" opacity="0.3" class="cheek left-cheek"/>
+      <circle cx="120" cy="90" r="8" fill="#ff6b9d" opacity="0.3" class="cheek right-cheek"/>
+    </svg>
+    
+    <!-- Notification badge -->
+    <div class="notification-badge" *ngIf="!isChatOpen && hasNewMessage">!</div>
+  </div>
 </div>
