@@ -156,9 +156,14 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       (gltf) => {
         this.model = gltf.scene;
         
-        // Update loading text
+        // Update loading text and progress smoothly
+        this.loadingProgress = 85; // Ensure we're at 85% before setup
         this.loadingText = 'Setting up 3D scene...';
-        this.loadingProgress = 90;
+        
+        // Use setTimeout to make progress visible
+        setTimeout(() => {
+          this.loadingProgress = 90;
+        }, 100);
         
         // Center the model
         const box = new THREE.Box3().setFromObject(this.model);
@@ -181,22 +186,30 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
 
         this.scene.add(this.model);
         
-        // Complete loading
-        this.loadingProgress = 100;
-        this.loadingText = 'Ready!';
-        
-        // Hide loading after a short delay
+        // Complete loading with smooth transition
         setTimeout(() => {
-          this.isLoading = false;
-        }, 500);
+          this.loadingProgress = 95;
+          this.loadingText = 'Almost ready...';
+        }, 200);
+        
+        setTimeout(() => {
+          this.loadingProgress = 100;
+          this.loadingText = 'Ready!';
+          
+          // Hide loading after final delay
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 300);
+        }, 400);
       },
       (progress) => {
-        // Update loading progress
+        // Update loading progress with proper bounds checking
         if (progress.total > 0) {
-          this.loadingProgress = Math.round((progress.loaded / progress.total) * 85); // Reserve 85% for actual loading
+          const rawProgress = (progress.loaded / progress.total) * 85; // Reserve 85% for actual loading
+          this.loadingProgress = Math.min(Math.round(rawProgress), 85); // Ensure it never exceeds 85%
           this.loadingText = `Loading 3D Avatar... ${this.loadingProgress}%`;
         }
-        console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%');
+        console.log('Loading progress:', Math.min((progress.loaded / progress.total * 100), 100) + '%');
       },
       (error) => {
         console.error('Error loading 3D model:', error);
@@ -324,15 +337,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       return;
     }
     
-    // Fire TTS API call immediately - no awaiting, with optimized headers
+    // Fire TTS API call immediately - no awaiting, without custom headers to avoid CORS
     this.http.post(TTS_API_URL, {
       text: cleanText
     }, {
-      responseType: 'blob',
-      headers: {
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache'
-      }
+      responseType: 'blob'
     }).subscribe({
       next: (response) => {
         if (response && this.isSpeaking) { // Check if still needed
@@ -347,6 +356,14 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('TTS Error:', error);
+        if (error.status === 0 || error.status === undefined) {
+          console.error('CORS or network error detected. API might be unreachable.');
+          console.error('TTS API URL:', TTS_API_URL);
+        } else if (error.status === 404) {
+          console.error('TTS API endpoint not found. Check API configuration.');
+        } else if (error.status >= 500) {
+          console.error('TTS API server error. Service might be down.');
+        }
         this.isSpeaking = false;
       }
     });
