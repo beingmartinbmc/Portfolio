@@ -84166,13 +84166,21 @@ var VoiceStreamingService = class _VoiceStreamingService {
           callbacks.onText?.(data.content);
           break;
         case "audio":
+          if (!data.chunkIndex && data.chunkIndex !== 0) {
+            console.warn("Audio chunk missing chunkIndex:", data);
+            return;
+          }
+          if (!data.audio) {
+            console.warn("Audio chunk missing audio data:", data);
+            return;
+          }
           const audioChunk = {
             chunkIndex: data.chunkIndex,
             audioData: data.audio,
-            mimeType: data.mimeType,
-            estimatedDuration: data.estimatedDuration,
-            text: data.text,
-            // Keep original text for reference
+            mimeType: data.mimeType || "audio/mp3",
+            estimatedDuration: data.estimatedDuration || 0,
+            text: data.text || "",
+            // Ensure we have a string, default to empty
             timing: data.timing
           };
           this.queueAudioChunk(audioChunk);
@@ -84194,7 +84202,7 @@ var VoiceStreamingService = class _VoiceStreamingService {
           console.log("Unknown event type:", eventType, data);
       }
     } catch (error2) {
-      console.error("Error parsing SSE event data:", error2);
+      console.error("Error parsing SSE event data:", error2, { eventType, eventData });
     }
   }
   queueAudioChunk(chunk) {
@@ -84289,9 +84297,15 @@ var VoiceStreamingService = class _VoiceStreamingService {
     this.stopAudio();
   }
   cleanTextForSpeech(text) {
-    if (!text)
+    if (!text || typeof text !== "string") {
       return "";
-    return text.replace(/\*\*\*(.*?)\*\*\*/g, "$1").replace(/\*\*(.*?)\*\*/g, "$1").replace(/\*(.*?)\*/g, "$1").replace(/__(.*?)__/g, "$1").replace(/_(.*?)_/g, "$1").replace(/`(.*?)`/g, "$1").replace(/```[\s\S]*?```/g, "").replace(/#{1,6}\s*/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1").replace(/[#*`_~\[\]()]/g, "").replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, "").replace(/\s+/g, " ").trim();
+    }
+    try {
+      return text.replace(/\*\*\*(.*?)\*\*\*/g, "$1").replace(/\*\*(.*?)\*\*/g, "$1").replace(/\*(.*?)\*/g, "$1").replace(/__(.*?)__/g, "$1").replace(/_(.*?)_/g, "$1").replace(/`(.*?)`/g, "$1").replace(/```[\s\S]*?```/g, "").replace(/#{1,6}\s*/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1").replace(/[#*`_~\[\]()]/g, "").replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, "").replace(/\s+/g, " ").trim();
+    } catch (error2) {
+      console.error("Error cleaning text for speech:", error2);
+      return String(text);
+    }
   }
   static {
     this.\u0275fac = function VoiceStreamingService_Factory(__ngFactoryType__) {
