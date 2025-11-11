@@ -316,6 +316,12 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       chunkSize: 30
     };
 
+    // Set a timeout to fallback if streaming takes too long
+    const streamTimeout = setTimeout(() => {
+      console.log('🔄 Voice streaming timeout, falling back to regular API');
+      this.fallbackToRegularAPI(userMessage);
+    }, 30000); // 30 second timeout
+
     try {
       await this.voiceStreamingService.startVoiceStream(
         userMessage,
@@ -326,6 +332,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
             console.log('🎤 Voice streaming started:', data);
             this.prepare3DModelForSpeech();
             this.isSpeaking = false; // Will be set to true when audio starts playing
+            clearTimeout(streamTimeout); // Clear timeout once stream starts
           },
           onText: (content) => {
             // Update the streaming response in real-time
@@ -338,6 +345,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           },
           onComplete: (data) => {
             console.log('✅ Voice streaming completed:', data);
+            clearTimeout(streamTimeout); // Clear timeout on completion
             this.finalize3DModelAnimation(data.timing, data.performance);
             this.isTyping = false;
             this.isStreaming = false;
@@ -346,19 +354,29 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           },
           onError: (error) => {
             console.error('❌ Voice streaming error:', error);
+            clearTimeout(streamTimeout); // Clear timeout on error
             this.isTyping = false;
             this.isStreaming = false;
             this.streamingResponse = '';
-            this.handleStreamingError(error, userMessage);
+            
+            // Check if this is a backend error and fallback immediately
+            if (error?.message && error.message.includes('text.split is not a function')) {
+              console.log('🔄 Backend error detected, falling back to regular API');
+              this.fallbackToRegularAPI(userMessage);
+            } else {
+              this.handleStreamingError(error, userMessage);
+            }
           },
           onFallback: (data) => {
             console.log('🔄 Falling back to text-only mode:', data);
+            clearTimeout(streamTimeout); // Clear timeout on fallback
             this.fallbackToRegularAPI(userMessage);
           }
         }
       );
     } catch (error) {
       console.error('Failed to start voice streaming:', error);
+      clearTimeout(streamTimeout);
       throw error;
     }
   }
@@ -377,6 +395,24 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   private async handleStreamingError(error: any, userMessage: string): Promise<void> {
+    // Check for backend code errors that shouldn't be retried
+    const backendErrors = [
+      'text.split is not a function',
+      'TypeError:',
+      'ReferenceError:',
+      'SyntaxError:'
+    ];
+    
+    const isBackendCodeError = backendErrors.some(errorType => 
+      error?.message?.includes(errorType) || error?.error?.includes(errorType)
+    );
+    
+    if (isBackendCodeError) {
+      console.log('🔄 Backend code error detected, skipping retries and falling back immediately');
+      await this.fallbackToRegularAPI(userMessage);
+      return;
+    }
+    
     if (error.retryable && this.retryCount < this.maxRetries) {
       this.retryCount++;
       console.log(`🔄 Retrying voice streaming (${this.retryCount}/${this.maxRetries})`);
