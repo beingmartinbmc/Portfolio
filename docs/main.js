@@ -48248,7 +48248,7 @@ var PublicationsComponent = class _PublicationsComponent {
 // src/app/config/api-config.ts
 var API_CONFIG = {
   // Base URL for all APIs
-  BASE_URL: "https://epic-backend-evp1rokqm-beingmartinbmcs-projects.vercel.app",
+  BASE_URL: "https://epic-backend-62lr1dfmi-beingmartinbmcs-projects.vercel.app",
   // API Endpoints
   ENDPOINTS: {
     // AI Chat API - used in environment files
