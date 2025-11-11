@@ -84090,61 +84090,111 @@ var VoiceStreamingService = class _VoiceStreamingService {
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
       }
       try {
-        yield this.http.post(STREAMING_VOICE_API_URL, {
-          prompt,
-          context: context2,
-          voiceSettings
-        }).toPromise();
+        const response = yield fetch(STREAMING_VOICE_API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "text/event-stream"
+          },
+          body: JSON.stringify({
+            prompt,
+            context: context2,
+            voiceSettings
+          })
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const reader = response.body?.getReader();
+        if (!reader) {
+          throw new Error("Failed to get response reader");
+        }
+        const decoder = new TextDecoder();
+        let buffer = "";
+        const processStream = () => __async(this, null, function* () {
+          try {
+            while (true) {
+              const { done, value } = yield reader.read();
+              if (done) {
+                console.log("\u2705 Stream completed");
+                callbacks.onComplete?.({ message: "Stream completed successfully" });
+                break;
+              }
+              buffer += decoder.decode(value, { stream: true });
+              const events = buffer.split("\n\n");
+              buffer = events.pop() || "";
+              for (const eventText of events) {
+                if (eventText.trim()) {
+                  this.processSSEEvent(eventText, callbacks);
+                }
+              }
+            }
+          } catch (error2) {
+            console.error("Error reading stream:", error2);
+            callbacks.onError?.(error2);
+          }
+        });
+        processStream();
       } catch (error2) {
-        console.error("Failed to initiate voice stream:", error2);
+        console.error("Failed to start voice stream:", error2);
         callbacks.onError?.(error2);
         throw error2;
       }
-      this.eventSource = new EventSource(STREAMING_VOICE_API_URL);
-      this.eventSource.addEventListener("start", (event) => {
-        const data = JSON.parse(event.data);
-        console.log("\u{1F3A4} Voice streaming started:", data);
-        callbacks.onStart?.(data);
-      });
-      this.eventSource.addEventListener("text", (event) => {
-        const data = JSON.parse(event.data);
-        callbacks.onText?.(data.content);
-      });
-      this.eventSource.addEventListener("audio", (event) => {
-        const data = JSON.parse(event.data);
-        const audioChunk = {
-          chunkIndex: data.chunkIndex,
-          audioData: data.audio,
-          mimeType: data.mimeType,
-          estimatedDuration: data.estimatedDuration,
-          text: data.text,
-          timing: data.timing
-        };
-        this.queueAudioChunk(audioChunk);
-        callbacks.onAudio?.(audioChunk);
-      });
-      this.eventSource.addEventListener("done", (event) => {
-        const data = JSON.parse(event.data);
-        console.log("\u2705 Voice streaming completed:", data);
-        callbacks.onComplete?.(data);
-        this.stopStream();
-      });
-      this.eventSource.addEventListener("error", (event) => {
-        const data = JSON.parse(event.data);
-        console.error("\u274C Voice streaming error:", data);
-        callbacks.onError?.(data);
-      });
-      this.eventSource.addEventListener("fallback", (event) => {
-        const data = JSON.parse(event.data);
-        console.log("\u{1F504} Falling back to text-only mode:", data);
-        callbacks.onFallback?.(data);
-      });
-      this.eventSource.onerror = (error2) => {
-        console.error("EventSource error:", error2);
-        callbacks.onError?.(error2);
-      };
-      return this.eventSource;
     });
+  }
+  processSSEEvent(eventText, callbacks) {
+    const lines = eventText.split("\n");
+    let eventType = "";
+    let eventData = "";
+    for (const line of lines) {
+      if (line.startsWith("event:")) {
+        eventType = line.substring(6).trim();
+      } else if (line.startsWith("data:")) {
+        eventData = line.substring(5).trim();
+      }
+    }
+    if (!eventType || !eventData)
+      return;
+    try {
+      const data = JSON.parse(eventData);
+      switch (eventType) {
+        case "start":
+          console.log("\u{1F3A4} Voice streaming started:", data);
+          callbacks.onStart?.(data);
+          break;
+        case "text":
+          callbacks.onText?.(data.content);
+          break;
+        case "audio":
+          const audioChunk = {
+            chunkIndex: data.chunkIndex,
+            audioData: data.audio,
+            mimeType: data.mimeType,
+            estimatedDuration: data.estimatedDuration,
+            text: data.text,
+            timing: data.timing
+          };
+          this.queueAudioChunk(audioChunk);
+          callbacks.onAudio?.(audioChunk);
+          break;
+        case "done":
+          console.log("\u2705 Voice streaming completed:", data);
+          callbacks.onComplete?.(data);
+          break;
+        case "error":
+          console.error("\u274C Voice streaming error:", data);
+          callbacks.onError?.(data);
+          break;
+        case "fallback":
+          console.log("\u{1F504} Falling back to text-only mode:", data);
+          callbacks.onFallback?.(data);
+          break;
+        default:
+          console.log("Unknown event type:", eventType, data);
+      }
+    } catch (error2) {
+      console.error("Error parsing SSE event data:", error2);
+    }
   }
   queueAudioChunk(chunk) {
     this.audioQueue.push(chunk);
@@ -84198,10 +84248,7 @@ var VoiceStreamingService = class _VoiceStreamingService {
     }
   }
   stopStream() {
-    if (this.eventSource) {
-      this.eventSource.close();
-      this.eventSource = void 0;
-    }
+    console.log("\u{1F6D1} Stopping voice stream");
     this.stopAudio();
     this.audioQueue = [];
   }
@@ -84214,7 +84261,7 @@ var VoiceStreamingService = class _VoiceStreamingService {
     }
   }
   isStreamActive() {
-    return this.eventSource?.readyState === EventSource.OPEN;
+    return this.isPlaying || this.audioQueue.length > 0;
   }
   isAudioPlaying() {
     return this.isPlaying || this.currentAudio && !this.currentAudio.paused;
@@ -84413,6 +84460,8 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.retryCount = 0;
     this.maxRetries = 3;
     this.isStreaming = false;
+    this.lastRequestTime = 0;
+    this.minRequestInterval = 1e3;
     this.CONTEXT = AI_CONTEXT;
   }
   ngOnInit() {
@@ -84542,13 +84591,24 @@ var Avatar3dComponent = class _Avatar3dComponent {
     return __async(this, null, function* () {
       if (!this.userInput.trim() || this.isTyping || this.isStreaming)
         return;
+      const now = Date.now();
+      if (now - this.lastRequestTime < this.minRequestInterval) {
+        console.log("\u{1F6AB} Request throttled - too soon after last request");
+        return;
+      }
+      this.lastRequestTime = now;
       const userMessage = this.userInput.trim();
       this.addMessage(userMessage, true);
       this.userInput = "";
+      if (this.isTyping || this.isStreaming) {
+        console.log("\u{1F6AB} Request blocked - already processing");
+        return;
+      }
       this.isTyping = true;
       this.isStreaming = true;
       this.streamingResponse = "";
       this.retryCount = 0;
+      this.voiceStreamingService.stopStream();
       try {
         yield this.startVoiceStreaming(userMessage);
       } catch (error2) {
@@ -84559,6 +84619,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }
   startVoiceStreaming(userMessage) {
     return __async(this, null, function* () {
+      console.log("\u{1F3A4} Starting voice streaming for message:", userMessage);
       const voiceOptions = {
         audioFormat: "mp3",
         voiceModel: "aura-2-draco-en",
@@ -84585,10 +84646,14 @@ var Avatar3dComponent = class _Avatar3dComponent {
             this.finalize3DModelAnimation(data.timing, data.performance);
             this.isTyping = false;
             this.isStreaming = false;
+            this.streamingResponse = "";
             this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
           },
           onError: (error2) => {
             console.error("\u274C Voice streaming error:", error2);
+            this.isTyping = false;
+            this.isStreaming = false;
+            this.streamingResponse = "";
             this.handleStreamingError(error2, userMessage);
           },
           onFallback: (data) => {
@@ -84626,6 +84691,11 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }
   fallbackToRegularAPI(userMessage) {
     return __async(this, null, function* () {
+      console.log("\u{1F504} Falling back to regular API for message:", userMessage);
+      if (!this.isTyping && !this.isStreaming) {
+        console.log("\u{1F6AB} Fallback blocked - not in processing state");
+        return;
+      }
       try {
         const response = yield this.http.post(environment.aiApiUrl, {
           prompt: userMessage,
