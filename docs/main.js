@@ -84122,16 +84122,14 @@ var VoiceStreamingService = class _VoiceStreamingService {
               }
               const decodedChunk = decoder.decode(value, { stream: true });
               buffer += decodedChunk;
-              console.debug("Received SSE chunk:", decodedChunk.substring(0, 100));
               const events = buffer.split("\n\n");
               buffer = events.pop() || "";
               for (const eventText of events) {
                 if (eventText && typeof eventText === "string" && eventText.trim()) {
-                  console.debug("Processing event:", eventText.substring(0, 50));
                   try {
                     this.processSSEEvent(eventText.trim(), callbacks);
                   } catch (error2) {
-                    console.error("Error processing SSE event:", error2, { eventText: eventText.substring(0, 100) });
+                    console.error("Error processing SSE event:", error2);
                   }
                 }
               }
@@ -84151,7 +84149,6 @@ var VoiceStreamingService = class _VoiceStreamingService {
   }
   processSSEEvent(eventText, callbacks) {
     if (!eventText || typeof eventText !== "string") {
-      console.warn("Invalid eventText received:", eventText);
       return;
     }
     try {
@@ -84166,13 +84163,11 @@ var VoiceStreamingService = class _VoiceStreamingService {
         }
       }
       if (!eventType || !eventData) {
-        console.warn("Missing eventType or eventData:", { eventType, eventData });
         return;
       }
       const data = JSON.parse(eventData);
       switch (eventType) {
         case "start":
-          console.log("\u{1F3A4} Voice streaming started:", data);
           callbacks.onStart?.(data);
           break;
         case "text":
@@ -84180,11 +84175,9 @@ var VoiceStreamingService = class _VoiceStreamingService {
           break;
         case "audio":
           if (!data.chunkIndex && data.chunkIndex !== 0) {
-            console.warn("Audio chunk missing chunkIndex:", data);
             return;
           }
           if (!data.audio) {
-            console.warn("Audio chunk missing audio data:", data);
             return;
           }
           const audioChunk = {
@@ -84200,24 +84193,19 @@ var VoiceStreamingService = class _VoiceStreamingService {
           callbacks.onAudio?.(audioChunk);
           break;
         case "done":
-          console.log("\u2705 Voice streaming completed:", data);
           callbacks.onComplete?.(data);
           break;
         case "error":
-          console.error("\u274C Voice streaming error:", data);
           callbacks.onError?.(data);
           break;
         case "fallback":
-          console.log("\u{1F504} Falling back to text-only mode:", data);
           callbacks.onFallback?.(data);
           break;
         default:
-          console.log("Unknown event type:", eventType, data);
+          break;
       }
     } catch (error2) {
-      console.error("Error parsing SSE event data:", error2, {
-        eventText: typeof eventText === "string" ? eventText.substring(0, 100) : eventText
-      });
+      console.error("Error parsing SSE event data:", error2);
     }
   }
   queueAudioChunk(chunk) {
@@ -84272,7 +84260,6 @@ var VoiceStreamingService = class _VoiceStreamingService {
     }
   }
   stopStream() {
-    console.log("\u{1F6D1} Stopping voice stream");
     this.stopAudio();
     this.audioQueue = [];
   }
@@ -84304,7 +84291,6 @@ var VoiceStreamingService = class _VoiceStreamingService {
   }
   retryLastStream() {
     return __async(this, null, function* () {
-      console.log("\u{1F504} Retry functionality - to be implemented based on stored request");
     });
   }
   clearAudioCache() {
@@ -84590,7 +84576,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
         this.loadingProgress = Math.min(Math.round(rawProgress), 85);
         this.loadingText = `Loading 3D Avatar... ${this.loadingProgress}%`;
       }
-      console.log("Loading progress:", Math.min(progress.loaded / progress.total * 100, 100) + "%");
     }, (error2) => {
       console.error("Error loading 3D model:", error2);
       this.loadingText = "Failed to load 3D Avatar";
@@ -84628,7 +84613,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
         return;
       const now = Date.now();
       if (now - this.lastRequestTime < this.minRequestInterval) {
-        console.log("\u{1F6AB} Request throttled - too soon after last request");
         return;
       }
       this.lastRequestTime = now;
@@ -84636,7 +84620,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
       this.addMessage(userMessage, true);
       this.userInput = "";
       if (this.isTyping || this.isStreaming) {
-        console.log("\u{1F6AB} Request blocked - already processing");
         return;
       }
       this.isTyping = true;
@@ -84654,7 +84637,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }
   startVoiceStreaming(userMessage) {
     return __async(this, null, function* () {
-      console.log("\u{1F3A4} Starting voice streaming for message:", userMessage);
       const voiceOptions = {
         audioFormat: "mp3",
         voiceModel: "aura-2-draco-en",
@@ -84663,13 +84645,11 @@ var Avatar3dComponent = class _Avatar3dComponent {
         chunkSize: 30
       };
       const streamTimeout = setTimeout(() => {
-        console.log("\u{1F504} Voice streaming timeout, falling back to regular API");
         this.fallbackToRegularAPI(userMessage);
       }, 3e4);
       try {
         yield this.voiceStreamingService.startVoiceStream(userMessage, this.CONTEXT, voiceOptions, {
           onStart: (data) => {
-            console.log("\u{1F3A4} Voice streaming started:", data);
             this.prepare3DModelForSpeech();
             this.isSpeaking = false;
             clearTimeout(streamTimeout);
@@ -84682,7 +84662,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
             this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
           },
           onComplete: (data) => {
-            console.log("\u2705 Voice streaming completed:", data);
             clearTimeout(streamTimeout);
             this.finalize3DModelAnimation(data.timing, data.performance);
             this.isTyping = false;
@@ -84697,14 +84676,12 @@ var Avatar3dComponent = class _Avatar3dComponent {
             this.isStreaming = false;
             this.streamingResponse = "";
             if (error2?.message && error2.message.includes("text.split is not a function")) {
-              console.log("\u{1F504} Backend error detected, falling back to regular API");
               this.fallbackToRegularAPI(userMessage);
             } else {
               this.handleStreamingError(error2, userMessage);
             }
           },
           onFallback: (data) => {
-            console.log("\u{1F504} Falling back to text-only mode:", data);
             clearTimeout(streamTimeout);
             this.fallbackToRegularAPI(userMessage);
           }
@@ -84735,26 +84712,21 @@ var Avatar3dComponent = class _Avatar3dComponent {
       ];
       const isBackendCodeError = backendErrors.some((errorType) => error2?.message?.includes(errorType) || error2?.error?.includes(errorType));
       if (isBackendCodeError) {
-        console.log("\u{1F504} Backend code error detected, skipping retries and falling back immediately");
         yield this.fallbackToRegularAPI(userMessage);
         return;
       }
       if (error2.retryable && this.retryCount < this.maxRetries) {
         this.retryCount++;
-        console.log(`\u{1F504} Retrying voice streaming (${this.retryCount}/${this.maxRetries})`);
         const delay = Math.pow(2, this.retryCount) * 1e3;
         setTimeout(() => this.startVoiceStreaming(userMessage), delay);
       } else {
-        console.log("\u{1F504} Max retries reached, falling back to regular API");
         yield this.fallbackToRegularAPI(userMessage);
       }
     });
   }
   fallbackToRegularAPI(userMessage) {
     return __async(this, null, function* () {
-      console.log("\u{1F504} Falling back to regular API for message:", userMessage);
       if (!this.isTyping && !this.isStreaming) {
-        console.log("\u{1F6AB} Fallback blocked - not in processing state");
         return;
       }
       try {
@@ -84935,13 +84907,11 @@ var Avatar3dComponent = class _Avatar3dComponent {
   // 3D Model animation methods for voice synchronization
   prepare3DModelForSpeech() {
     if (this.model) {
-      console.log("\u{1F3AD} Preparing 3D model for speech");
       this.addSubtleSpeakingAnimation();
     }
   }
   finalize3DModelAnimation(timing, performance2) {
     if (this.model) {
-      console.log("\u{1F3AD} Finalizing 3D model animation", { timing, performance: performance2 });
       this.removeSpeakingAnimation();
     }
   }
@@ -84963,7 +84933,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }
   removeSpeakingAnimation() {
     if (this.model) {
-      console.log("\u{1F3AD} Resetting 3D model to default state");
     }
   }
   static {
