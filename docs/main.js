@@ -48248,7 +48248,7 @@ var PublicationsComponent = class _PublicationsComponent {
 // src/app/config/api-config.ts
 var API_CONFIG = {
   // Base URL for all APIs
-  BASE_URL: "https://epic-backend-82b9dbzwq-beingmartinbmcs-projects.vercel.app",
+  BASE_URL: "https://epic-backend-evp1rokqm-beingmartinbmcs-projects.vercel.app",
   // API Endpoints
   ENDPOINTS: {
     // AI Chat API - used in environment files
@@ -84069,6 +84069,195 @@ function isAnimationRenderer(renderer) {
   return type === 0 || type === 1;
 }
 
+// src/app/services/voice-streaming.service.ts
+var VoiceStreamingService = class _VoiceStreamingService {
+  constructor(http) {
+    this.http = http;
+    this.audioQueue = [];
+    this.isPlaying = false;
+  }
+  startVoiceStream(_0) {
+    return __async(this, arguments, function* (prompt, context2 = "You are a helpful 3D model assistant.", options = {}, callbacks = {}) {
+      this.stopStream();
+      const voiceSettings = __spreadValues({
+        audioFormat: "mp3",
+        voiceModel: "aura-2-draco-en",
+        sampleRate: 24e3,
+        naturalBreaks: true,
+        chunkSize: 30
+      }, options);
+      if (!this.audioContext) {
+        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      try {
+        yield this.http.post(STREAMING_VOICE_API_URL, {
+          prompt,
+          context: context2,
+          voiceSettings
+        }).toPromise();
+      } catch (error2) {
+        console.error("Failed to initiate voice stream:", error2);
+        callbacks.onError?.(error2);
+        throw error2;
+      }
+      this.eventSource = new EventSource(STREAMING_VOICE_API_URL);
+      this.eventSource.addEventListener("start", (event) => {
+        const data = JSON.parse(event.data);
+        console.log("\u{1F3A4} Voice streaming started:", data);
+        callbacks.onStart?.(data);
+      });
+      this.eventSource.addEventListener("text", (event) => {
+        const data = JSON.parse(event.data);
+        callbacks.onText?.(data.content);
+      });
+      this.eventSource.addEventListener("audio", (event) => {
+        const data = JSON.parse(event.data);
+        const audioChunk = {
+          chunkIndex: data.chunkIndex,
+          audioData: data.audio,
+          mimeType: data.mimeType,
+          estimatedDuration: data.estimatedDuration,
+          text: data.text,
+          timing: data.timing
+        };
+        this.queueAudioChunk(audioChunk);
+        callbacks.onAudio?.(audioChunk);
+      });
+      this.eventSource.addEventListener("done", (event) => {
+        const data = JSON.parse(event.data);
+        console.log("\u2705 Voice streaming completed:", data);
+        callbacks.onComplete?.(data);
+        this.stopStream();
+      });
+      this.eventSource.addEventListener("error", (event) => {
+        const data = JSON.parse(event.data);
+        console.error("\u274C Voice streaming error:", data);
+        callbacks.onError?.(data);
+      });
+      this.eventSource.addEventListener("fallback", (event) => {
+        const data = JSON.parse(event.data);
+        console.log("\u{1F504} Falling back to text-only mode:", data);
+        callbacks.onFallback?.(data);
+      });
+      this.eventSource.onerror = (error2) => {
+        console.error("EventSource error:", error2);
+        callbacks.onError?.(error2);
+      };
+      return this.eventSource;
+    });
+  }
+  queueAudioChunk(chunk) {
+    this.audioQueue.push(chunk);
+    this.audioQueue.sort((a, b) => a.chunkIndex - b.chunkIndex);
+    if (!this.isPlaying) {
+      this.playNextChunk();
+    }
+  }
+  playNextChunk() {
+    return __async(this, null, function* () {
+      if (this.audioQueue.length === 0) {
+        this.isPlaying = false;
+        return;
+      }
+      this.isPlaying = true;
+      const chunk = this.audioQueue.shift();
+      try {
+        const audioData = atob(chunk.audioData);
+        const arrayBuffer = new ArrayBuffer(audioData.length);
+        const view = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < audioData.length; i++) {
+          view[i] = audioData.charCodeAt(i);
+        }
+        const blob = new Blob([arrayBuffer], { type: chunk.mimeType });
+        const audioUrl = URL.createObjectURL(blob);
+        this.currentAudio = new Audio(audioUrl);
+        this.currentAudio.preload = "auto";
+        this.currentAudio.volume = 1;
+        this.currentAudio.onended = () => {
+          this.cleanupCurrentAudio();
+          this.playNextChunk();
+        };
+        this.currentAudio.onerror = (error2) => {
+          console.error("Audio playback error:", error2);
+          this.cleanupCurrentAudio();
+          this.playNextChunk();
+        };
+        yield this.currentAudio.play();
+      } catch (error2) {
+        console.error("Error processing audio chunk:", error2);
+        this.playNextChunk();
+      }
+    });
+  }
+  cleanupCurrentAudio() {
+    if (this.currentAudio) {
+      if (this.currentAudio.src) {
+        URL.revokeObjectURL(this.currentAudio.src);
+      }
+      this.currentAudio = void 0;
+    }
+  }
+  stopStream() {
+    if (this.eventSource) {
+      this.eventSource.close();
+      this.eventSource = void 0;
+    }
+    this.stopAudio();
+    this.audioQueue = [];
+  }
+  stopAudio() {
+    this.isPlaying = false;
+    if (this.currentAudio) {
+      this.currentAudio.pause();
+      this.currentAudio.currentTime = 0;
+      this.cleanupCurrentAudio();
+    }
+  }
+  isStreamActive() {
+    return this.eventSource?.readyState === EventSource.OPEN;
+  }
+  isAudioPlaying() {
+    return this.isPlaying || this.currentAudio && !this.currentAudio.paused;
+  }
+  getAudioQueueLength() {
+    return this.audioQueue.length;
+  }
+  getStreamingStatus() {
+    return {
+      isActive: this.isStreamActive(),
+      isPlaying: this.isAudioPlaying(),
+      queueLength: this.getAudioQueueLength(),
+      hasErrors: false
+      // You can track errors here
+    };
+  }
+  retryLastStream() {
+    return __async(this, null, function* () {
+      console.log("\u{1F504} Retry functionality - to be implemented based on stored request");
+    });
+  }
+  clearAudioCache() {
+    this.audioQueue = [];
+    this.stopAudio();
+  }
+  static {
+    this.\u0275fac = function VoiceStreamingService_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _VoiceStreamingService)(\u0275\u0275inject(HttpClient));
+    };
+  }
+  static {
+    this.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _VoiceStreamingService, factory: _VoiceStreamingService.\u0275fac, providedIn: "root" });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(VoiceStreamingService, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [{ type: HttpClient }], null);
+})();
+
 // src/app/profile/avatar-3d/avatar-3d.component.ts
 var _c05 = ["canvas"];
 var _c12 = ["chatMessages"];
@@ -84193,22 +84382,23 @@ function Avatar3dComponent_div_18_Template(rf, ctx) {
     \u0275\u0275advance();
     \u0275\u0275textInterpolate1(" ", ctx_r1.ttsEnabled ? "\u{1F50A}" : "\u{1F507}", " ");
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.isSpeaking);
+    \u0275\u0275property("ngIf", ctx_r1.isReallySpeaking);
     \u0275\u0275advance(5);
     \u0275\u0275property("ngForOf", ctx_r1.messages);
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.isTyping);
+    \u0275\u0275property("ngIf", ctx_r1.isReallyTyping);
     \u0275\u0275advance(2);
     \u0275\u0275twoWayProperty("ngModel", ctx_r1.userInput);
     \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r1.isTyping || !ctx_r1.userInput.trim());
+    \u0275\u0275property("disabled", ctx_r1.isReallyTyping || !ctx_r1.userInput.trim());
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r1.isTyping ? "\u23F3" : "\uFFFD", " ");
+    \u0275\u0275textInterpolate1(" ", ctx_r1.isReallyTyping ? "\u23F3" : "\uFFFD", " ");
   }
 }
 var Avatar3dComponent = class _Avatar3dComponent {
-  constructor(http) {
+  constructor(http, voiceStreamingService) {
     this.http = http;
+    this.voiceStreamingService = voiceStreamingService;
     this.isChatOpen = false;
     this.userInput = "";
     this.messages = [];
@@ -84219,6 +84409,10 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.isSpeaking = false;
     this.ttsEnabled = true;
     this.ttsCache = /* @__PURE__ */ new Map();
+    this.streamingResponse = "";
+    this.retryCount = 0;
+    this.maxRetries = 3;
+    this.isStreaming = false;
     this.CONTEXT = AI_CONTEXT;
   }
   ngOnInit() {
@@ -84233,6 +84427,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.controls?.dispose();
     this.renderer?.dispose();
     this.stopSpeech();
+    this.voiceStreamingService.stopStream();
   }
   initThreeJS() {
     const canvas = this.canvasRef.nativeElement;
@@ -84345,12 +84540,92 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }
   sendMessage() {
     return __async(this, null, function* () {
-      if (!this.userInput.trim() || this.isTyping)
+      if (!this.userInput.trim() || this.isTyping || this.isStreaming)
         return;
       const userMessage = this.userInput.trim();
       this.addMessage(userMessage, true);
       this.userInput = "";
       this.isTyping = true;
+      this.isStreaming = true;
+      this.streamingResponse = "";
+      this.retryCount = 0;
+      try {
+        yield this.startVoiceStreaming(userMessage);
+      } catch (error2) {
+        console.error("Voice streaming failed:", error2);
+        yield this.fallbackToRegularAPI(userMessage);
+      }
+    });
+  }
+  startVoiceStreaming(userMessage) {
+    return __async(this, null, function* () {
+      const voiceOptions = {
+        audioFormat: "mp3",
+        voiceModel: "aura-2-draco-en",
+        sampleRate: 24e3,
+        naturalBreaks: true,
+        chunkSize: 30
+      };
+      try {
+        yield this.voiceStreamingService.startVoiceStream(userMessage, this.CONTEXT, voiceOptions, {
+          onStart: (data) => {
+            console.log("\u{1F3A4} Voice streaming started:", data);
+            this.prepare3DModelForSpeech();
+            this.isSpeaking = false;
+          },
+          onText: (content) => {
+            this.streamingResponse += content;
+            this.updateStreamingMessage(this.streamingResponse);
+          },
+          onAudio: (chunk) => {
+            this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
+          },
+          onComplete: (data) => {
+            console.log("\u2705 Voice streaming completed:", data);
+            this.finalize3DModelAnimation(data.timing, data.performance);
+            this.isTyping = false;
+            this.isStreaming = false;
+            this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
+          },
+          onError: (error2) => {
+            console.error("\u274C Voice streaming error:", error2);
+            this.handleStreamingError(error2, userMessage);
+          },
+          onFallback: (data) => {
+            console.log("\u{1F504} Falling back to text-only mode:", data);
+            this.fallbackToRegularAPI(userMessage);
+          }
+        });
+      } catch (error2) {
+        console.error("Failed to start voice streaming:", error2);
+        throw error2;
+      }
+    });
+  }
+  updateStreamingMessage(content) {
+    const lastMessage = this.messages[this.messages.length - 1];
+    if (lastMessage && !lastMessage.isUser) {
+      lastMessage.text = content;
+    } else {
+      this.addMessage(content, false, false);
+    }
+    setTimeout(() => this.scrollToBottom(), 10);
+  }
+  handleStreamingError(error2, userMessage) {
+    return __async(this, null, function* () {
+      if (error2.retryable && this.retryCount < this.maxRetries) {
+        this.retryCount++;
+        console.log(`\u{1F504} Retrying voice streaming (${this.retryCount}/${this.maxRetries})`);
+        const delay = Math.pow(2, this.retryCount) * 1e3;
+        setTimeout(() => this.startVoiceStreaming(userMessage), delay);
+      } else {
+        console.log("\u{1F504} Max retries reached, falling back to regular API");
+        yield this.fallbackToRegularAPI(userMessage);
+      }
+    });
+  }
+  fallbackToRegularAPI(userMessage) {
+    return __async(this, null, function* () {
       try {
         const response = yield this.http.post(environment.aiApiUrl, {
           prompt: userMessage,
@@ -84364,6 +84639,13 @@ var Avatar3dComponent = class _Avatar3dComponent {
         } else if (response?.message) {
           aiResponse = response.message;
         }
+        if (this.streamingResponse) {
+          const lastMessage = this.messages[this.messages.length - 1];
+          if (lastMessage && !lastMessage.isUser && lastMessage.text === this.streamingResponse) {
+            this.messages.pop();
+          }
+          this.streamingResponse = "";
+        }
         if (this.ttsEnabled) {
           this.speakText(aiResponse, true);
         } else {
@@ -84371,10 +84653,11 @@ var Avatar3dComponent = class _Avatar3dComponent {
           this.isTyping = false;
         }
       } catch (error2) {
-        console.error("AI API Error:", error2);
+        console.error("Fallback API Error:", error2);
         this.addMessage("Oops! Something went wrong. Please try again later. \u{1F605}", false);
         this.isTyping = false;
       }
+      this.isStreaming = false;
     });
   }
   addMessage(text, isUser, triggerTTS = true) {
@@ -84480,12 +84763,14 @@ var Avatar3dComponent = class _Avatar3dComponent {
     }
   }
   stopSpeech() {
+    this.voiceStreamingService.stopStream();
     if (this.currentAudio) {
       this.currentAudio.pause();
       this.currentAudio.currentTime = 0;
       this.cleanupAudio();
     }
     this.isSpeaking = false;
+    this.isStreaming = false;
   }
   cleanupAudio() {
     if (this.currentAudio) {
@@ -84502,9 +84787,57 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
   }
+  // Getters for template bindings
+  get isReallyTyping() {
+    return this.isTyping || this.isStreaming;
+  }
+  get isReallySpeaking() {
+    return this.isSpeaking || this.voiceStreamingService.isAudioPlaying();
+  }
+  // Voice streaming status methods
+  isVoiceStreamActive() {
+    return this.voiceStreamingService.isStreamActive();
+  }
+  getAudioQueueLength() {
+    return this.voiceStreamingService.getAudioQueueLength();
+  }
+  // 3D Model animation methods for voice synchronization
+  prepare3DModelForSpeech() {
+    if (this.model) {
+      console.log("\u{1F3AD} Preparing 3D model for speech");
+      this.addSubtleSpeakingAnimation();
+    }
+  }
+  finalize3DModelAnimation(timing, performance2) {
+    if (this.model) {
+      console.log("\u{1F3AD} Finalizing 3D model animation", { timing, performance: performance2 });
+      this.removeSpeakingAnimation();
+    }
+  }
+  addSubtleSpeakingAnimation() {
+    if (this.model) {
+      const originalY = this.model.position.y;
+      const amplitude = 5e-3;
+      const frequency = 0.02;
+      const animate2 = () => {
+        if (this.isReallySpeaking && this.model) {
+          this.model.position.y = originalY + Math.sin(Date.now() * frequency) * amplitude;
+          requestAnimationFrame(animate2);
+        } else if (this.model) {
+          this.model.position.y = originalY;
+        }
+      };
+      animate2();
+    }
+  }
+  removeSpeakingAnimation() {
+    if (this.model) {
+      console.log("\u{1F3AD} Resetting 3D model to default state");
+    }
+  }
   static {
     this.\u0275fac = function Avatar3dComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _Avatar3dComponent)(\u0275\u0275directiveInject(HttpClient));
+      return new (__ngFactoryType__ || _Avatar3dComponent)(\u0275\u0275directiveInject(HttpClient), \u0275\u0275directiveInject(VoiceStreamingService));
     };
   }
   static {
@@ -84627,7 +84960,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
           </button>
           <button class="stop-speech-btn" 
                   (click)="stopSpeech()" 
-                  *ngIf="isSpeaking"
+                  *ngIf="isReallySpeaking"
                   title="Stop Speech">
             \u23F9\uFE0F
           </button>
@@ -84646,7 +84979,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
           </div>
         </div>
         
-        <div *ngIf="isTyping" class="typing-indicator">
+        <div *ngIf="isReallyTyping" class="typing-indicator">
           <span></span><span></span><span></span>
         </div>
       </div>
@@ -84660,16 +84993,16 @@ var Avatar3dComponent = class _Avatar3dComponent {
           #messageInput
           class="chat-input">
         <button (click)="sendMessage()" 
-                [disabled]="isTyping || !userInput.trim()"
+                [disabled]="isReallyTyping || !userInput.trim()"
                 class="send-btn">
-          {{ isTyping ? '\u23F3' : '\uFFFD' }}
+          {{ isReallyTyping ? '\u23F3' : '\uFFFD' }}
         </button>
       </div>
     </div>
   </div>
 </section>
 `, styles: ["/* src/app/profile/avatar-3d/avatar-3d.component.scss */\n.avatar-3d-section {\n  padding: 80px 0;\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 100%);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.avatar-3d-section .container {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 30px;\n  width: 100%;\n  box-sizing: border-box;\n}\n.avatar-3d-section .section-title {\n  text-align: center;\n  margin-bottom: 50px;\n  padding: 0 20px;\n}\n.avatar-3d-section .section-title h2 {\n  font-size: 3rem;\n  font-weight: 700;\n  color: #764ba2;\n  margin-bottom: 10px;\n  text-shadow: 0 2px 15px rgba(118, 75, 162, 0.4);\n  word-wrap: break-word;\n  overflow-wrap: break-word;\n  padding: 0 10px;\n}\n.avatar-3d-section .section-title p {\n  font-size: 1.2rem;\n  color: #b8b9c0;\n}\n.avatar-3d-section .avatar-container {\n  position: relative;\n  width: 100%;\n  max-width: 800px;\n  margin: 0 auto;\n  border-radius: 20px;\n  overflow: hidden;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  background: rgba(255, 255, 255, 0.02);\n  backdrop-filter: blur(10px);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.avatar-3d-section .avatar-container .avatar-canvas {\n  width: 100%;\n  height: 700px;\n  display: block;\n  cursor: grab;\n}\n.avatar-3d-section .avatar-container .avatar-canvas:active {\n  cursor: grabbing;\n}\n.avatar-3d-section .avatar-container .loading-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 700px;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(10px);\n  border-radius: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content {\n  text-align: center;\n  color: #fff;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content .loading-spinner {\n  width: 60px;\n  height: 60px;\n  border: 3px solid rgba(255, 255, 255, 0.1);\n  border-top: 3px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n  margin: 0 auto 20px;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content .loading-text {\n  font-size: 1.1rem;\n  font-weight: 500;\n  margin-bottom: 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content .loading-progress .progress-bar {\n  width: 200px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.1);\n  border-radius: 3px;\n  overflow: hidden;\n  margin: 0 auto 10px;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content .loading-progress .progress-bar .progress-fill {\n  height: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  transition: width 0.3s ease;\n  border-radius: 3px;\n}\n.avatar-3d-section .avatar-container .loading-overlay .loading-content .loading-progress .progress-percentage {\n  font-size: 0.9rem;\n  opacity: 0.8;\n}\n.avatar-3d-section .avatar-container .controls-hint {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 15px;\n  background: rgba(0, 0, 0, 0.6);\n  padding: 12px 24px;\n  border-radius: 30px;\n  backdrop-filter: blur(10px);\n  align-items: center;\n}\n.avatar-3d-section .avatar-container .controls-hint span {\n  color: #fff;\n  font-size: 0.9rem;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.avatar-3d-section .avatar-container .controls-hint .chat-button {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2 0%,\n      #667eea 100%);\n  border: none;\n  padding: 8px 16px;\n  border-radius: 20px;\n  color: white;\n  font-size: 0.85rem;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-weight: 500;\n}\n.avatar-3d-section .avatar-container .controls-hint .chat-button:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);\n}\n.avatar-3d-section .avatar-container .controls-hint .chat-button:active {\n  transform: translateY(0);\n}\n@media (max-width: 768px) {\n  .avatar-3d-section {\n    padding: 60px 0;\n  }\n  .avatar-3d-section .container {\n    padding: 0 20px;\n  }\n  .avatar-3d-section .section-title {\n    padding: 0 10px;\n    margin-bottom: 30px;\n  }\n  .avatar-3d-section .section-title h2 {\n    font-size: 2.2rem;\n    line-height: 1.2;\n  }\n  .avatar-3d-section .section-title p {\n    font-size: 1rem;\n    padding: 0 10px;\n  }\n  .avatar-3d-section .avatar-container .avatar-canvas {\n    height: 500px;\n  }\n  .avatar-3d-section .avatar-container .controls-hint {\n    flex-direction: column;\n    gap: 8px;\n    padding: 10px 20px;\n  }\n  .avatar-3d-section .avatar-container .controls-hint span {\n    font-size: 0.8rem;\n  }\n  .avatar-3d-section .avatar-container .controls-hint .chat-button {\n    font-size: 0.8rem;\n    padding: 6px 12px;\n    margin-top: 5px;\n  }\n}\n.chat-window {\n  position: fixed;\n  top: 20px;\n  right: 20px;\n  width: 400px;\n  max-width: 90vw;\n  max-height: 80vh;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(20px);\n  border-radius: 20px;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  z-index: 9999;\n  display: flex;\n  flex-direction: column;\n  pointer-events: auto;\n}\n.chat-window .chat-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 20px;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.chat-window .chat-header h3 {\n  margin: 0;\n  color: #fff;\n  font-size: 1.1rem;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.chat-window .chat-header .header-controls {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn,\n.chat-window .chat-header .header-controls .stop-speech-btn,\n.chat-window .chat-header .header-controls .close-btn {\n  background: none;\n  border: none;\n  color: #fff;\n  font-size: 1.2rem;\n  cursor: pointer;\n  padding: 8px;\n  border-radius: 50%;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 36px;\n  min-height: 36px;\n  position: relative;\n  z-index: 10001;\n  pointer-events: auto;\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn:hover,\n.chat-window .chat-header .header-controls .stop-speech-btn:hover,\n.chat-window .chat-header .header-controls .close-btn:hover {\n  background: rgba(255, 255, 255, 0.1);\n  transform: scale(1.1);\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn:active,\n.chat-window .chat-header .header-controls .stop-speech-btn:active,\n.chat-window .chat-header .header-controls .close-btn:active {\n  transform: scale(0.95);\n}\n.chat-window .chat-header .header-controls .close-btn:hover {\n  background: rgba(255, 0, 0, 0.2);\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn.active {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: #fff;\n}\n.chat-window .chat-header .header-controls .tts-toggle-btn:not(.active) {\n  opacity: 0.6;\n}\n.chat-window .chat-header .header-controls .stop-speech-btn {\n  background:\n    linear-gradient(\n      135deg,\n      #ff6b6b 0%,\n      #ee5a52 100%);\n  animation: pulse 1.5s infinite;\n}\n.chat-window .chat-header .header-controls .stop-speech-btn:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #ff5252 0%,\n      #d32f2f 100%);\n}\n.chat-window .chat-messages {\n  flex: 1;\n  padding: 20px;\n  overflow-y: auto;\n  max-height: 400px;\n}\n.chat-window .chat-messages .message {\n  margin-bottom: 15px;\n}\n.chat-window .chat-messages .message.user-message .message-content {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  margin-left: 40px;\n  border-radius: 20px 20px 5px 20px;\n}\n.chat-window .chat-messages .message.ai-message .message-content {\n  background: rgba(255, 255, 255, 0.05);\n  margin-right: 40px;\n  border-radius: 20px 20px 20px 5px;\n}\n.chat-window .chat-messages .message .message-content {\n  padding: 12px 16px;\n  border-radius: 20px;\n}\n.chat-window .chat-messages .message .message-content .message-text {\n  color: #fff;\n  font-size: 0.9rem;\n  line-height: 1.4;\n  display: block;\n}\n.chat-window .chat-messages .message .message-content .message-time {\n  color: rgba(255, 255, 255, 0.6);\n  font-size: 0.75rem;\n  margin-top: 5px;\n  display: block;\n}\n.chat-window .chat-messages .typing-indicator {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  padding: 12px 16px;\n  background: rgba(255, 255, 255, 0.05);\n  border-radius: 20px 20px 20px 5px;\n  margin-right: 40px;\n}\n.chat-window .chat-messages .typing-indicator span {\n  width: 8px;\n  height: 8px;\n  background: #667eea;\n  border-radius: 50%;\n  animation: typing 1.4s infinite;\n}\n.chat-window .chat-messages .typing-indicator span:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.chat-window .chat-messages .typing-indicator span:nth-child(3) {\n  animation-delay: 0.4s;\n}\n.chat-window .chat-input-container {\n  display: flex;\n  padding: 20px;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n  gap: 10px;\n}\n.chat-window .chat-input-container .chat-input {\n  flex: 1;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 25px;\n  padding: 12px 16px;\n  color: #fff;\n  font-size: 0.9rem;\n  outline: none;\n  transition: all 0.3s ease;\n}\n.chat-window .chat-input-container .chat-input:focus {\n  border-color: #667eea;\n  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);\n}\n.chat-window .chat-input-container .chat-input::placeholder {\n  color: rgba(255, 255, 255, 0.5);\n}\n.chat-window .chat-input-container .send-btn {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  border: none;\n  border-radius: 50%;\n  width: 45px;\n  height: 45px;\n  color: white;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.chat-window .chat-input-container .send-btn:hover:not(:disabled) {\n  transform: scale(1.05);\n  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);\n}\n.chat-window .chat-input-container .send-btn:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n@keyframes pulse {\n  0% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);\n  }\n  70% {\n    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);\n  }\n  100% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);\n  }\n}\n@keyframes bounceIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n  70% {\n    transform: scale(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n@keyframes typing {\n  0%, 60%, 100% {\n    transform: translateY(0);\n  }\n  30% {\n    transform: translateY(-10px);\n  }\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 768px) {\n  .avatar-3d-section {\n    padding: 60px 0;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */\n"] }]
-  }], () => [{ type: HttpClient }], { canvasRef: [{
+  }], () => [{ type: HttpClient }, { type: VoiceStreamingService }], { canvasRef: [{
     type: ViewChild,
     args: ["canvas", { static: true }]
   }], chatMessages: [{
@@ -84681,7 +85014,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Avatar3dComponent, { className: "Avatar3dComponent", filePath: "src/app/profile/avatar-3d/avatar-3d.component.ts", lineNumber: 39 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Avatar3dComponent, { className: "Avatar3dComponent", filePath: "src/app/profile/avatar-3d/avatar-3d.component.ts", lineNumber: 40 });
 })();
 
 // src/app/profile/profile.component.ts

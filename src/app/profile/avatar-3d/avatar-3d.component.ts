@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import { AI_CONTEXT } from '../../ai-face/ai-context';
 import { MarkdownPipe } from '../../ai-face/markdown.pipe';
 import { MusicService } from '../../services/music.service';
+import { VoiceStreamingService, VoiceStreamOptions, AudioChunk } from '../../services/voice-streaming.service';
 import { TTS_API_URL } from '../../config/api-config';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -65,9 +66,18 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private currentAudio?: HTMLAudioElement;
   private ttsCache = new Map<string, Blob>(); // Cache for faster repeated phrases
   
+  // Voice streaming functionality
+  private streamingResponse = '';
+  private retryCount = 0;
+  private maxRetries = 3;
+  private isStreaming = false;
+  
   private readonly CONTEXT = AI_CONTEXT;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private voiceStreamingService: VoiceStreamingService
+  ) {
     // Welcome message will be added in ngOnInit
   }
 
@@ -88,6 +98,9 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     
     // Stop any ongoing speech and cleanup
     this.stopSpeech();
+    
+    // Stop voice streaming
+    this.voiceStreamingService.stopStream();
   }
 
   private initThreeJS(): void {
@@ -254,14 +267,106 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   public async sendMessage(): Promise<void> {
-    if (!this.userInput.trim() || this.isTyping) return;
+    if (!this.userInput.trim() || this.isTyping || this.isStreaming) return;
 
     const userMessage = this.userInput.trim();
     this.addMessage(userMessage, true);
     this.userInput = '';
     
     this.isTyping = true;
+    this.isStreaming = true;
+    this.streamingResponse = '';
+    this.retryCount = 0;
     
+    try {
+      await this.startVoiceStreaming(userMessage);
+    } catch (error) {
+      console.error('Voice streaming failed:', error);
+      await this.fallbackToRegularAPI(userMessage);
+    }
+  }
+
+  private async startVoiceStreaming(userMessage: string): Promise<void> {
+    const voiceOptions: VoiceStreamOptions = {
+      audioFormat: 'mp3',
+      voiceModel: 'aura-2-draco-en',
+      sampleRate: 24000,
+      naturalBreaks: true,
+      chunkSize: 30
+    };
+
+    try {
+      await this.voiceStreamingService.startVoiceStream(
+        userMessage,
+        this.CONTEXT,
+        voiceOptions,
+        {
+          onStart: (data) => {
+            console.log('🎤 Voice streaming started:', data);
+            this.prepare3DModelForSpeech();
+            this.isSpeaking = false; // Will be set to true when audio starts playing
+          },
+          onText: (content) => {
+            // Update the streaming response in real-time
+            this.streamingResponse += content;
+            this.updateStreamingMessage(this.streamingResponse);
+          },
+          onAudio: (chunk: AudioChunk) => {
+            // Audio is handled automatically by the service
+            this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
+          },
+          onComplete: (data) => {
+            console.log('✅ Voice streaming completed:', data);
+            this.finalize3DModelAnimation(data.timing, data.performance);
+            this.isTyping = false;
+            this.isStreaming = false;
+            this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
+          },
+          onError: (error) => {
+            console.error('❌ Voice streaming error:', error);
+            this.handleStreamingError(error, userMessage);
+          },
+          onFallback: (data) => {
+            console.log('🔄 Falling back to text-only mode:', data);
+            this.fallbackToRegularAPI(userMessage);
+          }
+        }
+      );
+    } catch (error) {
+      console.error('Failed to start voice streaming:', error);
+      throw error;
+    }
+  }
+
+  private updateStreamingMessage(content: string): void {
+    // Find the last AI message and update it, or create a new one
+    const lastMessage = this.messages[this.messages.length - 1];
+    if (lastMessage && !lastMessage.isUser) {
+      lastMessage.text = content;
+    } else {
+      this.addMessage(content, false, false); // Don't trigger TTS since streaming handles audio
+    }
+    
+    // Scroll to bottom
+    setTimeout(() => this.scrollToBottom(), 10);
+  }
+
+  private async handleStreamingError(error: any, userMessage: string): Promise<void> {
+    if (error.retryable && this.retryCount < this.maxRetries) {
+      this.retryCount++;
+      console.log(`🔄 Retrying voice streaming (${this.retryCount}/${this.maxRetries})`);
+      
+      // Exponential backoff
+      const delay = Math.pow(2, this.retryCount) * 1000;
+      setTimeout(() => this.startVoiceStreaming(userMessage), delay);
+    } else {
+      // Fall back to regular API
+      console.log('🔄 Max retries reached, falling back to regular API');
+      await this.fallbackToRegularAPI(userMessage);
+    }
+  }
+
+  private async fallbackToRegularAPI(userMessage: string): Promise<void> {
     try {
       const response = await this.http.post<any>(environment.aiApiUrl, {
         prompt: userMessage,
@@ -278,23 +383,31 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         aiResponse = response.message;
       }
       
-      // Start TTS and display message only when audio is ready
+      // If we have a partial streaming response, remove it and add the full response
+      if (this.streamingResponse) {
+        // Remove the partial streaming message
+        const lastMessage = this.messages[this.messages.length - 1];
+        if (lastMessage && !lastMessage.isUser && lastMessage.text === this.streamingResponse) {
+          this.messages.pop();
+        }
+        this.streamingResponse = '';
+      }
+      
+      // Use the legacy TTS system as fallback
       if (this.ttsEnabled) {
-        // Don't add message to UI yet - wait for TTS response
-        // Keep typing indicator active until message is displayed
-        this.speakText(aiResponse, true); // Pass true to indicate we should add message after TTS
+        this.speakText(aiResponse, true);
       } else {
-        // If TTS is disabled, add message immediately and stop typing
         this.addMessage(aiResponse, false, false);
         this.isTyping = false;
       }
       
     } catch (error) {
-      console.error('AI API Error:', error);
+      console.error('Fallback API Error:', error);
       this.addMessage('Oops! Something went wrong. Please try again later. 😅', false);
       this.isTyping = false;
     }
-    // Note: isTyping will be set to false when message is actually displayed
+    
+    this.isStreaming = false;
   }
 
   private addMessage(text: string, isUser: boolean, triggerTTS: boolean = true): void {
@@ -447,6 +560,9 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   public stopSpeech(): void {
+    // Stop voice streaming
+    this.voiceStreamingService.stopStream();
+    
     // Stop regular audio
     if (this.currentAudio) {
       this.currentAudio.pause();
@@ -455,6 +571,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
     
     this.isSpeaking = false;
+    this.isStreaming = false;
   }
 
   private cleanupAudio(): void {
@@ -474,5 +591,69 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  }
+
+  // Getters for template bindings
+  public get isReallyTyping(): boolean {
+    return this.isTyping || this.isStreaming;
+  }
+
+  public get isReallySpeaking(): boolean {
+    return this.isSpeaking || this.voiceStreamingService.isAudioPlaying();
+  }
+
+  // Voice streaming status methods
+  public isVoiceStreamActive(): boolean {
+    return this.voiceStreamingService.isStreamActive();
+  }
+
+  public getAudioQueueLength(): number {
+    return this.voiceStreamingService.getAudioQueueLength();
+  }
+
+  // 3D Model animation methods for voice synchronization
+  public prepare3DModelForSpeech(): void {
+    if (this.model) {
+      // Add subtle animation to indicate the avatar is preparing to speak
+      // You can enhance this with actual mouth animation or other visual cues
+      console.log('🎭 Preparing 3D model for speech');
+      this.addSubtleSpeakingAnimation();
+    }
+  }
+
+  public finalize3DModelAnimation(timing?: any, performance?: any): void {
+    if (this.model) {
+      console.log('🎭 Finalizing 3D model animation', { timing, performance });
+      this.removeSpeakingAnimation();
+    }
+  }
+
+  private addSubtleSpeakingAnimation(): void {
+    // Simple breathing or idle animation while speaking
+    // You can expand this to include mouth movements, eye blinking, etc.
+    if (this.model) {
+      const originalY = this.model.position.y;
+      const amplitude = 0.005; // Very subtle movement
+      const frequency = 0.02;
+      
+      const animate = () => {
+        if (this.isReallySpeaking && this.model) {
+          this.model.position.y = originalY + Math.sin(Date.now() * frequency) * amplitude;
+          requestAnimationFrame(animate);
+        } else if (this.model) {
+          // Return to original position
+          this.model.position.y = originalY;
+        }
+      };
+      animate();
+    }
+  }
+
+  private removeSpeakingAnimation(): void {
+    // Reset model to default state
+    if (this.model) {
+      // Reset any speaking animations
+      console.log('🎭 Resetting 3D model to default state');
+    }
   }
 }
