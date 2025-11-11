@@ -160,12 +160,22 @@ export class VoiceStreamingService {
           break;
 
         case 'audio':
+          // Validate required audio chunk properties
+          if (!data.chunkIndex && data.chunkIndex !== 0) {
+            console.warn('Audio chunk missing chunkIndex:', data);
+            return;
+          }
+          if (!data.audio) {
+            console.warn('Audio chunk missing audio data:', data);
+            return;
+          }
+          
           const audioChunk: AudioChunk = {
             chunkIndex: data.chunkIndex,
             audioData: data.audio,
-            mimeType: data.mimeType,
-            estimatedDuration: data.estimatedDuration,
-            text: data.text, // Keep original text for reference
+            mimeType: data.mimeType || 'audio/mp3',
+            estimatedDuration: data.estimatedDuration || 0,
+            text: data.text || '', // Ensure we have a string, default to empty
             timing: data.timing
           };
           
@@ -192,7 +202,8 @@ export class VoiceStreamingService {
           console.log('Unknown event type:', eventType, data);
       }
     } catch (error) {
-      console.error('Error parsing SSE event data:', error);
+      console.error('Error parsing SSE event data:', error, { eventType, eventData });
+      // Don't call the error callback for parsing errors to avoid infinite loops
     }
   }
 
@@ -320,23 +331,31 @@ export class VoiceStreamingService {
   }
 
   private cleanTextForSpeech(text: string): string {
-    if (!text) return '';
+    // Handle null, undefined, or non-string inputs
+    if (!text || typeof text !== 'string') {
+      return '';
+    }
     
-    // Remove markdown formatting and special characters
-    return text
-      .replace(/\*\*\*(.*?)\*\*\*/g, '$1') // Remove bold italic ***text***
-      .replace(/\*\*(.*?)\*\*/g, '$1')     // Remove bold **text**
-      .replace(/\*(.*?)\*/g, '$1')         // Remove italic *text*
-      .replace(/__(.*?)__/g, '$1')         // Remove bold __text__
-      .replace(/_(.*?)_/g, '$1')           // Remove italic _text_
-      .replace(/`(.*?)`/g, '$1')           // Remove inline code `text`
-      .replace(/```[\s\S]*?```/g, '')      // Remove code blocks
-      .replace(/#{1,6}\s*/g, '')           // Remove headers
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links, keep text
-      .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1') // Remove images, keep alt text
-      .replace(/[#*`_~\[\]()]/g, '')       // Remove remaining markdown chars
-      .replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, '') // Remove emojis
-      .replace(/\s+/g, ' ')                // Normalize whitespace
-      .trim();
+    try {
+      // Remove markdown formatting and special characters
+      return text
+        .replace(/\*\*\*(.*?)\*\*\*/g, '$1') // Remove bold italic ***text***
+        .replace(/\*\*(.*?)\*\*/g, '$1')     // Remove bold **text**
+        .replace(/\*(.*?)\*/g, '$1')         // Remove italic *text*
+        .replace(/__(.*?)__/g, '$1')         // Remove bold __text__
+        .replace(/_(.*?)_/g, '$1')           // Remove italic _text_
+        .replace(/`(.*?)`/g, '$1')           // Remove inline code `text`
+        .replace(/```[\s\S]*?```/g, '')      // Remove code blocks
+        .replace(/#{1,6}\s*/g, '')           // Remove headers
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links, keep text
+        .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1') // Remove images, keep alt text
+        .replace(/[#*`_~\[\]()]/g, '')       // Remove remaining markdown chars
+        .replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, '') // Remove emojis
+        .replace(/\s+/g, ' ')                // Normalize whitespace
+        .trim();
+    } catch (error) {
+      console.error('Error cleaning text for speech:', error);
+      return String(text); // Fallback to string conversion
+    }
   }
 }
