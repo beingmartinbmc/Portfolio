@@ -1,6 +1,6 @@
 export const API_CONFIG = {
   // Base URL for all APIs
-  BASE_URL: 'https://epic-backend-82b9dbzwq-beingmartinbmcs-projects.vercel.app',
+  BASE_URL: 'https://epic-backend-evp1rokqm-beingmartinbmcs-projects.vercel.app',
   
   // API Endpoints
   ENDPOINTS: {

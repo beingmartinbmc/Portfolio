@@ -43,7 +43,7 @@
           </button>
           <button class="stop-speech-btn" 
                   (click)="stopSpeech()" 
-                  *ngIf="isSpeaking"
+                  *ngIf="isReallySpeaking"
                   title="Stop Speech">
             ⏹️
           </button>
@@ -62,7 +62,7 @@
           </div>
         </div>
         
-        <div *ngIf="isTyping" class="typing-indicator">
+        <div *ngIf="isReallyTyping" class="typing-indicator">
           <span></span><span></span><span></span>
         </div>
       </div>
@@ -76,9 +76,9 @@
           #messageInput
           class="chat-input">
         <button (click)="sendMessage()" 
-                [disabled]="isTyping || !userInput.trim()"
+                [disabled]="isReallyTyping || !userInput.trim()"
                 class="send-btn">
-          {{ isTyping ? '⏳' : '�' }}
+          {{ isReallyTyping ? '⏳' : '�' }}
         </button>
       </div>
     </div>
