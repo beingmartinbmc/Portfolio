@@ -84172,6 +84172,7 @@ var VoiceStreamingService = class _VoiceStreamingService {
             mimeType: data.mimeType,
             estimatedDuration: data.estimatedDuration,
             text: data.text,
+            // Keep original text for reference
             timing: data.timing
           };
           this.queueAudioChunk(audioChunk);
@@ -84286,6 +84287,11 @@ var VoiceStreamingService = class _VoiceStreamingService {
   clearAudioCache() {
     this.audioQueue = [];
     this.stopAudio();
+  }
+  cleanTextForSpeech(text) {
+    if (!text)
+      return "";
+    return text.replace(/\*\*\*(.*?)\*\*\*/g, "$1").replace(/\*\*(.*?)\*\*/g, "$1").replace(/\*(.*?)\*/g, "$1").replace(/__(.*?)__/g, "$1").replace(/_(.*?)_/g, "$1").replace(/`(.*?)`/g, "$1").replace(/```[\s\S]*?```/g, "").replace(/#{1,6}\s*/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1").replace(/[#*`_~\[\]()]/g, "").replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, "").replace(/\s+/g, " ").trim();
   }
   static {
     this.\u0275fac = function VoiceStreamingService_Factory(__ngFactoryType__) {
@@ -84824,7 +84830,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
     });
   }
   cleanTextForSpeech(text) {
-    return text.replace(/\*\*(.*?)\*\*/g, "$1").replace(/\*(.*?)\*/g, "$1").replace(/`(.*?)`/g, "$1").replace(/#{1,6}\s/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[#*`_~]/g, "").replace(/[👋😅🤖💡]/g, "").trim();
+    return text.replace(/\*\*\*(.*?)\*\*\*/g, "$1").replace(/\*\*(.*?)\*\*/g, "$1").replace(/\*(.*?)\*/g, "$1").replace(/__(.*?)__/g, "$1").replace(/_(.*?)_/g, "$1").replace(/`(.*?)`/g, "$1").replace(/```[\s\S]*?```/g, "").replace(/#{1,6}\s*/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1").replace(/[#*`_~\[\]()]/g, "").replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, "").replace(/\s+/g, " ").trim();
   }
   toggleTTS() {
     this.ttsEnabled = !this.ttsEnabled;

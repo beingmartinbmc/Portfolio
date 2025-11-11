@@ -165,7 +165,7 @@ export class VoiceStreamingService {
             audioData: data.audio,
             mimeType: data.mimeType,
             estimatedDuration: data.estimatedDuration,
-            text: data.text,
+            text: data.text, // Keep original text for reference
             timing: data.timing
           };
           
@@ -317,5 +317,26 @@ export class VoiceStreamingService {
     // Clear any cached audio data to free memory
     this.audioQueue = [];
     this.stopAudio();
+  }
+
+  private cleanTextForSpeech(text: string): string {
+    if (!text) return '';
+    
+    // Remove markdown formatting and special characters
+    return text
+      .replace(/\*\*\*(.*?)\*\*\*/g, '$1') // Remove bold italic ***text***
+      .replace(/\*\*(.*?)\*\*/g, '$1')     // Remove bold **text**
+      .replace(/\*(.*?)\*/g, '$1')         // Remove italic *text*
+      .replace(/__(.*?)__/g, '$1')         // Remove bold __text__
+      .replace(/_(.*?)_/g, '$1')           // Remove italic _text_
+      .replace(/`(.*?)`/g, '$1')           // Remove inline code `text`
+      .replace(/```[\s\S]*?```/g, '')      // Remove code blocks
+      .replace(/#{1,6}\s*/g, '')           // Remove headers
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links, keep text
+      .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1') // Remove images, keep alt text
+      .replace(/[#*`_~\[\]()]/g, '')       // Remove remaining markdown chars
+      .replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, '') // Remove emojis
+      .replace(/\s+/g, ' ')                // Normalize whitespace
+      .trim();
   }
 }
