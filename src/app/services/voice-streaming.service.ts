@@ -32,7 +32,6 @@ export interface VoiceStreamCallbacks {
   providedIn: 'root'
 })
 export class VoiceStreamingService {
-  private eventSource?: EventSource;
   private audioQueue: AudioChunk[] = [];
   private isPlaying = false;
   private currentAudio?: HTMLAudioElement;
@@ -45,7 +44,7 @@ export class VoiceStreamingService {
     context: string = "You are a helpful 3D model assistant.",
     options: VoiceStreamOptions = {},
     callbacks: VoiceStreamCallbacks = {}
-  ): Promise<EventSource> {
+  ): Promise<void> {
     // Close any existing stream
     this.stopStream();
 
@@ -63,74 +62,138 @@ export class VoiceStreamingService {
       this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
 
-    // First, send the POST request to initiate streaming
     try {
-      await this.http.post(STREAMING_VOICE_API_URL, {
-        prompt,
-        context,
-        voiceSettings
-      }).toPromise();
+      // Single POST request that returns SSE stream
+      const response = await fetch(STREAMING_VOICE_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'text/event-stream'
+        },
+        body: JSON.stringify({ 
+          prompt, 
+          context, 
+          voiceSettings 
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Read the SSE stream from the response
+      const reader = response.body?.getReader();
+      if (!reader) {
+        throw new Error('Failed to get response reader');
+      }
+
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      // Process SSE events
+      const processStream = async () => {
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            
+            if (done) {
+              console.log('✅ Stream completed');
+              callbacks.onComplete?.({ message: 'Stream completed successfully' });
+              break;
+            }
+
+            // Decode the chunk and add to buffer
+            buffer += decoder.decode(value, { stream: true });
+            
+            // Process complete SSE events in buffer
+            const events = buffer.split('\n\n');
+            buffer = events.pop() || ''; // Keep incomplete event in buffer
+
+            for (const eventText of events) {
+              if (eventText.trim()) {
+                this.processSSEEvent(eventText, callbacks);
+              }
+            }
+          }
+        } catch (error) {
+          console.error('Error reading stream:', error);
+          callbacks.onError?.(error);
+        }
+      };
+
+      // Start processing the stream
+      processStream();
+
     } catch (error) {
-      console.error('Failed to initiate voice stream:', error);
+      console.error('Failed to start voice stream:', error);
       callbacks.onError?.(error);
       throw error;
     }
+  }
 
-    // Then, establish SSE connection
-    this.eventSource = new EventSource(STREAMING_VOICE_API_URL);
+  private processSSEEvent(eventText: string, callbacks: VoiceStreamCallbacks): void {
+    const lines = eventText.split('\n');
+    let eventType = '';
+    let eventData = '';
 
-    // Set up event listeners
-    this.eventSource.addEventListener('start', (event: MessageEvent) => {
-      const data = JSON.parse(event.data);
-      console.log('🎤 Voice streaming started:', data);
-      callbacks.onStart?.(data);
-    });
+    for (const line of lines) {
+      if (line.startsWith('event:')) {
+        eventType = line.substring(6).trim();
+      } else if (line.startsWith('data:')) {
+        eventData = line.substring(5).trim();
+      }
+    }
 
-    this.eventSource.addEventListener('text', (event: MessageEvent) => {
-      const data = JSON.parse(event.data);
-      callbacks.onText?.(data.content);
-    });
+    if (!eventType || !eventData) return;
 
-    this.eventSource.addEventListener('audio', (event: MessageEvent) => {
-      const data = JSON.parse(event.data);
-      const audioChunk: AudioChunk = {
-        chunkIndex: data.chunkIndex,
-        audioData: data.audio,
-        mimeType: data.mimeType,
-        estimatedDuration: data.estimatedDuration,
-        text: data.text,
-        timing: data.timing
-      };
-      
-      this.queueAudioChunk(audioChunk);
-      callbacks.onAudio?.(audioChunk);
-    });
+    try {
+      const data = JSON.parse(eventData);
 
-    this.eventSource.addEventListener('done', (event: MessageEvent) => {
-      const data = JSON.parse(event.data);
-      console.log('✅ Voice streaming completed:', data);
-      callbacks.onComplete?.(data);
-      this.stopStream();
-    });
+      switch (eventType) {
+        case 'start':
+          console.log('🎤 Voice streaming started:', data);
+          callbacks.onStart?.(data);
+          break;
 
-    this.eventSource.addEventListener('error', (event: MessageEvent) => {
-      const data = JSON.parse(event.data);
-      console.error('❌ Voice streaming error:', data);
-      callbacks.onError?.(data);
-    });
+        case 'text':
+          callbacks.onText?.(data.content);
+          break;
 
-    this.eventSource.addEventListener('fallback', (event: MessageEvent) => {
-      const data = JSON.parse(event.data);
-      console.log('🔄 Falling back to text-only mode:', data);
-      callbacks.onFallback?.(data);
-    });
+        case 'audio':
+          const audioChunk: AudioChunk = {
+            chunkIndex: data.chunkIndex,
+            audioData: data.audio,
+            mimeType: data.mimeType,
+            estimatedDuration: data.estimatedDuration,
+            text: data.text,
+            timing: data.timing
+          };
+          
+          this.queueAudioChunk(audioChunk);
+          callbacks.onAudio?.(audioChunk);
+          break;
 
-    this.eventSource.onerror = (error) => {
-      console.error('EventSource error:', error);
-      callbacks.onError?.(error);
-    };
+        case 'done':
+          console.log('✅ Voice streaming completed:', data);
+          callbacks.onComplete?.(data);
+          break;
 
-    return this.eventSource;
+        case 'error':
+          console.error('❌ Voice streaming error:', data);
+          callbacks.onError?.(data);
+          break;
+
+        case 'fallback':
+          console.log('🔄 Falling back to text-only mode:', data);
+          callbacks.onFallback?.(data);
+          break;
+
+        default:
+          console.log('Unknown event type:', eventType, data);
+      }
+    } catch (error) {
+      console.error('Error parsing SSE event data:', error);
+    }
   }
 
   private queueAudioChunk(chunk: AudioChunk): void {
@@ -198,12 +261,9 @@ export class VoiceStreamingService {
   }
 
   public stopStream(): void {
-    // Close EventSource
-    if (this.eventSource) {
-      this.eventSource.close();
-      this.eventSource = undefined;
-    }
-
+    // No need to close EventSource since we're using fetch with reader
+    console.log('🛑 Stopping voice stream');
+    
     // Stop current audio
     this.stopAudio();
 
@@ -222,7 +282,8 @@ export class VoiceStreamingService {
   }
 
   public isStreamActive(): boolean {
-    return this.eventSource?.readyState === EventSource.OPEN;
+    // Since we're using fetch with reader, we can track if we're actively processing
+    return this.isPlaying || this.audioQueue.length > 0;
   }
 
   public isAudioPlaying(): boolean {

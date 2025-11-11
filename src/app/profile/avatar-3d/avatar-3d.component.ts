@@ -71,6 +71,8 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private retryCount = 0;
   private maxRetries = 3;
   private isStreaming = false;
+  private lastRequestTime = 0;
+  private minRequestInterval = 1000; // Minimum 1 second between requests
   
   private readonly CONTEXT = AI_CONTEXT;
 
@@ -269,14 +271,31 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   public async sendMessage(): Promise<void> {
     if (!this.userInput.trim() || this.isTyping || this.isStreaming) return;
 
+    // Debounce: Prevent rapid successive requests
+    const now = Date.now();
+    if (now - this.lastRequestTime < this.minRequestInterval) {
+      console.log('🚫 Request throttled - too soon after last request');
+      return;
+    }
+    this.lastRequestTime = now;
+
     const userMessage = this.userInput.trim();
     this.addMessage(userMessage, true);
     this.userInput = '';
+    
+    // Prevent multiple concurrent requests
+    if (this.isTyping || this.isStreaming) {
+      console.log('🚫 Request blocked - already processing');
+      return;
+    }
     
     this.isTyping = true;
     this.isStreaming = true;
     this.streamingResponse = '';
     this.retryCount = 0;
+    
+    // Stop any existing voice streaming
+    this.voiceStreamingService.stopStream();
     
     try {
       await this.startVoiceStreaming(userMessage);
@@ -287,6 +306,8 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   private async startVoiceStreaming(userMessage: string): Promise<void> {
+    console.log('🎤 Starting voice streaming for message:', userMessage);
+    
     const voiceOptions: VoiceStreamOptions = {
       audioFormat: 'mp3',
       voiceModel: 'aura-2-draco-en',
@@ -320,10 +341,14 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
             this.finalize3DModelAnimation(data.timing, data.performance);
             this.isTyping = false;
             this.isStreaming = false;
+            this.streamingResponse = ''; // Clear the response
             this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
           },
           onError: (error) => {
             console.error('❌ Voice streaming error:', error);
+            this.isTyping = false;
+            this.isStreaming = false;
+            this.streamingResponse = '';
             this.handleStreamingError(error, userMessage);
           },
           onFallback: (data) => {
@@ -367,6 +392,14 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   private async fallbackToRegularAPI(userMessage: string): Promise<void> {
+    console.log('🔄 Falling back to regular API for message:', userMessage);
+    
+    // Ensure we're not already processing
+    if (!this.isTyping && !this.isStreaming) {
+      console.log('🚫 Fallback blocked - not in processing state');
+      return;
+    }
+    
     try {
       const response = await this.http.post<any>(environment.aiApiUrl, {
         prompt: userMessage,
