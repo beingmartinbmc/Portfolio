@@ -84662,12 +84662,17 @@ var Avatar3dComponent = class _Avatar3dComponent {
         naturalBreaks: true,
         chunkSize: 30
       };
+      const streamTimeout = setTimeout(() => {
+        console.log("\u{1F504} Voice streaming timeout, falling back to regular API");
+        this.fallbackToRegularAPI(userMessage);
+      }, 3e4);
       try {
         yield this.voiceStreamingService.startVoiceStream(userMessage, this.CONTEXT, voiceOptions, {
           onStart: (data) => {
             console.log("\u{1F3A4} Voice streaming started:", data);
             this.prepare3DModelForSpeech();
             this.isSpeaking = false;
+            clearTimeout(streamTimeout);
           },
           onText: (content) => {
             this.streamingResponse += content;
@@ -84678,6 +84683,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
           },
           onComplete: (data) => {
             console.log("\u2705 Voice streaming completed:", data);
+            clearTimeout(streamTimeout);
             this.finalize3DModelAnimation(data.timing, data.performance);
             this.isTyping = false;
             this.isStreaming = false;
@@ -84686,18 +84692,26 @@ var Avatar3dComponent = class _Avatar3dComponent {
           },
           onError: (error2) => {
             console.error("\u274C Voice streaming error:", error2);
+            clearTimeout(streamTimeout);
             this.isTyping = false;
             this.isStreaming = false;
             this.streamingResponse = "";
-            this.handleStreamingError(error2, userMessage);
+            if (error2?.message && error2.message.includes("text.split is not a function")) {
+              console.log("\u{1F504} Backend error detected, falling back to regular API");
+              this.fallbackToRegularAPI(userMessage);
+            } else {
+              this.handleStreamingError(error2, userMessage);
+            }
           },
           onFallback: (data) => {
             console.log("\u{1F504} Falling back to text-only mode:", data);
+            clearTimeout(streamTimeout);
             this.fallbackToRegularAPI(userMessage);
           }
         });
       } catch (error2) {
         console.error("Failed to start voice streaming:", error2);
+        clearTimeout(streamTimeout);
         throw error2;
       }
     });
@@ -84713,6 +84727,18 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }
   handleStreamingError(error2, userMessage) {
     return __async(this, null, function* () {
+      const backendErrors = [
+        "text.split is not a function",
+        "TypeError:",
+        "ReferenceError:",
+        "SyntaxError:"
+      ];
+      const isBackendCodeError = backendErrors.some((errorType) => error2?.message?.includes(errorType) || error2?.error?.includes(errorType));
+      if (isBackendCodeError) {
+        console.log("\u{1F504} Backend code error detected, skipping retries and falling back immediately");
+        yield this.fallbackToRegularAPI(userMessage);
+        return;
+      }
       if (error2.retryable && this.retryCount < this.maxRetries) {
         this.retryCount++;
         console.log(`\u{1F504} Retrying voice streaming (${this.retryCount}/${this.maxRetries})`);
