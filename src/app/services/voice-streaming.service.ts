@@ -103,15 +103,24 @@ export class VoiceStreamingService {
             }
 
             // Decode the chunk and add to buffer
-            buffer += decoder.decode(value, { stream: true });
+            const decodedChunk = decoder.decode(value, { stream: true });
+            buffer += decodedChunk;
+            
+            // Debug: Log raw data to understand what we're receiving
+            console.debug('Received SSE chunk:', decodedChunk.substring(0, 100));
             
             // Process complete SSE events in buffer
             const events = buffer.split('\n\n');
             buffer = events.pop() || ''; // Keep incomplete event in buffer
 
             for (const eventText of events) {
-              if (eventText.trim()) {
-                this.processSSEEvent(eventText, callbacks);
+              if (eventText && typeof eventText === 'string' && eventText.trim()) {
+                console.debug('Processing event:', eventText.substring(0, 50));
+                try {
+                  this.processSSEEvent(eventText.trim(), callbacks);
+                } catch (error) {
+                  console.error('Error processing SSE event:', error, { eventText: eventText.substring(0, 100) });
+                }
               }
             }
           }
@@ -132,21 +141,30 @@ export class VoiceStreamingService {
   }
 
   private processSSEEvent(eventText: string, callbacks: VoiceStreamCallbacks): void {
-    const lines = eventText.split('\n');
-    let eventType = '';
-    let eventData = '';
-
-    for (const line of lines) {
-      if (line.startsWith('event:')) {
-        eventType = line.substring(6).trim();
-      } else if (line.startsWith('data:')) {
-        eventData = line.substring(5).trim();
-      }
+    // Ensure eventText is a valid string
+    if (!eventText || typeof eventText !== 'string') {
+      console.warn('Invalid eventText received:', eventText);
+      return;
     }
 
-    if (!eventType || !eventData) return;
-
     try {
+      const lines = eventText.split('\n');
+      let eventType = '';
+      let eventData = '';
+
+      for (const line of lines) {
+        if (line.startsWith('event:')) {
+          eventType = line.substring(6).trim();
+        } else if (line.startsWith('data:')) {
+          eventData = line.substring(5).trim();
+        }
+      }
+
+      if (!eventType || !eventData) {
+        console.warn('Missing eventType or eventData:', { eventType, eventData });
+        return;
+      }
+
       const data = JSON.parse(eventData);
 
       switch (eventType) {
@@ -202,7 +220,9 @@ export class VoiceStreamingService {
           console.log('Unknown event type:', eventType, data);
       }
     } catch (error) {
-      console.error('Error parsing SSE event data:', error, { eventType, eventData });
+      console.error('Error parsing SSE event data:', error, { 
+        eventText: typeof eventText === 'string' ? eventText.substring(0, 100) : eventText 
+      });
       // Don't call the error callback for parsing errors to avoid infinite loops
     }
   }
