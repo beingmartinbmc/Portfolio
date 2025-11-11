@@ -224,7 +224,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           this.loadingProgress = Math.min(Math.round(rawProgress), 85); // Ensure it never exceeds 85%
           this.loadingText = `Loading 3D Avatar... ${this.loadingProgress}%`;
         }
-        console.log('Loading progress:', Math.min((progress.loaded / progress.total * 100), 100) + '%');
       },
       (error) => {
         console.error('Error loading 3D model:', error);
@@ -274,7 +273,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     // Debounce: Prevent rapid successive requests
     const now = Date.now();
     if (now - this.lastRequestTime < this.minRequestInterval) {
-      console.log('🚫 Request throttled - too soon after last request');
       return;
     }
     this.lastRequestTime = now;
@@ -285,7 +283,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     
     // Prevent multiple concurrent requests
     if (this.isTyping || this.isStreaming) {
-      console.log('🚫 Request blocked - already processing');
       return;
     }
     
@@ -306,8 +303,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   private async startVoiceStreaming(userMessage: string): Promise<void> {
-    console.log('🎤 Starting voice streaming for message:', userMessage);
-    
     const voiceOptions: VoiceStreamOptions = {
       audioFormat: 'mp3',
       voiceModel: 'aura-2-draco-en',
@@ -318,7 +313,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
 
     // Set a timeout to fallback if streaming takes too long
     const streamTimeout = setTimeout(() => {
-      console.log('🔄 Voice streaming timeout, falling back to regular API');
       this.fallbackToRegularAPI(userMessage);
     }, 30000); // 30 second timeout
 
@@ -329,7 +323,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         voiceOptions,
         {
           onStart: (data) => {
-            console.log('🎤 Voice streaming started:', data);
             this.prepare3DModelForSpeech();
             this.isSpeaking = false; // Will be set to true when audio starts playing
             clearTimeout(streamTimeout); // Clear timeout once stream starts
@@ -344,7 +337,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
             this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
           },
           onComplete: (data) => {
-            console.log('✅ Voice streaming completed:', data);
             clearTimeout(streamTimeout); // Clear timeout on completion
             this.finalize3DModelAnimation(data.timing, data.performance);
             this.isTyping = false;
@@ -361,14 +353,12 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
             
             // Check if this is a backend error and fallback immediately
             if (error?.message && error.message.includes('text.split is not a function')) {
-              console.log('🔄 Backend error detected, falling back to regular API');
               this.fallbackToRegularAPI(userMessage);
             } else {
               this.handleStreamingError(error, userMessage);
             }
           },
           onFallback: (data) => {
-            console.log('🔄 Falling back to text-only mode:', data);
             clearTimeout(streamTimeout); // Clear timeout on fallback
             this.fallbackToRegularAPI(userMessage);
           }
@@ -408,31 +398,25 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     );
     
     if (isBackendCodeError) {
-      console.log('🔄 Backend code error detected, skipping retries and falling back immediately');
       await this.fallbackToRegularAPI(userMessage);
       return;
     }
     
     if (error.retryable && this.retryCount < this.maxRetries) {
       this.retryCount++;
-      console.log(`🔄 Retrying voice streaming (${this.retryCount}/${this.maxRetries})`);
       
       // Exponential backoff
       const delay = Math.pow(2, this.retryCount) * 1000;
       setTimeout(() => this.startVoiceStreaming(userMessage), delay);
     } else {
       // Fall back to regular API
-      console.log('🔄 Max retries reached, falling back to regular API');
       await this.fallbackToRegularAPI(userMessage);
     }
   }
 
   private async fallbackToRegularAPI(userMessage: string): Promise<void> {
-    console.log('🔄 Falling back to regular API for message:', userMessage);
-    
     // Ensure we're not already processing
     if (!this.isTyping && !this.isStreaming) {
-      console.log('🚫 Fallback blocked - not in processing state');
       return;
     }
     
@@ -691,14 +675,12 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     if (this.model) {
       // Add subtle animation to indicate the avatar is preparing to speak
       // You can enhance this with actual mouth animation or other visual cues
-      console.log('🎭 Preparing 3D model for speech');
       this.addSubtleSpeakingAnimation();
     }
   }
 
   public finalize3DModelAnimation(timing?: any, performance?: any): void {
     if (this.model) {
-      console.log('🎭 Finalizing 3D model animation', { timing, performance });
       this.removeSpeakingAnimation();
     }
   }
@@ -728,7 +710,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     // Reset model to default state
     if (this.model) {
       // Reset any speaking animations
-      console.log('🎭 Resetting 3D model to default state');
     }
   }
 }

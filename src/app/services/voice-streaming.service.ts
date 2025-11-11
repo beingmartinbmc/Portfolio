@@ -106,20 +106,16 @@ export class VoiceStreamingService {
             const decodedChunk = decoder.decode(value, { stream: true });
             buffer += decodedChunk;
             
-            // Debug: Log raw data to understand what we're receiving
-            console.debug('Received SSE chunk:', decodedChunk.substring(0, 100));
-            
             // Process complete SSE events in buffer
             const events = buffer.split('\n\n');
             buffer = events.pop() || ''; // Keep incomplete event in buffer
 
             for (const eventText of events) {
               if (eventText && typeof eventText === 'string' && eventText.trim()) {
-                console.debug('Processing event:', eventText.substring(0, 50));
                 try {
                   this.processSSEEvent(eventText.trim(), callbacks);
                 } catch (error) {
-                  console.error('Error processing SSE event:', error, { eventText: eventText.substring(0, 100) });
+                  console.error('Error processing SSE event:', error);
                 }
               }
             }
@@ -143,7 +139,6 @@ export class VoiceStreamingService {
   private processSSEEvent(eventText: string, callbacks: VoiceStreamCallbacks): void {
     // Ensure eventText is a valid string
     if (!eventText || typeof eventText !== 'string') {
-      console.warn('Invalid eventText received:', eventText);
       return;
     }
 
@@ -161,7 +156,6 @@ export class VoiceStreamingService {
       }
 
       if (!eventType || !eventData) {
-        console.warn('Missing eventType or eventData:', { eventType, eventData });
         return;
       }
 
@@ -169,7 +163,6 @@ export class VoiceStreamingService {
 
       switch (eventType) {
         case 'start':
-          console.log('🎤 Voice streaming started:', data);
           callbacks.onStart?.(data);
           break;
 
@@ -180,11 +173,9 @@ export class VoiceStreamingService {
         case 'audio':
           // Validate required audio chunk properties
           if (!data.chunkIndex && data.chunkIndex !== 0) {
-            console.warn('Audio chunk missing chunkIndex:', data);
             return;
           }
           if (!data.audio) {
-            console.warn('Audio chunk missing audio data:', data);
             return;
           }
           
@@ -202,27 +193,22 @@ export class VoiceStreamingService {
           break;
 
         case 'done':
-          console.log('✅ Voice streaming completed:', data);
           callbacks.onComplete?.(data);
           break;
 
         case 'error':
-          console.error('❌ Voice streaming error:', data);
           callbacks.onError?.(data);
           break;
 
         case 'fallback':
-          console.log('🔄 Falling back to text-only mode:', data);
           callbacks.onFallback?.(data);
           break;
 
         default:
-          console.log('Unknown event type:', eventType, data);
+          break;
       }
     } catch (error) {
-      console.error('Error parsing SSE event data:', error, { 
-        eventText: typeof eventText === 'string' ? eventText.substring(0, 100) : eventText 
-      });
+      console.error('Error parsing SSE event data:', error);
       // Don't call the error callback for parsing errors to avoid infinite loops
     }
   }
@@ -292,9 +278,6 @@ export class VoiceStreamingService {
   }
 
   public stopStream(): void {
-    // No need to close EventSource since we're using fetch with reader
-    console.log('🛑 Stopping voice stream');
-    
     // Stop current audio
     this.stopAudio();
 
@@ -341,7 +324,6 @@ export class VoiceStreamingService {
 
   public async retryLastStream(): Promise<void> {
     // Implement retry logic if needed
-    console.log('🔄 Retry functionality - to be implemented based on stored request');
   }
 
   public clearAudioCache(): void {
