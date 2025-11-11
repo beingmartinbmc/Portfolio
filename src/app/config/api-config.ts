@@ -1,23 +1,23 @@
 export const API_CONFIG = {
   // Base URL for all APIs
-  BASE_URL: 'https://epic-backend-evp1rokqm-beingmartinbmcs-projects.vercel.app',
-  
+  BASE_URL: 'https://epic-backend-62lr1dfmi-beingmartinbmcs-projects.vercel.app',
+
   // API Endpoints
   ENDPOINTS: {
     // AI Chat API - used in environment files
     AI_GENERIC: '/api/generic',
-    
+
     // Text-to-Speech API
     TEXT_TO_SPEECH: '/api/text-to-speech',
-    
+
     // Streaming Voice API
     STREAMING_VOICE: '/api/stream-voice',
-    
+
     // Add other endpoints here as needed
     // MUSIC: '/api/music',
     // PROFILE: '/api/profile',
   },
-  
+
   // Helper method to get full URL
   getUrl(endpoint: string): string {
     return `${this.BASE_URL}${endpoint}`;
