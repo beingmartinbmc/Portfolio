@@ -390,10 +390,9 @@
   width: auto;
   height: auto;
   z-index: 200;
-  margin: 0 10px; // Normal spacing
   
   &.expanded {
-    margin: 0 80px; // Extra right margin when expanded to accommodate options
+    margin-right: 80px; // Only add right margin when expanded to accommodate options
   }
 }
 
@@ -600,26 +599,35 @@
     align-items: center;
     gap: var(--space-4);
     margin-top: var(--space-6);
+    width: 100%;
   }
   
-  .hero-actions .apple-btn {
+  .hero-actions > * {
+    width: 100%;
+    max-width: 280px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .hero-actions .apple-btn,
+  .hero-actions .document-radial {
     width: 100%;
     max-width: 280px;
     margin: 0;
   }
   
   .document-radial {
-    width: 100%;
-    max-width: 280px;
-    height: 70px;
+    height: auto;
     
     &.expanded {
-      margin: 0 10px; // Reduced margin on mobile
+      margin: 0; // No extra margin when expanded on mobile
     }
     
     .document-center {
       width: 100%;
+      max-width: 280px;
       min-width: auto;
+      margin: 0;
     }
     
     .document-resume.show {
