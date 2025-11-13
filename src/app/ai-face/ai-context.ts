@@ -23,6 +23,7 @@ ABOUT ANKIT SHARMA:
 - GitHub: https://github.com/beingmartinbmc
 - Stack Overflow: https://stackoverflow.com/users/7972621/ankit-sharma
 - Resume: https://drive.google.com/file/d/17X039BN32SiFP0XwjO7Ov2o6-09oNt97/view?usp=sharing
+- Cover Letter: https://drive.google.com/file/d/1sEtiMhCOqVu6_TJvMQeugaL-mbecFN6M/view?usp=sharing
 - Portfolio: https://beingmartinbmc.github.io/portfolio/
 - Available for: Full-time opportunities
 - Response time: Within 24 hours

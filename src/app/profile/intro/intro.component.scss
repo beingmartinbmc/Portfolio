@@ -369,6 +369,7 @@
   justify-content: center;
   margin-bottom: var(--space-12);
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .hero-actions .apple-btn {
@@ -379,6 +380,144 @@
   
   i {
     margin-right: var(--space-2);
+  }
+}
+
+/* Document Radial Menu */
+.document-radial {
+  position: relative;
+  display: inline-block;
+  width: auto;
+  height: auto;
+  z-index: 200;
+  margin: 0 10px; // Normal spacing
+  
+  &.expanded {
+    margin: 0 80px; // Extra right margin when expanded to accommodate options
+  }
+}
+
+.document-center {
+  position: relative;
+  cursor: pointer;
+  min-width: 180px; // Match "Get In Touch" button size
+  padding: var(--space-4) var(--space-8); // Match standard button padding
+  font-size: var(--text-lg); // Match standard button font size
+  font-weight: var(--font-semibold); // Match standard button weight
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1; // Lower z-index so options appear above it
+  
+  &.active {
+    transform: scale(0.95);
+    z-index: 1; // Keep it below the options
+    
+    .center-icon {
+      transform: rotate(180deg);
+    }
+    
+    .center-text {
+      opacity: 0.8;
+    }
+  }
+  
+  .center-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  .center-text {
+    transition: opacity 0.3s ease;
+  }
+}
+
+.document-option {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -50%) scale(0.5);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 10; // Higher z-index to appear above center button
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    z-index: 11; // Even higher on hover
+    
+    .tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-10px);
+    }
+  }
+  
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 10;
+  }
+  
+  i {
+    font-size: 1.3rem;
+    color: white;
+  }
+}
+
+.document-resume.show {
+  transform: translate(-50%, -50%) translateX(130px) translateY(-40px) scale(1);
+  transition-delay: 0.1s;
+}
+
+.document-cover.show {
+  transform: translate(-50%, -50%) translateX(130px) translateY(40px) scale(1);
+  transition-delay: 0.2s;
+}
+
+.tooltip {
+  position: absolute;
+  top: -45px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: rgba(0, 0, 0, 0.95);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 20; // Highest z-index for tooltips
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.95);
   }
 }
 
@@ -467,6 +606,29 @@
     width: 100%;
     max-width: 280px;
     margin: 0;
+  }
+  
+  .document-radial {
+    width: 100%;
+    max-width: 280px;
+    height: 70px;
+    
+    &.expanded {
+      margin: 0 10px; // Reduced margin on mobile
+    }
+    
+    .document-center {
+      width: 100%;
+      min-width: auto;
+    }
+    
+    .document-resume.show {
+      transform: translate(-50%, -50%) translateX(90px) translateY(-35px) scale(0.9);
+    }
+    
+    .document-cover.show {
+      transform: translate(-50%, -50%) translateX(90px) translateY(35px) scale(0.9);
+    }
   }
   
   .hero-social {
