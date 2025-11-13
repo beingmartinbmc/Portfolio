@@ -607,27 +607,32 @@
     max-width: 280px;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
   
-  .hero-actions .apple-btn,
-  .hero-actions .document-radial {
+  .hero-actions .apple-btn {
     width: 100%;
     max-width: 280px;
     margin: 0;
   }
   
   .document-radial {
+    width: 100% !important;
+    max-width: 280px !important;
     height: auto;
+    margin: 0 !important;
     
     &.expanded {
-      margin: 0; // No extra margin when expanded on mobile
+      margin: 0 !important;
+      width: 100% !important;
+      max-width: 280px !important;
     }
     
     .document-center {
-      width: 100%;
-      max-width: 280px;
-      min-width: auto;
-      margin: 0;
+      width: 100% !important;
+      max-width: 280px !important;
+      min-width: auto !important;
+      margin: 0 !important;
     }
     
     .document-resume.show {
