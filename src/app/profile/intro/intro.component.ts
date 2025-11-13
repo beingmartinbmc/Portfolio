@@ -8,6 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class IntroComponent implements OnInit {
   showAchievements = false;
+  showDocumentDropdown = false;
 
   constructor() {
   }
@@ -17,5 +18,22 @@ export class IntroComponent implements OnInit {
 
   toggleAchievements(): void {
     this.showAchievements = !this.showAchievements;
+  }
+
+  toggleDocumentDropdown(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.showDocumentDropdown = !this.showDocumentDropdown;
+    
+    // Close dropdown when clicking outside
+    if (this.showDocumentDropdown) {
+      setTimeout(() => {
+        document.addEventListener('click', this.closeDropdown.bind(this), { once: true });
+      }, 0);
+    }
+  }
+
+  private closeDropdown(): void {
+    this.showDocumentDropdown = false;
   }
 }

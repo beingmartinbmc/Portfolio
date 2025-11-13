@@ -61,12 +61,31 @@
           <i class="fas fa-paper-plane"></i>
           Get In Touch
         </a>
-        <a class="apple-btn apple-btn-primary" 
-           href="https://drive.google.com/file/d/17X039BN32SiFP0XwjO7Ov2o6-09oNt97/view?usp=sharing"
-           target="_blank">
-          <i class="fas fa-download"></i>
-          Download Resume
-        </a>
+        <div class="document-radial" [class.expanded]="showDocumentDropdown">
+          <button class="apple-btn apple-btn-primary document-center" 
+                  (click)="toggleDocumentDropdown($event)"
+                  [class.active]="showDocumentDropdown">
+            <i class="fas fa-download center-icon"></i>
+            <span class="center-text">Download Documents</span>
+          </button>
+          
+          <!-- Radial Document Options -->
+          <a href="https://drive.google.com/file/d/17X039BN32SiFP0XwjO7Ov2o6-09oNt97/view?usp=sharing"
+             target="_blank" 
+             class="document-option document-resume"
+             [class.show]="showDocumentDropdown">
+            <i class="fas fa-file-alt"></i>
+            <span class="tooltip">Resume</span>
+          </a>
+          
+          <a href="https://drive.google.com/file/d/1sEtiMhCOqVu6_TJvMQeugaL-mbecFN6M/view?usp=sharing"
+             target="_blank" 
+             class="document-option document-cover"
+             [class.show]="showDocumentDropdown">
+            <i class="fas fa-envelope"></i>
+            <span class="tooltip">Cover Letter</span>
+          </a>
+        </div>
       </div>
       
       <!-- Social Links -->
