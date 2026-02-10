@@ -1,65 +1,56 @@
-# Personal Portfolio - React Version
+# Personal Portfolio - Angular
 
-This is a modern React version of the original Angular portfolio project. The project has been converted from Angular 9 to React 18 with TypeScript and Vite.
+A modern personal portfolio application built with **Angular 21** and **Angular Material**.
 
 ## Features
 
-- **Modern React 18** with TypeScript
-- **Vite** for fast development and building
-- **React Router** for navigation
-- **Bootstrap 5** for styling
-- **React Toastify** for notifications
-- **React Spinners** for loading states
-- **AOS (Animate On Scroll)** for animations
-- **Axios** for HTTP requests
+- **Angular 21** with TypeScript
+- **Angular Material & CDK** for UI components
+- **Angular Router** for navigation
+- **Bootstrap 5** for layout and styling
+- **Three.js** for 3D avatar rendering
+- **Audio visualizer** with Web Audio API
+- **AI Quiz Game** and **AI Code Review** interactive sections
+- **Particle effects** background
+- **Responsive design** for mobile and desktop
 
 ## Project Structure
 
 ```
 src/
-├── components/
-│   ├── Profile/
-│   │   └── Profile.tsx          # Main profile component
-│   ├── Header/
-│   │   └── Header.tsx           # Navigation header
-│   ├── Intro/
-│   │   └── Intro.tsx            # Hero section
-│   ├── About/
-│   │   └── About.tsx            # About section
-│   ├── Skills/
-│   │   └── Skills.tsx           # Skills section
-│   ├── Experience/
-│   │   └── Experience.tsx       # Experience section
-│   ├── Publications/
-│   │   └── Publications.tsx     # Publications section
-│   ├── Education/
-│   │   └── Education.tsx        # Education section
-│   ├── Contact/
-│   │   └── Contact.tsx          # Contact form
-│   └── Footer/
-│       └── Footer.tsx           # Footer
-├── assets/                      # Static assets (CSS, JS, images)
-├── App.tsx                      # Main app component
-├── main.tsx                     # React entry point
-└── index.css                    # Global styles
+├── app/
+│   ├── ai-face/                 # AI face component
+│   ├── config/                  # App configuration
+│   ├── profile/
+│   │   ├── about/               # About section
+│   │   ├── ai-code-review/      # AI code review feature
+│   │   ├── ai-quiz-game/        # AI quiz game feature
+│   │   ├── avatar-3d/           # 3D avatar with Three.js
+│   │   ├── blog/                # Blog section
+│   │   ├── contact/             # Contact form
+│   │   ├── education/           # Education section
+│   │   ├── experience/          # Experience section
+│   │   ├── footer/              # Footer
+│   │   ├── header/              # Navigation header with audio visualizer
+│   │   ├── intro/               # Hero/intro section
+│   │   ├── particle/            # Particle effects
+│   │   ├── publications/        # Publications section
+│   │   └── skills/              # Skills section
+│   ├── services/                # Shared services
+│   ├── app.module.ts            # Root module
+│   └── app-routing.module.ts    # Route definitions
+├── assets/                      # Static assets (images, audio, 3D models, CSS, JS)
+├── environments/                # Environment configurations
+├── styles.scss                  # Global styles
+└── main.ts                      # Application entry point
 ```
-
-## Key Changes from Angular
-
-1. **Component Structure**: Angular components converted to React functional components with hooks
-2. **State Management**: Angular services replaced with React hooks and context
-3. **Routing**: Angular Router replaced with React Router
-4. **Forms**: Angular template-driven forms converted to React controlled components
-5. **HTTP**: Angular HttpClient replaced with Axios
-6. **Styling**: Maintained Bootstrap and custom CSS
-7. **Animations**: AOS library integration maintained
 
 ## Development
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
-- npm or yarn
+- Node.js (v18 or higher)
+- npm
 
 ### Installation
 
@@ -70,10 +61,10 @@ npm install
 ### Development Server
 
 ```bash
-npm run dev
+npm start
 ```
 
-The application will be available at `http://localhost:3000`
+The application will be available at `http://localhost:4200`
 
 ### Build
 
@@ -81,48 +72,49 @@ The application will be available at `http://localhost:3000`
 npm run build
 ```
 
-### Preview Build
+### Production Build
 
 ```bash
-npm run preview
+npm run build:prod
+```
+
+### Deploy (GitHub Pages)
+
+```bash
+npm run deploy
+```
+
+Output is generated in the `docs/` directory.
+
+### Test
+
+```bash
+npm test
+```
+
+### Lint
+
+```bash
+npm run lint
 ```
 
 ## Dependencies
 
 ### Core
-- React 18.2.0
-- React DOM 18.2.0
-- TypeScript 5.0.2
-- Vite 4.4.5
-
-### Routing
-- React Router DOM 6.8.1
+- Angular 21.1.3
+- TypeScript 5.9.3
+- RxJS 7.8.2
+- Zone.js 0.15.1
 
 ### UI & Styling
-- Bootstrap 5.3.0
-- React Bootstrap 2.8.0
-- AOS 2.3.4
+- Angular Material 21.1.3
+- Angular CDK 21.1.3
+- Bootstrap 5.3.7
+- ngx-spinner 19.0.0
 
-### Utilities
-- Axios 1.4.0
-- React Toastify 9.1.3
-- React Spinners 0.13.8
+### 3D & Graphics
+- Three.js 0.181.1
 
-## Migration Notes
-
-The conversion maintains the same visual design and functionality as the original Angular version while leveraging modern React patterns:
-
-- **Functional Components**: All components use React hooks instead of Angular lifecycle methods
-- **TypeScript**: Full TypeScript support maintained
-- **Responsive Design**: Bootstrap classes and custom CSS preserved
-- **Contact Form**: Formspree integration maintained
-- **Social Links**: All external links and social media connections preserved
-
-## Future Enhancements
-
-- Add more interactive components
-- Implement dark/light theme toggle
-- Add portfolio projects section
-- Enhance animations and transitions
-- Add blog section
-- Implement SEO optimizations 
+### Testing
+- Karma 6.4.4
+- Jasmine 4.6.1
