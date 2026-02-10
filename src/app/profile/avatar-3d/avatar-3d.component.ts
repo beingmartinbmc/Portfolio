@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import * as THREE from 'three';
@@ -22,7 +22,7 @@ interface Message {
 @Component({
   selector: 'app-avatar-3d',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, MarkdownPipe],
+  imports: [FormsModule, HttpClientModule, MarkdownPipe],
   templateUrl: './avatar-3d.component.html',
   styleUrls: ['./avatar-3d.component.scss'],
   animations: [

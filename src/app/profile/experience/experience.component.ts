@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {TimeService} from '../../time.service';
 
 interface ExperienceItem {
@@ -21,7 +21,7 @@ interface ExperienceItem {
   templateUrl: './experience.component.html',
   styleUrls: ['./experience.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: []
 })
 export class ExperienceComponent implements OnInit, OnDestroy {
 

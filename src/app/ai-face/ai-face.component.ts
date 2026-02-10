@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -18,7 +18,7 @@ interface Message {
 @Component({
   selector: 'app-ai-face',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, MarkdownPipe],
+  imports: [FormsModule, HttpClientModule, MarkdownPipe],
   templateUrl: './ai-face.component.html',
   styleUrls: ['./ai-face.component.scss'],
   animations: [

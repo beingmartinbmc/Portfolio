@@ -3,7 +3,7 @@
     <div class="section-header apple-fade-in">
       <h2 class="section-title apple-text-display">Contact Me</h2>
     </div>
-    
+
     <div class="contact-container">
       <!-- Contact Info Cards -->
       <div class="contact-info-section" data-aos="fade-right">
@@ -15,7 +15,7 @@
               <p>ankit.sharma199803@gmail.com</p>
             </div>
           </div>
-          
+
           <div class="info-card">
             <div class="info-icon">📍</div>
             <div class="info-content">
@@ -23,7 +23,7 @@
               <p>Bangalore, India</p>
             </div>
           </div>
-          
+
           <div class="info-card">
             <div class="info-icon">💼</div>
             <div class="info-content">
@@ -31,7 +31,7 @@
               <p>Full-time opportunities</p>
             </div>
           </div>
-          
+
           <div class="info-card">
             <div class="info-icon">⏱️</div>
             <div class="info-content">
@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Contact Form -->
       <div class="contact-form-section" data-aos="fade-left">
         <div class="form-card">
@@ -49,77 +49,89 @@
             <h3>Send me a message</h3>
             <p>I'm always open to discussing new opportunities and interesting projects!</p>
           </div>
-          
+
           <form #contactForm="ngForm" (ngSubmit)="onSubmit(model.name, model.subject, model.email, model.message)" name="form" novalidate>
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Name</label>
                 <input #name="ngModel" [(ngModel)]="model.name"
-                       [ngClass]="{ 'is-invalid': contactForm.submitted && name.invalid }" 
-                       class="form-input"
-                       id="name"
-                       name="name" 
-                       placeholder="Your full name"
-                       required type="text"/>
-                <div class="error-message" *ngIf="contactForm.submitted && name.invalid">
-                  Please enter your name
-                </div>
+                  [ngClass]="{ 'is-invalid': contactForm.submitted && name.invalid }"
+                  class="form-input"
+                  id="name"
+                  name="name"
+                  placeholder="Your full name"
+                  required type="text"/>
+                @if (contactForm.submitted && name.invalid) {
+                  <div class="error-message">
+                    Please enter your name
+                  </div>
+                }
               </div>
-              
+
               <div class="form-group">
                 <label for="email">Email</label>
                 <input #email="ngModel" [(ngModel)]="model.email"
-                       [ngClass]="{ 'is-invalid': contactForm.submitted && email.invalid }" 
-                       class="form-input"
-                       id="email"
-                       name="email" 
-                       placeholder="your.email@example.com"
-                       required type="email"/>
-                <div class="error-message" *ngIf="contactForm.submitted && email.invalid">
-                  Please enter a valid email address
-                </div>
+                  [ngClass]="{ 'is-invalid': contactForm.submitted && email.invalid }"
+                  class="form-input"
+                  id="email"
+                  name="email"
+                  placeholder="your.email@example.com"
+                  required type="email"/>
+                @if (contactForm.submitted && email.invalid) {
+                  <div class="error-message">
+                    Please enter a valid email address
+                  </div>
+                }
               </div>
             </div>
-            
+
             <div class="form-group">
               <label for="subject">Subject</label>
               <input #subject="ngModel" [(ngModel)]="model.subject"
-                     [ngClass]="{ 'is-invalid': contactForm.submitted && subject.invalid }" 
-                     class="form-input"
-                     id="subject"
-                     name="subject" 
-                     placeholder="What's this about?"
-                     required type="text"/>
-              <div class="error-message" *ngIf="contactForm.submitted && subject.invalid">
-                Please enter a subject
-              </div>
+                [ngClass]="{ 'is-invalid': contactForm.submitted && subject.invalid }"
+                class="form-input"
+                id="subject"
+                name="subject"
+                placeholder="What's this about?"
+                required type="text"/>
+              @if (contactForm.submitted && subject.invalid) {
+                <div class="error-message">
+                  Please enter a subject
+                </div>
+              }
             </div>
-            
+
             <div class="form-group">
               <label for="message">Message</label>
               <textarea #message="ngModel" [(ngModel)]="model.message"
-                        [ngClass]="{ 'is-invalid': contactForm.submitted && message.invalid }"
-                        class="form-input"
-                        id="message"
-                        name="message"
-                        placeholder="Tell me about your project or opportunity..."
-                        required
-                        rows="5"></textarea>
-              <div class="error-message" *ngIf="contactForm.submitted && message.invalid">
-                Please enter your message
-              </div>
+                [ngClass]="{ 'is-invalid': contactForm.submitted && message.invalid }"
+                class="form-input"
+                id="message"
+                name="message"
+                placeholder="Tell me about your project or opportunity..."
+                required
+              rows="5"></textarea>
+              @if (contactForm.submitted && message.invalid) {
+                <div class="error-message">
+                  Please enter your message
+                </div>
+              }
             </div>
-            
+
             <div class="form-group">
               <button [disabled]="!isFormValid() || isSubmitting"
-                      class="submit-btn"
-                      [ngClass]="{ 'disabled': !isFormValid() || isSubmitting }"
-                      type="submit">
+                class="submit-btn"
+                [ngClass]="{ 'disabled': !isFormValid() || isSubmitting }"
+                type="submit">
                 <span class="btn-text">
                   {{ isSubmitting ? 'Sending...' : 'Send Message' }}
                 </span>
-                <span class="btn-icon" *ngIf="!isSubmitting">→</span>
-                <span class="btn-spinner" *ngIf="isSubmitting">⏳</span>
+                @if (!isSubmitting) {
+                  <span class="btn-icon">→</span>
+                }
+                @if (isSubmitting) {
+                  <span class="btn-spinner">⏳</span>
+                }
               </button>
             </div>
           </form>
@@ -127,16 +139,18 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Toast Notification -->
-  <div class="toast-container" *ngIf="showToast">
-    <div class="toast" [ngClass]="'toast-' + toastType">
-      <div class="toast-icon">
-        {{ toastType === 'success' ? '✅' : '❌' }}
+  @if (showToast) {
+    <div class="toast-container">
+      <div class="toast" [ngClass]="'toast-' + toastType">
+        <div class="toast-icon">
+          {{ toastType === 'success' ? '✅' : '❌' }}
+        </div>
+        <div class="toast-message">{{ toastMessage }}</div>
       </div>
-      <div class="toast-message">{{ toastMessage }}</div>
     </div>
-  </div>
+  }
 </div>
 
 
