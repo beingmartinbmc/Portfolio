@@ -3,53 +3,54 @@
     <div class="section-header apple-fade-in">
       <h2 class="section-title apple-text-display">Professional Experience</h2>
     </div>
-    
+
     <div class="total-experience" data-aos="fade-up">
       <div class="experience-summary">
         <span class="experience-label">Total Experience</span>
         <span class="experience-years">{{totalExperience}} years</span>
       </div>
     </div>
-    
+
     <div class="experience-list">
-      <div class="experience-item" 
-           *ngFor="let item of experienceItems; let i = index" 
-           [attr.data-aos]="'fade-up'" 
-           [attr.data-aos-delay]="(i + 1) * 100"
-           (click)="toggleExpanded(item.id)"
-           [class.expanded]="item.isExpanded">
-        
-        <div class="experience-content">
-          <div class="job-info">
-            <span class="job-title">{{item.title}} @ {{item.company}}</span>
-            <span class="job-duration">{{item.period}} +</span>
-          </div>
-          
-          <!-- Expandable Content -->
-          <div class="expandable-content" [class.show]="item.isExpanded">
-            <div class="job-details">
-              <div class="location-info">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>{{item.location}}</span>
-              </div>
-              <p class="job-description">{{item.description}}</p>
-              
-              <div class="technologies-section">
-                <div class="tech-tags">
-                  <span class="tech-tag" *ngFor="let tech of item.technologies">{{tech}}</span>
+      @for (item of experienceItems; track item; let i = $index) {
+        <div class="experience-item"
+          [attr.data-aos]="'fade-up'"
+          [attr.data-aos-delay]="(i + 1) * 100"
+          (click)="toggleExpanded(item.id)"
+          [class.expanded]="item.isExpanded">
+          <div class="experience-content">
+            <div class="job-info">
+              <span class="job-title">{{item.title}} @ {{item.company}}</span>
+              <span class="job-duration">{{item.period}} +</span>
+            </div>
+            <!-- Expandable Content -->
+            <div class="expandable-content" [class.show]="item.isExpanded">
+              <div class="job-details">
+                <div class="location-info">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>{{item.location}}</span>
                 </div>
-              </div>
-              
-              <div class="achievements-section">
-                <h6 class="achievements-title">Key Achievements</h6>
-                <ul class="achievements-list">
-                  <li *ngFor="let achievement of item.achievements">{{achievement}}</li>
-                </ul>
+                <p class="job-description">{{item.description}}</p>
+                <div class="technologies-section">
+                  <div class="tech-tags">
+                    @for (tech of item.technologies; track tech) {
+                      <span class="tech-tag">{{tech}}</span>
+                    }
+                  </div>
+                </div>
+                <div class="achievements-section">
+                  <h6 class="achievements-title">Key Achievements</h6>
+                  <ul class="achievements-list">
+                    @for (achievement of item.achievements; track achievement) {
+                      <li>{{achievement}}</li>
+                    }
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      }
     </div>
   </div>
 </div>

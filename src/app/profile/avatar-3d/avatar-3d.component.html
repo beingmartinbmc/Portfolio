@@ -6,21 +6,23 @@
     </div>
     <div class="avatar-container">
       <canvas #canvas class="avatar-canvas"></canvas>
-      
+
       <!-- Loading Overlay -->
-      <div class="loading-overlay" *ngIf="isLoading" [@chatAnimation]>
-        <div class="loading-content">
-          <div class="loading-spinner"></div>
-          <div class="loading-text">{{ loadingText }}</div>
-          <div class="loading-progress">
-            <div class="progress-bar">
-              <div class="progress-fill" [style.width.%]="loadingProgress"></div>
+      @if (isLoading) {
+        <div class="loading-overlay" [@chatAnimation]>
+          <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">{{ loadingText }}</div>
+            <div class="loading-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="loadingProgress"></div>
+              </div>
+              <div class="progress-percentage">{{ loadingProgress }}%</div>
             </div>
-            <div class="progress-percentage">{{ loadingProgress }}%</div>
           </div>
         </div>
-      </div>
-      
+      }
+
       <div class="controls-hint">
         <span>🖱️ Drag to rotate</span>
         <span>🔍 Scroll to zoom</span>
@@ -31,56 +33,60 @@
     </div>
 
     <!-- Chat Window -->
-    <div class="chat-window" *ngIf="isChatOpen" [@chatAnimation]>
-      <div class="chat-header">
-        <h3>💬 Chat with Me</h3>
-        <div class="header-controls">
-          <button class="tts-toggle-btn" 
-                  (click)="toggleTTS()" 
-                  [class.active]="ttsEnabled"
-                  title="{{ ttsEnabled ? 'Disable' : 'Enable' }} Text-to-Speech">
-            {{ ttsEnabled ? '🔊' : '🔇' }}
-          </button>
-          <button class="stop-speech-btn" 
-                  (click)="stopSpeech()" 
-                  *ngIf="isReallySpeaking"
-                  title="Stop Speech">
-            ⏹️
-          </button>
-          <button class="close-btn" (click)="toggleChat()">✕</button>
-        </div>
-      </div>
-      
-      <div class="chat-messages" #chatMessages>
-        <div *ngFor="let message of messages" 
-             [class.user-message]="message.isUser"
-             [class.ai-message]="!message.isUser"
-             class="message">
-          <div class="message-content">
-            <span class="message-text" [innerHTML]="message.text | markdown"></span>
-            <span class="message-time">{{ message.time }}</span>
+    @if (isChatOpen) {
+      <div class="chat-window" [@chatAnimation]>
+        <div class="chat-header">
+          <h3>💬 Chat with Me</h3>
+          <div class="header-controls">
+            <button class="tts-toggle-btn"
+              (click)="toggleTTS()"
+              [class.active]="ttsEnabled"
+              title="{{ ttsEnabled ? 'Disable' : 'Enable' }} Text-to-Speech">
+              {{ ttsEnabled ? '🔊' : '🔇' }}
+            </button>
+            @if (isReallySpeaking) {
+              <button class="stop-speech-btn"
+                (click)="stopSpeech()"
+                title="Stop Speech">
+                ⏹️
+              </button>
+            }
+            <button class="close-btn" (click)="toggleChat()">✕</button>
           </div>
         </div>
-        
-        <div *ngIf="isReallyTyping" class="typing-indicator">
-          <span></span><span></span><span></span>
+        <div class="chat-messages" #chatMessages>
+          @for (message of messages; track message) {
+            <div
+              [class.user-message]="message.isUser"
+              [class.ai-message]="!message.isUser"
+              class="message">
+              <div class="message-content">
+                <span class="message-text" [innerHTML]="message.text | markdown"></span>
+                <span class="message-time">{{ message.time }}</span>
+              </div>
+            </div>
+          }
+          @if (isReallyTyping) {
+            <div class="typing-indicator">
+              <span></span><span></span><span></span>
+            </div>
+          }
+        </div>
+        <div class="chat-input-container">
+          <input
+            type="text"
+            [(ngModel)]="userInput"
+            (keyup.enter)="sendMessage()"
+            placeholder="Ask me anything about my portfolio..."
+            #messageInput
+            class="chat-input">
+          <button (click)="sendMessage()"
+            [disabled]="isReallyTyping || !userInput.trim()"
+            class="send-btn">
+            {{ isReallyTyping ? '⏳' : '�' }}
+          </button>
         </div>
       </div>
-      
-      <div class="chat-input-container">
-        <input 
-          type="text" 
-          [(ngModel)]="userInput" 
-          (keyup.enter)="sendMessage()"
-          placeholder="Ask me anything about my portfolio..."
-          #messageInput
-          class="chat-input">
-        <button (click)="sendMessage()" 
-                [disabled]="isReallyTyping || !userInput.trim()"
-                class="send-btn">
-          {{ isReallyTyping ? '⏳' : '�' }}
-        </button>
-      </div>
-    </div>
+    }
   </div>
 </section>
