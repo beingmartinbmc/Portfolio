@@ -1,172 +1,26 @@
-/* Simple Experience List Design */
+/* Orbital Ring Experience Design */
 
-.experience-list {
-  max-width: 800px;
+/* Apple-inspired base styles */
+.apple-section {
+  padding: 4rem 0;
+  background: var(--bg-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.apple-container {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 0 2rem;
+  width: 100%;
 }
 
-.experience-item {
-  background: var(--bg-secondary);
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  padding: 1.5rem 2rem;
-  box-shadow: var(--glass-shadow);
-  border: 1px solid var(--glass-border);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-  
-  &.expanded {
-    margin-bottom: 2rem;
-    
-    .experience-content {
-      .job-info {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding-bottom: 1rem;
-        margin-bottom: 1rem;
-      }
-    }
-  }
+.apple-fade-in {
+  animation: fadeIn 1s ease-out;
 }
 
-.experience-content {
-  .job-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s ease;
-    
-    .job-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    
-    .job-duration {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-  }
-}
-
-/* Expandable Content */
-.expandable-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0;
-  
-  &.show {
-    max-height: 800px;
-    opacity: 1;
-  }
-}
-
-/* Job Details */
-.job-details {
-  .location-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    
-    i {
-      margin-right: 0.5rem;
-      color: #667eea;
-      font-size: 0.8rem;
-    }
-  }
-  
-  .job-description {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-  }
-}
-
-/* Technologies Section */
-.technologies-section {
-  margin-bottom: 1.5rem;
-  
-  .tech-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    
-    .tech-tag {
-      background: rgba(102, 126, 234, 0.1);
-      color: #667eea;
-      padding: 0.375rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      border: 1px solid rgba(102, 126, 234, 0.2);
-      transition: all 0.3s ease;
-      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
-      
-      &:hover {
-        background: rgba(102, 126, 234, 0.2);
-        transform: translateY(-1px);
-      }
-    }
-  }
-}
-
-/* Achievements Section */
-.achievements-section {
-  .achievements-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  }
-  
-  .achievements-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    
-    li {
-      position: relative;
-      padding-left: 1.25rem;
-      margin-bottom: 0.5rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      font-size: 0.9rem;
-      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-      
-      &::before {
-        content: '▸';
-        position: absolute;
-        left: 0;
-        color: #667eea;
-        font-weight: bold;
-        font-size: 0.9rem;
-      }
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-  }
-}
-
-/* Modern Section Header */
+/* Section Header */
 .section-header {
   text-align: center;
   margin-bottom: 4rem;
@@ -186,72 +40,357 @@
   line-height: 1.2;
 }
 
-/* Modern Total Experience Card */
-.total-experience {
-  margin-bottom: 4rem;
-  text-align: center;
+/* Orbital Layout */
+.orbital-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
 }
 
-.experience-summary {
-  background: var(--bg-secondary);
-  border-radius: 20px;
-  padding: 2rem 3rem;
-  box-shadow: var(--glass-shadow);
-  border: 1px solid var(--glass-border);
-  display: inline-block;
-  min-width: 280px;
-  transition: all 0.3s ease;
+.orbital-ring {
   position: relative;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  
+  width: 520px;
+  height: 520px;
+  flex-shrink: 0;
+}
+
+/* Orbit Path Circle */
+.orbit-path {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  border: 1.5px dashed rgba(102, 126, 234, 0.25);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Center Hub — Sun Effect */
+.orbit-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #a8c8ff, #667eea, #4a5fd6, #3a3db5);
+  border: none;
+  box-shadow:
+    0 0 30px rgba(102, 126, 234, 0.55),
+    0 0 60px rgba(74, 95, 214, 0.35),
+    0 0 100px rgba(58, 61, 181, 0.2),
+    inset 0 0 25px rgba(180, 200, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  animation: sunPulse 4s ease-in-out infinite;
+
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #667eea, #764ba2);
-    border-radius: 20px 20px 0 0;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
+    animation: coronaPulse 3s ease-in-out infinite alternate;
+    pointer-events: none;
   }
-  
+
+  .center-years {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+    text-shadow: 0 0 10px rgba(180, 200, 255, 0.7);
+    line-height: 1.2;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .center-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: rgba(220, 230, 255, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    text-shadow: 0 0 6px rgba(102, 126, 234, 0.5);
+  }
+}
+
+@keyframes sunPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 30px rgba(102, 126, 234, 0.55),
+      0 0 60px rgba(74, 95, 214, 0.35),
+      0 0 100px rgba(58, 61, 181, 0.2),
+      inset 0 0 25px rgba(180, 200, 255, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(102, 126, 234, 0.7),
+      0 0 80px rgba(74, 95, 214, 0.45),
+      0 0 120px rgba(58, 61, 181, 0.3),
+      inset 0 0 30px rgba(180, 200, 255, 0.4);
+  }
+}
+
+@keyframes coronaPulse {
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* Orbiting Items */
+.orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  margin-left: -28px;
+  margin-top: -28px;
+  cursor: pointer;
+  z-index: 3;
+  animation: planetOrbit 50s linear infinite;
+
+  .orbital-ring:hover & {
+    animation-play-state: paused;
+  }
+
+  .orbit-node {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 2px solid var(--glass-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 8px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .orbit-label {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-    border-color: rgba(255, 255, 255, 0.2);
+    .orbit-node {
+      border-color: rgba(102, 126, 234, 0.6);
+      box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);
+      transform: scale(1.15);
+    }
+    .orbit-label {
+      color: #667eea;
+    }
+  }
+
+  &.active {
+    .orbit-node {
+      border-color: #667eea;
+      box-shadow: 0 0 30px rgba(102, 126, 234, 0.5), 0 0 60px rgba(102, 126, 234, 0.2);
+      transform: scale(1.2);
+    }
+    .orbit-label {
+      color: #667eea;
+      font-weight: 700;
+    }
   }
 }
 
-.experience-label {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 0.5rem;
-  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+/* Sub-orbital Ring (new ring for multi-role companies) */
+.sub-orbital-ring {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  flex-shrink: 0;
+  animation: ringAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.experience-years {
-  display: block;
-  font-size: 3rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 0.25rem;
-  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.2;
-}
-
-/* Animations */
-@keyframes slideInUp {
+@keyframes ringAppear {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sub-ring-path {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 240px;
+  height: 240px;
+  transform: translate(-50%, -50%);
+  border: 1.5px dashed rgba(102, 126, 234, 0.25);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sub-ring-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  box-shadow: 0 0 30px rgba(102, 126, 234, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  span {
+    font-size: 0.5rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    white-space: nowrap;
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+.sub-ring-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin-left: -25px;
+  margin-top: -25px;
+  cursor: pointer;
+  z-index: 3;
+  animation: subRingOrbit 20s linear infinite;
+
+  .sub-orbital-ring:hover & {
+    animation-play-state: paused;
+  }
+
+  .sub-ring-node {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 2px solid var(--glass-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    .sub-ring-title {
+      font-size: 0.55rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-align: center;
+      line-height: 1.2;
+      white-space: nowrap;
+      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+  }
+
+  .sub-ring-label {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0.4rem;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  &:hover .sub-ring-node {
+    border-color: rgba(102, 126, 234, 0.6);
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+    transform: scale(1.1);
+  }
+
+  &.active .sub-ring-node {
+    border-color: #667eea;
+    box-shadow: 0 0 25px rgba(102, 126, 234, 0.5), 0 0 50px rgba(102, 126, 234, 0.15);
+    transform: scale(1.15);
+  }
+
+  &.active .sub-ring-label {
+    color: #667eea;
+    font-weight: 700;
+  }
+}
+
+/* Detail Panel */
+.detail-panel {
+  max-width: 700px;
+  width: 100%;
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  animation: panelSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes panelSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -259,109 +398,204 @@
   }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .experience-list {
-    max-width: 100%;
-    padding: 1rem 0;
+.detail-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+
+  .detail-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
   }
-  
-  .experience-item {
-    margin-bottom: 1rem;
-    padding: 1.25rem 1.5rem;
-    
-    .experience-content {
-      .job-info {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-        
-        .job-duration {
-          align-self: flex-end;
-        }
+}
+
+.detail-header-info {
+  .detail-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.35rem;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .detail-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+
+    .detail-company {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #667eea;
+    }
+
+    .detail-separator {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+
+    .detail-period {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+  }
+
+  .detail-location {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+
+    i {
+      color: #667eea;
+      font-size: 0.75rem;
+    }
+  }
+}
+
+.detail-description {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.detail-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  .tech-tag {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    transition: all 0.3s ease;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+
+    &:hover {
+      background: rgba(102, 126, 234, 0.2);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.detail-achievements {
+  .achievements-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      font-size: 0.9rem;
+      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      &::before {
+        content: '▸';
+        position: absolute;
+        left: 0;
+        color: #667eea;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }
-  
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .section-title {
     font-size: 2.5rem;
   }
-  
-  .experience-summary {
-    min-width: 200px;
-    padding: 1.5rem 2rem;
+
+  .orbital-ring {
+    transform: scale(0.78);
+    margin: -2rem 0;
   }
-  
-  .experience-years {
-    font-size: 2.5rem;
+
+  .detail-panel {
+    padding: 1.5rem;
   }
-  
+
   .apple-container {
     padding: 0 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .experience-item {
-    padding: 1rem;
-    
-    .experience-content {
-      .job-info {
-        .job-title {
-          font-size: 1.1rem;
-        }
-        
-        .job-duration {
-          font-size: 0.9rem;
-        }
-      }
-    }
-  }
-  
   .section-title {
     font-size: 2rem;
   }
-  
-  .experience-summary {
-    min-width: 160px;
-    padding: 1rem 1.5rem;
+
+  .orbital-ring {
+    transform: scale(0.62);
+    margin: -3.5rem 0;
   }
-  
-  .experience-years {
-    font-size: 2rem;
+
+  .detail-panel {
+    padding: 1.25rem;
   }
-  
+
+  .detail-header .detail-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .detail-header-info .detail-title {
+    font-size: 1.1rem;
+  }
+
   .apple-container {
     padding: 0 0.75rem;
   }
-  
-  .tech-tags {
-    gap: 0.25rem;
-    
-    .tech-tag {
-      font-size: 0.7rem;
-      padding: 0.25rem 0.5rem;
-    }
+
+  .detail-technologies .tech-tag {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
   }
 }
 
-/* Apple-inspired container styles */
-.apple-section {
-  padding: 4rem 0;
-  background: var(--bg-primary);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
+/* Animations */
+@keyframes planetOrbit {
+  0%   { transform: rotate(-90deg) translateX(200px) rotate(90deg); }
+  100% { transform: rotate(270deg) translateX(200px) rotate(-270deg); }
 }
 
-.apple-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.apple-fade-in {
-  animation: fadeIn 1s ease-out;
+@keyframes subRingOrbit {
+  0%   { transform: rotate(-90deg) translateX(120px) rotate(90deg); }
+  100% { transform: rotate(270deg) translateX(120px) rotate(-270deg); }
 }
 
 @keyframes fadeIn {
@@ -374,5 +608,3 @@
     transform: translateY(0);
   }
 }
-
-
