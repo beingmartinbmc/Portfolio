@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private analyser: AnalyserNode | null = null;
   private source: MediaElementAudioSourceNode | null = null;
   private animationId: number | null = null;
-  private dataArray: Uint8Array | null = null;
+  private dataArray: Uint8Array<ArrayBuffer> | null = null;
 
   constructor(private musicService: MusicService) {
   }
