@@ -7,12 +7,20 @@ interface ExperienceItem {
   title: string;
   company: string;
   companyUrl: string;
+  logo: string;
   location: string;
   duration: string;
   period: string;
   description: string;
   technologies: string[];
   achievements: string[];
+}
+
+interface OrbitPlanet {
+  id: string;
+  company: string;
+  logo: string;
+  items: ExperienceItem[];
   isExpanded: boolean;
 }
 
@@ -28,7 +36,8 @@ export class ExperienceComponent implements OnInit, OnDestroy {
   numberOfMonths: number;
   totalExperience: string;
   interval: any;
-  expandedItem: string | null = null;
+  planets: OrbitPlanet[] = [];
+  selectedItem: ExperienceItem | null = null;
 
   experienceItems: ExperienceItem[] = [
     {
@@ -36,6 +45,7 @@ export class ExperienceComponent implements OnInit, OnDestroy {
       title: 'SMTS (Senior Member of Technical Staff)',
       company: 'Salesforce',
       companyUrl: 'https://www.salesforce.com/',
+      logo: 'assets/images/salesforce.jpeg',
       location: 'Hybrid in Hyderabad, India',
       duration: 'Current',
       period: '2025 - Present',
@@ -46,13 +56,13 @@ export class ExperienceComponent implements OnInit, OnDestroy {
         'Transitioning into enterprise cloud solutions',
         'Working on scalable cloud-based applications'
       ],
-      isExpanded: false
     },
     {
       id: 'sde2-games24x7',
       title: 'SDE-2',
       company: 'Games24x7',
       companyUrl: 'https://www.games24x7.com/',
+      logo: 'assets/images/games24x7.png',
       location: 'Bangalore, India',
       duration: '3 years',
       period: '2022 - 2025',
@@ -65,13 +75,13 @@ export class ExperienceComponent implements OnInit, OnDestroy {
         'Set up proper alerting for business dashboards and created PD alerts',
         'Mentored a team of 3 junior developers'
       ],
-      isExpanded: false
     },
     {
       id: 'sde1-games24x7',
       title: 'SDE-1',
       company: 'Games24x7',
       companyUrl: 'https://www.games24x7.com/',
+      logo: 'assets/images/games24x7.png',
       location: 'Bangalore, India',
       duration: '1.1 years',
       period: '2021 - 2022',
@@ -83,13 +93,13 @@ export class ExperienceComponent implements OnInit, OnDestroy {
         'Developed Automated KYC system of Games24x7 from scratch',
         'Developed Club upgradation to turn to VIP users, features for My11Circle users'
       ],
-      isExpanded: false
     },
     {
       id: 'swe-walmart',
       title: 'SWE IN2',
       company: 'Walmart Global Tech',
       companyUrl: 'https://one.walmart.com/content/globaltechindia/en_in.html',
+      logo: 'assets/images/walmart.png',
       location: 'Bangalore, India',
       duration: '4 months',
       period: '2021',
@@ -101,13 +111,13 @@ export class ExperienceComponent implements OnInit, OnDestroy {
         'Gained experience of Retail projects',
         'Developed features for Walmart\'s e-commerce platform'
       ],
-      isExpanded: false
     },
     {
       id: 'sde1-extramarks',
       title: 'SDE 1',
       company: 'Extramarks Education',
       companyUrl: 'https://www.extramarks.com/',
+      logo: 'assets/images/extramarks.png',
       location: 'Noida, India',
       duration: '1.3 years',
       period: '2020 - 2021',
@@ -119,7 +129,6 @@ export class ExperienceComponent implements OnInit, OnDestroy {
         'Implemented OAuth2.0 authentication system',
         'Reduced system downtime by 80% through improved architecture'
       ],
-      isExpanded: false
     }
   ];
 
@@ -143,14 +152,63 @@ export class ExperienceComponent implements OnInit, OnDestroy {
     this.calculateTotalExperience();
   }
 
-  toggleExpanded(itemId: string): void {
-    this.expandedItem = this.expandedItem === itemId ? null : itemId;
+  private buildPlanets(): void {
+    const companyMap = new Map<string, ExperienceItem[]>();
+    const companyLogos = new Map<string, string>();
+    const order: string[] = [];
+
     this.experienceItems.forEach(item => {
-      item.isExpanded = item.id === this.expandedItem;
+      if (!companyMap.has(item.company)) {
+        companyMap.set(item.company, []);
+        order.push(item.company);
+        companyLogos.set(item.company, item.logo);
+      }
+      companyMap.get(item.company)!.push(item);
     });
+
+    this.planets = order.map(company => ({
+      id: company.toLowerCase().replace(/\s+/g, '-'),
+      company,
+      logo: companyLogos.get(company)!,
+      items: companyMap.get(company)!,
+      isExpanded: false
+    }));
+  }
+
+  getOrbitDelay(index: number): string {
+    const duration = 50;
+    const offset = (duration / this.planets.length) * index;
+    return `-${offset}s`;
+  }
+
+  getSubOrbitDelay(index: number, total: number): string {
+    const duration = 12;
+    const offset = (duration / total) * index;
+    return `-${offset}s`;
+  }
+
+  togglePlanet(planet: OrbitPlanet): void {
+    if (planet.items.length === 1) {
+      this.selectedItem = this.selectedItem === planet.items[0] ? null : planet.items[0];
+      this.planets.forEach(p => p.isExpanded = false);
+    } else {
+      const wasExpanded = planet.isExpanded;
+      this.planets.forEach(p => p.isExpanded = false);
+      planet.isExpanded = !wasExpanded;
+      this.selectedItem = null;
+    }
+  }
+
+  selectSubItem(item: ExperienceItem): void {
+    this.selectedItem = this.selectedItem === item ? null : item;
+  }
+
+  isPlanetActive(planet: OrbitPlanet): boolean {
+    return planet.isExpanded || (this.selectedItem !== null && planet.items.includes(this.selectedItem));
   }
 
   ngOnInit(): void {
+    this.buildPlanets();
     this.refreshData();
     this.interval = setInterval(() => {
       this.refreshData();
