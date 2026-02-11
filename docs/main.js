@@ -43065,94 +43065,184 @@ var TimeService = class _TimeService {
 })();
 
 // src/app/profile/experience/experience.component.ts
-function ExperienceComponent_For_13_For_18_Template(rf, ctx) {
+function ExperienceComponent_For_14_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "span", 22);
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 12);
+    \u0275\u0275domListener("click", function ExperienceComponent_For_14_Template_div_click_0_listener() {
+      const planet_r2 = \u0275\u0275restoreView(_r1).$implicit;
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.togglePlanet(planet_r2));
+    });
+    \u0275\u0275domElementStart(1, "div", 13);
+    \u0275\u0275domElement(2, "img", 14);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "span", 15);
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd()();
+  }
+  if (rf & 2) {
+    const planet_r2 = ctx.$implicit;
+    const \u0275$index_24_r4 = ctx.$index;
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275styleProp("animation-delay", ctx_r2.getOrbitDelay(\u0275$index_24_r4));
+    \u0275\u0275classProp("active", ctx_r2.isPlanetActive(planet_r2));
+    \u0275\u0275advance(2);
+    \u0275\u0275domProperty("src", planet_r2.logo, \u0275\u0275sanitizeUrl)("alt", planet_r2.company + " logo");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(planet_r2.company);
+  }
+}
+function ExperienceComponent_For_16_Conditional_0_For_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 21);
+    \u0275\u0275domListener("click", function ExperienceComponent_For_16_Conditional_0_For_7_Template_div_click_0_listener() {
+      const sub_r6 = \u0275\u0275restoreView(_r5).$implicit;
+      const ctx_r2 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r2.selectSubItem(sub_r6));
+    });
+    \u0275\u0275domElementStart(1, "div", 22)(2, "span", 23);
+    \u0275\u0275text(3);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(4, "span", 24);
+    \u0275\u0275text(5);
+    \u0275\u0275domElementEnd()();
+  }
+  if (rf & 2) {
+    const sub_r6 = ctx.$implicit;
+    const \u0275$index_47_r7 = ctx.$index;
+    const planet_r8 = \u0275\u0275nextContext(2).$implicit;
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275styleProp("animation-delay", ctx_r2.getSubOrbitDelay(\u0275$index_47_r7, planet_r8.items.length));
+    \u0275\u0275classProp("active", ctx_r2.selectedItem === sub_r6);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(sub_r6.title);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(sub_r6.period);
+  }
+}
+function ExperienceComponent_For_16_Conditional_0_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 16);
+    \u0275\u0275domElement(1, "div", 17);
+    \u0275\u0275domElementStart(2, "div", 18);
+    \u0275\u0275domElement(3, "img", 19);
+    \u0275\u0275domElementStart(4, "span");
+    \u0275\u0275text(5);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275repeaterCreate(6, ExperienceComponent_For_16_Conditional_0_For_7_Template, 6, 6, "div", 20, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const planet_r8 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance(3);
+    \u0275\u0275domProperty("src", planet_r8.logo, \u0275\u0275sanitizeUrl)("alt", planet_r8.company);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(planet_r8.company);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(planet_r8.items);
+  }
+}
+function ExperienceComponent_For_16_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275conditionalCreate(0, ExperienceComponent_For_16_Conditional_0_Template, 8, 3, "div", 16);
+  }
+  if (rf & 2) {
+    const planet_r8 = ctx.$implicit;
+    \u0275\u0275conditional(planet_r8.items.length > 1 && planet_r8.isExpanded ? 0 : -1);
+  }
+}
+function ExperienceComponent_Conditional_17_For_21_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "span", 37);
     \u0275\u0275text(1);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const tech_r4 = ctx.$implicit;
+    const tech_r9 = ctx.$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(tech_r4);
+    \u0275\u0275textInterpolate(tech_r9);
   }
 }
-function ExperienceComponent_For_13_For_24_Template(rf, ctx) {
+function ExperienceComponent_Conditional_17_For_27_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "li");
     \u0275\u0275text(1);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const achievement_r5 = ctx.$implicit;
+    const achievement_r10 = ctx.$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(achievement_r5);
+    \u0275\u0275textInterpolate(achievement_r10);
   }
 }
-function ExperienceComponent_For_13_Template(rf, ctx) {
+function ExperienceComponent_Conditional_17_Template(rf, ctx) {
   if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 10);
-    \u0275\u0275domListener("click", function ExperienceComponent_For_13_Template_div_click_0_listener() {
-      const item_r2 = \u0275\u0275restoreView(_r1).$implicit;
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.toggleExpanded(item_r2.id));
-    });
-    \u0275\u0275domElementStart(1, "div", 11)(2, "div", 12)(3, "span", 13);
-    \u0275\u0275text(4);
+    \u0275\u0275domElementStart(0, "div", 11)(1, "div", 25);
+    \u0275\u0275domElement(2, "img", 26);
+    \u0275\u0275domElementStart(3, "div", 27)(4, "h3", 28);
+    \u0275\u0275text(5);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(5, "span", 14);
-    \u0275\u0275text(6);
-    \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(7, "div", 15)(8, "div", 16)(9, "div", 17);
-    \u0275\u0275domElement(10, "i", 18);
-    \u0275\u0275domElementStart(11, "span");
+    \u0275\u0275domElementStart(6, "div", 29)(7, "span", 30);
+    \u0275\u0275text(8);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(9, "span", 31);
+    \u0275\u0275text(10, "\u2022");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(11, "span", 32);
     \u0275\u0275text(12);
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(13, "p", 19);
-    \u0275\u0275text(14);
+    \u0275\u0275domElementStart(13, "div", 33);
+    \u0275\u0275domElement(14, "i", 34);
+    \u0275\u0275domElementStart(15, "span");
+    \u0275\u0275text(16);
+    \u0275\u0275domElementEnd()()()();
+    \u0275\u0275domElementStart(17, "p", 35);
+    \u0275\u0275text(18);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(15, "div", 20)(16, "div", 21);
-    \u0275\u0275repeaterCreate(17, ExperienceComponent_For_13_For_18_Template, 2, 1, "span", 22, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(19, "div", 23)(20, "h6", 24);
-    \u0275\u0275text(21, "Key Achievements");
+    \u0275\u0275domElementStart(19, "div", 36);
+    \u0275\u0275repeaterCreate(20, ExperienceComponent_Conditional_17_For_21_Template, 2, 1, "span", 37, \u0275\u0275repeaterTrackByIdentity);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(22, "ul", 25);
-    \u0275\u0275repeaterCreate(23, ExperienceComponent_For_13_For_24_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275domElementEnd()()()()()();
+    \u0275\u0275domElementStart(22, "div", 38)(23, "h6", 39);
+    \u0275\u0275text(24, "Key Achievements");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(25, "ul");
+    \u0275\u0275repeaterCreate(26, ExperienceComponent_Conditional_17_For_27_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275domElementEnd()()();
   }
   if (rf & 2) {
-    const item_r2 = ctx.$implicit;
-    const \u0275$index_22_r6 = ctx.$index;
-    \u0275\u0275classProp("expanded", item_r2.isExpanded);
-    \u0275\u0275attribute("data-aos", "fade-up")("data-aos-delay", (\u0275$index_22_r6 + 1) * 100);
-    \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate2("", item_r2.title, " @ ", item_r2.company);
+    const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("", item_r2.period, " +");
-    \u0275\u0275advance();
-    \u0275\u0275classProp("show", item_r2.isExpanded);
-    \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(item_r2.location);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(item_r2.description);
+    \u0275\u0275domProperty("src", ctx_r2.selectedItem.logo, \u0275\u0275sanitizeUrl)("alt", ctx_r2.selectedItem.company);
     \u0275\u0275advance(3);
-    \u0275\u0275repeater(item_r2.technologies);
+    \u0275\u0275textInterpolate(ctx_r2.selectedItem.title);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r2.selectedItem.company);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(ctx_r2.selectedItem.period);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(ctx_r2.selectedItem.location);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r2.selectedItem.description);
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(ctx_r2.selectedItem.technologies);
     \u0275\u0275advance(6);
-    \u0275\u0275repeater(item_r2.achievements);
+    \u0275\u0275repeater(ctx_r2.selectedItem.achievements);
   }
 }
 var ExperienceComponent = class _ExperienceComponent {
   constructor(timeService) {
     this.timeService = timeService;
-    this.expandedItem = null;
+    this.planets = [];
+    this.selectedItem = null;
     this.experienceItems = [
       {
         id: "smts-salesforce",
         title: "SMTS (Senior Member of Technical Staff)",
         company: "Salesforce",
         companyUrl: "https://www.salesforce.com/",
+        logo: "assets/images/salesforce.jpeg",
         location: "Hybrid in Hyderabad, India",
         duration: "Current",
         period: "2025 - Present",
@@ -43162,14 +43252,14 @@ var ExperienceComponent = class _ExperienceComponent {
           "Still exploring and learning the Salesforce ecosystem",
           "Transitioning into enterprise cloud solutions",
           "Working on scalable cloud-based applications"
-        ],
-        isExpanded: false
+        ]
       },
       {
         id: "sde2-games24x7",
         title: "SDE-2",
         company: "Games24x7",
         companyUrl: "https://www.games24x7.com/",
+        logo: "assets/images/games24x7.png",
         location: "Bangalore, India",
         duration: "3 years",
         period: "2022 - 2025",
@@ -43181,14 +43271,14 @@ var ExperienceComponent = class _ExperienceComponent {
           "Standardized and migrated services from EC2 to Graviton in K8s",
           "Set up proper alerting for business dashboards and created PD alerts",
           "Mentored a team of 3 junior developers"
-        ],
-        isExpanded: false
+        ]
       },
       {
         id: "sde1-games24x7",
         title: "SDE-1",
         company: "Games24x7",
         companyUrl: "https://www.games24x7.com/",
+        logo: "assets/images/games24x7.png",
         location: "Bangalore, India",
         duration: "1.1 years",
         period: "2021 - 2022",
@@ -43199,14 +43289,14 @@ var ExperienceComponent = class _ExperienceComponent {
           "Worked on several projects for My11Circle and RummyCircle",
           "Developed Automated KYC system of Games24x7 from scratch",
           "Developed Club upgradation to turn to VIP users, features for My11Circle users"
-        ],
-        isExpanded: false
+        ]
       },
       {
         id: "swe-walmart",
         title: "SWE IN2",
         company: "Walmart Global Tech",
         companyUrl: "https://one.walmart.com/content/globaltechindia/en_in.html",
+        logo: "assets/images/walmart.png",
         location: "Bangalore, India",
         duration: "4 months",
         period: "2021",
@@ -43217,14 +43307,14 @@ var ExperienceComponent = class _ExperienceComponent {
           "Collaborated with global teams across different time zones",
           "Gained experience of Retail projects",
           "Developed features for Walmart's e-commerce platform"
-        ],
-        isExpanded: false
+        ]
       },
       {
         id: "sde1-extramarks",
         title: "SDE 1",
         company: "Extramarks Education",
         companyUrl: "https://www.extramarks.com/",
+        logo: "assets/images/extramarks.png",
         location: "Noida, India",
         duration: "1.3 years",
         period: "2020 - 2021",
@@ -43235,8 +43325,7 @@ var ExperienceComponent = class _ExperienceComponent {
           "Developed and deployed 5+ production-ready applications",
           "Implemented OAuth2.0 authentication system",
           "Reduced system downtime by 80% through improved architecture"
-        ],
-        isExpanded: false
+        ]
       }
     ];
   }
@@ -43254,13 +43343,55 @@ var ExperienceComponent = class _ExperienceComponent {
     });
     this.calculateTotalExperience();
   }
-  toggleExpanded(itemId) {
-    this.expandedItem = this.expandedItem === itemId ? null : itemId;
+  buildPlanets() {
+    const companyMap = /* @__PURE__ */ new Map();
+    const companyLogos = /* @__PURE__ */ new Map();
+    const order = [];
     this.experienceItems.forEach((item) => {
-      item.isExpanded = item.id === this.expandedItem;
+      if (!companyMap.has(item.company)) {
+        companyMap.set(item.company, []);
+        order.push(item.company);
+        companyLogos.set(item.company, item.logo);
+      }
+      companyMap.get(item.company).push(item);
     });
+    this.planets = order.map((company) => ({
+      id: company.toLowerCase().replace(/\s+/g, "-"),
+      company,
+      logo: companyLogos.get(company),
+      items: companyMap.get(company),
+      isExpanded: false
+    }));
+  }
+  getOrbitDelay(index) {
+    const duration = 50;
+    const offset = duration / this.planets.length * index;
+    return `-${offset}s`;
+  }
+  getSubOrbitDelay(index, total) {
+    const duration = 12;
+    const offset = duration / total * index;
+    return `-${offset}s`;
+  }
+  togglePlanet(planet) {
+    if (planet.items.length === 1) {
+      this.selectedItem = this.selectedItem === planet.items[0] ? null : planet.items[0];
+      this.planets.forEach((p) => p.isExpanded = false);
+    } else {
+      const wasExpanded = planet.isExpanded;
+      this.planets.forEach((p) => p.isExpanded = false);
+      planet.isExpanded = !wasExpanded;
+      this.selectedItem = null;
+    }
+  }
+  selectSubItem(item) {
+    this.selectedItem = this.selectedItem === item ? null : item;
+  }
+  isPlanetActive(planet) {
+    return planet.isExpanded || this.selectedItem !== null && planet.items.includes(this.selectedItem);
   }
   ngOnInit() {
+    this.buildPlanets();
     this.refreshData();
     this.interval = setInterval(() => {
       this.refreshData();
@@ -43275,28 +43406,36 @@ var ExperienceComponent = class _ExperienceComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 14, vars: 1, consts: [["id", "experience", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], ["data-aos", "fade-up", 1, "total-experience"], [1, "experience-summary"], [1, "experience-label"], [1, "experience-years"], [1, "experience-list"], [1, "experience-item", 3, "expanded"], [1, "experience-item", 3, "click"], [1, "experience-content"], [1, "job-info"], [1, "job-title"], [1, "job-duration"], [1, "expandable-content"], [1, "job-details"], [1, "location-info"], [1, "fas", "fa-map-marker-alt"], [1, "job-description"], [1, "technologies-section"], [1, "tech-tags"], [1, "tech-tag"], [1, "achievements-section"], [1, "achievements-title"], [1, "achievements-list"]], template: function ExperienceComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 18, vars: 2, consts: [["id", "experience", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], ["data-aos", "fade-up", 1, "orbital-container"], [1, "orbital-ring"], [1, "orbit-path"], [1, "orbit-center"], [1, "center-years"], [1, "center-label"], [1, "orbit-item", 3, "animation-delay", "active"], [1, "detail-panel"], [1, "orbit-item", 3, "click"], [1, "orbit-node"], ["loading", "lazy", 3, "src", "alt"], [1, "orbit-label"], [1, "sub-orbital-ring"], [1, "sub-ring-path"], [1, "sub-ring-center"], [3, "src", "alt"], [1, "sub-ring-item", 3, "animation-delay", "active"], [1, "sub-ring-item", 3, "click"], [1, "sub-ring-node"], [1, "sub-ring-title"], [1, "sub-ring-label"], [1, "detail-header"], [1, "detail-logo", 3, "src", "alt"], [1, "detail-header-info"], [1, "detail-title"], [1, "detail-meta"], [1, "detail-company"], [1, "detail-separator"], [1, "detail-period"], [1, "detail-location"], [1, "fas", "fa-map-marker-alt"], [1, "detail-description"], [1, "detail-technologies"], [1, "tech-tag"], [1, "detail-achievements"], [1, "achievements-title"]], template: function ExperienceComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Professional Experience");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(5, "div", 4)(6, "div", 5)(7, "span", 6);
-        \u0275\u0275text(8, "Total Experience");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(9, "span", 7);
+        \u0275\u0275domElementStart(5, "div", 4)(6, "div", 5);
+        \u0275\u0275domElement(7, "div", 6);
+        \u0275\u0275domElementStart(8, "div", 7)(9, "span", 8);
         \u0275\u0275text(10);
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(11, "div", 8);
-        \u0275\u0275repeaterCreate(12, ExperienceComponent_For_13_Template, 25, 11, "div", 9, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(11, "span", 9);
+        \u0275\u0275text(12, "years");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275repeaterCreate(13, ExperienceComponent_For_14_Template, 5, 7, "div", 10, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275domElementEnd();
+        \u0275\u0275repeaterCreate(15, ExperienceComponent_For_16_Template, 1, 1, null, null, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275conditionalCreate(17, ExperienceComponent_Conditional_17_Template, 28, 7, "div", 11);
         \u0275\u0275domElementEnd()()();
       }
       if (rf & 2) {
         \u0275\u0275advance(10);
-        \u0275\u0275textInterpolate1("", ctx.totalExperience, " years");
+        \u0275\u0275textInterpolate(ctx.totalExperience);
+        \u0275\u0275advance(3);
+        \u0275\u0275repeater(ctx.planets);
         \u0275\u0275advance(2);
-        \u0275\u0275repeater(ctx.experienceItems);
+        \u0275\u0275repeater(ctx.planets);
+        \u0275\u0275advance(2);
+        \u0275\u0275conditional(ctx.selectedItem ? 17 : -1);
       }
-    }, styles: ['@charset "UTF-8";\n\n\n\n.experience-list[_ngcontent-%COMP%] {\n  max-width: 800px;\n  margin: 0 auto;\n  padding: 2rem 0;\n}\n.experience-item[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: 12px;\n  margin-bottom: 1.5rem;\n  padding: 1.5rem 2rem;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all 0.3s ease;\n  cursor: pointer;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.experience-item[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.experience-item.expanded[_ngcontent-%COMP%] {\n  margin-bottom: 2rem;\n}\n.experience-item.expanded[_ngcontent-%COMP%]   .experience-content[_ngcontent-%COMP%]   .job-info[_ngcontent-%COMP%] {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  padding-bottom: 1rem;\n  margin-bottom: 1rem;\n}\n.experience-content[_ngcontent-%COMP%]   .job-info[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  transition: all 0.3s ease;\n}\n.experience-content[_ngcontent-%COMP%]   .job-info[_ngcontent-%COMP%]   .job-title[_ngcontent-%COMP%] {\n  font-size: 1.25rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.experience-content[_ngcontent-%COMP%]   .job-info[_ngcontent-%COMP%]   .job-duration[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 500;\n  color: var(--text-secondary);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.expandable-content[_ngcontent-%COMP%] {\n  max-height: 0;\n  overflow: hidden;\n  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n  opacity: 0;\n}\n.expandable-content.show[_ngcontent-%COMP%] {\n  max-height: 800px;\n  opacity: 1;\n}\n.job-details[_ngcontent-%COMP%]   .location-info[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  margin-bottom: 1rem;\n  font-size: 0.9rem;\n  color: var(--text-secondary);\n}\n.job-details[_ngcontent-%COMP%]   .location-info[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  margin-right: 0.5rem;\n  color: #667eea;\n  font-size: 0.8rem;\n}\n.job-details[_ngcontent-%COMP%]   .job-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.6;\n  margin-bottom: 1.5rem;\n  font-size: 0.95rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.technologies-section[_ngcontent-%COMP%] {\n  margin-bottom: 1.5rem;\n}\n.technologies-section[_ngcontent-%COMP%]   .tech-tags[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.technologies-section[_ngcontent-%COMP%]   .tech-tags[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%] {\n  background: rgba(102, 126, 234, 0.1);\n  color: #667eea;\n  padding: 0.375rem 0.75rem;\n  border-radius: 20px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Mono",\n    "Monaco",\n    "Inconsolata",\n    monospace;\n}\n.technologies-section[_ngcontent-%COMP%]   .tech-tags[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%]:hover {\n  background: rgba(102, 126, 234, 0.2);\n  transform: translateY(-1px);\n}\n.achievements-section[_ngcontent-%COMP%]   .achievements-title[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: 1rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievements-section[_ngcontent-%COMP%]   .achievements-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievements-section[_ngcontent-%COMP%]   .achievements-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.25rem;\n  margin-bottom: 0.5rem;\n  color: var(--text-secondary);\n  line-height: 1.5;\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievements-section[_ngcontent-%COMP%]   .achievements-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #667eea;\n  font-weight: bold;\n  font-size: 0.9rem;\n}\n.achievements-section[_ngcontent-%COMP%]   .achievements-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  line-height: 1.2;\n}\n.total-experience[_ngcontent-%COMP%] {\n  margin-bottom: 4rem;\n  text-align: center;\n}\n.experience-summary[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: 20px;\n  padding: 2rem 3rem;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  display: inline-block;\n  min-width: 280px;\n  transition: all 0.3s ease;\n  position: relative;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.experience-summary[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      #667eea,\n      #764ba2);\n  border-radius: 20px 20px 0 0;\n}\n.experience-summary[_ngcontent-%COMP%]:hover {\n  transform: translateY(-6px);\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.experience-label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 0.875rem;\n  font-weight: 600;\n  color: #666;\n  text-transform: uppercase;\n  letter-spacing: 1.5px;\n  margin-bottom: 0.5rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.experience-years[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 3rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 0.25rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  line-height: 1.2;\n}\n@keyframes _ngcontent-%COMP%_slideInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n@media (max-width: 768px) {\n  .experience-list[_ngcontent-%COMP%] {\n    max-width: 100%;\n    padding: 1rem 0;\n  }\n  .experience-item[_ngcontent-%COMP%] {\n    margin-bottom: 1rem;\n    padding: 1.25rem 1.5rem;\n  }\n  .experience-item[_ngcontent-%COMP%]   .experience-content[_ngcontent-%COMP%]   .job-info[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    gap: 0.5rem;\n  }\n  .experience-item[_ngcontent-%COMP%]   .experience-content[_ngcontent-%COMP%]   .job-info[_ngcontent-%COMP%]   .job-duration[_ngcontent-%COMP%] {\n    align-self: flex-end;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n  .experience-summary[_ngcontent-%COMP%] {\n    min-width: 200px;\n    padding: 1.5rem 2rem;\n  }\n  .experience-years[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n  .apple-container[_ngcontent-%COMP%] {\n    padding: 0 1rem;\n  }\n}\n@media (max-width: 480px) {\n  .experience-item[_ngcontent-%COMP%] {\n    padding: 1rem;\n  }\n  .experience-item[_ngcontent-%COMP%]   .experience-content[_ngcontent-%COMP%]   .job-info[_ngcontent-%COMP%]   .job-title[_ngcontent-%COMP%] {\n    font-size: 1.1rem;\n  }\n  .experience-item[_ngcontent-%COMP%]   .experience-content[_ngcontent-%COMP%]   .job-info[_ngcontent-%COMP%]   .job-duration[_ngcontent-%COMP%] {\n    font-size: 0.9rem;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .experience-summary[_ngcontent-%COMP%] {\n    min-width: 160px;\n    padding: 1rem 1.5rem;\n  }\n  .experience-years[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .apple-container[_ngcontent-%COMP%] {\n    padding: 0 0.75rem;\n  }\n  .tech-tags[_ngcontent-%COMP%] {\n    gap: 0.25rem;\n  }\n  .tech-tags[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%] {\n    font-size: 0.7rem;\n    padding: 0.25rem 0.5rem;\n  }\n}\n.apple-section[_ngcontent-%COMP%] {\n  padding: 4rem 0;\n  background: var(--bg-primary);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.apple-container[_ngcontent-%COMP%] {\n  max-width: 1400px;\n  margin: 0 auto;\n  padding: 0 2rem;\n}\n.apple-fade-in[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeIn 1s ease-out;\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */'] });
+    }, styles: ['@charset "UTF-8";\n\n\n\n.apple-section[_ngcontent-%COMP%] {\n  padding: 4rem 0;\n  background: var(--bg-primary);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.apple-container[_ngcontent-%COMP%] {\n  max-width: 1400px;\n  margin: 0 auto;\n  padding: 0 2rem;\n  width: 100%;\n}\n.apple-fade-in[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeIn 1s ease-out;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  line-height: 1.2;\n}\n.orbital-container[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 3rem;\n}\n.orbital-ring[_ngcontent-%COMP%] {\n  position: relative;\n  width: 520px;\n  height: 520px;\n  flex-shrink: 0;\n}\n.orbit-path[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 400px;\n  height: 400px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.orbit-center[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 110px;\n  height: 110px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 40% 40%,\n      #a8c8ff,\n      #667eea,\n      #4a5fd6,\n      #3a3db5);\n  border: none;\n  box-shadow:\n    0 0 30px rgba(102, 126, 234, 0.55),\n    0 0 60px rgba(74, 95, 214, 0.35),\n    0 0 100px rgba(58, 61, 181, 0.2),\n    inset 0 0 25px rgba(180, 200, 255, 0.3);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  animation: _ngcontent-%COMP%_sunPulse 4s ease-in-out infinite;\n}\n.orbit-center[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -8px;\n  left: -8px;\n  right: -8px;\n  bottom: -8px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(102, 126, 234, 0.3) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_coronaPulse 3s ease-in-out infinite alternate;\n  pointer-events: none;\n}\n.orbit-center[_ngcontent-%COMP%]   .center-years[_ngcontent-%COMP%] {\n  font-size: 1.75rem;\n  font-weight: 800;\n  color: #fff;\n  -webkit-text-fill-color: #fff;\n  text-shadow: 0 0 10px rgba(180, 200, 255, 0.7);\n  line-height: 1.2;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.orbit-center[_ngcontent-%COMP%]   .center-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 600;\n  color: rgba(220, 230, 255, 0.9);\n  text-transform: uppercase;\n  letter-spacing: 1.5px;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 0 6px rgba(102, 126, 234, 0.5);\n}\n@keyframes _ngcontent-%COMP%_sunPulse {\n  0%, 100% {\n    box-shadow:\n      0 0 30px rgba(102, 126, 234, 0.55),\n      0 0 60px rgba(74, 95, 214, 0.35),\n      0 0 100px rgba(58, 61, 181, 0.2),\n      inset 0 0 25px rgba(180, 200, 255, 0.3);\n  }\n  50% {\n    box-shadow:\n      0 0 40px rgba(102, 126, 234, 0.7),\n      0 0 80px rgba(74, 95, 214, 0.45),\n      0 0 120px rgba(58, 61, 181, 0.3),\n      inset 0 0 30px rgba(180, 200, 255, 0.4);\n  }\n}\n@keyframes _ngcontent-%COMP%_coronaPulse {\n  from {\n    transform: scale(1);\n    opacity: 0.6;\n  }\n  to {\n    transform: scale(1.15);\n    opacity: 1;\n  }\n}\n.orbit-item[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 56px;\n  height: 56px;\n  margin-left: -28px;\n  margin-top: -28px;\n  cursor: pointer;\n  z-index: 3;\n  animation: _ngcontent-%COMP%_planetOrbit 50s linear infinite;\n}\n.orbital-ring[_ngcontent-%COMP%]:hover   .orbit-item[_ngcontent-%COMP%] {\n  animation-play-state: paused;\n}\n.orbit-item[_ngcontent-%COMP%]   .orbit-node[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  padding: 8px;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.orbit-item[_ngcontent-%COMP%]   .orbit-node[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n}\n.orbit-item[_ngcontent-%COMP%]   .orbit-label[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.5rem;\n  font-size: 0.7rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.orbit-item[_ngcontent-%COMP%]:hover   .orbit-node[_ngcontent-%COMP%] {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);\n  transform: scale(1.15);\n}\n.orbit-item[_ngcontent-%COMP%]:hover   .orbit-label[_ngcontent-%COMP%] {\n  color: #667eea;\n}\n.orbit-item.active[_ngcontent-%COMP%]   .orbit-node[_ngcontent-%COMP%] {\n  border-color: #667eea;\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.5), 0 0 60px rgba(102, 126, 234, 0.2);\n  transform: scale(1.2);\n}\n.orbit-item.active[_ngcontent-%COMP%]   .orbit-label[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-weight: 700;\n}\n.sub-orbital-ring[_ngcontent-%COMP%] {\n  position: relative;\n  width: 340px;\n  height: 340px;\n  flex-shrink: 0;\n  animation: _ngcontent-%COMP%_ringAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes _ngcontent-%COMP%_ringAppear {\n  from {\n    opacity: 0;\n    transform: scale(0.6);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n.sub-ring-path[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 240px;\n  height: 240px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.sub-ring-center[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid rgba(102, 126, 234, 0.3);\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.15);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.sub-ring-center[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 32px;\n  height: 32px;\n  object-fit: contain;\n}\n.sub-ring-center[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  font-size: 0.5rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  margin-top: 2px;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 50px;\n  height: 50px;\n  margin-left: -25px;\n  margin-top: -25px;\n  cursor: pointer;\n  z-index: 3;\n  animation: _ngcontent-%COMP%_subRingOrbit 20s linear infinite;\n}\n.sub-orbital-ring[_ngcontent-%COMP%]:hover   .sub-ring-item[_ngcontent-%COMP%] {\n  animation-play-state: paused;\n}\n.sub-ring-item[_ngcontent-%COMP%]   .sub-ring-node[_ngcontent-%COMP%] {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 6px;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.sub-ring-item[_ngcontent-%COMP%]   .sub-ring-node[_ngcontent-%COMP%]   .sub-ring-title[_ngcontent-%COMP%] {\n  font-size: 0.55rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  text-align: center;\n  line-height: 1.2;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item[_ngcontent-%COMP%]   .sub-ring-label[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.4rem;\n  font-size: 0.6rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.sub-ring-item[_ngcontent-%COMP%]:hover   .sub-ring-node[_ngcontent-%COMP%] {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);\n  transform: scale(1.1);\n}\n.sub-ring-item.active[_ngcontent-%COMP%]   .sub-ring-node[_ngcontent-%COMP%] {\n  border-color: #667eea;\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.5), 0 0 50px rgba(102, 126, 234, 0.15);\n  transform: scale(1.15);\n}\n.sub-ring-item.active[_ngcontent-%COMP%]   .sub-ring-label[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-weight: 700;\n}\n.detail-panel[_ngcontent-%COMP%] {\n  max-width: 700px;\n  width: 100%;\n  background: var(--bg-secondary);\n  border-radius: 16px;\n  padding: 2rem;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  animation: _ngcontent-%COMP%_panelSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes _ngcontent-%COMP%_panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 1.25rem;\n  margin-bottom: 1.5rem;\n}\n.detail-header[_ngcontent-%COMP%]   .detail-logo[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border-radius: 10px;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 6px;\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);\n  flex-shrink: 0;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-title[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.35rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-bottom: 0.35rem;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%]   .detail-company[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 600;\n  color: #667eea;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%]   .detail-separator[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-size: 0.8rem;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%]   .detail-period[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-secondary);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  font-size: 0.85rem;\n  color: var(--text-secondary);\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-size: 0.75rem;\n}\n.detail-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  margin-bottom: 1.5rem;\n  font-size: 0.95rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-technologies[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n  margin-bottom: 1.5rem;\n}\n.detail-technologies[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%] {\n  background: rgba(102, 126, 234, 0.1);\n  color: #667eea;\n  padding: 0.375rem 0.75rem;\n  border-radius: 20px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Mono",\n    "Monaco",\n    "Inconsolata",\n    monospace;\n}\n.detail-technologies[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%]:hover {\n  background: rgba(102, 126, 234, 0.2);\n  transform: translateY(-1px);\n}\n.detail-achievements[_ngcontent-%COMP%]   .achievements-title[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.25rem;\n  margin-bottom: 0.5rem;\n  color: var(--text-secondary);\n  line-height: 1.5;\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #667eea;\n  font-weight: bold;\n  font-size: 0.9rem;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n@media (max-width: 768px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n  .orbital-ring[_ngcontent-%COMP%] {\n    transform: scale(0.78);\n    margin: -2rem 0;\n  }\n  .detail-panel[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n  .apple-container[_ngcontent-%COMP%] {\n    padding: 0 1rem;\n  }\n}\n@media (max-width: 480px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .orbital-ring[_ngcontent-%COMP%] {\n    transform: scale(0.62);\n    margin: -3.5rem 0;\n  }\n  .detail-panel[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .detail-header[_ngcontent-%COMP%]   .detail-logo[_ngcontent-%COMP%] {\n    width: 36px;\n    height: 36px;\n  }\n  .detail-header-info[_ngcontent-%COMP%]   .detail-title[_ngcontent-%COMP%] {\n    font-size: 1.1rem;\n  }\n  .apple-container[_ngcontent-%COMP%] {\n    padding: 0 0.75rem;\n  }\n  .detail-technologies[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%] {\n    font-size: 0.7rem;\n    padding: 0.25rem 0.5rem;\n  }\n}\n@keyframes _ngcontent-%COMP%_planetOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(200px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(200px) rotate(-270deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_subRingOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(120px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(120px) rotate(-270deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */'] });
   }
 };
 (() => {
@@ -43308,61 +43447,97 @@ var ExperienceComponent = class _ExperienceComponent {
       <h2 class="section-title apple-text-display">Professional Experience</h2>
     </div>
 
-    <div class="total-experience" data-aos="fade-up">
-      <div class="experience-summary">
-        <span class="experience-label">Total Experience</span>
-        <span class="experience-years">{{totalExperience}} years</span>
-      </div>
-    </div>
+    <div class="orbital-container" data-aos="fade-up">
+      <div class="orbital-ring">
+        <!-- Orbit Path -->
+        <div class="orbit-path"></div>
 
-    <div class="experience-list">
-      @for (item of experienceItems; track item; let i = $index) {
-        <div class="experience-item"
-          [attr.data-aos]="'fade-up'"
-          [attr.data-aos-delay]="(i + 1) * 100"
-          (click)="toggleExpanded(item.id)"
-          [class.expanded]="item.isExpanded">
-          <div class="experience-content">
-            <div class="job-info">
-              <span class="job-title">{{item.title}} @ {{item.company}}</span>
-              <span class="job-duration">{{item.period}} +</span>
+        <!-- Center: Total Experience -->
+        <div class="orbit-center">
+          <span class="center-years">{{totalExperience}}</span>
+          <span class="center-label">years</span>
+        </div>
+
+        <!-- Orbiting Company Planets -->
+        @for (planet of planets; track planet; let i = $index) {
+          <div class="orbit-item"
+            [style.animation-delay]="getOrbitDelay(i)"
+            [class.active]="isPlanetActive(planet)"
+            (click)="togglePlanet(planet)">
+            <div class="orbit-node">
+              <img [src]="planet.logo" [alt]="planet.company + ' logo'" loading="lazy" />
             </div>
-            <!-- Expandable Content -->
-            <div class="expandable-content" [class.show]="item.isExpanded">
-              <div class="job-details">
-                <div class="location-info">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <span>{{item.location}}</span>
+            <span class="orbit-label">{{planet.company}}</span>
+          </div>
+        }
+      </div>
+
+      <!-- Sub-orbit ring for multi-role companies -->
+      @for (planet of planets; track planet) {
+        @if (planet.items.length > 1 && planet.isExpanded) {
+          <div class="sub-orbital-ring">
+            <div class="sub-ring-path"></div>
+            <div class="sub-ring-center">
+              <img [src]="planet.logo" [alt]="planet.company" />
+              <span>{{planet.company}}</span>
+            </div>
+            @for (sub of planet.items; track sub; let j = $index) {
+              <div class="sub-ring-item"
+                [style.animation-delay]="getSubOrbitDelay(j, planet.items.length)"
+                [class.active]="selectedItem === sub"
+                (click)="selectSubItem(sub)">
+                <div class="sub-ring-node">
+                  <span class="sub-ring-title">{{sub.title}}</span>
                 </div>
-                <p class="job-description">{{item.description}}</p>
-                <div class="technologies-section">
-                  <div class="tech-tags">
-                    @for (tech of item.technologies; track tech) {
-                      <span class="tech-tag">{{tech}}</span>
-                    }
-                  </div>
-                </div>
-                <div class="achievements-section">
-                  <h6 class="achievements-title">Key Achievements</h6>
-                  <ul class="achievements-list">
-                    @for (achievement of item.achievements; track achievement) {
-                      <li>{{achievement}}</li>
-                    }
-                  </ul>
-                </div>
+                <span class="sub-ring-label">{{sub.period}}</span>
+              </div>
+            }
+          </div>
+        }
+      }
+
+      <!-- Detail Panel -->
+      @if (selectedItem) {
+        <div class="detail-panel">
+          <div class="detail-header">
+            <img [src]="selectedItem.logo" [alt]="selectedItem.company" class="detail-logo" />
+            <div class="detail-header-info">
+              <h3 class="detail-title">{{selectedItem.title}}</h3>
+              <div class="detail-meta">
+                <span class="detail-company">{{selectedItem.company}}</span>
+                <span class="detail-separator">&bull;</span>
+                <span class="detail-period">{{selectedItem.period}}</span>
+              </div>
+              <div class="detail-location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>{{selectedItem.location}}</span>
               </div>
             </div>
+          </div>
+          <p class="detail-description">{{selectedItem.description}}</p>
+          <div class="detail-technologies">
+            @for (tech of selectedItem.technologies; track tech) {
+              <span class="tech-tag">{{tech}}</span>
+            }
+          </div>
+          <div class="detail-achievements">
+            <h6 class="achievements-title">Key Achievements</h6>
+            <ul>
+              @for (achievement of selectedItem.achievements; track achievement) {
+                <li>{{achievement}}</li>
+              }
+            </ul>
           </div>
         </div>
       }
     </div>
   </div>
 </div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/experience/experience.component.scss */\n.experience-list {\n  max-width: 800px;\n  margin: 0 auto;\n  padding: 2rem 0;\n}\n.experience-item {\n  background: var(--bg-secondary);\n  border-radius: 12px;\n  margin-bottom: 1.5rem;\n  padding: 1.5rem 2rem;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all 0.3s ease;\n  cursor: pointer;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.experience-item:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.experience-item.expanded {\n  margin-bottom: 2rem;\n}\n.experience-item.expanded .experience-content .job-info {\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  padding-bottom: 1rem;\n  margin-bottom: 1rem;\n}\n.experience-content .job-info {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  transition: all 0.3s ease;\n}\n.experience-content .job-info .job-title {\n  font-size: 1.25rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.experience-content .job-info .job-duration {\n  font-size: 1rem;\n  font-weight: 500;\n  color: var(--text-secondary);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.expandable-content {\n  max-height: 0;\n  overflow: hidden;\n  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n  opacity: 0;\n}\n.expandable-content.show {\n  max-height: 800px;\n  opacity: 1;\n}\n.job-details .location-info {\n  display: flex;\n  align-items: center;\n  margin-bottom: 1rem;\n  font-size: 0.9rem;\n  color: var(--text-secondary);\n}\n.job-details .location-info i {\n  margin-right: 0.5rem;\n  color: #667eea;\n  font-size: 0.8rem;\n}\n.job-details .job-description {\n  color: var(--text-secondary);\n  line-height: 1.6;\n  margin-bottom: 1.5rem;\n  font-size: 0.95rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.technologies-section {\n  margin-bottom: 1.5rem;\n}\n.technologies-section .tech-tags {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.technologies-section .tech-tags .tech-tag {\n  background: rgba(102, 126, 234, 0.1);\n  color: #667eea;\n  padding: 0.375rem 0.75rem;\n  border-radius: 20px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Mono",\n    "Monaco",\n    "Inconsolata",\n    monospace;\n}\n.technologies-section .tech-tags .tech-tag:hover {\n  background: rgba(102, 126, 234, 0.2);\n  transform: translateY(-1px);\n}\n.achievements-section .achievements-title {\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: 1rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievements-section .achievements-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievements-section .achievements-list li {\n  position: relative;\n  padding-left: 1.25rem;\n  margin-bottom: 0.5rem;\n  color: var(--text-secondary);\n  line-height: 1.5;\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievements-section .achievements-list li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #667eea;\n  font-weight: bold;\n  font-size: 0.9rem;\n}\n.achievements-section .achievements-list li:last-child {\n  margin-bottom: 0;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  line-height: 1.2;\n}\n.total-experience {\n  margin-bottom: 4rem;\n  text-align: center;\n}\n.experience-summary {\n  background: var(--bg-secondary);\n  border-radius: 20px;\n  padding: 2rem 3rem;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  display: inline-block;\n  min-width: 280px;\n  transition: all 0.3s ease;\n  position: relative;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.experience-summary::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      #667eea,\n      #764ba2);\n  border-radius: 20px 20px 0 0;\n}\n.experience-summary:hover {\n  transform: translateY(-6px);\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.experience-label {\n  display: block;\n  font-size: 0.875rem;\n  font-weight: 600;\n  color: #666;\n  text-transform: uppercase;\n  letter-spacing: 1.5px;\n  margin-bottom: 0.5rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.experience-years {\n  display: block;\n  font-size: 3rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 0.25rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  line-height: 1.2;\n}\n@keyframes slideInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n@media (max-width: 768px) {\n  .experience-list {\n    max-width: 100%;\n    padding: 1rem 0;\n  }\n  .experience-item {\n    margin-bottom: 1rem;\n    padding: 1.25rem 1.5rem;\n  }\n  .experience-item .experience-content .job-info {\n    flex-direction: column;\n    align-items: flex-start;\n    gap: 0.5rem;\n  }\n  .experience-item .experience-content .job-info .job-duration {\n    align-self: flex-end;\n  }\n  .section-title {\n    font-size: 2.5rem;\n  }\n  .experience-summary {\n    min-width: 200px;\n    padding: 1.5rem 2rem;\n  }\n  .experience-years {\n    font-size: 2.5rem;\n  }\n  .apple-container {\n    padding: 0 1rem;\n  }\n}\n@media (max-width: 480px) {\n  .experience-item {\n    padding: 1rem;\n  }\n  .experience-item .experience-content .job-info .job-title {\n    font-size: 1.1rem;\n  }\n  .experience-item .experience-content .job-info .job-duration {\n    font-size: 0.9rem;\n  }\n  .section-title {\n    font-size: 2rem;\n  }\n  .experience-summary {\n    min-width: 160px;\n    padding: 1rem 1.5rem;\n  }\n  .experience-years {\n    font-size: 2rem;\n  }\n  .apple-container {\n    padding: 0 0.75rem;\n  }\n  .tech-tags {\n    gap: 0.25rem;\n  }\n  .tech-tags .tech-tag {\n    font-size: 0.7rem;\n    padding: 0.25rem 0.5rem;\n  }\n}\n.apple-section {\n  padding: 4rem 0;\n  background: var(--bg-primary);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.apple-container {\n  max-width: 1400px;\n  margin: 0 auto;\n  padding: 0 2rem;\n}\n.apple-fade-in {\n  animation: fadeIn 1s ease-out;\n}\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/experience/experience.component.scss */\n.apple-section {\n  padding: 4rem 0;\n  background: var(--bg-primary);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.apple-container {\n  max-width: 1400px;\n  margin: 0 auto;\n  padding: 0 2rem;\n  width: 100%;\n}\n.apple-fade-in {\n  animation: fadeIn 1s ease-out;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  line-height: 1.2;\n}\n.orbital-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 3rem;\n}\n.orbital-ring {\n  position: relative;\n  width: 520px;\n  height: 520px;\n  flex-shrink: 0;\n}\n.orbit-path {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 400px;\n  height: 400px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.orbit-center {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 110px;\n  height: 110px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 40% 40%,\n      #a8c8ff,\n      #667eea,\n      #4a5fd6,\n      #3a3db5);\n  border: none;\n  box-shadow:\n    0 0 30px rgba(102, 126, 234, 0.55),\n    0 0 60px rgba(74, 95, 214, 0.35),\n    0 0 100px rgba(58, 61, 181, 0.2),\n    inset 0 0 25px rgba(180, 200, 255, 0.3);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  animation: sunPulse 4s ease-in-out infinite;\n}\n.orbit-center::before {\n  content: "";\n  position: absolute;\n  top: -8px;\n  left: -8px;\n  right: -8px;\n  bottom: -8px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(102, 126, 234, 0.3) 0%,\n      transparent 70%);\n  animation: coronaPulse 3s ease-in-out infinite alternate;\n  pointer-events: none;\n}\n.orbit-center .center-years {\n  font-size: 1.75rem;\n  font-weight: 800;\n  color: #fff;\n  -webkit-text-fill-color: #fff;\n  text-shadow: 0 0 10px rgba(180, 200, 255, 0.7);\n  line-height: 1.2;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.orbit-center .center-label {\n  font-size: 0.65rem;\n  font-weight: 600;\n  color: rgba(220, 230, 255, 0.9);\n  text-transform: uppercase;\n  letter-spacing: 1.5px;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 0 6px rgba(102, 126, 234, 0.5);\n}\n@keyframes sunPulse {\n  0%, 100% {\n    box-shadow:\n      0 0 30px rgba(102, 126, 234, 0.55),\n      0 0 60px rgba(74, 95, 214, 0.35),\n      0 0 100px rgba(58, 61, 181, 0.2),\n      inset 0 0 25px rgba(180, 200, 255, 0.3);\n  }\n  50% {\n    box-shadow:\n      0 0 40px rgba(102, 126, 234, 0.7),\n      0 0 80px rgba(74, 95, 214, 0.45),\n      0 0 120px rgba(58, 61, 181, 0.3),\n      inset 0 0 30px rgba(180, 200, 255, 0.4);\n  }\n}\n@keyframes coronaPulse {\n  from {\n    transform: scale(1);\n    opacity: 0.6;\n  }\n  to {\n    transform: scale(1.15);\n    opacity: 1;\n  }\n}\n.orbit-item {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 56px;\n  height: 56px;\n  margin-left: -28px;\n  margin-top: -28px;\n  cursor: pointer;\n  z-index: 3;\n  animation: planetOrbit 50s linear infinite;\n}\n.orbital-ring:hover .orbit-item {\n  animation-play-state: paused;\n}\n.orbit-item .orbit-node {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  padding: 8px;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.orbit-item .orbit-node img {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n}\n.orbit-item .orbit-label {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.5rem;\n  font-size: 0.7rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.orbit-item:hover .orbit-node {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);\n  transform: scale(1.15);\n}\n.orbit-item:hover .orbit-label {\n  color: #667eea;\n}\n.orbit-item.active .orbit-node {\n  border-color: #667eea;\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.5), 0 0 60px rgba(102, 126, 234, 0.2);\n  transform: scale(1.2);\n}\n.orbit-item.active .orbit-label {\n  color: #667eea;\n  font-weight: 700;\n}\n.sub-orbital-ring {\n  position: relative;\n  width: 340px;\n  height: 340px;\n  flex-shrink: 0;\n  animation: ringAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes ringAppear {\n  from {\n    opacity: 0;\n    transform: scale(0.6);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n.sub-ring-path {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 240px;\n  height: 240px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.sub-ring-center {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid rgba(102, 126, 234, 0.3);\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.15);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.sub-ring-center img {\n  width: 32px;\n  height: 32px;\n  object-fit: contain;\n}\n.sub-ring-center span {\n  font-size: 0.5rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  margin-top: 2px;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 50px;\n  height: 50px;\n  margin-left: -25px;\n  margin-top: -25px;\n  cursor: pointer;\n  z-index: 3;\n  animation: subRingOrbit 20s linear infinite;\n}\n.sub-orbital-ring:hover .sub-ring-item {\n  animation-play-state: paused;\n}\n.sub-ring-item .sub-ring-node {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 6px;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.sub-ring-item .sub-ring-node .sub-ring-title {\n  font-size: 0.55rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  text-align: center;\n  line-height: 1.2;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item .sub-ring-label {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.4rem;\n  font-size: 0.6rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.sub-ring-item:hover .sub-ring-node {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);\n  transform: scale(1.1);\n}\n.sub-ring-item.active .sub-ring-node {\n  border-color: #667eea;\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.5), 0 0 50px rgba(102, 126, 234, 0.15);\n  transform: scale(1.15);\n}\n.sub-ring-item.active .sub-ring-label {\n  color: #667eea;\n  font-weight: 700;\n}\n.detail-panel {\n  max-width: 700px;\n  width: 100%;\n  background: var(--bg-secondary);\n  border-radius: 16px;\n  padding: 2rem;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  animation: panelSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-header {\n  display: flex;\n  align-items: flex-start;\n  gap: 1.25rem;\n  margin-bottom: 1.5rem;\n}\n.detail-header .detail-logo {\n  width: 48px;\n  height: 48px;\n  border-radius: 10px;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 6px;\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);\n  flex-shrink: 0;\n}\n.detail-header-info .detail-title {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.35rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info .detail-meta {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-bottom: 0.35rem;\n}\n.detail-header-info .detail-meta .detail-company {\n  font-size: 0.95rem;\n  font-weight: 600;\n  color: #667eea;\n}\n.detail-header-info .detail-meta .detail-separator {\n  color: var(--text-secondary);\n  font-size: 0.8rem;\n}\n.detail-header-info .detail-meta .detail-period {\n  font-size: 0.9rem;\n  color: var(--text-secondary);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info .detail-location {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  font-size: 0.85rem;\n  color: var(--text-secondary);\n}\n.detail-header-info .detail-location i {\n  color: #667eea;\n  font-size: 0.75rem;\n}\n.detail-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  margin-bottom: 1.5rem;\n  font-size: 0.95rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-technologies {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n  margin-bottom: 1.5rem;\n}\n.detail-technologies .tech-tag {\n  background: rgba(102, 126, 234, 0.1);\n  color: #667eea;\n  padding: 0.375rem 0.75rem;\n  border-radius: 20px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Mono",\n    "Monaco",\n    "Inconsolata",\n    monospace;\n}\n.detail-technologies .tech-tag:hover {\n  background: rgba(102, 126, 234, 0.2);\n  transform: translateY(-1px);\n}\n.detail-achievements .achievements-title {\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements ul {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-achievements ul li {\n  position: relative;\n  padding-left: 1.25rem;\n  margin-bottom: 0.5rem;\n  color: var(--text-secondary);\n  line-height: 1.5;\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements ul li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #667eea;\n  font-weight: bold;\n  font-size: 0.9rem;\n}\n.detail-achievements ul li:last-child {\n  margin-bottom: 0;\n}\n@media (max-width: 768px) {\n  .section-title {\n    font-size: 2.5rem;\n  }\n  .orbital-ring {\n    transform: scale(0.78);\n    margin: -2rem 0;\n  }\n  .detail-panel {\n    padding: 1.5rem;\n  }\n  .apple-container {\n    padding: 0 1rem;\n  }\n}\n@media (max-width: 480px) {\n  .section-title {\n    font-size: 2rem;\n  }\n  .orbital-ring {\n    transform: scale(0.62);\n    margin: -3.5rem 0;\n  }\n  .detail-panel {\n    padding: 1.25rem;\n  }\n  .detail-header .detail-logo {\n    width: 36px;\n    height: 36px;\n  }\n  .detail-header-info .detail-title {\n    font-size: 1.1rem;\n  }\n  .apple-container {\n    padding: 0 0.75rem;\n  }\n  .detail-technologies .tech-tag {\n    font-size: 0.7rem;\n    padding: 0.25rem 0.5rem;\n  }\n}\n@keyframes planetOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(200px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(200px) rotate(-270deg);\n  }\n}\n@keyframes subRingOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(120px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(120px) rotate(-270deg);\n  }\n}\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */\n'] }]
   }], () => [{ type: TimeService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ExperienceComponent, { className: "ExperienceComponent", filePath: "src/app/profile/experience/experience.component.ts", lineNumber: 26 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ExperienceComponent, { className: "ExperienceComponent", filePath: "src/app/profile/experience/experience.component.ts", lineNumber: 34 });
 })();
 
 // src/app/profile/skills/skills.component.ts
@@ -43377,7 +43552,7 @@ var SkillsComponent = class _SkillsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 88, vars: 0, consts: [["id", "skill", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "skills-card", "apple-card", "apple-slide-up"], [1, "card-content"], [1, "skills-grid"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "skill-item"], [1, "skill-header"], [1, "skill-name"], [1, "skill-percentage"], [1, "skill-progress"], [1, "skill-progress-bar", 2, "width", "90%"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "skill-item"], [1, "skill-progress-bar", 2, "width", "95%"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "400", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "500", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "600", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "700", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "800", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "900", 1, "skill-item"], [1, "skill-progress-bar", 2, "width", "99%"], ["data-aos", "fade-up", "data-aos-delay", "1000", 1, "skill-item"]], template: function SkillsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 112, vars: 0, consts: [["id", "skill", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "skills-card", "apple-card", "apple-slide-up"], [1, "card-content"], [1, "skills-grid"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "skill-item"], [1, "skill-header"], [1, "skill-name"], [1, "skill-percentage"], [1, "skill-progress"], [1, "skill-progress-bar", 2, "width", "90%"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "skill-item"], [1, "skill-progress-bar", 2, "width", "95%"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "400", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "500", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "600", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "700", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "800", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "900", 1, "skill-item"], [1, "skill-progress-bar", 2, "width", "99%"], ["data-aos", "fade-up", "data-aos-delay", "1000", 1, "skill-item"], ["data-aos", "fade-up", "data-aos-delay", "1100", 1, "skill-item"], [1, "skill-progress-bar", 2, "width", "93%"], ["data-aos", "fade-up", "data-aos-delay", "1200", 1, "skill-item"], [1, "skill-progress-bar", 2, "width", "91%"], ["data-aos", "fade-up", "data-aos-delay", "1300", 1, "skill-item"]], template: function SkillsComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Skills & Expertise");
@@ -43471,6 +43646,33 @@ var SkillsComponent = class _SkillsComponent {
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(86, "div", 11);
         \u0275\u0275domElement(87, "div", 12);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(88, "div", 24)(89, "div", 8)(90, "h5", 9);
+        \u0275\u0275text(91, "GO");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(92, "span", 10);
+        \u0275\u0275text(93, "93%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(94, "div", 11);
+        \u0275\u0275domElement(95, "div", 25);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(96, "div", 26)(97, "div", 8)(98, "h5", 9);
+        \u0275\u0275text(99, "NodeJS");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(100, "span", 10);
+        \u0275\u0275text(101, "91%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(102, "div", 11);
+        \u0275\u0275domElement(103, "div", 27);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(104, "div", 28)(105, "div", 8)(106, "h5", 9);
+        \u0275\u0275text(107, "Networking");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(108, "span", 10);
+        \u0275\u0275text(109, "95%");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(110, "div", 11);
+        \u0275\u0275domElement(111, "div", 14);
         \u0275\u0275domElementEnd()()()()()()();
       }
     }, styles: ['\n\n.skills-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-2xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  box-shadow: var(--glass-shadow);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n}\n.skills-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-8px);\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.skills-card[_ngcontent-%COMP%]   .card-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-2xl);\n}\n.skills-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-xl);\n}\n.skill-item[_ngcontent-%COMP%] {\n  background: var(--bg-tertiary);\n  border-radius: var(--radius-xl);\n  padding: var(--spacing-lg);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n}\n.skill-item[_ngcontent-%COMP%]:hover {\n  background: var(--bg-secondary);\n  box-shadow: var(--shadow-lg);\n  transform: translateY(-4px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.skill-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: var(--spacing-md);\n}\n.skill-name[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-weight: 600;\n  font-size: 1rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.skill-percentage[_ngcontent-%COMP%] {\n  font-weight: 600;\n  color: var(--primary-color);\n  font-size: 0.875rem;\n}\n.skill-progress[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 8px;\n  background: var(--bg-tertiary);\n  border-radius: var(--radius-sm);\n  overflow: hidden;\n  position: relative;\n}\n.skill-progress-bar[_ngcontent-%COMP%] {\n  height: 100%;\n  background: var(--gradient-primary);\n  border-radius: var(--radius-sm);\n  transition: width 1.5s ease-in-out;\n  position: relative;\n}\n.skill-progress-bar[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  animation: _ngcontent-%COMP%_shimmer 2s infinite;\n}\n@keyframes _ngcontent-%COMP%_shimmer {\n  0% {\n    transform: translateX(-100%);\n  }\n  100% {\n    transform: translateX(100%);\n  }\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .skills-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .skills-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .skills-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .skill-item[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .section-header[_ngcontent-%COMP%], \n   .skills-card[_ngcontent-%COMP%], \n   .skill-item[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n.skill-item[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.6s ease-out;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(5) {\n  animation-delay: 0.5s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(6) {\n  animation-delay: 0.6s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(7) {\n  animation-delay: 0.7s;\n}\n.skill-item[_ngcontent-%COMP%]:nth-child(8) {\n  animation-delay: 0.8s;\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
@@ -43479,7 +43681,7 @@ var SkillsComponent = class _SkillsComponent {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(SkillsComponent, [{
     type: Component,
-    args: [{ selector: "app-skills", standalone: true, template: '<div class="apple-section" id="skill">\n  <div class="apple-container">\n    <div class="section-header apple-fade-in">\n      <h2 class="section-title apple-text-display">Skills & Expertise</h2>\n    </div>\n    \n    <div class="skills-card apple-card apple-slide-up">\n      <div class="card-content">\n        <div class="skills-grid">\n          <!-- Java 21 -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="100">\n            <div class="skill-header">\n              <h5 class="skill-name">Java 21</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- DSA -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="200">\n            <div class="skill-header">\n              <h5 class="skill-name">DSA</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- High Level Design -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="300">\n            <div class="skill-header">\n              <h5 class="skill-name">High Level Design</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- Low Level Design -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="400">\n            <div class="skill-header">\n              <h5 class="skill-name">Low Level Design</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- Databases -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="500">\n            <div class="skill-header">\n              <h5 class="skill-name">Databases</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- Spring Boot -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="600">\n            <div class="skill-header">\n              <h5 class="skill-name">Spring Boot</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- Microservices -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="700">\n            <div class="skill-header">\n              <h5 class="skill-name">Microservices</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- Redis -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="800">\n            <div class="skill-header">\n              <h5 class="skill-name">Redis</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- Kafka -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="900">\n            <div class="skill-header">\n              <h5 class="skill-name">Kafka</h5>\n              <span class="skill-percentage">99%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 99%;"></div>\n            </div>\n          </div>\n\n          <!-- LLM -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="1000">\n            <div class="skill-header">\n              <h5 class="skill-name">LLM</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n', styles: ['/* src/app/profile/skills/skills.component.scss */\n.skills-card {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-2xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  box-shadow: var(--glass-shadow);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n}\n.skills-card:hover {\n  transform: translateY(-8px);\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.skills-card .card-content {\n  padding: var(--spacing-2xl);\n}\n.skills-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-xl);\n}\n.skill-item {\n  background: var(--bg-tertiary);\n  border-radius: var(--radius-xl);\n  padding: var(--spacing-lg);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n}\n.skill-item:hover {\n  background: var(--bg-secondary);\n  box-shadow: var(--shadow-lg);\n  transform: translateY(-4px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.skill-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: var(--spacing-md);\n}\n.skill-name {\n  font-family: var(--font-secondary);\n  font-weight: 600;\n  font-size: 1rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.skill-percentage {\n  font-weight: 600;\n  color: var(--primary-color);\n  font-size: 0.875rem;\n}\n.skill-progress {\n  width: 100%;\n  height: 8px;\n  background: var(--bg-tertiary);\n  border-radius: var(--radius-sm);\n  overflow: hidden;\n  position: relative;\n}\n.skill-progress-bar {\n  height: 100%;\n  background: var(--gradient-primary);\n  border-radius: var(--radius-sm);\n  transition: width 1.5s ease-in-out;\n  position: relative;\n}\n.skill-progress-bar::after {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  animation: shimmer 2s infinite;\n}\n@keyframes shimmer {\n  0% {\n    transform: translateX(-100%);\n  }\n  100% {\n    transform: translateX(100%);\n  }\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .skills-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .skills-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .skills-section .section-title {\n    font-size: 2rem;\n  }\n  .skill-item {\n    padding: var(--spacing-md);\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .section-header,\n  .skills-card,\n  .skill-item {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n.skill-item {\n  animation: fadeInUp 0.6s ease-out;\n}\n.skill-item:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.skill-item:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.skill-item:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.skill-item:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.skill-item:nth-child(5) {\n  animation-delay: 0.5s;\n}\n.skill-item:nth-child(6) {\n  animation-delay: 0.6s;\n}\n.skill-item:nth-child(7) {\n  animation-delay: 0.7s;\n}\n.skill-item:nth-child(8) {\n  animation-delay: 0.8s;\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
+    args: [{ selector: "app-skills", standalone: true, template: '<div class="apple-section" id="skill">\n  <div class="apple-container">\n    <div class="section-header apple-fade-in">\n      <h2 class="section-title apple-text-display">Skills & Expertise</h2>\n    </div>\n    \n    <div class="skills-card apple-card apple-slide-up">\n      <div class="card-content">\n        <div class="skills-grid">\n          <!-- Java 21 -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="100">\n            <div class="skill-header">\n              <h5 class="skill-name">Java 21</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- DSA -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="200">\n            <div class="skill-header">\n              <h5 class="skill-name">DSA</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- High Level Design -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="300">\n            <div class="skill-header">\n              <h5 class="skill-name">High Level Design</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- Low Level Design -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="400">\n            <div class="skill-header">\n              <h5 class="skill-name">Low Level Design</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- Databases -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="500">\n            <div class="skill-header">\n              <h5 class="skill-name">Databases</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- Spring Boot -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="600">\n            <div class="skill-header">\n              <h5 class="skill-name">Spring Boot</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- Microservices -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="700">\n            <div class="skill-header">\n              <h5 class="skill-name">Microservices</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n\n          <!-- Redis -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="800">\n            <div class="skill-header">\n              <h5 class="skill-name">Redis</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- Kafka -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="900">\n            <div class="skill-header">\n              <h5 class="skill-name">Kafka</h5>\n              <span class="skill-percentage">99%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 99%;"></div>\n            </div>\n          </div>\n\n          <!-- LLM -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="1000">\n            <div class="skill-header">\n              <h5 class="skill-name">LLM</h5>\n              <span class="skill-percentage">90%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 90%;"></div>\n            </div>\n          </div>\n\n          <!-- GO -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="1100">\n            <div class="skill-header">\n              <h5 class="skill-name">GO</h5>\n              <span class="skill-percentage">93%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 93%;"></div>\n            </div>\n          </div>\n\n          <!-- NodeJS -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="1200">\n            <div class="skill-header">\n              <h5 class="skill-name">NodeJS</h5>\n              <span class="skill-percentage">91%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 91%;"></div>\n            </div>\n          </div>\n\n          <!-- Networking -->\n          <div class="skill-item" data-aos="fade-up" data-aos-delay="1300">\n            <div class="skill-header">\n              <h5 class="skill-name">Networking</h5>\n              <span class="skill-percentage">95%</span>\n            </div>\n            <div class="skill-progress">\n              <div class="skill-progress-bar" style="width: 95%;"></div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n', styles: ['/* src/app/profile/skills/skills.component.scss */\n.skills-card {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-2xl);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  box-shadow: var(--glass-shadow);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n}\n.skills-card:hover {\n  transform: translateY(-8px);\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.skills-card .card-content {\n  padding: var(--spacing-2xl);\n}\n.skills-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-xl);\n}\n.skill-item {\n  background: var(--bg-tertiary);\n  border-radius: var(--radius-xl);\n  padding: var(--spacing-lg);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n}\n.skill-item:hover {\n  background: var(--bg-secondary);\n  box-shadow: var(--shadow-lg);\n  transform: translateY(-4px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.skill-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: var(--spacing-md);\n}\n.skill-name {\n  font-family: var(--font-secondary);\n  font-weight: 600;\n  font-size: 1rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.skill-percentage {\n  font-weight: 600;\n  color: var(--primary-color);\n  font-size: 0.875rem;\n}\n.skill-progress {\n  width: 100%;\n  height: 8px;\n  background: var(--bg-tertiary);\n  border-radius: var(--radius-sm);\n  overflow: hidden;\n  position: relative;\n}\n.skill-progress-bar {\n  height: 100%;\n  background: var(--gradient-primary);\n  border-radius: var(--radius-sm);\n  transition: width 1.5s ease-in-out;\n  position: relative;\n}\n.skill-progress-bar::after {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  animation: shimmer 2s infinite;\n}\n@keyframes shimmer {\n  0% {\n    transform: translateX(-100%);\n  }\n  100% {\n    transform: translateX(100%);\n  }\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .skills-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .skills-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .skills-section .section-title {\n    font-size: 2rem;\n  }\n  .skill-item {\n    padding: var(--spacing-md);\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .section-header,\n  .skills-card,\n  .skill-item {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n.skill-item {\n  animation: fadeInUp 0.6s ease-out;\n}\n.skill-item:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.skill-item:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.skill-item:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.skill-item:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.skill-item:nth-child(5) {\n  animation-delay: 0.5s;\n}\n.skill-item:nth-child(6) {\n  animation-delay: 0.6s;\n}\n.skill-item:nth-child(7) {\n  animation-delay: 0.7s;\n}\n.skill-item:nth-child(8) {\n  animation-delay: 0.8s;\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
