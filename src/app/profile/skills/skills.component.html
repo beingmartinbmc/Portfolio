@@ -129,6 +129,112 @@
 
     </div>
 
+    <!-- Rocket Ship Animation -->
+    @if (rocketAnimating && rocketPosition) {
+      <div class="rocket-container">
+        <svg class="rocket-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+          <g class="rocket-group" [attr.transform]="'translate(' + rocketPosition.x + ', ' + rocketPosition.y + ')'">
+            <!-- Rocket body -->
+            <path d="M 0,-8 L -2,-4 L -2,2 L -1,4 L 0,6 L 1,4 L 2,2 L 2,-4 Z" 
+                  fill="url(#rocketGradient)" stroke="#fff" stroke-width="0.3"/>
+            <!-- Rocket window -->
+            <circle cx="0" cy="-2" r="1.5" fill="#4FC3F7" stroke="#fff" stroke-width="0.2"/>
+            <!-- Rocket flames -->
+            <path d="M -1,4 L 0,10 L 1,4 Z" fill="#FF6B35" opacity="0.9" class="rocket-flame"/>
+            <path d="M -0.5,4 L 0,8 L 0.5,4 Z" fill="#FFD93D" opacity="0.8" class="rocket-flame"/>
+          </g>
+          
+          <!-- Gradient definitions -->
+          <defs>
+            <linearGradient id="rocketGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#E3F2FD;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#90CAF9;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    }
+
+    <!-- Skill Detail Modal -->
+    @if (showDetailModal && selectedSkill && selectedSkill.details) {
+      <div class="skill-modal-overlay" (click)="closeDetailModal()">
+        <div class="skill-modal" (click)="$event.stopPropagation()">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <div class="modal-header-left">
+              <div class="modal-skill-icon" [style.background]="selectedConstellation?.color">
+                <span class="modal-skill-initial">{{selectedSkill.name.charAt(0)}}</span>
+              </div>
+              <div class="modal-title-section">
+                <h2 class="modal-skill-name">{{selectedSkill.name}}</h2>
+                <span class="modal-category" [style.color]="selectedConstellation?.color">
+                  {{selectedConstellation?.name}} • {{selectedSkill.proficiency}}%
+                </span>
+              </div>
+            </div>
+            <button class="modal-close" (click)="closeDetailModal()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+
+          <!-- Modal Content -->
+          <div class="modal-content">
+            <!-- Description -->
+            <div class="modal-section">
+              <h3 class="section-title">Overview</h3>
+              <p class="section-description">{{selectedSkill.details.description}}</p>
+            </div>
+
+            <!-- Experience -->
+            <div class="modal-section">
+              <h3 class="section-title">Experience</h3>
+              <ul class="detail-list">
+                @for (exp of selectedSkill.details.experience; track $index) {
+                  <li class="detail-item">{{exp}}</li>
+                }
+              </ul>
+            </div>
+
+            <!-- Projects -->
+            <div class="modal-section">
+              <h3 class="section-title">Key Projects</h3>
+              <div class="project-grid">
+                @for (project of selectedSkill.details.projects; track $index) {
+                  <div class="project-card">
+                    <div class="project-icon">🚀</div>
+                    <span class="project-name">{{project}}</span>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="modal-section">
+              <h3 class="section-title">Achievements</h3>
+              <div class="achievement-list">
+                @for (achievement of selectedSkill.details.achievements; track $index) {
+                  <div class="achievement-item">
+                    <span class="achievement-icon">⭐</span>
+                    <span class="achievement-text">{{achievement}}</span>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Related Skills -->
+            <div class="modal-section">
+              <h3 class="section-title">Related Skills</h3>
+              <div class="related-skills">
+                @for (relatedSkill of selectedSkill.details.relatedSkills; track $index) {
+                  <span class="related-skill-tag">{{relatedSkill}}</span>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
     <!-- Category Legend -->
     <div class="constellation-legend">
       @for (constellation of constellations; track constellation.id) {

@@ -250,6 +250,290 @@
   to   { fill-opacity: 1; transform: translateY(0); }
 }
 
+/* Rocket Ship Animation */
+.rocket-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.rocket-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.rocket-group {
+  transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: center;
+  animation: rocketFloat 2s ease-in-out infinite alternate;
+}
+
+@keyframes rocketFloat {
+  0%   { transform: translate(var(--tx, 0), var(--ty, 0)) rotate(-2deg); }
+  100% { transform: translate(var(--tx, 0), var(--ty, 0)) rotate(2deg); }
+}
+
+.rocket-flame {
+  animation: flameFlicker 0.15s ease-in-out infinite alternate;
+}
+
+@keyframes flameFlicker {
+  0%   { opacity: 0.8; transform: scaleY(1); }
+  100% { opacity: 1; transform: scaleY(1.2); }
+}
+
+/* Skill Detail Modal */
+.skill-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1rem;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.skill-modal {
+  background: rgba(15, 15, 30, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 85vh;
+  overflow: hidden;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 120px rgba(102, 126, 234, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.modal-skill-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.modal-skill-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.modal-category {
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.modal-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    transform: scale(1.05);
+  }
+}
+
+/* Modal Content */
+.modal-content {
+  padding: 2rem;
+  overflow-y: auto;
+  max-height: calc(85vh - 100px);
+}
+
+.modal-section {
+  margin-bottom: 2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 1rem;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.section-description {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin: 0;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Detail List */
+.detail-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .detail-item {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    &::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: #64B5F6;
+      font-weight: bold;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* Project Grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.project-icon {
+  font-size: 1.2rem;
+}
+
+.project-name {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Achievement List */
+.achievement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.achievement-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.achievement-text {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Related Skills */
+.related-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.related-skill-tag {
+  background: rgba(100, 181, 246, 0.15);
+  color: #64B5F6;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid rgba(100, 181, 246, 0.3);
+  transition: all 0.3s ease;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  &:hover {
+    background: rgba(100, 181, 246, 0.25);
+    transform: translateY(-1px);
+  }
+}
+
 /* Category Legend */
 .constellation-legend {
   display: flex;
