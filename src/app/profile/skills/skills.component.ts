@@ -6,6 +6,15 @@ interface Skill {
   proficiency: number;
   x: number;
   y: number;
+  details?: SkillDetail;
+}
+
+interface SkillDetail {
+  description: string;
+  experience: string[];
+  projects: string[];
+  achievements: string[];
+  relatedSkills: string[];
 }
 
 interface Constellation {
@@ -37,6 +46,9 @@ export class SkillsComponent implements OnInit, AfterViewInit {
   constellationLines: ConstellationLine[] = [];
   selectedSkill: Skill | null = null;
   selectedConstellation: Constellation | null = null;
+  showDetailModal: boolean = false;
+  rocketAnimating: boolean = false;
+  rocketPosition: { x: number; y: number } | null = null;
   canvasWidth = 1200;
   canvasHeight = 700;
 
@@ -53,6 +65,7 @@ export class SkillsComponent implements OnInit, AfterViewInit {
     this.buildConstellations();
     this.buildConnections();
     this.generateBackgroundStars();
+    this.addSkillDetails();
   }
 
   ngAfterViewInit(): void {}
@@ -211,13 +224,33 @@ export class SkillsComponent implements OnInit, AfterViewInit {
   }
 
   selectStar(skill: Skill, constellation: Constellation): void {
-    if (this.selectedSkill === skill) {
-      this.selectedSkill = null;
-      this.selectedConstellation = null;
-    } else {
-      this.selectedSkill = skill;
-      this.selectedConstellation = constellation;
+    if (this.selectedSkill === skill && this.showDetailModal) {
+      this.closeDetailModal();
+      return;
     }
+
+    this.selectedSkill = skill;
+    this.selectedConstellation = constellation;
+    this.rocketAnimating = true;
+    this.rocketPosition = { x: 50, y: 95 }; // Start from bottom center
+
+    // Animate rocket to star position
+    setTimeout(() => {
+      this.rocketPosition = { x: skill.x, y: skill.y };
+    }, 100);
+
+    // Show modal after rocket arrives
+    setTimeout(() => {
+      this.showDetailModal = true;
+      this.rocketAnimating = false;
+    }, 1500);
+  }
+
+  closeDetailModal(): void {
+    this.showDetailModal = false;
+    this.selectedSkill = null;
+    this.selectedConstellation = null;
+    this.rocketPosition = null;
   }
 
   isSelected(skill: Skill): boolean {
@@ -232,6 +265,153 @@ export class SkillsComponent implements OnInit, AfterViewInit {
   getCategoryLabelY(constellation: Constellation): number {
     const maxY = Math.max(...constellation.skills.map(s => s.y));
     return maxY + 6;
+  }
+
+  private addSkillDetails(): void {
+    const skillDetails: Record<string, SkillDetail> = {
+      'MySQL': {
+        description: 'Extensive experience with MySQL across multiple versions in production environments.',
+        experience: [
+          'Worked on MySQL 5.6, MySQL 5.7 and MySQL 8',
+          'Migrated systems from old DB to new DB using Amazon DMS',
+          'Experience in tuning queries making them use to force index'
+        ],
+        projects: [
+          'Database migration for Games24x7 gaming platform',
+          'Query optimization for high-traffic applications',
+          'Schema design for microservices architecture'
+        ],
+        achievements: [
+          'Reduced query latency by 60% through optimization',
+          'Successfully migrated 5+ production databases with zero downtime',
+          'Implemented database monitoring and alerting'
+        ],
+        relatedSkills: ['MongoDB', 'Redis', 'Elasti-Cache']
+      },
+      'Java 21': {
+        description: 'Proficient in modern Java features including virtual threads, pattern matching, and record patterns.',
+        experience: [
+          'Extensive experience with Java 8-21 features',
+          'Implemented concurrent programming with virtual threads',
+          'Used pattern matching for type-safe code'
+        ],
+        projects: [
+          'High-performance microservices with Java 21',
+          'Concurrent data processing pipelines',
+          'RESTful APIs with modern Java features'
+        ],
+        achievements: [
+          'Adopted Java 21 virtual threads for 3x throughput improvement',
+          'Reduced code complexity by 40% with pattern matching',
+          'Migrated legacy codebase to modern Java features'
+        ],
+        relatedSkills: ['Spring Boot', 'Microservices', 'DSA']
+      },
+      'Kafka': {
+        description: 'Expert in Apache Kafka for building real-time data pipelines and event-driven architectures.',
+        experience: [
+          'Designed and implemented Kafka clusters',
+          'Built event-driven microservices',
+          'Optimized Kafka performance for high throughput'
+        ],
+        projects: [
+          'Real-time analytics pipeline for gaming platform',
+          'Event sourcing architecture for financial systems',
+          'Kafka-based messaging for microservices'
+        ],
+        achievements: [
+          'Processed 1M+ events per second with Kafka',
+          'Built fault-tolerant event streaming architecture',
+          'Reduced data processing latency by 80%'
+        ],
+        relatedSkills: ['RabbitMQ', 'AmazonSQS', 'Microservices']
+      },
+      'Spring Boot': {
+        description: 'Deep expertise in Spring Boot for building production-ready microservices and REST APIs.',
+        experience: [
+          'Built 10+ production microservices with Spring Boot',
+          'Implemented Spring Security for authentication',
+          'Used Spring Data for database operations'
+        ],
+        projects: [
+          'Gaming platform backend services',
+          'Financial transaction processing system',
+          'User management and authentication service'
+        ],
+        achievements: [
+          'Reduced development time by 50% with Spring Boot',
+          'Achieved 99.9% uptime in production',
+          'Implemented comprehensive monitoring and logging'
+        ],
+        relatedSkills: ['Java 21', 'Microservices', 'MySQL']
+      },
+      'Microservices': {
+        description: 'Architected and implemented scalable microservices architectures with proper separation of concerns.',
+        experience: [
+          'Designed microservices from monolithic applications',
+          'Implemented service mesh patterns',
+          'Built inter-service communication with REST/gRPC'
+        ],
+        projects: [
+          'Gaming platform microservices architecture',
+          'Financial services distributed system',
+          'E-commerce order processing system'
+        ],
+        achievements: [
+          'Scaled system to handle 10M+ concurrent users',
+          'Reduced deployment time by 75% with microservices',
+          'Implemented circuit breaker patterns for resilience'
+        ],
+        relatedSkills: ['Spring Boot', 'Kafka', 'Docker']
+      },
+      'LLM': {
+        description: 'Working with Large Language Models for building AI-powered applications and services.',
+        experience: [
+          'Integrated OpenAI and Claude APIs',
+          'Built RAG systems for domain-specific knowledge',
+          'Implemented prompt engineering best practices'
+        ],
+        projects: [
+          'AI-powered customer support chatbot',
+          'Document analysis and summarization system',
+          'Code generation and review assistant'
+        ],
+        achievements: [
+          'Reduced customer support response time by 60%',
+          'Built RAG system with 95% accuracy',
+          'Automated 40% of code review process'
+        ],
+        relatedSkills: ['Generative AI', 'RAG', 'VectorDB']
+      },
+      'Redis': {
+        description: 'Expert in Redis for caching, session management, and real-time data structures.',
+        experience: [
+          'Designed Redis caching strategies',
+          'Implemented session management with Redis',
+          'Used Redis for real-time leaderboards and analytics'
+        ],
+        projects: [
+          'Real-time gaming leaderboards',
+          'Session management for microservices',
+          'Cache layer for high-traffic APIs'
+        ],
+        achievements: [
+          'Reduced database load by 70% with Redis caching',
+          'Built real-time analytics with Redis streams',
+          'Implemented distributed caching with Redis Cluster'
+        ],
+        relatedSkills: ['Elasti-Cache', 'MySQL', 'Kafka']
+      }
+    };
+
+    // Attach details to skills
+    this.constellations.forEach(constellation => {
+      constellation.skills.forEach(skill => {
+        if (skillDetails[skill.name]) {
+          skill.details = skillDetails[skill.name];
+        }
+      });
+    });
   }
 
   /** SVG arc path for the proficiency ring (0-100%) */
