@@ -5,6 +5,7 @@
       <p class="section-subtitle">Tap a star to explore</p>
     </div>
 
+    <div class="viewport-wrapper" [ngClass]="{'viewport-wrapper--zooming': zooming}">
     <div class="constellation-viewport" data-aos="fade-up"
          [ngClass]="{'viewport-zooming': zooming}"
          [style.transform]="getZoomTransform()">
@@ -129,74 +130,75 @@
         }
       </svg>
 
+      <!-- Rocket Ship Animation (inside viewport so it zooms with stars) -->
+      @if (rocketAnimating && rocketPosition) {
+        <div class="rocket-container" [ngClass]="{'rocket-container--zooming': zooming}">
+          <svg class="rocket-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="rocketGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#E3F2FD;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#90CAF9;stop-opacity:1" />
+              </linearGradient>
+              <radialGradient id="trailGlow">
+                <stop offset="0%" style="stop-color:#4FC3F7;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#4FC3F7;stop-opacity:0" />
+              </radialGradient>
+              <filter id="rocketGlowFilter" x="-100%" y="-100%" width="300%" height="300%">
+                <feGaussianBlur stdDeviation="0.8" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Rocket trail particles -->
+            @for (particle of rocketTrail; track $index) {
+              <circle
+                [attr.cx]="particle.x"
+                [attr.cy]="particle.y"
+                [attr.r]="particle.size"
+                fill="url(#trailGlow)"
+                [attr.opacity]="particle.opacity"
+                class="trail-particle"/>
+            }
+
+            <g class="rocket-group"
+               [attr.transform]="'translate(' + rocketPosition.x + ', ' + rocketPosition.y + ')'"
+               filter="url(#rocketGlowFilter)">
+              <!-- Rocket body -->
+              <path d="M 0,-3.5 C -0.8,-2.5 -1.2,-0.5 -1.2,1.5 L -0.8,2.5 L 0,3 L 0.8,2.5 L 1.2,1.5 C 1.2,-0.5 0.8,-2.5 0,-3.5 Z"
+                    fill="url(#rocketGradient)" stroke="rgba(255,255,255,0.8)" stroke-width="0.15"/>
+              <!-- Rocket nose cone -->
+              <path d="M 0,-3.5 C -0.3,-3.5 -0.6,-3 -0.8,-2.5 L 0,-3.5 L 0.8,-2.5 C 0.6,-3 0.3,-3.5 0,-3.5 Z"
+                    fill="#fff" opacity="0.4"/>
+              <!-- Rocket window -->
+              <circle cx="0" cy="-1" r="0.6" fill="#4FC3F7" stroke="rgba(255,255,255,0.9)" stroke-width="0.12"/>
+              <circle cx="-0.15" cy="-1.15" r="0.15" fill="rgba(255,255,255,0.6)"/>
+              <!-- Rocket fins -->
+              <path d="M -1.2,1 L -2,2.5 L -1.2,2 Z" fill="#64B5F6" stroke="rgba(255,255,255,0.3)" stroke-width="0.08"/>
+              <path d="M 1.2,1 L 2,2.5 L 1.2,2 Z" fill="#64B5F6" stroke="rgba(255,255,255,0.3)" stroke-width="0.08"/>
+              <!-- Rocket flames (outer) -->
+              <path d="M -0.8,2.5 Q -0.6,4.5 0,6 Q 0.6,4.5 0.8,2.5 Z" fill="#FF6B35" opacity="0.9" class="rocket-flame"/>
+              <!-- Rocket flames (inner) -->
+              <path d="M -0.4,2.5 Q -0.2,4 0,5 Q 0.2,4 0.4,2.5 Z" fill="#FFD93D" opacity="0.9" class="rocket-flame-inner"/>
+              <!-- Rocket flames (core) -->
+              <path d="M -0.15,2.5 Q 0,3.8 0.15,2.5 Z" fill="#fff" opacity="0.7" class="rocket-flame-core"/>
+            </g>
+          </svg>
+        </div>
+      }
+
+      <!-- Star Burst Flash on arrival (inside viewport) -->
+      @if (zooming && zoomTarget) {
+        <div class="star-burst"
+             [style.left.%]="zoomTarget.x"
+             [style.top.%]="zoomTarget.y">
+        </div>
+      }
+
     </div>
-
-    <!-- Rocket Ship Animation -->
-    @if (rocketAnimating && rocketPosition) {
-      <div class="rocket-container" [ngClass]="{'rocket-container--zooming': zooming}">
-        <svg class="rocket-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <linearGradient id="rocketGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style="stop-color:#E3F2FD;stop-opacity:1" />
-              <stop offset="100%" style="stop-color:#90CAF9;stop-opacity:1" />
-            </linearGradient>
-            <radialGradient id="trailGlow">
-              <stop offset="0%" style="stop-color:#4FC3F7;stop-opacity:0.8" />
-              <stop offset="100%" style="stop-color:#4FC3F7;stop-opacity:0" />
-            </radialGradient>
-            <filter id="rocketGlowFilter" x="-100%" y="-100%" width="300%" height="300%">
-              <feGaussianBlur stdDeviation="0.8" result="blur"/>
-              <feMerge>
-                <feMergeNode in="blur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
-
-          <!-- Rocket trail particles -->
-          @for (particle of rocketTrail; track $index) {
-            <circle
-              [attr.cx]="particle.x"
-              [attr.cy]="particle.y"
-              [attr.r]="particle.size"
-              fill="url(#trailGlow)"
-              [attr.opacity]="particle.opacity"
-              class="trail-particle"/>
-          }
-
-          <g class="rocket-group"
-             [attr.transform]="'translate(' + rocketPosition.x + ', ' + rocketPosition.y + ')'"
-             filter="url(#rocketGlowFilter)">
-            <!-- Rocket body -->
-            <path d="M 0,-3.5 C -0.8,-2.5 -1.2,-0.5 -1.2,1.5 L -0.8,2.5 L 0,3 L 0.8,2.5 L 1.2,1.5 C 1.2,-0.5 0.8,-2.5 0,-3.5 Z"
-                  fill="url(#rocketGradient)" stroke="rgba(255,255,255,0.8)" stroke-width="0.15"/>
-            <!-- Rocket nose cone -->
-            <path d="M 0,-3.5 C -0.3,-3.5 -0.6,-3 -0.8,-2.5 L 0,-3.5 L 0.8,-2.5 C 0.6,-3 0.3,-3.5 0,-3.5 Z"
-                  fill="#fff" opacity="0.4"/>
-            <!-- Rocket window -->
-            <circle cx="0" cy="-1" r="0.6" fill="#4FC3F7" stroke="rgba(255,255,255,0.9)" stroke-width="0.12"/>
-            <circle cx="-0.15" cy="-1.15" r="0.15" fill="rgba(255,255,255,0.6)"/>
-            <!-- Rocket fins -->
-            <path d="M -1.2,1 L -2,2.5 L -1.2,2 Z" fill="#64B5F6" stroke="rgba(255,255,255,0.3)" stroke-width="0.08"/>
-            <path d="M 1.2,1 L 2,2.5 L 1.2,2 Z" fill="#64B5F6" stroke="rgba(255,255,255,0.3)" stroke-width="0.08"/>
-            <!-- Rocket flames (outer) -->
-            <path d="M -0.8,2.5 Q -0.6,4.5 0,6 Q 0.6,4.5 0.8,2.5 Z" fill="#FF6B35" opacity="0.9" class="rocket-flame"/>
-            <!-- Rocket flames (inner) -->
-            <path d="M -0.4,2.5 Q -0.2,4 0,5 Q 0.2,4 0.4,2.5 Z" fill="#FFD93D" opacity="0.9" class="rocket-flame-inner"/>
-            <!-- Rocket flames (core) -->
-            <path d="M -0.15,2.5 Q 0,3.8 0.15,2.5 Z" fill="#fff" opacity="0.7" class="rocket-flame-core"/>
-          </g>
-        </svg>
-      </div>
-    }
-
-    <!-- Star Burst Flash on arrival -->
-    @if (zooming && zoomTarget) {
-      <div class="star-burst"
-           [style.left.%]="zoomTarget.x"
-           [style.top.%]="zoomTarget.y">
-      </div>
-    }
+    </div>
 
     <!-- Skill Detail Modal -->
     @if (showDetailModal && selectedSkill && selectedSkill.details) {

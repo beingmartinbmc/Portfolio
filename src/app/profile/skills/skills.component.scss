@@ -250,13 +250,25 @@
   to   { fill-opacity: 1; transform: translateY(0); }
 }
 
+/* Viewport Wrapper — clips the zoom overflow */
+.viewport-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+
+  &--zooming {
+    overflow: hidden; // keep clipping but allow internal zoom
+  }
+}
+
 /* Viewport Zoom Effect */
 .constellation-viewport {
   transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: center center;
 
   &.viewport-zooming {
-    // zoom handled by inline style via getZoomTransform()
+    overflow: visible;
+    z-index: 10;
   }
 }
 
