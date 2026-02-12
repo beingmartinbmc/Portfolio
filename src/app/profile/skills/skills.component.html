@@ -2,155 +2,141 @@
   <div class="apple-container">
     <div class="section-header apple-fade-in">
       <h2 class="section-title apple-text-display">Skills & Expertise</h2>
+      <p class="section-subtitle">Tap a star to explore</p>
     </div>
-    
-    <div class="skills-card apple-card apple-slide-up">
-      <div class="card-content">
-        <div class="skills-grid">
-          <!-- Java 21 -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="100">
-            <div class="skill-header">
-              <h5 class="skill-name">Java 21</h5>
-              <span class="skill-percentage">90%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 90%;"></div>
-            </div>
-          </div>
 
-          <!-- DSA -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="200">
-            <div class="skill-header">
-              <h5 class="skill-name">DSA</h5>
-              <span class="skill-percentage">95%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 95%;"></div>
-            </div>
+    <div class="constellation-viewport" data-aos="fade-up">
+      <!-- Background ambient stars -->
+      <div class="star-field">
+        @for (star of backgroundStars; track $index) {
+          <div class="bg-star"
+            [style.left.%]="star.x"
+            [style.top.%]="star.y"
+            [style.width.px]="star.size"
+            [style.height.px]="star.size"
+            [style.animation-delay]="star.delay + 's'">
           </div>
-
-          <!-- High Level Design -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="300">
-            <div class="skill-header">
-              <h5 class="skill-name">High Level Design</h5>
-              <span class="skill-percentage">95%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 95%;"></div>
-            </div>
-          </div>
-
-          <!-- Low Level Design -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="400">
-            <div class="skill-header">
-              <h5 class="skill-name">Low Level Design</h5>
-              <span class="skill-percentage">90%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 90%;"></div>
-            </div>
-          </div>
-
-          <!-- Databases -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="500">
-            <div class="skill-header">
-              <h5 class="skill-name">Databases</h5>
-              <span class="skill-percentage">95%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 95%;"></div>
-            </div>
-          </div>
-
-          <!-- Spring Boot -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="600">
-            <div class="skill-header">
-              <h5 class="skill-name">Spring Boot</h5>
-              <span class="skill-percentage">90%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 90%;"></div>
-            </div>
-          </div>
-
-          <!-- Microservices -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="700">
-            <div class="skill-header">
-              <h5 class="skill-name">Microservices</h5>
-              <span class="skill-percentage">95%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 95%;"></div>
-            </div>
-          </div>
-
-          <!-- Redis -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="800">
-            <div class="skill-header">
-              <h5 class="skill-name">Redis</h5>
-              <span class="skill-percentage">90%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 90%;"></div>
-            </div>
-          </div>
-
-          <!-- Kafka -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="900">
-            <div class="skill-header">
-              <h5 class="skill-name">Kafka</h5>
-              <span class="skill-percentage">99%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 99%;"></div>
-            </div>
-          </div>
-
-          <!-- LLM -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="1000">
-            <div class="skill-header">
-              <h5 class="skill-name">LLM</h5>
-              <span class="skill-percentage">90%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 90%;"></div>
-            </div>
-          </div>
-
-          <!-- GO -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="1100">
-            <div class="skill-header">
-              <h5 class="skill-name">GO</h5>
-              <span class="skill-percentage">93%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 93%;"></div>
-            </div>
-          </div>
-
-          <!-- NodeJS -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="1200">
-            <div class="skill-header">
-              <h5 class="skill-name">NodeJS</h5>
-              <span class="skill-percentage">91%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 91%;"></div>
-            </div>
-          </div>
-
-          <!-- Networking -->
-          <div class="skill-item" data-aos="fade-up" data-aos-delay="1300">
-            <div class="skill-header">
-              <h5 class="skill-name">Networking</h5>
-              <span class="skill-percentage">95%</span>
-            </div>
-            <div class="skill-progress">
-              <div class="skill-progress-bar" style="width: 95%;"></div>
-            </div>
-          </div>
-        </div>
+        }
       </div>
+
+      <!-- SVG Constellation Lines -->
+      <svg class="constellation-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          @for (constellation of constellations; track constellation.id) {
+            <filter [attr.id]="'glow-' + constellation.id" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="0.4" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          }
+        </defs>
+
+        <!-- Connection lines -->
+        @for (line of constellationLines; track $index) {
+          <line
+            [attr.x1]="line.x1"
+            [attr.y1]="line.y1"
+            [attr.x2]="line.x2"
+            [attr.y2]="line.y2"
+            [attr.stroke]="line.color"
+            stroke-width="0.15"
+            stroke-opacity="0.5"
+            class="constellation-line"/>
+        }
+
+        <!-- Skill stars -->
+        @for (constellation of constellations; track constellation.id) {
+          @for (skill of constellation.skills; track skill.name; let j = $index) {
+            <g [ngClass]="'star-float-' + ((j % 4) + 1)">
+              <!-- Star glow -->
+              <circle
+                [attr.cx]="skill.x"
+                [attr.cy]="skill.y"
+                [attr.r]="getStarGlow(skill.proficiency) / 6"
+                [attr.fill]="constellation.glowColor"
+                fill-opacity="0.15"
+                class="star-glow"
+                [ngClass]="{'star-glow--active': isSelected(skill)}"/>
+              <!-- Star core -->
+              <circle
+                [attr.cx]="skill.x"
+                [attr.cy]="skill.y"
+                [attr.r]="getStarSize(skill.proficiency) / 8"
+                [attr.fill]="constellation.color"
+                [attr.filter]="'url(#glow-' + constellation.id + ')'"
+                class="star-core"
+                [ngClass]="{'star-core--active': isSelected(skill)}"
+                (click)="selectStar(skill, constellation)"/>
+              <!-- Star label -->
+              <text
+                [attr.x]="skill.x"
+                [attr.y]="skill.y + 4.2"
+                text-anchor="middle"
+                class="star-label"
+                [attr.fill]="constellation.color"
+                [ngClass]="{'star-label--active': isSelected(skill)}">
+                {{skill.name}}
+              </text>
+            </g>
+          }
+
+          <!-- Category label -->
+          <text
+            [attr.x]="getCategoryLabelX(constellation)"
+            [attr.y]="getCategoryLabelY(constellation)"
+            text-anchor="middle"
+            class="category-label"
+            [attr.fill]="constellation.color">
+            {{constellation.name}}
+          </text>
+        }
+
+        <!-- Radial proficiency ring around selected star -->
+        @if (selectedSkill && selectedConstellation) {
+          <g class="radial-ring">
+            <!-- Ring track (background circle) -->
+            <circle
+              [attr.cx]="selectedSkill.x"
+              [attr.cy]="selectedSkill.y"
+              [attr.r]="ringRadius"
+              fill="none"
+              [attr.stroke]="selectedConstellation.color"
+              stroke-opacity="0.15"
+              [attr.stroke-width]="ringStroke"
+              class="ring-track"/>
+            <!-- Ring arc fill -->
+            <path
+              [attr.d]="getArcPath(selectedSkill.x, selectedSkill.y, selectedSkill.proficiency)"
+              fill="none"
+              [attr.stroke]="selectedConstellation.color"
+              [attr.stroke-width]="ringStroke"
+              stroke-linecap="round"
+              class="ring-fill"/>
+            <!-- Percentage text (auto-positioned above or below based on edge proximity) -->
+            <text
+              [attr.x]="selectedSkill.x"
+              [attr.y]="getPercentY(selectedSkill)"
+              text-anchor="middle"
+              class="ring-percentage"
+              [attr.fill]="selectedConstellation.color">
+              {{selectedSkill.proficiency}}%
+            </text>
+          </g>
+        }
+      </svg>
+
+    </div>
+
+    <!-- Category Legend -->
+    <div class="constellation-legend">
+      @for (constellation of constellations; track constellation.id) {
+        <div class="legend-item">
+          <span class="legend-dot" [style.background]="constellation.color"></span>
+          <span class="legend-name">{{constellation.name}}</span>
+        </div>
+      }
     </div>
   </div>
 </div>
