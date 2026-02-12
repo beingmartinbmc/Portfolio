@@ -101,8 +101,10 @@ export class SkillsComponent implements OnInit, AfterViewInit {
         color: '#FFB74D',
         glowColor: 'rgba(255, 183, 77, 0.6)',
         skills: [
-          { name: 'Spring Boot', proficiency: 90, x: 8, y: 48 },
-          { name: 'Echo', proficiency: 85, x: 20, y: 54 },
+          { name: 'Spring Boot', proficiency: 90, x: 6, y: 48 },
+          { name: 'Echo', proficiency: 85, x: 18, y: 54 },
+          { name: 'Dropwizard', proficiency: 88, x: 30, y: 50 },
+          { name: 'Google Guice', proficiency: 85, x: 12, y: 62 },
         ]
       },
       {
