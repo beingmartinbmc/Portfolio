@@ -409,3 +409,302 @@ textarea.form-input {
     transform: translateX(0);
   }
 }
+
+/* Greeting Character Animation */
+.greeting-character {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  animation: characterBounceIn 0.8s ease-out;
+}
+
+.speech-bubble {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 1.2rem;
+  position: relative;
+  margin-bottom: 0.6rem;
+  animation: bubblePop 0.5s ease-out 0.6s both;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #764ba2;
+  }
+}
+
+.speech-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  animation: hiAppear 4s ease-in-out infinite;
+}
+
+.speech-contact {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  display: inline-block;
+  margin-left: 0.3rem;
+  animation: contactAppear 4s ease-in-out infinite;
+}
+
+.speech-arrow {
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: inline-block;
+  margin-left: 0.25rem;
+  animation: arrowBounce 1.2s ease-in-out infinite, contactAppear 4s ease-in-out infinite;
+}
+
+.character {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: floatCharacter 3s ease-in-out infinite;
+}
+
+.character-head {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+  z-index: 2;
+}
+
+.character-eye {
+  width: 6px;
+  height: 7px;
+  background: #1e293b;
+  border-radius: 50%;
+  position: absolute;
+  top: 18px;
+  animation: blink 3s ease-in-out infinite;
+
+  &.left-eye {
+    left: 14px;
+  }
+
+  &.right-eye {
+    right: 14px;
+  }
+}
+
+.character-mouth {
+  width: 14px;
+  height: 7px;
+  border-bottom: 3px solid #1e293b;
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.character-body {
+  width: 36px;
+  height: 30px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 12px 12px 8px 8px;
+  margin-top: -4px;
+  position: relative;
+  z-index: 1;
+}
+
+.character-arm {
+  width: 10px;
+  height: 26px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 6px;
+  position: absolute;
+  top: 2px;
+
+  &.left-arm {
+    left: -10px;
+    transform: rotate(15deg);
+    transform-origin: top center;
+  }
+
+  &.pointing {
+    animation: pointDown 4s ease-in-out infinite;
+  }
+
+  &.right-arm {
+    right: -10px;
+    transform-origin: top center;
+  }
+
+  &.waving {
+    animation: wave 0.6s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(-20deg);
+  }
+  100% {
+    transform: rotate(-60deg);
+  }
+}
+
+@keyframes pointDown {
+  0%, 40% {
+    transform: rotate(15deg);
+  }
+  50%, 85% {
+    transform: rotate(145deg);
+  }
+  95%, 100% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes blink {
+  0%, 42%, 46%, 100% {
+    transform: scaleY(1);
+  }
+  44% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes floatCharacter {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes bubblePop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes characterBounceIn {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hiAppear {
+  0%, 5% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  15%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes contactAppear {
+  0%, 35% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  50%, 100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* Responsive adjustments for character */
+@media (max-width: 768px) {
+  .greeting-character {
+    margin-bottom: 1rem;
+  }
+
+  .character-head {
+    width: 40px;
+    height: 40px;
+  }
+
+  .character-eye {
+    width: 5px;
+    height: 6px;
+    top: 14px;
+
+    &.left-eye {
+      left: 11px;
+    }
+
+    &.right-eye {
+      right: 11px;
+    }
+  }
+
+  .character-mouth {
+    width: 12px;
+    height: 6px;
+    bottom: 10px;
+  }
+
+  .character-body {
+    width: 30px;
+    height: 24px;
+  }
+
+  .character-arm {
+    width: 8px;
+    height: 20px;
+
+    &.left-arm {
+      left: -8px;
+    }
+
+    &.right-arm {
+      right: -8px;
+    }
+  }
+
+  .speech-bubble {
+    padding: 0.4rem 1rem;
+  }
+
+  .speech-text {
+    font-size: 0.95rem;
+  }
+}
