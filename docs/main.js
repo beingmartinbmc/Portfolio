@@ -42438,54 +42438,54 @@ var ReactiveFormsModule = class _ReactiveFormsModule {
 var _c02 = ["contactForm"];
 var _c1 = (a0) => ({ "is-invalid": a0 });
 var _c2 = (a0) => ({ "disabled": a0 });
-function ContactComponent_Conditional_55_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
-    \u0275\u0275text(1, " Please enter your name ");
-    \u0275\u0275elementEnd();
-  }
-}
-function ContactComponent_Conditional_61_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
-    \u0275\u0275text(1, " Please enter a valid email address ");
-    \u0275\u0275elementEnd();
-  }
-}
 function ContactComponent_Conditional_67_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
-    \u0275\u0275text(1, " Please enter a subject ");
+    \u0275\u0275elementStart(0, "div", 34);
+    \u0275\u0275text(1, " Please enter your name ");
     \u0275\u0275elementEnd();
   }
 }
 function ContactComponent_Conditional_73_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 23);
-    \u0275\u0275text(1, " Please enter your message ");
-    \u0275\u0275elementEnd();
-  }
-}
-function ContactComponent_Conditional_78_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 32);
-    \u0275\u0275text(1, "\u2192");
+    \u0275\u0275elementStart(0, "div", 34);
+    \u0275\u0275text(1, " Please enter a valid email address ");
     \u0275\u0275elementEnd();
   }
 }
 function ContactComponent_Conditional_79_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 33);
+    \u0275\u0275elementStart(0, "div", 34);
+    \u0275\u0275text(1, " Please enter a subject ");
+    \u0275\u0275elementEnd();
+  }
+}
+function ContactComponent_Conditional_85_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 34);
+    \u0275\u0275text(1, " Please enter your message ");
+    \u0275\u0275elementEnd();
+  }
+}
+function ContactComponent_Conditional_90_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 43);
+    \u0275\u0275text(1, "\u2192");
+    \u0275\u0275elementEnd();
+  }
+}
+function ContactComponent_Conditional_91_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 44);
     \u0275\u0275text(1, "\u23F3");
     \u0275\u0275elementEnd();
   }
 }
-function ContactComponent_Conditional_80_Template(rf, ctx) {
+function ContactComponent_Conditional_92_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 34)(1, "div", 35)(2, "div", 36);
+    \u0275\u0275elementStart(0, "div", 45)(1, "div", 46)(2, "div", 47);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "div", 37);
+    \u0275\u0275elementStart(4, "div", 48);
     \u0275\u0275text(5);
     \u0275\u0275elementEnd()()();
   }
@@ -42594,152 +42594,161 @@ var ContactComponent = class _ContactComponent {
         let _t;
         \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.contactForm = _t.first);
       }
-    }, decls: 81, vars: 28, consts: [["contactForm", "ngForm"], ["name", "ngModel"], ["email", "ngModel"], ["subject", "ngModel"], ["message", "ngModel"], ["id", "contact", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "contact-container"], ["data-aos", "fade-right", 1, "contact-info-section"], [1, "info-cards"], [1, "info-card"], [1, "info-icon"], [1, "info-content"], ["data-aos", "fade-left", 1, "contact-form-section"], [1, "form-card"], [1, "form-header"], ["name", "form", "novalidate", "", 3, "ngSubmit"], [1, "form-row"], [1, "form-group"], ["for", "name"], ["id", "name", "name", "name", "placeholder", "Your full name", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], [1, "error-message"], ["for", "email"], ["id", "email", "name", "email", "placeholder", "your.email@example.com", "required", "", "type", "email", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "subject"], ["id", "subject", "name", "subject", "placeholder", "What's this about?", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "message"], ["id", "message", "name", "message", "placeholder", "Tell me about your project or opportunity...", "required", "", "rows", "5", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["type", "submit", 1, "submit-btn", 3, "disabled", "ngClass"], [1, "btn-text"], [1, "btn-icon"], [1, "btn-spinner"], [1, "toast-container"], [1, "toast", 3, "ngClass"], [1, "toast-icon"], [1, "toast-message"]], template: function ContactComponent_Template(rf, ctx) {
+    }, decls: 93, vars: 28, consts: [["contactForm", "ngForm"], ["name", "ngModel"], ["email", "ngModel"], ["subject", "ngModel"], ["message", "ngModel"], ["id", "contact", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "greeting-character"], [1, "speech-bubble"], [1, "speech-text"], [1, "character"], [1, "character-head"], [1, "character-eye", "left-eye"], [1, "character-eye", "right-eye"], [1, "character-mouth"], [1, "character-body"], [1, "character-arm", "left-arm"], [1, "character-arm", "right-arm", "waving"], [1, "section-title", "apple-text-display"], [1, "contact-container"], ["data-aos", "fade-right", 1, "contact-info-section"], [1, "info-cards"], [1, "info-card"], [1, "info-icon"], [1, "info-content"], ["data-aos", "fade-left", 1, "contact-form-section"], [1, "form-card"], [1, "form-header"], ["name", "form", "novalidate", "", 3, "ngSubmit"], [1, "form-row"], [1, "form-group"], ["for", "name"], ["id", "name", "name", "name", "placeholder", "Your full name", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], [1, "error-message"], ["for", "email"], ["id", "email", "name", "email", "placeholder", "your.email@example.com", "required", "", "type", "email", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "subject"], ["id", "subject", "name", "subject", "placeholder", "What's this about?", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "message"], ["id", "message", "name", "message", "placeholder", "Tell me about your project or opportunity...", "required", "", "rows", "5", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["type", "submit", 1, "submit-btn", 3, "disabled", "ngClass"], [1, "btn-text"], [1, "btn-icon"], [1, "btn-spinner"], [1, "toast-container"], [1, "toast", 3, "ngClass"], [1, "toast-icon"], [1, "toast-message"]], template: function ContactComponent_Template(rf, ctx) {
       if (rf & 1) {
         const _r1 = \u0275\u0275getCurrentView();
-        \u0275\u0275elementStart(0, "div", 5)(1, "div", 6)(2, "div", 7)(3, "h2", 8);
-        \u0275\u0275text(4, "Contact Me");
+        \u0275\u0275elementStart(0, "div", 5)(1, "div", 6)(2, "div", 7)(3, "div", 8)(4, "div", 9)(5, "span", 10);
+        \u0275\u0275text(6, "Hi!");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(5, "div", 9)(6, "div", 10)(7, "div", 11)(8, "div", 12)(9, "div", 13);
-        \u0275\u0275text(10, "\u{1F4E7}");
+        \u0275\u0275elementStart(7, "div", 11)(8, "div", 12);
+        \u0275\u0275element(9, "div", 13)(10, "div", 14)(11, "div", 15);
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(11, "div", 14)(12, "h4");
-        \u0275\u0275text(13, "Email");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(14, "p");
-        \u0275\u0275text(15, "ankit.sharma199803@gmail.com");
+        \u0275\u0275elementStart(12, "div", 16);
+        \u0275\u0275element(13, "div", 17)(14, "div", 18);
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(16, "div", 12)(17, "div", 13);
-        \u0275\u0275text(18, "\u{1F4CD}");
+        \u0275\u0275elementStart(15, "h2", 19);
+        \u0275\u0275text(16, "Contact Me");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(17, "div", 20)(18, "div", 21)(19, "div", 22)(20, "div", 23)(21, "div", 24);
+        \u0275\u0275text(22, "\u{1F4E7}");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(19, "div", 14)(20, "h4");
-        \u0275\u0275text(21, "Location");
+        \u0275\u0275elementStart(23, "div", 25)(24, "h4");
+        \u0275\u0275text(25, "Email");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(22, "p");
-        \u0275\u0275text(23, "Bangalore, India");
+        \u0275\u0275elementStart(26, "p");
+        \u0275\u0275text(27, "ankit.sharma199803@gmail.com");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(24, "div", 12)(25, "div", 13);
-        \u0275\u0275text(26, "\u{1F4BC}");
+        \u0275\u0275elementStart(28, "div", 23)(29, "div", 24);
+        \u0275\u0275text(30, "\u{1F4CD}");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(27, "div", 14)(28, "h4");
-        \u0275\u0275text(29, "Available for");
+        \u0275\u0275elementStart(31, "div", 25)(32, "h4");
+        \u0275\u0275text(33, "Location");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(30, "p");
-        \u0275\u0275text(31, "Full-time opportunities");
+        \u0275\u0275elementStart(34, "p");
+        \u0275\u0275text(35, "Bangalore, India");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(32, "div", 12)(33, "div", 13);
-        \u0275\u0275text(34, "\u23F1\uFE0F");
+        \u0275\u0275elementStart(36, "div", 23)(37, "div", 24);
+        \u0275\u0275text(38, "\u{1F4BC}");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(35, "div", 14)(36, "h4");
-        \u0275\u0275text(37, "Response time");
+        \u0275\u0275elementStart(39, "div", 25)(40, "h4");
+        \u0275\u0275text(41, "Available for");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(38, "p");
-        \u0275\u0275text(39, "Within 24 hours");
+        \u0275\u0275elementStart(42, "p");
+        \u0275\u0275text(43, "Full-time opportunities");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(44, "div", 23)(45, "div", 24);
+        \u0275\u0275text(46, "\u23F1\uFE0F");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(47, "div", 25)(48, "h4");
+        \u0275\u0275text(49, "Response time");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(50, "p");
+        \u0275\u0275text(51, "Within 24 hours");
         \u0275\u0275elementEnd()()()()();
-        \u0275\u0275elementStart(40, "div", 15)(41, "div", 16)(42, "div", 17)(43, "h3");
-        \u0275\u0275text(44, "Send me a message");
+        \u0275\u0275elementStart(52, "div", 26)(53, "div", 27)(54, "div", 28)(55, "h3");
+        \u0275\u0275text(56, "Send me a message");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(45, "p");
-        \u0275\u0275text(46, "I'm always open to discussing new opportunities and interesting projects!");
+        \u0275\u0275elementStart(57, "p");
+        \u0275\u0275text(58, "I'm always open to discussing new opportunities and interesting projects!");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(47, "form", 18, 0);
-        \u0275\u0275listener("ngSubmit", function ContactComponent_Template_form_ngSubmit_47_listener() {
+        \u0275\u0275elementStart(59, "form", 29, 0);
+        \u0275\u0275listener("ngSubmit", function ContactComponent_Template_form_ngSubmit_59_listener() {
           \u0275\u0275restoreView(_r1);
           return \u0275\u0275resetView(ctx.onSubmit(ctx.model.name, ctx.model.subject, ctx.model.email, ctx.model.message));
         });
-        \u0275\u0275elementStart(49, "div", 19)(50, "div", 20)(51, "label", 21);
-        \u0275\u0275text(52, "Name");
+        \u0275\u0275elementStart(61, "div", 30)(62, "div", 31)(63, "label", 32);
+        \u0275\u0275text(64, "Name");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(53, "input", 22, 1);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_53_listener($event) {
+        \u0275\u0275elementStart(65, "input", 33, 1);
+        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_65_listener($event) {
           \u0275\u0275restoreView(_r1);
           \u0275\u0275twoWayBindingSet(ctx.model.name, $event) || (ctx.model.name = $event);
           return \u0275\u0275resetView($event);
         });
         \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(55, ContactComponent_Conditional_55_Template, 2, 0, "div", 23);
+        \u0275\u0275conditionalCreate(67, ContactComponent_Conditional_67_Template, 2, 0, "div", 34);
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(56, "div", 20)(57, "label", 24);
-        \u0275\u0275text(58, "Email");
+        \u0275\u0275elementStart(68, "div", 31)(69, "label", 35);
+        \u0275\u0275text(70, "Email");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(59, "input", 25, 2);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_59_listener($event) {
+        \u0275\u0275elementStart(71, "input", 36, 2);
+        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_71_listener($event) {
           \u0275\u0275restoreView(_r1);
           \u0275\u0275twoWayBindingSet(ctx.model.email, $event) || (ctx.model.email = $event);
           return \u0275\u0275resetView($event);
         });
         \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(61, ContactComponent_Conditional_61_Template, 2, 0, "div", 23);
+        \u0275\u0275conditionalCreate(73, ContactComponent_Conditional_73_Template, 2, 0, "div", 34);
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(62, "div", 20)(63, "label", 26);
-        \u0275\u0275text(64, "Subject");
+        \u0275\u0275elementStart(74, "div", 31)(75, "label", 37);
+        \u0275\u0275text(76, "Subject");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(65, "input", 27, 3);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_65_listener($event) {
+        \u0275\u0275elementStart(77, "input", 38, 3);
+        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_77_listener($event) {
           \u0275\u0275restoreView(_r1);
           \u0275\u0275twoWayBindingSet(ctx.model.subject, $event) || (ctx.model.subject = $event);
           return \u0275\u0275resetView($event);
         });
         \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(67, ContactComponent_Conditional_67_Template, 2, 0, "div", 23);
+        \u0275\u0275conditionalCreate(79, ContactComponent_Conditional_79_Template, 2, 0, "div", 34);
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(68, "div", 20)(69, "label", 28);
-        \u0275\u0275text(70, "Message");
+        \u0275\u0275elementStart(80, "div", 31)(81, "label", 39);
+        \u0275\u0275text(82, "Message");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(71, "textarea", 29, 4);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_textarea_ngModelChange_71_listener($event) {
+        \u0275\u0275elementStart(83, "textarea", 40, 4);
+        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_textarea_ngModelChange_83_listener($event) {
           \u0275\u0275restoreView(_r1);
           \u0275\u0275twoWayBindingSet(ctx.model.message, $event) || (ctx.model.message = $event);
           return \u0275\u0275resetView($event);
         });
         \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(73, ContactComponent_Conditional_73_Template, 2, 0, "div", 23);
+        \u0275\u0275conditionalCreate(85, ContactComponent_Conditional_85_Template, 2, 0, "div", 34);
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(74, "div", 20)(75, "button", 30)(76, "span", 31);
-        \u0275\u0275text(77);
+        \u0275\u0275elementStart(86, "div", 31)(87, "button", 41)(88, "span", 42);
+        \u0275\u0275text(89);
         \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(78, ContactComponent_Conditional_78_Template, 2, 0, "span", 32);
-        \u0275\u0275conditionalCreate(79, ContactComponent_Conditional_79_Template, 2, 0, "span", 33);
+        \u0275\u0275conditionalCreate(90, ContactComponent_Conditional_90_Template, 2, 0, "span", 43);
+        \u0275\u0275conditionalCreate(91, ContactComponent_Conditional_91_Template, 2, 0, "span", 44);
         \u0275\u0275elementEnd()()()()()()();
-        \u0275\u0275conditionalCreate(80, ContactComponent_Conditional_80_Template, 6, 3, "div", 34);
+        \u0275\u0275conditionalCreate(92, ContactComponent_Conditional_92_Template, 6, 3, "div", 45);
         \u0275\u0275elementEnd();
       }
       if (rf & 2) {
-        const contactForm_r3 = \u0275\u0275reference(48);
-        const name_r4 = \u0275\u0275reference(54);
-        const email_r5 = \u0275\u0275reference(60);
-        const subject_r6 = \u0275\u0275reference(66);
-        const message_r7 = \u0275\u0275reference(72);
-        \u0275\u0275advance(53);
+        const contactForm_r3 = \u0275\u0275reference(60);
+        const name_r4 = \u0275\u0275reference(66);
+        const email_r5 = \u0275\u0275reference(72);
+        const subject_r6 = \u0275\u0275reference(78);
+        const message_r7 = \u0275\u0275reference(84);
+        \u0275\u0275advance(65);
         \u0275\u0275twoWayProperty("ngModel", ctx.model.name);
         \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(18, _c1, contactForm_r3.submitted && name_r4.invalid));
         \u0275\u0275advance(2);
-        \u0275\u0275conditional(contactForm_r3.submitted && name_r4.invalid ? 55 : -1);
+        \u0275\u0275conditional(contactForm_r3.submitted && name_r4.invalid ? 67 : -1);
         \u0275\u0275advance(4);
         \u0275\u0275twoWayProperty("ngModel", ctx.model.email);
         \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(20, _c1, contactForm_r3.submitted && email_r5.invalid));
         \u0275\u0275advance(2);
-        \u0275\u0275conditional(contactForm_r3.submitted && email_r5.invalid ? 61 : -1);
+        \u0275\u0275conditional(contactForm_r3.submitted && email_r5.invalid ? 73 : -1);
         \u0275\u0275advance(4);
         \u0275\u0275twoWayProperty("ngModel", ctx.model.subject);
         \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(22, _c1, contactForm_r3.submitted && subject_r6.invalid));
         \u0275\u0275advance(2);
-        \u0275\u0275conditional(contactForm_r3.submitted && subject_r6.invalid ? 67 : -1);
+        \u0275\u0275conditional(contactForm_r3.submitted && subject_r6.invalid ? 79 : -1);
         \u0275\u0275advance(4);
         \u0275\u0275twoWayProperty("ngModel", ctx.model.message);
         \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(24, _c1, contactForm_r3.submitted && message_r7.invalid));
         \u0275\u0275advance(2);
-        \u0275\u0275conditional(contactForm_r3.submitted && message_r7.invalid ? 73 : -1);
+        \u0275\u0275conditional(contactForm_r3.submitted && message_r7.invalid ? 85 : -1);
         \u0275\u0275advance(2);
         \u0275\u0275property("disabled", !ctx.isFormValid() || ctx.isSubmitting)("ngClass", \u0275\u0275pureFunction1(26, _c2, !ctx.isFormValid() || ctx.isSubmitting));
         \u0275\u0275advance(2);
         \u0275\u0275textInterpolate1(" ", ctx.isSubmitting ? "Sending..." : "Send Message", " ");
         \u0275\u0275advance();
-        \u0275\u0275conditional(!ctx.isSubmitting ? 78 : -1);
+        \u0275\u0275conditional(!ctx.isSubmitting ? 90 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.isSubmitting ? 79 : -1);
+        \u0275\u0275conditional(ctx.isSubmitting ? 91 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.showToast ? 80 : -1);
+        \u0275\u0275conditional(ctx.showToast ? 92 : -1);
       }
     }, dependencies: [FormsModule, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, NgModel, NgForm, CommonModule, NgClass], styles: ['\n\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n.contact-container[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1.5fr;\n  gap: var(--spacing-3xl);\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.contact-info-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.info-cards[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: var(--spacing-lg);\n}\n.info-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  padding: var(--spacing-lg);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-md);\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.info-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.info-icon[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  width: 50px;\n  height: 50px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-radius: var(--radius-lg);\n  color: var(--white);\n  flex-shrink: 0;\n}\n.info-content[_ngcontent-%COMP%] {\n  flex: 1;\n}\n.info-content[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  margin: 0 0 var(--spacing-xs) 0;\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--text-primary);\n}\n.info-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0;\n  color: var(--text-secondary);\n  font-size: 0.875rem;\n  line-height: 1.4;\n}\n.contact-form-section[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n}\n.form-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  padding: var(--spacing-xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  width: 100%;\n  max-width: 600px;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.form-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: var(--spacing-xl);\n}\n.form-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0 0 var(--spacing-sm) 0;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-secondary);\n}\n.form-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0;\n  color: var(--text-secondary);\n  font-size: 0.875rem;\n  line-height: 1.5;\n}\n.form-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: var(--spacing-lg);\n  margin-bottom: var(--spacing-lg);\n}\n.form-group[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.form-group[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  display: block;\n  margin-bottom: var(--spacing-xs);\n  font-weight: 600;\n  color: var(--text-primary);\n  font-size: 0.8rem;\n}\n.form-input[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border: 2px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  font-size: 0.875rem;\n  transition: all var(--transition-normal);\n  background: var(--bg-tertiary);\n  color: var(--text-primary);\n}\n.form-input[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);\n}\n.form-input[_ngcontent-%COMP%]::placeholder {\n  color: var(--text-tertiary);\n}\n.form-input.is-invalid[_ngcontent-%COMP%] {\n  border-color: #ef4444;\n  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);\n}\ntextarea.form-input[_ngcontent-%COMP%] {\n  resize: vertical;\n  min-height: 100px;\n  font-family: inherit;\n}\n.error-message[_ngcontent-%COMP%] {\n  color: #ef4444;\n  font-size: 0.75rem;\n  margin-top: var(--spacing-xs);\n  font-weight: 500;\n}\n.submit-btn[_ngcontent-%COMP%] {\n  width: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  border: none;\n  border-radius: var(--radius-lg);\n  padding: var(--spacing-md) var(--spacing-lg);\n  font-size: 0.875rem;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: var(--spacing-sm);\n}\n.submit-btn[_ngcontent-%COMP%]:hover:not(.disabled) {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-lg);\n}\n.submit-btn[_ngcontent-%COMP%]:active:not(.disabled) {\n  transform: translateY(0);\n}\n.submit-btn.disabled[_ngcontent-%COMP%] {\n  background: var(--gray-300);\n  color: var(--gray-500);\n  cursor: not-allowed;\n  transform: none;\n  box-shadow: none;\n}\n.submit-btn[_ngcontent-%COMP%]   .btn-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  transition: transform var(--transition-normal);\n}\n.submit-btn[_ngcontent-%COMP%]:hover:not(.disabled)   .btn-icon[_ngcontent-%COMP%] {\n  transform: translateX(4px);\n}\n.submit-btn[_ngcontent-%COMP%]   .btn-spinner[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n.toast-container[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 20px;\n  right: 20px;\n  z-index: 10000;\n  animation: _ngcontent-%COMP%_slideInRight 0.5s ease-out;\n}\n.toast[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--spacing-sm);\n  padding: var(--spacing-lg) var(--spacing-xl);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-xl);\n  min-width: 350px;\n  max-width: 450px;\n  animation: _ngcontent-%COMP%_fadeInUp 0.5s ease-out;\n  border: 2px solid transparent;\n}\n.toast.toast-success[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: white;\n  border-left: 4px solid #5a67d8;\n  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);\n}\n.toast.toast-error[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ef4444,\n      #dc2626);\n  color: white;\n  border-left: 4px solid #b91c1c;\n  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);\n}\n.toast-icon[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  flex-shrink: 0;\n}\n.toast-message[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 600;\n  line-height: 1.4;\n}\n@keyframes _ngcontent-%COMP%_slideInRight {\n  from {\n    transform: translateX(100%);\n    opacity: 0;\n  }\n  to {\n    transform: translateX(0);\n    opacity: 1;\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n@media (max-width: 1024px) {\n  .contact-container[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-2xl);\n  }\n  .contact-info-section[_ngcontent-%COMP%] {\n    order: 2;\n  }\n  .contact-form-section[_ngcontent-%COMP%] {\n    order: 1;\n  }\n  .info-cards[_ngcontent-%COMP%] {\n    display: grid;\n    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n    gap: var(--spacing-md);\n  }\n}\n@media (max-width: 768px) {\n  .contact-container[_ngcontent-%COMP%] {\n    gap: var(--spacing-xl);\n  }\n  .form-card[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .form-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-md);\n  }\n  .info-cards[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .info-card[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n  .info-icon[_ngcontent-%COMP%] {\n    width: 45px;\n    height: 45px;\n    font-size: 1.25rem;\n  }\n  .form-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n  .toast-container[_ngcontent-%COMP%] {\n    top: 10px;\n    right: 10px;\n    left: 10px;\n  }\n  .toast[_ngcontent-%COMP%] {\n    min-width: auto;\n    max-width: none;\n  }\n}\n.form-group[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.form-group[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.form-group[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.form-group[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.form-group[_ngcontent-%COMP%]:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.info-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInRight 0.6s ease-out;\n}\n.info-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.info-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.info-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.info-card[_ngcontent-%COMP%]:nth-child(4) {\n  animation-delay: 0.4s;\n}\n@keyframes _ngcontent-%COMP%_fadeInRight {\n  from {\n    opacity: 0;\n    transform: translateX(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateX(0);\n  }\n}\n/*# sourceMappingURL=contact.component.css.map */'] });
   }
@@ -42750,6 +42759,22 @@ var ContactComponent = class _ContactComponent {
     args: [{ selector: "app-contact", standalone: true, imports: [FormsModule, CommonModule], template: `<div class="apple-section" id="contact">
   <div class="apple-container">
     <div class="section-header apple-fade-in">
+      <div class="greeting-character">
+        <div class="speech-bubble">
+          <span class="speech-text">Hi!</span>
+        </div>
+        <div class="character">
+          <div class="character-head">
+            <div class="character-eye left-eye"></div>
+            <div class="character-eye right-eye"></div>
+            <div class="character-mouth"></div>
+          </div>
+          <div class="character-body">
+            <div class="character-arm left-arm"></div>
+            <div class="character-arm right-arm waving"></div>
+          </div>
+        </div>
+      </div>
       <h2 class="section-title apple-text-display">Contact Me</h2>
     </div>
 
