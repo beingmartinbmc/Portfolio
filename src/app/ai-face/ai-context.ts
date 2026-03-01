@@ -54,7 +54,7 @@ KEY ACHIEVEMENTS:
 - Reduced system downtime by 80% through improved architecture
 
 PROJECTS:
-- FlowForge: Workflow Management System (like Apache Airflow) - React, Next.js, Node.js, MongoDB, Redis
+- Algorithm Visualizer: Interactive algorithm visualization tool - Angular, TypeScript, D3.js, CSS Animations
 - Religious GPT: AI spiritual companion powered by GPT-4.1 - React, Node.js, Vercel
 
 PERSONAL:

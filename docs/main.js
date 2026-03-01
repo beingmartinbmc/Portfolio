@@ -45089,11 +45089,11 @@ var SkillsComponent = class _SkillsComponent {
 
 // src/app/profile/publications/publications.component.ts
 var _c04 = (a0, a1) => ({ "npm-badges": a0, "maven-badges": a1 });
-function PublicationsComponent_For_91_Template(rf, ctx) {
+function PublicationsComponent_For_89_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "button", 33);
-    \u0275\u0275listener("click", function PublicationsComponent_For_91_Template_button_click_0_listener() {
+    \u0275\u0275listener("click", function PublicationsComponent_For_89_Template_button_click_0_listener() {
       const category_r2 = \u0275\u0275restoreView(_r1).$implicit;
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.filterByCategory(category_r2));
@@ -45103,15 +45103,15 @@ function PublicationsComponent_For_91_Template(rf, ctx) {
   }
   if (rf & 2) {
     const category_r2 = ctx.$implicit;
-    const \u0275$index_149_r4 = ctx.$index;
+    const \u0275$index_146_r4 = ctx.$index;
     const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275classProp("active", ctx_r2.selectedCategory === category_r2);
-    \u0275\u0275attribute("data-aos-delay", (\u0275$index_149_r4 + 1) * 100);
+    \u0275\u0275attribute("data-aos-delay", (\u0275$index_146_r4 + 1) * 100);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate1(" ", category_r2, " ");
   }
 }
-function PublicationsComponent_For_94_Conditional_13_Template(rf, ctx) {
+function PublicationsComponent_For_92_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "img", 35);
   }
@@ -45120,7 +45120,7 @@ function PublicationsComponent_For_94_Conditional_13_Template(rf, ctx) {
     \u0275\u0275property("src", project_r5.badges.version, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_94_Conditional_14_Template(rf, ctx) {
+function PublicationsComponent_For_92_Conditional_14_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "img", 36);
   }
@@ -45129,7 +45129,7 @@ function PublicationsComponent_For_94_Conditional_14_Template(rf, ctx) {
     \u0275\u0275property("src", project_r5.badges.downloads, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_94_Conditional_15_Template(rf, ctx) {
+function PublicationsComponent_For_92_Conditional_15_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "img", 37);
   }
@@ -45138,7 +45138,7 @@ function PublicationsComponent_For_94_Conditional_15_Template(rf, ctx) {
     \u0275\u0275property("src", project_r5.badges.total, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_94_Conditional_16_Template(rf, ctx) {
+function PublicationsComponent_For_92_Conditional_16_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "img", 38);
   }
@@ -45147,7 +45147,7 @@ function PublicationsComponent_For_94_Conditional_16_Template(rf, ctx) {
     \u0275\u0275property("src", project_r5.badges.java, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_94_Template(rf, ctx) {
+function PublicationsComponent_For_92_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 32)(1, "div", 11)(2, "div", 12)(3, "span", 13);
     \u0275\u0275text(4);
@@ -45162,10 +45162,10 @@ function PublicationsComponent_For_94_Template(rf, ctx) {
     \u0275\u0275text(10);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(11, "div", 17)(12, "div", 34);
-    \u0275\u0275conditionalCreate(13, PublicationsComponent_For_94_Conditional_13_Template, 1, 1, "img", 35);
-    \u0275\u0275conditionalCreate(14, PublicationsComponent_For_94_Conditional_14_Template, 1, 1, "img", 36);
-    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_94_Conditional_15_Template, 1, 1, "img", 37);
-    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_94_Conditional_16_Template, 1, 1, "img", 38);
+    \u0275\u0275conditionalCreate(13, PublicationsComponent_For_92_Conditional_13_Template, 1, 1, "img", 35);
+    \u0275\u0275conditionalCreate(14, PublicationsComponent_For_92_Conditional_14_Template, 1, 1, "img", 36);
+    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_92_Conditional_15_Template, 1, 1, "img", 37);
+    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_92_Conditional_16_Template, 1, 1, "img", 38);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(17, "div", 20)(18, "a", 39);
     \u0275\u0275text(19);
@@ -45173,8 +45173,8 @@ function PublicationsComponent_For_94_Template(rf, ctx) {
   }
   if (rf & 2) {
     const project_r5 = ctx.$implicit;
-    const \u0275$index_155_r6 = ctx.$index;
-    \u0275\u0275attribute("data-aos-delay", (\u0275$index_155_r6 + 1) * 100);
+    const \u0275$index_152_r6 = ctx.$index;
+    \u0275\u0275attribute("data-aos-delay", (\u0275$index_152_r6 + 1) * 100);
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate(project_r5.category);
     \u0275\u0275advance(4);
@@ -45300,113 +45300,110 @@ var PublicationsComponent = class _PublicationsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 95, vars: 0, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "projects-grid"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "flowforge-card"], [1, "project-preview-container"], ["href", "https://beingmartinbmc.github.io/flowforge/login/", "target", "_blank"], [1, "project-preview", "flowforge-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["href", "https://beingmartinbmc.github.io/flowforge/login/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "divine-card"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-aos", "fade-up", "data-aos-delay", "50", 1, "category-filters"], [1, "filter-buttons"], [1, "filter-btn", 3, "active"], [1, "open-source-grid"], ["data-aos", "fade-up", 1, "open-source-card"], [1, "filter-btn", 3, "click"], [1, "package-badges", 3, "ngClass"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 93, vars: 0, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "projects-grid"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "algo-card"], [1, "project-preview-container"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank"], [1, "project-preview", "algo-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "divine-card"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-aos", "fade-up", "data-aos-delay", "50", 1, "category-filters"], [1, "filter-buttons"], [1, "filter-btn", 3, "active"], [1, "open-source-grid"], ["data-aos", "fade-up", 1, "open-source-card"], [1, "filter-btn", 3, "click"], [1, "package-badges", 3, "ngClass"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Projects");
         \u0275\u0275elementEnd()();
         \u0275\u0275elementStart(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "a", 7)(9, "div", 8)(10, "h3");
-        \u0275\u0275text(11, "\u2699\uFE0F FlowForge");
+        \u0275\u0275text(11, "\u{1F4CA} Algorithm Visualizer");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(12, "p");
-        \u0275\u0275text(13, "Workflow Management System");
+        \u0275\u0275text(13, "Interactive Algorithm Visualization Tool");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(14, "div", 9);
-        \u0275\u0275text(15, "React \u2022 Next.js \u2022 Node.js \u2022 MongoDB \u2022 Redis");
+        \u0275\u0275text(15, "Sorting \u2022 Pathfinding \u2022 Graph Algorithms");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(16, "div", 9);
-        \u0275\u0275text(17, "Workflow Automation \u2022 Real-time Monitoring");
+        \u0275\u0275text(17, "Step-by-Step Animation \u2022 Real-time Controls");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(18, "div", 10);
-        \u0275\u0275text(19, "Similar to Apache Airflow");
+        \u0275\u0275text(19, "Learn Algorithms Visually");
         \u0275\u0275elementEnd()()()();
         \u0275\u0275elementStart(20, "div", 11)(21, "div", 12)(22, "span", 13);
         \u0275\u0275text(23, "Web App");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(24, "span", 14);
-        \u0275\u0275text(25, "Workflow Management");
+        \u0275\u0275text(25, "Education Tool");
         \u0275\u0275elementEnd()();
         \u0275\u0275elementStart(26, "h5", 15);
-        \u0275\u0275text(27, "\u2699\uFE0F FlowForge");
+        \u0275\u0275text(27, "\u{1F4CA} Algorithm Visualizer");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(28, "p", 16);
-        \u0275\u0275text(29, " A comprehensive workflow management system similar to Apache Airflow, built with modern web technologies. Features dead letter queue management, workflow scheduling, real-time monitoring, and execution tracking. Provides an intuitive interface for creating, managing, and monitoring complex data pipelines and automated workflows. ");
+        \u0275\u0275text(29, " An interactive web application that brings algorithms to life through real-time visualizations. Explore sorting algorithms, pathfinding techniques, and graph traversals with step-by-step animations. Features adjustable speed controls, custom inputs, and side-by-side comparisons to help understand how algorithms work under the hood. ");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(30, "div", 17)(31, "div", 18)(32, "span", 19);
-        \u0275\u0275text(33, "React");
+        \u0275\u0275text(33, "Angular");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(34, "span", 19);
-        \u0275\u0275text(35, "Next.js");
+        \u0275\u0275text(35, "TypeScript");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(36, "span", 19);
-        \u0275\u0275text(37, "Node.js");
+        \u0275\u0275text(37, "D3.js");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(38, "span", 19);
-        \u0275\u0275text(39, "MongoDB");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(40, "span", 19);
-        \u0275\u0275text(41, "Redis");
+        \u0275\u0275text(39, "CSS Animations");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(42, "div", 20)(43, "a", 21);
-        \u0275\u0275text(44, " View Live Demo ");
+        \u0275\u0275elementStart(40, "div", 20)(41, "a", 21);
+        \u0275\u0275text(42, " View Live Demo ");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(45, "div", 22)(46, "div", 6)(47, "a", 23)(48, "div", 24)(49, "h3");
-        \u0275\u0275text(50, "\u{1F549}\uFE0F Religious GPT");
+        \u0275\u0275elementStart(43, "div", 22)(44, "div", 6)(45, "a", 23)(46, "div", 24)(47, "h3");
+        \u0275\u0275text(48, "\u{1F549}\uFE0F Religious GPT");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(51, "p");
-        \u0275\u0275text(52, "Sacred guidance from ancient texts");
+        \u0275\u0275elementStart(49, "p");
+        \u0275\u0275text(50, "Sacred guidance from ancient texts");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(53, "div", 25);
-        \u0275\u0275text(54, "\u{1F549}\uFE0F");
+        \u0275\u0275elementStart(51, "div", 25);
+        \u0275\u0275text(52, "\u{1F549}\uFE0F");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(53, "div", 9);
+        \u0275\u0275text(54, "Ancient Scriptures \u2022 Sacred Texts \u2022 Divine Knowledge");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(55, "div", 9);
-        \u0275\u0275text(56, "Ancient Scriptures \u2022 Sacred Texts \u2022 Divine Knowledge");
+        \u0275\u0275text(56, "Spiritual Wisdom \u2022 Universal Truths");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(57, "div", 9);
-        \u0275\u0275text(58, "Spiritual Wisdom \u2022 Universal Truths");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(59, "div", 10);
-        \u0275\u0275text(60, "Powered by GPT-4.1");
+        \u0275\u0275elementStart(57, "div", 10);
+        \u0275\u0275text(58, "Powered by GPT-4.1");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(61, "div", 11)(62, "div", 12)(63, "span", 13);
-        \u0275\u0275text(64, "AI App");
+        \u0275\u0275elementStart(59, "div", 11)(60, "div", 12)(61, "span", 13);
+        \u0275\u0275text(62, "AI App");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(65, "span", 14);
-        \u0275\u0275text(66, "Spiritual Companion");
+        \u0275\u0275elementStart(63, "span", 14);
+        \u0275\u0275text(64, "Spiritual Companion");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(67, "h5", 15);
-        \u0275\u0275text(68, "\u{1F549}\uFE0F Religious GPT");
+        \u0275\u0275elementStart(65, "h5", 15);
+        \u0275\u0275text(66, "\u{1F549}\uFE0F Religious GPT");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(69, "p", 16);
-        \u0275\u0275text(70, " An AI-powered spiritual companion that offers guidance and wisdom from the world's most revered ancient texts and sacred scriptures. Drawing insights from The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Analects of Confucius, The Dhammapada, The Upanishads, The Talmud, and The Avesta. ");
+        \u0275\u0275elementStart(67, "p", 16);
+        \u0275\u0275text(68, " An AI-powered spiritual companion that offers guidance and wisdom from the world's most revered ancient texts and sacred scriptures. Drawing insights from The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Analects of Confucius, The Dhammapada, The Upanishads, The Talmud, and The Avesta. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(71, "div", 17)(72, "div", 18)(73, "span", 19);
-        \u0275\u0275text(74, "React");
+        \u0275\u0275elementStart(69, "div", 17)(70, "div", 18)(71, "span", 19);
+        \u0275\u0275text(72, "React");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(73, "span", 19);
+        \u0275\u0275text(74, "Node.js");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(75, "span", 19);
-        \u0275\u0275text(76, "Node.js");
+        \u0275\u0275text(76, "GPT-4.1");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(77, "span", 19);
-        \u0275\u0275text(78, "GPT-4.1");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(79, "span", 19);
-        \u0275\u0275text(80, "Vercel");
+        \u0275\u0275text(78, "Vercel");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(81, "div", 20)(82, "a", 26);
-        \u0275\u0275text(83, " View Live Demo ");
+        \u0275\u0275elementStart(79, "div", 20)(80, "a", 26);
+        \u0275\u0275text(81, " View Live Demo ");
         \u0275\u0275elementEnd()()()()()();
-        \u0275\u0275elementStart(84, "div", 27)(85, "div", 2)(86, "h2", 3);
-        \u0275\u0275text(87, "Open Source");
+        \u0275\u0275elementStart(82, "div", 27)(83, "div", 2)(84, "h2", 3);
+        \u0275\u0275text(85, "Open Source");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(88, "div", 28)(89, "div", 29);
-        \u0275\u0275repeaterCreate(90, PublicationsComponent_For_91_Template, 2, 4, "button", 30, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementStart(86, "div", 28)(87, "div", 29);
+        \u0275\u0275repeaterCreate(88, PublicationsComponent_For_89_Template, 2, 4, "button", 30, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(92, "div", 31);
-        \u0275\u0275repeaterCreate(93, PublicationsComponent_For_94_Template, 20, 14, "div", 32, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementStart(90, "div", 31);
+        \u0275\u0275repeaterCreate(91, PublicationsComponent_For_92_Template, 20, 14, "div", 32, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275elementEnd()()();
       }
       if (rf & 2) {
-        \u0275\u0275advance(90);
+        \u0275\u0275advance(88);
         \u0275\u0275repeater(ctx.availableCategories);
         \u0275\u0275advance(3);
         \u0275\u0275repeater(ctx.filteredProjects);
@@ -45424,16 +45421,16 @@ var PublicationsComponent = class _PublicationsComponent {
     </div>
 
     <div class="projects-grid">
-      <div class="project-card flowforge-card" data-aos="fade-up" data-aos-duration="500" data-aos-offset="50">
+      <div class="project-card algo-card" data-aos="fade-up" data-aos-duration="500" data-aos-offset="50">
         <!-- Project Preview -->
         <div class="project-preview-container">
-          <a href="https://beingmartinbmc.github.io/flowforge/login/" target="_blank">
-            <div class="project-preview flowforge-preview">
-              <h3>\u2699\uFE0F FlowForge</h3>
-              <p>Workflow Management System</p>
-              <div class="tech-stack">React \u2022 Next.js \u2022 Node.js \u2022 MongoDB \u2022 Redis</div>
-              <div class="tech-stack">Workflow Automation \u2022 Real-time Monitoring</div>
-              <div class="powered-by">Similar to Apache Airflow</div>
+          <a href="https://beingmartinbmc.github.io/algorithm-visualizer/" target="_blank">
+            <div class="project-preview algo-preview">
+              <h3>\u{1F4CA} Algorithm Visualizer</h3>
+              <p>Interactive Algorithm Visualization Tool</p>
+              <div class="tech-stack">Sorting \u2022 Pathfinding \u2022 Graph Algorithms</div>
+              <div class="tech-stack">Step-by-Step Animation \u2022 Real-time Controls</div>
+              <div class="powered-by">Learn Algorithms Visually</div>
             </div>
           </a>
         </div>
@@ -45442,23 +45439,22 @@ var PublicationsComponent = class _PublicationsComponent {
         <div class="card-body">
           <div class="project-meta">
             <span class="badge">Web App</span>
-            <span class="text-muted">Workflow Management</span>
+            <span class="text-muted">Education Tool</span>
           </div>
-          <h5 class="card-title">\u2699\uFE0F FlowForge</h5>
+          <h5 class="card-title">\u{1F4CA} Algorithm Visualizer</h5>
           <p class="card-text">
-            A comprehensive workflow management system similar to Apache Airflow, built with modern web technologies. Features dead letter queue management, workflow scheduling, real-time monitoring, and execution tracking. Provides an intuitive interface for creating, managing, and monitoring complex data pipelines and automated workflows.
+            An interactive web application that brings algorithms to life through real-time visualizations. Explore sorting algorithms, pathfinding techniques, and graph traversals with step-by-step animations. Features adjustable speed controls, custom inputs, and side-by-side comparisons to help understand how algorithms work under the hood.
           </p>
           <div class="project-stats">
             <div class="tech-badges">
-              <span class="tech-badge">React</span>
-              <span class="tech-badge">Next.js</span>
-              <span class="tech-badge">Node.js</span>
-              <span class="tech-badge">MongoDB</span>
-              <span class="tech-badge">Redis</span>
+              <span class="tech-badge">Angular</span>
+              <span class="tech-badge">TypeScript</span>
+              <span class="tech-badge">D3.js</span>
+              <span class="tech-badge">CSS Animations</span>
             </div>
           </div>
           <div class="project-actions">
-            <a href="https://beingmartinbmc.github.io/flowforge/login/" class="btn btn-primary" target="_blank" rel="noopener">
+            <a href="https://beingmartinbmc.github.io/algorithm-visualizer/" class="btn btn-primary" target="_blank" rel="noopener">
               View Live Demo
             </a>
           </div>
@@ -80949,7 +80945,7 @@ KEY ACHIEVEMENTS:
 - Reduced system downtime by 80% through improved architecture
 
 PROJECTS:
-- FlowForge: Workflow Management System (like Apache Airflow) - React, Next.js, Node.js, MongoDB, Redis
+- Algorithm Visualizer: Interactive algorithm visualization tool - Angular, TypeScript, D3.js, CSS Animations
 - Religious GPT: AI spiritual companion powered by GPT-4.1 - React, Node.js, Vercel
 
 PERSONAL:
