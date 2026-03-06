@@ -35,7 +35,6 @@ export class ExperienceComponent implements OnInit, OnDestroy {
 
   numberOfMonths: number;
   totalExperience: string;
-  interval: any;
   planets: OrbitPlanet[] = [];
   selectedItem: ExperienceItem | null = null;
 
@@ -210,13 +209,10 @@ export class ExperienceComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.buildPlanets();
     this.refreshData();
-    this.interval = setInterval(() => {
-      this.refreshData();
-    }, 5000);
   }
 
   ngOnDestroy() {
-    clearInterval(this.interval);
+    // cleanup if needed
   }
 
 }

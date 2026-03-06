@@ -4,15 +4,15 @@ module.exports = {
   extends: [
     'eslint:recommended',
     '@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', 'docs', '.eslintrc.cjs', 'node_modules'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+  },
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
   },
 } 

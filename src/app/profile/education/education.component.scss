@@ -68,34 +68,12 @@
   
   .institution {
     font-size: 1rem;
-    color: #667eea !important;
     font-weight: 500;
     margin-bottom: var(--spacing-md);
   }
-  
-  /* Ensure institution names are purple */
-  .education-content .institution {
-    color: #667eea !important;
-  }
-  
-  /* Force purple color with maximum specificity */
-  .education-card .education-content h5.institution {
-    color: #667eea !important;
-  }
-  
-  /* Alternative approach - target by element type */
-  .education-content h5 {
-    color: #667eea !important;
-  }
-  
-  /* Try with RGB values */
-  .education-content .institution {
-    color: rgb(102, 126, 234) !important;
-  }
-  
-  /* Try with HSL values */
-  .education-content h5.institution {
-    color: hsl(230, 60%, 66%) !important;
+
+  .institution-highlight {
+    color: var(--primary-color, #667eea);
   }
   
   .details {

@@ -1605,6 +1605,28 @@ var EmptyError = createErrorClass((_super) => function EmptyErrorImpl() {
   this.message = "no elements in sequence";
 });
 
+// node_modules/rxjs/dist/esm/internal/firstValueFrom.js
+function firstValueFrom(source, config3) {
+  const hasConfig = typeof config3 === "object";
+  return new Promise((resolve, reject) => {
+    const subscriber = new SafeSubscriber({
+      next: (value) => {
+        resolve(value);
+        subscriber.unsubscribe();
+      },
+      error: reject,
+      complete: () => {
+        if (hasConfig) {
+          resolve(config3.defaultValue);
+        } else {
+          reject(new EmptyError());
+        }
+      }
+    });
+    source.subscribe(subscriber);
+  });
+}
+
 // node_modules/rxjs/dist/esm/internal/operators/map.js
 function map(project, thisArg) {
   return operate((source, subscriber) => {
@@ -31632,7 +31654,7 @@ function defaultUrlMatcher(segments, segmentGroup, route) {
     posParams
   };
 }
-function firstValueFrom(source) {
+function firstValueFrom2(source) {
   return new Promise((resolve, reject) => {
     source.pipe(first()).subscribe({
       next: (value) => resolve(value),
@@ -31689,7 +31711,7 @@ function wrapIntoObservable(value) {
 }
 function wrapIntoPromise(value) {
   if (isObservable(value)) {
-    return firstValueFrom(value);
+    return firstValueFrom2(value);
   }
   return Promise.resolve(value);
 }
@@ -34054,7 +34076,7 @@ function getRedirectResult(redirectTo, currentSnapshot, injector) {
     paramMap,
     queryParamMap
   } = currentSnapshot;
-  return firstValueFrom(wrapIntoObservable(runInInjectionContext(injector, () => redirectToFn({
+  return firstValueFrom2(wrapIntoObservable(runInInjectionContext(injector, () => redirectToFn({
     params,
     data,
     queryParams,
@@ -34451,7 +34473,7 @@ This is currently a dev mode only error but will become a call stack size exceed
       if (this.abortSignal.aborted) {
         throw new Error(this.abortSignal.reason);
       }
-      const result = yield firstValueFrom(matchWithChecks(rawSegment, route, segments, injector, this.urlSerializer, this.abortSignal));
+      const result = yield firstValueFrom2(matchWithChecks(rawSegment, route, segments, injector, this.urlSerializer, this.abortSignal));
       if (route.path === "**") {
         rawSegment.children = {};
       }
@@ -34510,7 +34532,7 @@ This is currently a dev mode only error but will become a call stack size exceed
         if (this.abortSignal.aborted) {
           throw new Error(this.abortSignal.reason);
         }
-        const shouldLoadResult = yield firstValueFrom(runCanLoadGuards(injector, route, segments, this.urlSerializer, this.abortSignal));
+        const shouldLoadResult = yield firstValueFrom2(runCanLoadGuards(injector, route, segments, this.urlSerializer, this.abortSignal));
         if (shouldLoadResult) {
           const cfg = yield this.configLoader.loadChildren(injector, route);
           route._loadedRoutes = cfg.routes;
@@ -42958,7 +42980,7 @@ var EducationComponent = class _EducationComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _EducationComponent, selectors: [["app-education"]], decls: 44, vars: 0, consts: [["id", "education", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "education-grid"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "education-card"], [1, "education-header"], [1, "year"], [1, "degree-type"], [1, "education-content"], [1, "degree-title"], [1, "institution", 2, "color", "#667eea !important"], [1, "details"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "education-card"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "education-card"]], template: function EducationComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _EducationComponent, selectors: [["app-education"]], decls: 44, vars: 0, consts: [["id", "education", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "education-grid"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "education-card"], [1, "education-header"], [1, "year"], [1, "degree-type"], [1, "education-content"], [1, "degree-title"], [1, "institution", "institution-highlight"], [1, "details"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "education-card"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "education-card"]], template: function EducationComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Education");
@@ -43007,7 +43029,7 @@ var EducationComponent = class _EducationComponent {
         \u0275\u0275text(43, "St. Conrad's Inter College (ICSE)");
         \u0275\u0275domElementEnd()()()()()();
       }
-    }, styles: ['\n\n.education-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: var(--spacing-xl);\n  max-width: 1000px;\n  margin: 0 auto;\n}\n.education-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.education-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.education-header[_ngcontent-%COMP%] {\n  background: var(--bg-tertiary);\n  padding: var(--spacing-lg);\n  text-align: center;\n  border-bottom: 1px solid var(--glass-border);\n}\n.education-header[_ngcontent-%COMP%]   .year[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  color: var(--text-tertiary);\n  font-weight: 500;\n  margin-bottom: var(--spacing-xs);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.education-header[_ngcontent-%COMP%]   .degree-type[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  color: var(--text-primary);\n  font-weight: 600;\n  margin: 0;\n}\n.education-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-lg);\n  flex-grow: 1;\n  display: flex;\n  flex-direction: column;\n}\n.education-content[_ngcontent-%COMP%]   .degree-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.125rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-sm);\n  line-height: 1.4;\n}\n.education-content[_ngcontent-%COMP%]   .institution[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  color: #667eea !important;\n  font-weight: 500;\n  margin-bottom: var(--spacing-md);\n}\n.education-content[_ngcontent-%COMP%] {\n}\n.education-content[_ngcontent-%COMP%]   .education-content[_ngcontent-%COMP%]   .institution[_ngcontent-%COMP%] {\n  color: #667eea !important;\n}\n.education-content[_ngcontent-%COMP%] {\n}\n.education-content[_ngcontent-%COMP%]   .education-card[_ngcontent-%COMP%]   .education-content[_ngcontent-%COMP%]   h5.institution[_ngcontent-%COMP%] {\n  color: #667eea !important;\n}\n.education-content[_ngcontent-%COMP%] {\n}\n.education-content[_ngcontent-%COMP%]   .education-content[_ngcontent-%COMP%]   h5[_ngcontent-%COMP%] {\n  color: #667eea !important;\n}\n.education-content[_ngcontent-%COMP%] {\n}\n.education-content[_ngcontent-%COMP%]   .education-content[_ngcontent-%COMP%]   .institution[_ngcontent-%COMP%] {\n  color: rgb(102, 126, 234) !important;\n}\n.education-content[_ngcontent-%COMP%] {\n}\n.education-content[_ngcontent-%COMP%]   .education-content[_ngcontent-%COMP%]   h5.institution[_ngcontent-%COMP%] {\n  color: hsl(230, 60%, 66%) !important;\n}\n.education-content[_ngcontent-%COMP%]   .details[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.6;\n  margin: 0;\n  font-size: 0.875rem;\n}\n.education-content[_ngcontent-%COMP%]   .details[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .education-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .education-card[_ngcontent-%COMP%] {\n    height: auto;\n  }\n  .education-header[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n  .education-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n  .education-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n}\n.education-card[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.6s ease-out;\n}\n.education-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.education-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.education-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n/*# sourceMappingURL=education.component.css.map */'] });
+    }, styles: ['\n\n.education-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: var(--spacing-xl);\n  max-width: 1000px;\n  margin: 0 auto;\n}\n.education-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.education-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.education-header[_ngcontent-%COMP%] {\n  background: var(--bg-tertiary);\n  padding: var(--spacing-lg);\n  text-align: center;\n  border-bottom: 1px solid var(--glass-border);\n}\n.education-header[_ngcontent-%COMP%]   .year[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  color: var(--text-tertiary);\n  font-weight: 500;\n  margin-bottom: var(--spacing-xs);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.education-header[_ngcontent-%COMP%]   .degree-type[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  color: var(--text-primary);\n  font-weight: 600;\n  margin: 0;\n}\n.education-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-lg);\n  flex-grow: 1;\n  display: flex;\n  flex-direction: column;\n}\n.education-content[_ngcontent-%COMP%]   .degree-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.125rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-sm);\n  line-height: 1.4;\n}\n.education-content[_ngcontent-%COMP%]   .institution[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 500;\n  margin-bottom: var(--spacing-md);\n}\n.education-content[_ngcontent-%COMP%]   .institution-highlight[_ngcontent-%COMP%] {\n  color: var(--primary-color, #667eea);\n}\n.education-content[_ngcontent-%COMP%]   .details[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.6;\n  margin: 0;\n  font-size: 0.875rem;\n}\n.education-content[_ngcontent-%COMP%]   .details[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .education-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .education-card[_ngcontent-%COMP%] {\n    height: auto;\n  }\n  .education-header[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n  .education-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-md);\n  }\n  .education-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n}\n.education-card[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.6s ease-out;\n}\n.education-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.education-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.education-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n/*# sourceMappingURL=education.component.css.map */'] });
   }
 };
 (() => {
@@ -43028,7 +43050,7 @@ var EducationComponent = class _EducationComponent {
         </div>
         <div class="education-content">
           <h4 class="degree-title">Bachelor of Technology in Computer Science</h4>
-          <h5 class="institution" style="color: #667eea !important;">GLA University</h5>
+          <h5 class="institution institution-highlight">GLA University</h5>
           <p class="details">Completed BTech in Computer Science with <b>8.03 GPA</b>.</p>
         </div>
       </div>
@@ -43041,7 +43063,7 @@ var EducationComponent = class _EducationComponent {
         </div>
         <div class="education-content">
           <h4 class="degree-title">Physics, Chemistry, Maths</h4>
-          <h5 class="institution" style="color: #667eea !important;">Ess Ess Convent School (CBSE)</h5>
+          <h5 class="institution institution-highlight">Ess Ess Convent School (CBSE)</h5>
         </div>
       </div>
 
@@ -43053,13 +43075,13 @@ var EducationComponent = class _EducationComponent {
         </div>
         <div class="education-content">
           <h4 class="degree-title">Science and Computers</h4>
-          <h5 class="institution" style="color: #667eea !important;">St. Conrad's Inter College (ICSE)</h5>
+          <h5 class="institution institution-highlight">St. Conrad's Inter College (ICSE)</h5>
         </div>
       </div>
     </div>
   </div>
 </div>
-`, styles: ['/* src/app/profile/education/education.component.scss */\n.education-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: var(--spacing-xl);\n  max-width: 1000px;\n  margin: 0 auto;\n}\n.education-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.education-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.education-header {\n  background: var(--bg-tertiary);\n  padding: var(--spacing-lg);\n  text-align: center;\n  border-bottom: 1px solid var(--glass-border);\n}\n.education-header .year {\n  font-size: 0.875rem;\n  color: var(--text-tertiary);\n  font-weight: 500;\n  margin-bottom: var(--spacing-xs);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.education-header .degree-type {\n  font-size: 1rem;\n  color: var(--text-primary);\n  font-weight: 600;\n  margin: 0;\n}\n.education-content {\n  padding: var(--spacing-lg);\n  flex-grow: 1;\n  display: flex;\n  flex-direction: column;\n}\n.education-content .degree-title {\n  font-family: var(--font-secondary);\n  font-size: 1.125rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-sm);\n  line-height: 1.4;\n}\n.education-content .institution {\n  font-size: 1rem;\n  color: #667eea !important;\n  font-weight: 500;\n  margin-bottom: var(--spacing-md);\n}\n.education-content {\n}\n.education-content .education-content .institution {\n  color: #667eea !important;\n}\n.education-content {\n}\n.education-content .education-card .education-content h5.institution {\n  color: #667eea !important;\n}\n.education-content {\n}\n.education-content .education-content h5 {\n  color: #667eea !important;\n}\n.education-content {\n}\n.education-content .education-content .institution {\n  color: rgb(102, 126, 234) !important;\n}\n.education-content {\n}\n.education-content .education-content h5.institution {\n  color: hsl(230, 60%, 66%) !important;\n}\n.education-content .details {\n  color: var(--text-secondary);\n  line-height: 1.6;\n  margin: 0;\n  font-size: 0.875rem;\n}\n.education-content .details b {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .education-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .education-card {\n    height: auto;\n  }\n  .education-header {\n    padding: var(--spacing-md);\n  }\n  .education-content {\n    padding: var(--spacing-md);\n  }\n  .education-section .section-title {\n    font-size: 2rem;\n  }\n}\n.education-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.education-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.education-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.education-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n/*# sourceMappingURL=education.component.css.map */\n'] }]
+`, styles: ['/* src/app/profile/education/education.component.scss */\n.education-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: var(--spacing-xl);\n  max-width: 1000px;\n  margin: 0 auto;\n}\n.education-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.education-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.education-header {\n  background: var(--bg-tertiary);\n  padding: var(--spacing-lg);\n  text-align: center;\n  border-bottom: 1px solid var(--glass-border);\n}\n.education-header .year {\n  font-size: 0.875rem;\n  color: var(--text-tertiary);\n  font-weight: 500;\n  margin-bottom: var(--spacing-xs);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.education-header .degree-type {\n  font-size: 1rem;\n  color: var(--text-primary);\n  font-weight: 600;\n  margin: 0;\n}\n.education-content {\n  padding: var(--spacing-lg);\n  flex-grow: 1;\n  display: flex;\n  flex-direction: column;\n}\n.education-content .degree-title {\n  font-family: var(--font-secondary);\n  font-size: 1.125rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: var(--spacing-sm);\n  line-height: 1.4;\n}\n.education-content .institution {\n  font-size: 1rem;\n  font-weight: 500;\n  margin-bottom: var(--spacing-md);\n}\n.education-content .institution-highlight {\n  color: var(--primary-color, #667eea);\n}\n.education-content .details {\n  color: var(--text-secondary);\n  line-height: 1.6;\n  margin: 0;\n  font-size: 0.875rem;\n}\n.education-content .details b {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .education-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .education-card {\n    height: auto;\n  }\n  .education-header {\n    padding: var(--spacing-md);\n  }\n  .education-content {\n    padding: var(--spacing-md);\n  }\n  .education-section .section-title {\n    font-size: 2rem;\n  }\n}\n.education-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.education-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.education-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.education-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n/*# sourceMappingURL=education.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
@@ -43071,7 +43093,7 @@ var TimeService = class _TimeService {
   constructor() {
   }
   getNumberOfMonths() {
-    const joinedDate = /* @__PURE__ */ new Date("11/3/2025");
+    const joinedDate = /* @__PURE__ */ new Date("2025-11-03");
     const currentDate = /* @__PURE__ */ new Date();
     const difference = currentDate.getTime() - joinedDate.getTime();
     const days = difference / (1e3 * 3600 * 24);
@@ -43426,12 +43448,8 @@ var ExperienceComponent = class _ExperienceComponent {
   ngOnInit() {
     this.buildPlanets();
     this.refreshData();
-    this.interval = setInterval(() => {
-      this.refreshData();
-    }, 5e3);
   }
   ngOnDestroy() {
-    clearInterval(this.interval);
   }
   static {
     this.\u0275fac = function ExperienceComponent_Factory(__ngFactoryType__) {
@@ -45089,11 +45107,11 @@ var SkillsComponent = class _SkillsComponent {
 
 // src/app/profile/publications/publications.component.ts
 var _c04 = (a0, a1) => ({ "npm-badges": a0, "maven-badges": a1 });
-function PublicationsComponent_For_89_Template(rf, ctx) {
+function PublicationsComponent_For_87_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "button", 33);
-    \u0275\u0275listener("click", function PublicationsComponent_For_89_Template_button_click_0_listener() {
+    \u0275\u0275listener("click", function PublicationsComponent_For_87_Template_button_click_0_listener() {
       const category_r2 = \u0275\u0275restoreView(_r1).$implicit;
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.filterByCategory(category_r2));
@@ -45103,15 +45121,15 @@ function PublicationsComponent_For_89_Template(rf, ctx) {
   }
   if (rf & 2) {
     const category_r2 = ctx.$implicit;
-    const \u0275$index_146_r4 = ctx.$index;
+    const \u0275$index_143_r4 = ctx.$index;
     const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275classProp("active", ctx_r2.selectedCategory === category_r2);
-    \u0275\u0275attribute("data-aos-delay", (\u0275$index_146_r4 + 1) * 100);
+    \u0275\u0275attribute("data-aos-delay", (\u0275$index_143_r4 + 1) * 100);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate1(" ", category_r2, " ");
   }
 }
-function PublicationsComponent_For_92_Conditional_13_Template(rf, ctx) {
+function PublicationsComponent_For_90_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "img", 35);
   }
@@ -45120,7 +45138,7 @@ function PublicationsComponent_For_92_Conditional_13_Template(rf, ctx) {
     \u0275\u0275property("src", project_r5.badges.version, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_92_Conditional_14_Template(rf, ctx) {
+function PublicationsComponent_For_90_Conditional_14_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "img", 36);
   }
@@ -45129,7 +45147,7 @@ function PublicationsComponent_For_92_Conditional_14_Template(rf, ctx) {
     \u0275\u0275property("src", project_r5.badges.downloads, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_92_Conditional_15_Template(rf, ctx) {
+function PublicationsComponent_For_90_Conditional_15_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "img", 37);
   }
@@ -45138,7 +45156,7 @@ function PublicationsComponent_For_92_Conditional_15_Template(rf, ctx) {
     \u0275\u0275property("src", project_r5.badges.total, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_92_Conditional_16_Template(rf, ctx) {
+function PublicationsComponent_For_90_Conditional_16_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "img", 38);
   }
@@ -45147,7 +45165,7 @@ function PublicationsComponent_For_92_Conditional_16_Template(rf, ctx) {
     \u0275\u0275property("src", project_r5.badges.java, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_92_Template(rf, ctx) {
+function PublicationsComponent_For_90_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 32)(1, "div", 11)(2, "div", 12)(3, "span", 13);
     \u0275\u0275text(4);
@@ -45162,10 +45180,10 @@ function PublicationsComponent_For_92_Template(rf, ctx) {
     \u0275\u0275text(10);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(11, "div", 17)(12, "div", 34);
-    \u0275\u0275conditionalCreate(13, PublicationsComponent_For_92_Conditional_13_Template, 1, 1, "img", 35);
-    \u0275\u0275conditionalCreate(14, PublicationsComponent_For_92_Conditional_14_Template, 1, 1, "img", 36);
-    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_92_Conditional_15_Template, 1, 1, "img", 37);
-    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_92_Conditional_16_Template, 1, 1, "img", 38);
+    \u0275\u0275conditionalCreate(13, PublicationsComponent_For_90_Conditional_13_Template, 1, 1, "img", 35);
+    \u0275\u0275conditionalCreate(14, PublicationsComponent_For_90_Conditional_14_Template, 1, 1, "img", 36);
+    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_90_Conditional_15_Template, 1, 1, "img", 37);
+    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_90_Conditional_16_Template, 1, 1, "img", 38);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(17, "div", 20)(18, "a", 39);
     \u0275\u0275text(19);
@@ -45173,8 +45191,8 @@ function PublicationsComponent_For_92_Template(rf, ctx) {
   }
   if (rf & 2) {
     const project_r5 = ctx.$implicit;
-    const \u0275$index_152_r6 = ctx.$index;
-    \u0275\u0275attribute("data-aos-delay", (\u0275$index_152_r6 + 1) * 100);
+    const \u0275$index_149_r6 = ctx.$index;
+    \u0275\u0275attribute("data-aos-delay", (\u0275$index_149_r6 + 1) * 100);
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate(project_r5.category);
     \u0275\u0275advance(4);
@@ -45300,7 +45318,7 @@ var PublicationsComponent = class _PublicationsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 93, vars: 0, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "projects-grid"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "algo-card"], [1, "project-preview-container"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank"], [1, "project-preview", "algo-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "divine-card"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-aos", "fade-up", "data-aos-delay", "50", 1, "category-filters"], [1, "filter-buttons"], [1, "filter-btn", 3, "active"], [1, "open-source-grid"], ["data-aos", "fade-up", 1, "open-source-card"], [1, "filter-btn", 3, "click"], [1, "package-badges", 3, "ngClass"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 91, vars: 0, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "projects-grid"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "algo-card"], [1, "project-preview-container"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank"], [1, "project-preview", "algo-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "divine-card"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-aos", "fade-up", "data-aos-delay", "50", 1, "category-filters"], [1, "filter-buttons"], [1, "filter-btn", 3, "active"], [1, "open-source-grid"], ["data-aos", "fade-up", 1, "open-source-card"], [1, "filter-btn", 3, "click"], [1, "package-badges", 3, "ngClass"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Projects");
@@ -45330,80 +45348,77 @@ var PublicationsComponent = class _PublicationsComponent {
         \u0275\u0275text(27, "\u{1F4CA} Algorithm Visualizer");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(28, "p", 16);
-        \u0275\u0275text(29, " An interactive web application that brings algorithms to life through real-time visualizations. Explore sorting algorithms, pathfinding techniques, and graph traversals with step-by-step animations. Features adjustable speed controls, custom inputs, and side-by-side comparisons to help understand how algorithms work under the hood. ");
+        \u0275\u0275text(29, " An interactive web app that brings algorithms and data structures to life. Visualize sorting algorithms, graph/tree/trie traversals, balanced trees, and backtracking solvers through step-by-step animations. Includes gamified challenges like pathfinding battles and Fibonacci puzzles, with adjustable speed controls and custom inputs ");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(30, "div", 17)(31, "div", 18)(32, "span", 19);
-        \u0275\u0275text(33, "Angular");
+        \u0275\u0275text(33, "Javascript");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(34, "span", 19);
-        \u0275\u0275text(35, "TypeScript");
+        \u0275\u0275text(35, "Tailwind");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(36, "span", 19);
-        \u0275\u0275text(37, "D3.js");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(38, "span", 19);
-        \u0275\u0275text(39, "CSS Animations");
+        \u0275\u0275text(37, "React");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(40, "div", 20)(41, "a", 21);
-        \u0275\u0275text(42, " View Live Demo ");
+        \u0275\u0275elementStart(38, "div", 20)(39, "a", 21);
+        \u0275\u0275text(40, " View Live Demo ");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(43, "div", 22)(44, "div", 6)(45, "a", 23)(46, "div", 24)(47, "h3");
-        \u0275\u0275text(48, "\u{1F549}\uFE0F Religious GPT");
+        \u0275\u0275elementStart(41, "div", 22)(42, "div", 6)(43, "a", 23)(44, "div", 24)(45, "h3");
+        \u0275\u0275text(46, "\u{1F549}\uFE0F Religious GPT");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(49, "p");
-        \u0275\u0275text(50, "Sacred guidance from ancient texts");
+        \u0275\u0275elementStart(47, "p");
+        \u0275\u0275text(48, "Sacred guidance from ancient texts");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(51, "div", 25);
-        \u0275\u0275text(52, "\u{1F549}\uFE0F");
+        \u0275\u0275elementStart(49, "div", 25);
+        \u0275\u0275text(50, "\u{1F549}\uFE0F");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(51, "div", 9);
+        \u0275\u0275text(52, "Ancient Scriptures \u2022 Sacred Texts \u2022 Divine Knowledge");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(53, "div", 9);
-        \u0275\u0275text(54, "Ancient Scriptures \u2022 Sacred Texts \u2022 Divine Knowledge");
+        \u0275\u0275text(54, "Spiritual Wisdom \u2022 Universal Truths");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(55, "div", 9);
-        \u0275\u0275text(56, "Spiritual Wisdom \u2022 Universal Truths");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(57, "div", 10);
-        \u0275\u0275text(58, "Powered by GPT-4.1");
+        \u0275\u0275elementStart(55, "div", 10);
+        \u0275\u0275text(56, "Powered by GPT-4.1");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(59, "div", 11)(60, "div", 12)(61, "span", 13);
-        \u0275\u0275text(62, "AI App");
+        \u0275\u0275elementStart(57, "div", 11)(58, "div", 12)(59, "span", 13);
+        \u0275\u0275text(60, "AI App");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(63, "span", 14);
-        \u0275\u0275text(64, "Spiritual Companion");
+        \u0275\u0275elementStart(61, "span", 14);
+        \u0275\u0275text(62, "Spiritual Companion");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(65, "h5", 15);
-        \u0275\u0275text(66, "\u{1F549}\uFE0F Religious GPT");
+        \u0275\u0275elementStart(63, "h5", 15);
+        \u0275\u0275text(64, "\u{1F549}\uFE0F Religious GPT");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(67, "p", 16);
-        \u0275\u0275text(68, " An AI-powered spiritual companion that offers guidance and wisdom from the world's most revered ancient texts and sacred scriptures. Drawing insights from The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Analects of Confucius, The Dhammapada, The Upanishads, The Talmud, and The Avesta. ");
+        \u0275\u0275elementStart(65, "p", 16);
+        \u0275\u0275text(66, " An AI-powered spiritual companion that offers guidance and wisdom from the world's most revered ancient texts and sacred scriptures. Drawing insights from The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Analects of Confucius, The Dhammapada, The Upanishads, The Talmud, and The Avesta. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(69, "div", 17)(70, "div", 18)(71, "span", 19);
-        \u0275\u0275text(72, "React");
+        \u0275\u0275elementStart(67, "div", 17)(68, "div", 18)(69, "span", 19);
+        \u0275\u0275text(70, "React");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(71, "span", 19);
+        \u0275\u0275text(72, "Node.js");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(73, "span", 19);
-        \u0275\u0275text(74, "Node.js");
+        \u0275\u0275text(74, "GPT-4.1");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(75, "span", 19);
-        \u0275\u0275text(76, "GPT-4.1");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(77, "span", 19);
-        \u0275\u0275text(78, "Vercel");
+        \u0275\u0275text(76, "Vercel");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(79, "div", 20)(80, "a", 26);
-        \u0275\u0275text(81, " View Live Demo ");
+        \u0275\u0275elementStart(77, "div", 20)(78, "a", 26);
+        \u0275\u0275text(79, " View Live Demo ");
         \u0275\u0275elementEnd()()()()()();
-        \u0275\u0275elementStart(82, "div", 27)(83, "div", 2)(84, "h2", 3);
-        \u0275\u0275text(85, "Open Source");
+        \u0275\u0275elementStart(80, "div", 27)(81, "div", 2)(82, "h2", 3);
+        \u0275\u0275text(83, "Open Source");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(86, "div", 28)(87, "div", 29);
-        \u0275\u0275repeaterCreate(88, PublicationsComponent_For_89_Template, 2, 4, "button", 30, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementStart(84, "div", 28)(85, "div", 29);
+        \u0275\u0275repeaterCreate(86, PublicationsComponent_For_87_Template, 2, 4, "button", 30, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(90, "div", 31);
-        \u0275\u0275repeaterCreate(91, PublicationsComponent_For_92_Template, 20, 14, "div", 32, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementStart(88, "div", 31);
+        \u0275\u0275repeaterCreate(89, PublicationsComponent_For_90_Template, 20, 14, "div", 32, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275elementEnd()()();
       }
       if (rf & 2) {
-        \u0275\u0275advance(88);
+        \u0275\u0275advance(86);
         \u0275\u0275repeater(ctx.availableCategories);
         \u0275\u0275advance(3);
         \u0275\u0275repeater(ctx.filteredProjects);
@@ -45443,14 +45458,13 @@ var PublicationsComponent = class _PublicationsComponent {
           </div>
           <h5 class="card-title">\u{1F4CA} Algorithm Visualizer</h5>
           <p class="card-text">
-            An interactive web application that brings algorithms to life through real-time visualizations. Explore sorting algorithms, pathfinding techniques, and graph traversals with step-by-step animations. Features adjustable speed controls, custom inputs, and side-by-side comparisons to help understand how algorithms work under the hood.
+            An interactive web app that brings algorithms and data structures to life. Visualize sorting algorithms, graph/tree/trie traversals, balanced trees, and backtracking solvers through step-by-step animations. Includes gamified challenges like pathfinding battles and Fibonacci puzzles, with adjustable speed controls and custom inputs
           </p>
           <div class="project-stats">
             <div class="tech-badges">
-              <span class="tech-badge">Angular</span>
-              <span class="tech-badge">TypeScript</span>
-              <span class="tech-badge">D3.js</span>
-              <span class="tech-badge">CSS Animations</span>
+              <span class="tech-badge">Javascript</span>
+              <span class="tech-badge">Tailwind</span>
+              <span class="tech-badge">React</span>
             </div>
           </div>
           <div class="project-actions">
@@ -46225,15 +46239,14 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     return __async(this, null, function* () {
       const prompt = this.generateQuestionPrompt();
       try {
-        const response = yield this.http.post(AI_API_URL, {
+        const response = yield firstValueFrom(this.http.post(AI_API_URL, {
           prompt,
           context: "Generate a single quiz question with exactly 4 multiple choice options. Follow the exact format specified in the prompt."
         }, {
           headers: new HttpHeaders({
-            "Content-Type": "application/json",
-            "Origin": "https://beingmartinbmc.github.io"
+            "Content-Type": "application/json"
           })
-        }).toPromise();
+        }));
         if (response && typeof response === "object" && "data" in response) {
           const responseData = response.data;
           if (responseData && "choices" in responseData && Array.isArray(responseData.choices) && responseData.choices.length > 0) {
@@ -46785,7 +46798,7 @@ Generate ONE completely unique question now:`;
   }], () => [{ type: HttpClient }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 34 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 35 });
 })();
 
 // src/app/profile/blog/blog.component.ts
@@ -81431,6 +81444,19 @@ function isAnimationRenderer(renderer) {
   return type === 0 || type === 1;
 }
 
+// src/app/utils/text-utils.ts
+function cleanTextForSpeech(text) {
+  if (!text || typeof text !== "string") {
+    return "";
+  }
+  try {
+    return text.replace(/\*\*\*(.*?)\*\*\*/g, "$1").replace(/\*\*(.*?)\*\*/g, "$1").replace(/\*(.*?)\*/g, "$1").replace(/__(.*?)__/g, "$1").replace(/_(.*?)_/g, "$1").replace(/`(.*?)`/g, "$1").replace(/```[\s\S]*?```/g, "").replace(/#{1,6}\s*/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1").replace(/[#*`_~\[\]()]/g, "").replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, "").replace(/\s+/g, " ").trim();
+  } catch (error2) {
+    console.error("Error cleaning text for speech:", error2);
+    return String(text);
+  }
+}
+
 // src/app/services/voice-streaming.service.ts
 var VoiceStreamingService = class _VoiceStreamingService {
   constructor(http) {
@@ -81658,17 +81684,6 @@ var VoiceStreamingService = class _VoiceStreamingService {
   clearAudioCache() {
     this.audioQueue = [];
     this.stopAudio();
-  }
-  cleanTextForSpeech(text) {
-    if (!text || typeof text !== "string") {
-      return "";
-    }
-    try {
-      return text.replace(/\*\*\*(.*?)\*\*\*/g, "$1").replace(/\*\*(.*?)\*\*/g, "$1").replace(/\*(.*?)\*/g, "$1").replace(/__(.*?)__/g, "$1").replace(/_(.*?)_/g, "$1").replace(/`(.*?)`/g, "$1").replace(/```[\s\S]*?```/g, "").replace(/#{1,6}\s*/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1").replace(/[#*`_~\[\]()]/g, "").replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, "").replace(/\s+/g, " ").trim();
-    } catch (error2) {
-      console.error("Error cleaning text for speech:", error2);
-      return String(text);
-    }
   }
   static {
     this.\u0275fac = function VoiceStreamingService_Factory(__ngFactoryType__) {
@@ -82093,10 +82108,10 @@ var Avatar3dComponent = class _Avatar3dComponent {
         return;
       }
       try {
-        const response = yield this.http.post(environment.aiApiUrl, {
+        const response = yield firstValueFrom(this.http.post(environment.aiApiUrl, {
           prompt: userMessage,
           context: this.CONTEXT
-        }).toPromise();
+        }));
         let aiResponse = "Sorry, I couldn't process that. Please try again!";
         if (response?.data?.choices?.[0]?.message?.content) {
           aiResponse = response.data.choices[0].message.content;
@@ -82149,7 +82164,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
       return;
     this.stopSpeech();
     this.isSpeaking = true;
-    const cleanText = this.cleanTextForSpeech(text);
+    const cleanText = cleanTextForSpeech(text);
     const cachedAudio = this.ttsCache.get(cleanText);
     if (cachedAudio) {
       if (addMessageAfterTTS) {
@@ -82218,9 +82233,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
       this.isSpeaking = false;
       this.cleanupAudio();
     });
-  }
-  cleanTextForSpeech(text) {
-    return text.replace(/\*\*\*(.*?)\*\*\*/g, "$1").replace(/\*\*(.*?)\*\*/g, "$1").replace(/\*(.*?)\*/g, "$1").replace(/__(.*?)__/g, "$1").replace(/_(.*?)_/g, "$1").replace(/`(.*?)`/g, "$1").replace(/```[\s\S]*?```/g, "").replace(/#{1,6}\s*/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1").replace(/[#*`_~\[\]()]/g, "").replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, "").replace(/\s+/g, " ").trim();
   }
   toggleTTS() {
     this.ttsEnabled = !this.ttsEnabled;
@@ -82350,7 +82362,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275advance();
         \u0275\u0275conditional(ctx.isChatOpen ? 18 : -1);
       }
-    }, dependencies: [FormsModule, DefaultValueAccessor, NgControlStatus, NgModel, HttpClientModule, MarkdownPipe], styles: ["\n\n.avatar-3d-section[_ngcontent-%COMP%] {\n  padding: 80px 0;\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 100%);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .container[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 30px;\n  width: 100%;\n  box-sizing: border-box;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 50px;\n  padding: 0 20px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-size: 3rem;\n  font-weight: 700;\n  color: #764ba2;\n  margin-bottom: 10px;\n  text-shadow: 0 2px 15px rgba(118, 75, 162, 0.4);\n  word-wrap: break-word;\n  overflow-wrap: break-word;\n  padding: 0 10px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n  color: #b8b9c0;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  max-width: 800px;\n  margin: 0 auto;\n  border-radius: 20px;\n  overflow: hidden;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  background: rgba(255, 255, 255, 0.02);\n  backdrop-filter: blur(10px);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 700px;\n  display: block;\n  cursor: grab;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%]:active {\n  cursor: grabbing;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 700px;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(10px);\n  border-radius: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%] {\n  text-align: center;\n  color: #fff;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-spinner[_ngcontent-%COMP%] {\n  width: 60px;\n  height: 60px;\n  border: 3px solid rgba(255, 255, 255, 0.1);\n  border-top: 3px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n  margin: 0 auto 20px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-text[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 500;\n  margin-bottom: 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-progress[_ngcontent-%COMP%]   .progress-bar[_ngcontent-%COMP%] {\n  width: 200px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.1);\n  border-radius: 3px;\n  overflow: hidden;\n  margin: 0 auto 10px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-progress[_ngcontent-%COMP%]   .progress-bar[_ngcontent-%COMP%]   .progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  transition: width 0.3s ease;\n  border-radius: 3px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-progress[_ngcontent-%COMP%]   .progress-percentage[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  opacity: 0.8;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 15px;\n  background: rgba(0, 0, 0, 0.6);\n  padding: 12px 24px;\n  border-radius: 30px;\n  backdrop-filter: blur(10px);\n  align-items: center;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  color: #fff;\n  font-size: 0.9rem;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2 0%,\n      #667eea 100%);\n  border: none;\n  padding: 8px 16px;\n  border-radius: 20px;\n  color: white;\n  font-size: 0.85rem;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-weight: 500;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%]:active {\n  transform: translateY(0);\n}\n@media (max-width: 768px) {\n  .avatar-3d-section[_ngcontent-%COMP%] {\n    padding: 60px 0;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .container[_ngcontent-%COMP%] {\n    padding: 0 20px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    padding: 0 10px;\n    margin-bottom: 30px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n    font-size: 2.2rem;\n    line-height: 1.2;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n    font-size: 1rem;\n    padding: 0 10px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%] {\n    height: 500px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: 8px;\n    padding: 10px 20px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    font-size: 0.8rem;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%] {\n    font-size: 0.8rem;\n    padding: 6px 12px;\n    margin-top: 5px;\n  }\n}\n.chat-window[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 20px;\n  right: 20px;\n  width: 400px;\n  max-width: 90vw;\n  max-height: 80vh;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(20px);\n  border-radius: 20px;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  z-index: 9999;\n  display: flex;\n  flex-direction: column;\n  pointer-events: auto;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 20px;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  color: #fff;\n  font-size: 1.1rem;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%], \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%], \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%] {\n  background: none;\n  border: none;\n  color: #fff;\n  font-size: 1.2rem;\n  cursor: pointer;\n  padding: 8px;\n  border-radius: 50%;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 36px;\n  min-height: 36px;\n  position: relative;\n  z-index: 10001;\n  pointer-events: auto;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:hover, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:hover, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  transform: scale(1.1);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:active, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:active, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:active {\n  transform: scale(0.95);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 0, 0, 0.2);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: #fff;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:not(.active) {\n  opacity: 0.6;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ff6b6b 0%,\n      #ee5a52 100%);\n  animation: _ngcontent-%COMP%_pulse 1.5s infinite;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #ff5252 0%,\n      #d32f2f 100%);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%] {\n  flex: 1;\n  padding: 20px;\n  overflow-y: auto;\n  max-height: 400px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%] {\n  margin-bottom: 15px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message.user-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  margin-left: 40px;\n  border-radius: 20px 20px 5px 20px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message.ai-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  margin-right: 40px;\n  border-radius: 20px 20px 20px 5px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  padding: 12px 16px;\n  border-radius: 20px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%]   .message-text[_ngcontent-%COMP%] {\n  color: #fff;\n  font-size: 0.9rem;\n  line-height: 1.4;\n  display: block;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%]   .message-time[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.6);\n  font-size: 0.75rem;\n  margin-top: 5px;\n  display: block;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  padding: 12px 16px;\n  background: rgba(255, 255, 255, 0.05);\n  border-radius: 20px 20px 20px 5px;\n  margin-right: 40px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background: #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_typing 1.4s infinite;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.4s;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%] {\n  display: flex;\n  padding: 20px;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n  gap: 10px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%] {\n  flex: 1;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 25px;\n  padding: 12px 16px;\n  color: #fff;\n  font-size: 0.9rem;\n  outline: none;\n  transition: all 0.3s ease;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%]:focus {\n  border-color: #667eea;\n  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%]::placeholder {\n  color: rgba(255, 255, 255, 0.5);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  border: none;\n  border-radius: 50%;\n  width: 45px;\n  height: 45px;\n  color: white;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: scale(1.05);\n  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n@keyframes _ngcontent-%COMP%_pulse {\n  0% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);\n  }\n  70% {\n    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);\n  }\n  100% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);\n  }\n}\n@keyframes _ngcontent-%COMP%_bounceIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n  70% {\n    transform: scale(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n@keyframes _ngcontent-%COMP%_typing {\n  0%, 60%, 100% {\n    transform: translateY(0);\n  }\n  30% {\n    transform: translateY(-10px);\n  }\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 768px) {\n  .avatar-3d-section[_ngcontent-%COMP%] {\n    padding: 60px 0;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */"], data: { animation: [
+    }, dependencies: [FormsModule, DefaultValueAccessor, NgControlStatus, NgModel, MarkdownPipe], styles: ["\n\n.avatar-3d-section[_ngcontent-%COMP%] {\n  padding: 80px 0;\n  background:\n    linear-gradient(\n      135deg,\n      #1a1a2e 0%,\n      #16213e 100%);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .container[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 30px;\n  width: 100%;\n  box-sizing: border-box;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 50px;\n  padding: 0 20px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-size: 3rem;\n  font-weight: 700;\n  color: #764ba2;\n  margin-bottom: 10px;\n  text-shadow: 0 2px 15px rgba(118, 75, 162, 0.4);\n  word-wrap: break-word;\n  overflow-wrap: break-word;\n  padding: 0 10px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n  color: #b8b9c0;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  max-width: 800px;\n  margin: 0 auto;\n  border-radius: 20px;\n  overflow: hidden;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  background: rgba(255, 255, 255, 0.02);\n  backdrop-filter: blur(10px);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 700px;\n  display: block;\n  cursor: grab;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%]:active {\n  cursor: grabbing;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 700px;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(10px);\n  border-radius: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%] {\n  text-align: center;\n  color: #fff;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-spinner[_ngcontent-%COMP%] {\n  width: 60px;\n  height: 60px;\n  border: 3px solid rgba(255, 255, 255, 0.1);\n  border-top: 3px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n  margin: 0 auto 20px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-text[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 500;\n  margin-bottom: 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-progress[_ngcontent-%COMP%]   .progress-bar[_ngcontent-%COMP%] {\n  width: 200px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.1);\n  border-radius: 3px;\n  overflow: hidden;\n  margin: 0 auto 10px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-progress[_ngcontent-%COMP%]   .progress-bar[_ngcontent-%COMP%]   .progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  transition: width 0.3s ease;\n  border-radius: 3px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .loading-overlay[_ngcontent-%COMP%]   .loading-content[_ngcontent-%COMP%]   .loading-progress[_ngcontent-%COMP%]   .progress-percentage[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  opacity: 0.8;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 15px;\n  background: rgba(0, 0, 0, 0.6);\n  padding: 12px 24px;\n  border-radius: 30px;\n  backdrop-filter: blur(10px);\n  align-items: center;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  color: #fff;\n  font-size: 0.9rem;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2 0%,\n      #667eea 100%);\n  border: none;\n  padding: 8px 16px;\n  border-radius: 20px;\n  color: white;\n  font-size: 0.85rem;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-weight: 500;\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);\n}\n.avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%]:active {\n  transform: translateY(0);\n}\n@media (max-width: 768px) {\n  .avatar-3d-section[_ngcontent-%COMP%] {\n    padding: 60px 0;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .container[_ngcontent-%COMP%] {\n    padding: 0 20px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    padding: 0 10px;\n    margin-bottom: 30px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n    font-size: 2.2rem;\n    line-height: 1.2;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n    font-size: 1rem;\n    padding: 0 10px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .avatar-canvas[_ngcontent-%COMP%] {\n    height: 500px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: 8px;\n    padding: 10px 20px;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    font-size: 0.8rem;\n  }\n  .avatar-3d-section[_ngcontent-%COMP%]   .avatar-container[_ngcontent-%COMP%]   .controls-hint[_ngcontent-%COMP%]   .chat-button[_ngcontent-%COMP%] {\n    font-size: 0.8rem;\n    padding: 6px 12px;\n    margin-top: 5px;\n  }\n}\n.chat-window[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 20px;\n  right: 20px;\n  width: 400px;\n  max-width: 90vw;\n  max-height: 80vh;\n  background: rgba(26, 26, 46, 0.95);\n  backdrop-filter: blur(20px);\n  border-radius: 20px;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  z-index: 9999;\n  display: flex;\n  flex-direction: column;\n  pointer-events: auto;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 20px;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  color: #fff;\n  font-size: 1.1rem;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%], \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%], \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%] {\n  background: none;\n  border: none;\n  color: #fff;\n  font-size: 1.2rem;\n  cursor: pointer;\n  padding: 8px;\n  border-radius: 50%;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 36px;\n  min-height: 36px;\n  position: relative;\n  z-index: 10001;\n  pointer-events: auto;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:hover, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:hover, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  transform: scale(1.1);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:active, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:active, \n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:active {\n  transform: scale(0.95);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .close-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 0, 0, 0.2);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: #fff;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .tts-toggle-btn[_ngcontent-%COMP%]:not(.active) {\n  opacity: 0.6;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ff6b6b 0%,\n      #ee5a52 100%);\n  animation: _ngcontent-%COMP%_pulse 1.5s infinite;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .header-controls[_ngcontent-%COMP%]   .stop-speech-btn[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #ff5252 0%,\n      #d32f2f 100%);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%] {\n  flex: 1;\n  padding: 20px;\n  overflow-y: auto;\n  max-height: 400px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%] {\n  margin-bottom: 15px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message.user-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  margin-left: 40px;\n  border-radius: 20px 20px 5px 20px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message.ai-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  margin-right: 40px;\n  border-radius: 20px 20px 20px 5px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  padding: 12px 16px;\n  border-radius: 20px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%]   .message-text[_ngcontent-%COMP%] {\n  color: #fff;\n  font-size: 0.9rem;\n  line-height: 1.4;\n  display: block;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%]   .message-time[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.6);\n  font-size: 0.75rem;\n  margin-top: 5px;\n  display: block;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  padding: 12px 16px;\n  background: rgba(255, 255, 255, 0.05);\n  border-radius: 20px 20px 20px 5px;\n  margin-right: 40px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background: #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_typing 1.4s infinite;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-messages[_ngcontent-%COMP%]   .typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.4s;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%] {\n  display: flex;\n  padding: 20px;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n  gap: 10px;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%] {\n  flex: 1;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 25px;\n  padding: 12px 16px;\n  color: #fff;\n  font-size: 0.9rem;\n  outline: none;\n  transition: all 0.3s ease;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%]:focus {\n  border-color: #667eea;\n  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .chat-input[_ngcontent-%COMP%]::placeholder {\n  color: rgba(255, 255, 255, 0.5);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  border: none;\n  border-radius: 50%;\n  width: 45px;\n  height: 45px;\n  color: white;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: scale(1.05);\n  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);\n}\n.chat-window[_ngcontent-%COMP%]   .chat-input-container[_ngcontent-%COMP%]   .send-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n@keyframes _ngcontent-%COMP%_pulse {\n  0% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);\n  }\n  70% {\n    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);\n  }\n  100% {\n    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);\n  }\n}\n@keyframes _ngcontent-%COMP%_bounceIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.05);\n  }\n  70% {\n    transform: scale(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n@keyframes _ngcontent-%COMP%_typing {\n  0%, 60%, 100% {\n    transform: translateY(0);\n  }\n  30% {\n    transform: translateY(-10px);\n  }\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@media (max-width: 768px) {\n  .avatar-3d-section[_ngcontent-%COMP%] {\n    padding: 60px 0;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */"], data: { animation: [
       trigger("chatAnimation", [
         transition(":enter", [
           style({ opacity: 0, transform: "scale(0.8) translateY(20px)" }),
@@ -82366,7 +82378,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Avatar3dComponent, [{
     type: Component,
-    args: [{ selector: "app-avatar-3d", standalone: true, imports: [FormsModule, HttpClientModule, MarkdownPipe], animations: [
+    args: [{ selector: "app-avatar-3d", standalone: true, imports: [FormsModule, MarkdownPipe], animations: [
       trigger("chatAnimation", [
         transition(":enter", [
           style({ opacity: 0, transform: "scale(0.8) translateY(20px)" }),
@@ -82481,7 +82493,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Avatar3dComponent, { className: "Avatar3dComponent", filePath: "src/app/profile/avatar-3d/avatar-3d.component.ts", lineNumber: 40 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Avatar3dComponent, { className: "Avatar3dComponent", filePath: "src/app/profile/avatar-3d/avatar-3d.component.ts", lineNumber: 42 });
 })();
 
 // src/app/profile/profile.component.ts
@@ -82489,14 +82501,9 @@ var ProfileComponent = class _ProfileComponent {
   constructor(route, router) {
     this.route = route;
     this.router = router;
-    this.myStyle = {};
-    this.myParams = {};
-    this.width = 100;
-    this.height = 100;
     this.destroy$ = new Subject();
   }
   ngOnInit() {
-    this.particles2();
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd), takeUntil(this.destroy$)).subscribe(() => {
       this.handleFragmentNavigation();
     });
@@ -82516,113 +82523,6 @@ var ProfileComponent = class _ProfileComponent {
         }, 100);
       }
     });
-  }
-  particles2() {
-    this.myStyle = {
-      position: "fixed",
-      width: "100%",
-      height: "100%",
-      "z-index": -1,
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0
-    };
-    this.myParams = {
-      particles: {
-        number: {
-          value: 200
-        },
-        color: {
-          value: "#ff0000"
-        },
-        shape: {
-          type: "triangle"
-        }
-      }
-    };
-  }
-  particles() {
-    this.myStyle = {
-      position: "fixed",
-      width: "100%",
-      height: "100%",
-      "z-index": -1,
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0
-    };
-    this.myParams = {
-      particles: {
-        number: {
-          value: 80,
-          density: {
-            enable: true,
-            value_area: 800
-          }
-        },
-        color: {
-          value: "#ffffff"
-        },
-        shape: {
-          type: "circle",
-          stroke: {
-            width: 0,
-            color: "#000000"
-          },
-          polygon: {
-            nb_sides: 5
-          },
-          image: {
-            src: "img/github.svg",
-            width: 100,
-            height: 100
-          }
-        },
-        opacity: {
-          value: 0.5,
-          random: false,
-          anim: {
-            enable: false,
-            speed: 1,
-            opacity_min: 0.1,
-            sync: false
-          }
-        },
-        size: {
-          value: 3,
-          random: true,
-          anim: {
-            enable: false,
-            speed: 40,
-            size_min: 0.1,
-            sync: false
-          }
-        },
-        line_linked: {
-          enable: true,
-          distance: 10,
-          color: "#ffffff",
-          opacity: 0.4,
-          width: 1
-        },
-        move: {
-          enable: true,
-          speed: 6,
-          direction: "none",
-          random: false,
-          straight: false,
-          out_mode: "out",
-          bounce: false,
-          attract: {
-            enable: false,
-            rotateX: 600,
-            rotateY: 1200
-          }
-        }
-      }
-    };
   }
   static {
     this.\u0275fac = function ProfileComponent_Factory(__ngFactoryType__) {

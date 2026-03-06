@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -12,6 +12,8 @@ import { MusicService } from '../../services/music.service';
 import { VoiceStreamingService, VoiceStreamOptions, AudioChunk } from '../../services/voice-streaming.service';
 import { TTS_API_URL } from '../../config/api-config';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { firstValueFrom } from 'rxjs';
+import { cleanTextForSpeech } from '../../utils/text-utils';
 
 interface Message {
   text: string;
@@ -22,7 +24,7 @@ interface Message {
 @Component({
   selector: 'app-avatar-3d',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, MarkdownPipe],
+  imports: [FormsModule, MarkdownPipe],
   templateUrl: './avatar-3d.component.html',
   styleUrls: ['./avatar-3d.component.scss'],
   animations: [
@@ -421,10 +423,10 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
     
     try {
-      const response = await this.http.post<any>(environment.aiApiUrl, {
+      const response = await firstValueFrom(this.http.post<any>(environment.aiApiUrl, {
         prompt: userMessage,
         context: this.CONTEXT
-      }).toPromise();
+      }));
       
       let aiResponse = 'Sorry, I couldn\'t process that. Please try again!';
       
@@ -496,7 +498,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     this.isSpeaking = true;
     
     // Clean text for speech (remove markdown and special characters)
-    const cleanText = this.cleanTextForSpeech(text);
+    const cleanText = cleanTextForSpeech(text);
     
     // Check cache first for instant playback
     const cachedAudio = this.ttsCache.get(cleanText);
@@ -592,24 +594,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     });
   }
 
-  private cleanTextForSpeech(text: string): string {
-    // Remove markdown formatting and special characters
-    return text
-      .replace(/\*\*\*(.*?)\*\*\*/g, '$1') // Remove bold italic ***text***
-      .replace(/\*\*(.*?)\*\*/g, '$1')     // Remove bold **text**
-      .replace(/\*(.*?)\*/g, '$1')         // Remove italic *text*
-      .replace(/__(.*?)__/g, '$1')         // Remove bold __text__
-      .replace(/_(.*?)_/g, '$1')           // Remove italic _text_
-      .replace(/`(.*?)`/g, '$1')           // Remove inline code `text`
-      .replace(/```[\s\S]*?```/g, '')      // Remove code blocks
-      .replace(/#{1,6}\s*/g, '')           // Remove headers
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links, keep text
-      .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1') // Remove images, keep alt text
-      .replace(/[#*`_~\[\]()]/g, '')       // Remove remaining markdown chars
-      .replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, '') // Remove emojis
-      .replace(/\s+/g, ' ')                // Normalize whitespace
-      .trim();
-  }
 
   public toggleTTS(): void {
     this.ttsEnabled = !this.ttsEnabled;
