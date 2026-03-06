@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { CODE_REVIEW_PROMPT, CODE_REVIEW_CONTEXT, LANGUAGE_PLACEHOLDERS, COMPLEXITY_ANALYSIS_PROMPT } from './prompts.js';
 import { AI_API_URL } from '../../config/api-config';
 
@@ -424,15 +425,14 @@ class UserService {
     const context = CODE_REVIEW_CONTEXT(language);
 
     try {
-      const response = await this.http.post(AI_API_URL, {
+      const response = await firstValueFrom(this.http.post(AI_API_URL, {
         prompt: prompt,
         context: context
       }, {
         headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Origin': 'https://beingmartinbmc.github.io'
+          'Content-Type': 'application/json'
         })
-      }).toPromise();
+      }));
 
       if (response && typeof response === 'object' && 'data' in response) {
         const responseData = response.data as any;
@@ -491,15 +491,14 @@ class UserService {
     const prompt = COMPLEXITY_ANALYSIS_PROMPT(language, this.userCode);
 
     try {
-      const response = await this.http.post(AI_API_URL, {
+      const response = await firstValueFrom(this.http.post(AI_API_URL, {
         prompt: prompt,
         context: `You are an expert algorithm analyst specializing in Big-O complexity analysis for ${language} code.`
       }, {
         headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Origin': 'https://beingmartinbmc.github.io'
+          'Content-Type': 'application/json'
         })
-      }).toPromise();
+      }));
 
       if (response && typeof response === 'object' && 'data' in response) {
         const responseData = response.data as any;

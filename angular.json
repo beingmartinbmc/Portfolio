@@ -103,18 +103,6 @@
             "scripts": []
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Personal-Portfolio-Angular:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "Personal-Portfolio-Angular:serve:production"
-            }
-          }
-        },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {}
@@ -123,7 +111,7 @@
     }
   },
   "cli": {
-    "analytics": "d5d9f68b-dce0-4de7-a15e-56e2bbd99b5e"
+    "analytics": false
   },
   "schematics": {
     "@schematics/angular:component": {

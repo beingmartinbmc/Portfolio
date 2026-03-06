@@ -1,13 +1,13 @@
 import { Component, ElementRef, HostListener, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AI_CONTEXT } from './ai-context';
 import { MarkdownPipe } from './markdown.pipe';
 import { MusicService } from '../services/music.service';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
 
 interface Message {
   text: string;
@@ -18,7 +18,7 @@ interface Message {
 @Component({
   selector: 'app-ai-face',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, MarkdownPipe],
+  imports: [FormsModule, MarkdownPipe],
   templateUrl: './ai-face.component.html',
   styleUrls: ['./ai-face.component.scss'],
   animations: [
@@ -102,10 +102,10 @@ export class AiFaceComponent implements AfterViewInit, OnDestroy {
     this.mouthPath = 'M55 105 Q80 105 105 105'; // Thinking face
     
     try {
-      const response = await this.http.post<any>(environment.aiApiUrl, {
+      const response = await firstValueFrom(this.http.post<any>(environment.aiApiUrl, {
         prompt: userMessage,
         context: this.CONTEXT
-      }).toPromise();
+      }));
       
       // Simulate typing delay for more natural feel
       await this.delay(500);

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { AI_API_URL } from '../../config/api-config';
 
 interface QuizQuestion {
@@ -214,15 +215,14 @@ export class AiQuizGameComponent implements OnInit {
     const prompt = this.generateQuestionPrompt();
 
     try {
-      const response = await this.http.post(AI_API_URL, {
+      const response = await firstValueFrom(this.http.post(AI_API_URL, {
         prompt: prompt,
         context: "Generate a single quiz question with exactly 4 multiple choice options. Follow the exact format specified in the prompt."
       }, {
         headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Origin': 'https://beingmartinbmc.github.io'
+          'Content-Type': 'application/json'
         })
-      }).toPromise();
+      }));
 
       if (response && typeof response === 'object' && 'data' in response) {
         const responseData = response.data as any;

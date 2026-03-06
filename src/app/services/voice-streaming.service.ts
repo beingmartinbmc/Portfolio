@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { STREAMING_VOICE_API_URL } from '../config/api-config';
+import { cleanTextForSpeech } from '../utils/text-utils';
 
 export interface VoiceStreamOptions {
   audioFormat?: 'mp3' | 'wav';
@@ -332,32 +333,4 @@ export class VoiceStreamingService {
     this.stopAudio();
   }
 
-  private cleanTextForSpeech(text: string): string {
-    // Handle null, undefined, or non-string inputs
-    if (!text || typeof text !== 'string') {
-      return '';
-    }
-    
-    try {
-      // Remove markdown formatting and special characters
-      return text
-        .replace(/\*\*\*(.*?)\*\*\*/g, '$1') // Remove bold italic ***text***
-        .replace(/\*\*(.*?)\*\*/g, '$1')     // Remove bold **text**
-        .replace(/\*(.*?)\*/g, '$1')         // Remove italic *text*
-        .replace(/__(.*?)__/g, '$1')         // Remove bold __text__
-        .replace(/_(.*?)_/g, '$1')           // Remove italic _text_
-        .replace(/`(.*?)`/g, '$1')           // Remove inline code `text`
-        .replace(/```[\s\S]*?```/g, '')      // Remove code blocks
-        .replace(/#{1,6}\s*/g, '')           // Remove headers
-        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links, keep text
-        .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1') // Remove images, keep alt text
-        .replace(/[#*`_~\[\]()]/g, '')       // Remove remaining markdown chars
-        .replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, '') // Remove emojis
-        .replace(/\s+/g, ' ')                // Normalize whitespace
-        .trim();
-    } catch (error) {
-      console.error('Error cleaning text for speech:', error);
-      return String(text); // Fallback to string conversion
-    }
-  }
 }
