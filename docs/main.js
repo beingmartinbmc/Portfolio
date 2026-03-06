@@ -37414,7 +37414,7 @@ var FooterComponent = class _FooterComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 13, vars: 0, consts: [[1, "footer-section"], [1, "footer-container"], [1, "footer-content"], [1, "footer-text"], [1, "portfolio-analytics"], [1, "analytics-item"], ["href", "https://s05.flagcounter.com/more/hZ3l/", "target", "_blank", 1, "analytics-link"], [1, "analytics-icon"], [1, "analytics-text"]], template: function FooterComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 13, vars: 0, consts: [[1, "footer-section"], [1, "footer-container"], ["data-anim", "fade-up", "data-duration", "1000", 1, "footer-content"], [1, "footer-text"], [1, "portfolio-analytics"], [1, "analytics-item"], ["href", "https://s05.flagcounter.com/more/hZ3l/", "target", "_blank", 1, "analytics-link"], [1, "analytics-icon"], [1, "analytics-text"]], template: function FooterComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "footer", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3)(4, "p");
         \u0275\u0275text(5, "\xA9 2025 Ankit. Made with passion and creativity. Powered by Love and AI.");
@@ -37432,7 +37432,7 @@ var FooterComponent = class _FooterComponent {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FooterComponent, [{
     type: Component,
-    args: [{ selector: "app-footer", standalone: true, imports: [], template: '<footer class="footer-section">\n  <div class="footer-container">\n    <div class="footer-content">\n      <div class="footer-text">\n        <p>&copy; 2025 Ankit. Made with passion and creativity. Powered by Love and AI.</p>\n        \n        <!-- Portfolio Analytics -->\n        <div class="portfolio-analytics">\n          <div class="analytics-item">\n            <a href="https://s05.flagcounter.com/more/hZ3l/" target="_blank" class="analytics-link">\n              <span class="analytics-icon">\u{1F4CA}</span>\n              <span class="analytics-text">View Analytics</span>\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</footer>\n', styles: ['/* src/app/profile/footer/footer.component.scss */\n.footer-section {\n  background: var(--bg-primary);\n  padding: 4rem 0 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-container {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n}\n.footer-content {\n  text-align: center;\n  padding-top: 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-text p {\n  margin: 0.5rem 0;\n  color: var(--text-secondary);\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.portfolio-analytics {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 1rem;\n  margin-top: 1.5rem;\n  flex-wrap: wrap;\n}\n.analytics-item {\n  display: flex;\n  align-items: center;\n}\n.analytics-link {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.75rem 1.25rem;\n  background: var(--bg-secondary);\n  border-radius: 12px;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-size: 0.9rem;\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.analytics-link:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.analytics-icon {\n  font-size: 1.1rem;\n  filter: brightness(1.1);\n}\n.analytics-text {\n  font-weight: 500;\n  letter-spacing: 0.5px;\n}\n@media (max-width: 768px) {\n  .footer-container {\n    padding: 0 1rem;\n  }\n  .portfolio-analytics {\n    gap: 0.75rem;\n  }\n  .analytics-link {\n    padding: 0.625rem 1rem;\n    font-size: 0.875rem;\n  }\n}\n@media (max-width: 480px) {\n  .portfolio-analytics {\n    flex-direction: column;\n    gap: 0.5rem;\n  }\n  .analytics-link {\n    padding: 0.5rem 0.875rem;\n    font-size: 0.8rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */\n'] }]
+    args: [{ selector: "app-footer", standalone: true, imports: [], template: '<footer class="footer-section">\n  <div class="footer-container">\n    <div class="footer-content" data-anim="fade-up" data-duration="1000">\n      <div class="footer-text">\n        <p>&copy; 2025 Ankit. Made with passion and creativity. Powered by Love and AI.</p>\n        \n        <!-- Portfolio Analytics -->\n        <div class="portfolio-analytics">\n          <div class="analytics-item">\n            <a href="https://s05.flagcounter.com/more/hZ3l/" target="_blank" class="analytics-link">\n              <span class="analytics-icon">\u{1F4CA}</span>\n              <span class="analytics-text">View Analytics</span>\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</footer>\n', styles: ['/* src/app/profile/footer/footer.component.scss */\n.footer-section {\n  background: var(--bg-primary);\n  padding: 4rem 0 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-container {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n}\n.footer-content {\n  text-align: center;\n  padding-top: 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-text p {\n  margin: 0.5rem 0;\n  color: var(--text-secondary);\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.portfolio-analytics {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 1rem;\n  margin-top: 1.5rem;\n  flex-wrap: wrap;\n}\n.analytics-item {\n  display: flex;\n  align-items: center;\n}\n.analytics-link {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.75rem 1.25rem;\n  background: var(--bg-secondary);\n  border-radius: 12px;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-size: 0.9rem;\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.analytics-link:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.analytics-icon {\n  font-size: 1.1rem;\n  filter: brightness(1.1);\n}\n.analytics-text {\n  font-weight: 500;\n  letter-spacing: 0.5px;\n}\n@media (max-width: 768px) {\n  .footer-container {\n    padding: 0 1rem;\n  }\n  .portfolio-analytics {\n    gap: 0.75rem;\n  }\n  .analytics-link {\n    padding: 0.625rem 1rem;\n    font-size: 0.875rem;\n  }\n}\n@media (max-width: 480px) {\n  .portfolio-analytics {\n    flex-direction: column;\n    gap: 0.5rem;\n  }\n  .analytics-link {\n    padding: 0.5rem 0.875rem;\n    font-size: 0.8rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */\n'] }]
   }], null, null);
 })();
 (() => {
@@ -37469,7 +37469,7 @@ var IntroComponent = class _IntroComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 67, vars: 15, consts: [[1, "apple-hero"], [1, "hero-background"], [1, "floating-shapes"], [1, "shape", "shape-1"], [1, "shape", "shape-2"], [1, "shape", "shape-3"], [1, "shape", "shape-4"], [1, "shape", "shape-5"], [1, "gradient-overlay"], [1, "apple-container"], [1, "hero-content"], [1, "hero-profile-image", "apple-scale-in"], [1, "image-container"], ["alt", "Ankit Sharma", "src", "./assets/images/ankit.png"], [1, "image-glow"], [1, "hero-text"], [1, "hero-title", "apple-text-display", "apple-slide-up"], [1, "hero-subtitle", "apple-text-body", "apple-slide-up"], [1, "hero-experience", "apple-text-body", "apple-slide-up"], [1, "hero-achievements-container", "apple-slide-up"], [1, "achievements-toggle", 3, "click"], [1, "toggle-text"], [1, "toggle-icon"], [1, "hero-achievements", "apple-text-body"], [1, "achievement"], [1, "achievement-icon"], [1, "hero-actions", "apple-slide-up"], ["href", "#contact", 1, "apple-btn", "apple-btn-primary"], [1, "fas", "fa-paper-plane"], [1, "document-radial"], [1, "apple-btn", "apple-btn-primary", "document-center", 3, "click"], [1, "fas", "fa-download", "center-icon"], [1, "center-text"], ["href", "https://drive.google.com/file/d/17X039BN32SiFP0XwjO7Ov2o6-09oNt97/view?usp=sharing", "target", "_blank", 1, "document-option", "document-resume"], [1, "fas", "fa-file-alt"], [1, "tooltip"], ["href", "https://drive.google.com/file/d/1sEtiMhCOqVu6_TJvMQeugaL-mbecFN6M/view?usp=sharing", "target", "_blank", 1, "document-option", "document-cover"], [1, "fas", "fa-envelope"], [1, "hero-social", "apple-slide-up"], ["href", "https://www.linkedin.com/in/ankit-sharma-5b1b35158/", "target", "_blank", "title", "Connect on LinkedIn", 1, "social-link"], [1, "fab", "fa-linkedin"], ["href", "https://github.com/beingmartinbmc", "target", "_blank", "title", "View GitHub Profile", 1, "social-link"], [1, "fab", "fa-github"], ["href", "https://stackoverflow.com/users/7972621/ankit-sharma", "target", "_blank", "title", "Stack Overflow Profile", 1, "social-link"], [1, "fab", "fa-stack-overflow"], [1, "scroll-indicator"], [1, "scroll-arrow"]], template: function IntroComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 67, vars: 15, consts: [[1, "apple-hero"], ["data-parallax", "0.15", 1, "hero-background"], [1, "floating-shapes"], [1, "shape", "shape-1", "apple-float"], [1, "shape", "shape-2", "apple-float-delay"], [1, "shape", "shape-3", "apple-float-slow"], [1, "shape", "shape-4", "apple-float"], [1, "shape", "shape-5", "apple-float-delay"], [1, "gradient-overlay"], [1, "apple-container"], [1, "hero-content"], [1, "hero-profile-image", "apple-hero-anim"], [1, "image-container", "apple-glow"], ["alt", "Ankit Sharma", "src", "./assets/images/ankit.png"], [1, "image-glow"], [1, "hero-text"], ["data-text-reveal", "", 1, "hero-title", "apple-text-display", "apple-hero-anim"], [1, "hero-subtitle", "apple-text-body", "apple-hero-anim"], [1, "hero-experience", "apple-text-body", "apple-hero-anim"], [1, "hero-achievements-container", "apple-hero-anim"], [1, "achievements-toggle", 3, "click"], [1, "toggle-text"], [1, "toggle-icon"], [1, "hero-achievements", "apple-text-body"], [1, "achievement"], [1, "achievement-icon"], [1, "hero-actions", "apple-hero-anim"], ["href", "#contact", 1, "apple-btn", "apple-btn-primary"], [1, "fas", "fa-paper-plane"], [1, "document-radial"], [1, "apple-btn", "apple-btn-primary", "document-center", 3, "click"], [1, "fas", "fa-download", "center-icon"], [1, "center-text"], ["href", "https://drive.google.com/file/d/17X039BN32SiFP0XwjO7Ov2o6-09oNt97/view?usp=sharing", "target", "_blank", 1, "document-option", "document-resume"], [1, "fas", "fa-file-alt"], [1, "tooltip"], ["href", "https://drive.google.com/file/d/1sEtiMhCOqVu6_TJvMQeugaL-mbecFN6M/view?usp=sharing", "target", "_blank", 1, "document-option", "document-cover"], [1, "fas", "fa-envelope"], [1, "hero-social", "apple-hero-anim"], ["href", "https://www.linkedin.com/in/ankit-sharma-5b1b35158/", "target", "_blank", "title", "Connect on LinkedIn", 1, "social-link"], [1, "fab", "fa-linkedin"], ["href", "https://github.com/beingmartinbmc", "target", "_blank", "title", "View GitHub Profile", 1, "social-link"], [1, "fab", "fa-github"], ["href", "https://stackoverflow.com/users/7972621/ankit-sharma", "target", "_blank", "title", "Stack Overflow Profile", 1, "social-link"], [1, "fab", "fa-stack-overflow"], [1, "scroll-indicator"], [1, "scroll-arrow"]], template: function IntroComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2);
         \u0275\u0275domElement(3, "div", 3)(4, "div", 4)(5, "div", 5)(6, "div", 6)(7, "div", 7);
@@ -37574,13 +37574,13 @@ var IntroComponent = class _IntroComponent {
     type: Component,
     args: [{ selector: "app-intro", standalone: true, template: `<div class="apple-hero">
   <!-- Animated background elements -->
-  <div class="hero-background">
+  <div class="hero-background" data-parallax="0.15">
     <div class="floating-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-      <div class="shape shape-4"></div>
-      <div class="shape shape-5"></div>
+      <div class="shape shape-1 apple-float"></div>
+      <div class="shape shape-2 apple-float-delay"></div>
+      <div class="shape shape-3 apple-float-slow"></div>
+      <div class="shape shape-4 apple-float"></div>
+      <div class="shape shape-5 apple-float-delay"></div>
     </div>
     <div class="gradient-overlay"></div>
   </div>
@@ -37588,8 +37588,8 @@ var IntroComponent = class _IntroComponent {
   <div class="apple-container">
     <div class="hero-content">
       <!-- Profile Image with Apple-style design -->
-      <div class="hero-profile-image apple-scale-in">
-        <div class="image-container">
+      <div class="hero-profile-image apple-hero-anim">
+        <div class="image-container apple-glow">
           <img alt="Ankit Sharma" src="./assets/images/ankit.png"/>
           <div class="image-glow"></div>
         </div>
@@ -37597,16 +37597,16 @@ var IntroComponent = class _IntroComponent {
       
       <!-- Hero Text -->
       <div class="hero-text">
-        <h1 class="hero-title apple-text-display apple-slide-up">
+        <h1 class="hero-title apple-text-display apple-hero-anim" data-text-reveal>
           Ankit Sharma
         </h1>
-        <p class="hero-subtitle apple-text-body apple-slide-up">
+        <p class="hero-subtitle apple-text-body apple-hero-anim">
           SMTS at Salesforce \u2014 Enterprise Cloud Solutions & Platform Development
         </p>
-        <p class="hero-experience apple-text-body apple-slide-up">
+        <p class="hero-experience apple-text-body apple-hero-anim">
           6+ years experience | Salesforce | ex-Games24x7 | ex-Walmart
         </p>
-        <div class="hero-achievements-container apple-slide-up">
+        <div class="hero-achievements-container apple-hero-anim">
           <button class="achievements-toggle" (click)="toggleAchievements()" [class.expanded]="showAchievements">
             <span class="toggle-text">{{ showAchievements ? 'Hide' : 'View' }} Key Achievements</span>
             <span class="toggle-icon" [class.expanded]="showAchievements">\u25BC</span>
@@ -37630,7 +37630,7 @@ var IntroComponent = class _IntroComponent {
       </div>
       
       <!-- Action Buttons -->
-      <div class="hero-actions apple-slide-up">
+      <div class="hero-actions apple-hero-anim">
         <a class="apple-btn apple-btn-primary" href="#contact">
           <i class="fas fa-paper-plane"></i>
           Get In Touch
@@ -37663,7 +37663,7 @@ var IntroComponent = class _IntroComponent {
       </div>
       
       <!-- Social Links -->
-      <div class="hero-social apple-slide-up">
+      <div class="hero-social apple-hero-anim">
         <a class="social-link" href="https://www.linkedin.com/in/ankit-sharma-5b1b35158/" 
            target="_blank" title="Connect on LinkedIn">
           <i class="fab fa-linkedin"></i>
@@ -37704,7 +37704,7 @@ var AboutComponent = class _AboutComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AboutComponent, selectors: [["app-about"]], decls: 47, vars: 0, consts: [["id", "about", 1, "apple-section"], [1, "apple-container"], [1, "about-content"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "section-subtitle", "apple-text-body"], [1, "about-grid"], [1, "about-text", "apple-card", "apple-slide-up"], [1, "card-content"], [1, "about-description"], [1, "apple-text-body"]], template: function AboutComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AboutComponent, selectors: [["app-about"]], decls: 47, vars: 0, consts: [["id", "about", 1, "apple-section"], [1, "apple-container"], [1, "about-content"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-anim", "fade-up", "data-delay", "200", 1, "section-subtitle", "apple-text-body"], [1, "about-grid"], ["data-anim", "blur", "data-delay", "100", 1, "about-text", "apple-card"], [1, "card-content"], ["data-stagger", "120", 1, "about-description"], [1, "apple-text-body"]], template: function AboutComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3)(4, "h2", 4);
         \u0275\u0275text(5, "About Me");
@@ -37771,16 +37771,16 @@ var AboutComponent = class _AboutComponent {
   <div class="apple-container">
     <div class="about-content">
       <!-- Section Header -->
-      <div class="section-header apple-fade-in">
-        <h2 class="section-title apple-text-display">About Me</h2>
-        <p class="section-subtitle apple-text-body">Passionate about creating innovative digital solutions</p>
+      <div class="section-header" data-anim="fade-up">
+        <h2 class="section-title apple-text-display" data-text-reveal>About Me</h2>
+        <p class="section-subtitle apple-text-body" data-anim="fade-up" data-delay="200">Passionate about creating innovative digital solutions</p>
       </div>
       
       <div class="about-grid">
         <!-- About Text -->
-        <div class="about-text apple-card apple-slide-up">
+        <div class="about-text apple-card" data-anim="blur" data-delay="100">
           <div class="card-content">
-            <div class="about-description">
+            <div class="about-description" data-stagger="120">
               <p class="apple-text-body">
                 \u{1F4BB} I'm a <strong>passionate software developer</strong> with <strong>6+ years of experience</strong> in building innovative digital solutions. 
                 Currently working as <strong>Senior Member of Technical Staff (SMTS) at Salesforce</strong>, where I'm exploring enterprise cloud solutions and contributing to cutting-edge platform development.
@@ -42616,7 +42616,7 @@ var ContactComponent = class _ContactComponent {
         let _t;
         \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.contactForm = _t.first);
       }
-    }, decls: 97, vars: 28, consts: [["contactForm", "ngForm"], ["name", "ngModel"], ["email", "ngModel"], ["subject", "ngModel"], ["message", "ngModel"], ["id", "contact", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "greeting-character"], [1, "speech-bubble"], [1, "speech-text"], [1, "speech-contact"], [1, "speech-arrow"], [1, "character"], [1, "character-head"], [1, "character-eye", "left-eye"], [1, "character-eye", "right-eye"], [1, "character-mouth"], [1, "character-body"], [1, "character-arm", "left-arm", "pointing"], [1, "character-arm", "right-arm", "waving"], [1, "section-title", "apple-text-display"], [1, "contact-container"], ["data-aos", "fade-right", 1, "contact-info-section"], [1, "info-cards"], [1, "info-card"], [1, "info-icon"], [1, "info-content"], ["data-aos", "fade-left", 1, "contact-form-section"], [1, "form-card"], [1, "form-header"], ["name", "form", "novalidate", "", 3, "ngSubmit"], [1, "form-row"], [1, "form-group"], ["for", "name"], ["id", "name", "name", "name", "placeholder", "Your full name", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], [1, "error-message"], ["for", "email"], ["id", "email", "name", "email", "placeholder", "your.email@example.com", "required", "", "type", "email", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "subject"], ["id", "subject", "name", "subject", "placeholder", "What's this about?", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "message"], ["id", "message", "name", "message", "placeholder", "Tell me about your project or opportunity...", "required", "", "rows", "5", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["type", "submit", 1, "submit-btn", 3, "disabled", "ngClass"], [1, "btn-text"], [1, "btn-icon"], [1, "btn-spinner"], [1, "toast-container"], [1, "toast", 3, "ngClass"], [1, "toast-icon"], [1, "toast-message"]], template: function ContactComponent_Template(rf, ctx) {
+    }, decls: 97, vars: 28, consts: [["contactForm", "ngForm"], ["name", "ngModel"], ["email", "ngModel"], ["subject", "ngModel"], ["message", "ngModel"], ["id", "contact", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "greeting-character"], [1, "speech-bubble"], [1, "speech-text"], [1, "speech-contact"], [1, "speech-arrow"], [1, "character"], [1, "character-head"], [1, "character-eye", "left-eye"], [1, "character-eye", "right-eye"], [1, "character-mouth"], [1, "character-body"], [1, "character-arm", "left-arm", "pointing"], [1, "character-arm", "right-arm", "waving"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], [1, "contact-container"], ["data-anim", "fade-right", 1, "contact-info-section"], ["data-stagger", "100", 1, "info-cards"], [1, "info-card"], [1, "info-icon"], [1, "info-content"], ["data-anim", "fade-left", "data-delay", "200", 1, "contact-form-section"], [1, "form-card"], [1, "form-header"], ["name", "form", "novalidate", "", 3, "ngSubmit"], [1, "form-row"], [1, "form-group"], ["for", "name"], ["id", "name", "name", "name", "placeholder", "Your full name", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], [1, "error-message"], ["for", "email"], ["id", "email", "name", "email", "placeholder", "your.email@example.com", "required", "", "type", "email", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "subject"], ["id", "subject", "name", "subject", "placeholder", "What's this about?", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "message"], ["id", "message", "name", "message", "placeholder", "Tell me about your project or opportunity...", "required", "", "rows", "5", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["type", "submit", 1, "submit-btn", 3, "disabled", "ngClass"], [1, "btn-text"], [1, "btn-icon"], [1, "btn-spinner"], [1, "toast-container"], [1, "toast", 3, "ngClass"], [1, "toast-icon"], [1, "toast-message"]], template: function ContactComponent_Template(rf, ctx) {
       if (rf & 1) {
         const _r1 = \u0275\u0275getCurrentView();
         \u0275\u0275elementStart(0, "div", 5)(1, "div", 6)(2, "div", 7)(3, "div", 8)(4, "div", 9)(5, "span", 10);
@@ -42786,7 +42786,7 @@ var ContactComponent = class _ContactComponent {
     type: Component,
     args: [{ selector: "app-contact", standalone: true, imports: [FormsModule, CommonModule], template: `<div class="apple-section" id="contact">
   <div class="apple-container">
-    <div class="section-header apple-fade-in">
+    <div class="section-header" data-anim="fade-up">
       <div class="greeting-character">
         <div class="speech-bubble">
           <span class="speech-text">Hi!</span>
@@ -42805,13 +42805,13 @@ var ContactComponent = class _ContactComponent {
           </div>
         </div>
       </div>
-      <h2 class="section-title apple-text-display">Contact Me</h2>
+      <h2 class="section-title apple-text-display" data-text-reveal>Contact Me</h2>
     </div>
 
     <div class="contact-container">
       <!-- Contact Info Cards -->
-      <div class="contact-info-section" data-aos="fade-right">
-        <div class="info-cards">
+      <div class="contact-info-section" data-anim="fade-right">
+        <div class="info-cards" data-stagger="100">
           <div class="info-card">
             <div class="info-icon">\u{1F4E7}</div>
             <div class="info-content">
@@ -42847,7 +42847,7 @@ var ContactComponent = class _ContactComponent {
       </div>
 
       <!-- Contact Form -->
-      <div class="contact-form-section" data-aos="fade-left">
+      <div class="contact-form-section" data-anim="fade-left" data-delay="200">
         <div class="form-card">
           <div class="form-header">
             <h3>Send me a message</h3>
@@ -42980,7 +42980,7 @@ var EducationComponent = class _EducationComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _EducationComponent, selectors: [["app-education"]], decls: 44, vars: 0, consts: [["id", "education", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "education-grid"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "education-card"], [1, "education-header"], [1, "year"], [1, "degree-type"], [1, "education-content"], [1, "degree-title"], [1, "institution", "institution-highlight"], [1, "details"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "education-card"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "education-card"]], template: function EducationComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _EducationComponent, selectors: [["app-education"]], decls: 44, vars: 0, consts: [["id", "education", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-stagger", "120", 1, "education-grid"], [1, "education-card"], [1, "education-header"], [1, "year"], [1, "degree-type"], [1, "education-content"], [1, "degree-title"], [1, "institution", "institution-highlight"], [1, "details"]], template: function EducationComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Education");
@@ -43004,7 +43004,7 @@ var EducationComponent = class _EducationComponent {
         \u0275\u0275domElementEnd();
         \u0275\u0275text(21, ".");
         \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(22, "div", 13)(23, "div", 6)(24, "p", 7);
+        \u0275\u0275domElementStart(22, "div", 5)(23, "div", 6)(24, "p", 7);
         \u0275\u0275text(25, "2016");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(26, "h5", 8);
@@ -43016,7 +43016,7 @@ var EducationComponent = class _EducationComponent {
         \u0275\u0275domElementStart(31, "h5", 11);
         \u0275\u0275text(32, "Ess Ess Convent School (CBSE)");
         \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(33, "div", 14)(34, "div", 6)(35, "p", 7);
+        \u0275\u0275domElementStart(33, "div", 5)(34, "div", 6)(35, "p", 7);
         \u0275\u0275text(36, "2014");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(37, "h5", 8);
@@ -43037,13 +43037,13 @@ var EducationComponent = class _EducationComponent {
     type: Component,
     args: [{ selector: "app-education", standalone: true, template: `<div class="apple-section" id="education">
   <div class="apple-container">
-    <div class="section-header apple-fade-in">
-      <h2 class="section-title apple-text-display">Education</h2>
+    <div class="section-header" data-anim="fade-up">
+      <h2 class="section-title apple-text-display" data-text-reveal>Education</h2>
     </div>
     
-    <div class="education-grid">
+    <div class="education-grid" data-stagger="120">
       <!-- Bachelor Degree -->
-      <div class="education-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="education-card">
         <div class="education-header">
           <p class="year">2016-2020</p>
           <h5 class="degree-type">Bachelor Degree</h5>
@@ -43056,7 +43056,7 @@ var EducationComponent = class _EducationComponent {
       </div>
 
       <!-- Intermediate -->
-      <div class="education-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="education-card">
         <div class="education-header">
           <p class="year">2016</p>
           <h5 class="degree-type">Intermediate</h5>
@@ -43068,7 +43068,7 @@ var EducationComponent = class _EducationComponent {
       </div>
 
       <!-- High School -->
-      <div class="education-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="education-card">
         <div class="education-header">
           <p class="year">2014</p>
           <h5 class="degree-type">High School</h5>
@@ -43457,7 +43457,7 @@ var ExperienceComponent = class _ExperienceComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 18, vars: 2, consts: [["id", "experience", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], ["data-aos", "fade-up", 1, "orbital-container"], [1, "orbital-ring"], [1, "orbit-path"], [1, "orbit-center"], [1, "center-years"], [1, "center-label"], [1, "orbit-item", 3, "animation-delay", "active"], [1, "detail-panel"], [1, "orbit-item", 3, "click"], [1, "orbit-node"], ["loading", "lazy", 3, "src", "alt"], [1, "orbit-label"], [1, "sub-orbital-ring"], [1, "sub-ring-path"], [1, "sub-ring-center"], [3, "src", "alt"], [1, "sub-ring-item", 3, "animation-delay", "active"], [1, "sub-ring-item", 3, "click"], [1, "sub-ring-node"], [1, "sub-ring-title"], [1, "sub-ring-label"], [1, "detail-header"], [1, "detail-logo", 3, "src", "alt"], [1, "detail-header-info"], [1, "detail-title"], [1, "detail-meta"], [1, "detail-company"], [1, "detail-separator"], [1, "detail-period"], [1, "detail-location"], [1, "fas", "fa-map-marker-alt"], [1, "detail-description"], [1, "detail-technologies"], [1, "tech-tag"], [1, "detail-achievements"], [1, "achievements-title"]], template: function ExperienceComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 18, vars: 2, consts: [["id", "experience", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-anim", "scale", "data-duration", "1000", 1, "orbital-container"], [1, "orbital-ring"], [1, "orbit-path"], [1, "orbit-center"], [1, "center-years"], [1, "center-label"], [1, "orbit-item", 3, "animation-delay", "active"], [1, "detail-panel"], [1, "orbit-item", 3, "click"], [1, "orbit-node"], ["loading", "lazy", 3, "src", "alt"], [1, "orbit-label"], [1, "sub-orbital-ring"], [1, "sub-ring-path"], [1, "sub-ring-center"], [3, "src", "alt"], [1, "sub-ring-item", 3, "animation-delay", "active"], [1, "sub-ring-item", 3, "click"], [1, "sub-ring-node"], [1, "sub-ring-title"], [1, "sub-ring-label"], [1, "detail-header"], [1, "detail-logo", 3, "src", "alt"], [1, "detail-header-info"], [1, "detail-title"], [1, "detail-meta"], [1, "detail-company"], [1, "detail-separator"], [1, "detail-period"], [1, "detail-location"], [1, "fas", "fa-map-marker-alt"], [1, "detail-description"], [1, "detail-technologies"], [1, "tech-tag"], [1, "detail-achievements"], [1, "achievements-title"]], template: function ExperienceComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Professional Experience");
@@ -43494,11 +43494,11 @@ var ExperienceComponent = class _ExperienceComponent {
     type: Component,
     args: [{ selector: "app-experience", standalone: true, imports: [], template: `<div class="apple-section" id="experience">
   <div class="apple-container">
-    <div class="section-header apple-fade-in">
-      <h2 class="section-title apple-text-display">Professional Experience</h2>
+    <div class="section-header" data-anim="fade-up">
+      <h2 class="section-title apple-text-display" data-text-reveal>Professional Experience</h2>
     </div>
 
-    <div class="orbital-container" data-aos="fade-up">
+    <div class="orbital-container" data-anim="scale" data-duration="1000">
       <div class="orbital-ring">
         <!-- Orbit Path -->
         <div class="orbit-path"></div>
@@ -44746,7 +44746,7 @@ var SkillsComponent = class _SkillsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 27, vars: 12, consts: [["id", "skill", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "section-subtitle"], [1, "viewport-wrapper", 3, "ngClass"], ["data-aos", "fade-up", 1, "constellation-viewport", 3, "ngClass"], [1, "star-field"], [1, "bg-star", 3, "left", "top", "width", "height", "animation-delay"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "constellation-svg"], ["x", "-50%", "y", "-50%", "width", "200%", "height", "200%"], ["stroke-width", "0.15", "stroke-opacity", "0.5", 1, "constellation-line"], [1, "radial-ring"], [1, "rocket-container", 3, "ngClass"], [1, "star-burst", 3, "left", "top"], [1, "skill-modal-overlay"], [1, "constellation-legend"], [1, "legend-item"], [1, "bg-star"], ["stdDeviation", "0.4", "result", "blur"], ["in", "blur"], ["in", "SourceGraphic"], [3, "ngClass"], ["text-anchor", "middle", 1, "category-label"], ["fill-opacity", "0.15", 1, "star-glow", 3, "ngClass"], [1, "star-core", 3, "click", "ngClass"], ["text-anchor", "middle", 1, "star-label", 3, "ngClass"], ["fill", "none", "stroke-opacity", "0.15", 1, "ring-track"], ["fill", "none", "stroke-linecap", "round", 1, "ring-fill"], ["text-anchor", "middle", 1, "ring-percentage"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "rocket-svg"], ["id", "rocketGradient", "x1", "0%", "y1", "0%", "x2", "0%", "y2", "100%"], ["offset", "0%", 2, "stop-color", "#E3F2FD", "stop-opacity", "1"], ["offset", "100%", 2, "stop-color", "#90CAF9", "stop-opacity", "1"], ["id", "trailGlow"], ["offset", "0%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0.8"], ["offset", "100%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0"], ["id", "rocketGlowFilter", "x", "-100%", "y", "-100%", "width", "300%", "height", "300%"], ["stdDeviation", "0.8", "result", "blur"], ["fill", "url(#trailGlow)", 1, "trail-particle"], ["filter", "url(#rocketGlowFilter)", 1, "rocket-group"], ["d", "M 0,-3.5 C -0.8,-2.5 -1.2,-0.5 -1.2,1.5 L -0.8,2.5 L 0,3 L 0.8,2.5 L 1.2,1.5 C 1.2,-0.5 0.8,-2.5 0,-3.5 Z", "fill", "url(#rocketGradient)", "stroke", "rgba(255,255,255,0.8)", "stroke-width", "0.15"], ["d", "M 0,-3.5 C -0.3,-3.5 -0.6,-3 -0.8,-2.5 L 0,-3.5 L 0.8,-2.5 C 0.6,-3 0.3,-3.5 0,-3.5 Z", "fill", "#fff", "opacity", "0.4"], ["cx", "0", "cy", "-1", "r", "0.6", "fill", "#4FC3F7", "stroke", "rgba(255,255,255,0.9)", "stroke-width", "0.12"], ["cx", "-0.15", "cy", "-1.15", "r", "0.15", "fill", "rgba(255,255,255,0.6)"], ["d", "M -1.2,1 L -2,2.5 L -1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M 1.2,1 L 2,2.5 L 1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M -0.8,2.5 Q -0.6,4.5 0,6 Q 0.6,4.5 0.8,2.5 Z", "fill", "#FF6B35", "opacity", "0.9", 1, "rocket-flame"], ["d", "M -0.4,2.5 Q -0.2,4 0,5 Q 0.2,4 0.4,2.5 Z", "fill", "#FFD93D", "opacity", "0.9", 1, "rocket-flame-inner"], ["d", "M -0.15,2.5 Q 0,3.8 0.15,2.5 Z", "fill", "#fff", "opacity", "0.7", 1, "rocket-flame-core"], [1, "star-burst"], [1, "skill-modal-overlay", 3, "click"], [1, "skill-modal", 3, "click"], [1, "modal-header"], [1, "modal-header-left"], [1, "modal-skill-icon"], [1, "modal-skill-initial"], [1, "modal-title-section"], [1, "modal-skill-name"], [1, "modal-category"], [1, "modal-close", 3, "click"], [1, "fas", "fa-times"], [1, "modal-content"], [1, "modal-section"], [1, "section-title"], [1, "section-description"], [1, "detail-list"], [1, "detail-item"], [1, "project-grid"], [1, "project-card"], [1, "achievement-list"], [1, "achievement-item"], [1, "related-skills"], [1, "related-skill-tag"], [1, "project-icon"], [1, "project-name"], [1, "achievement-icon"], [1, "achievement-text"], [1, "legend-dot"], [1, "legend-name"]], template: function SkillsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 27, vars: 12, consts: [["id", "skill", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-anim", "fade-up", "data-delay", "200", 1, "section-subtitle"], [1, "viewport-wrapper", 3, "ngClass"], ["data-anim", "scale", "data-duration", "1000", 1, "constellation-viewport", 3, "ngClass"], [1, "star-field"], [1, "bg-star", 3, "left", "top", "width", "height", "animation-delay"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "constellation-svg"], ["x", "-50%", "y", "-50%", "width", "200%", "height", "200%"], ["stroke-width", "0.15", "stroke-opacity", "0.5", 1, "constellation-line"], [1, "radial-ring"], [1, "rocket-container", 3, "ngClass"], [1, "star-burst", 3, "left", "top"], [1, "skill-modal-overlay"], [1, "constellation-legend"], [1, "legend-item"], [1, "bg-star"], ["stdDeviation", "0.4", "result", "blur"], ["in", "blur"], ["in", "SourceGraphic"], [3, "ngClass"], ["text-anchor", "middle", 1, "category-label"], ["fill-opacity", "0.15", 1, "star-glow", 3, "ngClass"], [1, "star-core", 3, "click", "ngClass"], ["text-anchor", "middle", 1, "star-label", 3, "ngClass"], ["fill", "none", "stroke-opacity", "0.15", 1, "ring-track"], ["fill", "none", "stroke-linecap", "round", 1, "ring-fill"], ["text-anchor", "middle", 1, "ring-percentage"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "rocket-svg"], ["id", "rocketGradient", "x1", "0%", "y1", "0%", "x2", "0%", "y2", "100%"], ["offset", "0%", 2, "stop-color", "#E3F2FD", "stop-opacity", "1"], ["offset", "100%", 2, "stop-color", "#90CAF9", "stop-opacity", "1"], ["id", "trailGlow"], ["offset", "0%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0.8"], ["offset", "100%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0"], ["id", "rocketGlowFilter", "x", "-100%", "y", "-100%", "width", "300%", "height", "300%"], ["stdDeviation", "0.8", "result", "blur"], ["fill", "url(#trailGlow)", 1, "trail-particle"], ["filter", "url(#rocketGlowFilter)", 1, "rocket-group"], ["d", "M 0,-3.5 C -0.8,-2.5 -1.2,-0.5 -1.2,1.5 L -0.8,2.5 L 0,3 L 0.8,2.5 L 1.2,1.5 C 1.2,-0.5 0.8,-2.5 0,-3.5 Z", "fill", "url(#rocketGradient)", "stroke", "rgba(255,255,255,0.8)", "stroke-width", "0.15"], ["d", "M 0,-3.5 C -0.3,-3.5 -0.6,-3 -0.8,-2.5 L 0,-3.5 L 0.8,-2.5 C 0.6,-3 0.3,-3.5 0,-3.5 Z", "fill", "#fff", "opacity", "0.4"], ["cx", "0", "cy", "-1", "r", "0.6", "fill", "#4FC3F7", "stroke", "rgba(255,255,255,0.9)", "stroke-width", "0.12"], ["cx", "-0.15", "cy", "-1.15", "r", "0.15", "fill", "rgba(255,255,255,0.6)"], ["d", "M -1.2,1 L -2,2.5 L -1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M 1.2,1 L 2,2.5 L 1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M -0.8,2.5 Q -0.6,4.5 0,6 Q 0.6,4.5 0.8,2.5 Z", "fill", "#FF6B35", "opacity", "0.9", 1, "rocket-flame"], ["d", "M -0.4,2.5 Q -0.2,4 0,5 Q 0.2,4 0.4,2.5 Z", "fill", "#FFD93D", "opacity", "0.9", 1, "rocket-flame-inner"], ["d", "M -0.15,2.5 Q 0,3.8 0.15,2.5 Z", "fill", "#fff", "opacity", "0.7", 1, "rocket-flame-core"], [1, "star-burst"], [1, "skill-modal-overlay", 3, "click"], [1, "skill-modal", 3, "click"], [1, "modal-header"], [1, "modal-header-left"], [1, "modal-skill-icon"], [1, "modal-skill-initial"], [1, "modal-title-section"], [1, "modal-skill-name"], [1, "modal-category"], [1, "modal-close", 3, "click"], [1, "fas", "fa-times"], [1, "modal-content"], [1, "modal-section"], [1, "section-title"], [1, "section-description"], [1, "detail-list"], [1, "detail-item"], [1, "project-grid"], [1, "project-card"], [1, "achievement-list"], [1, "achievement-item"], [1, "related-skills"], [1, "related-skill-tag"], [1, "project-icon"], [1, "project-name"], [1, "achievement-icon"], [1, "achievement-text"], [1, "legend-dot"], [1, "legend-name"]], template: function SkillsComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Skills & Expertise");
@@ -44807,13 +44807,13 @@ var SkillsComponent = class _SkillsComponent {
     type: Component,
     args: [{ selector: "app-skills", standalone: true, imports: [NgClass], template: `<div class="apple-section" id="skill">
   <div class="apple-container">
-    <div class="section-header apple-fade-in">
-      <h2 class="section-title apple-text-display">Skills & Expertise</h2>
-      <p class="section-subtitle">Tap a star to explore</p>
+    <div class="section-header" data-anim="fade-up">
+      <h2 class="section-title apple-text-display" data-text-reveal>Skills & Expertise</h2>
+      <p class="section-subtitle" data-anim="fade-up" data-delay="200">Tap a star to explore</p>
     </div>
 
     <div class="viewport-wrapper" [ngClass]="{'viewport-wrapper--zooming': zooming}">
-    <div class="constellation-viewport" data-aos="fade-up"
+    <div class="constellation-viewport" data-anim="scale" data-duration="1000"
          [ngClass]="{'viewport-zooming': zooming}"
          [style.transform]="getZoomTransform()">
       <!-- Background ambient stars -->
@@ -45192,7 +45192,7 @@ function PublicationsComponent_For_90_Template(rf, ctx) {
   if (rf & 2) {
     const project_r5 = ctx.$implicit;
     const \u0275$index_149_r6 = ctx.$index;
-    \u0275\u0275attribute("data-aos-delay", (\u0275$index_149_r6 + 1) * 100);
+    \u0275\u0275attribute("data-delay", (\u0275$index_149_r6 + 1) * 100);
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate(project_r5.category);
     \u0275\u0275advance(4);
@@ -45318,7 +45318,7 @@ var PublicationsComponent = class _PublicationsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 91, vars: 0, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "projects-grid"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "algo-card"], [1, "project-preview-container"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank"], [1, "project-preview", "algo-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-duration", "500", "data-aos-offset", "50", 1, "project-card", "divine-card"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-aos", "fade-up", "data-aos-delay", "50", 1, "category-filters"], [1, "filter-buttons"], [1, "filter-btn", 3, "active"], [1, "open-source-grid"], ["data-aos", "fade-up", 1, "open-source-card"], [1, "filter-btn", 3, "click"], [1, "package-badges", 3, "ngClass"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 91, vars: 0, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-stagger", "150", 1, "projects-grid"], [1, "project-card", "algo-card"], [1, "project-preview-container"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank"], [1, "project-preview", "algo-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], [1, "project-card", "divine-card"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "category-filters"], [1, "filter-buttons"], [1, "filter-btn", 3, "active"], [1, "open-source-grid"], ["data-anim", "fade-up", 1, "open-source-card"], [1, "filter-btn", 3, "click"], [1, "package-badges", 3, "ngClass"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Projects");
@@ -45431,12 +45431,12 @@ var PublicationsComponent = class _PublicationsComponent {
     type: Component,
     args: [{ selector: "app-publications", standalone: true, imports: [CommonModule], template: `<div class="apple-section" id="publications">
   <div class="apple-container">
-    <div class="section-header apple-fade-in">
-      <h2 class="section-title apple-text-display">Projects</h2>
+    <div class="section-header" data-anim="fade-up">
+      <h2 class="section-title apple-text-display" data-text-reveal>Projects</h2>
     </div>
 
-    <div class="projects-grid">
-      <div class="project-card algo-card" data-aos="fade-up" data-aos-duration="500" data-aos-offset="50">
+    <div class="projects-grid" data-stagger="150">
+      <div class="project-card algo-card">
         <!-- Project Preview -->
         <div class="project-preview-container">
           <a href="https://beingmartinbmc.github.io/algorithm-visualizer/" target="_blank">
@@ -45475,7 +45475,7 @@ var PublicationsComponent = class _PublicationsComponent {
         </div>
       </div>
 
-      <div class="project-card divine-card" data-aos="fade-up" data-aos-duration="500" data-aos-offset="50">
+      <div class="project-card divine-card">
         <!-- Project Preview -->
         <div class="project-preview-container">
           <a href="https://beingmartinbmc.github.io/epic/" target="_blank">
@@ -45520,12 +45520,12 @@ var PublicationsComponent = class _PublicationsComponent {
 
   <!-- Open Source Section -->
   <div class="apple-container" id="open-source" style="margin-top: 6rem;">
-    <div class="section-header apple-fade-in">
-      <h2 class="section-title apple-text-display">Open Source</h2>
+    <div class="section-header" data-anim="fade-up">
+      <h2 class="section-title apple-text-display" data-text-reveal>Open Source</h2>
     </div>
 
     <!-- Category Filters -->
-    <div class="category-filters" data-aos="fade-up" data-aos-delay="50">
+    <div class="category-filters" data-anim="fade-up" data-delay="100">
       <div class="filter-buttons">
         @for (category of availableCategories; track category; let i = $index) {
           <button
@@ -45543,8 +45543,8 @@ var PublicationsComponent = class _PublicationsComponent {
       @for (project of filteredProjects; track project; let i = $index) {
         <div
           class="open-source-card"
-          [attr.data-aos-delay]="(i + 1) * 100"
-          data-aos="fade-up">
+          [attr.data-delay]="(i + 1) * 100"
+          data-anim="fade-up">
           <div class="card-body">
             <div class="project-meta">
               <span class="badge">{{ project.category }}</span>
@@ -46811,7 +46811,7 @@ var BlogComponent = class _BlogComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 48, vars: 0, consts: [["id", "blogs", 1, "apple-section"], [1, "apple-container"], [1, "section-header", "apple-fade-in"], [1, "section-title", "apple-text-display"], [1, "blog-grid"], ["data-aos", "fade-up", "data-aos-delay", "100", 1, "blog-card"], [1, "card-body"], [1, "blog-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "blog-actions"], ["href", "https://medium.com/@Games24x7Tech/fortress-of-fair-play-stopping-frauds-at-games24x7-7e8b928266b5", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-delay", "200", 1, "blog-card"], ["href", "https://medium.com/@Games24x7Tech/neptune-navigator-navigating-performance-challenges-2daad0155d61", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["data-aos", "fade-up", "data-aos-delay", "300", 1, "blog-card"], ["href", "https://medium.com/@Games24x7Tech/games24x7-where-trust-meets-gameplay-f477bb8715f3", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"]], template: function BlogComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 48, vars: 0, consts: [["id", "blogs", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-stagger", "120", 1, "blog-grid"], [1, "blog-card"], [1, "card-body"], [1, "blog-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "blog-actions"], ["href", "https://medium.com/@Games24x7Tech/fortress-of-fair-play-stopping-frauds-at-games24x7-7e8b928266b5", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["href", "https://medium.com/@Games24x7Tech/neptune-navigator-navigating-performance-challenges-2daad0155d61", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["href", "https://medium.com/@Games24x7Tech/games24x7-where-trust-meets-gameplay-f477bb8715f3", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"]], template: function BlogComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Blogs");
@@ -46831,7 +46831,7 @@ var BlogComponent = class _BlogComponent {
         \u0275\u0275domElementStart(17, "div", 12)(18, "a", 13);
         \u0275\u0275text(19, " Read on Medium ");
         \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(20, "div", 14)(21, "div", 6)(22, "div", 7)(23, "span", 8);
+        \u0275\u0275domElementStart(20, "div", 5)(21, "div", 6)(22, "div", 7)(23, "span", 8);
         \u0275\u0275text(24, "Medium");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(25, "span", 9);
@@ -46843,10 +46843,10 @@ var BlogComponent = class _BlogComponent {
         \u0275\u0275domElementStart(29, "p", 11);
         \u0275\u0275text(30, " Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms at Games24x7. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(31, "div", 12)(32, "a", 15);
+        \u0275\u0275domElementStart(31, "div", 12)(32, "a", 14);
         \u0275\u0275text(33, " Read on Medium ");
         \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(34, "div", 16)(35, "div", 6)(36, "div", 7)(37, "span", 8);
+        \u0275\u0275domElementStart(34, "div", 5)(35, "div", 6)(36, "div", 7)(37, "span", 8);
         \u0275\u0275text(38, "Medium");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(39, "span", 9);
@@ -46858,7 +46858,7 @@ var BlogComponent = class _BlogComponent {
         \u0275\u0275domElementStart(43, "p", 11);
         \u0275\u0275text(44, " Discover how we build trust and create engaging gaming experiences that keep players coming back for more. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(45, "div", 12)(46, "a", 17);
+        \u0275\u0275domElementStart(45, "div", 12)(46, "a", 15);
         \u0275\u0275text(47, " Read on Medium ");
         \u0275\u0275domElementEnd()()()()()()();
       }
@@ -46868,7 +46868,7 @@ var BlogComponent = class _BlogComponent {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BlogComponent, [{
     type: Component,
-    args: [{ selector: "app-blog", standalone: true, template: '<div class="apple-section" id="blogs">\n  <div class="apple-container">\n    <div class="section-header apple-fade-in">\n      <h2 class="section-title apple-text-display">Blogs</h2>\n    </div>\n    \n    <div class="blog-grid">\n      <!-- Medium Blog Post 1 -->\n      <div class="blog-card" data-aos="fade-up" data-aos-delay="100">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h5>\n          <p class="card-text">\n            Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay and maintain trust in our gaming ecosystem.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/fortress-of-fair-play-stopping-frauds-at-games24x7-7e8b928266b5" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n\n      <!-- Medium Blog Post 2 -->\n      <div class="blog-card" data-aos="fade-up" data-aos-delay="200">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Neptune Navigator: Navigating Performance Challenges</h5>\n          <p class="card-text">\n            Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms at Games24x7.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/neptune-navigator-navigating-performance-challenges-2daad0155d61" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n\n      <!-- Medium Blog Post 3 -->\n      <div class="blog-card" data-aos="fade-up" data-aos-delay="300">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Games24x7: Where Trust Meets Gameplay</h5>\n          <p class="card-text">\n            Discover how we build trust and create engaging gaming experiences that keep players coming back for more.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/games24x7-where-trust-meets-gameplay-f477bb8715f3" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div> ', styles: ['/* src/app/profile/blog/blog.component.scss */\n.blog-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.blog-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.blog-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.blog-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.blog-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.blog-meta {\n  margin-bottom: var(--spacing-md);\n}\n.blog-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.blog-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.blog-actions {\n  margin-top: auto;\n}\n.blog-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.blog-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.blog-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.blog-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n.blog-actions .btn-outline {\n  background: transparent;\n  border: 2px solid var(--gray-300);\n  color: var(--gray-700);\n}\n.blog-actions .btn-outline:hover {\n  border-color: var(--primary-color);\n  color: var(--primary-color);\n  background: transparent;\n}\n.blog-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n@media (max-width: 768px) {\n  .blog-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .blog-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .blog-card .card-title {\n    font-size: 1.125rem;\n  }\n}\n.blog-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.blog-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.blog-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.blog-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */\n'] }]
+    args: [{ selector: "app-blog", standalone: true, template: '<div class="apple-section" id="blogs">\n  <div class="apple-container">\n    <div class="section-header" data-anim="fade-up">\n      <h2 class="section-title apple-text-display" data-text-reveal>Blogs</h2>\n    </div>\n    \n    <div class="blog-grid" data-stagger="120">\n      <!-- Medium Blog Post 1 -->\n      <div class="blog-card">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h5>\n          <p class="card-text">\n            Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay and maintain trust in our gaming ecosystem.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/fortress-of-fair-play-stopping-frauds-at-games24x7-7e8b928266b5" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n\n      <!-- Medium Blog Post 2 -->\n      <div class="blog-card">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Neptune Navigator: Navigating Performance Challenges</h5>\n          <p class="card-text">\n            Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms at Games24x7.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/neptune-navigator-navigating-performance-challenges-2daad0155d61" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n\n      <!-- Medium Blog Post 3 -->\n      <div class="blog-card">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Games24x7: Where Trust Meets Gameplay</h5>\n          <p class="card-text">\n            Discover how we build trust and create engaging gaming experiences that keep players coming back for more.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/games24x7-where-trust-meets-gameplay-f477bb8715f3" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div> ', styles: ['/* src/app/profile/blog/blog.component.scss */\n.blog-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.blog-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.blog-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.blog-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.blog-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.blog-meta {\n  margin-bottom: var(--spacing-md);\n}\n.blog-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.blog-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.blog-actions {\n  margin-top: auto;\n}\n.blog-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.blog-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.blog-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.blog-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n.blog-actions .btn-outline {\n  background: transparent;\n  border: 2px solid var(--gray-300);\n  color: var(--gray-700);\n}\n.blog-actions .btn-outline:hover {\n  border-color: var(--primary-color);\n  color: var(--primary-color);\n  background: transparent;\n}\n.blog-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n@media (max-width: 768px) {\n  .blog-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .blog-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .blog-card .card-title {\n    font-size: 1.125rem;\n  }\n}\n.blog-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.blog-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.blog-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.blog-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {

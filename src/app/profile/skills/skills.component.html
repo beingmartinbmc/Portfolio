@@ -1,12 +1,12 @@
 <div class="apple-section" id="skill">
   <div class="apple-container">
-    <div class="section-header apple-fade-in">
-      <h2 class="section-title apple-text-display">Skills & Expertise</h2>
-      <p class="section-subtitle">Tap a star to explore</p>
+    <div class="section-header" data-anim="fade-up">
+      <h2 class="section-title apple-text-display" data-text-reveal>Skills & Expertise</h2>
+      <p class="section-subtitle" data-anim="fade-up" data-delay="200">Tap a star to explore</p>
     </div>
 
     <div class="viewport-wrapper" [ngClass]="{'viewport-wrapper--zooming': zooming}">
-    <div class="constellation-viewport" data-aos="fade-up"
+    <div class="constellation-viewport" data-anim="scale" data-duration="1000"
          [ngClass]="{'viewport-zooming': zooming}"
          [style.transform]="getZoomTransform()">
       <!-- Background ambient stars -->

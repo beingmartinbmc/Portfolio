@@ -1,11 +1,11 @@
 <div class="apple-section" id="publications">
   <div class="apple-container">
-    <div class="section-header apple-fade-in">
-      <h2 class="section-title apple-text-display">Projects</h2>
+    <div class="section-header" data-anim="fade-up">
+      <h2 class="section-title apple-text-display" data-text-reveal>Projects</h2>
     </div>
 
-    <div class="projects-grid">
-      <div class="project-card algo-card" data-aos="fade-up" data-aos-duration="500" data-aos-offset="50">
+    <div class="projects-grid" data-stagger="150">
+      <div class="project-card algo-card">
         <!-- Project Preview -->
         <div class="project-preview-container">
           <a href="https://beingmartinbmc.github.io/algorithm-visualizer/" target="_blank">
@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <div class="project-card divine-card" data-aos="fade-up" data-aos-duration="500" data-aos-offset="50">
+      <div class="project-card divine-card">
         <!-- Project Preview -->
         <div class="project-preview-container">
           <a href="https://beingmartinbmc.github.io/epic/" target="_blank">
@@ -89,12 +89,12 @@
 
   <!-- Open Source Section -->
   <div class="apple-container" id="open-source" style="margin-top: 6rem;">
-    <div class="section-header apple-fade-in">
-      <h2 class="section-title apple-text-display">Open Source</h2>
+    <div class="section-header" data-anim="fade-up">
+      <h2 class="section-title apple-text-display" data-text-reveal>Open Source</h2>
     </div>
 
     <!-- Category Filters -->
-    <div class="category-filters" data-aos="fade-up" data-aos-delay="50">
+    <div class="category-filters" data-anim="fade-up" data-delay="100">
       <div class="filter-buttons">
         @for (category of availableCategories; track category; let i = $index) {
           <button
@@ -112,8 +112,8 @@
       @for (project of filteredProjects; track project; let i = $index) {
         <div
           class="open-source-card"
-          [attr.data-aos-delay]="(i + 1) * 100"
-          data-aos="fade-up">
+          [attr.data-delay]="(i + 1) * 100"
+          data-anim="fade-up">
           <div class="card-body">
             <div class="project-meta">
               <span class="badge">{{ project.category }}</span>
