@@ -2,99 +2,87 @@
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: var(--spacing-xl);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
   margin-top: var(--spacing-2xl);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .project-card {
   background: var(--bg-secondary);
   border-radius: var(--radius-2xl);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   border: 1px solid var(--glass-border);
   overflow: hidden;
-  transition: all var(--transition-normal);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.04),
+      transparent
+    );
+    transition: left 0.8s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+
   &:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-    transform: translateY(-8px);
-    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transform: translateY(-10px) scale(1.015);
+    border-color: rgba(255, 255, 255, 0.15);
+
+    &::before {
+      left: 125%;
+    }
+  }
+
+  /* Algo card accent */
+  &.algo-card {
+    &:hover {
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(102, 126, 234, 0.15);
+    }
+  }
+
+  /* Divine card accent */
+  &.divine-card {
+    &:hover {
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 165, 0, 0.12);
+    }
   }
 }
 
+/* Legacy .project-image kept for compatibility */
 .project-image {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-lg);
   margin: var(--spacing-lg);
-  
+
   a {
     text-decoration: none;
     color: inherit;
     display: block;
   }
-  
-  img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: var(--radius-md);
-    transition: all var(--transition-normal);
-  }
-  
-  .project-preview {
-    width: 100%;
-    height: 200px;
-    border-radius: var(--radius-md);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: var(--white);
-    text-align: center;
-    padding: var(--spacing-lg);
-    box-sizing: border-box;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    transition: all var(--transition-normal);
-    
-    h3 {
-      margin: 0;
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: var(--spacing-xs);
-    }
-    
-    p {
-      margin: var(--spacing-xs) 0 0 0;
-      font-size: 0.875rem;
-      opacity: 0.9;
-      line-height: 1.4;
-    }
-    
-    .tech-stack {
-      font-size: 0.75rem;
-      opacity: 0.8;
-      margin-top: var(--spacing-xs);
-    }
-    
-    .powered-by {
-      font-size: 0.7rem;
-      opacity: 0.7;
-      margin-top: var(--spacing-xs);
-    }
-  }
-
-  &:hover img,
-  &:hover .project-preview {
-    transform: scale(1.05);
-  }
 }
 
 .project-content {
   padding: var(--spacing-xl);
-  
+
   .project-title {
     font-family: var(--font-secondary);
     font-size: 1.5rem;
@@ -102,15 +90,99 @@
     margin-bottom: var(--spacing-md);
     color: var(--text-primary);
   }
-  
+
   .project-description {
     color: var(--text-secondary);
     line-height: 1.7;
     font-size: 1rem;
-    
+
     b {
       color: var(--text-primary);
       font-weight: 600;
+    }
+  }
+}
+
+/* ========================================
+   Project Card Body — Polished
+   ======================================== */
+.project-card .card-body {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  .card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .card-text {
+    color: var(--text-secondary);
+    line-height: 1.75;
+    font-size: 0.925rem;
+    flex-grow: 1;
+    margin-bottom: 1.25rem;
+  }
+}
+
+.project-card .project-meta {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .text-muted {
+    font-size: 0.8rem;
+    opacity: 0.6;
+  }
+}
+
+.project-card .project-actions {
+  margin-top: auto;
+  padding-top: 0.5rem;
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: var(--radius-xl);
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: ' \2192';
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35);
+
+      &::after {
+        transform: translateX(4px);
+      }
     }
   }
 }
@@ -140,19 +212,40 @@
 }
 
 /* Responsive Design */
+@media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .projects-grid {
-    gap: var(--spacing-lg);
+    gap: 1.5rem;
   }
-  
+
+  .project-preview-container .project-preview {
+    height: 200px;
+    padding: 1.5rem 1.25rem;
+
+    h3 {
+      font-size: 1.2rem;
+    }
+  }
+
+  .project-card .card-body {
+    padding: 1.25rem;
+  }
+
   .project-content {
     padding: var(--spacing-lg);
   }
-  
+
   .project-content .project-title {
     font-size: 1.25rem;
   }
-  
+
   .section-title {
     font-size: 2.5rem;
   }
@@ -160,20 +253,21 @@
 
 /* Animation for project cards */
 .project-card {
-  animation: fadeInUp 0.6s ease-out;
-  
-  &:nth-child(1) { animation-delay: 0.1s; }
-  &:nth-child(2) { animation-delay: 0.2s; }
+  opacity: 0;
+  animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+
+  &:nth-child(1) { animation-delay: 0.15s; }
+  &:nth-child(2) { animation-delay: 0.35s; }
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px) scale(0.97);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -432,88 +526,188 @@
   &:nth-child(3) { animation-delay: 0.3s; }
 }
 
-/* Project Preview Container */
+/* ========================================
+   Project Preview Container — Elevated
+   ======================================== */
 .project-preview-container {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
-  
+
   a {
     text-decoration: none;
     color: inherit;
     display: block;
   }
-  
+
   .project-preview {
     width: 100%;
-    height: 200px;
+    height: 240px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: var(--white);
+    color: #fff;
     text-align: center;
-    padding: var(--spacing-lg);
+    padding: 2rem 1.5rem;
     box-sizing: border-box;
-    transition: all var(--transition-normal);
-    
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow: hidden;
+
+    /* Noise texture overlay for depth */
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.06) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255,255,255,0.04) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Animated shimmer on hover */
+    &::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent 0%, rgba(255,255,255,0.03) 25%, transparent 50%);
+      animation: previewRotate 8s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    & > * {
+      position: relative;
+      z-index: 2;
+    }
+
     h3 {
-      margin: 0;
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: var(--spacing-xs);
+      margin: 0 0 0.5rem;
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
-    
+
     p {
-      margin: var(--spacing-xs) 0 0 0;
-      font-size: 0.875rem;
-      opacity: 0.9;
-      line-height: 1.4;
+      margin: 0 0 0.75rem;
+      font-size: 0.9rem;
+      opacity: 0.92;
+      line-height: 1.5;
+      font-weight: 500;
     }
-    
+
     .om-symbol {
-      font-size: 2rem;
-      margin: var(--spacing-sm) 0;
+      font-size: 2.2rem;
+      margin: 0.25rem 0 0.5rem;
       animation: omFloat 3s ease-in-out infinite;
-      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+      filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.6));
     }
-    
+
     .tech-stack {
-      font-size: 0.75rem;
-      opacity: 0.8;
-      margin-top: var(--spacing-xs);
+      font-size: 0.78rem;
+      opacity: 0.75;
+      margin-top: 0.25rem;
+      letter-spacing: 0.03em;
+      font-weight: 400;
     }
-    
+
     .powered-by {
-      font-size: 0.7rem;
-      opacity: 0.7;
-      margin-top: var(--spacing-xs);
+      font-size: 0.72rem;
+      opacity: 0.55;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
     }
   }
+
+  /* Hover: lift the preview content */
+  .project-card:hover & .project-preview {
+    transform: scale(1.03);
+  }
+}
+
+/* Algorithm Visualizer — blue/indigo gradient */
+.algo-preview {
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+
+  &::before {
+    background:
+      radial-gradient(circle at 15% 85%, rgba(102, 126, 234, 0.25) 0%, transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(118, 75, 162, 0.2) 0%, transparent 45%) !important;
+  }
+}
+
+/* Divine Wisdom — warm amber/saffron gradient */
+.divine-wisdom {
+  background: linear-gradient(135deg, #1a0a00 0%, #3d1c00 35%, #2d1600 70%, #1a0a00 100%);
+
+  &::before {
+    background:
+      radial-gradient(circle at 20% 80%, rgba(255, 165, 0, 0.2) 0%, transparent 45%),
+      radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.12) 0%, transparent 45%) !important;
+  }
+}
+
+@keyframes previewRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes omFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 /* Tech Badges for Projects */
 .tech-badges {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-sm);
-  
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+
   .tech-badge {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-sm);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--white);
-    backdrop-filter: blur(10px);
-    transition: all var(--transition-normal);
-    
+    background: rgba(102, 126, 234, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: var(--radius-full);
+    padding: 0.3rem 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
+
     &:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(102, 126, 234, 0.2);
+      border-color: rgba(102, 126, 234, 0.4);
+      color: #fff;
       transform: translateY(-1px);
     }
   }
+}
+
+/* Divine card tech badges — warm tint */
+.divine-card .tech-badges .tech-badge {
+  background: rgba(255, 165, 0, 0.08);
+  border-color: rgba(255, 165, 0, 0.18);
+
+  &:hover {
+    background: rgba(255, 165, 0, 0.18);
+    border-color: rgba(255, 165, 0, 0.35);
+  }
+}
+
+/* Algo card badge — blue tint */
+.algo-card .project-meta .badge {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* Divine card badge — warm tint */
+.divine-card .project-meta .badge {
+  background: linear-gradient(135deg, #f5af19, #f12711);
 }
