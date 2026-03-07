@@ -52,9 +52,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       document.body.style.width = '100%';
       document.body.style.height = '100%';
       
-      // Prevent touch scrolling
-      document.body.style.touchAction = 'none';
-      
       // Add class to body for additional styling
       document.body.classList.add('menu-open');
     } else {
@@ -65,7 +62,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       document.body.style.top = '';
       document.body.style.width = '';
       document.body.style.height = '';
-      document.body.style.touchAction = '';
       
       // Remove class from body
       document.body.classList.remove('menu-open');
@@ -85,7 +81,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     document.body.style.top = '';
     document.body.style.width = '';
     document.body.style.height = '';
-    document.body.style.touchAction = '';
     
     // Remove class from body
     document.body.classList.remove('menu-open');
