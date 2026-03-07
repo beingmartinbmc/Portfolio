@@ -54,8 +54,8 @@ KEY ACHIEVEMENTS:
 - Reduced system downtime by 80% through improved architecture
 
 PROJECTS:
-- Algorithm Visualizer: Interactive algorithm visualization tool - Angular, TypeScript, D3.js, CSS Animations
-- Religious GPT: AI spiritual companion powered by GPT-4.1 - React, Node.js, Vercel
+- Algorithm Visualizer (https://beingmartinbmc.github.io/algorithm-visualizer/): DSA visualizer with step-by-step animation and audio effects. Gamified challenges to learn sorting, trees, graphs, and backtracking in a fun way - JavaScript, React, Tailwind, Web Audio API
+- Religious GPT (https://beingmartinbmc.github.io/epic/): Learn religion in an AI way. Explore teachings from Bhagavad Gita, Vedas, Quran, Bible, Tripitaka, and more - React, Node.js, GPT-4.1, Vercel
 
 PERSONAL:
 - Passionate about backend development and Large Language Models (LLMs)
