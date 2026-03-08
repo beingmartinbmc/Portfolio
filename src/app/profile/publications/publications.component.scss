@@ -2,10 +2,10 @@
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
   margin-top: var(--spacing-2xl);
-  max-width: 1000px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -62,6 +62,13 @@
   &.divine-card {
     &:hover {
       box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 165, 0, 0.12);
+    }
+  }
+
+  /* DateSense card accent */
+  &.datesense-card {
+    &:hover {
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(236, 72, 153, 0.18);
     }
   }
 }
@@ -212,7 +219,15 @@
 }
 
 /* Responsive Design */
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 700px) {
   .projects-grid {
     grid-template-columns: 1fr;
     max-width: 500px;
@@ -258,6 +273,7 @@
 
   &:nth-child(1) { animation-delay: 0.15s; }
   &:nth-child(2) { animation-delay: 0.35s; }
+  &:nth-child(3) { animation-delay: 0.55s; }
 }
 
 @keyframes fadeInUp {
@@ -654,6 +670,32 @@
   }
 }
 
+/* DateSense — pink/rose gradient */
+.datesense-preview {
+  background: linear-gradient(135deg, #1a0011 0%, #3d0028 35%, #2d001e 70%, #1a0011 100%);
+
+  &::before {
+    background:
+      radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.22) 0%, transparent 45%),
+      radial-gradient(circle at 80% 20%, rgba(244, 114, 182, 0.15) 0%, transparent 45%) !important;
+  }
+
+  .heart-symbol {
+    font-size: 2.2rem;
+    margin: 0.25rem 0 0.5rem;
+    animation: heartBeat 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 14px rgba(236, 72, 153, 0.6));
+  }
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.1); }
+  60% { transform: scale(1); }
+}
+
 @keyframes previewRotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -702,6 +744,17 @@
   }
 }
 
+/* DateSense card tech badges — pink tint */
+.datesense-card .tech-badges .tech-badge {
+  background: rgba(236, 72, 153, 0.08);
+  border-color: rgba(236, 72, 153, 0.18);
+
+  &:hover {
+    background: rgba(236, 72, 153, 0.18);
+    border-color: rgba(236, 72, 153, 0.35);
+  }
+}
+
 /* Algo card badge — blue tint */
 .algo-card .project-meta .badge {
   background: linear-gradient(135deg, #667eea, #764ba2);
@@ -710,4 +763,9 @@
 /* Divine card badge — warm tint */
 .divine-card .project-meta .badge {
   background: linear-gradient(135deg, #f5af19, #f12711);
+}
+
+/* DateSense card badge — pink tint */
+.datesense-card .project-meta .badge {
+  background: linear-gradient(135deg, #ec4899, #be185d);
 }
