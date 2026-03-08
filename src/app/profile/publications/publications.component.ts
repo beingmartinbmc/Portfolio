@@ -39,6 +39,19 @@ export class PublicationsComponent implements OnInit {
       linkText: 'View on NPM'
     },
     {
+      id: 'node-request-trace',
+      title: 'node-request-trace',
+      description: 'Request tracing and performance visualization library for Node.js. Inspect the full execution lifecycle of API requests, detect performance bottlenecks, identify slow middleware or async operations, and debug production issues quickly.',
+      category: 'NPM',
+      badges: {
+        version: 'https://img.shields.io/npm/v/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=version',
+        downloads: 'https://img.shields.io/npm/dm/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=downloads/month',
+        total: 'https://img.shields.io/npm/dt/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=total'
+      },
+      link: 'https://www.npmjs.com/package/node-request-trace',
+      linkText: 'View on NPM'
+    },
+    {
       id: 'meme-as-a-service',
       title: 'meme-as-a-service',
       description: 'A fun and lightweight service for generating and serving memes programmatically. Provides easy-to-use APIs for creating custom memes with text overlays and various templates.',
