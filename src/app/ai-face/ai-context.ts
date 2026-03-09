@@ -57,6 +57,16 @@ PROJECTS:
 - Algorithm Visualizer (https://beingmartinbmc.github.io/algorithm-visualizer/): DSA visualizer with step-by-step animation and audio effects. Gamified challenges to learn sorting, trees, graphs, and backtracking in a fun way - JavaScript, React, Tailwind, Web Audio API
 - Religious GPT (https://beingmartinbmc.github.io/epic/): Learn religion in an AI way. Explore teachings from Bhagavad Gita, Vedas, Quran, Bible, Tripitaka, and more - React, Node.js, GPT-4.1, Vercel
 
+OPEN SOURCE PACKAGES:
+- node-actuator-lite (https://www.npmjs.com/package/node-actuator-lite): A lightweight Node.js actuator similar to Spring Boot actuator with Prometheus integration, built with minimal external dependencies - NPM
+- node-request-trace (https://www.npmjs.com/package/node-request-trace): Request tracing and performance visualization library for Node.js. Inspect execution lifecycle, detect bottlenecks, identify slow middleware - NPM
+- node-eventloop-watchdog (https://www.npmjs.com/package/node-eventloop-watchdog): Lightweight Node.js event loop blocking detector with automatic code identification, blocking heatmaps, and production-safe diagnostics - NPM
+- meme-as-a-service (https://www.npmjs.com/package/meme-as-a-service): A fun and lightweight service for generating and serving memes programmatically - NPM
+- roastcode (https://www.npmjs.com/package/roastcode): A CLI tool that humorously roasts your code files, commit messages, and diffs with AI-powered savagery - NPM
+- readme-cinema (https://www.npmjs.com/package/readme-cinema): Transform README files into cinematic terminal experiences with ASCII art, typewriter effects, and dramatic transitions - NPM
+- eli5 (https://central.sonatype.com/artifact/io.github.beingmartinbmc/eli5/1.0.1/overview): Explain Like I'm 5 annotations for Java code documentation with AI-powered explanations - Maven Central
+- git-history-ui (https://www.npmjs.com/package/git-history-ui): A beautiful, modern web UI for visualizing git history with interactive commit graphs, search, filtering, and diff visualization - NPM
+
 PERSONAL:
 - Passionate about backend development and Large Language Models (LLMs)
 - Avid traveler and adventure seeker - completed solo trips across 7 countries

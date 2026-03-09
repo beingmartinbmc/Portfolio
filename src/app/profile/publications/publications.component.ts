@@ -52,6 +52,19 @@ export class PublicationsComponent implements OnInit {
       linkText: 'View on NPM'
     },
     {
+      id: 'node-eventloop-watchdog',
+      title: 'node-eventloop-watchdog',
+      description: 'Lightweight Node.js event loop blocking detector with automatic code identification, blocking heatmaps, and production-safe diagnostics. Detects lag, captures blocking stack traces, identifies hotspots, and correlates with HTTP requests.',
+      category: 'NPM',
+      badges: {
+        version: 'https://img.shields.io/npm/v/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=version',
+        downloads: 'https://img.shields.io/npm/dm/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=downloads/month',
+        total: 'https://img.shields.io/npm/dt/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=total'
+      },
+      link: 'https://www.npmjs.com/package/node-eventloop-watchdog',
+      linkText: 'View on NPM'
+    },
+    {
       id: 'meme-as-a-service',
       title: 'meme-as-a-service',
       description: 'A fun and lightweight service for generating and serving memes programmatically. Provides easy-to-use APIs for creating custom memes with text overlays and various templates.',
