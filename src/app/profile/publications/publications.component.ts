@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {PROJECT_LINKS, PACKAGE_LINKS} from '../../config/profile-links';
 import {CommonModule} from '@angular/common';
 
 interface OpenSourceProject {
@@ -24,6 +25,7 @@ interface OpenSourceProject {
   imports: [CommonModule]
 })
 export class PublicationsComponent implements OnInit {
+  readonly projectLinks = PROJECT_LINKS;
   openSourceProjects: OpenSourceProject[] = [
     {
       id: 'node-actuator-lite',
@@ -35,7 +37,7 @@ export class PublicationsComponent implements OnInit {
         downloads: 'https://img.shields.io/npm/dm/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=downloads/month',
         total: 'https://img.shields.io/npm/dt/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=total'
       },
-      link: 'https://www.npmjs.com/package/node-actuator-lite',
+      link: PACKAGE_LINKS.nodeActuatorLite,
       linkText: 'View on NPM'
     },
     {
@@ -48,7 +50,7 @@ export class PublicationsComponent implements OnInit {
         downloads: 'https://img.shields.io/npm/dm/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=downloads/month',
         total: 'https://img.shields.io/npm/dt/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=total'
       },
-      link: 'https://www.npmjs.com/package/node-request-trace',
+      link: PACKAGE_LINKS.nodeRequestTrace,
       linkText: 'View on NPM'
     },
     {
@@ -61,7 +63,7 @@ export class PublicationsComponent implements OnInit {
         downloads: 'https://img.shields.io/npm/dm/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=downloads/month',
         total: 'https://img.shields.io/npm/dt/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=total'
       },
-      link: 'https://www.npmjs.com/package/node-eventloop-watchdog',
+      link: PACKAGE_LINKS.nodeEventloopWatchdog,
       linkText: 'View on NPM'
     },
     {
@@ -74,7 +76,7 @@ export class PublicationsComponent implements OnInit {
         downloads: 'https://img.shields.io/npm/dm/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=downloads/month',
         total: 'https://img.shields.io/npm/dt/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=total'
       },
-      link: 'https://www.npmjs.com/package/meme-as-a-service',
+      link: PACKAGE_LINKS.memeAsAService,
       linkText: 'View on NPM'
     },
     {
@@ -87,7 +89,7 @@ export class PublicationsComponent implements OnInit {
         downloads: 'https://img.shields.io/npm/dm/roastcode?style=flat-square&logo=npm&color=cb3837&label=downloads/month',
         total: 'https://img.shields.io/npm/dt/roastcode?style=flat-square&logo=npm&color=cb3837&label=total'
       },
-      link: 'https://www.npmjs.com/package/roastcode',
+      link: PACKAGE_LINKS.roastcode,
       linkText: 'View on NPM'
     },
     {
@@ -100,7 +102,7 @@ export class PublicationsComponent implements OnInit {
         downloads: 'https://img.shields.io/npm/dm/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=downloads/week',
         total: 'https://img.shields.io/npm/dt/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=total'
       },
-      link: 'https://www.npmjs.com/package/readme-cinema',
+      link: PACKAGE_LINKS.readmeCinema,
       linkText: 'View on NPM'
     },
     {
@@ -112,7 +114,7 @@ export class PublicationsComponent implements OnInit {
         version: 'https://img.shields.io/maven-central/v/io.github.beingmartinbmc/eli5?style=flat-square&logo=apache-maven&color=c71a36&label=version',
         java: 'https://img.shields.io/badge/Java-11+-orange?style=flat-square&logo=java&color=ED8B00'
       },
-      link: 'https://central.sonatype.com/artifact/io.github.beingmartinbmc/eli5/1.0.1/overview',
+      link: PACKAGE_LINKS.eli5,
       linkText: 'View on Maven Central'
     },
     {
@@ -125,7 +127,7 @@ export class PublicationsComponent implements OnInit {
         downloads: 'https://img.shields.io/npm/dm/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=downloads/week',
         total: 'https://img.shields.io/npm/dt/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=total'
       },
-      link: 'https://www.npmjs.com/package/git-history-ui',
+      link: PACKAGE_LINKS.gitHistoryUi,
       linkText: 'View on NPM'
     }
   ];

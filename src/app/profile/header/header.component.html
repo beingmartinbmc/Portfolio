@@ -1,5 +1,5 @@
-<header class="apple-header" [class.scrolled]="isScrolled">
-  <nav class="apple-nav">
+<header class="apple-header" [class.scrolled]="isScrolled" role="banner">
+  <nav class="apple-nav" aria-label="Main navigation">
     <div class="apple-container">
       <div class="nav-content">
         <!-- Logo -->
@@ -43,7 +43,8 @@
         <!-- Music Controls -->
         <div class="music-controls">
           <!-- Music Toggle -->
-          <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying" title="Toggle Piano Music">
+          <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying"
+            [attr.aria-pressed]="isPlaying" aria-label="Toggle background music">
             <span class="music-emoji">🎵</span>
           </button>
           
@@ -54,7 +55,8 @@
         </div>
         
         <!-- Mobile Menu Button -->
-        <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen">
+        <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen"
+          [attr.aria-expanded]="isMenuOpen" aria-label="Toggle navigation menu">
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>

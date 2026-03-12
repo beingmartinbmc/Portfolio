@@ -1,10 +1,10 @@
 <div class="ai-assistant-wrapper" [class.chat-open]="isChatOpen">
   <!-- Chat Bubble -->
   @if (isChatOpen) {
-    <div class="chat-bubble" [@chatAnimation]>
+    <div class="chat-bubble" [@chatAnimation] role="dialog" aria-label="Chat with Nova AI assistant">
       <div class="chat-header">
         <h3>💬 Chat with Nova</h3>
-        <button class="close-btn" (click)="toggleChat()">✕</button>
+        <button class="close-btn" (click)="toggleChat()" aria-label="Close chat">✕</button>
       </div>
       <div class="chat-messages" #chatMessages>
         @for (message of messages; track message) {
@@ -30,12 +30,14 @@
           [(ngModel)]="userInput"
           (keyup.enter)="sendMessage()"
           placeholder="Ask me anything..."
+          aria-label="Type your message"
           class="chat-input"
           [disabled]="isTyping"
           #messageInput>
         <button
           class="send-btn"
           (click)="sendMessage()"
+          aria-label="Send message"
           [disabled]="!userInput.trim() || isTyping">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -48,7 +50,13 @@
 
   <!-- AI Face -->
   <div class="ai-face-container"
+    role="button"
+    tabindex="0"
     (click)="toggleChat()"
+    (keydown.enter)="toggleChat()"
+    (keydown.space)="toggleChat(); $event.preventDefault()"
+    [attr.aria-expanded]="isChatOpen"
+    aria-label="Open chat with Nova AI assistant"
     [class.thinking]="isTyping"
     [class.talking]="isTalking"
     [class.whistling]="isWhistling">

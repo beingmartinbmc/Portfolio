@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {CONTACT_LINKS} from '../../config/profile-links';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -85,7 +86,7 @@ export class ContactComponent implements OnInit {
     this.isSubmitting = true;
 
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    this.http.post('https://formspree.io/f/mbjpqzgz',
+    this.http.post(CONTACT_LINKS.formspree,
       {name, subject, replyto: email, message},
       {headers}).subscribe(
       response => {

@@ -26,7 +26,7 @@
       <div class="controls-hint">
         <span>🖱️ Drag to rotate</span>
         <span>🔍 Scroll to zoom</span>
-        <button class="chat-button" (click)="toggleChat()">
+        <button class="chat-button" (click)="toggleChat()" aria-label="Open or close chat">
           {{ isChatOpen ? '💭 Close Chat' : '🤖 Chat with Me' }}
         </button>
       </div>
@@ -34,12 +34,13 @@
 
     <!-- Chat Window -->
     @if (isChatOpen) {
-      <div class="chat-window" [@chatAnimation]>
+      <div class="chat-window" [@chatAnimation] role="dialog" aria-label="Chat with AI assistant">
         <div class="chat-header">
           <h3>💬 Chat with Me</h3>
           <div class="header-controls">
             <button class="tts-toggle-btn"
               (click)="toggleTTS()"
+              aria-label="Toggle text-to-speech"
               [class.active]="ttsEnabled"
               title="{{ ttsEnabled ? 'Disable' : 'Enable' }} Text-to-Speech">
               {{ ttsEnabled ? '🔊' : '🔇' }}
@@ -47,11 +48,12 @@
             @if (isReallySpeaking) {
               <button class="stop-speech-btn"
                 (click)="stopSpeech()"
+                aria-label="Stop speech"
                 title="Stop Speech">
                 ⏹️
               </button>
             }
-            <button class="close-btn" (click)="toggleChat()">✕</button>
+            <button class="close-btn" (click)="toggleChat()" aria-label="Close chat">✕</button>
           </div>
         </div>
         <div class="chat-messages" #chatMessages>
@@ -78,9 +80,10 @@
             [(ngModel)]="userInput"
             (keyup.enter)="sendMessage()"
             placeholder="Ask me anything about my portfolio..."
+            aria-label="Type your message"
             #messageInput
             class="chat-input">
-          <button (click)="sendMessage()"
+          <button (click)="sendMessage()" aria-label="Send message"
             [disabled]="isReallyTyping || !userInput.trim()"
             class="send-btn">
             {{ isReallyTyping ? '⏳' : '�' }}

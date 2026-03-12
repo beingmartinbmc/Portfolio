@@ -202,7 +202,7 @@
 
     <!-- Skill Detail Modal -->
     @if (showDetailModal && selectedSkill && selectedSkill.details) {
-      <div class="skill-modal-overlay" (click)="closeDetailModal()">
+      <div class="skill-modal-overlay" (click)="closeDetailModal()" role="dialog" aria-label="Skill detail">
         <div class="skill-modal" (click)="$event.stopPropagation()">
           <!-- Modal Header -->
           <div class="modal-header">
@@ -217,7 +217,7 @@
                 </span>
               </div>
             </div>
-            <button class="modal-close" (click)="closeDetailModal()">
+            <button class="modal-close" (click)="closeDetailModal()" aria-label="Close skill detail">
               <i class="fas fa-times"></i>
             </button>
           </div>
@@ -226,13 +226,13 @@
           <div class="modal-content">
             <!-- Description -->
             <div class="modal-section">
-              <h3 class="section-title">Overview</h3>
+              <h3 class="modal-section-title">Overview</h3>
               <p class="section-description">{{selectedSkill.details.description}}</p>
             </div>
 
             <!-- Experience -->
             <div class="modal-section">
-              <h3 class="section-title">Experience</h3>
+              <h3 class="modal-section-title">Experience</h3>
               <ul class="detail-list">
                 @for (exp of selectedSkill.details.experience; track $index) {
                   <li class="detail-item">{{exp}}</li>
@@ -242,7 +242,7 @@
 
             <!-- Projects -->
             <div class="modal-section">
-              <h3 class="section-title">Key Projects</h3>
+              <h3 class="modal-section-title">Key Projects</h3>
               <div class="project-grid">
                 @for (project of selectedSkill.details.projects; track $index) {
                   <div class="project-card">
@@ -255,7 +255,7 @@
 
             <!-- Achievements -->
             <div class="modal-section">
-              <h3 class="section-title">Achievements</h3>
+              <h3 class="modal-section-title">Achievements</h3>
               <div class="achievement-list">
                 @for (achievement of selectedSkill.details.achievements; track $index) {
                   <div class="achievement-item">
@@ -268,7 +268,7 @@
 
             <!-- Related Skills -->
             <div class="modal-section">
-              <h3 class="section-title">Related Skills</h3>
+              <h3 class="modal-section-title">Related Skills</h3>
               <div class="related-skills">
                 @for (relatedSkill of selectedSkill.details.relatedSkills; track $index) {
                   <span class="related-skill-tag">{{relatedSkill}}</span>

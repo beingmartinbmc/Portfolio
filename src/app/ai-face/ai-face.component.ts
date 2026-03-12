@@ -48,6 +48,7 @@ export class AiFaceComponent implements AfterViewInit, OnDestroy {
   isWhistling = false;
   private musicSubscription?: Subscription;
   
+  private blinkIntervalId: ReturnType<typeof setInterval> | null = null;
   private readonly CONTEXT = AI_CONTEXT;
 
   constructor(private http: HttpClient, private musicService: MusicService) {
@@ -70,8 +71,19 @@ export class AiFaceComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.blinkIntervalId) {
+      clearInterval(this.blinkIntervalId);
+      this.blinkIntervalId = null;
+    }
     if (this.musicSubscription) {
       this.musicSubscription.unsubscribe();
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.isChatOpen) {
+      this.toggleChat();
     }
   }
 
@@ -171,7 +183,7 @@ export class AiFaceComponent implements AfterViewInit, OnDestroy {
 
   private startIdleAnimation() {
     // Blink animation
-    setInterval(() => {
+    this.blinkIntervalId = setInterval(() => {
       if (!this.isTyping && !this.isTalking && !this.isWhistling) {
         const leftEye = document.querySelector('#left-eye-container');
         const rightEye = document.querySelector('#right-eye-container');

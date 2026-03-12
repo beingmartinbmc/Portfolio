@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, HostListener } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -50,6 +50,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private controls!: OrbitControls;
   private model!: THREE.Group;
   private animationFrameId?: number;
+  private boundResizeHandler = () => this.onWindowResize();
 
   // Chat functionality
   public isChatOpen = false;
@@ -85,6 +86,13 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     // Welcome message will be added in ngOnInit
   }
 
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.isChatOpen) {
+      this.isChatOpen = false;
+    }
+  }
+
   ngOnInit(): void {
     this.initThreeJS();
     this.loadAvatar();
@@ -94,6 +102,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    window.removeEventListener('resize', this.boundResizeHandler);
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId);
     }
@@ -158,7 +167,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     this.scene.add(fillLight);
 
     // Handle window resize
-    window.addEventListener('resize', () => this.onWindowResize());
+    window.addEventListener('resize', this.boundResizeHandler);
   }
 
   private loadAvatar(): void {

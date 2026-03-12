@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BLOG_LINKS } from '../../config/profile-links';
 
 @Component({
   selector: 'app-blog',
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
   standalone: true
 })
 export class BlogComponent {
+  readonly blogLinks = BLOG_LINKS;
   constructor() { }
 } 

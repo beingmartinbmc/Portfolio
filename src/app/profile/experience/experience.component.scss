@@ -163,6 +163,9 @@
   margin-left: -28px;
   margin-top: -28px;
   cursor: pointer;
+  border: none;
+  padding: 0;
+  background: transparent;
   z-index: 3;
   animation: planetOrbit 50s linear infinite;
 
@@ -228,6 +231,20 @@
     .orbit-label {
       color: #667eea;
       font-weight: 700;
+    }
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    .orbit-node {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25), 0 0 25px rgba(102, 126, 234, 0.3);
+      transform: scale(1.1);
+    }
+
+    .orbit-label {
+      color: #667eea;
     }
   }
 }
@@ -308,6 +325,9 @@
   margin-left: -25px;
   margin-top: -25px;
   cursor: pointer;
+  border: none;
+  padding: 0;
+  background: transparent;
   z-index: 3;
   animation: subRingOrbit 20s linear infinite;
 
@@ -370,6 +390,20 @@
   &.active .sub-ring-label {
     color: #667eea;
     font-weight: 700;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible .sub-ring-node {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25), 0 0 20px rgba(102, 126, 234, 0.3);
+    transform: scale(1.1);
+  }
+
+  &:focus-visible .sub-ring-label {
+    color: #667eea;
   }
 }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ANALYTICS_LINKS } from '../../config/profile-links';
 
 
 @Component({
@@ -9,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
   imports: []
 })
 export class FooterComponent implements OnInit {
+  readonly analyticsLinks = ANALYTICS_LINKS;
 
   ngOnInit(): void {
     this.incrementFlagCounter();
@@ -17,6 +19,6 @@ export class FooterComponent implements OnInit {
   private incrementFlagCounter(): void {
     // Load the flag counter image to increment the counter
     const img = new Image();
-    img.src = 'https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/';
+    img.src = ANALYTICS_LINKS.flagCounterPixel;
   }
 }

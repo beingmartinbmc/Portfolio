@@ -1,35 +1,102 @@
 /* Constellation Map — Skills Component */
 
 /* Section Header */
-.section-header {
-  text-align: center;
-  margin-bottom: 2.5rem;
-  width: 100%;
-  overflow: visible;
+.apple-section {
+  position: relative;
+  padding: clamp(5rem, 9vw, 7rem) 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(111, 138, 255, 0.16) 0%, transparent 24%),
+    radial-gradient(circle at 82% 14%, rgba(244, 143, 177, 0.14) 0%, transparent 22%),
+    radial-gradient(circle at 50% 78%, rgba(100, 181, 246, 0.12) 0%, transparent 28%),
+    linear-gradient(180deg, rgba(2, 4, 18, 0.9) 0%, rgba(5, 8, 28, 0.74) 48%, rgba(2, 4, 18, 0.92) 100%);
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 12% 20%, rgba(255, 255, 255, 0.45), transparent),
+      radial-gradient(1px 1px at 24% 72%, rgba(173, 216, 255, 0.35), transparent),
+      radial-gradient(1.5px 1.5px at 68% 24%, rgba(255, 255, 255, 0.3), transparent),
+      radial-gradient(1px 1px at 78% 68%, rgba(255, 255, 255, 0.42), transparent),
+      radial-gradient(2px 2px at 88% 34%, rgba(205, 226, 255, 0.28), transparent);
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: min(28rem, 45vw);
+    aspect-ratio: 1;
+    top: -11rem;
+    right: -8rem;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.22) 0%, rgba(186, 160, 255, 0.18) 18%, rgba(98, 122, 255, 0.12) 40%, rgba(19, 24, 62, 0) 72%);
+    filter: blur(6px);
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 0;
+  }
 }
 
-.section-title {
-  font-size: 3.5rem;
+.apple-container {
+  position: relative;
+  z-index: 1;
+}
+
+.section-header {
+  text-align: center;
+  margin: 0 auto 3rem;
+  width: 100%;
+  max-width: 52rem;
+  overflow: visible;
+  position: relative;
+  padding: 1rem 0 0.75rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -0.75rem;
+    width: min(18rem, 42vw);
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, rgba(100, 181, 246, 0), rgba(100, 181, 246, 0.7), rgba(244, 143, 177, 0.7), rgba(244, 143, 177, 0));
+    box-shadow: 0 0 18px rgba(100, 181, 246, 0.35);
+    opacity: 0.75;
+  }
+}
+
+.section-header .section-title {
+  font-size: clamp(3.25rem, 6vw, 4.75rem);
   font-weight: 800;
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  background: linear-gradient(120deg, #d9e8ff 0%, #8fc5ff 22%, #a98dff 52%, #ffb5dc 78%, #fef7ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.04em;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
   white-space: nowrap;
   overflow: visible;
   text-overflow: unset;
-  line-height: 1.2;
+  line-height: 1.05;
+  display: inline-block;
+  filter: drop-shadow(0 0 24px rgba(132, 167, 255, 0.24));
 }
 
 .section-subtitle {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(201, 223, 255, 0.72);
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.24em;
   margin: 0;
+  text-transform: uppercase;
 }
 
 /* Constellation Viewport */
@@ -37,22 +104,23 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  max-height: 600px;
+  max-height: 620px;
   background:
-    radial-gradient(ellipse at 15% 25%, rgba(100, 181, 246, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 15%, rgba(206, 147, 216, 0.04) 0%, transparent 45%),
-    radial-gradient(ellipse at 85% 20%, rgba(128, 203, 196, 0.04) 0%, transparent 45%),
-    radial-gradient(ellipse at 48% 55%, rgba(244, 143, 177, 0.03) 0%, transparent 40%),
-    radial-gradient(ellipse at 80% 55%, rgba(129, 199, 132, 0.03) 0%, transparent 40%),
-    radial-gradient(ellipse at 82% 78%, rgba(229, 115, 115, 0.03) 0%, transparent 35%),
-    radial-gradient(ellipse at 50% 50%, rgba(16, 16, 35, 1) 0%, rgba(6, 6, 14, 1) 100%);
-  border-radius: 20px;
+    radial-gradient(ellipse at 18% 22%, rgba(100, 181, 246, 0.1) 0%, transparent 44%),
+    radial-gradient(ellipse at 52% 14%, rgba(206, 147, 216, 0.12) 0%, transparent 42%),
+    radial-gradient(ellipse at 82% 18%, rgba(128, 203, 196, 0.08) 0%, transparent 42%),
+    radial-gradient(ellipse at 24% 76%, rgba(244, 143, 177, 0.08) 0%, transparent 38%),
+    radial-gradient(ellipse at 74% 74%, rgba(129, 199, 132, 0.08) 0%, transparent 34%),
+    radial-gradient(circle at 50% 50%, rgba(19, 29, 74, 0.34) 0%, rgba(8, 10, 28, 0) 34%),
+    linear-gradient(180deg, rgba(8, 10, 32, 0.98) 0%, rgba(4, 6, 18, 0.98) 100%);
+  border-radius: 27px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
   box-shadow:
     0 0 80px rgba(0, 0, 0, 0.6),
-    0 0 120px rgba(102, 126, 234, 0.04),
-    inset 0 0 100px rgba(102, 126, 234, 0.02);
+    0 0 140px rgba(102, 126, 234, 0.08),
+    inset 0 0 120px rgba(102, 126, 234, 0.05),
+    inset 0 0 40px rgba(255, 255, 255, 0.03);
 
   &::before {
     content: '';
@@ -254,7 +322,13 @@
 .viewport-wrapper {
   position: relative;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 28px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(100, 181, 246, 0.35), rgba(169, 141, 255, 0.18) 45%, rgba(244, 143, 177, 0.28));
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 18px 80px rgba(2, 6, 22, 0.55),
+    0 0 90px rgba(100, 181, 246, 0.12);
 
   &--zooming {
     overflow: hidden; // keep clipping but allow internal zoom
@@ -482,7 +556,7 @@
   }
 }
 
-.section-title {
+.modal-section .section-title {
   font-size: 1.1rem;
   font-weight: 600;
   color: #fff;
@@ -615,33 +689,54 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 1.25rem;
-  margin-top: 1.5rem;
+  width: fit-content;
+  max-width: 100%;
+  margin: 2rem auto 0;
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(133, 162, 255, 0.18);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(10, 14, 38, 0.78), rgba(18, 24, 56, 0.48));
+  box-shadow:
+    0 12px 40px rgba(2, 6, 22, 0.4),
+    inset 0 0 30px rgba(108, 136, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
 }
 
 .legend-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  box-shadow: 0 0 6px currentColor;
+  box-shadow: 0 0 10px currentColor, 0 0 24px currentColor;
 }
 
 .legend-name {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(220, 229, 255, 0.72);
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: 0.04em;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .section-title {
-    font-size: 2.5rem;
+  .apple-section {
+    padding: 4.5rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-header .section-title {
+    font-size: 2.7rem;
+    white-space: normal;
   }
 
   .constellation-viewport {
@@ -663,7 +758,9 @@
   }
 
   .constellation-legend {
+    width: 100%;
     gap: 0.75rem;
+    padding: 0.875rem 1rem;
   }
 
   .apple-fade-in,
@@ -682,8 +779,17 @@
 }
 
 @media (max-width: 480px) {
-  .section-title {
-    font-size: 2rem;
+  .apple-section {
+    padding: 4rem 0;
+  }
+
+  .section-header .section-title {
+    font-size: 2.2rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
   }
 
   .constellation-viewport {
@@ -703,5 +809,9 @@
     min-width: 200px;
     max-width: 260px;
     bottom: 0.75rem;
+  }
+
+  .constellation-legend {
+    border-radius: 20px;
   }
 }
