@@ -31566,5479 +31566,6 @@ var HydrationFeatureKind;
   HydrationFeatureKind2[HydrationFeatureKind2["IncrementalHydration"] = 4] = "IncrementalHydration";
 })(HydrationFeatureKind || (HydrationFeatureKind = {}));
 
-// node_modules/@angular/router/fesm2022/_router-chunk.mjs
-var PRIMARY_OUTLET = "primary";
-var RouteTitleKey = /* @__PURE__ */ Symbol("RouteTitle");
-var ParamsAsMap = class {
-  params;
-  constructor(params) {
-    this.params = params || {};
-  }
-  has(name) {
-    return Object.prototype.hasOwnProperty.call(this.params, name);
-  }
-  get(name) {
-    if (this.has(name)) {
-      const v = this.params[name];
-      return Array.isArray(v) ? v[0] : v;
-    }
-    return null;
-  }
-  getAll(name) {
-    if (this.has(name)) {
-      const v = this.params[name];
-      return Array.isArray(v) ? v : [v];
-    }
-    return [];
-  }
-  get keys() {
-    return Object.keys(this.params);
-  }
-};
-function convertToParamMap(params) {
-  return new ParamsAsMap(params);
-}
-function matchParts(routeParts, urlSegments, posParams) {
-  for (let i = 0; i < routeParts.length; i++) {
-    const part = routeParts[i];
-    const segment = urlSegments[i];
-    const isParameter = part[0] === ":";
-    if (isParameter) {
-      posParams[part.substring(1)] = segment;
-    } else if (part !== segment.path) {
-      return false;
-    }
-  }
-  return true;
-}
-function defaultUrlMatcher(segments, segmentGroup, route) {
-  const parts = route.path.split("/");
-  const wildcardIndex = parts.indexOf("**");
-  if (wildcardIndex === -1) {
-    if (parts.length > segments.length) {
-      return null;
-    }
-    if (route.pathMatch === "full" && (segmentGroup.hasChildren() || parts.length < segments.length)) {
-      return null;
-    }
-    const posParams2 = {};
-    const consumed = segments.slice(0, parts.length);
-    if (!matchParts(parts, consumed, posParams2)) {
-      return null;
-    }
-    return {
-      consumed,
-      posParams: posParams2
-    };
-  }
-  if (wildcardIndex !== parts.lastIndexOf("**")) {
-    return null;
-  }
-  const pre = parts.slice(0, wildcardIndex);
-  const post = parts.slice(wildcardIndex + 1);
-  if (pre.length + post.length > segments.length) {
-    return null;
-  }
-  if (route.pathMatch === "full" && segmentGroup.hasChildren() && route.path !== "**") {
-    return null;
-  }
-  const posParams = {};
-  if (!matchParts(pre, segments.slice(0, pre.length), posParams)) {
-    return null;
-  }
-  if (!matchParts(post, segments.slice(segments.length - post.length), posParams)) {
-    return null;
-  }
-  return {
-    consumed: segments,
-    posParams
-  };
-}
-function firstValueFrom2(source) {
-  return new Promise((resolve, reject) => {
-    source.pipe(first()).subscribe({
-      next: (value) => resolve(value),
-      error: (err) => reject(err)
-    });
-  });
-}
-function shallowEqualArrays(a, b) {
-  if (a.length !== b.length) return false;
-  for (let i = 0; i < a.length; ++i) {
-    if (!shallowEqual(a[i], b[i])) return false;
-  }
-  return true;
-}
-function shallowEqual(a, b) {
-  const k1 = a ? getDataKeys(a) : void 0;
-  const k2 = b ? getDataKeys(b) : void 0;
-  if (!k1 || !k2 || k1.length != k2.length) {
-    return false;
-  }
-  let key;
-  for (let i = 0; i < k1.length; i++) {
-    key = k1[i];
-    if (!equalArraysOrString(a[key], b[key])) {
-      return false;
-    }
-  }
-  return true;
-}
-function getDataKeys(obj) {
-  return [...Object.keys(obj), ...Object.getOwnPropertySymbols(obj)];
-}
-function equalArraysOrString(a, b) {
-  if (Array.isArray(a) && Array.isArray(b)) {
-    if (a.length !== b.length) return false;
-    const aSorted = [...a].sort();
-    const bSorted = [...b].sort();
-    return aSorted.every((val, index) => bSorted[index] === val);
-  } else {
-    return a === b;
-  }
-}
-function last2(a) {
-  return a.length > 0 ? a[a.length - 1] : null;
-}
-function wrapIntoObservable(value) {
-  if (isObservable(value)) {
-    return value;
-  }
-  if (isPromise2(value)) {
-    return from(Promise.resolve(value));
-  }
-  return of(value);
-}
-function wrapIntoPromise(value) {
-  if (isObservable(value)) {
-    return firstValueFrom2(value);
-  }
-  return Promise.resolve(value);
-}
-var pathCompareMap = {
-  "exact": equalSegmentGroups,
-  "subset": containsSegmentGroup
-};
-var paramCompareMap = {
-  "exact": equalParams,
-  "subset": containsParams,
-  "ignored": () => true
-};
-function isActive(url, router, matchOptions) {
-  const urlTree = url instanceof UrlTree ? url : router.parseUrl(url);
-  return computed(() => containsTree(router.lastSuccessfulNavigation()?.finalUrl ?? new UrlTree(), urlTree, matchOptions));
-}
-function containsTree(container, containee, options) {
-  return pathCompareMap[options.paths](container.root, containee.root, options.matrixParams) && paramCompareMap[options.queryParams](container.queryParams, containee.queryParams) && !(options.fragment === "exact" && container.fragment !== containee.fragment);
-}
-function equalParams(container, containee) {
-  return shallowEqual(container, containee);
-}
-function equalSegmentGroups(container, containee, matrixParams) {
-  if (!equalPath(container.segments, containee.segments)) return false;
-  if (!matrixParamsMatch(container.segments, containee.segments, matrixParams)) {
-    return false;
-  }
-  if (container.numberOfChildren !== containee.numberOfChildren) return false;
-  for (const c in containee.children) {
-    if (!container.children[c]) return false;
-    if (!equalSegmentGroups(container.children[c], containee.children[c], matrixParams)) return false;
-  }
-  return true;
-}
-function containsParams(container, containee) {
-  return Object.keys(containee).length <= Object.keys(container).length && Object.keys(containee).every((key) => equalArraysOrString(container[key], containee[key]));
-}
-function containsSegmentGroup(container, containee, matrixParams) {
-  return containsSegmentGroupHelper(container, containee, containee.segments, matrixParams);
-}
-function containsSegmentGroupHelper(container, containee, containeePaths, matrixParams) {
-  if (container.segments.length > containeePaths.length) {
-    const current = container.segments.slice(0, containeePaths.length);
-    if (!equalPath(current, containeePaths)) return false;
-    if (containee.hasChildren()) return false;
-    if (!matrixParamsMatch(current, containeePaths, matrixParams)) return false;
-    return true;
-  } else if (container.segments.length === containeePaths.length) {
-    if (!equalPath(container.segments, containeePaths)) return false;
-    if (!matrixParamsMatch(container.segments, containeePaths, matrixParams)) return false;
-    for (const c in containee.children) {
-      if (!container.children[c]) return false;
-      if (!containsSegmentGroup(container.children[c], containee.children[c], matrixParams)) {
-        return false;
-      }
-    }
-    return true;
-  } else {
-    const current = containeePaths.slice(0, container.segments.length);
-    const next = containeePaths.slice(container.segments.length);
-    if (!equalPath(container.segments, current)) return false;
-    if (!matrixParamsMatch(container.segments, current, matrixParams)) return false;
-    if (!container.children[PRIMARY_OUTLET]) return false;
-    return containsSegmentGroupHelper(container.children[PRIMARY_OUTLET], containee, next, matrixParams);
-  }
-}
-function matrixParamsMatch(containerPaths, containeePaths, options) {
-  return containeePaths.every((containeeSegment, i) => {
-    return paramCompareMap[options](containerPaths[i].parameters, containeeSegment.parameters);
-  });
-}
-var UrlTree = class {
-  root;
-  queryParams;
-  fragment;
-  _queryParamMap;
-  constructor(root = new UrlSegmentGroup([], {}), queryParams = {}, fragment2 = null) {
-    this.root = root;
-    this.queryParams = queryParams;
-    this.fragment = fragment2;
-    if (typeof ngDevMode === "undefined" || ngDevMode) {
-      if (root.segments.length > 0) {
-        throw new RuntimeError(4015, "The root `UrlSegmentGroup` should not contain `segments`. Instead, these segments belong in the `children` so they can be associated with a named outlet.");
-      }
-    }
-  }
-  get queryParamMap() {
-    this._queryParamMap ??= convertToParamMap(this.queryParams);
-    return this._queryParamMap;
-  }
-  toString() {
-    return DEFAULT_SERIALIZER.serialize(this);
-  }
-};
-var UrlSegmentGroup = class {
-  segments;
-  children;
-  parent = null;
-  constructor(segments, children) {
-    this.segments = segments;
-    this.children = children;
-    Object.values(children).forEach((v) => v.parent = this);
-  }
-  hasChildren() {
-    return this.numberOfChildren > 0;
-  }
-  get numberOfChildren() {
-    return Object.keys(this.children).length;
-  }
-  toString() {
-    return serializePaths(this);
-  }
-};
-var UrlSegment = class {
-  path;
-  parameters;
-  _parameterMap;
-  constructor(path, parameters) {
-    this.path = path;
-    this.parameters = parameters;
-  }
-  get parameterMap() {
-    this._parameterMap ??= convertToParamMap(this.parameters);
-    return this._parameterMap;
-  }
-  toString() {
-    return serializePath(this);
-  }
-};
-function equalSegments(as, bs) {
-  return equalPath(as, bs) && as.every((a, i) => shallowEqual(a.parameters, bs[i].parameters));
-}
-function equalPath(as, bs) {
-  if (as.length !== bs.length) return false;
-  return as.every((a, i) => a.path === bs[i].path);
-}
-function mapChildrenIntoArray(segment, fn) {
-  let res = [];
-  Object.entries(segment.children).forEach(([childOutlet, child]) => {
-    if (childOutlet === PRIMARY_OUTLET) {
-      res = res.concat(fn(child, childOutlet));
-    }
-  });
-  Object.entries(segment.children).forEach(([childOutlet, child]) => {
-    if (childOutlet !== PRIMARY_OUTLET) {
-      res = res.concat(fn(child, childOutlet));
-    }
-  });
-  return res;
-}
-var UrlSerializer = class _UrlSerializer {
-  static \u0275fac = function UrlSerializer_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _UrlSerializer)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _UrlSerializer,
-    factory: () => (() => new DefaultUrlSerializer())(),
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(UrlSerializer, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root",
-      useFactory: () => new DefaultUrlSerializer()
-    }]
-  }], null, null);
-})();
-var DefaultUrlSerializer = class {
-  parse(url) {
-    const p = new UrlParser(url);
-    return new UrlTree(p.parseRootSegment(), p.parseQueryParams(), p.parseFragment());
-  }
-  serialize(tree2) {
-    const segment = `/${serializeSegment(tree2.root, true)}`;
-    const query2 = serializeQueryParams(tree2.queryParams);
-    const fragment2 = typeof tree2.fragment === `string` ? `#${encodeUriFragment(tree2.fragment)}` : "";
-    return `${segment}${query2}${fragment2}`;
-  }
-};
-var DEFAULT_SERIALIZER = new DefaultUrlSerializer();
-function serializePaths(segment) {
-  return segment.segments.map((p) => serializePath(p)).join("/");
-}
-function serializeSegment(segment, root) {
-  if (!segment.hasChildren()) {
-    return serializePaths(segment);
-  }
-  if (root) {
-    const primary = segment.children[PRIMARY_OUTLET] ? serializeSegment(segment.children[PRIMARY_OUTLET], false) : "";
-    const children = [];
-    Object.entries(segment.children).forEach(([k, v]) => {
-      if (k !== PRIMARY_OUTLET) {
-        children.push(`${k}:${serializeSegment(v, false)}`);
-      }
-    });
-    return children.length > 0 ? `${primary}(${children.join("//")})` : primary;
-  } else {
-    const children = mapChildrenIntoArray(segment, (v, k) => {
-      if (k === PRIMARY_OUTLET) {
-        return [serializeSegment(segment.children[PRIMARY_OUTLET], false)];
-      }
-      return [`${k}:${serializeSegment(v, false)}`];
-    });
-    if (Object.keys(segment.children).length === 1 && segment.children[PRIMARY_OUTLET] != null) {
-      return `${serializePaths(segment)}/${children[0]}`;
-    }
-    return `${serializePaths(segment)}/(${children.join("//")})`;
-  }
-}
-function encodeUriString(s) {
-  return encodeURIComponent(s).replace(/%40/g, "@").replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",");
-}
-function encodeUriQuery(s) {
-  return encodeUriString(s).replace(/%3B/gi, ";");
-}
-function encodeUriFragment(s) {
-  return encodeURI(s);
-}
-function encodeUriSegment(s) {
-  return encodeUriString(s).replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/%26/gi, "&");
-}
-function decode(s) {
-  return decodeURIComponent(s);
-}
-function decodeQuery(s) {
-  return decode(s.replace(/\+/g, "%20"));
-}
-function serializePath(path) {
-  return `${encodeUriSegment(path.path)}${serializeMatrixParams(path.parameters)}`;
-}
-function serializeMatrixParams(params) {
-  return Object.entries(params).map(([key, value]) => `;${encodeUriSegment(key)}=${encodeUriSegment(value)}`).join("");
-}
-function serializeQueryParams(params) {
-  const strParams = Object.entries(params).map(([name, value]) => {
-    return Array.isArray(value) ? value.map((v) => `${encodeUriQuery(name)}=${encodeUriQuery(v)}`).join("&") : `${encodeUriQuery(name)}=${encodeUriQuery(value)}`;
-  }).filter((s) => s);
-  return strParams.length ? `?${strParams.join("&")}` : "";
-}
-var SEGMENT_RE = /^[^\/()?;#]+/;
-function matchSegments(str) {
-  const match2 = str.match(SEGMENT_RE);
-  return match2 ? match2[0] : "";
-}
-var MATRIX_PARAM_SEGMENT_RE = /^[^\/()?;=#]+/;
-function matchMatrixKeySegments(str) {
-  const match2 = str.match(MATRIX_PARAM_SEGMENT_RE);
-  return match2 ? match2[0] : "";
-}
-var QUERY_PARAM_RE = /^[^=?&#]+/;
-function matchQueryParams(str) {
-  const match2 = str.match(QUERY_PARAM_RE);
-  return match2 ? match2[0] : "";
-}
-var QUERY_PARAM_VALUE_RE = /^[^&#]+/;
-function matchUrlQueryParamValue(str) {
-  const match2 = str.match(QUERY_PARAM_VALUE_RE);
-  return match2 ? match2[0] : "";
-}
-var UrlParser = class {
-  url;
-  remaining;
-  constructor(url) {
-    this.url = url;
-    this.remaining = url;
-  }
-  parseRootSegment() {
-    this.consumeOptional("/");
-    if (this.remaining === "" || this.peekStartsWith("?") || this.peekStartsWith("#")) {
-      return new UrlSegmentGroup([], {});
-    }
-    return new UrlSegmentGroup([], this.parseChildren());
-  }
-  parseQueryParams() {
-    const params = {};
-    if (this.consumeOptional("?")) {
-      do {
-        this.parseQueryParam(params);
-      } while (this.consumeOptional("&"));
-    }
-    return params;
-  }
-  parseFragment() {
-    return this.consumeOptional("#") ? decodeURIComponent(this.remaining) : null;
-  }
-  parseChildren(depth = 0) {
-    if (depth > 50) {
-      throw new RuntimeError(4010, (typeof ngDevMode === "undefined" || ngDevMode) && "URL is too deep");
-    }
-    if (this.remaining === "") {
-      return {};
-    }
-    this.consumeOptional("/");
-    const segments = [];
-    if (!this.peekStartsWith("(")) {
-      segments.push(this.parseSegment());
-    }
-    while (this.peekStartsWith("/") && !this.peekStartsWith("//") && !this.peekStartsWith("/(")) {
-      this.capture("/");
-      segments.push(this.parseSegment());
-    }
-    let children = {};
-    if (this.peekStartsWith("/(")) {
-      this.capture("/");
-      children = this.parseParens(true, depth);
-    }
-    let res = {};
-    if (this.peekStartsWith("(")) {
-      res = this.parseParens(false, depth);
-    }
-    if (segments.length > 0 || Object.keys(children).length > 0) {
-      res[PRIMARY_OUTLET] = new UrlSegmentGroup(segments, children);
-    }
-    return res;
-  }
-  parseSegment() {
-    const path = matchSegments(this.remaining);
-    if (path === "" && this.peekStartsWith(";")) {
-      throw new RuntimeError(4009, (typeof ngDevMode === "undefined" || ngDevMode) && `Empty path url segment cannot have parameters: '${this.remaining}'.`);
-    }
-    this.capture(path);
-    return new UrlSegment(decode(path), this.parseMatrixParams());
-  }
-  parseMatrixParams() {
-    const params = {};
-    while (this.consumeOptional(";")) {
-      this.parseParam(params);
-    }
-    return params;
-  }
-  parseParam(params) {
-    const key = matchMatrixKeySegments(this.remaining);
-    if (!key) {
-      return;
-    }
-    this.capture(key);
-    let value = "";
-    if (this.consumeOptional("=")) {
-      const valueMatch = matchSegments(this.remaining);
-      if (valueMatch) {
-        value = valueMatch;
-        this.capture(value);
-      }
-    }
-    params[decode(key)] = decode(value);
-  }
-  parseQueryParam(params) {
-    const key = matchQueryParams(this.remaining);
-    if (!key) {
-      return;
-    }
-    this.capture(key);
-    let value = "";
-    if (this.consumeOptional("=")) {
-      const valueMatch = matchUrlQueryParamValue(this.remaining);
-      if (valueMatch) {
-        value = valueMatch;
-        this.capture(value);
-      }
-    }
-    const decodedKey = decodeQuery(key);
-    const decodedVal = decodeQuery(value);
-    if (params.hasOwnProperty(decodedKey)) {
-      let currentVal = params[decodedKey];
-      if (!Array.isArray(currentVal)) {
-        currentVal = [currentVal];
-        params[decodedKey] = currentVal;
-      }
-      currentVal.push(decodedVal);
-    } else {
-      params[decodedKey] = decodedVal;
-    }
-  }
-  parseParens(allowPrimary, depth) {
-    const segments = {};
-    this.capture("(");
-    while (!this.consumeOptional(")") && this.remaining.length > 0) {
-      const path = matchSegments(this.remaining);
-      const next = this.remaining[path.length];
-      if (next !== "/" && next !== ")" && next !== ";") {
-        throw new RuntimeError(4010, (typeof ngDevMode === "undefined" || ngDevMode) && `Cannot parse url '${this.url}'`);
-      }
-      let outletName;
-      if (path.indexOf(":") > -1) {
-        outletName = path.slice(0, path.indexOf(":"));
-        this.capture(outletName);
-        this.capture(":");
-      } else if (allowPrimary) {
-        outletName = PRIMARY_OUTLET;
-      }
-      const children = this.parseChildren(depth + 1);
-      segments[outletName ?? PRIMARY_OUTLET] = Object.keys(children).length === 1 && children[PRIMARY_OUTLET] ? children[PRIMARY_OUTLET] : new UrlSegmentGroup([], children);
-      this.consumeOptional("//");
-    }
-    return segments;
-  }
-  peekStartsWith(str) {
-    return this.remaining.startsWith(str);
-  }
-  consumeOptional(str) {
-    if (this.peekStartsWith(str)) {
-      this.remaining = this.remaining.substring(str.length);
-      return true;
-    }
-    return false;
-  }
-  capture(str) {
-    if (!this.consumeOptional(str)) {
-      throw new RuntimeError(4011, (typeof ngDevMode === "undefined" || ngDevMode) && `Expected "${str}".`);
-    }
-  }
-};
-function createRoot(rootCandidate) {
-  return rootCandidate.segments.length > 0 ? new UrlSegmentGroup([], {
-    [PRIMARY_OUTLET]: rootCandidate
-  }) : rootCandidate;
-}
-function squashSegmentGroup(segmentGroup) {
-  const newChildren = {};
-  for (const [childOutlet, child] of Object.entries(segmentGroup.children)) {
-    const childCandidate = squashSegmentGroup(child);
-    if (childOutlet === PRIMARY_OUTLET && childCandidate.segments.length === 0 && childCandidate.hasChildren()) {
-      for (const [grandChildOutlet, grandChild] of Object.entries(childCandidate.children)) {
-        newChildren[grandChildOutlet] = grandChild;
-      }
-    } else if (childCandidate.segments.length > 0 || childCandidate.hasChildren()) {
-      newChildren[childOutlet] = childCandidate;
-    }
-  }
-  const s = new UrlSegmentGroup(segmentGroup.segments, newChildren);
-  return mergeTrivialChildren(s);
-}
-function mergeTrivialChildren(s) {
-  if (s.numberOfChildren === 1 && s.children[PRIMARY_OUTLET]) {
-    const c = s.children[PRIMARY_OUTLET];
-    return new UrlSegmentGroup(s.segments.concat(c.segments), c.children);
-  }
-  return s;
-}
-function isUrlTree(v) {
-  return v instanceof UrlTree;
-}
-function createUrlTreeFromSnapshot(relativeTo, commands, queryParams = null, fragment2 = null, urlSerializer = new DefaultUrlSerializer()) {
-  const relativeToUrlSegmentGroup = createSegmentGroupFromRoute(relativeTo);
-  return createUrlTreeFromSegmentGroup(relativeToUrlSegmentGroup, commands, queryParams, fragment2, urlSerializer);
-}
-function createSegmentGroupFromRoute(route) {
-  let targetGroup;
-  function createSegmentGroupFromRouteRecursive(currentRoute) {
-    const childOutlets = {};
-    for (const childSnapshot of currentRoute.children) {
-      const root = createSegmentGroupFromRouteRecursive(childSnapshot);
-      childOutlets[childSnapshot.outlet] = root;
-    }
-    const segmentGroup = new UrlSegmentGroup(currentRoute.url, childOutlets);
-    if (currentRoute === route) {
-      targetGroup = segmentGroup;
-    }
-    return segmentGroup;
-  }
-  const rootCandidate = createSegmentGroupFromRouteRecursive(route.root);
-  const rootSegmentGroup = createRoot(rootCandidate);
-  return targetGroup ?? rootSegmentGroup;
-}
-function createUrlTreeFromSegmentGroup(relativeTo, commands, queryParams, fragment2, urlSerializer) {
-  let root = relativeTo;
-  while (root.parent) {
-    root = root.parent;
-  }
-  if (commands.length === 0) {
-    return tree(root, root, root, queryParams, fragment2, urlSerializer);
-  }
-  const nav = computeNavigation(commands);
-  if (nav.toRoot()) {
-    return tree(root, root, new UrlSegmentGroup([], {}), queryParams, fragment2, urlSerializer);
-  }
-  const position = findStartingPositionForTargetGroup(nav, root, relativeTo);
-  const newSegmentGroup = position.processChildren ? updateSegmentGroupChildren(position.segmentGroup, position.index, nav.commands) : updateSegmentGroup(position.segmentGroup, position.index, nav.commands);
-  return tree(root, position.segmentGroup, newSegmentGroup, queryParams, fragment2, urlSerializer);
-}
-function isMatrixParams(command) {
-  return typeof command === "object" && command != null && !command.outlets && !command.segmentPath;
-}
-function isCommandWithOutlets(command) {
-  return typeof command === "object" && command != null && command.outlets;
-}
-function normalizeQueryParams2(k, v, urlSerializer) {
-  k ||= "\u0275";
-  const tree2 = new UrlTree();
-  tree2.queryParams = {
-    [k]: v
-  };
-  return urlSerializer.parse(urlSerializer.serialize(tree2)).queryParams[k];
-}
-function tree(oldRoot, oldSegmentGroup, newSegmentGroup, queryParams, fragment2, urlSerializer) {
-  const qp = {};
-  for (const [key, value] of Object.entries(queryParams ?? {})) {
-    qp[key] = Array.isArray(value) ? value.map((v) => normalizeQueryParams2(key, v, urlSerializer)) : normalizeQueryParams2(key, value, urlSerializer);
-  }
-  let rootCandidate;
-  if (oldRoot === oldSegmentGroup) {
-    rootCandidate = newSegmentGroup;
-  } else {
-    rootCandidate = replaceSegment(oldRoot, oldSegmentGroup, newSegmentGroup);
-  }
-  const newRoot = createRoot(squashSegmentGroup(rootCandidate));
-  return new UrlTree(newRoot, qp, fragment2);
-}
-function replaceSegment(current, oldSegment, newSegment) {
-  const children = {};
-  Object.entries(current.children).forEach(([outletName, c]) => {
-    if (c === oldSegment) {
-      children[outletName] = newSegment;
-    } else {
-      children[outletName] = replaceSegment(c, oldSegment, newSegment);
-    }
-  });
-  return new UrlSegmentGroup(current.segments, children);
-}
-var Navigation = class {
-  isAbsolute;
-  numberOfDoubleDots;
-  commands;
-  constructor(isAbsolute, numberOfDoubleDots, commands) {
-    this.isAbsolute = isAbsolute;
-    this.numberOfDoubleDots = numberOfDoubleDots;
-    this.commands = commands;
-    if (isAbsolute && commands.length > 0 && isMatrixParams(commands[0])) {
-      throw new RuntimeError(4003, (typeof ngDevMode === "undefined" || ngDevMode) && "Root segment cannot have matrix parameters");
-    }
-    const cmdWithOutlet = commands.find(isCommandWithOutlets);
-    if (cmdWithOutlet && cmdWithOutlet !== last2(commands)) {
-      throw new RuntimeError(4004, (typeof ngDevMode === "undefined" || ngDevMode) && "{outlets:{}} has to be the last command");
-    }
-  }
-  toRoot() {
-    return this.isAbsolute && this.commands.length === 1 && this.commands[0] == "/";
-  }
-};
-function computeNavigation(commands) {
-  if (typeof commands[0] === "string" && commands.length === 1 && commands[0] === "/") {
-    return new Navigation(true, 0, commands);
-  }
-  let numberOfDoubleDots = 0;
-  let isAbsolute = false;
-  const res = commands.reduce((res2, cmd, cmdIdx) => {
-    if (typeof cmd === "object" && cmd != null) {
-      if (cmd.outlets) {
-        const outlets = {};
-        Object.entries(cmd.outlets).forEach(([name, commands2]) => {
-          outlets[name] = typeof commands2 === "string" ? commands2.split("/") : commands2;
-        });
-        return [...res2, {
-          outlets
-        }];
-      }
-      if (cmd.segmentPath) {
-        return [...res2, cmd.segmentPath];
-      }
-    }
-    if (!(typeof cmd === "string")) {
-      return [...res2, cmd];
-    }
-    if (cmdIdx === 0) {
-      cmd.split("/").forEach((urlPart, partIndex) => {
-        if (partIndex == 0 && urlPart === ".") ;
-        else if (partIndex == 0 && urlPart === "") {
-          isAbsolute = true;
-        } else if (urlPart === "..") {
-          numberOfDoubleDots++;
-        } else if (urlPart != "") {
-          res2.push(urlPart);
-        }
-      });
-      return res2;
-    }
-    return [...res2, cmd];
-  }, []);
-  return new Navigation(isAbsolute, numberOfDoubleDots, res);
-}
-var Position = class {
-  segmentGroup;
-  processChildren;
-  index;
-  constructor(segmentGroup, processChildren, index) {
-    this.segmentGroup = segmentGroup;
-    this.processChildren = processChildren;
-    this.index = index;
-  }
-};
-function findStartingPositionForTargetGroup(nav, root, target) {
-  if (nav.isAbsolute) {
-    return new Position(root, true, 0);
-  }
-  if (!target) {
-    return new Position(root, false, NaN);
-  }
-  if (target.parent === null) {
-    return new Position(target, true, 0);
-  }
-  const modifier = isMatrixParams(nav.commands[0]) ? 0 : 1;
-  const index = target.segments.length - 1 + modifier;
-  return createPositionApplyingDoubleDots(target, index, nav.numberOfDoubleDots);
-}
-function createPositionApplyingDoubleDots(group2, index, numberOfDoubleDots) {
-  let g = group2;
-  let ci = index;
-  let dd = numberOfDoubleDots;
-  while (dd > ci) {
-    dd -= ci;
-    g = g.parent;
-    if (!g) {
-      throw new RuntimeError(4005, (typeof ngDevMode === "undefined" || ngDevMode) && "Invalid number of '../'");
-    }
-    ci = g.segments.length;
-  }
-  return new Position(g, false, ci - dd);
-}
-function getOutlets(commands) {
-  if (isCommandWithOutlets(commands[0])) {
-    return commands[0].outlets;
-  }
-  return {
-    [PRIMARY_OUTLET]: commands
-  };
-}
-function updateSegmentGroup(segmentGroup, startIndex, commands) {
-  segmentGroup ??= new UrlSegmentGroup([], {});
-  if (segmentGroup.segments.length === 0 && segmentGroup.hasChildren()) {
-    return updateSegmentGroupChildren(segmentGroup, startIndex, commands);
-  }
-  const m = prefixedWith(segmentGroup, startIndex, commands);
-  const slicedCommands = commands.slice(m.commandIndex);
-  if (m.match && m.pathIndex < segmentGroup.segments.length) {
-    const g = new UrlSegmentGroup(segmentGroup.segments.slice(0, m.pathIndex), {});
-    g.children[PRIMARY_OUTLET] = new UrlSegmentGroup(segmentGroup.segments.slice(m.pathIndex), segmentGroup.children);
-    return updateSegmentGroupChildren(g, 0, slicedCommands);
-  } else if (m.match && slicedCommands.length === 0) {
-    return new UrlSegmentGroup(segmentGroup.segments, {});
-  } else if (m.match && !segmentGroup.hasChildren()) {
-    return createNewSegmentGroup(segmentGroup, startIndex, commands);
-  } else if (m.match) {
-    return updateSegmentGroupChildren(segmentGroup, 0, slicedCommands);
-  } else {
-    return createNewSegmentGroup(segmentGroup, startIndex, commands);
-  }
-}
-function updateSegmentGroupChildren(segmentGroup, startIndex, commands) {
-  if (commands.length === 0) {
-    return new UrlSegmentGroup(segmentGroup.segments, {});
-  } else {
-    const outlets = getOutlets(commands);
-    const children = {};
-    if (Object.keys(outlets).some((o) => o !== PRIMARY_OUTLET) && segmentGroup.children[PRIMARY_OUTLET] && segmentGroup.numberOfChildren === 1 && segmentGroup.children[PRIMARY_OUTLET].segments.length === 0) {
-      const childrenOfEmptyChild = updateSegmentGroupChildren(segmentGroup.children[PRIMARY_OUTLET], startIndex, commands);
-      return new UrlSegmentGroup(segmentGroup.segments, childrenOfEmptyChild.children);
-    }
-    Object.entries(outlets).forEach(([outlet, commands2]) => {
-      if (typeof commands2 === "string") {
-        commands2 = [commands2];
-      }
-      if (commands2 !== null) {
-        children[outlet] = updateSegmentGroup(segmentGroup.children[outlet], startIndex, commands2);
-      }
-    });
-    Object.entries(segmentGroup.children).forEach(([childOutlet, child]) => {
-      if (outlets[childOutlet] === void 0) {
-        children[childOutlet] = child;
-      }
-    });
-    return new UrlSegmentGroup(segmentGroup.segments, children);
-  }
-}
-function prefixedWith(segmentGroup, startIndex, commands) {
-  let currentCommandIndex = 0;
-  let currentPathIndex = startIndex;
-  const noMatch2 = {
-    match: false,
-    pathIndex: 0,
-    commandIndex: 0
-  };
-  while (currentPathIndex < segmentGroup.segments.length) {
-    if (currentCommandIndex >= commands.length) return noMatch2;
-    const path = segmentGroup.segments[currentPathIndex];
-    const command = commands[currentCommandIndex];
-    if (isCommandWithOutlets(command)) {
-      break;
-    }
-    const curr = `${command}`;
-    const next = currentCommandIndex < commands.length - 1 ? commands[currentCommandIndex + 1] : null;
-    if (currentPathIndex > 0 && curr === void 0) break;
-    if (curr && next && typeof next === "object" && next.outlets === void 0) {
-      if (!compare(curr, next, path)) return noMatch2;
-      currentCommandIndex += 2;
-    } else {
-      if (!compare(curr, {}, path)) return noMatch2;
-      currentCommandIndex++;
-    }
-    currentPathIndex++;
-  }
-  return {
-    match: true,
-    pathIndex: currentPathIndex,
-    commandIndex: currentCommandIndex
-  };
-}
-function createNewSegmentGroup(segmentGroup, startIndex, commands) {
-  const paths = segmentGroup.segments.slice(0, startIndex);
-  let i = 0;
-  while (i < commands.length) {
-    const command = commands[i];
-    if (isCommandWithOutlets(command)) {
-      const children = createNewSegmentChildren(command.outlets);
-      return new UrlSegmentGroup(paths, children);
-    }
-    if (i === 0 && isMatrixParams(commands[0])) {
-      const p = segmentGroup.segments[startIndex];
-      paths.push(new UrlSegment(p.path, stringify2(commands[0])));
-      i++;
-      continue;
-    }
-    const curr = isCommandWithOutlets(command) ? command.outlets[PRIMARY_OUTLET] : `${command}`;
-    const next = i < commands.length - 1 ? commands[i + 1] : null;
-    if (curr && next && isMatrixParams(next)) {
-      paths.push(new UrlSegment(curr, stringify2(next)));
-      i += 2;
-    } else {
-      paths.push(new UrlSegment(curr, {}));
-      i++;
-    }
-  }
-  return new UrlSegmentGroup(paths, {});
-}
-function createNewSegmentChildren(outlets) {
-  const children = {};
-  Object.entries(outlets).forEach(([outlet, commands]) => {
-    if (typeof commands === "string") {
-      commands = [commands];
-    }
-    if (commands !== null) {
-      children[outlet] = createNewSegmentGroup(new UrlSegmentGroup([], {}), 0, commands);
-    }
-  });
-  return children;
-}
-function stringify2(params) {
-  const res = {};
-  Object.entries(params).forEach(([k, v]) => res[k] = `${v}`);
-  return res;
-}
-function compare(path, params, segment) {
-  return path == segment.path && shallowEqual(params, segment.parameters);
-}
-var IMPERATIVE_NAVIGATION = "imperative";
-var EventType;
-(function(EventType2) {
-  EventType2[EventType2["NavigationStart"] = 0] = "NavigationStart";
-  EventType2[EventType2["NavigationEnd"] = 1] = "NavigationEnd";
-  EventType2[EventType2["NavigationCancel"] = 2] = "NavigationCancel";
-  EventType2[EventType2["NavigationError"] = 3] = "NavigationError";
-  EventType2[EventType2["RoutesRecognized"] = 4] = "RoutesRecognized";
-  EventType2[EventType2["ResolveStart"] = 5] = "ResolveStart";
-  EventType2[EventType2["ResolveEnd"] = 6] = "ResolveEnd";
-  EventType2[EventType2["GuardsCheckStart"] = 7] = "GuardsCheckStart";
-  EventType2[EventType2["GuardsCheckEnd"] = 8] = "GuardsCheckEnd";
-  EventType2[EventType2["RouteConfigLoadStart"] = 9] = "RouteConfigLoadStart";
-  EventType2[EventType2["RouteConfigLoadEnd"] = 10] = "RouteConfigLoadEnd";
-  EventType2[EventType2["ChildActivationStart"] = 11] = "ChildActivationStart";
-  EventType2[EventType2["ChildActivationEnd"] = 12] = "ChildActivationEnd";
-  EventType2[EventType2["ActivationStart"] = 13] = "ActivationStart";
-  EventType2[EventType2["ActivationEnd"] = 14] = "ActivationEnd";
-  EventType2[EventType2["Scroll"] = 15] = "Scroll";
-  EventType2[EventType2["NavigationSkipped"] = 16] = "NavigationSkipped";
-})(EventType || (EventType = {}));
-var RouterEvent = class {
-  id;
-  url;
-  constructor(id, url) {
-    this.id = id;
-    this.url = url;
-  }
-};
-var NavigationStart = class extends RouterEvent {
-  type = EventType.NavigationStart;
-  navigationTrigger;
-  restoredState;
-  constructor(id, url, navigationTrigger = "imperative", restoredState = null) {
-    super(id, url);
-    this.navigationTrigger = navigationTrigger;
-    this.restoredState = restoredState;
-  }
-  toString() {
-    return `NavigationStart(id: ${this.id}, url: '${this.url}')`;
-  }
-};
-var NavigationEnd = class extends RouterEvent {
-  urlAfterRedirects;
-  type = EventType.NavigationEnd;
-  constructor(id, url, urlAfterRedirects) {
-    super(id, url);
-    this.urlAfterRedirects = urlAfterRedirects;
-  }
-  toString() {
-    return `NavigationEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}')`;
-  }
-};
-var NavigationCancellationCode;
-(function(NavigationCancellationCode2) {
-  NavigationCancellationCode2[NavigationCancellationCode2["Redirect"] = 0] = "Redirect";
-  NavigationCancellationCode2[NavigationCancellationCode2["SupersededByNewNavigation"] = 1] = "SupersededByNewNavigation";
-  NavigationCancellationCode2[NavigationCancellationCode2["NoDataFromResolver"] = 2] = "NoDataFromResolver";
-  NavigationCancellationCode2[NavigationCancellationCode2["GuardRejected"] = 3] = "GuardRejected";
-  NavigationCancellationCode2[NavigationCancellationCode2["Aborted"] = 4] = "Aborted";
-})(NavigationCancellationCode || (NavigationCancellationCode = {}));
-var NavigationSkippedCode;
-(function(NavigationSkippedCode2) {
-  NavigationSkippedCode2[NavigationSkippedCode2["IgnoredSameUrlNavigation"] = 0] = "IgnoredSameUrlNavigation";
-  NavigationSkippedCode2[NavigationSkippedCode2["IgnoredByUrlHandlingStrategy"] = 1] = "IgnoredByUrlHandlingStrategy";
-})(NavigationSkippedCode || (NavigationSkippedCode = {}));
-var NavigationCancel = class extends RouterEvent {
-  reason;
-  code;
-  type = EventType.NavigationCancel;
-  constructor(id, url, reason, code) {
-    super(id, url);
-    this.reason = reason;
-    this.code = code;
-  }
-  toString() {
-    return `NavigationCancel(id: ${this.id}, url: '${this.url}')`;
-  }
-};
-function isRedirectingEvent(event) {
-  return event instanceof NavigationCancel && (event.code === NavigationCancellationCode.Redirect || event.code === NavigationCancellationCode.SupersededByNewNavigation);
-}
-var NavigationSkipped = class extends RouterEvent {
-  reason;
-  code;
-  type = EventType.NavigationSkipped;
-  constructor(id, url, reason, code) {
-    super(id, url);
-    this.reason = reason;
-    this.code = code;
-  }
-};
-var NavigationError = class extends RouterEvent {
-  error;
-  target;
-  type = EventType.NavigationError;
-  constructor(id, url, error2, target) {
-    super(id, url);
-    this.error = error2;
-    this.target = target;
-  }
-  toString() {
-    return `NavigationError(id: ${this.id}, url: '${this.url}', error: ${this.error})`;
-  }
-};
-var RoutesRecognized = class extends RouterEvent {
-  urlAfterRedirects;
-  state;
-  type = EventType.RoutesRecognized;
-  constructor(id, url, urlAfterRedirects, state2) {
-    super(id, url);
-    this.urlAfterRedirects = urlAfterRedirects;
-    this.state = state2;
-  }
-  toString() {
-    return `RoutesRecognized(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
-  }
-};
-var GuardsCheckStart = class extends RouterEvent {
-  urlAfterRedirects;
-  state;
-  type = EventType.GuardsCheckStart;
-  constructor(id, url, urlAfterRedirects, state2) {
-    super(id, url);
-    this.urlAfterRedirects = urlAfterRedirects;
-    this.state = state2;
-  }
-  toString() {
-    return `GuardsCheckStart(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
-  }
-};
-var GuardsCheckEnd = class extends RouterEvent {
-  urlAfterRedirects;
-  state;
-  shouldActivate;
-  type = EventType.GuardsCheckEnd;
-  constructor(id, url, urlAfterRedirects, state2, shouldActivate) {
-    super(id, url);
-    this.urlAfterRedirects = urlAfterRedirects;
-    this.state = state2;
-    this.shouldActivate = shouldActivate;
-  }
-  toString() {
-    return `GuardsCheckEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state}, shouldActivate: ${this.shouldActivate})`;
-  }
-};
-var ResolveStart = class extends RouterEvent {
-  urlAfterRedirects;
-  state;
-  type = EventType.ResolveStart;
-  constructor(id, url, urlAfterRedirects, state2) {
-    super(id, url);
-    this.urlAfterRedirects = urlAfterRedirects;
-    this.state = state2;
-  }
-  toString() {
-    return `ResolveStart(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
-  }
-};
-var ResolveEnd = class extends RouterEvent {
-  urlAfterRedirects;
-  state;
-  type = EventType.ResolveEnd;
-  constructor(id, url, urlAfterRedirects, state2) {
-    super(id, url);
-    this.urlAfterRedirects = urlAfterRedirects;
-    this.state = state2;
-  }
-  toString() {
-    return `ResolveEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
-  }
-};
-var RouteConfigLoadStart = class {
-  route;
-  type = EventType.RouteConfigLoadStart;
-  constructor(route) {
-    this.route = route;
-  }
-  toString() {
-    return `RouteConfigLoadStart(path: ${this.route.path})`;
-  }
-};
-var RouteConfigLoadEnd = class {
-  route;
-  type = EventType.RouteConfigLoadEnd;
-  constructor(route) {
-    this.route = route;
-  }
-  toString() {
-    return `RouteConfigLoadEnd(path: ${this.route.path})`;
-  }
-};
-var ChildActivationStart = class {
-  snapshot;
-  type = EventType.ChildActivationStart;
-  constructor(snapshot) {
-    this.snapshot = snapshot;
-  }
-  toString() {
-    const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
-    return `ChildActivationStart(path: '${path}')`;
-  }
-};
-var ChildActivationEnd = class {
-  snapshot;
-  type = EventType.ChildActivationEnd;
-  constructor(snapshot) {
-    this.snapshot = snapshot;
-  }
-  toString() {
-    const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
-    return `ChildActivationEnd(path: '${path}')`;
-  }
-};
-var ActivationStart = class {
-  snapshot;
-  type = EventType.ActivationStart;
-  constructor(snapshot) {
-    this.snapshot = snapshot;
-  }
-  toString() {
-    const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
-    return `ActivationStart(path: '${path}')`;
-  }
-};
-var ActivationEnd = class {
-  snapshot;
-  type = EventType.ActivationEnd;
-  constructor(snapshot) {
-    this.snapshot = snapshot;
-  }
-  toString() {
-    const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
-    return `ActivationEnd(path: '${path}')`;
-  }
-};
-var Scroll = class {
-  routerEvent;
-  position;
-  anchor;
-  scrollBehavior;
-  type = EventType.Scroll;
-  constructor(routerEvent, position, anchor, scrollBehavior) {
-    this.routerEvent = routerEvent;
-    this.position = position;
-    this.anchor = anchor;
-    this.scrollBehavior = scrollBehavior;
-  }
-  toString() {
-    const pos = this.position ? `${this.position[0]}, ${this.position[1]}` : null;
-    return `Scroll(anchor: '${this.anchor}', position: '${pos}')`;
-  }
-};
-var BeforeActivateRoutes = class {
-};
-var RedirectRequest = class {
-  url;
-  navigationBehaviorOptions;
-  constructor(url, navigationBehaviorOptions) {
-    this.url = url;
-    this.navigationBehaviorOptions = navigationBehaviorOptions;
-  }
-};
-function isPublicRouterEvent(e) {
-  return !(e instanceof BeforeActivateRoutes) && !(e instanceof RedirectRequest);
-}
-function stringifyEvent(routerEvent) {
-  switch (routerEvent.type) {
-    case EventType.ActivationEnd:
-      return `ActivationEnd(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
-    case EventType.ActivationStart:
-      return `ActivationStart(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
-    case EventType.ChildActivationEnd:
-      return `ChildActivationEnd(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
-    case EventType.ChildActivationStart:
-      return `ChildActivationStart(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
-    case EventType.GuardsCheckEnd:
-      return `GuardsCheckEnd(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state}, shouldActivate: ${routerEvent.shouldActivate})`;
-    case EventType.GuardsCheckStart:
-      return `GuardsCheckStart(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
-    case EventType.NavigationCancel:
-      return `NavigationCancel(id: ${routerEvent.id}, url: '${routerEvent.url}')`;
-    case EventType.NavigationSkipped:
-      return `NavigationSkipped(id: ${routerEvent.id}, url: '${routerEvent.url}')`;
-    case EventType.NavigationEnd:
-      return `NavigationEnd(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}')`;
-    case EventType.NavigationError:
-      return `NavigationError(id: ${routerEvent.id}, url: '${routerEvent.url}', error: ${routerEvent.error})`;
-    case EventType.NavigationStart:
-      return `NavigationStart(id: ${routerEvent.id}, url: '${routerEvent.url}')`;
-    case EventType.ResolveEnd:
-      return `ResolveEnd(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
-    case EventType.ResolveStart:
-      return `ResolveStart(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
-    case EventType.RouteConfigLoadEnd:
-      return `RouteConfigLoadEnd(path: ${routerEvent.route.path})`;
-    case EventType.RouteConfigLoadStart:
-      return `RouteConfigLoadStart(path: ${routerEvent.route.path})`;
-    case EventType.RoutesRecognized:
-      return `RoutesRecognized(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
-    case EventType.Scroll:
-      const pos = routerEvent.position ? `${routerEvent.position[0]}, ${routerEvent.position[1]}` : null;
-      return `Scroll(anchor: '${routerEvent.anchor}', position: '${pos}')`;
-  }
-}
-var OutletContext = class {
-  rootInjector;
-  outlet = null;
-  route = null;
-  children;
-  attachRef = null;
-  get injector() {
-    return this.route?.snapshot._environmentInjector ?? this.rootInjector;
-  }
-  constructor(rootInjector) {
-    this.rootInjector = rootInjector;
-    this.children = new ChildrenOutletContexts(this.rootInjector);
-  }
-};
-var ChildrenOutletContexts = class _ChildrenOutletContexts {
-  rootInjector;
-  contexts = /* @__PURE__ */ new Map();
-  constructor(rootInjector) {
-    this.rootInjector = rootInjector;
-  }
-  onChildOutletCreated(childName, outlet) {
-    const context2 = this.getOrCreateContext(childName);
-    context2.outlet = outlet;
-    this.contexts.set(childName, context2);
-  }
-  onChildOutletDestroyed(childName) {
-    const context2 = this.getContext(childName);
-    if (context2) {
-      context2.outlet = null;
-      context2.attachRef = null;
-    }
-  }
-  onOutletDeactivated() {
-    const contexts = this.contexts;
-    this.contexts = /* @__PURE__ */ new Map();
-    return contexts;
-  }
-  onOutletReAttached(contexts) {
-    this.contexts = contexts;
-  }
-  getOrCreateContext(childName) {
-    let context2 = this.getContext(childName);
-    if (!context2) {
-      context2 = new OutletContext(this.rootInjector);
-      this.contexts.set(childName, context2);
-    }
-    return context2;
-  }
-  getContext(childName) {
-    return this.contexts.get(childName) || null;
-  }
-  static \u0275fac = function ChildrenOutletContexts_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ChildrenOutletContexts)(\u0275\u0275inject(EnvironmentInjector));
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _ChildrenOutletContexts,
-    factory: _ChildrenOutletContexts.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ChildrenOutletContexts, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [{
-    type: EnvironmentInjector
-  }], null);
-})();
-var Tree = class {
-  _root;
-  constructor(root) {
-    this._root = root;
-  }
-  get root() {
-    return this._root.value;
-  }
-  parent(t) {
-    const p = this.pathFromRoot(t);
-    return p.length > 1 ? p[p.length - 2] : null;
-  }
-  children(t) {
-    const n = findNode(t, this._root);
-    return n ? n.children.map((t2) => t2.value) : [];
-  }
-  firstChild(t) {
-    const n = findNode(t, this._root);
-    return n && n.children.length > 0 ? n.children[0].value : null;
-  }
-  siblings(t) {
-    const p = findPath(t, this._root);
-    if (p.length < 2) return [];
-    const c = p[p.length - 2].children.map((c2) => c2.value);
-    return c.filter((cc) => cc !== t);
-  }
-  pathFromRoot(t) {
-    return findPath(t, this._root).map((s) => s.value);
-  }
-};
-function findNode(value, node) {
-  if (value === node.value) return node;
-  for (const child of node.children) {
-    const node2 = findNode(value, child);
-    if (node2) return node2;
-  }
-  return null;
-}
-function findPath(value, node) {
-  if (value === node.value) return [node];
-  for (const child of node.children) {
-    const path = findPath(value, child);
-    if (path.length) {
-      path.unshift(node);
-      return path;
-    }
-  }
-  return [];
-}
-var TreeNode = class {
-  value;
-  children;
-  constructor(value, children) {
-    this.value = value;
-    this.children = children;
-  }
-  toString() {
-    return `TreeNode(${this.value})`;
-  }
-};
-function nodeChildrenAsMap(node) {
-  const map2 = {};
-  if (node) {
-    node.children.forEach((child) => map2[child.value.outlet] = child);
-  }
-  return map2;
-}
-var RouterState = class extends Tree {
-  snapshot;
-  constructor(root, snapshot) {
-    super(root);
-    this.snapshot = snapshot;
-    setRouterState(this, root);
-  }
-  toString() {
-    return this.snapshot.toString();
-  }
-};
-function createEmptyState(rootComponent, injector) {
-  const snapshot = createEmptyStateSnapshot(rootComponent, injector);
-  const emptyUrl = new BehaviorSubject([new UrlSegment("", {})]);
-  const emptyParams = new BehaviorSubject({});
-  const emptyData = new BehaviorSubject({});
-  const emptyQueryParams = new BehaviorSubject({});
-  const fragment2 = new BehaviorSubject("");
-  const activated = new ActivatedRoute(emptyUrl, emptyParams, emptyQueryParams, fragment2, emptyData, PRIMARY_OUTLET, rootComponent, snapshot.root);
-  activated.snapshot = snapshot.root;
-  return new RouterState(new TreeNode(activated, []), snapshot);
-}
-function createEmptyStateSnapshot(rootComponent, injector) {
-  const emptyParams = {};
-  const emptyData = {};
-  const emptyQueryParams = {};
-  const fragment2 = "";
-  const activated = new ActivatedRouteSnapshot([], emptyParams, emptyQueryParams, fragment2, emptyData, PRIMARY_OUTLET, rootComponent, null, {}, injector);
-  return new RouterStateSnapshot("", new TreeNode(activated, []));
-}
-var ActivatedRoute = class {
-  urlSubject;
-  paramsSubject;
-  queryParamsSubject;
-  fragmentSubject;
-  dataSubject;
-  outlet;
-  component;
-  snapshot;
-  _futureSnapshot;
-  _routerState;
-  _paramMap;
-  _queryParamMap;
-  title;
-  url;
-  params;
-  queryParams;
-  fragment;
-  data;
-  constructor(urlSubject, paramsSubject, queryParamsSubject, fragmentSubject, dataSubject, outlet, component, futureSnapshot) {
-    this.urlSubject = urlSubject;
-    this.paramsSubject = paramsSubject;
-    this.queryParamsSubject = queryParamsSubject;
-    this.fragmentSubject = fragmentSubject;
-    this.dataSubject = dataSubject;
-    this.outlet = outlet;
-    this.component = component;
-    this._futureSnapshot = futureSnapshot;
-    this.title = this.dataSubject?.pipe(map((d) => d[RouteTitleKey])) ?? of(void 0);
-    this.url = urlSubject;
-    this.params = paramsSubject;
-    this.queryParams = queryParamsSubject;
-    this.fragment = fragmentSubject;
-    this.data = dataSubject;
-  }
-  get routeConfig() {
-    return this._futureSnapshot.routeConfig;
-  }
-  get root() {
-    return this._routerState.root;
-  }
-  get parent() {
-    return this._routerState.parent(this);
-  }
-  get firstChild() {
-    return this._routerState.firstChild(this);
-  }
-  get children() {
-    return this._routerState.children(this);
-  }
-  get pathFromRoot() {
-    return this._routerState.pathFromRoot(this);
-  }
-  get paramMap() {
-    this._paramMap ??= this.params.pipe(map((p) => convertToParamMap(p)));
-    return this._paramMap;
-  }
-  get queryParamMap() {
-    this._queryParamMap ??= this.queryParams.pipe(map((p) => convertToParamMap(p)));
-    return this._queryParamMap;
-  }
-  toString() {
-    return this.snapshot ? this.snapshot.toString() : `Future(${this._futureSnapshot})`;
-  }
-};
-function getInherited(route, parent, paramsInheritanceStrategy = "emptyOnly") {
-  let inherited;
-  const {
-    routeConfig
-  } = route;
-  if (parent !== null && (paramsInheritanceStrategy === "always" || routeConfig?.path === "" || !parent.component && !parent.routeConfig?.loadComponent)) {
-    inherited = {
-      params: __spreadValues(__spreadValues({}, parent.params), route.params),
-      data: __spreadValues(__spreadValues({}, parent.data), route.data),
-      resolve: __spreadValues(__spreadValues(__spreadValues(__spreadValues({}, route.data), parent.data), routeConfig?.data), route._resolvedData)
-    };
-  } else {
-    inherited = {
-      params: __spreadValues({}, route.params),
-      data: __spreadValues({}, route.data),
-      resolve: __spreadValues(__spreadValues({}, route.data), route._resolvedData ?? {})
-    };
-  }
-  if (routeConfig && hasStaticTitle(routeConfig)) {
-    inherited.resolve[RouteTitleKey] = routeConfig.title;
-  }
-  return inherited;
-}
-var ActivatedRouteSnapshot = class {
-  url;
-  params;
-  queryParams;
-  fragment;
-  data;
-  outlet;
-  component;
-  routeConfig;
-  _resolve;
-  _resolvedData;
-  _routerState;
-  _paramMap;
-  _queryParamMap;
-  _environmentInjector;
-  get title() {
-    return this.data?.[RouteTitleKey];
-  }
-  constructor(url, params, queryParams, fragment2, data, outlet, component, routeConfig, resolve, environmentInjector) {
-    this.url = url;
-    this.params = params;
-    this.queryParams = queryParams;
-    this.fragment = fragment2;
-    this.data = data;
-    this.outlet = outlet;
-    this.component = component;
-    this.routeConfig = routeConfig;
-    this._resolve = resolve;
-    this._environmentInjector = environmentInjector;
-  }
-  get root() {
-    return this._routerState.root;
-  }
-  get parent() {
-    return this._routerState.parent(this);
-  }
-  get firstChild() {
-    return this._routerState.firstChild(this);
-  }
-  get children() {
-    return this._routerState.children(this);
-  }
-  get pathFromRoot() {
-    return this._routerState.pathFromRoot(this);
-  }
-  get paramMap() {
-    this._paramMap ??= convertToParamMap(this.params);
-    return this._paramMap;
-  }
-  get queryParamMap() {
-    this._queryParamMap ??= convertToParamMap(this.queryParams);
-    return this._queryParamMap;
-  }
-  toString() {
-    const url = this.url.map((segment) => segment.toString()).join("/");
-    const matched = this.routeConfig ? this.routeConfig.path : "";
-    return `Route(url:'${url}', path:'${matched}')`;
-  }
-};
-var RouterStateSnapshot = class extends Tree {
-  url;
-  constructor(url, root) {
-    super(root);
-    this.url = url;
-    setRouterState(this, root);
-  }
-  toString() {
-    return serializeNode(this._root);
-  }
-};
-function setRouterState(state2, node) {
-  node.value._routerState = state2;
-  node.children.forEach((c) => setRouterState(state2, c));
-}
-function serializeNode(node) {
-  const c = node.children.length > 0 ? ` { ${node.children.map(serializeNode).join(", ")} } ` : "";
-  return `${node.value}${c}`;
-}
-function advanceActivatedRoute(route) {
-  if (route.snapshot) {
-    const currentSnapshot = route.snapshot;
-    const nextSnapshot = route._futureSnapshot;
-    route.snapshot = nextSnapshot;
-    if (!shallowEqual(currentSnapshot.queryParams, nextSnapshot.queryParams)) {
-      route.queryParamsSubject.next(nextSnapshot.queryParams);
-    }
-    if (currentSnapshot.fragment !== nextSnapshot.fragment) {
-      route.fragmentSubject.next(nextSnapshot.fragment);
-    }
-    if (!shallowEqual(currentSnapshot.params, nextSnapshot.params)) {
-      route.paramsSubject.next(nextSnapshot.params);
-    }
-    if (!shallowEqualArrays(currentSnapshot.url, nextSnapshot.url)) {
-      route.urlSubject.next(nextSnapshot.url);
-    }
-    if (!shallowEqual(currentSnapshot.data, nextSnapshot.data)) {
-      route.dataSubject.next(nextSnapshot.data);
-    }
-  } else {
-    route.snapshot = route._futureSnapshot;
-    route.dataSubject.next(route._futureSnapshot.data);
-  }
-}
-function equalParamsAndUrlSegments(a, b) {
-  const equalUrlParams = shallowEqual(a.params, b.params) && equalSegments(a.url, b.url);
-  const parentsMismatch = !a.parent !== !b.parent;
-  return equalUrlParams && !parentsMismatch && (!a.parent || equalParamsAndUrlSegments(a.parent, b.parent));
-}
-function hasStaticTitle(config3) {
-  return typeof config3.title === "string" || config3.title === null;
-}
-var ROUTER_OUTLET_DATA = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "RouterOutlet data" : "");
-var RouterOutlet = class _RouterOutlet {
-  activated = null;
-  get activatedComponentRef() {
-    return this.activated;
-  }
-  _activatedRoute = null;
-  name = PRIMARY_OUTLET;
-  activateEvents = new EventEmitter();
-  deactivateEvents = new EventEmitter();
-  attachEvents = new EventEmitter();
-  detachEvents = new EventEmitter();
-  routerOutletData = input(...ngDevMode ? [void 0, {
-    debugName: "routerOutletData"
-  }] : []);
-  parentContexts = inject2(ChildrenOutletContexts);
-  location = inject2(ViewContainerRef);
-  changeDetector = inject2(ChangeDetectorRef);
-  inputBinder = inject2(INPUT_BINDER, {
-    optional: true
-  });
-  supportsBindingToComponentInputs = true;
-  ngOnChanges(changes) {
-    if (changes["name"]) {
-      const {
-        firstChange,
-        previousValue
-      } = changes["name"];
-      if (firstChange) {
-        return;
-      }
-      if (this.isTrackedInParentContexts(previousValue)) {
-        this.deactivate();
-        this.parentContexts.onChildOutletDestroyed(previousValue);
-      }
-      this.initializeOutletWithName();
-    }
-  }
-  ngOnDestroy() {
-    if (this.isTrackedInParentContexts(this.name)) {
-      this.parentContexts.onChildOutletDestroyed(this.name);
-    }
-    this.inputBinder?.unsubscribeFromRouteData(this);
-  }
-  isTrackedInParentContexts(outletName) {
-    return this.parentContexts.getContext(outletName)?.outlet === this;
-  }
-  ngOnInit() {
-    this.initializeOutletWithName();
-  }
-  initializeOutletWithName() {
-    this.parentContexts.onChildOutletCreated(this.name, this);
-    if (this.activated) {
-      return;
-    }
-    const context2 = this.parentContexts.getContext(this.name);
-    if (context2?.route) {
-      if (context2.attachRef) {
-        this.attach(context2.attachRef, context2.route);
-      } else {
-        this.activateWith(context2.route, context2.injector);
-      }
-    }
-  }
-  get isActivated() {
-    return !!this.activated;
-  }
-  get component() {
-    if (!this.activated) throw new RuntimeError(4012, (typeof ngDevMode === "undefined" || ngDevMode) && "Outlet is not activated");
-    return this.activated.instance;
-  }
-  get activatedRoute() {
-    if (!this.activated) throw new RuntimeError(4012, (typeof ngDevMode === "undefined" || ngDevMode) && "Outlet is not activated");
-    return this._activatedRoute;
-  }
-  get activatedRouteData() {
-    if (this._activatedRoute) {
-      return this._activatedRoute.snapshot.data;
-    }
-    return {};
-  }
-  detach() {
-    if (!this.activated) throw new RuntimeError(4012, (typeof ngDevMode === "undefined" || ngDevMode) && "Outlet is not activated");
-    this.location.detach();
-    const cmp = this.activated;
-    this.activated = null;
-    this._activatedRoute = null;
-    this.detachEvents.emit(cmp.instance);
-    return cmp;
-  }
-  attach(ref, activatedRoute) {
-    this.activated = ref;
-    this._activatedRoute = activatedRoute;
-    this.location.insert(ref.hostView);
-    this.inputBinder?.bindActivatedRouteToOutletComponent(this);
-    this.attachEvents.emit(ref.instance);
-  }
-  deactivate() {
-    if (this.activated) {
-      const c = this.component;
-      this.activated.destroy();
-      this.activated = null;
-      this._activatedRoute = null;
-      this.deactivateEvents.emit(c);
-    }
-  }
-  activateWith(activatedRoute, environmentInjector) {
-    if (this.isActivated) {
-      throw new RuntimeError(4013, (typeof ngDevMode === "undefined" || ngDevMode) && "Cannot activate an already activated outlet");
-    }
-    this._activatedRoute = activatedRoute;
-    const location2 = this.location;
-    const snapshot = activatedRoute.snapshot;
-    const component = snapshot.component;
-    const childContexts = this.parentContexts.getOrCreateContext(this.name).children;
-    const injector = new OutletInjector(activatedRoute, childContexts, location2.injector, this.routerOutletData);
-    this.activated = location2.createComponent(component, {
-      index: location2.length,
-      injector,
-      environmentInjector
-    });
-    this.changeDetector.markForCheck();
-    this.inputBinder?.bindActivatedRouteToOutletComponent(this);
-    this.activateEvents.emit(this.activated.instance);
-  }
-  static \u0275fac = function RouterOutlet_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _RouterOutlet)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _RouterOutlet,
-    selectors: [["router-outlet"]],
-    inputs: {
-      name: "name",
-      routerOutletData: [1, "routerOutletData"]
-    },
-    outputs: {
-      activateEvents: "activate",
-      deactivateEvents: "deactivate",
-      attachEvents: "attach",
-      detachEvents: "detach"
-    },
-    exportAs: ["outlet"],
-    features: [\u0275\u0275NgOnChangesFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterOutlet, [{
-    type: Directive,
-    args: [{
-      selector: "router-outlet",
-      exportAs: "outlet"
-    }]
-  }], null, {
-    name: [{
-      type: Input
-    }],
-    activateEvents: [{
-      type: Output,
-      args: ["activate"]
-    }],
-    deactivateEvents: [{
-      type: Output,
-      args: ["deactivate"]
-    }],
-    attachEvents: [{
-      type: Output,
-      args: ["attach"]
-    }],
-    detachEvents: [{
-      type: Output,
-      args: ["detach"]
-    }],
-    routerOutletData: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "routerOutletData",
-        required: false
-      }]
-    }]
-  });
-})();
-var OutletInjector = class {
-  route;
-  childContexts;
-  parent;
-  outletData;
-  constructor(route, childContexts, parent, outletData) {
-    this.route = route;
-    this.childContexts = childContexts;
-    this.parent = parent;
-    this.outletData = outletData;
-  }
-  get(token, notFoundValue) {
-    if (token === ActivatedRoute) {
-      return this.route;
-    }
-    if (token === ChildrenOutletContexts) {
-      return this.childContexts;
-    }
-    if (token === ROUTER_OUTLET_DATA) {
-      return this.outletData;
-    }
-    return this.parent.get(token, notFoundValue);
-  }
-};
-var INPUT_BINDER = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "Router Input Binder" : "");
-var RoutedComponentInputBinder = class _RoutedComponentInputBinder {
-  outletDataSubscriptions = /* @__PURE__ */ new Map();
-  bindActivatedRouteToOutletComponent(outlet) {
-    this.unsubscribeFromRouteData(outlet);
-    this.subscribeToRouteData(outlet);
-  }
-  unsubscribeFromRouteData(outlet) {
-    this.outletDataSubscriptions.get(outlet)?.unsubscribe();
-    this.outletDataSubscriptions.delete(outlet);
-  }
-  subscribeToRouteData(outlet) {
-    const {
-      activatedRoute
-    } = outlet;
-    const dataSubscription = combineLatest([activatedRoute.queryParams, activatedRoute.params, activatedRoute.data]).pipe(switchMap(([queryParams, params, data], index) => {
-      data = __spreadValues(__spreadValues(__spreadValues({}, queryParams), params), data);
-      if (index === 0) {
-        return of(data);
-      }
-      return Promise.resolve(data);
-    })).subscribe((data) => {
-      if (!outlet.isActivated || !outlet.activatedComponentRef || outlet.activatedRoute !== activatedRoute || activatedRoute.component === null) {
-        this.unsubscribeFromRouteData(outlet);
-        return;
-      }
-      const mirror = reflectComponentType(activatedRoute.component);
-      if (!mirror) {
-        this.unsubscribeFromRouteData(outlet);
-        return;
-      }
-      for (const {
-        templateName
-      } of mirror.inputs) {
-        outlet.activatedComponentRef.setInput(templateName, data[templateName]);
-      }
-    });
-    this.outletDataSubscriptions.set(outlet, dataSubscription);
-  }
-  static \u0275fac = function RoutedComponentInputBinder_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _RoutedComponentInputBinder)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _RoutedComponentInputBinder,
-    factory: _RoutedComponentInputBinder.\u0275fac
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RoutedComponentInputBinder, [{
-    type: Injectable
-  }], null, null);
-})();
-var \u0275EmptyOutletComponent = class _\u0275EmptyOutletComponent {
-  static \u0275fac = function \u0275EmptyOutletComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _\u0275EmptyOutletComponent)();
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _\u0275EmptyOutletComponent,
-    selectors: [["ng-component"]],
-    exportAs: ["emptyRouterOutlet"],
-    decls: 1,
-    vars: 0,
-    template: function _EmptyOutletComponent_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275element(0, "router-outlet");
-      }
-    },
-    dependencies: [RouterOutlet],
-    encapsulation: 2
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(\u0275EmptyOutletComponent, [{
-    type: Component,
-    args: [{
-      template: `<router-outlet />`,
-      imports: [RouterOutlet],
-      exportAs: "emptyRouterOutlet"
-    }]
-  }], null, null);
-})();
-function standardizeConfig(r) {
-  const children = r.children && r.children.map(standardizeConfig);
-  const c = children ? __spreadProps(__spreadValues({}, r), {
-    children
-  }) : __spreadValues({}, r);
-  if (!c.component && !c.loadComponent && (children || c.loadChildren) && c.outlet && c.outlet !== PRIMARY_OUTLET) {
-    c.component = \u0275EmptyOutletComponent;
-  }
-  return c;
-}
-function createRouterState(routeReuseStrategy, curr, prevState) {
-  const root = createNode(routeReuseStrategy, curr._root, prevState ? prevState._root : void 0);
-  return new RouterState(root, curr);
-}
-function createNode(routeReuseStrategy, curr, prevState) {
-  if (prevState && routeReuseStrategy.shouldReuseRoute(curr.value, prevState.value.snapshot)) {
-    const value = prevState.value;
-    value._futureSnapshot = curr.value;
-    const children = createOrReuseChildren(routeReuseStrategy, curr, prevState);
-    return new TreeNode(value, children);
-  } else {
-    if (routeReuseStrategy.shouldAttach(curr.value)) {
-      const detachedRouteHandle = routeReuseStrategy.retrieve(curr.value);
-      if (detachedRouteHandle !== null) {
-        const tree2 = detachedRouteHandle.route;
-        tree2.value._futureSnapshot = curr.value;
-        tree2.children = curr.children.map((c) => createNode(routeReuseStrategy, c));
-        return tree2;
-      }
-    }
-    const value = createActivatedRoute(curr.value);
-    const children = curr.children.map((c) => createNode(routeReuseStrategy, c));
-    return new TreeNode(value, children);
-  }
-}
-function createOrReuseChildren(routeReuseStrategy, curr, prevState) {
-  return curr.children.map((child) => {
-    for (const p of prevState.children) {
-      if (routeReuseStrategy.shouldReuseRoute(child.value, p.value.snapshot)) {
-        return createNode(routeReuseStrategy, child, p);
-      }
-    }
-    return createNode(routeReuseStrategy, child);
-  });
-}
-function createActivatedRoute(c) {
-  return new ActivatedRoute(new BehaviorSubject(c.url), new BehaviorSubject(c.params), new BehaviorSubject(c.queryParams), new BehaviorSubject(c.fragment), new BehaviorSubject(c.data), c.outlet, c.component, c);
-}
-var RedirectCommand = class {
-  redirectTo;
-  navigationBehaviorOptions;
-  constructor(redirectTo, navigationBehaviorOptions) {
-    this.redirectTo = redirectTo;
-    this.navigationBehaviorOptions = navigationBehaviorOptions;
-  }
-};
-var NAVIGATION_CANCELING_ERROR = "ngNavigationCancelingError";
-function redirectingNavigationError(urlSerializer, redirect) {
-  const {
-    redirectTo,
-    navigationBehaviorOptions
-  } = isUrlTree(redirect) ? {
-    redirectTo: redirect,
-    navigationBehaviorOptions: void 0
-  } : redirect;
-  const error2 = navigationCancelingError(ngDevMode && `Redirecting to "${urlSerializer.serialize(redirectTo)}"`, NavigationCancellationCode.Redirect);
-  error2.url = redirectTo;
-  error2.navigationBehaviorOptions = navigationBehaviorOptions;
-  return error2;
-}
-function navigationCancelingError(message, code) {
-  const error2 = new Error(`NavigationCancelingError: ${message || ""}`);
-  error2[NAVIGATION_CANCELING_ERROR] = true;
-  error2.cancellationCode = code;
-  return error2;
-}
-function isRedirectingNavigationCancelingError(error2) {
-  return isNavigationCancelingError(error2) && isUrlTree(error2.url);
-}
-function isNavigationCancelingError(error2) {
-  return !!error2 && error2[NAVIGATION_CANCELING_ERROR];
-}
-var warnedAboutUnsupportedInputBinding = false;
-var ActivateRoutes = class {
-  routeReuseStrategy;
-  futureState;
-  currState;
-  forwardEvent;
-  inputBindingEnabled;
-  constructor(routeReuseStrategy, futureState, currState, forwardEvent, inputBindingEnabled) {
-    this.routeReuseStrategy = routeReuseStrategy;
-    this.futureState = futureState;
-    this.currState = currState;
-    this.forwardEvent = forwardEvent;
-    this.inputBindingEnabled = inputBindingEnabled;
-  }
-  activate(parentContexts) {
-    const futureRoot = this.futureState._root;
-    const currRoot = this.currState ? this.currState._root : null;
-    this.deactivateChildRoutes(futureRoot, currRoot, parentContexts);
-    advanceActivatedRoute(this.futureState.root);
-    this.activateChildRoutes(futureRoot, currRoot, parentContexts);
-  }
-  deactivateChildRoutes(futureNode, currNode, contexts) {
-    const children = nodeChildrenAsMap(currNode);
-    futureNode.children.forEach((futureChild) => {
-      const childOutletName = futureChild.value.outlet;
-      this.deactivateRoutes(futureChild, children[childOutletName], contexts);
-      delete children[childOutletName];
-    });
-    Object.values(children).forEach((v) => {
-      this.deactivateRouteAndItsChildren(v, contexts);
-    });
-  }
-  deactivateRoutes(futureNode, currNode, parentContext) {
-    const future = futureNode.value;
-    const curr = currNode ? currNode.value : null;
-    if (future === curr) {
-      if (future.component) {
-        const context2 = parentContext.getContext(future.outlet);
-        if (context2) {
-          this.deactivateChildRoutes(futureNode, currNode, context2.children);
-        }
-      } else {
-        this.deactivateChildRoutes(futureNode, currNode, parentContext);
-      }
-    } else {
-      if (curr) {
-        this.deactivateRouteAndItsChildren(currNode, parentContext);
-      }
-    }
-  }
-  deactivateRouteAndItsChildren(route, parentContexts) {
-    if (route.value.component && this.routeReuseStrategy.shouldDetach(route.value.snapshot)) {
-      this.detachAndStoreRouteSubtree(route, parentContexts);
-    } else {
-      this.deactivateRouteAndOutlet(route, parentContexts);
-    }
-  }
-  detachAndStoreRouteSubtree(route, parentContexts) {
-    const context2 = parentContexts.getContext(route.value.outlet);
-    const contexts = context2 && route.value.component ? context2.children : parentContexts;
-    const children = nodeChildrenAsMap(route);
-    for (const treeNode of Object.values(children)) {
-      this.deactivateRouteAndItsChildren(treeNode, contexts);
-    }
-    if (context2 && context2.outlet) {
-      const componentRef = context2.outlet.detach();
-      const contexts2 = context2.children.onOutletDeactivated();
-      this.routeReuseStrategy.store(route.value.snapshot, {
-        componentRef,
-        route,
-        contexts: contexts2
-      });
-    }
-  }
-  deactivateRouteAndOutlet(route, parentContexts) {
-    const context2 = parentContexts.getContext(route.value.outlet);
-    const contexts = context2 && route.value.component ? context2.children : parentContexts;
-    const children = nodeChildrenAsMap(route);
-    for (const treeNode of Object.values(children)) {
-      this.deactivateRouteAndItsChildren(treeNode, contexts);
-    }
-    if (context2) {
-      if (context2.outlet) {
-        context2.outlet.deactivate();
-        context2.children.onOutletDeactivated();
-      }
-      context2.attachRef = null;
-      context2.route = null;
-    }
-  }
-  activateChildRoutes(futureNode, currNode, contexts) {
-    const children = nodeChildrenAsMap(currNode);
-    futureNode.children.forEach((c) => {
-      this.activateRoutes(c, children[c.value.outlet], contexts);
-      this.forwardEvent(new ActivationEnd(c.value.snapshot));
-    });
-    if (futureNode.children.length) {
-      this.forwardEvent(new ChildActivationEnd(futureNode.value.snapshot));
-    }
-  }
-  activateRoutes(futureNode, currNode, parentContexts) {
-    const future = futureNode.value;
-    const curr = currNode ? currNode.value : null;
-    advanceActivatedRoute(future);
-    if (future === curr) {
-      if (future.component) {
-        const context2 = parentContexts.getOrCreateContext(future.outlet);
-        this.activateChildRoutes(futureNode, currNode, context2.children);
-      } else {
-        this.activateChildRoutes(futureNode, currNode, parentContexts);
-      }
-    } else {
-      if (future.component) {
-        const context2 = parentContexts.getOrCreateContext(future.outlet);
-        if (this.routeReuseStrategy.shouldAttach(future.snapshot)) {
-          const stored = this.routeReuseStrategy.retrieve(future.snapshot);
-          this.routeReuseStrategy.store(future.snapshot, null);
-          context2.children.onOutletReAttached(stored.contexts);
-          context2.attachRef = stored.componentRef;
-          context2.route = stored.route.value;
-          if (context2.outlet) {
-            context2.outlet.attach(stored.componentRef, stored.route.value);
-          }
-          advanceActivatedRoute(stored.route.value);
-          this.activateChildRoutes(futureNode, null, context2.children);
-        } else {
-          context2.attachRef = null;
-          context2.route = future;
-          if (context2.outlet) {
-            context2.outlet.activateWith(future, context2.injector);
-          }
-          this.activateChildRoutes(futureNode, null, context2.children);
-        }
-      } else {
-        this.activateChildRoutes(futureNode, null, parentContexts);
-      }
-    }
-    if (typeof ngDevMode === "undefined" || ngDevMode) {
-      const context2 = parentContexts.getOrCreateContext(future.outlet);
-      const outlet = context2.outlet;
-      if (outlet && this.inputBindingEnabled && !outlet.supportsBindingToComponentInputs && !warnedAboutUnsupportedInputBinding) {
-        console.warn(`'withComponentInputBinding' feature is enabled but this application is using an outlet that may not support binding to component inputs.`);
-        warnedAboutUnsupportedInputBinding = true;
-      }
-    }
-  }
-};
-var CanActivate = class {
-  path;
-  route;
-  constructor(path) {
-    this.path = path;
-    this.route = this.path[this.path.length - 1];
-  }
-};
-var CanDeactivate = class {
-  component;
-  route;
-  constructor(component, route) {
-    this.component = component;
-    this.route = route;
-  }
-};
-function getAllRouteGuards(future, curr, parentContexts) {
-  const futureRoot = future._root;
-  const currRoot = curr ? curr._root : null;
-  return getChildRouteGuards(futureRoot, currRoot, parentContexts, [futureRoot.value]);
-}
-function getCanActivateChild(p) {
-  const canActivateChild = p.routeConfig ? p.routeConfig.canActivateChild : null;
-  if (!canActivateChild || canActivateChild.length === 0) return null;
-  return {
-    node: p,
-    guards: canActivateChild
-  };
-}
-function getTokenOrFunctionIdentity(tokenOrFunction, injector) {
-  const NOT_FOUND3 = /* @__PURE__ */ Symbol();
-  const result = injector.get(tokenOrFunction, NOT_FOUND3);
-  if (result === NOT_FOUND3) {
-    if (typeof tokenOrFunction === "function" && !isInjectable(tokenOrFunction)) {
-      return tokenOrFunction;
-    } else {
-      return injector.get(tokenOrFunction);
-    }
-  }
-  return result;
-}
-function getChildRouteGuards(futureNode, currNode, contexts, futurePath, checks = {
-  canDeactivateChecks: [],
-  canActivateChecks: []
-}) {
-  const prevChildren = nodeChildrenAsMap(currNode);
-  futureNode.children.forEach((c) => {
-    getRouteGuards(c, prevChildren[c.value.outlet], contexts, futurePath.concat([c.value]), checks);
-    delete prevChildren[c.value.outlet];
-  });
-  Object.entries(prevChildren).forEach(([k, v]) => deactivateRouteAndItsChildren(v, contexts.getContext(k), checks));
-  return checks;
-}
-function getRouteGuards(futureNode, currNode, parentContexts, futurePath, checks = {
-  canDeactivateChecks: [],
-  canActivateChecks: []
-}) {
-  const future = futureNode.value;
-  const curr = currNode ? currNode.value : null;
-  const context2 = parentContexts ? parentContexts.getContext(futureNode.value.outlet) : null;
-  if (curr && future.routeConfig === curr.routeConfig) {
-    const shouldRun = shouldRunGuardsAndResolvers(curr, future, future.routeConfig.runGuardsAndResolvers);
-    if (shouldRun) {
-      checks.canActivateChecks.push(new CanActivate(futurePath));
-    } else {
-      future.data = curr.data;
-      future._resolvedData = curr._resolvedData;
-    }
-    if (future.component) {
-      getChildRouteGuards(futureNode, currNode, context2 ? context2.children : null, futurePath, checks);
-    } else {
-      getChildRouteGuards(futureNode, currNode, parentContexts, futurePath, checks);
-    }
-    if (shouldRun && context2 && context2.outlet && context2.outlet.isActivated) {
-      checks.canDeactivateChecks.push(new CanDeactivate(context2.outlet.component, curr));
-    }
-  } else {
-    if (curr) {
-      deactivateRouteAndItsChildren(currNode, context2, checks);
-    }
-    checks.canActivateChecks.push(new CanActivate(futurePath));
-    if (future.component) {
-      getChildRouteGuards(futureNode, null, context2 ? context2.children : null, futurePath, checks);
-    } else {
-      getChildRouteGuards(futureNode, null, parentContexts, futurePath, checks);
-    }
-  }
-  return checks;
-}
-function shouldRunGuardsAndResolvers(curr, future, mode) {
-  if (typeof mode === "function") {
-    return runInInjectionContext(future._environmentInjector, () => mode(curr, future));
-  }
-  switch (mode) {
-    case "pathParamsChange":
-      return !equalPath(curr.url, future.url);
-    case "pathParamsOrQueryParamsChange":
-      return !equalPath(curr.url, future.url) || !shallowEqual(curr.queryParams, future.queryParams);
-    case "always":
-      return true;
-    case "paramsOrQueryParamsChange":
-      return !equalParamsAndUrlSegments(curr, future) || !shallowEqual(curr.queryParams, future.queryParams);
-    case "paramsChange":
-    default:
-      return !equalParamsAndUrlSegments(curr, future);
-  }
-}
-function deactivateRouteAndItsChildren(route, context2, checks) {
-  const children = nodeChildrenAsMap(route);
-  const r = route.value;
-  Object.entries(children).forEach(([childName, node]) => {
-    if (!r.component) {
-      deactivateRouteAndItsChildren(node, context2, checks);
-    } else if (context2) {
-      deactivateRouteAndItsChildren(node, context2.children.getContext(childName), checks);
-    } else {
-      deactivateRouteAndItsChildren(node, null, checks);
-    }
-  });
-  if (!r.component) {
-    checks.canDeactivateChecks.push(new CanDeactivate(null, r));
-  } else if (context2 && context2.outlet && context2.outlet.isActivated) {
-    checks.canDeactivateChecks.push(new CanDeactivate(context2.outlet.component, r));
-  } else {
-    checks.canDeactivateChecks.push(new CanDeactivate(null, r));
-  }
-}
-function isFunction2(v) {
-  return typeof v === "function";
-}
-function isBoolean(v) {
-  return typeof v === "boolean";
-}
-function isCanLoad(guard) {
-  return guard && isFunction2(guard.canLoad);
-}
-function isCanActivate(guard) {
-  return guard && isFunction2(guard.canActivate);
-}
-function isCanActivateChild(guard) {
-  return guard && isFunction2(guard.canActivateChild);
-}
-function isCanDeactivate(guard) {
-  return guard && isFunction2(guard.canDeactivate);
-}
-function isCanMatch(guard) {
-  return guard && isFunction2(guard.canMatch);
-}
-function isEmptyError(e) {
-  return e instanceof EmptyError || e?.name === "EmptyError";
-}
-var INITIAL_VALUE = /* @__PURE__ */ Symbol("INITIAL_VALUE");
-function prioritizedGuardValue() {
-  return switchMap((obs) => {
-    return combineLatest(obs.map((o) => o.pipe(take(1), startWith(INITIAL_VALUE)))).pipe(map((results) => {
-      for (const result of results) {
-        if (result === true) {
-          continue;
-        } else if (result === INITIAL_VALUE) {
-          return INITIAL_VALUE;
-        } else if (result === false || isRedirect(result)) {
-          return result;
-        }
-      }
-      return true;
-    }), filter((item) => item !== INITIAL_VALUE), take(1));
-  });
-}
-function isRedirect(val) {
-  return isUrlTree(val) || val instanceof RedirectCommand;
-}
-function abortSignalToObservable(signal2) {
-  if (signal2.aborted) {
-    return of(void 0).pipe(take(1));
-  }
-  return new Observable((subscriber) => {
-    const handler = () => {
-      subscriber.next();
-      subscriber.complete();
-    };
-    signal2.addEventListener("abort", handler);
-    return () => signal2.removeEventListener("abort", handler);
-  });
-}
-function takeUntilAbort(signal2) {
-  return takeUntil(abortSignalToObservable(signal2));
-}
-function checkGuards(forwardEvent) {
-  return mergeMap((t) => {
-    const {
-      targetSnapshot,
-      currentSnapshot,
-      guards: {
-        canActivateChecks,
-        canDeactivateChecks
-      }
-    } = t;
-    if (canDeactivateChecks.length === 0 && canActivateChecks.length === 0) {
-      return of(__spreadProps(__spreadValues({}, t), {
-        guardsResult: true
-      }));
-    }
-    return runCanDeactivateChecks(canDeactivateChecks, targetSnapshot, currentSnapshot).pipe(mergeMap((canDeactivate) => {
-      return canDeactivate && isBoolean(canDeactivate) ? runCanActivateChecks(targetSnapshot, canActivateChecks, forwardEvent) : of(canDeactivate);
-    }), map((guardsResult) => __spreadProps(__spreadValues({}, t), {
-      guardsResult
-    })));
-  });
-}
-function runCanDeactivateChecks(checks, futureRSS, currRSS) {
-  return from(checks).pipe(mergeMap((check) => runCanDeactivate(check.component, check.route, currRSS, futureRSS)), first((result) => {
-    return result !== true;
-  }, true));
-}
-function runCanActivateChecks(futureSnapshot, checks, forwardEvent) {
-  return from(checks).pipe(concatMap((check) => {
-    return concat(fireChildActivationStart(check.route.parent, forwardEvent), fireActivationStart(check.route, forwardEvent), runCanActivateChild(futureSnapshot, check.path), runCanActivate(futureSnapshot, check.route));
-  }), first((result) => {
-    return result !== true;
-  }, true));
-}
-function fireActivationStart(snapshot, forwardEvent) {
-  if (snapshot !== null && forwardEvent) {
-    forwardEvent(new ActivationStart(snapshot));
-  }
-  return of(true);
-}
-function fireChildActivationStart(snapshot, forwardEvent) {
-  if (snapshot !== null && forwardEvent) {
-    forwardEvent(new ChildActivationStart(snapshot));
-  }
-  return of(true);
-}
-function runCanActivate(futureRSS, futureARS) {
-  const canActivate = futureARS.routeConfig ? futureARS.routeConfig.canActivate : null;
-  if (!canActivate || canActivate.length === 0) return of(true);
-  const canActivateObservables = canActivate.map((canActivate2) => {
-    return defer(() => {
-      const closestInjector = futureARS._environmentInjector;
-      const guard = getTokenOrFunctionIdentity(canActivate2, closestInjector);
-      const guardVal = isCanActivate(guard) ? guard.canActivate(futureARS, futureRSS) : runInInjectionContext(closestInjector, () => guard(futureARS, futureRSS));
-      return wrapIntoObservable(guardVal).pipe(first());
-    });
-  });
-  return of(canActivateObservables).pipe(prioritizedGuardValue());
-}
-function runCanActivateChild(futureRSS, path) {
-  const futureARS = path[path.length - 1];
-  const canActivateChildGuards = path.slice(0, path.length - 1).reverse().map((p) => getCanActivateChild(p)).filter((_) => _ !== null);
-  const canActivateChildGuardsMapped = canActivateChildGuards.map((d) => {
-    return defer(() => {
-      const guardsMapped = d.guards.map((canActivateChild) => {
-        const closestInjector = d.node._environmentInjector;
-        const guard = getTokenOrFunctionIdentity(canActivateChild, closestInjector);
-        const guardVal = isCanActivateChild(guard) ? guard.canActivateChild(futureARS, futureRSS) : runInInjectionContext(closestInjector, () => guard(futureARS, futureRSS));
-        return wrapIntoObservable(guardVal).pipe(first());
-      });
-      return of(guardsMapped).pipe(prioritizedGuardValue());
-    });
-  });
-  return of(canActivateChildGuardsMapped).pipe(prioritizedGuardValue());
-}
-function runCanDeactivate(component, currARS, currRSS, futureRSS) {
-  const canDeactivate = currARS && currARS.routeConfig ? currARS.routeConfig.canDeactivate : null;
-  if (!canDeactivate || canDeactivate.length === 0) return of(true);
-  const canDeactivateObservables = canDeactivate.map((c) => {
-    const closestInjector = currARS._environmentInjector;
-    const guard = getTokenOrFunctionIdentity(c, closestInjector);
-    const guardVal = isCanDeactivate(guard) ? guard.canDeactivate(component, currARS, currRSS, futureRSS) : runInInjectionContext(closestInjector, () => guard(component, currARS, currRSS, futureRSS));
-    return wrapIntoObservable(guardVal).pipe(first());
-  });
-  return of(canDeactivateObservables).pipe(prioritizedGuardValue());
-}
-function runCanLoadGuards(injector, route, segments, urlSerializer, abortSignal) {
-  const canLoad = route.canLoad;
-  if (canLoad === void 0 || canLoad.length === 0) {
-    return of(true);
-  }
-  const canLoadObservables = canLoad.map((injectionToken) => {
-    const guard = getTokenOrFunctionIdentity(injectionToken, injector);
-    const guardVal = isCanLoad(guard) ? guard.canLoad(route, segments) : runInInjectionContext(injector, () => guard(route, segments));
-    const obs$ = wrapIntoObservable(guardVal);
-    return abortSignal ? obs$.pipe(takeUntilAbort(abortSignal)) : obs$;
-  });
-  return of(canLoadObservables).pipe(prioritizedGuardValue(), redirectIfUrlTree(urlSerializer));
-}
-function redirectIfUrlTree(urlSerializer) {
-  return pipe(tap((result) => {
-    if (typeof result === "boolean") return;
-    throw redirectingNavigationError(urlSerializer, result);
-  }), map((result) => result === true));
-}
-function runCanMatchGuards(injector, route, segments, urlSerializer, abortSignal) {
-  const canMatch = route.canMatch;
-  if (!canMatch || canMatch.length === 0) return of(true);
-  const canMatchObservables = canMatch.map((injectionToken) => {
-    const guard = getTokenOrFunctionIdentity(injectionToken, injector);
-    const guardVal = isCanMatch(guard) ? guard.canMatch(route, segments) : runInInjectionContext(injector, () => guard(route, segments));
-    return wrapIntoObservable(guardVal).pipe(takeUntilAbort(abortSignal));
-  });
-  return of(canMatchObservables).pipe(prioritizedGuardValue(), redirectIfUrlTree(urlSerializer));
-}
-var NoMatch = class _NoMatch extends Error {
-  segmentGroup;
-  constructor(segmentGroup) {
-    super();
-    this.segmentGroup = segmentGroup || null;
-    Object.setPrototypeOf(this, _NoMatch.prototype);
-  }
-};
-var AbsoluteRedirect = class _AbsoluteRedirect extends Error {
-  urlTree;
-  constructor(urlTree) {
-    super();
-    this.urlTree = urlTree;
-    Object.setPrototypeOf(this, _AbsoluteRedirect.prototype);
-  }
-};
-function namedOutletsRedirect(redirectTo) {
-  throw new RuntimeError(4e3, (typeof ngDevMode === "undefined" || ngDevMode) && `Only absolute redirects can have named outlets. redirectTo: '${redirectTo}'`);
-}
-function canLoadFails(route) {
-  throw navigationCancelingError((typeof ngDevMode === "undefined" || ngDevMode) && `Cannot load children because the guard of the route "path: '${route.path}'" returned false`, NavigationCancellationCode.GuardRejected);
-}
-var ApplyRedirects = class {
-  urlSerializer;
-  urlTree;
-  constructor(urlSerializer, urlTree) {
-    this.urlSerializer = urlSerializer;
-    this.urlTree = urlTree;
-  }
-  lineralizeSegments(route, urlTree) {
-    return __async(this, null, function* () {
-      let res = [];
-      let c = urlTree.root;
-      while (true) {
-        res = res.concat(c.segments);
-        if (c.numberOfChildren === 0) {
-          return res;
-        }
-        if (c.numberOfChildren > 1 || !c.children[PRIMARY_OUTLET]) {
-          throw namedOutletsRedirect(`${route.redirectTo}`);
-        }
-        c = c.children[PRIMARY_OUTLET];
-      }
-    });
-  }
-  applyRedirectCommands(segments, redirectTo, posParams, currentSnapshot, injector) {
-    return __async(this, null, function* () {
-      const redirect = yield getRedirectResult(redirectTo, currentSnapshot, injector);
-      if (redirect instanceof UrlTree) {
-        throw new AbsoluteRedirect(redirect);
-      }
-      const newTree = this.applyRedirectCreateUrlTree(redirect, this.urlSerializer.parse(redirect), segments, posParams);
-      if (redirect[0] === "/") {
-        throw new AbsoluteRedirect(newTree);
-      }
-      return newTree;
-    });
-  }
-  applyRedirectCreateUrlTree(redirectTo, urlTree, segments, posParams) {
-    const newRoot = this.createSegmentGroup(redirectTo, urlTree.root, segments, posParams);
-    return new UrlTree(newRoot, this.createQueryParams(urlTree.queryParams, this.urlTree.queryParams), urlTree.fragment);
-  }
-  createQueryParams(redirectToParams, actualParams) {
-    const res = {};
-    Object.entries(redirectToParams).forEach(([k, v]) => {
-      const copySourceValue = typeof v === "string" && v[0] === ":";
-      if (copySourceValue) {
-        const sourceName = v.substring(1);
-        res[k] = actualParams[sourceName];
-      } else {
-        res[k] = v;
-      }
-    });
-    return res;
-  }
-  createSegmentGroup(redirectTo, group2, segments, posParams) {
-    const updatedSegments = this.createSegments(redirectTo, group2.segments, segments, posParams);
-    let children = {};
-    Object.entries(group2.children).forEach(([name, child]) => {
-      children[name] = this.createSegmentGroup(redirectTo, child, segments, posParams);
-    });
-    return new UrlSegmentGroup(updatedSegments, children);
-  }
-  createSegments(redirectTo, redirectToSegments, actualSegments, posParams) {
-    return redirectToSegments.map((s) => s.path[0] === ":" ? this.findPosParam(redirectTo, s, posParams) : this.findOrReturn(s, actualSegments));
-  }
-  findPosParam(redirectTo, redirectToUrlSegment, posParams) {
-    const pos = posParams[redirectToUrlSegment.path.substring(1)];
-    if (!pos) throw new RuntimeError(4001, (typeof ngDevMode === "undefined" || ngDevMode) && `Cannot redirect to '${redirectTo}'. Cannot find '${redirectToUrlSegment.path}'.`);
-    return pos;
-  }
-  findOrReturn(redirectToUrlSegment, actualSegments) {
-    let idx = 0;
-    for (const s of actualSegments) {
-      if (s.path === redirectToUrlSegment.path) {
-        actualSegments.splice(idx);
-        return s;
-      }
-      idx++;
-    }
-    return redirectToUrlSegment;
-  }
-};
-function getRedirectResult(redirectTo, currentSnapshot, injector) {
-  if (typeof redirectTo === "string") {
-    return Promise.resolve(redirectTo);
-  }
-  const redirectToFn = redirectTo;
-  const {
-    queryParams,
-    fragment: fragment2,
-    routeConfig,
-    url,
-    outlet,
-    params,
-    data,
-    title,
-    paramMap,
-    queryParamMap
-  } = currentSnapshot;
-  return firstValueFrom2(wrapIntoObservable(runInInjectionContext(injector, () => redirectToFn({
-    params,
-    data,
-    queryParams,
-    fragment: fragment2,
-    routeConfig,
-    url,
-    outlet,
-    title,
-    paramMap,
-    queryParamMap
-  }))));
-}
-function getOrCreateRouteInjectorIfNeeded(route, currentInjector) {
-  if (route.providers && !route._injector) {
-    route._injector = createEnvironmentInjector(route.providers, currentInjector, `Route: ${route.path}`);
-  }
-  return route._injector ?? currentInjector;
-}
-function validateConfig(config3, parentPath = "", requireStandaloneComponents = false) {
-  for (let i = 0; i < config3.length; i++) {
-    const route = config3[i];
-    const fullPath = getFullPath(parentPath, route);
-    validateNode(route, fullPath, requireStandaloneComponents);
-  }
-}
-function assertStandalone(fullPath, component) {
-  if (component && isNgModule(component)) {
-    throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}'. You are using 'loadComponent' with a module, but it must be used with standalone components. Use 'loadChildren' instead.`);
-  } else if (component && !isStandalone(component)) {
-    throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}'. The component must be standalone.`);
-  }
-}
-function validateNode(route, fullPath, requireStandaloneComponents) {
-  if (typeof ngDevMode === "undefined" || ngDevMode) {
-    if (!route) {
-      throw new RuntimeError(4014, `
-      Invalid configuration of route '${fullPath}': Encountered undefined route.
-      The reason might be an extra comma.
-
-      Example:
-      const routes: Routes = [
-        { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-        { path: 'dashboard',  component: DashboardComponent },, << two commas
-        { path: 'detail/:id', component: HeroDetailComponent }
-      ];
-    `);
-    }
-    if (Array.isArray(route)) {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': Array cannot be specified`);
-    }
-    if (!route.redirectTo && !route.component && !route.loadComponent && !route.children && !route.loadChildren && route.outlet && route.outlet !== PRIMARY_OUTLET) {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': a componentless route without children or loadChildren cannot have a named outlet set`);
-    }
-    if (route.redirectTo && route.children) {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and children cannot be used together`);
-    }
-    if (route.redirectTo && route.loadChildren) {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and loadChildren cannot be used together`);
-    }
-    if (route.children && route.loadChildren) {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': children and loadChildren cannot be used together`);
-    }
-    if (route.component && route.loadComponent) {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': component and loadComponent cannot be used together`);
-    }
-    if (route.redirectTo) {
-      if (route.component || route.loadComponent) {
-        throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and component/loadComponent cannot be used together`);
-      }
-      if (route.canMatch || route.canActivate) {
-        throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and ${route.canMatch ? "canMatch" : "canActivate"} cannot be used together.Redirects happen before guards are executed.`);
-      }
-    }
-    if (route.path && route.matcher) {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': path and matcher cannot be used together`);
-    }
-    if (route.redirectTo === void 0 && !route.component && !route.loadComponent && !route.children && !route.loadChildren) {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}'. One of the following must be provided: component, loadComponent, redirectTo, children or loadChildren`);
-    }
-    if (route.path === void 0 && route.matcher === void 0) {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': routes must have either a path or a matcher specified`);
-    }
-    if (typeof route.path === "string" && route.path.charAt(0) === "/") {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': path cannot start with a slash`);
-    }
-    if (route.path === "" && route.redirectTo !== void 0 && route.pathMatch === void 0) {
-      const exp = `The default value of 'pathMatch' is 'prefix', but often the intent is to use 'full'.`;
-      throw new RuntimeError(4014, `Invalid configuration of route '{path: "${fullPath}", redirectTo: "${route.redirectTo}"}': please provide 'pathMatch'. ${exp}`);
-    }
-    if (requireStandaloneComponents) {
-      assertStandalone(fullPath, route.component);
-    }
-  }
-  if (route.children) {
-    validateConfig(route.children, fullPath, requireStandaloneComponents);
-  }
-}
-function getFullPath(parentPath, currentRoute) {
-  if (!currentRoute) {
-    return parentPath;
-  }
-  if (!parentPath && !currentRoute.path) {
-    return "";
-  } else if (parentPath && !currentRoute.path) {
-    return `${parentPath}/`;
-  } else if (!parentPath && currentRoute.path) {
-    return currentRoute.path;
-  } else {
-    return `${parentPath}/${currentRoute.path}`;
-  }
-}
-function getOutlet(route) {
-  return route.outlet || PRIMARY_OUTLET;
-}
-function sortByMatchingOutlets(routes2, outletName) {
-  const sortedConfig = routes2.filter((r) => getOutlet(r) === outletName);
-  sortedConfig.push(...routes2.filter((r) => getOutlet(r) !== outletName));
-  return sortedConfig;
-}
-var noMatch = {
-  matched: false,
-  consumedSegments: [],
-  remainingSegments: [],
-  parameters: {},
-  positionalParamSegments: {}
-};
-function matchWithChecks(segmentGroup, route, segments, injector, urlSerializer, abortSignal) {
-  const result = match(segmentGroup, route, segments);
-  if (!result.matched) {
-    return of(result);
-  }
-  injector = getOrCreateRouteInjectorIfNeeded(route, injector);
-  return runCanMatchGuards(injector, route, segments, urlSerializer, abortSignal).pipe(map((v) => v === true ? result : __spreadValues({}, noMatch)));
-}
-function match(segmentGroup, route, segments) {
-  if (route.path === "") {
-    if (route.pathMatch === "full" && (segmentGroup.hasChildren() || segments.length > 0)) {
-      return __spreadValues({}, noMatch);
-    }
-    return {
-      matched: true,
-      consumedSegments: [],
-      remainingSegments: segments,
-      parameters: {},
-      positionalParamSegments: {}
-    };
-  }
-  const matcher = route.matcher || defaultUrlMatcher;
-  const res = matcher(segments, segmentGroup, route);
-  if (!res) return __spreadValues({}, noMatch);
-  const posParams = {};
-  Object.entries(res.posParams ?? {}).forEach(([k, v]) => {
-    posParams[k] = v.path;
-  });
-  const parameters = res.consumed.length > 0 ? __spreadValues(__spreadValues({}, posParams), res.consumed[res.consumed.length - 1].parameters) : posParams;
-  return {
-    matched: true,
-    consumedSegments: res.consumed,
-    remainingSegments: segments.slice(res.consumed.length),
-    parameters,
-    positionalParamSegments: res.posParams ?? {}
-  };
-}
-function split(segmentGroup, consumedSegments, slicedSegments, config3) {
-  if (slicedSegments.length > 0 && containsEmptyPathMatchesWithNamedOutlets(segmentGroup, slicedSegments, config3)) {
-    const s2 = new UrlSegmentGroup(consumedSegments, createChildrenForEmptyPaths(config3, new UrlSegmentGroup(slicedSegments, segmentGroup.children)));
-    return {
-      segmentGroup: s2,
-      slicedSegments: []
-    };
-  }
-  if (slicedSegments.length === 0 && containsEmptyPathMatches(segmentGroup, slicedSegments, config3)) {
-    const s2 = new UrlSegmentGroup(segmentGroup.segments, addEmptyPathsToChildrenIfNeeded(segmentGroup, slicedSegments, config3, segmentGroup.children));
-    return {
-      segmentGroup: s2,
-      slicedSegments
-    };
-  }
-  const s = new UrlSegmentGroup(segmentGroup.segments, segmentGroup.children);
-  return {
-    segmentGroup: s,
-    slicedSegments
-  };
-}
-function addEmptyPathsToChildrenIfNeeded(segmentGroup, slicedSegments, routes2, children) {
-  const res = {};
-  for (const r of routes2) {
-    if (emptyPathMatch(segmentGroup, slicedSegments, r) && !children[getOutlet(r)]) {
-      const s = new UrlSegmentGroup([], {});
-      res[getOutlet(r)] = s;
-    }
-  }
-  return __spreadValues(__spreadValues({}, children), res);
-}
-function createChildrenForEmptyPaths(routes2, primarySegment) {
-  const res = {};
-  res[PRIMARY_OUTLET] = primarySegment;
-  for (const r of routes2) {
-    if (r.path === "" && getOutlet(r) !== PRIMARY_OUTLET) {
-      const s = new UrlSegmentGroup([], {});
-      res[getOutlet(r)] = s;
-    }
-  }
-  return res;
-}
-function containsEmptyPathMatchesWithNamedOutlets(segmentGroup, slicedSegments, routes2) {
-  return routes2.some((r) => emptyPathMatch(segmentGroup, slicedSegments, r) && getOutlet(r) !== PRIMARY_OUTLET);
-}
-function containsEmptyPathMatches(segmentGroup, slicedSegments, routes2) {
-  return routes2.some((r) => emptyPathMatch(segmentGroup, slicedSegments, r));
-}
-function emptyPathMatch(segmentGroup, slicedSegments, r) {
-  if ((segmentGroup.hasChildren() || slicedSegments.length > 0) && r.pathMatch === "full") {
-    return false;
-  }
-  return r.path === "";
-}
-function noLeftoversInUrl(segmentGroup, segments, outlet) {
-  return segments.length === 0 && !segmentGroup.children[outlet];
-}
-var NoLeftoversInUrl = class {
-};
-function recognize$1(injector, configLoader, rootComponentType, config3, urlTree, urlSerializer, paramsInheritanceStrategy = "emptyOnly", abortSignal) {
-  return __async(this, null, function* () {
-    return new Recognizer(injector, configLoader, rootComponentType, config3, urlTree, paramsInheritanceStrategy, urlSerializer, abortSignal).recognize();
-  });
-}
-var MAX_ALLOWED_REDIRECTS = 31;
-var Recognizer = class {
-  injector;
-  configLoader;
-  rootComponentType;
-  config;
-  urlTree;
-  paramsInheritanceStrategy;
-  urlSerializer;
-  abortSignal;
-  applyRedirects;
-  absoluteRedirectCount = 0;
-  allowRedirects = true;
-  constructor(injector, configLoader, rootComponentType, config3, urlTree, paramsInheritanceStrategy, urlSerializer, abortSignal) {
-    this.injector = injector;
-    this.configLoader = configLoader;
-    this.rootComponentType = rootComponentType;
-    this.config = config3;
-    this.urlTree = urlTree;
-    this.paramsInheritanceStrategy = paramsInheritanceStrategy;
-    this.urlSerializer = urlSerializer;
-    this.abortSignal = abortSignal;
-    this.applyRedirects = new ApplyRedirects(this.urlSerializer, this.urlTree);
-  }
-  noMatchError(e) {
-    return new RuntimeError(4002, typeof ngDevMode === "undefined" || ngDevMode ? `Cannot match any routes. URL Segment: '${e.segmentGroup}'` : `'${e.segmentGroup}'`);
-  }
-  recognize() {
-    return __async(this, null, function* () {
-      const rootSegmentGroup = split(this.urlTree.root, [], [], this.config).segmentGroup;
-      const {
-        children,
-        rootSnapshot
-      } = yield this.match(rootSegmentGroup);
-      const rootNode = new TreeNode(rootSnapshot, children);
-      const routeState = new RouterStateSnapshot("", rootNode);
-      const tree2 = createUrlTreeFromSnapshot(rootSnapshot, [], this.urlTree.queryParams, this.urlTree.fragment);
-      tree2.queryParams = this.urlTree.queryParams;
-      routeState.url = this.urlSerializer.serialize(tree2);
-      return {
-        state: routeState,
-        tree: tree2
-      };
-    });
-  }
-  match(rootSegmentGroup) {
-    return __async(this, null, function* () {
-      const rootSnapshot = new ActivatedRouteSnapshot([], Object.freeze({}), Object.freeze(__spreadValues({}, this.urlTree.queryParams)), this.urlTree.fragment, Object.freeze({}), PRIMARY_OUTLET, this.rootComponentType, null, {}, this.injector);
-      try {
-        const children = yield this.processSegmentGroup(this.injector, this.config, rootSegmentGroup, PRIMARY_OUTLET, rootSnapshot);
-        return {
-          children,
-          rootSnapshot
-        };
-      } catch (e) {
-        if (e instanceof AbsoluteRedirect) {
-          this.urlTree = e.urlTree;
-          return this.match(e.urlTree.root);
-        }
-        if (e instanceof NoMatch) {
-          throw this.noMatchError(e);
-        }
-        throw e;
-      }
-    });
-  }
-  processSegmentGroup(injector, config3, segmentGroup, outlet, parentRoute) {
-    return __async(this, null, function* () {
-      if (segmentGroup.segments.length === 0 && segmentGroup.hasChildren()) {
-        return this.processChildren(injector, config3, segmentGroup, parentRoute);
-      }
-      const child = yield this.processSegment(injector, config3, segmentGroup, segmentGroup.segments, outlet, true, parentRoute);
-      return child instanceof TreeNode ? [child] : [];
-    });
-  }
-  processChildren(injector, config3, segmentGroup, parentRoute) {
-    return __async(this, null, function* () {
-      const childOutlets = [];
-      for (const child of Object.keys(segmentGroup.children)) {
-        if (child === "primary") {
-          childOutlets.unshift(child);
-        } else {
-          childOutlets.push(child);
-        }
-      }
-      let children = [];
-      for (const childOutlet of childOutlets) {
-        const child = segmentGroup.children[childOutlet];
-        const sortedConfig = sortByMatchingOutlets(config3, childOutlet);
-        const outletChildren = yield this.processSegmentGroup(injector, sortedConfig, child, childOutlet, parentRoute);
-        children.push(...outletChildren);
-      }
-      const mergedChildren = mergeEmptyPathMatches(children);
-      if (typeof ngDevMode === "undefined" || ngDevMode) {
-        checkOutletNameUniqueness(mergedChildren);
-      }
-      sortActivatedRouteSnapshots(mergedChildren);
-      return mergedChildren;
-    });
-  }
-  processSegment(injector, routes2, segmentGroup, segments, outlet, allowRedirects, parentRoute) {
-    return __async(this, null, function* () {
-      for (const r of routes2) {
-        try {
-          return yield this.processSegmentAgainstRoute(r._injector ?? injector, routes2, r, segmentGroup, segments, outlet, allowRedirects, parentRoute);
-        } catch (e) {
-          if (e instanceof NoMatch || isEmptyError(e)) {
-            continue;
-          }
-          throw e;
-        }
-      }
-      if (noLeftoversInUrl(segmentGroup, segments, outlet)) {
-        return new NoLeftoversInUrl();
-      }
-      throw new NoMatch(segmentGroup);
-    });
-  }
-  processSegmentAgainstRoute(injector, routes2, route, rawSegment, segments, outlet, allowRedirects, parentRoute) {
-    return __async(this, null, function* () {
-      if (getOutlet(route) !== outlet && (outlet === PRIMARY_OUTLET || !emptyPathMatch(rawSegment, segments, route))) {
-        throw new NoMatch(rawSegment);
-      }
-      if (route.redirectTo === void 0) {
-        return this.matchSegmentAgainstRoute(injector, rawSegment, route, segments, outlet, parentRoute);
-      }
-      if (this.allowRedirects && allowRedirects) {
-        return this.expandSegmentAgainstRouteUsingRedirect(injector, rawSegment, routes2, route, segments, outlet, parentRoute);
-      }
-      throw new NoMatch(rawSegment);
-    });
-  }
-  expandSegmentAgainstRouteUsingRedirect(injector, segmentGroup, routes2, route, segments, outlet, parentRoute) {
-    return __async(this, null, function* () {
-      const {
-        matched,
-        parameters,
-        consumedSegments,
-        positionalParamSegments,
-        remainingSegments
-      } = match(segmentGroup, route, segments);
-      if (!matched) throw new NoMatch(segmentGroup);
-      if (typeof route.redirectTo === "string" && route.redirectTo[0] === "/") {
-        this.absoluteRedirectCount++;
-        if (this.absoluteRedirectCount > MAX_ALLOWED_REDIRECTS) {
-          if (ngDevMode) {
-            throw new RuntimeError(4016, `Detected possible infinite redirect when redirecting from '${this.urlTree}' to '${route.redirectTo}'.
-This is currently a dev mode only error but will become a call stack size exceeded error in production in a future major version.`);
-          }
-          this.allowRedirects = false;
-        }
-      }
-      const currentSnapshot = new ActivatedRouteSnapshot(segments, parameters, Object.freeze(__spreadValues({}, this.urlTree.queryParams)), this.urlTree.fragment, getData(route), getOutlet(route), route.component ?? route._loadedComponent ?? null, route, getResolve(route), injector);
-      const inherited = getInherited(currentSnapshot, parentRoute, this.paramsInheritanceStrategy);
-      currentSnapshot.params = Object.freeze(inherited.params);
-      currentSnapshot.data = Object.freeze(inherited.data);
-      if (this.abortSignal.aborted) {
-        throw new Error(this.abortSignal.reason);
-      }
-      const newTree = yield this.applyRedirects.applyRedirectCommands(consumedSegments, route.redirectTo, positionalParamSegments, currentSnapshot, injector);
-      const newSegments = yield this.applyRedirects.lineralizeSegments(route, newTree);
-      return this.processSegment(injector, routes2, segmentGroup, newSegments.concat(remainingSegments), outlet, false, parentRoute);
-    });
-  }
-  matchSegmentAgainstRoute(injector, rawSegment, route, segments, outlet, parentRoute) {
-    return __async(this, null, function* () {
-      if (this.abortSignal.aborted) {
-        throw new Error(this.abortSignal.reason);
-      }
-      const result = yield firstValueFrom2(matchWithChecks(rawSegment, route, segments, injector, this.urlSerializer, this.abortSignal));
-      if (route.path === "**") {
-        rawSegment.children = {};
-      }
-      if (!result?.matched) {
-        throw new NoMatch(rawSegment);
-      }
-      injector = route._injector ?? injector;
-      const {
-        routes: childConfig
-      } = yield this.getChildConfig(injector, route, segments);
-      const childInjector = route._loadedInjector ?? injector;
-      const {
-        parameters,
-        consumedSegments,
-        remainingSegments
-      } = result;
-      const snapshot = new ActivatedRouteSnapshot(consumedSegments, parameters, Object.freeze(__spreadValues({}, this.urlTree.queryParams)), this.urlTree.fragment, getData(route), getOutlet(route), route.component ?? route._loadedComponent ?? null, route, getResolve(route), injector);
-      const inherited = getInherited(snapshot, parentRoute, this.paramsInheritanceStrategy);
-      snapshot.params = Object.freeze(inherited.params);
-      snapshot.data = Object.freeze(inherited.data);
-      const {
-        segmentGroup,
-        slicedSegments
-      } = split(rawSegment, consumedSegments, remainingSegments, childConfig);
-      if (slicedSegments.length === 0 && segmentGroup.hasChildren()) {
-        const children = yield this.processChildren(childInjector, childConfig, segmentGroup, snapshot);
-        return new TreeNode(snapshot, children);
-      }
-      if (childConfig.length === 0 && slicedSegments.length === 0) {
-        return new TreeNode(snapshot, []);
-      }
-      const matchedOnOutlet = getOutlet(route) === outlet;
-      const child = yield this.processSegment(childInjector, childConfig, segmentGroup, slicedSegments, matchedOnOutlet ? PRIMARY_OUTLET : outlet, true, snapshot);
-      return new TreeNode(snapshot, child instanceof TreeNode ? [child] : []);
-    });
-  }
-  getChildConfig(injector, route, segments) {
-    return __async(this, null, function* () {
-      if (route.children) {
-        return {
-          routes: route.children,
-          injector
-        };
-      }
-      if (route.loadChildren) {
-        if (route._loadedRoutes !== void 0) {
-          const ngModuleFactory = route._loadedNgModuleFactory;
-          if (ngModuleFactory && !route._loadedInjector) {
-            route._loadedInjector = ngModuleFactory.create(injector).injector;
-          }
-          return {
-            routes: route._loadedRoutes,
-            injector: route._loadedInjector
-          };
-        }
-        if (this.abortSignal.aborted) {
-          throw new Error(this.abortSignal.reason);
-        }
-        const shouldLoadResult = yield firstValueFrom2(runCanLoadGuards(injector, route, segments, this.urlSerializer, this.abortSignal));
-        if (shouldLoadResult) {
-          const cfg = yield this.configLoader.loadChildren(injector, route);
-          route._loadedRoutes = cfg.routes;
-          route._loadedInjector = cfg.injector;
-          route._loadedNgModuleFactory = cfg.factory;
-          return cfg;
-        }
-        throw canLoadFails(route);
-      }
-      return {
-        routes: [],
-        injector
-      };
-    });
-  }
-};
-function sortActivatedRouteSnapshots(nodes) {
-  nodes.sort((a, b) => {
-    if (a.value.outlet === PRIMARY_OUTLET) return -1;
-    if (b.value.outlet === PRIMARY_OUTLET) return 1;
-    return a.value.outlet.localeCompare(b.value.outlet);
-  });
-}
-function hasEmptyPathConfig(node) {
-  const config3 = node.value.routeConfig;
-  return config3 && config3.path === "";
-}
-function mergeEmptyPathMatches(nodes) {
-  const result = [];
-  const mergedNodes = /* @__PURE__ */ new Set();
-  for (const node of nodes) {
-    if (!hasEmptyPathConfig(node)) {
-      result.push(node);
-      continue;
-    }
-    const duplicateEmptyPathNode = result.find((resultNode) => node.value.routeConfig === resultNode.value.routeConfig);
-    if (duplicateEmptyPathNode !== void 0) {
-      duplicateEmptyPathNode.children.push(...node.children);
-      mergedNodes.add(duplicateEmptyPathNode);
-    } else {
-      result.push(node);
-    }
-  }
-  for (const mergedNode of mergedNodes) {
-    const mergedChildren = mergeEmptyPathMatches(mergedNode.children);
-    result.push(new TreeNode(mergedNode.value, mergedChildren));
-  }
-  return result.filter((n) => !mergedNodes.has(n));
-}
-function checkOutletNameUniqueness(nodes) {
-  const names = {};
-  nodes.forEach((n) => {
-    const routeWithSameOutletName = names[n.value.outlet];
-    if (routeWithSameOutletName) {
-      const p = routeWithSameOutletName.url.map((s) => s.toString()).join("/");
-      const c = n.value.url.map((s) => s.toString()).join("/");
-      throw new RuntimeError(4006, (typeof ngDevMode === "undefined" || ngDevMode) && `Two segments cannot have the same outlet name: '${p}' and '${c}'.`);
-    }
-    names[n.value.outlet] = n.value;
-  });
-}
-function getData(route) {
-  return route.data || {};
-}
-function getResolve(route) {
-  return route.resolve || {};
-}
-function recognize(injector, configLoader, rootComponentType, config3, serializer, paramsInheritanceStrategy, abortSignal) {
-  return mergeMap((t) => __async(null, null, function* () {
-    const {
-      state: targetSnapshot,
-      tree: urlAfterRedirects
-    } = yield recognize$1(injector, configLoader, rootComponentType, config3, t.extractedUrl, serializer, paramsInheritanceStrategy, abortSignal);
-    return __spreadProps(__spreadValues({}, t), {
-      targetSnapshot,
-      urlAfterRedirects
-    });
-  }));
-}
-function resolveData(paramsInheritanceStrategy) {
-  return mergeMap((t) => {
-    const {
-      targetSnapshot,
-      guards: {
-        canActivateChecks
-      }
-    } = t;
-    if (!canActivateChecks.length) {
-      return of(t);
-    }
-    const routesWithResolversToRun = new Set(canActivateChecks.map((check) => check.route));
-    const routesNeedingDataUpdates = /* @__PURE__ */ new Set();
-    for (const route of routesWithResolversToRun) {
-      if (routesNeedingDataUpdates.has(route)) {
-        continue;
-      }
-      for (const newRoute of flattenRouteTree(route)) {
-        routesNeedingDataUpdates.add(newRoute);
-      }
-    }
-    let routesProcessed = 0;
-    return from(routesNeedingDataUpdates).pipe(concatMap((route) => {
-      if (routesWithResolversToRun.has(route)) {
-        return runResolve(route, targetSnapshot, paramsInheritanceStrategy);
-      } else {
-        route.data = getInherited(route, route.parent, paramsInheritanceStrategy).resolve;
-        return of(void 0);
-      }
-    }), tap(() => routesProcessed++), takeLast(1), mergeMap((_) => routesProcessed === routesNeedingDataUpdates.size ? of(t) : EMPTY));
-  });
-}
-function flattenRouteTree(route) {
-  const descendants = route.children.map((child) => flattenRouteTree(child)).flat();
-  return [route, ...descendants];
-}
-function runResolve(futureARS, futureRSS, paramsInheritanceStrategy) {
-  const config3 = futureARS.routeConfig;
-  const resolve = futureARS._resolve;
-  if (config3?.title !== void 0 && !hasStaticTitle(config3)) {
-    resolve[RouteTitleKey] = config3.title;
-  }
-  return defer(() => {
-    futureARS.data = getInherited(futureARS, futureARS.parent, paramsInheritanceStrategy).resolve;
-    return resolveNode(resolve, futureARS, futureRSS).pipe(map((resolvedData) => {
-      futureARS._resolvedData = resolvedData;
-      futureARS.data = __spreadValues(__spreadValues({}, futureARS.data), resolvedData);
-      return null;
-    }));
-  });
-}
-function resolveNode(resolve, futureARS, futureRSS) {
-  const keys = getDataKeys(resolve);
-  if (keys.length === 0) {
-    return of({});
-  }
-  const data = {};
-  return from(keys).pipe(mergeMap((key) => getResolver(resolve[key], futureARS, futureRSS).pipe(first(), tap((value) => {
-    if (value instanceof RedirectCommand) {
-      throw redirectingNavigationError(new DefaultUrlSerializer(), value);
-    }
-    data[key] = value;
-  }))), takeLast(1), map(() => data), catchError((e) => isEmptyError(e) ? EMPTY : throwError(e)));
-}
-function getResolver(injectionToken, futureARS, futureRSS) {
-  const closestInjector = futureARS._environmentInjector;
-  const resolver = getTokenOrFunctionIdentity(injectionToken, closestInjector);
-  const resolverValue = resolver.resolve ? resolver.resolve(futureARS, futureRSS) : runInInjectionContext(closestInjector, () => resolver(futureARS, futureRSS));
-  return wrapIntoObservable(resolverValue);
-}
-function switchTap(next) {
-  return switchMap((v) => {
-    const nextResult = next(v);
-    if (nextResult) {
-      return from(nextResult).pipe(map(() => v));
-    }
-    return of(v);
-  });
-}
-var TitleStrategy = class _TitleStrategy {
-  buildTitle(snapshot) {
-    let pageTitle;
-    let route = snapshot.root;
-    while (route !== void 0) {
-      pageTitle = this.getResolvedTitleForRoute(route) ?? pageTitle;
-      route = route.children.find((child) => child.outlet === PRIMARY_OUTLET);
-    }
-    return pageTitle;
-  }
-  getResolvedTitleForRoute(snapshot) {
-    return snapshot.data[RouteTitleKey];
-  }
-  static \u0275fac = function TitleStrategy_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _TitleStrategy)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _TitleStrategy,
-    factory: () => (() => inject2(DefaultTitleStrategy))(),
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TitleStrategy, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root",
-      useFactory: () => inject2(DefaultTitleStrategy)
-    }]
-  }], null, null);
-})();
-var DefaultTitleStrategy = class _DefaultTitleStrategy extends TitleStrategy {
-  title;
-  constructor(title) {
-    super();
-    this.title = title;
-  }
-  updateTitle(snapshot) {
-    const title = this.buildTitle(snapshot);
-    if (title !== void 0) {
-      this.title.setTitle(title);
-    }
-  }
-  static \u0275fac = function DefaultTitleStrategy_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _DefaultTitleStrategy)(\u0275\u0275inject(Title));
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _DefaultTitleStrategy,
-    factory: _DefaultTitleStrategy.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DefaultTitleStrategy, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [{
-    type: Title
-  }], null);
-})();
-var ROUTER_CONFIGURATION = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "router config" : "", {
-  factory: () => ({})
-});
-var ROUTES = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "ROUTES" : "");
-var RouterConfigLoader = class _RouterConfigLoader {
-  componentLoaders = /* @__PURE__ */ new WeakMap();
-  childrenLoaders = /* @__PURE__ */ new WeakMap();
-  onLoadStartListener;
-  onLoadEndListener;
-  compiler = inject2(Compiler);
-  loadComponent(injector, route) {
-    return __async(this, null, function* () {
-      if (this.componentLoaders.get(route)) {
-        return this.componentLoaders.get(route);
-      } else if (route._loadedComponent) {
-        return Promise.resolve(route._loadedComponent);
-      }
-      if (this.onLoadStartListener) {
-        this.onLoadStartListener(route);
-      }
-      const loader = (() => __async(this, null, function* () {
-        try {
-          const loaded = yield wrapIntoPromise(runInInjectionContext(injector, () => route.loadComponent()));
-          const component = yield maybeResolveResources(maybeUnwrapDefaultExport(loaded));
-          if (this.onLoadEndListener) {
-            this.onLoadEndListener(route);
-          }
-          (typeof ngDevMode === "undefined" || ngDevMode) && assertStandalone(route.path ?? "", component);
-          route._loadedComponent = component;
-          return component;
-        } finally {
-          this.componentLoaders.delete(route);
-        }
-      }))();
-      this.componentLoaders.set(route, loader);
-      return loader;
-    });
-  }
-  loadChildren(parentInjector, route) {
-    if (this.childrenLoaders.get(route)) {
-      return this.childrenLoaders.get(route);
-    } else if (route._loadedRoutes) {
-      return Promise.resolve({
-        routes: route._loadedRoutes,
-        injector: route._loadedInjector
-      });
-    }
-    if (this.onLoadStartListener) {
-      this.onLoadStartListener(route);
-    }
-    const loader = (() => __async(this, null, function* () {
-      try {
-        const result = yield loadChildren(route, this.compiler, parentInjector, this.onLoadEndListener);
-        route._loadedRoutes = result.routes;
-        route._loadedInjector = result.injector;
-        route._loadedNgModuleFactory = result.factory;
-        return result;
-      } finally {
-        this.childrenLoaders.delete(route);
-      }
-    }))();
-    this.childrenLoaders.set(route, loader);
-    return loader;
-  }
-  static \u0275fac = function RouterConfigLoader_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _RouterConfigLoader)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _RouterConfigLoader,
-    factory: _RouterConfigLoader.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterConfigLoader, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-function loadChildren(route, compiler, parentInjector, onLoadEndListener) {
-  return __async(this, null, function* () {
-    const loaded = yield wrapIntoPromise(runInInjectionContext(parentInjector, () => route.loadChildren()));
-    const t = yield maybeResolveResources(maybeUnwrapDefaultExport(loaded));
-    let factoryOrRoutes;
-    if (t instanceof NgModuleFactory$1 || Array.isArray(t)) {
-      factoryOrRoutes = t;
-    } else {
-      factoryOrRoutes = yield compiler.compileModuleAsync(t);
-    }
-    if (onLoadEndListener) {
-      onLoadEndListener(route);
-    }
-    let injector;
-    let rawRoutes;
-    let requireStandaloneComponents = false;
-    let factory = void 0;
-    if (Array.isArray(factoryOrRoutes)) {
-      rawRoutes = factoryOrRoutes;
-      requireStandaloneComponents = true;
-    } else {
-      injector = factoryOrRoutes.create(parentInjector).injector;
-      factory = factoryOrRoutes;
-      rawRoutes = injector.get(ROUTES, [], {
-        optional: true,
-        self: true
-      }).flat();
-    }
-    const routes2 = rawRoutes.map(standardizeConfig);
-    (typeof ngDevMode === "undefined" || ngDevMode) && validateConfig(routes2, route.path, requireStandaloneComponents);
-    return {
-      routes: routes2,
-      injector,
-      factory
-    };
-  });
-}
-function isWrappedDefaultExport(value) {
-  return value && typeof value === "object" && "default" in value;
-}
-function maybeUnwrapDefaultExport(input2) {
-  return isWrappedDefaultExport(input2) ? input2["default"] : input2;
-}
-function maybeResolveResources(value) {
-  return __async(this, null, function* () {
-    if (false) {
-      try {
-        yield resolveComponentResources(fetch);
-      } catch (error2) {
-        console.error(error2);
-      }
-    }
-    return value;
-  });
-}
-var UrlHandlingStrategy = class _UrlHandlingStrategy {
-  static \u0275fac = function UrlHandlingStrategy_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _UrlHandlingStrategy)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _UrlHandlingStrategy,
-    factory: () => (() => inject2(DefaultUrlHandlingStrategy))(),
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(UrlHandlingStrategy, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root",
-      useFactory: () => inject2(DefaultUrlHandlingStrategy)
-    }]
-  }], null, null);
-})();
-var DefaultUrlHandlingStrategy = class _DefaultUrlHandlingStrategy {
-  shouldProcessUrl(url) {
-    return true;
-  }
-  extract(url) {
-    return url;
-  }
-  merge(newUrlPart, wholeUrl) {
-    return newUrlPart;
-  }
-  static \u0275fac = function DefaultUrlHandlingStrategy_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _DefaultUrlHandlingStrategy)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _DefaultUrlHandlingStrategy,
-    factory: _DefaultUrlHandlingStrategy.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DefaultUrlHandlingStrategy, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-var CREATE_VIEW_TRANSITION = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "view transition helper" : "");
-var VIEW_TRANSITION_OPTIONS = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "view transition options" : "");
-function createViewTransition(injector, from2, to) {
-  const transitionOptions = injector.get(VIEW_TRANSITION_OPTIONS);
-  const document2 = injector.get(DOCUMENT);
-  if (!document2.startViewTransition || transitionOptions.skipNextTransition) {
-    transitionOptions.skipNextTransition = false;
-    return new Promise((resolve) => setTimeout(resolve));
-  }
-  let resolveViewTransitionStarted;
-  const viewTransitionStarted = new Promise((resolve) => {
-    resolveViewTransitionStarted = resolve;
-  });
-  const transition2 = document2.startViewTransition(() => {
-    resolveViewTransitionStarted();
-    return createRenderPromise(injector);
-  });
-  transition2.updateCallbackDone.catch((error2) => {
-    if (typeof ngDevMode === "undefined" || ngDevMode) {
-      console.error(error2);
-    }
-  });
-  transition2.ready.catch((error2) => {
-    if (typeof ngDevMode === "undefined" || ngDevMode) {
-      console.error(error2);
-    }
-  });
-  transition2.finished.catch((error2) => {
-    if (typeof ngDevMode === "undefined" || ngDevMode) {
-      console.error(error2);
-    }
-  });
-  const {
-    onViewTransitionCreated
-  } = transitionOptions;
-  if (onViewTransitionCreated) {
-    runInInjectionContext(injector, () => onViewTransitionCreated({
-      transition: transition2,
-      from: from2,
-      to
-    }));
-  }
-  return viewTransitionStarted;
-}
-function createRenderPromise(injector) {
-  return new Promise((resolve) => {
-    afterNextRender({
-      read: () => setTimeout(resolve)
-    }, {
-      injector
-    });
-  });
-}
-var noop4 = () => {
-};
-var NAVIGATION_ERROR_HANDLER = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "navigation error handler" : "");
-var NavigationTransitions = class _NavigationTransitions {
-  currentNavigation = signal(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "currentNavigation"
-  } : {}), {
-    equal: () => false
-  }));
-  currentTransition = null;
-  lastSuccessfulNavigation = signal(null, ...ngDevMode ? [{
-    debugName: "lastSuccessfulNavigation"
-  }] : []);
-  events = new Subject();
-  transitionAbortWithErrorSubject = new Subject();
-  configLoader = inject2(RouterConfigLoader);
-  environmentInjector = inject2(EnvironmentInjector);
-  destroyRef = inject2(DestroyRef);
-  urlSerializer = inject2(UrlSerializer);
-  rootContexts = inject2(ChildrenOutletContexts);
-  location = inject2(Location);
-  inputBindingEnabled = inject2(INPUT_BINDER, {
-    optional: true
-  }) !== null;
-  titleStrategy = inject2(TitleStrategy);
-  options = inject2(ROUTER_CONFIGURATION, {
-    optional: true
-  }) || {};
-  paramsInheritanceStrategy = this.options.paramsInheritanceStrategy || "emptyOnly";
-  urlHandlingStrategy = inject2(UrlHandlingStrategy);
-  createViewTransition = inject2(CREATE_VIEW_TRANSITION, {
-    optional: true
-  });
-  navigationErrorHandler = inject2(NAVIGATION_ERROR_HANDLER, {
-    optional: true
-  });
-  navigationId = 0;
-  get hasRequestedNavigation() {
-    return this.navigationId !== 0;
-  }
-  transitions;
-  afterPreactivation = () => of(void 0);
-  rootComponentType = null;
-  destroyed = false;
-  constructor() {
-    const onLoadStart = (r) => this.events.next(new RouteConfigLoadStart(r));
-    const onLoadEnd = (r) => this.events.next(new RouteConfigLoadEnd(r));
-    this.configLoader.onLoadEndListener = onLoadEnd;
-    this.configLoader.onLoadStartListener = onLoadStart;
-    this.destroyRef.onDestroy(() => {
-      this.destroyed = true;
-    });
-  }
-  complete() {
-    this.transitions?.complete();
-  }
-  handleNavigationRequest(request) {
-    const id = ++this.navigationId;
-    untracked2(() => {
-      this.transitions?.next(__spreadProps(__spreadValues({}, request), {
-        extractedUrl: this.urlHandlingStrategy.extract(request.rawUrl),
-        targetSnapshot: null,
-        targetRouterState: null,
-        guards: {
-          canActivateChecks: [],
-          canDeactivateChecks: []
-        },
-        guardsResult: null,
-        id
-      }));
-    });
-  }
-  setupNavigations(router) {
-    this.transitions = new BehaviorSubject(null);
-    return this.transitions.pipe(filter((t) => t !== null), switchMap((overallTransitionState) => {
-      let completedOrAborted = false;
-      const abortController = new AbortController();
-      const shouldContinueNavigation = () => {
-        return !completedOrAborted && this.currentTransition?.id === overallTransitionState.id;
-      };
-      return of(overallTransitionState).pipe(switchMap((t) => {
-        if (this.navigationId > overallTransitionState.id) {
-          const cancellationReason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation ID ${overallTransitionState.id} is not equal to the current navigation id ${this.navigationId}` : "";
-          this.cancelNavigationTransition(overallTransitionState, cancellationReason, NavigationCancellationCode.SupersededByNewNavigation);
-          return EMPTY;
-        }
-        this.currentTransition = overallTransitionState;
-        const lastSuccessfulNavigation = this.lastSuccessfulNavigation();
-        this.currentNavigation.set({
-          id: t.id,
-          initialUrl: t.rawUrl,
-          extractedUrl: t.extractedUrl,
-          targetBrowserUrl: typeof t.extras.browserUrl === "string" ? this.urlSerializer.parse(t.extras.browserUrl) : t.extras.browserUrl,
-          trigger: t.source,
-          extras: t.extras,
-          previousNavigation: !lastSuccessfulNavigation ? null : __spreadProps(__spreadValues({}, lastSuccessfulNavigation), {
-            previousNavigation: null
-          }),
-          abort: () => abortController.abort()
-        });
-        const urlTransition = !router.navigated || this.isUpdatingInternalState() || this.isUpdatedBrowserUrl();
-        const onSameUrlNavigation = t.extras.onSameUrlNavigation ?? router.onSameUrlNavigation;
-        if (!urlTransition && onSameUrlNavigation !== "reload") {
-          const reason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation to ${t.rawUrl} was ignored because it is the same as the current Router URL.` : "";
-          this.events.next(new NavigationSkipped(t.id, this.urlSerializer.serialize(t.rawUrl), reason, NavigationSkippedCode.IgnoredSameUrlNavigation));
-          t.resolve(false);
-          return EMPTY;
-        }
-        if (this.urlHandlingStrategy.shouldProcessUrl(t.rawUrl)) {
-          return of(t).pipe(switchMap((t2) => {
-            this.events.next(new NavigationStart(t2.id, this.urlSerializer.serialize(t2.extractedUrl), t2.source, t2.restoredState));
-            if (t2.id !== this.navigationId) {
-              return EMPTY;
-            }
-            return Promise.resolve(t2);
-          }), recognize(this.environmentInjector, this.configLoader, this.rootComponentType, router.config, this.urlSerializer, this.paramsInheritanceStrategy, abortController.signal), tap((t2) => {
-            overallTransitionState.targetSnapshot = t2.targetSnapshot;
-            overallTransitionState.urlAfterRedirects = t2.urlAfterRedirects;
-            this.currentNavigation.update((nav) => {
-              nav.finalUrl = t2.urlAfterRedirects;
-              return nav;
-            });
-            const routesRecognized = new RoutesRecognized(t2.id, this.urlSerializer.serialize(t2.extractedUrl), this.urlSerializer.serialize(t2.urlAfterRedirects), t2.targetSnapshot);
-            this.events.next(routesRecognized);
-          }));
-        } else if (urlTransition && this.urlHandlingStrategy.shouldProcessUrl(t.currentRawUrl)) {
-          const {
-            id,
-            extractedUrl,
-            source,
-            restoredState,
-            extras
-          } = t;
-          const navStart = new NavigationStart(id, this.urlSerializer.serialize(extractedUrl), source, restoredState);
-          this.events.next(navStart);
-          const targetSnapshot = createEmptyState(this.rootComponentType, this.environmentInjector).snapshot;
-          this.currentTransition = overallTransitionState = __spreadProps(__spreadValues({}, t), {
-            targetSnapshot,
-            urlAfterRedirects: extractedUrl,
-            extras: __spreadProps(__spreadValues({}, extras), {
-              skipLocationChange: false,
-              replaceUrl: false
-            })
-          });
-          this.currentNavigation.update((nav) => {
-            nav.finalUrl = extractedUrl;
-            return nav;
-          });
-          return of(overallTransitionState);
-        } else {
-          const reason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation was ignored because the UrlHandlingStrategy indicated neither the current URL ${t.currentRawUrl} nor target URL ${t.rawUrl} should be processed.` : "";
-          this.events.next(new NavigationSkipped(t.id, this.urlSerializer.serialize(t.extractedUrl), reason, NavigationSkippedCode.IgnoredByUrlHandlingStrategy));
-          t.resolve(false);
-          return EMPTY;
-        }
-      }), map((t) => {
-        const guardsStart = new GuardsCheckStart(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects), t.targetSnapshot);
-        this.events.next(guardsStart);
-        this.currentTransition = overallTransitionState = __spreadProps(__spreadValues({}, t), {
-          guards: getAllRouteGuards(t.targetSnapshot, t.currentSnapshot, this.rootContexts)
-        });
-        return overallTransitionState;
-      }), checkGuards((evt) => this.events.next(evt)), switchMap((t) => {
-        overallTransitionState.guardsResult = t.guardsResult;
-        if (t.guardsResult && typeof t.guardsResult !== "boolean") {
-          throw redirectingNavigationError(this.urlSerializer, t.guardsResult);
-        }
-        const guardsEnd = new GuardsCheckEnd(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects), t.targetSnapshot, !!t.guardsResult);
-        this.events.next(guardsEnd);
-        if (!shouldContinueNavigation()) {
-          return EMPTY;
-        }
-        if (!t.guardsResult) {
-          this.cancelNavigationTransition(t, "", NavigationCancellationCode.GuardRejected);
-          return EMPTY;
-        }
-        if (t.guards.canActivateChecks.length === 0) {
-          return of(t);
-        }
-        const resolveStart = new ResolveStart(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects), t.targetSnapshot);
-        this.events.next(resolveStart);
-        if (!shouldContinueNavigation()) {
-          return EMPTY;
-        }
-        let dataResolved = false;
-        return of(t).pipe(resolveData(this.paramsInheritanceStrategy), tap({
-          next: () => {
-            dataResolved = true;
-            const resolveEnd = new ResolveEnd(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects), t.targetSnapshot);
-            this.events.next(resolveEnd);
-          },
-          complete: () => {
-            if (!dataResolved) {
-              this.cancelNavigationTransition(t, typeof ngDevMode === "undefined" || ngDevMode ? `At least one route resolver didn't emit any value.` : "", NavigationCancellationCode.NoDataFromResolver);
-            }
-          }
-        }));
-      }), switchTap((t) => {
-        const loadComponents = (route) => {
-          const loaders2 = [];
-          if (route.routeConfig?._loadedComponent) {
-            route.component = route.routeConfig?._loadedComponent;
-          } else if (route.routeConfig?.loadComponent) {
-            const injector = route._environmentInjector;
-            loaders2.push(this.configLoader.loadComponent(injector, route.routeConfig).then((loadedComponent) => {
-              route.component = loadedComponent;
-            }));
-          }
-          for (const child of route.children) {
-            loaders2.push(...loadComponents(child));
-          }
-          return loaders2;
-        };
-        const loaders = loadComponents(t.targetSnapshot.root);
-        return loaders.length === 0 ? of(t) : from(Promise.all(loaders).then(() => t));
-      }), switchTap(() => this.afterPreactivation()), switchMap(() => {
-        const {
-          currentSnapshot,
-          targetSnapshot
-        } = overallTransitionState;
-        const viewTransitionStarted = this.createViewTransition?.(this.environmentInjector, currentSnapshot.root, targetSnapshot.root);
-        return viewTransitionStarted ? from(viewTransitionStarted).pipe(map(() => overallTransitionState)) : of(overallTransitionState);
-      }), take(1), map((t) => {
-        const targetRouterState = createRouterState(router.routeReuseStrategy, t.targetSnapshot, t.currentRouterState);
-        this.currentTransition = overallTransitionState = t = __spreadProps(__spreadValues({}, t), {
-          targetRouterState
-        });
-        this.currentNavigation.update((nav) => {
-          nav.targetRouterState = targetRouterState;
-          return nav;
-        });
-        this.events.next(new BeforeActivateRoutes());
-        if (!shouldContinueNavigation()) {
-          return;
-        }
-        new ActivateRoutes(router.routeReuseStrategy, overallTransitionState.targetRouterState, overallTransitionState.currentRouterState, (evt) => this.events.next(evt), this.inputBindingEnabled).activate(this.rootContexts);
-        if (!shouldContinueNavigation()) {
-          return;
-        }
-        completedOrAborted = true;
-        this.currentNavigation.update((nav) => {
-          nav.abort = noop4;
-          return nav;
-        });
-        this.lastSuccessfulNavigation.set(untracked2(this.currentNavigation));
-        this.events.next(new NavigationEnd(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects)));
-        this.titleStrategy?.updateTitle(t.targetRouterState.snapshot);
-        t.resolve(true);
-      }), takeUntil(abortSignalToObservable(abortController.signal).pipe(filter(() => !completedOrAborted && !overallTransitionState.targetRouterState), tap(() => {
-        this.cancelNavigationTransition(overallTransitionState, abortController.signal.reason + "", NavigationCancellationCode.Aborted);
-      }))), tap({
-        complete: () => {
-          completedOrAborted = true;
-        }
-      }), takeUntil(this.transitionAbortWithErrorSubject.pipe(tap((err) => {
-        throw err;
-      }))), finalize(() => {
-        abortController.abort();
-        if (!completedOrAborted) {
-          const cancelationReason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation ID ${overallTransitionState.id} is not equal to the current navigation id ${this.navigationId}` : "";
-          this.cancelNavigationTransition(overallTransitionState, cancelationReason, NavigationCancellationCode.SupersededByNewNavigation);
-        }
-        if (this.currentTransition?.id === overallTransitionState.id) {
-          this.currentNavigation.set(null);
-          this.currentTransition = null;
-        }
-      }), catchError((e) => {
-        completedOrAborted = true;
-        if (this.destroyed) {
-          overallTransitionState.resolve(false);
-          return EMPTY;
-        }
-        if (isNavigationCancelingError(e)) {
-          this.events.next(new NavigationCancel(overallTransitionState.id, this.urlSerializer.serialize(overallTransitionState.extractedUrl), e.message, e.cancellationCode));
-          if (!isRedirectingNavigationCancelingError(e)) {
-            overallTransitionState.resolve(false);
-          } else {
-            this.events.next(new RedirectRequest(e.url, e.navigationBehaviorOptions));
-          }
-        } else {
-          const navigationError = new NavigationError(overallTransitionState.id, this.urlSerializer.serialize(overallTransitionState.extractedUrl), e, overallTransitionState.targetSnapshot ?? void 0);
-          try {
-            const navigationErrorHandlerResult = runInInjectionContext(this.environmentInjector, () => this.navigationErrorHandler?.(navigationError));
-            if (navigationErrorHandlerResult instanceof RedirectCommand) {
-              const {
-                message,
-                cancellationCode
-              } = redirectingNavigationError(this.urlSerializer, navigationErrorHandlerResult);
-              this.events.next(new NavigationCancel(overallTransitionState.id, this.urlSerializer.serialize(overallTransitionState.extractedUrl), message, cancellationCode));
-              this.events.next(new RedirectRequest(navigationErrorHandlerResult.redirectTo, navigationErrorHandlerResult.navigationBehaviorOptions));
-            } else {
-              this.events.next(navigationError);
-              throw e;
-            }
-          } catch (ee) {
-            if (this.options.resolveNavigationPromiseOnError) {
-              overallTransitionState.resolve(false);
-            } else {
-              overallTransitionState.reject(ee);
-            }
-          }
-        }
-        return EMPTY;
-      }));
-    }));
-  }
-  cancelNavigationTransition(t, reason, code) {
-    const navCancel = new NavigationCancel(t.id, this.urlSerializer.serialize(t.extractedUrl), reason, code);
-    this.events.next(navCancel);
-    t.resolve(false);
-  }
-  isUpdatingInternalState() {
-    return this.currentTransition?.extractedUrl.toString() !== this.currentTransition?.currentUrlTree.toString();
-  }
-  isUpdatedBrowserUrl() {
-    const currentBrowserUrl = this.urlHandlingStrategy.extract(this.urlSerializer.parse(this.location.path(true)));
-    const currentNavigation = untracked2(this.currentNavigation);
-    const targetBrowserUrl = currentNavigation?.targetBrowserUrl ?? currentNavigation?.extractedUrl;
-    return currentBrowserUrl.toString() !== targetBrowserUrl?.toString() && !currentNavigation?.extras.skipLocationChange;
-  }
-  static \u0275fac = function NavigationTransitions_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _NavigationTransitions)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _NavigationTransitions,
-    factory: _NavigationTransitions.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(NavigationTransitions, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-function isBrowserTriggeredNavigation(source) {
-  return source !== IMPERATIVE_NAVIGATION;
-}
-var ROUTE_INJECTOR_CLEANUP = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "RouteInjectorCleanup" : "");
-var RouteReuseStrategy = class _RouteReuseStrategy {
-  static \u0275fac = function RouteReuseStrategy_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _RouteReuseStrategy)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _RouteReuseStrategy,
-    factory: () => (() => inject2(DefaultRouteReuseStrategy))(),
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouteReuseStrategy, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root",
-      useFactory: () => inject2(DefaultRouteReuseStrategy)
-    }]
-  }], null, null);
-})();
-var BaseRouteReuseStrategy = class {
-  shouldDetach(route) {
-    return false;
-  }
-  store(route, detachedTree) {
-  }
-  shouldAttach(route) {
-    return false;
-  }
-  retrieve(route) {
-    return null;
-  }
-  shouldReuseRoute(future, curr) {
-    return future.routeConfig === curr.routeConfig;
-  }
-  shouldDestroyInjector(route) {
-    return true;
-  }
-};
-var DefaultRouteReuseStrategy = class _DefaultRouteReuseStrategy extends BaseRouteReuseStrategy {
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275DefaultRouteReuseStrategy_BaseFactory;
-    return function DefaultRouteReuseStrategy_Factory(__ngFactoryType__) {
-      return (\u0275DefaultRouteReuseStrategy_BaseFactory || (\u0275DefaultRouteReuseStrategy_BaseFactory = \u0275\u0275getInheritedFactory(_DefaultRouteReuseStrategy)))(__ngFactoryType__ || _DefaultRouteReuseStrategy);
-    };
-  })();
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _DefaultRouteReuseStrategy,
-    factory: _DefaultRouteReuseStrategy.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DefaultRouteReuseStrategy, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-var StateManager = class _StateManager {
-  urlSerializer = inject2(UrlSerializer);
-  options = inject2(ROUTER_CONFIGURATION, {
-    optional: true
-  }) || {};
-  canceledNavigationResolution = this.options.canceledNavigationResolution || "replace";
-  location = inject2(Location);
-  urlHandlingStrategy = inject2(UrlHandlingStrategy);
-  urlUpdateStrategy = this.options.urlUpdateStrategy || "deferred";
-  currentUrlTree = new UrlTree();
-  getCurrentUrlTree() {
-    return this.currentUrlTree;
-  }
-  rawUrlTree = this.currentUrlTree;
-  getRawUrlTree() {
-    return this.rawUrlTree;
-  }
-  createBrowserPath({
-    finalUrl,
-    initialUrl,
-    targetBrowserUrl
-  }) {
-    const rawUrl = finalUrl !== void 0 ? this.urlHandlingStrategy.merge(finalUrl, initialUrl) : initialUrl;
-    const url = targetBrowserUrl ?? rawUrl;
-    const path = url instanceof UrlTree ? this.urlSerializer.serialize(url) : url;
-    return path;
-  }
-  commitTransition({
-    targetRouterState,
-    finalUrl,
-    initialUrl
-  }) {
-    if (finalUrl && targetRouterState) {
-      this.currentUrlTree = finalUrl;
-      this.rawUrlTree = this.urlHandlingStrategy.merge(finalUrl, initialUrl);
-      this.routerState = targetRouterState;
-    } else {
-      this.rawUrlTree = initialUrl;
-    }
-  }
-  routerState = createEmptyState(null, inject2(EnvironmentInjector));
-  getRouterState() {
-    return this.routerState;
-  }
-  _stateMemento = this.createStateMemento();
-  get stateMemento() {
-    return this._stateMemento;
-  }
-  updateStateMemento() {
-    this._stateMemento = this.createStateMemento();
-  }
-  createStateMemento() {
-    return {
-      rawUrlTree: this.rawUrlTree,
-      currentUrlTree: this.currentUrlTree,
-      routerState: this.routerState
-    };
-  }
-  restoredState() {
-    return this.location.getState();
-  }
-  static \u0275fac = function StateManager_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _StateManager)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _StateManager,
-    factory: () => (() => inject2(HistoryStateManager))(),
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(StateManager, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root",
-      useFactory: () => inject2(HistoryStateManager)
-    }]
-  }], null, null);
-})();
-var HistoryStateManager = class _HistoryStateManager extends StateManager {
-  currentPageId = 0;
-  lastSuccessfulId = -1;
-  get browserPageId() {
-    if (this.canceledNavigationResolution !== "computed") {
-      return this.currentPageId;
-    }
-    return this.restoredState()?.\u0275routerPageId ?? this.currentPageId;
-  }
-  registerNonRouterCurrentEntryChangeListener(listener) {
-    return this.location.subscribe((event) => {
-      if (event["type"] === "popstate") {
-        setTimeout(() => {
-          listener(event["url"], event.state, "popstate");
-        });
-      }
-    });
-  }
-  handleRouterEvent(e, currentTransition) {
-    if (e instanceof NavigationStart) {
-      this.updateStateMemento();
-    } else if (e instanceof NavigationSkipped) {
-      this.commitTransition(currentTransition);
-    } else if (e instanceof RoutesRecognized) {
-      if (this.urlUpdateStrategy === "eager") {
-        if (!currentTransition.extras.skipLocationChange) {
-          this.setBrowserUrl(this.createBrowserPath(currentTransition), currentTransition);
-        }
-      }
-    } else if (e instanceof BeforeActivateRoutes) {
-      this.commitTransition(currentTransition);
-      if (this.urlUpdateStrategy === "deferred" && !currentTransition.extras.skipLocationChange) {
-        this.setBrowserUrl(this.createBrowserPath(currentTransition), currentTransition);
-      }
-    } else if (e instanceof NavigationCancel && !isRedirectingEvent(e)) {
-      this.restoreHistory(currentTransition);
-    } else if (e instanceof NavigationError) {
-      this.restoreHistory(currentTransition, true);
-    } else if (e instanceof NavigationEnd) {
-      this.lastSuccessfulId = e.id;
-      this.currentPageId = this.browserPageId;
-    }
-  }
-  setBrowserUrl(path, {
-    extras,
-    id
-  }) {
-    const {
-      replaceUrl,
-      state: state2
-    } = extras;
-    if (this.location.isCurrentPathEqualTo(path) || !!replaceUrl) {
-      const currentBrowserPageId = this.browserPageId;
-      const newState = __spreadValues(__spreadValues({}, state2), this.generateNgRouterState(id, currentBrowserPageId));
-      this.location.replaceState(path, "", newState);
-    } else {
-      const newState = __spreadValues(__spreadValues({}, state2), this.generateNgRouterState(id, this.browserPageId + 1));
-      this.location.go(path, "", newState);
-    }
-  }
-  restoreHistory(navigation, restoringFromCaughtError = false) {
-    if (this.canceledNavigationResolution === "computed") {
-      const currentBrowserPageId = this.browserPageId;
-      const targetPagePosition = this.currentPageId - currentBrowserPageId;
-      if (targetPagePosition !== 0) {
-        this.location.historyGo(targetPagePosition);
-      } else if (this.getCurrentUrlTree() === navigation.finalUrl && targetPagePosition === 0) {
-        this.resetInternalState(navigation);
-        this.resetUrlToCurrentUrlTree();
-      } else ;
-    } else if (this.canceledNavigationResolution === "replace") {
-      if (restoringFromCaughtError) {
-        this.resetInternalState(navigation);
-      }
-      this.resetUrlToCurrentUrlTree();
-    }
-  }
-  resetInternalState({
-    finalUrl
-  }) {
-    this.routerState = this.stateMemento.routerState;
-    this.currentUrlTree = this.stateMemento.currentUrlTree;
-    this.rawUrlTree = this.urlHandlingStrategy.merge(this.currentUrlTree, finalUrl ?? this.rawUrlTree);
-  }
-  resetUrlToCurrentUrlTree() {
-    this.location.replaceState(this.urlSerializer.serialize(this.getRawUrlTree()), "", this.generateNgRouterState(this.lastSuccessfulId, this.currentPageId));
-  }
-  generateNgRouterState(navigationId, routerPageId) {
-    if (this.canceledNavigationResolution === "computed") {
-      return {
-        navigationId,
-        \u0275routerPageId: routerPageId
-      };
-    }
-    return {
-      navigationId
-    };
-  }
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275HistoryStateManager_BaseFactory;
-    return function HistoryStateManager_Factory(__ngFactoryType__) {
-      return (\u0275HistoryStateManager_BaseFactory || (\u0275HistoryStateManager_BaseFactory = \u0275\u0275getInheritedFactory(_HistoryStateManager)))(__ngFactoryType__ || _HistoryStateManager);
-    };
-  })();
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _HistoryStateManager,
-    factory: _HistoryStateManager.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HistoryStateManager, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-function afterNextNavigation(router, action) {
-  router.events.pipe(filter((e) => e instanceof NavigationEnd || e instanceof NavigationCancel || e instanceof NavigationError || e instanceof NavigationSkipped), map((e) => {
-    if (e instanceof NavigationEnd || e instanceof NavigationSkipped) {
-      return 0;
-    }
-    const redirecting = e instanceof NavigationCancel ? e.code === NavigationCancellationCode.Redirect || e.code === NavigationCancellationCode.SupersededByNewNavigation : false;
-    return redirecting ? 2 : 1;
-  }), filter((result) => result !== 2), take(1)).subscribe(() => {
-    action();
-  });
-}
-var exactMatchOptions = {
-  paths: "exact",
-  fragment: "ignored",
-  matrixParams: "ignored",
-  queryParams: "exact"
-};
-var subsetMatchOptions = {
-  paths: "subset",
-  fragment: "ignored",
-  matrixParams: "ignored",
-  queryParams: "subset"
-};
-var Router = class _Router {
-  get currentUrlTree() {
-    return this.stateManager.getCurrentUrlTree();
-  }
-  get rawUrlTree() {
-    return this.stateManager.getRawUrlTree();
-  }
-  disposed = false;
-  nonRouterCurrentEntryChangeSubscription;
-  console = inject2(Console);
-  stateManager = inject2(StateManager);
-  options = inject2(ROUTER_CONFIGURATION, {
-    optional: true
-  }) || {};
-  pendingTasks = inject2(PendingTasksInternal);
-  urlUpdateStrategy = this.options.urlUpdateStrategy || "deferred";
-  navigationTransitions = inject2(NavigationTransitions);
-  urlSerializer = inject2(UrlSerializer);
-  location = inject2(Location);
-  urlHandlingStrategy = inject2(UrlHandlingStrategy);
-  injector = inject2(EnvironmentInjector);
-  _events = new Subject();
-  get events() {
-    return this._events;
-  }
-  get routerState() {
-    return this.stateManager.getRouterState();
-  }
-  navigated = false;
-  routeReuseStrategy = inject2(RouteReuseStrategy);
-  injectorCleanup = inject2(ROUTE_INJECTOR_CLEANUP, {
-    optional: true
-  });
-  onSameUrlNavigation = this.options.onSameUrlNavigation || "ignore";
-  config = inject2(ROUTES, {
-    optional: true
-  })?.flat() ?? [];
-  componentInputBindingEnabled = !!inject2(INPUT_BINDER, {
-    optional: true
-  });
-  currentNavigation = this.navigationTransitions.currentNavigation.asReadonly();
-  constructor() {
-    this.resetConfig(this.config);
-    this.navigationTransitions.setupNavigations(this).subscribe({
-      error: (e) => {
-      }
-    });
-    this.subscribeToNavigationEvents();
-  }
-  eventsSubscription = new Subscription();
-  subscribeToNavigationEvents() {
-    const subscription = this.navigationTransitions.events.subscribe((e) => {
-      try {
-        const currentTransition = this.navigationTransitions.currentTransition;
-        const currentNavigation = untracked2(this.navigationTransitions.currentNavigation);
-        if (currentTransition !== null && currentNavigation !== null) {
-          this.stateManager.handleRouterEvent(e, currentNavigation);
-          if (e instanceof NavigationCancel && e.code !== NavigationCancellationCode.Redirect && e.code !== NavigationCancellationCode.SupersededByNewNavigation) {
-            this.navigated = true;
-          } else if (e instanceof NavigationEnd) {
-            this.navigated = true;
-            this.injectorCleanup?.(this.routeReuseStrategy, this.routerState, this.config);
-          } else if (e instanceof RedirectRequest) {
-            const opts = e.navigationBehaviorOptions;
-            const mergedTree = this.urlHandlingStrategy.merge(e.url, currentTransition.currentRawUrl);
-            const extras = __spreadValues({
-              scroll: currentTransition.extras.scroll,
-              browserUrl: currentTransition.extras.browserUrl,
-              info: currentTransition.extras.info,
-              skipLocationChange: currentTransition.extras.skipLocationChange,
-              replaceUrl: currentTransition.extras.replaceUrl || this.urlUpdateStrategy === "eager" || isBrowserTriggeredNavigation(currentTransition.source)
-            }, opts);
-            this.scheduleNavigation(mergedTree, IMPERATIVE_NAVIGATION, null, extras, {
-              resolve: currentTransition.resolve,
-              reject: currentTransition.reject,
-              promise: currentTransition.promise
-            });
-          }
-        }
-        if (isPublicRouterEvent(e)) {
-          this._events.next(e);
-        }
-      } catch (e2) {
-        this.navigationTransitions.transitionAbortWithErrorSubject.next(e2);
-      }
-    });
-    this.eventsSubscription.add(subscription);
-  }
-  resetRootComponentType(rootComponentType) {
-    this.routerState.root.component = rootComponentType;
-    this.navigationTransitions.rootComponentType = rootComponentType;
-  }
-  initialNavigation() {
-    this.setUpLocationChangeListener();
-    if (!this.navigationTransitions.hasRequestedNavigation) {
-      this.navigateToSyncWithBrowser(this.location.path(true), IMPERATIVE_NAVIGATION, this.stateManager.restoredState());
-    }
-  }
-  setUpLocationChangeListener() {
-    this.nonRouterCurrentEntryChangeSubscription ??= this.stateManager.registerNonRouterCurrentEntryChangeListener((url, state2, source) => {
-      this.navigateToSyncWithBrowser(url, source, state2);
-    });
-  }
-  navigateToSyncWithBrowser(url, source, state2) {
-    const extras = {
-      replaceUrl: true
-    };
-    const restoredState = state2?.navigationId ? state2 : null;
-    if (state2) {
-      const stateCopy = __spreadValues({}, state2);
-      delete stateCopy.navigationId;
-      delete stateCopy.\u0275routerPageId;
-      if (Object.keys(stateCopy).length !== 0) {
-        extras.state = stateCopy;
-      }
-    }
-    const urlTree = this.parseUrl(url);
-    this.scheduleNavigation(urlTree, source, restoredState, extras).catch((e) => {
-      if (this.disposed) {
-        return;
-      }
-      this.injector.get(INTERNAL_APPLICATION_ERROR_HANDLER)(e);
-    });
-  }
-  get url() {
-    return this.serializeUrl(this.currentUrlTree);
-  }
-  getCurrentNavigation() {
-    return untracked2(this.navigationTransitions.currentNavigation);
-  }
-  get lastSuccessfulNavigation() {
-    return this.navigationTransitions.lastSuccessfulNavigation;
-  }
-  resetConfig(config3) {
-    (typeof ngDevMode === "undefined" || ngDevMode) && validateConfig(config3);
-    this.config = config3.map(standardizeConfig);
-    this.navigated = false;
-  }
-  ngOnDestroy() {
-    this.dispose();
-  }
-  dispose() {
-    this._events.unsubscribe();
-    this.navigationTransitions.complete();
-    this.nonRouterCurrentEntryChangeSubscription?.unsubscribe();
-    this.nonRouterCurrentEntryChangeSubscription = void 0;
-    this.disposed = true;
-    this.eventsSubscription.unsubscribe();
-  }
-  createUrlTree(commands, navigationExtras = {}) {
-    const {
-      relativeTo,
-      queryParams,
-      fragment: fragment2,
-      queryParamsHandling,
-      preserveFragment
-    } = navigationExtras;
-    const f = preserveFragment ? this.currentUrlTree.fragment : fragment2;
-    let q = null;
-    switch (queryParamsHandling ?? this.options.defaultQueryParamsHandling) {
-      case "merge":
-        q = __spreadValues(__spreadValues({}, this.currentUrlTree.queryParams), queryParams);
-        break;
-      case "preserve":
-        q = this.currentUrlTree.queryParams;
-        break;
-      default:
-        q = queryParams || null;
-    }
-    if (q !== null) {
-      q = this.removeEmptyProps(q);
-    }
-    let relativeToUrlSegmentGroup;
-    try {
-      const relativeToSnapshot = relativeTo ? relativeTo.snapshot : this.routerState.snapshot.root;
-      relativeToUrlSegmentGroup = createSegmentGroupFromRoute(relativeToSnapshot);
-    } catch (e) {
-      if (typeof commands[0] !== "string" || commands[0][0] !== "/") {
-        commands = [];
-      }
-      relativeToUrlSegmentGroup = this.currentUrlTree.root;
-    }
-    return createUrlTreeFromSegmentGroup(relativeToUrlSegmentGroup, commands, q, f ?? null, this.urlSerializer);
-  }
-  navigateByUrl(url, extras = {
-    skipLocationChange: false
-  }) {
-    const urlTree = isUrlTree(url) ? url : this.parseUrl(url);
-    const mergedTree = this.urlHandlingStrategy.merge(urlTree, this.rawUrlTree);
-    return this.scheduleNavigation(mergedTree, IMPERATIVE_NAVIGATION, null, extras);
-  }
-  navigate(commands, extras = {
-    skipLocationChange: false
-  }) {
-    validateCommands(commands);
-    return this.navigateByUrl(this.createUrlTree(commands, extras), extras);
-  }
-  serializeUrl(url) {
-    return this.urlSerializer.serialize(url);
-  }
-  parseUrl(url) {
-    try {
-      return this.urlSerializer.parse(url);
-    } catch (e) {
-      this.console.warn(formatRuntimeError(4018, ngDevMode && `Error parsing URL ${url}. Falling back to '/' instead. 
-` + e));
-      return this.urlSerializer.parse("/");
-    }
-  }
-  isActive(url, matchOptions) {
-    let options;
-    if (matchOptions === true) {
-      options = __spreadValues({}, exactMatchOptions);
-    } else if (matchOptions === false) {
-      options = __spreadValues({}, subsetMatchOptions);
-    } else {
-      options = matchOptions;
-    }
-    if (isUrlTree(url)) {
-      return containsTree(this.currentUrlTree, url, options);
-    }
-    const urlTree = this.parseUrl(url);
-    return containsTree(this.currentUrlTree, urlTree, options);
-  }
-  removeEmptyProps(params) {
-    return Object.entries(params).reduce((result, [key, value]) => {
-      if (value !== null && value !== void 0) {
-        result[key] = value;
-      }
-      return result;
-    }, {});
-  }
-  scheduleNavigation(rawUrl, source, restoredState, extras, priorPromise) {
-    if (this.disposed) {
-      return Promise.resolve(false);
-    }
-    let resolve;
-    let reject;
-    let promise;
-    if (priorPromise) {
-      resolve = priorPromise.resolve;
-      reject = priorPromise.reject;
-      promise = priorPromise.promise;
-    } else {
-      promise = new Promise((res, rej) => {
-        resolve = res;
-        reject = rej;
-      });
-    }
-    const taskId = this.pendingTasks.add();
-    afterNextNavigation(this, () => {
-      queueMicrotask(() => this.pendingTasks.remove(taskId));
-    });
-    this.navigationTransitions.handleNavigationRequest({
-      source,
-      restoredState,
-      currentUrlTree: this.currentUrlTree,
-      currentRawUrl: this.currentUrlTree,
-      rawUrl,
-      extras,
-      resolve,
-      reject,
-      promise,
-      currentSnapshot: this.routerState.snapshot,
-      currentRouterState: this.routerState
-    });
-    return promise.catch(Promise.reject.bind(Promise));
-  }
-  static \u0275fac = function Router_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Router)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _Router,
-    factory: _Router.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Router, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-function validateCommands(commands) {
-  for (let i = 0; i < commands.length; i++) {
-    const cmd = commands[i];
-    if (cmd == null) {
-      throw new RuntimeError(4008, (typeof ngDevMode === "undefined" || ngDevMode) && `The requested path contains ${cmd} segment at index ${i}`);
-    }
-  }
-}
-
-// node_modules/@angular/router/fesm2022/_router_module-chunk.mjs
-var RouterLink = class _RouterLink {
-  router;
-  route;
-  tabIndexAttribute;
-  renderer;
-  el;
-  locationStrategy;
-  reactiveHref = signal(null, ...ngDevMode ? [{
-    debugName: "reactiveHref"
-  }] : []);
-  get href() {
-    return untracked2(this.reactiveHref);
-  }
-  set href(value) {
-    this.reactiveHref.set(value);
-  }
-  target;
-  queryParams;
-  fragment;
-  queryParamsHandling;
-  state;
-  info;
-  relativeTo;
-  isAnchorElement;
-  subscription;
-  onChanges = new Subject();
-  applicationErrorHandler = inject2(INTERNAL_APPLICATION_ERROR_HANDLER);
-  options = inject2(ROUTER_CONFIGURATION, {
-    optional: true
-  });
-  constructor(router, route, tabIndexAttribute, renderer, el, locationStrategy) {
-    this.router = router;
-    this.route = route;
-    this.tabIndexAttribute = tabIndexAttribute;
-    this.renderer = renderer;
-    this.el = el;
-    this.locationStrategy = locationStrategy;
-    this.reactiveHref.set(inject2(new HostAttributeToken("href"), {
-      optional: true
-    }));
-    const tagName = el.nativeElement.tagName?.toLowerCase();
-    this.isAnchorElement = tagName === "a" || tagName === "area" || !!(typeof customElements === "object" && customElements.get(tagName)?.observedAttributes?.includes?.("href"));
-    if (this.isAnchorElement) {
-      this.setTabIndexIfNotOnNativeEl("0");
-      this.subscribeToNavigationEventsIfNecessary();
-    }
-  }
-  subscribeToNavigationEventsIfNecessary() {
-    if (this.subscription !== void 0) {
-      return;
-    }
-    this.subscription = this.router.events.subscribe((s) => {
-      if (s instanceof NavigationEnd) {
-        this.updateHref();
-      }
-    });
-  }
-  preserveFragment = false;
-  skipLocationChange = false;
-  replaceUrl = false;
-  setTabIndexIfNotOnNativeEl(newTabIndex) {
-    if (this.tabIndexAttribute != null || this.isAnchorElement) {
-      return;
-    }
-    this.applyAttributeValue("tabindex", newTabIndex);
-  }
-  ngOnChanges(changes) {
-    if (ngDevMode && isUrlTree(this.routerLinkInput) && (this.fragment !== void 0 || this.queryParams || this.queryParamsHandling || this.preserveFragment || this.relativeTo)) {
-      throw new RuntimeError(4017, "Cannot configure queryParams or fragment when using a UrlTree as the routerLink input value.");
-    }
-    if (this.isAnchorElement) {
-      this.updateHref();
-    }
-    this.onChanges.next(this);
-  }
-  routerLinkInput = null;
-  set routerLink(commandsOrUrlTree) {
-    if (commandsOrUrlTree == null) {
-      this.routerLinkInput = null;
-      this.setTabIndexIfNotOnNativeEl(null);
-    } else {
-      if (isUrlTree(commandsOrUrlTree)) {
-        this.routerLinkInput = commandsOrUrlTree;
-      } else {
-        this.routerLinkInput = Array.isArray(commandsOrUrlTree) ? commandsOrUrlTree : [commandsOrUrlTree];
-      }
-      this.setTabIndexIfNotOnNativeEl("0");
-    }
-  }
-  onClick(button, ctrlKey, shiftKey, altKey, metaKey) {
-    const urlTree = this.urlTree;
-    if (urlTree === null) {
-      return true;
-    }
-    if (this.isAnchorElement) {
-      if (button !== 0 || ctrlKey || shiftKey || altKey || metaKey) {
-        return true;
-      }
-      if (typeof this.target === "string" && this.target != "_self") {
-        return true;
-      }
-    }
-    const extras = {
-      skipLocationChange: this.skipLocationChange,
-      replaceUrl: this.replaceUrl,
-      state: this.state,
-      info: this.info
-    };
-    this.router.navigateByUrl(urlTree, extras)?.catch((e) => {
-      this.applicationErrorHandler(e);
-    });
-    return !this.isAnchorElement;
-  }
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
-  }
-  updateHref() {
-    const urlTree = this.urlTree;
-    this.reactiveHref.set(urlTree !== null && this.locationStrategy ? this.locationStrategy?.prepareExternalUrl(this.router.serializeUrl(urlTree)) ?? "" : null);
-  }
-  applyAttributeValue(attrName, attrValue) {
-    const renderer = this.renderer;
-    const nativeElement = this.el.nativeElement;
-    if (attrValue !== null) {
-      renderer.setAttribute(nativeElement, attrName, attrValue);
-    } else {
-      renderer.removeAttribute(nativeElement, attrName);
-    }
-  }
-  get urlTree() {
-    if (this.routerLinkInput === null) {
-      return null;
-    } else if (isUrlTree(this.routerLinkInput)) {
-      return this.routerLinkInput;
-    }
-    return this.router.createUrlTree(this.routerLinkInput, {
-      relativeTo: this.relativeTo !== void 0 ? this.relativeTo : this.route,
-      queryParams: this.queryParams,
-      fragment: this.fragment,
-      queryParamsHandling: this.queryParamsHandling,
-      preserveFragment: this.preserveFragment
-    });
-  }
-  static \u0275fac = function RouterLink_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _RouterLink)(\u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275injectAttribute("tabindex"), \u0275\u0275directiveInject(Renderer2), \u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(LocationStrategy));
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _RouterLink,
-    selectors: [["", "routerLink", ""]],
-    hostVars: 2,
-    hostBindings: function RouterLink_HostBindings(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275listener("click", function RouterLink_click_HostBindingHandler($event) {
-          return ctx.onClick($event.button, $event.ctrlKey, $event.shiftKey, $event.altKey, $event.metaKey);
-        });
-      }
-      if (rf & 2) {
-        \u0275\u0275attribute("href", ctx.reactiveHref(), \u0275\u0275sanitizeUrlOrResourceUrl)("target", ctx.target);
-      }
-    },
-    inputs: {
-      target: "target",
-      queryParams: "queryParams",
-      fragment: "fragment",
-      queryParamsHandling: "queryParamsHandling",
-      state: "state",
-      info: "info",
-      relativeTo: "relativeTo",
-      preserveFragment: [2, "preserveFragment", "preserveFragment", booleanAttribute],
-      skipLocationChange: [2, "skipLocationChange", "skipLocationChange", booleanAttribute],
-      replaceUrl: [2, "replaceUrl", "replaceUrl", booleanAttribute],
-      routerLink: "routerLink"
-    },
-    features: [\u0275\u0275NgOnChangesFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterLink, [{
-    type: Directive,
-    args: [{
-      selector: "[routerLink]",
-      host: {
-        "[attr.href]": "reactiveHref()"
-      }
-    }]
-  }], () => [{
-    type: Router
-  }, {
-    type: ActivatedRoute
-  }, {
-    type: void 0,
-    decorators: [{
-      type: Attribute,
-      args: ["tabindex"]
-    }]
-  }, {
-    type: Renderer2
-  }, {
-    type: ElementRef
-  }, {
-    type: LocationStrategy
-  }], {
-    target: [{
-      type: HostBinding,
-      args: ["attr.target"]
-    }, {
-      type: Input
-    }],
-    queryParams: [{
-      type: Input
-    }],
-    fragment: [{
-      type: Input
-    }],
-    queryParamsHandling: [{
-      type: Input
-    }],
-    state: [{
-      type: Input
-    }],
-    info: [{
-      type: Input
-    }],
-    relativeTo: [{
-      type: Input
-    }],
-    preserveFragment: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    skipLocationChange: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    replaceUrl: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    routerLink: [{
-      type: Input
-    }],
-    onClick: [{
-      type: HostListener,
-      args: ["click", ["$event.button", "$event.ctrlKey", "$event.shiftKey", "$event.altKey", "$event.metaKey"]]
-    }]
-  });
-})();
-var RouterLinkActive = class _RouterLinkActive {
-  router;
-  element;
-  renderer;
-  cdr;
-  links;
-  classes = [];
-  routerEventsSubscription;
-  linkInputChangesSubscription;
-  _isActive = false;
-  get isActive() {
-    return this._isActive;
-  }
-  routerLinkActiveOptions = {
-    exact: false
-  };
-  ariaCurrentWhenActive;
-  isActiveChange = new EventEmitter();
-  link = inject2(RouterLink, {
-    optional: true
-  });
-  constructor(router, element, renderer, cdr) {
-    this.router = router;
-    this.element = element;
-    this.renderer = renderer;
-    this.cdr = cdr;
-    this.routerEventsSubscription = router.events.subscribe((s) => {
-      if (s instanceof NavigationEnd) {
-        this.update();
-      }
-    });
-  }
-  ngAfterContentInit() {
-    of(this.links.changes, of(null)).pipe(mergeAll()).subscribe((_) => {
-      this.update();
-      this.subscribeToEachLinkOnChanges();
-    });
-  }
-  subscribeToEachLinkOnChanges() {
-    this.linkInputChangesSubscription?.unsubscribe();
-    const allLinkChanges = [...this.links.toArray(), this.link].filter((link) => !!link).map((link) => link.onChanges);
-    this.linkInputChangesSubscription = from(allLinkChanges).pipe(mergeAll()).subscribe((link) => {
-      if (this._isActive !== this.isLinkActive(this.router)(link)) {
-        this.update();
-      }
-    });
-  }
-  set routerLinkActive(data) {
-    const classes = Array.isArray(data) ? data : data.split(" ");
-    this.classes = classes.filter((c) => !!c);
-  }
-  ngOnChanges(changes) {
-    this.update();
-  }
-  ngOnDestroy() {
-    this.routerEventsSubscription.unsubscribe();
-    this.linkInputChangesSubscription?.unsubscribe();
-  }
-  update() {
-    if (!this.links || !this.router.navigated) return;
-    queueMicrotask(() => {
-      const hasActiveLinks = this.hasActiveLinks();
-      this.classes.forEach((c) => {
-        if (hasActiveLinks) {
-          this.renderer.addClass(this.element.nativeElement, c);
-        } else {
-          this.renderer.removeClass(this.element.nativeElement, c);
-        }
-      });
-      if (hasActiveLinks && this.ariaCurrentWhenActive !== void 0) {
-        this.renderer.setAttribute(this.element.nativeElement, "aria-current", this.ariaCurrentWhenActive.toString());
-      } else {
-        this.renderer.removeAttribute(this.element.nativeElement, "aria-current");
-      }
-      if (this._isActive !== hasActiveLinks) {
-        this._isActive = hasActiveLinks;
-        this.cdr.markForCheck();
-        this.isActiveChange.emit(hasActiveLinks);
-      }
-    });
-  }
-  isLinkActive(router) {
-    const options = isActiveMatchOptions(this.routerLinkActiveOptions) ? this.routerLinkActiveOptions : this.routerLinkActiveOptions.exact ?? false ? __spreadValues({}, exactMatchOptions) : __spreadValues({}, subsetMatchOptions);
-    return (link) => {
-      const urlTree = link.urlTree;
-      return urlTree ? untracked2(isActive(urlTree, router, options)) : false;
-    };
-  }
-  hasActiveLinks() {
-    const isActiveCheckFn = this.isLinkActive(this.router);
-    return this.link && isActiveCheckFn(this.link) || this.links.some(isActiveCheckFn);
-  }
-  static \u0275fac = function RouterLinkActive_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _RouterLinkActive)(\u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(Renderer2), \u0275\u0275directiveInject(ChangeDetectorRef));
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _RouterLinkActive,
-    selectors: [["", "routerLinkActive", ""]],
-    contentQueries: function RouterLinkActive_ContentQueries(rf, ctx, dirIndex) {
-      if (rf & 1) {
-        \u0275\u0275contentQuery(dirIndex, RouterLink, 5);
-      }
-      if (rf & 2) {
-        let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.links = _t);
-      }
-    },
-    inputs: {
-      routerLinkActiveOptions: "routerLinkActiveOptions",
-      ariaCurrentWhenActive: "ariaCurrentWhenActive",
-      routerLinkActive: "routerLinkActive"
-    },
-    outputs: {
-      isActiveChange: "isActiveChange"
-    },
-    exportAs: ["routerLinkActive"],
-    features: [\u0275\u0275NgOnChangesFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterLinkActive, [{
-    type: Directive,
-    args: [{
-      selector: "[routerLinkActive]",
-      exportAs: "routerLinkActive"
-    }]
-  }], () => [{
-    type: Router
-  }, {
-    type: ElementRef
-  }, {
-    type: Renderer2
-  }, {
-    type: ChangeDetectorRef
-  }], {
-    links: [{
-      type: ContentChildren,
-      args: [RouterLink, {
-        descendants: true
-      }]
-    }],
-    routerLinkActiveOptions: [{
-      type: Input
-    }],
-    ariaCurrentWhenActive: [{
-      type: Input
-    }],
-    isActiveChange: [{
-      type: Output
-    }],
-    routerLinkActive: [{
-      type: Input
-    }]
-  });
-})();
-function isActiveMatchOptions(options) {
-  return !!options.paths;
-}
-var PreloadingStrategy = class {
-};
-var PreloadAllModules = class _PreloadAllModules {
-  preload(route, fn) {
-    return fn().pipe(catchError(() => of(null)));
-  }
-  static \u0275fac = function PreloadAllModules_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _PreloadAllModules)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _PreloadAllModules,
-    factory: _PreloadAllModules.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PreloadAllModules, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-var NoPreloading = class _NoPreloading {
-  preload(route, fn) {
-    return of(null);
-  }
-  static \u0275fac = function NoPreloading_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _NoPreloading)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _NoPreloading,
-    factory: _NoPreloading.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(NoPreloading, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-var RouterPreloader = class _RouterPreloader {
-  router;
-  injector;
-  preloadingStrategy;
-  loader;
-  subscription;
-  constructor(router, injector, preloadingStrategy, loader) {
-    this.router = router;
-    this.injector = injector;
-    this.preloadingStrategy = preloadingStrategy;
-    this.loader = loader;
-  }
-  setUpPreloading() {
-    this.subscription = this.router.events.pipe(filter((e) => e instanceof NavigationEnd), concatMap(() => this.preload())).subscribe(() => {
-    });
-  }
-  preload() {
-    return this.processRoutes(this.injector, this.router.config);
-  }
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
-  }
-  processRoutes(injector, routes2) {
-    const res = [];
-    for (const route of routes2) {
-      if (route.providers && !route._injector) {
-        route._injector = createEnvironmentInjector(route.providers, injector, typeof ngDevMode === "undefined" || ngDevMode ? `Route: ${route.path}` : "");
-      }
-      const injectorForCurrentRoute = route._injector ?? injector;
-      if (route._loadedNgModuleFactory && !route._loadedInjector) {
-        route._loadedInjector = route._loadedNgModuleFactory.create(injectorForCurrentRoute).injector;
-      }
-      const injectorForChildren = route._loadedInjector ?? injectorForCurrentRoute;
-      if (route.loadChildren && !route._loadedRoutes && route.canLoad === void 0 || route.loadComponent && !route._loadedComponent) {
-        res.push(this.preloadConfig(injectorForCurrentRoute, route));
-      }
-      if (route.children || route._loadedRoutes) {
-        res.push(this.processRoutes(injectorForChildren, route.children ?? route._loadedRoutes));
-      }
-    }
-    return from(res).pipe(mergeAll());
-  }
-  preloadConfig(injector, route) {
-    return this.preloadingStrategy.preload(route, () => {
-      if (injector.destroyed) {
-        return of(null);
-      }
-      let loadedChildren$;
-      if (route.loadChildren && route.canLoad === void 0) {
-        loadedChildren$ = from(this.loader.loadChildren(injector, route));
-      } else {
-        loadedChildren$ = of(null);
-      }
-      const recursiveLoadChildren$ = loadedChildren$.pipe(mergeMap((config3) => {
-        if (config3 === null) {
-          return of(void 0);
-        }
-        route._loadedRoutes = config3.routes;
-        route._loadedInjector = config3.injector;
-        route._loadedNgModuleFactory = config3.factory;
-        return this.processRoutes(config3.injector ?? injector, config3.routes);
-      }));
-      if (route.loadComponent && !route._loadedComponent) {
-        const loadComponent$ = this.loader.loadComponent(injector, route);
-        return from([recursiveLoadChildren$, loadComponent$]).pipe(mergeAll());
-      } else {
-        return recursiveLoadChildren$;
-      }
-    });
-  }
-  static \u0275fac = function RouterPreloader_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _RouterPreloader)(\u0275\u0275inject(Router), \u0275\u0275inject(EnvironmentInjector), \u0275\u0275inject(PreloadingStrategy), \u0275\u0275inject(RouterConfigLoader));
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _RouterPreloader,
-    factory: _RouterPreloader.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterPreloader, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [{
-    type: Router
-  }, {
-    type: EnvironmentInjector
-  }, {
-    type: PreloadingStrategy
-  }, {
-    type: RouterConfigLoader
-  }], null);
-})();
-var ROUTER_SCROLLER = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "Router Scroller" : "");
-var RouterScroller = class _RouterScroller {
-  options;
-  routerEventsSubscription;
-  scrollEventsSubscription;
-  lastId = 0;
-  lastSource = IMPERATIVE_NAVIGATION;
-  restoredId = 0;
-  store = {};
-  urlSerializer = inject2(UrlSerializer);
-  zone = inject2(NgZone);
-  viewportScroller = inject2(ViewportScroller);
-  transitions = inject2(NavigationTransitions);
-  constructor(options) {
-    this.options = options;
-    this.options.scrollPositionRestoration ||= "disabled";
-    this.options.anchorScrolling ||= "disabled";
-  }
-  init() {
-    if (this.options.scrollPositionRestoration !== "disabled") {
-      this.viewportScroller.setHistoryScrollRestoration("manual");
-    }
-    this.routerEventsSubscription = this.createScrollEvents();
-    this.scrollEventsSubscription = this.consumeScrollEvents();
-  }
-  createScrollEvents() {
-    return this.transitions.events.subscribe((e) => {
-      if (e instanceof NavigationStart) {
-        this.store[this.lastId] = this.viewportScroller.getScrollPosition();
-        this.lastSource = e.navigationTrigger;
-        this.restoredId = e.restoredState ? e.restoredState.navigationId : 0;
-      } else if (e instanceof NavigationEnd) {
-        this.lastId = e.id;
-        this.scheduleScrollEvent(e, this.urlSerializer.parse(e.urlAfterRedirects).fragment);
-      } else if (e instanceof NavigationSkipped && e.code === NavigationSkippedCode.IgnoredSameUrlNavigation) {
-        this.lastSource = void 0;
-        this.restoredId = 0;
-        this.scheduleScrollEvent(e, this.urlSerializer.parse(e.url).fragment);
-      }
-    });
-  }
-  consumeScrollEvents() {
-    return this.transitions.events.subscribe((e) => {
-      if (!(e instanceof Scroll) || e.scrollBehavior === "manual") return;
-      const instantScroll = {
-        behavior: "instant"
-      };
-      if (e.position) {
-        if (this.options.scrollPositionRestoration === "top") {
-          this.viewportScroller.scrollToPosition([0, 0], instantScroll);
-        } else if (this.options.scrollPositionRestoration === "enabled") {
-          this.viewportScroller.scrollToPosition(e.position, instantScroll);
-        }
-      } else {
-        if (e.anchor && this.options.anchorScrolling === "enabled") {
-          this.viewportScroller.scrollToAnchor(e.anchor);
-        } else if (this.options.scrollPositionRestoration !== "disabled") {
-          this.viewportScroller.scrollToPosition([0, 0]);
-        }
-      }
-    });
-  }
-  scheduleScrollEvent(routerEvent, anchor) {
-    const scroll = untracked2(this.transitions.currentNavigation)?.extras.scroll;
-    this.zone.runOutsideAngular(() => __async(this, null, function* () {
-      yield new Promise((resolve) => {
-        setTimeout(resolve);
-        if (typeof requestAnimationFrame !== "undefined") {
-          requestAnimationFrame(resolve);
-        }
-      });
-      this.zone.run(() => {
-        this.transitions.events.next(new Scroll(routerEvent, this.lastSource === "popstate" ? this.store[this.restoredId] : null, anchor, scroll));
-      });
-    }));
-  }
-  ngOnDestroy() {
-    this.routerEventsSubscription?.unsubscribe();
-    this.scrollEventsSubscription?.unsubscribe();
-  }
-  static \u0275fac = function RouterScroller_Factory(__ngFactoryType__) {
-    \u0275\u0275invalidFactory();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _RouterScroller,
-    factory: _RouterScroller.\u0275fac
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterScroller, [{
-    type: Injectable
-  }], () => [{
-    type: void 0
-  }], null);
-})();
-var NavigationStateManager = class _NavigationStateManager extends StateManager {
-  injector = inject2(EnvironmentInjector);
-  navigation = inject2(PlatformNavigation);
-  inMemoryScrollingEnabled = inject2(ROUTER_SCROLLER, {
-    optional: true
-  }) !== null;
-  base = new URL(inject2(PlatformLocation).href).origin;
-  appRootURL = new URL(this.location.prepareExternalUrl?.("/") ?? "/", this.base).href;
-  precommitHandlerSupported = inject2(PRECOMMIT_HANDLER_SUPPORTED);
-  activeHistoryEntry = this.navigation.currentEntry;
-  currentNavigation = {};
-  nonRouterCurrentEntryChangeSubject = new Subject();
-  nonRouterEntryChangeListener;
-  get registered() {
-    return this.nonRouterEntryChangeListener !== void 0 && !this.nonRouterEntryChangeListener.closed;
-  }
-  constructor() {
-    super();
-    const navigateListener = (event) => {
-      this.handleNavigate(event);
-    };
-    this.navigation.addEventListener("navigate", navigateListener);
-    inject2(DestroyRef).onDestroy(() => this.navigation.removeEventListener("navigate", navigateListener));
-  }
-  registerNonRouterCurrentEntryChangeListener(listener) {
-    this.activeHistoryEntry = this.navigation.currentEntry;
-    this.nonRouterEntryChangeListener = this.nonRouterCurrentEntryChangeSubject.subscribe(({
-      path,
-      state: state2
-    }) => {
-      listener(path, state2, "popstate");
-    });
-    return this.nonRouterEntryChangeListener;
-  }
-  handleRouterEvent(e, transition2) {
-    return __async(this, null, function* () {
-      this.currentNavigation = __spreadProps(__spreadValues({}, this.currentNavigation), {
-        routerTransition: transition2
-      });
-      if (e instanceof NavigationStart) {
-        this.updateStateMemento();
-      } else if (e instanceof NavigationSkipped) {
-        this.finishNavigation();
-        this.commitTransition(transition2);
-      } else if (e instanceof RoutesRecognized) {
-        if (this.urlUpdateStrategy === "eager" && !transition2.extras.skipLocationChange) {
-          this.createNavigationForTransition(transition2);
-        }
-      } else if (e instanceof BeforeActivateRoutes) {
-        this.commitTransition(transition2);
-        if (this.urlUpdateStrategy === "deferred" && !transition2.extras.skipLocationChange) {
-          this.createNavigationForTransition(transition2);
-        }
-      } else if (e instanceof NavigationCancel || e instanceof NavigationError) {
-        void this.cancel(transition2, e);
-      } else if (e instanceof NavigationEnd) {
-        const {
-          resolveHandler,
-          removeAbortListener
-        } = this.currentNavigation;
-        this.currentNavigation = {};
-        removeAbortListener?.();
-        this.activeHistoryEntry = this.navigation.currentEntry;
-        afterNextRender({
-          read: () => resolveHandler?.()
-        }, {
-          injector: this.injector
-        });
-      }
-    });
-  }
-  createNavigationForTransition(transition2) {
-    const {
-      navigationEvent
-    } = this.currentNavigation;
-    if (navigationEvent && navigationEvent.navigationType === "traverse" && this.eventAndRouterDestinationsMatch(navigationEvent, transition2)) {
-      return;
-    }
-    this.currentNavigation.removeAbortListener?.();
-    const path = this.createBrowserPath(transition2);
-    this.navigate(path, transition2);
-  }
-  navigate(internalPath, transition2) {
-    const path = transition2.extras.skipLocationChange ? this.navigation.currentEntry.url : this.location.prepareExternalUrl(internalPath);
-    const state2 = __spreadProps(__spreadValues({}, transition2.extras.state), {
-      navigationId: transition2.id
-    });
-    const info = {
-      \u0275routerInfo: {
-        intercept: true
-      }
-    };
-    if (!this.navigation.transition && this.currentNavigation.navigationEvent) {
-      transition2.extras.replaceUrl = false;
-    }
-    const history = this.location.isCurrentPathEqualTo(path) || transition2.extras.replaceUrl || transition2.extras.skipLocationChange ? "replace" : "push";
-    handleResultRejections(this.navigation.navigate(path, {
-      state: state2,
-      history,
-      info
-    }));
-  }
-  finishNavigation() {
-    this.currentNavigation?.resolveHandler?.();
-    this.currentNavigation = {};
-  }
-  cancel(transition2, cause) {
-    return __async(this, null, function* () {
-      this.currentNavigation.rejectNavigateEvent?.();
-      const clearedState = {};
-      this.currentNavigation = clearedState;
-      if (isRedirectingEvent(cause)) {
-        return;
-      }
-      const isTraversalReset = this.canceledNavigationResolution === "computed" && this.navigation.currentEntry.key !== this.activeHistoryEntry.key;
-      this.resetInternalState(transition2.finalUrl, isTraversalReset);
-      if (this.navigation.currentEntry.id === this.activeHistoryEntry.id) {
-        return;
-      }
-      if (cause instanceof NavigationCancel && cause.code === NavigationCancellationCode.Aborted) {
-        yield Promise.resolve();
-        if (this.currentNavigation !== clearedState) {
-          return;
-        }
-      }
-      if (isTraversalReset) {
-        handleResultRejections(this.navigation.traverseTo(this.activeHistoryEntry.key, {
-          info: {
-            \u0275routerInfo: {
-              intercept: false
-            }
-          }
-        }));
-      } else {
-        const internalPath = this.urlSerializer.serialize(this.getCurrentUrlTree());
-        const pathOrUrl = this.location.prepareExternalUrl(internalPath);
-        handleResultRejections(this.navigation.navigate(pathOrUrl, {
-          state: this.activeHistoryEntry.getState(),
-          history: "replace",
-          info: {
-            \u0275routerInfo: {
-              intercept: false
-            }
-          }
-        }));
-      }
-    });
-  }
-  resetInternalState(finalUrl, traversalReset) {
-    this.routerState = this.stateMemento.routerState;
-    this.currentUrlTree = this.stateMemento.currentUrlTree;
-    this.rawUrlTree = traversalReset ? this.stateMemento.rawUrlTree : this.urlHandlingStrategy.merge(this.currentUrlTree, finalUrl ?? this.rawUrlTree);
-  }
-  handleNavigate(event) {
-    if (!event.canIntercept || event.navigationType === "reload") {
-      return;
-    }
-    const routerInfo = event?.info?.\u0275routerInfo;
-    if (routerInfo && !routerInfo.intercept) {
-      return;
-    }
-    const isTriggeredByRouterTransition = !!routerInfo;
-    if (!isTriggeredByRouterTransition) {
-      this.currentNavigation.routerTransition?.abort();
-      if (!this.registered) {
-        this.finishNavigation();
-        return;
-      }
-    }
-    this.currentNavigation = __spreadValues({}, this.currentNavigation);
-    this.currentNavigation.navigationEvent = event;
-    const abortHandler = () => {
-      this.currentNavigation.routerTransition?.abort();
-    };
-    event.signal.addEventListener("abort", abortHandler);
-    this.currentNavigation.removeAbortListener = () => event.signal.removeEventListener("abort", abortHandler);
-    let scroll = this.inMemoryScrollingEnabled ? "manual" : this.currentNavigation.routerTransition?.extras.scroll ?? "after-transition";
-    const interceptOptions = {
-      scroll
-    };
-    const {
-      promise: handlerPromise,
-      resolve: resolveHandler,
-      reject: rejectHandler
-    } = promiseWithResolvers();
-    this.currentNavigation.resolveHandler = () => {
-      this.currentNavigation.removeAbortListener?.();
-      resolveHandler();
-    };
-    this.currentNavigation.rejectNavigateEvent = () => {
-      this.currentNavigation.removeAbortListener?.();
-      rejectHandler();
-    };
-    handlerPromise.catch(() => {
-    });
-    interceptOptions.handler = () => handlerPromise;
-    event.intercept(interceptOptions);
-    if (!isTriggeredByRouterTransition) {
-      this.handleNavigateEventTriggeredOutsideRouterAPIs(event);
-    }
-  }
-  handleNavigateEventTriggeredOutsideRouterAPIs(event) {
-    const path = event.destination.url.substring(this.appRootURL.length - 1);
-    const state2 = event.destination.getState();
-    this.nonRouterCurrentEntryChangeSubject.next({
-      path,
-      state: state2
-    });
-  }
-  eventAndRouterDestinationsMatch(navigateEvent, transition2) {
-    const internalPath = this.createBrowserPath(transition2);
-    const eventDestination = new URL(navigateEvent.destination.url);
-    const routerDestination = this.location.prepareExternalUrl(internalPath);
-    return new URL(routerDestination, eventDestination.origin).href === eventDestination.href;
-  }
-  static \u0275fac = function NavigationStateManager_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _NavigationStateManager)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _NavigationStateManager,
-    factory: _NavigationStateManager.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(NavigationStateManager, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-function handleResultRejections(result) {
-  result.finished.catch(() => {
-  });
-  result.committed.catch(() => {
-  });
-  return result;
-}
-function rootRoute() {
-  return inject2(Router).routerState.root;
-}
-function routerFeature(kind, providers) {
-  return {
-    \u0275kind: kind,
-    \u0275providers: providers
-  };
-}
-var ROUTER_IS_PROVIDED = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "Router is provided" : "", {
-  factory: () => false
-});
-function getBootstrapListener() {
-  const injector = inject2(Injector);
-  return (bootstrappedComponentRef) => {
-    const ref = injector.get(ApplicationRef);
-    if (bootstrappedComponentRef !== ref.components[0]) {
-      return;
-    }
-    const router = injector.get(Router);
-    const bootstrapDone = injector.get(BOOTSTRAP_DONE);
-    if (injector.get(INITIAL_NAVIGATION) === 1) {
-      router.initialNavigation();
-    }
-    injector.get(ROUTER_PRELOADER, null, {
-      optional: true
-    })?.setUpPreloading();
-    injector.get(ROUTER_SCROLLER, null, {
-      optional: true
-    })?.init();
-    router.resetRootComponentType(ref.componentTypes[0]);
-    if (!bootstrapDone.closed) {
-      bootstrapDone.next();
-      bootstrapDone.complete();
-      bootstrapDone.unsubscribe();
-    }
-  };
-}
-var BOOTSTRAP_DONE = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "bootstrap done indicator" : "", {
-  factory: () => {
-    return new Subject();
-  }
-});
-var INITIAL_NAVIGATION = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "initial navigation" : "", {
-  factory: () => 1
-});
-function withEnabledBlockingInitialNavigation() {
-  const providers = [{
-    provide: IS_ENABLED_BLOCKING_INITIAL_NAVIGATION,
-    useValue: true
-  }, {
-    provide: INITIAL_NAVIGATION,
-    useValue: 0
-  }, provideAppInitializer(() => {
-    const injector = inject2(Injector);
-    const locationInitialized = injector.get(LOCATION_INITIALIZED, Promise.resolve());
-    return locationInitialized.then(() => {
-      return new Promise((resolve) => {
-        const router = injector.get(Router);
-        const bootstrapDone = injector.get(BOOTSTRAP_DONE);
-        afterNextNavigation(router, () => {
-          resolve(true);
-        });
-        injector.get(NavigationTransitions).afterPreactivation = () => {
-          resolve(true);
-          return bootstrapDone.closed ? of(void 0) : bootstrapDone;
-        };
-        router.initialNavigation();
-      });
-    });
-  })];
-  return routerFeature(2, providers);
-}
-function withDisabledInitialNavigation() {
-  const providers = [provideAppInitializer(() => {
-    inject2(Router).setUpLocationChangeListener();
-  }), {
-    provide: INITIAL_NAVIGATION,
-    useValue: 2
-  }];
-  return routerFeature(3, providers);
-}
-function withDebugTracing() {
-  let providers = [];
-  if (typeof ngDevMode === "undefined" || ngDevMode) {
-    providers = [{
-      provide: ENVIRONMENT_INITIALIZER,
-      multi: true,
-      useFactory: () => {
-        const router = inject2(Router);
-        return () => router.events.subscribe((e) => {
-          console.group?.(`Router Event: ${e.constructor.name}`);
-          console.log(stringifyEvent(e));
-          console.log(e);
-          console.groupEnd?.();
-        });
-      }
-    }];
-  } else {
-    providers = [];
-  }
-  return routerFeature(1, providers);
-}
-var ROUTER_PRELOADER = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "router preloader" : "");
-function withPreloading(preloadingStrategy) {
-  const providers = [{
-    provide: ROUTER_PRELOADER,
-    useExisting: RouterPreloader
-  }, {
-    provide: PreloadingStrategy,
-    useExisting: preloadingStrategy
-  }];
-  return routerFeature(0, providers);
-}
-function withComponentInputBinding() {
-  const providers = [RoutedComponentInputBinder, {
-    provide: INPUT_BINDER,
-    useExisting: RoutedComponentInputBinder
-  }];
-  return routerFeature(8, providers);
-}
-function withViewTransitions(options) {
-  performanceMarkFeature("NgRouterViewTransitions");
-  const providers = [{
-    provide: CREATE_VIEW_TRANSITION,
-    useValue: createViewTransition
-  }, {
-    provide: VIEW_TRANSITION_OPTIONS,
-    useValue: __spreadValues({
-      skipNextTransition: !!options?.skipInitialTransition
-    }, options)
-  }];
-  return routerFeature(9, providers);
-}
-var ROUTER_DIRECTIVES = [RouterOutlet, RouterLink, RouterLinkActive, \u0275EmptyOutletComponent];
-var ROUTER_FORROOT_GUARD = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "router duplicate forRoot guard" : "");
-var ROUTER_PROVIDERS = [Location, {
-  provide: UrlSerializer,
-  useClass: DefaultUrlSerializer
-}, Router, ChildrenOutletContexts, {
-  provide: ActivatedRoute,
-  useFactory: rootRoute
-}, RouterConfigLoader, typeof ngDevMode === "undefined" || ngDevMode ? {
-  provide: ROUTER_IS_PROVIDED,
-  useValue: true
-} : []];
-var RouterModule = class _RouterModule {
-  constructor() {
-    if (typeof ngDevMode === "undefined" || ngDevMode) {
-      inject2(ROUTER_FORROOT_GUARD, {
-        optional: true
-      });
-    }
-  }
-  static forRoot(routes2, config3) {
-    return {
-      ngModule: _RouterModule,
-      providers: [ROUTER_PROVIDERS, typeof ngDevMode === "undefined" || ngDevMode ? config3?.enableTracing ? withDebugTracing().\u0275providers : [] : [], {
-        provide: ROUTES,
-        multi: true,
-        useValue: routes2
-      }, typeof ngDevMode === "undefined" || ngDevMode ? {
-        provide: ROUTER_FORROOT_GUARD,
-        useFactory: provideForRootGuard
-      } : [], config3?.errorHandler ? {
-        provide: NAVIGATION_ERROR_HANDLER,
-        useValue: config3.errorHandler
-      } : [], {
-        provide: ROUTER_CONFIGURATION,
-        useValue: config3 ? config3 : {}
-      }, config3?.useHash ? provideHashLocationStrategy() : providePathLocationStrategy(), provideRouterScroller(), config3?.preloadingStrategy ? withPreloading(config3.preloadingStrategy).\u0275providers : [], config3?.initialNavigation ? provideInitialNavigation(config3) : [], config3?.bindToComponentInputs ? withComponentInputBinding().\u0275providers : [], config3?.enableViewTransitions ? withViewTransitions().\u0275providers : [], provideRouterInitializer()]
-    };
-  }
-  static forChild(routes2) {
-    return {
-      ngModule: _RouterModule,
-      providers: [{
-        provide: ROUTES,
-        multi: true,
-        useValue: routes2
-      }]
-    };
-  }
-  static \u0275fac = function RouterModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _RouterModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _RouterModule,
-    imports: [RouterOutlet, RouterLink, RouterLinkActive, \u0275EmptyOutletComponent],
-    exports: [RouterOutlet, RouterLink, RouterLinkActive, \u0275EmptyOutletComponent]
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({});
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterModule, [{
-    type: NgModule,
-    args: [{
-      imports: ROUTER_DIRECTIVES,
-      exports: ROUTER_DIRECTIVES
-    }]
-  }], () => [], null);
-})();
-function provideRouterScroller() {
-  return {
-    provide: ROUTER_SCROLLER,
-    useFactory: () => {
-      const viewportScroller = inject2(ViewportScroller);
-      const config3 = inject2(ROUTER_CONFIGURATION);
-      if (config3.scrollOffset) {
-        viewportScroller.setOffset(config3.scrollOffset);
-      }
-      return new RouterScroller(config3);
-    }
-  };
-}
-function provideHashLocationStrategy() {
-  return {
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  };
-}
-function providePathLocationStrategy() {
-  return {
-    provide: LocationStrategy,
-    useClass: PathLocationStrategy
-  };
-}
-function provideForRootGuard() {
-  const router = inject2(Router, {
-    optional: true,
-    skipSelf: true
-  });
-  if (router) {
-    throw new RuntimeError(4007, `The Router was provided more than once. This can happen if 'forRoot' is used outside of the root injector. Lazy loaded modules should use RouterModule.forChild() instead.`);
-  }
-  return "guarded";
-}
-function provideInitialNavigation(config3) {
-  return [config3.initialNavigation === "disabled" ? withDisabledInitialNavigation().\u0275providers : [], config3.initialNavigation === "enabledBlocking" ? withEnabledBlockingInitialNavigation().\u0275providers : []];
-}
-var ROUTER_INITIALIZER = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "Router Initializer" : "");
-function provideRouterInitializer() {
-  return [{
-    provide: ROUTER_INITIALIZER,
-    useFactory: getBootstrapListener
-  }, {
-    provide: APP_BOOTSTRAP_LISTENER,
-    multi: true,
-    useExisting: ROUTER_INITIALIZER
-  }];
-}
-
 // src/app/services/music.service.ts
 var MusicService = class _MusicService {
   constructor() {
@@ -37103,7 +31630,6 @@ var HeaderComponent = class _HeaderComponent {
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = "100%";
       document.body.style.height = "100%";
-      document.body.style.touchAction = "none";
       document.body.classList.add("menu-open");
     } else {
       const scrollY = document.body.style.top;
@@ -37112,7 +31638,6 @@ var HeaderComponent = class _HeaderComponent {
       document.body.style.top = "";
       document.body.style.width = "";
       document.body.style.height = "";
-      document.body.style.touchAction = "";
       document.body.classList.remove("menu-open");
       if (scrollY) {
         window.scrollTo(0, parseInt(scrollY || "0") * -1);
@@ -37127,7 +31652,6 @@ var HeaderComponent = class _HeaderComponent {
     document.body.style.top = "";
     document.body.style.width = "";
     document.body.style.height = "";
-    document.body.style.touchAction = "";
     document.body.classList.remove("menu-open");
     if (scrollY) {
       window.scrollTo(0, parseInt(scrollY || "0") * -1);
@@ -37272,7 +31796,7 @@ var HeaderComponent = class _HeaderComponent {
           return ctx.onWindowScroll();
         }, \u0275\u0275resolveWindow);
       }
-    }, decls: 47, vars: 10, consts: [["audioCanvas", ""], [1, "apple-header"], [1, "apple-nav"], [1, "apple-container"], [1, "nav-content"], [1, "nav-logo"], ["href", "#", 1, "logo-link"], [1, "logo-text"], [1, "nav-links"], ["href", "#about", 1, "nav-link", "smooth-scroll", 3, "click"], [1, "link-text"], ["href", "#experience", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#publications", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#blogs", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#open-source", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#skill", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#ai-quiz-game", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#education", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#contact", 1, "nav-link", "smooth-scroll", 3, "click"], [1, "music-controls"], ["title", "Toggle Piano Music", 1, "music-toggle", 3, "click"], [1, "music-emoji"], [1, "audio-visualizer"], ["width", "120", "height", "40", 1, "visualizer-canvas"], [1, "mobile-menu-btn", 3, "click"], [1, "hamburger-line"]], template: function HeaderComponent_Template(rf, ctx) {
+    }, decls: 47, vars: 12, consts: [["audioCanvas", ""], ["role", "banner", 1, "apple-header"], ["aria-label", "Main navigation", 1, "apple-nav"], [1, "apple-container"], [1, "nav-content"], [1, "nav-logo"], ["href", "#", 1, "logo-link"], [1, "logo-text"], [1, "nav-links"], ["href", "#about", 1, "nav-link", "smooth-scroll", 3, "click"], [1, "link-text"], ["href", "#experience", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#publications", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#blogs", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#open-source", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#skill", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#ai-quiz-game", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#education", 1, "nav-link", "smooth-scroll", 3, "click"], ["href", "#contact", 1, "nav-link", "smooth-scroll", 3, "click"], [1, "music-controls"], ["aria-label", "Toggle background music", 1, "music-toggle", 3, "click"], [1, "music-emoji"], [1, "audio-visualizer"], ["width", "120", "height", "40", 1, "visualizer-canvas"], ["aria-label", "Toggle navigation menu", 1, "mobile-menu-btn", 3, "click"], [1, "hamburger-line"]], template: function HeaderComponent_Template(rf, ctx) {
       if (rf & 1) {
         const _r1 = \u0275\u0275getCurrentView();
         \u0275\u0275domElementStart(0, "header", 1)(1, "nav", 2)(2, "div", 3)(3, "div", 4)(4, "div", 5)(5, "a", 6)(6, "span", 7);
@@ -37375,18 +31899,20 @@ var HeaderComponent = class _HeaderComponent {
         \u0275\u0275classProp("active", ctx.isMenuOpen);
         \u0275\u0275advance(29);
         \u0275\u0275classProp("playing", ctx.isPlaying);
+        \u0275\u0275attribute("aria-pressed", ctx.isPlaying);
         \u0275\u0275advance(3);
         \u0275\u0275classProp("active", ctx.isPlaying);
         \u0275\u0275advance(3);
         \u0275\u0275classProp("active", ctx.isMenuOpen);
+        \u0275\u0275attribute("aria-expanded", ctx.isMenuOpen);
       }
-    }, styles: ['\n\n.apple-header[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  transition: all var(--transition-normal);\n}\n.apple-header.scrolled[_ngcontent-%COMP%] {\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);\n}\n.apple-nav[_ngcontent-%COMP%] {\n  padding: var(--space-4) 0;\n}\n.nav-content[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.nav-logo[_ngcontent-%COMP%] {\n  z-index: 2;\n}\n.logo-link[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: var(--text-primary);\n  transition: all var(--transition-normal);\n}\n.logo-text[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.apple-header.scrolled[_ngcontent-%COMP%]   .logo-text[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--space-8);\n  align-items: center;\n}\n.nav-link[_ngcontent-%COMP%] {\n  position: relative;\n  text-decoration: none;\n  color: var(--text-primary);\n  font-family: var(--font-primary);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  padding: var(--space-2) var(--space-3);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.nav-link[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  width: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  transition: all var(--transition-normal);\n  transform: translateX(-50%);\n}\n.nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--primary-blue);\n}\n.nav-link[_ngcontent-%COMP%]:hover::before {\n  width: 100%;\n}\n.apple-header.scrolled[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n}\n.music-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n}\n.music-toggle[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 44px;\n  height: 44px;\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 50%;\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n  margin-right: 1rem;\n  position: relative;\n  overflow: hidden;\n}\n.music-toggle[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.1),\n      rgba(118, 75, 162, 0.1));\n  opacity: 0;\n  transition: opacity 0.3s ease;\n  border-radius: 50%;\n}\n.music-toggle[_ngcontent-%COMP%]:hover {\n  transform: scale(1.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.3);\n  background: rgba(255, 255, 255, 0.15);\n}\n.music-toggle[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.music-toggle[_ngcontent-%COMP%]:active {\n  transform: scale(0.95);\n}\n.music-toggle[_ngcontent-%COMP%]   .music-emoji[_ngcontent-%COMP%] {\n  font-size: 1.4rem;\n  transition: all 0.3s ease;\n  position: relative;\n  z-index: 1;\n  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));\n}\n.music-toggle.playing[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n  border-color: rgba(102, 126, 234, 0.4);\n  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);\n}\n.music-toggle.playing[_ngcontent-%COMP%]::before {\n  opacity: 1;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n}\n.music-toggle.playing[_ngcontent-%COMP%]   .music-emoji[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_musicPulse 2s ease-in-out infinite;\n  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));\n}\n@keyframes _ngcontent-%COMP%_musicPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.8;\n  }\n}\n.audio-visualizer[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 40px;\n  background: transparent;\n  border: 1px solid transparent;\n  border-radius: var(--radius-md);\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n  overflow: hidden;\n  opacity: 0;\n  transform: scale(0.8);\n  transition: all var(--transition-normal);\n}\n.audio-visualizer.active[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: scale(1);\n  background: rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.1);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n}\n.visualizer-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  border-radius: var(--radius-md);\n}\n.mobile-menu-btn[_ngcontent-%COMP%] {\n  display: none;\n  flex-direction: column;\n  justify-content: space-between;\n  width: 30px;\n  height: 24px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  z-index: 1000;\n  padding: 0;\n  position: relative;\n}\n.hamburger-line[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 3px;\n  background: var(--text-primary);\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  transform-origin: center;\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(1) {\n  transform: rotate(45deg) translate(6px, 6px);\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(3) {\n  transform: rotate(-45deg) translate(6px, -6px);\n}\n@media (max-width: 768px) {\n  .nav-links[_ngcontent-%COMP%] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.95);\n    backdrop-filter: blur(30px);\n    -webkit-backdrop-filter: blur(30px);\n    flex-direction: column;\n    justify-content: center;\n    gap: var(--space-8);\n    transform: translateX(-100%);\n    transition: transform var(--transition-normal);\n    z-index: 999;\n    display: flex !important;\n    visibility: visible !important;\n    pointer-events: auto;\n  }\n  .nav-links.active[_ngcontent-%COMP%] {\n    transform: translateX(0);\n    pointer-events: auto;\n  }\n  body.menu-open[_ngcontent-%COMP%] {\n    overflow: hidden;\n    position: fixed;\n    width: 100%;\n    height: 100%;\n  }\n  .mobile-menu-btn[_ngcontent-%COMP%] {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n  }\n  .nav-link[_ngcontent-%COMP%] {\n    font-size: var(--text-xl);\n    padding: var(--space-4);\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n    cursor: pointer;\n  }\n  .nav-link[_ngcontent-%COMP%]::before {\n    display: none;\n  }\n  .nav-link[_ngcontent-%COMP%]:hover {\n    background: rgba(255, 255, 255, 0.1);\n    border-radius: var(--radius-lg);\n  }\n  .nav-link[_ngcontent-%COMP%]:active {\n    background: rgba(255, 255, 255, 0.2);\n  }\n  .music-toggle[_ngcontent-%COMP%] {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    margin-right: 0.5rem;\n  }\n}\n@keyframes _ngcontent-%COMP%_gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand[_ngcontent-%COMP%] {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand[_ngcontent-%COMP%]:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%] {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover::after {\n  width: 80%;\n}\n.navbar-toggler[_ngcontent-%COMP%] {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler[_ngcontent-%COMP%]:focus {\n  box-shadow: none;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar[_ngcontent-%COMP%] {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar1[_ngcontent-%COMP%] {\n  width: 25px;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar2[_ngcontent-%COMP%] {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar3[_ngcontent-%COMP%] {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler[_ngcontent-%COMP%]:hover   .navbar-toggler-bar[_ngcontent-%COMP%] {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse[_ngcontent-%COMP%] {\n    background: rgba(255, 255, 255, 0.1);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%] {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar[_ngcontent-%COMP%] {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */'] });
+    }, styles: ['\n\n.apple-header[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  transition: all var(--transition-normal);\n}\n.apple-header.scrolled[_ngcontent-%COMP%] {\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);\n}\n.apple-nav[_ngcontent-%COMP%] {\n  padding: var(--space-4) 0;\n}\n.nav-content[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.nav-logo[_ngcontent-%COMP%] {\n  z-index: 2;\n}\n.logo-link[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: var(--text-primary);\n  transition: all var(--transition-normal);\n}\n.logo-text[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.apple-header.scrolled[_ngcontent-%COMP%]   .logo-text[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--space-8);\n  align-items: center;\n}\n.nav-link[_ngcontent-%COMP%] {\n  position: relative;\n  text-decoration: none;\n  color: var(--text-primary);\n  font-family: var(--font-primary);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  padding: var(--space-2) var(--space-3);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.nav-link[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  width: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  transition: all var(--transition-normal);\n  transform: translateX(-50%);\n}\n.nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--primary-blue);\n}\n.nav-link[_ngcontent-%COMP%]:hover::before {\n  width: 100%;\n}\n.apple-header.scrolled[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n}\n.music-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n}\n.music-toggle[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 44px;\n  height: 44px;\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 50%;\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n  margin-right: 1rem;\n  position: relative;\n  overflow: hidden;\n}\n.music-toggle[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.1),\n      rgba(118, 75, 162, 0.1));\n  opacity: 0;\n  transition: opacity 0.3s ease;\n  border-radius: 50%;\n}\n.music-toggle[_ngcontent-%COMP%]:hover {\n  transform: scale(1.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.3);\n  background: rgba(255, 255, 255, 0.15);\n}\n.music-toggle[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.music-toggle[_ngcontent-%COMP%]:active {\n  transform: scale(0.95);\n}\n.music-toggle[_ngcontent-%COMP%]   .music-emoji[_ngcontent-%COMP%] {\n  font-size: 1.4rem;\n  transition: all 0.3s ease;\n  position: relative;\n  z-index: 1;\n  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));\n}\n.music-toggle.playing[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n  border-color: rgba(102, 126, 234, 0.4);\n  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);\n}\n.music-toggle.playing[_ngcontent-%COMP%]::before {\n  opacity: 1;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n}\n.music-toggle.playing[_ngcontent-%COMP%]   .music-emoji[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_musicPulse 2s ease-in-out infinite;\n  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));\n}\n@keyframes _ngcontent-%COMP%_musicPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.8;\n  }\n}\n.audio-visualizer[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 40px;\n  background: transparent;\n  border: 1px solid transparent;\n  border-radius: var(--radius-md);\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n  overflow: hidden;\n  opacity: 0;\n  transform: scale(0.8);\n  transition: all var(--transition-normal);\n}\n.audio-visualizer.active[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: scale(1);\n  background: rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.1);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n}\n.visualizer-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  border-radius: var(--radius-md);\n}\n.mobile-menu-btn[_ngcontent-%COMP%] {\n  display: none;\n  flex-direction: column;\n  justify-content: space-between;\n  width: 30px;\n  height: 24px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  z-index: 1000;\n  padding: 0;\n  position: relative;\n}\n.hamburger-line[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 3px;\n  background: var(--text-primary);\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  transform-origin: center;\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(1) {\n  transform: rotate(45deg) translate(6px, 6px);\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(3) {\n  transform: rotate(-45deg) translate(6px, -6px);\n}\n@media (max-width: 768px) {\n  .nav-links[_ngcontent-%COMP%] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.95);\n    backdrop-filter: blur(30px);\n    -webkit-backdrop-filter: blur(30px);\n    flex-direction: column;\n    justify-content: flex-start;\n    align-items: center;\n    gap: var(--space-8);\n    padding: 6rem 1.5rem 3rem;\n    overflow-y: auto;\n    -webkit-overflow-scrolling: touch;\n    transform: translateX(-100%);\n    transition: transform var(--transition-normal);\n    z-index: 999;\n    display: flex !important;\n    visibility: visible !important;\n    pointer-events: auto;\n  }\n  .nav-links.active[_ngcontent-%COMP%] {\n    transform: translateX(0);\n    pointer-events: auto;\n  }\n  body.menu-open[_ngcontent-%COMP%] {\n    overflow: hidden;\n    position: fixed;\n    width: 100%;\n    height: 100%;\n  }\n  .mobile-menu-btn[_ngcontent-%COMP%] {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n  }\n  .nav-link[_ngcontent-%COMP%] {\n    font-size: var(--text-xl);\n    padding: var(--space-4);\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n    cursor: pointer;\n  }\n  .nav-link[_ngcontent-%COMP%]::before {\n    display: none;\n  }\n  .nav-link[_ngcontent-%COMP%]:hover {\n    background: rgba(255, 255, 255, 0.1);\n    border-radius: var(--radius-lg);\n  }\n  .nav-link[_ngcontent-%COMP%]:active {\n    background: rgba(255, 255, 255, 0.2);\n  }\n  .music-toggle[_ngcontent-%COMP%] {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    margin-right: 0.5rem;\n  }\n}\n@keyframes _ngcontent-%COMP%_gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand[_ngcontent-%COMP%] {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand[_ngcontent-%COMP%]:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%] {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover::after {\n  width: 80%;\n}\n.navbar-toggler[_ngcontent-%COMP%] {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler[_ngcontent-%COMP%]:focus {\n  box-shadow: none;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar[_ngcontent-%COMP%] {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar1[_ngcontent-%COMP%] {\n  width: 25px;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar2[_ngcontent-%COMP%] {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler[_ngcontent-%COMP%]   .navbar-toggler-bar.bar3[_ngcontent-%COMP%] {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler[_ngcontent-%COMP%]:hover   .navbar-toggler-bar[_ngcontent-%COMP%] {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse[_ngcontent-%COMP%] {\n    background: rgba(255, 255, 255, 0.1);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%] {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%] {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav[_ngcontent-%COMP%]   .nav-item[_ngcontent-%COMP%]   .nav-link[_ngcontent-%COMP%]:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar[_ngcontent-%COMP%] {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: _ngcontent-%COMP%_gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HeaderComponent, [{
     type: Component,
-    args: [{ selector: "app-header", standalone: true, template: '<header class="apple-header" [class.scrolled]="isScrolled">\n  <nav class="apple-nav">\n    <div class="apple-container">\n      <div class="nav-content">\n        <!-- Logo -->\n        <div class="nav-logo">\n          <a href="#" class="logo-link">\n            <span class="logo-text">Ankit Sharma</span>\n          </a>\n        </div>\n        \n        <!-- Navigation Links -->\n        <div class="nav-links" [class.active]="isMenuOpen">\n          <a href="#about" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">About</span>\n          </a>\n          <a href="#experience" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Experience</span>\n          </a>\n          <a href="#publications" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Projects</span>\n          </a>\n          <a href="#blogs" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Blogs</span>\n          </a>\n          <a href="#open-source" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Open Source</span>\n          </a>\n          <a href="#skill" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Skills</span>\n          </a>\n                    <a href="#ai-quiz-game" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">AI Quiz</span>\n          </a>\n          <a href="#education" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Education</span>\n          </a>\n          <a href="#contact" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Contact</span>\n          </a>\n        </div>\n        \n        <!-- Music Controls -->\n        <div class="music-controls">\n          <!-- Music Toggle -->\n          <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying" title="Toggle Piano Music">\n            <span class="music-emoji">\u{1F3B5}</span>\n          </button>\n          \n          <!-- Audio Visualizer -->\n          <div class="audio-visualizer" [class.active]="isPlaying">\n            <canvas #audioCanvas class="visualizer-canvas" width="120" height="40"></canvas>\n          </div>\n        </div>\n        \n        <!-- Mobile Menu Button -->\n        <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen">\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n        </button>\n      </div>\n    </div>\n  </nav>\n</header>\n\n', styles: ['/* src/app/profile/header/header.component.scss */\n.apple-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  transition: all var(--transition-normal);\n}\n.apple-header.scrolled {\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);\n}\n.apple-nav {\n  padding: var(--space-4) 0;\n}\n.nav-content {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.nav-logo {\n  z-index: 2;\n}\n.logo-link {\n  text-decoration: none;\n  color: var(--text-primary);\n  transition: all var(--transition-normal);\n}\n.logo-text {\n  font-family: var(--font-display);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.apple-header.scrolled .logo-text {\n  color: var(--text-primary);\n}\n.nav-links {\n  display: flex;\n  gap: var(--space-8);\n  align-items: center;\n}\n.nav-link {\n  position: relative;\n  text-decoration: none;\n  color: var(--text-primary);\n  font-family: var(--font-primary);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  padding: var(--space-2) var(--space-3);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.nav-link::before {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  width: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  transition: all var(--transition-normal);\n  transform: translateX(-50%);\n}\n.nav-link:hover {\n  color: var(--primary-blue);\n}\n.nav-link:hover::before {\n  width: 100%;\n}\n.apple-header.scrolled .nav-link {\n  color: var(--text-primary);\n}\n.music-controls {\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n}\n.music-toggle {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 44px;\n  height: 44px;\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 50%;\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n  margin-right: 1rem;\n  position: relative;\n  overflow: hidden;\n}\n.music-toggle::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.1),\n      rgba(118, 75, 162, 0.1));\n  opacity: 0;\n  transition: opacity 0.3s ease;\n  border-radius: 50%;\n}\n.music-toggle:hover {\n  transform: scale(1.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.3);\n  background: rgba(255, 255, 255, 0.15);\n}\n.music-toggle:hover::before {\n  opacity: 1;\n}\n.music-toggle:active {\n  transform: scale(0.95);\n}\n.music-toggle .music-emoji {\n  font-size: 1.4rem;\n  transition: all 0.3s ease;\n  position: relative;\n  z-index: 1;\n  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));\n}\n.music-toggle.playing {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n  border-color: rgba(102, 126, 234, 0.4);\n  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);\n}\n.music-toggle.playing::before {\n  opacity: 1;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n}\n.music-toggle.playing .music-emoji {\n  animation: musicPulse 2s ease-in-out infinite;\n  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));\n}\n@keyframes musicPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.8;\n  }\n}\n.audio-visualizer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 40px;\n  background: transparent;\n  border: 1px solid transparent;\n  border-radius: var(--radius-md);\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n  overflow: hidden;\n  opacity: 0;\n  transform: scale(0.8);\n  transition: all var(--transition-normal);\n}\n.audio-visualizer.active {\n  opacity: 1;\n  transform: scale(1);\n  background: rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.1);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n}\n.visualizer-canvas {\n  width: 100%;\n  height: 100%;\n  border-radius: var(--radius-md);\n}\n.mobile-menu-btn {\n  display: none;\n  flex-direction: column;\n  justify-content: space-between;\n  width: 30px;\n  height: 24px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  z-index: 1000;\n  padding: 0;\n  position: relative;\n}\n.hamburger-line {\n  width: 100%;\n  height: 3px;\n  background: var(--text-primary);\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  transform-origin: center;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(1) {\n  transform: rotate(45deg) translate(6px, 6px);\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(3) {\n  transform: rotate(-45deg) translate(6px, -6px);\n}\n@media (max-width: 768px) {\n  .nav-links {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.95);\n    backdrop-filter: blur(30px);\n    -webkit-backdrop-filter: blur(30px);\n    flex-direction: column;\n    justify-content: center;\n    gap: var(--space-8);\n    transform: translateX(-100%);\n    transition: transform var(--transition-normal);\n    z-index: 999;\n    display: flex !important;\n    visibility: visible !important;\n    pointer-events: auto;\n  }\n  .nav-links.active {\n    transform: translateX(0);\n    pointer-events: auto;\n  }\n  body.menu-open {\n    overflow: hidden;\n    position: fixed;\n    width: 100%;\n    height: 100%;\n  }\n  .mobile-menu-btn {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n  }\n  .nav-link {\n    font-size: var(--text-xl);\n    padding: var(--space-4);\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n    cursor: pointer;\n  }\n  .nav-link::before {\n    display: none;\n  }\n  .nav-link:hover {\n    background: rgba(255, 255, 255, 0.1);\n    border-radius: var(--radius-lg);\n  }\n  .nav-link:active {\n    background: rgba(255, 255, 255, 0.2);\n  }\n  .music-toggle {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    margin-right: 0.5rem;\n  }\n}\n@keyframes gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav .nav-item {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav .nav-item .nav-link {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav .nav-item .nav-link:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav .nav-item .nav-link:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav .nav-item .nav-link::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav .nav-item .nav-link:hover::after {\n  width: 80%;\n}\n.navbar-toggler {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler:focus {\n  box-shadow: none;\n}\n.navbar-toggler .navbar-toggler-bar {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler .navbar-toggler-bar.bar1 {\n  width: 25px;\n}\n.navbar-toggler .navbar-toggler-bar.bar2 {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler .navbar-toggler-bar.bar3 {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler:hover .navbar-toggler-bar {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse {\n    background: rgba(255, 255, 255, 0.1);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav .nav-item {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav .nav-item .nav-link {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav .nav-item .nav-link:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */\n'] }]
+    args: [{ selector: "app-header", standalone: true, template: '<header class="apple-header" [class.scrolled]="isScrolled" role="banner">\n  <nav class="apple-nav" aria-label="Main navigation">\n    <div class="apple-container">\n      <div class="nav-content">\n        <!-- Logo -->\n        <div class="nav-logo">\n          <a href="#" class="logo-link">\n            <span class="logo-text">Ankit Sharma</span>\n          </a>\n        </div>\n        \n        <!-- Navigation Links -->\n        <div class="nav-links" [class.active]="isMenuOpen">\n          <a href="#about" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">About</span>\n          </a>\n          <a href="#experience" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Experience</span>\n          </a>\n          <a href="#publications" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Projects</span>\n          </a>\n          <a href="#blogs" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Blogs</span>\n          </a>\n          <a href="#open-source" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Open Source</span>\n          </a>\n          <a href="#skill" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Skills</span>\n          </a>\n                    <a href="#ai-quiz-game" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">AI Quiz</span>\n          </a>\n          <a href="#education" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Education</span>\n          </a>\n          <a href="#contact" class="nav-link smooth-scroll" (click)="onNavLinkClick()">\n            <span class="link-text">Contact</span>\n          </a>\n        </div>\n        \n        <!-- Music Controls -->\n        <div class="music-controls">\n          <!-- Music Toggle -->\n          <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying"\n            [attr.aria-pressed]="isPlaying" aria-label="Toggle background music">\n            <span class="music-emoji">\u{1F3B5}</span>\n          </button>\n          \n          <!-- Audio Visualizer -->\n          <div class="audio-visualizer" [class.active]="isPlaying">\n            <canvas #audioCanvas class="visualizer-canvas" width="120" height="40"></canvas>\n          </div>\n        </div>\n        \n        <!-- Mobile Menu Button -->\n        <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen"\n          [attr.aria-expanded]="isMenuOpen" aria-label="Toggle navigation menu">\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n          <span class="hamburger-line"></span>\n        </button>\n      </div>\n    </div>\n  </nav>\n</header>\n\n', styles: ['/* src/app/profile/header/header.component.scss */\n.apple-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  transition: all var(--transition-normal);\n}\n.apple-header.scrolled {\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);\n}\n.apple-nav {\n  padding: var(--space-4) 0;\n}\n.nav-content {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.nav-logo {\n  z-index: 2;\n}\n.logo-link {\n  text-decoration: none;\n  color: var(--text-primary);\n  transition: all var(--transition-normal);\n}\n.logo-text {\n  font-family: var(--font-display);\n  font-size: var(--text-xl);\n  font-weight: var(--font-bold);\n  color: var(--text-primary);\n  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.apple-header.scrolled .logo-text {\n  color: var(--text-primary);\n}\n.nav-links {\n  display: flex;\n  gap: var(--space-8);\n  align-items: center;\n}\n.nav-link {\n  position: relative;\n  text-decoration: none;\n  color: var(--text-primary);\n  font-family: var(--font-primary);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  padding: var(--space-2) var(--space-3);\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.nav-link::before {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  width: 0;\n  height: 2px;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  transition: all var(--transition-normal);\n  transform: translateX(-50%);\n}\n.nav-link:hover {\n  color: var(--primary-blue);\n}\n.nav-link:hover::before {\n  width: 100%;\n}\n.apple-header.scrolled .nav-link {\n  color: var(--text-primary);\n}\n.music-controls {\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n}\n.music-toggle {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 44px;\n  height: 44px;\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: 50%;\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n  margin-right: 1rem;\n  position: relative;\n  overflow: hidden;\n}\n.music-toggle::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.1),\n      rgba(118, 75, 162, 0.1));\n  opacity: 0;\n  transition: opacity 0.3s ease;\n  border-radius: 50%;\n}\n.music-toggle:hover {\n  transform: scale(1.1);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.3);\n  background: rgba(255, 255, 255, 0.15);\n}\n.music-toggle:hover::before {\n  opacity: 1;\n}\n.music-toggle:active {\n  transform: scale(0.95);\n}\n.music-toggle .music-emoji {\n  font-size: 1.4rem;\n  transition: all 0.3s ease;\n  position: relative;\n  z-index: 1;\n  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));\n}\n.music-toggle.playing {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n  border-color: rgba(102, 126, 234, 0.4);\n  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);\n}\n.music-toggle.playing::before {\n  opacity: 1;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(102, 126, 234, 0.2),\n      rgba(118, 75, 162, 0.2));\n}\n.music-toggle.playing .music-emoji {\n  animation: musicPulse 2s ease-in-out infinite;\n  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));\n}\n@keyframes musicPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.8;\n  }\n}\n.audio-visualizer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 120px;\n  height: 40px;\n  background: transparent;\n  border: 1px solid transparent;\n  border-radius: var(--radius-md);\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n  overflow: hidden;\n  opacity: 0;\n  transform: scale(0.8);\n  transition: all var(--transition-normal);\n}\n.audio-visualizer.active {\n  opacity: 1;\n  transform: scale(1);\n  background: rgba(0, 0, 0, 0.2);\n  border-color: rgba(255, 255, 255, 0.1);\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n}\n.visualizer-canvas {\n  width: 100%;\n  height: 100%;\n  border-radius: var(--radius-md);\n}\n.mobile-menu-btn {\n  display: none;\n  flex-direction: column;\n  justify-content: space-between;\n  width: 30px;\n  height: 24px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  z-index: 1000;\n  padding: 0;\n  position: relative;\n}\n.hamburger-line {\n  width: 100%;\n  height: 3px;\n  background: var(--text-primary);\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  transform-origin: center;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(1) {\n  transform: rotate(45deg) translate(6px, 6px);\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(3) {\n  transform: rotate(-45deg) translate(6px, -6px);\n}\n@media (max-width: 768px) {\n  .nav-links {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.95);\n    backdrop-filter: blur(30px);\n    -webkit-backdrop-filter: blur(30px);\n    flex-direction: column;\n    justify-content: flex-start;\n    align-items: center;\n    gap: var(--space-8);\n    padding: 6rem 1.5rem 3rem;\n    overflow-y: auto;\n    -webkit-overflow-scrolling: touch;\n    transform: translateX(-100%);\n    transition: transform var(--transition-normal);\n    z-index: 999;\n    display: flex !important;\n    visibility: visible !important;\n    pointer-events: auto;\n  }\n  .nav-links.active {\n    transform: translateX(0);\n    pointer-events: auto;\n  }\n  body.menu-open {\n    overflow: hidden;\n    position: fixed;\n    width: 100%;\n    height: 100%;\n  }\n  .mobile-menu-btn {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n  }\n  .nav-link {\n    font-size: var(--text-xl);\n    padding: var(--space-4);\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    pointer-events: auto;\n    cursor: pointer;\n  }\n  .nav-link::before {\n    display: none;\n  }\n  .nav-link:hover {\n    background: rgba(255, 255, 255, 0.1);\n    border-radius: var(--radius-lg);\n  }\n  .nav-link:active {\n    background: rgba(255, 255, 255, 0.2);\n  }\n  .music-toggle {\n    display: flex !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n    margin-right: 0.5rem;\n  }\n}\n@keyframes gradientShift {\n  0% {\n    background-position: 0% 50%;\n  }\n  50% {\n    background-position: 100% 50%;\n  }\n  100% {\n    background-position: 0% 50%;\n  }\n}\n.navbar-brand {\n  color: var(--white) !important;\n  font-family: var(--font-secondary);\n  font-weight: 700;\n  font-size: 1.5rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  transition: all var(--transition-normal);\n}\n.navbar-brand:hover {\n  color: var(--white) !important;\n  transform: translateY(-1px);\n  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n.navbar-nav .nav-item {\n  margin: 0 var(--spacing-sm);\n}\n.navbar-nav .nav-item .nav-link {\n  color: var(--white) !important;\n  font-weight: 500;\n  font-size: 1rem;\n  padding: var(--spacing-sm) var(--spacing-md) !important;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  position: relative;\n}\n.navbar-nav .nav-item .nav-link:hover {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.1);\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-sm);\n}\n.navbar-nav .nav-item .nav-link:focus {\n  color: var(--white) !important;\n  background: rgba(255, 255, 255, 0.15);\n}\n.navbar-nav .nav-item .nav-link::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 0;\n  height: 2px;\n  background: var(--white);\n  transition: width var(--transition-normal);\n  border-radius: 1px;\n}\n.navbar-nav .nav-item .nav-link:hover::after {\n  width: 80%;\n}\n.navbar-toggler {\n  border: none;\n  padding: 0;\n}\n.navbar-toggler:focus {\n  box-shadow: none;\n}\n.navbar-toggler .navbar-toggler-bar {\n  background: var(--white) !important;\n  height: 3px;\n  border-radius: 2px;\n  transition: all var(--transition-normal);\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n}\n.navbar-toggler .navbar-toggler-bar.bar1 {\n  width: 25px;\n}\n.navbar-toggler .navbar-toggler-bar.bar2 {\n  width: 20px;\n  margin-top: 4px;\n}\n.navbar-toggler .navbar-toggler-bar.bar3 {\n  width: 15px;\n  margin-top: 4px;\n}\n.navbar-toggler:hover .navbar-toggler-bar {\n  background: var(--white) !important;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);\n}\n@media (max-width: 991px) {\n  .navbar-collapse {\n    background: rgba(255, 255, 255, 0.1);\n    backdrop-filter: blur(10px);\n    border-radius: var(--radius-lg);\n    margin-top: var(--spacing-md);\n    padding: var(--spacing-md);\n    box-shadow: var(--shadow-lg);\n  }\n  .navbar-nav .nav-item {\n    margin: var(--spacing-xs) 0;\n  }\n  .navbar-nav .nav-item .nav-link {\n    text-align: center;\n    padding: var(--spacing-md) !important;\n    border-radius: var(--radius-md);\n  }\n  .navbar-nav .nav-item .nav-link:hover {\n    background: rgba(255, 255, 255, 0.2);\n  }\n}\n.navbar {\n  animation: fadeInDown 0.6s ease-out;\n}\n.navbar.bg-primary {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n.navbar.navbar-transparent {\n  background:\n    linear-gradient(\n      -45deg,\n      #4c63d2,\n      #5a3f8a,\n      #d17ee8,\n      #d13d5a,\n      #3d8be8,\n      #00d4d4) !important;\n  background-size: 400% 400% !important;\n  animation: gradientShift 15s ease infinite;\n}\n/*# sourceMappingURL=header.component.css.map */\n'] }]
   }], () => [{ type: MusicService }], { audioCanvas: [{
     type: ViewChild,
     args: ["audioCanvas", { static: true }]
@@ -37399,14 +31925,63 @@ var HeaderComponent = class _HeaderComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HeaderComponent, { className: "HeaderComponent", filePath: "src/app/profile/header/header.component.ts", lineNumber: 10 });
 })();
 
+// src/app/config/profile-links.ts
+var SOCIAL_LINKS = {
+  linkedin: "https://www.linkedin.com/in/ankit-sharma-5b1b35158/",
+  github: "https://github.com/beingmartinbmc",
+  stackOverflow: "https://stackoverflow.com/users/7972621/ankit-sharma"
+};
+var DOCUMENT_LINKS = {
+  resume: "https://drive.google.com/file/d/1Xkef0oWDOhrktcCD6T67ObXp25Rx8AYq/view?usp=drive_link",
+  coverLetter: "https://drive.google.com/file/d/1-TqW3YrJQWNsmY6kiKb-w7hl1LNxTkh3/view?usp=sharing"
+};
+var PROJECT_LINKS = {
+  portfolio: "https://beingmartinbmc.github.io/portfolio/",
+  algorithmVisualizer: "https://beingmartinbmc.github.io/algorithm-visualizer/",
+  religiousGpt: "https://beingmartinbmc.github.io/epic/",
+  dateSense: "https://beingmartinbmc.github.io/DateSense/#/"
+};
+var BLOG_LINKS = {
+  fortressOfFairPlay: "https://medium.com/@Games24x7Tech/fortress-of-fair-play-stopping-frauds-at-games24x7-7e8b928266b5",
+  neptuneNavigator: "https://medium.com/@Games24x7Tech/neptune-navigator-navigating-performance-challenges-2daad0155d61",
+  trustMeetsGameplay: "https://medium.com/@Games24x7Tech/games24x7-where-trust-meets-gameplay-f477bb8715f3"
+};
+var PACKAGE_LINKS = {
+  nodeActuatorLite: "https://www.npmjs.com/package/node-actuator-lite",
+  nodeRequestTrace: "https://www.npmjs.com/package/node-request-trace",
+  nodeEventloopWatchdog: "https://www.npmjs.com/package/node-eventloop-watchdog",
+  memeAsAService: "https://www.npmjs.com/package/meme-as-a-service",
+  roastcode: "https://www.npmjs.com/package/roastcode",
+  readmeCinema: "https://www.npmjs.com/package/readme-cinema",
+  eli5: "https://central.sonatype.com/artifact/io.github.beingmartinbmc/eli5/1.0.1/overview",
+  gitHistoryUi: "https://www.npmjs.com/package/git-history-ui"
+};
+var CONTACT_LINKS = {
+  formspree: "https://formspree.io/f/mbjpqzgz",
+  email: "ankit.sharma199803@gmail.com"
+};
+var ANALYTICS_LINKS = {
+  flagCounterPage: "https://s05.flagcounter.com/more/hZ3l/",
+  flagCounterPixel: "https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"
+};
+var COMPANY_LINKS = {
+  salesforce: "https://www.salesforce.com/",
+  games24x7: "https://www.games24x7.com/",
+  walmart: "https://one.walmart.com/content/globaltechindia/en_in.html",
+  extramarks: "https://www.extramarks.com/"
+};
+
 // src/app/profile/footer/footer.component.ts
 var FooterComponent = class _FooterComponent {
+  constructor() {
+    this.analyticsLinks = ANALYTICS_LINKS;
+  }
   ngOnInit() {
     this.incrementFlagCounter();
   }
   incrementFlagCounter() {
     const img = new Image();
-    img.src = "https://s04.flagcounter.com/count2/hZ3l/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/";
+    img.src = ANALYTICS_LINKS.flagCounterPixel;
   }
   static {
     this.\u0275fac = function FooterComponent_Factory(__ngFactoryType__) {
@@ -37414,7 +31989,7 @@ var FooterComponent = class _FooterComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 13, vars: 0, consts: [[1, "footer-section"], [1, "footer-container"], ["data-anim", "fade-up", "data-duration", "1000", 1, "footer-content"], [1, "footer-text"], [1, "portfolio-analytics"], [1, "analytics-item"], ["href", "https://s05.flagcounter.com/more/hZ3l/", "target", "_blank", 1, "analytics-link"], [1, "analytics-icon"], [1, "analytics-text"]], template: function FooterComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 13, vars: 1, consts: [[1, "footer-section"], [1, "footer-container"], ["data-anim", "fade-up", "data-duration", "1000", 1, "footer-content"], [1, "footer-text"], [1, "portfolio-analytics"], [1, "analytics-item"], ["target", "_blank", 1, "analytics-link", 3, "href"], [1, "analytics-icon"], [1, "analytics-text"]], template: function FooterComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "footer", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3)(4, "p");
         \u0275\u0275text(5, "\xA9 2025 Ankit. Made with passion and creativity. Powered by Love and AI.");
@@ -37426,17 +32001,21 @@ var FooterComponent = class _FooterComponent {
         \u0275\u0275text(12, "View Analytics");
         \u0275\u0275domElementEnd()()()()()()()();
       }
+      if (rf & 2) {
+        \u0275\u0275advance(8);
+        \u0275\u0275domProperty("href", ctx.analyticsLinks.flagCounterPage, \u0275\u0275sanitizeUrl);
+      }
     }, styles: ['\n\n.footer-section[_ngcontent-%COMP%] {\n  background: var(--bg-primary);\n  padding: 4rem 0 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-container[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n}\n.footer-content[_ngcontent-%COMP%] {\n  text-align: center;\n  padding-top: 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-text[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0.5rem 0;\n  color: var(--text-secondary);\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.portfolio-analytics[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 1rem;\n  margin-top: 1.5rem;\n  flex-wrap: wrap;\n}\n.analytics-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n}\n.analytics-link[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.75rem 1.25rem;\n  background: var(--bg-secondary);\n  border-radius: 12px;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-size: 0.9rem;\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.analytics-link[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.analytics-icon[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  filter: brightness(1.1);\n}\n.analytics-text[_ngcontent-%COMP%] {\n  font-weight: 500;\n  letter-spacing: 0.5px;\n}\n@media (max-width: 768px) {\n  .footer-container[_ngcontent-%COMP%] {\n    padding: 0 1rem;\n  }\n  .portfolio-analytics[_ngcontent-%COMP%] {\n    gap: 0.75rem;\n  }\n  .analytics-link[_ngcontent-%COMP%] {\n    padding: 0.625rem 1rem;\n    font-size: 0.875rem;\n  }\n}\n@media (max-width: 480px) {\n  .portfolio-analytics[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: 0.5rem;\n  }\n  .analytics-link[_ngcontent-%COMP%] {\n    padding: 0.5rem 0.875rem;\n    font-size: 0.8rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FooterComponent, [{
     type: Component,
-    args: [{ selector: "app-footer", standalone: true, imports: [], template: '<footer class="footer-section">\n  <div class="footer-container">\n    <div class="footer-content" data-anim="fade-up" data-duration="1000">\n      <div class="footer-text">\n        <p>&copy; 2025 Ankit. Made with passion and creativity. Powered by Love and AI.</p>\n        \n        <!-- Portfolio Analytics -->\n        <div class="portfolio-analytics">\n          <div class="analytics-item">\n            <a href="https://s05.flagcounter.com/more/hZ3l/" target="_blank" class="analytics-link">\n              <span class="analytics-icon">\u{1F4CA}</span>\n              <span class="analytics-text">View Analytics</span>\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</footer>\n', styles: ['/* src/app/profile/footer/footer.component.scss */\n.footer-section {\n  background: var(--bg-primary);\n  padding: 4rem 0 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-container {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n}\n.footer-content {\n  text-align: center;\n  padding-top: 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-text p {\n  margin: 0.5rem 0;\n  color: var(--text-secondary);\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.portfolio-analytics {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 1rem;\n  margin-top: 1.5rem;\n  flex-wrap: wrap;\n}\n.analytics-item {\n  display: flex;\n  align-items: center;\n}\n.analytics-link {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.75rem 1.25rem;\n  background: var(--bg-secondary);\n  border-radius: 12px;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-size: 0.9rem;\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.analytics-link:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.analytics-icon {\n  font-size: 1.1rem;\n  filter: brightness(1.1);\n}\n.analytics-text {\n  font-weight: 500;\n  letter-spacing: 0.5px;\n}\n@media (max-width: 768px) {\n  .footer-container {\n    padding: 0 1rem;\n  }\n  .portfolio-analytics {\n    gap: 0.75rem;\n  }\n  .analytics-link {\n    padding: 0.625rem 1rem;\n    font-size: 0.875rem;\n  }\n}\n@media (max-width: 480px) {\n  .portfolio-analytics {\n    flex-direction: column;\n    gap: 0.5rem;\n  }\n  .analytics-link {\n    padding: 0.5rem 0.875rem;\n    font-size: 0.8rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */\n'] }]
+    args: [{ selector: "app-footer", standalone: true, imports: [], template: '<footer class="footer-section">\n  <div class="footer-container">\n    <div class="footer-content" data-anim="fade-up" data-duration="1000">\n      <div class="footer-text">\n        <p>&copy; 2025 Ankit. Made with passion and creativity. Powered by Love and AI.</p>\n        \n        <!-- Portfolio Analytics -->\n        <div class="portfolio-analytics">\n          <div class="analytics-item">\n            <a [href]="analyticsLinks.flagCounterPage" target="_blank" class="analytics-link">\n              <span class="analytics-icon">\u{1F4CA}</span>\n              <span class="analytics-text">View Analytics</span>\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</footer>\n', styles: ['/* src/app/profile/footer/footer.component.scss */\n.footer-section {\n  background: var(--bg-primary);\n  padding: 4rem 0 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-container {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n}\n.footer-content {\n  text-align: center;\n  padding-top: 2rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n.footer-text p {\n  margin: 0.5rem 0;\n  color: var(--text-secondary);\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.portfolio-analytics {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 1rem;\n  margin-top: 1.5rem;\n  flex-wrap: wrap;\n}\n.analytics-item {\n  display: flex;\n  align-items: center;\n}\n.analytics-link {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.75rem 1.25rem;\n  background: var(--bg-secondary);\n  border-radius: 12px;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-size: 0.9rem;\n  color: var(--text-primary);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  text-decoration: none;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.analytics-link:hover {\n  background: rgba(255, 255, 255, 0.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);\n  transform: translateY(-2px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.analytics-icon {\n  font-size: 1.1rem;\n  filter: brightness(1.1);\n}\n.analytics-text {\n  font-weight: 500;\n  letter-spacing: 0.5px;\n}\n@media (max-width: 768px) {\n  .footer-container {\n    padding: 0 1rem;\n  }\n  .portfolio-analytics {\n    gap: 0.75rem;\n  }\n  .analytics-link {\n    padding: 0.625rem 1rem;\n    font-size: 0.875rem;\n  }\n}\n@media (max-width: 480px) {\n  .portfolio-analytics {\n    flex-direction: column;\n    gap: 0.5rem;\n  }\n  .analytics-link {\n    padding: 0.5rem 0.875rem;\n    font-size: 0.8rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */\n'] }]
   }], null, null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FooterComponent, { className: "FooterComponent", filePath: "src/app/profile/footer/footer.component.ts", lineNumber: 11 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FooterComponent, { className: "FooterComponent", filePath: "src/app/profile/footer/footer.component.ts", lineNumber: 12 });
 })();
 
 // src/app/profile/intro/intro.component.ts
@@ -37444,8 +32023,12 @@ var IntroComponent = class _IntroComponent {
   constructor() {
     this.showAchievements = false;
     this.showDocumentDropdown = false;
+    this.socialLinks = SOCIAL_LINKS;
+    this.documentLinks = DOCUMENT_LINKS;
+    this.boundCloseDropdown = this.closeDropdown.bind(this);
   }
-  ngOnInit() {
+  ngOnDestroy() {
+    document.removeEventListener("click", this.boundCloseDropdown);
   }
   toggleAchievements() {
     this.showAchievements = !this.showAchievements;
@@ -37455,9 +32038,12 @@ var IntroComponent = class _IntroComponent {
     event.stopPropagation();
     this.showDocumentDropdown = !this.showDocumentDropdown;
     if (this.showDocumentDropdown) {
+      document.removeEventListener("click", this.boundCloseDropdown);
       setTimeout(() => {
-        document.addEventListener("click", this.closeDropdown.bind(this), { once: true });
+        document.addEventListener("click", this.boundCloseDropdown, { once: true });
       }, 0);
+    } else {
+      document.removeEventListener("click", this.boundCloseDropdown);
     }
   }
   closeDropdown() {
@@ -37469,7 +32055,7 @@ var IntroComponent = class _IntroComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 67, vars: 15, consts: [[1, "apple-hero"], ["data-parallax", "0.15", 1, "hero-background"], [1, "floating-shapes"], [1, "shape", "shape-1", "apple-float"], [1, "shape", "shape-2", "apple-float-delay"], [1, "shape", "shape-3", "apple-float-slow"], [1, "shape", "shape-4", "apple-float"], [1, "shape", "shape-5", "apple-float-delay"], [1, "gradient-overlay"], [1, "apple-container"], [1, "hero-content"], [1, "hero-profile-image", "apple-hero-anim"], [1, "image-container", "apple-glow"], ["alt", "Ankit Sharma", "src", "./assets/images/ankit.png"], [1, "image-glow"], [1, "hero-text"], ["data-text-reveal", "", 1, "hero-title", "apple-text-display", "apple-hero-anim"], [1, "hero-subtitle", "apple-text-body", "apple-hero-anim"], [1, "hero-experience", "apple-text-body", "apple-hero-anim"], [1, "hero-achievements-container", "apple-hero-anim"], [1, "achievements-toggle", 3, "click"], [1, "toggle-text"], [1, "toggle-icon"], [1, "hero-achievements", "apple-text-body"], [1, "achievement"], [1, "achievement-icon"], [1, "hero-actions", "apple-hero-anim"], ["href", "#contact", 1, "apple-btn", "apple-btn-primary"], [1, "fas", "fa-paper-plane"], [1, "document-radial"], [1, "apple-btn", "apple-btn-primary", "document-center", 3, "click"], [1, "fas", "fa-download", "center-icon"], [1, "center-text"], ["href", "https://drive.google.com/file/d/17X039BN32SiFP0XwjO7Ov2o6-09oNt97/view?usp=sharing", "target", "_blank", 1, "document-option", "document-resume"], [1, "fas", "fa-file-alt"], [1, "tooltip"], ["href", "https://drive.google.com/file/d/1sEtiMhCOqVu6_TJvMQeugaL-mbecFN6M/view?usp=sharing", "target", "_blank", 1, "document-option", "document-cover"], [1, "fas", "fa-envelope"], [1, "hero-social", "apple-hero-anim"], ["href", "https://www.linkedin.com/in/ankit-sharma-5b1b35158/", "target", "_blank", "title", "Connect on LinkedIn", 1, "social-link"], [1, "fab", "fa-linkedin"], ["href", "https://github.com/beingmartinbmc", "target", "_blank", "title", "View GitHub Profile", 1, "social-link"], [1, "fab", "fa-github"], ["href", "https://stackoverflow.com/users/7972621/ankit-sharma", "target", "_blank", "title", "Stack Overflow Profile", 1, "social-link"], [1, "fab", "fa-stack-overflow"], [1, "scroll-indicator"], [1, "scroll-arrow"]], template: function IntroComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 67, vars: 20, consts: [[1, "apple-hero"], ["data-parallax", "0.15", 1, "hero-background"], [1, "floating-shapes"], [1, "shape", "shape-1", "apple-float"], [1, "shape", "shape-2", "apple-float-delay"], [1, "shape", "shape-3", "apple-float-slow"], [1, "shape", "shape-4", "apple-float"], [1, "shape", "shape-5", "apple-float-delay"], [1, "gradient-overlay"], [1, "apple-container"], [1, "hero-content"], [1, "hero-profile-image", "apple-hero-anim"], [1, "image-container", "apple-glow"], ["alt", "Ankit Sharma", "src", "./assets/images/ankit.png"], [1, "image-glow"], [1, "hero-text"], ["data-text-reveal", "", 1, "hero-title", "apple-text-display", "apple-hero-anim"], [1, "hero-subtitle", "apple-text-body", "apple-hero-anim"], [1, "hero-experience", "apple-text-body", "apple-hero-anim"], [1, "hero-achievements-container", "apple-hero-anim"], [1, "achievements-toggle", 3, "click"], [1, "toggle-text"], [1, "toggle-icon"], [1, "hero-achievements", "apple-text-body"], [1, "achievement"], [1, "achievement-icon"], [1, "hero-actions", "apple-hero-anim"], ["href", "#contact", 1, "apple-btn", "apple-btn-primary"], [1, "fas", "fa-paper-plane"], [1, "document-radial"], [1, "apple-btn", "apple-btn-primary", "document-center", 3, "click"], [1, "fas", "fa-download", "center-icon"], [1, "center-text"], ["target", "_blank", 1, "document-option", "document-resume", 3, "href"], [1, "fas", "fa-file-alt"], [1, "tooltip"], ["target", "_blank", 1, "document-option", "document-cover", 3, "href"], [1, "fas", "fa-envelope"], [1, "hero-social", "apple-hero-anim"], ["target", "_blank", "title", "Connect on LinkedIn", 1, "social-link", 3, "href"], [1, "fab", "fa-linkedin"], ["target", "_blank", "title", "View GitHub Profile", 1, "social-link", 3, "href"], [1, "fab", "fa-github"], ["target", "_blank", "title", "Stack Overflow Profile", 1, "social-link", 3, "href"], [1, "fab", "fa-stack-overflow"], [1, "scroll-indicator"], [1, "scroll-arrow"]], template: function IntroComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2);
         \u0275\u0275domElement(3, "div", 3)(4, "div", 4)(5, "div", 5)(6, "div", 6)(7, "div", 7);
@@ -37563,8 +32149,16 @@ var IntroComponent = class _IntroComponent {
         \u0275\u0275classProp("active", ctx.showDocumentDropdown);
         \u0275\u0275advance(4);
         \u0275\u0275classProp("show", ctx.showDocumentDropdown);
+        \u0275\u0275domProperty("href", ctx.documentLinks.resume, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(4);
         \u0275\u0275classProp("show", ctx.showDocumentDropdown);
+        \u0275\u0275domProperty("href", ctx.documentLinks.coverLetter, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(5);
+        \u0275\u0275domProperty("href", ctx.socialLinks.linkedin, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(2);
+        \u0275\u0275domProperty("href", ctx.socialLinks.github, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(2);
+        \u0275\u0275domProperty("href", ctx.socialLinks.stackOverflow, \u0275\u0275sanitizeUrl);
       }
     }, styles: ['\n\n.apple-hero[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  background: var(--gradient-dark);\n}\n.hero-background[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.floating-shapes[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.shape[_ngcontent-%COMP%] {\n  position: absolute;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.1);\n  backdrop-filter: blur(10px);\n  animation: _ngcontent-%COMP%_float 6s ease-in-out infinite;\n  display: block !important;\n  visibility: visible !important;\n  opacity: 0.3 !important;\n}\n.shape-1[_ngcontent-%COMP%] {\n  width: 80px;\n  height: 80px;\n  top: 20%;\n  left: 10%;\n  animation-delay: 0s;\n  background: rgba(102, 126, 234, 0.2);\n}\n.shape-2[_ngcontent-%COMP%] {\n  width: 120px;\n  height: 120px;\n  top: 60%;\n  right: 15%;\n  animation-delay: 2s;\n  background: rgba(118, 75, 162, 0.2);\n}\n.shape-3[_ngcontent-%COMP%] {\n  width: 60px;\n  height: 60px;\n  top: 80%;\n  left: 20%;\n  animation-delay: 4s;\n  background: rgba(245, 87, 108, 0.2);\n}\n.shape-4[_ngcontent-%COMP%] {\n  width: 100px;\n  height: 100px;\n  top: 30%;\n  right: 30%;\n  animation-delay: 1s;\n  background: rgba(240, 147, 251, 0.2);\n}\n.shape-5[_ngcontent-%COMP%] {\n  width: 40px;\n  height: 40px;\n  top: 10%;\n  right: 60%;\n  animation-delay: 3s;\n  background: rgba(79, 172, 254, 0.2);\n}\n@keyframes _ngcontent-%COMP%_float {\n  0%, 100% {\n    transform: translateY(0px) rotate(0deg) scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: translateY(-15px) rotate(90deg) scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: translateY(-20px) rotate(180deg) scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: translateY(-15px) rotate(270deg) scale(1.05);\n    opacity: 0.4;\n  }\n}\n.gradient-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.3;\n}\n.hero-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 2;\n  text-align: center;\n  color: var(--white);\n  max-width: 800px;\n  margin: 0 auto;\n  padding: 0 var(--space-6);\n}\n.hero-profile-image[_ngcontent-%COMP%] {\n  margin-bottom: var(--space-12);\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n}\n.image-container[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n}\n.image-container[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -20px;\n  left: -20px;\n  right: -20px;\n  bottom: -20px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  opacity: 0.3;\n  animation: _ngcontent-%COMP%_heartbeat 2s ease-in-out infinite;\n}\n.image-container[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: -40px;\n  left: -40px;\n  right: -40px;\n  bottom: -40px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--accent-purple),\n      var(--accent-pink));\n  opacity: 0.2;\n  animation: _ngcontent-%COMP%_heartbeat 2s ease-in-out infinite 0.5s;\n}\n.image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 200px;\n  height: 200px;\n  border-radius: 50%;\n  border: 6px solid var(--white);\n  box-shadow: var(--shadow-2xl);\n  position: relative;\n  z-index: 2;\n  transition: all var(--transition-normal);\n  display: block !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n  object-fit: cover;\n}\n.image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%]:hover {\n  transform: scale(1.05);\n  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n}\n.image-glow[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 220px;\n  height: 220px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.2) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_glow 3s ease-in-out infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_heartbeat {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n}\n@keyframes _ngcontent-%COMP%_glow {\n  0% {\n    opacity: 0.3;\n    transform: translate(-50%, -50%) scale(1);\n  }\n  100% {\n    opacity: 0.6;\n    transform: translate(-50%, -50%) scale(1.1);\n  }\n}\n.hero-text[_ngcontent-%COMP%] {\n  margin-bottom: var(--space-12);\n}\n.hero-title[_ngcontent-%COMP%] {\n  font-size: var(--text-8xl);\n  font-weight: var(--font-extrabold);\n  margin-bottom: var(--space-6);\n  color: var(--text-primary);\n  text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n  letter-spacing: -0.02em;\n  line-height: 0.9;\n}\n.hero-subtitle[_ngcontent-%COMP%] {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-medium);\n  margin-bottom: var(--space-4);\n  opacity: 0.95;\n  color: var(--white);\n}\n.hero-experience[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  opacity: 0.9;\n  color: var(--white);\n  margin-bottom: var(--space-6);\n  font-weight: var(--font-medium);\n}\n.hero-achievements-container[_ngcontent-%COMP%] {\n  max-width: 600px;\n  margin: 0 auto;\n}\n.achievements-toggle[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-lg);\n  padding: var(--space-3) var(--space-6);\n  color: var(--white);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n  margin: 0 auto;\n}\n.achievements-toggle[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n.achievements-toggle.expanded[_ngcontent-%COMP%] {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  border-bottom-color: transparent;\n}\n.toggle-text[_ngcontent-%COMP%] {\n  font-weight: var(--font-medium);\n}\n.toggle-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-sm);\n  transition: transform var(--transition-normal);\n}\n.toggle-icon.expanded[_ngcontent-%COMP%] {\n  transform: rotate(180deg);\n}\n.hero-achievements[_ngcontent-%COMP%] {\n  max-width: 600px;\n  margin: 0 auto;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-top: none;\n  border-radius: 0 0 var(--radius-lg) var(--radius-lg);\n  padding: 0;\n  backdrop-filter: blur(20px);\n  max-height: 0;\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  opacity: 0;\n  border-color: transparent;\n}\n.hero-achievements.show[_ngcontent-%COMP%] {\n  max-height: 300px;\n  padding: var(--space-6);\n  opacity: 1;\n  border-color: rgba(255, 255, 255, 0.1);\n}\n.achievement[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--space-4);\n  margin-bottom: var(--space-4);\n  font-size: var(--text-base);\n  line-height: 1.5;\n  opacity: 0.9;\n  color: var(--white);\n}\n.achievement[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.achievement-icon[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  margin-top: 2px;\n  flex-shrink: 0;\n  animation: _ngcontent-%COMP%_achievementGlow 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_achievementGlow {\n  0%, 100% {\n    opacity: 0.8;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.1);\n  }\n}\n.hero-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n  margin-bottom: var(--space-12);\n  flex-wrap: wrap;\n  align-items: center;\n}\n.hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%] {\n  padding: var(--space-4) var(--space-8);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  min-width: 180px;\n}\n.hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  margin-right: var(--space-2);\n}\n.document-radial[_ngcontent-%COMP%] {\n  position: relative;\n  display: inline-block;\n  width: auto;\n  height: auto;\n  z-index: 200;\n}\n.document-radial.expanded[_ngcontent-%COMP%] {\n  margin-right: 80px;\n}\n.document-center[_ngcontent-%COMP%] {\n  position: relative;\n  cursor: pointer;\n  min-width: 180px;\n  padding: var(--space-4) var(--space-8);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: var(--space-2);\n  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);\n  z-index: 1;\n}\n.document-center.active[_ngcontent-%COMP%] {\n  transform: scale(0.95);\n  z-index: 1;\n}\n.document-center.active[_ngcontent-%COMP%]   .center-icon[_ngcontent-%COMP%] {\n  transform: rotate(180deg);\n}\n.document-center.active[_ngcontent-%COMP%]   .center-text[_ngcontent-%COMP%] {\n  opacity: 0.8;\n}\n.document-center[_ngcontent-%COMP%]   .center-icon[_ngcontent-%COMP%] {\n  transition: transform 0.3s ease;\n}\n.document-center[_ngcontent-%COMP%]   .center-text[_ngcontent-%COMP%] {\n  transition: opacity 0.3s ease;\n}\n.document-option[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 55px;\n  height: 55px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.15);\n  backdrop-filter: blur(20px);\n  border: 2px solid rgba(255, 255, 255, 0.3);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: white;\n  text-decoration: none;\n  opacity: 0;\n  visibility: hidden;\n  transform: translate(-50%, -50%) scale(0.5);\n  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);\n  z-index: 10;\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);\n}\n.document-option[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.25);\n  border-color: rgba(255, 255, 255, 0.5);\n  transform: translate(-50%, -50%) scale(1.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);\n  z-index: 11;\n}\n.document-option[_ngcontent-%COMP%]:hover   .tooltip[_ngcontent-%COMP%] {\n  opacity: 1;\n  visibility: visible;\n  transform: translateY(-10px);\n}\n.document-option.show[_ngcontent-%COMP%] {\n  opacity: 1;\n  visibility: visible;\n  transform: translate(-50%, -50%) scale(1);\n  z-index: 10;\n}\n.document-option[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  color: white;\n}\n.document-resume.show[_ngcontent-%COMP%] {\n  transform: translate(-50%, -50%) translateX(130px) translateY(-40px) scale(1);\n  transition-delay: 0.1s;\n}\n.document-cover.show[_ngcontent-%COMP%] {\n  transform: translate(-50%, -50%) translateX(130px) translateY(40px) scale(1);\n  transition-delay: 0.2s;\n}\n.tooltip[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -45px;\n  left: 50%;\n  transform: translateX(-50%) translateY(10px);\n  background: rgba(0, 0, 0, 0.95);\n  color: white;\n  padding: 8px 14px;\n  border-radius: 8px;\n  font-size: 0.85rem;\n  font-weight: 600;\n  white-space: nowrap;\n  opacity: 0;\n  visibility: hidden;\n  transition: all 0.3s ease;\n  z-index: 20;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n}\n.tooltip[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  border: 6px solid transparent;\n  border-top-color: rgba(0, 0, 0, 0.95);\n}\n.hero-social[_ngcontent-%COMP%] {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n}\n.social-link[_ngcontent-%COMP%] {\n  width: 60px;\n  height: 60px;\n  border-radius: 50%;\n  background: var(--apple-glass);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--white);\n  font-size: var(--text-xl);\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n.social-link[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  background: rgba(255, 255, 255, 0.2);\n  box-shadow: var(--shadow-xl);\n  color: var(--white);\n}\n.scroll-indicator[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: var(--space-8);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 2;\n}\n.scroll-arrow[_ngcontent-%COMP%] {\n  width: 30px;\n  height: 30px;\n  border: 2px solid var(--white);\n  border-top: none;\n  border-left: none;\n  transform: rotate(45deg);\n  animation: _ngcontent-%COMP%_bounce 2s infinite;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  0%, 20%, 50%, 80%, 100% {\n    transform: translateY(0) rotate(45deg);\n  }\n  40% {\n    transform: translateY(-10px) rotate(45deg);\n  }\n  60% {\n    transform: translateY(-5px) rotate(45deg);\n  }\n}\n@media (max-width: 768px) {\n  .hero-title[_ngcontent-%COMP%] {\n    font-size: var(--text-5xl);\n  }\n  .hero-subtitle[_ngcontent-%COMP%] {\n    font-size: var(--text-xl);\n  }\n  .hero-description[_ngcontent-%COMP%] {\n    font-size: var(--text-base);\n  }\n  .hero-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: center;\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n    width: 100%;\n  }\n  .hero-actions[_ngcontent-%COMP%]    > *[_ngcontent-%COMP%] {\n    width: 100%;\n    max-width: 280px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n  }\n  .hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%] {\n    width: 100%;\n    max-width: 280px;\n    margin: 0;\n  }\n  .document-radial[_ngcontent-%COMP%] {\n    width: 100% !important;\n    max-width: 280px !important;\n    height: auto;\n    margin: 0 !important;\n  }\n  .document-radial.expanded[_ngcontent-%COMP%] {\n    margin: 0 !important;\n    width: 100% !important;\n    max-width: 280px !important;\n  }\n  .document-radial[_ngcontent-%COMP%]   .document-center[_ngcontent-%COMP%] {\n    width: 100% !important;\n    max-width: 280px !important;\n    min-width: auto !important;\n    margin: 0 !important;\n  }\n  .document-radial[_ngcontent-%COMP%]   .document-resume.show[_ngcontent-%COMP%] {\n    transform: translate(-50%, -50%) translateX(90px) translateY(-35px) scale(0.9);\n  }\n  .document-radial[_ngcontent-%COMP%]   .document-cover.show[_ngcontent-%COMP%] {\n    transform: translate(-50%, -50%) translateX(90px) translateY(35px) scale(0.9);\n  }\n  .hero-social[_ngcontent-%COMP%] {\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n  }\n  .social-link[_ngcontent-%COMP%] {\n    width: 50px;\n    height: 50px;\n    font-size: var(--text-lg);\n  }\n  .hero-profile-image[_ngcontent-%COMP%] {\n    margin-bottom: var(--space-6);\n  }\n  .image-container[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    width: 150px;\n    height: 150px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow[_ngcontent-%COMP%] {\n    width: 170px;\n    height: 170px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.3 !important;\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text[_ngcontent-%COMP%], \n   .hero-actions[_ngcontent-%COMP%], \n   .hero-social[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .hero-title[_ngcontent-%COMP%] {\n    font-size: var(--text-4xl);\n  }\n  .hero-subtitle[_ngcontent-%COMP%] {\n    font-size: var(--text-lg);\n  }\n  .hero-description[_ngcontent-%COMP%] {\n    font-size: var(--text-sm);\n    padding: 0 var(--space-4);\n  }\n  .hero-actions[_ngcontent-%COMP%] {\n    padding: 0 var(--space-4);\n  }\n  .hero-actions[_ngcontent-%COMP%]   .apple-btn[_ngcontent-%COMP%] {\n    width: 100%;\n    max-width: 250px;\n    font-size: var(--text-sm);\n    padding: var(--space-3) var(--space-4);\n  }\n  .hero-social[_ngcontent-%COMP%] {\n    padding: 0 var(--space-4);\n  }\n  .social-link[_ngcontent-%COMP%] {\n    width: 45px;\n    height: 45px;\n    font-size: var(--text-base);\n  }\n  .image-container[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n    width: 120px;\n    height: 120px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow[_ngcontent-%COMP%] {\n    width: 140px;\n    height: 140px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape[_ngcontent-%COMP%] {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.2 !important;\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text[_ngcontent-%COMP%], \n   .hero-actions[_ngcontent-%COMP%], \n   .hero-social[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */'] });
   }
@@ -37644,7 +32238,7 @@ var IntroComponent = class _IntroComponent {
           </button>
           
           <!-- Radial Document Options -->
-          <a href="https://drive.google.com/file/d/17X039BN32SiFP0XwjO7Ov2o6-09oNt97/view?usp=sharing"
+          <a [href]="documentLinks.resume"
              target="_blank" 
              class="document-option document-resume"
              [class.show]="showDocumentDropdown">
@@ -37652,7 +32246,7 @@ var IntroComponent = class _IntroComponent {
             <span class="tooltip">Resume</span>
           </a>
           
-          <a href="https://drive.google.com/file/d/1sEtiMhCOqVu6_TJvMQeugaL-mbecFN6M/view?usp=sharing"
+          <a [href]="documentLinks.coverLetter"
              target="_blank" 
              class="document-option document-cover"
              [class.show]="showDocumentDropdown">
@@ -37664,15 +32258,15 @@ var IntroComponent = class _IntroComponent {
       
       <!-- Social Links -->
       <div class="hero-social apple-hero-anim">
-        <a class="social-link" href="https://www.linkedin.com/in/ankit-sharma-5b1b35158/" 
+        <a class="social-link" [href]="socialLinks.linkedin" 
            target="_blank" title="Connect on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
-        <a class="social-link" href="https://github.com/beingmartinbmc"
+        <a class="social-link" [href]="socialLinks.github"
            target="_blank" title="View GitHub Profile">
           <i class="fab fa-github"></i>
         </a>
-        <a class="social-link" href="https://stackoverflow.com/users/7972621/ankit-sharma" 
+        <a class="social-link" [href]="socialLinks.stackOverflow" 
            target="_blank" title="Stack Overflow Profile">
           <i class="fab fa-stack-overflow"></i>
         </a>
@@ -37689,7 +32283,7 @@ var IntroComponent = class _IntroComponent {
   }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(IntroComponent, { className: "IntroComponent", filePath: "src/app/profile/intro/intro.component.ts", lineNumber: 9 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(IntroComponent, { className: "IntroComponent", filePath: "src/app/profile/intro/intro.component.ts", lineNumber: 10 });
 })();
 
 // src/app/profile/about/about.component.ts
@@ -42576,7 +37170,7 @@ var ContactComponent = class _ContactComponent {
     console.log("All validations passed, submitting form...");
     this.isSubmitting = true;
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
-    this.http.post("https://formspree.io/f/mbjpqzgz", { name, subject, replyto: email, message }, { headers }).subscribe((response) => {
+    this.http.post(CONTACT_LINKS.formspree, { name, subject, replyto: email, message }, { headers }).subscribe((response) => {
       console.log("Form submission successful:", response);
       this.isSubmitting = false;
       this.showToastNotification("Message sent successfully! I'll get back to you soon.");
@@ -42965,7 +37559,7 @@ var ContactComponent = class _ContactComponent {
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ContactComponent, { className: "ContactComponent", filePath: "src/app/profile/contact/contact.component.ts", lineNumber: 14 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ContactComponent, { className: "ContactComponent", filePath: "src/app/profile/contact/contact.component.ts", lineNumber: 15 });
 })();
 
 // src/app/profile/education/education.component.ts
@@ -43088,48 +37682,112 @@ var EducationComponent = class _EducationComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(EducationComponent, { className: "EducationComponent", filePath: "src/app/profile/education/education.component.ts", lineNumber: 9 });
 })();
 
-// src/app/time.service.ts
-var TimeService = class _TimeService {
-  constructor() {
+// src/app/profile/experience/experience.data.ts
+var EXPERIENCE_START_DATE = "2019-12-20";
+var EXPERIENCE_ITEMS = [
+  {
+    id: "smts-salesforce",
+    title: "SMTS (Senior Member of Technical Staff)",
+    company: "Salesforce",
+    companyUrl: COMPANY_LINKS.salesforce,
+    logo: "assets/images/salesforce.jpeg",
+    location: "Hybrid in Hyderabad, India",
+    duration: "Current",
+    period: "2025 - Present",
+    description: "Senior Member of Technical Staff role at Salesforce, exploring new challenges and opportunities in enterprise cloud solutions.",
+    technologies: ["Salesforce Platform", "Apex", "Lightning", "Java", "Cloud Technologies"],
+    achievements: [
+      "Still exploring and learning the Salesforce ecosystem",
+      "Transitioning into enterprise cloud solutions",
+      "Working on scalable cloud-based applications"
+    ]
+  },
+  {
+    id: "sde2-games24x7",
+    title: "SDE-2",
+    company: "Games24x7",
+    companyUrl: COMPANY_LINKS.games24x7,
+    logo: "assets/images/games24x7.png",
+    location: "Bangalore, India",
+    duration: "3 years",
+    period: "2022 - 2025",
+    description: "Worked as a backend developer in Platform services, for both RummyCircle and My11Circle. Led critical platform initiatives and mentored junior developers.",
+    technologies: ["Kafka", "Spring Cloud", "LLM", "AWS Sage Maker", "Google AD APIs", "Elasti-cache", "JDK 21", "Neptune DB", "Gremlin", "Grafana", "Prometheus", "Pager Duty"],
+    achievements: [
+      "Developed Risk Rule Engine for Games24x7 that works in My11Circle and RummyCircle, that identifies Fraud done by users in real time",
+      "Developed Google ad monitoring service which keeps on monitoring the campaign spends done by the marketing team",
+      "Standardized and migrated services from EC2 to Graviton in K8s",
+      "Set up proper alerting for business dashboards and created PD alerts",
+      "Mentored a team of 3 junior developers"
+    ]
+  },
+  {
+    id: "sde1-games24x7",
+    title: "SDE-1",
+    company: "Games24x7",
+    companyUrl: COMPANY_LINKS.games24x7,
+    logo: "assets/images/games24x7.png",
+    location: "Bangalore, India",
+    duration: "1.1 years",
+    period: "2021 - 2022",
+    description: "Working as a backend developer in My11Circle team. Developed scalable solutions for high-traffic gaming platform.",
+    technologies: ["Java 11", "Microservices", "AWS", "OCR", "Redis", "Kafka", "RabbitMQ", "MySQL", "Spring Boot", "Spring Cloud", "Distributed Locking"],
+    achievements: [
+      "Helped My11Circle grow and scale to achieve 10 Million concurrent users",
+      "Worked on several projects for My11Circle and RummyCircle",
+      "Developed Automated KYC system of Games24x7 from scratch",
+      "Developed Club upgradation to turn to VIP users, features for My11Circle users"
+    ]
+  },
+  {
+    id: "swe-walmart",
+    title: "SWE IN2",
+    company: "Walmart Global Tech",
+    companyUrl: COMPANY_LINKS.walmart,
+    logo: "assets/images/walmart.png",
+    location: "Bangalore, India",
+    duration: "4 months",
+    period: "2021",
+    description: "Worked as Fullstack developer with Java as Backend and Angular as Frontend. Worked on Annual Enrollment for Walmart Employees to avail health benefits - life insurance, dental coverage, health insurance for year 2022.",
+    technologies: ["Java 8", "JSP", "WCNP", "OneOps", "Jenkins", "Angular"],
+    achievements: [
+      "Worked on Walmart's own cloud OneOps and WCNP",
+      "Collaborated with global teams across different time zones",
+      "Gained experience of Retail projects",
+      "Developed features for Walmart's e-commerce platform"
+    ]
+  },
+  {
+    id: "sde1-extramarks",
+    title: "SDE 1",
+    company: "Extramarks Education",
+    companyUrl: COMPANY_LINKS.extramarks,
+    logo: "assets/images/extramarks.png",
+    location: "Noida, India",
+    duration: "1.3 years",
+    period: "2020 - 2021",
+    description: "Got hands on project experience, worked in a collaborative environment. Created from scratch projects and deployed it into production environment.",
+    technologies: ["Java 8/11", "Spring Boot", "OAuth2.0 + JWT", "AWS Cognito", "Docker", "MySQL 8+"],
+    achievements: [
+      "Broke Monolithic architecture to Microservices and discussed the whole architecture with the team",
+      "Developed and deployed 5+ production-ready applications",
+      "Implemented OAuth2.0 authentication system",
+      "Reduced system downtime by 80% through improved architecture"
+    ]
   }
-  getNumberOfMonths() {
-    const joinedDate = /* @__PURE__ */ new Date("2025-11-03");
-    const currentDate = /* @__PURE__ */ new Date();
-    const difference = currentDate.getTime() - joinedDate.getTime();
-    const days = difference / (1e3 * 3600 * 24);
-    const temp = days / 30;
-    const years = temp / 12;
-    return of(Number(years.toFixed(2)));
-  }
-  static {
-    this.\u0275fac = function TimeService_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _TimeService)();
-    };
-  }
-  static {
-    this.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _TimeService, factory: _TimeService.\u0275fac, providedIn: "root" });
-  }
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TimeService, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
+];
 
 // src/app/profile/experience/experience.component.ts
 function ExperienceComponent_For_14_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 12);
-    \u0275\u0275domListener("click", function ExperienceComponent_For_14_Template_div_click_0_listener() {
+    \u0275\u0275domElementStart(0, "button", 12);
+    \u0275\u0275domListener("click", function ExperienceComponent_For_14_Template_button_click_0_listener() {
       const planet_r2 = \u0275\u0275restoreView(_r1).$implicit;
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.togglePlanet(planet_r2));
     });
-    \u0275\u0275domElementStart(1, "div", 13);
+    \u0275\u0275domElementStart(1, "span", 13);
     \u0275\u0275domElement(2, "img", 14);
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(3, "span", 15);
@@ -43142,6 +37800,7 @@ function ExperienceComponent_For_14_Template(rf, ctx) {
     const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275styleProp("animation-delay", ctx_r2.getOrbitDelay(\u0275$index_24_r4));
     \u0275\u0275classProp("active", ctx_r2.isPlanetActive(planet_r2));
+    \u0275\u0275attribute("aria-label", ctx_r2.getPlanetActionLabel(planet_r2))("aria-expanded", planet_r2.items.length > 1 ? planet_r2.isExpanded : null)("aria-pressed", ctx_r2.isPlanetActive(planet_r2));
     \u0275\u0275advance(2);
     \u0275\u0275domProperty("src", planet_r2.logo, \u0275\u0275sanitizeUrl)("alt", planet_r2.company + " logo");
     \u0275\u0275advance(2);
@@ -43151,13 +37810,13 @@ function ExperienceComponent_For_14_Template(rf, ctx) {
 function ExperienceComponent_For_16_Conditional_0_For_7_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 21);
-    \u0275\u0275domListener("click", function ExperienceComponent_For_16_Conditional_0_For_7_Template_div_click_0_listener() {
+    \u0275\u0275domElementStart(0, "button", 21);
+    \u0275\u0275domListener("click", function ExperienceComponent_For_16_Conditional_0_For_7_Template_button_click_0_listener() {
       const sub_r6 = \u0275\u0275restoreView(_r5).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(3);
       return \u0275\u0275resetView(ctx_r2.selectSubItem(sub_r6));
     });
-    \u0275\u0275domElementStart(1, "div", 22)(2, "span", 23);
+    \u0275\u0275domElementStart(1, "span", 22)(2, "span", 23);
     \u0275\u0275text(3);
     \u0275\u0275domElementEnd()();
     \u0275\u0275domElementStart(4, "span", 24);
@@ -43171,6 +37830,7 @@ function ExperienceComponent_For_16_Conditional_0_For_7_Template(rf, ctx) {
     const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275styleProp("animation-delay", ctx_r2.getSubOrbitDelay(\u0275$index_47_r7, planet_r8.items.length));
     \u0275\u0275classProp("active", ctx_r2.selectedItem === sub_r6);
+    \u0275\u0275attribute("aria-label", ctx_r2.getSubItemActionLabel(sub_r6))("aria-pressed", ctx_r2.selectedItem === sub_r6);
     \u0275\u0275advance(3);
     \u0275\u0275textInterpolate(sub_r6.title);
     \u0275\u0275advance(2);
@@ -43186,7 +37846,7 @@ function ExperienceComponent_For_16_Conditional_0_Template(rf, ctx) {
     \u0275\u0275domElementStart(4, "span");
     \u0275\u0275text(5);
     \u0275\u0275domElementEnd()();
-    \u0275\u0275repeaterCreate(6, ExperienceComponent_For_16_Conditional_0_For_7_Template, 6, 6, "div", 20, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275repeaterCreate(6, ExperienceComponent_For_16_Conditional_0_For_7_Template, 6, 8, "button", 20, \u0275\u0275repeaterTrackByIdentity);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
@@ -43287,116 +37947,19 @@ function ExperienceComponent_Conditional_17_Template(rf, ctx) {
   }
 }
 var ExperienceComponent = class _ExperienceComponent {
-  constructor(timeService) {
-    this.timeService = timeService;
+  constructor() {
+    this.totalExperience = "0.0";
     this.planets = [];
     this.selectedItem = null;
-    this.experienceItems = [
-      {
-        id: "smts-salesforce",
-        title: "SMTS (Senior Member of Technical Staff)",
-        company: "Salesforce",
-        companyUrl: "https://www.salesforce.com/",
-        logo: "assets/images/salesforce.jpeg",
-        location: "Hybrid in Hyderabad, India",
-        duration: "Current",
-        period: "2025 - Present",
-        description: "Senior Member of Technical Staff role at Salesforce, exploring new challenges and opportunities in enterprise cloud solutions.",
-        technologies: ["Salesforce Platform", "Apex", "Lightning", "Java", "Cloud Technologies"],
-        achievements: [
-          "Still exploring and learning the Salesforce ecosystem",
-          "Transitioning into enterprise cloud solutions",
-          "Working on scalable cloud-based applications"
-        ]
-      },
-      {
-        id: "sde2-games24x7",
-        title: "SDE-2",
-        company: "Games24x7",
-        companyUrl: "https://www.games24x7.com/",
-        logo: "assets/images/games24x7.png",
-        location: "Bangalore, India",
-        duration: "3 years",
-        period: "2022 - 2025",
-        description: "Worked as a backend developer in Platform services, for both RummyCircle and My11Circle. Led critical platform initiatives and mentored junior developers.",
-        technologies: ["Kafka", "Spring Cloud", "LLM", "AWS Sage Maker", "Google AD APIs", "Elasti-cache", "JDK 21", "Neptune DB", "Gremlin", "Grafana", "Prometheus", "Pager Duty"],
-        achievements: [
-          "Developed Risk Rule Engine for Games24x7 that works in My11Circle and RummyCircle, that identifies Fraud done by users in real time",
-          "Developed Google ad monitoring service which keeps on monitoring the campaign spends done by the marketing team",
-          "Standardized and migrated services from EC2 to Graviton in K8s",
-          "Set up proper alerting for business dashboards and created PD alerts",
-          "Mentored a team of 3 junior developers"
-        ]
-      },
-      {
-        id: "sde1-games24x7",
-        title: "SDE-1",
-        company: "Games24x7",
-        companyUrl: "https://www.games24x7.com/",
-        logo: "assets/images/games24x7.png",
-        location: "Bangalore, India",
-        duration: "1.1 years",
-        period: "2021 - 2022",
-        description: "Working as a backend developer in My11Circle team. Developed scalable solutions for high-traffic gaming platform.",
-        technologies: ["Java 11", "Microservices", "AWS", "OCR", "Redis", "Kafka", "RabbitMQ", "MySQL", "Spring Boot", "Spring Cloud", "Distributed Locking"],
-        achievements: [
-          "Helped My11Circle grow and scale to achieve 10 Million concurrent users",
-          "Worked on several projects for My11Circle and RummyCircle",
-          "Developed Automated KYC system of Games24x7 from scratch",
-          "Developed Club upgradation to turn to VIP users, features for My11Circle users"
-        ]
-      },
-      {
-        id: "swe-walmart",
-        title: "SWE IN2",
-        company: "Walmart Global Tech",
-        companyUrl: "https://one.walmart.com/content/globaltechindia/en_in.html",
-        logo: "assets/images/walmart.png",
-        location: "Bangalore, India",
-        duration: "4 months",
-        period: "2021",
-        description: "Worked as Fullstack developer with Java as Backend and Angular as Frontend. Worked on Annual Enrollment for Walmart Employees to avail health benefits - life insurance, dental coverage, health insurance for year 2022.",
-        technologies: ["Java 8", "JSP", "WCNP", "OneOps", "Jenkins", "Angular"],
-        achievements: [
-          "Worked on Walmart's own cloud OneOps and WCNP",
-          "Collaborated with global teams across different time zones",
-          "Gained experience of Retail projects",
-          "Developed features for Walmart's e-commerce platform"
-        ]
-      },
-      {
-        id: "sde1-extramarks",
-        title: "SDE 1",
-        company: "Extramarks Education",
-        companyUrl: "https://www.extramarks.com/",
-        logo: "assets/images/extramarks.png",
-        location: "Noida, India",
-        duration: "1.3 years",
-        period: "2020 - 2021",
-        description: "Got hands on project experience, worked in a collaborative environment. Created from scratch projects and deployed it into production environment.",
-        technologies: ["Java 8/11", "Spring Boot", "OAuth2.0 + JWT", "AWS Cognito", "Docker", "MySQL 8+"],
-        achievements: [
-          "Broke Monolithic architecture to Microservices and discussed the whole architecture with the team",
-          "Developed and deployed 5+ production-ready applications",
-          "Implemented OAuth2.0 authentication system",
-          "Reduced system downtime by 80% through improved architecture"
-        ]
-      }
-    ];
+    this.experienceItems = EXPERIENCE_ITEMS;
   }
   calculateTotalExperience() {
-    const startDate = /* @__PURE__ */ new Date("2019-12-20");
+    const startDate = new Date(EXPERIENCE_START_DATE);
     const currentDate = /* @__PURE__ */ new Date();
     const diffTime = Math.abs(currentDate.getTime() - startDate.getTime());
     const diffDays = Math.ceil(diffTime / (1e3 * 60 * 60 * 24));
     const diffYears = diffDays / 365.25;
     this.totalExperience = diffYears.toFixed(1);
-  }
-  refreshData() {
-    this.timeService.getNumberOfMonths().subscribe((data) => {
-      this.numberOfMonths = data;
-    });
-    this.calculateTotalExperience();
   }
   buildPlanets() {
     const companyMap = /* @__PURE__ */ new Map();
@@ -43445,19 +38008,26 @@ var ExperienceComponent = class _ExperienceComponent {
   isPlanetActive(planet) {
     return planet.isExpanded || this.selectedItem !== null && planet.items.includes(this.selectedItem);
   }
+  getPlanetActionLabel(planet) {
+    if (planet.items.length === 1) {
+      return `Show experience details for ${planet.company}`;
+    }
+    return `${planet.isExpanded ? "Hide" : "Show"} roles at ${planet.company}`;
+  }
+  getSubItemActionLabel(item) {
+    return `Show details for ${item.title} at ${item.company}`;
+  }
   ngOnInit() {
     this.buildPlanets();
-    this.refreshData();
-  }
-  ngOnDestroy() {
+    this.calculateTotalExperience();
   }
   static {
     this.\u0275fac = function ExperienceComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _ExperienceComponent)(\u0275\u0275directiveInject(TimeService));
+      return new (__ngFactoryType__ || _ExperienceComponent)();
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 18, vars: 2, consts: [["id", "experience", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-anim", "scale", "data-duration", "1000", 1, "orbital-container"], [1, "orbital-ring"], [1, "orbit-path"], [1, "orbit-center"], [1, "center-years"], [1, "center-label"], [1, "orbit-item", 3, "animation-delay", "active"], [1, "detail-panel"], [1, "orbit-item", 3, "click"], [1, "orbit-node"], ["loading", "lazy", 3, "src", "alt"], [1, "orbit-label"], [1, "sub-orbital-ring"], [1, "sub-ring-path"], [1, "sub-ring-center"], [3, "src", "alt"], [1, "sub-ring-item", 3, "animation-delay", "active"], [1, "sub-ring-item", 3, "click"], [1, "sub-ring-node"], [1, "sub-ring-title"], [1, "sub-ring-label"], [1, "detail-header"], [1, "detail-logo", 3, "src", "alt"], [1, "detail-header-info"], [1, "detail-title"], [1, "detail-meta"], [1, "detail-company"], [1, "detail-separator"], [1, "detail-period"], [1, "detail-location"], [1, "fas", "fa-map-marker-alt"], [1, "detail-description"], [1, "detail-technologies"], [1, "tech-tag"], [1, "detail-achievements"], [1, "achievements-title"]], template: function ExperienceComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 18, vars: 2, consts: [["id", "experience", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-anim", "scale", "data-duration", "1000", 1, "orbital-container"], [1, "orbital-ring"], [1, "orbit-path"], [1, "orbit-center"], [1, "center-years"], [1, "center-label"], ["type", "button", 1, "orbit-item", 3, "animation-delay", "active"], [1, "detail-panel"], ["type", "button", 1, "orbit-item", 3, "click"], [1, "orbit-node"], ["loading", "lazy", 3, "src", "alt"], [1, "orbit-label"], [1, "sub-orbital-ring"], [1, "sub-ring-path"], [1, "sub-ring-center"], [3, "src", "alt"], ["type", "button", 1, "sub-ring-item", 3, "animation-delay", "active"], ["type", "button", 1, "sub-ring-item", 3, "click"], [1, "sub-ring-node"], [1, "sub-ring-title"], [1, "sub-ring-label"], [1, "detail-header"], [1, "detail-logo", 3, "src", "alt"], [1, "detail-header-info"], [1, "detail-title"], [1, "detail-meta"], [1, "detail-company"], [1, "detail-separator"], [1, "detail-period"], [1, "detail-location"], [1, "fas", "fa-map-marker-alt"], [1, "detail-description"], [1, "detail-technologies"], [1, "tech-tag"], [1, "detail-achievements"], [1, "achievements-title"]], template: function ExperienceComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Professional Experience");
@@ -43470,7 +38040,7 @@ var ExperienceComponent = class _ExperienceComponent {
         \u0275\u0275domElementStart(11, "span", 9);
         \u0275\u0275text(12, "years");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275repeaterCreate(13, ExperienceComponent_For_14_Template, 5, 7, "div", 10, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275repeaterCreate(13, ExperienceComponent_For_14_Template, 5, 10, "button", 10, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275domElementEnd();
         \u0275\u0275repeaterCreate(15, ExperienceComponent_For_16_Template, 1, 1, null, null, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275conditionalCreate(17, ExperienceComponent_Conditional_17_Template, 28, 7, "div", 11);
@@ -43486,7 +38056,7 @@ var ExperienceComponent = class _ExperienceComponent {
         \u0275\u0275advance(2);
         \u0275\u0275conditional(ctx.selectedItem ? 17 : -1);
       }
-    }, styles: ['@charset "UTF-8";\n\n\n\n.apple-section[_ngcontent-%COMP%] {\n  padding: 4rem 0;\n  background: var(--bg-primary);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.apple-container[_ngcontent-%COMP%] {\n  max-width: 1400px;\n  margin: 0 auto;\n  padding: 0 2rem;\n  width: 100%;\n}\n.apple-fade-in[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeIn 1s ease-out;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  line-height: 1.2;\n}\n.orbital-container[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 3rem;\n}\n.orbital-ring[_ngcontent-%COMP%] {\n  position: relative;\n  width: 520px;\n  height: 520px;\n  flex-shrink: 0;\n}\n.orbit-path[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 400px;\n  height: 400px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.orbit-center[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 110px;\n  height: 110px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 40% 40%,\n      #a8c8ff,\n      #667eea,\n      #4a5fd6,\n      #3a3db5);\n  border: none;\n  box-shadow:\n    0 0 30px rgba(102, 126, 234, 0.55),\n    0 0 60px rgba(74, 95, 214, 0.35),\n    0 0 100px rgba(58, 61, 181, 0.2),\n    inset 0 0 25px rgba(180, 200, 255, 0.3);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  animation: _ngcontent-%COMP%_sunPulse 4s ease-in-out infinite;\n}\n.orbit-center[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -8px;\n  left: -8px;\n  right: -8px;\n  bottom: -8px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(102, 126, 234, 0.3) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_coronaPulse 3s ease-in-out infinite alternate;\n  pointer-events: none;\n}\n.orbit-center[_ngcontent-%COMP%]   .center-years[_ngcontent-%COMP%] {\n  font-size: 1.75rem;\n  font-weight: 800;\n  color: #fff;\n  -webkit-text-fill-color: #fff;\n  text-shadow: 0 0 10px rgba(180, 200, 255, 0.7);\n  line-height: 1.2;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.orbit-center[_ngcontent-%COMP%]   .center-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 600;\n  color: rgba(220, 230, 255, 0.9);\n  text-transform: uppercase;\n  letter-spacing: 1.5px;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 0 6px rgba(102, 126, 234, 0.5);\n}\n@keyframes _ngcontent-%COMP%_sunPulse {\n  0%, 100% {\n    box-shadow:\n      0 0 30px rgba(102, 126, 234, 0.55),\n      0 0 60px rgba(74, 95, 214, 0.35),\n      0 0 100px rgba(58, 61, 181, 0.2),\n      inset 0 0 25px rgba(180, 200, 255, 0.3);\n  }\n  50% {\n    box-shadow:\n      0 0 40px rgba(102, 126, 234, 0.7),\n      0 0 80px rgba(74, 95, 214, 0.45),\n      0 0 120px rgba(58, 61, 181, 0.3),\n      inset 0 0 30px rgba(180, 200, 255, 0.4);\n  }\n}\n@keyframes _ngcontent-%COMP%_coronaPulse {\n  from {\n    transform: scale(1);\n    opacity: 0.6;\n  }\n  to {\n    transform: scale(1.15);\n    opacity: 1;\n  }\n}\n.orbit-item[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 56px;\n  height: 56px;\n  margin-left: -28px;\n  margin-top: -28px;\n  cursor: pointer;\n  z-index: 3;\n  animation: _ngcontent-%COMP%_planetOrbit 50s linear infinite;\n}\n.orbital-ring[_ngcontent-%COMP%]:hover   .orbit-item[_ngcontent-%COMP%] {\n  animation-play-state: paused;\n}\n.orbit-item[_ngcontent-%COMP%]   .orbit-node[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  padding: 8px;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.orbit-item[_ngcontent-%COMP%]   .orbit-node[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n}\n.orbit-item[_ngcontent-%COMP%]   .orbit-label[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.5rem;\n  font-size: 0.7rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.orbit-item[_ngcontent-%COMP%]:hover   .orbit-node[_ngcontent-%COMP%] {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);\n  transform: scale(1.15);\n}\n.orbit-item[_ngcontent-%COMP%]:hover   .orbit-label[_ngcontent-%COMP%] {\n  color: #667eea;\n}\n.orbit-item.active[_ngcontent-%COMP%]   .orbit-node[_ngcontent-%COMP%] {\n  border-color: #667eea;\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.5), 0 0 60px rgba(102, 126, 234, 0.2);\n  transform: scale(1.2);\n}\n.orbit-item.active[_ngcontent-%COMP%]   .orbit-label[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-weight: 700;\n}\n.sub-orbital-ring[_ngcontent-%COMP%] {\n  position: relative;\n  width: 340px;\n  height: 340px;\n  flex-shrink: 0;\n  animation: _ngcontent-%COMP%_ringAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes _ngcontent-%COMP%_ringAppear {\n  from {\n    opacity: 0;\n    transform: scale(0.6);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n.sub-ring-path[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 240px;\n  height: 240px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.sub-ring-center[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid rgba(102, 126, 234, 0.3);\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.15);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.sub-ring-center[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 32px;\n  height: 32px;\n  object-fit: contain;\n}\n.sub-ring-center[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  font-size: 0.5rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  margin-top: 2px;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 50px;\n  height: 50px;\n  margin-left: -25px;\n  margin-top: -25px;\n  cursor: pointer;\n  z-index: 3;\n  animation: _ngcontent-%COMP%_subRingOrbit 20s linear infinite;\n}\n.sub-orbital-ring[_ngcontent-%COMP%]:hover   .sub-ring-item[_ngcontent-%COMP%] {\n  animation-play-state: paused;\n}\n.sub-ring-item[_ngcontent-%COMP%]   .sub-ring-node[_ngcontent-%COMP%] {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 6px;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.sub-ring-item[_ngcontent-%COMP%]   .sub-ring-node[_ngcontent-%COMP%]   .sub-ring-title[_ngcontent-%COMP%] {\n  font-size: 0.55rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  text-align: center;\n  line-height: 1.2;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item[_ngcontent-%COMP%]   .sub-ring-label[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.4rem;\n  font-size: 0.6rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.sub-ring-item[_ngcontent-%COMP%]:hover   .sub-ring-node[_ngcontent-%COMP%] {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);\n  transform: scale(1.1);\n}\n.sub-ring-item.active[_ngcontent-%COMP%]   .sub-ring-node[_ngcontent-%COMP%] {\n  border-color: #667eea;\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.5), 0 0 50px rgba(102, 126, 234, 0.15);\n  transform: scale(1.15);\n}\n.sub-ring-item.active[_ngcontent-%COMP%]   .sub-ring-label[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-weight: 700;\n}\n.detail-panel[_ngcontent-%COMP%] {\n  max-width: 700px;\n  width: 100%;\n  background: var(--bg-secondary);\n  border-radius: 16px;\n  padding: 2rem;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  animation: _ngcontent-%COMP%_panelSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes _ngcontent-%COMP%_panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 1.25rem;\n  margin-bottom: 1.5rem;\n}\n.detail-header[_ngcontent-%COMP%]   .detail-logo[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border-radius: 10px;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 6px;\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);\n  flex-shrink: 0;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-title[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.35rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-bottom: 0.35rem;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%]   .detail-company[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 600;\n  color: #667eea;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%]   .detail-separator[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-size: 0.8rem;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%]   .detail-period[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-secondary);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  font-size: 0.85rem;\n  color: var(--text-secondary);\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-size: 0.75rem;\n}\n.detail-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  margin-bottom: 1.5rem;\n  font-size: 0.95rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-technologies[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n  margin-bottom: 1.5rem;\n}\n.detail-technologies[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%] {\n  background: rgba(102, 126, 234, 0.1);\n  color: #667eea;\n  padding: 0.375rem 0.75rem;\n  border-radius: 20px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Mono",\n    "Monaco",\n    "Inconsolata",\n    monospace;\n}\n.detail-technologies[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%]:hover {\n  background: rgba(102, 126, 234, 0.2);\n  transform: translateY(-1px);\n}\n.detail-achievements[_ngcontent-%COMP%]   .achievements-title[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.25rem;\n  margin-bottom: 0.5rem;\n  color: var(--text-secondary);\n  line-height: 1.5;\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #667eea;\n  font-weight: bold;\n  font-size: 0.9rem;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n@media (max-width: 768px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n  .orbital-ring[_ngcontent-%COMP%] {\n    transform: scale(0.78);\n    margin: -2rem 0;\n  }\n  .detail-panel[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n  .apple-container[_ngcontent-%COMP%] {\n    padding: 0 1rem;\n  }\n}\n@media (max-width: 480px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .orbital-ring[_ngcontent-%COMP%] {\n    transform: scale(0.62);\n    margin: -3.5rem 0;\n  }\n  .detail-panel[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .detail-header[_ngcontent-%COMP%]   .detail-logo[_ngcontent-%COMP%] {\n    width: 36px;\n    height: 36px;\n  }\n  .detail-header-info[_ngcontent-%COMP%]   .detail-title[_ngcontent-%COMP%] {\n    font-size: 1.1rem;\n  }\n  .apple-container[_ngcontent-%COMP%] {\n    padding: 0 0.75rem;\n  }\n  .detail-technologies[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%] {\n    font-size: 0.7rem;\n    padding: 0.25rem 0.5rem;\n  }\n}\n@keyframes _ngcontent-%COMP%_planetOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(200px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(200px) rotate(-270deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_subRingOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(120px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(120px) rotate(-270deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */'] });
+    }, styles: ['@charset "UTF-8";\n\n\n\n.apple-section[_ngcontent-%COMP%] {\n  padding: 4rem 0;\n  background: var(--bg-primary);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.apple-container[_ngcontent-%COMP%] {\n  max-width: 1400px;\n  margin: 0 auto;\n  padding: 0 2rem;\n  width: 100%;\n}\n.apple-fade-in[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeIn 1s ease-out;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  line-height: 1.2;\n}\n.orbital-container[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 3rem;\n}\n.orbital-ring[_ngcontent-%COMP%] {\n  position: relative;\n  width: 520px;\n  height: 520px;\n  flex-shrink: 0;\n}\n.orbit-path[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 400px;\n  height: 400px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.orbit-center[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 110px;\n  height: 110px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 40% 40%,\n      #a8c8ff,\n      #667eea,\n      #4a5fd6,\n      #3a3db5);\n  border: none;\n  box-shadow:\n    0 0 30px rgba(102, 126, 234, 0.55),\n    0 0 60px rgba(74, 95, 214, 0.35),\n    0 0 100px rgba(58, 61, 181, 0.2),\n    inset 0 0 25px rgba(180, 200, 255, 0.3);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  animation: _ngcontent-%COMP%_sunPulse 4s ease-in-out infinite;\n}\n.orbit-center[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -8px;\n  left: -8px;\n  right: -8px;\n  bottom: -8px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(102, 126, 234, 0.3) 0%,\n      transparent 70%);\n  animation: _ngcontent-%COMP%_coronaPulse 3s ease-in-out infinite alternate;\n  pointer-events: none;\n}\n.orbit-center[_ngcontent-%COMP%]   .center-years[_ngcontent-%COMP%] {\n  font-size: 1.75rem;\n  font-weight: 800;\n  color: #fff;\n  -webkit-text-fill-color: #fff;\n  text-shadow: 0 0 10px rgba(180, 200, 255, 0.7);\n  line-height: 1.2;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.orbit-center[_ngcontent-%COMP%]   .center-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 600;\n  color: rgba(220, 230, 255, 0.9);\n  text-transform: uppercase;\n  letter-spacing: 1.5px;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 0 6px rgba(102, 126, 234, 0.5);\n}\n@keyframes _ngcontent-%COMP%_sunPulse {\n  0%, 100% {\n    box-shadow:\n      0 0 30px rgba(102, 126, 234, 0.55),\n      0 0 60px rgba(74, 95, 214, 0.35),\n      0 0 100px rgba(58, 61, 181, 0.2),\n      inset 0 0 25px rgba(180, 200, 255, 0.3);\n  }\n  50% {\n    box-shadow:\n      0 0 40px rgba(102, 126, 234, 0.7),\n      0 0 80px rgba(74, 95, 214, 0.45),\n      0 0 120px rgba(58, 61, 181, 0.3),\n      inset 0 0 30px rgba(180, 200, 255, 0.4);\n  }\n}\n@keyframes _ngcontent-%COMP%_coronaPulse {\n  from {\n    transform: scale(1);\n    opacity: 0.6;\n  }\n  to {\n    transform: scale(1.15);\n    opacity: 1;\n  }\n}\n.orbit-item[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 56px;\n  height: 56px;\n  margin-left: -28px;\n  margin-top: -28px;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background: transparent;\n  z-index: 3;\n  animation: _ngcontent-%COMP%_planetOrbit 50s linear infinite;\n}\n.orbital-ring[_ngcontent-%COMP%]:hover   .orbit-item[_ngcontent-%COMP%] {\n  animation-play-state: paused;\n}\n.orbit-item[_ngcontent-%COMP%]   .orbit-node[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  padding: 8px;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.orbit-item[_ngcontent-%COMP%]   .orbit-node[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n}\n.orbit-item[_ngcontent-%COMP%]   .orbit-label[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.5rem;\n  font-size: 0.7rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.orbit-item[_ngcontent-%COMP%]:hover   .orbit-node[_ngcontent-%COMP%] {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);\n  transform: scale(1.15);\n}\n.orbit-item[_ngcontent-%COMP%]:hover   .orbit-label[_ngcontent-%COMP%] {\n  color: #667eea;\n}\n.orbit-item.active[_ngcontent-%COMP%]   .orbit-node[_ngcontent-%COMP%] {\n  border-color: #667eea;\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.5), 0 0 60px rgba(102, 126, 234, 0.2);\n  transform: scale(1.2);\n}\n.orbit-item.active[_ngcontent-%COMP%]   .orbit-label[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-weight: 700;\n}\n.orbit-item[_ngcontent-%COMP%]:focus-visible {\n  outline: none;\n}\n.orbit-item[_ngcontent-%COMP%]:focus-visible   .orbit-node[_ngcontent-%COMP%] {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25), 0 0 25px rgba(102, 126, 234, 0.3);\n  transform: scale(1.1);\n}\n.orbit-item[_ngcontent-%COMP%]:focus-visible   .orbit-label[_ngcontent-%COMP%] {\n  color: #667eea;\n}\n.sub-orbital-ring[_ngcontent-%COMP%] {\n  position: relative;\n  width: 340px;\n  height: 340px;\n  flex-shrink: 0;\n  animation: _ngcontent-%COMP%_ringAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes _ngcontent-%COMP%_ringAppear {\n  from {\n    opacity: 0;\n    transform: scale(0.6);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n.sub-ring-path[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 240px;\n  height: 240px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.sub-ring-center[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid rgba(102, 126, 234, 0.3);\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.15);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.sub-ring-center[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 32px;\n  height: 32px;\n  object-fit: contain;\n}\n.sub-ring-center[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  font-size: 0.5rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  margin-top: 2px;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 50px;\n  height: 50px;\n  margin-left: -25px;\n  margin-top: -25px;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background: transparent;\n  z-index: 3;\n  animation: _ngcontent-%COMP%_subRingOrbit 20s linear infinite;\n}\n.sub-orbital-ring[_ngcontent-%COMP%]:hover   .sub-ring-item[_ngcontent-%COMP%] {\n  animation-play-state: paused;\n}\n.sub-ring-item[_ngcontent-%COMP%]   .sub-ring-node[_ngcontent-%COMP%] {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 6px;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.sub-ring-item[_ngcontent-%COMP%]   .sub-ring-node[_ngcontent-%COMP%]   .sub-ring-title[_ngcontent-%COMP%] {\n  font-size: 0.55rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  text-align: center;\n  line-height: 1.2;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item[_ngcontent-%COMP%]   .sub-ring-label[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.4rem;\n  font-size: 0.6rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.sub-ring-item[_ngcontent-%COMP%]:hover   .sub-ring-node[_ngcontent-%COMP%] {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);\n  transform: scale(1.1);\n}\n.sub-ring-item.active[_ngcontent-%COMP%]   .sub-ring-node[_ngcontent-%COMP%] {\n  border-color: #667eea;\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.5), 0 0 50px rgba(102, 126, 234, 0.15);\n  transform: scale(1.15);\n}\n.sub-ring-item.active[_ngcontent-%COMP%]   .sub-ring-label[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-weight: 700;\n}\n.sub-ring-item[_ngcontent-%COMP%]:focus-visible {\n  outline: none;\n}\n.sub-ring-item[_ngcontent-%COMP%]:focus-visible   .sub-ring-node[_ngcontent-%COMP%] {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25), 0 0 20px rgba(102, 126, 234, 0.3);\n  transform: scale(1.1);\n}\n.sub-ring-item[_ngcontent-%COMP%]:focus-visible   .sub-ring-label[_ngcontent-%COMP%] {\n  color: #667eea;\n}\n.detail-panel[_ngcontent-%COMP%] {\n  max-width: 700px;\n  width: 100%;\n  background: var(--bg-secondary);\n  border-radius: 16px;\n  padding: 2rem;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  animation: _ngcontent-%COMP%_panelSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes _ngcontent-%COMP%_panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 1.25rem;\n  margin-bottom: 1.5rem;\n}\n.detail-header[_ngcontent-%COMP%]   .detail-logo[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border-radius: 10px;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 6px;\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);\n  flex-shrink: 0;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-title[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.35rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-bottom: 0.35rem;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%]   .detail-company[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 600;\n  color: #667eea;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%]   .detail-separator[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-size: 0.8rem;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-meta[_ngcontent-%COMP%]   .detail-period[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-secondary);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  font-size: 0.85rem;\n  color: var(--text-secondary);\n}\n.detail-header-info[_ngcontent-%COMP%]   .detail-location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-size: 0.75rem;\n}\n.detail-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  margin-bottom: 1.5rem;\n  font-size: 0.95rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-technologies[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n  margin-bottom: 1.5rem;\n}\n.detail-technologies[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%] {\n  background: rgba(102, 126, 234, 0.1);\n  color: #667eea;\n  padding: 0.375rem 0.75rem;\n  border-radius: 20px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Mono",\n    "Monaco",\n    "Inconsolata",\n    monospace;\n}\n.detail-technologies[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%]:hover {\n  background: rgba(102, 126, 234, 0.2);\n  transform: translateY(-1px);\n}\n.detail-achievements[_ngcontent-%COMP%]   .achievements-title[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.25rem;\n  margin-bottom: 0.5rem;\n  color: var(--text-secondary);\n  line-height: 1.5;\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #667eea;\n  font-weight: bold;\n  font-size: 0.9rem;\n}\n.detail-achievements[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n@media (max-width: 768px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n  .orbital-ring[_ngcontent-%COMP%] {\n    transform: scale(0.78);\n    margin: -2rem 0;\n  }\n  .detail-panel[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n  .apple-container[_ngcontent-%COMP%] {\n    padding: 0 1rem;\n  }\n}\n@media (max-width: 480px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .orbital-ring[_ngcontent-%COMP%] {\n    transform: scale(0.62);\n    margin: -3.5rem 0;\n  }\n  .detail-panel[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .detail-header[_ngcontent-%COMP%]   .detail-logo[_ngcontent-%COMP%] {\n    width: 36px;\n    height: 36px;\n  }\n  .detail-header-info[_ngcontent-%COMP%]   .detail-title[_ngcontent-%COMP%] {\n    font-size: 1.1rem;\n  }\n  .apple-container[_ngcontent-%COMP%] {\n    padding: 0 0.75rem;\n  }\n  .detail-technologies[_ngcontent-%COMP%]   .tech-tag[_ngcontent-%COMP%] {\n    font-size: 0.7rem;\n    padding: 0.25rem 0.5rem;\n  }\n}\n@keyframes _ngcontent-%COMP%_planetOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(200px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(200px) rotate(-270deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_subRingOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(120px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(120px) rotate(-270deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */'] });
   }
 };
 (() => {
@@ -43511,15 +38081,19 @@ var ExperienceComponent = class _ExperienceComponent {
 
         <!-- Orbiting Company Planets -->
         @for (planet of planets; track planet; let i = $index) {
-          <div class="orbit-item"
+          <button class="orbit-item"
             [style.animation-delay]="getOrbitDelay(i)"
             [class.active]="isPlanetActive(planet)"
+            type="button"
+            [attr.aria-label]="getPlanetActionLabel(planet)"
+            [attr.aria-expanded]="planet.items.length > 1 ? planet.isExpanded : null"
+            [attr.aria-pressed]="isPlanetActive(planet)"
             (click)="togglePlanet(planet)">
-            <div class="orbit-node">
+            <span class="orbit-node">
               <img [src]="planet.logo" [alt]="planet.company + ' logo'" loading="lazy" />
-            </div>
+            </span>
             <span class="orbit-label">{{planet.company}}</span>
-          </div>
+          </button>
         }
       </div>
 
@@ -43533,15 +38107,18 @@ var ExperienceComponent = class _ExperienceComponent {
               <span>{{planet.company}}</span>
             </div>
             @for (sub of planet.items; track sub; let j = $index) {
-              <div class="sub-ring-item"
+              <button class="sub-ring-item"
                 [style.animation-delay]="getSubOrbitDelay(j, planet.items.length)"
                 [class.active]="selectedItem === sub"
+                type="button"
+                [attr.aria-label]="getSubItemActionLabel(sub)"
+                [attr.aria-pressed]="selectedItem === sub"
                 (click)="selectSubItem(sub)">
-                <div class="sub-ring-node">
+                <span class="sub-ring-node">
                   <span class="sub-ring-title">{{sub.title}}</span>
-                </div>
+                </span>
                 <span class="sub-ring-label">{{sub.period}}</span>
-              </div>
+              </button>
             }
           </div>
         }
@@ -43584,12 +38161,564 @@ var ExperienceComponent = class _ExperienceComponent {
     </div>
   </div>
 </div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/experience/experience.component.scss */\n.apple-section {\n  padding: 4rem 0;\n  background: var(--bg-primary);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.apple-container {\n  max-width: 1400px;\n  margin: 0 auto;\n  padding: 0 2rem;\n  width: 100%;\n}\n.apple-fade-in {\n  animation: fadeIn 1s ease-out;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  line-height: 1.2;\n}\n.orbital-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 3rem;\n}\n.orbital-ring {\n  position: relative;\n  width: 520px;\n  height: 520px;\n  flex-shrink: 0;\n}\n.orbit-path {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 400px;\n  height: 400px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.orbit-center {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 110px;\n  height: 110px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 40% 40%,\n      #a8c8ff,\n      #667eea,\n      #4a5fd6,\n      #3a3db5);\n  border: none;\n  box-shadow:\n    0 0 30px rgba(102, 126, 234, 0.55),\n    0 0 60px rgba(74, 95, 214, 0.35),\n    0 0 100px rgba(58, 61, 181, 0.2),\n    inset 0 0 25px rgba(180, 200, 255, 0.3);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  animation: sunPulse 4s ease-in-out infinite;\n}\n.orbit-center::before {\n  content: "";\n  position: absolute;\n  top: -8px;\n  left: -8px;\n  right: -8px;\n  bottom: -8px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(102, 126, 234, 0.3) 0%,\n      transparent 70%);\n  animation: coronaPulse 3s ease-in-out infinite alternate;\n  pointer-events: none;\n}\n.orbit-center .center-years {\n  font-size: 1.75rem;\n  font-weight: 800;\n  color: #fff;\n  -webkit-text-fill-color: #fff;\n  text-shadow: 0 0 10px rgba(180, 200, 255, 0.7);\n  line-height: 1.2;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.orbit-center .center-label {\n  font-size: 0.65rem;\n  font-weight: 600;\n  color: rgba(220, 230, 255, 0.9);\n  text-transform: uppercase;\n  letter-spacing: 1.5px;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 0 6px rgba(102, 126, 234, 0.5);\n}\n@keyframes sunPulse {\n  0%, 100% {\n    box-shadow:\n      0 0 30px rgba(102, 126, 234, 0.55),\n      0 0 60px rgba(74, 95, 214, 0.35),\n      0 0 100px rgba(58, 61, 181, 0.2),\n      inset 0 0 25px rgba(180, 200, 255, 0.3);\n  }\n  50% {\n    box-shadow:\n      0 0 40px rgba(102, 126, 234, 0.7),\n      0 0 80px rgba(74, 95, 214, 0.45),\n      0 0 120px rgba(58, 61, 181, 0.3),\n      inset 0 0 30px rgba(180, 200, 255, 0.4);\n  }\n}\n@keyframes coronaPulse {\n  from {\n    transform: scale(1);\n    opacity: 0.6;\n  }\n  to {\n    transform: scale(1.15);\n    opacity: 1;\n  }\n}\n.orbit-item {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 56px;\n  height: 56px;\n  margin-left: -28px;\n  margin-top: -28px;\n  cursor: pointer;\n  z-index: 3;\n  animation: planetOrbit 50s linear infinite;\n}\n.orbital-ring:hover .orbit-item {\n  animation-play-state: paused;\n}\n.orbit-item .orbit-node {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  padding: 8px;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.orbit-item .orbit-node img {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n}\n.orbit-item .orbit-label {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.5rem;\n  font-size: 0.7rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.orbit-item:hover .orbit-node {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);\n  transform: scale(1.15);\n}\n.orbit-item:hover .orbit-label {\n  color: #667eea;\n}\n.orbit-item.active .orbit-node {\n  border-color: #667eea;\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.5), 0 0 60px rgba(102, 126, 234, 0.2);\n  transform: scale(1.2);\n}\n.orbit-item.active .orbit-label {\n  color: #667eea;\n  font-weight: 700;\n}\n.sub-orbital-ring {\n  position: relative;\n  width: 340px;\n  height: 340px;\n  flex-shrink: 0;\n  animation: ringAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes ringAppear {\n  from {\n    opacity: 0;\n    transform: scale(0.6);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n.sub-ring-path {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 240px;\n  height: 240px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.sub-ring-center {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid rgba(102, 126, 234, 0.3);\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.15);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.sub-ring-center img {\n  width: 32px;\n  height: 32px;\n  object-fit: contain;\n}\n.sub-ring-center span {\n  font-size: 0.5rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  margin-top: 2px;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 50px;\n  height: 50px;\n  margin-left: -25px;\n  margin-top: -25px;\n  cursor: pointer;\n  z-index: 3;\n  animation: subRingOrbit 20s linear infinite;\n}\n.sub-orbital-ring:hover .sub-ring-item {\n  animation-play-state: paused;\n}\n.sub-ring-item .sub-ring-node {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 6px;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.sub-ring-item .sub-ring-node .sub-ring-title {\n  font-size: 0.55rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  text-align: center;\n  line-height: 1.2;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item .sub-ring-label {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.4rem;\n  font-size: 0.6rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.sub-ring-item:hover .sub-ring-node {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);\n  transform: scale(1.1);\n}\n.sub-ring-item.active .sub-ring-node {\n  border-color: #667eea;\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.5), 0 0 50px rgba(102, 126, 234, 0.15);\n  transform: scale(1.15);\n}\n.sub-ring-item.active .sub-ring-label {\n  color: #667eea;\n  font-weight: 700;\n}\n.detail-panel {\n  max-width: 700px;\n  width: 100%;\n  background: var(--bg-secondary);\n  border-radius: 16px;\n  padding: 2rem;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  animation: panelSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-header {\n  display: flex;\n  align-items: flex-start;\n  gap: 1.25rem;\n  margin-bottom: 1.5rem;\n}\n.detail-header .detail-logo {\n  width: 48px;\n  height: 48px;\n  border-radius: 10px;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 6px;\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);\n  flex-shrink: 0;\n}\n.detail-header-info .detail-title {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.35rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info .detail-meta {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-bottom: 0.35rem;\n}\n.detail-header-info .detail-meta .detail-company {\n  font-size: 0.95rem;\n  font-weight: 600;\n  color: #667eea;\n}\n.detail-header-info .detail-meta .detail-separator {\n  color: var(--text-secondary);\n  font-size: 0.8rem;\n}\n.detail-header-info .detail-meta .detail-period {\n  font-size: 0.9rem;\n  color: var(--text-secondary);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info .detail-location {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  font-size: 0.85rem;\n  color: var(--text-secondary);\n}\n.detail-header-info .detail-location i {\n  color: #667eea;\n  font-size: 0.75rem;\n}\n.detail-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  margin-bottom: 1.5rem;\n  font-size: 0.95rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-technologies {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n  margin-bottom: 1.5rem;\n}\n.detail-technologies .tech-tag {\n  background: rgba(102, 126, 234, 0.1);\n  color: #667eea;\n  padding: 0.375rem 0.75rem;\n  border-radius: 20px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Mono",\n    "Monaco",\n    "Inconsolata",\n    monospace;\n}\n.detail-technologies .tech-tag:hover {\n  background: rgba(102, 126, 234, 0.2);\n  transform: translateY(-1px);\n}\n.detail-achievements .achievements-title {\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements ul {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-achievements ul li {\n  position: relative;\n  padding-left: 1.25rem;\n  margin-bottom: 0.5rem;\n  color: var(--text-secondary);\n  line-height: 1.5;\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements ul li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #667eea;\n  font-weight: bold;\n  font-size: 0.9rem;\n}\n.detail-achievements ul li:last-child {\n  margin-bottom: 0;\n}\n@media (max-width: 768px) {\n  .section-title {\n    font-size: 2.5rem;\n  }\n  .orbital-ring {\n    transform: scale(0.78);\n    margin: -2rem 0;\n  }\n  .detail-panel {\n    padding: 1.5rem;\n  }\n  .apple-container {\n    padding: 0 1rem;\n  }\n}\n@media (max-width: 480px) {\n  .section-title {\n    font-size: 2rem;\n  }\n  .orbital-ring {\n    transform: scale(0.62);\n    margin: -3.5rem 0;\n  }\n  .detail-panel {\n    padding: 1.25rem;\n  }\n  .detail-header .detail-logo {\n    width: 36px;\n    height: 36px;\n  }\n  .detail-header-info .detail-title {\n    font-size: 1.1rem;\n  }\n  .apple-container {\n    padding: 0 0.75rem;\n  }\n  .detail-technologies .tech-tag {\n    font-size: 0.7rem;\n    padding: 0.25rem 0.5rem;\n  }\n}\n@keyframes planetOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(200px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(200px) rotate(-270deg);\n  }\n}\n@keyframes subRingOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(120px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(120px) rotate(-270deg);\n  }\n}\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */\n'] }]
-  }], () => [{ type: TimeService }], null);
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/experience/experience.component.scss */\n.apple-section {\n  padding: 4rem 0;\n  background: var(--bg-primary);\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.apple-container {\n  max-width: 1400px;\n  margin: 0 auto;\n  padding: 0 2rem;\n  width: 100%;\n}\n.apple-fade-in {\n  animation: fadeIn 1s ease-out;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  line-height: 1.2;\n}\n.orbital-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 3rem;\n}\n.orbital-ring {\n  position: relative;\n  width: 520px;\n  height: 520px;\n  flex-shrink: 0;\n}\n.orbit-path {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 400px;\n  height: 400px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.orbit-center {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 110px;\n  height: 110px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 40% 40%,\n      #a8c8ff,\n      #667eea,\n      #4a5fd6,\n      #3a3db5);\n  border: none;\n  box-shadow:\n    0 0 30px rgba(102, 126, 234, 0.55),\n    0 0 60px rgba(74, 95, 214, 0.35),\n    0 0 100px rgba(58, 61, 181, 0.2),\n    inset 0 0 25px rgba(180, 200, 255, 0.3);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  animation: sunPulse 4s ease-in-out infinite;\n}\n.orbit-center::before {\n  content: "";\n  position: absolute;\n  top: -8px;\n  left: -8px;\n  right: -8px;\n  bottom: -8px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(102, 126, 234, 0.3) 0%,\n      transparent 70%);\n  animation: coronaPulse 3s ease-in-out infinite alternate;\n  pointer-events: none;\n}\n.orbit-center .center-years {\n  font-size: 1.75rem;\n  font-weight: 800;\n  color: #fff;\n  -webkit-text-fill-color: #fff;\n  text-shadow: 0 0 10px rgba(180, 200, 255, 0.7);\n  line-height: 1.2;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.orbit-center .center-label {\n  font-size: 0.65rem;\n  font-weight: 600;\n  color: rgba(220, 230, 255, 0.9);\n  text-transform: uppercase;\n  letter-spacing: 1.5px;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 0 6px rgba(102, 126, 234, 0.5);\n}\n@keyframes sunPulse {\n  0%, 100% {\n    box-shadow:\n      0 0 30px rgba(102, 126, 234, 0.55),\n      0 0 60px rgba(74, 95, 214, 0.35),\n      0 0 100px rgba(58, 61, 181, 0.2),\n      inset 0 0 25px rgba(180, 200, 255, 0.3);\n  }\n  50% {\n    box-shadow:\n      0 0 40px rgba(102, 126, 234, 0.7),\n      0 0 80px rgba(74, 95, 214, 0.45),\n      0 0 120px rgba(58, 61, 181, 0.3),\n      inset 0 0 30px rgba(180, 200, 255, 0.4);\n  }\n}\n@keyframes coronaPulse {\n  from {\n    transform: scale(1);\n    opacity: 0.6;\n  }\n  to {\n    transform: scale(1.15);\n    opacity: 1;\n  }\n}\n.orbit-item {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 56px;\n  height: 56px;\n  margin-left: -28px;\n  margin-top: -28px;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background: transparent;\n  z-index: 3;\n  animation: planetOrbit 50s linear infinite;\n}\n.orbital-ring:hover .orbit-item {\n  animation-play-state: paused;\n}\n.orbit-item .orbit-node {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  padding: 8px;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.orbit-item .orbit-node img {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n}\n.orbit-item .orbit-label {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.5rem;\n  font-size: 0.7rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.orbit-item:hover .orbit-node {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);\n  transform: scale(1.15);\n}\n.orbit-item:hover .orbit-label {\n  color: #667eea;\n}\n.orbit-item.active .orbit-node {\n  border-color: #667eea;\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.5), 0 0 60px rgba(102, 126, 234, 0.2);\n  transform: scale(1.2);\n}\n.orbit-item.active .orbit-label {\n  color: #667eea;\n  font-weight: 700;\n}\n.orbit-item:focus-visible {\n  outline: none;\n}\n.orbit-item:focus-visible .orbit-node {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25), 0 0 25px rgba(102, 126, 234, 0.3);\n  transform: scale(1.1);\n}\n.orbit-item:focus-visible .orbit-label {\n  color: #667eea;\n}\n.sub-orbital-ring {\n  position: relative;\n  width: 340px;\n  height: 340px;\n  flex-shrink: 0;\n  animation: ringAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes ringAppear {\n  from {\n    opacity: 0;\n    transform: scale(0.6);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n.sub-ring-path {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 240px;\n  height: 240px;\n  transform: translate(-50%, -50%);\n  border: 1.5px dashed rgba(102, 126, 234, 0.25);\n  border-radius: 50%;\n  pointer-events: none;\n}\n.sub-ring-center {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid rgba(102, 126, 234, 0.3);\n  box-shadow: 0 0 30px rgba(102, 126, 234, 0.15);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  z-index: 2;\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n}\n.sub-ring-center img {\n  width: 32px;\n  height: 32px;\n  object-fit: contain;\n}\n.sub-ring-center span {\n  font-size: 0.5rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  margin-top: 2px;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 50px;\n  height: 50px;\n  margin-left: -25px;\n  margin-top: -25px;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background: transparent;\n  z-index: 3;\n  animation: subRingOrbit 20s linear infinite;\n}\n.sub-orbital-ring:hover .sub-ring-item {\n  animation-play-state: paused;\n}\n.sub-ring-item .sub-ring-node {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  background: var(--bg-secondary);\n  border: 2px solid var(--glass-border);\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 6px;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(10px);\n  -webkit-backdrop-filter: blur(10px);\n}\n.sub-ring-item .sub-ring-node .sub-ring-title {\n  font-size: 0.55rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  text-align: center;\n  line-height: 1.2;\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.sub-ring-item .sub-ring-label {\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  margin-top: 0.4rem;\n  font-size: 0.6rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n}\n.sub-ring-item:hover .sub-ring-node {\n  border-color: rgba(102, 126, 234, 0.6);\n  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);\n  transform: scale(1.1);\n}\n.sub-ring-item.active .sub-ring-node {\n  border-color: #667eea;\n  box-shadow: 0 0 25px rgba(102, 126, 234, 0.5), 0 0 50px rgba(102, 126, 234, 0.15);\n  transform: scale(1.15);\n}\n.sub-ring-item.active .sub-ring-label {\n  color: #667eea;\n  font-weight: 700;\n}\n.sub-ring-item:focus-visible {\n  outline: none;\n}\n.sub-ring-item:focus-visible .sub-ring-node {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25), 0 0 20px rgba(102, 126, 234, 0.3);\n  transform: scale(1.1);\n}\n.sub-ring-item:focus-visible .sub-ring-label {\n  color: #667eea;\n}\n.detail-panel {\n  max-width: 700px;\n  width: 100%;\n  background: var(--bg-secondary);\n  border-radius: 16px;\n  padding: 2rem;\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  animation: panelSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n}\n@keyframes panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-header {\n  display: flex;\n  align-items: flex-start;\n  gap: 1.25rem;\n  margin-bottom: 1.5rem;\n}\n.detail-header .detail-logo {\n  width: 48px;\n  height: 48px;\n  border-radius: 10px;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 6px;\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);\n  flex-shrink: 0;\n}\n.detail-header-info .detail-title {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.35rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info .detail-meta {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-bottom: 0.35rem;\n}\n.detail-header-info .detail-meta .detail-company {\n  font-size: 0.95rem;\n  font-weight: 600;\n  color: #667eea;\n}\n.detail-header-info .detail-meta .detail-separator {\n  color: var(--text-secondary);\n  font-size: 0.8rem;\n}\n.detail-header-info .detail-meta .detail-period {\n  font-size: 0.9rem;\n  color: var(--text-secondary);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-header-info .detail-location {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  font-size: 0.85rem;\n  color: var(--text-secondary);\n}\n.detail-header-info .detail-location i {\n  color: #667eea;\n  font-size: 0.75rem;\n}\n.detail-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  margin-bottom: 1.5rem;\n  font-size: 0.95rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-technologies {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n  margin-bottom: 1.5rem;\n}\n.detail-technologies .tech-tag {\n  background: rgba(102, 126, 234, 0.1);\n  color: #667eea;\n  padding: 0.375rem 0.75rem;\n  border-radius: 20px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Mono",\n    "Monaco",\n    "Inconsolata",\n    monospace;\n}\n.detail-technologies .tech-tag:hover {\n  background: rgba(102, 126, 234, 0.2);\n  transform: translateY(-1px);\n}\n.detail-achievements .achievements-title {\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements ul {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-achievements ul li {\n  position: relative;\n  padding-left: 1.25rem;\n  margin-bottom: 0.5rem;\n  color: var(--text-secondary);\n  line-height: 1.5;\n  font-size: 0.9rem;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-achievements ul li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #667eea;\n  font-weight: bold;\n  font-size: 0.9rem;\n}\n.detail-achievements ul li:last-child {\n  margin-bottom: 0;\n}\n@media (max-width: 768px) {\n  .section-title {\n    font-size: 2.5rem;\n  }\n  .orbital-ring {\n    transform: scale(0.78);\n    margin: -2rem 0;\n  }\n  .detail-panel {\n    padding: 1.5rem;\n  }\n  .apple-container {\n    padding: 0 1rem;\n  }\n}\n@media (max-width: 480px) {\n  .section-title {\n    font-size: 2rem;\n  }\n  .orbital-ring {\n    transform: scale(0.62);\n    margin: -3.5rem 0;\n  }\n  .detail-panel {\n    padding: 1.25rem;\n  }\n  .detail-header .detail-logo {\n    width: 36px;\n    height: 36px;\n  }\n  .detail-header-info .detail-title {\n    font-size: 1.1rem;\n  }\n  .apple-container {\n    padding: 0 0.75rem;\n  }\n  .detail-technologies .tech-tag {\n    font-size: 0.7rem;\n    padding: 0.25rem 0.5rem;\n  }\n}\n@keyframes planetOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(200px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(200px) rotate(-270deg);\n  }\n}\n@keyframes subRingOrbit {\n  0% {\n    transform: rotate(-90deg) translateX(120px) rotate(90deg);\n  }\n  100% {\n    transform: rotate(270deg) translateX(120px) rotate(-270deg);\n  }\n}\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */\n'] }]
+  }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ExperienceComponent, { className: "ExperienceComponent", filePath: "src/app/profile/experience/experience.component.ts", lineNumber: 34 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ExperienceComponent, { className: "ExperienceComponent", filePath: "src/app/profile/experience/experience.component.ts", lineNumber: 12 });
 })();
+
+// src/app/profile/skills/skills.data.ts
+var SKILL_DETAILS = {
+  // ─── Languages ────────────────────────────────────────
+  "Java 21": {
+    description: "Proficient in modern Java features including virtual threads, pattern matching, and record patterns.",
+    experience: [
+      "Extensive experience with Java 8 through Java 21 features",
+      "Implemented concurrent programming with virtual threads (Project Loom)",
+      "Used pattern matching, sealed classes, and record patterns for type-safe code",
+      "Built high-throughput services handling millions of requests per day"
+    ],
+    projects: [
+      "High-performance microservices with Java 21",
+      "Concurrent data processing pipelines",
+      "RESTful APIs with modern Java features"
+    ],
+    achievements: [
+      "Adopted Java 21 virtual threads for 3x throughput improvement",
+      "Reduced code complexity by 40% with pattern matching",
+      "Migrated legacy codebase to modern Java features"
+    ],
+    relatedSkills: ["Spring Boot", "Microservices", "DSA"]
+  },
+  "Python": {
+    description: "Strong Python skills for backend services, scripting, data processing, and AI/ML workloads.",
+    experience: [
+      "Built REST APIs using Flask and FastAPI",
+      "Developed automation scripts for infrastructure and CI/CD pipelines",
+      "Used Python for data analysis with Pandas and NumPy",
+      "Implemented ML pipelines and LLM integrations in Python"
+    ],
+    projects: [
+      "AI-powered code review and analysis tools",
+      "Data pipeline orchestration for analytics",
+      "Internal automation and developer tooling"
+    ],
+    achievements: [
+      "Automated manual workflows saving 20+ hours per week",
+      "Built internal CLI tools adopted by 50+ engineers",
+      "Developed ML-based anomaly detection system"
+    ],
+    relatedSkills: ["Generative AI", "LLM", "RAG"]
+  },
+  "GO": {
+    description: "Proficient in Go for building high-performance, concurrent backend services and CLI tools.",
+    experience: [
+      "Built production microservices using Go and Echo framework",
+      "Implemented highly concurrent systems leveraging goroutines and channels",
+      "Developed gRPC services for inter-service communication",
+      "Created efficient CLI tools and system-level utilities"
+    ],
+    projects: [
+      "Real-time event processing microservice",
+      "High-throughput API gateway in Go",
+      "Internal developer platform tooling"
+    ],
+    achievements: [
+      "Achieved sub-millisecond p99 latency on critical paths",
+      "Built services handling 50K+ requests per second",
+      "Reduced memory footprint by 60% migrating from Java to Go"
+    ],
+    relatedSkills: ["Echo", "Microservices", "Kafka"]
+  },
+  "NodeJS": {
+    description: "Experienced with Node.js for building scalable APIs, real-time services, and serverless functions.",
+    experience: [
+      "Built RESTful APIs with Express and NestJS",
+      "Developed real-time features using WebSockets (Socket.io)",
+      "Created serverless functions on AWS Lambda",
+      "Used Node.js for build tooling, scripting, and SSR"
+    ],
+    projects: [
+      "Real-time notification and chat system",
+      "Serverless API backend on AWS Lambda",
+      "Angular SSR rendering service"
+    ],
+    achievements: [
+      "Built WebSocket system serving 100K+ concurrent connections",
+      "Reduced cold-start times by 70% on Lambda functions",
+      "Implemented efficient streaming data processing"
+    ],
+    relatedSkills: ["Kafka", "RabbitMQ", "MongoDB"]
+  },
+  // ─── Architecture ─────────────────────────────────────
+  "High Level Design": {
+    description: "Expert in designing large-scale distributed systems with focus on scalability, reliability, and maintainability.",
+    experience: [
+      "Designed systems handling millions of daily active users",
+      "Created architecture documents and conducted design reviews",
+      "Applied CAP theorem, CQRS, and event sourcing patterns",
+      "Designed for multi-region deployments and disaster recovery"
+    ],
+    projects: [
+      "Gaming platform architecture serving 10M+ users",
+      "Real-time leaderboard and scoring system",
+      "Multi-tenant SaaS platform design"
+    ],
+    achievements: [
+      "Designed systems achieving 99.99% availability",
+      "Scaled architecture from 1M to 10M concurrent users",
+      "Reduced infrastructure costs by 40% through design optimization"
+    ],
+    relatedSkills: ["Low Level Design", "Microservices", "Kafka"]
+  },
+  "Low Level Design": {
+    description: "Strong expertise in object-oriented design, SOLID principles, and design patterns for clean, extensible code.",
+    experience: [
+      "Applied SOLID principles and GoF design patterns in production",
+      "Designed modular APIs with clear separation of concerns",
+      "Conducted code reviews focused on design quality",
+      "Built reusable libraries and frameworks used across teams"
+    ],
+    projects: [
+      "Payment gateway SDK with pluggable providers",
+      "Rule engine for dynamic business logic",
+      "Extensible notification framework"
+    ],
+    achievements: [
+      "Reduced onboarding time for new developers by 50%",
+      "Built internal framework adopted across 8+ teams",
+      "Achieved 90%+ code coverage with testable design"
+    ],
+    relatedSkills: ["High Level Design", "Java 21", "Spring Boot"]
+  },
+  "Microservices": {
+    description: "Architected and implemented scalable microservices architectures with proper separation of concerns.",
+    experience: [
+      "Decomposed monolithic applications into microservices",
+      "Implemented service mesh, API gateway, and circuit breaker patterns",
+      "Built inter-service communication with REST, gRPC, and event-driven messaging",
+      "Set up distributed tracing and centralized logging"
+    ],
+    projects: [
+      "Gaming platform microservices architecture",
+      "Financial services distributed system",
+      "E-commerce order processing system"
+    ],
+    achievements: [
+      "Scaled system to handle 10M+ concurrent users",
+      "Reduced deployment time by 75% with independent service deployments",
+      "Implemented circuit breaker and bulkhead patterns for resilience"
+    ],
+    relatedSkills: ["Spring Boot", "Kafka", "High Level Design"]
+  },
+  // ─── Databases ────────────────────────────────────────
+  "MySQL": {
+    description: "Extensive experience with MySQL across multiple versions in production environments.",
+    experience: [
+      "Worked on MySQL 5.6, MySQL 5.7 and MySQL 8",
+      "Migrated systems from old DB to new DB using Amazon DMS",
+      "Experience in tuning queries making them use to force index",
+      "Designed normalized and denormalized schemas for different access patterns"
+    ],
+    projects: [
+      "Database migration for Games24x7 gaming platform",
+      "Query optimization for high-traffic applications",
+      "Schema design for microservices architecture"
+    ],
+    achievements: [
+      "Reduced query latency by 60% through index optimization",
+      "Successfully migrated 5+ production databases with zero downtime",
+      "Implemented database monitoring, slow-query alerts, and automated failover"
+    ],
+    relatedSkills: ["MongoDB", "Redis", "Elasti-Cache"]
+  },
+  "MongoDB": {
+    description: "Proficient in MongoDB for document-oriented storage, flexible schemas, and aggregation pipelines.",
+    experience: [
+      "Designed document schemas for complex domain models",
+      "Built aggregation pipelines for real-time analytics",
+      "Managed replica sets and sharded clusters in production",
+      "Implemented change streams for event-driven architecture"
+    ],
+    projects: [
+      "User activity and event logging system",
+      "Content management platform with flexible schemas",
+      "Real-time analytics dashboard backend"
+    ],
+    achievements: [
+      "Processed 500K+ writes/sec with sharded MongoDB clusters",
+      "Reduced data access latency by 45% with proper indexing strategies",
+      "Migrated 2TB+ dataset from MySQL to MongoDB with zero downtime"
+    ],
+    relatedSkills: ["MySQL", "Neptune", "Cassandra"]
+  },
+  "Neptune": {
+    description: "Experience with Amazon Neptune for graph-based data modeling and relationship-heavy queries.",
+    experience: [
+      "Modeled complex entity relationships using property graphs",
+      "Wrote Gremlin and SPARQL queries for traversals",
+      "Integrated Neptune with microservices for recommendation engines",
+      "Optimized graph queries for low-latency lookups"
+    ],
+    projects: [
+      "Social connection and recommendation engine",
+      "Fraud detection using graph traversal patterns",
+      "Knowledge graph for AI-powered search"
+    ],
+    achievements: [
+      "Built recommendation engine serving 5M+ users",
+      "Reduced fraud detection time from hours to seconds",
+      "Designed graph schema handling 100M+ edges"
+    ],
+    relatedSkills: ["MongoDB", "MySQL", "VectorDB"]
+  },
+  "Salesforce DB": {
+    description: "Experience with Salesforce data platform including SOQL, custom objects, and data integration patterns.",
+    experience: [
+      "Designed custom objects and relationships in Salesforce",
+      "Wrote complex SOQL and SOSL queries for reporting",
+      "Integrated Salesforce data with external systems via APIs",
+      "Managed data migrations between Salesforce orgs"
+    ],
+    projects: [
+      "CRM data integration for sales analytics",
+      "Custom Salesforce app for customer lifecycle management",
+      "Data synchronization between Salesforce and internal systems"
+    ],
+    achievements: [
+      "Integrated Salesforce with 5+ internal systems",
+      "Automated reporting saving 15+ hours per week",
+      "Designed data model supporting 1M+ customer records"
+    ],
+    relatedSkills: ["MySQL", "MongoDB", "High Level Design"]
+  },
+  "Cassandra": {
+    description: "Proficient in Apache Cassandra for high-availability, write-heavy workloads at massive scale.",
+    experience: [
+      "Designed partition keys and clustering columns for optimal read/write patterns",
+      "Managed multi-datacenter Cassandra clusters",
+      "Implemented time-series data storage with TTL-based expiry",
+      "Tuned consistency levels for different use cases"
+    ],
+    projects: [
+      "Time-series data store for IoT sensor data",
+      "User session and activity tracking system",
+      "High-throughput event logging platform"
+    ],
+    achievements: [
+      "Handled 1M+ writes/sec with sub-5ms p99 latency",
+      "Designed schema for 10TB+ dataset with efficient compaction",
+      "Achieved 99.999% availability with multi-DC replication"
+    ],
+    relatedSkills: ["MongoDB", "MySQL", "Kafka"]
+  },
+  // ─── Frameworks ───────────────────────────────────────
+  "Spring Boot": {
+    description: "Deep expertise in Spring Boot for building production-ready microservices and REST APIs.",
+    experience: [
+      "Built 10+ production microservices with Spring Boot",
+      "Implemented Spring Security with OAuth2 and JWT authentication",
+      "Used Spring Data JPA and Spring Data Redis for data access",
+      "Set up Spring Actuator for health checks and metrics"
+    ],
+    projects: [
+      "Gaming platform backend services",
+      "Financial transaction processing system",
+      "User management and authentication service"
+    ],
+    achievements: [
+      "Reduced development time by 50% with Spring Boot starters",
+      "Achieved 99.9% uptime in production services",
+      "Implemented comprehensive monitoring and distributed logging"
+    ],
+    relatedSkills: ["Java 21", "Microservices", "MySQL"]
+  },
+  "Echo": {
+    description: "Experienced with Echo framework for building lightweight, high-performance Go web services.",
+    experience: [
+      "Built RESTful APIs with Echo's middleware pipeline",
+      "Implemented custom middleware for auth, logging, and rate-limiting",
+      "Used Echo's context and binding for clean request handling",
+      "Integrated Echo services with gRPC and Kafka"
+    ],
+    projects: [
+      "High-throughput API microservice",
+      "Internal developer platform APIs",
+      "Real-time data ingestion endpoint"
+    ],
+    achievements: [
+      "Built APIs handling 50K+ req/s with minimal memory footprint",
+      "Reduced API response time by 40% migrating from Node.js to Echo",
+      "Implemented graceful shutdown and health-check patterns"
+    ],
+    relatedSkills: ["GO", "Microservices", "Kafka"]
+  },
+  "Dropwizard": {
+    description: "Experience with Dropwizard for building ops-friendly, high-performance Java RESTful web services.",
+    experience: [
+      "Built production services with Dropwizard's opinionated stack",
+      "Leveraged Jersey, Jetty, and Jackson for REST APIs",
+      "Integrated Dropwizard with Hibernate and database migrations",
+      "Used Metrics library for real-time performance monitoring"
+    ],
+    projects: [
+      "Payment processing microservice",
+      "User profile and preference service",
+      "Admin dashboard backend APIs"
+    ],
+    achievements: [
+      "Achieved sub-10ms p99 latency on critical endpoints",
+      "Built services processing 100K+ transactions/day",
+      "Implemented comprehensive health checks and alerting"
+    ],
+    relatedSkills: ["Java 21", "Spring Boot", "MySQL"]
+  },
+  "Google Guice": {
+    description: "Proficient in Google Guice for lightweight dependency injection in Java applications.",
+    experience: [
+      "Used Guice for DI in non-Spring Java applications",
+      "Designed modular applications with Guice modules and providers",
+      "Implemented custom scopes and interceptors with Guice AOP",
+      "Integrated Guice with Dropwizard and other frameworks"
+    ],
+    projects: [
+      "Modular data processing pipeline",
+      "Plugin architecture for extensible services",
+      "Test-friendly service layer with Guice injection"
+    ],
+    achievements: [
+      "Reduced startup time by 60% using Guice over heavier DI frameworks",
+      "Built plugin system supporting 15+ extension modules",
+      "Improved testability achieving 95%+ unit test coverage"
+    ],
+    relatedSkills: ["Java 21", "Dropwizard", "Spring Boot"]
+  },
+  // ─── AI / ML ──────────────────────────────────────────
+  "Generative AI": {
+    description: "Hands-on experience building applications powered by generative AI models and multi-modal capabilities.",
+    experience: [
+      "Built conversational AI agents using GPT-4, Claude, and Gemini",
+      "Implemented multi-modal AI features with vision and audio models",
+      "Designed prompt chains and agent workflows for complex tasks",
+      "Evaluated and benchmarked model outputs for quality assurance"
+    ],
+    projects: [
+      "AI-powered portfolio with voice interaction",
+      "Automated code review assistant",
+      "Content generation and summarization platform"
+    ],
+    achievements: [
+      "Built AI face assistant featured on portfolio site",
+      "Reduced content creation time by 70% with generative AI",
+      "Implemented guardrails achieving 99% safety compliance"
+    ],
+    relatedSkills: ["LLM", "RAG", "VectorDB"]
+  },
+  "LLM": {
+    description: "Working with Large Language Models for building AI-powered applications and services.",
+    experience: [
+      "Integrated OpenAI, Claude, and Gemini APIs into production systems",
+      "Built RAG systems for domain-specific knowledge retrieval",
+      "Implemented prompt engineering and chain-of-thought reasoning",
+      "Fine-tuned models for domain-specific tasks"
+    ],
+    projects: [
+      "AI-powered customer support chatbot",
+      "Document analysis and summarization system",
+      "Code generation and review assistant"
+    ],
+    achievements: [
+      "Reduced customer support response time by 60%",
+      "Built RAG system with 95% retrieval accuracy",
+      "Automated 40% of code review process with LLM"
+    ],
+    relatedSkills: ["Generative AI", "RAG", "VectorDB"]
+  },
+  "RAG": {
+    description: "Expert in Retrieval-Augmented Generation for grounding LLM responses with domain-specific knowledge.",
+    experience: [
+      "Designed end-to-end RAG pipelines with chunking, embedding, and retrieval",
+      "Implemented hybrid search combining semantic and keyword matching",
+      "Optimized chunk sizes and overlap for different document types",
+      "Built evaluation frameworks to measure retrieval quality"
+    ],
+    projects: [
+      "Internal knowledge base Q&A system",
+      "Customer-facing documentation assistant",
+      "Legal document analysis and search"
+    ],
+    achievements: [
+      "Achieved 95%+ retrieval accuracy on domain-specific queries",
+      "Reduced hallucination rate by 80% compared to vanilla LLM",
+      "Built RAG pipeline processing 100K+ documents"
+    ],
+    relatedSkills: ["LLM", "VectorDB", "Generative AI"]
+  },
+  "VectorDB": {
+    description: "Experience with vector databases for semantic search, embeddings storage, and similarity matching.",
+    experience: [
+      "Worked with Pinecone, Weaviate, and pgvector",
+      "Designed embedding strategies for different data types",
+      "Implemented approximate nearest neighbor (ANN) search",
+      "Optimized index configurations for latency and recall trade-offs"
+    ],
+    projects: [
+      "Semantic search engine for product catalog",
+      "Similar document recommendation system",
+      "Image similarity matching for content moderation"
+    ],
+    achievements: [
+      "Built vector search serving 10K+ queries/sec at p99 < 50ms",
+      "Indexed 50M+ embeddings with 98% recall@10",
+      "Reduced search infrastructure costs by 35% with pgvector"
+    ],
+    relatedSkills: ["RAG", "LLM", "Generative AI"]
+  },
+  // ─── Queues ───────────────────────────────────────────
+  "Kafka": {
+    description: "Expert in Apache Kafka for building real-time data pipelines and event-driven architectures.",
+    experience: [
+      "Designed and managed multi-broker Kafka clusters in production",
+      "Built event-driven microservices with Kafka Streams and KSQL",
+      "Optimized partition strategies and consumer groups for high throughput",
+      "Implemented exactly-once semantics and dead-letter queue patterns"
+    ],
+    projects: [
+      "Real-time analytics pipeline for gaming platform",
+      "Event sourcing architecture for financial systems",
+      "Kafka-based messaging for microservices"
+    ],
+    achievements: [
+      "Processed 1M+ events per second with Kafka",
+      "Built fault-tolerant event streaming with zero data loss",
+      "Reduced data processing latency by 80%"
+    ],
+    relatedSkills: ["RabbitMQ", "AmazonSQS", "Microservices"]
+  },
+  "RabbitMQ": {
+    description: "Experienced with RabbitMQ for reliable message queuing, task distribution, and pub/sub patterns.",
+    experience: [
+      "Designed exchange-queue topologies for various routing patterns",
+      "Implemented dead-letter queues and retry mechanisms",
+      "Managed RabbitMQ clusters with high-availability queues",
+      "Built consumer pools with acknowledgment and prefetch tuning"
+    ],
+    projects: [
+      "Order processing pipeline with guaranteed delivery",
+      "Email and notification dispatch system",
+      "Distributed task scheduling engine"
+    ],
+    achievements: [
+      "Built message system with 99.99% delivery guarantee",
+      "Processed 500K+ messages/day with zero message loss",
+      "Reduced order processing time by 65% with async queuing"
+    ],
+    relatedSkills: ["Kafka", "AmazonSQS", "Microservices"]
+  },
+  "AmazonSQS": {
+    description: "Proficient in Amazon SQS for serverless, fully-managed message queuing at scale.",
+    experience: [
+      "Designed SQS-based architectures with FIFO and standard queues",
+      "Implemented Lambda-triggered consumers for serverless processing",
+      "Built dead-letter queue strategies with automated alerting",
+      "Integrated SQS with SNS for fan-out messaging patterns"
+    ],
+    projects: [
+      "Serverless order fulfillment pipeline",
+      "Async image and video processing system",
+      "Cross-service event notification system"
+    ],
+    achievements: [
+      "Built serverless pipeline processing 1M+ messages/day",
+      "Reduced infrastructure costs by 50% moving from self-managed queues to SQS",
+      "Achieved zero message loss with DLQ monitoring and auto-retry"
+    ],
+    relatedSkills: ["Kafka", "RabbitMQ", "Microservices"]
+  },
+  // ─── Core CS ──────────────────────────────────────────
+  "DSA": {
+    description: "Strong foundation in data structures and algorithms with competitive programming experience.",
+    experience: [
+      "Solved 1000+ problems on LeetCode, Codeforces, and HackerRank",
+      "Applied advanced data structures: segment trees, tries, and union-find",
+      "Designed efficient algorithms for production systems",
+      "Mentored junior engineers on problem-solving and DSA fundamentals"
+    ],
+    projects: [
+      "Custom trie-based autocomplete engine",
+      "Graph-based route optimization system",
+      "Real-time ranking algorithm for gaming platform"
+    ],
+    achievements: [
+      "Top 5% on LeetCode with 1000+ problems solved",
+      "Designed algorithm reducing search time from O(n\xB2) to O(n log n)",
+      "Published data structure visualizations and educational content"
+    ],
+    relatedSkills: ["Networking", "Java 21", "Python"]
+  },
+  "Networking": {
+    description: "Deep understanding of computer networking, protocols, and distributed system communication.",
+    experience: [
+      "Expertise in TCP/IP, HTTP/2, gRPC, and WebSocket protocols",
+      "Designed network architectures with load balancers and CDNs",
+      "Debugged complex networking issues in distributed systems",
+      "Implemented service discovery and DNS-based routing"
+    ],
+    projects: [
+      "Custom load balancer with health checking",
+      "WebSocket-based real-time communication layer",
+      "Network monitoring and alerting platform"
+    ],
+    achievements: [
+      "Reduced network latency by 40% with connection pooling and keep-alive",
+      "Designed network topology handling 100K+ concurrent connections",
+      "Debugged and resolved critical TCP retransmission issues in production"
+    ],
+    relatedSkills: ["DSA", "High Level Design", "Microservices"]
+  },
+  // ─── Cache ────────────────────────────────────────────
+  "Elasti-Cache": {
+    description: "Experience with Amazon ElastiCache for managed Redis and Memcached caching at scale.",
+    experience: [
+      "Deployed and managed ElastiCache Redis clusters in production",
+      "Configured cluster mode, replication, and automatic failover",
+      "Implemented cache-aside, write-through, and write-behind patterns",
+      "Set up CloudWatch monitoring and alarm-based scaling"
+    ],
+    projects: [
+      "Session management for distributed web applications",
+      "API response caching layer for high-traffic services",
+      "Real-time feature flags and configuration caching"
+    ],
+    achievements: [
+      "Reduced database load by 70% with ElastiCache caching layer",
+      "Achieved sub-millisecond read latency for cached data",
+      "Designed multi-AZ caching with automatic failover"
+    ],
+    relatedSkills: ["Redis", "MySQL", "High Level Design"]
+  },
+  "Redis": {
+    description: "Expert in Redis for caching, session management, and real-time data structures.",
+    experience: [
+      "Designed Redis caching strategies with eviction policies",
+      "Implemented session management with Redis Cluster",
+      "Used Redis data structures for real-time leaderboards and counters",
+      "Built pub/sub systems and stream processing with Redis Streams"
+    ],
+    projects: [
+      "Real-time gaming leaderboards",
+      "Session management for microservices",
+      "Cache layer for high-traffic APIs"
+    ],
+    achievements: [
+      "Reduced database load by 70% with Redis caching",
+      "Built real-time analytics with Redis Streams processing 100K+ events/sec",
+      "Implemented distributed locking with Redis for consistency"
+    ],
+    relatedSkills: ["Elasti-Cache", "MySQL", "Kafka"]
+  }
+};
 
 // src/app/profile/skills/skills.component.ts
 var _c03 = (a0) => ({ "viewport-wrapper--zooming": a0 });
@@ -43931,6 +39060,11 @@ var SkillsComponent = class _SkillsComponent {
     this.ringStroke = 0.55;
     this.backgroundStars = [];
   }
+  onEscapeKey() {
+    if (this.showDetailModal) {
+      this.closeDetailModal();
+    }
+  }
   ngOnInit() {
     this.buildConstellations();
     this.buildConnections();
@@ -44160,560 +39294,10 @@ var SkillsComponent = class _SkillsComponent {
     return maxY + 6;
   }
   addSkillDetails() {
-    const skillDetails = {
-      // ─── Languages ────────────────────────────────────────
-      "Java 21": {
-        description: "Proficient in modern Java features including virtual threads, pattern matching, and record patterns.",
-        experience: [
-          "Extensive experience with Java 8 through Java 21 features",
-          "Implemented concurrent programming with virtual threads (Project Loom)",
-          "Used pattern matching, sealed classes, and record patterns for type-safe code",
-          "Built high-throughput services handling millions of requests per day"
-        ],
-        projects: [
-          "High-performance microservices with Java 21",
-          "Concurrent data processing pipelines",
-          "RESTful APIs with modern Java features"
-        ],
-        achievements: [
-          "Adopted Java 21 virtual threads for 3x throughput improvement",
-          "Reduced code complexity by 40% with pattern matching",
-          "Migrated legacy codebase to modern Java features"
-        ],
-        relatedSkills: ["Spring Boot", "Microservices", "DSA"]
-      },
-      "Python": {
-        description: "Strong Python skills for backend services, scripting, data processing, and AI/ML workloads.",
-        experience: [
-          "Built REST APIs using Flask and FastAPI",
-          "Developed automation scripts for infrastructure and CI/CD pipelines",
-          "Used Python for data analysis with Pandas and NumPy",
-          "Implemented ML pipelines and LLM integrations in Python"
-        ],
-        projects: [
-          "AI-powered code review and analysis tools",
-          "Data pipeline orchestration for analytics",
-          "Internal automation and developer tooling"
-        ],
-        achievements: [
-          "Automated manual workflows saving 20+ hours per week",
-          "Built internal CLI tools adopted by 50+ engineers",
-          "Developed ML-based anomaly detection system"
-        ],
-        relatedSkills: ["Generative AI", "LLM", "RAG"]
-      },
-      "GO": {
-        description: "Proficient in Go for building high-performance, concurrent backend services and CLI tools.",
-        experience: [
-          "Built production microservices using Go and Echo framework",
-          "Implemented highly concurrent systems leveraging goroutines and channels",
-          "Developed gRPC services for inter-service communication",
-          "Created efficient CLI tools and system-level utilities"
-        ],
-        projects: [
-          "Real-time event processing microservice",
-          "High-throughput API gateway in Go",
-          "Internal developer platform tooling"
-        ],
-        achievements: [
-          "Achieved sub-millisecond p99 latency on critical paths",
-          "Built services handling 50K+ requests per second",
-          "Reduced memory footprint by 60% migrating from Java to Go"
-        ],
-        relatedSkills: ["Echo", "Microservices", "Kafka"]
-      },
-      "NodeJS": {
-        description: "Experienced with Node.js for building scalable APIs, real-time services, and serverless functions.",
-        experience: [
-          "Built RESTful APIs with Express and NestJS",
-          "Developed real-time features using WebSockets (Socket.io)",
-          "Created serverless functions on AWS Lambda",
-          "Used Node.js for build tooling, scripting, and SSR"
-        ],
-        projects: [
-          "Real-time notification and chat system",
-          "Serverless API backend on AWS Lambda",
-          "Angular SSR rendering service"
-        ],
-        achievements: [
-          "Built WebSocket system serving 100K+ concurrent connections",
-          "Reduced cold-start times by 70% on Lambda functions",
-          "Implemented efficient streaming data processing"
-        ],
-        relatedSkills: ["Kafka", "RabbitMQ", "MongoDB"]
-      },
-      // ─── Architecture ─────────────────────────────────────
-      "High Level Design": {
-        description: "Expert in designing large-scale distributed systems with focus on scalability, reliability, and maintainability.",
-        experience: [
-          "Designed systems handling millions of daily active users",
-          "Created architecture documents and conducted design reviews",
-          "Applied CAP theorem, CQRS, and event sourcing patterns",
-          "Designed for multi-region deployments and disaster recovery"
-        ],
-        projects: [
-          "Gaming platform architecture serving 10M+ users",
-          "Real-time leaderboard and scoring system",
-          "Multi-tenant SaaS platform design"
-        ],
-        achievements: [
-          "Designed systems achieving 99.99% availability",
-          "Scaled architecture from 1M to 10M concurrent users",
-          "Reduced infrastructure costs by 40% through design optimization"
-        ],
-        relatedSkills: ["Low Level Design", "Microservices", "Kafka"]
-      },
-      "Low Level Design": {
-        description: "Strong expertise in object-oriented design, SOLID principles, and design patterns for clean, extensible code.",
-        experience: [
-          "Applied SOLID principles and GoF design patterns in production",
-          "Designed modular APIs with clear separation of concerns",
-          "Conducted code reviews focused on design quality",
-          "Built reusable libraries and frameworks used across teams"
-        ],
-        projects: [
-          "Payment gateway SDK with pluggable providers",
-          "Rule engine for dynamic business logic",
-          "Extensible notification framework"
-        ],
-        achievements: [
-          "Reduced onboarding time for new developers by 50%",
-          "Built internal framework adopted across 8+ teams",
-          "Achieved 90%+ code coverage with testable design"
-        ],
-        relatedSkills: ["High Level Design", "Java 21", "Spring Boot"]
-      },
-      "Microservices": {
-        description: "Architected and implemented scalable microservices architectures with proper separation of concerns.",
-        experience: [
-          "Decomposed monolithic applications into microservices",
-          "Implemented service mesh, API gateway, and circuit breaker patterns",
-          "Built inter-service communication with REST, gRPC, and event-driven messaging",
-          "Set up distributed tracing and centralized logging"
-        ],
-        projects: [
-          "Gaming platform microservices architecture",
-          "Financial services distributed system",
-          "E-commerce order processing system"
-        ],
-        achievements: [
-          "Scaled system to handle 10M+ concurrent users",
-          "Reduced deployment time by 75% with independent service deployments",
-          "Implemented circuit breaker and bulkhead patterns for resilience"
-        ],
-        relatedSkills: ["Spring Boot", "Kafka", "High Level Design"]
-      },
-      // ─── Databases ────────────────────────────────────────
-      "MySQL": {
-        description: "Extensive experience with MySQL across multiple versions in production environments.",
-        experience: [
-          "Worked on MySQL 5.6, MySQL 5.7 and MySQL 8",
-          "Migrated systems from old DB to new DB using Amazon DMS",
-          "Experience in tuning queries making them use to force index",
-          "Designed normalized and denormalized schemas for different access patterns"
-        ],
-        projects: [
-          "Database migration for Games24x7 gaming platform",
-          "Query optimization for high-traffic applications",
-          "Schema design for microservices architecture"
-        ],
-        achievements: [
-          "Reduced query latency by 60% through index optimization",
-          "Successfully migrated 5+ production databases with zero downtime",
-          "Implemented database monitoring, slow-query alerts, and automated failover"
-        ],
-        relatedSkills: ["MongoDB", "Redis", "Elasti-Cache"]
-      },
-      "MongoDB": {
-        description: "Proficient in MongoDB for document-oriented storage, flexible schemas, and aggregation pipelines.",
-        experience: [
-          "Designed document schemas for complex domain models",
-          "Built aggregation pipelines for real-time analytics",
-          "Managed replica sets and sharded clusters in production",
-          "Implemented change streams for event-driven architecture"
-        ],
-        projects: [
-          "User activity and event logging system",
-          "Content management platform with flexible schemas",
-          "Real-time analytics dashboard backend"
-        ],
-        achievements: [
-          "Processed 500K+ writes/sec with sharded MongoDB clusters",
-          "Reduced data access latency by 45% with proper indexing strategies",
-          "Migrated 2TB+ dataset from MySQL to MongoDB with zero downtime"
-        ],
-        relatedSkills: ["MySQL", "Neptune", "Cassandra"]
-      },
-      "Neptune": {
-        description: "Experience with Amazon Neptune for graph-based data modeling and relationship-heavy queries.",
-        experience: [
-          "Modeled complex entity relationships using property graphs",
-          "Wrote Gremlin and SPARQL queries for traversals",
-          "Integrated Neptune with microservices for recommendation engines",
-          "Optimized graph queries for low-latency lookups"
-        ],
-        projects: [
-          "Social connection and recommendation engine",
-          "Fraud detection using graph traversal patterns",
-          "Knowledge graph for AI-powered search"
-        ],
-        achievements: [
-          "Built recommendation engine serving 5M+ users",
-          "Reduced fraud detection time from hours to seconds",
-          "Designed graph schema handling 100M+ edges"
-        ],
-        relatedSkills: ["MongoDB", "MySQL", "VectorDB"]
-      },
-      "Salesforce DB": {
-        description: "Experience with Salesforce data platform including SOQL, custom objects, and data integration patterns.",
-        experience: [
-          "Designed custom objects and relationships in Salesforce",
-          "Wrote complex SOQL and SOSL queries for reporting",
-          "Integrated Salesforce data with external systems via APIs",
-          "Managed data migrations between Salesforce orgs"
-        ],
-        projects: [
-          "CRM data integration for sales analytics",
-          "Custom Salesforce app for customer lifecycle management",
-          "Data synchronization between Salesforce and internal systems"
-        ],
-        achievements: [
-          "Integrated Salesforce with 5+ internal systems",
-          "Automated reporting saving 15+ hours per week",
-          "Designed data model supporting 1M+ customer records"
-        ],
-        relatedSkills: ["MySQL", "MongoDB", "High Level Design"]
-      },
-      "Cassandra": {
-        description: "Proficient in Apache Cassandra for high-availability, write-heavy workloads at massive scale.",
-        experience: [
-          "Designed partition keys and clustering columns for optimal read/write patterns",
-          "Managed multi-datacenter Cassandra clusters",
-          "Implemented time-series data storage with TTL-based expiry",
-          "Tuned consistency levels for different use cases"
-        ],
-        projects: [
-          "Time-series data store for IoT sensor data",
-          "User session and activity tracking system",
-          "High-throughput event logging platform"
-        ],
-        achievements: [
-          "Handled 1M+ writes/sec with sub-5ms p99 latency",
-          "Designed schema for 10TB+ dataset with efficient compaction",
-          "Achieved 99.999% availability with multi-DC replication"
-        ],
-        relatedSkills: ["MongoDB", "MySQL", "Kafka"]
-      },
-      // ─── Frameworks ───────────────────────────────────────
-      "Spring Boot": {
-        description: "Deep expertise in Spring Boot for building production-ready microservices and REST APIs.",
-        experience: [
-          "Built 10+ production microservices with Spring Boot",
-          "Implemented Spring Security with OAuth2 and JWT authentication",
-          "Used Spring Data JPA and Spring Data Redis for data access",
-          "Set up Spring Actuator for health checks and metrics"
-        ],
-        projects: [
-          "Gaming platform backend services",
-          "Financial transaction processing system",
-          "User management and authentication service"
-        ],
-        achievements: [
-          "Reduced development time by 50% with Spring Boot starters",
-          "Achieved 99.9% uptime in production services",
-          "Implemented comprehensive monitoring and distributed logging"
-        ],
-        relatedSkills: ["Java 21", "Microservices", "MySQL"]
-      },
-      "Echo": {
-        description: "Experienced with Echo framework for building lightweight, high-performance Go web services.",
-        experience: [
-          "Built RESTful APIs with Echo's middleware pipeline",
-          "Implemented custom middleware for auth, logging, and rate-limiting",
-          "Used Echo's context and binding for clean request handling",
-          "Integrated Echo services with gRPC and Kafka"
-        ],
-        projects: [
-          "High-throughput API microservice",
-          "Internal developer platform APIs",
-          "Real-time data ingestion endpoint"
-        ],
-        achievements: [
-          "Built APIs handling 50K+ req/s with minimal memory footprint",
-          "Reduced API response time by 40% migrating from Node.js to Echo",
-          "Implemented graceful shutdown and health-check patterns"
-        ],
-        relatedSkills: ["GO", "Microservices", "Kafka"]
-      },
-      "Dropwizard": {
-        description: "Experience with Dropwizard for building ops-friendly, high-performance Java RESTful web services.",
-        experience: [
-          "Built production services with Dropwizard's opinionated stack",
-          "Leveraged Jersey, Jetty, and Jackson for REST APIs",
-          "Integrated Dropwizard with Hibernate and database migrations",
-          "Used Metrics library for real-time performance monitoring"
-        ],
-        projects: [
-          "Payment processing microservice",
-          "User profile and preference service",
-          "Admin dashboard backend APIs"
-        ],
-        achievements: [
-          "Achieved sub-10ms p99 latency on critical endpoints",
-          "Built services processing 100K+ transactions/day",
-          "Implemented comprehensive health checks and alerting"
-        ],
-        relatedSkills: ["Java 21", "Spring Boot", "MySQL"]
-      },
-      "Google Guice": {
-        description: "Proficient in Google Guice for lightweight dependency injection in Java applications.",
-        experience: [
-          "Used Guice for DI in non-Spring Java applications",
-          "Designed modular applications with Guice modules and providers",
-          "Implemented custom scopes and interceptors with Guice AOP",
-          "Integrated Guice with Dropwizard and other frameworks"
-        ],
-        projects: [
-          "Modular data processing pipeline",
-          "Plugin architecture for extensible services",
-          "Test-friendly service layer with Guice injection"
-        ],
-        achievements: [
-          "Reduced startup time by 60% using Guice over heavier DI frameworks",
-          "Built plugin system supporting 15+ extension modules",
-          "Improved testability achieving 95%+ unit test coverage"
-        ],
-        relatedSkills: ["Java 21", "Dropwizard", "Spring Boot"]
-      },
-      // ─── AI / ML ──────────────────────────────────────────
-      "Generative AI": {
-        description: "Hands-on experience building applications powered by generative AI models and multi-modal capabilities.",
-        experience: [
-          "Built conversational AI agents using GPT-4, Claude, and Gemini",
-          "Implemented multi-modal AI features with vision and audio models",
-          "Designed prompt chains and agent workflows for complex tasks",
-          "Evaluated and benchmarked model outputs for quality assurance"
-        ],
-        projects: [
-          "AI-powered portfolio with voice interaction",
-          "Automated code review assistant",
-          "Content generation and summarization platform"
-        ],
-        achievements: [
-          "Built AI face assistant featured on portfolio site",
-          "Reduced content creation time by 70% with generative AI",
-          "Implemented guardrails achieving 99% safety compliance"
-        ],
-        relatedSkills: ["LLM", "RAG", "VectorDB"]
-      },
-      "LLM": {
-        description: "Working with Large Language Models for building AI-powered applications and services.",
-        experience: [
-          "Integrated OpenAI, Claude, and Gemini APIs into production systems",
-          "Built RAG systems for domain-specific knowledge retrieval",
-          "Implemented prompt engineering and chain-of-thought reasoning",
-          "Fine-tuned models for domain-specific tasks"
-        ],
-        projects: [
-          "AI-powered customer support chatbot",
-          "Document analysis and summarization system",
-          "Code generation and review assistant"
-        ],
-        achievements: [
-          "Reduced customer support response time by 60%",
-          "Built RAG system with 95% retrieval accuracy",
-          "Automated 40% of code review process with LLM"
-        ],
-        relatedSkills: ["Generative AI", "RAG", "VectorDB"]
-      },
-      "RAG": {
-        description: "Expert in Retrieval-Augmented Generation for grounding LLM responses with domain-specific knowledge.",
-        experience: [
-          "Designed end-to-end RAG pipelines with chunking, embedding, and retrieval",
-          "Implemented hybrid search combining semantic and keyword matching",
-          "Optimized chunk sizes and overlap for different document types",
-          "Built evaluation frameworks to measure retrieval quality"
-        ],
-        projects: [
-          "Internal knowledge base Q&A system",
-          "Customer-facing documentation assistant",
-          "Legal document analysis and search"
-        ],
-        achievements: [
-          "Achieved 95%+ retrieval accuracy on domain-specific queries",
-          "Reduced hallucination rate by 80% compared to vanilla LLM",
-          "Built RAG pipeline processing 100K+ documents"
-        ],
-        relatedSkills: ["LLM", "VectorDB", "Generative AI"]
-      },
-      "VectorDB": {
-        description: "Experience with vector databases for semantic search, embeddings storage, and similarity matching.",
-        experience: [
-          "Worked with Pinecone, Weaviate, and pgvector",
-          "Designed embedding strategies for different data types",
-          "Implemented approximate nearest neighbor (ANN) search",
-          "Optimized index configurations for latency and recall trade-offs"
-        ],
-        projects: [
-          "Semantic search engine for product catalog",
-          "Similar document recommendation system",
-          "Image similarity matching for content moderation"
-        ],
-        achievements: [
-          "Built vector search serving 10K+ queries/sec at p99 < 50ms",
-          "Indexed 50M+ embeddings with 98% recall@10",
-          "Reduced search infrastructure costs by 35% with pgvector"
-        ],
-        relatedSkills: ["RAG", "LLM", "Generative AI"]
-      },
-      // ─── Queues ───────────────────────────────────────────
-      "Kafka": {
-        description: "Expert in Apache Kafka for building real-time data pipelines and event-driven architectures.",
-        experience: [
-          "Designed and managed multi-broker Kafka clusters in production",
-          "Built event-driven microservices with Kafka Streams and KSQL",
-          "Optimized partition strategies and consumer groups for high throughput",
-          "Implemented exactly-once semantics and dead-letter queue patterns"
-        ],
-        projects: [
-          "Real-time analytics pipeline for gaming platform",
-          "Event sourcing architecture for financial systems",
-          "Kafka-based messaging for microservices"
-        ],
-        achievements: [
-          "Processed 1M+ events per second with Kafka",
-          "Built fault-tolerant event streaming with zero data loss",
-          "Reduced data processing latency by 80%"
-        ],
-        relatedSkills: ["RabbitMQ", "AmazonSQS", "Microservices"]
-      },
-      "RabbitMQ": {
-        description: "Experienced with RabbitMQ for reliable message queuing, task distribution, and pub/sub patterns.",
-        experience: [
-          "Designed exchange-queue topologies for various routing patterns",
-          "Implemented dead-letter queues and retry mechanisms",
-          "Managed RabbitMQ clusters with high-availability queues",
-          "Built consumer pools with acknowledgment and prefetch tuning"
-        ],
-        projects: [
-          "Order processing pipeline with guaranteed delivery",
-          "Email and notification dispatch system",
-          "Distributed task scheduling engine"
-        ],
-        achievements: [
-          "Built message system with 99.99% delivery guarantee",
-          "Processed 500K+ messages/day with zero message loss",
-          "Reduced order processing time by 65% with async queuing"
-        ],
-        relatedSkills: ["Kafka", "AmazonSQS", "Microservices"]
-      },
-      "AmazonSQS": {
-        description: "Proficient in Amazon SQS for serverless, fully-managed message queuing at scale.",
-        experience: [
-          "Designed SQS-based architectures with FIFO and standard queues",
-          "Implemented Lambda-triggered consumers for serverless processing",
-          "Built dead-letter queue strategies with automated alerting",
-          "Integrated SQS with SNS for fan-out messaging patterns"
-        ],
-        projects: [
-          "Serverless order fulfillment pipeline",
-          "Async image and video processing system",
-          "Cross-service event notification system"
-        ],
-        achievements: [
-          "Built serverless pipeline processing 1M+ messages/day",
-          "Reduced infrastructure costs by 50% moving from self-managed queues to SQS",
-          "Achieved zero message loss with DLQ monitoring and auto-retry"
-        ],
-        relatedSkills: ["Kafka", "RabbitMQ", "Microservices"]
-      },
-      // ─── Core CS ──────────────────────────────────────────
-      "DSA": {
-        description: "Strong foundation in data structures and algorithms with competitive programming experience.",
-        experience: [
-          "Solved 1000+ problems on LeetCode, Codeforces, and HackerRank",
-          "Applied advanced data structures: segment trees, tries, and union-find",
-          "Designed efficient algorithms for production systems",
-          "Mentored junior engineers on problem-solving and DSA fundamentals"
-        ],
-        projects: [
-          "Custom trie-based autocomplete engine",
-          "Graph-based route optimization system",
-          "Real-time ranking algorithm for gaming platform"
-        ],
-        achievements: [
-          "Top 5% on LeetCode with 1000+ problems solved",
-          "Designed algorithm reducing search time from O(n\xB2) to O(n log n)",
-          "Published data structure visualizations and educational content"
-        ],
-        relatedSkills: ["Networking", "Java 21", "Python"]
-      },
-      "Networking": {
-        description: "Deep understanding of computer networking, protocols, and distributed system communication.",
-        experience: [
-          "Expertise in TCP/IP, HTTP/2, gRPC, and WebSocket protocols",
-          "Designed network architectures with load balancers and CDNs",
-          "Debugged complex networking issues in distributed systems",
-          "Implemented service discovery and DNS-based routing"
-        ],
-        projects: [
-          "Custom load balancer with health checking",
-          "WebSocket-based real-time communication layer",
-          "Network monitoring and alerting platform"
-        ],
-        achievements: [
-          "Reduced network latency by 40% with connection pooling and keep-alive",
-          "Designed network topology handling 100K+ concurrent connections",
-          "Debugged and resolved critical TCP retransmission issues in production"
-        ],
-        relatedSkills: ["DSA", "High Level Design", "Microservices"]
-      },
-      // ─── Cache ────────────────────────────────────────────
-      "Elasti-Cache": {
-        description: "Experience with Amazon ElastiCache for managed Redis and Memcached caching at scale.",
-        experience: [
-          "Deployed and managed ElastiCache Redis clusters in production",
-          "Configured cluster mode, replication, and automatic failover",
-          "Implemented cache-aside, write-through, and write-behind patterns",
-          "Set up CloudWatch monitoring and alarm-based scaling"
-        ],
-        projects: [
-          "Session management for distributed web applications",
-          "API response caching layer for high-traffic services",
-          "Real-time feature flags and configuration caching"
-        ],
-        achievements: [
-          "Reduced database load by 70% with ElastiCache caching layer",
-          "Achieved sub-millisecond read latency for cached data",
-          "Designed multi-AZ caching with automatic failover"
-        ],
-        relatedSkills: ["Redis", "MySQL", "High Level Design"]
-      },
-      "Redis": {
-        description: "Expert in Redis for caching, session management, and real-time data structures.",
-        experience: [
-          "Designed Redis caching strategies with eviction policies",
-          "Implemented session management with Redis Cluster",
-          "Used Redis data structures for real-time leaderboards and counters",
-          "Built pub/sub systems and stream processing with Redis Streams"
-        ],
-        projects: [
-          "Real-time gaming leaderboards",
-          "Session management for microservices",
-          "Cache layer for high-traffic APIs"
-        ],
-        achievements: [
-          "Reduced database load by 70% with Redis caching",
-          "Built real-time analytics with Redis Streams processing 100K+ events/sec",
-          "Implemented distributed locking with Redis for consistency"
-        ],
-        relatedSkills: ["Elasti-Cache", "MySQL", "Kafka"]
-      }
-    };
     this.constellations.forEach((constellation) => {
       constellation.skills.forEach((skill) => {
-        if (skillDetails[skill.name]) {
-          skill.details = skillDetails[skill.name];
+        if (SKILL_DETAILS[skill.name]) {
+          skill.details = SKILL_DETAILS[skill.name];
         }
       });
     });
@@ -44746,7 +39330,13 @@ var SkillsComponent = class _SkillsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 27, vars: 12, consts: [["id", "skill", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-anim", "fade-up", "data-delay", "200", 1, "section-subtitle"], [1, "viewport-wrapper", 3, "ngClass"], ["data-anim", "scale", "data-duration", "1000", 1, "constellation-viewport", 3, "ngClass"], [1, "star-field"], [1, "bg-star", 3, "left", "top", "width", "height", "animation-delay"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "constellation-svg"], ["x", "-50%", "y", "-50%", "width", "200%", "height", "200%"], ["stroke-width", "0.15", "stroke-opacity", "0.5", 1, "constellation-line"], [1, "radial-ring"], [1, "rocket-container", 3, "ngClass"], [1, "star-burst", 3, "left", "top"], [1, "skill-modal-overlay"], [1, "constellation-legend"], [1, "legend-item"], [1, "bg-star"], ["stdDeviation", "0.4", "result", "blur"], ["in", "blur"], ["in", "SourceGraphic"], [3, "ngClass"], ["text-anchor", "middle", 1, "category-label"], ["fill-opacity", "0.15", 1, "star-glow", 3, "ngClass"], [1, "star-core", 3, "click", "ngClass"], ["text-anchor", "middle", 1, "star-label", 3, "ngClass"], ["fill", "none", "stroke-opacity", "0.15", 1, "ring-track"], ["fill", "none", "stroke-linecap", "round", 1, "ring-fill"], ["text-anchor", "middle", 1, "ring-percentage"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "rocket-svg"], ["id", "rocketGradient", "x1", "0%", "y1", "0%", "x2", "0%", "y2", "100%"], ["offset", "0%", 2, "stop-color", "#E3F2FD", "stop-opacity", "1"], ["offset", "100%", 2, "stop-color", "#90CAF9", "stop-opacity", "1"], ["id", "trailGlow"], ["offset", "0%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0.8"], ["offset", "100%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0"], ["id", "rocketGlowFilter", "x", "-100%", "y", "-100%", "width", "300%", "height", "300%"], ["stdDeviation", "0.8", "result", "blur"], ["fill", "url(#trailGlow)", 1, "trail-particle"], ["filter", "url(#rocketGlowFilter)", 1, "rocket-group"], ["d", "M 0,-3.5 C -0.8,-2.5 -1.2,-0.5 -1.2,1.5 L -0.8,2.5 L 0,3 L 0.8,2.5 L 1.2,1.5 C 1.2,-0.5 0.8,-2.5 0,-3.5 Z", "fill", "url(#rocketGradient)", "stroke", "rgba(255,255,255,0.8)", "stroke-width", "0.15"], ["d", "M 0,-3.5 C -0.3,-3.5 -0.6,-3 -0.8,-2.5 L 0,-3.5 L 0.8,-2.5 C 0.6,-3 0.3,-3.5 0,-3.5 Z", "fill", "#fff", "opacity", "0.4"], ["cx", "0", "cy", "-1", "r", "0.6", "fill", "#4FC3F7", "stroke", "rgba(255,255,255,0.9)", "stroke-width", "0.12"], ["cx", "-0.15", "cy", "-1.15", "r", "0.15", "fill", "rgba(255,255,255,0.6)"], ["d", "M -1.2,1 L -2,2.5 L -1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M 1.2,1 L 2,2.5 L 1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M -0.8,2.5 Q -0.6,4.5 0,6 Q 0.6,4.5 0.8,2.5 Z", "fill", "#FF6B35", "opacity", "0.9", 1, "rocket-flame"], ["d", "M -0.4,2.5 Q -0.2,4 0,5 Q 0.2,4 0.4,2.5 Z", "fill", "#FFD93D", "opacity", "0.9", 1, "rocket-flame-inner"], ["d", "M -0.15,2.5 Q 0,3.8 0.15,2.5 Z", "fill", "#fff", "opacity", "0.7", 1, "rocket-flame-core"], [1, "star-burst"], [1, "skill-modal-overlay", 3, "click"], [1, "skill-modal", 3, "click"], [1, "modal-header"], [1, "modal-header-left"], [1, "modal-skill-icon"], [1, "modal-skill-initial"], [1, "modal-title-section"], [1, "modal-skill-name"], [1, "modal-category"], [1, "modal-close", 3, "click"], [1, "fas", "fa-times"], [1, "modal-content"], [1, "modal-section"], [1, "section-title"], [1, "section-description"], [1, "detail-list"], [1, "detail-item"], [1, "project-grid"], [1, "project-card"], [1, "achievement-list"], [1, "achievement-item"], [1, "related-skills"], [1, "related-skill-tag"], [1, "project-icon"], [1, "project-name"], [1, "achievement-icon"], [1, "achievement-text"], [1, "legend-dot"], [1, "legend-name"]], template: function SkillsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], hostBindings: function SkillsComponent_HostBindings(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275listener("keydown.escape", function SkillsComponent_keydown_escape_HostBindingHandler() {
+          return ctx.onEscapeKey();
+        }, \u0275\u0275resolveDocument);
+      }
+    }, decls: 27, vars: 12, consts: [["id", "skill", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-anim", "fade-up", "data-delay", "200", 1, "section-subtitle"], [1, "viewport-wrapper", 3, "ngClass"], ["data-anim", "scale", "data-duration", "1000", 1, "constellation-viewport", 3, "ngClass"], [1, "star-field"], [1, "bg-star", 3, "left", "top", "width", "height", "animation-delay"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "constellation-svg"], ["x", "-50%", "y", "-50%", "width", "200%", "height", "200%"], ["stroke-width", "0.15", "stroke-opacity", "0.5", 1, "constellation-line"], [1, "radial-ring"], [1, "rocket-container", 3, "ngClass"], [1, "star-burst", 3, "left", "top"], ["role", "dialog", "aria-label", "Skill detail", 1, "skill-modal-overlay"], [1, "constellation-legend"], [1, "legend-item"], [1, "bg-star"], ["stdDeviation", "0.4", "result", "blur"], ["in", "blur"], ["in", "SourceGraphic"], [3, "ngClass"], ["text-anchor", "middle", 1, "category-label"], ["fill-opacity", "0.15", 1, "star-glow", 3, "ngClass"], [1, "star-core", 3, "click", "ngClass"], ["text-anchor", "middle", 1, "star-label", 3, "ngClass"], ["fill", "none", "stroke-opacity", "0.15", 1, "ring-track"], ["fill", "none", "stroke-linecap", "round", 1, "ring-fill"], ["text-anchor", "middle", 1, "ring-percentage"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "rocket-svg"], ["id", "rocketGradient", "x1", "0%", "y1", "0%", "x2", "0%", "y2", "100%"], ["offset", "0%", 2, "stop-color", "#E3F2FD", "stop-opacity", "1"], ["offset", "100%", 2, "stop-color", "#90CAF9", "stop-opacity", "1"], ["id", "trailGlow"], ["offset", "0%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0.8"], ["offset", "100%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0"], ["id", "rocketGlowFilter", "x", "-100%", "y", "-100%", "width", "300%", "height", "300%"], ["stdDeviation", "0.8", "result", "blur"], ["fill", "url(#trailGlow)", 1, "trail-particle"], ["filter", "url(#rocketGlowFilter)", 1, "rocket-group"], ["d", "M 0,-3.5 C -0.8,-2.5 -1.2,-0.5 -1.2,1.5 L -0.8,2.5 L 0,3 L 0.8,2.5 L 1.2,1.5 C 1.2,-0.5 0.8,-2.5 0,-3.5 Z", "fill", "url(#rocketGradient)", "stroke", "rgba(255,255,255,0.8)", "stroke-width", "0.15"], ["d", "M 0,-3.5 C -0.3,-3.5 -0.6,-3 -0.8,-2.5 L 0,-3.5 L 0.8,-2.5 C 0.6,-3 0.3,-3.5 0,-3.5 Z", "fill", "#fff", "opacity", "0.4"], ["cx", "0", "cy", "-1", "r", "0.6", "fill", "#4FC3F7", "stroke", "rgba(255,255,255,0.9)", "stroke-width", "0.12"], ["cx", "-0.15", "cy", "-1.15", "r", "0.15", "fill", "rgba(255,255,255,0.6)"], ["d", "M -1.2,1 L -2,2.5 L -1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M 1.2,1 L 2,2.5 L 1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M -0.8,2.5 Q -0.6,4.5 0,6 Q 0.6,4.5 0.8,2.5 Z", "fill", "#FF6B35", "opacity", "0.9", 1, "rocket-flame"], ["d", "M -0.4,2.5 Q -0.2,4 0,5 Q 0.2,4 0.4,2.5 Z", "fill", "#FFD93D", "opacity", "0.9", 1, "rocket-flame-inner"], ["d", "M -0.15,2.5 Q 0,3.8 0.15,2.5 Z", "fill", "#fff", "opacity", "0.7", 1, "rocket-flame-core"], [1, "star-burst"], ["role", "dialog", "aria-label", "Skill detail", 1, "skill-modal-overlay", 3, "click"], [1, "skill-modal", 3, "click"], [1, "modal-header"], [1, "modal-header-left"], [1, "modal-skill-icon"], [1, "modal-skill-initial"], [1, "modal-title-section"], [1, "modal-skill-name"], [1, "modal-category"], ["aria-label", "Close skill detail", 1, "modal-close", 3, "click"], [1, "fas", "fa-times"], [1, "modal-content"], [1, "modal-section"], [1, "modal-section-title"], [1, "section-description"], [1, "detail-list"], [1, "detail-item"], [1, "project-grid"], [1, "project-card"], [1, "achievement-list"], [1, "achievement-item"], [1, "related-skills"], [1, "related-skill-tag"], [1, "project-icon"], [1, "project-name"], [1, "achievement-icon"], [1, "achievement-text"], [1, "legend-dot"], [1, "legend-name"]], template: function SkillsComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Skills & Expertise");
@@ -44799,7 +39389,7 @@ var SkillsComponent = class _SkillsComponent {
         \u0275\u0275advance(2);
         \u0275\u0275repeater(ctx.constellations);
       }
-    }, dependencies: [NgClass], styles: ['@charset "UTF-8";\n\n\n\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 0.5rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: rgba(255, 255, 255, 0.35);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.5px;\n  margin: 0;\n}\n.constellation-viewport[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  aspect-ratio: 16/9;\n  max-height: 600px;\n  background:\n    radial-gradient(\n      ellipse at 15% 25%,\n      rgba(100, 181, 246, 0.04) 0%,\n      transparent 50%),\n    radial-gradient(\n      ellipse at 50% 15%,\n      rgba(206, 147, 216, 0.04) 0%,\n      transparent 45%),\n    radial-gradient(\n      ellipse at 85% 20%,\n      rgba(128, 203, 196, 0.04) 0%,\n      transparent 45%),\n    radial-gradient(\n      ellipse at 48% 55%,\n      rgba(244, 143, 177, 0.03) 0%,\n      transparent 40%),\n    radial-gradient(\n      ellipse at 80% 55%,\n      rgba(129, 199, 132, 0.03) 0%,\n      transparent 40%),\n    radial-gradient(\n      ellipse at 82% 78%,\n      rgba(229, 115, 115, 0.03) 0%,\n      transparent 35%),\n    radial-gradient(\n      ellipse at 50% 50%,\n      rgb(16, 16, 35) 0%,\n      rgb(6, 6, 14) 100%);\n  border-radius: 20px;\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  overflow: hidden;\n  box-shadow:\n    0 0 80px rgba(0, 0, 0, 0.6),\n    0 0 120px rgba(102, 126, 234, 0.04),\n    inset 0 0 100px rgba(102, 126, 234, 0.02);\n}\n.constellation-viewport[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      1px 1px at 20% 30%,\n      rgba(255, 255, 255, 0.4),\n      transparent),\n    radial-gradient(\n      1px 1px at 60% 70%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 80% 20%,\n      rgba(255, 255, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 40% 80%,\n      rgba(255, 255, 255, 0.25),\n      transparent),\n    radial-gradient(\n      1px 1px at 90% 60%,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  pointer-events: none;\n  z-index: 0;\n}\n.star-field[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 0;\n}\n.bg-star[_ngcontent-%COMP%] {\n  position: absolute;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(255, 255, 255, 0.2) 60%,\n      transparent 100%);\n  animation: _ngcontent-%COMP%_twinkle 4s ease-in-out infinite alternate;\n}\n.bg-star[_ngcontent-%COMP%]:nth-child(3n) {\n  animation-duration: 3s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(180, 200, 255, 0.9) 0%,\n      rgba(180, 200, 255, 0.1) 60%,\n      transparent 100%);\n}\n.bg-star[_ngcontent-%COMP%]:nth-child(5n) {\n  animation-duration: 5s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 220, 180, 0.8) 0%,\n      rgba(255, 220, 180, 0.1) 60%,\n      transparent 100%);\n}\n@keyframes _ngcontent-%COMP%_twinkle {\n  0% {\n    opacity: 0.15;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.9;\n    transform: scale(1.3);\n  }\n  100% {\n    opacity: 0.2;\n    transform: scale(0.9);\n  }\n}\n.constellation-svg[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.constellation-line[_ngcontent-%COMP%] {\n  transition: stroke-opacity 0.4s ease;\n  animation: _ngcontent-%COMP%_lineShimmer 5s ease-in-out infinite alternate;\n  filter: drop-shadow(0 0 0.5px currentColor);\n}\n@keyframes _ngcontent-%COMP%_lineShimmer {\n  0% {\n    stroke-opacity: 0.25;\n    stroke-width: 0.15;\n  }\n  50% {\n    stroke-opacity: 0.7;\n    stroke-width: 0.22;\n  }\n  100% {\n    stroke-opacity: 0.3;\n    stroke-width: 0.15;\n  }\n}\n.star-glow[_ngcontent-%COMP%] {\n  transition: fill-opacity 0.3s ease, r 0.3s ease;\n  animation: _ngcontent-%COMP%_glowPulse 3s ease-in-out infinite alternate;\n  transform-origin: center;\n}\n.star-glow--active[_ngcontent-%COMP%] {\n  fill-opacity: 0.5 !important;\n  animation: _ngcontent-%COMP%_glowPulseActive 1.2s ease-in-out infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_glowPulse {\n  0% {\n    fill-opacity: 0.12;\n  }\n  100% {\n    fill-opacity: 0.28;\n  }\n}\n@keyframes _ngcontent-%COMP%_glowPulseActive {\n  0% {\n    fill-opacity: 0.35;\n  }\n  100% {\n    fill-opacity: 0.55;\n  }\n}\n.star-core[_ngcontent-%COMP%] {\n  cursor: pointer;\n  transition: filter 0.25s ease, r 0.2s ease;\n  transform-origin: center;\n  filter: drop-shadow(0 0 1px currentColor);\n}\n.star-core[_ngcontent-%COMP%]:hover {\n  filter: brightness(1.6) drop-shadow(0 0 2px currentColor) drop-shadow(0 0 4px currentColor);\n}\n.star-core--active[_ngcontent-%COMP%] {\n  filter: brightness(1.8) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor) !important;\n}\n.star-float-1[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat1 6s ease-in-out infinite;\n}\n.star-float-2[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat2 7s ease-in-out infinite;\n}\n.star-float-3[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat3 5s ease-in-out infinite;\n}\n.star-float-4[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat4 8s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_starFloat1 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(0.3px, -0.4px);\n  }\n  50% {\n    transform: translate(-0.2px, 0.3px);\n  }\n  75% {\n    transform: translate(0.4px, 0.2px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat2 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  33% {\n    transform: translate(-0.4px, -0.2px);\n  }\n  66% {\n    transform: translate(0.3px, 0.4px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat3 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  50% {\n    transform: translate(0.5px, -0.3px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat4 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(-0.3px, 0.5px);\n  }\n  75% {\n    transform: translate(0.4px, -0.4px);\n  }\n}\n.star-label[_ngcontent-%COMP%] {\n  font-size: 1.6px;\n  font-weight: 600;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0.65;\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n}\n.star-label--active[_ngcontent-%COMP%] {\n  fill-opacity: 1;\n  font-weight: 700;\n}\n.category-label[_ngcontent-%COMP%] {\n  font-size: 1.6px;\n  font-weight: 500;\n  fill-opacity: 0.3;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.15px;\n  text-transform: uppercase;\n}\n.radial-ring[_ngcontent-%COMP%] {\n  pointer-events: none;\n}\n.ring-track[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.ring-fill[_ngcontent-%COMP%] {\n  stroke-dasharray: 100;\n  stroke-dashoffset: 100;\n  animation: _ngcontent-%COMP%_ringDraw 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  filter: drop-shadow(0 0 1.5px currentColor);\n}\n@keyframes _ngcontent-%COMP%_ringDraw {\n  from {\n    stroke-dashoffset: 100;\n  }\n  to {\n    stroke-dashoffset: 0;\n  }\n}\n.ring-percentage[_ngcontent-%COMP%] {\n  font-size: 2.4px;\n  font-weight: 800;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0;\n  animation: _ngcontent-%COMP%_percentFadeIn 0.4s 0.3s ease-out forwards;\n  filter: drop-shadow(0 0 2px currentColor);\n}\n@keyframes _ngcontent-%COMP%_percentFadeIn {\n  from {\n    fill-opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    fill-opacity: 1;\n    transform: translateY(0);\n  }\n}\n.viewport-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: 20px;\n}\n.viewport-wrapper--zooming[_ngcontent-%COMP%] {\n  overflow: hidden;\n}\n.constellation-viewport[_ngcontent-%COMP%] {\n  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);\n  transform-origin: center center;\n}\n.constellation-viewport.viewport-zooming[_ngcontent-%COMP%] {\n  overflow: visible;\n  z-index: 10;\n}\n.rocket-container[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 5;\n  opacity: 1;\n  transition: opacity 0.3s ease;\n}\n.rocket-container--zooming[_ngcontent-%COMP%] {\n  z-index: 10;\n}\n.rocket-svg[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n}\n.rocket-group[_ngcontent-%COMP%] {\n  transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  transform-origin: center;\n}\n.rocket-flame[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameFlicker 0.12s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-inner[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameFlickerInner 0.1s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-core[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameCoreFlicker 0.08s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n@keyframes _ngcontent-%COMP%_flameFlicker {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1) scaleX(1);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.3) scaleX(0.85);\n  }\n}\n@keyframes _ngcontent-%COMP%_flameFlickerInner {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1.1) scaleX(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.4) scaleX(0.8);\n  }\n}\n@keyframes _ngcontent-%COMP%_flameCoreFlicker {\n  0% {\n    opacity: 0.6;\n    transform: scaleY(0.9);\n  }\n  100% {\n    opacity: 0.9;\n    transform: scaleY(1.2);\n  }\n}\n.trail-particle[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_trailFade 1.2s ease-out forwards;\n}\n@keyframes _ngcontent-%COMP%_trailFade {\n  0% {\n    opacity: 0;\n    r: 0;\n  }\n  30% {\n    opacity: 0.8;\n  }\n  100% {\n    opacity: 0;\n    r: 0.8px;\n  }\n}\n.star-burst[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(100, 181, 246, 0.4) 40%,\n      transparent 70%);\n  transform: translate(-50%, -50%);\n  z-index: 8;\n  pointer-events: none;\n  animation: _ngcontent-%COMP%_starBurst 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;\n}\n@keyframes _ngcontent-%COMP%_starBurst {\n  0% {\n    width: 0;\n    height: 0;\n    opacity: 1;\n  }\n  40% {\n    width: 200px;\n    height: 200px;\n    opacity: 0.8;\n  }\n  100% {\n    width: 500px;\n    height: 500px;\n    opacity: 0;\n  }\n}\n.skill-modal-overlay[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(12px);\n  -webkit-backdrop-filter: blur(12px);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n  padding: 1rem;\n  animation: _ngcontent-%COMP%_modalFadeIn 0.4s ease-out;\n}\n@keyframes _ngcontent-%COMP%_modalFadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.skill-modal[_ngcontent-%COMP%] {\n  background: rgba(12, 12, 28, 0.97);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  border-radius: 20px;\n  max-width: 700px;\n  width: 100%;\n  max-height: 85vh;\n  overflow: hidden;\n  box-shadow:\n    0 25px 80px rgba(0, 0, 0, 0.6),\n    0 0 150px rgba(102, 126, 234, 0.12),\n    0 0 40px rgba(102, 126, 234, 0.06);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  animation: _ngcontent-%COMP%_modalZoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);\n}\n@keyframes _ngcontent-%COMP%_modalZoomIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3) translateY(20px);\n    filter: blur(10px);\n  }\n  50% {\n    opacity: 0.8;\n    transform: scale(1.02) translateY(-5px);\n    filter: blur(0px);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1) translateY(0);\n    filter: blur(0px);\n  }\n}\n.modal-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1.5rem 2rem;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\n.modal-header-left[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.modal-skill-icon[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border-radius: 12px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.modal-title-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.25rem;\n}\n.modal-skill-name[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  margin: 0;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-category[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-close[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.08);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 10px;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: rgba(255, 255, 255, 0.6);\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.modal-close[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.12);\n  color: #fff;\n  transform: scale(1.05);\n}\n.modal-content[_ngcontent-%COMP%] {\n  padding: 2rem;\n  overflow-y: auto;\n  max-height: calc(85vh - 100px);\n}\n.modal-section[_ngcontent-%COMP%] {\n  margin-bottom: 2rem;\n}\n.modal-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 600;\n  color: #fff;\n  margin: 0 0 1rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.section-description[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.6;\n  margin: 0;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.5rem;\n  margin-bottom: 0.75rem;\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #64B5F6;\n  font-weight: bold;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.project-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 1rem;\n}\n.project-card[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  border-radius: 12px;\n  padding: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  transition: all 0.3s ease;\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.08);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.project-icon[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n}\n.project-name[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.8);\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievement-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n}\n.achievement-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.75rem;\n}\n.achievement-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  flex-shrink: 0;\n  margin-top: 0.1rem;\n}\n.achievement-text[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skills[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.related-skill-tag[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.15);\n  color: #64B5F6;\n  padding: 0.4rem 0.8rem;\n  border-radius: 20px;\n  font-size: 0.8rem;\n  font-weight: 500;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skill-tag[_ngcontent-%COMP%]:hover {\n  background: rgba(100, 181, 246, 0.25);\n  transform: translateY(-1px);\n}\n.constellation-legend[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 1.25rem;\n  margin-top: 1.5rem;\n}\n.legend-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n}\n.legend-dot[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  box-shadow: 0 0 6px currentColor;\n}\n.legend-name[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 500;\n  color: rgba(255, 255, 255, 0.5);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n@media (max-width: 768px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n  .constellation-viewport[_ngcontent-%COMP%] {\n    aspect-ratio: 4/3;\n  }\n  .star-label[_ngcontent-%COMP%] {\n    font-size: 2.2px;\n  }\n  .category-label[_ngcontent-%COMP%] {\n    font-size: 2px;\n  }\n  .skill-detail-panel[_ngcontent-%COMP%] {\n    min-width: 220px;\n    max-width: 300px;\n    bottom: 1rem;\n  }\n  .constellation-legend[_ngcontent-%COMP%] {\n    gap: 0.75rem;\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .section-header[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .constellation-viewport[_ngcontent-%COMP%] {\n    aspect-ratio: 3/4;\n    max-height: 500px;\n  }\n  .star-label[_ngcontent-%COMP%] {\n    font-size: 2.5px;\n  }\n  .category-label[_ngcontent-%COMP%] {\n    font-size: 2.2px;\n  }\n  .skill-detail-panel[_ngcontent-%COMP%] {\n    min-width: 200px;\n    max-width: 260px;\n    bottom: 0.75rem;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
+    }, dependencies: [NgClass], styles: ['@charset "UTF-8";\n\n\n\n.apple-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 18% 18%,\n      rgba(111, 138, 255, 0.16) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 82% 14%,\n      rgba(244, 143, 177, 0.14) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(100, 181, 246, 0.12) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(2, 4, 18, 0.9) 0%,\n      rgba(5, 8, 28, 0.74) 48%,\n      rgba(2, 4, 18, 0.92) 100%);\n  isolation: isolate;\n}\n.apple-section[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background-image:\n    radial-gradient(\n      1px 1px at 12% 20%,\n      rgba(255, 255, 255, 0.45),\n      transparent),\n    radial-gradient(\n      1px 1px at 24% 72%,\n      rgba(173, 216, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 68% 24%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 78% 68%,\n      rgba(255, 255, 255, 0.42),\n      transparent),\n    radial-gradient(\n      2px 2px at 88% 34%,\n      rgba(205, 226, 255, 0.28),\n      transparent);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-section[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  width: min(28rem, 45vw);\n  aspect-ratio: 1;\n  top: -11rem;\n  right: -8rem;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 35% 35%,\n      rgba(255, 255, 255, 0.22) 0%,\n      rgba(186, 160, 255, 0.18) 18%,\n      rgba(98, 122, 255, 0.12) 40%,\n      rgba(19, 24, 62, 0) 72%);\n  filter: blur(6px);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-container[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 1;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin: 0 auto 3rem;\n  width: 100%;\n  max-width: 52rem;\n  overflow: visible;\n  position: relative;\n  padding: 1rem 0 0.75rem;\n}\n.section-header[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  left: 50%;\n  bottom: -0.75rem;\n  width: min(18rem, 42vw);\n  height: 1px;\n  transform: translateX(-50%);\n  background:\n    linear-gradient(\n      90deg,\n      rgba(100, 181, 246, 0),\n      rgba(100, 181, 246, 0.7),\n      rgba(244, 143, 177, 0.7),\n      rgba(244, 143, 177, 0));\n  box-shadow: 0 0 18px rgba(100, 181, 246, 0.35);\n  opacity: 0.75;\n}\n.section-header[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  font-size: clamp(3.25rem, 6vw, 4.75rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #d9e8ff 0%,\n      #8fc5ff 22%,\n      #a98dff 52%,\n      #ffb5dc 78%,\n      #fef7ff 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.04em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.05;\n  display: inline-block;\n  filter: drop-shadow(0 0 24px rgba(132, 167, 255, 0.24));\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: rgba(201, 223, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.24em;\n  margin: 0;\n  text-transform: uppercase;\n}\n.constellation-viewport[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  aspect-ratio: 16/9;\n  max-height: 620px;\n  background:\n    radial-gradient(\n      ellipse at 18% 22%,\n      rgba(100, 181, 246, 0.1) 0%,\n      transparent 44%),\n    radial-gradient(\n      ellipse at 52% 14%,\n      rgba(206, 147, 216, 0.12) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 82% 18%,\n      rgba(128, 203, 196, 0.08) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 24% 76%,\n      rgba(244, 143, 177, 0.08) 0%,\n      transparent 38%),\n    radial-gradient(\n      ellipse at 74% 74%,\n      rgba(129, 199, 132, 0.08) 0%,\n      transparent 34%),\n    radial-gradient(\n      circle at 50% 50%,\n      rgba(19, 29, 74, 0.34) 0%,\n      rgba(8, 10, 28, 0) 34%),\n    linear-gradient(\n      180deg,\n      rgba(8, 10, 32, 0.98) 0%,\n      rgba(4, 6, 18, 0.98) 100%);\n  border-radius: 27px;\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  overflow: hidden;\n  box-shadow:\n    0 0 80px rgba(0, 0, 0, 0.6),\n    0 0 140px rgba(102, 126, 234, 0.08),\n    inset 0 0 120px rgba(102, 126, 234, 0.05),\n    inset 0 0 40px rgba(255, 255, 255, 0.03);\n}\n.constellation-viewport[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      1px 1px at 20% 30%,\n      rgba(255, 255, 255, 0.4),\n      transparent),\n    radial-gradient(\n      1px 1px at 60% 70%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 80% 20%,\n      rgba(255, 255, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 40% 80%,\n      rgba(255, 255, 255, 0.25),\n      transparent),\n    radial-gradient(\n      1px 1px at 90% 60%,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  pointer-events: none;\n  z-index: 0;\n}\n.star-field[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 0;\n}\n.bg-star[_ngcontent-%COMP%] {\n  position: absolute;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(255, 255, 255, 0.2) 60%,\n      transparent 100%);\n  animation: _ngcontent-%COMP%_twinkle 4s ease-in-out infinite alternate;\n}\n.bg-star[_ngcontent-%COMP%]:nth-child(3n) {\n  animation-duration: 3s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(180, 200, 255, 0.9) 0%,\n      rgba(180, 200, 255, 0.1) 60%,\n      transparent 100%);\n}\n.bg-star[_ngcontent-%COMP%]:nth-child(5n) {\n  animation-duration: 5s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 220, 180, 0.8) 0%,\n      rgba(255, 220, 180, 0.1) 60%,\n      transparent 100%);\n}\n@keyframes _ngcontent-%COMP%_twinkle {\n  0% {\n    opacity: 0.15;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.9;\n    transform: scale(1.3);\n  }\n  100% {\n    opacity: 0.2;\n    transform: scale(0.9);\n  }\n}\n.constellation-svg[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.constellation-line[_ngcontent-%COMP%] {\n  transition: stroke-opacity 0.4s ease;\n  animation: _ngcontent-%COMP%_lineShimmer 5s ease-in-out infinite alternate;\n  filter: drop-shadow(0 0 0.5px currentColor);\n}\n@keyframes _ngcontent-%COMP%_lineShimmer {\n  0% {\n    stroke-opacity: 0.25;\n    stroke-width: 0.15;\n  }\n  50% {\n    stroke-opacity: 0.7;\n    stroke-width: 0.22;\n  }\n  100% {\n    stroke-opacity: 0.3;\n    stroke-width: 0.15;\n  }\n}\n.star-glow[_ngcontent-%COMP%] {\n  transition: fill-opacity 0.3s ease, r 0.3s ease;\n  animation: _ngcontent-%COMP%_glowPulse 3s ease-in-out infinite alternate;\n  transform-origin: center;\n}\n.star-glow--active[_ngcontent-%COMP%] {\n  fill-opacity: 0.5 !important;\n  animation: _ngcontent-%COMP%_glowPulseActive 1.2s ease-in-out infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_glowPulse {\n  0% {\n    fill-opacity: 0.12;\n  }\n  100% {\n    fill-opacity: 0.28;\n  }\n}\n@keyframes _ngcontent-%COMP%_glowPulseActive {\n  0% {\n    fill-opacity: 0.35;\n  }\n  100% {\n    fill-opacity: 0.55;\n  }\n}\n.star-core[_ngcontent-%COMP%] {\n  cursor: pointer;\n  transition: filter 0.25s ease, r 0.2s ease;\n  transform-origin: center;\n  filter: drop-shadow(0 0 1px currentColor);\n}\n.star-core[_ngcontent-%COMP%]:hover {\n  filter: brightness(1.6) drop-shadow(0 0 2px currentColor) drop-shadow(0 0 4px currentColor);\n}\n.star-core--active[_ngcontent-%COMP%] {\n  filter: brightness(1.8) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor) !important;\n}\n.star-float-1[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat1 6s ease-in-out infinite;\n}\n.star-float-2[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat2 7s ease-in-out infinite;\n}\n.star-float-3[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat3 5s ease-in-out infinite;\n}\n.star-float-4[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat4 8s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_starFloat1 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(0.3px, -0.4px);\n  }\n  50% {\n    transform: translate(-0.2px, 0.3px);\n  }\n  75% {\n    transform: translate(0.4px, 0.2px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat2 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  33% {\n    transform: translate(-0.4px, -0.2px);\n  }\n  66% {\n    transform: translate(0.3px, 0.4px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat3 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  50% {\n    transform: translate(0.5px, -0.3px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat4 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(-0.3px, 0.5px);\n  }\n  75% {\n    transform: translate(0.4px, -0.4px);\n  }\n}\n.star-label[_ngcontent-%COMP%] {\n  font-size: 1.6px;\n  font-weight: 600;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0.65;\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n}\n.star-label--active[_ngcontent-%COMP%] {\n  fill-opacity: 1;\n  font-weight: 700;\n}\n.category-label[_ngcontent-%COMP%] {\n  font-size: 1.6px;\n  font-weight: 500;\n  fill-opacity: 0.3;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.15px;\n  text-transform: uppercase;\n}\n.radial-ring[_ngcontent-%COMP%] {\n  pointer-events: none;\n}\n.ring-track[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.ring-fill[_ngcontent-%COMP%] {\n  stroke-dasharray: 100;\n  stroke-dashoffset: 100;\n  animation: _ngcontent-%COMP%_ringDraw 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  filter: drop-shadow(0 0 1.5px currentColor);\n}\n@keyframes _ngcontent-%COMP%_ringDraw {\n  from {\n    stroke-dashoffset: 100;\n  }\n  to {\n    stroke-dashoffset: 0;\n  }\n}\n.ring-percentage[_ngcontent-%COMP%] {\n  font-size: 2.4px;\n  font-weight: 800;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0;\n  animation: _ngcontent-%COMP%_percentFadeIn 0.4s 0.3s ease-out forwards;\n  filter: drop-shadow(0 0 2px currentColor);\n}\n@keyframes _ngcontent-%COMP%_percentFadeIn {\n  from {\n    fill-opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    fill-opacity: 1;\n    transform: translateY(0);\n  }\n}\n.viewport-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: 28px;\n  padding: 1px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(100, 181, 246, 0.35),\n      rgba(169, 141, 255, 0.18) 45%,\n      rgba(244, 143, 177, 0.28));\n  box-shadow:\n    0 0 0 1px rgba(255, 255, 255, 0.04),\n    0 18px 80px rgba(2, 6, 22, 0.55),\n    0 0 90px rgba(100, 181, 246, 0.12);\n}\n.viewport-wrapper--zooming[_ngcontent-%COMP%] {\n  overflow: hidden;\n}\n.constellation-viewport[_ngcontent-%COMP%] {\n  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);\n  transform-origin: center center;\n}\n.constellation-viewport.viewport-zooming[_ngcontent-%COMP%] {\n  overflow: visible;\n  z-index: 10;\n}\n.rocket-container[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 5;\n  opacity: 1;\n  transition: opacity 0.3s ease;\n}\n.rocket-container--zooming[_ngcontent-%COMP%] {\n  z-index: 10;\n}\n.rocket-svg[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n}\n.rocket-group[_ngcontent-%COMP%] {\n  transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  transform-origin: center;\n}\n.rocket-flame[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameFlicker 0.12s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-inner[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameFlickerInner 0.1s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-core[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameCoreFlicker 0.08s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n@keyframes _ngcontent-%COMP%_flameFlicker {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1) scaleX(1);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.3) scaleX(0.85);\n  }\n}\n@keyframes _ngcontent-%COMP%_flameFlickerInner {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1.1) scaleX(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.4) scaleX(0.8);\n  }\n}\n@keyframes _ngcontent-%COMP%_flameCoreFlicker {\n  0% {\n    opacity: 0.6;\n    transform: scaleY(0.9);\n  }\n  100% {\n    opacity: 0.9;\n    transform: scaleY(1.2);\n  }\n}\n.trail-particle[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_trailFade 1.2s ease-out forwards;\n}\n@keyframes _ngcontent-%COMP%_trailFade {\n  0% {\n    opacity: 0;\n    r: 0;\n  }\n  30% {\n    opacity: 0.8;\n  }\n  100% {\n    opacity: 0;\n    r: 0.8px;\n  }\n}\n.star-burst[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(100, 181, 246, 0.4) 40%,\n      transparent 70%);\n  transform: translate(-50%, -50%);\n  z-index: 8;\n  pointer-events: none;\n  animation: _ngcontent-%COMP%_starBurst 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;\n}\n@keyframes _ngcontent-%COMP%_starBurst {\n  0% {\n    width: 0;\n    height: 0;\n    opacity: 1;\n  }\n  40% {\n    width: 200px;\n    height: 200px;\n    opacity: 0.8;\n  }\n  100% {\n    width: 500px;\n    height: 500px;\n    opacity: 0;\n  }\n}\n.skill-modal-overlay[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(12px);\n  -webkit-backdrop-filter: blur(12px);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n  padding: 1rem;\n  animation: _ngcontent-%COMP%_modalFadeIn 0.4s ease-out;\n}\n@keyframes _ngcontent-%COMP%_modalFadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.skill-modal[_ngcontent-%COMP%] {\n  background: rgba(12, 12, 28, 0.97);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  border-radius: 20px;\n  max-width: 700px;\n  width: 100%;\n  max-height: 85vh;\n  overflow: hidden;\n  box-shadow:\n    0 25px 80px rgba(0, 0, 0, 0.6),\n    0 0 150px rgba(102, 126, 234, 0.12),\n    0 0 40px rgba(102, 126, 234, 0.06);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  animation: _ngcontent-%COMP%_modalZoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);\n}\n@keyframes _ngcontent-%COMP%_modalZoomIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3) translateY(20px);\n    filter: blur(10px);\n  }\n  50% {\n    opacity: 0.8;\n    transform: scale(1.02) translateY(-5px);\n    filter: blur(0px);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1) translateY(0);\n    filter: blur(0px);\n  }\n}\n.modal-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1.5rem 2rem;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\n.modal-header-left[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.modal-skill-icon[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border-radius: 12px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.modal-title-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.25rem;\n}\n.modal-skill-name[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  margin: 0;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-category[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-close[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.08);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 10px;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: rgba(255, 255, 255, 0.6);\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.modal-close[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.12);\n  color: #fff;\n  transform: scale(1.05);\n}\n.modal-content[_ngcontent-%COMP%] {\n  padding: 2rem;\n  overflow-y: auto;\n  max-height: calc(85vh - 100px);\n}\n.modal-section[_ngcontent-%COMP%] {\n  margin-bottom: 2rem;\n}\n.modal-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.modal-section[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 600;\n  color: #fff;\n  margin: 0 0 1rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.section-description[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.6;\n  margin: 0;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.5rem;\n  margin-bottom: 0.75rem;\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #64B5F6;\n  font-weight: bold;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.project-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 1rem;\n}\n.project-card[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  border-radius: 12px;\n  padding: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  transition: all 0.3s ease;\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.08);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.project-icon[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n}\n.project-name[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.8);\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievement-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n}\n.achievement-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.75rem;\n}\n.achievement-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  flex-shrink: 0;\n  margin-top: 0.1rem;\n}\n.achievement-text[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skills[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.related-skill-tag[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.15);\n  color: #64B5F6;\n  padding: 0.4rem 0.8rem;\n  border-radius: 20px;\n  font-size: 0.8rem;\n  font-weight: 500;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skill-tag[_ngcontent-%COMP%]:hover {\n  background: rgba(100, 181, 246, 0.25);\n  transform: translateY(-1px);\n}\n.constellation-legend[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 1.25rem;\n  width: fit-content;\n  max-width: 100%;\n  margin: 2rem auto 0;\n  padding: 1rem 1.5rem;\n  border: 1px solid rgba(133, 162, 255, 0.18);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(10, 14, 38, 0.78),\n      rgba(18, 24, 56, 0.48));\n  box-shadow: 0 12px 40px rgba(2, 6, 22, 0.4), inset 0 0 30px rgba(108, 136, 255, 0.05);\n  backdrop-filter: blur(16px);\n  -webkit-backdrop-filter: blur(16px);\n}\n.legend-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.legend-dot[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  box-shadow: 0 0 10px currentColor, 0 0 24px currentColor;\n}\n.legend-name[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  font-weight: 500;\n  color: rgba(220, 229, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.04em;\n}\n@media (max-width: 768px) {\n  .apple-section[_ngcontent-%COMP%] {\n    padding: 4.5rem 0;\n  }\n  .section-header[_ngcontent-%COMP%] {\n    margin-bottom: 2.5rem;\n  }\n  .section-header[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2.7rem;\n    white-space: normal;\n  }\n  .constellation-viewport[_ngcontent-%COMP%] {\n    aspect-ratio: 4/3;\n  }\n  .star-label[_ngcontent-%COMP%] {\n    font-size: 2.2px;\n  }\n  .category-label[_ngcontent-%COMP%] {\n    font-size: 2px;\n  }\n  .skill-detail-panel[_ngcontent-%COMP%] {\n    min-width: 220px;\n    max-width: 300px;\n    bottom: 1rem;\n  }\n  .constellation-legend[_ngcontent-%COMP%] {\n    width: 100%;\n    gap: 0.75rem;\n    padding: 0.875rem 1rem;\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .section-header[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .apple-section[_ngcontent-%COMP%] {\n    padding: 4rem 0;\n  }\n  .section-header[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2.2rem;\n  }\n  .section-subtitle[_ngcontent-%COMP%] {\n    font-size: 0.78rem;\n    letter-spacing: 0.14em;\n  }\n  .constellation-viewport[_ngcontent-%COMP%] {\n    aspect-ratio: 3/4;\n    max-height: 500px;\n  }\n  .star-label[_ngcontent-%COMP%] {\n    font-size: 2.5px;\n  }\n  .category-label[_ngcontent-%COMP%] {\n    font-size: 2.2px;\n  }\n  .skill-detail-panel[_ngcontent-%COMP%] {\n    min-width: 200px;\n    max-width: 260px;\n    bottom: 0.75rem;\n  }\n  .constellation-legend[_ngcontent-%COMP%] {\n    border-radius: 20px;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
   }
 };
 (() => {
@@ -45009,7 +39599,7 @@ var SkillsComponent = class _SkillsComponent {
 
     <!-- Skill Detail Modal -->
     @if (showDetailModal && selectedSkill && selectedSkill.details) {
-      <div class="skill-modal-overlay" (click)="closeDetailModal()">
+      <div class="skill-modal-overlay" (click)="closeDetailModal()" role="dialog" aria-label="Skill detail">
         <div class="skill-modal" (click)="$event.stopPropagation()">
           <!-- Modal Header -->
           <div class="modal-header">
@@ -45024,7 +39614,7 @@ var SkillsComponent = class _SkillsComponent {
                 </span>
               </div>
             </div>
-            <button class="modal-close" (click)="closeDetailModal()">
+            <button class="modal-close" (click)="closeDetailModal()" aria-label="Close skill detail">
               <i class="fas fa-times"></i>
             </button>
           </div>
@@ -45033,13 +39623,13 @@ var SkillsComponent = class _SkillsComponent {
           <div class="modal-content">
             <!-- Description -->
             <div class="modal-section">
-              <h3 class="section-title">Overview</h3>
+              <h3 class="modal-section-title">Overview</h3>
               <p class="section-description">{{selectedSkill.details.description}}</p>
             </div>
 
             <!-- Experience -->
             <div class="modal-section">
-              <h3 class="section-title">Experience</h3>
+              <h3 class="modal-section-title">Experience</h3>
               <ul class="detail-list">
                 @for (exp of selectedSkill.details.experience; track $index) {
                   <li class="detail-item">{{exp}}</li>
@@ -45049,7 +39639,7 @@ var SkillsComponent = class _SkillsComponent {
 
             <!-- Projects -->
             <div class="modal-section">
-              <h3 class="section-title">Key Projects</h3>
+              <h3 class="modal-section-title">Key Projects</h3>
               <div class="project-grid">
                 @for (project of selectedSkill.details.projects; track $index) {
                   <div class="project-card">
@@ -45062,7 +39652,7 @@ var SkillsComponent = class _SkillsComponent {
 
             <!-- Achievements -->
             <div class="modal-section">
-              <h3 class="section-title">Achievements</h3>
+              <h3 class="modal-section-title">Achievements</h3>
               <div class="achievement-list">
                 @for (achievement of selectedSkill.details.achievements; track $index) {
                   <div class="achievement-item">
@@ -45075,7 +39665,7 @@ var SkillsComponent = class _SkillsComponent {
 
             <!-- Related Skills -->
             <div class="modal-section">
-              <h3 class="section-title">Related Skills</h3>
+              <h3 class="modal-section-title">Related Skills</h3>
               <div class="related-skills">
                 @for (relatedSkill of selectedSkill.details.relatedSkills; track $index) {
                   <span class="related-skill-tag">{{relatedSkill}}</span>
@@ -45098,20 +39688,23 @@ var SkillsComponent = class _SkillsComponent {
     </div>
   </div>
 </div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/skills/skills.component.scss */\n.section-header {\n  text-align: center;\n  margin-bottom: 2.5rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 0.5rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: rgba(255, 255, 255, 0.35);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.5px;\n  margin: 0;\n}\n.constellation-viewport {\n  position: relative;\n  width: 100%;\n  aspect-ratio: 16/9;\n  max-height: 600px;\n  background:\n    radial-gradient(\n      ellipse at 15% 25%,\n      rgba(100, 181, 246, 0.04) 0%,\n      transparent 50%),\n    radial-gradient(\n      ellipse at 50% 15%,\n      rgba(206, 147, 216, 0.04) 0%,\n      transparent 45%),\n    radial-gradient(\n      ellipse at 85% 20%,\n      rgba(128, 203, 196, 0.04) 0%,\n      transparent 45%),\n    radial-gradient(\n      ellipse at 48% 55%,\n      rgba(244, 143, 177, 0.03) 0%,\n      transparent 40%),\n    radial-gradient(\n      ellipse at 80% 55%,\n      rgba(129, 199, 132, 0.03) 0%,\n      transparent 40%),\n    radial-gradient(\n      ellipse at 82% 78%,\n      rgba(229, 115, 115, 0.03) 0%,\n      transparent 35%),\n    radial-gradient(\n      ellipse at 50% 50%,\n      rgb(16, 16, 35) 0%,\n      rgb(6, 6, 14) 100%);\n  border-radius: 20px;\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  overflow: hidden;\n  box-shadow:\n    0 0 80px rgba(0, 0, 0, 0.6),\n    0 0 120px rgba(102, 126, 234, 0.04),\n    inset 0 0 100px rgba(102, 126, 234, 0.02);\n}\n.constellation-viewport::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      1px 1px at 20% 30%,\n      rgba(255, 255, 255, 0.4),\n      transparent),\n    radial-gradient(\n      1px 1px at 60% 70%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 80% 20%,\n      rgba(255, 255, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 40% 80%,\n      rgba(255, 255, 255, 0.25),\n      transparent),\n    radial-gradient(\n      1px 1px at 90% 60%,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  pointer-events: none;\n  z-index: 0;\n}\n.star-field {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 0;\n}\n.bg-star {\n  position: absolute;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(255, 255, 255, 0.2) 60%,\n      transparent 100%);\n  animation: twinkle 4s ease-in-out infinite alternate;\n}\n.bg-star:nth-child(3n) {\n  animation-duration: 3s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(180, 200, 255, 0.9) 0%,\n      rgba(180, 200, 255, 0.1) 60%,\n      transparent 100%);\n}\n.bg-star:nth-child(5n) {\n  animation-duration: 5s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 220, 180, 0.8) 0%,\n      rgba(255, 220, 180, 0.1) 60%,\n      transparent 100%);\n}\n@keyframes twinkle {\n  0% {\n    opacity: 0.15;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.9;\n    transform: scale(1.3);\n  }\n  100% {\n    opacity: 0.2;\n    transform: scale(0.9);\n  }\n}\n.constellation-svg {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.constellation-line {\n  transition: stroke-opacity 0.4s ease;\n  animation: lineShimmer 5s ease-in-out infinite alternate;\n  filter: drop-shadow(0 0 0.5px currentColor);\n}\n@keyframes lineShimmer {\n  0% {\n    stroke-opacity: 0.25;\n    stroke-width: 0.15;\n  }\n  50% {\n    stroke-opacity: 0.7;\n    stroke-width: 0.22;\n  }\n  100% {\n    stroke-opacity: 0.3;\n    stroke-width: 0.15;\n  }\n}\n.star-glow {\n  transition: fill-opacity 0.3s ease, r 0.3s ease;\n  animation: glowPulse 3s ease-in-out infinite alternate;\n  transform-origin: center;\n}\n.star-glow--active {\n  fill-opacity: 0.5 !important;\n  animation: glowPulseActive 1.2s ease-in-out infinite alternate;\n}\n@keyframes glowPulse {\n  0% {\n    fill-opacity: 0.12;\n  }\n  100% {\n    fill-opacity: 0.28;\n  }\n}\n@keyframes glowPulseActive {\n  0% {\n    fill-opacity: 0.35;\n  }\n  100% {\n    fill-opacity: 0.55;\n  }\n}\n.star-core {\n  cursor: pointer;\n  transition: filter 0.25s ease, r 0.2s ease;\n  transform-origin: center;\n  filter: drop-shadow(0 0 1px currentColor);\n}\n.star-core:hover {\n  filter: brightness(1.6) drop-shadow(0 0 2px currentColor) drop-shadow(0 0 4px currentColor);\n}\n.star-core--active {\n  filter: brightness(1.8) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor) !important;\n}\n.star-float-1 {\n  animation: starFloat1 6s ease-in-out infinite;\n}\n.star-float-2 {\n  animation: starFloat2 7s ease-in-out infinite;\n}\n.star-float-3 {\n  animation: starFloat3 5s ease-in-out infinite;\n}\n.star-float-4 {\n  animation: starFloat4 8s ease-in-out infinite;\n}\n@keyframes starFloat1 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(0.3px, -0.4px);\n  }\n  50% {\n    transform: translate(-0.2px, 0.3px);\n  }\n  75% {\n    transform: translate(0.4px, 0.2px);\n  }\n}\n@keyframes starFloat2 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  33% {\n    transform: translate(-0.4px, -0.2px);\n  }\n  66% {\n    transform: translate(0.3px, 0.4px);\n  }\n}\n@keyframes starFloat3 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  50% {\n    transform: translate(0.5px, -0.3px);\n  }\n}\n@keyframes starFloat4 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(-0.3px, 0.5px);\n  }\n  75% {\n    transform: translate(0.4px, -0.4px);\n  }\n}\n.star-label {\n  font-size: 1.6px;\n  font-weight: 600;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0.65;\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n}\n.star-label--active {\n  fill-opacity: 1;\n  font-weight: 700;\n}\n.category-label {\n  font-size: 1.6px;\n  font-weight: 500;\n  fill-opacity: 0.3;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.15px;\n  text-transform: uppercase;\n}\n.radial-ring {\n  pointer-events: none;\n}\n.ring-track {\n  opacity: 1;\n}\n.ring-fill {\n  stroke-dasharray: 100;\n  stroke-dashoffset: 100;\n  animation: ringDraw 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  filter: drop-shadow(0 0 1.5px currentColor);\n}\n@keyframes ringDraw {\n  from {\n    stroke-dashoffset: 100;\n  }\n  to {\n    stroke-dashoffset: 0;\n  }\n}\n.ring-percentage {\n  font-size: 2.4px;\n  font-weight: 800;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0;\n  animation: percentFadeIn 0.4s 0.3s ease-out forwards;\n  filter: drop-shadow(0 0 2px currentColor);\n}\n@keyframes percentFadeIn {\n  from {\n    fill-opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    fill-opacity: 1;\n    transform: translateY(0);\n  }\n}\n.viewport-wrapper {\n  position: relative;\n  overflow: hidden;\n  border-radius: 20px;\n}\n.viewport-wrapper--zooming {\n  overflow: hidden;\n}\n.constellation-viewport {\n  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);\n  transform-origin: center center;\n}\n.constellation-viewport.viewport-zooming {\n  overflow: visible;\n  z-index: 10;\n}\n.rocket-container {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 5;\n  opacity: 1;\n  transition: opacity 0.3s ease;\n}\n.rocket-container--zooming {\n  z-index: 10;\n}\n.rocket-svg {\n  width: 100%;\n  height: 100%;\n}\n.rocket-group {\n  transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  transform-origin: center;\n}\n.rocket-flame {\n  animation: flameFlicker 0.12s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-inner {\n  animation: flameFlickerInner 0.1s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-core {\n  animation: flameCoreFlicker 0.08s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n@keyframes flameFlicker {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1) scaleX(1);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.3) scaleX(0.85);\n  }\n}\n@keyframes flameFlickerInner {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1.1) scaleX(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.4) scaleX(0.8);\n  }\n}\n@keyframes flameCoreFlicker {\n  0% {\n    opacity: 0.6;\n    transform: scaleY(0.9);\n  }\n  100% {\n    opacity: 0.9;\n    transform: scaleY(1.2);\n  }\n}\n.trail-particle {\n  animation: trailFade 1.2s ease-out forwards;\n}\n@keyframes trailFade {\n  0% {\n    opacity: 0;\n    r: 0;\n  }\n  30% {\n    opacity: 0.8;\n  }\n  100% {\n    opacity: 0;\n    r: 0.8px;\n  }\n}\n.star-burst {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(100, 181, 246, 0.4) 40%,\n      transparent 70%);\n  transform: translate(-50%, -50%);\n  z-index: 8;\n  pointer-events: none;\n  animation: starBurst 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;\n}\n@keyframes starBurst {\n  0% {\n    width: 0;\n    height: 0;\n    opacity: 1;\n  }\n  40% {\n    width: 200px;\n    height: 200px;\n    opacity: 0.8;\n  }\n  100% {\n    width: 500px;\n    height: 500px;\n    opacity: 0;\n  }\n}\n.skill-modal-overlay {\n  position: fixed;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(12px);\n  -webkit-backdrop-filter: blur(12px);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n  padding: 1rem;\n  animation: modalFadeIn 0.4s ease-out;\n}\n@keyframes modalFadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.skill-modal {\n  background: rgba(12, 12, 28, 0.97);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  border-radius: 20px;\n  max-width: 700px;\n  width: 100%;\n  max-height: 85vh;\n  overflow: hidden;\n  box-shadow:\n    0 25px 80px rgba(0, 0, 0, 0.6),\n    0 0 150px rgba(102, 126, 234, 0.12),\n    0 0 40px rgba(102, 126, 234, 0.06);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  animation: modalZoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);\n}\n@keyframes modalZoomIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3) translateY(20px);\n    filter: blur(10px);\n  }\n  50% {\n    opacity: 0.8;\n    transform: scale(1.02) translateY(-5px);\n    filter: blur(0px);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1) translateY(0);\n    filter: blur(0px);\n  }\n}\n.modal-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1.5rem 2rem;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\n.modal-header-left {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.modal-skill-icon {\n  width: 48px;\n  height: 48px;\n  border-radius: 12px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.modal-title-section {\n  display: flex;\n  flex-direction: column;\n  gap: 0.25rem;\n}\n.modal-skill-name {\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  margin: 0;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-category {\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-close {\n  background: rgba(255, 255, 255, 0.08);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 10px;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: rgba(255, 255, 255, 0.6);\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.modal-close:hover {\n  background: rgba(255, 255, 255, 0.12);\n  color: #fff;\n  transform: scale(1.05);\n}\n.modal-content {\n  padding: 2rem;\n  overflow-y: auto;\n  max-height: calc(85vh - 100px);\n}\n.modal-section {\n  margin-bottom: 2rem;\n}\n.modal-section:last-child {\n  margin-bottom: 0;\n}\n.section-title {\n  font-size: 1.1rem;\n  font-weight: 600;\n  color: #fff;\n  margin: 0 0 1rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.section-description {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.6;\n  margin: 0;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list .detail-item {\n  position: relative;\n  padding-left: 1.5rem;\n  margin-bottom: 0.75rem;\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list .detail-item::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #64B5F6;\n  font-weight: bold;\n}\n.detail-list .detail-item:last-child {\n  margin-bottom: 0;\n}\n.project-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 1rem;\n}\n.project-card {\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  border-radius: 12px;\n  padding: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  transition: all 0.3s ease;\n}\n.project-card:hover {\n  background: rgba(255, 255, 255, 0.08);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.project-icon {\n  font-size: 1.2rem;\n}\n.project-name {\n  color: rgba(255, 255, 255, 0.8);\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievement-list {\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n}\n.achievement-item {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.75rem;\n}\n.achievement-icon {\n  font-size: 1rem;\n  flex-shrink: 0;\n  margin-top: 0.1rem;\n}\n.achievement-text {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skills {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.related-skill-tag {\n  background: rgba(100, 181, 246, 0.15);\n  color: #64B5F6;\n  padding: 0.4rem 0.8rem;\n  border-radius: 20px;\n  font-size: 0.8rem;\n  font-weight: 500;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skill-tag:hover {\n  background: rgba(100, 181, 246, 0.25);\n  transform: translateY(-1px);\n}\n.constellation-legend {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 1.25rem;\n  margin-top: 1.5rem;\n}\n.legend-item {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n}\n.legend-dot {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  box-shadow: 0 0 6px currentColor;\n}\n.legend-name {\n  font-size: 0.75rem;\n  font-weight: 500;\n  color: rgba(255, 255, 255, 0.5);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n@media (max-width: 768px) {\n  .section-title {\n    font-size: 2.5rem;\n  }\n  .constellation-viewport {\n    aspect-ratio: 4/3;\n  }\n  .star-label {\n    font-size: 2.2px;\n  }\n  .category-label {\n    font-size: 2px;\n  }\n  .skill-detail-panel {\n    min-width: 220px;\n    max-width: 300px;\n    bottom: 1rem;\n  }\n  .constellation-legend {\n    gap: 0.75rem;\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .section-header {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .section-title {\n    font-size: 2rem;\n  }\n  .constellation-viewport {\n    aspect-ratio: 3/4;\n    max-height: 500px;\n  }\n  .star-label {\n    font-size: 2.5px;\n  }\n  .category-label {\n    font-size: 2.2px;\n  }\n  .skill-detail-panel {\n    min-width: 200px;\n    max-width: 260px;\n    bottom: 0.75rem;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
-  }], () => [], null);
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/skills/skills.component.scss */\n.apple-section {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 18% 18%,\n      rgba(111, 138, 255, 0.16) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 82% 14%,\n      rgba(244, 143, 177, 0.14) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(100, 181, 246, 0.12) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(2, 4, 18, 0.9) 0%,\n      rgba(5, 8, 28, 0.74) 48%,\n      rgba(2, 4, 18, 0.92) 100%);\n  isolation: isolate;\n}\n.apple-section::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background-image:\n    radial-gradient(\n      1px 1px at 12% 20%,\n      rgba(255, 255, 255, 0.45),\n      transparent),\n    radial-gradient(\n      1px 1px at 24% 72%,\n      rgba(173, 216, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 68% 24%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 78% 68%,\n      rgba(255, 255, 255, 0.42),\n      transparent),\n    radial-gradient(\n      2px 2px at 88% 34%,\n      rgba(205, 226, 255, 0.28),\n      transparent);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-section::after {\n  content: "";\n  position: absolute;\n  width: min(28rem, 45vw);\n  aspect-ratio: 1;\n  top: -11rem;\n  right: -8rem;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 35% 35%,\n      rgba(255, 255, 255, 0.22) 0%,\n      rgba(186, 160, 255, 0.18) 18%,\n      rgba(98, 122, 255, 0.12) 40%,\n      rgba(19, 24, 62, 0) 72%);\n  filter: blur(6px);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-container {\n  position: relative;\n  z-index: 1;\n}\n.section-header {\n  text-align: center;\n  margin: 0 auto 3rem;\n  width: 100%;\n  max-width: 52rem;\n  overflow: visible;\n  position: relative;\n  padding: 1rem 0 0.75rem;\n}\n.section-header::before {\n  content: "";\n  position: absolute;\n  left: 50%;\n  bottom: -0.75rem;\n  width: min(18rem, 42vw);\n  height: 1px;\n  transform: translateX(-50%);\n  background:\n    linear-gradient(\n      90deg,\n      rgba(100, 181, 246, 0),\n      rgba(100, 181, 246, 0.7),\n      rgba(244, 143, 177, 0.7),\n      rgba(244, 143, 177, 0));\n  box-shadow: 0 0 18px rgba(100, 181, 246, 0.35);\n  opacity: 0.75;\n}\n.section-header .section-title {\n  font-size: clamp(3.25rem, 6vw, 4.75rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #d9e8ff 0%,\n      #8fc5ff 22%,\n      #a98dff 52%,\n      #ffb5dc 78%,\n      #fef7ff 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.04em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.05;\n  display: inline-block;\n  filter: drop-shadow(0 0 24px rgba(132, 167, 255, 0.24));\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: rgba(201, 223, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.24em;\n  margin: 0;\n  text-transform: uppercase;\n}\n.constellation-viewport {\n  position: relative;\n  width: 100%;\n  aspect-ratio: 16/9;\n  max-height: 620px;\n  background:\n    radial-gradient(\n      ellipse at 18% 22%,\n      rgba(100, 181, 246, 0.1) 0%,\n      transparent 44%),\n    radial-gradient(\n      ellipse at 52% 14%,\n      rgba(206, 147, 216, 0.12) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 82% 18%,\n      rgba(128, 203, 196, 0.08) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 24% 76%,\n      rgba(244, 143, 177, 0.08) 0%,\n      transparent 38%),\n    radial-gradient(\n      ellipse at 74% 74%,\n      rgba(129, 199, 132, 0.08) 0%,\n      transparent 34%),\n    radial-gradient(\n      circle at 50% 50%,\n      rgba(19, 29, 74, 0.34) 0%,\n      rgba(8, 10, 28, 0) 34%),\n    linear-gradient(\n      180deg,\n      rgba(8, 10, 32, 0.98) 0%,\n      rgba(4, 6, 18, 0.98) 100%);\n  border-radius: 27px;\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  overflow: hidden;\n  box-shadow:\n    0 0 80px rgba(0, 0, 0, 0.6),\n    0 0 140px rgba(102, 126, 234, 0.08),\n    inset 0 0 120px rgba(102, 126, 234, 0.05),\n    inset 0 0 40px rgba(255, 255, 255, 0.03);\n}\n.constellation-viewport::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      1px 1px at 20% 30%,\n      rgba(255, 255, 255, 0.4),\n      transparent),\n    radial-gradient(\n      1px 1px at 60% 70%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 80% 20%,\n      rgba(255, 255, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 40% 80%,\n      rgba(255, 255, 255, 0.25),\n      transparent),\n    radial-gradient(\n      1px 1px at 90% 60%,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  pointer-events: none;\n  z-index: 0;\n}\n.star-field {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 0;\n}\n.bg-star {\n  position: absolute;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(255, 255, 255, 0.2) 60%,\n      transparent 100%);\n  animation: twinkle 4s ease-in-out infinite alternate;\n}\n.bg-star:nth-child(3n) {\n  animation-duration: 3s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(180, 200, 255, 0.9) 0%,\n      rgba(180, 200, 255, 0.1) 60%,\n      transparent 100%);\n}\n.bg-star:nth-child(5n) {\n  animation-duration: 5s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 220, 180, 0.8) 0%,\n      rgba(255, 220, 180, 0.1) 60%,\n      transparent 100%);\n}\n@keyframes twinkle {\n  0% {\n    opacity: 0.15;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.9;\n    transform: scale(1.3);\n  }\n  100% {\n    opacity: 0.2;\n    transform: scale(0.9);\n  }\n}\n.constellation-svg {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.constellation-line {\n  transition: stroke-opacity 0.4s ease;\n  animation: lineShimmer 5s ease-in-out infinite alternate;\n  filter: drop-shadow(0 0 0.5px currentColor);\n}\n@keyframes lineShimmer {\n  0% {\n    stroke-opacity: 0.25;\n    stroke-width: 0.15;\n  }\n  50% {\n    stroke-opacity: 0.7;\n    stroke-width: 0.22;\n  }\n  100% {\n    stroke-opacity: 0.3;\n    stroke-width: 0.15;\n  }\n}\n.star-glow {\n  transition: fill-opacity 0.3s ease, r 0.3s ease;\n  animation: glowPulse 3s ease-in-out infinite alternate;\n  transform-origin: center;\n}\n.star-glow--active {\n  fill-opacity: 0.5 !important;\n  animation: glowPulseActive 1.2s ease-in-out infinite alternate;\n}\n@keyframes glowPulse {\n  0% {\n    fill-opacity: 0.12;\n  }\n  100% {\n    fill-opacity: 0.28;\n  }\n}\n@keyframes glowPulseActive {\n  0% {\n    fill-opacity: 0.35;\n  }\n  100% {\n    fill-opacity: 0.55;\n  }\n}\n.star-core {\n  cursor: pointer;\n  transition: filter 0.25s ease, r 0.2s ease;\n  transform-origin: center;\n  filter: drop-shadow(0 0 1px currentColor);\n}\n.star-core:hover {\n  filter: brightness(1.6) drop-shadow(0 0 2px currentColor) drop-shadow(0 0 4px currentColor);\n}\n.star-core--active {\n  filter: brightness(1.8) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor) !important;\n}\n.star-float-1 {\n  animation: starFloat1 6s ease-in-out infinite;\n}\n.star-float-2 {\n  animation: starFloat2 7s ease-in-out infinite;\n}\n.star-float-3 {\n  animation: starFloat3 5s ease-in-out infinite;\n}\n.star-float-4 {\n  animation: starFloat4 8s ease-in-out infinite;\n}\n@keyframes starFloat1 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(0.3px, -0.4px);\n  }\n  50% {\n    transform: translate(-0.2px, 0.3px);\n  }\n  75% {\n    transform: translate(0.4px, 0.2px);\n  }\n}\n@keyframes starFloat2 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  33% {\n    transform: translate(-0.4px, -0.2px);\n  }\n  66% {\n    transform: translate(0.3px, 0.4px);\n  }\n}\n@keyframes starFloat3 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  50% {\n    transform: translate(0.5px, -0.3px);\n  }\n}\n@keyframes starFloat4 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(-0.3px, 0.5px);\n  }\n  75% {\n    transform: translate(0.4px, -0.4px);\n  }\n}\n.star-label {\n  font-size: 1.6px;\n  font-weight: 600;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0.65;\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n}\n.star-label--active {\n  fill-opacity: 1;\n  font-weight: 700;\n}\n.category-label {\n  font-size: 1.6px;\n  font-weight: 500;\n  fill-opacity: 0.3;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.15px;\n  text-transform: uppercase;\n}\n.radial-ring {\n  pointer-events: none;\n}\n.ring-track {\n  opacity: 1;\n}\n.ring-fill {\n  stroke-dasharray: 100;\n  stroke-dashoffset: 100;\n  animation: ringDraw 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  filter: drop-shadow(0 0 1.5px currentColor);\n}\n@keyframes ringDraw {\n  from {\n    stroke-dashoffset: 100;\n  }\n  to {\n    stroke-dashoffset: 0;\n  }\n}\n.ring-percentage {\n  font-size: 2.4px;\n  font-weight: 800;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0;\n  animation: percentFadeIn 0.4s 0.3s ease-out forwards;\n  filter: drop-shadow(0 0 2px currentColor);\n}\n@keyframes percentFadeIn {\n  from {\n    fill-opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    fill-opacity: 1;\n    transform: translateY(0);\n  }\n}\n.viewport-wrapper {\n  position: relative;\n  overflow: hidden;\n  border-radius: 28px;\n  padding: 1px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(100, 181, 246, 0.35),\n      rgba(169, 141, 255, 0.18) 45%,\n      rgba(244, 143, 177, 0.28));\n  box-shadow:\n    0 0 0 1px rgba(255, 255, 255, 0.04),\n    0 18px 80px rgba(2, 6, 22, 0.55),\n    0 0 90px rgba(100, 181, 246, 0.12);\n}\n.viewport-wrapper--zooming {\n  overflow: hidden;\n}\n.constellation-viewport {\n  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);\n  transform-origin: center center;\n}\n.constellation-viewport.viewport-zooming {\n  overflow: visible;\n  z-index: 10;\n}\n.rocket-container {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 5;\n  opacity: 1;\n  transition: opacity 0.3s ease;\n}\n.rocket-container--zooming {\n  z-index: 10;\n}\n.rocket-svg {\n  width: 100%;\n  height: 100%;\n}\n.rocket-group {\n  transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  transform-origin: center;\n}\n.rocket-flame {\n  animation: flameFlicker 0.12s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-inner {\n  animation: flameFlickerInner 0.1s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-core {\n  animation: flameCoreFlicker 0.08s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n@keyframes flameFlicker {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1) scaleX(1);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.3) scaleX(0.85);\n  }\n}\n@keyframes flameFlickerInner {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1.1) scaleX(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.4) scaleX(0.8);\n  }\n}\n@keyframes flameCoreFlicker {\n  0% {\n    opacity: 0.6;\n    transform: scaleY(0.9);\n  }\n  100% {\n    opacity: 0.9;\n    transform: scaleY(1.2);\n  }\n}\n.trail-particle {\n  animation: trailFade 1.2s ease-out forwards;\n}\n@keyframes trailFade {\n  0% {\n    opacity: 0;\n    r: 0;\n  }\n  30% {\n    opacity: 0.8;\n  }\n  100% {\n    opacity: 0;\n    r: 0.8px;\n  }\n}\n.star-burst {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(100, 181, 246, 0.4) 40%,\n      transparent 70%);\n  transform: translate(-50%, -50%);\n  z-index: 8;\n  pointer-events: none;\n  animation: starBurst 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;\n}\n@keyframes starBurst {\n  0% {\n    width: 0;\n    height: 0;\n    opacity: 1;\n  }\n  40% {\n    width: 200px;\n    height: 200px;\n    opacity: 0.8;\n  }\n  100% {\n    width: 500px;\n    height: 500px;\n    opacity: 0;\n  }\n}\n.skill-modal-overlay {\n  position: fixed;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.8);\n  backdrop-filter: blur(12px);\n  -webkit-backdrop-filter: blur(12px);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n  padding: 1rem;\n  animation: modalFadeIn 0.4s ease-out;\n}\n@keyframes modalFadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.skill-modal {\n  background: rgba(12, 12, 28, 0.97);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  border-radius: 20px;\n  max-width: 700px;\n  width: 100%;\n  max-height: 85vh;\n  overflow: hidden;\n  box-shadow:\n    0 25px 80px rgba(0, 0, 0, 0.6),\n    0 0 150px rgba(102, 126, 234, 0.12),\n    0 0 40px rgba(102, 126, 234, 0.06);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  animation: modalZoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);\n}\n@keyframes modalZoomIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3) translateY(20px);\n    filter: blur(10px);\n  }\n  50% {\n    opacity: 0.8;\n    transform: scale(1.02) translateY(-5px);\n    filter: blur(0px);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1) translateY(0);\n    filter: blur(0px);\n  }\n}\n.modal-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1.5rem 2rem;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\n.modal-header-left {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.modal-skill-icon {\n  width: 48px;\n  height: 48px;\n  border-radius: 12px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.modal-title-section {\n  display: flex;\n  flex-direction: column;\n  gap: 0.25rem;\n}\n.modal-skill-name {\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  margin: 0;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-category {\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-close {\n  background: rgba(255, 255, 255, 0.08);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 10px;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: rgba(255, 255, 255, 0.6);\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.modal-close:hover {\n  background: rgba(255, 255, 255, 0.12);\n  color: #fff;\n  transform: scale(1.05);\n}\n.modal-content {\n  padding: 2rem;\n  overflow-y: auto;\n  max-height: calc(85vh - 100px);\n}\n.modal-section {\n  margin-bottom: 2rem;\n}\n.modal-section:last-child {\n  margin-bottom: 0;\n}\n.modal-section .section-title {\n  font-size: 1.1rem;\n  font-weight: 600;\n  color: #fff;\n  margin: 0 0 1rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.section-description {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.6;\n  margin: 0;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list .detail-item {\n  position: relative;\n  padding-left: 1.5rem;\n  margin-bottom: 0.75rem;\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list .detail-item::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #64B5F6;\n  font-weight: bold;\n}\n.detail-list .detail-item:last-child {\n  margin-bottom: 0;\n}\n.project-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 1rem;\n}\n.project-card {\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  border-radius: 12px;\n  padding: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  transition: all 0.3s ease;\n}\n.project-card:hover {\n  background: rgba(255, 255, 255, 0.08);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.project-icon {\n  font-size: 1.2rem;\n}\n.project-name {\n  color: rgba(255, 255, 255, 0.8);\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievement-list {\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n}\n.achievement-item {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.75rem;\n}\n.achievement-icon {\n  font-size: 1rem;\n  flex-shrink: 0;\n  margin-top: 0.1rem;\n}\n.achievement-text {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skills {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.related-skill-tag {\n  background: rgba(100, 181, 246, 0.15);\n  color: #64B5F6;\n  padding: 0.4rem 0.8rem;\n  border-radius: 20px;\n  font-size: 0.8rem;\n  font-weight: 500;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skill-tag:hover {\n  background: rgba(100, 181, 246, 0.25);\n  transform: translateY(-1px);\n}\n.constellation-legend {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 1.25rem;\n  width: fit-content;\n  max-width: 100%;\n  margin: 2rem auto 0;\n  padding: 1rem 1.5rem;\n  border: 1px solid rgba(133, 162, 255, 0.18);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(10, 14, 38, 0.78),\n      rgba(18, 24, 56, 0.48));\n  box-shadow: 0 12px 40px rgba(2, 6, 22, 0.4), inset 0 0 30px rgba(108, 136, 255, 0.05);\n  backdrop-filter: blur(16px);\n  -webkit-backdrop-filter: blur(16px);\n}\n.legend-item {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.legend-dot {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  box-shadow: 0 0 10px currentColor, 0 0 24px currentColor;\n}\n.legend-name {\n  font-size: 0.78rem;\n  font-weight: 500;\n  color: rgba(220, 229, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.04em;\n}\n@media (max-width: 768px) {\n  .apple-section {\n    padding: 4.5rem 0;\n  }\n  .section-header {\n    margin-bottom: 2.5rem;\n  }\n  .section-header .section-title {\n    font-size: 2.7rem;\n    white-space: normal;\n  }\n  .constellation-viewport {\n    aspect-ratio: 4/3;\n  }\n  .star-label {\n    font-size: 2.2px;\n  }\n  .category-label {\n    font-size: 2px;\n  }\n  .skill-detail-panel {\n    min-width: 220px;\n    max-width: 300px;\n    bottom: 1rem;\n  }\n  .constellation-legend {\n    width: 100%;\n    gap: 0.75rem;\n    padding: 0.875rem 1rem;\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .section-header {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .apple-section {\n    padding: 4rem 0;\n  }\n  .section-header .section-title {\n    font-size: 2.2rem;\n  }\n  .section-subtitle {\n    font-size: 0.78rem;\n    letter-spacing: 0.14em;\n  }\n  .constellation-viewport {\n    aspect-ratio: 3/4;\n    max-height: 500px;\n  }\n  .star-label {\n    font-size: 2.5px;\n  }\n  .category-label {\n    font-size: 2.2px;\n  }\n  .skill-detail-panel {\n    min-width: 200px;\n    max-width: 260px;\n    bottom: 0.75rem;\n  }\n  .constellation-legend {\n    border-radius: 20px;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
+  }], () => [], { onEscapeKey: [{
+    type: HostListener,
+    args: ["document:keydown.escape"]
+  }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(SkillsComponent, { className: "SkillsComponent", filePath: "src/app/profile/skills/skills.component.ts", lineNumber: 43 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(SkillsComponent, { className: "SkillsComponent", filePath: "src/app/profile/skills/skills.component.ts", lineNumber: 38 });
 })();
 
 // src/app/profile/publications/publications.component.ts
 var _c04 = (a0, a1) => ({ "npm-badges": a0, "maven-badges": a1 });
-function PublicationsComponent_For_87_Template(rf, ctx) {
+function PublicationsComponent_For_128_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 33);
-    \u0275\u0275listener("click", function PublicationsComponent_For_87_Template_button_click_0_listener() {
+    \u0275\u0275elementStart(0, "button", 34);
+    \u0275\u0275listener("click", function PublicationsComponent_For_128_Template_button_click_0_listener() {
       const category_r2 = \u0275\u0275restoreView(_r1).$implicit;
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.filterByCategory(category_r2));
@@ -45121,53 +39714,53 @@ function PublicationsComponent_For_87_Template(rf, ctx) {
   }
   if (rf & 2) {
     const category_r2 = ctx.$implicit;
-    const \u0275$index_143_r4 = ctx.$index;
+    const \u0275$index_209_r4 = ctx.$index;
     const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275classProp("active", ctx_r2.selectedCategory === category_r2);
-    \u0275\u0275attribute("data-aos-delay", (\u0275$index_143_r4 + 1) * 100);
+    \u0275\u0275attribute("data-aos-delay", (\u0275$index_209_r4 + 1) * 100);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate1(" ", category_r2, " ");
   }
 }
-function PublicationsComponent_For_90_Conditional_13_Template(rf, ctx) {
+function PublicationsComponent_For_131_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 35);
+    \u0275\u0275element(0, "img", 36);
   }
   if (rf & 2) {
     const project_r5 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r5.badges.version, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_90_Conditional_14_Template(rf, ctx) {
+function PublicationsComponent_For_131_Conditional_14_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 36);
+    \u0275\u0275element(0, "img", 37);
   }
   if (rf & 2) {
     const project_r5 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r5.badges.downloads, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_90_Conditional_15_Template(rf, ctx) {
+function PublicationsComponent_For_131_Conditional_15_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 37);
+    \u0275\u0275element(0, "img", 38);
   }
   if (rf & 2) {
     const project_r5 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r5.badges.total, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_90_Conditional_16_Template(rf, ctx) {
+function PublicationsComponent_For_131_Conditional_16_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 38);
+    \u0275\u0275element(0, "img", 39);
   }
   if (rf & 2) {
     const project_r5 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r5.badges.java, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_90_Template(rf, ctx) {
+function PublicationsComponent_For_131_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 32)(1, "div", 11)(2, "div", 12)(3, "span", 13);
+    \u0275\u0275elementStart(0, "div", 33)(1, "div", 11)(2, "div", 12)(3, "span", 13);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(5, "span", 14);
@@ -45179,20 +39772,20 @@ function PublicationsComponent_For_90_Template(rf, ctx) {
     \u0275\u0275elementStart(9, "p", 16);
     \u0275\u0275text(10);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "div", 17)(12, "div", 34);
-    \u0275\u0275conditionalCreate(13, PublicationsComponent_For_90_Conditional_13_Template, 1, 1, "img", 35);
-    \u0275\u0275conditionalCreate(14, PublicationsComponent_For_90_Conditional_14_Template, 1, 1, "img", 36);
-    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_90_Conditional_15_Template, 1, 1, "img", 37);
-    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_90_Conditional_16_Template, 1, 1, "img", 38);
+    \u0275\u0275elementStart(11, "div", 17)(12, "div", 35);
+    \u0275\u0275conditionalCreate(13, PublicationsComponent_For_131_Conditional_13_Template, 1, 1, "img", 36);
+    \u0275\u0275conditionalCreate(14, PublicationsComponent_For_131_Conditional_14_Template, 1, 1, "img", 37);
+    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_131_Conditional_15_Template, 1, 1, "img", 38);
+    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_131_Conditional_16_Template, 1, 1, "img", 39);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(17, "div", 20)(18, "a", 39);
+    \u0275\u0275elementStart(17, "div", 20)(18, "a", 21);
     \u0275\u0275text(19);
     \u0275\u0275elementEnd()()()();
   }
   if (rf & 2) {
     const project_r5 = ctx.$implicit;
-    const \u0275$index_149_r6 = ctx.$index;
-    \u0275\u0275attribute("data-delay", (\u0275$index_149_r6 + 1) * 100);
+    const \u0275$index_215_r6 = ctx.$index;
+    \u0275\u0275attribute("data-delay", (\u0275$index_215_r6 + 1) * 100);
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate(project_r5.category);
     \u0275\u0275advance(4);
@@ -45217,6 +39810,7 @@ function PublicationsComponent_For_90_Template(rf, ctx) {
 }
 var PublicationsComponent = class _PublicationsComponent {
   constructor() {
+    this.projectLinks = PROJECT_LINKS;
     this.openSourceProjects = [
       {
         id: "node-actuator-lite",
@@ -45228,7 +39822,33 @@ var PublicationsComponent = class _PublicationsComponent {
           downloads: "https://img.shields.io/npm/dm/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
           total: "https://img.shields.io/npm/dt/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=total"
         },
-        link: "https://www.npmjs.com/package/node-actuator-lite",
+        link: PACKAGE_LINKS.nodeActuatorLite,
+        linkText: "View on NPM"
+      },
+      {
+        id: "node-request-trace",
+        title: "node-request-trace",
+        description: "Request tracing and performance visualization library for Node.js. Inspect the full execution lifecycle of API requests, detect performance bottlenecks, identify slow middleware or async operations, and debug production issues quickly.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
+          total: "https://img.shields.io/npm/dt/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: PACKAGE_LINKS.nodeRequestTrace,
+        linkText: "View on NPM"
+      },
+      {
+        id: "node-eventloop-watchdog",
+        title: "node-eventloop-watchdog",
+        description: "Lightweight Node.js event loop blocking detector with automatic code identification, blocking heatmaps, and production-safe diagnostics. Detects lag, captures blocking stack traces, identifies hotspots, and correlates with HTTP requests.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
+          total: "https://img.shields.io/npm/dt/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: PACKAGE_LINKS.nodeEventloopWatchdog,
         linkText: "View on NPM"
       },
       {
@@ -45241,7 +39861,7 @@ var PublicationsComponent = class _PublicationsComponent {
           downloads: "https://img.shields.io/npm/dm/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
           total: "https://img.shields.io/npm/dt/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=total"
         },
-        link: "https://www.npmjs.com/package/meme-as-a-service",
+        link: PACKAGE_LINKS.memeAsAService,
         linkText: "View on NPM"
       },
       {
@@ -45254,7 +39874,7 @@ var PublicationsComponent = class _PublicationsComponent {
           downloads: "https://img.shields.io/npm/dm/roastcode?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
           total: "https://img.shields.io/npm/dt/roastcode?style=flat-square&logo=npm&color=cb3837&label=total"
         },
-        link: "https://www.npmjs.com/package/roastcode",
+        link: PACKAGE_LINKS.roastcode,
         linkText: "View on NPM"
       },
       {
@@ -45267,7 +39887,7 @@ var PublicationsComponent = class _PublicationsComponent {
           downloads: "https://img.shields.io/npm/dm/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=downloads/week",
           total: "https://img.shields.io/npm/dt/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=total"
         },
-        link: "https://www.npmjs.com/package/readme-cinema",
+        link: PACKAGE_LINKS.readmeCinema,
         linkText: "View on NPM"
       },
       {
@@ -45279,7 +39899,7 @@ var PublicationsComponent = class _PublicationsComponent {
           version: "https://img.shields.io/maven-central/v/io.github.beingmartinbmc/eli5?style=flat-square&logo=apache-maven&color=c71a36&label=version",
           java: "https://img.shields.io/badge/Java-11+-orange?style=flat-square&logo=java&color=ED8B00"
         },
-        link: "https://central.sonatype.com/artifact/io.github.beingmartinbmc/eli5/1.0.1/overview",
+        link: PACKAGE_LINKS.eli5,
         linkText: "View on Maven Central"
       },
       {
@@ -45292,7 +39912,7 @@ var PublicationsComponent = class _PublicationsComponent {
           downloads: "https://img.shields.io/npm/dm/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=downloads/week",
           total: "https://img.shields.io/npm/dt/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=total"
         },
-        link: "https://www.npmjs.com/package/git-history-ui",
+        link: PACKAGE_LINKS.gitHistoryUi,
         linkText: "View on NPM"
       }
     ];
@@ -45318,112 +39938,172 @@ var PublicationsComponent = class _PublicationsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 91, vars: 0, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-stagger", "150", 1, "projects-grid"], [1, "project-card", "algo-card"], [1, "project-preview-container"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank"], [1, "project-preview", "algo-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["href", "https://beingmartinbmc.github.io/algorithm-visualizer/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], [1, "project-card", "divine-card"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], ["href", "https://beingmartinbmc.github.io/epic/", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "category-filters"], [1, "filter-buttons"], [1, "filter-btn", 3, "active"], [1, "open-source-grid"], ["data-anim", "fade-up", 1, "open-source-card"], [1, "filter-btn", 3, "click"], [1, "package-badges", 3, "ngClass"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 132, vars: 6, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-stagger", "150", 1, "projects-grid"], [1, "project-card", "algo-card"], [1, "project-preview-container"], ["target", "_blank", 3, "href"], [1, "project-preview", "algo-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"], [1, "project-card", "divine-card"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], [1, "project-card", "datesense-card"], [1, "project-preview", "datesense-preview"], [1, "heart-symbol"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "category-filters"], [1, "filter-buttons"], [1, "filter-btn", 3, "active"], [1, "open-source-grid"], ["data-anim", "fade-up", 1, "open-source-card"], [1, "filter-btn", 3, "click"], [1, "package-badges", 3, "ngClass"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"]], template: function PublicationsComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Projects");
         \u0275\u0275elementEnd()();
         \u0275\u0275elementStart(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "a", 7)(9, "div", 8)(10, "h3");
-        \u0275\u0275text(11, "\u{1F4CA} Algorithm Visualizer");
+        \u0275\u0275text(11, "\u{1F9E0} Algorithm Visualizer");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(12, "p");
-        \u0275\u0275text(13, "Interactive Algorithm Visualization Tool");
+        \u0275\u0275text(13, "DSA Visualizer with Step-by-Step Animation");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(14, "div", 9);
-        \u0275\u0275text(15, "Sorting \u2022 Pathfinding \u2022 Graph Algorithms");
+        \u0275\u0275text(15, "Sorting \u2022 Trees \u2022 Graphs \u2022 Backtracking");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(16, "div", 9);
-        \u0275\u0275text(17, "Step-by-Step Animation \u2022 Real-time Controls");
+        \u0275\u0275text(17, "Audio Effects \u2022 Gamified Challenges");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(18, "div", 10);
-        \u0275\u0275text(19, "Learn Algorithms Visually");
+        \u0275\u0275text(19, "Learn DSA the Fun Way");
         \u0275\u0275elementEnd()()()();
         \u0275\u0275elementStart(20, "div", 11)(21, "div", 12)(22, "span", 13);
         \u0275\u0275text(23, "Web App");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(24, "span", 14);
-        \u0275\u0275text(25, "Education Tool");
+        \u0275\u0275text(25, "Interactive Learning");
         \u0275\u0275elementEnd()();
         \u0275\u0275elementStart(26, "h5", 15);
-        \u0275\u0275text(27, "\u{1F4CA} Algorithm Visualizer");
+        \u0275\u0275text(27, "\u{1F9E0} Algorithm Visualizer");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(28, "p", 16);
-        \u0275\u0275text(29, " An interactive web app that brings algorithms and data structures to life. Visualize sorting algorithms, graph/tree/trie traversals, balanced trees, and backtracking solvers through step-by-step animations. Includes gamified challenges like pathfinding battles and Fibonacci puzzles, with adjustable speed controls and custom inputs ");
+        \u0275\u0275text(29, " A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles \u2014 learn DSA by playing, not just reading. ");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(30, "div", 17)(31, "div", 18)(32, "span", 19);
-        \u0275\u0275text(33, "Javascript");
+        \u0275\u0275text(33, "JavaScript");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(34, "span", 19);
-        \u0275\u0275text(35, "Tailwind");
+        \u0275\u0275text(35, "React");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(36, "span", 19);
-        \u0275\u0275text(37, "React");
+        \u0275\u0275text(37, "Tailwind");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(38, "span", 19);
+        \u0275\u0275text(39, "Web Audio API");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(38, "div", 20)(39, "a", 21);
-        \u0275\u0275text(40, " View Live Demo ");
+        \u0275\u0275elementStart(40, "div", 20)(41, "a", 21);
+        \u0275\u0275text(42, " View Live Demo ");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(41, "div", 22)(42, "div", 6)(43, "a", 23)(44, "div", 24)(45, "h3");
-        \u0275\u0275text(46, "\u{1F549}\uFE0F Religious GPT");
+        \u0275\u0275elementStart(43, "div", 22)(44, "div", 6)(45, "a", 7)(46, "div", 23)(47, "h3");
+        \u0275\u0275text(48, "\u{1F549}\uFE0F Religious GPT");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(47, "p");
-        \u0275\u0275text(48, "Sacred guidance from ancient texts");
+        \u0275\u0275elementStart(49, "p");
+        \u0275\u0275text(50, "Learn Religion in an AI Way");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(49, "div", 25);
-        \u0275\u0275text(50, "\u{1F549}\uFE0F");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(51, "div", 9);
-        \u0275\u0275text(52, "Ancient Scriptures \u2022 Sacred Texts \u2022 Divine Knowledge");
+        \u0275\u0275elementStart(51, "div", 24);
+        \u0275\u0275text(52, "\u{1F549}\uFE0F");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(53, "div", 9);
-        \u0275\u0275text(54, "Spiritual Wisdom \u2022 Universal Truths");
+        \u0275\u0275text(54, "Bhagavad Gita \u2022 Quran \u2022 Bible \u2022 Vedas \u2022 Tripitaka");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(55, "div", 10);
-        \u0275\u0275text(56, "Powered by GPT-4.1");
+        \u0275\u0275elementStart(55, "div", 9);
+        \u0275\u0275text(56, "AI-Powered Spiritual Insights");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(57, "div", 10);
+        \u0275\u0275text(58, "Powered by GPT-4.1");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(57, "div", 11)(58, "div", 12)(59, "span", 13);
-        \u0275\u0275text(60, "AI App");
+        \u0275\u0275elementStart(59, "div", 11)(60, "div", 12)(61, "span", 13);
+        \u0275\u0275text(62, "AI App");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(61, "span", 14);
-        \u0275\u0275text(62, "Spiritual Companion");
+        \u0275\u0275elementStart(63, "span", 14);
+        \u0275\u0275text(64, "AI-Powered Learning");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(63, "h5", 15);
-        \u0275\u0275text(64, "\u{1F549}\uFE0F Religious GPT");
+        \u0275\u0275elementStart(65, "h5", 15);
+        \u0275\u0275text(66, "\u{1F549}\uFE0F Religious GPT");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(65, "p", 16);
-        \u0275\u0275text(66, " An AI-powered spiritual companion that offers guidance and wisdom from the world's most revered ancient texts and sacred scriptures. Drawing insights from The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Analects of Confucius, The Dhammapada, The Upanishads, The Talmud, and The Avesta. ");
+        \u0275\u0275elementStart(67, "p", 16);
+        \u0275\u0275text(68, " Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Upanishads, and more. An AI companion that makes sacred knowledge accessible to everyone. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(67, "div", 17)(68, "div", 18)(69, "span", 19);
-        \u0275\u0275text(70, "React");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(71, "span", 19);
-        \u0275\u0275text(72, "Node.js");
+        \u0275\u0275elementStart(69, "div", 17)(70, "div", 18)(71, "span", 19);
+        \u0275\u0275text(72, "React");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(73, "span", 19);
-        \u0275\u0275text(74, "GPT-4.1");
+        \u0275\u0275text(74, "Node.js");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(75, "span", 19);
-        \u0275\u0275text(76, "Vercel");
+        \u0275\u0275text(76, "GPT-4.1");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(77, "span", 19);
+        \u0275\u0275text(78, "Vercel");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(77, "div", 20)(78, "a", 26);
-        \u0275\u0275text(79, " View Live Demo ");
+        \u0275\u0275elementStart(79, "div", 20)(80, "a", 21);
+        \u0275\u0275text(81, " View Live Demo ");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(82, "div", 25)(83, "div", 6)(84, "a", 7)(85, "div", 26)(86, "h3");
+        \u0275\u0275text(87, "\u{1F498} DateSense");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(88, "p");
+        \u0275\u0275text(89, "AI Dating Conversation Analyst");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(90, "div", 27);
+        \u0275\u0275text(91, "\u{1F498}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(92, "div", 9);
+        \u0275\u0275text(93, "Attraction Score \u2022 Ghosting Risk \u2022 Conversation Health");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(94, "div", 9);
+        \u0275\u0275text(95, "Scam Detection \u2022 Smart Reply Suggestions");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(96, "div", 10);
+        \u0275\u0275text(97, "Powered by GPT-4.1 Nano");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(98, "div", 11)(99, "div", 12)(100, "span", 13);
+        \u0275\u0275text(101, "AI App");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(102, "span", 14);
+        \u0275\u0275text(103, "Conversation Intelligence");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(104, "h5", 15);
+        \u0275\u0275text(105, "\u{1F498} DateSense");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(106, "p", 16);
+        \u0275\u0275text(107, " An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Leverages GPT-4.1 Nano to extract conversational signals, generate contextual reply suggestions, recommend personalized date ideas, and detect potential scam or manipulative patterns \u2014 all presented through a sleek, interactive insights dashboard. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(108, "div", 17)(109, "div", 18)(110, "span", 19);
+        \u0275\u0275text(111, "Angular");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(112, "span", 19);
+        \u0275\u0275text(113, "GPT-4.1 Nano");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(114, "span", 19);
+        \u0275\u0275text(115, "OCR");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(116, "span", 19);
+        \u0275\u0275text(117, "Vercel");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(118, "div", 20)(119, "a", 21);
+        \u0275\u0275text(120, " View Live Demo ");
         \u0275\u0275elementEnd()()()()()();
-        \u0275\u0275elementStart(80, "div", 27)(81, "div", 2)(82, "h2", 3);
-        \u0275\u0275text(83, "Open Source");
+        \u0275\u0275elementStart(121, "div", 28)(122, "div", 2)(123, "h2", 3);
+        \u0275\u0275text(124, "Open Source");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(84, "div", 28)(85, "div", 29);
-        \u0275\u0275repeaterCreate(86, PublicationsComponent_For_87_Template, 2, 4, "button", 30, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementStart(125, "div", 29)(126, "div", 30);
+        \u0275\u0275repeaterCreate(127, PublicationsComponent_For_128_Template, 2, 4, "button", 31, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(88, "div", 31);
-        \u0275\u0275repeaterCreate(89, PublicationsComponent_For_90_Template, 20, 14, "div", 32, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementStart(129, "div", 32);
+        \u0275\u0275repeaterCreate(130, PublicationsComponent_For_131_Template, 20, 14, "div", 33, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275elementEnd()()();
       }
       if (rf & 2) {
-        \u0275\u0275advance(86);
+        \u0275\u0275advance(8);
+        \u0275\u0275property("href", ctx.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(33);
+        \u0275\u0275property("href", ctx.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(4);
+        \u0275\u0275property("href", ctx.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(35);
+        \u0275\u0275property("href", ctx.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(4);
+        \u0275\u0275property("href", ctx.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(35);
+        \u0275\u0275property("href", ctx.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(8);
         \u0275\u0275repeater(ctx.availableCategories);
         \u0275\u0275advance(3);
         \u0275\u0275repeater(ctx.filteredProjects);
       }
-    }, dependencies: [CommonModule, NgClass], styles: ['\n\n.projects-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.project-image[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image[_ngcontent-%COMP%]:hover   img[_ngcontent-%COMP%], \n.project-image[_ngcontent-%COMP%]:hover   .project-preview[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.project-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    gap: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n}\n.project-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.category-filters[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%]:last-child {\n  margin-right: 0;\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters[_ngcontent-%COMP%] {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n    gap: var(--spacing-xs);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n    height: 24px;\n  }\n}\n.open-source-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  transition: all var(--transition-normal);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .om-symbol[_ngcontent-%COMP%] {\n  font-size: 2rem;\n  margin: var(--spacing-sm) 0;\n  animation: omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.tech-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-sm);\n  padding: var(--spacing-xs) var(--spacing-sm);\n  font-size: 0.75rem;\n  font-weight: 500;\n  color: var(--white);\n  backdrop-filter: blur(10px);\n  transition: all var(--transition-normal);\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
+    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n.projects-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 2.5rem;\n  margin-top: var(--spacing-2xl);\n  max-width: 1200px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.project-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  position: relative;\n  display: flex;\n  flex-direction: column;\n}\n.project-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: -75%;\n  width: 50%;\n  height: 100%;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.04),\n      transparent);\n  transition: left 0.8s ease;\n  z-index: 1;\n  pointer-events: none;\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);\n  transform: translateY(-10px) scale(1.015);\n  border-color: rgba(255, 255, 255, 0.15);\n}\n.project-card[_ngcontent-%COMP%]:hover::before {\n  left: 125%;\n}\n.project-card[_ngcontent-%COMP%] {\n}\n.project-card.algo-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(102, 126, 234, 0.15);\n}\n.project-card[_ngcontent-%COMP%] {\n}\n.project-card.divine-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 165, 0, 0.12);\n}\n.project-card[_ngcontent-%COMP%] {\n}\n.project-card.datesense-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(236, 72, 153, 0.18);\n}\n.project-image[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: 1.75rem;\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.01em;\n}\n.project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.75;\n  font-size: 0.925rem;\n  flex-grow: 1;\n  margin-bottom: 1.25rem;\n}\n.project-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.project-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 600;\n  padding: 0.3rem 0.7rem;\n  border-radius: var(--radius-full);\n  text-transform: uppercase;\n  letter-spacing: 0.06em;\n}\n.project-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  opacity: 0.6;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n  padding-top: 0.5rem;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.65rem 1.5rem;\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 600;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: #fff;\n  border: none;\n  text-decoration: none;\n  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  position: relative;\n  overflow: hidden;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]::after {\n  content: " \\2192";\n  transition: transform 0.3s ease;\n  display: inline-block;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35);\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover::after {\n  transform: translateX(4px);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 1100px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n    max-width: 700px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 700px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    max-width: 500px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 768px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    gap: 1.5rem;\n  }\n  .project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n    height: 200px;\n    padding: 1.5rem 1.25rem;\n  }\n  .project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n    font-size: 1.2rem;\n  }\n  .project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .project-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n}\n.project-card[_ngcontent-%COMP%] {\n  opacity: 0;\n  animation: _ngcontent-%COMP%_fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.15s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.35s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.55s;\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(40px) scale(0.97);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n.category-filters[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%]:last-child {\n  margin-right: 0;\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters[_ngcontent-%COMP%] {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n    gap: var(--spacing-xs);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n    height: 24px;\n  }\n}\n.open-source-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 240px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: #fff;\n  text-align: center;\n  padding: 2rem 1.5rem;\n  box-sizing: border-box;\n  position: relative;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  overflow: hidden;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 255, 255, 0.06) 0%,\n      transparent 50%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 255, 255, 0.04) 0%,\n      transparent 50%);\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    conic-gradient(\n      from 0deg,\n      transparent 0%,\n      rgba(255, 255, 255, 0.03) 25%,\n      transparent 50%);\n  animation: _ngcontent-%COMP%_previewRotate 8s linear infinite;\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]    > *[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 2;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0 0 0.5rem;\n  font-size: 1.4rem;\n  font-weight: 800;\n  letter-spacing: -0.01em;\n  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0 0 0.75rem;\n  font-size: 0.9rem;\n  opacity: 0.92;\n  line-height: 1.5;\n  font-weight: 500;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .om-symbol[_ngcontent-%COMP%] {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: _ngcontent-%COMP%_omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.6));\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  opacity: 0.75;\n  margin-top: 0.25rem;\n  letter-spacing: 0.03em;\n  font-weight: 400;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  opacity: 0.55;\n  margin-top: 0.5rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n  font-weight: 600;\n}\n.project-preview-container[_ngcontent-%COMP%] {\n}\n.project-card[_ngcontent-%COMP%]:hover   .project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  transform: scale(1.03);\n}\n.algo-preview[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f0c29 0%,\n      #302b63 50%,\n      #24243e 100%);\n}\n.algo-preview[_ngcontent-%COMP%]::before {\n  background:\n    radial-gradient(\n      circle at 15% 85%,\n      rgba(102, 126, 234, 0.25) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 85% 15%,\n      rgba(118, 75, 162, 0.2) 0%,\n      transparent 45%) !important;\n}\n.divine-wisdom[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0a00 0%,\n      #3d1c00 35%,\n      #2d1600 70%,\n      #1a0a00 100%);\n}\n.divine-wisdom[_ngcontent-%COMP%]::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 165, 0, 0.2) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 215, 0, 0.12) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0011 0%,\n      #3d0028 35%,\n      #2d001e 70%,\n      #1a0011 100%);\n}\n.datesense-preview[_ngcontent-%COMP%]::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(236, 72, 153, 0.22) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(244, 114, 182, 0.15) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview[_ngcontent-%COMP%]   .heart-symbol[_ngcontent-%COMP%] {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: _ngcontent-%COMP%_heartBeat 2s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(236, 72, 153, 0.6));\n}\n@keyframes _ngcontent-%COMP%_heartBeat {\n  0%, 100% {\n    transform: scale(1);\n  }\n  15% {\n    transform: scale(1.15);\n  }\n  30% {\n    transform: scale(1);\n  }\n  45% {\n    transform: scale(1.1);\n  }\n  60% {\n    transform: scale(1);\n  }\n}\n@keyframes _ngcontent-%COMP%_previewRotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_omFloat {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-8px);\n  }\n}\n.tech-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(102, 126, 234, 0.1);\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  border-radius: var(--radius-full);\n  padding: 0.3rem 0.75rem;\n  font-size: 0.72rem;\n  font-weight: 600;\n  color: rgba(255, 255, 255, 0.85);\n  letter-spacing: 0.02em;\n  transition: all 0.3s ease;\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(102, 126, 234, 0.2);\n  border-color: rgba(102, 126, 234, 0.4);\n  color: #fff;\n  transform: translateY(-1px);\n}\n.divine-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(255, 165, 0, 0.08);\n  border-color: rgba(255, 165, 0, 0.18);\n}\n.divine-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 165, 0, 0.18);\n  border-color: rgba(255, 165, 0, 0.35);\n}\n.datesense-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(236, 72, 153, 0.08);\n  border-color: rgba(236, 72, 153, 0.18);\n}\n.datesense-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(236, 72, 153, 0.18);\n  border-color: rgba(236, 72, 153, 0.35);\n}\n.algo-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n}\n.divine-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #f5af19,\n      #f12711);\n}\n.datesense-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ec4899,\n      #be185d);\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
   }
 };
 (() => {
@@ -45439,13 +40119,13 @@ var PublicationsComponent = class _PublicationsComponent {
       <div class="project-card algo-card">
         <!-- Project Preview -->
         <div class="project-preview-container">
-          <a href="https://beingmartinbmc.github.io/algorithm-visualizer/" target="_blank">
+          <a [href]="projectLinks.algorithmVisualizer" target="_blank">
             <div class="project-preview algo-preview">
-              <h3>\u{1F4CA} Algorithm Visualizer</h3>
-              <p>Interactive Algorithm Visualization Tool</p>
-              <div class="tech-stack">Sorting \u2022 Pathfinding \u2022 Graph Algorithms</div>
-              <div class="tech-stack">Step-by-Step Animation \u2022 Real-time Controls</div>
-              <div class="powered-by">Learn Algorithms Visually</div>
+              <h3>\u{1F9E0} Algorithm Visualizer</h3>
+              <p>DSA Visualizer with Step-by-Step Animation</p>
+              <div class="tech-stack">Sorting \u2022 Trees \u2022 Graphs \u2022 Backtracking</div>
+              <div class="tech-stack">Audio Effects \u2022 Gamified Challenges</div>
+              <div class="powered-by">Learn DSA the Fun Way</div>
             </div>
           </a>
         </div>
@@ -45454,21 +40134,22 @@ var PublicationsComponent = class _PublicationsComponent {
         <div class="card-body">
           <div class="project-meta">
             <span class="badge">Web App</span>
-            <span class="text-muted">Education Tool</span>
+            <span class="text-muted">Interactive Learning</span>
           </div>
-          <h5 class="card-title">\u{1F4CA} Algorithm Visualizer</h5>
+          <h5 class="card-title">\u{1F9E0} Algorithm Visualizer</h5>
           <p class="card-text">
-            An interactive web app that brings algorithms and data structures to life. Visualize sorting algorithms, graph/tree/trie traversals, balanced trees, and backtracking solvers through step-by-step animations. Includes gamified challenges like pathfinding battles and Fibonacci puzzles, with adjustable speed controls and custom inputs
+            A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles \u2014 learn DSA by playing, not just reading.
           </p>
           <div class="project-stats">
             <div class="tech-badges">
-              <span class="tech-badge">Javascript</span>
-              <span class="tech-badge">Tailwind</span>
+              <span class="tech-badge">JavaScript</span>
               <span class="tech-badge">React</span>
+              <span class="tech-badge">Tailwind</span>
+              <span class="tech-badge">Web Audio API</span>
             </div>
           </div>
           <div class="project-actions">
-            <a href="https://beingmartinbmc.github.io/algorithm-visualizer/" class="btn btn-primary" target="_blank" rel="noopener">
+            <a [href]="projectLinks.algorithmVisualizer" class="btn btn-primary" target="_blank" rel="noopener">
               View Live Demo
             </a>
           </div>
@@ -45478,13 +40159,13 @@ var PublicationsComponent = class _PublicationsComponent {
       <div class="project-card divine-card">
         <!-- Project Preview -->
         <div class="project-preview-container">
-          <a href="https://beingmartinbmc.github.io/epic/" target="_blank">
+          <a [href]="projectLinks.religiousGpt" target="_blank">
             <div class="project-preview divine-wisdom">
               <h3>\u{1F549}\uFE0F Religious GPT</h3>
-              <p>Sacred guidance from ancient texts</p>
+              <p>Learn Religion in an AI Way</p>
               <div class="om-symbol">\u{1F549}\uFE0F</div>
-              <div class="tech-stack">Ancient Scriptures \u2022 Sacred Texts \u2022 Divine Knowledge</div>
-              <div class="tech-stack">Spiritual Wisdom \u2022 Universal Truths</div>
+              <div class="tech-stack">Bhagavad Gita \u2022 Quran \u2022 Bible \u2022 Vedas \u2022 Tripitaka</div>
+              <div class="tech-stack">AI-Powered Spiritual Insights</div>
               <div class="powered-by">Powered by GPT-4.1</div>
             </div>
           </a>
@@ -45494,11 +40175,11 @@ var PublicationsComponent = class _PublicationsComponent {
         <div class="card-body">
           <div class="project-meta">
             <span class="badge">AI App</span>
-            <span class="text-muted">Spiritual Companion</span>
+            <span class="text-muted">AI-Powered Learning</span>
           </div>
           <h5 class="card-title">\u{1F549}\uFE0F Religious GPT</h5>
           <p class="card-text">
-            An AI-powered spiritual companion that offers guidance and wisdom from the world's most revered ancient texts and sacred scriptures. Drawing insights from The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Analects of Confucius, The Dhammapada, The Upanishads, The Talmud, and The Avesta.
+            Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Upanishads, and more. An AI companion that makes sacred knowledge accessible to everyone.
           </p>
           <div class="project-stats">
             <div class="tech-badges">
@@ -45509,7 +40190,48 @@ var PublicationsComponent = class _PublicationsComponent {
             </div>
           </div>
           <div class="project-actions">
-            <a href="https://beingmartinbmc.github.io/epic/" class="btn btn-primary" target="_blank" rel="noopener">
+            <a [href]="projectLinks.religiousGpt" class="btn btn-primary" target="_blank" rel="noopener">
+              View Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card datesense-card">
+        <!-- Project Preview -->
+        <div class="project-preview-container">
+          <a [href]="projectLinks.dateSense" target="_blank">
+            <div class="project-preview datesense-preview">
+              <h3>\u{1F498} DateSense</h3>
+              <p>AI Dating Conversation Analyst</p>
+              <div class="heart-symbol">\u{1F498}</div>
+              <div class="tech-stack">Attraction Score \u2022 Ghosting Risk \u2022 Conversation Health</div>
+              <div class="tech-stack">Scam Detection \u2022 Smart Reply Suggestions</div>
+              <div class="powered-by">Powered by GPT-4.1 Nano</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Project Content -->
+        <div class="card-body">
+          <div class="project-meta">
+            <span class="badge">AI App</span>
+            <span class="text-muted">Conversation Intelligence</span>
+          </div>
+          <h5 class="card-title">\u{1F498} DateSense</h5>
+          <p class="card-text">
+            An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Leverages GPT-4.1 Nano to extract conversational signals, generate contextual reply suggestions, recommend personalized date ideas, and detect potential scam or manipulative patterns \u2014 all presented through a sleek, interactive insights dashboard.
+          </p>
+          <div class="project-stats">
+            <div class="tech-badges">
+              <span class="tech-badge">Angular</span>
+              <span class="tech-badge">GPT-4.1 Nano</span>
+              <span class="tech-badge">OCR</span>
+              <span class="tech-badge">Vercel</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a [href]="projectLinks.dateSense" class="btn btn-primary" target="_blank" rel="noopener">
               View Live Demo
             </a>
           </div>
@@ -45579,17 +40301,17 @@ var PublicationsComponent = class _PublicationsComponent {
     </div>
   </div>
 </div>
-`, styles: ['/* src/app/profile/publications/publications.component.scss */\n.projects-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.project-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.project-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.project-image {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-image img {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: var(--radius-md);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview {\n  width: 100%;\n  height: 200px;\n  border-radius: var(--radius-md);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  background:\n    linear-gradient(\n      135deg,\n      var(--primary-color) 0%,\n      var(--primary-dark) 100%);\n  transition: all var(--transition-normal);\n}\n.project-image .project-preview h3 {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-image .project-preview p {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-image .project-preview .tech-stack {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-image .project-preview .powered-by {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.project-image:hover img,\n.project-image:hover .project-preview {\n  transform: scale(1.05);\n}\n.project-content {\n  padding: var(--spacing-xl);\n}\n.project-content .project-title {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content .project-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content .project-description b {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .projects-grid {\n    gap: var(--spacing-lg);\n  }\n  .project-content {\n    padding: var(--spacing-lg);\n  }\n  .project-content .project-title {\n    font-size: 1.25rem;\n  }\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n.project-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.project-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.project-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.category-filters {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters .filter-buttons {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters .filter-btn {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters .filter-btn:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters .filter-btn.active {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats .stat {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats .stat:last-child {\n  margin-right: 0;\n}\n.project-stats .package-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats .package-badges .package-badge {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats .package-badges .package-badge:not([src]),\n.project-stats .package-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats .npm-badges .package-badge:not([src]),\n.project-stats .npm-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats .maven-badges .package-badge:not([src]),\n.project-stats .maven-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions {\n  margin-top: auto;\n}\n.project-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters .filter-buttons {\n    gap: var(--spacing-xs);\n  }\n  .category-filters .filter-btn {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card .card-title {\n    font-size: 1.125rem;\n  }\n  .project-stats .stat {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats .package-badges {\n    justify-content: center;\n  }\n  .project-stats .package-badges .package-badge {\n    height: 24px;\n  }\n}\n.open-source-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.open-source-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container .project-preview {\n  width: 100%;\n  height: 200px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: var(--white);\n  text-align: center;\n  padding: var(--spacing-lg);\n  box-sizing: border-box;\n  transition: all var(--transition-normal);\n}\n.project-preview-container .project-preview h3 {\n  margin: 0;\n  font-size: 1.25rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-xs);\n}\n.project-preview-container .project-preview p {\n  margin: var(--spacing-xs) 0 0 0;\n  font-size: 0.875rem;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n.project-preview-container .project-preview .om-symbol {\n  font-size: 2rem;\n  margin: var(--spacing-sm) 0;\n  animation: omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));\n}\n.project-preview-container .project-preview .tech-stack {\n  font-size: 0.75rem;\n  opacity: 0.8;\n  margin-top: var(--spacing-xs);\n}\n.project-preview-container .project-preview .powered-by {\n  font-size: 0.7rem;\n  opacity: 0.7;\n  margin-top: var(--spacing-xs);\n}\n.tech-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.tech-badges .tech-badge {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-sm);\n  padding: var(--spacing-xs) var(--spacing-sm);\n  font-size: 0.75rem;\n  font-weight: 500;\n  color: var(--white);\n  backdrop-filter: blur(10px);\n  transition: all var(--transition-normal);\n}\n.tech-badges .tech-badge:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n.projects-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 2.5rem;\n  margin-top: var(--spacing-2xl);\n  max-width: 1200px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.project-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  position: relative;\n  display: flex;\n  flex-direction: column;\n}\n.project-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: -75%;\n  width: 50%;\n  height: 100%;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.04),\n      transparent);\n  transition: left 0.8s ease;\n  z-index: 1;\n  pointer-events: none;\n}\n.project-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);\n  transform: translateY(-10px) scale(1.015);\n  border-color: rgba(255, 255, 255, 0.15);\n}\n.project-card:hover::before {\n  left: 125%;\n}\n.project-card {\n}\n.project-card.algo-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(102, 126, 234, 0.15);\n}\n.project-card {\n}\n.project-card.divine-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 165, 0, 0.12);\n}\n.project-card {\n}\n.project-card.datesense-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(236, 72, 153, 0.18);\n}\n.project-image {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-content {\n  padding: var(--spacing-xl);\n}\n.project-content .project-title {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content .project-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content .project-description b {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.project-card .card-body {\n  padding: 1.75rem;\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.project-card .card-body .card-title {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.01em;\n}\n.project-card .card-body .card-text {\n  color: var(--text-secondary);\n  line-height: 1.75;\n  font-size: 0.925rem;\n  flex-grow: 1;\n  margin-bottom: 1.25rem;\n}\n.project-card .project-meta {\n  margin-bottom: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.project-card .project-meta .badge {\n  font-size: 0.7rem;\n  font-weight: 600;\n  padding: 0.3rem 0.7rem;\n  border-radius: var(--radius-full);\n  text-transform: uppercase;\n  letter-spacing: 0.06em;\n}\n.project-card .project-meta .text-muted {\n  font-size: 0.8rem;\n  opacity: 0.6;\n}\n.project-card .project-actions {\n  margin-top: auto;\n  padding-top: 0.5rem;\n}\n.project-card .project-actions .btn-primary {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.65rem 1.5rem;\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 600;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: #fff;\n  border: none;\n  text-decoration: none;\n  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  position: relative;\n  overflow: hidden;\n}\n.project-card .project-actions .btn-primary::after {\n  content: " \\2192";\n  transition: transform 0.3s ease;\n  display: inline-block;\n}\n.project-card .project-actions .btn-primary:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35);\n}\n.project-card .project-actions .btn-primary:hover::after {\n  transform: translateX(4px);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 1100px) {\n  .projects-grid {\n    grid-template-columns: repeat(2, 1fr);\n    max-width: 700px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 700px) {\n  .projects-grid {\n    grid-template-columns: 1fr;\n    max-width: 500px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 768px) {\n  .projects-grid {\n    gap: 1.5rem;\n  }\n  .project-preview-container .project-preview {\n    height: 200px;\n    padding: 1.5rem 1.25rem;\n  }\n  .project-preview-container .project-preview h3 {\n    font-size: 1.2rem;\n  }\n  .project-card .card-body {\n    padding: 1.25rem;\n  }\n  .project-content {\n    padding: var(--spacing-lg);\n  }\n  .project-content .project-title {\n    font-size: 1.25rem;\n  }\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n.project-card {\n  opacity: 0;\n  animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;\n}\n.project-card:nth-child(1) {\n  animation-delay: 0.15s;\n}\n.project-card:nth-child(2) {\n  animation-delay: 0.35s;\n}\n.project-card:nth-child(3) {\n  animation-delay: 0.55s;\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(40px) scale(0.97);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n.category-filters {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters .filter-buttons {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters .filter-btn {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters .filter-btn:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters .filter-btn.active {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats .stat {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats .stat:last-child {\n  margin-right: 0;\n}\n.project-stats .package-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats .package-badges .package-badge {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats .package-badges .package-badge:not([src]),\n.project-stats .package-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats .npm-badges .package-badge:not([src]),\n.project-stats .npm-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats .maven-badges .package-badge:not([src]),\n.project-stats .maven-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions {\n  margin-top: auto;\n}\n.project-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters .filter-buttons {\n    gap: var(--spacing-xs);\n  }\n  .category-filters .filter-btn {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card .card-title {\n    font-size: 1.125rem;\n  }\n  .project-stats .stat {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats .package-badges {\n    justify-content: center;\n  }\n  .project-stats .package-badges .package-badge {\n    height: 24px;\n  }\n}\n.open-source-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.open-source-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container .project-preview {\n  width: 100%;\n  height: 240px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: #fff;\n  text-align: center;\n  padding: 2rem 1.5rem;\n  box-sizing: border-box;\n  position: relative;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  overflow: hidden;\n}\n.project-preview-container .project-preview::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 255, 255, 0.06) 0%,\n      transparent 50%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 255, 255, 0.04) 0%,\n      transparent 50%);\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container .project-preview {\n}\n.project-preview-container .project-preview::after {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    conic-gradient(\n      from 0deg,\n      transparent 0%,\n      rgba(255, 255, 255, 0.03) 25%,\n      transparent 50%);\n  animation: previewRotate 8s linear infinite;\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container .project-preview > * {\n  position: relative;\n  z-index: 2;\n}\n.project-preview-container .project-preview h3 {\n  margin: 0 0 0.5rem;\n  font-size: 1.4rem;\n  font-weight: 800;\n  letter-spacing: -0.01em;\n  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);\n}\n.project-preview-container .project-preview p {\n  margin: 0 0 0.75rem;\n  font-size: 0.9rem;\n  opacity: 0.92;\n  line-height: 1.5;\n  font-weight: 500;\n}\n.project-preview-container .project-preview .om-symbol {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.6));\n}\n.project-preview-container .project-preview .tech-stack {\n  font-size: 0.78rem;\n  opacity: 0.75;\n  margin-top: 0.25rem;\n  letter-spacing: 0.03em;\n  font-weight: 400;\n}\n.project-preview-container .project-preview .powered-by {\n  font-size: 0.72rem;\n  opacity: 0.55;\n  margin-top: 0.5rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n  font-weight: 600;\n}\n.project-preview-container {\n}\n.project-card:hover .project-preview-container .project-preview {\n  transform: scale(1.03);\n}\n.algo-preview {\n  background:\n    linear-gradient(\n      135deg,\n      #0f0c29 0%,\n      #302b63 50%,\n      #24243e 100%);\n}\n.algo-preview::before {\n  background:\n    radial-gradient(\n      circle at 15% 85%,\n      rgba(102, 126, 234, 0.25) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 85% 15%,\n      rgba(118, 75, 162, 0.2) 0%,\n      transparent 45%) !important;\n}\n.divine-wisdom {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0a00 0%,\n      #3d1c00 35%,\n      #2d1600 70%,\n      #1a0a00 100%);\n}\n.divine-wisdom::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 165, 0, 0.2) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 215, 0, 0.12) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0011 0%,\n      #3d0028 35%,\n      #2d001e 70%,\n      #1a0011 100%);\n}\n.datesense-preview::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(236, 72, 153, 0.22) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(244, 114, 182, 0.15) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview .heart-symbol {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: heartBeat 2s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(236, 72, 153, 0.6));\n}\n@keyframes heartBeat {\n  0%, 100% {\n    transform: scale(1);\n  }\n  15% {\n    transform: scale(1.15);\n  }\n  30% {\n    transform: scale(1);\n  }\n  45% {\n    transform: scale(1.1);\n  }\n  60% {\n    transform: scale(1);\n  }\n}\n@keyframes previewRotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes omFloat {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-8px);\n  }\n}\n.tech-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.tech-badges .tech-badge {\n  background: rgba(102, 126, 234, 0.1);\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  border-radius: var(--radius-full);\n  padding: 0.3rem 0.75rem;\n  font-size: 0.72rem;\n  font-weight: 600;\n  color: rgba(255, 255, 255, 0.85);\n  letter-spacing: 0.02em;\n  transition: all 0.3s ease;\n}\n.tech-badges .tech-badge:hover {\n  background: rgba(102, 126, 234, 0.2);\n  border-color: rgba(102, 126, 234, 0.4);\n  color: #fff;\n  transform: translateY(-1px);\n}\n.divine-card .tech-badges .tech-badge {\n  background: rgba(255, 165, 0, 0.08);\n  border-color: rgba(255, 165, 0, 0.18);\n}\n.divine-card .tech-badges .tech-badge:hover {\n  background: rgba(255, 165, 0, 0.18);\n  border-color: rgba(255, 165, 0, 0.35);\n}\n.datesense-card .tech-badges .tech-badge {\n  background: rgba(236, 72, 153, 0.08);\n  border-color: rgba(236, 72, 153, 0.18);\n}\n.datesense-card .tech-badges .tech-badge:hover {\n  background: rgba(236, 72, 153, 0.18);\n  border-color: rgba(236, 72, 153, 0.35);\n}\n.algo-card .project-meta .badge {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n}\n.divine-card .project-meta .badge {\n  background:\n    linear-gradient(\n      135deg,\n      #f5af19,\n      #f12711);\n}\n.datesense-card .project-meta .badge {\n  background:\n    linear-gradient(\n      135deg,\n      #ec4899,\n      #be185d);\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 26 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 27 });
 })();
 
 // src/app/config/api-config.ts
 var API_CONFIG = {
   // Base URL for all APIs
-  BASE_URL: "https://epic-backend-62lr1dfmi-beingmartinbmcs-projects.vercel.app",
+  BASE_URL: "https://epic-backend-f9tfcyn1d-beingmartinbmcs-projects.vercel.app",
   // API Endpoints
   ENDPOINTS: {
     // AI Chat API - used in environment files
@@ -46804,6 +41526,7 @@ Generate ONE completely unique question now:`;
 // src/app/profile/blog/blog.component.ts
 var BlogComponent = class _BlogComponent {
   constructor() {
+    this.blogLinks = BLOG_LINKS;
   }
   static {
     this.\u0275fac = function BlogComponent_Factory(__ngFactoryType__) {
@@ -46811,7 +41534,7 @@ var BlogComponent = class _BlogComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 48, vars: 0, consts: [["id", "blogs", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-stagger", "120", 1, "blog-grid"], [1, "blog-card"], [1, "card-body"], [1, "blog-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "blog-actions"], ["href", "https://medium.com/@Games24x7Tech/fortress-of-fair-play-stopping-frauds-at-games24x7-7e8b928266b5", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["href", "https://medium.com/@Games24x7Tech/neptune-navigator-navigating-performance-challenges-2daad0155d61", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"], ["href", "https://medium.com/@Games24x7Tech/games24x7-where-trust-meets-gameplay-f477bb8715f3", "target", "_blank", "rel", "noopener", 1, "btn", "btn-primary"]], template: function BlogComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 48, vars: 3, consts: [["id", "blogs", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-stagger", "120", 1, "blog-grid"], [1, "blog-card"], [1, "card-body"], [1, "blog-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "blog-actions"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"]], template: function BlogComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Blogs");
@@ -46843,7 +41566,7 @@ var BlogComponent = class _BlogComponent {
         \u0275\u0275domElementStart(29, "p", 11);
         \u0275\u0275text(30, " Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms at Games24x7. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(31, "div", 12)(32, "a", 14);
+        \u0275\u0275domElementStart(31, "div", 12)(32, "a", 13);
         \u0275\u0275text(33, " Read on Medium ");
         \u0275\u0275domElementEnd()()()();
         \u0275\u0275domElementStart(34, "div", 5)(35, "div", 6)(36, "div", 7)(37, "span", 8);
@@ -46858,9 +41581,17 @@ var BlogComponent = class _BlogComponent {
         \u0275\u0275domElementStart(43, "p", 11);
         \u0275\u0275text(44, " Discover how we build trust and create engaging gaming experiences that keep players coming back for more. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(45, "div", 12)(46, "a", 15);
+        \u0275\u0275domElementStart(45, "div", 12)(46, "a", 13);
         \u0275\u0275text(47, " Read on Medium ");
         \u0275\u0275domElementEnd()()()()()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance(18);
+        \u0275\u0275domProperty("href", ctx.blogLinks.fortressOfFairPlay, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(14);
+        \u0275\u0275domProperty("href", ctx.blogLinks.neptuneNavigator, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(14);
+        \u0275\u0275domProperty("href", ctx.blogLinks.trustMeetsGameplay, \u0275\u0275sanitizeUrl);
       }
     }, styles: ['\n\n.blog-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.blog-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.blog-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.blog-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.blog-card[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.blog-meta[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.blog-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.blog-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.blog-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.blog-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.blog-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.blog-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.blog-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n.blog-actions[_ngcontent-%COMP%]   .btn-outline[_ngcontent-%COMP%] {\n  background: transparent;\n  border: 2px solid var(--gray-300);\n  color: var(--gray-700);\n}\n.blog-actions[_ngcontent-%COMP%]   .btn-outline[_ngcontent-%COMP%]:hover {\n  border-color: var(--primary-color);\n  color: var(--primary-color);\n  background: transparent;\n}\n.blog-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n@media (max-width: 768px) {\n  .blog-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .blog-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .blog-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n}\n.blog-card[_ngcontent-%COMP%] {\n  animation: fadeInUp 0.6s ease-out;\n}\n.blog-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.blog-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.blog-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */'] });
   }
@@ -46868,11 +41599,11 @@ var BlogComponent = class _BlogComponent {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BlogComponent, [{
     type: Component,
-    args: [{ selector: "app-blog", standalone: true, template: '<div class="apple-section" id="blogs">\n  <div class="apple-container">\n    <div class="section-header" data-anim="fade-up">\n      <h2 class="section-title apple-text-display" data-text-reveal>Blogs</h2>\n    </div>\n    \n    <div class="blog-grid" data-stagger="120">\n      <!-- Medium Blog Post 1 -->\n      <div class="blog-card">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h5>\n          <p class="card-text">\n            Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay and maintain trust in our gaming ecosystem.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/fortress-of-fair-play-stopping-frauds-at-games24x7-7e8b928266b5" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n\n      <!-- Medium Blog Post 2 -->\n      <div class="blog-card">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Neptune Navigator: Navigating Performance Challenges</h5>\n          <p class="card-text">\n            Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms at Games24x7.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/neptune-navigator-navigating-performance-challenges-2daad0155d61" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n\n      <!-- Medium Blog Post 3 -->\n      <div class="blog-card">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Games24x7: Where Trust Meets Gameplay</h5>\n          <p class="card-text">\n            Discover how we build trust and create engaging gaming experiences that keep players coming back for more.\n          </p>\n          <div class="blog-actions">\n            <a href="https://medium.com/@Games24x7Tech/games24x7-where-trust-meets-gameplay-f477bb8715f3" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div> ', styles: ['/* src/app/profile/blog/blog.component.scss */\n.blog-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.blog-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.blog-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.blog-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.blog-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.blog-meta {\n  margin-bottom: var(--spacing-md);\n}\n.blog-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.blog-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.blog-actions {\n  margin-top: auto;\n}\n.blog-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.blog-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.blog-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.blog-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n.blog-actions .btn-outline {\n  background: transparent;\n  border: 2px solid var(--gray-300);\n  color: var(--gray-700);\n}\n.blog-actions .btn-outline:hover {\n  border-color: var(--primary-color);\n  color: var(--primary-color);\n  background: transparent;\n}\n.blog-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n@media (max-width: 768px) {\n  .blog-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .blog-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .blog-card .card-title {\n    font-size: 1.125rem;\n  }\n}\n.blog-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.blog-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.blog-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.blog-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */\n'] }]
+    args: [{ selector: "app-blog", standalone: true, template: '<div class="apple-section" id="blogs">\n  <div class="apple-container">\n    <div class="section-header" data-anim="fade-up">\n      <h2 class="section-title apple-text-display" data-text-reveal>Blogs</h2>\n    </div>\n    \n    <div class="blog-grid" data-stagger="120">\n      <!-- Medium Blog Post 1 -->\n      <div class="blog-card">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h5>\n          <p class="card-text">\n            Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay and maintain trust in our gaming ecosystem.\n          </p>\n          <div class="blog-actions">\n            <a [href]="blogLinks.fortressOfFairPlay" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n\n      <!-- Medium Blog Post 2 -->\n      <div class="blog-card">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Neptune Navigator: Navigating Performance Challenges</h5>\n          <p class="card-text">\n            Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms at Games24x7.\n          </p>\n          <div class="blog-actions">\n            <a [href]="blogLinks.neptuneNavigator" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n\n      <!-- Medium Blog Post 3 -->\n      <div class="blog-card">\n        <div class="card-body">\n          <div class="blog-meta">\n            <span class="badge">Medium</span>\n            <span class="text-muted">Games24x7 Tech</span>\n          </div>\n          <h5 class="card-title">Games24x7: Where Trust Meets Gameplay</h5>\n          <p class="card-text">\n            Discover how we build trust and create engaging gaming experiences that keep players coming back for more.\n          </p>\n          <div class="blog-actions">\n            <a [href]="blogLinks.trustMeetsGameplay" \n               class="btn btn-primary" target="_blank" rel="noopener">\n              Read on Medium\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div> ', styles: ['/* src/app/profile/blog/blog.component.scss */\n.blog-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.blog-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.blog-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.blog-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.blog-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.blog-meta {\n  margin-bottom: var(--spacing-md);\n}\n.blog-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.blog-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.blog-actions {\n  margin-top: auto;\n}\n.blog-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.blog-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.blog-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.blog-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n.blog-actions .btn-outline {\n  background: transparent;\n  border: 2px solid var(--gray-300);\n  color: var(--gray-700);\n}\n.blog-actions .btn-outline:hover {\n  border-color: var(--primary-color);\n  color: var(--primary-color);\n  background: transparent;\n}\n.blog-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n@media (max-width: 768px) {\n  .blog-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .blog-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .blog-card .card-title {\n    font-size: 1.125rem;\n  }\n}\n.blog-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.blog-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.blog-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.blog-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 768px) {\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(BlogComponent, { className: "BlogComponent", filePath: "src/app/profile/blog/blog.component.ts", lineNumber: 9 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(BlogComponent, { className: "BlogComponent", filePath: "src/app/profile/blog/blog.component.ts", lineNumber: 10 });
 })();
 
 // node_modules/three/build/three.core.js
@@ -80922,13 +75653,13 @@ ABOUT ANKIT SHARMA:
 - Current Role: SMTS (Senior Member of Technical Staff) at Salesforce (2025 - Present)
 - Location: Bangalore, India (Hybrid in Hyderabad for Salesforce)
 - Total Experience: 6+ years in software development
-- Email: ankit.sharma199803@gmail.com
-- LinkedIn: https://www.linkedin.com/in/ankit-sharma-5b1b35158/
-- GitHub: https://github.com/beingmartinbmc
-- Stack Overflow: https://stackoverflow.com/users/7972621/ankit-sharma
-- Resume: https://drive.google.com/file/d/17X039BN32SiFP0XwjO7Ov2o6-09oNt97/view?usp=sharing
-- Cover Letter: https://drive.google.com/file/d/1sEtiMhCOqVu6_TJvMQeugaL-mbecFN6M/view?usp=sharing
-- Portfolio: https://beingmartinbmc.github.io/portfolio/
+- Email: ${CONTACT_LINKS.email}
+- LinkedIn: ${SOCIAL_LINKS.linkedin}
+- GitHub: ${SOCIAL_LINKS.github}
+- Stack Overflow: ${SOCIAL_LINKS.stackOverflow}
+- Resume: ${DOCUMENT_LINKS.resume}
+- Cover Letter: ${DOCUMENT_LINKS.coverLetter}
+- Portfolio: ${PROJECT_LINKS.portfolio}
 - Available for: Full-time opportunities
 - Response time: Within 24 hours
 
@@ -80958,8 +75689,18 @@ KEY ACHIEVEMENTS:
 - Reduced system downtime by 80% through improved architecture
 
 PROJECTS:
-- Algorithm Visualizer: Interactive algorithm visualization tool - Angular, TypeScript, D3.js, CSS Animations
-- Religious GPT: AI spiritual companion powered by GPT-4.1 - React, Node.js, Vercel
+- Algorithm Visualizer (${PROJECT_LINKS.algorithmVisualizer}): DSA visualizer with step-by-step animation and audio effects. Gamified challenges to learn sorting, trees, graphs, and backtracking in a fun way - JavaScript, React, Tailwind, Web Audio API
+- Religious GPT (${PROJECT_LINKS.religiousGpt}): Learn religion in an AI way. Explore teachings from Bhagavad Gita, Vedas, Quran, Bible, Tripitaka, and more - React, Node.js, GPT-4.1, Vercel
+
+OPEN SOURCE PACKAGES:
+- node-actuator-lite (${PACKAGE_LINKS.nodeActuatorLite}): A lightweight Node.js actuator similar to Spring Boot actuator with Prometheus integration, built with minimal external dependencies - NPM
+- node-request-trace (${PACKAGE_LINKS.nodeRequestTrace}): Request tracing and performance visualization library for Node.js. Inspect execution lifecycle, detect bottlenecks, identify slow middleware - NPM
+- node-eventloop-watchdog (${PACKAGE_LINKS.nodeEventloopWatchdog}): Lightweight Node.js event loop blocking detector with automatic code identification, blocking heatmaps, and production-safe diagnostics - NPM
+- meme-as-a-service (${PACKAGE_LINKS.memeAsAService}): A fun and lightweight service for generating and serving memes programmatically - NPM
+- roastcode (${PACKAGE_LINKS.roastcode}): A CLI tool that humorously roasts your code files, commit messages, and diffs with AI-powered savagery - NPM
+- readme-cinema (${PACKAGE_LINKS.readmeCinema}): Transform README files into cinematic terminal experiences with ASCII art, typewriter effects, and dramatic transitions - NPM
+- eli5 (${PACKAGE_LINKS.eli5}): Explain Like I'm 5 annotations for Java code documentation with AI-powered explanations - Maven Central
+- git-history-ui (${PACKAGE_LINKS.gitHistoryUi}): A beautiful, modern web UI for visualizing git history with interactive commit graphs, search, filtering, and diff visualization - NPM
 
 PERSONAL:
 - Passionate about backend development and Large Language Models (LLMs)
@@ -81845,6 +76586,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
   constructor(http, voiceStreamingService) {
     this.http = http;
     this.voiceStreamingService = voiceStreamingService;
+    this.boundResizeHandler = () => this.onWindowResize();
     this.isChatOpen = false;
     this.userInput = "";
     this.messages = [];
@@ -81863,12 +76605,18 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.minRequestInterval = 1e3;
     this.CONTEXT = AI_CONTEXT;
   }
+  onEscapeKey() {
+    if (this.isChatOpen) {
+      this.isChatOpen = false;
+    }
+  }
   ngOnInit() {
     this.initThreeJS();
     this.loadAvatar();
     this.animate();
   }
   ngOnDestroy() {
+    window.removeEventListener("resize", this.boundResizeHandler);
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId);
     }
@@ -81909,7 +76657,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
     const fillLight = new DirectionalLight(4227327, 0.3);
     fillLight.position.set(-5, 5, -5);
     this.scene.add(fillLight);
-    window.addEventListener("resize", () => this.onWindowResize());
+    window.addEventListener("resize", this.boundResizeHandler);
   }
   loadAvatar() {
     const loader = new GLTFLoader();
@@ -82326,7 +77074,13 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.chatMessages = _t.first);
         \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.messageInput = _t.first);
       }
-    }, decls: 19, vars: 3, consts: [["canvas", ""], ["chatMessages", ""], ["messageInput", ""], ["id", "avatar-3d", 1, "avatar-3d-section"], [1, "container"], [1, "section-title"], [1, "avatar-container"], [1, "avatar-canvas"], [1, "loading-overlay"], [1, "controls-hint"], [1, "chat-button", 3, "click"], [1, "chat-window"], [1, "loading-content"], [1, "loading-spinner"], [1, "loading-text"], [1, "loading-progress"], [1, "progress-bar"], [1, "progress-fill"], [1, "progress-percentage"], [1, "chat-header"], [1, "header-controls"], [1, "tts-toggle-btn", 3, "click", "title"], ["title", "Stop Speech", 1, "stop-speech-btn"], [1, "close-btn", 3, "click"], [1, "chat-messages"], [1, "message", 3, "user-message", "ai-message"], [1, "typing-indicator"], [1, "chat-input-container"], ["type", "text", "placeholder", "Ask me anything about my portfolio...", 1, "chat-input", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "send-btn", 3, "click", "disabled"], ["title", "Stop Speech", 1, "stop-speech-btn", 3, "click"], [1, "message"], [1, "message-content"], [1, "message-text", 3, "innerHTML"], [1, "message-time"]], template: function Avatar3dComponent_Template(rf, ctx) {
+    }, hostBindings: function Avatar3dComponent_HostBindings(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275listener("keydown.escape", function Avatar3dComponent_keydown_escape_HostBindingHandler() {
+          return ctx.onEscapeKey();
+        }, \u0275\u0275resolveDocument);
+      }
+    }, decls: 19, vars: 3, consts: [["canvas", ""], ["chatMessages", ""], ["messageInput", ""], ["id", "avatar-3d", 1, "avatar-3d-section"], [1, "container"], [1, "section-title"], [1, "avatar-container"], [1, "avatar-canvas"], [1, "loading-overlay"], [1, "controls-hint"], ["aria-label", "Open or close chat", 1, "chat-button", 3, "click"], ["role", "dialog", "aria-label", "Chat with AI assistant", 1, "chat-window"], [1, "loading-content"], [1, "loading-spinner"], [1, "loading-text"], [1, "loading-progress"], [1, "progress-bar"], [1, "progress-fill"], [1, "progress-percentage"], [1, "chat-header"], [1, "header-controls"], ["aria-label", "Toggle text-to-speech", 1, "tts-toggle-btn", 3, "click", "title"], ["aria-label", "Stop speech", "title", "Stop Speech", 1, "stop-speech-btn"], ["aria-label", "Close chat", 1, "close-btn", 3, "click"], [1, "chat-messages"], [1, "message", 3, "user-message", "ai-message"], [1, "typing-indicator"], [1, "chat-input-container"], ["type", "text", "placeholder", "Ask me anything about my portfolio...", "aria-label", "Type your message", 1, "chat-input", 3, "ngModelChange", "keyup.enter", "ngModel"], ["aria-label", "Send message", 1, "send-btn", 3, "click", "disabled"], ["aria-label", "Stop speech", "title", "Stop Speech", 1, "stop-speech-btn", 3, "click"], [1, "message"], [1, "message-content"], [1, "message-text", 3, "innerHTML"], [1, "message-time"]], template: function Avatar3dComponent_Template(rf, ctx) {
       if (rf & 1) {
         const _r1 = \u0275\u0275getCurrentView();
         \u0275\u0275elementStart(0, "section", 3)(1, "div", 4)(2, "div", 5)(3, "h2");
@@ -82416,7 +77170,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
       <div class="controls-hint">
         <span>\u{1F5B1}\uFE0F Drag to rotate</span>
         <span>\u{1F50D} Scroll to zoom</span>
-        <button class="chat-button" (click)="toggleChat()">
+        <button class="chat-button" (click)="toggleChat()" aria-label="Open or close chat">
           {{ isChatOpen ? '\u{1F4AD} Close Chat' : '\u{1F916} Chat with Me' }}
         </button>
       </div>
@@ -82424,12 +77178,13 @@ var Avatar3dComponent = class _Avatar3dComponent {
 
     <!-- Chat Window -->
     @if (isChatOpen) {
-      <div class="chat-window" [@chatAnimation]>
+      <div class="chat-window" [@chatAnimation] role="dialog" aria-label="Chat with AI assistant">
         <div class="chat-header">
           <h3>\u{1F4AC} Chat with Me</h3>
           <div class="header-controls">
             <button class="tts-toggle-btn"
               (click)="toggleTTS()"
+              aria-label="Toggle text-to-speech"
               [class.active]="ttsEnabled"
               title="{{ ttsEnabled ? 'Disable' : 'Enable' }} Text-to-Speech">
               {{ ttsEnabled ? '\u{1F50A}' : '\u{1F507}' }}
@@ -82437,11 +77192,12 @@ var Avatar3dComponent = class _Avatar3dComponent {
             @if (isReallySpeaking) {
               <button class="stop-speech-btn"
                 (click)="stopSpeech()"
+                aria-label="Stop speech"
                 title="Stop Speech">
                 \u23F9\uFE0F
               </button>
             }
-            <button class="close-btn" (click)="toggleChat()">\u2715</button>
+            <button class="close-btn" (click)="toggleChat()" aria-label="Close chat">\u2715</button>
           </div>
         </div>
         <div class="chat-messages" #chatMessages>
@@ -82468,9 +77224,10 @@ var Avatar3dComponent = class _Avatar3dComponent {
             [(ngModel)]="userInput"
             (keyup.enter)="sendMessage()"
             placeholder="Ask me anything about my portfolio..."
+            aria-label="Type your message"
             #messageInput
             class="chat-input">
-          <button (click)="sendMessage()"
+          <button (click)="sendMessage()" aria-label="Send message"
             [disabled]="isReallyTyping || !userInput.trim()"
             class="send-btn">
             {{ isReallyTyping ? '\u23F3' : '\uFFFD' }}
@@ -82490,43 +77247,5516 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }], messageInput: [{
     type: ViewChild,
     args: ["messageInput"]
+  }], onEscapeKey: [{
+    type: HostListener,
+    args: ["document:keydown.escape"]
   }] });
 })();
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Avatar3dComponent, { className: "Avatar3dComponent", filePath: "src/app/profile/avatar-3d/avatar-3d.component.ts", lineNumber: 42 });
 })();
 
+// node_modules/@angular/router/fesm2022/_router-chunk.mjs
+var PRIMARY_OUTLET = "primary";
+var RouteTitleKey = /* @__PURE__ */ Symbol("RouteTitle");
+var ParamsAsMap = class {
+  params;
+  constructor(params) {
+    this.params = params || {};
+  }
+  has(name) {
+    return Object.prototype.hasOwnProperty.call(this.params, name);
+  }
+  get(name) {
+    if (this.has(name)) {
+      const v = this.params[name];
+      return Array.isArray(v) ? v[0] : v;
+    }
+    return null;
+  }
+  getAll(name) {
+    if (this.has(name)) {
+      const v = this.params[name];
+      return Array.isArray(v) ? v : [v];
+    }
+    return [];
+  }
+  get keys() {
+    return Object.keys(this.params);
+  }
+};
+function convertToParamMap(params) {
+  return new ParamsAsMap(params);
+}
+function matchParts(routeParts, urlSegments, posParams) {
+  for (let i = 0; i < routeParts.length; i++) {
+    const part = routeParts[i];
+    const segment = urlSegments[i];
+    const isParameter = part[0] === ":";
+    if (isParameter) {
+      posParams[part.substring(1)] = segment;
+    } else if (part !== segment.path) {
+      return false;
+    }
+  }
+  return true;
+}
+function defaultUrlMatcher(segments, segmentGroup, route) {
+  const parts = route.path.split("/");
+  const wildcardIndex = parts.indexOf("**");
+  if (wildcardIndex === -1) {
+    if (parts.length > segments.length) {
+      return null;
+    }
+    if (route.pathMatch === "full" && (segmentGroup.hasChildren() || parts.length < segments.length)) {
+      return null;
+    }
+    const posParams2 = {};
+    const consumed = segments.slice(0, parts.length);
+    if (!matchParts(parts, consumed, posParams2)) {
+      return null;
+    }
+    return {
+      consumed,
+      posParams: posParams2
+    };
+  }
+  if (wildcardIndex !== parts.lastIndexOf("**")) {
+    return null;
+  }
+  const pre = parts.slice(0, wildcardIndex);
+  const post = parts.slice(wildcardIndex + 1);
+  if (pre.length + post.length > segments.length) {
+    return null;
+  }
+  if (route.pathMatch === "full" && segmentGroup.hasChildren() && route.path !== "**") {
+    return null;
+  }
+  const posParams = {};
+  if (!matchParts(pre, segments.slice(0, pre.length), posParams)) {
+    return null;
+  }
+  if (!matchParts(post, segments.slice(segments.length - post.length), posParams)) {
+    return null;
+  }
+  return {
+    consumed: segments,
+    posParams
+  };
+}
+function firstValueFrom2(source) {
+  return new Promise((resolve, reject) => {
+    source.pipe(first()).subscribe({
+      next: (value) => resolve(value),
+      error: (err) => reject(err)
+    });
+  });
+}
+function shallowEqualArrays(a, b) {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; ++i) {
+    if (!shallowEqual(a[i], b[i])) return false;
+  }
+  return true;
+}
+function shallowEqual(a, b) {
+  const k1 = a ? getDataKeys(a) : void 0;
+  const k2 = b ? getDataKeys(b) : void 0;
+  if (!k1 || !k2 || k1.length != k2.length) {
+    return false;
+  }
+  let key;
+  for (let i = 0; i < k1.length; i++) {
+    key = k1[i];
+    if (!equalArraysOrString(a[key], b[key])) {
+      return false;
+    }
+  }
+  return true;
+}
+function getDataKeys(obj) {
+  return [...Object.keys(obj), ...Object.getOwnPropertySymbols(obj)];
+}
+function equalArraysOrString(a, b) {
+  if (Array.isArray(a) && Array.isArray(b)) {
+    if (a.length !== b.length) return false;
+    const aSorted = [...a].sort();
+    const bSorted = [...b].sort();
+    return aSorted.every((val, index) => bSorted[index] === val);
+  } else {
+    return a === b;
+  }
+}
+function last2(a) {
+  return a.length > 0 ? a[a.length - 1] : null;
+}
+function wrapIntoObservable(value) {
+  if (isObservable(value)) {
+    return value;
+  }
+  if (isPromise2(value)) {
+    return from(Promise.resolve(value));
+  }
+  return of(value);
+}
+function wrapIntoPromise(value) {
+  if (isObservable(value)) {
+    return firstValueFrom2(value);
+  }
+  return Promise.resolve(value);
+}
+var pathCompareMap = {
+  "exact": equalSegmentGroups,
+  "subset": containsSegmentGroup
+};
+var paramCompareMap = {
+  "exact": equalParams,
+  "subset": containsParams,
+  "ignored": () => true
+};
+function isActive(url, router, matchOptions) {
+  const urlTree = url instanceof UrlTree ? url : router.parseUrl(url);
+  return computed(() => containsTree(router.lastSuccessfulNavigation()?.finalUrl ?? new UrlTree(), urlTree, matchOptions));
+}
+function containsTree(container, containee, options) {
+  return pathCompareMap[options.paths](container.root, containee.root, options.matrixParams) && paramCompareMap[options.queryParams](container.queryParams, containee.queryParams) && !(options.fragment === "exact" && container.fragment !== containee.fragment);
+}
+function equalParams(container, containee) {
+  return shallowEqual(container, containee);
+}
+function equalSegmentGroups(container, containee, matrixParams) {
+  if (!equalPath(container.segments, containee.segments)) return false;
+  if (!matrixParamsMatch(container.segments, containee.segments, matrixParams)) {
+    return false;
+  }
+  if (container.numberOfChildren !== containee.numberOfChildren) return false;
+  for (const c in containee.children) {
+    if (!container.children[c]) return false;
+    if (!equalSegmentGroups(container.children[c], containee.children[c], matrixParams)) return false;
+  }
+  return true;
+}
+function containsParams(container, containee) {
+  return Object.keys(containee).length <= Object.keys(container).length && Object.keys(containee).every((key) => equalArraysOrString(container[key], containee[key]));
+}
+function containsSegmentGroup(container, containee, matrixParams) {
+  return containsSegmentGroupHelper(container, containee, containee.segments, matrixParams);
+}
+function containsSegmentGroupHelper(container, containee, containeePaths, matrixParams) {
+  if (container.segments.length > containeePaths.length) {
+    const current = container.segments.slice(0, containeePaths.length);
+    if (!equalPath(current, containeePaths)) return false;
+    if (containee.hasChildren()) return false;
+    if (!matrixParamsMatch(current, containeePaths, matrixParams)) return false;
+    return true;
+  } else if (container.segments.length === containeePaths.length) {
+    if (!equalPath(container.segments, containeePaths)) return false;
+    if (!matrixParamsMatch(container.segments, containeePaths, matrixParams)) return false;
+    for (const c in containee.children) {
+      if (!container.children[c]) return false;
+      if (!containsSegmentGroup(container.children[c], containee.children[c], matrixParams)) {
+        return false;
+      }
+    }
+    return true;
+  } else {
+    const current = containeePaths.slice(0, container.segments.length);
+    const next = containeePaths.slice(container.segments.length);
+    if (!equalPath(container.segments, current)) return false;
+    if (!matrixParamsMatch(container.segments, current, matrixParams)) return false;
+    if (!container.children[PRIMARY_OUTLET]) return false;
+    return containsSegmentGroupHelper(container.children[PRIMARY_OUTLET], containee, next, matrixParams);
+  }
+}
+function matrixParamsMatch(containerPaths, containeePaths, options) {
+  return containeePaths.every((containeeSegment, i) => {
+    return paramCompareMap[options](containerPaths[i].parameters, containeeSegment.parameters);
+  });
+}
+var UrlTree = class {
+  root;
+  queryParams;
+  fragment;
+  _queryParamMap;
+  constructor(root = new UrlSegmentGroup([], {}), queryParams = {}, fragment2 = null) {
+    this.root = root;
+    this.queryParams = queryParams;
+    this.fragment = fragment2;
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      if (root.segments.length > 0) {
+        throw new RuntimeError(4015, "The root `UrlSegmentGroup` should not contain `segments`. Instead, these segments belong in the `children` so they can be associated with a named outlet.");
+      }
+    }
+  }
+  get queryParamMap() {
+    this._queryParamMap ??= convertToParamMap(this.queryParams);
+    return this._queryParamMap;
+  }
+  toString() {
+    return DEFAULT_SERIALIZER.serialize(this);
+  }
+};
+var UrlSegmentGroup = class {
+  segments;
+  children;
+  parent = null;
+  constructor(segments, children) {
+    this.segments = segments;
+    this.children = children;
+    Object.values(children).forEach((v) => v.parent = this);
+  }
+  hasChildren() {
+    return this.numberOfChildren > 0;
+  }
+  get numberOfChildren() {
+    return Object.keys(this.children).length;
+  }
+  toString() {
+    return serializePaths(this);
+  }
+};
+var UrlSegment = class {
+  path;
+  parameters;
+  _parameterMap;
+  constructor(path, parameters) {
+    this.path = path;
+    this.parameters = parameters;
+  }
+  get parameterMap() {
+    this._parameterMap ??= convertToParamMap(this.parameters);
+    return this._parameterMap;
+  }
+  toString() {
+    return serializePath(this);
+  }
+};
+function equalSegments(as, bs) {
+  return equalPath(as, bs) && as.every((a, i) => shallowEqual(a.parameters, bs[i].parameters));
+}
+function equalPath(as, bs) {
+  if (as.length !== bs.length) return false;
+  return as.every((a, i) => a.path === bs[i].path);
+}
+function mapChildrenIntoArray(segment, fn) {
+  let res = [];
+  Object.entries(segment.children).forEach(([childOutlet, child]) => {
+    if (childOutlet === PRIMARY_OUTLET) {
+      res = res.concat(fn(child, childOutlet));
+    }
+  });
+  Object.entries(segment.children).forEach(([childOutlet, child]) => {
+    if (childOutlet !== PRIMARY_OUTLET) {
+      res = res.concat(fn(child, childOutlet));
+    }
+  });
+  return res;
+}
+var UrlSerializer = class _UrlSerializer {
+  static \u0275fac = function UrlSerializer_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _UrlSerializer)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _UrlSerializer,
+    factory: () => (() => new DefaultUrlSerializer())(),
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(UrlSerializer, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root",
+      useFactory: () => new DefaultUrlSerializer()
+    }]
+  }], null, null);
+})();
+var DefaultUrlSerializer = class {
+  parse(url) {
+    const p = new UrlParser(url);
+    return new UrlTree(p.parseRootSegment(), p.parseQueryParams(), p.parseFragment());
+  }
+  serialize(tree2) {
+    const segment = `/${serializeSegment(tree2.root, true)}`;
+    const query2 = serializeQueryParams(tree2.queryParams);
+    const fragment2 = typeof tree2.fragment === `string` ? `#${encodeUriFragment(tree2.fragment)}` : "";
+    return `${segment}${query2}${fragment2}`;
+  }
+};
+var DEFAULT_SERIALIZER = new DefaultUrlSerializer();
+function serializePaths(segment) {
+  return segment.segments.map((p) => serializePath(p)).join("/");
+}
+function serializeSegment(segment, root) {
+  if (!segment.hasChildren()) {
+    return serializePaths(segment);
+  }
+  if (root) {
+    const primary = segment.children[PRIMARY_OUTLET] ? serializeSegment(segment.children[PRIMARY_OUTLET], false) : "";
+    const children = [];
+    Object.entries(segment.children).forEach(([k, v]) => {
+      if (k !== PRIMARY_OUTLET) {
+        children.push(`${k}:${serializeSegment(v, false)}`);
+      }
+    });
+    return children.length > 0 ? `${primary}(${children.join("//")})` : primary;
+  } else {
+    const children = mapChildrenIntoArray(segment, (v, k) => {
+      if (k === PRIMARY_OUTLET) {
+        return [serializeSegment(segment.children[PRIMARY_OUTLET], false)];
+      }
+      return [`${k}:${serializeSegment(v, false)}`];
+    });
+    if (Object.keys(segment.children).length === 1 && segment.children[PRIMARY_OUTLET] != null) {
+      return `${serializePaths(segment)}/${children[0]}`;
+    }
+    return `${serializePaths(segment)}/(${children.join("//")})`;
+  }
+}
+function encodeUriString(s) {
+  return encodeURIComponent(s).replace(/%40/g, "@").replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",");
+}
+function encodeUriQuery(s) {
+  return encodeUriString(s).replace(/%3B/gi, ";");
+}
+function encodeUriFragment(s) {
+  return encodeURI(s);
+}
+function encodeUriSegment(s) {
+  return encodeUriString(s).replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/%26/gi, "&");
+}
+function decode(s) {
+  return decodeURIComponent(s);
+}
+function decodeQuery(s) {
+  return decode(s.replace(/\+/g, "%20"));
+}
+function serializePath(path) {
+  return `${encodeUriSegment(path.path)}${serializeMatrixParams(path.parameters)}`;
+}
+function serializeMatrixParams(params) {
+  return Object.entries(params).map(([key, value]) => `;${encodeUriSegment(key)}=${encodeUriSegment(value)}`).join("");
+}
+function serializeQueryParams(params) {
+  const strParams = Object.entries(params).map(([name, value]) => {
+    return Array.isArray(value) ? value.map((v) => `${encodeUriQuery(name)}=${encodeUriQuery(v)}`).join("&") : `${encodeUriQuery(name)}=${encodeUriQuery(value)}`;
+  }).filter((s) => s);
+  return strParams.length ? `?${strParams.join("&")}` : "";
+}
+var SEGMENT_RE = /^[^\/()?;#]+/;
+function matchSegments(str) {
+  const match2 = str.match(SEGMENT_RE);
+  return match2 ? match2[0] : "";
+}
+var MATRIX_PARAM_SEGMENT_RE = /^[^\/()?;=#]+/;
+function matchMatrixKeySegments(str) {
+  const match2 = str.match(MATRIX_PARAM_SEGMENT_RE);
+  return match2 ? match2[0] : "";
+}
+var QUERY_PARAM_RE = /^[^=?&#]+/;
+function matchQueryParams(str) {
+  const match2 = str.match(QUERY_PARAM_RE);
+  return match2 ? match2[0] : "";
+}
+var QUERY_PARAM_VALUE_RE = /^[^&#]+/;
+function matchUrlQueryParamValue(str) {
+  const match2 = str.match(QUERY_PARAM_VALUE_RE);
+  return match2 ? match2[0] : "";
+}
+var UrlParser = class {
+  url;
+  remaining;
+  constructor(url) {
+    this.url = url;
+    this.remaining = url;
+  }
+  parseRootSegment() {
+    this.consumeOptional("/");
+    if (this.remaining === "" || this.peekStartsWith("?") || this.peekStartsWith("#")) {
+      return new UrlSegmentGroup([], {});
+    }
+    return new UrlSegmentGroup([], this.parseChildren());
+  }
+  parseQueryParams() {
+    const params = {};
+    if (this.consumeOptional("?")) {
+      do {
+        this.parseQueryParam(params);
+      } while (this.consumeOptional("&"));
+    }
+    return params;
+  }
+  parseFragment() {
+    return this.consumeOptional("#") ? decodeURIComponent(this.remaining) : null;
+  }
+  parseChildren(depth = 0) {
+    if (depth > 50) {
+      throw new RuntimeError(4010, (typeof ngDevMode === "undefined" || ngDevMode) && "URL is too deep");
+    }
+    if (this.remaining === "") {
+      return {};
+    }
+    this.consumeOptional("/");
+    const segments = [];
+    if (!this.peekStartsWith("(")) {
+      segments.push(this.parseSegment());
+    }
+    while (this.peekStartsWith("/") && !this.peekStartsWith("//") && !this.peekStartsWith("/(")) {
+      this.capture("/");
+      segments.push(this.parseSegment());
+    }
+    let children = {};
+    if (this.peekStartsWith("/(")) {
+      this.capture("/");
+      children = this.parseParens(true, depth);
+    }
+    let res = {};
+    if (this.peekStartsWith("(")) {
+      res = this.parseParens(false, depth);
+    }
+    if (segments.length > 0 || Object.keys(children).length > 0) {
+      res[PRIMARY_OUTLET] = new UrlSegmentGroup(segments, children);
+    }
+    return res;
+  }
+  parseSegment() {
+    const path = matchSegments(this.remaining);
+    if (path === "" && this.peekStartsWith(";")) {
+      throw new RuntimeError(4009, (typeof ngDevMode === "undefined" || ngDevMode) && `Empty path url segment cannot have parameters: '${this.remaining}'.`);
+    }
+    this.capture(path);
+    return new UrlSegment(decode(path), this.parseMatrixParams());
+  }
+  parseMatrixParams() {
+    const params = {};
+    while (this.consumeOptional(";")) {
+      this.parseParam(params);
+    }
+    return params;
+  }
+  parseParam(params) {
+    const key = matchMatrixKeySegments(this.remaining);
+    if (!key) {
+      return;
+    }
+    this.capture(key);
+    let value = "";
+    if (this.consumeOptional("=")) {
+      const valueMatch = matchSegments(this.remaining);
+      if (valueMatch) {
+        value = valueMatch;
+        this.capture(value);
+      }
+    }
+    params[decode(key)] = decode(value);
+  }
+  parseQueryParam(params) {
+    const key = matchQueryParams(this.remaining);
+    if (!key) {
+      return;
+    }
+    this.capture(key);
+    let value = "";
+    if (this.consumeOptional("=")) {
+      const valueMatch = matchUrlQueryParamValue(this.remaining);
+      if (valueMatch) {
+        value = valueMatch;
+        this.capture(value);
+      }
+    }
+    const decodedKey = decodeQuery(key);
+    const decodedVal = decodeQuery(value);
+    if (params.hasOwnProperty(decodedKey)) {
+      let currentVal = params[decodedKey];
+      if (!Array.isArray(currentVal)) {
+        currentVal = [currentVal];
+        params[decodedKey] = currentVal;
+      }
+      currentVal.push(decodedVal);
+    } else {
+      params[decodedKey] = decodedVal;
+    }
+  }
+  parseParens(allowPrimary, depth) {
+    const segments = {};
+    this.capture("(");
+    while (!this.consumeOptional(")") && this.remaining.length > 0) {
+      const path = matchSegments(this.remaining);
+      const next = this.remaining[path.length];
+      if (next !== "/" && next !== ")" && next !== ";") {
+        throw new RuntimeError(4010, (typeof ngDevMode === "undefined" || ngDevMode) && `Cannot parse url '${this.url}'`);
+      }
+      let outletName;
+      if (path.indexOf(":") > -1) {
+        outletName = path.slice(0, path.indexOf(":"));
+        this.capture(outletName);
+        this.capture(":");
+      } else if (allowPrimary) {
+        outletName = PRIMARY_OUTLET;
+      }
+      const children = this.parseChildren(depth + 1);
+      segments[outletName ?? PRIMARY_OUTLET] = Object.keys(children).length === 1 && children[PRIMARY_OUTLET] ? children[PRIMARY_OUTLET] : new UrlSegmentGroup([], children);
+      this.consumeOptional("//");
+    }
+    return segments;
+  }
+  peekStartsWith(str) {
+    return this.remaining.startsWith(str);
+  }
+  consumeOptional(str) {
+    if (this.peekStartsWith(str)) {
+      this.remaining = this.remaining.substring(str.length);
+      return true;
+    }
+    return false;
+  }
+  capture(str) {
+    if (!this.consumeOptional(str)) {
+      throw new RuntimeError(4011, (typeof ngDevMode === "undefined" || ngDevMode) && `Expected "${str}".`);
+    }
+  }
+};
+function createRoot(rootCandidate) {
+  return rootCandidate.segments.length > 0 ? new UrlSegmentGroup([], {
+    [PRIMARY_OUTLET]: rootCandidate
+  }) : rootCandidate;
+}
+function squashSegmentGroup(segmentGroup) {
+  const newChildren = {};
+  for (const [childOutlet, child] of Object.entries(segmentGroup.children)) {
+    const childCandidate = squashSegmentGroup(child);
+    if (childOutlet === PRIMARY_OUTLET && childCandidate.segments.length === 0 && childCandidate.hasChildren()) {
+      for (const [grandChildOutlet, grandChild] of Object.entries(childCandidate.children)) {
+        newChildren[grandChildOutlet] = grandChild;
+      }
+    } else if (childCandidate.segments.length > 0 || childCandidate.hasChildren()) {
+      newChildren[childOutlet] = childCandidate;
+    }
+  }
+  const s = new UrlSegmentGroup(segmentGroup.segments, newChildren);
+  return mergeTrivialChildren(s);
+}
+function mergeTrivialChildren(s) {
+  if (s.numberOfChildren === 1 && s.children[PRIMARY_OUTLET]) {
+    const c = s.children[PRIMARY_OUTLET];
+    return new UrlSegmentGroup(s.segments.concat(c.segments), c.children);
+  }
+  return s;
+}
+function isUrlTree(v) {
+  return v instanceof UrlTree;
+}
+function createUrlTreeFromSnapshot(relativeTo, commands, queryParams = null, fragment2 = null, urlSerializer = new DefaultUrlSerializer()) {
+  const relativeToUrlSegmentGroup = createSegmentGroupFromRoute(relativeTo);
+  return createUrlTreeFromSegmentGroup(relativeToUrlSegmentGroup, commands, queryParams, fragment2, urlSerializer);
+}
+function createSegmentGroupFromRoute(route) {
+  let targetGroup;
+  function createSegmentGroupFromRouteRecursive(currentRoute) {
+    const childOutlets = {};
+    for (const childSnapshot of currentRoute.children) {
+      const root = createSegmentGroupFromRouteRecursive(childSnapshot);
+      childOutlets[childSnapshot.outlet] = root;
+    }
+    const segmentGroup = new UrlSegmentGroup(currentRoute.url, childOutlets);
+    if (currentRoute === route) {
+      targetGroup = segmentGroup;
+    }
+    return segmentGroup;
+  }
+  const rootCandidate = createSegmentGroupFromRouteRecursive(route.root);
+  const rootSegmentGroup = createRoot(rootCandidate);
+  return targetGroup ?? rootSegmentGroup;
+}
+function createUrlTreeFromSegmentGroup(relativeTo, commands, queryParams, fragment2, urlSerializer) {
+  let root = relativeTo;
+  while (root.parent) {
+    root = root.parent;
+  }
+  if (commands.length === 0) {
+    return tree(root, root, root, queryParams, fragment2, urlSerializer);
+  }
+  const nav = computeNavigation(commands);
+  if (nav.toRoot()) {
+    return tree(root, root, new UrlSegmentGroup([], {}), queryParams, fragment2, urlSerializer);
+  }
+  const position = findStartingPositionForTargetGroup(nav, root, relativeTo);
+  const newSegmentGroup = position.processChildren ? updateSegmentGroupChildren(position.segmentGroup, position.index, nav.commands) : updateSegmentGroup(position.segmentGroup, position.index, nav.commands);
+  return tree(root, position.segmentGroup, newSegmentGroup, queryParams, fragment2, urlSerializer);
+}
+function isMatrixParams(command) {
+  return typeof command === "object" && command != null && !command.outlets && !command.segmentPath;
+}
+function isCommandWithOutlets(command) {
+  return typeof command === "object" && command != null && command.outlets;
+}
+function normalizeQueryParams2(k, v, urlSerializer) {
+  k ||= "\u0275";
+  const tree2 = new UrlTree();
+  tree2.queryParams = {
+    [k]: v
+  };
+  return urlSerializer.parse(urlSerializer.serialize(tree2)).queryParams[k];
+}
+function tree(oldRoot, oldSegmentGroup, newSegmentGroup, queryParams, fragment2, urlSerializer) {
+  const qp = {};
+  for (const [key, value] of Object.entries(queryParams ?? {})) {
+    qp[key] = Array.isArray(value) ? value.map((v) => normalizeQueryParams2(key, v, urlSerializer)) : normalizeQueryParams2(key, value, urlSerializer);
+  }
+  let rootCandidate;
+  if (oldRoot === oldSegmentGroup) {
+    rootCandidate = newSegmentGroup;
+  } else {
+    rootCandidate = replaceSegment(oldRoot, oldSegmentGroup, newSegmentGroup);
+  }
+  const newRoot = createRoot(squashSegmentGroup(rootCandidate));
+  return new UrlTree(newRoot, qp, fragment2);
+}
+function replaceSegment(current, oldSegment, newSegment) {
+  const children = {};
+  Object.entries(current.children).forEach(([outletName, c]) => {
+    if (c === oldSegment) {
+      children[outletName] = newSegment;
+    } else {
+      children[outletName] = replaceSegment(c, oldSegment, newSegment);
+    }
+  });
+  return new UrlSegmentGroup(current.segments, children);
+}
+var Navigation = class {
+  isAbsolute;
+  numberOfDoubleDots;
+  commands;
+  constructor(isAbsolute, numberOfDoubleDots, commands) {
+    this.isAbsolute = isAbsolute;
+    this.numberOfDoubleDots = numberOfDoubleDots;
+    this.commands = commands;
+    if (isAbsolute && commands.length > 0 && isMatrixParams(commands[0])) {
+      throw new RuntimeError(4003, (typeof ngDevMode === "undefined" || ngDevMode) && "Root segment cannot have matrix parameters");
+    }
+    const cmdWithOutlet = commands.find(isCommandWithOutlets);
+    if (cmdWithOutlet && cmdWithOutlet !== last2(commands)) {
+      throw new RuntimeError(4004, (typeof ngDevMode === "undefined" || ngDevMode) && "{outlets:{}} has to be the last command");
+    }
+  }
+  toRoot() {
+    return this.isAbsolute && this.commands.length === 1 && this.commands[0] == "/";
+  }
+};
+function computeNavigation(commands) {
+  if (typeof commands[0] === "string" && commands.length === 1 && commands[0] === "/") {
+    return new Navigation(true, 0, commands);
+  }
+  let numberOfDoubleDots = 0;
+  let isAbsolute = false;
+  const res = commands.reduce((res2, cmd, cmdIdx) => {
+    if (typeof cmd === "object" && cmd != null) {
+      if (cmd.outlets) {
+        const outlets = {};
+        Object.entries(cmd.outlets).forEach(([name, commands2]) => {
+          outlets[name] = typeof commands2 === "string" ? commands2.split("/") : commands2;
+        });
+        return [...res2, {
+          outlets
+        }];
+      }
+      if (cmd.segmentPath) {
+        return [...res2, cmd.segmentPath];
+      }
+    }
+    if (!(typeof cmd === "string")) {
+      return [...res2, cmd];
+    }
+    if (cmdIdx === 0) {
+      cmd.split("/").forEach((urlPart, partIndex) => {
+        if (partIndex == 0 && urlPart === ".") ;
+        else if (partIndex == 0 && urlPart === "") {
+          isAbsolute = true;
+        } else if (urlPart === "..") {
+          numberOfDoubleDots++;
+        } else if (urlPart != "") {
+          res2.push(urlPart);
+        }
+      });
+      return res2;
+    }
+    return [...res2, cmd];
+  }, []);
+  return new Navigation(isAbsolute, numberOfDoubleDots, res);
+}
+var Position = class {
+  segmentGroup;
+  processChildren;
+  index;
+  constructor(segmentGroup, processChildren, index) {
+    this.segmentGroup = segmentGroup;
+    this.processChildren = processChildren;
+    this.index = index;
+  }
+};
+function findStartingPositionForTargetGroup(nav, root, target) {
+  if (nav.isAbsolute) {
+    return new Position(root, true, 0);
+  }
+  if (!target) {
+    return new Position(root, false, NaN);
+  }
+  if (target.parent === null) {
+    return new Position(target, true, 0);
+  }
+  const modifier = isMatrixParams(nav.commands[0]) ? 0 : 1;
+  const index = target.segments.length - 1 + modifier;
+  return createPositionApplyingDoubleDots(target, index, nav.numberOfDoubleDots);
+}
+function createPositionApplyingDoubleDots(group2, index, numberOfDoubleDots) {
+  let g = group2;
+  let ci = index;
+  let dd = numberOfDoubleDots;
+  while (dd > ci) {
+    dd -= ci;
+    g = g.parent;
+    if (!g) {
+      throw new RuntimeError(4005, (typeof ngDevMode === "undefined" || ngDevMode) && "Invalid number of '../'");
+    }
+    ci = g.segments.length;
+  }
+  return new Position(g, false, ci - dd);
+}
+function getOutlets(commands) {
+  if (isCommandWithOutlets(commands[0])) {
+    return commands[0].outlets;
+  }
+  return {
+    [PRIMARY_OUTLET]: commands
+  };
+}
+function updateSegmentGroup(segmentGroup, startIndex, commands) {
+  segmentGroup ??= new UrlSegmentGroup([], {});
+  if (segmentGroup.segments.length === 0 && segmentGroup.hasChildren()) {
+    return updateSegmentGroupChildren(segmentGroup, startIndex, commands);
+  }
+  const m = prefixedWith(segmentGroup, startIndex, commands);
+  const slicedCommands = commands.slice(m.commandIndex);
+  if (m.match && m.pathIndex < segmentGroup.segments.length) {
+    const g = new UrlSegmentGroup(segmentGroup.segments.slice(0, m.pathIndex), {});
+    g.children[PRIMARY_OUTLET] = new UrlSegmentGroup(segmentGroup.segments.slice(m.pathIndex), segmentGroup.children);
+    return updateSegmentGroupChildren(g, 0, slicedCommands);
+  } else if (m.match && slicedCommands.length === 0) {
+    return new UrlSegmentGroup(segmentGroup.segments, {});
+  } else if (m.match && !segmentGroup.hasChildren()) {
+    return createNewSegmentGroup(segmentGroup, startIndex, commands);
+  } else if (m.match) {
+    return updateSegmentGroupChildren(segmentGroup, 0, slicedCommands);
+  } else {
+    return createNewSegmentGroup(segmentGroup, startIndex, commands);
+  }
+}
+function updateSegmentGroupChildren(segmentGroup, startIndex, commands) {
+  if (commands.length === 0) {
+    return new UrlSegmentGroup(segmentGroup.segments, {});
+  } else {
+    const outlets = getOutlets(commands);
+    const children = {};
+    if (Object.keys(outlets).some((o) => o !== PRIMARY_OUTLET) && segmentGroup.children[PRIMARY_OUTLET] && segmentGroup.numberOfChildren === 1 && segmentGroup.children[PRIMARY_OUTLET].segments.length === 0) {
+      const childrenOfEmptyChild = updateSegmentGroupChildren(segmentGroup.children[PRIMARY_OUTLET], startIndex, commands);
+      return new UrlSegmentGroup(segmentGroup.segments, childrenOfEmptyChild.children);
+    }
+    Object.entries(outlets).forEach(([outlet, commands2]) => {
+      if (typeof commands2 === "string") {
+        commands2 = [commands2];
+      }
+      if (commands2 !== null) {
+        children[outlet] = updateSegmentGroup(segmentGroup.children[outlet], startIndex, commands2);
+      }
+    });
+    Object.entries(segmentGroup.children).forEach(([childOutlet, child]) => {
+      if (outlets[childOutlet] === void 0) {
+        children[childOutlet] = child;
+      }
+    });
+    return new UrlSegmentGroup(segmentGroup.segments, children);
+  }
+}
+function prefixedWith(segmentGroup, startIndex, commands) {
+  let currentCommandIndex = 0;
+  let currentPathIndex = startIndex;
+  const noMatch2 = {
+    match: false,
+    pathIndex: 0,
+    commandIndex: 0
+  };
+  while (currentPathIndex < segmentGroup.segments.length) {
+    if (currentCommandIndex >= commands.length) return noMatch2;
+    const path = segmentGroup.segments[currentPathIndex];
+    const command = commands[currentCommandIndex];
+    if (isCommandWithOutlets(command)) {
+      break;
+    }
+    const curr = `${command}`;
+    const next = currentCommandIndex < commands.length - 1 ? commands[currentCommandIndex + 1] : null;
+    if (currentPathIndex > 0 && curr === void 0) break;
+    if (curr && next && typeof next === "object" && next.outlets === void 0) {
+      if (!compare(curr, next, path)) return noMatch2;
+      currentCommandIndex += 2;
+    } else {
+      if (!compare(curr, {}, path)) return noMatch2;
+      currentCommandIndex++;
+    }
+    currentPathIndex++;
+  }
+  return {
+    match: true,
+    pathIndex: currentPathIndex,
+    commandIndex: currentCommandIndex
+  };
+}
+function createNewSegmentGroup(segmentGroup, startIndex, commands) {
+  const paths = segmentGroup.segments.slice(0, startIndex);
+  let i = 0;
+  while (i < commands.length) {
+    const command = commands[i];
+    if (isCommandWithOutlets(command)) {
+      const children = createNewSegmentChildren(command.outlets);
+      return new UrlSegmentGroup(paths, children);
+    }
+    if (i === 0 && isMatrixParams(commands[0])) {
+      const p = segmentGroup.segments[startIndex];
+      paths.push(new UrlSegment(p.path, stringify2(commands[0])));
+      i++;
+      continue;
+    }
+    const curr = isCommandWithOutlets(command) ? command.outlets[PRIMARY_OUTLET] : `${command}`;
+    const next = i < commands.length - 1 ? commands[i + 1] : null;
+    if (curr && next && isMatrixParams(next)) {
+      paths.push(new UrlSegment(curr, stringify2(next)));
+      i += 2;
+    } else {
+      paths.push(new UrlSegment(curr, {}));
+      i++;
+    }
+  }
+  return new UrlSegmentGroup(paths, {});
+}
+function createNewSegmentChildren(outlets) {
+  const children = {};
+  Object.entries(outlets).forEach(([outlet, commands]) => {
+    if (typeof commands === "string") {
+      commands = [commands];
+    }
+    if (commands !== null) {
+      children[outlet] = createNewSegmentGroup(new UrlSegmentGroup([], {}), 0, commands);
+    }
+  });
+  return children;
+}
+function stringify2(params) {
+  const res = {};
+  Object.entries(params).forEach(([k, v]) => res[k] = `${v}`);
+  return res;
+}
+function compare(path, params, segment) {
+  return path == segment.path && shallowEqual(params, segment.parameters);
+}
+var IMPERATIVE_NAVIGATION = "imperative";
+var EventType;
+(function(EventType2) {
+  EventType2[EventType2["NavigationStart"] = 0] = "NavigationStart";
+  EventType2[EventType2["NavigationEnd"] = 1] = "NavigationEnd";
+  EventType2[EventType2["NavigationCancel"] = 2] = "NavigationCancel";
+  EventType2[EventType2["NavigationError"] = 3] = "NavigationError";
+  EventType2[EventType2["RoutesRecognized"] = 4] = "RoutesRecognized";
+  EventType2[EventType2["ResolveStart"] = 5] = "ResolveStart";
+  EventType2[EventType2["ResolveEnd"] = 6] = "ResolveEnd";
+  EventType2[EventType2["GuardsCheckStart"] = 7] = "GuardsCheckStart";
+  EventType2[EventType2["GuardsCheckEnd"] = 8] = "GuardsCheckEnd";
+  EventType2[EventType2["RouteConfigLoadStart"] = 9] = "RouteConfigLoadStart";
+  EventType2[EventType2["RouteConfigLoadEnd"] = 10] = "RouteConfigLoadEnd";
+  EventType2[EventType2["ChildActivationStart"] = 11] = "ChildActivationStart";
+  EventType2[EventType2["ChildActivationEnd"] = 12] = "ChildActivationEnd";
+  EventType2[EventType2["ActivationStart"] = 13] = "ActivationStart";
+  EventType2[EventType2["ActivationEnd"] = 14] = "ActivationEnd";
+  EventType2[EventType2["Scroll"] = 15] = "Scroll";
+  EventType2[EventType2["NavigationSkipped"] = 16] = "NavigationSkipped";
+})(EventType || (EventType = {}));
+var RouterEvent = class {
+  id;
+  url;
+  constructor(id, url) {
+    this.id = id;
+    this.url = url;
+  }
+};
+var NavigationStart = class extends RouterEvent {
+  type = EventType.NavigationStart;
+  navigationTrigger;
+  restoredState;
+  constructor(id, url, navigationTrigger = "imperative", restoredState = null) {
+    super(id, url);
+    this.navigationTrigger = navigationTrigger;
+    this.restoredState = restoredState;
+  }
+  toString() {
+    return `NavigationStart(id: ${this.id}, url: '${this.url}')`;
+  }
+};
+var NavigationEnd = class extends RouterEvent {
+  urlAfterRedirects;
+  type = EventType.NavigationEnd;
+  constructor(id, url, urlAfterRedirects) {
+    super(id, url);
+    this.urlAfterRedirects = urlAfterRedirects;
+  }
+  toString() {
+    return `NavigationEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}')`;
+  }
+};
+var NavigationCancellationCode;
+(function(NavigationCancellationCode2) {
+  NavigationCancellationCode2[NavigationCancellationCode2["Redirect"] = 0] = "Redirect";
+  NavigationCancellationCode2[NavigationCancellationCode2["SupersededByNewNavigation"] = 1] = "SupersededByNewNavigation";
+  NavigationCancellationCode2[NavigationCancellationCode2["NoDataFromResolver"] = 2] = "NoDataFromResolver";
+  NavigationCancellationCode2[NavigationCancellationCode2["GuardRejected"] = 3] = "GuardRejected";
+  NavigationCancellationCode2[NavigationCancellationCode2["Aborted"] = 4] = "Aborted";
+})(NavigationCancellationCode || (NavigationCancellationCode = {}));
+var NavigationSkippedCode;
+(function(NavigationSkippedCode2) {
+  NavigationSkippedCode2[NavigationSkippedCode2["IgnoredSameUrlNavigation"] = 0] = "IgnoredSameUrlNavigation";
+  NavigationSkippedCode2[NavigationSkippedCode2["IgnoredByUrlHandlingStrategy"] = 1] = "IgnoredByUrlHandlingStrategy";
+})(NavigationSkippedCode || (NavigationSkippedCode = {}));
+var NavigationCancel = class extends RouterEvent {
+  reason;
+  code;
+  type = EventType.NavigationCancel;
+  constructor(id, url, reason, code) {
+    super(id, url);
+    this.reason = reason;
+    this.code = code;
+  }
+  toString() {
+    return `NavigationCancel(id: ${this.id}, url: '${this.url}')`;
+  }
+};
+function isRedirectingEvent(event) {
+  return event instanceof NavigationCancel && (event.code === NavigationCancellationCode.Redirect || event.code === NavigationCancellationCode.SupersededByNewNavigation);
+}
+var NavigationSkipped = class extends RouterEvent {
+  reason;
+  code;
+  type = EventType.NavigationSkipped;
+  constructor(id, url, reason, code) {
+    super(id, url);
+    this.reason = reason;
+    this.code = code;
+  }
+};
+var NavigationError = class extends RouterEvent {
+  error;
+  target;
+  type = EventType.NavigationError;
+  constructor(id, url, error2, target) {
+    super(id, url);
+    this.error = error2;
+    this.target = target;
+  }
+  toString() {
+    return `NavigationError(id: ${this.id}, url: '${this.url}', error: ${this.error})`;
+  }
+};
+var RoutesRecognized = class extends RouterEvent {
+  urlAfterRedirects;
+  state;
+  type = EventType.RoutesRecognized;
+  constructor(id, url, urlAfterRedirects, state2) {
+    super(id, url);
+    this.urlAfterRedirects = urlAfterRedirects;
+    this.state = state2;
+  }
+  toString() {
+    return `RoutesRecognized(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
+  }
+};
+var GuardsCheckStart = class extends RouterEvent {
+  urlAfterRedirects;
+  state;
+  type = EventType.GuardsCheckStart;
+  constructor(id, url, urlAfterRedirects, state2) {
+    super(id, url);
+    this.urlAfterRedirects = urlAfterRedirects;
+    this.state = state2;
+  }
+  toString() {
+    return `GuardsCheckStart(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
+  }
+};
+var GuardsCheckEnd = class extends RouterEvent {
+  urlAfterRedirects;
+  state;
+  shouldActivate;
+  type = EventType.GuardsCheckEnd;
+  constructor(id, url, urlAfterRedirects, state2, shouldActivate) {
+    super(id, url);
+    this.urlAfterRedirects = urlAfterRedirects;
+    this.state = state2;
+    this.shouldActivate = shouldActivate;
+  }
+  toString() {
+    return `GuardsCheckEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state}, shouldActivate: ${this.shouldActivate})`;
+  }
+};
+var ResolveStart = class extends RouterEvent {
+  urlAfterRedirects;
+  state;
+  type = EventType.ResolveStart;
+  constructor(id, url, urlAfterRedirects, state2) {
+    super(id, url);
+    this.urlAfterRedirects = urlAfterRedirects;
+    this.state = state2;
+  }
+  toString() {
+    return `ResolveStart(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
+  }
+};
+var ResolveEnd = class extends RouterEvent {
+  urlAfterRedirects;
+  state;
+  type = EventType.ResolveEnd;
+  constructor(id, url, urlAfterRedirects, state2) {
+    super(id, url);
+    this.urlAfterRedirects = urlAfterRedirects;
+    this.state = state2;
+  }
+  toString() {
+    return `ResolveEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
+  }
+};
+var RouteConfigLoadStart = class {
+  route;
+  type = EventType.RouteConfigLoadStart;
+  constructor(route) {
+    this.route = route;
+  }
+  toString() {
+    return `RouteConfigLoadStart(path: ${this.route.path})`;
+  }
+};
+var RouteConfigLoadEnd = class {
+  route;
+  type = EventType.RouteConfigLoadEnd;
+  constructor(route) {
+    this.route = route;
+  }
+  toString() {
+    return `RouteConfigLoadEnd(path: ${this.route.path})`;
+  }
+};
+var ChildActivationStart = class {
+  snapshot;
+  type = EventType.ChildActivationStart;
+  constructor(snapshot) {
+    this.snapshot = snapshot;
+  }
+  toString() {
+    const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
+    return `ChildActivationStart(path: '${path}')`;
+  }
+};
+var ChildActivationEnd = class {
+  snapshot;
+  type = EventType.ChildActivationEnd;
+  constructor(snapshot) {
+    this.snapshot = snapshot;
+  }
+  toString() {
+    const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
+    return `ChildActivationEnd(path: '${path}')`;
+  }
+};
+var ActivationStart = class {
+  snapshot;
+  type = EventType.ActivationStart;
+  constructor(snapshot) {
+    this.snapshot = snapshot;
+  }
+  toString() {
+    const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
+    return `ActivationStart(path: '${path}')`;
+  }
+};
+var ActivationEnd = class {
+  snapshot;
+  type = EventType.ActivationEnd;
+  constructor(snapshot) {
+    this.snapshot = snapshot;
+  }
+  toString() {
+    const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
+    return `ActivationEnd(path: '${path}')`;
+  }
+};
+var Scroll = class {
+  routerEvent;
+  position;
+  anchor;
+  scrollBehavior;
+  type = EventType.Scroll;
+  constructor(routerEvent, position, anchor, scrollBehavior) {
+    this.routerEvent = routerEvent;
+    this.position = position;
+    this.anchor = anchor;
+    this.scrollBehavior = scrollBehavior;
+  }
+  toString() {
+    const pos = this.position ? `${this.position[0]}, ${this.position[1]}` : null;
+    return `Scroll(anchor: '${this.anchor}', position: '${pos}')`;
+  }
+};
+var BeforeActivateRoutes = class {
+};
+var RedirectRequest = class {
+  url;
+  navigationBehaviorOptions;
+  constructor(url, navigationBehaviorOptions) {
+    this.url = url;
+    this.navigationBehaviorOptions = navigationBehaviorOptions;
+  }
+};
+function isPublicRouterEvent(e) {
+  return !(e instanceof BeforeActivateRoutes) && !(e instanceof RedirectRequest);
+}
+function stringifyEvent(routerEvent) {
+  switch (routerEvent.type) {
+    case EventType.ActivationEnd:
+      return `ActivationEnd(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
+    case EventType.ActivationStart:
+      return `ActivationStart(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
+    case EventType.ChildActivationEnd:
+      return `ChildActivationEnd(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
+    case EventType.ChildActivationStart:
+      return `ChildActivationStart(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
+    case EventType.GuardsCheckEnd:
+      return `GuardsCheckEnd(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state}, shouldActivate: ${routerEvent.shouldActivate})`;
+    case EventType.GuardsCheckStart:
+      return `GuardsCheckStart(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
+    case EventType.NavigationCancel:
+      return `NavigationCancel(id: ${routerEvent.id}, url: '${routerEvent.url}')`;
+    case EventType.NavigationSkipped:
+      return `NavigationSkipped(id: ${routerEvent.id}, url: '${routerEvent.url}')`;
+    case EventType.NavigationEnd:
+      return `NavigationEnd(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}')`;
+    case EventType.NavigationError:
+      return `NavigationError(id: ${routerEvent.id}, url: '${routerEvent.url}', error: ${routerEvent.error})`;
+    case EventType.NavigationStart:
+      return `NavigationStart(id: ${routerEvent.id}, url: '${routerEvent.url}')`;
+    case EventType.ResolveEnd:
+      return `ResolveEnd(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
+    case EventType.ResolveStart:
+      return `ResolveStart(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
+    case EventType.RouteConfigLoadEnd:
+      return `RouteConfigLoadEnd(path: ${routerEvent.route.path})`;
+    case EventType.RouteConfigLoadStart:
+      return `RouteConfigLoadStart(path: ${routerEvent.route.path})`;
+    case EventType.RoutesRecognized:
+      return `RoutesRecognized(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
+    case EventType.Scroll:
+      const pos = routerEvent.position ? `${routerEvent.position[0]}, ${routerEvent.position[1]}` : null;
+      return `Scroll(anchor: '${routerEvent.anchor}', position: '${pos}')`;
+  }
+}
+var OutletContext = class {
+  rootInjector;
+  outlet = null;
+  route = null;
+  children;
+  attachRef = null;
+  get injector() {
+    return this.route?.snapshot._environmentInjector ?? this.rootInjector;
+  }
+  constructor(rootInjector) {
+    this.rootInjector = rootInjector;
+    this.children = new ChildrenOutletContexts(this.rootInjector);
+  }
+};
+var ChildrenOutletContexts = class _ChildrenOutletContexts {
+  rootInjector;
+  contexts = /* @__PURE__ */ new Map();
+  constructor(rootInjector) {
+    this.rootInjector = rootInjector;
+  }
+  onChildOutletCreated(childName, outlet) {
+    const context2 = this.getOrCreateContext(childName);
+    context2.outlet = outlet;
+    this.contexts.set(childName, context2);
+  }
+  onChildOutletDestroyed(childName) {
+    const context2 = this.getContext(childName);
+    if (context2) {
+      context2.outlet = null;
+      context2.attachRef = null;
+    }
+  }
+  onOutletDeactivated() {
+    const contexts = this.contexts;
+    this.contexts = /* @__PURE__ */ new Map();
+    return contexts;
+  }
+  onOutletReAttached(contexts) {
+    this.contexts = contexts;
+  }
+  getOrCreateContext(childName) {
+    let context2 = this.getContext(childName);
+    if (!context2) {
+      context2 = new OutletContext(this.rootInjector);
+      this.contexts.set(childName, context2);
+    }
+    return context2;
+  }
+  getContext(childName) {
+    return this.contexts.get(childName) || null;
+  }
+  static \u0275fac = function ChildrenOutletContexts_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ChildrenOutletContexts)(\u0275\u0275inject(EnvironmentInjector));
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _ChildrenOutletContexts,
+    factory: _ChildrenOutletContexts.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ChildrenOutletContexts, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [{
+    type: EnvironmentInjector
+  }], null);
+})();
+var Tree = class {
+  _root;
+  constructor(root) {
+    this._root = root;
+  }
+  get root() {
+    return this._root.value;
+  }
+  parent(t) {
+    const p = this.pathFromRoot(t);
+    return p.length > 1 ? p[p.length - 2] : null;
+  }
+  children(t) {
+    const n = findNode(t, this._root);
+    return n ? n.children.map((t2) => t2.value) : [];
+  }
+  firstChild(t) {
+    const n = findNode(t, this._root);
+    return n && n.children.length > 0 ? n.children[0].value : null;
+  }
+  siblings(t) {
+    const p = findPath(t, this._root);
+    if (p.length < 2) return [];
+    const c = p[p.length - 2].children.map((c2) => c2.value);
+    return c.filter((cc) => cc !== t);
+  }
+  pathFromRoot(t) {
+    return findPath(t, this._root).map((s) => s.value);
+  }
+};
+function findNode(value, node) {
+  if (value === node.value) return node;
+  for (const child of node.children) {
+    const node2 = findNode(value, child);
+    if (node2) return node2;
+  }
+  return null;
+}
+function findPath(value, node) {
+  if (value === node.value) return [node];
+  for (const child of node.children) {
+    const path = findPath(value, child);
+    if (path.length) {
+      path.unshift(node);
+      return path;
+    }
+  }
+  return [];
+}
+var TreeNode = class {
+  value;
+  children;
+  constructor(value, children) {
+    this.value = value;
+    this.children = children;
+  }
+  toString() {
+    return `TreeNode(${this.value})`;
+  }
+};
+function nodeChildrenAsMap(node) {
+  const map2 = {};
+  if (node) {
+    node.children.forEach((child) => map2[child.value.outlet] = child);
+  }
+  return map2;
+}
+var RouterState = class extends Tree {
+  snapshot;
+  constructor(root, snapshot) {
+    super(root);
+    this.snapshot = snapshot;
+    setRouterState(this, root);
+  }
+  toString() {
+    return this.snapshot.toString();
+  }
+};
+function createEmptyState(rootComponent, injector) {
+  const snapshot = createEmptyStateSnapshot(rootComponent, injector);
+  const emptyUrl = new BehaviorSubject([new UrlSegment("", {})]);
+  const emptyParams = new BehaviorSubject({});
+  const emptyData = new BehaviorSubject({});
+  const emptyQueryParams = new BehaviorSubject({});
+  const fragment2 = new BehaviorSubject("");
+  const activated = new ActivatedRoute(emptyUrl, emptyParams, emptyQueryParams, fragment2, emptyData, PRIMARY_OUTLET, rootComponent, snapshot.root);
+  activated.snapshot = snapshot.root;
+  return new RouterState(new TreeNode(activated, []), snapshot);
+}
+function createEmptyStateSnapshot(rootComponent, injector) {
+  const emptyParams = {};
+  const emptyData = {};
+  const emptyQueryParams = {};
+  const fragment2 = "";
+  const activated = new ActivatedRouteSnapshot([], emptyParams, emptyQueryParams, fragment2, emptyData, PRIMARY_OUTLET, rootComponent, null, {}, injector);
+  return new RouterStateSnapshot("", new TreeNode(activated, []));
+}
+var ActivatedRoute = class {
+  urlSubject;
+  paramsSubject;
+  queryParamsSubject;
+  fragmentSubject;
+  dataSubject;
+  outlet;
+  component;
+  snapshot;
+  _futureSnapshot;
+  _routerState;
+  _paramMap;
+  _queryParamMap;
+  title;
+  url;
+  params;
+  queryParams;
+  fragment;
+  data;
+  constructor(urlSubject, paramsSubject, queryParamsSubject, fragmentSubject, dataSubject, outlet, component, futureSnapshot) {
+    this.urlSubject = urlSubject;
+    this.paramsSubject = paramsSubject;
+    this.queryParamsSubject = queryParamsSubject;
+    this.fragmentSubject = fragmentSubject;
+    this.dataSubject = dataSubject;
+    this.outlet = outlet;
+    this.component = component;
+    this._futureSnapshot = futureSnapshot;
+    this.title = this.dataSubject?.pipe(map((d) => d[RouteTitleKey])) ?? of(void 0);
+    this.url = urlSubject;
+    this.params = paramsSubject;
+    this.queryParams = queryParamsSubject;
+    this.fragment = fragmentSubject;
+    this.data = dataSubject;
+  }
+  get routeConfig() {
+    return this._futureSnapshot.routeConfig;
+  }
+  get root() {
+    return this._routerState.root;
+  }
+  get parent() {
+    return this._routerState.parent(this);
+  }
+  get firstChild() {
+    return this._routerState.firstChild(this);
+  }
+  get children() {
+    return this._routerState.children(this);
+  }
+  get pathFromRoot() {
+    return this._routerState.pathFromRoot(this);
+  }
+  get paramMap() {
+    this._paramMap ??= this.params.pipe(map((p) => convertToParamMap(p)));
+    return this._paramMap;
+  }
+  get queryParamMap() {
+    this._queryParamMap ??= this.queryParams.pipe(map((p) => convertToParamMap(p)));
+    return this._queryParamMap;
+  }
+  toString() {
+    return this.snapshot ? this.snapshot.toString() : `Future(${this._futureSnapshot})`;
+  }
+};
+function getInherited(route, parent, paramsInheritanceStrategy = "emptyOnly") {
+  let inherited;
+  const {
+    routeConfig
+  } = route;
+  if (parent !== null && (paramsInheritanceStrategy === "always" || routeConfig?.path === "" || !parent.component && !parent.routeConfig?.loadComponent)) {
+    inherited = {
+      params: __spreadValues(__spreadValues({}, parent.params), route.params),
+      data: __spreadValues(__spreadValues({}, parent.data), route.data),
+      resolve: __spreadValues(__spreadValues(__spreadValues(__spreadValues({}, route.data), parent.data), routeConfig?.data), route._resolvedData)
+    };
+  } else {
+    inherited = {
+      params: __spreadValues({}, route.params),
+      data: __spreadValues({}, route.data),
+      resolve: __spreadValues(__spreadValues({}, route.data), route._resolvedData ?? {})
+    };
+  }
+  if (routeConfig && hasStaticTitle(routeConfig)) {
+    inherited.resolve[RouteTitleKey] = routeConfig.title;
+  }
+  return inherited;
+}
+var ActivatedRouteSnapshot = class {
+  url;
+  params;
+  queryParams;
+  fragment;
+  data;
+  outlet;
+  component;
+  routeConfig;
+  _resolve;
+  _resolvedData;
+  _routerState;
+  _paramMap;
+  _queryParamMap;
+  _environmentInjector;
+  get title() {
+    return this.data?.[RouteTitleKey];
+  }
+  constructor(url, params, queryParams, fragment2, data, outlet, component, routeConfig, resolve, environmentInjector) {
+    this.url = url;
+    this.params = params;
+    this.queryParams = queryParams;
+    this.fragment = fragment2;
+    this.data = data;
+    this.outlet = outlet;
+    this.component = component;
+    this.routeConfig = routeConfig;
+    this._resolve = resolve;
+    this._environmentInjector = environmentInjector;
+  }
+  get root() {
+    return this._routerState.root;
+  }
+  get parent() {
+    return this._routerState.parent(this);
+  }
+  get firstChild() {
+    return this._routerState.firstChild(this);
+  }
+  get children() {
+    return this._routerState.children(this);
+  }
+  get pathFromRoot() {
+    return this._routerState.pathFromRoot(this);
+  }
+  get paramMap() {
+    this._paramMap ??= convertToParamMap(this.params);
+    return this._paramMap;
+  }
+  get queryParamMap() {
+    this._queryParamMap ??= convertToParamMap(this.queryParams);
+    return this._queryParamMap;
+  }
+  toString() {
+    const url = this.url.map((segment) => segment.toString()).join("/");
+    const matched = this.routeConfig ? this.routeConfig.path : "";
+    return `Route(url:'${url}', path:'${matched}')`;
+  }
+};
+var RouterStateSnapshot = class extends Tree {
+  url;
+  constructor(url, root) {
+    super(root);
+    this.url = url;
+    setRouterState(this, root);
+  }
+  toString() {
+    return serializeNode(this._root);
+  }
+};
+function setRouterState(state2, node) {
+  node.value._routerState = state2;
+  node.children.forEach((c) => setRouterState(state2, c));
+}
+function serializeNode(node) {
+  const c = node.children.length > 0 ? ` { ${node.children.map(serializeNode).join(", ")} } ` : "";
+  return `${node.value}${c}`;
+}
+function advanceActivatedRoute(route) {
+  if (route.snapshot) {
+    const currentSnapshot = route.snapshot;
+    const nextSnapshot = route._futureSnapshot;
+    route.snapshot = nextSnapshot;
+    if (!shallowEqual(currentSnapshot.queryParams, nextSnapshot.queryParams)) {
+      route.queryParamsSubject.next(nextSnapshot.queryParams);
+    }
+    if (currentSnapshot.fragment !== nextSnapshot.fragment) {
+      route.fragmentSubject.next(nextSnapshot.fragment);
+    }
+    if (!shallowEqual(currentSnapshot.params, nextSnapshot.params)) {
+      route.paramsSubject.next(nextSnapshot.params);
+    }
+    if (!shallowEqualArrays(currentSnapshot.url, nextSnapshot.url)) {
+      route.urlSubject.next(nextSnapshot.url);
+    }
+    if (!shallowEqual(currentSnapshot.data, nextSnapshot.data)) {
+      route.dataSubject.next(nextSnapshot.data);
+    }
+  } else {
+    route.snapshot = route._futureSnapshot;
+    route.dataSubject.next(route._futureSnapshot.data);
+  }
+}
+function equalParamsAndUrlSegments(a, b) {
+  const equalUrlParams = shallowEqual(a.params, b.params) && equalSegments(a.url, b.url);
+  const parentsMismatch = !a.parent !== !b.parent;
+  return equalUrlParams && !parentsMismatch && (!a.parent || equalParamsAndUrlSegments(a.parent, b.parent));
+}
+function hasStaticTitle(config3) {
+  return typeof config3.title === "string" || config3.title === null;
+}
+var ROUTER_OUTLET_DATA = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "RouterOutlet data" : "");
+var RouterOutlet = class _RouterOutlet {
+  activated = null;
+  get activatedComponentRef() {
+    return this.activated;
+  }
+  _activatedRoute = null;
+  name = PRIMARY_OUTLET;
+  activateEvents = new EventEmitter();
+  deactivateEvents = new EventEmitter();
+  attachEvents = new EventEmitter();
+  detachEvents = new EventEmitter();
+  routerOutletData = input(...ngDevMode ? [void 0, {
+    debugName: "routerOutletData"
+  }] : []);
+  parentContexts = inject2(ChildrenOutletContexts);
+  location = inject2(ViewContainerRef);
+  changeDetector = inject2(ChangeDetectorRef);
+  inputBinder = inject2(INPUT_BINDER, {
+    optional: true
+  });
+  supportsBindingToComponentInputs = true;
+  ngOnChanges(changes) {
+    if (changes["name"]) {
+      const {
+        firstChange,
+        previousValue
+      } = changes["name"];
+      if (firstChange) {
+        return;
+      }
+      if (this.isTrackedInParentContexts(previousValue)) {
+        this.deactivate();
+        this.parentContexts.onChildOutletDestroyed(previousValue);
+      }
+      this.initializeOutletWithName();
+    }
+  }
+  ngOnDestroy() {
+    if (this.isTrackedInParentContexts(this.name)) {
+      this.parentContexts.onChildOutletDestroyed(this.name);
+    }
+    this.inputBinder?.unsubscribeFromRouteData(this);
+  }
+  isTrackedInParentContexts(outletName) {
+    return this.parentContexts.getContext(outletName)?.outlet === this;
+  }
+  ngOnInit() {
+    this.initializeOutletWithName();
+  }
+  initializeOutletWithName() {
+    this.parentContexts.onChildOutletCreated(this.name, this);
+    if (this.activated) {
+      return;
+    }
+    const context2 = this.parentContexts.getContext(this.name);
+    if (context2?.route) {
+      if (context2.attachRef) {
+        this.attach(context2.attachRef, context2.route);
+      } else {
+        this.activateWith(context2.route, context2.injector);
+      }
+    }
+  }
+  get isActivated() {
+    return !!this.activated;
+  }
+  get component() {
+    if (!this.activated) throw new RuntimeError(4012, (typeof ngDevMode === "undefined" || ngDevMode) && "Outlet is not activated");
+    return this.activated.instance;
+  }
+  get activatedRoute() {
+    if (!this.activated) throw new RuntimeError(4012, (typeof ngDevMode === "undefined" || ngDevMode) && "Outlet is not activated");
+    return this._activatedRoute;
+  }
+  get activatedRouteData() {
+    if (this._activatedRoute) {
+      return this._activatedRoute.snapshot.data;
+    }
+    return {};
+  }
+  detach() {
+    if (!this.activated) throw new RuntimeError(4012, (typeof ngDevMode === "undefined" || ngDevMode) && "Outlet is not activated");
+    this.location.detach();
+    const cmp = this.activated;
+    this.activated = null;
+    this._activatedRoute = null;
+    this.detachEvents.emit(cmp.instance);
+    return cmp;
+  }
+  attach(ref, activatedRoute) {
+    this.activated = ref;
+    this._activatedRoute = activatedRoute;
+    this.location.insert(ref.hostView);
+    this.inputBinder?.bindActivatedRouteToOutletComponent(this);
+    this.attachEvents.emit(ref.instance);
+  }
+  deactivate() {
+    if (this.activated) {
+      const c = this.component;
+      this.activated.destroy();
+      this.activated = null;
+      this._activatedRoute = null;
+      this.deactivateEvents.emit(c);
+    }
+  }
+  activateWith(activatedRoute, environmentInjector) {
+    if (this.isActivated) {
+      throw new RuntimeError(4013, (typeof ngDevMode === "undefined" || ngDevMode) && "Cannot activate an already activated outlet");
+    }
+    this._activatedRoute = activatedRoute;
+    const location2 = this.location;
+    const snapshot = activatedRoute.snapshot;
+    const component = snapshot.component;
+    const childContexts = this.parentContexts.getOrCreateContext(this.name).children;
+    const injector = new OutletInjector(activatedRoute, childContexts, location2.injector, this.routerOutletData);
+    this.activated = location2.createComponent(component, {
+      index: location2.length,
+      injector,
+      environmentInjector
+    });
+    this.changeDetector.markForCheck();
+    this.inputBinder?.bindActivatedRouteToOutletComponent(this);
+    this.activateEvents.emit(this.activated.instance);
+  }
+  static \u0275fac = function RouterOutlet_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _RouterOutlet)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _RouterOutlet,
+    selectors: [["router-outlet"]],
+    inputs: {
+      name: "name",
+      routerOutletData: [1, "routerOutletData"]
+    },
+    outputs: {
+      activateEvents: "activate",
+      deactivateEvents: "deactivate",
+      attachEvents: "attach",
+      detachEvents: "detach"
+    },
+    exportAs: ["outlet"],
+    features: [\u0275\u0275NgOnChangesFeature]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterOutlet, [{
+    type: Directive,
+    args: [{
+      selector: "router-outlet",
+      exportAs: "outlet"
+    }]
+  }], null, {
+    name: [{
+      type: Input
+    }],
+    activateEvents: [{
+      type: Output,
+      args: ["activate"]
+    }],
+    deactivateEvents: [{
+      type: Output,
+      args: ["deactivate"]
+    }],
+    attachEvents: [{
+      type: Output,
+      args: ["attach"]
+    }],
+    detachEvents: [{
+      type: Output,
+      args: ["detach"]
+    }],
+    routerOutletData: [{
+      type: Input,
+      args: [{
+        isSignal: true,
+        alias: "routerOutletData",
+        required: false
+      }]
+    }]
+  });
+})();
+var OutletInjector = class {
+  route;
+  childContexts;
+  parent;
+  outletData;
+  constructor(route, childContexts, parent, outletData) {
+    this.route = route;
+    this.childContexts = childContexts;
+    this.parent = parent;
+    this.outletData = outletData;
+  }
+  get(token, notFoundValue) {
+    if (token === ActivatedRoute) {
+      return this.route;
+    }
+    if (token === ChildrenOutletContexts) {
+      return this.childContexts;
+    }
+    if (token === ROUTER_OUTLET_DATA) {
+      return this.outletData;
+    }
+    return this.parent.get(token, notFoundValue);
+  }
+};
+var INPUT_BINDER = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "Router Input Binder" : "");
+var RoutedComponentInputBinder = class _RoutedComponentInputBinder {
+  outletDataSubscriptions = /* @__PURE__ */ new Map();
+  bindActivatedRouteToOutletComponent(outlet) {
+    this.unsubscribeFromRouteData(outlet);
+    this.subscribeToRouteData(outlet);
+  }
+  unsubscribeFromRouteData(outlet) {
+    this.outletDataSubscriptions.get(outlet)?.unsubscribe();
+    this.outletDataSubscriptions.delete(outlet);
+  }
+  subscribeToRouteData(outlet) {
+    const {
+      activatedRoute
+    } = outlet;
+    const dataSubscription = combineLatest([activatedRoute.queryParams, activatedRoute.params, activatedRoute.data]).pipe(switchMap(([queryParams, params, data], index) => {
+      data = __spreadValues(__spreadValues(__spreadValues({}, queryParams), params), data);
+      if (index === 0) {
+        return of(data);
+      }
+      return Promise.resolve(data);
+    })).subscribe((data) => {
+      if (!outlet.isActivated || !outlet.activatedComponentRef || outlet.activatedRoute !== activatedRoute || activatedRoute.component === null) {
+        this.unsubscribeFromRouteData(outlet);
+        return;
+      }
+      const mirror = reflectComponentType(activatedRoute.component);
+      if (!mirror) {
+        this.unsubscribeFromRouteData(outlet);
+        return;
+      }
+      for (const {
+        templateName
+      } of mirror.inputs) {
+        outlet.activatedComponentRef.setInput(templateName, data[templateName]);
+      }
+    });
+    this.outletDataSubscriptions.set(outlet, dataSubscription);
+  }
+  static \u0275fac = function RoutedComponentInputBinder_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _RoutedComponentInputBinder)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _RoutedComponentInputBinder,
+    factory: _RoutedComponentInputBinder.\u0275fac
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RoutedComponentInputBinder, [{
+    type: Injectable
+  }], null, null);
+})();
+var \u0275EmptyOutletComponent = class _\u0275EmptyOutletComponent {
+  static \u0275fac = function \u0275EmptyOutletComponent_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _\u0275EmptyOutletComponent)();
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _\u0275EmptyOutletComponent,
+    selectors: [["ng-component"]],
+    exportAs: ["emptyRouterOutlet"],
+    decls: 1,
+    vars: 0,
+    template: function _EmptyOutletComponent_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275element(0, "router-outlet");
+      }
+    },
+    dependencies: [RouterOutlet],
+    encapsulation: 2
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(\u0275EmptyOutletComponent, [{
+    type: Component,
+    args: [{
+      template: `<router-outlet />`,
+      imports: [RouterOutlet],
+      exportAs: "emptyRouterOutlet"
+    }]
+  }], null, null);
+})();
+function standardizeConfig(r) {
+  const children = r.children && r.children.map(standardizeConfig);
+  const c = children ? __spreadProps(__spreadValues({}, r), {
+    children
+  }) : __spreadValues({}, r);
+  if (!c.component && !c.loadComponent && (children || c.loadChildren) && c.outlet && c.outlet !== PRIMARY_OUTLET) {
+    c.component = \u0275EmptyOutletComponent;
+  }
+  return c;
+}
+function createRouterState(routeReuseStrategy, curr, prevState) {
+  const root = createNode(routeReuseStrategy, curr._root, prevState ? prevState._root : void 0);
+  return new RouterState(root, curr);
+}
+function createNode(routeReuseStrategy, curr, prevState) {
+  if (prevState && routeReuseStrategy.shouldReuseRoute(curr.value, prevState.value.snapshot)) {
+    const value = prevState.value;
+    value._futureSnapshot = curr.value;
+    const children = createOrReuseChildren(routeReuseStrategy, curr, prevState);
+    return new TreeNode(value, children);
+  } else {
+    if (routeReuseStrategy.shouldAttach(curr.value)) {
+      const detachedRouteHandle = routeReuseStrategy.retrieve(curr.value);
+      if (detachedRouteHandle !== null) {
+        const tree2 = detachedRouteHandle.route;
+        tree2.value._futureSnapshot = curr.value;
+        tree2.children = curr.children.map((c) => createNode(routeReuseStrategy, c));
+        return tree2;
+      }
+    }
+    const value = createActivatedRoute(curr.value);
+    const children = curr.children.map((c) => createNode(routeReuseStrategy, c));
+    return new TreeNode(value, children);
+  }
+}
+function createOrReuseChildren(routeReuseStrategy, curr, prevState) {
+  return curr.children.map((child) => {
+    for (const p of prevState.children) {
+      if (routeReuseStrategy.shouldReuseRoute(child.value, p.value.snapshot)) {
+        return createNode(routeReuseStrategy, child, p);
+      }
+    }
+    return createNode(routeReuseStrategy, child);
+  });
+}
+function createActivatedRoute(c) {
+  return new ActivatedRoute(new BehaviorSubject(c.url), new BehaviorSubject(c.params), new BehaviorSubject(c.queryParams), new BehaviorSubject(c.fragment), new BehaviorSubject(c.data), c.outlet, c.component, c);
+}
+var RedirectCommand = class {
+  redirectTo;
+  navigationBehaviorOptions;
+  constructor(redirectTo, navigationBehaviorOptions) {
+    this.redirectTo = redirectTo;
+    this.navigationBehaviorOptions = navigationBehaviorOptions;
+  }
+};
+var NAVIGATION_CANCELING_ERROR = "ngNavigationCancelingError";
+function redirectingNavigationError(urlSerializer, redirect) {
+  const {
+    redirectTo,
+    navigationBehaviorOptions
+  } = isUrlTree(redirect) ? {
+    redirectTo: redirect,
+    navigationBehaviorOptions: void 0
+  } : redirect;
+  const error2 = navigationCancelingError(ngDevMode && `Redirecting to "${urlSerializer.serialize(redirectTo)}"`, NavigationCancellationCode.Redirect);
+  error2.url = redirectTo;
+  error2.navigationBehaviorOptions = navigationBehaviorOptions;
+  return error2;
+}
+function navigationCancelingError(message, code) {
+  const error2 = new Error(`NavigationCancelingError: ${message || ""}`);
+  error2[NAVIGATION_CANCELING_ERROR] = true;
+  error2.cancellationCode = code;
+  return error2;
+}
+function isRedirectingNavigationCancelingError(error2) {
+  return isNavigationCancelingError(error2) && isUrlTree(error2.url);
+}
+function isNavigationCancelingError(error2) {
+  return !!error2 && error2[NAVIGATION_CANCELING_ERROR];
+}
+var warnedAboutUnsupportedInputBinding = false;
+var ActivateRoutes = class {
+  routeReuseStrategy;
+  futureState;
+  currState;
+  forwardEvent;
+  inputBindingEnabled;
+  constructor(routeReuseStrategy, futureState, currState, forwardEvent, inputBindingEnabled) {
+    this.routeReuseStrategy = routeReuseStrategy;
+    this.futureState = futureState;
+    this.currState = currState;
+    this.forwardEvent = forwardEvent;
+    this.inputBindingEnabled = inputBindingEnabled;
+  }
+  activate(parentContexts) {
+    const futureRoot = this.futureState._root;
+    const currRoot = this.currState ? this.currState._root : null;
+    this.deactivateChildRoutes(futureRoot, currRoot, parentContexts);
+    advanceActivatedRoute(this.futureState.root);
+    this.activateChildRoutes(futureRoot, currRoot, parentContexts);
+  }
+  deactivateChildRoutes(futureNode, currNode, contexts) {
+    const children = nodeChildrenAsMap(currNode);
+    futureNode.children.forEach((futureChild) => {
+      const childOutletName = futureChild.value.outlet;
+      this.deactivateRoutes(futureChild, children[childOutletName], contexts);
+      delete children[childOutletName];
+    });
+    Object.values(children).forEach((v) => {
+      this.deactivateRouteAndItsChildren(v, contexts);
+    });
+  }
+  deactivateRoutes(futureNode, currNode, parentContext) {
+    const future = futureNode.value;
+    const curr = currNode ? currNode.value : null;
+    if (future === curr) {
+      if (future.component) {
+        const context2 = parentContext.getContext(future.outlet);
+        if (context2) {
+          this.deactivateChildRoutes(futureNode, currNode, context2.children);
+        }
+      } else {
+        this.deactivateChildRoutes(futureNode, currNode, parentContext);
+      }
+    } else {
+      if (curr) {
+        this.deactivateRouteAndItsChildren(currNode, parentContext);
+      }
+    }
+  }
+  deactivateRouteAndItsChildren(route, parentContexts) {
+    if (route.value.component && this.routeReuseStrategy.shouldDetach(route.value.snapshot)) {
+      this.detachAndStoreRouteSubtree(route, parentContexts);
+    } else {
+      this.deactivateRouteAndOutlet(route, parentContexts);
+    }
+  }
+  detachAndStoreRouteSubtree(route, parentContexts) {
+    const context2 = parentContexts.getContext(route.value.outlet);
+    const contexts = context2 && route.value.component ? context2.children : parentContexts;
+    const children = nodeChildrenAsMap(route);
+    for (const treeNode of Object.values(children)) {
+      this.deactivateRouteAndItsChildren(treeNode, contexts);
+    }
+    if (context2 && context2.outlet) {
+      const componentRef = context2.outlet.detach();
+      const contexts2 = context2.children.onOutletDeactivated();
+      this.routeReuseStrategy.store(route.value.snapshot, {
+        componentRef,
+        route,
+        contexts: contexts2
+      });
+    }
+  }
+  deactivateRouteAndOutlet(route, parentContexts) {
+    const context2 = parentContexts.getContext(route.value.outlet);
+    const contexts = context2 && route.value.component ? context2.children : parentContexts;
+    const children = nodeChildrenAsMap(route);
+    for (const treeNode of Object.values(children)) {
+      this.deactivateRouteAndItsChildren(treeNode, contexts);
+    }
+    if (context2) {
+      if (context2.outlet) {
+        context2.outlet.deactivate();
+        context2.children.onOutletDeactivated();
+      }
+      context2.attachRef = null;
+      context2.route = null;
+    }
+  }
+  activateChildRoutes(futureNode, currNode, contexts) {
+    const children = nodeChildrenAsMap(currNode);
+    futureNode.children.forEach((c) => {
+      this.activateRoutes(c, children[c.value.outlet], contexts);
+      this.forwardEvent(new ActivationEnd(c.value.snapshot));
+    });
+    if (futureNode.children.length) {
+      this.forwardEvent(new ChildActivationEnd(futureNode.value.snapshot));
+    }
+  }
+  activateRoutes(futureNode, currNode, parentContexts) {
+    const future = futureNode.value;
+    const curr = currNode ? currNode.value : null;
+    advanceActivatedRoute(future);
+    if (future === curr) {
+      if (future.component) {
+        const context2 = parentContexts.getOrCreateContext(future.outlet);
+        this.activateChildRoutes(futureNode, currNode, context2.children);
+      } else {
+        this.activateChildRoutes(futureNode, currNode, parentContexts);
+      }
+    } else {
+      if (future.component) {
+        const context2 = parentContexts.getOrCreateContext(future.outlet);
+        if (this.routeReuseStrategy.shouldAttach(future.snapshot)) {
+          const stored = this.routeReuseStrategy.retrieve(future.snapshot);
+          this.routeReuseStrategy.store(future.snapshot, null);
+          context2.children.onOutletReAttached(stored.contexts);
+          context2.attachRef = stored.componentRef;
+          context2.route = stored.route.value;
+          if (context2.outlet) {
+            context2.outlet.attach(stored.componentRef, stored.route.value);
+          }
+          advanceActivatedRoute(stored.route.value);
+          this.activateChildRoutes(futureNode, null, context2.children);
+        } else {
+          context2.attachRef = null;
+          context2.route = future;
+          if (context2.outlet) {
+            context2.outlet.activateWith(future, context2.injector);
+          }
+          this.activateChildRoutes(futureNode, null, context2.children);
+        }
+      } else {
+        this.activateChildRoutes(futureNode, null, parentContexts);
+      }
+    }
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      const context2 = parentContexts.getOrCreateContext(future.outlet);
+      const outlet = context2.outlet;
+      if (outlet && this.inputBindingEnabled && !outlet.supportsBindingToComponentInputs && !warnedAboutUnsupportedInputBinding) {
+        console.warn(`'withComponentInputBinding' feature is enabled but this application is using an outlet that may not support binding to component inputs.`);
+        warnedAboutUnsupportedInputBinding = true;
+      }
+    }
+  }
+};
+var CanActivate = class {
+  path;
+  route;
+  constructor(path) {
+    this.path = path;
+    this.route = this.path[this.path.length - 1];
+  }
+};
+var CanDeactivate = class {
+  component;
+  route;
+  constructor(component, route) {
+    this.component = component;
+    this.route = route;
+  }
+};
+function getAllRouteGuards(future, curr, parentContexts) {
+  const futureRoot = future._root;
+  const currRoot = curr ? curr._root : null;
+  return getChildRouteGuards(futureRoot, currRoot, parentContexts, [futureRoot.value]);
+}
+function getCanActivateChild(p) {
+  const canActivateChild = p.routeConfig ? p.routeConfig.canActivateChild : null;
+  if (!canActivateChild || canActivateChild.length === 0) return null;
+  return {
+    node: p,
+    guards: canActivateChild
+  };
+}
+function getTokenOrFunctionIdentity(tokenOrFunction, injector) {
+  const NOT_FOUND3 = /* @__PURE__ */ Symbol();
+  const result = injector.get(tokenOrFunction, NOT_FOUND3);
+  if (result === NOT_FOUND3) {
+    if (typeof tokenOrFunction === "function" && !isInjectable(tokenOrFunction)) {
+      return tokenOrFunction;
+    } else {
+      return injector.get(tokenOrFunction);
+    }
+  }
+  return result;
+}
+function getChildRouteGuards(futureNode, currNode, contexts, futurePath, checks = {
+  canDeactivateChecks: [],
+  canActivateChecks: []
+}) {
+  const prevChildren = nodeChildrenAsMap(currNode);
+  futureNode.children.forEach((c) => {
+    getRouteGuards(c, prevChildren[c.value.outlet], contexts, futurePath.concat([c.value]), checks);
+    delete prevChildren[c.value.outlet];
+  });
+  Object.entries(prevChildren).forEach(([k, v]) => deactivateRouteAndItsChildren(v, contexts.getContext(k), checks));
+  return checks;
+}
+function getRouteGuards(futureNode, currNode, parentContexts, futurePath, checks = {
+  canDeactivateChecks: [],
+  canActivateChecks: []
+}) {
+  const future = futureNode.value;
+  const curr = currNode ? currNode.value : null;
+  const context2 = parentContexts ? parentContexts.getContext(futureNode.value.outlet) : null;
+  if (curr && future.routeConfig === curr.routeConfig) {
+    const shouldRun = shouldRunGuardsAndResolvers(curr, future, future.routeConfig.runGuardsAndResolvers);
+    if (shouldRun) {
+      checks.canActivateChecks.push(new CanActivate(futurePath));
+    } else {
+      future.data = curr.data;
+      future._resolvedData = curr._resolvedData;
+    }
+    if (future.component) {
+      getChildRouteGuards(futureNode, currNode, context2 ? context2.children : null, futurePath, checks);
+    } else {
+      getChildRouteGuards(futureNode, currNode, parentContexts, futurePath, checks);
+    }
+    if (shouldRun && context2 && context2.outlet && context2.outlet.isActivated) {
+      checks.canDeactivateChecks.push(new CanDeactivate(context2.outlet.component, curr));
+    }
+  } else {
+    if (curr) {
+      deactivateRouteAndItsChildren(currNode, context2, checks);
+    }
+    checks.canActivateChecks.push(new CanActivate(futurePath));
+    if (future.component) {
+      getChildRouteGuards(futureNode, null, context2 ? context2.children : null, futurePath, checks);
+    } else {
+      getChildRouteGuards(futureNode, null, parentContexts, futurePath, checks);
+    }
+  }
+  return checks;
+}
+function shouldRunGuardsAndResolvers(curr, future, mode) {
+  if (typeof mode === "function") {
+    return runInInjectionContext(future._environmentInjector, () => mode(curr, future));
+  }
+  switch (mode) {
+    case "pathParamsChange":
+      return !equalPath(curr.url, future.url);
+    case "pathParamsOrQueryParamsChange":
+      return !equalPath(curr.url, future.url) || !shallowEqual(curr.queryParams, future.queryParams);
+    case "always":
+      return true;
+    case "paramsOrQueryParamsChange":
+      return !equalParamsAndUrlSegments(curr, future) || !shallowEqual(curr.queryParams, future.queryParams);
+    case "paramsChange":
+    default:
+      return !equalParamsAndUrlSegments(curr, future);
+  }
+}
+function deactivateRouteAndItsChildren(route, context2, checks) {
+  const children = nodeChildrenAsMap(route);
+  const r = route.value;
+  Object.entries(children).forEach(([childName, node]) => {
+    if (!r.component) {
+      deactivateRouteAndItsChildren(node, context2, checks);
+    } else if (context2) {
+      deactivateRouteAndItsChildren(node, context2.children.getContext(childName), checks);
+    } else {
+      deactivateRouteAndItsChildren(node, null, checks);
+    }
+  });
+  if (!r.component) {
+    checks.canDeactivateChecks.push(new CanDeactivate(null, r));
+  } else if (context2 && context2.outlet && context2.outlet.isActivated) {
+    checks.canDeactivateChecks.push(new CanDeactivate(context2.outlet.component, r));
+  } else {
+    checks.canDeactivateChecks.push(new CanDeactivate(null, r));
+  }
+}
+function isFunction2(v) {
+  return typeof v === "function";
+}
+function isBoolean(v) {
+  return typeof v === "boolean";
+}
+function isCanLoad(guard) {
+  return guard && isFunction2(guard.canLoad);
+}
+function isCanActivate(guard) {
+  return guard && isFunction2(guard.canActivate);
+}
+function isCanActivateChild(guard) {
+  return guard && isFunction2(guard.canActivateChild);
+}
+function isCanDeactivate(guard) {
+  return guard && isFunction2(guard.canDeactivate);
+}
+function isCanMatch(guard) {
+  return guard && isFunction2(guard.canMatch);
+}
+function isEmptyError(e) {
+  return e instanceof EmptyError || e?.name === "EmptyError";
+}
+var INITIAL_VALUE = /* @__PURE__ */ Symbol("INITIAL_VALUE");
+function prioritizedGuardValue() {
+  return switchMap((obs) => {
+    return combineLatest(obs.map((o) => o.pipe(take(1), startWith(INITIAL_VALUE)))).pipe(map((results) => {
+      for (const result of results) {
+        if (result === true) {
+          continue;
+        } else if (result === INITIAL_VALUE) {
+          return INITIAL_VALUE;
+        } else if (result === false || isRedirect(result)) {
+          return result;
+        }
+      }
+      return true;
+    }), filter((item) => item !== INITIAL_VALUE), take(1));
+  });
+}
+function isRedirect(val) {
+  return isUrlTree(val) || val instanceof RedirectCommand;
+}
+function abortSignalToObservable(signal2) {
+  if (signal2.aborted) {
+    return of(void 0).pipe(take(1));
+  }
+  return new Observable((subscriber) => {
+    const handler = () => {
+      subscriber.next();
+      subscriber.complete();
+    };
+    signal2.addEventListener("abort", handler);
+    return () => signal2.removeEventListener("abort", handler);
+  });
+}
+function takeUntilAbort(signal2) {
+  return takeUntil(abortSignalToObservable(signal2));
+}
+function checkGuards(forwardEvent) {
+  return mergeMap((t) => {
+    const {
+      targetSnapshot,
+      currentSnapshot,
+      guards: {
+        canActivateChecks,
+        canDeactivateChecks
+      }
+    } = t;
+    if (canDeactivateChecks.length === 0 && canActivateChecks.length === 0) {
+      return of(__spreadProps(__spreadValues({}, t), {
+        guardsResult: true
+      }));
+    }
+    return runCanDeactivateChecks(canDeactivateChecks, targetSnapshot, currentSnapshot).pipe(mergeMap((canDeactivate) => {
+      return canDeactivate && isBoolean(canDeactivate) ? runCanActivateChecks(targetSnapshot, canActivateChecks, forwardEvent) : of(canDeactivate);
+    }), map((guardsResult) => __spreadProps(__spreadValues({}, t), {
+      guardsResult
+    })));
+  });
+}
+function runCanDeactivateChecks(checks, futureRSS, currRSS) {
+  return from(checks).pipe(mergeMap((check) => runCanDeactivate(check.component, check.route, currRSS, futureRSS)), first((result) => {
+    return result !== true;
+  }, true));
+}
+function runCanActivateChecks(futureSnapshot, checks, forwardEvent) {
+  return from(checks).pipe(concatMap((check) => {
+    return concat(fireChildActivationStart(check.route.parent, forwardEvent), fireActivationStart(check.route, forwardEvent), runCanActivateChild(futureSnapshot, check.path), runCanActivate(futureSnapshot, check.route));
+  }), first((result) => {
+    return result !== true;
+  }, true));
+}
+function fireActivationStart(snapshot, forwardEvent) {
+  if (snapshot !== null && forwardEvent) {
+    forwardEvent(new ActivationStart(snapshot));
+  }
+  return of(true);
+}
+function fireChildActivationStart(snapshot, forwardEvent) {
+  if (snapshot !== null && forwardEvent) {
+    forwardEvent(new ChildActivationStart(snapshot));
+  }
+  return of(true);
+}
+function runCanActivate(futureRSS, futureARS) {
+  const canActivate = futureARS.routeConfig ? futureARS.routeConfig.canActivate : null;
+  if (!canActivate || canActivate.length === 0) return of(true);
+  const canActivateObservables = canActivate.map((canActivate2) => {
+    return defer(() => {
+      const closestInjector = futureARS._environmentInjector;
+      const guard = getTokenOrFunctionIdentity(canActivate2, closestInjector);
+      const guardVal = isCanActivate(guard) ? guard.canActivate(futureARS, futureRSS) : runInInjectionContext(closestInjector, () => guard(futureARS, futureRSS));
+      return wrapIntoObservable(guardVal).pipe(first());
+    });
+  });
+  return of(canActivateObservables).pipe(prioritizedGuardValue());
+}
+function runCanActivateChild(futureRSS, path) {
+  const futureARS = path[path.length - 1];
+  const canActivateChildGuards = path.slice(0, path.length - 1).reverse().map((p) => getCanActivateChild(p)).filter((_) => _ !== null);
+  const canActivateChildGuardsMapped = canActivateChildGuards.map((d) => {
+    return defer(() => {
+      const guardsMapped = d.guards.map((canActivateChild) => {
+        const closestInjector = d.node._environmentInjector;
+        const guard = getTokenOrFunctionIdentity(canActivateChild, closestInjector);
+        const guardVal = isCanActivateChild(guard) ? guard.canActivateChild(futureARS, futureRSS) : runInInjectionContext(closestInjector, () => guard(futureARS, futureRSS));
+        return wrapIntoObservable(guardVal).pipe(first());
+      });
+      return of(guardsMapped).pipe(prioritizedGuardValue());
+    });
+  });
+  return of(canActivateChildGuardsMapped).pipe(prioritizedGuardValue());
+}
+function runCanDeactivate(component, currARS, currRSS, futureRSS) {
+  const canDeactivate = currARS && currARS.routeConfig ? currARS.routeConfig.canDeactivate : null;
+  if (!canDeactivate || canDeactivate.length === 0) return of(true);
+  const canDeactivateObservables = canDeactivate.map((c) => {
+    const closestInjector = currARS._environmentInjector;
+    const guard = getTokenOrFunctionIdentity(c, closestInjector);
+    const guardVal = isCanDeactivate(guard) ? guard.canDeactivate(component, currARS, currRSS, futureRSS) : runInInjectionContext(closestInjector, () => guard(component, currARS, currRSS, futureRSS));
+    return wrapIntoObservable(guardVal).pipe(first());
+  });
+  return of(canDeactivateObservables).pipe(prioritizedGuardValue());
+}
+function runCanLoadGuards(injector, route, segments, urlSerializer, abortSignal) {
+  const canLoad = route.canLoad;
+  if (canLoad === void 0 || canLoad.length === 0) {
+    return of(true);
+  }
+  const canLoadObservables = canLoad.map((injectionToken) => {
+    const guard = getTokenOrFunctionIdentity(injectionToken, injector);
+    const guardVal = isCanLoad(guard) ? guard.canLoad(route, segments) : runInInjectionContext(injector, () => guard(route, segments));
+    const obs$ = wrapIntoObservable(guardVal);
+    return abortSignal ? obs$.pipe(takeUntilAbort(abortSignal)) : obs$;
+  });
+  return of(canLoadObservables).pipe(prioritizedGuardValue(), redirectIfUrlTree(urlSerializer));
+}
+function redirectIfUrlTree(urlSerializer) {
+  return pipe(tap((result) => {
+    if (typeof result === "boolean") return;
+    throw redirectingNavigationError(urlSerializer, result);
+  }), map((result) => result === true));
+}
+function runCanMatchGuards(injector, route, segments, urlSerializer, abortSignal) {
+  const canMatch = route.canMatch;
+  if (!canMatch || canMatch.length === 0) return of(true);
+  const canMatchObservables = canMatch.map((injectionToken) => {
+    const guard = getTokenOrFunctionIdentity(injectionToken, injector);
+    const guardVal = isCanMatch(guard) ? guard.canMatch(route, segments) : runInInjectionContext(injector, () => guard(route, segments));
+    return wrapIntoObservable(guardVal).pipe(takeUntilAbort(abortSignal));
+  });
+  return of(canMatchObservables).pipe(prioritizedGuardValue(), redirectIfUrlTree(urlSerializer));
+}
+var NoMatch = class _NoMatch extends Error {
+  segmentGroup;
+  constructor(segmentGroup) {
+    super();
+    this.segmentGroup = segmentGroup || null;
+    Object.setPrototypeOf(this, _NoMatch.prototype);
+  }
+};
+var AbsoluteRedirect = class _AbsoluteRedirect extends Error {
+  urlTree;
+  constructor(urlTree) {
+    super();
+    this.urlTree = urlTree;
+    Object.setPrototypeOf(this, _AbsoluteRedirect.prototype);
+  }
+};
+function namedOutletsRedirect(redirectTo) {
+  throw new RuntimeError(4e3, (typeof ngDevMode === "undefined" || ngDevMode) && `Only absolute redirects can have named outlets. redirectTo: '${redirectTo}'`);
+}
+function canLoadFails(route) {
+  throw navigationCancelingError((typeof ngDevMode === "undefined" || ngDevMode) && `Cannot load children because the guard of the route "path: '${route.path}'" returned false`, NavigationCancellationCode.GuardRejected);
+}
+var ApplyRedirects = class {
+  urlSerializer;
+  urlTree;
+  constructor(urlSerializer, urlTree) {
+    this.urlSerializer = urlSerializer;
+    this.urlTree = urlTree;
+  }
+  lineralizeSegments(route, urlTree) {
+    return __async(this, null, function* () {
+      let res = [];
+      let c = urlTree.root;
+      while (true) {
+        res = res.concat(c.segments);
+        if (c.numberOfChildren === 0) {
+          return res;
+        }
+        if (c.numberOfChildren > 1 || !c.children[PRIMARY_OUTLET]) {
+          throw namedOutletsRedirect(`${route.redirectTo}`);
+        }
+        c = c.children[PRIMARY_OUTLET];
+      }
+    });
+  }
+  applyRedirectCommands(segments, redirectTo, posParams, currentSnapshot, injector) {
+    return __async(this, null, function* () {
+      const redirect = yield getRedirectResult(redirectTo, currentSnapshot, injector);
+      if (redirect instanceof UrlTree) {
+        throw new AbsoluteRedirect(redirect);
+      }
+      const newTree = this.applyRedirectCreateUrlTree(redirect, this.urlSerializer.parse(redirect), segments, posParams);
+      if (redirect[0] === "/") {
+        throw new AbsoluteRedirect(newTree);
+      }
+      return newTree;
+    });
+  }
+  applyRedirectCreateUrlTree(redirectTo, urlTree, segments, posParams) {
+    const newRoot = this.createSegmentGroup(redirectTo, urlTree.root, segments, posParams);
+    return new UrlTree(newRoot, this.createQueryParams(urlTree.queryParams, this.urlTree.queryParams), urlTree.fragment);
+  }
+  createQueryParams(redirectToParams, actualParams) {
+    const res = {};
+    Object.entries(redirectToParams).forEach(([k, v]) => {
+      const copySourceValue = typeof v === "string" && v[0] === ":";
+      if (copySourceValue) {
+        const sourceName = v.substring(1);
+        res[k] = actualParams[sourceName];
+      } else {
+        res[k] = v;
+      }
+    });
+    return res;
+  }
+  createSegmentGroup(redirectTo, group2, segments, posParams) {
+    const updatedSegments = this.createSegments(redirectTo, group2.segments, segments, posParams);
+    let children = {};
+    Object.entries(group2.children).forEach(([name, child]) => {
+      children[name] = this.createSegmentGroup(redirectTo, child, segments, posParams);
+    });
+    return new UrlSegmentGroup(updatedSegments, children);
+  }
+  createSegments(redirectTo, redirectToSegments, actualSegments, posParams) {
+    return redirectToSegments.map((s) => s.path[0] === ":" ? this.findPosParam(redirectTo, s, posParams) : this.findOrReturn(s, actualSegments));
+  }
+  findPosParam(redirectTo, redirectToUrlSegment, posParams) {
+    const pos = posParams[redirectToUrlSegment.path.substring(1)];
+    if (!pos) throw new RuntimeError(4001, (typeof ngDevMode === "undefined" || ngDevMode) && `Cannot redirect to '${redirectTo}'. Cannot find '${redirectToUrlSegment.path}'.`);
+    return pos;
+  }
+  findOrReturn(redirectToUrlSegment, actualSegments) {
+    let idx = 0;
+    for (const s of actualSegments) {
+      if (s.path === redirectToUrlSegment.path) {
+        actualSegments.splice(idx);
+        return s;
+      }
+      idx++;
+    }
+    return redirectToUrlSegment;
+  }
+};
+function getRedirectResult(redirectTo, currentSnapshot, injector) {
+  if (typeof redirectTo === "string") {
+    return Promise.resolve(redirectTo);
+  }
+  const redirectToFn = redirectTo;
+  const {
+    queryParams,
+    fragment: fragment2,
+    routeConfig,
+    url,
+    outlet,
+    params,
+    data,
+    title,
+    paramMap,
+    queryParamMap
+  } = currentSnapshot;
+  return firstValueFrom2(wrapIntoObservable(runInInjectionContext(injector, () => redirectToFn({
+    params,
+    data,
+    queryParams,
+    fragment: fragment2,
+    routeConfig,
+    url,
+    outlet,
+    title,
+    paramMap,
+    queryParamMap
+  }))));
+}
+function getOrCreateRouteInjectorIfNeeded(route, currentInjector) {
+  if (route.providers && !route._injector) {
+    route._injector = createEnvironmentInjector(route.providers, currentInjector, `Route: ${route.path}`);
+  }
+  return route._injector ?? currentInjector;
+}
+function validateConfig(config3, parentPath = "", requireStandaloneComponents = false) {
+  for (let i = 0; i < config3.length; i++) {
+    const route = config3[i];
+    const fullPath = getFullPath(parentPath, route);
+    validateNode(route, fullPath, requireStandaloneComponents);
+  }
+}
+function assertStandalone(fullPath, component) {
+  if (component && isNgModule(component)) {
+    throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}'. You are using 'loadComponent' with a module, but it must be used with standalone components. Use 'loadChildren' instead.`);
+  } else if (component && !isStandalone(component)) {
+    throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}'. The component must be standalone.`);
+  }
+}
+function validateNode(route, fullPath, requireStandaloneComponents) {
+  if (typeof ngDevMode === "undefined" || ngDevMode) {
+    if (!route) {
+      throw new RuntimeError(4014, `
+      Invalid configuration of route '${fullPath}': Encountered undefined route.
+      The reason might be an extra comma.
+
+      Example:
+      const routes: Routes = [
+        { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+        { path: 'dashboard',  component: DashboardComponent },, << two commas
+        { path: 'detail/:id', component: HeroDetailComponent }
+      ];
+    `);
+    }
+    if (Array.isArray(route)) {
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': Array cannot be specified`);
+    }
+    if (!route.redirectTo && !route.component && !route.loadComponent && !route.children && !route.loadChildren && route.outlet && route.outlet !== PRIMARY_OUTLET) {
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': a componentless route without children or loadChildren cannot have a named outlet set`);
+    }
+    if (route.redirectTo && route.children) {
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and children cannot be used together`);
+    }
+    if (route.redirectTo && route.loadChildren) {
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and loadChildren cannot be used together`);
+    }
+    if (route.children && route.loadChildren) {
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': children and loadChildren cannot be used together`);
+    }
+    if (route.component && route.loadComponent) {
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': component and loadComponent cannot be used together`);
+    }
+    if (route.redirectTo) {
+      if (route.component || route.loadComponent) {
+        throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and component/loadComponent cannot be used together`);
+      }
+      if (route.canMatch || route.canActivate) {
+        throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and ${route.canMatch ? "canMatch" : "canActivate"} cannot be used together.Redirects happen before guards are executed.`);
+      }
+    }
+    if (route.path && route.matcher) {
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': path and matcher cannot be used together`);
+    }
+    if (route.redirectTo === void 0 && !route.component && !route.loadComponent && !route.children && !route.loadChildren) {
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}'. One of the following must be provided: component, loadComponent, redirectTo, children or loadChildren`);
+    }
+    if (route.path === void 0 && route.matcher === void 0) {
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': routes must have either a path or a matcher specified`);
+    }
+    if (typeof route.path === "string" && route.path.charAt(0) === "/") {
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': path cannot start with a slash`);
+    }
+    if (route.path === "" && route.redirectTo !== void 0 && route.pathMatch === void 0) {
+      const exp = `The default value of 'pathMatch' is 'prefix', but often the intent is to use 'full'.`;
+      throw new RuntimeError(4014, `Invalid configuration of route '{path: "${fullPath}", redirectTo: "${route.redirectTo}"}': please provide 'pathMatch'. ${exp}`);
+    }
+    if (requireStandaloneComponents) {
+      assertStandalone(fullPath, route.component);
+    }
+  }
+  if (route.children) {
+    validateConfig(route.children, fullPath, requireStandaloneComponents);
+  }
+}
+function getFullPath(parentPath, currentRoute) {
+  if (!currentRoute) {
+    return parentPath;
+  }
+  if (!parentPath && !currentRoute.path) {
+    return "";
+  } else if (parentPath && !currentRoute.path) {
+    return `${parentPath}/`;
+  } else if (!parentPath && currentRoute.path) {
+    return currentRoute.path;
+  } else {
+    return `${parentPath}/${currentRoute.path}`;
+  }
+}
+function getOutlet(route) {
+  return route.outlet || PRIMARY_OUTLET;
+}
+function sortByMatchingOutlets(routes2, outletName) {
+  const sortedConfig = routes2.filter((r) => getOutlet(r) === outletName);
+  sortedConfig.push(...routes2.filter((r) => getOutlet(r) !== outletName));
+  return sortedConfig;
+}
+var noMatch = {
+  matched: false,
+  consumedSegments: [],
+  remainingSegments: [],
+  parameters: {},
+  positionalParamSegments: {}
+};
+function matchWithChecks(segmentGroup, route, segments, injector, urlSerializer, abortSignal) {
+  const result = match(segmentGroup, route, segments);
+  if (!result.matched) {
+    return of(result);
+  }
+  injector = getOrCreateRouteInjectorIfNeeded(route, injector);
+  return runCanMatchGuards(injector, route, segments, urlSerializer, abortSignal).pipe(map((v) => v === true ? result : __spreadValues({}, noMatch)));
+}
+function match(segmentGroup, route, segments) {
+  if (route.path === "") {
+    if (route.pathMatch === "full" && (segmentGroup.hasChildren() || segments.length > 0)) {
+      return __spreadValues({}, noMatch);
+    }
+    return {
+      matched: true,
+      consumedSegments: [],
+      remainingSegments: segments,
+      parameters: {},
+      positionalParamSegments: {}
+    };
+  }
+  const matcher = route.matcher || defaultUrlMatcher;
+  const res = matcher(segments, segmentGroup, route);
+  if (!res) return __spreadValues({}, noMatch);
+  const posParams = {};
+  Object.entries(res.posParams ?? {}).forEach(([k, v]) => {
+    posParams[k] = v.path;
+  });
+  const parameters = res.consumed.length > 0 ? __spreadValues(__spreadValues({}, posParams), res.consumed[res.consumed.length - 1].parameters) : posParams;
+  return {
+    matched: true,
+    consumedSegments: res.consumed,
+    remainingSegments: segments.slice(res.consumed.length),
+    parameters,
+    positionalParamSegments: res.posParams ?? {}
+  };
+}
+function split(segmentGroup, consumedSegments, slicedSegments, config3) {
+  if (slicedSegments.length > 0 && containsEmptyPathMatchesWithNamedOutlets(segmentGroup, slicedSegments, config3)) {
+    const s2 = new UrlSegmentGroup(consumedSegments, createChildrenForEmptyPaths(config3, new UrlSegmentGroup(slicedSegments, segmentGroup.children)));
+    return {
+      segmentGroup: s2,
+      slicedSegments: []
+    };
+  }
+  if (slicedSegments.length === 0 && containsEmptyPathMatches(segmentGroup, slicedSegments, config3)) {
+    const s2 = new UrlSegmentGroup(segmentGroup.segments, addEmptyPathsToChildrenIfNeeded(segmentGroup, slicedSegments, config3, segmentGroup.children));
+    return {
+      segmentGroup: s2,
+      slicedSegments
+    };
+  }
+  const s = new UrlSegmentGroup(segmentGroup.segments, segmentGroup.children);
+  return {
+    segmentGroup: s,
+    slicedSegments
+  };
+}
+function addEmptyPathsToChildrenIfNeeded(segmentGroup, slicedSegments, routes2, children) {
+  const res = {};
+  for (const r of routes2) {
+    if (emptyPathMatch(segmentGroup, slicedSegments, r) && !children[getOutlet(r)]) {
+      const s = new UrlSegmentGroup([], {});
+      res[getOutlet(r)] = s;
+    }
+  }
+  return __spreadValues(__spreadValues({}, children), res);
+}
+function createChildrenForEmptyPaths(routes2, primarySegment) {
+  const res = {};
+  res[PRIMARY_OUTLET] = primarySegment;
+  for (const r of routes2) {
+    if (r.path === "" && getOutlet(r) !== PRIMARY_OUTLET) {
+      const s = new UrlSegmentGroup([], {});
+      res[getOutlet(r)] = s;
+    }
+  }
+  return res;
+}
+function containsEmptyPathMatchesWithNamedOutlets(segmentGroup, slicedSegments, routes2) {
+  return routes2.some((r) => emptyPathMatch(segmentGroup, slicedSegments, r) && getOutlet(r) !== PRIMARY_OUTLET);
+}
+function containsEmptyPathMatches(segmentGroup, slicedSegments, routes2) {
+  return routes2.some((r) => emptyPathMatch(segmentGroup, slicedSegments, r));
+}
+function emptyPathMatch(segmentGroup, slicedSegments, r) {
+  if ((segmentGroup.hasChildren() || slicedSegments.length > 0) && r.pathMatch === "full") {
+    return false;
+  }
+  return r.path === "";
+}
+function noLeftoversInUrl(segmentGroup, segments, outlet) {
+  return segments.length === 0 && !segmentGroup.children[outlet];
+}
+var NoLeftoversInUrl = class {
+};
+function recognize$1(injector, configLoader, rootComponentType, config3, urlTree, urlSerializer, paramsInheritanceStrategy = "emptyOnly", abortSignal) {
+  return __async(this, null, function* () {
+    return new Recognizer(injector, configLoader, rootComponentType, config3, urlTree, paramsInheritanceStrategy, urlSerializer, abortSignal).recognize();
+  });
+}
+var MAX_ALLOWED_REDIRECTS = 31;
+var Recognizer = class {
+  injector;
+  configLoader;
+  rootComponentType;
+  config;
+  urlTree;
+  paramsInheritanceStrategy;
+  urlSerializer;
+  abortSignal;
+  applyRedirects;
+  absoluteRedirectCount = 0;
+  allowRedirects = true;
+  constructor(injector, configLoader, rootComponentType, config3, urlTree, paramsInheritanceStrategy, urlSerializer, abortSignal) {
+    this.injector = injector;
+    this.configLoader = configLoader;
+    this.rootComponentType = rootComponentType;
+    this.config = config3;
+    this.urlTree = urlTree;
+    this.paramsInheritanceStrategy = paramsInheritanceStrategy;
+    this.urlSerializer = urlSerializer;
+    this.abortSignal = abortSignal;
+    this.applyRedirects = new ApplyRedirects(this.urlSerializer, this.urlTree);
+  }
+  noMatchError(e) {
+    return new RuntimeError(4002, typeof ngDevMode === "undefined" || ngDevMode ? `Cannot match any routes. URL Segment: '${e.segmentGroup}'` : `'${e.segmentGroup}'`);
+  }
+  recognize() {
+    return __async(this, null, function* () {
+      const rootSegmentGroup = split(this.urlTree.root, [], [], this.config).segmentGroup;
+      const {
+        children,
+        rootSnapshot
+      } = yield this.match(rootSegmentGroup);
+      const rootNode = new TreeNode(rootSnapshot, children);
+      const routeState = new RouterStateSnapshot("", rootNode);
+      const tree2 = createUrlTreeFromSnapshot(rootSnapshot, [], this.urlTree.queryParams, this.urlTree.fragment);
+      tree2.queryParams = this.urlTree.queryParams;
+      routeState.url = this.urlSerializer.serialize(tree2);
+      return {
+        state: routeState,
+        tree: tree2
+      };
+    });
+  }
+  match(rootSegmentGroup) {
+    return __async(this, null, function* () {
+      const rootSnapshot = new ActivatedRouteSnapshot([], Object.freeze({}), Object.freeze(__spreadValues({}, this.urlTree.queryParams)), this.urlTree.fragment, Object.freeze({}), PRIMARY_OUTLET, this.rootComponentType, null, {}, this.injector);
+      try {
+        const children = yield this.processSegmentGroup(this.injector, this.config, rootSegmentGroup, PRIMARY_OUTLET, rootSnapshot);
+        return {
+          children,
+          rootSnapshot
+        };
+      } catch (e) {
+        if (e instanceof AbsoluteRedirect) {
+          this.urlTree = e.urlTree;
+          return this.match(e.urlTree.root);
+        }
+        if (e instanceof NoMatch) {
+          throw this.noMatchError(e);
+        }
+        throw e;
+      }
+    });
+  }
+  processSegmentGroup(injector, config3, segmentGroup, outlet, parentRoute) {
+    return __async(this, null, function* () {
+      if (segmentGroup.segments.length === 0 && segmentGroup.hasChildren()) {
+        return this.processChildren(injector, config3, segmentGroup, parentRoute);
+      }
+      const child = yield this.processSegment(injector, config3, segmentGroup, segmentGroup.segments, outlet, true, parentRoute);
+      return child instanceof TreeNode ? [child] : [];
+    });
+  }
+  processChildren(injector, config3, segmentGroup, parentRoute) {
+    return __async(this, null, function* () {
+      const childOutlets = [];
+      for (const child of Object.keys(segmentGroup.children)) {
+        if (child === "primary") {
+          childOutlets.unshift(child);
+        } else {
+          childOutlets.push(child);
+        }
+      }
+      let children = [];
+      for (const childOutlet of childOutlets) {
+        const child = segmentGroup.children[childOutlet];
+        const sortedConfig = sortByMatchingOutlets(config3, childOutlet);
+        const outletChildren = yield this.processSegmentGroup(injector, sortedConfig, child, childOutlet, parentRoute);
+        children.push(...outletChildren);
+      }
+      const mergedChildren = mergeEmptyPathMatches(children);
+      if (typeof ngDevMode === "undefined" || ngDevMode) {
+        checkOutletNameUniqueness(mergedChildren);
+      }
+      sortActivatedRouteSnapshots(mergedChildren);
+      return mergedChildren;
+    });
+  }
+  processSegment(injector, routes2, segmentGroup, segments, outlet, allowRedirects, parentRoute) {
+    return __async(this, null, function* () {
+      for (const r of routes2) {
+        try {
+          return yield this.processSegmentAgainstRoute(r._injector ?? injector, routes2, r, segmentGroup, segments, outlet, allowRedirects, parentRoute);
+        } catch (e) {
+          if (e instanceof NoMatch || isEmptyError(e)) {
+            continue;
+          }
+          throw e;
+        }
+      }
+      if (noLeftoversInUrl(segmentGroup, segments, outlet)) {
+        return new NoLeftoversInUrl();
+      }
+      throw new NoMatch(segmentGroup);
+    });
+  }
+  processSegmentAgainstRoute(injector, routes2, route, rawSegment, segments, outlet, allowRedirects, parentRoute) {
+    return __async(this, null, function* () {
+      if (getOutlet(route) !== outlet && (outlet === PRIMARY_OUTLET || !emptyPathMatch(rawSegment, segments, route))) {
+        throw new NoMatch(rawSegment);
+      }
+      if (route.redirectTo === void 0) {
+        return this.matchSegmentAgainstRoute(injector, rawSegment, route, segments, outlet, parentRoute);
+      }
+      if (this.allowRedirects && allowRedirects) {
+        return this.expandSegmentAgainstRouteUsingRedirect(injector, rawSegment, routes2, route, segments, outlet, parentRoute);
+      }
+      throw new NoMatch(rawSegment);
+    });
+  }
+  expandSegmentAgainstRouteUsingRedirect(injector, segmentGroup, routes2, route, segments, outlet, parentRoute) {
+    return __async(this, null, function* () {
+      const {
+        matched,
+        parameters,
+        consumedSegments,
+        positionalParamSegments,
+        remainingSegments
+      } = match(segmentGroup, route, segments);
+      if (!matched) throw new NoMatch(segmentGroup);
+      if (typeof route.redirectTo === "string" && route.redirectTo[0] === "/") {
+        this.absoluteRedirectCount++;
+        if (this.absoluteRedirectCount > MAX_ALLOWED_REDIRECTS) {
+          if (ngDevMode) {
+            throw new RuntimeError(4016, `Detected possible infinite redirect when redirecting from '${this.urlTree}' to '${route.redirectTo}'.
+This is currently a dev mode only error but will become a call stack size exceeded error in production in a future major version.`);
+          }
+          this.allowRedirects = false;
+        }
+      }
+      const currentSnapshot = new ActivatedRouteSnapshot(segments, parameters, Object.freeze(__spreadValues({}, this.urlTree.queryParams)), this.urlTree.fragment, getData(route), getOutlet(route), route.component ?? route._loadedComponent ?? null, route, getResolve(route), injector);
+      const inherited = getInherited(currentSnapshot, parentRoute, this.paramsInheritanceStrategy);
+      currentSnapshot.params = Object.freeze(inherited.params);
+      currentSnapshot.data = Object.freeze(inherited.data);
+      if (this.abortSignal.aborted) {
+        throw new Error(this.abortSignal.reason);
+      }
+      const newTree = yield this.applyRedirects.applyRedirectCommands(consumedSegments, route.redirectTo, positionalParamSegments, currentSnapshot, injector);
+      const newSegments = yield this.applyRedirects.lineralizeSegments(route, newTree);
+      return this.processSegment(injector, routes2, segmentGroup, newSegments.concat(remainingSegments), outlet, false, parentRoute);
+    });
+  }
+  matchSegmentAgainstRoute(injector, rawSegment, route, segments, outlet, parentRoute) {
+    return __async(this, null, function* () {
+      if (this.abortSignal.aborted) {
+        throw new Error(this.abortSignal.reason);
+      }
+      const result = yield firstValueFrom2(matchWithChecks(rawSegment, route, segments, injector, this.urlSerializer, this.abortSignal));
+      if (route.path === "**") {
+        rawSegment.children = {};
+      }
+      if (!result?.matched) {
+        throw new NoMatch(rawSegment);
+      }
+      injector = route._injector ?? injector;
+      const {
+        routes: childConfig
+      } = yield this.getChildConfig(injector, route, segments);
+      const childInjector = route._loadedInjector ?? injector;
+      const {
+        parameters,
+        consumedSegments,
+        remainingSegments
+      } = result;
+      const snapshot = new ActivatedRouteSnapshot(consumedSegments, parameters, Object.freeze(__spreadValues({}, this.urlTree.queryParams)), this.urlTree.fragment, getData(route), getOutlet(route), route.component ?? route._loadedComponent ?? null, route, getResolve(route), injector);
+      const inherited = getInherited(snapshot, parentRoute, this.paramsInheritanceStrategy);
+      snapshot.params = Object.freeze(inherited.params);
+      snapshot.data = Object.freeze(inherited.data);
+      const {
+        segmentGroup,
+        slicedSegments
+      } = split(rawSegment, consumedSegments, remainingSegments, childConfig);
+      if (slicedSegments.length === 0 && segmentGroup.hasChildren()) {
+        const children = yield this.processChildren(childInjector, childConfig, segmentGroup, snapshot);
+        return new TreeNode(snapshot, children);
+      }
+      if (childConfig.length === 0 && slicedSegments.length === 0) {
+        return new TreeNode(snapshot, []);
+      }
+      const matchedOnOutlet = getOutlet(route) === outlet;
+      const child = yield this.processSegment(childInjector, childConfig, segmentGroup, slicedSegments, matchedOnOutlet ? PRIMARY_OUTLET : outlet, true, snapshot);
+      return new TreeNode(snapshot, child instanceof TreeNode ? [child] : []);
+    });
+  }
+  getChildConfig(injector, route, segments) {
+    return __async(this, null, function* () {
+      if (route.children) {
+        return {
+          routes: route.children,
+          injector
+        };
+      }
+      if (route.loadChildren) {
+        if (route._loadedRoutes !== void 0) {
+          const ngModuleFactory = route._loadedNgModuleFactory;
+          if (ngModuleFactory && !route._loadedInjector) {
+            route._loadedInjector = ngModuleFactory.create(injector).injector;
+          }
+          return {
+            routes: route._loadedRoutes,
+            injector: route._loadedInjector
+          };
+        }
+        if (this.abortSignal.aborted) {
+          throw new Error(this.abortSignal.reason);
+        }
+        const shouldLoadResult = yield firstValueFrom2(runCanLoadGuards(injector, route, segments, this.urlSerializer, this.abortSignal));
+        if (shouldLoadResult) {
+          const cfg = yield this.configLoader.loadChildren(injector, route);
+          route._loadedRoutes = cfg.routes;
+          route._loadedInjector = cfg.injector;
+          route._loadedNgModuleFactory = cfg.factory;
+          return cfg;
+        }
+        throw canLoadFails(route);
+      }
+      return {
+        routes: [],
+        injector
+      };
+    });
+  }
+};
+function sortActivatedRouteSnapshots(nodes) {
+  nodes.sort((a, b) => {
+    if (a.value.outlet === PRIMARY_OUTLET) return -1;
+    if (b.value.outlet === PRIMARY_OUTLET) return 1;
+    return a.value.outlet.localeCompare(b.value.outlet);
+  });
+}
+function hasEmptyPathConfig(node) {
+  const config3 = node.value.routeConfig;
+  return config3 && config3.path === "";
+}
+function mergeEmptyPathMatches(nodes) {
+  const result = [];
+  const mergedNodes = /* @__PURE__ */ new Set();
+  for (const node of nodes) {
+    if (!hasEmptyPathConfig(node)) {
+      result.push(node);
+      continue;
+    }
+    const duplicateEmptyPathNode = result.find((resultNode) => node.value.routeConfig === resultNode.value.routeConfig);
+    if (duplicateEmptyPathNode !== void 0) {
+      duplicateEmptyPathNode.children.push(...node.children);
+      mergedNodes.add(duplicateEmptyPathNode);
+    } else {
+      result.push(node);
+    }
+  }
+  for (const mergedNode of mergedNodes) {
+    const mergedChildren = mergeEmptyPathMatches(mergedNode.children);
+    result.push(new TreeNode(mergedNode.value, mergedChildren));
+  }
+  return result.filter((n) => !mergedNodes.has(n));
+}
+function checkOutletNameUniqueness(nodes) {
+  const names = {};
+  nodes.forEach((n) => {
+    const routeWithSameOutletName = names[n.value.outlet];
+    if (routeWithSameOutletName) {
+      const p = routeWithSameOutletName.url.map((s) => s.toString()).join("/");
+      const c = n.value.url.map((s) => s.toString()).join("/");
+      throw new RuntimeError(4006, (typeof ngDevMode === "undefined" || ngDevMode) && `Two segments cannot have the same outlet name: '${p}' and '${c}'.`);
+    }
+    names[n.value.outlet] = n.value;
+  });
+}
+function getData(route) {
+  return route.data || {};
+}
+function getResolve(route) {
+  return route.resolve || {};
+}
+function recognize(injector, configLoader, rootComponentType, config3, serializer, paramsInheritanceStrategy, abortSignal) {
+  return mergeMap((t) => __async(null, null, function* () {
+    const {
+      state: targetSnapshot,
+      tree: urlAfterRedirects
+    } = yield recognize$1(injector, configLoader, rootComponentType, config3, t.extractedUrl, serializer, paramsInheritanceStrategy, abortSignal);
+    return __spreadProps(__spreadValues({}, t), {
+      targetSnapshot,
+      urlAfterRedirects
+    });
+  }));
+}
+function resolveData(paramsInheritanceStrategy) {
+  return mergeMap((t) => {
+    const {
+      targetSnapshot,
+      guards: {
+        canActivateChecks
+      }
+    } = t;
+    if (!canActivateChecks.length) {
+      return of(t);
+    }
+    const routesWithResolversToRun = new Set(canActivateChecks.map((check) => check.route));
+    const routesNeedingDataUpdates = /* @__PURE__ */ new Set();
+    for (const route of routesWithResolversToRun) {
+      if (routesNeedingDataUpdates.has(route)) {
+        continue;
+      }
+      for (const newRoute of flattenRouteTree(route)) {
+        routesNeedingDataUpdates.add(newRoute);
+      }
+    }
+    let routesProcessed = 0;
+    return from(routesNeedingDataUpdates).pipe(concatMap((route) => {
+      if (routesWithResolversToRun.has(route)) {
+        return runResolve(route, targetSnapshot, paramsInheritanceStrategy);
+      } else {
+        route.data = getInherited(route, route.parent, paramsInheritanceStrategy).resolve;
+        return of(void 0);
+      }
+    }), tap(() => routesProcessed++), takeLast(1), mergeMap((_) => routesProcessed === routesNeedingDataUpdates.size ? of(t) : EMPTY));
+  });
+}
+function flattenRouteTree(route) {
+  const descendants = route.children.map((child) => flattenRouteTree(child)).flat();
+  return [route, ...descendants];
+}
+function runResolve(futureARS, futureRSS, paramsInheritanceStrategy) {
+  const config3 = futureARS.routeConfig;
+  const resolve = futureARS._resolve;
+  if (config3?.title !== void 0 && !hasStaticTitle(config3)) {
+    resolve[RouteTitleKey] = config3.title;
+  }
+  return defer(() => {
+    futureARS.data = getInherited(futureARS, futureARS.parent, paramsInheritanceStrategy).resolve;
+    return resolveNode(resolve, futureARS, futureRSS).pipe(map((resolvedData) => {
+      futureARS._resolvedData = resolvedData;
+      futureARS.data = __spreadValues(__spreadValues({}, futureARS.data), resolvedData);
+      return null;
+    }));
+  });
+}
+function resolveNode(resolve, futureARS, futureRSS) {
+  const keys = getDataKeys(resolve);
+  if (keys.length === 0) {
+    return of({});
+  }
+  const data = {};
+  return from(keys).pipe(mergeMap((key) => getResolver(resolve[key], futureARS, futureRSS).pipe(first(), tap((value) => {
+    if (value instanceof RedirectCommand) {
+      throw redirectingNavigationError(new DefaultUrlSerializer(), value);
+    }
+    data[key] = value;
+  }))), takeLast(1), map(() => data), catchError((e) => isEmptyError(e) ? EMPTY : throwError(e)));
+}
+function getResolver(injectionToken, futureARS, futureRSS) {
+  const closestInjector = futureARS._environmentInjector;
+  const resolver = getTokenOrFunctionIdentity(injectionToken, closestInjector);
+  const resolverValue = resolver.resolve ? resolver.resolve(futureARS, futureRSS) : runInInjectionContext(closestInjector, () => resolver(futureARS, futureRSS));
+  return wrapIntoObservable(resolverValue);
+}
+function switchTap(next) {
+  return switchMap((v) => {
+    const nextResult = next(v);
+    if (nextResult) {
+      return from(nextResult).pipe(map(() => v));
+    }
+    return of(v);
+  });
+}
+var TitleStrategy = class _TitleStrategy {
+  buildTitle(snapshot) {
+    let pageTitle;
+    let route = snapshot.root;
+    while (route !== void 0) {
+      pageTitle = this.getResolvedTitleForRoute(route) ?? pageTitle;
+      route = route.children.find((child) => child.outlet === PRIMARY_OUTLET);
+    }
+    return pageTitle;
+  }
+  getResolvedTitleForRoute(snapshot) {
+    return snapshot.data[RouteTitleKey];
+  }
+  static \u0275fac = function TitleStrategy_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _TitleStrategy)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _TitleStrategy,
+    factory: () => (() => inject2(DefaultTitleStrategy))(),
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TitleStrategy, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root",
+      useFactory: () => inject2(DefaultTitleStrategy)
+    }]
+  }], null, null);
+})();
+var DefaultTitleStrategy = class _DefaultTitleStrategy extends TitleStrategy {
+  title;
+  constructor(title) {
+    super();
+    this.title = title;
+  }
+  updateTitle(snapshot) {
+    const title = this.buildTitle(snapshot);
+    if (title !== void 0) {
+      this.title.setTitle(title);
+    }
+  }
+  static \u0275fac = function DefaultTitleStrategy_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _DefaultTitleStrategy)(\u0275\u0275inject(Title));
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _DefaultTitleStrategy,
+    factory: _DefaultTitleStrategy.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DefaultTitleStrategy, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [{
+    type: Title
+  }], null);
+})();
+var ROUTER_CONFIGURATION = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "router config" : "", {
+  factory: () => ({})
+});
+var ROUTES = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "ROUTES" : "");
+var RouterConfigLoader = class _RouterConfigLoader {
+  componentLoaders = /* @__PURE__ */ new WeakMap();
+  childrenLoaders = /* @__PURE__ */ new WeakMap();
+  onLoadStartListener;
+  onLoadEndListener;
+  compiler = inject2(Compiler);
+  loadComponent(injector, route) {
+    return __async(this, null, function* () {
+      if (this.componentLoaders.get(route)) {
+        return this.componentLoaders.get(route);
+      } else if (route._loadedComponent) {
+        return Promise.resolve(route._loadedComponent);
+      }
+      if (this.onLoadStartListener) {
+        this.onLoadStartListener(route);
+      }
+      const loader = (() => __async(this, null, function* () {
+        try {
+          const loaded = yield wrapIntoPromise(runInInjectionContext(injector, () => route.loadComponent()));
+          const component = yield maybeResolveResources(maybeUnwrapDefaultExport(loaded));
+          if (this.onLoadEndListener) {
+            this.onLoadEndListener(route);
+          }
+          (typeof ngDevMode === "undefined" || ngDevMode) && assertStandalone(route.path ?? "", component);
+          route._loadedComponent = component;
+          return component;
+        } finally {
+          this.componentLoaders.delete(route);
+        }
+      }))();
+      this.componentLoaders.set(route, loader);
+      return loader;
+    });
+  }
+  loadChildren(parentInjector, route) {
+    if (this.childrenLoaders.get(route)) {
+      return this.childrenLoaders.get(route);
+    } else if (route._loadedRoutes) {
+      return Promise.resolve({
+        routes: route._loadedRoutes,
+        injector: route._loadedInjector
+      });
+    }
+    if (this.onLoadStartListener) {
+      this.onLoadStartListener(route);
+    }
+    const loader = (() => __async(this, null, function* () {
+      try {
+        const result = yield loadChildren(route, this.compiler, parentInjector, this.onLoadEndListener);
+        route._loadedRoutes = result.routes;
+        route._loadedInjector = result.injector;
+        route._loadedNgModuleFactory = result.factory;
+        return result;
+      } finally {
+        this.childrenLoaders.delete(route);
+      }
+    }))();
+    this.childrenLoaders.set(route, loader);
+    return loader;
+  }
+  static \u0275fac = function RouterConfigLoader_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _RouterConfigLoader)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _RouterConfigLoader,
+    factory: _RouterConfigLoader.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterConfigLoader, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+function loadChildren(route, compiler, parentInjector, onLoadEndListener) {
+  return __async(this, null, function* () {
+    const loaded = yield wrapIntoPromise(runInInjectionContext(parentInjector, () => route.loadChildren()));
+    const t = yield maybeResolveResources(maybeUnwrapDefaultExport(loaded));
+    let factoryOrRoutes;
+    if (t instanceof NgModuleFactory$1 || Array.isArray(t)) {
+      factoryOrRoutes = t;
+    } else {
+      factoryOrRoutes = yield compiler.compileModuleAsync(t);
+    }
+    if (onLoadEndListener) {
+      onLoadEndListener(route);
+    }
+    let injector;
+    let rawRoutes;
+    let requireStandaloneComponents = false;
+    let factory = void 0;
+    if (Array.isArray(factoryOrRoutes)) {
+      rawRoutes = factoryOrRoutes;
+      requireStandaloneComponents = true;
+    } else {
+      injector = factoryOrRoutes.create(parentInjector).injector;
+      factory = factoryOrRoutes;
+      rawRoutes = injector.get(ROUTES, [], {
+        optional: true,
+        self: true
+      }).flat();
+    }
+    const routes2 = rawRoutes.map(standardizeConfig);
+    (typeof ngDevMode === "undefined" || ngDevMode) && validateConfig(routes2, route.path, requireStandaloneComponents);
+    return {
+      routes: routes2,
+      injector,
+      factory
+    };
+  });
+}
+function isWrappedDefaultExport(value) {
+  return value && typeof value === "object" && "default" in value;
+}
+function maybeUnwrapDefaultExport(input2) {
+  return isWrappedDefaultExport(input2) ? input2["default"] : input2;
+}
+function maybeResolveResources(value) {
+  return __async(this, null, function* () {
+    if (false) {
+      try {
+        yield resolveComponentResources(fetch);
+      } catch (error2) {
+        console.error(error2);
+      }
+    }
+    return value;
+  });
+}
+var UrlHandlingStrategy = class _UrlHandlingStrategy {
+  static \u0275fac = function UrlHandlingStrategy_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _UrlHandlingStrategy)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _UrlHandlingStrategy,
+    factory: () => (() => inject2(DefaultUrlHandlingStrategy))(),
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(UrlHandlingStrategy, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root",
+      useFactory: () => inject2(DefaultUrlHandlingStrategy)
+    }]
+  }], null, null);
+})();
+var DefaultUrlHandlingStrategy = class _DefaultUrlHandlingStrategy {
+  shouldProcessUrl(url) {
+    return true;
+  }
+  extract(url) {
+    return url;
+  }
+  merge(newUrlPart, wholeUrl) {
+    return newUrlPart;
+  }
+  static \u0275fac = function DefaultUrlHandlingStrategy_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _DefaultUrlHandlingStrategy)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _DefaultUrlHandlingStrategy,
+    factory: _DefaultUrlHandlingStrategy.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DefaultUrlHandlingStrategy, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+var CREATE_VIEW_TRANSITION = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "view transition helper" : "");
+var VIEW_TRANSITION_OPTIONS = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "view transition options" : "");
+function createViewTransition(injector, from2, to) {
+  const transitionOptions = injector.get(VIEW_TRANSITION_OPTIONS);
+  const document2 = injector.get(DOCUMENT);
+  if (!document2.startViewTransition || transitionOptions.skipNextTransition) {
+    transitionOptions.skipNextTransition = false;
+    return new Promise((resolve) => setTimeout(resolve));
+  }
+  let resolveViewTransitionStarted;
+  const viewTransitionStarted = new Promise((resolve) => {
+    resolveViewTransitionStarted = resolve;
+  });
+  const transition2 = document2.startViewTransition(() => {
+    resolveViewTransitionStarted();
+    return createRenderPromise(injector);
+  });
+  transition2.updateCallbackDone.catch((error2) => {
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      console.error(error2);
+    }
+  });
+  transition2.ready.catch((error2) => {
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      console.error(error2);
+    }
+  });
+  transition2.finished.catch((error2) => {
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      console.error(error2);
+    }
+  });
+  const {
+    onViewTransitionCreated
+  } = transitionOptions;
+  if (onViewTransitionCreated) {
+    runInInjectionContext(injector, () => onViewTransitionCreated({
+      transition: transition2,
+      from: from2,
+      to
+    }));
+  }
+  return viewTransitionStarted;
+}
+function createRenderPromise(injector) {
+  return new Promise((resolve) => {
+    afterNextRender({
+      read: () => setTimeout(resolve)
+    }, {
+      injector
+    });
+  });
+}
+var noop4 = () => {
+};
+var NAVIGATION_ERROR_HANDLER = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "navigation error handler" : "");
+var NavigationTransitions = class _NavigationTransitions {
+  currentNavigation = signal(null, __spreadProps(__spreadValues({}, ngDevMode ? {
+    debugName: "currentNavigation"
+  } : {}), {
+    equal: () => false
+  }));
+  currentTransition = null;
+  lastSuccessfulNavigation = signal(null, ...ngDevMode ? [{
+    debugName: "lastSuccessfulNavigation"
+  }] : []);
+  events = new Subject();
+  transitionAbortWithErrorSubject = new Subject();
+  configLoader = inject2(RouterConfigLoader);
+  environmentInjector = inject2(EnvironmentInjector);
+  destroyRef = inject2(DestroyRef);
+  urlSerializer = inject2(UrlSerializer);
+  rootContexts = inject2(ChildrenOutletContexts);
+  location = inject2(Location);
+  inputBindingEnabled = inject2(INPUT_BINDER, {
+    optional: true
+  }) !== null;
+  titleStrategy = inject2(TitleStrategy);
+  options = inject2(ROUTER_CONFIGURATION, {
+    optional: true
+  }) || {};
+  paramsInheritanceStrategy = this.options.paramsInheritanceStrategy || "emptyOnly";
+  urlHandlingStrategy = inject2(UrlHandlingStrategy);
+  createViewTransition = inject2(CREATE_VIEW_TRANSITION, {
+    optional: true
+  });
+  navigationErrorHandler = inject2(NAVIGATION_ERROR_HANDLER, {
+    optional: true
+  });
+  navigationId = 0;
+  get hasRequestedNavigation() {
+    return this.navigationId !== 0;
+  }
+  transitions;
+  afterPreactivation = () => of(void 0);
+  rootComponentType = null;
+  destroyed = false;
+  constructor() {
+    const onLoadStart = (r) => this.events.next(new RouteConfigLoadStart(r));
+    const onLoadEnd = (r) => this.events.next(new RouteConfigLoadEnd(r));
+    this.configLoader.onLoadEndListener = onLoadEnd;
+    this.configLoader.onLoadStartListener = onLoadStart;
+    this.destroyRef.onDestroy(() => {
+      this.destroyed = true;
+    });
+  }
+  complete() {
+    this.transitions?.complete();
+  }
+  handleNavigationRequest(request) {
+    const id = ++this.navigationId;
+    untracked2(() => {
+      this.transitions?.next(__spreadProps(__spreadValues({}, request), {
+        extractedUrl: this.urlHandlingStrategy.extract(request.rawUrl),
+        targetSnapshot: null,
+        targetRouterState: null,
+        guards: {
+          canActivateChecks: [],
+          canDeactivateChecks: []
+        },
+        guardsResult: null,
+        id
+      }));
+    });
+  }
+  setupNavigations(router) {
+    this.transitions = new BehaviorSubject(null);
+    return this.transitions.pipe(filter((t) => t !== null), switchMap((overallTransitionState) => {
+      let completedOrAborted = false;
+      const abortController = new AbortController();
+      const shouldContinueNavigation = () => {
+        return !completedOrAborted && this.currentTransition?.id === overallTransitionState.id;
+      };
+      return of(overallTransitionState).pipe(switchMap((t) => {
+        if (this.navigationId > overallTransitionState.id) {
+          const cancellationReason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation ID ${overallTransitionState.id} is not equal to the current navigation id ${this.navigationId}` : "";
+          this.cancelNavigationTransition(overallTransitionState, cancellationReason, NavigationCancellationCode.SupersededByNewNavigation);
+          return EMPTY;
+        }
+        this.currentTransition = overallTransitionState;
+        const lastSuccessfulNavigation = this.lastSuccessfulNavigation();
+        this.currentNavigation.set({
+          id: t.id,
+          initialUrl: t.rawUrl,
+          extractedUrl: t.extractedUrl,
+          targetBrowserUrl: typeof t.extras.browserUrl === "string" ? this.urlSerializer.parse(t.extras.browserUrl) : t.extras.browserUrl,
+          trigger: t.source,
+          extras: t.extras,
+          previousNavigation: !lastSuccessfulNavigation ? null : __spreadProps(__spreadValues({}, lastSuccessfulNavigation), {
+            previousNavigation: null
+          }),
+          abort: () => abortController.abort()
+        });
+        const urlTransition = !router.navigated || this.isUpdatingInternalState() || this.isUpdatedBrowserUrl();
+        const onSameUrlNavigation = t.extras.onSameUrlNavigation ?? router.onSameUrlNavigation;
+        if (!urlTransition && onSameUrlNavigation !== "reload") {
+          const reason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation to ${t.rawUrl} was ignored because it is the same as the current Router URL.` : "";
+          this.events.next(new NavigationSkipped(t.id, this.urlSerializer.serialize(t.rawUrl), reason, NavigationSkippedCode.IgnoredSameUrlNavigation));
+          t.resolve(false);
+          return EMPTY;
+        }
+        if (this.urlHandlingStrategy.shouldProcessUrl(t.rawUrl)) {
+          return of(t).pipe(switchMap((t2) => {
+            this.events.next(new NavigationStart(t2.id, this.urlSerializer.serialize(t2.extractedUrl), t2.source, t2.restoredState));
+            if (t2.id !== this.navigationId) {
+              return EMPTY;
+            }
+            return Promise.resolve(t2);
+          }), recognize(this.environmentInjector, this.configLoader, this.rootComponentType, router.config, this.urlSerializer, this.paramsInheritanceStrategy, abortController.signal), tap((t2) => {
+            overallTransitionState.targetSnapshot = t2.targetSnapshot;
+            overallTransitionState.urlAfterRedirects = t2.urlAfterRedirects;
+            this.currentNavigation.update((nav) => {
+              nav.finalUrl = t2.urlAfterRedirects;
+              return nav;
+            });
+            const routesRecognized = new RoutesRecognized(t2.id, this.urlSerializer.serialize(t2.extractedUrl), this.urlSerializer.serialize(t2.urlAfterRedirects), t2.targetSnapshot);
+            this.events.next(routesRecognized);
+          }));
+        } else if (urlTransition && this.urlHandlingStrategy.shouldProcessUrl(t.currentRawUrl)) {
+          const {
+            id,
+            extractedUrl,
+            source,
+            restoredState,
+            extras
+          } = t;
+          const navStart = new NavigationStart(id, this.urlSerializer.serialize(extractedUrl), source, restoredState);
+          this.events.next(navStart);
+          const targetSnapshot = createEmptyState(this.rootComponentType, this.environmentInjector).snapshot;
+          this.currentTransition = overallTransitionState = __spreadProps(__spreadValues({}, t), {
+            targetSnapshot,
+            urlAfterRedirects: extractedUrl,
+            extras: __spreadProps(__spreadValues({}, extras), {
+              skipLocationChange: false,
+              replaceUrl: false
+            })
+          });
+          this.currentNavigation.update((nav) => {
+            nav.finalUrl = extractedUrl;
+            return nav;
+          });
+          return of(overallTransitionState);
+        } else {
+          const reason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation was ignored because the UrlHandlingStrategy indicated neither the current URL ${t.currentRawUrl} nor target URL ${t.rawUrl} should be processed.` : "";
+          this.events.next(new NavigationSkipped(t.id, this.urlSerializer.serialize(t.extractedUrl), reason, NavigationSkippedCode.IgnoredByUrlHandlingStrategy));
+          t.resolve(false);
+          return EMPTY;
+        }
+      }), map((t) => {
+        const guardsStart = new GuardsCheckStart(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects), t.targetSnapshot);
+        this.events.next(guardsStart);
+        this.currentTransition = overallTransitionState = __spreadProps(__spreadValues({}, t), {
+          guards: getAllRouteGuards(t.targetSnapshot, t.currentSnapshot, this.rootContexts)
+        });
+        return overallTransitionState;
+      }), checkGuards((evt) => this.events.next(evt)), switchMap((t) => {
+        overallTransitionState.guardsResult = t.guardsResult;
+        if (t.guardsResult && typeof t.guardsResult !== "boolean") {
+          throw redirectingNavigationError(this.urlSerializer, t.guardsResult);
+        }
+        const guardsEnd = new GuardsCheckEnd(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects), t.targetSnapshot, !!t.guardsResult);
+        this.events.next(guardsEnd);
+        if (!shouldContinueNavigation()) {
+          return EMPTY;
+        }
+        if (!t.guardsResult) {
+          this.cancelNavigationTransition(t, "", NavigationCancellationCode.GuardRejected);
+          return EMPTY;
+        }
+        if (t.guards.canActivateChecks.length === 0) {
+          return of(t);
+        }
+        const resolveStart = new ResolveStart(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects), t.targetSnapshot);
+        this.events.next(resolveStart);
+        if (!shouldContinueNavigation()) {
+          return EMPTY;
+        }
+        let dataResolved = false;
+        return of(t).pipe(resolveData(this.paramsInheritanceStrategy), tap({
+          next: () => {
+            dataResolved = true;
+            const resolveEnd = new ResolveEnd(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects), t.targetSnapshot);
+            this.events.next(resolveEnd);
+          },
+          complete: () => {
+            if (!dataResolved) {
+              this.cancelNavigationTransition(t, typeof ngDevMode === "undefined" || ngDevMode ? `At least one route resolver didn't emit any value.` : "", NavigationCancellationCode.NoDataFromResolver);
+            }
+          }
+        }));
+      }), switchTap((t) => {
+        const loadComponents = (route) => {
+          const loaders2 = [];
+          if (route.routeConfig?._loadedComponent) {
+            route.component = route.routeConfig?._loadedComponent;
+          } else if (route.routeConfig?.loadComponent) {
+            const injector = route._environmentInjector;
+            loaders2.push(this.configLoader.loadComponent(injector, route.routeConfig).then((loadedComponent) => {
+              route.component = loadedComponent;
+            }));
+          }
+          for (const child of route.children) {
+            loaders2.push(...loadComponents(child));
+          }
+          return loaders2;
+        };
+        const loaders = loadComponents(t.targetSnapshot.root);
+        return loaders.length === 0 ? of(t) : from(Promise.all(loaders).then(() => t));
+      }), switchTap(() => this.afterPreactivation()), switchMap(() => {
+        const {
+          currentSnapshot,
+          targetSnapshot
+        } = overallTransitionState;
+        const viewTransitionStarted = this.createViewTransition?.(this.environmentInjector, currentSnapshot.root, targetSnapshot.root);
+        return viewTransitionStarted ? from(viewTransitionStarted).pipe(map(() => overallTransitionState)) : of(overallTransitionState);
+      }), take(1), map((t) => {
+        const targetRouterState = createRouterState(router.routeReuseStrategy, t.targetSnapshot, t.currentRouterState);
+        this.currentTransition = overallTransitionState = t = __spreadProps(__spreadValues({}, t), {
+          targetRouterState
+        });
+        this.currentNavigation.update((nav) => {
+          nav.targetRouterState = targetRouterState;
+          return nav;
+        });
+        this.events.next(new BeforeActivateRoutes());
+        if (!shouldContinueNavigation()) {
+          return;
+        }
+        new ActivateRoutes(router.routeReuseStrategy, overallTransitionState.targetRouterState, overallTransitionState.currentRouterState, (evt) => this.events.next(evt), this.inputBindingEnabled).activate(this.rootContexts);
+        if (!shouldContinueNavigation()) {
+          return;
+        }
+        completedOrAborted = true;
+        this.currentNavigation.update((nav) => {
+          nav.abort = noop4;
+          return nav;
+        });
+        this.lastSuccessfulNavigation.set(untracked2(this.currentNavigation));
+        this.events.next(new NavigationEnd(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects)));
+        this.titleStrategy?.updateTitle(t.targetRouterState.snapshot);
+        t.resolve(true);
+      }), takeUntil(abortSignalToObservable(abortController.signal).pipe(filter(() => !completedOrAborted && !overallTransitionState.targetRouterState), tap(() => {
+        this.cancelNavigationTransition(overallTransitionState, abortController.signal.reason + "", NavigationCancellationCode.Aborted);
+      }))), tap({
+        complete: () => {
+          completedOrAborted = true;
+        }
+      }), takeUntil(this.transitionAbortWithErrorSubject.pipe(tap((err) => {
+        throw err;
+      }))), finalize(() => {
+        abortController.abort();
+        if (!completedOrAborted) {
+          const cancelationReason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation ID ${overallTransitionState.id} is not equal to the current navigation id ${this.navigationId}` : "";
+          this.cancelNavigationTransition(overallTransitionState, cancelationReason, NavigationCancellationCode.SupersededByNewNavigation);
+        }
+        if (this.currentTransition?.id === overallTransitionState.id) {
+          this.currentNavigation.set(null);
+          this.currentTransition = null;
+        }
+      }), catchError((e) => {
+        completedOrAborted = true;
+        if (this.destroyed) {
+          overallTransitionState.resolve(false);
+          return EMPTY;
+        }
+        if (isNavigationCancelingError(e)) {
+          this.events.next(new NavigationCancel(overallTransitionState.id, this.urlSerializer.serialize(overallTransitionState.extractedUrl), e.message, e.cancellationCode));
+          if (!isRedirectingNavigationCancelingError(e)) {
+            overallTransitionState.resolve(false);
+          } else {
+            this.events.next(new RedirectRequest(e.url, e.navigationBehaviorOptions));
+          }
+        } else {
+          const navigationError = new NavigationError(overallTransitionState.id, this.urlSerializer.serialize(overallTransitionState.extractedUrl), e, overallTransitionState.targetSnapshot ?? void 0);
+          try {
+            const navigationErrorHandlerResult = runInInjectionContext(this.environmentInjector, () => this.navigationErrorHandler?.(navigationError));
+            if (navigationErrorHandlerResult instanceof RedirectCommand) {
+              const {
+                message,
+                cancellationCode
+              } = redirectingNavigationError(this.urlSerializer, navigationErrorHandlerResult);
+              this.events.next(new NavigationCancel(overallTransitionState.id, this.urlSerializer.serialize(overallTransitionState.extractedUrl), message, cancellationCode));
+              this.events.next(new RedirectRequest(navigationErrorHandlerResult.redirectTo, navigationErrorHandlerResult.navigationBehaviorOptions));
+            } else {
+              this.events.next(navigationError);
+              throw e;
+            }
+          } catch (ee) {
+            if (this.options.resolveNavigationPromiseOnError) {
+              overallTransitionState.resolve(false);
+            } else {
+              overallTransitionState.reject(ee);
+            }
+          }
+        }
+        return EMPTY;
+      }));
+    }));
+  }
+  cancelNavigationTransition(t, reason, code) {
+    const navCancel = new NavigationCancel(t.id, this.urlSerializer.serialize(t.extractedUrl), reason, code);
+    this.events.next(navCancel);
+    t.resolve(false);
+  }
+  isUpdatingInternalState() {
+    return this.currentTransition?.extractedUrl.toString() !== this.currentTransition?.currentUrlTree.toString();
+  }
+  isUpdatedBrowserUrl() {
+    const currentBrowserUrl = this.urlHandlingStrategy.extract(this.urlSerializer.parse(this.location.path(true)));
+    const currentNavigation = untracked2(this.currentNavigation);
+    const targetBrowserUrl = currentNavigation?.targetBrowserUrl ?? currentNavigation?.extractedUrl;
+    return currentBrowserUrl.toString() !== targetBrowserUrl?.toString() && !currentNavigation?.extras.skipLocationChange;
+  }
+  static \u0275fac = function NavigationTransitions_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _NavigationTransitions)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _NavigationTransitions,
+    factory: _NavigationTransitions.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(NavigationTransitions, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+function isBrowserTriggeredNavigation(source) {
+  return source !== IMPERATIVE_NAVIGATION;
+}
+var ROUTE_INJECTOR_CLEANUP = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "RouteInjectorCleanup" : "");
+var RouteReuseStrategy = class _RouteReuseStrategy {
+  static \u0275fac = function RouteReuseStrategy_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _RouteReuseStrategy)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _RouteReuseStrategy,
+    factory: () => (() => inject2(DefaultRouteReuseStrategy))(),
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouteReuseStrategy, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root",
+      useFactory: () => inject2(DefaultRouteReuseStrategy)
+    }]
+  }], null, null);
+})();
+var BaseRouteReuseStrategy = class {
+  shouldDetach(route) {
+    return false;
+  }
+  store(route, detachedTree) {
+  }
+  shouldAttach(route) {
+    return false;
+  }
+  retrieve(route) {
+    return null;
+  }
+  shouldReuseRoute(future, curr) {
+    return future.routeConfig === curr.routeConfig;
+  }
+  shouldDestroyInjector(route) {
+    return true;
+  }
+};
+var DefaultRouteReuseStrategy = class _DefaultRouteReuseStrategy extends BaseRouteReuseStrategy {
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275DefaultRouteReuseStrategy_BaseFactory;
+    return function DefaultRouteReuseStrategy_Factory(__ngFactoryType__) {
+      return (\u0275DefaultRouteReuseStrategy_BaseFactory || (\u0275DefaultRouteReuseStrategy_BaseFactory = \u0275\u0275getInheritedFactory(_DefaultRouteReuseStrategy)))(__ngFactoryType__ || _DefaultRouteReuseStrategy);
+    };
+  })();
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _DefaultRouteReuseStrategy,
+    factory: _DefaultRouteReuseStrategy.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DefaultRouteReuseStrategy, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+var StateManager = class _StateManager {
+  urlSerializer = inject2(UrlSerializer);
+  options = inject2(ROUTER_CONFIGURATION, {
+    optional: true
+  }) || {};
+  canceledNavigationResolution = this.options.canceledNavigationResolution || "replace";
+  location = inject2(Location);
+  urlHandlingStrategy = inject2(UrlHandlingStrategy);
+  urlUpdateStrategy = this.options.urlUpdateStrategy || "deferred";
+  currentUrlTree = new UrlTree();
+  getCurrentUrlTree() {
+    return this.currentUrlTree;
+  }
+  rawUrlTree = this.currentUrlTree;
+  getRawUrlTree() {
+    return this.rawUrlTree;
+  }
+  createBrowserPath({
+    finalUrl,
+    initialUrl,
+    targetBrowserUrl
+  }) {
+    const rawUrl = finalUrl !== void 0 ? this.urlHandlingStrategy.merge(finalUrl, initialUrl) : initialUrl;
+    const url = targetBrowserUrl ?? rawUrl;
+    const path = url instanceof UrlTree ? this.urlSerializer.serialize(url) : url;
+    return path;
+  }
+  commitTransition({
+    targetRouterState,
+    finalUrl,
+    initialUrl
+  }) {
+    if (finalUrl && targetRouterState) {
+      this.currentUrlTree = finalUrl;
+      this.rawUrlTree = this.urlHandlingStrategy.merge(finalUrl, initialUrl);
+      this.routerState = targetRouterState;
+    } else {
+      this.rawUrlTree = initialUrl;
+    }
+  }
+  routerState = createEmptyState(null, inject2(EnvironmentInjector));
+  getRouterState() {
+    return this.routerState;
+  }
+  _stateMemento = this.createStateMemento();
+  get stateMemento() {
+    return this._stateMemento;
+  }
+  updateStateMemento() {
+    this._stateMemento = this.createStateMemento();
+  }
+  createStateMemento() {
+    return {
+      rawUrlTree: this.rawUrlTree,
+      currentUrlTree: this.currentUrlTree,
+      routerState: this.routerState
+    };
+  }
+  restoredState() {
+    return this.location.getState();
+  }
+  static \u0275fac = function StateManager_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _StateManager)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _StateManager,
+    factory: () => (() => inject2(HistoryStateManager))(),
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(StateManager, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root",
+      useFactory: () => inject2(HistoryStateManager)
+    }]
+  }], null, null);
+})();
+var HistoryStateManager = class _HistoryStateManager extends StateManager {
+  currentPageId = 0;
+  lastSuccessfulId = -1;
+  get browserPageId() {
+    if (this.canceledNavigationResolution !== "computed") {
+      return this.currentPageId;
+    }
+    return this.restoredState()?.\u0275routerPageId ?? this.currentPageId;
+  }
+  registerNonRouterCurrentEntryChangeListener(listener) {
+    return this.location.subscribe((event) => {
+      if (event["type"] === "popstate") {
+        setTimeout(() => {
+          listener(event["url"], event.state, "popstate");
+        });
+      }
+    });
+  }
+  handleRouterEvent(e, currentTransition) {
+    if (e instanceof NavigationStart) {
+      this.updateStateMemento();
+    } else if (e instanceof NavigationSkipped) {
+      this.commitTransition(currentTransition);
+    } else if (e instanceof RoutesRecognized) {
+      if (this.urlUpdateStrategy === "eager") {
+        if (!currentTransition.extras.skipLocationChange) {
+          this.setBrowserUrl(this.createBrowserPath(currentTransition), currentTransition);
+        }
+      }
+    } else if (e instanceof BeforeActivateRoutes) {
+      this.commitTransition(currentTransition);
+      if (this.urlUpdateStrategy === "deferred" && !currentTransition.extras.skipLocationChange) {
+        this.setBrowserUrl(this.createBrowserPath(currentTransition), currentTransition);
+      }
+    } else if (e instanceof NavigationCancel && !isRedirectingEvent(e)) {
+      this.restoreHistory(currentTransition);
+    } else if (e instanceof NavigationError) {
+      this.restoreHistory(currentTransition, true);
+    } else if (e instanceof NavigationEnd) {
+      this.lastSuccessfulId = e.id;
+      this.currentPageId = this.browserPageId;
+    }
+  }
+  setBrowserUrl(path, {
+    extras,
+    id
+  }) {
+    const {
+      replaceUrl,
+      state: state2
+    } = extras;
+    if (this.location.isCurrentPathEqualTo(path) || !!replaceUrl) {
+      const currentBrowserPageId = this.browserPageId;
+      const newState = __spreadValues(__spreadValues({}, state2), this.generateNgRouterState(id, currentBrowserPageId));
+      this.location.replaceState(path, "", newState);
+    } else {
+      const newState = __spreadValues(__spreadValues({}, state2), this.generateNgRouterState(id, this.browserPageId + 1));
+      this.location.go(path, "", newState);
+    }
+  }
+  restoreHistory(navigation, restoringFromCaughtError = false) {
+    if (this.canceledNavigationResolution === "computed") {
+      const currentBrowserPageId = this.browserPageId;
+      const targetPagePosition = this.currentPageId - currentBrowserPageId;
+      if (targetPagePosition !== 0) {
+        this.location.historyGo(targetPagePosition);
+      } else if (this.getCurrentUrlTree() === navigation.finalUrl && targetPagePosition === 0) {
+        this.resetInternalState(navigation);
+        this.resetUrlToCurrentUrlTree();
+      } else ;
+    } else if (this.canceledNavigationResolution === "replace") {
+      if (restoringFromCaughtError) {
+        this.resetInternalState(navigation);
+      }
+      this.resetUrlToCurrentUrlTree();
+    }
+  }
+  resetInternalState({
+    finalUrl
+  }) {
+    this.routerState = this.stateMemento.routerState;
+    this.currentUrlTree = this.stateMemento.currentUrlTree;
+    this.rawUrlTree = this.urlHandlingStrategy.merge(this.currentUrlTree, finalUrl ?? this.rawUrlTree);
+  }
+  resetUrlToCurrentUrlTree() {
+    this.location.replaceState(this.urlSerializer.serialize(this.getRawUrlTree()), "", this.generateNgRouterState(this.lastSuccessfulId, this.currentPageId));
+  }
+  generateNgRouterState(navigationId, routerPageId) {
+    if (this.canceledNavigationResolution === "computed") {
+      return {
+        navigationId,
+        \u0275routerPageId: routerPageId
+      };
+    }
+    return {
+      navigationId
+    };
+  }
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275HistoryStateManager_BaseFactory;
+    return function HistoryStateManager_Factory(__ngFactoryType__) {
+      return (\u0275HistoryStateManager_BaseFactory || (\u0275HistoryStateManager_BaseFactory = \u0275\u0275getInheritedFactory(_HistoryStateManager)))(__ngFactoryType__ || _HistoryStateManager);
+    };
+  })();
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _HistoryStateManager,
+    factory: _HistoryStateManager.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HistoryStateManager, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+function afterNextNavigation(router, action) {
+  router.events.pipe(filter((e) => e instanceof NavigationEnd || e instanceof NavigationCancel || e instanceof NavigationError || e instanceof NavigationSkipped), map((e) => {
+    if (e instanceof NavigationEnd || e instanceof NavigationSkipped) {
+      return 0;
+    }
+    const redirecting = e instanceof NavigationCancel ? e.code === NavigationCancellationCode.Redirect || e.code === NavigationCancellationCode.SupersededByNewNavigation : false;
+    return redirecting ? 2 : 1;
+  }), filter((result) => result !== 2), take(1)).subscribe(() => {
+    action();
+  });
+}
+var exactMatchOptions = {
+  paths: "exact",
+  fragment: "ignored",
+  matrixParams: "ignored",
+  queryParams: "exact"
+};
+var subsetMatchOptions = {
+  paths: "subset",
+  fragment: "ignored",
+  matrixParams: "ignored",
+  queryParams: "subset"
+};
+var Router = class _Router {
+  get currentUrlTree() {
+    return this.stateManager.getCurrentUrlTree();
+  }
+  get rawUrlTree() {
+    return this.stateManager.getRawUrlTree();
+  }
+  disposed = false;
+  nonRouterCurrentEntryChangeSubscription;
+  console = inject2(Console);
+  stateManager = inject2(StateManager);
+  options = inject2(ROUTER_CONFIGURATION, {
+    optional: true
+  }) || {};
+  pendingTasks = inject2(PendingTasksInternal);
+  urlUpdateStrategy = this.options.urlUpdateStrategy || "deferred";
+  navigationTransitions = inject2(NavigationTransitions);
+  urlSerializer = inject2(UrlSerializer);
+  location = inject2(Location);
+  urlHandlingStrategy = inject2(UrlHandlingStrategy);
+  injector = inject2(EnvironmentInjector);
+  _events = new Subject();
+  get events() {
+    return this._events;
+  }
+  get routerState() {
+    return this.stateManager.getRouterState();
+  }
+  navigated = false;
+  routeReuseStrategy = inject2(RouteReuseStrategy);
+  injectorCleanup = inject2(ROUTE_INJECTOR_CLEANUP, {
+    optional: true
+  });
+  onSameUrlNavigation = this.options.onSameUrlNavigation || "ignore";
+  config = inject2(ROUTES, {
+    optional: true
+  })?.flat() ?? [];
+  componentInputBindingEnabled = !!inject2(INPUT_BINDER, {
+    optional: true
+  });
+  currentNavigation = this.navigationTransitions.currentNavigation.asReadonly();
+  constructor() {
+    this.resetConfig(this.config);
+    this.navigationTransitions.setupNavigations(this).subscribe({
+      error: (e) => {
+      }
+    });
+    this.subscribeToNavigationEvents();
+  }
+  eventsSubscription = new Subscription();
+  subscribeToNavigationEvents() {
+    const subscription = this.navigationTransitions.events.subscribe((e) => {
+      try {
+        const currentTransition = this.navigationTransitions.currentTransition;
+        const currentNavigation = untracked2(this.navigationTransitions.currentNavigation);
+        if (currentTransition !== null && currentNavigation !== null) {
+          this.stateManager.handleRouterEvent(e, currentNavigation);
+          if (e instanceof NavigationCancel && e.code !== NavigationCancellationCode.Redirect && e.code !== NavigationCancellationCode.SupersededByNewNavigation) {
+            this.navigated = true;
+          } else if (e instanceof NavigationEnd) {
+            this.navigated = true;
+            this.injectorCleanup?.(this.routeReuseStrategy, this.routerState, this.config);
+          } else if (e instanceof RedirectRequest) {
+            const opts = e.navigationBehaviorOptions;
+            const mergedTree = this.urlHandlingStrategy.merge(e.url, currentTransition.currentRawUrl);
+            const extras = __spreadValues({
+              scroll: currentTransition.extras.scroll,
+              browserUrl: currentTransition.extras.browserUrl,
+              info: currentTransition.extras.info,
+              skipLocationChange: currentTransition.extras.skipLocationChange,
+              replaceUrl: currentTransition.extras.replaceUrl || this.urlUpdateStrategy === "eager" || isBrowserTriggeredNavigation(currentTransition.source)
+            }, opts);
+            this.scheduleNavigation(mergedTree, IMPERATIVE_NAVIGATION, null, extras, {
+              resolve: currentTransition.resolve,
+              reject: currentTransition.reject,
+              promise: currentTransition.promise
+            });
+          }
+        }
+        if (isPublicRouterEvent(e)) {
+          this._events.next(e);
+        }
+      } catch (e2) {
+        this.navigationTransitions.transitionAbortWithErrorSubject.next(e2);
+      }
+    });
+    this.eventsSubscription.add(subscription);
+  }
+  resetRootComponentType(rootComponentType) {
+    this.routerState.root.component = rootComponentType;
+    this.navigationTransitions.rootComponentType = rootComponentType;
+  }
+  initialNavigation() {
+    this.setUpLocationChangeListener();
+    if (!this.navigationTransitions.hasRequestedNavigation) {
+      this.navigateToSyncWithBrowser(this.location.path(true), IMPERATIVE_NAVIGATION, this.stateManager.restoredState());
+    }
+  }
+  setUpLocationChangeListener() {
+    this.nonRouterCurrentEntryChangeSubscription ??= this.stateManager.registerNonRouterCurrentEntryChangeListener((url, state2, source) => {
+      this.navigateToSyncWithBrowser(url, source, state2);
+    });
+  }
+  navigateToSyncWithBrowser(url, source, state2) {
+    const extras = {
+      replaceUrl: true
+    };
+    const restoredState = state2?.navigationId ? state2 : null;
+    if (state2) {
+      const stateCopy = __spreadValues({}, state2);
+      delete stateCopy.navigationId;
+      delete stateCopy.\u0275routerPageId;
+      if (Object.keys(stateCopy).length !== 0) {
+        extras.state = stateCopy;
+      }
+    }
+    const urlTree = this.parseUrl(url);
+    this.scheduleNavigation(urlTree, source, restoredState, extras).catch((e) => {
+      if (this.disposed) {
+        return;
+      }
+      this.injector.get(INTERNAL_APPLICATION_ERROR_HANDLER)(e);
+    });
+  }
+  get url() {
+    return this.serializeUrl(this.currentUrlTree);
+  }
+  getCurrentNavigation() {
+    return untracked2(this.navigationTransitions.currentNavigation);
+  }
+  get lastSuccessfulNavigation() {
+    return this.navigationTransitions.lastSuccessfulNavigation;
+  }
+  resetConfig(config3) {
+    (typeof ngDevMode === "undefined" || ngDevMode) && validateConfig(config3);
+    this.config = config3.map(standardizeConfig);
+    this.navigated = false;
+  }
+  ngOnDestroy() {
+    this.dispose();
+  }
+  dispose() {
+    this._events.unsubscribe();
+    this.navigationTransitions.complete();
+    this.nonRouterCurrentEntryChangeSubscription?.unsubscribe();
+    this.nonRouterCurrentEntryChangeSubscription = void 0;
+    this.disposed = true;
+    this.eventsSubscription.unsubscribe();
+  }
+  createUrlTree(commands, navigationExtras = {}) {
+    const {
+      relativeTo,
+      queryParams,
+      fragment: fragment2,
+      queryParamsHandling,
+      preserveFragment
+    } = navigationExtras;
+    const f = preserveFragment ? this.currentUrlTree.fragment : fragment2;
+    let q = null;
+    switch (queryParamsHandling ?? this.options.defaultQueryParamsHandling) {
+      case "merge":
+        q = __spreadValues(__spreadValues({}, this.currentUrlTree.queryParams), queryParams);
+        break;
+      case "preserve":
+        q = this.currentUrlTree.queryParams;
+        break;
+      default:
+        q = queryParams || null;
+    }
+    if (q !== null) {
+      q = this.removeEmptyProps(q);
+    }
+    let relativeToUrlSegmentGroup;
+    try {
+      const relativeToSnapshot = relativeTo ? relativeTo.snapshot : this.routerState.snapshot.root;
+      relativeToUrlSegmentGroup = createSegmentGroupFromRoute(relativeToSnapshot);
+    } catch (e) {
+      if (typeof commands[0] !== "string" || commands[0][0] !== "/") {
+        commands = [];
+      }
+      relativeToUrlSegmentGroup = this.currentUrlTree.root;
+    }
+    return createUrlTreeFromSegmentGroup(relativeToUrlSegmentGroup, commands, q, f ?? null, this.urlSerializer);
+  }
+  navigateByUrl(url, extras = {
+    skipLocationChange: false
+  }) {
+    const urlTree = isUrlTree(url) ? url : this.parseUrl(url);
+    const mergedTree = this.urlHandlingStrategy.merge(urlTree, this.rawUrlTree);
+    return this.scheduleNavigation(mergedTree, IMPERATIVE_NAVIGATION, null, extras);
+  }
+  navigate(commands, extras = {
+    skipLocationChange: false
+  }) {
+    validateCommands(commands);
+    return this.navigateByUrl(this.createUrlTree(commands, extras), extras);
+  }
+  serializeUrl(url) {
+    return this.urlSerializer.serialize(url);
+  }
+  parseUrl(url) {
+    try {
+      return this.urlSerializer.parse(url);
+    } catch (e) {
+      this.console.warn(formatRuntimeError(4018, ngDevMode && `Error parsing URL ${url}. Falling back to '/' instead. 
+` + e));
+      return this.urlSerializer.parse("/");
+    }
+  }
+  isActive(url, matchOptions) {
+    let options;
+    if (matchOptions === true) {
+      options = __spreadValues({}, exactMatchOptions);
+    } else if (matchOptions === false) {
+      options = __spreadValues({}, subsetMatchOptions);
+    } else {
+      options = matchOptions;
+    }
+    if (isUrlTree(url)) {
+      return containsTree(this.currentUrlTree, url, options);
+    }
+    const urlTree = this.parseUrl(url);
+    return containsTree(this.currentUrlTree, urlTree, options);
+  }
+  removeEmptyProps(params) {
+    return Object.entries(params).reduce((result, [key, value]) => {
+      if (value !== null && value !== void 0) {
+        result[key] = value;
+      }
+      return result;
+    }, {});
+  }
+  scheduleNavigation(rawUrl, source, restoredState, extras, priorPromise) {
+    if (this.disposed) {
+      return Promise.resolve(false);
+    }
+    let resolve;
+    let reject;
+    let promise;
+    if (priorPromise) {
+      resolve = priorPromise.resolve;
+      reject = priorPromise.reject;
+      promise = priorPromise.promise;
+    } else {
+      promise = new Promise((res, rej) => {
+        resolve = res;
+        reject = rej;
+      });
+    }
+    const taskId = this.pendingTasks.add();
+    afterNextNavigation(this, () => {
+      queueMicrotask(() => this.pendingTasks.remove(taskId));
+    });
+    this.navigationTransitions.handleNavigationRequest({
+      source,
+      restoredState,
+      currentUrlTree: this.currentUrlTree,
+      currentRawUrl: this.currentUrlTree,
+      rawUrl,
+      extras,
+      resolve,
+      reject,
+      promise,
+      currentSnapshot: this.routerState.snapshot,
+      currentRouterState: this.routerState
+    });
+    return promise.catch(Promise.reject.bind(Promise));
+  }
+  static \u0275fac = function Router_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _Router)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _Router,
+    factory: _Router.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Router, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+function validateCommands(commands) {
+  for (let i = 0; i < commands.length; i++) {
+    const cmd = commands[i];
+    if (cmd == null) {
+      throw new RuntimeError(4008, (typeof ngDevMode === "undefined" || ngDevMode) && `The requested path contains ${cmd} segment at index ${i}`);
+    }
+  }
+}
+
+// node_modules/@angular/router/fesm2022/_router_module-chunk.mjs
+var RouterLink = class _RouterLink {
+  router;
+  route;
+  tabIndexAttribute;
+  renderer;
+  el;
+  locationStrategy;
+  reactiveHref = signal(null, ...ngDevMode ? [{
+    debugName: "reactiveHref"
+  }] : []);
+  get href() {
+    return untracked2(this.reactiveHref);
+  }
+  set href(value) {
+    this.reactiveHref.set(value);
+  }
+  target;
+  queryParams;
+  fragment;
+  queryParamsHandling;
+  state;
+  info;
+  relativeTo;
+  isAnchorElement;
+  subscription;
+  onChanges = new Subject();
+  applicationErrorHandler = inject2(INTERNAL_APPLICATION_ERROR_HANDLER);
+  options = inject2(ROUTER_CONFIGURATION, {
+    optional: true
+  });
+  constructor(router, route, tabIndexAttribute, renderer, el, locationStrategy) {
+    this.router = router;
+    this.route = route;
+    this.tabIndexAttribute = tabIndexAttribute;
+    this.renderer = renderer;
+    this.el = el;
+    this.locationStrategy = locationStrategy;
+    this.reactiveHref.set(inject2(new HostAttributeToken("href"), {
+      optional: true
+    }));
+    const tagName = el.nativeElement.tagName?.toLowerCase();
+    this.isAnchorElement = tagName === "a" || tagName === "area" || !!(typeof customElements === "object" && customElements.get(tagName)?.observedAttributes?.includes?.("href"));
+    if (this.isAnchorElement) {
+      this.setTabIndexIfNotOnNativeEl("0");
+      this.subscribeToNavigationEventsIfNecessary();
+    }
+  }
+  subscribeToNavigationEventsIfNecessary() {
+    if (this.subscription !== void 0) {
+      return;
+    }
+    this.subscription = this.router.events.subscribe((s) => {
+      if (s instanceof NavigationEnd) {
+        this.updateHref();
+      }
+    });
+  }
+  preserveFragment = false;
+  skipLocationChange = false;
+  replaceUrl = false;
+  setTabIndexIfNotOnNativeEl(newTabIndex) {
+    if (this.tabIndexAttribute != null || this.isAnchorElement) {
+      return;
+    }
+    this.applyAttributeValue("tabindex", newTabIndex);
+  }
+  ngOnChanges(changes) {
+    if (ngDevMode && isUrlTree(this.routerLinkInput) && (this.fragment !== void 0 || this.queryParams || this.queryParamsHandling || this.preserveFragment || this.relativeTo)) {
+      throw new RuntimeError(4017, "Cannot configure queryParams or fragment when using a UrlTree as the routerLink input value.");
+    }
+    if (this.isAnchorElement) {
+      this.updateHref();
+    }
+    this.onChanges.next(this);
+  }
+  routerLinkInput = null;
+  set routerLink(commandsOrUrlTree) {
+    if (commandsOrUrlTree == null) {
+      this.routerLinkInput = null;
+      this.setTabIndexIfNotOnNativeEl(null);
+    } else {
+      if (isUrlTree(commandsOrUrlTree)) {
+        this.routerLinkInput = commandsOrUrlTree;
+      } else {
+        this.routerLinkInput = Array.isArray(commandsOrUrlTree) ? commandsOrUrlTree : [commandsOrUrlTree];
+      }
+      this.setTabIndexIfNotOnNativeEl("0");
+    }
+  }
+  onClick(button, ctrlKey, shiftKey, altKey, metaKey) {
+    const urlTree = this.urlTree;
+    if (urlTree === null) {
+      return true;
+    }
+    if (this.isAnchorElement) {
+      if (button !== 0 || ctrlKey || shiftKey || altKey || metaKey) {
+        return true;
+      }
+      if (typeof this.target === "string" && this.target != "_self") {
+        return true;
+      }
+    }
+    const extras = {
+      skipLocationChange: this.skipLocationChange,
+      replaceUrl: this.replaceUrl,
+      state: this.state,
+      info: this.info
+    };
+    this.router.navigateByUrl(urlTree, extras)?.catch((e) => {
+      this.applicationErrorHandler(e);
+    });
+    return !this.isAnchorElement;
+  }
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+  updateHref() {
+    const urlTree = this.urlTree;
+    this.reactiveHref.set(urlTree !== null && this.locationStrategy ? this.locationStrategy?.prepareExternalUrl(this.router.serializeUrl(urlTree)) ?? "" : null);
+  }
+  applyAttributeValue(attrName, attrValue) {
+    const renderer = this.renderer;
+    const nativeElement = this.el.nativeElement;
+    if (attrValue !== null) {
+      renderer.setAttribute(nativeElement, attrName, attrValue);
+    } else {
+      renderer.removeAttribute(nativeElement, attrName);
+    }
+  }
+  get urlTree() {
+    if (this.routerLinkInput === null) {
+      return null;
+    } else if (isUrlTree(this.routerLinkInput)) {
+      return this.routerLinkInput;
+    }
+    return this.router.createUrlTree(this.routerLinkInput, {
+      relativeTo: this.relativeTo !== void 0 ? this.relativeTo : this.route,
+      queryParams: this.queryParams,
+      fragment: this.fragment,
+      queryParamsHandling: this.queryParamsHandling,
+      preserveFragment: this.preserveFragment
+    });
+  }
+  static \u0275fac = function RouterLink_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _RouterLink)(\u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275injectAttribute("tabindex"), \u0275\u0275directiveInject(Renderer2), \u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(LocationStrategy));
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _RouterLink,
+    selectors: [["", "routerLink", ""]],
+    hostVars: 2,
+    hostBindings: function RouterLink_HostBindings(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275listener("click", function RouterLink_click_HostBindingHandler($event) {
+          return ctx.onClick($event.button, $event.ctrlKey, $event.shiftKey, $event.altKey, $event.metaKey);
+        });
+      }
+      if (rf & 2) {
+        \u0275\u0275attribute("href", ctx.reactiveHref(), \u0275\u0275sanitizeUrlOrResourceUrl)("target", ctx.target);
+      }
+    },
+    inputs: {
+      target: "target",
+      queryParams: "queryParams",
+      fragment: "fragment",
+      queryParamsHandling: "queryParamsHandling",
+      state: "state",
+      info: "info",
+      relativeTo: "relativeTo",
+      preserveFragment: [2, "preserveFragment", "preserveFragment", booleanAttribute],
+      skipLocationChange: [2, "skipLocationChange", "skipLocationChange", booleanAttribute],
+      replaceUrl: [2, "replaceUrl", "replaceUrl", booleanAttribute],
+      routerLink: "routerLink"
+    },
+    features: [\u0275\u0275NgOnChangesFeature]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterLink, [{
+    type: Directive,
+    args: [{
+      selector: "[routerLink]",
+      host: {
+        "[attr.href]": "reactiveHref()"
+      }
+    }]
+  }], () => [{
+    type: Router
+  }, {
+    type: ActivatedRoute
+  }, {
+    type: void 0,
+    decorators: [{
+      type: Attribute,
+      args: ["tabindex"]
+    }]
+  }, {
+    type: Renderer2
+  }, {
+    type: ElementRef
+  }, {
+    type: LocationStrategy
+  }], {
+    target: [{
+      type: HostBinding,
+      args: ["attr.target"]
+    }, {
+      type: Input
+    }],
+    queryParams: [{
+      type: Input
+    }],
+    fragment: [{
+      type: Input
+    }],
+    queryParamsHandling: [{
+      type: Input
+    }],
+    state: [{
+      type: Input
+    }],
+    info: [{
+      type: Input
+    }],
+    relativeTo: [{
+      type: Input
+    }],
+    preserveFragment: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    skipLocationChange: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    replaceUrl: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    routerLink: [{
+      type: Input
+    }],
+    onClick: [{
+      type: HostListener,
+      args: ["click", ["$event.button", "$event.ctrlKey", "$event.shiftKey", "$event.altKey", "$event.metaKey"]]
+    }]
+  });
+})();
+var RouterLinkActive = class _RouterLinkActive {
+  router;
+  element;
+  renderer;
+  cdr;
+  links;
+  classes = [];
+  routerEventsSubscription;
+  linkInputChangesSubscription;
+  _isActive = false;
+  get isActive() {
+    return this._isActive;
+  }
+  routerLinkActiveOptions = {
+    exact: false
+  };
+  ariaCurrentWhenActive;
+  isActiveChange = new EventEmitter();
+  link = inject2(RouterLink, {
+    optional: true
+  });
+  constructor(router, element, renderer, cdr) {
+    this.router = router;
+    this.element = element;
+    this.renderer = renderer;
+    this.cdr = cdr;
+    this.routerEventsSubscription = router.events.subscribe((s) => {
+      if (s instanceof NavigationEnd) {
+        this.update();
+      }
+    });
+  }
+  ngAfterContentInit() {
+    of(this.links.changes, of(null)).pipe(mergeAll()).subscribe((_) => {
+      this.update();
+      this.subscribeToEachLinkOnChanges();
+    });
+  }
+  subscribeToEachLinkOnChanges() {
+    this.linkInputChangesSubscription?.unsubscribe();
+    const allLinkChanges = [...this.links.toArray(), this.link].filter((link) => !!link).map((link) => link.onChanges);
+    this.linkInputChangesSubscription = from(allLinkChanges).pipe(mergeAll()).subscribe((link) => {
+      if (this._isActive !== this.isLinkActive(this.router)(link)) {
+        this.update();
+      }
+    });
+  }
+  set routerLinkActive(data) {
+    const classes = Array.isArray(data) ? data : data.split(" ");
+    this.classes = classes.filter((c) => !!c);
+  }
+  ngOnChanges(changes) {
+    this.update();
+  }
+  ngOnDestroy() {
+    this.routerEventsSubscription.unsubscribe();
+    this.linkInputChangesSubscription?.unsubscribe();
+  }
+  update() {
+    if (!this.links || !this.router.navigated) return;
+    queueMicrotask(() => {
+      const hasActiveLinks = this.hasActiveLinks();
+      this.classes.forEach((c) => {
+        if (hasActiveLinks) {
+          this.renderer.addClass(this.element.nativeElement, c);
+        } else {
+          this.renderer.removeClass(this.element.nativeElement, c);
+        }
+      });
+      if (hasActiveLinks && this.ariaCurrentWhenActive !== void 0) {
+        this.renderer.setAttribute(this.element.nativeElement, "aria-current", this.ariaCurrentWhenActive.toString());
+      } else {
+        this.renderer.removeAttribute(this.element.nativeElement, "aria-current");
+      }
+      if (this._isActive !== hasActiveLinks) {
+        this._isActive = hasActiveLinks;
+        this.cdr.markForCheck();
+        this.isActiveChange.emit(hasActiveLinks);
+      }
+    });
+  }
+  isLinkActive(router) {
+    const options = isActiveMatchOptions(this.routerLinkActiveOptions) ? this.routerLinkActiveOptions : this.routerLinkActiveOptions.exact ?? false ? __spreadValues({}, exactMatchOptions) : __spreadValues({}, subsetMatchOptions);
+    return (link) => {
+      const urlTree = link.urlTree;
+      return urlTree ? untracked2(isActive(urlTree, router, options)) : false;
+    };
+  }
+  hasActiveLinks() {
+    const isActiveCheckFn = this.isLinkActive(this.router);
+    return this.link && isActiveCheckFn(this.link) || this.links.some(isActiveCheckFn);
+  }
+  static \u0275fac = function RouterLinkActive_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _RouterLinkActive)(\u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(Renderer2), \u0275\u0275directiveInject(ChangeDetectorRef));
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _RouterLinkActive,
+    selectors: [["", "routerLinkActive", ""]],
+    contentQueries: function RouterLinkActive_ContentQueries(rf, ctx, dirIndex) {
+      if (rf & 1) {
+        \u0275\u0275contentQuery(dirIndex, RouterLink, 5);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.links = _t);
+      }
+    },
+    inputs: {
+      routerLinkActiveOptions: "routerLinkActiveOptions",
+      ariaCurrentWhenActive: "ariaCurrentWhenActive",
+      routerLinkActive: "routerLinkActive"
+    },
+    outputs: {
+      isActiveChange: "isActiveChange"
+    },
+    exportAs: ["routerLinkActive"],
+    features: [\u0275\u0275NgOnChangesFeature]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterLinkActive, [{
+    type: Directive,
+    args: [{
+      selector: "[routerLinkActive]",
+      exportAs: "routerLinkActive"
+    }]
+  }], () => [{
+    type: Router
+  }, {
+    type: ElementRef
+  }, {
+    type: Renderer2
+  }, {
+    type: ChangeDetectorRef
+  }], {
+    links: [{
+      type: ContentChildren,
+      args: [RouterLink, {
+        descendants: true
+      }]
+    }],
+    routerLinkActiveOptions: [{
+      type: Input
+    }],
+    ariaCurrentWhenActive: [{
+      type: Input
+    }],
+    isActiveChange: [{
+      type: Output
+    }],
+    routerLinkActive: [{
+      type: Input
+    }]
+  });
+})();
+function isActiveMatchOptions(options) {
+  return !!options.paths;
+}
+var PreloadingStrategy = class {
+};
+var PreloadAllModules = class _PreloadAllModules {
+  preload(route, fn) {
+    return fn().pipe(catchError(() => of(null)));
+  }
+  static \u0275fac = function PreloadAllModules_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _PreloadAllModules)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _PreloadAllModules,
+    factory: _PreloadAllModules.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PreloadAllModules, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+var NoPreloading = class _NoPreloading {
+  preload(route, fn) {
+    return of(null);
+  }
+  static \u0275fac = function NoPreloading_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _NoPreloading)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _NoPreloading,
+    factory: _NoPreloading.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(NoPreloading, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+var RouterPreloader = class _RouterPreloader {
+  router;
+  injector;
+  preloadingStrategy;
+  loader;
+  subscription;
+  constructor(router, injector, preloadingStrategy, loader) {
+    this.router = router;
+    this.injector = injector;
+    this.preloadingStrategy = preloadingStrategy;
+    this.loader = loader;
+  }
+  setUpPreloading() {
+    this.subscription = this.router.events.pipe(filter((e) => e instanceof NavigationEnd), concatMap(() => this.preload())).subscribe(() => {
+    });
+  }
+  preload() {
+    return this.processRoutes(this.injector, this.router.config);
+  }
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+  processRoutes(injector, routes2) {
+    const res = [];
+    for (const route of routes2) {
+      if (route.providers && !route._injector) {
+        route._injector = createEnvironmentInjector(route.providers, injector, typeof ngDevMode === "undefined" || ngDevMode ? `Route: ${route.path}` : "");
+      }
+      const injectorForCurrentRoute = route._injector ?? injector;
+      if (route._loadedNgModuleFactory && !route._loadedInjector) {
+        route._loadedInjector = route._loadedNgModuleFactory.create(injectorForCurrentRoute).injector;
+      }
+      const injectorForChildren = route._loadedInjector ?? injectorForCurrentRoute;
+      if (route.loadChildren && !route._loadedRoutes && route.canLoad === void 0 || route.loadComponent && !route._loadedComponent) {
+        res.push(this.preloadConfig(injectorForCurrentRoute, route));
+      }
+      if (route.children || route._loadedRoutes) {
+        res.push(this.processRoutes(injectorForChildren, route.children ?? route._loadedRoutes));
+      }
+    }
+    return from(res).pipe(mergeAll());
+  }
+  preloadConfig(injector, route) {
+    return this.preloadingStrategy.preload(route, () => {
+      if (injector.destroyed) {
+        return of(null);
+      }
+      let loadedChildren$;
+      if (route.loadChildren && route.canLoad === void 0) {
+        loadedChildren$ = from(this.loader.loadChildren(injector, route));
+      } else {
+        loadedChildren$ = of(null);
+      }
+      const recursiveLoadChildren$ = loadedChildren$.pipe(mergeMap((config3) => {
+        if (config3 === null) {
+          return of(void 0);
+        }
+        route._loadedRoutes = config3.routes;
+        route._loadedInjector = config3.injector;
+        route._loadedNgModuleFactory = config3.factory;
+        return this.processRoutes(config3.injector ?? injector, config3.routes);
+      }));
+      if (route.loadComponent && !route._loadedComponent) {
+        const loadComponent$ = this.loader.loadComponent(injector, route);
+        return from([recursiveLoadChildren$, loadComponent$]).pipe(mergeAll());
+      } else {
+        return recursiveLoadChildren$;
+      }
+    });
+  }
+  static \u0275fac = function RouterPreloader_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _RouterPreloader)(\u0275\u0275inject(Router), \u0275\u0275inject(EnvironmentInjector), \u0275\u0275inject(PreloadingStrategy), \u0275\u0275inject(RouterConfigLoader));
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _RouterPreloader,
+    factory: _RouterPreloader.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterPreloader, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [{
+    type: Router
+  }, {
+    type: EnvironmentInjector
+  }, {
+    type: PreloadingStrategy
+  }, {
+    type: RouterConfigLoader
+  }], null);
+})();
+var ROUTER_SCROLLER = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "Router Scroller" : "");
+var RouterScroller = class _RouterScroller {
+  options;
+  routerEventsSubscription;
+  scrollEventsSubscription;
+  lastId = 0;
+  lastSource = IMPERATIVE_NAVIGATION;
+  restoredId = 0;
+  store = {};
+  urlSerializer = inject2(UrlSerializer);
+  zone = inject2(NgZone);
+  viewportScroller = inject2(ViewportScroller);
+  transitions = inject2(NavigationTransitions);
+  constructor(options) {
+    this.options = options;
+    this.options.scrollPositionRestoration ||= "disabled";
+    this.options.anchorScrolling ||= "disabled";
+  }
+  init() {
+    if (this.options.scrollPositionRestoration !== "disabled") {
+      this.viewportScroller.setHistoryScrollRestoration("manual");
+    }
+    this.routerEventsSubscription = this.createScrollEvents();
+    this.scrollEventsSubscription = this.consumeScrollEvents();
+  }
+  createScrollEvents() {
+    return this.transitions.events.subscribe((e) => {
+      if (e instanceof NavigationStart) {
+        this.store[this.lastId] = this.viewportScroller.getScrollPosition();
+        this.lastSource = e.navigationTrigger;
+        this.restoredId = e.restoredState ? e.restoredState.navigationId : 0;
+      } else if (e instanceof NavigationEnd) {
+        this.lastId = e.id;
+        this.scheduleScrollEvent(e, this.urlSerializer.parse(e.urlAfterRedirects).fragment);
+      } else if (e instanceof NavigationSkipped && e.code === NavigationSkippedCode.IgnoredSameUrlNavigation) {
+        this.lastSource = void 0;
+        this.restoredId = 0;
+        this.scheduleScrollEvent(e, this.urlSerializer.parse(e.url).fragment);
+      }
+    });
+  }
+  consumeScrollEvents() {
+    return this.transitions.events.subscribe((e) => {
+      if (!(e instanceof Scroll) || e.scrollBehavior === "manual") return;
+      const instantScroll = {
+        behavior: "instant"
+      };
+      if (e.position) {
+        if (this.options.scrollPositionRestoration === "top") {
+          this.viewportScroller.scrollToPosition([0, 0], instantScroll);
+        } else if (this.options.scrollPositionRestoration === "enabled") {
+          this.viewportScroller.scrollToPosition(e.position, instantScroll);
+        }
+      } else {
+        if (e.anchor && this.options.anchorScrolling === "enabled") {
+          this.viewportScroller.scrollToAnchor(e.anchor);
+        } else if (this.options.scrollPositionRestoration !== "disabled") {
+          this.viewportScroller.scrollToPosition([0, 0]);
+        }
+      }
+    });
+  }
+  scheduleScrollEvent(routerEvent, anchor) {
+    const scroll = untracked2(this.transitions.currentNavigation)?.extras.scroll;
+    this.zone.runOutsideAngular(() => __async(this, null, function* () {
+      yield new Promise((resolve) => {
+        setTimeout(resolve);
+        if (typeof requestAnimationFrame !== "undefined") {
+          requestAnimationFrame(resolve);
+        }
+      });
+      this.zone.run(() => {
+        this.transitions.events.next(new Scroll(routerEvent, this.lastSource === "popstate" ? this.store[this.restoredId] : null, anchor, scroll));
+      });
+    }));
+  }
+  ngOnDestroy() {
+    this.routerEventsSubscription?.unsubscribe();
+    this.scrollEventsSubscription?.unsubscribe();
+  }
+  static \u0275fac = function RouterScroller_Factory(__ngFactoryType__) {
+    \u0275\u0275invalidFactory();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _RouterScroller,
+    factory: _RouterScroller.\u0275fac
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterScroller, [{
+    type: Injectable
+  }], () => [{
+    type: void 0
+  }], null);
+})();
+var NavigationStateManager = class _NavigationStateManager extends StateManager {
+  injector = inject2(EnvironmentInjector);
+  navigation = inject2(PlatformNavigation);
+  inMemoryScrollingEnabled = inject2(ROUTER_SCROLLER, {
+    optional: true
+  }) !== null;
+  base = new URL(inject2(PlatformLocation).href).origin;
+  appRootURL = new URL(this.location.prepareExternalUrl?.("/") ?? "/", this.base).href;
+  precommitHandlerSupported = inject2(PRECOMMIT_HANDLER_SUPPORTED);
+  activeHistoryEntry = this.navigation.currentEntry;
+  currentNavigation = {};
+  nonRouterCurrentEntryChangeSubject = new Subject();
+  nonRouterEntryChangeListener;
+  get registered() {
+    return this.nonRouterEntryChangeListener !== void 0 && !this.nonRouterEntryChangeListener.closed;
+  }
+  constructor() {
+    super();
+    const navigateListener = (event) => {
+      this.handleNavigate(event);
+    };
+    this.navigation.addEventListener("navigate", navigateListener);
+    inject2(DestroyRef).onDestroy(() => this.navigation.removeEventListener("navigate", navigateListener));
+  }
+  registerNonRouterCurrentEntryChangeListener(listener) {
+    this.activeHistoryEntry = this.navigation.currentEntry;
+    this.nonRouterEntryChangeListener = this.nonRouterCurrentEntryChangeSubject.subscribe(({
+      path,
+      state: state2
+    }) => {
+      listener(path, state2, "popstate");
+    });
+    return this.nonRouterEntryChangeListener;
+  }
+  handleRouterEvent(e, transition2) {
+    return __async(this, null, function* () {
+      this.currentNavigation = __spreadProps(__spreadValues({}, this.currentNavigation), {
+        routerTransition: transition2
+      });
+      if (e instanceof NavigationStart) {
+        this.updateStateMemento();
+      } else if (e instanceof NavigationSkipped) {
+        this.finishNavigation();
+        this.commitTransition(transition2);
+      } else if (e instanceof RoutesRecognized) {
+        if (this.urlUpdateStrategy === "eager" && !transition2.extras.skipLocationChange) {
+          this.createNavigationForTransition(transition2);
+        }
+      } else if (e instanceof BeforeActivateRoutes) {
+        this.commitTransition(transition2);
+        if (this.urlUpdateStrategy === "deferred" && !transition2.extras.skipLocationChange) {
+          this.createNavigationForTransition(transition2);
+        }
+      } else if (e instanceof NavigationCancel || e instanceof NavigationError) {
+        void this.cancel(transition2, e);
+      } else if (e instanceof NavigationEnd) {
+        const {
+          resolveHandler,
+          removeAbortListener
+        } = this.currentNavigation;
+        this.currentNavigation = {};
+        removeAbortListener?.();
+        this.activeHistoryEntry = this.navigation.currentEntry;
+        afterNextRender({
+          read: () => resolveHandler?.()
+        }, {
+          injector: this.injector
+        });
+      }
+    });
+  }
+  createNavigationForTransition(transition2) {
+    const {
+      navigationEvent
+    } = this.currentNavigation;
+    if (navigationEvent && navigationEvent.navigationType === "traverse" && this.eventAndRouterDestinationsMatch(navigationEvent, transition2)) {
+      return;
+    }
+    this.currentNavigation.removeAbortListener?.();
+    const path = this.createBrowserPath(transition2);
+    this.navigate(path, transition2);
+  }
+  navigate(internalPath, transition2) {
+    const path = transition2.extras.skipLocationChange ? this.navigation.currentEntry.url : this.location.prepareExternalUrl(internalPath);
+    const state2 = __spreadProps(__spreadValues({}, transition2.extras.state), {
+      navigationId: transition2.id
+    });
+    const info = {
+      \u0275routerInfo: {
+        intercept: true
+      }
+    };
+    if (!this.navigation.transition && this.currentNavigation.navigationEvent) {
+      transition2.extras.replaceUrl = false;
+    }
+    const history = this.location.isCurrentPathEqualTo(path) || transition2.extras.replaceUrl || transition2.extras.skipLocationChange ? "replace" : "push";
+    handleResultRejections(this.navigation.navigate(path, {
+      state: state2,
+      history,
+      info
+    }));
+  }
+  finishNavigation() {
+    this.currentNavigation?.resolveHandler?.();
+    this.currentNavigation = {};
+  }
+  cancel(transition2, cause) {
+    return __async(this, null, function* () {
+      this.currentNavigation.rejectNavigateEvent?.();
+      const clearedState = {};
+      this.currentNavigation = clearedState;
+      if (isRedirectingEvent(cause)) {
+        return;
+      }
+      const isTraversalReset = this.canceledNavigationResolution === "computed" && this.navigation.currentEntry.key !== this.activeHistoryEntry.key;
+      this.resetInternalState(transition2.finalUrl, isTraversalReset);
+      if (this.navigation.currentEntry.id === this.activeHistoryEntry.id) {
+        return;
+      }
+      if (cause instanceof NavigationCancel && cause.code === NavigationCancellationCode.Aborted) {
+        yield Promise.resolve();
+        if (this.currentNavigation !== clearedState) {
+          return;
+        }
+      }
+      if (isTraversalReset) {
+        handleResultRejections(this.navigation.traverseTo(this.activeHistoryEntry.key, {
+          info: {
+            \u0275routerInfo: {
+              intercept: false
+            }
+          }
+        }));
+      } else {
+        const internalPath = this.urlSerializer.serialize(this.getCurrentUrlTree());
+        const pathOrUrl = this.location.prepareExternalUrl(internalPath);
+        handleResultRejections(this.navigation.navigate(pathOrUrl, {
+          state: this.activeHistoryEntry.getState(),
+          history: "replace",
+          info: {
+            \u0275routerInfo: {
+              intercept: false
+            }
+          }
+        }));
+      }
+    });
+  }
+  resetInternalState(finalUrl, traversalReset) {
+    this.routerState = this.stateMemento.routerState;
+    this.currentUrlTree = this.stateMemento.currentUrlTree;
+    this.rawUrlTree = traversalReset ? this.stateMemento.rawUrlTree : this.urlHandlingStrategy.merge(this.currentUrlTree, finalUrl ?? this.rawUrlTree);
+  }
+  handleNavigate(event) {
+    if (!event.canIntercept || event.navigationType === "reload") {
+      return;
+    }
+    const routerInfo = event?.info?.\u0275routerInfo;
+    if (routerInfo && !routerInfo.intercept) {
+      return;
+    }
+    const isTriggeredByRouterTransition = !!routerInfo;
+    if (!isTriggeredByRouterTransition) {
+      this.currentNavigation.routerTransition?.abort();
+      if (!this.registered) {
+        this.finishNavigation();
+        return;
+      }
+    }
+    this.currentNavigation = __spreadValues({}, this.currentNavigation);
+    this.currentNavigation.navigationEvent = event;
+    const abortHandler = () => {
+      this.currentNavigation.routerTransition?.abort();
+    };
+    event.signal.addEventListener("abort", abortHandler);
+    this.currentNavigation.removeAbortListener = () => event.signal.removeEventListener("abort", abortHandler);
+    let scroll = this.inMemoryScrollingEnabled ? "manual" : this.currentNavigation.routerTransition?.extras.scroll ?? "after-transition";
+    const interceptOptions = {
+      scroll
+    };
+    const {
+      promise: handlerPromise,
+      resolve: resolveHandler,
+      reject: rejectHandler
+    } = promiseWithResolvers();
+    this.currentNavigation.resolveHandler = () => {
+      this.currentNavigation.removeAbortListener?.();
+      resolveHandler();
+    };
+    this.currentNavigation.rejectNavigateEvent = () => {
+      this.currentNavigation.removeAbortListener?.();
+      rejectHandler();
+    };
+    handlerPromise.catch(() => {
+    });
+    interceptOptions.handler = () => handlerPromise;
+    event.intercept(interceptOptions);
+    if (!isTriggeredByRouterTransition) {
+      this.handleNavigateEventTriggeredOutsideRouterAPIs(event);
+    }
+  }
+  handleNavigateEventTriggeredOutsideRouterAPIs(event) {
+    const path = event.destination.url.substring(this.appRootURL.length - 1);
+    const state2 = event.destination.getState();
+    this.nonRouterCurrentEntryChangeSubject.next({
+      path,
+      state: state2
+    });
+  }
+  eventAndRouterDestinationsMatch(navigateEvent, transition2) {
+    const internalPath = this.createBrowserPath(transition2);
+    const eventDestination = new URL(navigateEvent.destination.url);
+    const routerDestination = this.location.prepareExternalUrl(internalPath);
+    return new URL(routerDestination, eventDestination.origin).href === eventDestination.href;
+  }
+  static \u0275fac = function NavigationStateManager_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _NavigationStateManager)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _NavigationStateManager,
+    factory: _NavigationStateManager.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(NavigationStateManager, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+function handleResultRejections(result) {
+  result.finished.catch(() => {
+  });
+  result.committed.catch(() => {
+  });
+  return result;
+}
+function rootRoute() {
+  return inject2(Router).routerState.root;
+}
+function routerFeature(kind, providers) {
+  return {
+    \u0275kind: kind,
+    \u0275providers: providers
+  };
+}
+var ROUTER_IS_PROVIDED = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "Router is provided" : "", {
+  factory: () => false
+});
+function getBootstrapListener() {
+  const injector = inject2(Injector);
+  return (bootstrappedComponentRef) => {
+    const ref = injector.get(ApplicationRef);
+    if (bootstrappedComponentRef !== ref.components[0]) {
+      return;
+    }
+    const router = injector.get(Router);
+    const bootstrapDone = injector.get(BOOTSTRAP_DONE);
+    if (injector.get(INITIAL_NAVIGATION) === 1) {
+      router.initialNavigation();
+    }
+    injector.get(ROUTER_PRELOADER, null, {
+      optional: true
+    })?.setUpPreloading();
+    injector.get(ROUTER_SCROLLER, null, {
+      optional: true
+    })?.init();
+    router.resetRootComponentType(ref.componentTypes[0]);
+    if (!bootstrapDone.closed) {
+      bootstrapDone.next();
+      bootstrapDone.complete();
+      bootstrapDone.unsubscribe();
+    }
+  };
+}
+var BOOTSTRAP_DONE = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "bootstrap done indicator" : "", {
+  factory: () => {
+    return new Subject();
+  }
+});
+var INITIAL_NAVIGATION = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "initial navigation" : "", {
+  factory: () => 1
+});
+function withEnabledBlockingInitialNavigation() {
+  const providers = [{
+    provide: IS_ENABLED_BLOCKING_INITIAL_NAVIGATION,
+    useValue: true
+  }, {
+    provide: INITIAL_NAVIGATION,
+    useValue: 0
+  }, provideAppInitializer(() => {
+    const injector = inject2(Injector);
+    const locationInitialized = injector.get(LOCATION_INITIALIZED, Promise.resolve());
+    return locationInitialized.then(() => {
+      return new Promise((resolve) => {
+        const router = injector.get(Router);
+        const bootstrapDone = injector.get(BOOTSTRAP_DONE);
+        afterNextNavigation(router, () => {
+          resolve(true);
+        });
+        injector.get(NavigationTransitions).afterPreactivation = () => {
+          resolve(true);
+          return bootstrapDone.closed ? of(void 0) : bootstrapDone;
+        };
+        router.initialNavigation();
+      });
+    });
+  })];
+  return routerFeature(2, providers);
+}
+function withDisabledInitialNavigation() {
+  const providers = [provideAppInitializer(() => {
+    inject2(Router).setUpLocationChangeListener();
+  }), {
+    provide: INITIAL_NAVIGATION,
+    useValue: 2
+  }];
+  return routerFeature(3, providers);
+}
+function withDebugTracing() {
+  let providers = [];
+  if (typeof ngDevMode === "undefined" || ngDevMode) {
+    providers = [{
+      provide: ENVIRONMENT_INITIALIZER,
+      multi: true,
+      useFactory: () => {
+        const router = inject2(Router);
+        return () => router.events.subscribe((e) => {
+          console.group?.(`Router Event: ${e.constructor.name}`);
+          console.log(stringifyEvent(e));
+          console.log(e);
+          console.groupEnd?.();
+        });
+      }
+    }];
+  } else {
+    providers = [];
+  }
+  return routerFeature(1, providers);
+}
+var ROUTER_PRELOADER = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "router preloader" : "");
+function withPreloading(preloadingStrategy) {
+  const providers = [{
+    provide: ROUTER_PRELOADER,
+    useExisting: RouterPreloader
+  }, {
+    provide: PreloadingStrategy,
+    useExisting: preloadingStrategy
+  }];
+  return routerFeature(0, providers);
+}
+function withComponentInputBinding() {
+  const providers = [RoutedComponentInputBinder, {
+    provide: INPUT_BINDER,
+    useExisting: RoutedComponentInputBinder
+  }];
+  return routerFeature(8, providers);
+}
+function withViewTransitions(options) {
+  performanceMarkFeature("NgRouterViewTransitions");
+  const providers = [{
+    provide: CREATE_VIEW_TRANSITION,
+    useValue: createViewTransition
+  }, {
+    provide: VIEW_TRANSITION_OPTIONS,
+    useValue: __spreadValues({
+      skipNextTransition: !!options?.skipInitialTransition
+    }, options)
+  }];
+  return routerFeature(9, providers);
+}
+var ROUTER_DIRECTIVES = [RouterOutlet, RouterLink, RouterLinkActive, \u0275EmptyOutletComponent];
+var ROUTER_FORROOT_GUARD = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "router duplicate forRoot guard" : "");
+var ROUTER_PROVIDERS = [Location, {
+  provide: UrlSerializer,
+  useClass: DefaultUrlSerializer
+}, Router, ChildrenOutletContexts, {
+  provide: ActivatedRoute,
+  useFactory: rootRoute
+}, RouterConfigLoader, typeof ngDevMode === "undefined" || ngDevMode ? {
+  provide: ROUTER_IS_PROVIDED,
+  useValue: true
+} : []];
+var RouterModule = class _RouterModule {
+  constructor() {
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      inject2(ROUTER_FORROOT_GUARD, {
+        optional: true
+      });
+    }
+  }
+  static forRoot(routes2, config3) {
+    return {
+      ngModule: _RouterModule,
+      providers: [ROUTER_PROVIDERS, typeof ngDevMode === "undefined" || ngDevMode ? config3?.enableTracing ? withDebugTracing().\u0275providers : [] : [], {
+        provide: ROUTES,
+        multi: true,
+        useValue: routes2
+      }, typeof ngDevMode === "undefined" || ngDevMode ? {
+        provide: ROUTER_FORROOT_GUARD,
+        useFactory: provideForRootGuard
+      } : [], config3?.errorHandler ? {
+        provide: NAVIGATION_ERROR_HANDLER,
+        useValue: config3.errorHandler
+      } : [], {
+        provide: ROUTER_CONFIGURATION,
+        useValue: config3 ? config3 : {}
+      }, config3?.useHash ? provideHashLocationStrategy() : providePathLocationStrategy(), provideRouterScroller(), config3?.preloadingStrategy ? withPreloading(config3.preloadingStrategy).\u0275providers : [], config3?.initialNavigation ? provideInitialNavigation(config3) : [], config3?.bindToComponentInputs ? withComponentInputBinding().\u0275providers : [], config3?.enableViewTransitions ? withViewTransitions().\u0275providers : [], provideRouterInitializer()]
+    };
+  }
+  static forChild(routes2) {
+    return {
+      ngModule: _RouterModule,
+      providers: [{
+        provide: ROUTES,
+        multi: true,
+        useValue: routes2
+      }]
+    };
+  }
+  static \u0275fac = function RouterModule_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _RouterModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _RouterModule,
+    imports: [RouterOutlet, RouterLink, RouterLinkActive, \u0275EmptyOutletComponent],
+    exports: [RouterOutlet, RouterLink, RouterLinkActive, \u0275EmptyOutletComponent]
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({});
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterModule, [{
+    type: NgModule,
+    args: [{
+      imports: ROUTER_DIRECTIVES,
+      exports: ROUTER_DIRECTIVES
+    }]
+  }], () => [], null);
+})();
+function provideRouterScroller() {
+  return {
+    provide: ROUTER_SCROLLER,
+    useFactory: () => {
+      const viewportScroller = inject2(ViewportScroller);
+      const config3 = inject2(ROUTER_CONFIGURATION);
+      if (config3.scrollOffset) {
+        viewportScroller.setOffset(config3.scrollOffset);
+      }
+      return new RouterScroller(config3);
+    }
+  };
+}
+function provideHashLocationStrategy() {
+  return {
+    provide: LocationStrategy,
+    useClass: HashLocationStrategy
+  };
+}
+function providePathLocationStrategy() {
+  return {
+    provide: LocationStrategy,
+    useClass: PathLocationStrategy
+  };
+}
+function provideForRootGuard() {
+  const router = inject2(Router, {
+    optional: true,
+    skipSelf: true
+  });
+  if (router) {
+    throw new RuntimeError(4007, `The Router was provided more than once. This can happen if 'forRoot' is used outside of the root injector. Lazy loaded modules should use RouterModule.forChild() instead.`);
+  }
+  return "guarded";
+}
+function provideInitialNavigation(config3) {
+  return [config3.initialNavigation === "disabled" ? withDisabledInitialNavigation().\u0275providers : [], config3.initialNavigation === "enabledBlocking" ? withEnabledBlockingInitialNavigation().\u0275providers : []];
+}
+var ROUTER_INITIALIZER = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "Router Initializer" : "");
+function provideRouterInitializer() {
+  return [{
+    provide: ROUTER_INITIALIZER,
+    useFactory: getBootstrapListener
+  }, {
+    provide: APP_BOOTSTRAP_LISTENER,
+    multi: true,
+    useExisting: ROUTER_INITIALIZER
+  }];
+}
+
 // src/app/profile/profile.component.ts
 var ProfileComponent = class _ProfileComponent {
-  constructor(route, router) {
+  constructor(route) {
     this.route = route;
-    this.router = router;
     this.destroy$ = new Subject();
   }
   ngOnInit() {
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd), takeUntil(this.destroy$)).subscribe(() => {
-      this.handleFragmentNavigation();
+    this.route.fragment.pipe(takeUntil(this.destroy$)).subscribe((fragment2) => {
+      if (fragment2) {
+        this.scrollToFragment(fragment2);
+      }
     });
   }
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
-  handleFragmentNavigation() {
-    this.route.fragment.pipe(takeUntil(this.destroy$)).subscribe((fragment2) => {
-      if (fragment2) {
-        setTimeout(() => {
-          const element = document.getElementById(fragment2);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        }, 100);
+  scrollToFragment(fragment2) {
+    setTimeout(() => {
+      const element = document.getElementById(fragment2);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-    });
+    }, 100);
   }
   static {
     this.\u0275fac = function ProfileComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _ProfileComponent)(\u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(Router));
+      return new (__ngFactoryType__ || _ProfileComponent)(\u0275\u0275directiveInject(ActivatedRoute));
     };
   }
   static {
@@ -82571,7 +82801,7 @@ var ProfileComponent = class _ProfileComponent {
       AiQuizGameComponent,
       BlogComponent
     ], template: '\n<app-header></app-header>\n\n<div class="page-content">\n  <!-- <app-particle></app-particle> -->\n  <app-intro></app-intro>\n  <app-avatar-3d></app-avatar-3d>\n  <app-about></app-about>\n  <app-skills></app-skills>\n  <app-experience></app-experience>\n  <app-publications></app-publications>\n  <app-blog></app-blog>\n  <app-education></app-education>\n\n  <app-contact></app-contact>\n  <app-ai-quiz-game></app-ai-quiz-game>\n</div>\n<app-footer></app-footer>\n' }]
-  }], () => [{ type: ActivatedRoute }, { type: Router }], null);
+  }], () => [{ type: ActivatedRoute }], null);
 })();
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProfileComponent, { className: "ProfileComponent", filePath: "src/app/profile/profile.component.ts", lineNumber: 38 });
@@ -86779,12 +87009,12 @@ platformBrowser().bootstrapModule(AppModule, { applicationProviders: [provideZon
 @angular/common/fesm2022/_module-chunk.mjs:
 @angular/common/fesm2022/http.mjs:
 @angular/platform-browser/fesm2022/platform-browser.mjs:
-@angular/router/fesm2022/_router-chunk.mjs:
-@angular/router/fesm2022/_router_module-chunk.mjs:
-@angular/router/fesm2022/router.mjs:
 @angular/forms/fesm2022/forms.mjs:
 @angular/animations/fesm2022/_private_export-chunk.mjs:
 @angular/animations/fesm2022/animations.mjs:
+@angular/router/fesm2022/_router-chunk.mjs:
+@angular/router/fesm2022/_router_module-chunk.mjs:
+@angular/router/fesm2022/router.mjs:
 @angular/animations/fesm2022/_util-chunk.mjs:
 @angular/animations/fesm2022/browser.mjs:
 @angular/platform-browser/fesm2022/animations.mjs:

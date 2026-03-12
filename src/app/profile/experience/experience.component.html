@@ -17,15 +17,19 @@
 
         <!-- Orbiting Company Planets -->
         @for (planet of planets; track planet; let i = $index) {
-          <div class="orbit-item"
+          <button class="orbit-item"
             [style.animation-delay]="getOrbitDelay(i)"
             [class.active]="isPlanetActive(planet)"
+            type="button"
+            [attr.aria-label]="getPlanetActionLabel(planet)"
+            [attr.aria-expanded]="planet.items.length > 1 ? planet.isExpanded : null"
+            [attr.aria-pressed]="isPlanetActive(planet)"
             (click)="togglePlanet(planet)">
-            <div class="orbit-node">
+            <span class="orbit-node">
               <img [src]="planet.logo" [alt]="planet.company + ' logo'" loading="lazy" />
-            </div>
+            </span>
             <span class="orbit-label">{{planet.company}}</span>
-          </div>
+          </button>
         }
       </div>
 
@@ -39,15 +43,18 @@
               <span>{{planet.company}}</span>
             </div>
             @for (sub of planet.items; track sub; let j = $index) {
-              <div class="sub-ring-item"
+              <button class="sub-ring-item"
                 [style.animation-delay]="getSubOrbitDelay(j, planet.items.length)"
                 [class.active]="selectedItem === sub"
+                type="button"
+                [attr.aria-label]="getSubItemActionLabel(sub)"
+                [attr.aria-pressed]="selectedItem === sub"
                 (click)="selectSubItem(sub)">
-                <div class="sub-ring-node">
+                <span class="sub-ring-node">
                   <span class="sub-ring-title">{{sub.title}}</span>
-                </div>
+                </span>
                 <span class="sub-ring-label">{{sub.period}}</span>
-              </div>
+              </button>
             }
           </div>
         }

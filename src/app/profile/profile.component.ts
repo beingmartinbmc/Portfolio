@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
-import {filter, takeUntil} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
+import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
@@ -40,18 +40,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
     // Handle navigation and scroll to fragments
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
+    this.route.fragment.pipe(
       takeUntil(this.destroy$)
-    ).subscribe(() => {
-      this.handleFragmentNavigation();
+    ).subscribe(fragment => {
+      if (fragment) {
+        this.scrollToFragment(fragment);
+      }
     });
   }
 
@@ -60,19 +60,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private handleFragmentNavigation() {
-    this.route.fragment.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(fragment => {
-      if (fragment) {
-        setTimeout(() => {
-          const element = document.getElementById(fragment);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 100);
+  private scrollToFragment(fragment: string) {
+    setTimeout(() => {
+      const element = document.getElementById(fragment);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-    });
+    }, 100);
   }
 
 }

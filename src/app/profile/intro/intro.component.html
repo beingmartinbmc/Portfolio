@@ -70,7 +70,7 @@
           </button>
           
           <!-- Radial Document Options -->
-          <a href="https://drive.google.com/file/d/1Xkef0oWDOhrktcCD6T67ObXp25Rx8AYq/view?usp=drive_link"
+          <a [href]="documentLinks.resume"
              target="_blank" 
              class="document-option document-resume"
              [class.show]="showDocumentDropdown">
@@ -78,7 +78,7 @@
             <span class="tooltip">Resume</span>
           </a>
           
-          <a href="https://drive.google.com/file/d/1-TqW3YrJQWNsmY6kiKb-w7hl1LNxTkh3/view?usp=sharing"
+          <a [href]="documentLinks.coverLetter"
              target="_blank" 
              class="document-option document-cover"
              [class.show]="showDocumentDropdown">
@@ -90,15 +90,15 @@
       
       <!-- Social Links -->
       <div class="hero-social apple-hero-anim">
-        <a class="social-link" href="https://www.linkedin.com/in/ankit-sharma-5b1b35158/" 
+        <a class="social-link" [href]="socialLinks.linkedin" 
            target="_blank" title="Connect on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
-        <a class="social-link" href="https://github.com/beingmartinbmc"
+        <a class="social-link" [href]="socialLinks.github"
            target="_blank" title="View GitHub Profile">
           <i class="fab fa-github"></i>
         </a>
-        <a class="social-link" href="https://stackoverflow.com/users/7972621/ankit-sharma" 
+        <a class="social-link" [href]="socialLinks.stackOverflow" 
            target="_blank" title="Stack Overflow Profile">
           <i class="fab fa-stack-overflow"></i>
         </a>
