@@ -7,7 +7,7 @@
 
     <div class="viewport-wrapper" [ngClass]="{'viewport-wrapper--zooming': zooming}">
       <div class="constellation-viewport" data-anim="scale" data-duration="1000"
-           [ngClass]="{'viewport-zooming': zooming, 'focus-mode': focusModeActive}"
+           [ngClass]="{'viewport-zooming': zooming, 'focus-mode': focusModeActive, 'has-hover': !!hoveredSkill}"
            [style.transform]="getZoomTransform()">
 
         <!-- Background ambient stars -->
@@ -36,19 +36,19 @@
               </filter>
             }
             <filter id="tooltip-shadow" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="0.3" stdDeviation="0.8" flood-color="rgba(0,0,0,0.6)"/>
+              <feDropShadow dx="0" dy="0.3" stdDeviation="0.8" flood-color="rgba(0,0,0,0.7)"/>
             </filter>
           </defs>
 
           <!-- Cross-cluster semantic connections (dashed) -->
-          @for (line of crossClusterLines; track $index) {
+          @for (link of crossClusterLines; track $index) {
             <line
-              [attr.x1]="line.x1" [attr.y1]="line.y1"
-              [attr.x2]="line.x2" [attr.y2]="line.y2"
-              [attr.stroke]="line.color"
+              [attr.x1]="link.x1" [attr.y1]="link.y1"
+              [attr.x2]="link.x2" [attr.y2]="link.y2"
+              [attr.stroke]="link.color"
               stroke-width="0.18"
               stroke-dasharray="0.9,0.7"
-              class="cross-cluster-line"/>
+              [ngClass]="getCrossLinkClasses(link)"/>
           }
 
           <!-- In-cluster constellation lines -->
@@ -65,7 +65,17 @@
           <!-- Skill stars -->
           @for (constellation of constellations; track constellation.id) {
             @for (skill of constellation.skills; track skill.name; let j = $index) {
-              <g [ngClass]="getStarClasses(skill, j)">
+              <g [ngClass]="getStarClasses(skill, j)"
+                 (mouseenter)="hoverStar(skill, constellation)"
+                 (mouseleave)="unhoverStar()"
+                 (click)="selectStar(skill, constellation)">
+                <!-- Invisible hit area -->
+                <circle
+                  [attr.cx]="skill.x"
+                  [attr.cy]="skill.y"
+                  [attr.r]="getLevelGlowRadius(skill.level) + 1"
+                  fill="transparent"
+                  class="star-hitarea"/>
                 <!-- Outer glow halo -->
                 <circle
                   [attr.cx]="skill.x"
@@ -83,10 +93,7 @@
                   [attr.fill]="constellation.color"
                   [attr.filter]="'url(#glow-' + constellation.id + ')'"
                   class="star-core"
-                  [ngClass]="{'star-core--active': isSelected(skill), 'star-core--hovered': hoveredSkill === skill}"
-                  (click)="selectStar(skill, constellation)"
-                  (mouseenter)="hoverStar(skill, constellation)"
-                  (mouseleave)="unhoverStar()"/>
+                  [ngClass]="{'star-core--active': isSelected(skill), 'star-core--hovered': hoveredSkill === skill}"/>
                 <!-- Star label -->
                 <text
                   [attr.x]="skill.x"
@@ -100,7 +107,7 @@
               </g>
             }
 
-            <!-- Category label with background halo -->
+            <!-- Category label -->
             <text
               [attr.x]="getCategoryLabelX(constellation)"
               [attr.y]="getCategoryLabelY(constellation)"
@@ -111,78 +118,75 @@
             </text>
           }
 
-          <!-- Radial proficiency ring (selected star) -->
+          <!-- Radial proficiency ring -->
           @if (selectedSkill && selectedConstellation) {
             <g class="radial-ring">
               <circle
-                [attr.cx]="selectedSkill.x"
-                [attr.cy]="selectedSkill.y"
-                [attr.r]="ringRadius"
-                fill="none"
-                [attr.stroke]="selectedConstellation.color"
-                stroke-opacity="0.15"
-                [attr.stroke-width]="ringStroke"
-                class="ring-track"/>
+                [attr.cx]="selectedSkill.x" [attr.cy]="selectedSkill.y" [attr.r]="ringRadius"
+                fill="none" [attr.stroke]="selectedConstellation.color"
+                stroke-opacity="0.15" [attr.stroke-width]="ringStroke" class="ring-track"/>
               <path
                 [attr.d]="getArcPath(selectedSkill.x, selectedSkill.y, selectedSkill.proficiency)"
-                fill="none"
-                [attr.stroke]="selectedConstellation.color"
-                [attr.stroke-width]="ringStroke"
-                stroke-linecap="round"
-                class="ring-fill"/>
+                fill="none" [attr.stroke]="selectedConstellation.color"
+                [attr.stroke-width]="ringStroke" stroke-linecap="round" class="ring-fill"/>
               <text
-                [attr.x]="selectedSkill.x"
-                [attr.y]="getPercentY(selectedSkill)"
-                text-anchor="middle"
-                class="ring-percentage"
+                [attr.x]="selectedSkill.x" [attr.y]="getPercentY(selectedSkill)"
+                text-anchor="middle" class="ring-percentage"
                 [attr.fill]="selectedConstellation.color">
                 {{selectedSkill.proficiency}}%
               </text>
             </g>
           }
 
-          <!-- Hover tooltip (SVG-native, perfectly aligned) -->
+          <!-- Hover tooltip -->
           @if (hoveredSkill && hoveredConstellation && tooltipPos && !isSelected(hoveredSkill)) {
             <g class="skill-tooltip" pointer-events="none" filter="url(#tooltip-shadow)">
-              <!-- Background -->
               <rect
-                [attr.x]="tooltipPos.x - 9.5"
+                [attr.x]="tooltipPos.x - 12"
                 [attr.y]="tooltipPos.y"
-                width="19" height="7.2"
-                rx="1.1"
-                fill="rgba(6,8,24,0.94)"
+                width="24" height="9"
+                rx="1.2"
+                fill="rgba(6,8,24,0.95)"
                 [attr.stroke]="hoveredConstellation.color"
                 stroke-width="0.2"
                 stroke-opacity="0.6"/>
-              <!-- Level indicator dot -->
+              <!-- Level dot -->
               <circle
-                [attr.cx]="tooltipPos.x - 7.2"
-                [attr.cy]="tooltipPos.y + 2.55"
+                [attr.cx]="tooltipPos.x - 9.8"
+                [attr.cy]="tooltipPos.y + 2.5"
                 r="0.65"
                 [attr.fill]="hoveredConstellation.color"
-                [attr.fill-opacity]="hoveredSkill.level === 'primary' ? 1 : hoveredSkill.level === 'secondary' ? 0.75 : 0.45"/>
+                [attr.fill-opacity]="hoveredSkill.level === 'primary' ? 1 : hoveredSkill.level === 'secondary' ? 0.7 : 0.4"/>
               <!-- Skill name -->
               <text
-                [attr.x]="tooltipPos.x - 5.8"
-                [attr.y]="tooltipPos.y + 2.95"
+                [attr.x]="tooltipPos.x - 8.2"
+                [attr.y]="tooltipPos.y + 2.85"
                 class="tooltip-name"
                 [attr.fill]="hoveredConstellation.color"
                 dominant-baseline="middle">
                 {{hoveredSkill.name}}
               </text>
-              <!-- Category · Level line -->
+              <!-- Level label -->
               <text
-                [attr.x]="tooltipPos.x - 7.8"
-                [attr.y]="tooltipPos.y + 5.55"
+                [attr.x]="tooltipPos.x - 10.2"
+                [attr.y]="tooltipPos.y + 5.3"
                 class="tooltip-meta"
                 dominant-baseline="middle">
                 {{hoveredConstellation.name}} · {{getLevelLabel(hoveredSkill.level)}}
+              </text>
+              <!-- 1-line proof / context -->
+              <text
+                [attr.x]="tooltipPos.x - 10.2"
+                [attr.y]="tooltipPos.y + 7.5"
+                class="tooltip-proof"
+                dominant-baseline="middle">
+                {{hoveredSkill.tooltip}}
               </text>
             </g>
           }
         </svg>
 
-        <!-- Rocket Ship (inside viewport so it zooms with stars) -->
+        <!-- Rocket Ship -->
         @if (rocketAnimating && rocketPosition) {
           <div class="rocket-container" [ngClass]="{'rocket-container--zooming': zooming}">
             <svg class="rocket-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
@@ -197,23 +201,13 @@
                 </radialGradient>
                 <filter id="rocketGlowFilter" x="-100%" y="-100%" width="300%" height="300%">
                   <feGaussianBlur stdDeviation="0.8" result="blur"/>
-                  <feMerge>
-                    <feMergeNode in="blur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
                 </filter>
               </defs>
-
               @for (particle of rocketTrail; track $index) {
-                <circle
-                  [attr.cx]="particle.x"
-                  [attr.cy]="particle.y"
-                  [attr.r]="particle.size"
-                  fill="url(#trailGlow)"
-                  [attr.opacity]="particle.opacity"
-                  class="trail-particle"/>
+                <circle [attr.cx]="particle.x" [attr.cy]="particle.y" [attr.r]="particle.size"
+                  fill="url(#trailGlow)" [attr.opacity]="particle.opacity" class="trail-particle"/>
               }
-
               <g class="rocket-group"
                  [attr.transform]="'translate(' + rocketPosition.x + ', ' + rocketPosition.y + ')'"
                  filter="url(#rocketGlowFilter)">
@@ -233,12 +227,9 @@
           </div>
         }
 
-        <!-- Star burst flash on arrival -->
+        <!-- Star burst flash -->
         @if (zooming && zoomTarget) {
-          <div class="star-burst"
-               [style.left.%]="zoomTarget.x"
-               [style.top.%]="zoomTarget.y">
-          </div>
+          <div class="star-burst" [style.left.%]="zoomTarget.x" [style.top.%]="zoomTarget.y"></div>
         }
 
       </div>
@@ -263,11 +254,10 @@
                 </span>
               </div>
             </div>
-            <button class="modal-close" (click)="closeDetailModal()" aria-label="Close skill detail">
+            <button class="modal-close" (click)="closeDetailModal()" aria-label="Close">
               <i class="fas fa-times"></i>
             </button>
           </div>
-
           <div class="modal-content">
             <div class="modal-section">
               <h3 class="modal-section-title">Overview</h3>
@@ -316,7 +306,7 @@
       </div>
     }
 
-    <!-- Level Legend (replaces color legend) -->
+    <!-- Level Legend -->
     <div class="skill-level-legend">
       <div class="level-legend-item">
         <span class="level-legend-star level-legend-star--primary"></span>
