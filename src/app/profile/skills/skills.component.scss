@@ -207,42 +207,71 @@
   opacity: 0;
   animation: crossLineReveal 1.5s 0.5s ease-out forwards;
   stroke-linecap: round;
+  transition: opacity 0.4s ease, stroke-width 0.3s ease;
+
+  &--highlighted {
+    opacity: 1 !important;
+    stroke-width: 0.4 !important;
+    filter: drop-shadow(0 0 1.5px currentColor);
+  }
+
+  &--dimmed {
+    opacity: 0.12 !important;
+  }
 }
 
 @keyframes crossLineReveal {
   0%   { opacity: 0; stroke-dashoffset: 30; }
-  100% { opacity: 1; stroke-dashoffset: 0; }
+  100% { opacity: 0.65; stroke-dashoffset: 0; }
 }
 
 /* ── Star groups ────────────────────────────────────────── */
 .star-group {
-  transition: opacity 0.6s ease;
+  cursor: pointer;
+  transition: opacity 0.4s ease, transform 0.25s ease;
+  transform-origin: var(--star-cx) var(--star-cy);
 
-  /* Focus mode: non-primary stars fade in slowly on load */
   &--faded {
     opacity: 0.28;
   }
 
-  /* Selection mode: unrelated skills dim heavily */
+  &--hover-dimmed {
+    opacity: 0.18;
+    transition: opacity 0.3s ease;
+  }
+
   &--dimmed {
     opacity: 0.12;
     pointer-events: none;
   }
 
-  /* Override: active star is always fully visible */
   &--active {
     opacity: 1 !important;
   }
 
-  /* Primary stars: extra glow pulse */
+  &--hovered {
+    .star-core {
+      filter: brightness(1.8) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor);
+    }
+    .star-glow {
+      fill-opacity: 0.55 !important;
+    }
+    .star-label {
+      fill-opacity: 1;
+    }
+  }
+
   &--primary .star-glow {
     animation: primaryGlowPulse 2.5s ease-in-out infinite alternate !important;
   }
 
-  /* Supporting stars: slightly smaller label */
   &--supporting .star-label {
     font-size: 1.35px;
   }
+}
+
+.star-hitarea {
+  cursor: pointer;
 }
 
 @keyframes primaryGlowPulse {
@@ -250,7 +279,7 @@
   100% { fill-opacity: 0.55; }
 }
 
-/* Focus mode: primary stars get a gentle entrance pulse */
+/* Focus mode: primary stars get entrance pulse */
 .focus-mode .star-group--primary .star-core {
   animation: focusPrimaryPulse 2s ease-in-out infinite alternate;
 }
@@ -262,6 +291,7 @@
 
 /* ── Star glow ──────────────────────────────────────────── */
 .star-glow {
+  pointer-events: none;
   transition: fill-opacity 0.3s ease;
   animation: glowPulse 3s ease-in-out infinite alternate;
 
@@ -283,13 +313,12 @@
 
 /* ── Star core ──────────────────────────────────────────── */
 .star-core {
-  cursor: pointer;
-  transition: filter 0.2s ease;
+  pointer-events: none;
+  transition: filter 0.25s ease;
   filter: drop-shadow(0 0 1px currentColor);
 
-  &:hover, &--hovered {
+  &--hovered {
     filter: brightness(1.7) drop-shadow(0 0 2.5px currentColor) drop-shadow(0 0 5px currentColor);
-    transform: scale(1.1);
   }
 
   &--active {
@@ -350,12 +379,13 @@
 
 /* ── Category labels ────────────────────────────────────── */
 .category-label {
-  font-size: 1.9px;
+  font-size: 2px;
   font-weight: 700;
-  fill-opacity: 0.55;
+  fill-opacity: 0.72;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-  letter-spacing: 0.22px;
+  letter-spacing: 0.25px;
   text-transform: uppercase;
+  filter: drop-shadow(0 0 3px currentColor);
 }
 
 /* ── Hover tooltip ──────────────────────────────────────── */
@@ -369,16 +399,24 @@
 }
 
 .tooltip-name {
-  font-size: 2.05px;
+  font-size: 2.1px;
   font-weight: 700;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .tooltip-meta {
-  font-size: 1.5px;
+  font-size: 1.45px;
   font-weight: 500;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-  fill: rgba(200, 215, 255, 0.65);
+  fill: rgba(200, 215, 255, 0.6);
+}
+
+.tooltip-proof {
+  font-size: 1.35px;
+  font-weight: 400;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  fill: rgba(255, 255, 255, 0.48);
+  font-style: italic;
 }
 
 /* ── Radial proficiency ring ────────────────────────────── */
@@ -740,7 +778,7 @@
   }
 }
 
-/* ── Level legend (replaces color legend) ───────────────── */
+/* ── Level legend ───────────────────────────────────────── */
 .skill-level-legend {
   display: flex;
   align-items: center;
