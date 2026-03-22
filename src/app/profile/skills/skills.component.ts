@@ -87,7 +87,7 @@ export class SkillsComponent implements OnInit, AfterViewInit {
         color: '#64B5F6',
         glowColor: 'rgba(100, 181, 246, 0.6)',
         skills: [
-          { name: 'Java 21', proficiency: 90, x: 12, y: 14 },
+          { name: 'Java', proficiency: 90, x: 12, y: 14 },
           { name: 'Python', proficiency: 88, x: 24, y: 10 },
           { name: 'GO', proficiency: 93, x: 8, y: 28 },
           { name: 'NodeJS', proficiency: 91, x: 22, y: 26 },
