@@ -1,6 +1,6 @@
 /* Constellation Map — Skills Component */
 
-/* Section Header */
+/* ── Section ────────────────────────────────────────────── */
 .apple-section {
   position: relative;
   padding: clamp(5rem, 9vw, 7rem) 0;
@@ -49,6 +49,7 @@
   z-index: 1;
 }
 
+/* ── Header ─────────────────────────────────────────────── */
 .section-header {
   text-align: center;
   margin: 0 auto 3rem;
@@ -84,7 +85,6 @@
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
   white-space: nowrap;
   overflow: visible;
-  text-overflow: unset;
   line-height: 1.05;
   display: inline-block;
   filter: drop-shadow(0 0 24px rgba(132, 167, 255, 0.24));
@@ -99,7 +99,20 @@
   text-transform: uppercase;
 }
 
-/* Constellation Viewport */
+/* ── Viewport wrapper ───────────────────────────────────── */
+.viewport-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(100, 181, 246, 0.35), rgba(169, 141, 255, 0.18) 45%, rgba(244, 143, 177, 0.28));
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 18px 80px rgba(2, 6, 22, 0.55),
+    0 0 90px rgba(100, 181, 246, 0.12);
+}
+
+/* ── Constellation viewport ─────────────────────────────── */
 .constellation-viewport {
   position: relative;
   width: 100%;
@@ -111,16 +124,15 @@
     radial-gradient(ellipse at 82% 18%, rgba(128, 203, 196, 0.08) 0%, transparent 42%),
     radial-gradient(ellipse at 24% 76%, rgba(244, 143, 177, 0.08) 0%, transparent 38%),
     radial-gradient(ellipse at 74% 74%, rgba(129, 199, 132, 0.08) 0%, transparent 34%),
-    radial-gradient(circle at 50% 50%, rgba(19, 29, 74, 0.34) 0%, rgba(8, 10, 28, 0) 34%),
     linear-gradient(180deg, rgba(8, 10, 32, 0.98) 0%, rgba(4, 6, 18, 0.98) 100%);
   border-radius: 27px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
-  box-shadow:
-    0 0 80px rgba(0, 0, 0, 0.6),
-    0 0 140px rgba(102, 126, 234, 0.08),
-    inset 0 0 120px rgba(102, 126, 234, 0.05),
-    inset 0 0 40px rgba(255, 255, 255, 0.03);
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center center;
+
+  &.viewport-zooming {
+    overflow: visible;
+  }
 
   &::before {
     content: '';
@@ -137,7 +149,7 @@
   }
 }
 
-/* Background Star Field */
+/* ── Background star field ──────────────────────────────── */
 .star-field {
   position: absolute;
   inset: 0;
@@ -164,11 +176,11 @@
 
 @keyframes twinkle {
   0%   { opacity: 0.15; transform: scale(1); }
-  50%  { opacity: 0.9; transform: scale(1.3); }
-  100% { opacity: 0.2; transform: scale(0.9); }
+  50%  { opacity: 0.9;  transform: scale(1.3); }
+  100% { opacity: 0.2;  transform: scale(0.9); }
 }
 
-/* SVG Canvas */
+/* ── SVG canvas ─────────────────────────────────────────── */
 .constellation-svg {
   position: absolute;
   inset: 0;
@@ -177,7 +189,7 @@
   z-index: 1;
 }
 
-/* Constellation Lines */
+/* ── Constellation lines ────────────────────────────────── */
 .constellation-line {
   transition: stroke-opacity 0.4s ease;
   animation: lineShimmer 5s ease-in-out infinite alternate;
@@ -185,20 +197,77 @@
 }
 
 @keyframes lineShimmer {
-  0%   { stroke-opacity: 0.25; stroke-width: 0.15; }
-  50%  { stroke-opacity: 0.7; stroke-width: 0.22; }
-  100% { stroke-opacity: 0.3; stroke-width: 0.15; }
+  0%   { stroke-opacity: 0.2;  stroke-width: 0.13; }
+  50%  { stroke-opacity: 0.55; stroke-width: 0.2; }
+  100% { stroke-opacity: 0.25; stroke-width: 0.13; }
 }
 
-/* Star Glow (outer halo) */
+/* Cross-cluster dashed connections */
+.cross-cluster-line {
+  opacity: 0;
+  animation: crossLineReveal 1.5s 0.5s ease-out forwards;
+  stroke-linecap: round;
+}
+
+@keyframes crossLineReveal {
+  0%   { opacity: 0; stroke-dashoffset: 30; }
+  100% { opacity: 1; stroke-dashoffset: 0; }
+}
+
+/* ── Star groups ────────────────────────────────────────── */
+.star-group {
+  transition: opacity 0.6s ease;
+
+  /* Focus mode: non-primary stars fade in slowly on load */
+  &--faded {
+    opacity: 0.28;
+  }
+
+  /* Selection mode: unrelated skills dim heavily */
+  &--dimmed {
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  /* Override: active star is always fully visible */
+  &--active {
+    opacity: 1 !important;
+  }
+
+  /* Primary stars: extra glow pulse */
+  &--primary .star-glow {
+    animation: primaryGlowPulse 2.5s ease-in-out infinite alternate !important;
+  }
+
+  /* Supporting stars: slightly smaller label */
+  &--supporting .star-label {
+    font-size: 1.35px;
+  }
+}
+
+@keyframes primaryGlowPulse {
+  0%   { fill-opacity: 0.2; }
+  100% { fill-opacity: 0.55; }
+}
+
+/* Focus mode: primary stars get a gentle entrance pulse */
+.focus-mode .star-group--primary .star-core {
+  animation: focusPrimaryPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes focusPrimaryPulse {
+  0%   { filter: drop-shadow(0 0 1.5px currentColor) brightness(1.1); }
+  100% { filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 8px currentColor) brightness(1.5); }
+}
+
+/* ── Star glow ──────────────────────────────────────────── */
 .star-glow {
-  transition: fill-opacity 0.3s ease, r 0.3s ease;
+  transition: fill-opacity 0.3s ease;
   animation: glowPulse 3s ease-in-out infinite alternate;
-  transform-origin: center;
 
   &--active {
     fill-opacity: 0.5 !important;
-    animation: glowPulseActive 1.2s ease-in-out infinite alternate;
+    animation: glowPulseActive 1.2s ease-in-out infinite alternate !important;
   }
 }
 
@@ -209,26 +278,26 @@
 
 @keyframes glowPulseActive {
   0%   { fill-opacity: 0.35; }
-  100% { fill-opacity: 0.55; }
+  100% { fill-opacity: 0.6;  }
 }
 
-/* Star Core — floating animation via per-star delays in HTML */
+/* ── Star core ──────────────────────────────────────────── */
 .star-core {
   cursor: pointer;
-  transition: filter 0.25s ease, r 0.2s ease;
-  transform-origin: center;
+  transition: filter 0.2s ease;
   filter: drop-shadow(0 0 1px currentColor);
 
-  &:hover {
-    filter: brightness(1.6) drop-shadow(0 0 2px currentColor) drop-shadow(0 0 4px currentColor);
+  &:hover, &--hovered {
+    filter: brightness(1.7) drop-shadow(0 0 2.5px currentColor) drop-shadow(0 0 5px currentColor);
+    transform: scale(1.1);
   }
 
   &--active {
-    filter: brightness(1.8) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor) !important;
+    filter: brightness(1.9) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 7px currentColor) !important;
   }
 }
 
-/* Floating keyframes — stars gently drift */
+/* ── Floating animations ────────────────────────────────── */
 .star-float-1 { animation: starFloat1 6s ease-in-out infinite; }
 .star-float-2 { animation: starFloat2 7s ease-in-out infinite; }
 .star-float-3 { animation: starFloat3 5s ease-in-out infinite; }
@@ -258,14 +327,20 @@
   75%      { transform: translate(0.4px, -0.4px); }
 }
 
-/* Star Label */
+/* ── Star labels ────────────────────────────────────────── */
 .star-label {
-  font-size: 1.6px;
+  font-size: 1.65px;
   font-weight: 600;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
   fill-opacity: 0.65;
   pointer-events: none;
   transition: fill-opacity 0.3s ease;
+
+  &--primary {
+    font-size: 1.85px;
+    fill-opacity: 0.85;
+    font-weight: 700;
+  }
 
   &--active {
     fill-opacity: 1;
@@ -273,23 +348,42 @@
   }
 }
 
-/* Category Label */
+/* ── Category labels ────────────────────────────────────── */
 .category-label {
-  font-size: 1.6px;
-  font-weight: 500;
-  fill-opacity: 0.3;
+  font-size: 1.9px;
+  font-weight: 700;
+  fill-opacity: 0.55;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-  letter-spacing: 0.15px;
+  letter-spacing: 0.22px;
   text-transform: uppercase;
 }
 
-/* Radial Proficiency Ring */
-.radial-ring {
-  pointer-events: none;
+/* ── Hover tooltip ──────────────────────────────────────── */
+.skill-tooltip {
+  animation: tooltipFadeIn 0.15s ease-out;
 }
 
-.ring-track {
-  opacity: 1;
+@keyframes tooltipFadeIn {
+  from { opacity: 0; transform: translateY(0.5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tooltip-name {
+  font-size: 2.05px;
+  font-weight: 700;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.tooltip-meta {
+  font-size: 1.5px;
+  font-weight: 500;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  fill: rgba(200, 215, 255, 0.65);
+}
+
+/* ── Radial proficiency ring ────────────────────────────── */
+.radial-ring {
+  pointer-events: none;
 }
 
 .ring-fill {
@@ -318,46 +412,14 @@
   to   { fill-opacity: 1; transform: translateY(0); }
 }
 
-/* Viewport Wrapper — clips the zoom overflow */
-.viewport-wrapper {
-  position: relative;
-  overflow: hidden;
-  border-radius: 28px;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(100, 181, 246, 0.35), rgba(169, 141, 255, 0.18) 45%, rgba(244, 143, 177, 0.28));
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.04),
-    0 18px 80px rgba(2, 6, 22, 0.55),
-    0 0 90px rgba(100, 181, 246, 0.12);
-
-  &--zooming {
-    overflow: hidden; // keep clipping but allow internal zoom
-  }
-}
-
-/* Viewport Zoom Effect */
-.constellation-viewport {
-  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: center center;
-
-  &.viewport-zooming {
-    overflow: visible;
-    z-index: 10;
-  }
-}
-
-/* Rocket Ship Animation */
+/* ── Rocket ─────────────────────────────────────────────── */
 .rocket-container {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 5;
-  opacity: 1;
-  transition: opacity 0.3s ease;
 
-  &--zooming {
-    z-index: 10;
-  }
+  &--zooming { z-index: 10; }
 }
 
 .rocket-svg {
@@ -367,57 +429,33 @@
 
 .rocket-group {
   transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform-origin: center;
 }
 
-.rocket-flame {
-  animation: flameFlicker 0.12s ease-in-out infinite alternate;
-  transform-origin: center top;
-}
+.rocket-flame      { animation: flameFlicker      0.12s ease-in-out infinite alternate; transform-origin: center top; }
+.rocket-flame-inner{ animation: flameFlickerInner 0.1s  ease-in-out infinite alternate; transform-origin: center top; }
+.rocket-flame-core { animation: flameCoreFlicker  0.08s ease-in-out infinite alternate; transform-origin: center top; }
 
-.rocket-flame-inner {
-  animation: flameFlickerInner 0.1s ease-in-out infinite alternate;
-  transform-origin: center top;
-}
+@keyframes flameFlicker      { 0% { opacity: 0.8; transform: scaleY(1)   scaleX(1);    } 100% { opacity: 1;   transform: scaleY(1.3) scaleX(0.85); } }
+@keyframes flameFlickerInner { 0% { opacity: 0.8; transform: scaleY(1.1) scaleX(0.9);  } 100% { opacity: 1;   transform: scaleY(1.4) scaleX(0.8);  } }
+@keyframes flameCoreFlicker  { 0% { opacity: 0.6; transform: scaleY(0.9); }              100% { opacity: 0.9; transform: scaleY(1.2); }                }
 
-.rocket-flame-core {
-  animation: flameCoreFlicker 0.08s ease-in-out infinite alternate;
-  transform-origin: center top;
-}
-
-@keyframes flameFlicker {
-  0%   { opacity: 0.8; transform: scaleY(1) scaleX(1); }
-  100% { opacity: 1; transform: scaleY(1.3) scaleX(0.85); }
-}
-
-@keyframes flameFlickerInner {
-  0%   { opacity: 0.8; transform: scaleY(1.1) scaleX(0.9); }
-  100% { opacity: 1; transform: scaleY(1.4) scaleX(0.8); }
-}
-
-@keyframes flameCoreFlicker {
-  0%   { opacity: 0.6; transform: scaleY(0.9); }
-  100% { opacity: 0.9; transform: scaleY(1.2); }
-}
-
-/* Rocket Trail Particles */
 .trail-particle {
   animation: trailFade 1.2s ease-out forwards;
 }
 
 @keyframes trailFade {
-  0%   { opacity: 0; r: 0; }
+  0%   { opacity: 0; }
   30%  { opacity: 0.8; }
-  100% { opacity: 0; r: 0.8px; }
+  100% { opacity: 0; }
 }
 
-/* Star Burst Flash Effect */
+/* ── Star burst ─────────────────────────────────────────── */
 .star-burst {
   position: absolute;
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(100, 181, 246, 0.4) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(100,181,246,0.4) 40%, transparent 70%);
   transform: translate(-50%, -50%);
   z-index: 8;
   pointer-events: none;
@@ -425,16 +463,16 @@
 }
 
 @keyframes starBurst {
-  0%   { width: 0; height: 0; opacity: 1; }
+  0%   { width: 0;     height: 0;     opacity: 1; }
   40%  { width: 200px; height: 200px; opacity: 0.8; }
   100% { width: 500px; height: 500px; opacity: 0; }
 }
 
-/* Skill Detail Modal */
+/* ── Skill detail modal ─────────────────────────────────── */
 .skill-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.82);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: flex;
@@ -460,20 +498,16 @@
   overflow: hidden;
   box-shadow:
     0 25px 80px rgba(0, 0, 0, 0.6),
-    0 0 150px rgba(102, 126, 234, 0.12),
-    0 0 40px rgba(102, 126, 234, 0.06);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+    0 0 150px rgba(102, 126, 234, 0.12);
   animation: modalZoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes modalZoomIn {
   0%   { opacity: 0; transform: scale(0.3) translateY(20px); filter: blur(10px); }
-  50%  { opacity: 0.8; transform: scale(1.02) translateY(-5px); filter: blur(0px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px); }
+  60%  { opacity: 0.9; transform: scale(1.02) translateY(-4px); filter: blur(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
 }
 
-/* Modal Header */
 .modal-header {
   display: flex;
   align-items: center;
@@ -501,10 +535,14 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+.modal-skill-initial {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 .modal-title-section {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.35rem;
 }
 
 .modal-skill-name {
@@ -519,6 +557,36 @@
   font-size: 0.9rem;
   font-weight: 500;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-level-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+
+  &--primary {
+    background: rgba(255, 200, 80, 0.18);
+    color: #FFD54F;
+    border: 1px solid rgba(255, 213, 79, 0.35);
+  }
+
+  &--secondary {
+    background: rgba(100, 181, 246, 0.15);
+    color: #90CAF9;
+    border: 1px solid rgba(100, 181, 246, 0.3);
+  }
+
+  &--supporting {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
 }
 
 .modal-close {
@@ -541,7 +609,6 @@
   }
 }
 
-/* Modal Content */
 .modal-content {
   padding: 2rem;
   overflow-y: auto;
@@ -551,12 +618,10 @@
 .modal-section {
   margin-bottom: 2rem;
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+  &:last-child { margin-bottom: 0; }
 }
 
-.modal-section .section-title {
+.modal-section-title {
   font-size: 1.1rem;
   font-weight: 600;
   color: #fff;
@@ -566,12 +631,11 @@
 
 .section-description {
   color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
+  line-height: 1.65;
   margin: 0;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Detail List */
 .detail-list {
   list-style: none;
   padding: 0;
@@ -582,7 +646,7 @@
     padding-left: 1.5rem;
     margin-bottom: 0.75rem;
     color: rgba(255, 255, 255, 0.7);
-    line-height: 1.5;
+    line-height: 1.55;
     font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
 
     &::before {
@@ -593,13 +657,10 @@
       font-weight: bold;
     }
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+    &:last-child { margin-bottom: 0; }
   }
 }
 
-/* Project Grid */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -623,9 +684,7 @@
   }
 }
 
-.project-icon {
-  font-size: 1.2rem;
-}
+.project-icon { font-size: 1.2rem; }
 
 .project-name {
   color: rgba(255, 255, 255, 0.8);
@@ -634,7 +693,6 @@
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Achievement List */
 .achievement-list {
   display: flex;
   flex-direction: column;
@@ -659,7 +717,6 @@
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Related Skills */
 .related-skills {
   display: flex;
   flex-wrap: wrap;
@@ -683,16 +740,17 @@
   }
 }
 
-/* Category Legend */
-.constellation-legend {
+/* ── Level legend (replaces color legend) ───────────────── */
+.skill-level-legend {
   display: flex;
+  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1.25rem;
+  gap: 0;
   width: fit-content;
   max-width: 100%;
   margin: 2rem auto 0;
-  padding: 1rem 1.5rem;
+  padding: 0.875rem 1.75rem;
   border: 1px solid rgba(133, 162, 255, 0.18);
   border-radius: 24px;
   background: linear-gradient(135deg, rgba(10, 14, 38, 0.78), rgba(18, 24, 56, 0.48));
@@ -703,89 +761,94 @@
   -webkit-backdrop-filter: blur(16px);
 }
 
-.legend-item {
+.level-legend-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
+  padding: 0 1.25rem;
 }
 
-.legend-dot {
-  width: 8px;
-  height: 8px;
+.level-legend-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.level-legend-star {
+  display: block;
   border-radius: 50%;
-  box-shadow: 0 0 10px currentColor, 0 0 24px currentColor;
+  flex-shrink: 0;
+
+  &--primary {
+    width: 11px;
+    height: 11px;
+    background: radial-gradient(circle, #FFD54F, #FFB300);
+    box-shadow: 0 0 8px rgba(255, 213, 79, 0.7), 0 0 20px rgba(255, 213, 79, 0.3);
+    animation: legendPrimaryPulse 2.5s ease-in-out infinite alternate;
+  }
+
+  &--secondary {
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #90CAF9, #42A5F5);
+    box-shadow: 0 0 6px rgba(100, 181, 246, 0.5);
+  }
+
+  &--supporting {
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+  }
 }
 
-.legend-name {
+@keyframes legendPrimaryPulse {
+  0%   { box-shadow: 0 0 6px rgba(255, 213, 79, 0.6),  0 0 14px rgba(255, 213, 79, 0.2); }
+  100% { box-shadow: 0 0 12px rgba(255, 213, 79, 0.9), 0 0 28px rgba(255, 213, 79, 0.5); }
+}
+
+.level-legend-label {
   font-size: 0.78rem;
   font-weight: 500;
   color: rgba(220, 229, 255, 0.72);
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
-/* Responsive */
+/* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .apple-section {
-    padding: 4.5rem 0;
-  }
+  .apple-section { padding: 4.5rem 0; }
 
-  .section-header {
-    margin-bottom: 2.5rem;
-  }
+  .section-header { margin-bottom: 2.5rem; }
 
   .section-header .section-title {
     font-size: 2.7rem;
     white-space: normal;
   }
 
-  .constellation-viewport {
-    aspect-ratio: 4 / 3;
-  }
+  .constellation-viewport { aspect-ratio: 4 / 3; }
 
-  .star-label {
-    font-size: 2.2px;
-  }
+  .star-label { font-size: 2.2px; }
+  .star-label--primary { font-size: 2.5px; }
+  .category-label { font-size: 2.2px; }
 
-  .category-label {
-    font-size: 2px;
-  }
-
-  .skill-detail-panel {
-    min-width: 220px;
-    max-width: 300px;
-    bottom: 1rem;
-  }
-
-  .constellation-legend {
+  .skill-level-legend {
     width: 100%;
-    gap: 0.75rem;
+    gap: 0.5rem;
     padding: 0.875rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .apple-fade-in,
-  .apple-slide-up,
-  .apple-scale-in {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  .section-header {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
+  .level-legend-item { padding: 0; }
+  .level-legend-divider { width: 100%; height: 1px; }
 }
 
 @media (max-width: 480px) {
-  .apple-section {
-    padding: 4rem 0;
-  }
+  .apple-section { padding: 4rem 0; }
 
-  .section-header .section-title {
-    font-size: 2.2rem;
-  }
+  .section-header .section-title { font-size: 2.2rem; }
 
   .section-subtitle {
     font-size: 0.78rem;
@@ -797,21 +860,6 @@
     max-height: 500px;
   }
 
-  .star-label {
-    font-size: 2.5px;
-  }
-
-  .category-label {
-    font-size: 2.2px;
-  }
-
-  .skill-detail-panel {
-    min-width: 200px;
-    max-width: 260px;
-    bottom: 0.75rem;
-  }
-
-  .constellation-legend {
-    border-radius: 20px;
-  }
+  .star-label { font-size: 2.5px; }
+  .category-label { font-size: 2.4px; }
 }
