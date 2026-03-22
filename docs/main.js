@@ -38171,550 +38171,550 @@ var ExperienceComponent = class _ExperienceComponent {
 // src/app/profile/skills/skills.data.ts
 var SKILL_DETAILS = {
   // ─── Languages ────────────────────────────────────────
-  "Java 21": {
-    description: "Proficient in modern Java features including virtual threads, pattern matching, and record patterns.",
+  "Java": {
+    description: "Strong Java experience with modern language features, concurrency improvements, and production-grade backend development on recent JDKs including Java 21.",
     experience: [
-      "Extensive experience with Java 8 through Java 21 features",
-      "Implemented concurrent programming with virtual threads (Project Loom)",
-      "Used pattern matching, sealed classes, and record patterns for type-safe code",
-      "Built high-throughput services handling millions of requests per day"
+      "Worked across Java 8 through Java 21 in production systems",
+      "Used records, sealed classes, switch pattern matching, and record patterns to simplify domain modeling",
+      "Applied virtual threads selectively for I/O-heavy request flows and background tasks",
+      "Built and maintained backend services with attention to performance, observability, and clean API design"
     ],
     projects: [
-      "High-performance microservices with Java 21",
-      "Concurrent data processing pipelines",
-      "RESTful APIs with modern Java features"
+      "Backend microservices using modern Java features",
+      "Concurrent data processing and job execution pipelines",
+      "REST APIs with strong typing and validation"
     ],
     achievements: [
-      "Adopted Java 21 virtual threads for 3x throughput improvement",
-      "Reduced code complexity by 40% with pattern matching",
-      "Migrated legacy codebase to modern Java features"
+      "Improved throughput on selected I/O-bound flows after adopting virtual threads",
+      "Reduced branching complexity in polymorphic business logic using sealed classes and pattern matching",
+      "Helped modernize legacy Java codebases by incrementally adopting newer language features"
     ],
     relatedSkills: ["Spring Boot", "Microservices", "DSA"]
   },
   "Python": {
-    description: "Strong Python skills for backend services, scripting, data processing, and AI/ML workloads.",
+    description: "Strong Python skills for backend services, automation, data processing, and AI-enabled application development.",
     experience: [
       "Built REST APIs using Flask and FastAPI",
-      "Developed automation scripts for infrastructure and CI/CD pipelines",
-      "Used Python for data analysis with Pandas and NumPy",
-      "Implemented ML pipelines and LLM integrations in Python"
+      "Developed automation scripts for CI/CD, support workflows, and operational tasks",
+      "Used Pandas and NumPy for data analysis, transformation, and reporting",
+      "Implemented ML and LLM-backed workflows in Python for internal tools and prototypes"
     ],
     projects: [
-      "AI-powered code review and analysis tools",
-      "Data pipeline orchestration for analytics",
-      "Internal automation and developer tooling"
+      "AI-assisted code review and analysis tooling",
+      "Data processing and reporting pipelines",
+      "Internal automation and developer productivity tools"
     ],
     achievements: [
-      "Automated manual workflows saving 20+ hours per week",
-      "Built internal CLI tools adopted by 50+ engineers",
-      "Developed ML-based anomaly detection system"
+      "Automated recurring manual workflows and saved engineering/support time each week",
+      "Built internal CLI and utility scripts adopted across multiple teams",
+      "Implemented anomaly detection and data quality checks for operational datasets"
     ],
     relatedSkills: ["Generative AI", "LLM", "RAG"]
   },
   "GO": {
-    description: "Proficient in Go for building high-performance, concurrent backend services and CLI tools.",
+    description: "Proficient in Go for building backend services, concurrent workers, and lightweight CLI tooling.",
     experience: [
-      "Built production microservices using Go and Echo framework",
-      "Implemented highly concurrent systems leveraging goroutines and channels",
-      "Developed gRPC services for inter-service communication",
-      "Created efficient CLI tools and system-level utilities"
+      "Built production services in Go using standard library patterns and Echo where appropriate",
+      "Implemented concurrent processing with goroutines, channels, contexts, and worker pools",
+      "Developed HTTP and gRPC services for internal and external APIs",
+      "Used profiling and benchmarking to improve latency, memory use, and CPU efficiency"
     ],
     projects: [
-      "Real-time event processing microservice",
-      "High-throughput API gateway in Go",
-      "Internal developer platform tooling"
+      "Real-time event processing service",
+      "Low-latency API layer in Go",
+      "Internal developer tooling and command-line utilities"
     ],
     achievements: [
-      "Achieved sub-millisecond p99 latency on critical paths",
-      "Built services handling 50K+ requests per second",
-      "Reduced memory footprint by 60% migrating from Java to Go"
+      "Delivered services with predictable latency and small runtime footprint",
+      "Reduced memory usage and startup overhead for selected workloads by moving them to Go",
+      "Improved operational simplicity through static binaries and straightforward deployment patterns"
     ],
     relatedSkills: ["Echo", "Microservices", "Kafka"]
   },
   "NodeJS": {
-    description: "Experienced with Node.js for building scalable APIs, real-time services, and serverless functions.",
+    description: "Experienced with Node.js for building APIs, real-time features, and serverless backends.",
     experience: [
-      "Built RESTful APIs with Express and NestJS",
-      "Developed real-time features using WebSockets (Socket.io)",
-      "Created serverless functions on AWS Lambda",
-      "Used Node.js for build tooling, scripting, and SSR"
+      "Built REST APIs using Express and NestJS",
+      "Implemented real-time features with WebSockets and Socket.io",
+      "Developed Lambda-based services and utility functions on AWS",
+      "Used Node.js for scripting, build tooling, and SSR-related backend tasks"
     ],
     projects: [
-      "Real-time notification and chat system",
-      "Serverless API backend on AWS Lambda",
-      "Angular SSR rendering service"
+      "Real-time notification and chat features",
+      "Serverless API backend on AWS",
+      "SSR support service for frontend rendering"
     ],
     achievements: [
-      "Built WebSocket system serving 100K+ concurrent connections",
-      "Reduced cold-start times by 70% on Lambda functions",
-      "Implemented efficient streaming data processing"
+      "Built socket-based features that handled high concurrent connection counts reliably",
+      "Improved Lambda cold-start behavior through dependency and bundle-size optimization",
+      "Implemented streaming and queue-backed processing for bursty workloads"
     ],
     relatedSkills: ["Kafka", "RabbitMQ", "MongoDB"]
   },
   // ─── Architecture ─────────────────────────────────────
   "High Level Design": {
-    description: "Expert in designing large-scale distributed systems with focus on scalability, reliability, and maintainability.",
+    description: "Strong system design skills for building scalable, observable, and maintainable distributed systems.",
     experience: [
-      "Designed systems handling millions of daily active users",
-      "Created architecture documents and conducted design reviews",
-      "Applied CAP theorem, CQRS, and event sourcing patterns",
-      "Designed for multi-region deployments and disaster recovery"
+      "Designed service-oriented systems with clear boundaries, failure isolation, and operational ownership",
+      "Created architecture documents, reviewed trade-offs, and participated in design reviews",
+      "Evaluated consistency, availability, caching, and asynchronous processing trade-offs for different workloads",
+      "Designed for horizontal scaling, high availability, and graceful degradation"
     ],
     projects: [
-      "Gaming platform architecture serving 10M+ users",
-      "Real-time leaderboard and scoring system",
-      "Multi-tenant SaaS platform design"
+      "Scalable gaming and leaderboard systems",
+      "Real-time event-driven backend architecture",
+      "Multi-tenant SaaS-style platform design"
     ],
     achievements: [
-      "Designed systems achieving 99.99% availability",
-      "Scaled architecture from 1M to 10M concurrent users",
-      "Reduced infrastructure costs by 40% through design optimization"
+      "Designed systems with clearer service boundaries and more predictable scaling characteristics",
+      "Improved reliability by introducing retries, idempotency, fallback paths, and rate limiting where needed",
+      "Reduced infrastructure waste through better capacity planning, caching, and async processing"
     ],
     relatedSkills: ["Low Level Design", "Microservices", "Kafka"]
   },
   "Low Level Design": {
-    description: "Strong expertise in object-oriented design, SOLID principles, and design patterns for clean, extensible code.",
+    description: "Strong low-level design skills with focus on domain modeling, SOLID principles, extensibility, and testable code.",
     experience: [
-      "Applied SOLID principles and GoF design patterns in production",
-      "Designed modular APIs with clear separation of concerns",
-      "Conducted code reviews focused on design quality",
-      "Built reusable libraries and frameworks used across teams"
+      "Designed object-oriented systems with clear abstractions and separation of concerns",
+      "Applied design patterns pragmatically rather than by default",
+      "Reviewed code for maintainability, coupling, and API ergonomics",
+      "Built reusable libraries and shared components for common application concerns"
     ],
     projects: [
-      "Payment gateway SDK with pluggable providers",
-      "Rule engine for dynamic business logic",
-      "Extensible notification framework"
+      "Payment gateway abstraction with pluggable providers",
+      "Rule engine for configurable business workflows",
+      "Notification framework supporting multiple delivery channels"
     ],
     achievements: [
-      "Reduced onboarding time for new developers by 50%",
-      "Built internal framework adopted across 8+ teams",
-      "Achieved 90%+ code coverage with testable design"
+      "Improved code readability and change safety through better interfaces and domain boundaries",
+      "Built reusable internal components adopted by multiple teams",
+      "Increased test coverage and reduced mocking complexity through cleaner design"
     ],
-    relatedSkills: ["High Level Design", "Java 21", "Spring Boot"]
+    relatedSkills: ["High Level Design", "Java", "Spring Boot"]
   },
   "Microservices": {
-    description: "Architected and implemented scalable microservices architectures with proper separation of concerns.",
+    description: "Hands-on experience designing and implementing microservices with clear ownership, observability, and resilience patterns.",
     experience: [
-      "Decomposed monolithic applications into microservices",
-      "Implemented service mesh, API gateway, and circuit breaker patterns",
-      "Built inter-service communication with REST, gRPC, and event-driven messaging",
-      "Set up distributed tracing and centralized logging"
+      "Helped decompose monolithic or tightly coupled systems into service-aligned modules where it made sense",
+      "Built service-to-service communication using REST, gRPC, and event-driven messaging",
+      "Implemented resilience patterns such as timeouts, retries, circuit breaking, and dead-letter handling",
+      "Set up tracing, structured logging, and metrics for distributed debugging"
     ],
     projects: [
-      "Gaming platform microservices architecture",
-      "Financial services distributed system",
-      "E-commerce order processing system"
+      "Gaming platform service decomposition",
+      "Financial workflow orchestration services",
+      "E-commerce-style order processing system"
     ],
     achievements: [
-      "Scaled system to handle 10M+ concurrent users",
-      "Reduced deployment time by 75% with independent service deployments",
-      "Implemented circuit breaker and bulkhead patterns for resilience"
+      "Improved deployment velocity through independently deployable services and CI/CD pipelines",
+      "Reduced cross-service failure impact with better timeout, retry, and fallback strategies",
+      "Introduced clearer ownership boundaries around APIs, data, and operational responsibilities"
     ],
     relatedSkills: ["Spring Boot", "Kafka", "High Level Design"]
   },
   // ─── Databases ────────────────────────────────────────
   "MySQL": {
-    description: "Extensive experience with MySQL across multiple versions in production environments.",
+    description: "Hands-on experience with MySQL 5.6, 5.7, and 8.0 in transactional production systems.",
     experience: [
-      "Worked on MySQL 5.6, MySQL 5.7 and MySQL 8",
-      "Migrated systems from old DB to new DB using Amazon DMS",
-      "Experience in tuning queries making them use to force index",
-      "Designed normalized and denormalized schemas for different access patterns"
+      "Designed normalized and denormalized schemas based on access patterns and consistency needs",
+      "Tuned slow queries using EXPLAIN, indexing, query rewrites, and execution-plan analysis",
+      "Worked with replication, backups, migration strategies, and operational monitoring",
+      "Used Amazon DMS and controlled cutovers for database migration work"
     ],
     projects: [
-      "Database migration for Games24x7 gaming platform",
-      "Query optimization for high-traffic applications",
-      "Schema design for microservices architecture"
+      "Production database migration for gaming workloads",
+      "Query optimization for high-traffic APIs",
+      "Schema design for service-oriented applications"
     ],
     achievements: [
-      "Reduced query latency by 60% through index optimization",
-      "Successfully migrated 5+ production databases with zero downtime",
-      "Implemented database monitoring, slow-query alerts, and automated failover"
+      "Improved hot-path query performance through indexing and execution-plan tuning",
+      "Supported production migrations with rollback plans and low-risk cutover approaches",
+      "Added visibility into slow queries, lock contention, and replication lag"
     ],
     relatedSkills: ["MongoDB", "Redis", "Elasti-Cache"]
   },
   "MongoDB": {
-    description: "Proficient in MongoDB for document-oriented storage, flexible schemas, and aggregation pipelines.",
+    description: "Proficient in MongoDB for document-oriented data models, flexible schemas, and aggregation-heavy workloads.",
     experience: [
-      "Designed document schemas for complex domain models",
-      "Built aggregation pipelines for real-time analytics",
-      "Managed replica sets and sharded clusters in production",
-      "Implemented change streams for event-driven architecture"
+      "Designed collections and document shapes around application access patterns",
+      "Built aggregation pipelines for reporting, filtering, and event analytics",
+      "Worked with replica sets, sharding, indexing, and TTL-based data retention",
+      "Used change streams for event-driven integrations where near-real-time updates were needed"
     ],
     projects: [
-      "User activity and event logging system",
-      "Content management platform with flexible schemas",
-      "Real-time analytics dashboard backend"
+      "User activity and event logging platform",
+      "Content management backend with flexible schemas",
+      "Analytics dashboard backend using MongoDB aggregations"
     ],
     achievements: [
-      "Processed 500K+ writes/sec with sharded MongoDB clusters",
-      "Reduced data access latency by 45% with proper indexing strategies",
-      "Migrated 2TB+ dataset from MySQL to MongoDB with zero downtime"
+      "Improved read and write performance using better indexing and document modeling",
+      "Supported high-ingest workloads through sharding and batch-write strategies",
+      "Migrated selected workloads to MongoDB where schema flexibility was a better fit than relational storage"
     ],
     relatedSkills: ["MySQL", "Neptune", "Cassandra"]
   },
   "Neptune": {
-    description: "Experience with Amazon Neptune for graph-based data modeling and relationship-heavy queries.",
+    description: "Experience using Amazon Neptune for graph-oriented use cases such as relationship traversal, recommendations, and fraud/risk analysis.",
     experience: [
-      "Modeled complex entity relationships using property graphs",
-      "Wrote Gremlin and SPARQL queries for traversals",
-      "Integrated Neptune with microservices for recommendation engines",
-      "Optimized graph queries for low-latency lookups"
+      "Modeled entities and relationships using graph structures for multi-hop queries",
+      "Wrote Gremlin and SPARQL queries for traversal-heavy access patterns",
+      "Integrated graph-backed services with application APIs and recommendation workflows",
+      "Optimized traversals and indexing choices for low-latency relationship lookups"
     ],
     projects: [
-      "Social connection and recommendation engine",
-      "Fraud detection using graph traversal patterns",
-      "Knowledge graph for AI-powered search"
+      "Relationship and recommendation prototype",
+      "Fraud/risk analysis using graph traversal",
+      "Knowledge graph-backed search use case"
     ],
     achievements: [
-      "Built recommendation engine serving 5M+ users",
-      "Reduced fraud detection time from hours to seconds",
-      "Designed graph schema handling 100M+ edges"
+      "Modeled relationship-heavy domains that were awkward to express in relational schemas",
+      "Reduced complexity of multi-hop lookups by moving them to a graph model",
+      "Built graph-backed features over datasets with millions of connected records"
     ],
     relatedSkills: ["MongoDB", "MySQL", "VectorDB"]
   },
   "Salesforce DB": {
-    description: "Experience with Salesforce data platform including SOQL, custom objects, and data integration patterns.",
+    description: "Experience working with Salesforce data models, SOQL/SOSL, custom objects, and integration patterns with external systems.",
     experience: [
-      "Designed custom objects and relationships in Salesforce",
-      "Wrote complex SOQL and SOSL queries for reporting",
-      "Integrated Salesforce data with external systems via APIs",
-      "Managed data migrations between Salesforce orgs"
+      "Designed custom objects, relationships, and field mappings in Salesforce",
+      "Wrote SOQL and SOSL queries for reporting, support workflows, and operational data extraction",
+      "Integrated Salesforce with external services through APIs and data sync jobs",
+      "Supported data migrations, cleanup, and reconciliation across orgs or systems"
     ],
     projects: [
-      "CRM data integration for sales analytics",
-      "Custom Salesforce app for customer lifecycle management",
-      "Data synchronization between Salesforce and internal systems"
+      "CRM data integration for operational reporting",
+      "Custom Salesforce workflow support tooling",
+      "Salesforce sync with internal systems"
     ],
     achievements: [
-      "Integrated Salesforce with 5+ internal systems",
-      "Automated reporting saving 15+ hours per week",
-      "Designed data model supporting 1M+ customer records"
+      "Automated recurring reporting and synchronization tasks",
+      "Improved data quality through validation, deduplication, and reconciliation checks",
+      "Supported integration flows with clear field mapping, retry handling, and auditability"
     ],
     relatedSkills: ["MySQL", "MongoDB", "High Level Design"]
   },
   "Cassandra": {
-    description: "Proficient in Apache Cassandra for high-availability, write-heavy workloads at massive scale.",
+    description: "Working knowledge of Apache Cassandra for write-heavy, high-availability workloads and time-series/event data.",
     experience: [
-      "Designed partition keys and clustering columns for optimal read/write patterns",
-      "Managed multi-datacenter Cassandra clusters",
-      "Implemented time-series data storage with TTL-based expiry",
-      "Tuned consistency levels for different use cases"
+      "Designed schemas around query patterns using partition keys and clustering columns carefully",
+      "Worked with replication, consistency levels, TTL-based expiry, and operational tuning",
+      "Handled time-series and append-heavy data models with awareness of tombstones and compaction behavior",
+      "Monitored repair, compaction, and partition hot spots in production-like environments"
     ],
     projects: [
-      "Time-series data store for IoT sensor data",
-      "User session and activity tracking system",
-      "High-throughput event logging platform"
+      "Time-series event storage",
+      "User session and activity tracking",
+      "Append-heavy event logging pipeline"
     ],
     achievements: [
-      "Handled 1M+ writes/sec with sub-5ms p99 latency",
-      "Designed schema for 10TB+ dataset with efficient compaction",
-      "Achieved 99.999% availability with multi-DC replication"
+      "Designed schemas that avoided hot partitions and supported predictable read paths",
+      "Supported sustained write-heavy workloads with replication across nodes or zones",
+      "Improved cluster health by tuning compaction strategy and query patterns"
     ],
     relatedSkills: ["MongoDB", "MySQL", "Kafka"]
   },
   // ─── Frameworks ───────────────────────────────────────
   "Spring Boot": {
-    description: "Deep expertise in Spring Boot for building production-ready microservices and REST APIs.",
+    description: "Deep experience with Spring Boot for building production-ready services, REST APIs, and internal platforms.",
     experience: [
-      "Built 10+ production microservices with Spring Boot",
-      "Implemented Spring Security with OAuth2 and JWT authentication",
-      "Used Spring Data JPA and Spring Data Redis for data access",
-      "Set up Spring Actuator for health checks and metrics"
+      "Built multiple production services using Spring Boot and Spring MVC/WebFlux where appropriate",
+      "Implemented authentication and authorization with Spring Security, OAuth2, and JWT",
+      "Used Spring Data JPA, transactional boundaries, and caching for data access layers",
+      "Added Actuator, metrics, logging, and tracing for operational visibility"
     ],
     projects: [
-      "Gaming platform backend services",
-      "Financial transaction processing system",
-      "User management and authentication service"
+      "Gaming and transaction-processing backend services",
+      "Authentication and user-management services",
+      "Internal platform APIs and business workflows"
     ],
     achievements: [
-      "Reduced development time by 50% with Spring Boot starters",
-      "Achieved 99.9% uptime in production services",
-      "Implemented comprehensive monitoring and distributed logging"
+      "Shipped multiple services using shared conventions and reusable starters",
+      "Improved maintainability through consistent error handling, validation, and configuration patterns",
+      "Made services easier to operate through health checks, metrics, and structured observability"
     ],
-    relatedSkills: ["Java 21", "Microservices", "MySQL"]
+    relatedSkills: ["Java", "Microservices", "MySQL"]
   },
   "Echo": {
-    description: "Experienced with Echo framework for building lightweight, high-performance Go web services.",
+    description: "Experienced with Echo for building lightweight, high-performance Go web services.",
     experience: [
-      "Built RESTful APIs with Echo's middleware pipeline",
-      "Implemented custom middleware for auth, logging, and rate-limiting",
-      "Used Echo's context and binding for clean request handling",
-      "Integrated Echo services with gRPC and Kafka"
+      "Built REST APIs using Echo middleware, routing, and request binding",
+      "Implemented middleware for authentication, logging, panic recovery, and rate limiting",
+      "Used context-aware request handling and cancellation for robust service behavior",
+      "Integrated Echo services with gRPC, Kafka, and background workers"
     ],
     projects: [
-      "High-throughput API microservice",
+      "Low-latency Go API service",
       "Internal developer platform APIs",
-      "Real-time data ingestion endpoint"
+      "Data ingestion endpoint for asynchronous processing"
     ],
     achievements: [
-      "Built APIs handling 50K+ req/s with minimal memory footprint",
-      "Reduced API response time by 40% migrating from Node.js to Echo",
-      "Implemented graceful shutdown and health-check patterns"
+      "Built lean APIs with a small memory footprint and fast startup time",
+      "Improved latency compared with heavier service stacks for selected endpoints",
+      "Standardized middleware and lifecycle handling across Go services"
     ],
     relatedSkills: ["GO", "Microservices", "Kafka"]
   },
   "Dropwizard": {
-    description: "Experience with Dropwizard for building ops-friendly, high-performance Java RESTful web services.",
+    description: "Experience with Dropwizard for lightweight, ops-friendly Java services with strong operational conventions.",
     experience: [
-      "Built production services with Dropwizard's opinionated stack",
-      "Leveraged Jersey, Jetty, and Jackson for REST APIs",
-      "Integrated Dropwizard with Hibernate and database migrations",
-      "Used Metrics library for real-time performance monitoring"
+      "Built services using Dropwizard with Jersey, Jetty, and Jackson",
+      "Integrated persistence layers using Hibernate and migration tooling",
+      "Used Dropwizard Metrics and health checks for monitoring and operational readiness",
+      "Tuned thread pools and request handling for predictable service behavior"
     ],
     projects: [
-      "Payment processing microservice",
-      "User profile and preference service",
-      "Admin dashboard backend APIs"
+      "Payment and workflow microservice",
+      "Profile and preference management API",
+      "Operational admin backend service"
     ],
     achievements: [
-      "Achieved sub-10ms p99 latency on critical endpoints",
-      "Built services processing 100K+ transactions/day",
-      "Implemented comprehensive health checks and alerting"
+      "Built services with clear health endpoints and operational visibility",
+      "Kept latency predictable by controlling thread pools and dependency footprint",
+      "Simplified troubleshooting with structured logs and metrics-first service design"
     ],
-    relatedSkills: ["Java 21", "Spring Boot", "MySQL"]
+    relatedSkills: ["Java", "Spring Boot", "MySQL"]
   },
   "Google Guice": {
-    description: "Proficient in Google Guice for lightweight dependency injection in Java applications.",
+    description: "Proficient in Google Guice for dependency injection in lightweight Java applications and non-Spring services.",
     experience: [
-      "Used Guice for DI in non-Spring Java applications",
-      "Designed modular applications with Guice modules and providers",
-      "Implemented custom scopes and interceptors with Guice AOP",
-      "Integrated Guice with Dropwizard and other frameworks"
+      "Used Guice modules and providers to structure non-Spring Java services cleanly",
+      "Built test-friendly wiring for service, repository, and infrastructure layers",
+      "Implemented custom bindings and scopes where needed",
+      "Integrated Guice with service frameworks and internal libraries"
     ],
     projects: [
-      "Modular data processing pipeline",
-      "Plugin architecture for extensible services",
-      "Test-friendly service layer with Guice injection"
+      "Modular data processing service",
+      "Plugin-style service architecture",
+      "Testable service layer with dependency injection"
     ],
     achievements: [
-      "Reduced startup time by 60% using Guice over heavier DI frameworks",
-      "Built plugin system supporting 15+ extension modules",
-      "Improved testability achieving 95%+ unit test coverage"
+      "Improved modularity and testability in non-Spring Java codebases",
+      "Reduced manual wiring boilerplate through consistent DI configuration",
+      "Kept startup and framework overhead low for simpler services"
     ],
-    relatedSkills: ["Java 21", "Dropwizard", "Spring Boot"]
+    relatedSkills: ["Java", "Dropwizard", "Spring Boot"]
   },
   // ─── AI / ML ──────────────────────────────────────────
   "Generative AI": {
-    description: "Hands-on experience building applications powered by generative AI models and multi-modal capabilities.",
+    description: "Hands-on experience building applications on top of modern generative AI models, including chat, summarization, retrieval, and multimodal workflows.",
     experience: [
-      "Built conversational AI agents using GPT-4, Claude, and Gemini",
-      "Implemented multi-modal AI features with vision and audio models",
-      "Designed prompt chains and agent workflows for complex tasks",
-      "Evaluated and benchmarked model outputs for quality assurance"
+      "Integrated hosted models from providers such as OpenAI, Anthropic, and Google into application workflows",
+      "Designed prompt workflows, tool-calling flows, and response validation strategies",
+      "Built multimodal prototypes using text, image, and audio capabilities where relevant",
+      "Evaluated outputs with human review and task-specific quality checks"
     ],
     projects: [
-      "AI-powered portfolio with voice interaction",
-      "Automated code review assistant",
-      "Content generation and summarization platform"
+      "AI-assisted portfolio and interactive demo features",
+      "Code review and analysis assistant",
+      "Content generation and summarization workflows"
     ],
     achievements: [
-      "Built AI face assistant featured on portfolio site",
-      "Reduced content creation time by 70% with generative AI",
-      "Implemented guardrails achieving 99% safety compliance"
+      "Built AI-assisted features that reduced manual drafting and triage effort",
+      "Improved output quality through prompt iteration, retrieval, and structured response handling",
+      "Added moderation, fallback logic, and validation checks to make AI features safer in production"
     ],
     relatedSkills: ["LLM", "RAG", "VectorDB"]
   },
   "LLM": {
-    description: "Working with Large Language Models for building AI-powered applications and services.",
+    description: "Practical experience integrating large language models into applications for Q&A, summarization, extraction, and developer productivity workflows.",
     experience: [
-      "Integrated OpenAI, Claude, and Gemini APIs into production systems",
-      "Built RAG systems for domain-specific knowledge retrieval",
-      "Implemented prompt engineering and chain-of-thought reasoning",
-      "Fine-tuned models for domain-specific tasks"
+      "Integrated LLM APIs into backend services and internal tools",
+      "Built retrieval-backed flows for grounded question answering and document understanding",
+      "Used prompt engineering, structured outputs, and tool use to improve reliability",
+      "Evaluated when prompt-based approaches, retrieval, or fine-tuning-style customization were the right fit"
     ],
     projects: [
-      "AI-powered customer support chatbot",
-      "Document analysis and summarization system",
-      "Code generation and review assistant"
+      "Customer support and documentation assistant",
+      "Document analysis and summarization workflow",
+      "Code generation and review helper"
     ],
     achievements: [
-      "Reduced customer support response time by 60%",
-      "Built RAG system with 95% retrieval accuracy",
-      "Automated 40% of code review process with LLM"
+      "Reduced response or turnaround time on knowledge-heavy workflows",
+      "Improved answer grounding by combining retrieval with clear response formatting",
+      "Automated selected support or review steps with human-in-the-loop checks"
     ],
     relatedSkills: ["Generative AI", "RAG", "VectorDB"]
   },
   "RAG": {
-    description: "Expert in Retrieval-Augmented Generation for grounding LLM responses with domain-specific knowledge.",
+    description: "Strong experience with Retrieval-Augmented Generation for grounding LLM responses in internal and domain-specific knowledge sources.",
     experience: [
-      "Designed end-to-end RAG pipelines with chunking, embedding, and retrieval",
-      "Implemented hybrid search combining semantic and keyword matching",
-      "Optimized chunk sizes and overlap for different document types",
-      "Built evaluation frameworks to measure retrieval quality"
+      "Designed RAG pipelines including chunking, embeddings, indexing, retrieval, and answer synthesis",
+      "Implemented hybrid retrieval using semantic search, keyword filtering, and metadata constraints",
+      "Used reranking and chunking strategies tailored to different document types",
+      "Built evaluation datasets and review loops to measure retrieval relevance and answer quality"
     ],
     projects: [
-      "Internal knowledge base Q&A system",
-      "Customer-facing documentation assistant",
-      "Legal document analysis and search"
+      "Internal knowledge base assistant",
+      "Documentation search and Q&A system",
+      "Long-form document analysis workflow"
     ],
     achievements: [
-      "Achieved 95%+ retrieval accuracy on domain-specific queries",
-      "Reduced hallucination rate by 80% compared to vanilla LLM",
-      "Built RAG pipeline processing 100K+ documents"
+      "Improved answer relevance on internal evaluation sets through better retrieval and reranking",
+      "Reduced hallucinations compared with pure prompt-only generation by grounding responses in retrieved content",
+      "Built pipelines that scaled to large internal document collections"
     ],
     relatedSkills: ["LLM", "VectorDB", "Generative AI"]
   },
   "VectorDB": {
-    description: "Experience with vector databases for semantic search, embeddings storage, and similarity matching.",
+    description: "Experience with vector search systems for semantic retrieval, similarity matching, and recommendation-style applications.",
     experience: [
-      "Worked with Pinecone, Weaviate, and pgvector",
-      "Designed embedding strategies for different data types",
-      "Implemented approximate nearest neighbor (ANN) search",
-      "Optimized index configurations for latency and recall trade-offs"
+      "Worked with Pinecone, Weaviate, and pgvector-based setups",
+      "Designed embedding and metadata strategies for documents, code, and mixed-content search",
+      "Used ANN search, filtering, and reranking to balance latency and relevance",
+      "Managed embedding backfills, re-indexing, and versioned retrieval workflows"
     ],
     projects: [
-      "Semantic search engine for product catalog",
-      "Similar document recommendation system",
-      "Image similarity matching for content moderation"
+      "Semantic search for internal or product data",
+      "Similar document recommendation workflow",
+      "Content similarity and deduplication use case"
     ],
     achievements: [
-      "Built vector search serving 10K+ queries/sec at p99 < 50ms",
-      "Indexed 50M+ embeddings with 98% recall@10",
-      "Reduced search infrastructure costs by 35% with pgvector"
+      "Built low-latency semantic retrieval for AI-assisted workflows",
+      "Improved relevance by combining vector retrieval with keyword filters and reranking",
+      "Operationalized embedding refresh and index maintenance for evolving datasets"
     ],
     relatedSkills: ["RAG", "LLM", "Generative AI"]
   },
   // ─── Queues ───────────────────────────────────────────
   "Kafka": {
-    description: "Expert in Apache Kafka for building real-time data pipelines and event-driven architectures.",
+    description: "Strong working experience with Apache Kafka for event-driven systems, asynchronous processing, and real-time data pipelines.",
     experience: [
-      "Designed and managed multi-broker Kafka clusters in production",
-      "Built event-driven microservices with Kafka Streams and KSQL",
-      "Optimized partition strategies and consumer groups for high throughput",
-      "Implemented exactly-once semantics and dead-letter queue patterns"
+      "Designed topics, partitions, and consumer-group strategies for scalable event processing",
+      "Built producers and consumers with schema-aware event contracts",
+      "Used retries, dead-letter topics, idempotent processing, and lag monitoring",
+      "Worked with streaming-style workflows and service integration through events"
     ],
     projects: [
-      "Real-time analytics pipeline for gaming platform",
-      "Event sourcing architecture for financial systems",
-      "Kafka-based messaging for microservices"
+      "Real-time analytics and event pipeline",
+      "Event-driven backend integration flows",
+      "Messaging backbone for service communication"
     ],
     achievements: [
-      "Processed 1M+ events per second with Kafka",
-      "Built fault-tolerant event streaming with zero data loss",
-      "Reduced data processing latency by 80%"
+      "Built event-driven pipelines that handled sustained high-throughput workloads",
+      "Reduced coupling between services by shifting integrations to asynchronous events",
+      "Improved resiliency with retry topics, monitoring, and safer consumer handling"
     ],
     relatedSkills: ["RabbitMQ", "AmazonSQS", "Microservices"]
   },
   "RabbitMQ": {
-    description: "Experienced with RabbitMQ for reliable message queuing, task distribution, and pub/sub patterns.",
+    description: "Experienced with RabbitMQ for reliable asynchronous job processing and queue-based workflow orchestration.",
     experience: [
-      "Designed exchange-queue topologies for various routing patterns",
-      "Implemented dead-letter queues and retry mechanisms",
-      "Managed RabbitMQ clusters with high-availability queues",
-      "Built consumer pools with acknowledgment and prefetch tuning"
+      "Designed exchanges, queues, routing keys, and consumer patterns for task distribution",
+      "Implemented retry handling, dead-letter queues, acknowledgments, and prefetch tuning",
+      "Worked with publisher confirms and delivery guarantees appropriate to the use case",
+      "Operated queue-backed worker systems for background processing"
     ],
     projects: [
-      "Order processing pipeline with guaranteed delivery",
-      "Email and notification dispatch system",
-      "Distributed task scheduling engine"
+      "Order and task processing workflow",
+      "Email and notification dispatch pipeline",
+      "Background job orchestration service"
     ],
     achievements: [
-      "Built message system with 99.99% delivery guarantee",
-      "Processed 500K+ messages/day with zero message loss",
-      "Reduced order processing time by 65% with async queuing"
+      "Improved delivery reliability through acknowledgments, retries, and dead-letter handling",
+      "Smoothed traffic spikes by moving expensive work off the request path",
+      "Simplified task routing with clean exchange and queue topology design"
     ],
     relatedSkills: ["Kafka", "AmazonSQS", "Microservices"]
   },
   "AmazonSQS": {
-    description: "Proficient in Amazon SQS for serverless, fully-managed message queuing at scale.",
+    description: "Proficient with Amazon SQS and SNS for managed queue-based and fan-out architectures on AWS.",
     experience: [
-      "Designed SQS-based architectures with FIFO and standard queues",
-      "Implemented Lambda-triggered consumers for serverless processing",
-      "Built dead-letter queue strategies with automated alerting",
-      "Integrated SQS with SNS for fan-out messaging patterns"
+      "Designed workflows using Standard and FIFO queues depending on ordering and throughput needs",
+      "Integrated SQS with Lambda, ECS, and other AWS consumers for background processing",
+      "Implemented DLQs, redrive policies, visibility timeouts, and idempotent consumers",
+      "Used SNS plus SQS fan-out patterns for event distribution"
     ],
     projects: [
-      "Serverless order fulfillment pipeline",
-      "Async image and video processing system",
-      "Cross-service event notification system"
+      "Serverless background processing pipeline",
+      "Async media or file-processing workflow",
+      "Cross-service notification architecture on AWS"
     ],
     achievements: [
-      "Built serverless pipeline processing 1M+ messages/day",
-      "Reduced infrastructure costs by 50% moving from self-managed queues to SQS",
-      "Achieved zero message loss with DLQ monitoring and auto-retry"
+      "Reduced operational overhead by moving async workloads to fully managed messaging",
+      "Improved resilience for bursty traffic using decoupled queues and dead-letter handling",
+      "Built cost-effective background job pipelines with simple AWS-native components"
     ],
     relatedSkills: ["Kafka", "RabbitMQ", "Microservices"]
   },
   // ─── Core CS ──────────────────────────────────────────
   "DSA": {
-    description: "Strong foundation in data structures and algorithms with competitive programming experience.",
+    description: "Solid foundation in data structures and algorithms, applied both in problem-solving practice and production engineering.",
     experience: [
-      "Solved 1000+ problems on LeetCode, Codeforces, and HackerRank",
-      "Applied advanced data structures: segment trees, tries, and union-find",
-      "Designed efficient algorithms for production systems",
-      "Mentored junior engineers on problem-solving and DSA fundamentals"
+      "Solved hundreds of problems across platforms such as LeetCode, Codeforces, and HackerRank",
+      "Worked with advanced structures such as tries, heaps, union-find, segment trees, and graph algorithms",
+      "Applied time and space complexity analysis when designing production code paths",
+      "Mentored junior engineers on problem solving, complexity analysis, and interview preparation"
     ],
     projects: [
-      "Custom trie-based autocomplete engine",
-      "Graph-based route optimization system",
-      "Real-time ranking algorithm for gaming platform"
+      "Trie-based autocomplete/search prototype",
+      "Graph-based optimization workflow",
+      "Ranking and scoring logic for competitive systems"
     ],
     achievements: [
-      "Top 5% on LeetCode with 1000+ problems solved",
-      "Designed algorithm reducing search time from O(n\xB2) to O(n log n)",
-      "Published data structure visualizations and educational content"
+      "Built strong algorithmic intuition through sustained problem-solving practice",
+      "Used better data structures to eliminate obvious bottlenecks in hot paths",
+      "Created explanations and guidance that helped others improve problem-solving skills"
     ],
-    relatedSkills: ["Networking", "Java 21", "Python"]
+    relatedSkills: ["Networking", "Java", "Python"]
   },
   "Networking": {
-    description: "Deep understanding of computer networking, protocols, and distributed system communication.",
+    description: "Good grasp of networking fundamentals relevant to backend engineering and distributed systems.",
     experience: [
-      "Expertise in TCP/IP, HTTP/2, gRPC, and WebSocket protocols",
-      "Designed network architectures with load balancers and CDNs",
-      "Debugged complex networking issues in distributed systems",
-      "Implemented service discovery and DNS-based routing"
+      "Worked with TCP/IP, HTTP/1.1, HTTP/2, gRPC, and WebSocket-based communication",
+      "Designed systems behind load balancers, reverse proxies, and service discovery layers",
+      "Debugged issues related to DNS, TLS, keep-alives, connection reuse, and timeouts",
+      "Used logs, traces, and network-level diagnostics to investigate production issues"
     ],
     projects: [
-      "Custom load balancer with health checking",
-      "WebSocket-based real-time communication layer",
-      "Network monitoring and alerting platform"
+      "Real-time communication layer",
+      "Backend systems behind load balancers and proxies",
+      "Network-aware service diagnostics and monitoring"
     ],
     achievements: [
-      "Reduced network latency by 40% with connection pooling and keep-alive",
-      "Designed network topology handling 100K+ concurrent connections",
-      "Debugged and resolved critical TCP retransmission issues in production"
+      "Improved service-to-service latency through connection reuse and timeout tuning",
+      "Diagnosed and resolved issues involving retransmissions, handshake failures, and unstable upstream calls",
+      "Applied networking knowledge to make real-time and API-heavy systems more reliable"
     ],
     relatedSkills: ["DSA", "High Level Design", "Microservices"]
   },
   // ─── Cache ────────────────────────────────────────────
   "Elasti-Cache": {
-    description: "Experience with Amazon ElastiCache for managed Redis and Memcached caching at scale.",
+    description: "Experience with Amazon ElastiCache, primarily Redis, for caching, session storage, and low-latency shared state.",
     experience: [
-      "Deployed and managed ElastiCache Redis clusters in production",
-      "Configured cluster mode, replication, and automatic failover",
-      "Implemented cache-aside, write-through, and write-behind patterns",
-      "Set up CloudWatch monitoring and alarm-based scaling"
+      "Deployed and operated ElastiCache Redis clusters in production environments",
+      "Configured replication, failover, TTL policies, and memory-aware caching strategies",
+      "Implemented cache-aside and write-through patterns based on workload characteristics",
+      "Used CloudWatch metrics and alarms for cache health, memory pressure, and latency visibility"
     ],
     projects: [
-      "Session management for distributed web applications",
-      "API response caching layer for high-traffic services",
-      "Real-time feature flags and configuration caching"
+      "Session storage for distributed applications",
+      "Read-heavy API caching layer",
+      "Low-latency configuration and feature flag cache"
     ],
     achievements: [
-      "Reduced database load by 70% with ElastiCache caching layer",
-      "Achieved sub-millisecond read latency for cached data",
-      "Designed multi-AZ caching with automatic failover"
+      "Reduced database pressure by caching hot reads and frequently accessed session data",
+      "Improved resiliency with replicated cache setups and failover support",
+      "Added visibility into hit rates, evictions, memory usage, and cache latency"
     ],
     relatedSkills: ["Redis", "MySQL", "High Level Design"]
   },
   "Redis": {
-    description: "Expert in Redis for caching, session management, and real-time data structures.",
+    description: "Strong Redis experience for caching, counters, leaderboards, rate limiting, and lightweight coordination patterns.",
     experience: [
-      "Designed Redis caching strategies with eviction policies",
-      "Implemented session management with Redis Cluster",
-      "Used Redis data structures for real-time leaderboards and counters",
-      "Built pub/sub systems and stream processing with Redis Streams"
+      "Designed Redis-based caching strategies with appropriate TTLs and eviction behavior",
+      "Used Redis data structures such as hashes, sets, sorted sets, and streams for real-time use cases",
+      "Implemented session storage, counters, feature flags, and request-throttling workflows",
+      "Applied Redis-based coordination carefully for idempotency and simple locking scenarios"
     ],
     projects: [
-      "Real-time gaming leaderboards",
-      "Session management for microservices",
-      "Cache layer for high-traffic APIs"
+      "Real-time leaderboard and ranking features",
+      "Session and token storage for distributed services",
+      "Cache layer for read-heavy APIs"
     ],
     achievements: [
-      "Reduced database load by 70% with Redis caching",
-      "Built real-time analytics with Redis Streams processing 100K+ events/sec",
-      "Implemented distributed locking with Redis for consistency"
+      "Reduced response times for hot endpoints by caching frequently requested data",
+      "Built real-time features using sorted sets, counters, and stream-based event handling",
+      "Used Redis pragmatically for low-latency shared state without overextending it as a primary datastore"
     ],
     relatedSkills: ["Elasti-Cache", "MySQL", "Kafka"]
   }
@@ -39081,7 +39081,7 @@ var SkillsComponent = class _SkillsComponent {
         color: "#64B5F6",
         glowColor: "rgba(100, 181, 246, 0.6)",
         skills: [
-          { name: "Java 21", proficiency: 90, x: 12, y: 14 },
+          { name: "Java", proficiency: 90, x: 12, y: 14 },
           { name: "Python", proficiency: 88, x: 24, y: 10 },
           { name: "GO", proficiency: 93, x: 8, y: 28 },
           { name: "NodeJS", proficiency: 91, x: 22, y: 26 }
