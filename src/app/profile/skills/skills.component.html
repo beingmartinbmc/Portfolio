@@ -6,205 +6,248 @@
     </div>
 
     <div class="viewport-wrapper" [ngClass]="{'viewport-wrapper--zooming': zooming}">
-    <div class="constellation-viewport" data-anim="scale" data-duration="1000"
-         [ngClass]="{'viewport-zooming': zooming}"
-         [style.transform]="getZoomTransform()">
-      <!-- Background ambient stars -->
-      <div class="star-field">
-        @for (star of backgroundStars; track $index) {
-          <div class="bg-star"
-            [style.left.%]="star.x"
-            [style.top.%]="star.y"
-            [style.width.px]="star.size"
-            [style.height.px]="star.size"
-            [style.animation-delay]="star.delay + 's'">
-          </div>
-        }
-      </div>
+      <div class="constellation-viewport" data-anim="scale" data-duration="1000"
+           [ngClass]="{'viewport-zooming': zooming, 'focus-mode': focusModeActive}"
+           [style.transform]="getZoomTransform()">
 
-      <!-- SVG Constellation Lines -->
-      <svg class="constellation-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          @for (constellation of constellations; track constellation.id) {
-            <filter [attr.id]="'glow-' + constellation.id" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="0.4" result="blur"/>
-              <feMerge>
-                <feMergeNode in="blur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
+        <!-- Background ambient stars -->
+        <div class="star-field">
+          @for (star of backgroundStars; track $index) {
+            <div class="bg-star"
+              [style.left.%]="star.x"
+              [style.top.%]="star.y"
+              [style.width.px]="star.size"
+              [style.height.px]="star.size"
+              [style.animation-delay]="star.delay + 's'">
+            </div>
           }
-        </defs>
+        </div>
 
-        <!-- Connection lines -->
-        @for (line of constellationLines; track $index) {
-          <line
-            [attr.x1]="line.x1"
-            [attr.y1]="line.y1"
-            [attr.x2]="line.x2"
-            [attr.y2]="line.y2"
-            [attr.stroke]="line.color"
-            stroke-width="0.15"
-            stroke-opacity="0.5"
-            class="constellation-line"/>
-        }
-
-        <!-- Skill stars -->
-        @for (constellation of constellations; track constellation.id) {
-          @for (skill of constellation.skills; track skill.name; let j = $index) {
-            <g [ngClass]="'star-float-' + ((j % 4) + 1)">
-              <!-- Star glow -->
-              <circle
-                [attr.cx]="skill.x"
-                [attr.cy]="skill.y"
-                [attr.r]="getStarGlow(skill.proficiency) / 6"
-                [attr.fill]="constellation.glowColor"
-                fill-opacity="0.15"
-                class="star-glow"
-                [ngClass]="{'star-glow--active': isSelected(skill)}"/>
-              <!-- Star core -->
-              <circle
-                [attr.cx]="skill.x"
-                [attr.cy]="skill.y"
-                [attr.r]="getStarSize(skill.proficiency) / 8"
-                [attr.fill]="constellation.color"
-                [attr.filter]="'url(#glow-' + constellation.id + ')'"
-                class="star-core"
-                [ngClass]="{'star-core--active': isSelected(skill)}"
-                (click)="selectStar(skill, constellation)"/>
-              <!-- Star label -->
-              <text
-                [attr.x]="skill.x"
-                [attr.y]="skill.y + 4.2"
-                text-anchor="middle"
-                class="star-label"
-                [attr.fill]="constellation.color"
-                [ngClass]="{'star-label--active': isSelected(skill)}">
-                {{skill.name}}
-              </text>
-            </g>
-          }
-
-          <!-- Category label -->
-          <text
-            [attr.x]="getCategoryLabelX(constellation)"
-            [attr.y]="getCategoryLabelY(constellation)"
-            text-anchor="middle"
-            class="category-label"
-            [attr.fill]="constellation.color">
-            {{constellation.name}}
-          </text>
-        }
-
-        <!-- Radial proficiency ring around selected star -->
-        @if (selectedSkill && selectedConstellation) {
-          <g class="radial-ring">
-            <!-- Ring track (background circle) -->
-            <circle
-              [attr.cx]="selectedSkill.x"
-              [attr.cy]="selectedSkill.y"
-              [attr.r]="ringRadius"
-              fill="none"
-              [attr.stroke]="selectedConstellation.color"
-              stroke-opacity="0.15"
-              [attr.stroke-width]="ringStroke"
-              class="ring-track"/>
-            <!-- Ring arc fill -->
-            <path
-              [attr.d]="getArcPath(selectedSkill.x, selectedSkill.y, selectedSkill.proficiency)"
-              fill="none"
-              [attr.stroke]="selectedConstellation.color"
-              [attr.stroke-width]="ringStroke"
-              stroke-linecap="round"
-              class="ring-fill"/>
-            <!-- Percentage text (auto-positioned above or below based on edge proximity) -->
-            <text
-              [attr.x]="selectedSkill.x"
-              [attr.y]="getPercentY(selectedSkill)"
-              text-anchor="middle"
-              class="ring-percentage"
-              [attr.fill]="selectedConstellation.color">
-              {{selectedSkill.proficiency}}%
-            </text>
-          </g>
-        }
-      </svg>
-
-      <!-- Rocket Ship Animation (inside viewport so it zooms with stars) -->
-      @if (rocketAnimating && rocketPosition) {
-        <div class="rocket-container" [ngClass]="{'rocket-container--zooming': zooming}">
-          <svg class="rocket-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-            <defs>
-              <linearGradient id="rocketGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style="stop-color:#E3F2FD;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#90CAF9;stop-opacity:1" />
-              </linearGradient>
-              <radialGradient id="trailGlow">
-                <stop offset="0%" style="stop-color:#4FC3F7;stop-opacity:0.8" />
-                <stop offset="100%" style="stop-color:#4FC3F7;stop-opacity:0" />
-              </radialGradient>
-              <filter id="rocketGlowFilter" x="-100%" y="-100%" width="300%" height="300%">
-                <feGaussianBlur stdDeviation="0.8" result="blur"/>
+        <!-- SVG Constellation -->
+        <svg class="constellation-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            @for (constellation of constellations; track constellation.id) {
+              <filter [attr.id]="'glow-' + constellation.id" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="0.5" result="blur"/>
                 <feMerge>
                   <feMergeNode in="blur"/>
                   <feMergeNode in="SourceGraphic"/>
                 </feMerge>
               </filter>
-            </defs>
+            }
+            <filter id="tooltip-shadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="0.3" stdDeviation="0.8" flood-color="rgba(0,0,0,0.6)"/>
+            </filter>
+          </defs>
 
-            <!-- Rocket trail particles -->
-            @for (particle of rocketTrail; track $index) {
-              <circle
-                [attr.cx]="particle.x"
-                [attr.cy]="particle.y"
-                [attr.r]="particle.size"
-                fill="url(#trailGlow)"
-                [attr.opacity]="particle.opacity"
-                class="trail-particle"/>
+          <!-- Cross-cluster semantic connections (dashed) -->
+          @for (line of crossClusterLines; track $index) {
+            <line
+              [attr.x1]="line.x1" [attr.y1]="line.y1"
+              [attr.x2]="line.x2" [attr.y2]="line.y2"
+              [attr.stroke]="line.color"
+              stroke-width="0.18"
+              stroke-dasharray="0.9,0.7"
+              class="cross-cluster-line"/>
+          }
+
+          <!-- In-cluster constellation lines -->
+          @for (line of constellationLines; track $index) {
+            <line
+              [attr.x1]="line.x1" [attr.y1]="line.y1"
+              [attr.x2]="line.x2" [attr.y2]="line.y2"
+              [attr.stroke]="line.color"
+              stroke-width="0.15"
+              stroke-opacity="0.45"
+              class="constellation-line"/>
+          }
+
+          <!-- Skill stars -->
+          @for (constellation of constellations; track constellation.id) {
+            @for (skill of constellation.skills; track skill.name; let j = $index) {
+              <g [ngClass]="getStarClasses(skill, j)">
+                <!-- Outer glow halo -->
+                <circle
+                  [attr.cx]="skill.x"
+                  [attr.cy]="skill.y"
+                  [attr.r]="getLevelGlowRadius(skill.level)"
+                  [attr.fill]="constellation.glowColor"
+                  fill-opacity="0.15"
+                  class="star-glow"
+                  [ngClass]="{'star-glow--active': isSelected(skill)}"/>
+                <!-- Star core -->
+                <circle
+                  [attr.cx]="skill.x"
+                  [attr.cy]="skill.y"
+                  [attr.r]="getLevelStarRadius(skill.level)"
+                  [attr.fill]="constellation.color"
+                  [attr.filter]="'url(#glow-' + constellation.id + ')'"
+                  class="star-core"
+                  [ngClass]="{'star-core--active': isSelected(skill), 'star-core--hovered': hoveredSkill === skill}"
+                  (click)="selectStar(skill, constellation)"
+                  (mouseenter)="hoverStar(skill, constellation)"
+                  (mouseleave)="unhoverStar()"/>
+                <!-- Star label -->
+                <text
+                  [attr.x]="skill.x"
+                  [attr.y]="skill.y + getLabelOffset(skill.level)"
+                  text-anchor="middle"
+                  class="star-label"
+                  [ngClass]="{'star-label--active': isSelected(skill), 'star-label--primary': skill.level === 'primary'}"
+                  [attr.fill]="constellation.color">
+                  {{skill.name}}
+                </text>
+              </g>
             }
 
-            <g class="rocket-group"
-               [attr.transform]="'translate(' + rocketPosition.x + ', ' + rocketPosition.y + ')'"
-               filter="url(#rocketGlowFilter)">
-              <!-- Rocket body -->
-              <path d="M 0,-3.5 C -0.8,-2.5 -1.2,-0.5 -1.2,1.5 L -0.8,2.5 L 0,3 L 0.8,2.5 L 1.2,1.5 C 1.2,-0.5 0.8,-2.5 0,-3.5 Z"
-                    fill="url(#rocketGradient)" stroke="rgba(255,255,255,0.8)" stroke-width="0.15"/>
-              <!-- Rocket nose cone -->
-              <path d="M 0,-3.5 C -0.3,-3.5 -0.6,-3 -0.8,-2.5 L 0,-3.5 L 0.8,-2.5 C 0.6,-3 0.3,-3.5 0,-3.5 Z"
-                    fill="#fff" opacity="0.4"/>
-              <!-- Rocket window -->
-              <circle cx="0" cy="-1" r="0.6" fill="#4FC3F7" stroke="rgba(255,255,255,0.9)" stroke-width="0.12"/>
-              <circle cx="-0.15" cy="-1.15" r="0.15" fill="rgba(255,255,255,0.6)"/>
-              <!-- Rocket fins -->
-              <path d="M -1.2,1 L -2,2.5 L -1.2,2 Z" fill="#64B5F6" stroke="rgba(255,255,255,0.3)" stroke-width="0.08"/>
-              <path d="M 1.2,1 L 2,2.5 L 1.2,2 Z" fill="#64B5F6" stroke="rgba(255,255,255,0.3)" stroke-width="0.08"/>
-              <!-- Rocket flames (outer) -->
-              <path d="M -0.8,2.5 Q -0.6,4.5 0,6 Q 0.6,4.5 0.8,2.5 Z" fill="#FF6B35" opacity="0.9" class="rocket-flame"/>
-              <!-- Rocket flames (inner) -->
-              <path d="M -0.4,2.5 Q -0.2,4 0,5 Q 0.2,4 0.4,2.5 Z" fill="#FFD93D" opacity="0.9" class="rocket-flame-inner"/>
-              <!-- Rocket flames (core) -->
-              <path d="M -0.15,2.5 Q 0,3.8 0.15,2.5 Z" fill="#fff" opacity="0.7" class="rocket-flame-core"/>
+            <!-- Category label with background halo -->
+            <text
+              [attr.x]="getCategoryLabelX(constellation)"
+              [attr.y]="getCategoryLabelY(constellation)"
+              text-anchor="middle"
+              class="category-label"
+              [attr.fill]="constellation.color">
+              {{constellation.name}}
+            </text>
+          }
+
+          <!-- Radial proficiency ring (selected star) -->
+          @if (selectedSkill && selectedConstellation) {
+            <g class="radial-ring">
+              <circle
+                [attr.cx]="selectedSkill.x"
+                [attr.cy]="selectedSkill.y"
+                [attr.r]="ringRadius"
+                fill="none"
+                [attr.stroke]="selectedConstellation.color"
+                stroke-opacity="0.15"
+                [attr.stroke-width]="ringStroke"
+                class="ring-track"/>
+              <path
+                [attr.d]="getArcPath(selectedSkill.x, selectedSkill.y, selectedSkill.proficiency)"
+                fill="none"
+                [attr.stroke]="selectedConstellation.color"
+                [attr.stroke-width]="ringStroke"
+                stroke-linecap="round"
+                class="ring-fill"/>
+              <text
+                [attr.x]="selectedSkill.x"
+                [attr.y]="getPercentY(selectedSkill)"
+                text-anchor="middle"
+                class="ring-percentage"
+                [attr.fill]="selectedConstellation.color">
+                {{selectedSkill.proficiency}}%
+              </text>
             </g>
-          </svg>
-        </div>
-      }
+          }
 
-      <!-- Star Burst Flash on arrival (inside viewport) -->
-      @if (zooming && zoomTarget) {
-        <div class="star-burst"
-             [style.left.%]="zoomTarget.x"
-             [style.top.%]="zoomTarget.y">
-        </div>
-      }
+          <!-- Hover tooltip (SVG-native, perfectly aligned) -->
+          @if (hoveredSkill && hoveredConstellation && tooltipPos && !isSelected(hoveredSkill)) {
+            <g class="skill-tooltip" pointer-events="none" filter="url(#tooltip-shadow)">
+              <!-- Background -->
+              <rect
+                [attr.x]="tooltipPos.x - 9.5"
+                [attr.y]="tooltipPos.y"
+                width="19" height="7.2"
+                rx="1.1"
+                fill="rgba(6,8,24,0.94)"
+                [attr.stroke]="hoveredConstellation.color"
+                stroke-width="0.2"
+                stroke-opacity="0.6"/>
+              <!-- Level indicator dot -->
+              <circle
+                [attr.cx]="tooltipPos.x - 7.2"
+                [attr.cy]="tooltipPos.y + 2.55"
+                r="0.65"
+                [attr.fill]="hoveredConstellation.color"
+                [attr.fill-opacity]="hoveredSkill.level === 'primary' ? 1 : hoveredSkill.level === 'secondary' ? 0.75 : 0.45"/>
+              <!-- Skill name -->
+              <text
+                [attr.x]="tooltipPos.x - 5.8"
+                [attr.y]="tooltipPos.y + 2.95"
+                class="tooltip-name"
+                [attr.fill]="hoveredConstellation.color"
+                dominant-baseline="middle">
+                {{hoveredSkill.name}}
+              </text>
+              <!-- Category · Level line -->
+              <text
+                [attr.x]="tooltipPos.x - 7.8"
+                [attr.y]="tooltipPos.y + 5.55"
+                class="tooltip-meta"
+                dominant-baseline="middle">
+                {{hoveredConstellation.name}} · {{getLevelLabel(hoveredSkill.level)}}
+              </text>
+            </g>
+          }
+        </svg>
 
-    </div>
+        <!-- Rocket Ship (inside viewport so it zooms with stars) -->
+        @if (rocketAnimating && rocketPosition) {
+          <div class="rocket-container" [ngClass]="{'rocket-container--zooming': zooming}">
+            <svg class="rocket-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="rocketGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color:#E3F2FD;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#90CAF9;stop-opacity:1" />
+                </linearGradient>
+                <radialGradient id="trailGlow">
+                  <stop offset="0%" style="stop-color:#4FC3F7;stop-opacity:0.8" />
+                  <stop offset="100%" style="stop-color:#4FC3F7;stop-opacity:0" />
+                </radialGradient>
+                <filter id="rocketGlowFilter" x="-100%" y="-100%" width="300%" height="300%">
+                  <feGaussianBlur stdDeviation="0.8" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+
+              @for (particle of rocketTrail; track $index) {
+                <circle
+                  [attr.cx]="particle.x"
+                  [attr.cy]="particle.y"
+                  [attr.r]="particle.size"
+                  fill="url(#trailGlow)"
+                  [attr.opacity]="particle.opacity"
+                  class="trail-particle"/>
+              }
+
+              <g class="rocket-group"
+                 [attr.transform]="'translate(' + rocketPosition.x + ', ' + rocketPosition.y + ')'"
+                 filter="url(#rocketGlowFilter)">
+                <path d="M 0,-3.5 C -0.8,-2.5 -1.2,-0.5 -1.2,1.5 L -0.8,2.5 L 0,3 L 0.8,2.5 L 1.2,1.5 C 1.2,-0.5 0.8,-2.5 0,-3.5 Z"
+                      fill="url(#rocketGradient)" stroke="rgba(255,255,255,0.8)" stroke-width="0.15"/>
+                <path d="M 0,-3.5 C -0.3,-3.5 -0.6,-3 -0.8,-2.5 L 0,-3.5 L 0.8,-2.5 C 0.6,-3 0.3,-3.5 0,-3.5 Z"
+                      fill="#fff" opacity="0.4"/>
+                <circle cx="0" cy="-1" r="0.6" fill="#4FC3F7" stroke="rgba(255,255,255,0.9)" stroke-width="0.12"/>
+                <circle cx="-0.15" cy="-1.15" r="0.15" fill="rgba(255,255,255,0.6)"/>
+                <path d="M -1.2,1 L -2,2.5 L -1.2,2 Z" fill="#64B5F6" stroke="rgba(255,255,255,0.3)" stroke-width="0.08"/>
+                <path d="M 1.2,1 L 2,2.5 L 1.2,2 Z" fill="#64B5F6" stroke="rgba(255,255,255,0.3)" stroke-width="0.08"/>
+                <path d="M -0.8,2.5 Q -0.6,4.5 0,6 Q 0.6,4.5 0.8,2.5 Z" fill="#FF6B35" opacity="0.9" class="rocket-flame"/>
+                <path d="M -0.4,2.5 Q -0.2,4 0,5 Q 0.2,4 0.4,2.5 Z" fill="#FFD93D" opacity="0.9" class="rocket-flame-inner"/>
+                <path d="M -0.15,2.5 Q 0,3.8 0.15,2.5 Z" fill="#fff" opacity="0.7" class="rocket-flame-core"/>
+              </g>
+            </svg>
+          </div>
+        }
+
+        <!-- Star burst flash on arrival -->
+        @if (zooming && zoomTarget) {
+          <div class="star-burst"
+               [style.left.%]="zoomTarget.x"
+               [style.top.%]="zoomTarget.y">
+          </div>
+        }
+
+      </div>
     </div>
 
     <!-- Skill Detail Modal -->
     @if (showDetailModal && selectedSkill && selectedSkill.details) {
       <div class="skill-modal-overlay" (click)="closeDetailModal()" role="dialog" aria-label="Skill detail">
         <div class="skill-modal" (click)="$event.stopPropagation()">
-          <!-- Modal Header -->
           <div class="modal-header">
             <div class="modal-header-left">
               <div class="modal-skill-icon" [style.background]="selectedConstellation?.color">
@@ -213,7 +256,10 @@
               <div class="modal-title-section">
                 <h2 class="modal-skill-name">{{selectedSkill.name}}</h2>
                 <span class="modal-category" [style.color]="selectedConstellation?.color">
-                  {{selectedConstellation?.name}} • {{selectedSkill.proficiency}}%
+                  {{selectedConstellation?.name}}
+                  <span class="modal-level-badge" [ngClass]="'modal-level-badge--' + selectedSkill.level">
+                    {{getLevelLabel(selectedSkill.level)}}
+                  </span>
                 </span>
               </div>
             </div>
@@ -222,15 +268,11 @@
             </button>
           </div>
 
-          <!-- Modal Content -->
           <div class="modal-content">
-            <!-- Description -->
             <div class="modal-section">
               <h3 class="modal-section-title">Overview</h3>
               <p class="section-description">{{selectedSkill.details.description}}</p>
             </div>
-
-            <!-- Experience -->
             <div class="modal-section">
               <h3 class="modal-section-title">Experience</h3>
               <ul class="detail-list">
@@ -239,8 +281,6 @@
                 }
               </ul>
             </div>
-
-            <!-- Projects -->
             <div class="modal-section">
               <h3 class="modal-section-title">Key Projects</h3>
               <div class="project-grid">
@@ -252,8 +292,6 @@
                 }
               </div>
             </div>
-
-            <!-- Achievements -->
             <div class="modal-section">
               <h3 class="modal-section-title">Achievements</h3>
               <div class="achievement-list">
@@ -265,8 +303,6 @@
                 }
               </div>
             </div>
-
-            <!-- Related Skills -->
             <div class="modal-section">
               <h3 class="modal-section-title">Related Skills</h3>
               <div class="related-skills">
@@ -280,14 +316,22 @@
       </div>
     }
 
-    <!-- Category Legend -->
-    <div class="constellation-legend">
-      @for (constellation of constellations; track constellation.id) {
-        <div class="legend-item">
-          <span class="legend-dot" [style.background]="constellation.color"></span>
-          <span class="legend-name">{{constellation.name}}</span>
-        </div>
-      }
+    <!-- Level Legend (replaces color legend) -->
+    <div class="skill-level-legend">
+      <div class="level-legend-item">
+        <span class="level-legend-star level-legend-star--primary"></span>
+        <span class="level-legend-label">Core Strength</span>
+      </div>
+      <div class="level-legend-divider"></div>
+      <div class="level-legend-item">
+        <span class="level-legend-star level-legend-star--secondary"></span>
+        <span class="level-legend-label">Strong Experience</span>
+      </div>
+      <div class="level-legend-divider"></div>
+      <div class="level-legend-item">
+        <span class="level-legend-star level-legend-star--supporting"></span>
+        <span class="level-legend-label">Working Knowledge</span>
+      </div>
     </div>
   </div>
 </div>
