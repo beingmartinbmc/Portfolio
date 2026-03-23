@@ -129,68 +129,68 @@ export class SkillsComponent implements OnInit {
       {
         id: 'languages', name: 'Languages', color: '#64B5F6', glowColor: 'rgba(100,181,246,0.6)',
         skills: [
-          { name: 'Java',   proficiency: 90, level: 'primary',    tooltip: 'High-throughput microservices · virtual threads & async (8–21)', x: 12, y: 14 },
-          { name: 'Python', proficiency: 88, level: 'secondary',  tooltip: 'Built AI pipelines & automation that saved hours/week',           x: 24, y: 10 },
-          { name: 'GO',     proficiency: 93, level: 'secondary',  tooltip: 'Low-latency gRPC services · concurrent workers & CLI tools',      x: 8,  y: 28 },
-          { name: 'NodeJS', proficiency: 91, level: 'secondary',  tooltip: 'Real-time WebSocket features · serverless Lambda backends',       x: 22, y: 26 },
+          { name: 'Java',   proficiency: 90, level: 'primary',    tooltip: 'Microservices · virtual threads (8–21)',  x: 12, y: 14 },
+          { name: 'Python', proficiency: 88, level: 'secondary',  tooltip: 'AI pipelines · automation · FastAPI',     x: 24, y: 10 },
+          { name: 'GO',     proficiency: 93, level: 'secondary',  tooltip: 'gRPC services · goroutines · CLI',        x: 8,  y: 28 },
+          { name: 'NodeJS', proficiency: 91, level: 'secondary',  tooltip: 'WebSockets · Lambda · real-time',         x: 22, y: 26 },
         ]
       },
       {
         id: 'architecture', name: 'Architecture', color: '#CE93D8', glowColor: 'rgba(206,147,216,0.6)',
         skills: [
-          { name: 'High Level Design', proficiency: 95, level: 'primary',   tooltip: 'Designed scalable systems handling millions of events/day',  x: 48, y: 8  },
-          { name: 'Low Level Design',  proficiency: 90, level: 'secondary', tooltip: 'Domain modeling · SOLID · reusable internal libraries',    x: 38, y: 24 },
-          { name: 'Microservices',     proficiency: 95, level: 'primary',   tooltip: 'Decomposed monoliths · circuit breakers · event-driven',  x: 58, y: 24 },
+          { name: 'High Level Design', proficiency: 95, level: 'primary',   tooltip: 'Scaled to millions of events/day',    x: 48, y: 8  },
+          { name: 'Low Level Design',  proficiency: 90, level: 'secondary', tooltip: 'SOLID · domain modeling · clean APIs', x: 38, y: 24 },
+          { name: 'Microservices',     proficiency: 95, level: 'primary',   tooltip: 'Decomposed monoliths · event-driven', x: 58, y: 24 },
         ]
       },
       {
         id: 'databases', name: 'Databases', color: '#80CBC4', glowColor: 'rgba(128,203,196,0.6)',
         skills: [
-          { name: 'MySQL',         proficiency: 95, level: 'primary',    tooltip: 'Tuned hot-path queries · led production DMS migrations',  x: 78, y: 10 },
-          { name: 'MongoDB',       proficiency: 90, level: 'secondary',  tooltip: 'Aggregation pipelines for analytics · sharded high-ingest',  x: 90, y: 16 },
-          { name: 'Neptune',       proficiency: 88, level: 'supporting', tooltip: 'Graph traversals for relationship & fraud analysis',         x: 74, y: 22 },
-          { name: 'Salesforce DB', proficiency: 85, level: 'supporting', tooltip: 'SOQL/SOSL reporting · automated CRM sync pipelines',        x: 88, y: 28 },
-          { name: 'Cassandra',     proficiency: 88, level: 'supporting', tooltip: 'Time-series event storage · partition-aware schema design',  x: 80, y: 34 },
+          { name: 'MySQL',         proficiency: 95, level: 'primary',    tooltip: 'Query tuning · DMS migrations',        x: 78, y: 10 },
+          { name: 'MongoDB',       proficiency: 90, level: 'secondary',  tooltip: 'Aggregation pipelines · sharding',     x: 90, y: 16 },
+          { name: 'Neptune',       proficiency: 88, level: 'supporting', tooltip: 'Graph traversals · fraud analysis',    x: 74, y: 22 },
+          { name: 'Salesforce DB', proficiency: 85, level: 'supporting', tooltip: 'SOQL reporting · CRM sync',            x: 88, y: 28 },
+          { name: 'Cassandra',     proficiency: 88, level: 'supporting', tooltip: 'Time-series · partition design',       x: 80, y: 34 },
         ]
       },
       {
         id: 'frameworks', name: 'Frameworks', color: '#FFB74D', glowColor: 'rgba(255,183,77,0.6)',
         skills: [
-          { name: 'Spring Boot',  proficiency: 90, level: 'secondary',  tooltip: 'Shipped multiple production APIs · Security + Actuator',  x: 6,  y: 48 },
-          { name: 'Echo',         proficiency: 85, level: 'secondary',  tooltip: 'Lean Go APIs with sub-ms overhead · middleware stack',       x: 18, y: 54 },
-          { name: 'Dropwizard',   proficiency: 88, level: 'supporting', tooltip: 'Metrics-first Java services · predictable latency',          x: 32, y: 50 },
-          { name: 'Google Guice', proficiency: 85, level: 'supporting', tooltip: 'Modular DI for testable non-Spring Java services',           x: 12, y: 64 },
+          { name: 'Spring Boot',  proficiency: 90, level: 'secondary',  tooltip: 'Production APIs · Spring Security',    x: 6,  y: 48 },
+          { name: 'Echo',         proficiency: 85, level: 'secondary',  tooltip: 'Lean Go APIs · sub-ms overhead',       x: 18, y: 54 },
+          { name: 'Dropwizard',   proficiency: 88, level: 'supporting', tooltip: 'Metrics-first · predictable latency',  x: 32, y: 50 },
+          { name: 'Google Guice', proficiency: 85, level: 'supporting', tooltip: 'Modular DI for non-Spring Java',       x: 12, y: 64 },
         ]
       },
       {
         id: 'ai', name: 'AI / ML', color: '#F48FB1', glowColor: 'rgba(244,143,177,0.6)',
         skills: [
-          { name: 'Generative AI', proficiency: 90, level: 'primary',   tooltip: 'Built AI features that cut manual triage effort in half',   x: 38, y: 46 },
-          { name: 'LLM',           proficiency: 90, level: 'primary',   tooltip: 'Production LLM integration · tool-calling · guardrails',     x: 54, y: 40 },
-          { name: 'RAG',           proficiency: 88, level: 'secondary', tooltip: 'Chunking + rerank pipelines · measurably reduced hallucinations', x: 42, y: 60 },
-          { name: 'VectorDB',      proficiency: 85, level: 'secondary', tooltip: 'Pinecone & pgvector for low-latency semantic retrieval',     x: 60, y: 56 },
+          { name: 'Generative AI', proficiency: 90, level: 'primary',   tooltip: 'Cut manual triage effort by 50%',      x: 38, y: 46 },
+          { name: 'LLM',           proficiency: 90, level: 'primary',   tooltip: 'API integration · tool-calling',       x: 54, y: 40 },
+          { name: 'RAG',           proficiency: 88, level: 'secondary', tooltip: 'Rerank pipelines · less hallucination', x: 42, y: 60 },
+          { name: 'VectorDB',      proficiency: 85, level: 'secondary', tooltip: 'Pinecone · pgvector · semantic search', x: 60, y: 56 },
         ]
       },
       {
         id: 'queues', name: 'Queues', color: '#81C784', glowColor: 'rgba(129,199,132,0.6)',
         skills: [
-          { name: 'Kafka',     proficiency: 99, level: 'primary',    tooltip: 'Built event pipelines handling sustained high throughput',  x: 76, y: 48 },
-          { name: 'RabbitMQ',  proficiency: 90, level: 'secondary',  tooltip: 'Reliable task queues · dead-letter retry patterns',              x: 88, y: 54 },
-          { name: 'AmazonSQS', proficiency: 88, level: 'supporting', tooltip: 'Serverless fan-out with SNS · idempotent FIFO consumers',       x: 80, y: 64 },
+          { name: 'Kafka',     proficiency: 99, level: 'primary',    tooltip: 'Event pipelines · high throughput',     x: 76, y: 48 },
+          { name: 'RabbitMQ',  proficiency: 90, level: 'secondary',  tooltip: 'Task queues · dead-letter retries',     x: 88, y: 54 },
+          { name: 'AmazonSQS', proficiency: 88, level: 'supporting', tooltip: 'Serverless fan-out · FIFO queues',     x: 80, y: 64 },
         ]
       },
       {
         id: 'core', name: 'Core CS', color: '#FFD54F', glowColor: 'rgba(255,213,79,0.6)',
         skills: [
-          { name: 'DSA',        proficiency: 95, level: 'secondary',  tooltip: 'Solved 500+ problems · mentored engineers on interviews', x: 16, y: 76 },
-          { name: 'Networking', proficiency: 95, level: 'supporting', tooltip: 'Debugged TLS/TCP issues · tuned keep-alives in production',    x: 30, y: 82 },
+          { name: 'DSA',        proficiency: 95, level: 'secondary',  tooltip: '500+ problems · interview mentoring',  x: 16, y: 76 },
+          { name: 'Networking', proficiency: 95, level: 'supporting', tooltip: 'TCP/IP · TLS debugging · keep-alives', x: 30, y: 82 },
         ]
       },
       {
         id: 'cache', name: 'Cache', color: '#E57373', glowColor: 'rgba(229,115,115,0.6)',
         skills: [
-          { name: 'Elasti-Cache', proficiency: 88, level: 'supporting', tooltip: 'Operated Redis clusters · failover & TTL-aware caching',  x: 74, y: 76 },
-          { name: 'Redis',        proficiency: 90, level: 'secondary',  tooltip: 'Real-time leaderboards · rate limiting · sub-ms reads',       x: 88, y: 74 },
+          { name: 'Elasti-Cache', proficiency: 88, level: 'supporting', tooltip: 'Redis clusters · failover · TTL',     x: 74, y: 76 },
+          { name: 'Redis',        proficiency: 90, level: 'secondary',  tooltip: 'Leaderboards · rate limiting · sub-ms', x: 88, y: 74 },
         ]
       }
     ];
@@ -376,11 +376,11 @@ export class SkillsComponent implements OnInit {
     this.hoveredSkill = skill;
     this.hoveredConstellation = constellation;
 
-    const proofW  = skill.tooltip.length * 0.62;
-    const nameW   = skill.name.length * 1.1;
-    const metaW   = (constellation.name.length + this.getLevelLabel(skill.level).length + 3) * 0.78;
+    const proofW  = skill.tooltip.length * 0.78;
+    const nameW   = skill.name.length * 1.15;
+    const metaW   = (constellation.name.length + this.getLevelLabel(skill.level).length + 3) * 0.82;
     const content  = Math.max(proofW, nameW, metaW);
-    this.tooltipWidth = Math.min(Math.max(content + 5, 24), 48);
+    this.tooltipWidth = Math.min(Math.max(content + 5, 24), 50);
 
     const halfW = this.tooltipWidth / 2;
     const x = Math.max(halfW + 1, Math.min(99 - halfW, skill.x));
