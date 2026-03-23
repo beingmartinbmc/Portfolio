@@ -34,12 +34,12 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     location: 'Hybrid in Hyderabad, India',
     duration: 'Current',
     period: '2025 - Present',
-    description: 'Senior Member of Technical Staff role at Salesforce, exploring new challenges and opportunities in enterprise cloud solutions.',
-    technologies: ['Salesforce Platform', 'Apex', 'Lightning', 'Java', 'Cloud Technologies'],
+    description: 'Senior Member of Technical Staff working on Salesforce platform infrastructure and cloud-native services.',
+    technologies: ['Java', 'Salesforce Platform', 'Apex', 'Lightning', 'Microservices', 'Cloud Infrastructure'],
     achievements: [
-      'Still exploring and learning the Salesforce ecosystem',
-      'Transitioning into enterprise cloud solutions',
-      'Working on scalable cloud-based applications'
+      'Contributing to core platform services powering Salesforce\'s enterprise cloud',
+      'Designing and building scalable backend systems for multi-tenant architecture',
+      'Driving engineering best practices and code quality across the team'
     ]
   },
   {
@@ -88,13 +88,12 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     location: 'Bangalore, India',
     duration: '4 months',
     period: '2021',
-    description: 'Worked as Fullstack developer with Java as Backend and Angular as Frontend. Worked on Annual Enrollment for Walmart Employees to avail health benefits - life insurance, dental coverage, health insurance for year 2022.',
-    technologies: ['Java 8', 'JSP', 'WCNP', 'OneOps', 'Jenkins', 'Angular'],
+    description: 'Built features for Walmart\'s Annual Enrollment platform — the system employees use to enroll in health benefits (life insurance, dental, health coverage) for 2.2M+ associates.',
+    technologies: ['Java 8', 'Angular', 'JSP', 'OneOps', 'WCNP', 'Jenkins'],
     achievements: [
-      'Worked on Walmart\'s own cloud OneOps and WCNP',
-      'Collaborated with global teams across different time zones',
-      'Gained experience of Retail projects',
-      'Developed features for Walmart\'s e-commerce platform'
+      'Developed enrollment features serving 2.2M+ Walmart associates across the US',
+      'Built on Walmart\'s private cloud (OneOps/WCNP) with CI/CD via Jenkins',
+      'Shipped production code within first month, collaborating across US and India teams'
     ]
   },
   {
