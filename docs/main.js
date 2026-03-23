@@ -38721,30 +38721,31 @@ var SKILL_DETAILS = {
 };
 
 // src/app/profile/skills/skills.component.ts
-var _c03 = (a0) => ({ "viewport-wrapper--zooming": a0 });
-var _c12 = (a0, a1, a2) => ({ "viewport-zooming": a0, "focus-mode": a1, "has-hover": a2 });
-var _c22 = (a0) => ({ "star-glow--active": a0 });
-var _c3 = (a0, a1) => ({ "star-core--active": a0, "star-core--hovered": a1 });
-var _c4 = (a0, a1) => ({ "star-label--active": a0, "star-label--primary": a1 });
-var _c5 = (a0) => ({ "rocket-container--zooming": a0 });
+var _c03 = (a0) => ({ "system-mode-toggle--active": a0 });
+var _c12 = (a0) => ({ "viewport-wrapper--zooming": a0 });
+var _c22 = (a0, a1, a2, a3) => ({ "viewport-zooming": a0, "focus-mode": a1, "has-hover": a2, "system-mode": a3 });
+var _c3 = (a0) => ({ "star-glow--active": a0 });
+var _c4 = (a0, a1) => ({ "star-core--active": a0, "star-core--hovered": a1 });
+var _c5 = (a0, a1, a2) => ({ "star-label--active": a0, "star-label--primary": a1, "star-label--system": a2 });
+var _c6 = (a0) => ({ "rocket-container--zooming": a0 });
 var _forTrack0 = ($index, $item) => $item.id;
 var _forTrack1 = ($index, $item) => $item.name;
-function SkillsComponent_For_11_Template(rf, ctx) {
+function SkillsComponent_For_16_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "div", 27);
+    \u0275\u0275element(0, "div", 30);
   }
   if (rf & 2) {
     const star_r1 = ctx.$implicit;
     \u0275\u0275styleProp("left", star_r1.x, "%")("top", star_r1.y, "%")("width", star_r1.size, "px")("height", star_r1.size, "px")("animation-delay", star_r1.delay + "s");
   }
 }
-function SkillsComponent_For_15_Template(rf, ctx) {
+function SkillsComponent_For_20_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(0, "filter", 10);
-    \u0275\u0275element(1, "feGaussianBlur", 28);
+    \u0275\u0275elementStart(0, "filter", 13);
+    \u0275\u0275element(1, "feGaussianBlur", 31);
     \u0275\u0275elementStart(2, "feMerge");
-    \u0275\u0275element(3, "feMergeNode", 29)(4, "feMergeNode", 30);
+    \u0275\u0275element(3, "feMergeNode", 32)(4, "feMergeNode", 33);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
@@ -38752,79 +38753,101 @@ function SkillsComponent_For_15_Template(rf, ctx) {
     \u0275\u0275attribute("id", "glow-" + constellation_r2.id);
   }
 }
-function SkillsComponent_For_19_Template(rf, ctx) {
+function SkillsComponent_For_24_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275namespaceSVG();
-    \u0275\u0275element(0, "line", 13);
+    \u0275\u0275element(0, "line", 16);
   }
   if (rf & 2) {
     const link_r3 = ctx.$implicit;
     const ctx_r3 = \u0275\u0275nextContext();
     \u0275\u0275property("ngClass", ctx_r3.getCrossLinkClasses(link_r3));
-    \u0275\u0275attribute("x1", link_r3.x1)("y1", link_r3.y1)("x2", link_r3.x2)("y2", link_r3.y2)("stroke", link_r3.color);
+    \u0275\u0275attribute("x1", link_r3.x1)("y1", link_r3.y1)("x2", link_r3.x2)("y2", link_r3.y2)("stroke", link_r3.color)("stroke-width", link_r3.strength === "strong" ? 0.3 : 0.12)("stroke-dasharray", link_r3.strength === "strong" ? "1.2,0.5" : "0.6,0.8");
   }
 }
-function SkillsComponent_For_21_Template(rf, ctx) {
+function SkillsComponent_For_26_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275namespaceSVG();
-    \u0275\u0275element(0, "line", 14);
+    \u0275\u0275element(0, "line", 17);
   }
   if (rf & 2) {
     const line_r5 = ctx.$implicit;
     \u0275\u0275attribute("x1", line_r5.x1)("y1", line_r5.y1)("x2", line_r5.x2)("y2", line_r5.y2)("stroke", line_r5.color);
   }
 }
-function SkillsComponent_For_23_For_1_Template(rf, ctx) {
+function SkillsComponent_For_28_For_1_Conditional_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275element(0, "circle", 40);
+    \u0275\u0275elementStart(1, "text", 41);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const skill_r7 = \u0275\u0275nextContext().$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275attribute("cx", skill_r7.x + ctx_r3.getLevelStarRadius(skill_r7.level) + 1.5)("cy", skill_r7.y - ctx_r3.getLevelStarRadius(skill_r7.level) - 0.5);
+    \u0275\u0275advance();
+    \u0275\u0275attribute("x", skill_r7.x + ctx_r3.getLevelStarRadius(skill_r7.level) + 1.5)("cy", skill_r7.y - ctx_r3.getLevelStarRadius(skill_r7.level) - 0.5)("y", skill_r7.y - ctx_r3.getLevelStarRadius(skill_r7.level) - 0.05);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r3.getSystemFlowIndex(skill_r7) + 1, " ");
+  }
+}
+function SkillsComponent_For_28_For_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r6 = \u0275\u0275getCurrentView();
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(0, "g", 33);
-    \u0275\u0275listener("mouseenter", function SkillsComponent_For_23_For_1_Template_g_mouseenter_0_listener() {
+    \u0275\u0275elementStart(0, "g", 35);
+    \u0275\u0275listener("mouseenter", function SkillsComponent_For_28_For_1_Template_g_mouseenter_0_listener() {
       const skill_r7 = \u0275\u0275restoreView(_r6).$implicit;
       const constellation_r8 = \u0275\u0275nextContext().$implicit;
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.hoverStar(skill_r7, constellation_r8));
-    })("mouseleave", function SkillsComponent_For_23_For_1_Template_g_mouseleave_0_listener() {
+    })("mouseleave", function SkillsComponent_For_28_For_1_Template_g_mouseleave_0_listener() {
       \u0275\u0275restoreView(_r6);
       const ctx_r3 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r3.unhoverStar());
-    })("click", function SkillsComponent_For_23_For_1_Template_g_click_0_listener() {
+    })("click", function SkillsComponent_For_28_For_1_Template_g_click_0_listener() {
       const skill_r7 = \u0275\u0275restoreView(_r6).$implicit;
       const constellation_r8 = \u0275\u0275nextContext().$implicit;
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.selectStar(skill_r7, constellation_r8));
     });
-    \u0275\u0275element(1, "circle", 34)(2, "circle", 35)(3, "circle", 36);
-    \u0275\u0275elementStart(4, "text", 37);
+    \u0275\u0275element(1, "circle", 36)(2, "circle", 37)(3, "circle", 38);
+    \u0275\u0275elementStart(4, "text", 39);
     \u0275\u0275text(5);
-    \u0275\u0275elementEnd()();
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(6, SkillsComponent_For_28_For_1_Conditional_6_Template, 3, 6);
+    \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     const skill_r7 = ctx.$implicit;
-    const \u0275$index_48_r9 = ctx.$index;
+    const \u0275$index_56_r9 = ctx.$index;
     const constellation_r8 = \u0275\u0275nextContext().$implicit;
     const ctx_r3 = \u0275\u0275nextContext();
-    \u0275\u0275property("ngClass", ctx_r3.getStarClasses(skill_r7, \u0275$index_48_r9));
+    \u0275\u0275property("ngClass", ctx_r3.getStarClasses(skill_r7, \u0275$index_56_r9));
     \u0275\u0275advance();
     \u0275\u0275attribute("cx", skill_r7.x)("cy", skill_r7.y)("r", ctx_r3.getLevelGlowRadius(skill_r7.level) + 1);
     \u0275\u0275advance();
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(20, _c22, ctx_r3.isSelected(skill_r7)));
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(21, _c3, ctx_r3.isSelected(skill_r7)));
     \u0275\u0275attribute("cx", skill_r7.x)("cy", skill_r7.y)("r", ctx_r3.getLevelGlowRadius(skill_r7.level))("fill", constellation_r8.glowColor);
     \u0275\u0275advance();
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(22, _c3, ctx_r3.isSelected(skill_r7), ctx_r3.hoveredSkill === skill_r7));
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(23, _c4, ctx_r3.isSelected(skill_r7), ctx_r3.hoveredSkill === skill_r7));
     \u0275\u0275attribute("cx", skill_r7.x)("cy", skill_r7.y)("r", ctx_r3.getLevelStarRadius(skill_r7.level))("fill", constellation_r8.color)("filter", "url(#glow-" + constellation_r8.id + ")");
     \u0275\u0275advance();
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(25, _c4, ctx_r3.isSelected(skill_r7), skill_r7.level === "primary"));
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction3(26, _c5, ctx_r3.isSelected(skill_r7), skill_r7.level === "primary", ctx_r3.systemMode && ctx_r3.systemModeLabels[skill_r7.name]));
     \u0275\u0275attribute("x", skill_r7.x)("y", skill_r7.y + ctx_r3.getLabelOffset(skill_r7.level))("fill", constellation_r8.color);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", skill_r7.name, " ");
+    \u0275\u0275textInterpolate1(" ", ctx_r3.getDisplayName(skill_r7), " ");
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r3.isSystemFlowNode(skill_r7) ? 6 : -1);
   }
 }
-function SkillsComponent_For_23_Template(rf, ctx) {
+function SkillsComponent_For_28_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275repeaterCreate(0, SkillsComponent_For_23_For_1_Template, 6, 28, ":svg:g", 31, _forTrack1);
+    \u0275\u0275repeaterCreate(0, SkillsComponent_For_28_For_1_Template, 7, 30, ":svg:g", 16, _forTrack1);
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(2, "text", 32);
+    \u0275\u0275elementStart(2, "text", 34);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
   }
@@ -38838,12 +38861,12 @@ function SkillsComponent_For_23_Template(rf, ctx) {
     \u0275\u0275textInterpolate1(" ", constellation_r8.name, " ");
   }
 }
-function SkillsComponent_Conditional_24_Template(rf, ctx) {
+function SkillsComponent_Conditional_29_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(0, "g", 15);
-    \u0275\u0275element(1, "circle", 38)(2, "path", 39);
-    \u0275\u0275elementStart(3, "text", 40);
+    \u0275\u0275elementStart(0, "g", 18);
+    \u0275\u0275element(1, "circle", 42)(2, "path", 43);
+    \u0275\u0275elementStart(3, "text", 44);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()();
   }
@@ -38859,92 +38882,92 @@ function SkillsComponent_Conditional_24_Template(rf, ctx) {
     \u0275\u0275textInterpolate1(" ", ctx_r3.selectedSkill.proficiency, "% ");
   }
 }
-function SkillsComponent_Conditional_25_Template(rf, ctx) {
+function SkillsComponent_Conditional_30_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(0, "g", 16);
-    \u0275\u0275element(1, "rect", 41)(2, "circle", 42);
-    \u0275\u0275elementStart(3, "text", 43);
+    \u0275\u0275elementStart(0, "g", 19);
+    \u0275\u0275element(1, "rect", 45)(2, "circle", 46);
+    \u0275\u0275elementStart(3, "text", 47);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "text", 44);
+    \u0275\u0275elementStart(5, "text", 48);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "text", 45);
+    \u0275\u0275elementStart(7, "text", 49);
     \u0275\u0275text(8);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
     const ctx_r3 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275attribute("x", ctx_r3.tooltipPos.x - 12)("y", ctx_r3.tooltipPos.y)("stroke", ctx_r3.hoveredConstellation.color);
+    \u0275\u0275attribute("x", ctx_r3.tooltipPos.x - ctx_r3.tooltipWidth / 2)("y", ctx_r3.tooltipPos.y)("width", ctx_r3.tooltipWidth)("stroke", ctx_r3.hoveredConstellation.color);
     \u0275\u0275advance();
-    \u0275\u0275attribute("cx", ctx_r3.tooltipPos.x - 9.8)("cy", ctx_r3.tooltipPos.y + 2.5)("fill", ctx_r3.hoveredConstellation.color)("fill-opacity", ctx_r3.hoveredSkill.level === "primary" ? 1 : ctx_r3.hoveredSkill.level === "secondary" ? 0.7 : 0.4);
+    \u0275\u0275attribute("cx", ctx_r3.tooltipPos.x - ctx_r3.tooltipWidth / 2 + 2.2)("cy", ctx_r3.tooltipPos.y + 2.8)("fill", ctx_r3.hoveredConstellation.color)("fill-opacity", ctx_r3.hoveredSkill.level === "primary" ? 1 : ctx_r3.hoveredSkill.level === "secondary" ? 0.7 : 0.4);
     \u0275\u0275advance();
-    \u0275\u0275attribute("x", ctx_r3.tooltipPos.x - 8.2)("y", ctx_r3.tooltipPos.y + 2.85)("fill", ctx_r3.hoveredConstellation.color);
+    \u0275\u0275attribute("x", ctx_r3.tooltipPos.x - ctx_r3.tooltipWidth / 2 + 3.8)("y", ctx_r3.tooltipPos.y + 3.15)("fill", ctx_r3.hoveredConstellation.color);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate1(" ", ctx_r3.hoveredSkill.name, " ");
     \u0275\u0275advance();
-    \u0275\u0275attribute("x", ctx_r3.tooltipPos.x - 10.2)("y", ctx_r3.tooltipPos.y + 5.3);
+    \u0275\u0275attribute("x", ctx_r3.tooltipPos.x - ctx_r3.tooltipWidth / 2 + 1.8)("y", ctx_r3.tooltipPos.y + 5.8);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate2(" ", ctx_r3.hoveredConstellation.name, " \xB7 ", ctx_r3.getLevelLabel(ctx_r3.hoveredSkill.level), " ");
     \u0275\u0275advance();
-    \u0275\u0275attribute("x", ctx_r3.tooltipPos.x - 10.2)("y", ctx_r3.tooltipPos.y + 7.5);
+    \u0275\u0275attribute("x", ctx_r3.tooltipPos.x - ctx_r3.tooltipWidth / 2 + 1.8)("y", ctx_r3.tooltipPos.y + 8.5);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate1(" ", ctx_r3.hoveredSkill.tooltip, " ");
   }
 }
-function SkillsComponent_Conditional_26_For_15_Template(rf, ctx) {
+function SkillsComponent_Conditional_31_For_15_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275namespaceSVG();
-    \u0275\u0275element(0, "circle", 55);
+    \u0275\u0275element(0, "circle", 59);
   }
   if (rf & 2) {
     const particle_r10 = ctx.$implicit;
     \u0275\u0275attribute("cx", particle_r10.x)("cy", particle_r10.y)("r", particle_r10.size)("opacity", particle_r10.opacity);
   }
 }
-function SkillsComponent_Conditional_26_Template(rf, ctx) {
+function SkillsComponent_Conditional_31_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 17);
+    \u0275\u0275elementStart(0, "div", 20);
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(1, "svg", 46)(2, "defs")(3, "linearGradient", 47);
-    \u0275\u0275element(4, "stop", 48)(5, "stop", 49);
+    \u0275\u0275elementStart(1, "svg", 50)(2, "defs")(3, "linearGradient", 51);
+    \u0275\u0275element(4, "stop", 52)(5, "stop", 53);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "radialGradient", 50);
-    \u0275\u0275element(7, "stop", 51)(8, "stop", 52);
+    \u0275\u0275elementStart(6, "radialGradient", 54);
+    \u0275\u0275element(7, "stop", 55)(8, "stop", 56);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "filter", 53);
-    \u0275\u0275element(10, "feGaussianBlur", 54);
+    \u0275\u0275elementStart(9, "filter", 57);
+    \u0275\u0275element(10, "feGaussianBlur", 58);
     \u0275\u0275elementStart(11, "feMerge");
-    \u0275\u0275element(12, "feMergeNode", 29)(13, "feMergeNode", 30);
+    \u0275\u0275element(12, "feMergeNode", 32)(13, "feMergeNode", 33);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275repeaterCreate(14, SkillsComponent_Conditional_26_For_15_Template, 1, 4, ":svg:circle", 55, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementStart(16, "g", 56);
-    \u0275\u0275element(17, "path", 57)(18, "path", 58)(19, "circle", 59)(20, "circle", 60)(21, "path", 61)(22, "path", 62)(23, "path", 63)(24, "path", 64)(25, "path", 65);
+    \u0275\u0275repeaterCreate(14, SkillsComponent_Conditional_31_For_15_Template, 1, 4, ":svg:circle", 59, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementStart(16, "g", 60);
+    \u0275\u0275element(17, "path", 61)(18, "path", 62)(19, "circle", 63)(20, "circle", 64)(21, "path", 65)(22, "path", 66)(23, "path", 67)(24, "path", 68)(25, "path", 69);
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
     const ctx_r3 = \u0275\u0275nextContext();
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(2, _c5, ctx_r3.zooming));
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(2, _c6, ctx_r3.zooming));
     \u0275\u0275advance(14);
     \u0275\u0275repeater(ctx_r3.rocketTrail);
     \u0275\u0275advance(2);
     \u0275\u0275attribute("transform", "translate(" + ctx_r3.rocketPosition.x + ", " + ctx_r3.rocketPosition.y + ")");
   }
 }
-function SkillsComponent_Conditional_27_Template(rf, ctx) {
+function SkillsComponent_Conditional_32_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "div", 66);
+    \u0275\u0275element(0, "div", 70);
   }
   if (rf & 2) {
     const ctx_r3 = \u0275\u0275nextContext();
     \u0275\u0275styleProp("left", ctx_r3.zoomTarget.x, "%")("top", ctx_r3.zoomTarget.y, "%");
   }
 }
-function SkillsComponent_Conditional_28_For_27_Template(rf, ctx) {
+function SkillsComponent_Conditional_33_For_27_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "li", 84);
+    \u0275\u0275elementStart(0, "li", 88);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -38954,12 +38977,12 @@ function SkillsComponent_Conditional_28_For_27_Template(rf, ctx) {
     \u0275\u0275textInterpolate(exp_r12);
   }
 }
-function SkillsComponent_Conditional_28_For_33_Template(rf, ctx) {
+function SkillsComponent_Conditional_33_For_33_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 86)(1, "div", 91);
+    \u0275\u0275elementStart(0, "div", 90)(1, "div", 95);
     \u0275\u0275text(2, "\u{1F680}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 92);
+    \u0275\u0275elementStart(3, "span", 96);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()();
   }
@@ -38969,12 +38992,12 @@ function SkillsComponent_Conditional_28_For_33_Template(rf, ctx) {
     \u0275\u0275textInterpolate(project_r13);
   }
 }
-function SkillsComponent_Conditional_28_For_39_Template(rf, ctx) {
+function SkillsComponent_Conditional_33_For_39_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 88)(1, "span", 93);
+    \u0275\u0275elementStart(0, "div", 92)(1, "span", 97);
     \u0275\u0275text(2, "\u2B50");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 94);
+    \u0275\u0275elementStart(3, "span", 98);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()();
   }
@@ -38984,9 +39007,9 @@ function SkillsComponent_Conditional_28_For_39_Template(rf, ctx) {
     \u0275\u0275textInterpolate(achievement_r14);
   }
 }
-function SkillsComponent_Conditional_28_For_45_Template(rf, ctx) {
+function SkillsComponent_Conditional_33_For_45_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 90);
+    \u0275\u0275elementStart(0, "span", 94);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -38996,68 +39019,68 @@ function SkillsComponent_Conditional_28_For_45_Template(rf, ctx) {
     \u0275\u0275textInterpolate(relatedSkill_r15);
   }
 }
-function SkillsComponent_Conditional_28_Template(rf, ctx) {
+function SkillsComponent_Conditional_33_Template(rf, ctx) {
   if (rf & 1) {
     const _r11 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 67);
-    \u0275\u0275listener("click", function SkillsComponent_Conditional_28_Template_div_click_0_listener() {
+    \u0275\u0275elementStart(0, "div", 71);
+    \u0275\u0275listener("click", function SkillsComponent_Conditional_33_Template_div_click_0_listener() {
       \u0275\u0275restoreView(_r11);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.closeDetailModal());
     });
-    \u0275\u0275elementStart(1, "div", 68);
-    \u0275\u0275listener("click", function SkillsComponent_Conditional_28_Template_div_click_1_listener($event) {
+    \u0275\u0275elementStart(1, "div", 72);
+    \u0275\u0275listener("click", function SkillsComponent_Conditional_33_Template_div_click_1_listener($event) {
       \u0275\u0275restoreView(_r11);
       return \u0275\u0275resetView($event.stopPropagation());
     });
-    \u0275\u0275elementStart(2, "div", 69)(3, "div", 70)(4, "div", 71)(5, "span", 72);
+    \u0275\u0275elementStart(2, "div", 73)(3, "div", 74)(4, "div", 75)(5, "span", 76);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "div", 73)(8, "h2", 74);
+    \u0275\u0275elementStart(7, "div", 77)(8, "h2", 78);
     \u0275\u0275text(9);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "span", 75);
+    \u0275\u0275elementStart(10, "span", 79);
     \u0275\u0275text(11);
-    \u0275\u0275elementStart(12, "span", 76);
+    \u0275\u0275elementStart(12, "span", 80);
     \u0275\u0275text(13);
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(14, "button", 77);
-    \u0275\u0275listener("click", function SkillsComponent_Conditional_28_Template_button_click_14_listener() {
+    \u0275\u0275elementStart(14, "button", 81);
+    \u0275\u0275listener("click", function SkillsComponent_Conditional_33_Template_button_click_14_listener() {
       \u0275\u0275restoreView(_r11);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.closeDetailModal());
     });
-    \u0275\u0275element(15, "i", 78);
+    \u0275\u0275element(15, "i", 82);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(16, "div", 79)(17, "div", 80)(18, "h3", 81);
+    \u0275\u0275elementStart(16, "div", 83)(17, "div", 84)(18, "h3", 85);
     \u0275\u0275text(19, "Overview");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(20, "p", 82);
+    \u0275\u0275elementStart(20, "p", 86);
     \u0275\u0275text(21);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(22, "div", 80)(23, "h3", 81);
+    \u0275\u0275elementStart(22, "div", 84)(23, "h3", 85);
     \u0275\u0275text(24, "Experience");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(25, "ul", 83);
-    \u0275\u0275repeaterCreate(26, SkillsComponent_Conditional_28_For_27_Template, 2, 1, "li", 84, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementStart(25, "ul", 87);
+    \u0275\u0275repeaterCreate(26, SkillsComponent_Conditional_33_For_27_Template, 2, 1, "li", 88, \u0275\u0275repeaterTrackByIndex);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(28, "div", 80)(29, "h3", 81);
+    \u0275\u0275elementStart(28, "div", 84)(29, "h3", 85);
     \u0275\u0275text(30, "Key Projects");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(31, "div", 85);
-    \u0275\u0275repeaterCreate(32, SkillsComponent_Conditional_28_For_33_Template, 5, 1, "div", 86, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementStart(31, "div", 89);
+    \u0275\u0275repeaterCreate(32, SkillsComponent_Conditional_33_For_33_Template, 5, 1, "div", 90, \u0275\u0275repeaterTrackByIndex);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(34, "div", 80)(35, "h3", 81);
+    \u0275\u0275elementStart(34, "div", 84)(35, "h3", 85);
     \u0275\u0275text(36, "Achievements");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(37, "div", 87);
-    \u0275\u0275repeaterCreate(38, SkillsComponent_Conditional_28_For_39_Template, 5, 1, "div", 88, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementStart(37, "div", 91);
+    \u0275\u0275repeaterCreate(38, SkillsComponent_Conditional_33_For_39_Template, 5, 1, "div", 92, \u0275\u0275repeaterTrackByIndex);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(40, "div", 80)(41, "h3", 81);
+    \u0275\u0275elementStart(40, "div", 84)(41, "h3", 85);
     \u0275\u0275text(42, "Related Skills");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(43, "div", 89);
-    \u0275\u0275repeaterCreate(44, SkillsComponent_Conditional_28_For_45_Template, 2, 1, "span", 90, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementStart(43, "div", 93);
+    \u0275\u0275repeaterCreate(44, SkillsComponent_Conditional_33_For_45_Template, 2, 1, "span", 94, \u0275\u0275repeaterTrackByIndex);
     \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
@@ -39099,12 +39122,41 @@ var SkillsComponent = class _SkillsComponent {
     this.hoveredSkill = null;
     this.hoveredConstellation = null;
     this.tooltipPos = null;
+    this.tooltipWidth = 32;
     this.focusModeActive = true;
+    this.narrativeActive = false;
+    this.narrativeHighlightedSkills = /* @__PURE__ */ new Set();
+    this.narrativeHighlightedLinks = /* @__PURE__ */ new Set();
     this.rocketAnimating = false;
     this.rocketPosition = null;
     this.zooming = false;
     this.zoomTarget = null;
     this.rocketTrail = [];
+    this.systemMode = false;
+    this.systemModeLabels = {
+      "Kafka": "Event Bus",
+      "Redis": "Cache Layer",
+      "MySQL": "Primary DB",
+      "MongoDB": "Document Store",
+      "Microservices": "Service Mesh",
+      "Spring Boot": "API Framework",
+      "High Level Design": "System Design",
+      "LLM": "AI Engine",
+      "RAG": "Knowledge Retrieval",
+      "VectorDB": "Embedding Store",
+      "Elasti-Cache": "Cache Cluster",
+      "RabbitMQ": "Task Queue",
+      "AmazonSQS": "Managed Queue",
+      "Neptune": "Graph Store",
+      "Cassandra": "Time-Series DB"
+    };
+    this.systemModeFlow = [
+      "Spring Boot",
+      "Microservices",
+      "Kafka",
+      "Redis",
+      "MySQL"
+    ];
     this.ringRadius = 4.5;
     this.ringStroke = 0.55;
     this.backgroundStars = [];
@@ -39120,6 +39172,7 @@ var SkillsComponent = class _SkillsComponent {
     this.generateBackgroundStars();
     this.addSkillDetails();
     this.buildSkillMap();
+    this.runNarrativeIntro();
     setTimeout(() => {
       this.focusModeActive = false;
     }, 4e3);
@@ -39136,10 +39189,10 @@ var SkillsComponent = class _SkillsComponent {
         color: "#64B5F6",
         glowColor: "rgba(100,181,246,0.6)",
         skills: [
-          { name: "Java", proficiency: 90, level: "primary", tooltip: "Microservices, concurrency, modern Java 8\u201321", x: 12, y: 14 },
-          { name: "Python", proficiency: 88, level: "secondary", tooltip: "FastAPI, automation, AI tooling", x: 24, y: 10 },
-          { name: "GO", proficiency: 93, level: "secondary", tooltip: "gRPC services, goroutines, CLI tools", x: 8, y: 28 },
-          { name: "NodeJS", proficiency: 91, level: "secondary", tooltip: "Express, WebSockets, Lambda backends", x: 22, y: 26 }
+          { name: "Java", proficiency: 90, level: "primary", tooltip: "High-throughput microservices \xB7 virtual threads & async (8\u201321)", x: 12, y: 14 },
+          { name: "Python", proficiency: 88, level: "secondary", tooltip: "Built AI pipelines & automation that saved hours/week", x: 24, y: 10 },
+          { name: "GO", proficiency: 93, level: "secondary", tooltip: "Low-latency gRPC services \xB7 concurrent workers & CLI tools", x: 8, y: 28 },
+          { name: "NodeJS", proficiency: 91, level: "secondary", tooltip: "Real-time WebSocket features \xB7 serverless Lambda backends", x: 22, y: 26 }
         ]
       },
       {
@@ -39148,9 +39201,9 @@ var SkillsComponent = class _SkillsComponent {
         color: "#CE93D8",
         glowColor: "rgba(206,147,216,0.6)",
         skills: [
-          { name: "High Level Design", proficiency: 95, level: "primary", tooltip: "System trade-offs, scaling, availability", x: 48, y: 8 },
-          { name: "Low Level Design", proficiency: 90, level: "secondary", tooltip: "SOLID, design patterns, clean APIs", x: 38, y: 24 },
-          { name: "Microservices", proficiency: 95, level: "primary", tooltip: "Service decomposition, resilience, events", x: 58, y: 24 }
+          { name: "High Level Design", proficiency: 95, level: "primary", tooltip: "Designed scalable systems handling millions of events/day", x: 48, y: 8 },
+          { name: "Low Level Design", proficiency: 90, level: "secondary", tooltip: "Domain modeling \xB7 SOLID \xB7 reusable internal libraries", x: 38, y: 24 },
+          { name: "Microservices", proficiency: 95, level: "primary", tooltip: "Decomposed monoliths \xB7 circuit breakers \xB7 event-driven", x: 58, y: 24 }
         ]
       },
       {
@@ -39159,11 +39212,11 @@ var SkillsComponent = class _SkillsComponent {
         color: "#80CBC4",
         glowColor: "rgba(128,203,196,0.6)",
         skills: [
-          { name: "MySQL", proficiency: 95, level: "primary", tooltip: "MySQL 5.6\u20138, query tuning, DMS migrations", x: 78, y: 10 },
-          { name: "MongoDB", proficiency: 90, level: "secondary", tooltip: "Aggregation pipelines, sharding", x: 90, y: 16 },
-          { name: "Neptune", proficiency: 88, level: "supporting", tooltip: "Graph DB, Gremlin traversals", x: 74, y: 22 },
-          { name: "Salesforce DB", proficiency: 85, level: "supporting", tooltip: "SOQL, custom objects, CRM sync", x: 88, y: 28 },
-          { name: "Cassandra", proficiency: 88, level: "supporting", tooltip: "Write-heavy, time-series, HA", x: 80, y: 34 }
+          { name: "MySQL", proficiency: 95, level: "primary", tooltip: "Tuned hot-path queries \xB7 led production DMS migrations", x: 78, y: 10 },
+          { name: "MongoDB", proficiency: 90, level: "secondary", tooltip: "Aggregation pipelines for analytics \xB7 sharded high-ingest", x: 90, y: 16 },
+          { name: "Neptune", proficiency: 88, level: "supporting", tooltip: "Graph traversals for relationship & fraud analysis", x: 74, y: 22 },
+          { name: "Salesforce DB", proficiency: 85, level: "supporting", tooltip: "SOQL/SOSL reporting \xB7 automated CRM sync pipelines", x: 88, y: 28 },
+          { name: "Cassandra", proficiency: 88, level: "supporting", tooltip: "Time-series event storage \xB7 partition-aware schema design", x: 80, y: 34 }
         ]
       },
       {
@@ -39172,10 +39225,10 @@ var SkillsComponent = class _SkillsComponent {
         color: "#FFB74D",
         glowColor: "rgba(255,183,77,0.6)",
         skills: [
-          { name: "Spring Boot", proficiency: 90, level: "secondary", tooltip: "Production REST APIs, Spring Security", x: 6, y: 48 },
-          { name: "Echo", proficiency: 85, level: "secondary", tooltip: "Lightweight Go HTTP framework", x: 18, y: 54 },
-          { name: "Dropwizard", proficiency: 88, level: "supporting", tooltip: "Ops-friendly Java, Jersey, Metrics", x: 30, y: 50 },
-          { name: "Google Guice", proficiency: 85, level: "supporting", tooltip: "DI for non-Spring Java services", x: 12, y: 62 }
+          { name: "Spring Boot", proficiency: 90, level: "secondary", tooltip: "Shipped multiple production APIs \xB7 Security + Actuator", x: 6, y: 48 },
+          { name: "Echo", proficiency: 85, level: "secondary", tooltip: "Lean Go APIs with sub-ms overhead \xB7 middleware stack", x: 18, y: 54 },
+          { name: "Dropwizard", proficiency: 88, level: "supporting", tooltip: "Metrics-first Java services \xB7 predictable latency", x: 32, y: 50 },
+          { name: "Google Guice", proficiency: 85, level: "supporting", tooltip: "Modular DI for testable non-Spring Java services", x: 12, y: 64 }
         ]
       },
       {
@@ -39184,10 +39237,10 @@ var SkillsComponent = class _SkillsComponent {
         color: "#F48FB1",
         glowColor: "rgba(244,143,177,0.6)",
         skills: [
-          { name: "Generative AI", proficiency: 90, level: "primary", tooltip: "GPT-4, Claude, prompt engineering", x: 40, y: 46 },
-          { name: "LLM", proficiency: 90, level: "primary", tooltip: "API integration, structured outputs", x: 54, y: 42 },
-          { name: "RAG", proficiency: 88, level: "secondary", tooltip: "Retrieval-augmented generation, hybrid search", x: 44, y: 58 },
-          { name: "VectorDB", proficiency: 85, level: "secondary", tooltip: "Pinecone, pgvector, semantic search", x: 58, y: 56 }
+          { name: "Generative AI", proficiency: 90, level: "primary", tooltip: "Built AI features that cut manual triage effort in half", x: 38, y: 46 },
+          { name: "LLM", proficiency: 90, level: "primary", tooltip: "Production LLM integration \xB7 tool-calling \xB7 guardrails", x: 54, y: 40 },
+          { name: "RAG", proficiency: 88, level: "secondary", tooltip: "Chunking + rerank pipelines \xB7 measurably reduced hallucinations", x: 42, y: 60 },
+          { name: "VectorDB", proficiency: 85, level: "secondary", tooltip: "Pinecone & pgvector for low-latency semantic retrieval", x: 60, y: 56 }
         ]
       },
       {
@@ -39196,9 +39249,9 @@ var SkillsComponent = class _SkillsComponent {
         color: "#81C784",
         glowColor: "rgba(129,199,132,0.6)",
         skills: [
-          { name: "Kafka", proficiency: 99, level: "primary", tooltip: "Event streaming, real-time pipelines", x: 76, y: 48 },
-          { name: "RabbitMQ", proficiency: 90, level: "secondary", tooltip: "Task queues, dead-letter, reliability", x: 88, y: 54 },
-          { name: "AmazonSQS", proficiency: 88, level: "supporting", tooltip: "Managed queuing, serverless fan-out", x: 80, y: 64 }
+          { name: "Kafka", proficiency: 99, level: "primary", tooltip: "Built event pipelines handling sustained high throughput", x: 76, y: 48 },
+          { name: "RabbitMQ", proficiency: 90, level: "secondary", tooltip: "Reliable task queues \xB7 dead-letter retry patterns", x: 88, y: 54 },
+          { name: "AmazonSQS", proficiency: 88, level: "supporting", tooltip: "Serverless fan-out with SNS \xB7 idempotent FIFO consumers", x: 80, y: 64 }
         ]
       },
       {
@@ -39207,8 +39260,8 @@ var SkillsComponent = class _SkillsComponent {
         color: "#FFD54F",
         glowColor: "rgba(255,213,79,0.6)",
         skills: [
-          { name: "DSA", proficiency: 95, level: "secondary", tooltip: "Algorithms, data structures, mentoring", x: 16, y: 76 },
-          { name: "Networking", proficiency: 95, level: "supporting", tooltip: "TCP/IP, HTTP/2, gRPC, WebSockets", x: 30, y: 82 }
+          { name: "DSA", proficiency: 95, level: "secondary", tooltip: "Solved 500+ problems \xB7 mentored engineers on interviews", x: 16, y: 76 },
+          { name: "Networking", proficiency: 95, level: "supporting", tooltip: "Debugged TLS/TCP issues \xB7 tuned keep-alives in production", x: 30, y: 82 }
         ]
       },
       {
@@ -39217,8 +39270,8 @@ var SkillsComponent = class _SkillsComponent {
         color: "#E57373",
         glowColor: "rgba(229,115,115,0.6)",
         skills: [
-          { name: "Elasti-Cache", proficiency: 88, level: "supporting", tooltip: "Managed Redis/Memcached on AWS", x: 74, y: 76 },
-          { name: "Redis", proficiency: 90, level: "secondary", tooltip: "Caching, sorted sets, rate limiting", x: 88, y: 74 }
+          { name: "Elasti-Cache", proficiency: 88, level: "supporting", tooltip: "Operated Redis clusters \xB7 failover & TTL-aware caching", x: 74, y: 76 },
+          { name: "Redis", proficiency: 90, level: "secondary", tooltip: "Real-time leaderboards \xB7 rate limiting \xB7 sub-ms reads", x: 88, y: 74 }
         ]
       }
     ];
@@ -39235,24 +39288,19 @@ var SkillsComponent = class _SkillsComponent {
       }
     }
     this.crossClusterLines = [
-      // Language → Framework
-      { from: "Java", to: "Spring Boot", x1: 12, y1: 14, x2: 6, y2: 48, color: "rgba(100,181,246,0.45)" },
-      { from: "GO", to: "Echo", x1: 8, y1: 28, x2: 18, y2: 54, color: "rgba(100,181,246,0.45)" },
-      // Queue → Architecture
-      { from: "Kafka", to: "Microservices", x1: 76, y1: 48, x2: 58, y2: 24, color: "rgba(129,199,132,0.5)" },
-      // Framework → Database
-      { from: "Spring Boot", to: "MySQL", x1: 6, y1: 48, x2: 78, y2: 10, color: "rgba(255,183,77,0.35)" },
-      // Cache → Database
-      { from: "Redis", to: "MySQL", x1: 88, y1: 74, x2: 78, y2: 10, color: "rgba(229,115,115,0.35)" },
-      // AI → Language (AI integrates into backend)
-      { from: "LLM", to: "Java", x1: 54, y1: 42, x2: 12, y2: 14, color: "rgba(244,143,177,0.4)" },
-      // AI → Queue (RAG pipelines use Kafka)
-      { from: "RAG", to: "Kafka", x1: 44, y1: 58, x2: 76, y2: 48, color: "rgba(244,143,177,0.35)" },
-      // AI → Language (VectorDB embeddings via Python)
-      { from: "VectorDB", to: "Python", x1: 58, y1: 56, x2: 24, y2: 10, color: "rgba(244,143,177,0.3)" },
-      // Core CS → Architecture (fundamentals support design)
-      { from: "DSA", to: "High Level Design", x1: 16, y1: 76, x2: 48, y2: 8, color: "rgba(255,213,79,0.3)" },
-      { from: "Networking", to: "Microservices", x1: 30, y1: 82, x2: 58, y2: 24, color: "rgba(255,213,79,0.3)" }
+      // ── Strong relationships (primary usage) ──
+      { from: "Java", to: "Spring Boot", x1: 12, y1: 14, x2: 6, y2: 48, color: "rgba(100,181,246,0.55)", strength: "strong" },
+      { from: "GO", to: "Echo", x1: 8, y1: 28, x2: 18, y2: 54, color: "rgba(100,181,246,0.55)", strength: "strong" },
+      { from: "Kafka", to: "Microservices", x1: 76, y1: 48, x2: 58, y2: 24, color: "rgba(129,199,132,0.6)", strength: "strong" },
+      { from: "LLM", to: "Microservices", x1: 54, y1: 40, x2: 58, y2: 24, color: "rgba(244,143,177,0.55)", strength: "strong" },
+      { from: "Spring Boot", to: "MySQL", x1: 6, y1: 48, x2: 78, y2: 10, color: "rgba(255,183,77,0.45)", strength: "strong" },
+      // ── Weak relationships (supporting) ──
+      { from: "Redis", to: "MySQL", x1: 88, y1: 74, x2: 78, y2: 10, color: "rgba(229,115,115,0.25)", strength: "weak" },
+      { from: "LLM", to: "Java", x1: 54, y1: 40, x2: 12, y2: 14, color: "rgba(244,143,177,0.25)", strength: "weak" },
+      { from: "RAG", to: "Kafka", x1: 42, y1: 60, x2: 76, y2: 48, color: "rgba(244,143,177,0.2)", strength: "weak" },
+      { from: "VectorDB", to: "Python", x1: 60, y1: 56, x2: 24, y2: 10, color: "rgba(244,143,177,0.2)", strength: "weak" },
+      { from: "DSA", to: "High Level Design", x1: 16, y1: 76, x2: 48, y2: 8, color: "rgba(255,213,79,0.2)", strength: "weak" },
+      { from: "Networking", to: "Microservices", x1: 30, y1: 82, x2: 58, y2: 24, color: "rgba(255,213,79,0.2)", strength: "weak" }
     ];
   }
   generateBackgroundStars() {
@@ -39273,6 +39321,30 @@ var SkillsComponent = class _SkillsComponent {
           s.details = SKILL_DETAILS[s.name];
       });
     });
+  }
+  // ── Intro narrative ────────────────────────────────────────
+  runNarrativeIntro() {
+    const storyNodes = ["Java", "Microservices", "Kafka", "Redis"];
+    const storyLinks = ["Java\u2192Spring Boot", "Kafka\u2192Microservices", "LLM\u2192Microservices"];
+    this.narrativeActive = true;
+    storyNodes.forEach((name, i) => {
+      setTimeout(() => {
+        this.narrativeHighlightedSkills.add(name);
+        if (i < storyLinks.length)
+          this.narrativeHighlightedLinks.add(storyLinks[i]);
+      }, 400 + i * 450);
+    });
+    setTimeout(() => {
+      this.narrativeActive = false;
+      this.narrativeHighlightedSkills.clear();
+      this.narrativeHighlightedLinks.clear();
+    }, 3200);
+  }
+  isNarrativeHighlighted(skill) {
+    return this.narrativeActive && this.narrativeHighlightedSkills.has(skill.name);
+  }
+  isNarrativeLinkHighlighted(link) {
+    return this.narrativeActive && this.narrativeHighlightedLinks.has(`${link.from}\u2192${link.to}`);
   }
   // ── Star sizing by level ────────────────────────────────
   getLevelStarRadius(level) {
@@ -39314,19 +39386,26 @@ var SkillsComponent = class _SkillsComponent {
       "star-group--hovered": this.hoveredSkill === skill,
       "star-group--dimmed": selectDim,
       "star-group--hover-dimmed": hoverDim && !selectDim,
-      "star-group--faded": this.isSkillFaded(skill)
+      "star-group--faded": this.isSkillFaded(skill),
+      "star-group--narrative": this.isNarrativeHighlighted(skill),
+      "star-group--system-flow": this.isSystemFlowNode(skill)
     };
   }
   getCrossLinkClasses(link) {
     const active = this.hoveredSkill;
-    if (!active)
-      return { "cross-cluster-line": true };
-    const isRelevant = link.from === active.name || link.to === active.name;
-    return {
+    const base = {
       "cross-cluster-line": true,
+      "cross-cluster-line--strong": link.strength === "strong",
+      "cross-cluster-line--weak": link.strength === "weak",
+      "cross-cluster-line--narrative": this.isNarrativeLinkHighlighted(link)
+    };
+    if (!active)
+      return base;
+    const isRelevant = link.from === active.name || link.to === active.name;
+    return __spreadProps(__spreadValues({}, base), {
       "cross-cluster-line--highlighted": isRelevant,
       "cross-cluster-line--dimmed": !isRelevant
-    };
+    });
   }
   // ── State checks ────────────────────────────────────────
   isSelected(skill) {
@@ -39364,10 +39443,15 @@ var SkillsComponent = class _SkillsComponent {
     this.focusModeActive = false;
     this.hoveredSkill = skill;
     this.hoveredConstellation = constellation;
-    const halfW = 12;
+    const proofW = skill.tooltip.length * 0.62;
+    const nameW = skill.name.length * 1.1;
+    const metaW = (constellation.name.length + this.getLevelLabel(skill.level).length + 3) * 0.78;
+    const content = Math.max(proofW, nameW, metaW);
+    this.tooltipWidth = Math.min(Math.max(content + 5, 24), 48);
+    const halfW = this.tooltipWidth / 2;
     const x = Math.max(halfW + 1, Math.min(99 - halfW, skill.x));
     const r = this.getLevelStarRadius(skill.level);
-    const y = skill.y <= 22 ? skill.y + r + 1.5 : skill.y - r - 11;
+    const y = skill.y <= 22 ? skill.y + r + 1.5 : skill.y - r - (this.tooltipWidth > 36 ? 13 : 12);
     this.tooltipPos = { x, y };
   }
   unhoverStar() {
@@ -39435,6 +39519,22 @@ var SkillsComponent = class _SkillsComponent {
       });
     }
   }
+  // ── System Architecture Mode ───────────────────────────────
+  toggleSystemMode() {
+    this.systemMode = !this.systemMode;
+  }
+  getDisplayName(skill) {
+    if (this.systemMode && this.systemModeLabels[skill.name]) {
+      return this.systemModeLabels[skill.name];
+    }
+    return skill.name;
+  }
+  isSystemFlowNode(skill) {
+    return this.systemMode && this.systemModeFlow.includes(skill.name);
+  }
+  getSystemFlowIndex(skill) {
+    return this.systemModeFlow.indexOf(skill.name);
+  }
   // ── Category label helpers ──────────────────────────────
   getCategoryLabelX(c) {
     return c.skills.reduce((sum, s) => sum + s.x, 0) / c.skills.length;
@@ -39469,58 +39569,72 @@ var SkillsComponent = class _SkillsComponent {
           return ctx.onEscapeKey();
         }, \u0275\u0275resolveDocument);
       }
-    }, decls: 44, vars: 15, consts: [["id", "skill", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-anim", "fade-up", "data-delay", "200", 1, "section-subtitle"], [1, "viewport-wrapper", 3, "ngClass"], ["data-anim", "scale", "data-duration", "1000", 1, "constellation-viewport", 3, "ngClass"], [1, "star-field"], [1, "bg-star", 3, "left", "top", "width", "height", "animation-delay"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "constellation-svg"], ["x", "-60%", "y", "-60%", "width", "220%", "height", "220%"], ["id", "tooltip-shadow", "x", "-10%", "y", "-10%", "width", "120%", "height", "120%"], ["dx", "0", "dy", "0.3", "stdDeviation", "0.8", "flood-color", "rgba(0,0,0,0.7)"], ["stroke-width", "0.18", "stroke-dasharray", "0.9,0.7", 3, "ngClass"], ["stroke-width", "0.15", "stroke-opacity", "0.45", 1, "constellation-line"], [1, "radial-ring"], ["pointer-events", "none", "filter", "url(#tooltip-shadow)", 1, "skill-tooltip"], [1, "rocket-container", 3, "ngClass"], [1, "star-burst", 3, "left", "top"], ["role", "dialog", "aria-label", "Skill detail", 1, "skill-modal-overlay"], [1, "skill-level-legend"], [1, "level-legend-item"], [1, "level-legend-star", "level-legend-star--primary"], [1, "level-legend-label"], [1, "level-legend-divider"], [1, "level-legend-star", "level-legend-star--secondary"], [1, "level-legend-star", "level-legend-star--supporting"], [1, "bg-star"], ["stdDeviation", "0.5", "result", "blur"], ["in", "blur"], ["in", "SourceGraphic"], [3, "ngClass"], ["text-anchor", "middle", 1, "category-label"], [3, "mouseenter", "mouseleave", "click", "ngClass"], ["fill", "transparent", 1, "star-hitarea"], ["fill-opacity", "0.15", 1, "star-glow", 3, "ngClass"], [1, "star-core", 3, "ngClass"], ["text-anchor", "middle", 1, "star-label", 3, "ngClass"], ["fill", "none", "stroke-opacity", "0.15", 1, "ring-track"], ["fill", "none", "stroke-linecap", "round", 1, "ring-fill"], ["text-anchor", "middle", 1, "ring-percentage"], ["width", "24", "height", "9", "rx", "1.2", "fill", "rgba(6,8,24,0.95)", "stroke-width", "0.2", "stroke-opacity", "0.6"], ["r", "0.65"], ["dominant-baseline", "middle", 1, "tooltip-name"], ["dominant-baseline", "middle", 1, "tooltip-meta"], ["dominant-baseline", "middle", 1, "tooltip-proof"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "rocket-svg"], ["id", "rocketGradient", "x1", "0%", "y1", "0%", "x2", "0%", "y2", "100%"], ["offset", "0%", 2, "stop-color", "#E3F2FD", "stop-opacity", "1"], ["offset", "100%", 2, "stop-color", "#90CAF9", "stop-opacity", "1"], ["id", "trailGlow"], ["offset", "0%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0.8"], ["offset", "100%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0"], ["id", "rocketGlowFilter", "x", "-100%", "y", "-100%", "width", "300%", "height", "300%"], ["stdDeviation", "0.8", "result", "blur"], ["fill", "url(#trailGlow)", 1, "trail-particle"], ["filter", "url(#rocketGlowFilter)", 1, "rocket-group"], ["d", "M 0,-3.5 C -0.8,-2.5 -1.2,-0.5 -1.2,1.5 L -0.8,2.5 L 0,3 L 0.8,2.5 L 1.2,1.5 C 1.2,-0.5 0.8,-2.5 0,-3.5 Z", "fill", "url(#rocketGradient)", "stroke", "rgba(255,255,255,0.8)", "stroke-width", "0.15"], ["d", "M 0,-3.5 C -0.3,-3.5 -0.6,-3 -0.8,-2.5 L 0,-3.5 L 0.8,-2.5 C 0.6,-3 0.3,-3.5 0,-3.5 Z", "fill", "#fff", "opacity", "0.4"], ["cx", "0", "cy", "-1", "r", "0.6", "fill", "#4FC3F7", "stroke", "rgba(255,255,255,0.9)", "stroke-width", "0.12"], ["cx", "-0.15", "cy", "-1.15", "r", "0.15", "fill", "rgba(255,255,255,0.6)"], ["d", "M -1.2,1 L -2,2.5 L -1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M 1.2,1 L 2,2.5 L 1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M -0.8,2.5 Q -0.6,4.5 0,6 Q 0.6,4.5 0.8,2.5 Z", "fill", "#FF6B35", "opacity", "0.9", 1, "rocket-flame"], ["d", "M -0.4,2.5 Q -0.2,4 0,5 Q 0.2,4 0.4,2.5 Z", "fill", "#FFD93D", "opacity", "0.9", 1, "rocket-flame-inner"], ["d", "M -0.15,2.5 Q 0,3.8 0.15,2.5 Z", "fill", "#fff", "opacity", "0.7", 1, "rocket-flame-core"], [1, "star-burst"], ["role", "dialog", "aria-label", "Skill detail", 1, "skill-modal-overlay", 3, "click"], [1, "skill-modal", 3, "click"], [1, "modal-header"], [1, "modal-header-left"], [1, "modal-skill-icon"], [1, "modal-skill-initial"], [1, "modal-title-section"], [1, "modal-skill-name"], [1, "modal-category"], [1, "modal-level-badge", 3, "ngClass"], ["aria-label", "Close", 1, "modal-close", 3, "click"], [1, "fas", "fa-times"], [1, "modal-content"], [1, "modal-section"], [1, "modal-section-title"], [1, "section-description"], [1, "detail-list"], [1, "detail-item"], [1, "project-grid"], [1, "project-card"], [1, "achievement-list"], [1, "achievement-item"], [1, "related-skills"], [1, "related-skill-tag"], [1, "project-icon"], [1, "project-name"], [1, "achievement-icon"], [1, "achievement-text"]], template: function SkillsComponent_Template(rf, ctx) {
+    }, decls: 49, vars: 20, consts: [["id", "skill", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-anim", "fade-up", "data-delay", "200", 1, "section-subtitle"], [1, "system-mode-toggle", 3, "click", "ngClass"], [1, "system-mode-icon"], [1, "system-mode-label"], [1, "viewport-wrapper", 3, "ngClass"], ["data-anim", "scale", "data-duration", "1000", 1, "constellation-viewport", 3, "ngClass"], [1, "star-field"], [1, "bg-star", 3, "left", "top", "width", "height", "animation-delay"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "constellation-svg"], ["x", "-60%", "y", "-60%", "width", "220%", "height", "220%"], ["id", "tooltip-shadow", "x", "-10%", "y", "-10%", "width", "120%", "height", "120%"], ["dx", "0", "dy", "0.3", "stdDeviation", "0.8", "flood-color", "rgba(0,0,0,0.7)"], [3, "ngClass"], ["stroke-width", "0.15", "stroke-opacity", "0.45", 1, "constellation-line"], [1, "radial-ring"], ["pointer-events", "none", "filter", "url(#tooltip-shadow)", 1, "skill-tooltip"], [1, "rocket-container", 3, "ngClass"], [1, "star-burst", 3, "left", "top"], ["role", "dialog", "aria-label", "Skill detail", 1, "skill-modal-overlay"], [1, "skill-level-legend"], [1, "level-legend-item"], [1, "level-legend-star", "level-legend-star--primary"], [1, "level-legend-label"], [1, "level-legend-divider"], [1, "level-legend-star", "level-legend-star--secondary"], [1, "level-legend-star", "level-legend-star--supporting"], [1, "bg-star"], ["stdDeviation", "0.5", "result", "blur"], ["in", "blur"], ["in", "SourceGraphic"], ["text-anchor", "middle", 1, "category-label"], [3, "mouseenter", "mouseleave", "click", "ngClass"], ["fill", "transparent", 1, "star-hitarea"], ["fill-opacity", "0.15", 1, "star-glow", 3, "ngClass"], [1, "star-core", 3, "ngClass"], ["text-anchor", "middle", 1, "star-label", 3, "ngClass"], ["r", "1.4", "fill", "rgba(76,175,80,0.9)", 1, "system-flow-badge"], ["text-anchor", "middle", "dominant-baseline", "middle", "fill", "#fff", 1, "system-flow-number"], ["fill", "none", "stroke-opacity", "0.15", 1, "ring-track"], ["fill", "none", "stroke-linecap", "round", 1, "ring-fill"], ["text-anchor", "middle", 1, "ring-percentage"], ["height", "10.5", "rx", "1.2", "fill", "rgba(6,8,24,0.95)", "stroke-width", "0.2", "stroke-opacity", "0.6"], ["r", "0.65"], ["dominant-baseline", "middle", 1, "tooltip-name"], ["dominant-baseline", "middle", 1, "tooltip-meta"], ["dominant-baseline", "middle", 1, "tooltip-proof"], ["viewBox", "0 0 100 100", "preserveAspectRatio", "xMidYMid meet", 1, "rocket-svg"], ["id", "rocketGradient", "x1", "0%", "y1", "0%", "x2", "0%", "y2", "100%"], ["offset", "0%", 2, "stop-color", "#E3F2FD", "stop-opacity", "1"], ["offset", "100%", 2, "stop-color", "#90CAF9", "stop-opacity", "1"], ["id", "trailGlow"], ["offset", "0%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0.8"], ["offset", "100%", 2, "stop-color", "#4FC3F7", "stop-opacity", "0"], ["id", "rocketGlowFilter", "x", "-100%", "y", "-100%", "width", "300%", "height", "300%"], ["stdDeviation", "0.8", "result", "blur"], ["fill", "url(#trailGlow)", 1, "trail-particle"], ["filter", "url(#rocketGlowFilter)", 1, "rocket-group"], ["d", "M 0,-3.5 C -0.8,-2.5 -1.2,-0.5 -1.2,1.5 L -0.8,2.5 L 0,3 L 0.8,2.5 L 1.2,1.5 C 1.2,-0.5 0.8,-2.5 0,-3.5 Z", "fill", "url(#rocketGradient)", "stroke", "rgba(255,255,255,0.8)", "stroke-width", "0.15"], ["d", "M 0,-3.5 C -0.3,-3.5 -0.6,-3 -0.8,-2.5 L 0,-3.5 L 0.8,-2.5 C 0.6,-3 0.3,-3.5 0,-3.5 Z", "fill", "#fff", "opacity", "0.4"], ["cx", "0", "cy", "-1", "r", "0.6", "fill", "#4FC3F7", "stroke", "rgba(255,255,255,0.9)", "stroke-width", "0.12"], ["cx", "-0.15", "cy", "-1.15", "r", "0.15", "fill", "rgba(255,255,255,0.6)"], ["d", "M -1.2,1 L -2,2.5 L -1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M 1.2,1 L 2,2.5 L 1.2,2 Z", "fill", "#64B5F6", "stroke", "rgba(255,255,255,0.3)", "stroke-width", "0.08"], ["d", "M -0.8,2.5 Q -0.6,4.5 0,6 Q 0.6,4.5 0.8,2.5 Z", "fill", "#FF6B35", "opacity", "0.9", 1, "rocket-flame"], ["d", "M -0.4,2.5 Q -0.2,4 0,5 Q 0.2,4 0.4,2.5 Z", "fill", "#FFD93D", "opacity", "0.9", 1, "rocket-flame-inner"], ["d", "M -0.15,2.5 Q 0,3.8 0.15,2.5 Z", "fill", "#fff", "opacity", "0.7", 1, "rocket-flame-core"], [1, "star-burst"], ["role", "dialog", "aria-label", "Skill detail", 1, "skill-modal-overlay", 3, "click"], [1, "skill-modal", 3, "click"], [1, "modal-header"], [1, "modal-header-left"], [1, "modal-skill-icon"], [1, "modal-skill-initial"], [1, "modal-title-section"], [1, "modal-skill-name"], [1, "modal-category"], [1, "modal-level-badge", 3, "ngClass"], ["aria-label", "Close", 1, "modal-close", 3, "click"], [1, "fas", "fa-times"], [1, "modal-content"], [1, "modal-section"], [1, "modal-section-title"], [1, "section-description"], [1, "detail-list"], [1, "detail-item"], [1, "project-grid"], [1, "project-card"], [1, "achievement-list"], [1, "achievement-item"], [1, "related-skills"], [1, "related-skill-tag"], [1, "project-icon"], [1, "project-name"], [1, "achievement-icon"], [1, "achievement-text"]], template: function SkillsComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Skills & Expertise");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(5, "p", 4);
         \u0275\u0275text(6, "Tap a star to explore");
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(7, "div", 5)(8, "div", 6)(9, "div", 7);
-        \u0275\u0275repeaterCreate(10, SkillsComponent_For_11_Template, 1, 10, "div", 8, \u0275\u0275repeaterTrackByIndex);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(7, "button", 5);
+        \u0275\u0275listener("click", function SkillsComponent_Template_button_click_7_listener() {
+          return ctx.toggleSystemMode();
+        });
+        \u0275\u0275elementStart(8, "span", 6);
+        \u0275\u0275text(9, "\u{1F9E0}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(10, "span", 7);
+        \u0275\u0275text(11);
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(12, "div", 8)(13, "div", 9)(14, "div", 10);
+        \u0275\u0275repeaterCreate(15, SkillsComponent_For_16_Template, 1, 10, "div", 11, \u0275\u0275repeaterTrackByIndex);
         \u0275\u0275elementEnd();
         \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(12, "svg", 9)(13, "defs");
-        \u0275\u0275repeaterCreate(14, SkillsComponent_For_15_Template, 5, 1, ":svg:filter", 10, _forTrack0);
-        \u0275\u0275elementStart(16, "filter", 11);
-        \u0275\u0275element(17, "feDropShadow", 12);
+        \u0275\u0275elementStart(17, "svg", 12)(18, "defs");
+        \u0275\u0275repeaterCreate(19, SkillsComponent_For_20_Template, 5, 1, ":svg:filter", 13, _forTrack0);
+        \u0275\u0275elementStart(21, "filter", 14);
+        \u0275\u0275element(22, "feDropShadow", 15);
         \u0275\u0275elementEnd()();
-        \u0275\u0275repeaterCreate(18, SkillsComponent_For_19_Template, 1, 6, ":svg:line", 13, \u0275\u0275repeaterTrackByIndex);
-        \u0275\u0275repeaterCreate(20, SkillsComponent_For_21_Template, 1, 5, ":svg:line", 14, \u0275\u0275repeaterTrackByIndex);
-        \u0275\u0275repeaterCreate(22, SkillsComponent_For_23_Template, 4, 4, null, null, _forTrack0);
-        \u0275\u0275conditionalCreate(24, SkillsComponent_Conditional_24_Template, 5, 12, ":svg:g", 15);
-        \u0275\u0275conditionalCreate(25, SkillsComponent_Conditional_25_Template, 9, 18, ":svg:g", 16);
+        \u0275\u0275repeaterCreate(23, SkillsComponent_For_24_Template, 1, 8, ":svg:line", 16, \u0275\u0275repeaterTrackByIndex);
+        \u0275\u0275repeaterCreate(25, SkillsComponent_For_26_Template, 1, 5, ":svg:line", 17, \u0275\u0275repeaterTrackByIndex);
+        \u0275\u0275repeaterCreate(27, SkillsComponent_For_28_Template, 4, 4, null, null, _forTrack0);
+        \u0275\u0275conditionalCreate(29, SkillsComponent_Conditional_29_Template, 5, 12, ":svg:g", 18);
+        \u0275\u0275conditionalCreate(30, SkillsComponent_Conditional_30_Template, 9, 19, ":svg:g", 19);
         \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(26, SkillsComponent_Conditional_26_Template, 26, 4, "div", 17);
-        \u0275\u0275conditionalCreate(27, SkillsComponent_Conditional_27_Template, 1, 4, "div", 18);
+        \u0275\u0275conditionalCreate(31, SkillsComponent_Conditional_31_Template, 26, 4, "div", 20);
+        \u0275\u0275conditionalCreate(32, SkillsComponent_Conditional_32_Template, 1, 4, "div", 21);
         \u0275\u0275elementEnd()();
-        \u0275\u0275conditionalCreate(28, SkillsComponent_Conditional_28_Template, 46, 10, "div", 19);
+        \u0275\u0275conditionalCreate(33, SkillsComponent_Conditional_33_Template, 46, 10, "div", 22);
         \u0275\u0275namespaceHTML();
-        \u0275\u0275elementStart(29, "div", 20)(30, "div", 21);
-        \u0275\u0275element(31, "span", 22);
-        \u0275\u0275elementStart(32, "span", 23);
-        \u0275\u0275text(33, "Core Strength");
-        \u0275\u0275elementEnd()();
-        \u0275\u0275element(34, "div", 24);
-        \u0275\u0275elementStart(35, "div", 21);
+        \u0275\u0275elementStart(34, "div", 23)(35, "div", 24);
         \u0275\u0275element(36, "span", 25);
-        \u0275\u0275elementStart(37, "span", 23);
-        \u0275\u0275text(38, "Strong Experience");
+        \u0275\u0275elementStart(37, "span", 26);
+        \u0275\u0275text(38, "Core Strength");
         \u0275\u0275elementEnd()();
-        \u0275\u0275element(39, "div", 24);
-        \u0275\u0275elementStart(40, "div", 21);
-        \u0275\u0275element(41, "span", 26);
-        \u0275\u0275elementStart(42, "span", 23);
-        \u0275\u0275text(43, "Working Knowledge");
+        \u0275\u0275element(39, "div", 27);
+        \u0275\u0275elementStart(40, "div", 24);
+        \u0275\u0275element(41, "span", 28);
+        \u0275\u0275elementStart(42, "span", 26);
+        \u0275\u0275text(43, "Strong Experience");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275element(44, "div", 27);
+        \u0275\u0275elementStart(45, "div", 24);
+        \u0275\u0275element(46, "span", 29);
+        \u0275\u0275elementStart(47, "span", 26);
+        \u0275\u0275text(48, "Working Knowledge");
         \u0275\u0275elementEnd()()()()();
       }
       if (rf & 2) {
         \u0275\u0275advance(7);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(9, _c03, ctx.zooming));
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(11, _c03, ctx.systemMode));
+        \u0275\u0275advance(4);
+        \u0275\u0275textInterpolate(ctx.systemMode ? "Skill View" : "System Architecture");
+        \u0275\u0275advance();
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(13, _c12, ctx.zooming));
         \u0275\u0275advance();
         \u0275\u0275styleProp("transform", ctx.getZoomTransform());
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction3(11, _c12, ctx.zooming, ctx.focusModeActive, !!ctx.hoveredSkill));
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction4(15, _c22, ctx.zooming, ctx.focusModeActive, !!ctx.hoveredSkill, ctx.systemMode));
         \u0275\u0275advance(2);
         \u0275\u0275repeater(ctx.backgroundStars);
         \u0275\u0275advance(4);
@@ -39532,17 +39646,17 @@ var SkillsComponent = class _SkillsComponent {
         \u0275\u0275advance(2);
         \u0275\u0275repeater(ctx.constellations);
         \u0275\u0275advance(2);
-        \u0275\u0275conditional(ctx.selectedSkill && ctx.selectedConstellation ? 24 : -1);
+        \u0275\u0275conditional(ctx.selectedSkill && ctx.selectedConstellation ? 29 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.hoveredSkill && ctx.hoveredConstellation && ctx.tooltipPos && !ctx.isSelected(ctx.hoveredSkill) ? 25 : -1);
+        \u0275\u0275conditional(ctx.hoveredSkill && ctx.hoveredConstellation && ctx.tooltipPos && !ctx.isSelected(ctx.hoveredSkill) ? 30 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.rocketAnimating && ctx.rocketPosition ? 26 : -1);
+        \u0275\u0275conditional(ctx.rocketAnimating && ctx.rocketPosition ? 31 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.zooming && ctx.zoomTarget ? 27 : -1);
+        \u0275\u0275conditional(ctx.zooming && ctx.zoomTarget ? 32 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.showDetailModal && ctx.selectedSkill && ctx.selectedSkill.details ? 28 : -1);
+        \u0275\u0275conditional(ctx.showDetailModal && ctx.selectedSkill && ctx.selectedSkill.details ? 33 : -1);
       }
-    }, dependencies: [NgClass], styles: ['@charset "UTF-8";\n\n\n\n.apple-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 18% 18%,\n      rgba(111, 138, 255, 0.16) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 82% 14%,\n      rgba(244, 143, 177, 0.14) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(100, 181, 246, 0.12) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(2, 4, 18, 0.9) 0%,\n      rgba(5, 8, 28, 0.74) 48%,\n      rgba(2, 4, 18, 0.92) 100%);\n  isolation: isolate;\n}\n.apple-section[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background-image:\n    radial-gradient(\n      1px 1px at 12% 20%,\n      rgba(255, 255, 255, 0.45),\n      transparent),\n    radial-gradient(\n      1px 1px at 24% 72%,\n      rgba(173, 216, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 68% 24%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 78% 68%,\n      rgba(255, 255, 255, 0.42),\n      transparent),\n    radial-gradient(\n      2px 2px at 88% 34%,\n      rgba(205, 226, 255, 0.28),\n      transparent);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-section[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  width: min(28rem, 45vw);\n  aspect-ratio: 1;\n  top: -11rem;\n  right: -8rem;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 35% 35%,\n      rgba(255, 255, 255, 0.22) 0%,\n      rgba(186, 160, 255, 0.18) 18%,\n      rgba(98, 122, 255, 0.12) 40%,\n      rgba(19, 24, 62, 0) 72%);\n  filter: blur(6px);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-container[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 1;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin: 0 auto 3rem;\n  width: 100%;\n  max-width: 52rem;\n  overflow: visible;\n  position: relative;\n  padding: 1rem 0 0.75rem;\n}\n.section-header[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  left: 50%;\n  bottom: -0.75rem;\n  width: min(18rem, 42vw);\n  height: 1px;\n  transform: translateX(-50%);\n  background:\n    linear-gradient(\n      90deg,\n      rgba(100, 181, 246, 0),\n      rgba(100, 181, 246, 0.7),\n      rgba(244, 143, 177, 0.7),\n      rgba(244, 143, 177, 0));\n  box-shadow: 0 0 18px rgba(100, 181, 246, 0.35);\n  opacity: 0.75;\n}\n.section-header[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  font-size: clamp(3.25rem, 6vw, 4.75rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #d9e8ff 0%,\n      #8fc5ff 22%,\n      #a98dff 52%,\n      #ffb5dc 78%,\n      #fef7ff 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.04em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  line-height: 1.05;\n  display: inline-block;\n  filter: drop-shadow(0 0 24px rgba(132, 167, 255, 0.24));\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: rgba(201, 223, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.24em;\n  margin: 0;\n  text-transform: uppercase;\n}\n.viewport-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: 28px;\n  padding: 1px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(100, 181, 246, 0.35),\n      rgba(169, 141, 255, 0.18) 45%,\n      rgba(244, 143, 177, 0.28));\n  box-shadow:\n    0 0 0 1px rgba(255, 255, 255, 0.04),\n    0 18px 80px rgba(2, 6, 22, 0.55),\n    0 0 90px rgba(100, 181, 246, 0.12);\n}\n.constellation-viewport[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  aspect-ratio: 16/9;\n  max-height: 620px;\n  background:\n    radial-gradient(\n      ellipse at 18% 22%,\n      rgba(100, 181, 246, 0.1) 0%,\n      transparent 44%),\n    radial-gradient(\n      ellipse at 52% 14%,\n      rgba(206, 147, 216, 0.12) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 82% 18%,\n      rgba(128, 203, 196, 0.08) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 24% 76%,\n      rgba(244, 143, 177, 0.08) 0%,\n      transparent 38%),\n    radial-gradient(\n      ellipse at 74% 74%,\n      rgba(129, 199, 132, 0.08) 0%,\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(8, 10, 32, 0.98) 0%,\n      rgba(4, 6, 18, 0.98) 100%);\n  border-radius: 27px;\n  overflow: hidden;\n  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);\n  transform-origin: center center;\n}\n.constellation-viewport.viewport-zooming[_ngcontent-%COMP%] {\n  overflow: visible;\n}\n.constellation-viewport[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      1px 1px at 20% 30%,\n      rgba(255, 255, 255, 0.4),\n      transparent),\n    radial-gradient(\n      1px 1px at 60% 70%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 80% 20%,\n      rgba(255, 255, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 40% 80%,\n      rgba(255, 255, 255, 0.25),\n      transparent),\n    radial-gradient(\n      1px 1px at 90% 60%,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  pointer-events: none;\n  z-index: 0;\n}\n.star-field[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 0;\n}\n.bg-star[_ngcontent-%COMP%] {\n  position: absolute;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(255, 255, 255, 0.2) 60%,\n      transparent 100%);\n  animation: _ngcontent-%COMP%_twinkle 4s ease-in-out infinite alternate;\n}\n.bg-star[_ngcontent-%COMP%]:nth-child(3n) {\n  animation-duration: 3s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(180, 200, 255, 0.9) 0%,\n      rgba(180, 200, 255, 0.1) 60%,\n      transparent 100%);\n}\n.bg-star[_ngcontent-%COMP%]:nth-child(5n) {\n  animation-duration: 5s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 220, 180, 0.8) 0%,\n      rgba(255, 220, 180, 0.1) 60%,\n      transparent 100%);\n}\n@keyframes _ngcontent-%COMP%_twinkle {\n  0% {\n    opacity: 0.15;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.9;\n    transform: scale(1.3);\n  }\n  100% {\n    opacity: 0.2;\n    transform: scale(0.9);\n  }\n}\n.constellation-svg[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.constellation-line[_ngcontent-%COMP%] {\n  transition: stroke-opacity 0.4s ease;\n  animation: _ngcontent-%COMP%_lineShimmer 5s ease-in-out infinite alternate;\n  filter: drop-shadow(0 0 0.5px currentColor);\n}\n@keyframes _ngcontent-%COMP%_lineShimmer {\n  0% {\n    stroke-opacity: 0.2;\n    stroke-width: 0.13;\n  }\n  50% {\n    stroke-opacity: 0.55;\n    stroke-width: 0.2;\n  }\n  100% {\n    stroke-opacity: 0.25;\n    stroke-width: 0.13;\n  }\n}\n.cross-cluster-line[_ngcontent-%COMP%] {\n  opacity: 0;\n  animation: _ngcontent-%COMP%_crossLineReveal 1.5s 0.5s ease-out forwards;\n  stroke-linecap: round;\n  transition: opacity 0.4s ease, stroke-width 0.3s ease;\n}\n.cross-cluster-line--highlighted[_ngcontent-%COMP%] {\n  opacity: 1 !important;\n  stroke-width: 0.4 !important;\n  filter: drop-shadow(0 0 1.5px currentColor);\n}\n.cross-cluster-line--dimmed[_ngcontent-%COMP%] {\n  opacity: 0.12 !important;\n}\n@keyframes _ngcontent-%COMP%_crossLineReveal {\n  0% {\n    opacity: 0;\n    stroke-dashoffset: 30;\n  }\n  100% {\n    opacity: 0.65;\n    stroke-dashoffset: 0;\n  }\n}\n.star-group[_ngcontent-%COMP%] {\n  cursor: pointer;\n  transition: opacity 0.4s ease, transform 0.25s ease;\n  transform-origin: var(--star-cx) var(--star-cy);\n}\n.star-group--faded[_ngcontent-%COMP%] {\n  opacity: 0.28;\n}\n.star-group--hover-dimmed[_ngcontent-%COMP%] {\n  opacity: 0.18;\n  transition: opacity 0.3s ease;\n}\n.star-group--dimmed[_ngcontent-%COMP%] {\n  opacity: 0.12;\n  pointer-events: none;\n}\n.star-group--active[_ngcontent-%COMP%] {\n  opacity: 1 !important;\n}\n.star-group--hovered[_ngcontent-%COMP%]   .star-core[_ngcontent-%COMP%] {\n  filter: brightness(1.8) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor);\n}\n.star-group--hovered[_ngcontent-%COMP%]   .star-glow[_ngcontent-%COMP%] {\n  fill-opacity: 0.55 !important;\n}\n.star-group--hovered[_ngcontent-%COMP%]   .star-label[_ngcontent-%COMP%] {\n  fill-opacity: 1;\n}\n.star-group--primary[_ngcontent-%COMP%]   .star-glow[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_primaryGlowPulse 2.5s ease-in-out infinite alternate !important;\n}\n.star-group--supporting[_ngcontent-%COMP%]   .star-label[_ngcontent-%COMP%] {\n  font-size: 1.35px;\n}\n.star-hitarea[_ngcontent-%COMP%] {\n  cursor: pointer;\n}\n@keyframes _ngcontent-%COMP%_primaryGlowPulse {\n  0% {\n    fill-opacity: 0.2;\n  }\n  100% {\n    fill-opacity: 0.55;\n  }\n}\n.focus-mode[_ngcontent-%COMP%]   .star-group--primary[_ngcontent-%COMP%]   .star-core[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_focusPrimaryPulse 2s ease-in-out infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_focusPrimaryPulse {\n  0% {\n    filter: drop-shadow(0 0 1.5px currentColor) brightness(1.1);\n  }\n  100% {\n    filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 8px currentColor) brightness(1.5);\n  }\n}\n.star-glow[_ngcontent-%COMP%] {\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n  animation: _ngcontent-%COMP%_glowPulse 3s ease-in-out infinite alternate;\n}\n.star-glow--active[_ngcontent-%COMP%] {\n  fill-opacity: 0.5 !important;\n  animation: _ngcontent-%COMP%_glowPulseActive 1.2s ease-in-out infinite alternate !important;\n}\n@keyframes _ngcontent-%COMP%_glowPulse {\n  0% {\n    fill-opacity: 0.12;\n  }\n  100% {\n    fill-opacity: 0.28;\n  }\n}\n@keyframes _ngcontent-%COMP%_glowPulseActive {\n  0% {\n    fill-opacity: 0.35;\n  }\n  100% {\n    fill-opacity: 0.6;\n  }\n}\n.star-core[_ngcontent-%COMP%] {\n  pointer-events: none;\n  transition: filter 0.25s ease;\n  filter: drop-shadow(0 0 1px currentColor);\n}\n.star-core--hovered[_ngcontent-%COMP%] {\n  filter: brightness(1.7) drop-shadow(0 0 2.5px currentColor) drop-shadow(0 0 5px currentColor);\n}\n.star-core--active[_ngcontent-%COMP%] {\n  filter: brightness(1.9) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 7px currentColor) !important;\n}\n.star-float-1[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat1 6s ease-in-out infinite;\n}\n.star-float-2[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat2 7s ease-in-out infinite;\n}\n.star-float-3[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat3 5s ease-in-out infinite;\n}\n.star-float-4[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat4 8s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_starFloat1 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(0.3px, -0.4px);\n  }\n  50% {\n    transform: translate(-0.2px, 0.3px);\n  }\n  75% {\n    transform: translate(0.4px, 0.2px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat2 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  33% {\n    transform: translate(-0.4px, -0.2px);\n  }\n  66% {\n    transform: translate(0.3px, 0.4px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat3 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  50% {\n    transform: translate(0.5px, -0.3px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat4 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(-0.3px, 0.5px);\n  }\n  75% {\n    transform: translate(0.4px, -0.4px);\n  }\n}\n.star-label[_ngcontent-%COMP%] {\n  font-size: 1.65px;\n  font-weight: 600;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0.65;\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n}\n.star-label--primary[_ngcontent-%COMP%] {\n  font-size: 1.85px;\n  fill-opacity: 0.85;\n  font-weight: 700;\n}\n.star-label--active[_ngcontent-%COMP%] {\n  fill-opacity: 1;\n  font-weight: 700;\n}\n.category-label[_ngcontent-%COMP%] {\n  font-size: 2px;\n  font-weight: 700;\n  fill-opacity: 0.72;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.25px;\n  text-transform: uppercase;\n  filter: drop-shadow(0 0 3px currentColor);\n}\n.skill-tooltip[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_tooltipFadeIn 0.15s ease-out;\n}\n@keyframes _ngcontent-%COMP%_tooltipFadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.tooltip-name[_ngcontent-%COMP%] {\n  font-size: 2.1px;\n  font-weight: 700;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.tooltip-meta[_ngcontent-%COMP%] {\n  font-size: 1.45px;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill: rgba(200, 215, 255, 0.6);\n}\n.tooltip-proof[_ngcontent-%COMP%] {\n  font-size: 1.35px;\n  font-weight: 400;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill: rgba(255, 255, 255, 0.48);\n  font-style: italic;\n}\n.radial-ring[_ngcontent-%COMP%] {\n  pointer-events: none;\n}\n.ring-fill[_ngcontent-%COMP%] {\n  stroke-dasharray: 100;\n  stroke-dashoffset: 100;\n  animation: _ngcontent-%COMP%_ringDraw 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  filter: drop-shadow(0 0 1.5px currentColor);\n}\n@keyframes _ngcontent-%COMP%_ringDraw {\n  from {\n    stroke-dashoffset: 100;\n  }\n  to {\n    stroke-dashoffset: 0;\n  }\n}\n.ring-percentage[_ngcontent-%COMP%] {\n  font-size: 2.4px;\n  font-weight: 800;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0;\n  animation: _ngcontent-%COMP%_percentFadeIn 0.4s 0.3s ease-out forwards;\n  filter: drop-shadow(0 0 2px currentColor);\n}\n@keyframes _ngcontent-%COMP%_percentFadeIn {\n  from {\n    fill-opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    fill-opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rocket-container[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 5;\n}\n.rocket-container--zooming[_ngcontent-%COMP%] {\n  z-index: 10;\n}\n.rocket-svg[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n}\n.rocket-group[_ngcontent-%COMP%] {\n  transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n}\n.rocket-flame[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameFlicker 0.12s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-inner[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameFlickerInner 0.1s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-core[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameCoreFlicker 0.08s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n@keyframes _ngcontent-%COMP%_flameFlicker {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1) scaleX(1);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.3) scaleX(0.85);\n  }\n}\n@keyframes _ngcontent-%COMP%_flameFlickerInner {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1.1) scaleX(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.4) scaleX(0.8);\n  }\n}\n@keyframes _ngcontent-%COMP%_flameCoreFlicker {\n  0% {\n    opacity: 0.6;\n    transform: scaleY(0.9);\n  }\n  100% {\n    opacity: 0.9;\n    transform: scaleY(1.2);\n  }\n}\n.trail-particle[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_trailFade 1.2s ease-out forwards;\n}\n@keyframes _ngcontent-%COMP%_trailFade {\n  0% {\n    opacity: 0;\n  }\n  30% {\n    opacity: 0.8;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n.star-burst[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(100, 181, 246, 0.4) 40%,\n      transparent 70%);\n  transform: translate(-50%, -50%);\n  z-index: 8;\n  pointer-events: none;\n  animation: _ngcontent-%COMP%_starBurst 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;\n}\n@keyframes _ngcontent-%COMP%_starBurst {\n  0% {\n    width: 0;\n    height: 0;\n    opacity: 1;\n  }\n  40% {\n    width: 200px;\n    height: 200px;\n    opacity: 0.8;\n  }\n  100% {\n    width: 500px;\n    height: 500px;\n    opacity: 0;\n  }\n}\n.skill-modal-overlay[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.82);\n  backdrop-filter: blur(12px);\n  -webkit-backdrop-filter: blur(12px);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n  padding: 1rem;\n  animation: _ngcontent-%COMP%_modalFadeIn 0.4s ease-out;\n}\n@keyframes _ngcontent-%COMP%_modalFadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.skill-modal[_ngcontent-%COMP%] {\n  background: rgba(12, 12, 28, 0.97);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  border-radius: 20px;\n  max-width: 700px;\n  width: 100%;\n  max-height: 85vh;\n  overflow: hidden;\n  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 150px rgba(102, 126, 234, 0.12);\n  animation: _ngcontent-%COMP%_modalZoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);\n}\n@keyframes _ngcontent-%COMP%_modalZoomIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3) translateY(20px);\n    filter: blur(10px);\n  }\n  60% {\n    opacity: 0.9;\n    transform: scale(1.02) translateY(-4px);\n    filter: blur(0);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1) translateY(0);\n    filter: blur(0);\n  }\n}\n.modal-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1.5rem 2rem;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\n.modal-header-left[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.modal-skill-icon[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border-radius: 12px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.modal-skill-initial[_ngcontent-%COMP%] {\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-title-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.35rem;\n}\n.modal-skill-name[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  margin: 0;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-category[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.modal-level-badge[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  padding: 0.2rem 0.55rem;\n  border-radius: 20px;\n  text-transform: uppercase;\n}\n.modal-level-badge--primary[_ngcontent-%COMP%] {\n  background: rgba(255, 200, 80, 0.18);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.35);\n}\n.modal-level-badge--secondary[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.15);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n}\n.modal-level-badge--supporting[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.06);\n  color: rgba(255, 255, 255, 0.5);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n}\n.modal-close[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.08);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 10px;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: rgba(255, 255, 255, 0.6);\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.modal-close[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.12);\n  color: #fff;\n  transform: scale(1.05);\n}\n.modal-content[_ngcontent-%COMP%] {\n  padding: 2rem;\n  overflow-y: auto;\n  max-height: calc(85vh - 100px);\n}\n.modal-section[_ngcontent-%COMP%] {\n  margin-bottom: 2rem;\n}\n.modal-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.modal-section-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 600;\n  color: #fff;\n  margin: 0 0 1rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.section-description[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.65;\n  margin: 0;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.5rem;\n  margin-bottom: 0.75rem;\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.55;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #64B5F6;\n  font-weight: bold;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.project-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 1rem;\n}\n.project-card[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  border-radius: 12px;\n  padding: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  transition: all 0.3s ease;\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.08);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.project-icon[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n}\n.project-name[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.8);\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievement-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n}\n.achievement-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.75rem;\n}\n.achievement-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  flex-shrink: 0;\n  margin-top: 0.1rem;\n}\n.achievement-text[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skills[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.related-skill-tag[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.15);\n  color: #64B5F6;\n  padding: 0.4rem 0.8rem;\n  border-radius: 20px;\n  font-size: 0.8rem;\n  font-weight: 500;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skill-tag[_ngcontent-%COMP%]:hover {\n  background: rgba(100, 181, 246, 0.25);\n  transform: translateY(-1px);\n}\n.skill-level-legend[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 2rem auto 0;\n  padding: 0.875rem 1.75rem;\n  border: 1px solid rgba(133, 162, 255, 0.18);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(10, 14, 38, 0.78),\n      rgba(18, 24, 56, 0.48));\n  box-shadow: 0 12px 40px rgba(2, 6, 22, 0.4), inset 0 0 30px rgba(108, 136, 255, 0.05);\n  backdrop-filter: blur(16px);\n  -webkit-backdrop-filter: blur(16px);\n}\n.level-legend-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0 1.25rem;\n}\n.level-legend-divider[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 18px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.level-legend-star[_ngcontent-%COMP%] {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.level-legend-star--primary[_ngcontent-%COMP%] {\n  width: 11px;\n  height: 11px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.7), 0 0 20px rgba(255, 213, 79, 0.3);\n  animation: _ngcontent-%COMP%_legendPrimaryPulse 2.5s ease-in-out infinite alternate;\n}\n.level-legend-star--secondary[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.5);\n}\n.level-legend-star--supporting[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.35);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);\n}\n@keyframes _ngcontent-%COMP%_legendPrimaryPulse {\n  0% {\n    box-shadow: 0 0 6px rgba(255, 213, 79, 0.6), 0 0 14px rgba(255, 213, 79, 0.2);\n  }\n  100% {\n    box-shadow: 0 0 12px rgba(255, 213, 79, 0.9), 0 0 28px rgba(255, 213, 79, 0.5);\n  }\n}\n.level-legend-label[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  font-weight: 500;\n  color: rgba(220, 229, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.03em;\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .apple-section[_ngcontent-%COMP%] {\n    padding: 4.5rem 0;\n  }\n  .section-header[_ngcontent-%COMP%] {\n    margin-bottom: 2.5rem;\n  }\n  .section-header[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2.7rem;\n    white-space: normal;\n  }\n  .constellation-viewport[_ngcontent-%COMP%] {\n    aspect-ratio: 4/3;\n  }\n  .star-label[_ngcontent-%COMP%] {\n    font-size: 2.2px;\n  }\n  .star-label--primary[_ngcontent-%COMP%] {\n    font-size: 2.5px;\n  }\n  .category-label[_ngcontent-%COMP%] {\n    font-size: 2.2px;\n  }\n  .skill-level-legend[_ngcontent-%COMP%] {\n    width: 100%;\n    gap: 0.5rem;\n    padding: 0.875rem 1rem;\n    flex-direction: column;\n    align-items: flex-start;\n  }\n  .level-legend-item[_ngcontent-%COMP%] {\n    padding: 0;\n  }\n  .level-legend-divider[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .apple-section[_ngcontent-%COMP%] {\n    padding: 4rem 0;\n  }\n  .section-header[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2.2rem;\n  }\n  .section-subtitle[_ngcontent-%COMP%] {\n    font-size: 0.78rem;\n    letter-spacing: 0.14em;\n  }\n  .constellation-viewport[_ngcontent-%COMP%] {\n    aspect-ratio: 3/4;\n    max-height: 500px;\n  }\n  .star-label[_ngcontent-%COMP%] {\n    font-size: 2.5px;\n  }\n  .category-label[_ngcontent-%COMP%] {\n    font-size: 2.4px;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
+    }, dependencies: [NgClass], styles: ['@charset "UTF-8";\n\n\n\n.apple-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 18% 18%,\n      rgba(111, 138, 255, 0.16) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 82% 14%,\n      rgba(244, 143, 177, 0.14) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(100, 181, 246, 0.12) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(2, 4, 18, 0.9) 0%,\n      rgba(5, 8, 28, 0.74) 48%,\n      rgba(2, 4, 18, 0.92) 100%);\n  isolation: isolate;\n}\n.apple-section[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background-image:\n    radial-gradient(\n      1px 1px at 12% 20%,\n      rgba(255, 255, 255, 0.45),\n      transparent),\n    radial-gradient(\n      1px 1px at 24% 72%,\n      rgba(173, 216, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 68% 24%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 78% 68%,\n      rgba(255, 255, 255, 0.42),\n      transparent),\n    radial-gradient(\n      2px 2px at 88% 34%,\n      rgba(205, 226, 255, 0.28),\n      transparent);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-section[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  width: min(28rem, 45vw);\n  aspect-ratio: 1;\n  top: -11rem;\n  right: -8rem;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 35% 35%,\n      rgba(255, 255, 255, 0.22) 0%,\n      rgba(186, 160, 255, 0.18) 18%,\n      rgba(98, 122, 255, 0.12) 40%,\n      rgba(19, 24, 62, 0) 72%);\n  filter: blur(6px);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-container[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 1;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin: 0 auto 3rem;\n  width: 100%;\n  max-width: 52rem;\n  overflow: visible;\n  position: relative;\n  padding: 1rem 0 0.75rem;\n}\n.section-header[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  left: 50%;\n  bottom: -0.75rem;\n  width: min(18rem, 42vw);\n  height: 1px;\n  transform: translateX(-50%);\n  background:\n    linear-gradient(\n      90deg,\n      rgba(100, 181, 246, 0),\n      rgba(100, 181, 246, 0.7),\n      rgba(244, 143, 177, 0.7),\n      rgba(244, 143, 177, 0));\n  box-shadow: 0 0 18px rgba(100, 181, 246, 0.35);\n  opacity: 0.75;\n}\n.section-header[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n  font-size: clamp(3.25rem, 6vw, 4.75rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #d9e8ff 0%,\n      #8fc5ff 22%,\n      #a98dff 52%,\n      #ffb5dc 78%,\n      #fef7ff 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.04em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  line-height: 1.05;\n  display: inline-block;\n  filter: drop-shadow(0 0 24px rgba(132, 167, 255, 0.24));\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: rgba(201, 223, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.24em;\n  margin: 0;\n  text-transform: uppercase;\n}\n.viewport-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: 28px;\n  padding: 1px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(100, 181, 246, 0.35),\n      rgba(169, 141, 255, 0.18) 45%,\n      rgba(244, 143, 177, 0.28));\n  box-shadow:\n    0 0 0 1px rgba(255, 255, 255, 0.04),\n    0 18px 80px rgba(2, 6, 22, 0.55),\n    0 0 90px rgba(100, 181, 246, 0.12);\n}\n.constellation-viewport[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  aspect-ratio: 16/9;\n  max-height: 620px;\n  background:\n    radial-gradient(\n      ellipse at 18% 22%,\n      rgba(100, 181, 246, 0.1) 0%,\n      transparent 44%),\n    radial-gradient(\n      ellipse at 52% 14%,\n      rgba(206, 147, 216, 0.12) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 82% 18%,\n      rgba(128, 203, 196, 0.08) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 24% 76%,\n      rgba(244, 143, 177, 0.08) 0%,\n      transparent 38%),\n    radial-gradient(\n      ellipse at 74% 74%,\n      rgba(129, 199, 132, 0.08) 0%,\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(8, 10, 32, 0.98) 0%,\n      rgba(4, 6, 18, 0.98) 100%);\n  border-radius: 27px;\n  overflow: hidden;\n  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);\n  transform-origin: center center;\n}\n.constellation-viewport.viewport-zooming[_ngcontent-%COMP%] {\n  overflow: visible;\n}\n.constellation-viewport[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      1px 1px at 20% 30%,\n      rgba(255, 255, 255, 0.4),\n      transparent),\n    radial-gradient(\n      1px 1px at 60% 70%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 80% 20%,\n      rgba(255, 255, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 40% 80%,\n      rgba(255, 255, 255, 0.25),\n      transparent),\n    radial-gradient(\n      1px 1px at 90% 60%,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  pointer-events: none;\n  z-index: 0;\n}\n.star-field[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 0;\n}\n.bg-star[_ngcontent-%COMP%] {\n  position: absolute;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(255, 255, 255, 0.2) 60%,\n      transparent 100%);\n  animation: _ngcontent-%COMP%_twinkle 4s ease-in-out infinite alternate;\n}\n.bg-star[_ngcontent-%COMP%]:nth-child(3n) {\n  animation-duration: 3s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(180, 200, 255, 0.9) 0%,\n      rgba(180, 200, 255, 0.1) 60%,\n      transparent 100%);\n}\n.bg-star[_ngcontent-%COMP%]:nth-child(5n) {\n  animation-duration: 5s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 220, 180, 0.8) 0%,\n      rgba(255, 220, 180, 0.1) 60%,\n      transparent 100%);\n}\n@keyframes _ngcontent-%COMP%_twinkle {\n  0% {\n    opacity: 0.15;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.9;\n    transform: scale(1.3);\n  }\n  100% {\n    opacity: 0.2;\n    transform: scale(0.9);\n  }\n}\n.constellation-svg[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.constellation-line[_ngcontent-%COMP%] {\n  transition: stroke-opacity 0.4s ease;\n  animation: _ngcontent-%COMP%_lineShimmer 5s ease-in-out infinite alternate;\n  filter: drop-shadow(0 0 0.5px currentColor);\n}\n@keyframes _ngcontent-%COMP%_lineShimmer {\n  0% {\n    stroke-opacity: 0.2;\n    stroke-width: 0.13;\n  }\n  50% {\n    stroke-opacity: 0.55;\n    stroke-width: 0.2;\n  }\n  100% {\n    stroke-opacity: 0.25;\n    stroke-width: 0.13;\n  }\n}\n.cross-cluster-line[_ngcontent-%COMP%] {\n  opacity: 0;\n  animation: _ngcontent-%COMP%_crossLineReveal 1.5s 0.5s ease-out forwards;\n  stroke-linecap: round;\n  transition: opacity 0.4s ease, stroke-width 0.3s ease;\n}\n.cross-cluster-line--strong[_ngcontent-%COMP%] {\n  filter: drop-shadow(0 0 1px currentColor);\n}\n.cross-cluster-line--weak[_ngcontent-%COMP%] {\n  opacity: 0;\n  animation: _ngcontent-%COMP%_crossLineRevealWeak 1.5s 0.8s ease-out forwards;\n}\n.cross-cluster-line--highlighted[_ngcontent-%COMP%] {\n  opacity: 1 !important;\n  stroke-width: 0.45 !important;\n  filter: drop-shadow(0 0 2px currentColor);\n  animation: _ngcontent-%COMP%_flowingLight 1.5s ease-in-out infinite;\n}\n.cross-cluster-line--dimmed[_ngcontent-%COMP%] {\n  opacity: 0.08 !important;\n}\n@keyframes _ngcontent-%COMP%_crossLineReveal {\n  0% {\n    opacity: 0;\n    stroke-dashoffset: 30;\n  }\n  100% {\n    opacity: 0.7;\n    stroke-dashoffset: 0;\n  }\n}\n@keyframes _ngcontent-%COMP%_crossLineRevealWeak {\n  0% {\n    opacity: 0;\n    stroke-dashoffset: 30;\n  }\n  100% {\n    opacity: 0.35;\n    stroke-dashoffset: 0;\n  }\n}\n@keyframes _ngcontent-%COMP%_flowingLight {\n  0% {\n    stroke-dashoffset: 0;\n  }\n  50% {\n    stroke-dashoffset: 3;\n    filter: drop-shadow(0 0 3px currentColor);\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@keyframes _ngcontent-%COMP%_nodeExpandPop {\n  0% {\n    transform: scale(1);\n  }\n  40% {\n    transform: scale(1.25);\n  }\n  100% {\n    transform: scale(1.1);\n  }\n}\n@keyframes _ngcontent-%COMP%_activeCoreBreathe {\n  0% {\n    filter: brightness(1.6) drop-shadow(0 0 3px currentColor);\n  }\n  100% {\n    filter: brightness(2.2) drop-shadow(0 0 5px currentColor) drop-shadow(0 0 10px currentColor);\n  }\n}\n.star-group[_ngcontent-%COMP%] {\n  cursor: pointer;\n  transition: opacity 0.4s ease, transform 0.25s ease;\n  transform-origin: var(--star-cx) var(--star-cy);\n}\n.star-group--faded[_ngcontent-%COMP%] {\n  opacity: 0.28;\n}\n.star-group--hover-dimmed[_ngcontent-%COMP%] {\n  opacity: 0.18;\n  transition: opacity 0.3s ease;\n}\n.star-group--dimmed[_ngcontent-%COMP%] {\n  opacity: 0.12;\n  pointer-events: none;\n}\n.star-group--active[_ngcontent-%COMP%] {\n  opacity: 1 !important;\n  animation: _ngcontent-%COMP%_nodeExpandPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n}\n.star-group--active[_ngcontent-%COMP%]   .star-core[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_activeCoreBreathe 1.5s ease-in-out infinite alternate !important;\n}\n.star-group--hovered[_ngcontent-%COMP%]   .star-core[_ngcontent-%COMP%] {\n  filter: brightness(1.8) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor);\n}\n.star-group--hovered[_ngcontent-%COMP%]   .star-glow[_ngcontent-%COMP%] {\n  fill-opacity: 0.55 !important;\n}\n.star-group--hovered[_ngcontent-%COMP%]   .star-label[_ngcontent-%COMP%] {\n  fill-opacity: 1;\n}\n.star-group--primary[_ngcontent-%COMP%]   .star-core[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_primaryCorePulse 2.5s ease-in-out infinite alternate;\n}\n.star-group--primary[_ngcontent-%COMP%]   .star-glow[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_primaryGlowPulse 2.5s ease-in-out infinite alternate !important;\n}\n.star-group--secondary[_ngcontent-%COMP%]   .star-glow[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_secondaryGlowSteady 4s ease-in-out infinite alternate;\n}\n.star-group--supporting[_ngcontent-%COMP%]   .star-glow[_ngcontent-%COMP%] {\n  animation: none !important;\n  fill-opacity: 0.08;\n}\n.star-group--supporting[_ngcontent-%COMP%]   .star-label[_ngcontent-%COMP%] {\n  font-size: 1.35px;\n}\n.star-hitarea[_ngcontent-%COMP%] {\n  cursor: pointer;\n}\n@keyframes _ngcontent-%COMP%_primaryGlowPulse {\n  0% {\n    fill-opacity: 0.2;\n  }\n  100% {\n    fill-opacity: 0.55;\n  }\n}\n@keyframes _ngcontent-%COMP%_primaryCorePulse {\n  0% {\n    filter: drop-shadow(0 0 1px currentColor) brightness(1);\n  }\n  100% {\n    filter: drop-shadow(0 0 3px currentColor) drop-shadow(0 0 5px currentColor) brightness(1.3);\n  }\n}\n@keyframes _ngcontent-%COMP%_secondaryGlowSteady {\n  0% {\n    fill-opacity: 0.12;\n  }\n  100% {\n    fill-opacity: 0.22;\n  }\n}\n.star-group--narrative[_ngcontent-%COMP%] {\n  opacity: 1 !important;\n}\n.star-group--narrative[_ngcontent-%COMP%]   .star-core[_ngcontent-%COMP%] {\n  filter: brightness(2) drop-shadow(0 0 4px currentColor) drop-shadow(0 0 8px currentColor) !important;\n  animation: _ngcontent-%COMP%_narrativePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n}\n.star-group--narrative[_ngcontent-%COMP%]   .star-glow[_ngcontent-%COMP%] {\n  fill-opacity: 0.6 !important;\n}\n.star-group--narrative[_ngcontent-%COMP%]   .star-label[_ngcontent-%COMP%] {\n  fill-opacity: 1 !important;\n}\n@keyframes _ngcontent-%COMP%_narrativePop {\n  0% {\n    transform: scale(1);\n  }\n  50% {\n    transform: scale(1.6);\n  }\n  100% {\n    transform: scale(1.15);\n  }\n}\n.cross-cluster-line--narrative[_ngcontent-%COMP%] {\n  opacity: 1 !important;\n  stroke-width: 0.5 !important;\n  filter: drop-shadow(0 0 2px currentColor) drop-shadow(0 0 4px currentColor);\n  animation: _ngcontent-%COMP%_narrativeLineDraw 0.6s ease-out forwards;\n}\n@keyframes _ngcontent-%COMP%_narrativeLineDraw {\n  0% {\n    stroke-dashoffset: 40;\n    opacity: 0;\n  }\n  100% {\n    stroke-dashoffset: 0;\n    opacity: 1;\n  }\n}\n.focus-mode[_ngcontent-%COMP%]   .star-group--primary[_ngcontent-%COMP%]   .star-core[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_focusPrimaryPulse 2s ease-in-out infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_focusPrimaryPulse {\n  0% {\n    filter: drop-shadow(0 0 1.5px currentColor) brightness(1.1);\n  }\n  100% {\n    filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 8px currentColor) brightness(1.5);\n  }\n}\n.star-glow[_ngcontent-%COMP%] {\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n  animation: _ngcontent-%COMP%_glowPulse 3s ease-in-out infinite alternate;\n}\n.star-glow--active[_ngcontent-%COMP%] {\n  fill-opacity: 0.5 !important;\n  animation: _ngcontent-%COMP%_glowPulseActive 1.2s ease-in-out infinite alternate !important;\n}\n@keyframes _ngcontent-%COMP%_glowPulse {\n  0% {\n    fill-opacity: 0.12;\n  }\n  100% {\n    fill-opacity: 0.28;\n  }\n}\n@keyframes _ngcontent-%COMP%_glowPulseActive {\n  0% {\n    fill-opacity: 0.35;\n  }\n  100% {\n    fill-opacity: 0.6;\n  }\n}\n.star-core[_ngcontent-%COMP%] {\n  pointer-events: none;\n  transition: filter 0.25s ease;\n  filter: drop-shadow(0 0 1px currentColor);\n}\n.star-core--hovered[_ngcontent-%COMP%] {\n  filter: brightness(1.7) drop-shadow(0 0 2.5px currentColor) drop-shadow(0 0 5px currentColor);\n}\n.star-core--active[_ngcontent-%COMP%] {\n  filter: brightness(1.9) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 7px currentColor) !important;\n}\n.star-float-1[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat1 6s ease-in-out infinite;\n}\n.star-float-2[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat2 7s ease-in-out infinite;\n}\n.star-float-3[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat3 5s ease-in-out infinite;\n}\n.star-float-4[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_starFloat4 8s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_starFloat1 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(0.3px, -0.4px);\n  }\n  50% {\n    transform: translate(-0.2px, 0.3px);\n  }\n  75% {\n    transform: translate(0.4px, 0.2px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat2 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  33% {\n    transform: translate(-0.4px, -0.2px);\n  }\n  66% {\n    transform: translate(0.3px, 0.4px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat3 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  50% {\n    transform: translate(0.5px, -0.3px);\n  }\n}\n@keyframes _ngcontent-%COMP%_starFloat4 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(-0.3px, 0.5px);\n  }\n  75% {\n    transform: translate(0.4px, -0.4px);\n  }\n}\n.star-label[_ngcontent-%COMP%] {\n  font-size: 1.65px;\n  font-weight: 600;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0.65;\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n}\n.star-label--primary[_ngcontent-%COMP%] {\n  font-size: 1.85px;\n  fill-opacity: 0.85;\n  font-weight: 700;\n}\n.star-label--active[_ngcontent-%COMP%] {\n  fill-opacity: 1;\n  font-weight: 700;\n}\n.category-label[_ngcontent-%COMP%] {\n  font-size: 2px;\n  font-weight: 700;\n  fill-opacity: 0.88;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.25px;\n  text-transform: uppercase;\n  filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 8px currentColor);\n}\n.skill-tooltip[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_tooltipFadeIn 0.15s ease-out;\n}\n@keyframes _ngcontent-%COMP%_tooltipFadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.tooltip-name[_ngcontent-%COMP%] {\n  font-size: 2.1px;\n  font-weight: 700;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.tooltip-meta[_ngcontent-%COMP%] {\n  font-size: 1.45px;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill: rgba(200, 215, 255, 0.6);\n}\n.tooltip-proof[_ngcontent-%COMP%] {\n  font-size: 1.35px;\n  font-weight: 400;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill: rgba(255, 255, 255, 0.48);\n  font-style: italic;\n}\n.radial-ring[_ngcontent-%COMP%] {\n  pointer-events: none;\n}\n.ring-fill[_ngcontent-%COMP%] {\n  stroke-dasharray: 100;\n  stroke-dashoffset: 100;\n  animation: _ngcontent-%COMP%_ringDraw 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  filter: drop-shadow(0 0 1.5px currentColor);\n}\n@keyframes _ngcontent-%COMP%_ringDraw {\n  from {\n    stroke-dashoffset: 100;\n  }\n  to {\n    stroke-dashoffset: 0;\n  }\n}\n.ring-percentage[_ngcontent-%COMP%] {\n  font-size: 2.4px;\n  font-weight: 800;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0;\n  animation: _ngcontent-%COMP%_percentFadeIn 0.4s 0.3s ease-out forwards;\n  filter: drop-shadow(0 0 2px currentColor);\n}\n@keyframes _ngcontent-%COMP%_percentFadeIn {\n  from {\n    fill-opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    fill-opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rocket-container[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 5;\n}\n.rocket-container--zooming[_ngcontent-%COMP%] {\n  z-index: 10;\n}\n.rocket-svg[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n}\n.rocket-group[_ngcontent-%COMP%] {\n  transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n}\n.rocket-flame[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameFlicker 0.12s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-inner[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameFlickerInner 0.1s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-core[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_flameCoreFlicker 0.08s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n@keyframes _ngcontent-%COMP%_flameFlicker {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1) scaleX(1);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.3) scaleX(0.85);\n  }\n}\n@keyframes _ngcontent-%COMP%_flameFlickerInner {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1.1) scaleX(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.4) scaleX(0.8);\n  }\n}\n@keyframes _ngcontent-%COMP%_flameCoreFlicker {\n  0% {\n    opacity: 0.6;\n    transform: scaleY(0.9);\n  }\n  100% {\n    opacity: 0.9;\n    transform: scaleY(1.2);\n  }\n}\n.trail-particle[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_trailFade 1.2s ease-out forwards;\n}\n@keyframes _ngcontent-%COMP%_trailFade {\n  0% {\n    opacity: 0;\n  }\n  30% {\n    opacity: 0.8;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n.star-burst[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(100, 181, 246, 0.4) 40%,\n      transparent 70%);\n  transform: translate(-50%, -50%);\n  z-index: 8;\n  pointer-events: none;\n  animation: _ngcontent-%COMP%_starBurst 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;\n}\n@keyframes _ngcontent-%COMP%_starBurst {\n  0% {\n    width: 0;\n    height: 0;\n    opacity: 1;\n  }\n  40% {\n    width: 200px;\n    height: 200px;\n    opacity: 0.8;\n  }\n  100% {\n    width: 500px;\n    height: 500px;\n    opacity: 0;\n  }\n}\n.skill-modal-overlay[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.82);\n  backdrop-filter: blur(12px);\n  -webkit-backdrop-filter: blur(12px);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n  padding: 1rem;\n  animation: _ngcontent-%COMP%_modalFadeIn 0.4s ease-out;\n}\n@keyframes _ngcontent-%COMP%_modalFadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.skill-modal[_ngcontent-%COMP%] {\n  background: rgba(12, 12, 28, 0.97);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  border-radius: 20px;\n  max-width: 700px;\n  width: 100%;\n  max-height: 85vh;\n  overflow: hidden;\n  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 150px rgba(102, 126, 234, 0.12);\n  animation: _ngcontent-%COMP%_modalZoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);\n}\n@keyframes _ngcontent-%COMP%_modalZoomIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3) translateY(20px);\n    filter: blur(10px);\n  }\n  60% {\n    opacity: 0.9;\n    transform: scale(1.02) translateY(-4px);\n    filter: blur(0);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1) translateY(0);\n    filter: blur(0);\n  }\n}\n.modal-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1.5rem 2rem;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\n.modal-header-left[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.modal-skill-icon[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border-radius: 12px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.modal-skill-initial[_ngcontent-%COMP%] {\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-title-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.35rem;\n}\n.modal-skill-name[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  margin: 0;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-category[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.modal-level-badge[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  padding: 0.2rem 0.55rem;\n  border-radius: 20px;\n  text-transform: uppercase;\n}\n.modal-level-badge--primary[_ngcontent-%COMP%] {\n  background: rgba(255, 200, 80, 0.18);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.35);\n}\n.modal-level-badge--secondary[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.15);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n}\n.modal-level-badge--supporting[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.06);\n  color: rgba(255, 255, 255, 0.5);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n}\n.modal-close[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.08);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 10px;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: rgba(255, 255, 255, 0.6);\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.modal-close[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.12);\n  color: #fff;\n  transform: scale(1.05);\n}\n.modal-content[_ngcontent-%COMP%] {\n  padding: 2rem;\n  overflow-y: auto;\n  max-height: calc(85vh - 100px);\n}\n.modal-section[_ngcontent-%COMP%] {\n  margin-bottom: 2rem;\n}\n.modal-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.modal-section-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 600;\n  color: #fff;\n  margin: 0 0 1rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.section-description[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.65;\n  margin: 0;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.5rem;\n  margin-bottom: 0.75rem;\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.55;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #64B5F6;\n  font-weight: bold;\n}\n.detail-list[_ngcontent-%COMP%]   .detail-item[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.project-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 1rem;\n}\n.project-card[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  border-radius: 12px;\n  padding: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  transition: all 0.3s ease;\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.08);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.project-icon[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n}\n.project-name[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.8);\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievement-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n}\n.achievement-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.75rem;\n}\n.achievement-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  flex-shrink: 0;\n  margin-top: 0.1rem;\n}\n.achievement-text[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skills[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.related-skill-tag[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.15);\n  color: #64B5F6;\n  padding: 0.4rem 0.8rem;\n  border-radius: 20px;\n  font-size: 0.8rem;\n  font-weight: 500;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skill-tag[_ngcontent-%COMP%]:hover {\n  background: rgba(100, 181, 246, 0.25);\n  transform: translateY(-1px);\n}\n.system-mode-toggle[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-top: 1.25rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(76, 175, 80, 0.3);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(10, 14, 38, 0.8),\n      rgba(18, 24, 56, 0.5));\n  color: rgba(200, 230, 200, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle[_ngcontent-%COMP%]:hover {\n  border-color: rgba(76, 175, 80, 0.6);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(76, 175, 80, 0.12),\n      rgba(18, 24, 56, 0.6));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(76, 175, 80, 0.15);\n}\n.system-mode-toggle--active[_ngcontent-%COMP%] {\n  border-color: rgba(76, 175, 80, 0.7);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(76, 175, 80, 0.2),\n      rgba(18, 50, 30, 0.6));\n  color: #81C784;\n  box-shadow: 0 0 24px rgba(76, 175, 80, 0.2), inset 0 0 12px rgba(76, 175, 80, 0.08);\n}\n.system-mode-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label[_ngcontent-%COMP%] {\n  white-space: nowrap;\n}\n.star-group--system-flow[_ngcontent-%COMP%]   .star-core[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_systemFlowPulse 2s ease-in-out infinite !important;\n}\n.star-group--system-flow[_ngcontent-%COMP%]   .star-glow[_ngcontent-%COMP%] {\n  fill-opacity: 0.45 !important;\n  animation: _ngcontent-%COMP%_systemFlowGlow 2s ease-in-out infinite alternate !important;\n}\n.star-label--system[_ngcontent-%COMP%] {\n  fill: rgba(130, 255, 160, 0.9) !important;\n  font-weight: 700 !important;\n}\n.system-flow-badge[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_systemBadgePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n  filter: drop-shadow(0 0 2px rgba(76, 175, 80, 0.8));\n}\n.system-flow-number[_ngcontent-%COMP%] {\n  font-size: 1.4px;\n  font-weight: 800;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n@keyframes _ngcontent-%COMP%_systemFlowPulse {\n  0%, 100% {\n    filter: brightness(1.2) drop-shadow(0 0 2px rgba(76, 175, 80, 0.6));\n  }\n  50% {\n    filter: brightness(1.8) drop-shadow(0 0 5px rgba(76, 175, 80, 0.9)) drop-shadow(0 0 10px rgba(76, 175, 80, 0.4));\n  }\n}\n@keyframes _ngcontent-%COMP%_systemFlowGlow {\n  0% {\n    fill-opacity: 0.3;\n  }\n  100% {\n    fill-opacity: 0.55;\n  }\n}\n@keyframes _ngcontent-%COMP%_systemBadgePop {\n  0% {\n    r: 0;\n    opacity: 0;\n  }\n  60% {\n    r: 1.7;\n    opacity: 1;\n  }\n  100% {\n    r: 1.4;\n    opacity: 1;\n  }\n}\n.skill-level-legend[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 2rem auto 0;\n  padding: 0.875rem 1.75rem;\n  border: 1px solid rgba(133, 162, 255, 0.18);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(10, 14, 38, 0.78),\n      rgba(18, 24, 56, 0.48));\n  box-shadow: 0 12px 40px rgba(2, 6, 22, 0.4), inset 0 0 30px rgba(108, 136, 255, 0.05);\n  backdrop-filter: blur(16px);\n  -webkit-backdrop-filter: blur(16px);\n}\n.level-legend-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0 1.25rem;\n}\n.level-legend-divider[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 18px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.level-legend-star[_ngcontent-%COMP%] {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.level-legend-star--primary[_ngcontent-%COMP%] {\n  width: 11px;\n  height: 11px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.7), 0 0 20px rgba(255, 213, 79, 0.3);\n  animation: _ngcontent-%COMP%_legendPrimaryPulse 2.5s ease-in-out infinite alternate;\n}\n.level-legend-star--secondary[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.5);\n}\n.level-legend-star--supporting[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.35);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);\n}\n@keyframes _ngcontent-%COMP%_legendPrimaryPulse {\n  0% {\n    box-shadow: 0 0 6px rgba(255, 213, 79, 0.6), 0 0 14px rgba(255, 213, 79, 0.2);\n  }\n  100% {\n    box-shadow: 0 0 12px rgba(255, 213, 79, 0.9), 0 0 28px rgba(255, 213, 79, 0.5);\n  }\n}\n.level-legend-label[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  font-weight: 500;\n  color: rgba(220, 229, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.03em;\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .apple-section[_ngcontent-%COMP%] {\n    padding: 4.5rem 0;\n  }\n  .section-header[_ngcontent-%COMP%] {\n    margin-bottom: 2.5rem;\n  }\n  .section-header[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2.7rem;\n    white-space: normal;\n  }\n  .constellation-viewport[_ngcontent-%COMP%] {\n    aspect-ratio: 4/3;\n  }\n  .star-label[_ngcontent-%COMP%] {\n    font-size: 2.2px;\n  }\n  .star-label--primary[_ngcontent-%COMP%] {\n    font-size: 2.5px;\n  }\n  .category-label[_ngcontent-%COMP%] {\n    font-size: 2.2px;\n  }\n  .skill-level-legend[_ngcontent-%COMP%] {\n    width: 100%;\n    gap: 0.5rem;\n    padding: 0.875rem 1rem;\n    flex-direction: column;\n    align-items: flex-start;\n  }\n  .level-legend-item[_ngcontent-%COMP%] {\n    padding: 0;\n  }\n  .level-legend-divider[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .apple-section[_ngcontent-%COMP%] {\n    padding: 4rem 0;\n  }\n  .section-header[_ngcontent-%COMP%]   .section-title[_ngcontent-%COMP%] {\n    font-size: 2.2rem;\n  }\n  .section-subtitle[_ngcontent-%COMP%] {\n    font-size: 0.78rem;\n    letter-spacing: 0.14em;\n  }\n  .constellation-viewport[_ngcontent-%COMP%] {\n    aspect-ratio: 3/4;\n    max-height: 500px;\n  }\n  .star-label[_ngcontent-%COMP%] {\n    font-size: 2.5px;\n  }\n  .category-label[_ngcontent-%COMP%] {\n    font-size: 2.4px;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
   }
 };
 (() => {
@@ -39553,11 +39667,15 @@ var SkillsComponent = class _SkillsComponent {
     <div class="section-header" data-anim="fade-up">
       <h2 class="section-title apple-text-display" data-text-reveal>Skills & Expertise</h2>
       <p class="section-subtitle" data-anim="fade-up" data-delay="200">Tap a star to explore</p>
+      <button class="system-mode-toggle" [ngClass]="{'system-mode-toggle--active': systemMode}" (click)="toggleSystemMode()">
+        <span class="system-mode-icon">&#x1f9e0;</span>
+        <span class="system-mode-label">{{systemMode ? 'Skill View' : 'System Architecture'}}</span>
+      </button>
     </div>
 
     <div class="viewport-wrapper" [ngClass]="{'viewport-wrapper--zooming': zooming}">
       <div class="constellation-viewport" data-anim="scale" data-duration="1000"
-           [ngClass]="{'viewport-zooming': zooming, 'focus-mode': focusModeActive, 'has-hover': !!hoveredSkill}"
+           [ngClass]="{'viewport-zooming': zooming, 'focus-mode': focusModeActive, 'has-hover': !!hoveredSkill, 'system-mode': systemMode}"
            [style.transform]="getZoomTransform()">
 
         <!-- Background ambient stars -->
@@ -39596,8 +39714,8 @@ var SkillsComponent = class _SkillsComponent {
               [attr.x1]="link.x1" [attr.y1]="link.y1"
               [attr.x2]="link.x2" [attr.y2]="link.y2"
               [attr.stroke]="link.color"
-              stroke-width="0.18"
-              stroke-dasharray="0.9,0.7"
+              [attr.stroke-width]="link.strength === 'strong' ? 0.3 : 0.12"
+              [attr.stroke-dasharray]="link.strength === 'strong' ? '1.2,0.5' : '0.6,0.8'"
               [ngClass]="getCrossLinkClasses(link)"/>
           }
 
@@ -39650,10 +39768,29 @@ var SkillsComponent = class _SkillsComponent {
                   [attr.y]="skill.y + getLabelOffset(skill.level)"
                   text-anchor="middle"
                   class="star-label"
-                  [ngClass]="{'star-label--active': isSelected(skill), 'star-label--primary': skill.level === 'primary'}"
+                  [ngClass]="{'star-label--active': isSelected(skill), 'star-label--primary': skill.level === 'primary', 'star-label--system': systemMode && systemModeLabels[skill.name]}"
                   [attr.fill]="constellation.color">
-                  {{skill.name}}
+                  {{getDisplayName(skill)}}
                 </text>
+                <!-- System mode flow order badge -->
+                @if (isSystemFlowNode(skill)) {
+                  <circle
+                    [attr.cx]="skill.x + getLevelStarRadius(skill.level) + 1.5"
+                    [attr.cy]="skill.y - getLevelStarRadius(skill.level) - 0.5"
+                    r="1.4"
+                    fill="rgba(76,175,80,0.9)"
+                    class="system-flow-badge"/>
+                  <text
+                    [attr.x]="skill.x + getLevelStarRadius(skill.level) + 1.5"
+                    [attr.cy]="skill.y - getLevelStarRadius(skill.level) - 0.5"
+                    [attr.y]="skill.y - getLevelStarRadius(skill.level) - 0.05"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    class="system-flow-number"
+                    fill="#fff">
+                    {{getSystemFlowIndex(skill) + 1}}
+                  </text>
+                }
               </g>
             }
 
@@ -39692,9 +39829,9 @@ var SkillsComponent = class _SkillsComponent {
           @if (hoveredSkill && hoveredConstellation && tooltipPos && !isSelected(hoveredSkill)) {
             <g class="skill-tooltip" pointer-events="none" filter="url(#tooltip-shadow)">
               <rect
-                [attr.x]="tooltipPos.x - 12"
+                [attr.x]="tooltipPos.x - tooltipWidth / 2"
                 [attr.y]="tooltipPos.y"
-                width="24" height="9"
+                [attr.width]="tooltipWidth" height="10.5"
                 rx="1.2"
                 fill="rgba(6,8,24,0.95)"
                 [attr.stroke]="hoveredConstellation.color"
@@ -39702,15 +39839,15 @@ var SkillsComponent = class _SkillsComponent {
                 stroke-opacity="0.6"/>
               <!-- Level dot -->
               <circle
-                [attr.cx]="tooltipPos.x - 9.8"
-                [attr.cy]="tooltipPos.y + 2.5"
+                [attr.cx]="tooltipPos.x - tooltipWidth / 2 + 2.2"
+                [attr.cy]="tooltipPos.y + 2.8"
                 r="0.65"
                 [attr.fill]="hoveredConstellation.color"
                 [attr.fill-opacity]="hoveredSkill.level === 'primary' ? 1 : hoveredSkill.level === 'secondary' ? 0.7 : 0.4"/>
               <!-- Skill name -->
               <text
-                [attr.x]="tooltipPos.x - 8.2"
-                [attr.y]="tooltipPos.y + 2.85"
+                [attr.x]="tooltipPos.x - tooltipWidth / 2 + 3.8"
+                [attr.y]="tooltipPos.y + 3.15"
                 class="tooltip-name"
                 [attr.fill]="hoveredConstellation.color"
                 dominant-baseline="middle">
@@ -39718,16 +39855,16 @@ var SkillsComponent = class _SkillsComponent {
               </text>
               <!-- Level label -->
               <text
-                [attr.x]="tooltipPos.x - 10.2"
-                [attr.y]="tooltipPos.y + 5.3"
+                [attr.x]="tooltipPos.x - tooltipWidth / 2 + 1.8"
+                [attr.y]="tooltipPos.y + 5.8"
                 class="tooltip-meta"
                 dominant-baseline="middle">
                 {{hoveredConstellation.name}} \xB7 {{getLevelLabel(hoveredSkill.level)}}
               </text>
               <!-- 1-line proof / context -->
               <text
-                [attr.x]="tooltipPos.x - 10.2"
-                [attr.y]="tooltipPos.y + 7.5"
+                [attr.x]="tooltipPos.x - tooltipWidth / 2 + 1.8"
+                [attr.y]="tooltipPos.y + 8.5"
                 class="tooltip-proof"
                 dominant-baseline="middle">
                 {{hoveredSkill.tooltip}}
@@ -39875,14 +40012,14 @@ var SkillsComponent = class _SkillsComponent {
     </div>
   </div>
 </div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/skills/skills.component.scss */\n.apple-section {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 18% 18%,\n      rgba(111, 138, 255, 0.16) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 82% 14%,\n      rgba(244, 143, 177, 0.14) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(100, 181, 246, 0.12) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(2, 4, 18, 0.9) 0%,\n      rgba(5, 8, 28, 0.74) 48%,\n      rgba(2, 4, 18, 0.92) 100%);\n  isolation: isolate;\n}\n.apple-section::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background-image:\n    radial-gradient(\n      1px 1px at 12% 20%,\n      rgba(255, 255, 255, 0.45),\n      transparent),\n    radial-gradient(\n      1px 1px at 24% 72%,\n      rgba(173, 216, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 68% 24%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 78% 68%,\n      rgba(255, 255, 255, 0.42),\n      transparent),\n    radial-gradient(\n      2px 2px at 88% 34%,\n      rgba(205, 226, 255, 0.28),\n      transparent);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-section::after {\n  content: "";\n  position: absolute;\n  width: min(28rem, 45vw);\n  aspect-ratio: 1;\n  top: -11rem;\n  right: -8rem;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 35% 35%,\n      rgba(255, 255, 255, 0.22) 0%,\n      rgba(186, 160, 255, 0.18) 18%,\n      rgba(98, 122, 255, 0.12) 40%,\n      rgba(19, 24, 62, 0) 72%);\n  filter: blur(6px);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-container {\n  position: relative;\n  z-index: 1;\n}\n.section-header {\n  text-align: center;\n  margin: 0 auto 3rem;\n  width: 100%;\n  max-width: 52rem;\n  overflow: visible;\n  position: relative;\n  padding: 1rem 0 0.75rem;\n}\n.section-header::before {\n  content: "";\n  position: absolute;\n  left: 50%;\n  bottom: -0.75rem;\n  width: min(18rem, 42vw);\n  height: 1px;\n  transform: translateX(-50%);\n  background:\n    linear-gradient(\n      90deg,\n      rgba(100, 181, 246, 0),\n      rgba(100, 181, 246, 0.7),\n      rgba(244, 143, 177, 0.7),\n      rgba(244, 143, 177, 0));\n  box-shadow: 0 0 18px rgba(100, 181, 246, 0.35);\n  opacity: 0.75;\n}\n.section-header .section-title {\n  font-size: clamp(3.25rem, 6vw, 4.75rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #d9e8ff 0%,\n      #8fc5ff 22%,\n      #a98dff 52%,\n      #ffb5dc 78%,\n      #fef7ff 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.04em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  line-height: 1.05;\n  display: inline-block;\n  filter: drop-shadow(0 0 24px rgba(132, 167, 255, 0.24));\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: rgba(201, 223, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.24em;\n  margin: 0;\n  text-transform: uppercase;\n}\n.viewport-wrapper {\n  position: relative;\n  overflow: hidden;\n  border-radius: 28px;\n  padding: 1px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(100, 181, 246, 0.35),\n      rgba(169, 141, 255, 0.18) 45%,\n      rgba(244, 143, 177, 0.28));\n  box-shadow:\n    0 0 0 1px rgba(255, 255, 255, 0.04),\n    0 18px 80px rgba(2, 6, 22, 0.55),\n    0 0 90px rgba(100, 181, 246, 0.12);\n}\n.constellation-viewport {\n  position: relative;\n  width: 100%;\n  aspect-ratio: 16/9;\n  max-height: 620px;\n  background:\n    radial-gradient(\n      ellipse at 18% 22%,\n      rgba(100, 181, 246, 0.1) 0%,\n      transparent 44%),\n    radial-gradient(\n      ellipse at 52% 14%,\n      rgba(206, 147, 216, 0.12) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 82% 18%,\n      rgba(128, 203, 196, 0.08) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 24% 76%,\n      rgba(244, 143, 177, 0.08) 0%,\n      transparent 38%),\n    radial-gradient(\n      ellipse at 74% 74%,\n      rgba(129, 199, 132, 0.08) 0%,\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(8, 10, 32, 0.98) 0%,\n      rgba(4, 6, 18, 0.98) 100%);\n  border-radius: 27px;\n  overflow: hidden;\n  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);\n  transform-origin: center center;\n}\n.constellation-viewport.viewport-zooming {\n  overflow: visible;\n}\n.constellation-viewport::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      1px 1px at 20% 30%,\n      rgba(255, 255, 255, 0.4),\n      transparent),\n    radial-gradient(\n      1px 1px at 60% 70%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 80% 20%,\n      rgba(255, 255, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 40% 80%,\n      rgba(255, 255, 255, 0.25),\n      transparent),\n    radial-gradient(\n      1px 1px at 90% 60%,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  pointer-events: none;\n  z-index: 0;\n}\n.star-field {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 0;\n}\n.bg-star {\n  position: absolute;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(255, 255, 255, 0.2) 60%,\n      transparent 100%);\n  animation: twinkle 4s ease-in-out infinite alternate;\n}\n.bg-star:nth-child(3n) {\n  animation-duration: 3s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(180, 200, 255, 0.9) 0%,\n      rgba(180, 200, 255, 0.1) 60%,\n      transparent 100%);\n}\n.bg-star:nth-child(5n) {\n  animation-duration: 5s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 220, 180, 0.8) 0%,\n      rgba(255, 220, 180, 0.1) 60%,\n      transparent 100%);\n}\n@keyframes twinkle {\n  0% {\n    opacity: 0.15;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.9;\n    transform: scale(1.3);\n  }\n  100% {\n    opacity: 0.2;\n    transform: scale(0.9);\n  }\n}\n.constellation-svg {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.constellation-line {\n  transition: stroke-opacity 0.4s ease;\n  animation: lineShimmer 5s ease-in-out infinite alternate;\n  filter: drop-shadow(0 0 0.5px currentColor);\n}\n@keyframes lineShimmer {\n  0% {\n    stroke-opacity: 0.2;\n    stroke-width: 0.13;\n  }\n  50% {\n    stroke-opacity: 0.55;\n    stroke-width: 0.2;\n  }\n  100% {\n    stroke-opacity: 0.25;\n    stroke-width: 0.13;\n  }\n}\n.cross-cluster-line {\n  opacity: 0;\n  animation: crossLineReveal 1.5s 0.5s ease-out forwards;\n  stroke-linecap: round;\n  transition: opacity 0.4s ease, stroke-width 0.3s ease;\n}\n.cross-cluster-line--highlighted {\n  opacity: 1 !important;\n  stroke-width: 0.4 !important;\n  filter: drop-shadow(0 0 1.5px currentColor);\n}\n.cross-cluster-line--dimmed {\n  opacity: 0.12 !important;\n}\n@keyframes crossLineReveal {\n  0% {\n    opacity: 0;\n    stroke-dashoffset: 30;\n  }\n  100% {\n    opacity: 0.65;\n    stroke-dashoffset: 0;\n  }\n}\n.star-group {\n  cursor: pointer;\n  transition: opacity 0.4s ease, transform 0.25s ease;\n  transform-origin: var(--star-cx) var(--star-cy);\n}\n.star-group--faded {\n  opacity: 0.28;\n}\n.star-group--hover-dimmed {\n  opacity: 0.18;\n  transition: opacity 0.3s ease;\n}\n.star-group--dimmed {\n  opacity: 0.12;\n  pointer-events: none;\n}\n.star-group--active {\n  opacity: 1 !important;\n}\n.star-group--hovered .star-core {\n  filter: brightness(1.8) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor);\n}\n.star-group--hovered .star-glow {\n  fill-opacity: 0.55 !important;\n}\n.star-group--hovered .star-label {\n  fill-opacity: 1;\n}\n.star-group--primary .star-glow {\n  animation: primaryGlowPulse 2.5s ease-in-out infinite alternate !important;\n}\n.star-group--supporting .star-label {\n  font-size: 1.35px;\n}\n.star-hitarea {\n  cursor: pointer;\n}\n@keyframes primaryGlowPulse {\n  0% {\n    fill-opacity: 0.2;\n  }\n  100% {\n    fill-opacity: 0.55;\n  }\n}\n.focus-mode .star-group--primary .star-core {\n  animation: focusPrimaryPulse 2s ease-in-out infinite alternate;\n}\n@keyframes focusPrimaryPulse {\n  0% {\n    filter: drop-shadow(0 0 1.5px currentColor) brightness(1.1);\n  }\n  100% {\n    filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 8px currentColor) brightness(1.5);\n  }\n}\n.star-glow {\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n  animation: glowPulse 3s ease-in-out infinite alternate;\n}\n.star-glow--active {\n  fill-opacity: 0.5 !important;\n  animation: glowPulseActive 1.2s ease-in-out infinite alternate !important;\n}\n@keyframes glowPulse {\n  0% {\n    fill-opacity: 0.12;\n  }\n  100% {\n    fill-opacity: 0.28;\n  }\n}\n@keyframes glowPulseActive {\n  0% {\n    fill-opacity: 0.35;\n  }\n  100% {\n    fill-opacity: 0.6;\n  }\n}\n.star-core {\n  pointer-events: none;\n  transition: filter 0.25s ease;\n  filter: drop-shadow(0 0 1px currentColor);\n}\n.star-core--hovered {\n  filter: brightness(1.7) drop-shadow(0 0 2.5px currentColor) drop-shadow(0 0 5px currentColor);\n}\n.star-core--active {\n  filter: brightness(1.9) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 7px currentColor) !important;\n}\n.star-float-1 {\n  animation: starFloat1 6s ease-in-out infinite;\n}\n.star-float-2 {\n  animation: starFloat2 7s ease-in-out infinite;\n}\n.star-float-3 {\n  animation: starFloat3 5s ease-in-out infinite;\n}\n.star-float-4 {\n  animation: starFloat4 8s ease-in-out infinite;\n}\n@keyframes starFloat1 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(0.3px, -0.4px);\n  }\n  50% {\n    transform: translate(-0.2px, 0.3px);\n  }\n  75% {\n    transform: translate(0.4px, 0.2px);\n  }\n}\n@keyframes starFloat2 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  33% {\n    transform: translate(-0.4px, -0.2px);\n  }\n  66% {\n    transform: translate(0.3px, 0.4px);\n  }\n}\n@keyframes starFloat3 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  50% {\n    transform: translate(0.5px, -0.3px);\n  }\n}\n@keyframes starFloat4 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(-0.3px, 0.5px);\n  }\n  75% {\n    transform: translate(0.4px, -0.4px);\n  }\n}\n.star-label {\n  font-size: 1.65px;\n  font-weight: 600;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0.65;\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n}\n.star-label--primary {\n  font-size: 1.85px;\n  fill-opacity: 0.85;\n  font-weight: 700;\n}\n.star-label--active {\n  fill-opacity: 1;\n  font-weight: 700;\n}\n.category-label {\n  font-size: 2px;\n  font-weight: 700;\n  fill-opacity: 0.72;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.25px;\n  text-transform: uppercase;\n  filter: drop-shadow(0 0 3px currentColor);\n}\n.skill-tooltip {\n  animation: tooltipFadeIn 0.15s ease-out;\n}\n@keyframes tooltipFadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.tooltip-name {\n  font-size: 2.1px;\n  font-weight: 700;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.tooltip-meta {\n  font-size: 1.45px;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill: rgba(200, 215, 255, 0.6);\n}\n.tooltip-proof {\n  font-size: 1.35px;\n  font-weight: 400;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill: rgba(255, 255, 255, 0.48);\n  font-style: italic;\n}\n.radial-ring {\n  pointer-events: none;\n}\n.ring-fill {\n  stroke-dasharray: 100;\n  stroke-dashoffset: 100;\n  animation: ringDraw 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  filter: drop-shadow(0 0 1.5px currentColor);\n}\n@keyframes ringDraw {\n  from {\n    stroke-dashoffset: 100;\n  }\n  to {\n    stroke-dashoffset: 0;\n  }\n}\n.ring-percentage {\n  font-size: 2.4px;\n  font-weight: 800;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0;\n  animation: percentFadeIn 0.4s 0.3s ease-out forwards;\n  filter: drop-shadow(0 0 2px currentColor);\n}\n@keyframes percentFadeIn {\n  from {\n    fill-opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    fill-opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rocket-container {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 5;\n}\n.rocket-container--zooming {\n  z-index: 10;\n}\n.rocket-svg {\n  width: 100%;\n  height: 100%;\n}\n.rocket-group {\n  transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n}\n.rocket-flame {\n  animation: flameFlicker 0.12s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-inner {\n  animation: flameFlickerInner 0.1s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-core {\n  animation: flameCoreFlicker 0.08s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n@keyframes flameFlicker {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1) scaleX(1);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.3) scaleX(0.85);\n  }\n}\n@keyframes flameFlickerInner {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1.1) scaleX(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.4) scaleX(0.8);\n  }\n}\n@keyframes flameCoreFlicker {\n  0% {\n    opacity: 0.6;\n    transform: scaleY(0.9);\n  }\n  100% {\n    opacity: 0.9;\n    transform: scaleY(1.2);\n  }\n}\n.trail-particle {\n  animation: trailFade 1.2s ease-out forwards;\n}\n@keyframes trailFade {\n  0% {\n    opacity: 0;\n  }\n  30% {\n    opacity: 0.8;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n.star-burst {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(100, 181, 246, 0.4) 40%,\n      transparent 70%);\n  transform: translate(-50%, -50%);\n  z-index: 8;\n  pointer-events: none;\n  animation: starBurst 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;\n}\n@keyframes starBurst {\n  0% {\n    width: 0;\n    height: 0;\n    opacity: 1;\n  }\n  40% {\n    width: 200px;\n    height: 200px;\n    opacity: 0.8;\n  }\n  100% {\n    width: 500px;\n    height: 500px;\n    opacity: 0;\n  }\n}\n.skill-modal-overlay {\n  position: fixed;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.82);\n  backdrop-filter: blur(12px);\n  -webkit-backdrop-filter: blur(12px);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n  padding: 1rem;\n  animation: modalFadeIn 0.4s ease-out;\n}\n@keyframes modalFadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.skill-modal {\n  background: rgba(12, 12, 28, 0.97);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  border-radius: 20px;\n  max-width: 700px;\n  width: 100%;\n  max-height: 85vh;\n  overflow: hidden;\n  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 150px rgba(102, 126, 234, 0.12);\n  animation: modalZoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);\n}\n@keyframes modalZoomIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3) translateY(20px);\n    filter: blur(10px);\n  }\n  60% {\n    opacity: 0.9;\n    transform: scale(1.02) translateY(-4px);\n    filter: blur(0);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1) translateY(0);\n    filter: blur(0);\n  }\n}\n.modal-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1.5rem 2rem;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\n.modal-header-left {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.modal-skill-icon {\n  width: 48px;\n  height: 48px;\n  border-radius: 12px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.modal-skill-initial {\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-title-section {\n  display: flex;\n  flex-direction: column;\n  gap: 0.35rem;\n}\n.modal-skill-name {\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  margin: 0;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-category {\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.modal-level-badge {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  padding: 0.2rem 0.55rem;\n  border-radius: 20px;\n  text-transform: uppercase;\n}\n.modal-level-badge--primary {\n  background: rgba(255, 200, 80, 0.18);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.35);\n}\n.modal-level-badge--secondary {\n  background: rgba(100, 181, 246, 0.15);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n}\n.modal-level-badge--supporting {\n  background: rgba(255, 255, 255, 0.06);\n  color: rgba(255, 255, 255, 0.5);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n}\n.modal-close {\n  background: rgba(255, 255, 255, 0.08);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 10px;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: rgba(255, 255, 255, 0.6);\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.modal-close:hover {\n  background: rgba(255, 255, 255, 0.12);\n  color: #fff;\n  transform: scale(1.05);\n}\n.modal-content {\n  padding: 2rem;\n  overflow-y: auto;\n  max-height: calc(85vh - 100px);\n}\n.modal-section {\n  margin-bottom: 2rem;\n}\n.modal-section:last-child {\n  margin-bottom: 0;\n}\n.modal-section-title {\n  font-size: 1.1rem;\n  font-weight: 600;\n  color: #fff;\n  margin: 0 0 1rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.section-description {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.65;\n  margin: 0;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list .detail-item {\n  position: relative;\n  padding-left: 1.5rem;\n  margin-bottom: 0.75rem;\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.55;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list .detail-item::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #64B5F6;\n  font-weight: bold;\n}\n.detail-list .detail-item:last-child {\n  margin-bottom: 0;\n}\n.project-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 1rem;\n}\n.project-card {\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  border-radius: 12px;\n  padding: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  transition: all 0.3s ease;\n}\n.project-card:hover {\n  background: rgba(255, 255, 255, 0.08);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.project-icon {\n  font-size: 1.2rem;\n}\n.project-name {\n  color: rgba(255, 255, 255, 0.8);\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievement-list {\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n}\n.achievement-item {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.75rem;\n}\n.achievement-icon {\n  font-size: 1rem;\n  flex-shrink: 0;\n  margin-top: 0.1rem;\n}\n.achievement-text {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skills {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.related-skill-tag {\n  background: rgba(100, 181, 246, 0.15);\n  color: #64B5F6;\n  padding: 0.4rem 0.8rem;\n  border-radius: 20px;\n  font-size: 0.8rem;\n  font-weight: 500;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skill-tag:hover {\n  background: rgba(100, 181, 246, 0.25);\n  transform: translateY(-1px);\n}\n.skill-level-legend {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 2rem auto 0;\n  padding: 0.875rem 1.75rem;\n  border: 1px solid rgba(133, 162, 255, 0.18);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(10, 14, 38, 0.78),\n      rgba(18, 24, 56, 0.48));\n  box-shadow: 0 12px 40px rgba(2, 6, 22, 0.4), inset 0 0 30px rgba(108, 136, 255, 0.05);\n  backdrop-filter: blur(16px);\n  -webkit-backdrop-filter: blur(16px);\n}\n.level-legend-item {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0 1.25rem;\n}\n.level-legend-divider {\n  width: 1px;\n  height: 18px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.level-legend-star {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.level-legend-star--primary {\n  width: 11px;\n  height: 11px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.7), 0 0 20px rgba(255, 213, 79, 0.3);\n  animation: legendPrimaryPulse 2.5s ease-in-out infinite alternate;\n}\n.level-legend-star--secondary {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.5);\n}\n.level-legend-star--supporting {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.35);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);\n}\n@keyframes legendPrimaryPulse {\n  0% {\n    box-shadow: 0 0 6px rgba(255, 213, 79, 0.6), 0 0 14px rgba(255, 213, 79, 0.2);\n  }\n  100% {\n    box-shadow: 0 0 12px rgba(255, 213, 79, 0.9), 0 0 28px rgba(255, 213, 79, 0.5);\n  }\n}\n.level-legend-label {\n  font-size: 0.78rem;\n  font-weight: 500;\n  color: rgba(220, 229, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.03em;\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .apple-section {\n    padding: 4.5rem 0;\n  }\n  .section-header {\n    margin-bottom: 2.5rem;\n  }\n  .section-header .section-title {\n    font-size: 2.7rem;\n    white-space: normal;\n  }\n  .constellation-viewport {\n    aspect-ratio: 4/3;\n  }\n  .star-label {\n    font-size: 2.2px;\n  }\n  .star-label--primary {\n    font-size: 2.5px;\n  }\n  .category-label {\n    font-size: 2.2px;\n  }\n  .skill-level-legend {\n    width: 100%;\n    gap: 0.5rem;\n    padding: 0.875rem 1rem;\n    flex-direction: column;\n    align-items: flex-start;\n  }\n  .level-legend-item {\n    padding: 0;\n  }\n  .level-legend-divider {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .apple-section {\n    padding: 4rem 0;\n  }\n  .section-header .section-title {\n    font-size: 2.2rem;\n  }\n  .section-subtitle {\n    font-size: 0.78rem;\n    letter-spacing: 0.14em;\n  }\n  .constellation-viewport {\n    aspect-ratio: 3/4;\n    max-height: 500px;\n  }\n  .star-label {\n    font-size: 2.5px;\n  }\n  .category-label {\n    font-size: 2.4px;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/skills/skills.component.scss */\n.apple-section {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 18% 18%,\n      rgba(111, 138, 255, 0.16) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 82% 14%,\n      rgba(244, 143, 177, 0.14) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(100, 181, 246, 0.12) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(2, 4, 18, 0.9) 0%,\n      rgba(5, 8, 28, 0.74) 48%,\n      rgba(2, 4, 18, 0.92) 100%);\n  isolation: isolate;\n}\n.apple-section::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background-image:\n    radial-gradient(\n      1px 1px at 12% 20%,\n      rgba(255, 255, 255, 0.45),\n      transparent),\n    radial-gradient(\n      1px 1px at 24% 72%,\n      rgba(173, 216, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 68% 24%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 78% 68%,\n      rgba(255, 255, 255, 0.42),\n      transparent),\n    radial-gradient(\n      2px 2px at 88% 34%,\n      rgba(205, 226, 255, 0.28),\n      transparent);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-section::after {\n  content: "";\n  position: absolute;\n  width: min(28rem, 45vw);\n  aspect-ratio: 1;\n  top: -11rem;\n  right: -8rem;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle at 35% 35%,\n      rgba(255, 255, 255, 0.22) 0%,\n      rgba(186, 160, 255, 0.18) 18%,\n      rgba(98, 122, 255, 0.12) 40%,\n      rgba(19, 24, 62, 0) 72%);\n  filter: blur(6px);\n  opacity: 0.9;\n  pointer-events: none;\n  z-index: 0;\n}\n.apple-container {\n  position: relative;\n  z-index: 1;\n}\n.section-header {\n  text-align: center;\n  margin: 0 auto 3rem;\n  width: 100%;\n  max-width: 52rem;\n  overflow: visible;\n  position: relative;\n  padding: 1rem 0 0.75rem;\n}\n.section-header::before {\n  content: "";\n  position: absolute;\n  left: 50%;\n  bottom: -0.75rem;\n  width: min(18rem, 42vw);\n  height: 1px;\n  transform: translateX(-50%);\n  background:\n    linear-gradient(\n      90deg,\n      rgba(100, 181, 246, 0),\n      rgba(100, 181, 246, 0.7),\n      rgba(244, 143, 177, 0.7),\n      rgba(244, 143, 177, 0));\n  box-shadow: 0 0 18px rgba(100, 181, 246, 0.35);\n  opacity: 0.75;\n}\n.section-header .section-title {\n  font-size: clamp(3.25rem, 6vw, 4.75rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #d9e8ff 0%,\n      #8fc5ff 22%,\n      #a98dff 52%,\n      #ffb5dc 78%,\n      #fef7ff 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.04em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  line-height: 1.05;\n  display: inline-block;\n  filter: drop-shadow(0 0 24px rgba(132, 167, 255, 0.24));\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: rgba(201, 223, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.24em;\n  margin: 0;\n  text-transform: uppercase;\n}\n.viewport-wrapper {\n  position: relative;\n  overflow: hidden;\n  border-radius: 28px;\n  padding: 1px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(100, 181, 246, 0.35),\n      rgba(169, 141, 255, 0.18) 45%,\n      rgba(244, 143, 177, 0.28));\n  box-shadow:\n    0 0 0 1px rgba(255, 255, 255, 0.04),\n    0 18px 80px rgba(2, 6, 22, 0.55),\n    0 0 90px rgba(100, 181, 246, 0.12);\n}\n.constellation-viewport {\n  position: relative;\n  width: 100%;\n  aspect-ratio: 16/9;\n  max-height: 620px;\n  background:\n    radial-gradient(\n      ellipse at 18% 22%,\n      rgba(100, 181, 246, 0.1) 0%,\n      transparent 44%),\n    radial-gradient(\n      ellipse at 52% 14%,\n      rgba(206, 147, 216, 0.12) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 82% 18%,\n      rgba(128, 203, 196, 0.08) 0%,\n      transparent 42%),\n    radial-gradient(\n      ellipse at 24% 76%,\n      rgba(244, 143, 177, 0.08) 0%,\n      transparent 38%),\n    radial-gradient(\n      ellipse at 74% 74%,\n      rgba(129, 199, 132, 0.08) 0%,\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(8, 10, 32, 0.98) 0%,\n      rgba(4, 6, 18, 0.98) 100%);\n  border-radius: 27px;\n  overflow: hidden;\n  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);\n  transform-origin: center center;\n}\n.constellation-viewport.viewport-zooming {\n  overflow: visible;\n}\n.constellation-viewport::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      1px 1px at 20% 30%,\n      rgba(255, 255, 255, 0.4),\n      transparent),\n    radial-gradient(\n      1px 1px at 60% 70%,\n      rgba(255, 255, 255, 0.3),\n      transparent),\n    radial-gradient(\n      1px 1px at 80% 20%,\n      rgba(255, 255, 255, 0.35),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 40% 80%,\n      rgba(255, 255, 255, 0.25),\n      transparent),\n    radial-gradient(\n      1px 1px at 90% 60%,\n      rgba(255, 255, 255, 0.3),\n      transparent);\n  pointer-events: none;\n  z-index: 0;\n}\n.star-field {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 0;\n}\n.bg-star {\n  position: absolute;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(255, 255, 255, 0.2) 60%,\n      transparent 100%);\n  animation: twinkle 4s ease-in-out infinite alternate;\n}\n.bg-star:nth-child(3n) {\n  animation-duration: 3s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(180, 200, 255, 0.9) 0%,\n      rgba(180, 200, 255, 0.1) 60%,\n      transparent 100%);\n}\n.bg-star:nth-child(5n) {\n  animation-duration: 5s;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 220, 180, 0.8) 0%,\n      rgba(255, 220, 180, 0.1) 60%,\n      transparent 100%);\n}\n@keyframes twinkle {\n  0% {\n    opacity: 0.15;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 0.9;\n    transform: scale(1.3);\n  }\n  100% {\n    opacity: 0.2;\n    transform: scale(0.9);\n  }\n}\n.constellation-svg {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.constellation-line {\n  transition: stroke-opacity 0.4s ease;\n  animation: lineShimmer 5s ease-in-out infinite alternate;\n  filter: drop-shadow(0 0 0.5px currentColor);\n}\n@keyframes lineShimmer {\n  0% {\n    stroke-opacity: 0.2;\n    stroke-width: 0.13;\n  }\n  50% {\n    stroke-opacity: 0.55;\n    stroke-width: 0.2;\n  }\n  100% {\n    stroke-opacity: 0.25;\n    stroke-width: 0.13;\n  }\n}\n.cross-cluster-line {\n  opacity: 0;\n  animation: crossLineReveal 1.5s 0.5s ease-out forwards;\n  stroke-linecap: round;\n  transition: opacity 0.4s ease, stroke-width 0.3s ease;\n}\n.cross-cluster-line--strong {\n  filter: drop-shadow(0 0 1px currentColor);\n}\n.cross-cluster-line--weak {\n  opacity: 0;\n  animation: crossLineRevealWeak 1.5s 0.8s ease-out forwards;\n}\n.cross-cluster-line--highlighted {\n  opacity: 1 !important;\n  stroke-width: 0.45 !important;\n  filter: drop-shadow(0 0 2px currentColor);\n  animation: flowingLight 1.5s ease-in-out infinite;\n}\n.cross-cluster-line--dimmed {\n  opacity: 0.08 !important;\n}\n@keyframes crossLineReveal {\n  0% {\n    opacity: 0;\n    stroke-dashoffset: 30;\n  }\n  100% {\n    opacity: 0.7;\n    stroke-dashoffset: 0;\n  }\n}\n@keyframes crossLineRevealWeak {\n  0% {\n    opacity: 0;\n    stroke-dashoffset: 30;\n  }\n  100% {\n    opacity: 0.35;\n    stroke-dashoffset: 0;\n  }\n}\n@keyframes flowingLight {\n  0% {\n    stroke-dashoffset: 0;\n  }\n  50% {\n    stroke-dashoffset: 3;\n    filter: drop-shadow(0 0 3px currentColor);\n  }\n  100% {\n    stroke-dashoffset: 0;\n  }\n}\n@keyframes nodeExpandPop {\n  0% {\n    transform: scale(1);\n  }\n  40% {\n    transform: scale(1.25);\n  }\n  100% {\n    transform: scale(1.1);\n  }\n}\n@keyframes activeCoreBreathe {\n  0% {\n    filter: brightness(1.6) drop-shadow(0 0 3px currentColor);\n  }\n  100% {\n    filter: brightness(2.2) drop-shadow(0 0 5px currentColor) drop-shadow(0 0 10px currentColor);\n  }\n}\n.star-group {\n  cursor: pointer;\n  transition: opacity 0.4s ease, transform 0.25s ease;\n  transform-origin: var(--star-cx) var(--star-cy);\n}\n.star-group--faded {\n  opacity: 0.28;\n}\n.star-group--hover-dimmed {\n  opacity: 0.18;\n  transition: opacity 0.3s ease;\n}\n.star-group--dimmed {\n  opacity: 0.12;\n  pointer-events: none;\n}\n.star-group--active {\n  opacity: 1 !important;\n  animation: nodeExpandPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n}\n.star-group--active .star-core {\n  animation: activeCoreBreathe 1.5s ease-in-out infinite alternate !important;\n}\n.star-group--hovered .star-core {\n  filter: brightness(1.8) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor);\n}\n.star-group--hovered .star-glow {\n  fill-opacity: 0.55 !important;\n}\n.star-group--hovered .star-label {\n  fill-opacity: 1;\n}\n.star-group--primary .star-core {\n  animation: primaryCorePulse 2.5s ease-in-out infinite alternate;\n}\n.star-group--primary .star-glow {\n  animation: primaryGlowPulse 2.5s ease-in-out infinite alternate !important;\n}\n.star-group--secondary .star-glow {\n  animation: secondaryGlowSteady 4s ease-in-out infinite alternate;\n}\n.star-group--supporting .star-glow {\n  animation: none !important;\n  fill-opacity: 0.08;\n}\n.star-group--supporting .star-label {\n  font-size: 1.35px;\n}\n.star-hitarea {\n  cursor: pointer;\n}\n@keyframes primaryGlowPulse {\n  0% {\n    fill-opacity: 0.2;\n  }\n  100% {\n    fill-opacity: 0.55;\n  }\n}\n@keyframes primaryCorePulse {\n  0% {\n    filter: drop-shadow(0 0 1px currentColor) brightness(1);\n  }\n  100% {\n    filter: drop-shadow(0 0 3px currentColor) drop-shadow(0 0 5px currentColor) brightness(1.3);\n  }\n}\n@keyframes secondaryGlowSteady {\n  0% {\n    fill-opacity: 0.12;\n  }\n  100% {\n    fill-opacity: 0.22;\n  }\n}\n.star-group--narrative {\n  opacity: 1 !important;\n}\n.star-group--narrative .star-core {\n  filter: brightness(2) drop-shadow(0 0 4px currentColor) drop-shadow(0 0 8px currentColor) !important;\n  animation: narrativePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n}\n.star-group--narrative .star-glow {\n  fill-opacity: 0.6 !important;\n}\n.star-group--narrative .star-label {\n  fill-opacity: 1 !important;\n}\n@keyframes narrativePop {\n  0% {\n    transform: scale(1);\n  }\n  50% {\n    transform: scale(1.6);\n  }\n  100% {\n    transform: scale(1.15);\n  }\n}\n.cross-cluster-line--narrative {\n  opacity: 1 !important;\n  stroke-width: 0.5 !important;\n  filter: drop-shadow(0 0 2px currentColor) drop-shadow(0 0 4px currentColor);\n  animation: narrativeLineDraw 0.6s ease-out forwards;\n}\n@keyframes narrativeLineDraw {\n  0% {\n    stroke-dashoffset: 40;\n    opacity: 0;\n  }\n  100% {\n    stroke-dashoffset: 0;\n    opacity: 1;\n  }\n}\n.focus-mode .star-group--primary .star-core {\n  animation: focusPrimaryPulse 2s ease-in-out infinite alternate;\n}\n@keyframes focusPrimaryPulse {\n  0% {\n    filter: drop-shadow(0 0 1.5px currentColor) brightness(1.1);\n  }\n  100% {\n    filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 8px currentColor) brightness(1.5);\n  }\n}\n.star-glow {\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n  animation: glowPulse 3s ease-in-out infinite alternate;\n}\n.star-glow--active {\n  fill-opacity: 0.5 !important;\n  animation: glowPulseActive 1.2s ease-in-out infinite alternate !important;\n}\n@keyframes glowPulse {\n  0% {\n    fill-opacity: 0.12;\n  }\n  100% {\n    fill-opacity: 0.28;\n  }\n}\n@keyframes glowPulseActive {\n  0% {\n    fill-opacity: 0.35;\n  }\n  100% {\n    fill-opacity: 0.6;\n  }\n}\n.star-core {\n  pointer-events: none;\n  transition: filter 0.25s ease;\n  filter: drop-shadow(0 0 1px currentColor);\n}\n.star-core--hovered {\n  filter: brightness(1.7) drop-shadow(0 0 2.5px currentColor) drop-shadow(0 0 5px currentColor);\n}\n.star-core--active {\n  filter: brightness(1.9) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 7px currentColor) !important;\n}\n.star-float-1 {\n  animation: starFloat1 6s ease-in-out infinite;\n}\n.star-float-2 {\n  animation: starFloat2 7s ease-in-out infinite;\n}\n.star-float-3 {\n  animation: starFloat3 5s ease-in-out infinite;\n}\n.star-float-4 {\n  animation: starFloat4 8s ease-in-out infinite;\n}\n@keyframes starFloat1 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(0.3px, -0.4px);\n  }\n  50% {\n    transform: translate(-0.2px, 0.3px);\n  }\n  75% {\n    transform: translate(0.4px, 0.2px);\n  }\n}\n@keyframes starFloat2 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  33% {\n    transform: translate(-0.4px, -0.2px);\n  }\n  66% {\n    transform: translate(0.3px, 0.4px);\n  }\n}\n@keyframes starFloat3 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  50% {\n    transform: translate(0.5px, -0.3px);\n  }\n}\n@keyframes starFloat4 {\n  0%, 100% {\n    transform: translate(0, 0);\n  }\n  25% {\n    transform: translate(-0.3px, 0.5px);\n  }\n  75% {\n    transform: translate(0.4px, -0.4px);\n  }\n}\n.star-label {\n  font-size: 1.65px;\n  font-weight: 600;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0.65;\n  pointer-events: none;\n  transition: fill-opacity 0.3s ease;\n}\n.star-label--primary {\n  font-size: 1.85px;\n  fill-opacity: 0.85;\n  font-weight: 700;\n}\n.star-label--active {\n  fill-opacity: 1;\n  font-weight: 700;\n}\n.category-label {\n  font-size: 2px;\n  font-weight: 700;\n  fill-opacity: 0.88;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.25px;\n  text-transform: uppercase;\n  filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 8px currentColor);\n}\n.skill-tooltip {\n  animation: tooltipFadeIn 0.15s ease-out;\n}\n@keyframes tooltipFadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.tooltip-name {\n  font-size: 2.1px;\n  font-weight: 700;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.tooltip-meta {\n  font-size: 1.45px;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill: rgba(200, 215, 255, 0.6);\n}\n.tooltip-proof {\n  font-size: 1.35px;\n  font-weight: 400;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill: rgba(255, 255, 255, 0.48);\n  font-style: italic;\n}\n.radial-ring {\n  pointer-events: none;\n}\n.ring-fill {\n  stroke-dasharray: 100;\n  stroke-dashoffset: 100;\n  animation: ringDraw 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  filter: drop-shadow(0 0 1.5px currentColor);\n}\n@keyframes ringDraw {\n  from {\n    stroke-dashoffset: 100;\n  }\n  to {\n    stroke-dashoffset: 0;\n  }\n}\n.ring-percentage {\n  font-size: 2.4px;\n  font-weight: 800;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  fill-opacity: 0;\n  animation: percentFadeIn 0.4s 0.3s ease-out forwards;\n  filter: drop-shadow(0 0 2px currentColor);\n}\n@keyframes percentFadeIn {\n  from {\n    fill-opacity: 0;\n    transform: translateY(0.5px);\n  }\n  to {\n    fill-opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rocket-container {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  z-index: 5;\n}\n.rocket-container--zooming {\n  z-index: 10;\n}\n.rocket-svg {\n  width: 100%;\n  height: 100%;\n}\n.rocket-group {\n  transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n}\n.rocket-flame {\n  animation: flameFlicker 0.12s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-inner {\n  animation: flameFlickerInner 0.1s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n.rocket-flame-core {\n  animation: flameCoreFlicker 0.08s ease-in-out infinite alternate;\n  transform-origin: center top;\n}\n@keyframes flameFlicker {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1) scaleX(1);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.3) scaleX(0.85);\n  }\n}\n@keyframes flameFlickerInner {\n  0% {\n    opacity: 0.8;\n    transform: scaleY(1.1) scaleX(0.9);\n  }\n  100% {\n    opacity: 1;\n    transform: scaleY(1.4) scaleX(0.8);\n  }\n}\n@keyframes flameCoreFlicker {\n  0% {\n    opacity: 0.6;\n    transform: scaleY(0.9);\n  }\n  100% {\n    opacity: 0.9;\n    transform: scaleY(1.2);\n  }\n}\n.trail-particle {\n  animation: trailFade 1.2s ease-out forwards;\n}\n@keyframes trailFade {\n  0% {\n    opacity: 0;\n  }\n  30% {\n    opacity: 0.8;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n.star-burst {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.9) 0%,\n      rgba(100, 181, 246, 0.4) 40%,\n      transparent 70%);\n  transform: translate(-50%, -50%);\n  z-index: 8;\n  pointer-events: none;\n  animation: starBurst 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;\n}\n@keyframes starBurst {\n  0% {\n    width: 0;\n    height: 0;\n    opacity: 1;\n  }\n  40% {\n    width: 200px;\n    height: 200px;\n    opacity: 0.8;\n  }\n  100% {\n    width: 500px;\n    height: 500px;\n    opacity: 0;\n  }\n}\n.skill-modal-overlay {\n  position: fixed;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.82);\n  backdrop-filter: blur(12px);\n  -webkit-backdrop-filter: blur(12px);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 100;\n  padding: 1rem;\n  animation: modalFadeIn 0.4s ease-out;\n}\n@keyframes modalFadeIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.skill-modal {\n  background: rgba(12, 12, 28, 0.97);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  border-radius: 20px;\n  max-width: 700px;\n  width: 100%;\n  max-height: 85vh;\n  overflow: hidden;\n  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 150px rgba(102, 126, 234, 0.12);\n  animation: modalZoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);\n}\n@keyframes modalZoomIn {\n  0% {\n    opacity: 0;\n    transform: scale(0.3) translateY(20px);\n    filter: blur(10px);\n  }\n  60% {\n    opacity: 0.9;\n    transform: scale(1.02) translateY(-4px);\n    filter: blur(0);\n  }\n  100% {\n    opacity: 1;\n    transform: scale(1) translateY(0);\n    filter: blur(0);\n  }\n}\n.modal-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1.5rem 2rem;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}\n.modal-header-left {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.modal-skill-icon {\n  width: 48px;\n  height: 48px;\n  border-radius: 12px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.modal-skill-initial {\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-title-section {\n  display: flex;\n  flex-direction: column;\n  gap: 0.35rem;\n}\n.modal-skill-name {\n  font-size: 1.5rem;\n  font-weight: 700;\n  color: #fff;\n  margin: 0;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.modal-category {\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.modal-level-badge {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  padding: 0.2rem 0.55rem;\n  border-radius: 20px;\n  text-transform: uppercase;\n}\n.modal-level-badge--primary {\n  background: rgba(255, 200, 80, 0.18);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.35);\n}\n.modal-level-badge--secondary {\n  background: rgba(100, 181, 246, 0.15);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n}\n.modal-level-badge--supporting {\n  background: rgba(255, 255, 255, 0.06);\n  color: rgba(255, 255, 255, 0.5);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n}\n.modal-close {\n  background: rgba(255, 255, 255, 0.08);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 10px;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: rgba(255, 255, 255, 0.6);\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.modal-close:hover {\n  background: rgba(255, 255, 255, 0.12);\n  color: #fff;\n  transform: scale(1.05);\n}\n.modal-content {\n  padding: 2rem;\n  overflow-y: auto;\n  max-height: calc(85vh - 100px);\n}\n.modal-section {\n  margin-bottom: 2rem;\n}\n.modal-section:last-child {\n  margin-bottom: 0;\n}\n.modal-section-title {\n  font-size: 1.1rem;\n  font-weight: 600;\n  color: #fff;\n  margin: 0 0 1rem;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.section-description {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.65;\n  margin: 0;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list .detail-item {\n  position: relative;\n  padding-left: 1.5rem;\n  margin-bottom: 0.75rem;\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.55;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.detail-list .detail-item::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #64B5F6;\n  font-weight: bold;\n}\n.detail-list .detail-item:last-child {\n  margin-bottom: 0;\n}\n.project-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 1rem;\n}\n.project-card {\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.08);\n  border-radius: 12px;\n  padding: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  transition: all 0.3s ease;\n}\n.project-card:hover {\n  background: rgba(255, 255, 255, 0.08);\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);\n}\n.project-icon {\n  font-size: 1.2rem;\n}\n.project-name {\n  color: rgba(255, 255, 255, 0.8);\n  font-size: 0.9rem;\n  font-weight: 500;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.achievement-list {\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n}\n.achievement-item {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.75rem;\n}\n.achievement-icon {\n  font-size: 1rem;\n  flex-shrink: 0;\n  margin-top: 0.1rem;\n}\n.achievement-text {\n  color: rgba(255, 255, 255, 0.7);\n  line-height: 1.5;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skills {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.related-skill-tag {\n  background: rgba(100, 181, 246, 0.15);\n  color: #64B5F6;\n  padding: 0.4rem 0.8rem;\n  border-radius: 20px;\n  font-size: 0.8rem;\n  font-weight: 500;\n  border: 1px solid rgba(100, 181, 246, 0.3);\n  transition: all 0.3s ease;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n.related-skill-tag:hover {\n  background: rgba(100, 181, 246, 0.25);\n  transform: translateY(-1px);\n}\n.system-mode-toggle {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-top: 1.25rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(76, 175, 80, 0.3);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(10, 14, 38, 0.8),\n      rgba(18, 24, 56, 0.5));\n  color: rgba(200, 230, 200, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle:hover {\n  border-color: rgba(76, 175, 80, 0.6);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(76, 175, 80, 0.12),\n      rgba(18, 24, 56, 0.6));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(76, 175, 80, 0.15);\n}\n.system-mode-toggle--active {\n  border-color: rgba(76, 175, 80, 0.7);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(76, 175, 80, 0.2),\n      rgba(18, 50, 30, 0.6));\n  color: #81C784;\n  box-shadow: 0 0 24px rgba(76, 175, 80, 0.2), inset 0 0 12px rgba(76, 175, 80, 0.08);\n}\n.system-mode-icon {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label {\n  white-space: nowrap;\n}\n.star-group--system-flow .star-core {\n  animation: systemFlowPulse 2s ease-in-out infinite !important;\n}\n.star-group--system-flow .star-glow {\n  fill-opacity: 0.45 !important;\n  animation: systemFlowGlow 2s ease-in-out infinite alternate !important;\n}\n.star-label--system {\n  fill: rgba(130, 255, 160, 0.9) !important;\n  font-weight: 700 !important;\n}\n.system-flow-badge {\n  animation: systemBadgePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n  filter: drop-shadow(0 0 2px rgba(76, 175, 80, 0.8));\n}\n.system-flow-number {\n  font-size: 1.4px;\n  font-weight: 800;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n}\n@keyframes systemFlowPulse {\n  0%, 100% {\n    filter: brightness(1.2) drop-shadow(0 0 2px rgba(76, 175, 80, 0.6));\n  }\n  50% {\n    filter: brightness(1.8) drop-shadow(0 0 5px rgba(76, 175, 80, 0.9)) drop-shadow(0 0 10px rgba(76, 175, 80, 0.4));\n  }\n}\n@keyframes systemFlowGlow {\n  0% {\n    fill-opacity: 0.3;\n  }\n  100% {\n    fill-opacity: 0.55;\n  }\n}\n@keyframes systemBadgePop {\n  0% {\n    r: 0;\n    opacity: 0;\n  }\n  60% {\n    r: 1.7;\n    opacity: 1;\n  }\n  100% {\n    r: 1.4;\n    opacity: 1;\n  }\n}\n.skill-level-legend {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 2rem auto 0;\n  padding: 0.875rem 1.75rem;\n  border: 1px solid rgba(133, 162, 255, 0.18);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(10, 14, 38, 0.78),\n      rgba(18, 24, 56, 0.48));\n  box-shadow: 0 12px 40px rgba(2, 6, 22, 0.4), inset 0 0 30px rgba(108, 136, 255, 0.05);\n  backdrop-filter: blur(16px);\n  -webkit-backdrop-filter: blur(16px);\n}\n.level-legend-item {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0 1.25rem;\n}\n.level-legend-divider {\n  width: 1px;\n  height: 18px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.level-legend-star {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.level-legend-star--primary {\n  width: 11px;\n  height: 11px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.7), 0 0 20px rgba(255, 213, 79, 0.3);\n  animation: legendPrimaryPulse 2.5s ease-in-out infinite alternate;\n}\n.level-legend-star--secondary {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.5);\n}\n.level-legend-star--supporting {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.35);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);\n}\n@keyframes legendPrimaryPulse {\n  0% {\n    box-shadow: 0 0 6px rgba(255, 213, 79, 0.6), 0 0 14px rgba(255, 213, 79, 0.2);\n  }\n  100% {\n    box-shadow: 0 0 12px rgba(255, 213, 79, 0.9), 0 0 28px rgba(255, 213, 79, 0.5);\n  }\n}\n.level-legend-label {\n  font-size: 0.78rem;\n  font-weight: 500;\n  color: rgba(220, 229, 255, 0.72);\n  font-family:\n    "SF Pro Text",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  letter-spacing: 0.03em;\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .apple-section {\n    padding: 4.5rem 0;\n  }\n  .section-header {\n    margin-bottom: 2.5rem;\n  }\n  .section-header .section-title {\n    font-size: 2.7rem;\n    white-space: normal;\n  }\n  .constellation-viewport {\n    aspect-ratio: 4/3;\n  }\n  .star-label {\n    font-size: 2.2px;\n  }\n  .star-label--primary {\n    font-size: 2.5px;\n  }\n  .category-label {\n    font-size: 2.2px;\n  }\n  .skill-level-legend {\n    width: 100%;\n    gap: 0.5rem;\n    padding: 0.875rem 1rem;\n    flex-direction: column;\n    align-items: flex-start;\n  }\n  .level-legend-item {\n    padding: 0;\n  }\n  .level-legend-divider {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .apple-section {\n    padding: 4rem 0;\n  }\n  .section-header .section-title {\n    font-size: 2.2rem;\n  }\n  .section-subtitle {\n    font-size: 0.78rem;\n    letter-spacing: 0.14em;\n  }\n  .constellation-viewport {\n    aspect-ratio: 3/4;\n    max-height: 500px;\n  }\n  .star-label {\n    font-size: 2.5px;\n  }\n  .category-label {\n    font-size: 2.4px;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
   }], null, { onEscapeKey: [{
     type: HostListener,
     args: ["document:keydown.escape"]
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(SkillsComponent, { className: "SkillsComponent", filePath: "src/app/profile/skills/skills.component.ts", lineNumber: 46 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(SkillsComponent, { className: "SkillsComponent", filePath: "src/app/profile/skills/skills.component.ts", lineNumber: 49 });
 })();
 
 // src/app/profile/publications/publications.component.ts
