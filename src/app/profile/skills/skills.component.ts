@@ -28,12 +28,15 @@ interface ConstellationLine {
   color: string;
 }
 
+type LinkStrength = 'strong' | 'weak';
+
 interface CrossLink {
   from: string;
   to: string;
   x1: number; y1: number;
   x2: number; y2: number;
   color: string;
+  strength: LinkStrength;
 }
 
 @Component({
@@ -56,14 +59,41 @@ export class SkillsComponent implements OnInit {
   hoveredSkill: Skill | null = null;
   hoveredConstellation: Constellation | null = null;
   tooltipPos: { x: number; y: number } | null = null;
+  tooltipWidth = 32;
 
   focusModeActive = true;
+  narrativeActive = false;
+  narrativeHighlightedSkills = new Set<string>();
+  narrativeHighlightedLinks: Set<string> = new Set();
 
   rocketAnimating = false;
   rocketPosition: { x: number; y: number } | null = null;
   zooming = false;
   zoomTarget: { x: number; y: number } | null = null;
   rocketTrail: { x: number; y: number; opacity: number; size: number }[] = [];
+
+  systemMode = false;
+  readonly systemModeLabels: Record<string, string> = {
+    'Kafka': 'Event Bus',
+    'Redis': 'Cache Layer',
+    'MySQL': 'Primary DB',
+    'MongoDB': 'Document Store',
+    'Microservices': 'Service Mesh',
+    'Spring Boot': 'API Framework',
+    'High Level Design': 'System Design',
+    'LLM': 'AI Engine',
+    'RAG': 'Knowledge Retrieval',
+    'VectorDB': 'Embedding Store',
+    'Elasti-Cache': 'Cache Cluster',
+    'RabbitMQ': 'Task Queue',
+    'AmazonSQS': 'Managed Queue',
+    'Neptune': 'Graph Store',
+    'Cassandra': 'Time-Series DB',
+  };
+
+  readonly systemModeFlow = [
+    'Spring Boot', 'Microservices', 'Kafka', 'Redis', 'MySQL'
+  ];
 
   readonly ringRadius = 4.5;
   readonly ringStroke = 0.55;
@@ -84,6 +114,7 @@ export class SkillsComponent implements OnInit {
     this.generateBackgroundStars();
     this.addSkillDetails();
     this.buildSkillMap();
+    this.runNarrativeIntro();
     setTimeout(() => { this.focusModeActive = false; }, 4000);
   }
 
@@ -98,68 +129,68 @@ export class SkillsComponent implements OnInit {
       {
         id: 'languages', name: 'Languages', color: '#64B5F6', glowColor: 'rgba(100,181,246,0.6)',
         skills: [
-          { name: 'Java',   proficiency: 90, level: 'primary',    tooltip: 'Microservices, concurrency, modern Java 8–21', x: 12, y: 14 },
-          { name: 'Python', proficiency: 88, level: 'secondary',  tooltip: 'FastAPI, automation, AI tooling',               x: 24, y: 10 },
-          { name: 'GO',     proficiency: 93, level: 'secondary',  tooltip: 'gRPC services, goroutines, CLI tools',          x: 8,  y: 28 },
-          { name: 'NodeJS', proficiency: 91, level: 'secondary',  tooltip: 'Express, WebSockets, Lambda backends',          x: 22, y: 26 },
+          { name: 'Java',   proficiency: 90, level: 'primary',    tooltip: 'High-throughput microservices · virtual threads & async (8–21)', x: 12, y: 14 },
+          { name: 'Python', proficiency: 88, level: 'secondary',  tooltip: 'Built AI pipelines & automation that saved hours/week',           x: 24, y: 10 },
+          { name: 'GO',     proficiency: 93, level: 'secondary',  tooltip: 'Low-latency gRPC services · concurrent workers & CLI tools',      x: 8,  y: 28 },
+          { name: 'NodeJS', proficiency: 91, level: 'secondary',  tooltip: 'Real-time WebSocket features · serverless Lambda backends',       x: 22, y: 26 },
         ]
       },
       {
         id: 'architecture', name: 'Architecture', color: '#CE93D8', glowColor: 'rgba(206,147,216,0.6)',
         skills: [
-          { name: 'High Level Design', proficiency: 95, level: 'primary',   tooltip: 'System trade-offs, scaling, availability',    x: 48, y: 8  },
-          { name: 'Low Level Design',  proficiency: 90, level: 'secondary', tooltip: 'SOLID, design patterns, clean APIs',          x: 38, y: 24 },
-          { name: 'Microservices',     proficiency: 95, level: 'primary',   tooltip: 'Service decomposition, resilience, events',   x: 58, y: 24 },
+          { name: 'High Level Design', proficiency: 95, level: 'primary',   tooltip: 'Designed scalable systems handling millions of events/day',  x: 48, y: 8  },
+          { name: 'Low Level Design',  proficiency: 90, level: 'secondary', tooltip: 'Domain modeling · SOLID · reusable internal libraries',    x: 38, y: 24 },
+          { name: 'Microservices',     proficiency: 95, level: 'primary',   tooltip: 'Decomposed monoliths · circuit breakers · event-driven',  x: 58, y: 24 },
         ]
       },
       {
         id: 'databases', name: 'Databases', color: '#80CBC4', glowColor: 'rgba(128,203,196,0.6)',
         skills: [
-          { name: 'MySQL',         proficiency: 95, level: 'primary',    tooltip: 'MySQL 5.6–8, query tuning, DMS migrations', x: 78, y: 10 },
-          { name: 'MongoDB',       proficiency: 90, level: 'secondary',  tooltip: 'Aggregation pipelines, sharding',           x: 90, y: 16 },
-          { name: 'Neptune',       proficiency: 88, level: 'supporting', tooltip: 'Graph DB, Gremlin traversals',              x: 74, y: 22 },
-          { name: 'Salesforce DB', proficiency: 85, level: 'supporting', tooltip: 'SOQL, custom objects, CRM sync',            x: 88, y: 28 },
-          { name: 'Cassandra',     proficiency: 88, level: 'supporting', tooltip: 'Write-heavy, time-series, HA',              x: 80, y: 34 },
+          { name: 'MySQL',         proficiency: 95, level: 'primary',    tooltip: 'Tuned hot-path queries · led production DMS migrations',  x: 78, y: 10 },
+          { name: 'MongoDB',       proficiency: 90, level: 'secondary',  tooltip: 'Aggregation pipelines for analytics · sharded high-ingest',  x: 90, y: 16 },
+          { name: 'Neptune',       proficiency: 88, level: 'supporting', tooltip: 'Graph traversals for relationship & fraud analysis',         x: 74, y: 22 },
+          { name: 'Salesforce DB', proficiency: 85, level: 'supporting', tooltip: 'SOQL/SOSL reporting · automated CRM sync pipelines',        x: 88, y: 28 },
+          { name: 'Cassandra',     proficiency: 88, level: 'supporting', tooltip: 'Time-series event storage · partition-aware schema design',  x: 80, y: 34 },
         ]
       },
       {
         id: 'frameworks', name: 'Frameworks', color: '#FFB74D', glowColor: 'rgba(255,183,77,0.6)',
         skills: [
-          { name: 'Spring Boot',  proficiency: 90, level: 'secondary',  tooltip: 'Production REST APIs, Spring Security',  x: 6,  y: 48 },
-          { name: 'Echo',         proficiency: 85, level: 'secondary',  tooltip: 'Lightweight Go HTTP framework',          x: 18, y: 54 },
-          { name: 'Dropwizard',   proficiency: 88, level: 'supporting', tooltip: 'Ops-friendly Java, Jersey, Metrics',     x: 30, y: 50 },
-          { name: 'Google Guice', proficiency: 85, level: 'supporting', tooltip: 'DI for non-Spring Java services',        x: 12, y: 62 },
+          { name: 'Spring Boot',  proficiency: 90, level: 'secondary',  tooltip: 'Shipped multiple production APIs · Security + Actuator',  x: 6,  y: 48 },
+          { name: 'Echo',         proficiency: 85, level: 'secondary',  tooltip: 'Lean Go APIs with sub-ms overhead · middleware stack',       x: 18, y: 54 },
+          { name: 'Dropwizard',   proficiency: 88, level: 'supporting', tooltip: 'Metrics-first Java services · predictable latency',          x: 32, y: 50 },
+          { name: 'Google Guice', proficiency: 85, level: 'supporting', tooltip: 'Modular DI for testable non-Spring Java services',           x: 12, y: 64 },
         ]
       },
       {
         id: 'ai', name: 'AI / ML', color: '#F48FB1', glowColor: 'rgba(244,143,177,0.6)',
         skills: [
-          { name: 'Generative AI', proficiency: 90, level: 'primary',   tooltip: 'GPT-4, Claude, prompt engineering',       x: 40, y: 46 },
-          { name: 'LLM',           proficiency: 90, level: 'primary',   tooltip: 'API integration, structured outputs',     x: 54, y: 42 },
-          { name: 'RAG',           proficiency: 88, level: 'secondary', tooltip: 'Retrieval-augmented generation, hybrid search', x: 44, y: 58 },
-          { name: 'VectorDB',      proficiency: 85, level: 'secondary', tooltip: 'Pinecone, pgvector, semantic search',     x: 58, y: 56 },
+          { name: 'Generative AI', proficiency: 90, level: 'primary',   tooltip: 'Built AI features that cut manual triage effort in half',   x: 38, y: 46 },
+          { name: 'LLM',           proficiency: 90, level: 'primary',   tooltip: 'Production LLM integration · tool-calling · guardrails',     x: 54, y: 40 },
+          { name: 'RAG',           proficiency: 88, level: 'secondary', tooltip: 'Chunking + rerank pipelines · measurably reduced hallucinations', x: 42, y: 60 },
+          { name: 'VectorDB',      proficiency: 85, level: 'secondary', tooltip: 'Pinecone & pgvector for low-latency semantic retrieval',     x: 60, y: 56 },
         ]
       },
       {
         id: 'queues', name: 'Queues', color: '#81C784', glowColor: 'rgba(129,199,132,0.6)',
         skills: [
-          { name: 'Kafka',     proficiency: 99, level: 'primary',    tooltip: 'Event streaming, real-time pipelines',    x: 76, y: 48 },
-          { name: 'RabbitMQ',  proficiency: 90, level: 'secondary',  tooltip: 'Task queues, dead-letter, reliability',   x: 88, y: 54 },
-          { name: 'AmazonSQS', proficiency: 88, level: 'supporting', tooltip: 'Managed queuing, serverless fan-out',     x: 80, y: 64 },
+          { name: 'Kafka',     proficiency: 99, level: 'primary',    tooltip: 'Built event pipelines handling sustained high throughput',  x: 76, y: 48 },
+          { name: 'RabbitMQ',  proficiency: 90, level: 'secondary',  tooltip: 'Reliable task queues · dead-letter retry patterns',              x: 88, y: 54 },
+          { name: 'AmazonSQS', proficiency: 88, level: 'supporting', tooltip: 'Serverless fan-out with SNS · idempotent FIFO consumers',       x: 80, y: 64 },
         ]
       },
       {
         id: 'core', name: 'Core CS', color: '#FFD54F', glowColor: 'rgba(255,213,79,0.6)',
         skills: [
-          { name: 'DSA',        proficiency: 95, level: 'secondary',  tooltip: 'Algorithms, data structures, mentoring', x: 16, y: 76 },
-          { name: 'Networking', proficiency: 95, level: 'supporting', tooltip: 'TCP/IP, HTTP/2, gRPC, WebSockets',       x: 30, y: 82 },
+          { name: 'DSA',        proficiency: 95, level: 'secondary',  tooltip: 'Solved 500+ problems · mentored engineers on interviews', x: 16, y: 76 },
+          { name: 'Networking', proficiency: 95, level: 'supporting', tooltip: 'Debugged TLS/TCP issues · tuned keep-alives in production',    x: 30, y: 82 },
         ]
       },
       {
         id: 'cache', name: 'Cache', color: '#E57373', glowColor: 'rgba(229,115,115,0.6)',
         skills: [
-          { name: 'Elasti-Cache', proficiency: 88, level: 'supporting', tooltip: 'Managed Redis/Memcached on AWS',       x: 74, y: 76 },
-          { name: 'Redis',        proficiency: 90, level: 'secondary',  tooltip: 'Caching, sorted sets, rate limiting',   x: 88, y: 74 },
+          { name: 'Elasti-Cache', proficiency: 88, level: 'supporting', tooltip: 'Operated Redis clusters · failover & TTL-aware caching',  x: 74, y: 76 },
+          { name: 'Redis',        proficiency: 90, level: 'secondary',  tooltip: 'Real-time leaderboards · rate limiting · sub-ms reads',       x: 88, y: 74 },
         ]
       }
     ];
@@ -178,24 +209,19 @@ export class SkillsComponent implements OnInit {
     }
 
     this.crossClusterLines = [
-      // Language → Framework
-      { from: 'Java',         to: 'Spring Boot',       x1: 12, y1: 14, x2: 6,  y2: 48, color: 'rgba(100,181,246,0.45)' },
-      { from: 'GO',           to: 'Echo',              x1: 8,  y1: 28, x2: 18, y2: 54, color: 'rgba(100,181,246,0.45)' },
-      // Queue → Architecture
-      { from: 'Kafka',        to: 'Microservices',     x1: 76, y1: 48, x2: 58, y2: 24, color: 'rgba(129,199,132,0.5)' },
-      // Framework → Database
-      { from: 'Spring Boot',  to: 'MySQL',             x1: 6,  y1: 48, x2: 78, y2: 10, color: 'rgba(255,183,77,0.35)' },
-      // Cache → Database
-      { from: 'Redis',        to: 'MySQL',             x1: 88, y1: 74, x2: 78, y2: 10, color: 'rgba(229,115,115,0.35)' },
-      // AI → Language (AI integrates into backend)
-      { from: 'LLM',          to: 'Java',              x1: 54, y1: 42, x2: 12, y2: 14, color: 'rgba(244,143,177,0.4)' },
-      // AI → Queue (RAG pipelines use Kafka)
-      { from: 'RAG',          to: 'Kafka',             x1: 44, y1: 58, x2: 76, y2: 48, color: 'rgba(244,143,177,0.35)' },
-      // AI → Language (VectorDB embeddings via Python)
-      { from: 'VectorDB',     to: 'Python',            x1: 58, y1: 56, x2: 24, y2: 10, color: 'rgba(244,143,177,0.3)' },
-      // Core CS → Architecture (fundamentals support design)
-      { from: 'DSA',          to: 'High Level Design', x1: 16, y1: 76, x2: 48, y2: 8,  color: 'rgba(255,213,79,0.3)' },
-      { from: 'Networking',   to: 'Microservices',     x1: 30, y1: 82, x2: 58, y2: 24, color: 'rgba(255,213,79,0.3)' },
+      // ── Strong relationships (primary usage) ──
+      { from: 'Java',         to: 'Spring Boot',       x1: 12, y1: 14, x2: 6,  y2: 48, color: 'rgba(100,181,246,0.55)', strength: 'strong' },
+      { from: 'GO',           to: 'Echo',              x1: 8,  y1: 28, x2: 18, y2: 54, color: 'rgba(100,181,246,0.55)', strength: 'strong' },
+      { from: 'Kafka',        to: 'Microservices',     x1: 76, y1: 48, x2: 58, y2: 24, color: 'rgba(129,199,132,0.6)',  strength: 'strong' },
+      { from: 'LLM',          to: 'Microservices',     x1: 54, y1: 40, x2: 58, y2: 24, color: 'rgba(244,143,177,0.55)', strength: 'strong' },
+      { from: 'Spring Boot',  to: 'MySQL',             x1: 6,  y1: 48, x2: 78, y2: 10, color: 'rgba(255,183,77,0.45)', strength: 'strong' },
+      // ── Weak relationships (supporting) ──
+      { from: 'Redis',        to: 'MySQL',             x1: 88, y1: 74, x2: 78, y2: 10, color: 'rgba(229,115,115,0.25)', strength: 'weak' },
+      { from: 'LLM',          to: 'Java',              x1: 54, y1: 40, x2: 12, y2: 14, color: 'rgba(244,143,177,0.25)', strength: 'weak' },
+      { from: 'RAG',          to: 'Kafka',             x1: 42, y1: 60, x2: 76, y2: 48, color: 'rgba(244,143,177,0.2)',  strength: 'weak' },
+      { from: 'VectorDB',     to: 'Python',            x1: 60, y1: 56, x2: 24, y2: 10, color: 'rgba(244,143,177,0.2)',  strength: 'weak' },
+      { from: 'DSA',          to: 'High Level Design', x1: 16, y1: 76, x2: 48, y2: 8,  color: 'rgba(255,213,79,0.2)',  strength: 'weak' },
+      { from: 'Networking',   to: 'Microservices',     x1: 30, y1: 82, x2: 58, y2: 24, color: 'rgba(255,213,79,0.2)',  strength: 'weak' },
     ];
   }
 
@@ -213,6 +239,35 @@ export class SkillsComponent implements OnInit {
     this.constellations.forEach(c => {
       c.skills.forEach(s => { if (SKILL_DETAILS[s.name]) s.details = SKILL_DETAILS[s.name]; });
     });
+  }
+
+  // ── Intro narrative ────────────────────────────────────────
+
+  private runNarrativeIntro(): void {
+    const storyNodes = ['Java', 'Microservices', 'Kafka', 'Redis'];
+    const storyLinks = ['Java→Spring Boot', 'Kafka→Microservices', 'LLM→Microservices'];
+    this.narrativeActive = true;
+
+    storyNodes.forEach((name, i) => {
+      setTimeout(() => {
+        this.narrativeHighlightedSkills.add(name);
+        if (i < storyLinks.length) this.narrativeHighlightedLinks.add(storyLinks[i]);
+      }, 400 + i * 450);
+    });
+
+    setTimeout(() => {
+      this.narrativeActive = false;
+      this.narrativeHighlightedSkills.clear();
+      this.narrativeHighlightedLinks.clear();
+    }, 3200);
+  }
+
+  isNarrativeHighlighted(skill: Skill): boolean {
+    return this.narrativeActive && this.narrativeHighlightedSkills.has(skill.name);
+  }
+
+  isNarrativeLinkHighlighted(link: CrossLink): boolean {
+    return this.narrativeActive && this.narrativeHighlightedLinks.has(`${link.from}→${link.to}`);
   }
 
   // ── Star sizing by level ────────────────────────────────
@@ -264,15 +319,23 @@ export class SkillsComponent implements OnInit {
       'star-group--dimmed':     selectDim,
       'star-group--hover-dimmed': hoverDim && !selectDim,
       'star-group--faded':      this.isSkillFaded(skill),
+      'star-group--narrative':  this.isNarrativeHighlighted(skill),
+      'star-group--system-flow': this.isSystemFlowNode(skill),
     };
   }
 
   getCrossLinkClasses(link: CrossLink): Record<string, boolean> {
     const active = this.hoveredSkill;
-    if (!active) return { 'cross-cluster-line': true };
+    const base: Record<string, boolean> = {
+      'cross-cluster-line': true,
+      'cross-cluster-line--strong': link.strength === 'strong',
+      'cross-cluster-line--weak': link.strength === 'weak',
+      'cross-cluster-line--narrative': this.isNarrativeLinkHighlighted(link),
+    };
+    if (!active) return base;
     const isRelevant = link.from === active.name || link.to === active.name;
     return {
-      'cross-cluster-line': true,
+      ...base,
       'cross-cluster-line--highlighted': isRelevant,
       'cross-cluster-line--dimmed': !isRelevant,
     };
@@ -312,10 +375,17 @@ export class SkillsComponent implements OnInit {
     this.focusModeActive = false;
     this.hoveredSkill = skill;
     this.hoveredConstellation = constellation;
-    const halfW = 12;
+
+    const proofW  = skill.tooltip.length * 0.62;
+    const nameW   = skill.name.length * 1.1;
+    const metaW   = (constellation.name.length + this.getLevelLabel(skill.level).length + 3) * 0.78;
+    const content  = Math.max(proofW, nameW, metaW);
+    this.tooltipWidth = Math.min(Math.max(content + 5, 24), 48);
+
+    const halfW = this.tooltipWidth / 2;
     const x = Math.max(halfW + 1, Math.min(99 - halfW, skill.x));
     const r = this.getLevelStarRadius(skill.level);
-    const y = skill.y <= 22 ? skill.y + r + 1.5 : skill.y - r - 11;
+    const y = skill.y <= 22 ? skill.y + r + 1.5 : skill.y - r - (this.tooltipWidth > 36 ? 13 : 12);
     this.tooltipPos = { x, y };
   }
 
@@ -385,6 +455,27 @@ export class SkillsComponent implements OnInit {
         size: 0.3 + Math.random() * 0.5,
       });
     }
+  }
+
+  // ── System Architecture Mode ───────────────────────────────
+
+  toggleSystemMode(): void {
+    this.systemMode = !this.systemMode;
+  }
+
+  getDisplayName(skill: Skill): string {
+    if (this.systemMode && this.systemModeLabels[skill.name]) {
+      return this.systemModeLabels[skill.name];
+    }
+    return skill.name;
+  }
+
+  isSystemFlowNode(skill: Skill): boolean {
+    return this.systemMode && this.systemModeFlow.includes(skill.name);
+  }
+
+  getSystemFlowIndex(skill: Skill): number {
+    return this.systemModeFlow.indexOf(skill.name);
   }
 
   // ── Category label helpers ──────────────────────────────

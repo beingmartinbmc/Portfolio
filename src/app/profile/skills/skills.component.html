@@ -3,11 +3,15 @@
     <div class="section-header" data-anim="fade-up">
       <h2 class="section-title apple-text-display" data-text-reveal>Skills & Expertise</h2>
       <p class="section-subtitle" data-anim="fade-up" data-delay="200">Tap a star to explore</p>
+      <button class="system-mode-toggle" [ngClass]="{'system-mode-toggle--active': systemMode}" (click)="toggleSystemMode()">
+        <span class="system-mode-icon">&#x1f9e0;</span>
+        <span class="system-mode-label">{{systemMode ? 'Skill View' : 'System Architecture'}}</span>
+      </button>
     </div>
 
     <div class="viewport-wrapper" [ngClass]="{'viewport-wrapper--zooming': zooming}">
       <div class="constellation-viewport" data-anim="scale" data-duration="1000"
-           [ngClass]="{'viewport-zooming': zooming, 'focus-mode': focusModeActive, 'has-hover': !!hoveredSkill}"
+           [ngClass]="{'viewport-zooming': zooming, 'focus-mode': focusModeActive, 'has-hover': !!hoveredSkill, 'system-mode': systemMode}"
            [style.transform]="getZoomTransform()">
 
         <!-- Background ambient stars -->
@@ -46,8 +50,8 @@
               [attr.x1]="link.x1" [attr.y1]="link.y1"
               [attr.x2]="link.x2" [attr.y2]="link.y2"
               [attr.stroke]="link.color"
-              stroke-width="0.18"
-              stroke-dasharray="0.9,0.7"
+              [attr.stroke-width]="link.strength === 'strong' ? 0.3 : 0.12"
+              [attr.stroke-dasharray]="link.strength === 'strong' ? '1.2,0.5' : '0.6,0.8'"
               [ngClass]="getCrossLinkClasses(link)"/>
           }
 
@@ -100,10 +104,29 @@
                   [attr.y]="skill.y + getLabelOffset(skill.level)"
                   text-anchor="middle"
                   class="star-label"
-                  [ngClass]="{'star-label--active': isSelected(skill), 'star-label--primary': skill.level === 'primary'}"
+                  [ngClass]="{'star-label--active': isSelected(skill), 'star-label--primary': skill.level === 'primary', 'star-label--system': systemMode && systemModeLabels[skill.name]}"
                   [attr.fill]="constellation.color">
-                  {{skill.name}}
+                  {{getDisplayName(skill)}}
                 </text>
+                <!-- System mode flow order badge -->
+                @if (isSystemFlowNode(skill)) {
+                  <circle
+                    [attr.cx]="skill.x + getLevelStarRadius(skill.level) + 1.5"
+                    [attr.cy]="skill.y - getLevelStarRadius(skill.level) - 0.5"
+                    r="1.4"
+                    fill="rgba(76,175,80,0.9)"
+                    class="system-flow-badge"/>
+                  <text
+                    [attr.x]="skill.x + getLevelStarRadius(skill.level) + 1.5"
+                    [attr.cy]="skill.y - getLevelStarRadius(skill.level) - 0.5"
+                    [attr.y]="skill.y - getLevelStarRadius(skill.level) - 0.05"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    class="system-flow-number"
+                    fill="#fff">
+                    {{getSystemFlowIndex(skill) + 1}}
+                  </text>
+                }
               </g>
             }
 
@@ -142,9 +165,9 @@
           @if (hoveredSkill && hoveredConstellation && tooltipPos && !isSelected(hoveredSkill)) {
             <g class="skill-tooltip" pointer-events="none" filter="url(#tooltip-shadow)">
               <rect
-                [attr.x]="tooltipPos.x - 12"
+                [attr.x]="tooltipPos.x - tooltipWidth / 2"
                 [attr.y]="tooltipPos.y"
-                width="24" height="9"
+                [attr.width]="tooltipWidth" height="10.5"
                 rx="1.2"
                 fill="rgba(6,8,24,0.95)"
                 [attr.stroke]="hoveredConstellation.color"
@@ -152,15 +175,15 @@
                 stroke-opacity="0.6"/>
               <!-- Level dot -->
               <circle
-                [attr.cx]="tooltipPos.x - 9.8"
-                [attr.cy]="tooltipPos.y + 2.5"
+                [attr.cx]="tooltipPos.x - tooltipWidth / 2 + 2.2"
+                [attr.cy]="tooltipPos.y + 2.8"
                 r="0.65"
                 [attr.fill]="hoveredConstellation.color"
                 [attr.fill-opacity]="hoveredSkill.level === 'primary' ? 1 : hoveredSkill.level === 'secondary' ? 0.7 : 0.4"/>
               <!-- Skill name -->
               <text
-                [attr.x]="tooltipPos.x - 8.2"
-                [attr.y]="tooltipPos.y + 2.85"
+                [attr.x]="tooltipPos.x - tooltipWidth / 2 + 3.8"
+                [attr.y]="tooltipPos.y + 3.15"
                 class="tooltip-name"
                 [attr.fill]="hoveredConstellation.color"
                 dominant-baseline="middle">
@@ -168,16 +191,16 @@
               </text>
               <!-- Level label -->
               <text
-                [attr.x]="tooltipPos.x - 10.2"
-                [attr.y]="tooltipPos.y + 5.3"
+                [attr.x]="tooltipPos.x - tooltipWidth / 2 + 1.8"
+                [attr.y]="tooltipPos.y + 5.8"
                 class="tooltip-meta"
                 dominant-baseline="middle">
                 {{hoveredConstellation.name}} · {{getLevelLabel(hoveredSkill.level)}}
               </text>
               <!-- 1-line proof / context -->
               <text
-                [attr.x]="tooltipPos.x - 10.2"
-                [attr.y]="tooltipPos.y + 7.5"
+                [attr.x]="tooltipPos.x - tooltipWidth / 2 + 1.8"
+                [attr.y]="tooltipPos.y + 8.5"
                 class="tooltip-proof"
                 dominant-baseline="middle">
                 {{hoveredSkill.tooltip}}
