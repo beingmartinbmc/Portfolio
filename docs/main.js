@@ -32055,7 +32055,7 @@ var IntroComponent = class _IntroComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 67, vars: 20, consts: [[1, "apple-hero"], ["data-parallax", "0.15", 1, "hero-background"], [1, "floating-shapes"], [1, "shape", "shape-1", "apple-float"], [1, "shape", "shape-2", "apple-float-delay"], [1, "shape", "shape-3", "apple-float-slow"], [1, "shape", "shape-4", "apple-float"], [1, "shape", "shape-5", "apple-float-delay"], [1, "gradient-overlay"], [1, "apple-container"], [1, "hero-content"], [1, "hero-profile-image", "apple-hero-anim"], [1, "image-container", "apple-glow"], ["alt", "Ankit Sharma", "src", "./assets/images/ankit.png"], [1, "image-glow"], [1, "hero-text"], ["data-text-reveal", "", 1, "hero-title", "apple-text-display", "apple-hero-anim"], [1, "hero-subtitle", "apple-text-body", "apple-hero-anim"], [1, "hero-experience", "apple-text-body", "apple-hero-anim"], [1, "hero-achievements-container", "apple-hero-anim"], [1, "achievements-toggle", 3, "click"], [1, "toggle-text"], [1, "toggle-icon"], [1, "hero-achievements", "apple-text-body"], [1, "achievement"], [1, "achievement-icon"], [1, "hero-actions", "apple-hero-anim"], ["href", "#contact", 1, "apple-btn", "apple-btn-primary"], [1, "fas", "fa-paper-plane"], [1, "document-radial"], [1, "apple-btn", "apple-btn-primary", "document-center", 3, "click"], [1, "fas", "fa-download", "center-icon"], [1, "center-text"], ["target", "_blank", 1, "document-option", "document-resume", 3, "href"], [1, "fas", "fa-file-alt"], [1, "tooltip"], ["target", "_blank", 1, "document-option", "document-cover", 3, "href"], [1, "fas", "fa-envelope"], [1, "hero-social", "apple-hero-anim"], ["target", "_blank", "title", "Connect on LinkedIn", 1, "social-link", 3, "href"], [1, "fab", "fa-linkedin"], ["target", "_blank", "title", "View GitHub Profile", 1, "social-link", 3, "href"], [1, "fab", "fa-github"], ["target", "_blank", "title", "Stack Overflow Profile", 1, "social-link", 3, "href"], [1, "fab", "fa-stack-overflow"], [1, "scroll-indicator"], [1, "scroll-arrow"]], template: function IntroComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 48, vars: 13, consts: [[1, "apple-hero"], ["data-parallax", "0.15", 1, "hero-background"], [1, "floating-shapes"], [1, "shape", "shape-1", "apple-float"], [1, "shape", "shape-2", "apple-float-delay"], [1, "shape", "shape-3", "apple-float-slow"], [1, "shape", "shape-4", "apple-float"], [1, "shape", "shape-5", "apple-float-delay"], [1, "gradient-overlay"], [1, "apple-container"], [1, "hero-content"], [1, "hero-profile-image", "apple-hero-anim"], [1, "image-container", "apple-glow"], ["alt", "Ankit Sharma", "src", "./assets/images/ankit.png"], [1, "image-glow"], [1, "hero-text"], ["data-text-reveal", "", 1, "hero-title", "apple-text-display", "apple-hero-anim"], [1, "hero-subtitle", "apple-text-body", "apple-hero-anim"], [1, "hero-experience", "apple-text-body", "apple-hero-anim"], [1, "hero-actions", "apple-hero-anim"], ["href", "#contact", 1, "apple-btn", "apple-btn-primary"], [1, "fas", "fa-paper-plane"], [1, "document-radial"], [1, "apple-btn", "apple-btn-primary", "document-center", 3, "click"], [1, "fas", "fa-download", "center-icon"], [1, "center-text"], ["target", "_blank", 1, "document-option", "document-resume", 3, "href"], [1, "fas", "fa-file-alt"], [1, "tooltip"], ["target", "_blank", 1, "document-option", "document-cover", 3, "href"], [1, "fas", "fa-envelope"], [1, "hero-social", "apple-hero-anim"], ["target", "_blank", "title", "Connect on LinkedIn", 1, "social-link", 3, "href"], [1, "fab", "fa-linkedin"], ["target", "_blank", "title", "View GitHub Profile", 1, "social-link", 3, "href"], [1, "fab", "fa-github"], ["target", "_blank", "title", "Stack Overflow Profile", 1, "social-link", 3, "href"], [1, "fab", "fa-stack-overflow"], [1, "scroll-indicator"], [1, "scroll-arrow"]], template: function IntroComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2);
         \u0275\u0275domElement(3, "div", 3)(4, "div", 4)(5, "div", 5)(6, "div", 6)(7, "div", 7);
@@ -32069,81 +32069,48 @@ var IntroComponent = class _IntroComponent {
         \u0275\u0275text(17, " Ankit Sharma ");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(18, "p", 17);
-        \u0275\u0275text(19, " SMTS at Salesforce \u2014 Enterprise Cloud Solutions & Platform Development ");
+        \u0275\u0275text(19, " Backend Engineer @ Salesforce | Distributed Systems, Real-time Processing & AI Tools ");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(20, "p", 18);
-        \u0275\u0275text(21, " 6+ years experience | Salesforce | ex-Games24x7 | ex-Walmart ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(22, "div", 19)(23, "button", 20);
-        \u0275\u0275domListener("click", function IntroComponent_Template_button_click_23_listener() {
-          return ctx.toggleAchievements();
-        });
-        \u0275\u0275domElementStart(24, "span", 21);
-        \u0275\u0275text(25);
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(26, "span", 22);
-        \u0275\u0275text(27, "\u25BC");
+        \u0275\u0275text(21, " 6+ years | Java \xB7 Kafka \xB7 Redis \xB7 AWS | Salesforce \xB7 ex-Games24x7 \xB7 ex-Walmart ");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(28, "div", 23)(29, "p", 24)(30, "span", 25);
-        \u0275\u0275text(31, "\u26A1");
+        \u0275\u0275domElementStart(22, "div", 19)(23, "a", 20);
+        \u0275\u0275domElement(24, "i", 21);
+        \u0275\u0275text(25, " Get In Touch ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(32, " KYC platform: 200k+ verifications/day, 99.95% uptime ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(33, "p", 24)(34, "span", 25);
-        \u0275\u0275text(35, "\u{1F9E0}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(36, " Real-time ML fraud detection protecting millions of transactions ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(37, "p", 24)(38, "span", 25);
-        \u0275\u0275text(39, "\u{1F3CF}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(40, " Scaled My11Circle to 2.7K RPS during IPL 2025 ");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(41, "div", 26)(42, "a", 27);
-        \u0275\u0275domElement(43, "i", 28);
-        \u0275\u0275text(44, " Get In Touch ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(45, "div", 29)(46, "button", 30);
-        \u0275\u0275domListener("click", function IntroComponent_Template_button_click_46_listener($event) {
+        \u0275\u0275domElementStart(26, "div", 22)(27, "button", 23);
+        \u0275\u0275domListener("click", function IntroComponent_Template_button_click_27_listener($event) {
           return ctx.toggleDocumentDropdown($event);
         });
-        \u0275\u0275domElement(47, "i", 31);
-        \u0275\u0275domElementStart(48, "span", 32);
-        \u0275\u0275text(49, "Download Documents");
+        \u0275\u0275domElement(28, "i", 24);
+        \u0275\u0275domElementStart(29, "span", 25);
+        \u0275\u0275text(30, "Download Documents");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(50, "a", 33);
-        \u0275\u0275domElement(51, "i", 34);
-        \u0275\u0275domElementStart(52, "span", 35);
-        \u0275\u0275text(53, "Resume");
+        \u0275\u0275domElementStart(31, "a", 26);
+        \u0275\u0275domElement(32, "i", 27);
+        \u0275\u0275domElementStart(33, "span", 28);
+        \u0275\u0275text(34, "Resume");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(54, "a", 36);
-        \u0275\u0275domElement(55, "i", 37);
-        \u0275\u0275domElementStart(56, "span", 35);
-        \u0275\u0275text(57, "Cover Letter");
+        \u0275\u0275domElementStart(35, "a", 29);
+        \u0275\u0275domElement(36, "i", 30);
+        \u0275\u0275domElementStart(37, "span", 28);
+        \u0275\u0275text(38, "Cover Letter");
         \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(58, "div", 38)(59, "a", 39);
-        \u0275\u0275domElement(60, "i", 40);
+        \u0275\u0275domElementStart(39, "div", 31)(40, "a", 32);
+        \u0275\u0275domElement(41, "i", 33);
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(61, "a", 41);
-        \u0275\u0275domElement(62, "i", 42);
+        \u0275\u0275domElementStart(42, "a", 34);
+        \u0275\u0275domElement(43, "i", 35);
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(63, "a", 43);
-        \u0275\u0275domElement(64, "i", 44);
+        \u0275\u0275domElementStart(44, "a", 36);
+        \u0275\u0275domElement(45, "i", 37);
         \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(65, "div", 45);
-        \u0275\u0275domElement(66, "div", 46);
+        \u0275\u0275domElementStart(46, "div", 38);
+        \u0275\u0275domElement(47, "div", 39);
         \u0275\u0275domElementEnd()();
       }
       if (rf & 2) {
-        \u0275\u0275advance(23);
-        \u0275\u0275classProp("expanded", ctx.showAchievements);
-        \u0275\u0275advance(2);
-        \u0275\u0275textInterpolate1("", ctx.showAchievements ? "Hide" : "View", " Key Achievements");
-        \u0275\u0275advance();
-        \u0275\u0275classProp("expanded", ctx.showAchievements);
-        \u0275\u0275advance(2);
-        \u0275\u0275classProp("show", ctx.showAchievements);
-        \u0275\u0275advance(17);
+        \u0275\u0275advance(26);
         \u0275\u0275classProp("expanded", ctx.showDocumentDropdown);
         \u0275\u0275advance();
         \u0275\u0275classProp("active", ctx.showDocumentDropdown);
@@ -32166,120 +32133,7 @@ var IntroComponent = class _IntroComponent {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(IntroComponent, [{
     type: Component,
-    args: [{ selector: "app-intro", standalone: true, template: `<div class="apple-hero">
-  <!-- Animated background elements -->
-  <div class="hero-background" data-parallax="0.15">
-    <div class="floating-shapes">
-      <div class="shape shape-1 apple-float"></div>
-      <div class="shape shape-2 apple-float-delay"></div>
-      <div class="shape shape-3 apple-float-slow"></div>
-      <div class="shape shape-4 apple-float"></div>
-      <div class="shape shape-5 apple-float-delay"></div>
-    </div>
-    <div class="gradient-overlay"></div>
-  </div>
-
-  <div class="apple-container">
-    <div class="hero-content">
-      <!-- Profile Image with Apple-style design -->
-      <div class="hero-profile-image apple-hero-anim">
-        <div class="image-container apple-glow">
-          <img alt="Ankit Sharma" src="./assets/images/ankit.png"/>
-          <div class="image-glow"></div>
-        </div>
-      </div>
-      
-      <!-- Hero Text -->
-      <div class="hero-text">
-        <h1 class="hero-title apple-text-display apple-hero-anim" data-text-reveal>
-          Ankit Sharma
-        </h1>
-        <p class="hero-subtitle apple-text-body apple-hero-anim">
-          SMTS at Salesforce \u2014 Enterprise Cloud Solutions & Platform Development
-        </p>
-        <p class="hero-experience apple-text-body apple-hero-anim">
-          6+ years experience | Salesforce | ex-Games24x7 | ex-Walmart
-        </p>
-        <div class="hero-achievements-container apple-hero-anim">
-          <button class="achievements-toggle" (click)="toggleAchievements()" [class.expanded]="showAchievements">
-            <span class="toggle-text">{{ showAchievements ? 'Hide' : 'View' }} Key Achievements</span>
-            <span class="toggle-icon" [class.expanded]="showAchievements">\u25BC</span>
-          </button>
-          
-          <div class="hero-achievements apple-text-body" [class.show]="showAchievements">
-            <p class="achievement">
-              <span class="achievement-icon">\u26A1</span>
-              KYC platform: 200k+ verifications/day, 99.95% uptime
-            </p>
-            <p class="achievement">
-              <span class="achievement-icon">\u{1F9E0}</span>
-              Real-time ML fraud detection protecting millions of transactions
-            </p>
-            <p class="achievement">
-              <span class="achievement-icon">\u{1F3CF}</span>
-              Scaled My11Circle to 2.7K RPS during IPL 2025
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Action Buttons -->
-      <div class="hero-actions apple-hero-anim">
-        <a class="apple-btn apple-btn-primary" href="#contact">
-          <i class="fas fa-paper-plane"></i>
-          Get In Touch
-        </a>
-        <div class="document-radial" [class.expanded]="showDocumentDropdown">
-          <button class="apple-btn apple-btn-primary document-center" 
-                  (click)="toggleDocumentDropdown($event)"
-                  [class.active]="showDocumentDropdown">
-            <i class="fas fa-download center-icon"></i>
-            <span class="center-text">Download Documents</span>
-          </button>
-          
-          <!-- Radial Document Options -->
-          <a [href]="documentLinks.resume"
-             target="_blank" 
-             class="document-option document-resume"
-             [class.show]="showDocumentDropdown">
-            <i class="fas fa-file-alt"></i>
-            <span class="tooltip">Resume</span>
-          </a>
-          
-          <a [href]="documentLinks.coverLetter"
-             target="_blank" 
-             class="document-option document-cover"
-             [class.show]="showDocumentDropdown">
-            <i class="fas fa-envelope"></i>
-            <span class="tooltip">Cover Letter</span>
-          </a>
-        </div>
-      </div>
-      
-      <!-- Social Links -->
-      <div class="hero-social apple-hero-anim">
-        <a class="social-link" [href]="socialLinks.linkedin" 
-           target="_blank" title="Connect on LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a class="social-link" [href]="socialLinks.github"
-           target="_blank" title="View GitHub Profile">
-          <i class="fab fa-github"></i>
-        </a>
-        <a class="social-link" [href]="socialLinks.stackOverflow" 
-           target="_blank" title="Stack Overflow Profile">
-          <i class="fab fa-stack-overflow"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Scroll indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-arrow"></div>
-  </div>
-</div>
-`, styles: ['/* src/app/profile/intro/intro.component.scss */\n.apple-hero {\n  min-height: 100vh;\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  background: var(--gradient-dark);\n}\n.hero-background {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.floating-shapes {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.shape {\n  position: absolute;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.1);\n  backdrop-filter: blur(10px);\n  animation: float 6s ease-in-out infinite;\n  display: block !important;\n  visibility: visible !important;\n  opacity: 0.3 !important;\n}\n.shape-1 {\n  width: 80px;\n  height: 80px;\n  top: 20%;\n  left: 10%;\n  animation-delay: 0s;\n  background: rgba(102, 126, 234, 0.2);\n}\n.shape-2 {\n  width: 120px;\n  height: 120px;\n  top: 60%;\n  right: 15%;\n  animation-delay: 2s;\n  background: rgba(118, 75, 162, 0.2);\n}\n.shape-3 {\n  width: 60px;\n  height: 60px;\n  top: 80%;\n  left: 20%;\n  animation-delay: 4s;\n  background: rgba(245, 87, 108, 0.2);\n}\n.shape-4 {\n  width: 100px;\n  height: 100px;\n  top: 30%;\n  right: 30%;\n  animation-delay: 1s;\n  background: rgba(240, 147, 251, 0.2);\n}\n.shape-5 {\n  width: 40px;\n  height: 40px;\n  top: 10%;\n  right: 60%;\n  animation-delay: 3s;\n  background: rgba(79, 172, 254, 0.2);\n}\n@keyframes float {\n  0%, 100% {\n    transform: translateY(0px) rotate(0deg) scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: translateY(-15px) rotate(90deg) scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: translateY(-20px) rotate(180deg) scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: translateY(-15px) rotate(270deg) scale(1.05);\n    opacity: 0.4;\n  }\n}\n.gradient-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.3;\n}\n.hero-content {\n  position: relative;\n  z-index: 2;\n  text-align: center;\n  color: var(--white);\n  max-width: 800px;\n  margin: 0 auto;\n  padding: 0 var(--space-6);\n}\n.hero-profile-image {\n  margin-bottom: var(--space-12);\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n}\n.image-container {\n  position: relative;\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n}\n.image-container::before {\n  content: "";\n  position: absolute;\n  top: -20px;\n  left: -20px;\n  right: -20px;\n  bottom: -20px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  opacity: 0.3;\n  animation: heartbeat 2s ease-in-out infinite;\n}\n.image-container::after {\n  content: "";\n  position: absolute;\n  top: -40px;\n  left: -40px;\n  right: -40px;\n  bottom: -40px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--accent-purple),\n      var(--accent-pink));\n  opacity: 0.2;\n  animation: heartbeat 2s ease-in-out infinite 0.5s;\n}\n.image-container img {\n  width: 200px;\n  height: 200px;\n  border-radius: 50%;\n  border: 6px solid var(--white);\n  box-shadow: var(--shadow-2xl);\n  position: relative;\n  z-index: 2;\n  transition: all var(--transition-normal);\n  display: block !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n  object-fit: cover;\n}\n.image-container img:hover {\n  transform: scale(1.05);\n  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n}\n.image-glow {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 220px;\n  height: 220px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.2) 0%,\n      transparent 70%);\n  animation: glow 3s ease-in-out infinite alternate;\n}\n@keyframes heartbeat {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n}\n@keyframes glow {\n  0% {\n    opacity: 0.3;\n    transform: translate(-50%, -50%) scale(1);\n  }\n  100% {\n    opacity: 0.6;\n    transform: translate(-50%, -50%) scale(1.1);\n  }\n}\n.hero-text {\n  margin-bottom: var(--space-12);\n}\n.hero-title {\n  font-size: var(--text-8xl);\n  font-weight: var(--font-extrabold);\n  margin-bottom: var(--space-6);\n  color: var(--text-primary);\n  text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n  letter-spacing: -0.02em;\n  line-height: 0.9;\n}\n.hero-subtitle {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-medium);\n  margin-bottom: var(--space-4);\n  opacity: 0.95;\n  color: var(--white);\n}\n.hero-experience {\n  font-size: var(--text-lg);\n  opacity: 0.9;\n  color: var(--white);\n  margin-bottom: var(--space-6);\n  font-weight: var(--font-medium);\n}\n.hero-achievements-container {\n  max-width: 600px;\n  margin: 0 auto;\n}\n.achievements-toggle {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-lg);\n  padding: var(--space-3) var(--space-6);\n  color: var(--white);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n  margin: 0 auto;\n}\n.achievements-toggle:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n.achievements-toggle.expanded {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  border-bottom-color: transparent;\n}\n.toggle-text {\n  font-weight: var(--font-medium);\n}\n.toggle-icon {\n  font-size: var(--text-sm);\n  transition: transform var(--transition-normal);\n}\n.toggle-icon.expanded {\n  transform: rotate(180deg);\n}\n.hero-achievements {\n  max-width: 600px;\n  margin: 0 auto;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-top: none;\n  border-radius: 0 0 var(--radius-lg) var(--radius-lg);\n  padding: 0;\n  backdrop-filter: blur(20px);\n  max-height: 0;\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  opacity: 0;\n  border-color: transparent;\n}\n.hero-achievements.show {\n  max-height: 300px;\n  padding: var(--space-6);\n  opacity: 1;\n  border-color: rgba(255, 255, 255, 0.1);\n}\n.achievement {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--space-4);\n  margin-bottom: var(--space-4);\n  font-size: var(--text-base);\n  line-height: 1.5;\n  opacity: 0.9;\n  color: var(--white);\n}\n.achievement:last-child {\n  margin-bottom: 0;\n}\n.achievement-icon {\n  font-size: var(--text-lg);\n  margin-top: 2px;\n  flex-shrink: 0;\n  animation: achievementGlow 2s ease-in-out infinite;\n}\n@keyframes achievementGlow {\n  0%, 100% {\n    opacity: 0.8;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.1);\n  }\n}\n.hero-actions {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n  margin-bottom: var(--space-12);\n  flex-wrap: wrap;\n  align-items: center;\n}\n.hero-actions .apple-btn {\n  padding: var(--space-4) var(--space-8);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  min-width: 180px;\n}\n.hero-actions .apple-btn i {\n  margin-right: var(--space-2);\n}\n.document-radial {\n  position: relative;\n  display: inline-block;\n  width: auto;\n  height: auto;\n  z-index: 200;\n}\n.document-radial.expanded {\n  margin-right: 80px;\n}\n.document-center {\n  position: relative;\n  cursor: pointer;\n  min-width: 180px;\n  padding: var(--space-4) var(--space-8);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: var(--space-2);\n  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);\n  z-index: 1;\n}\n.document-center.active {\n  transform: scale(0.95);\n  z-index: 1;\n}\n.document-center.active .center-icon {\n  transform: rotate(180deg);\n}\n.document-center.active .center-text {\n  opacity: 0.8;\n}\n.document-center .center-icon {\n  transition: transform 0.3s ease;\n}\n.document-center .center-text {\n  transition: opacity 0.3s ease;\n}\n.document-option {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 55px;\n  height: 55px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.15);\n  backdrop-filter: blur(20px);\n  border: 2px solid rgba(255, 255, 255, 0.3);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: white;\n  text-decoration: none;\n  opacity: 0;\n  visibility: hidden;\n  transform: translate(-50%, -50%) scale(0.5);\n  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);\n  z-index: 10;\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);\n}\n.document-option:hover {\n  background: rgba(255, 255, 255, 0.25);\n  border-color: rgba(255, 255, 255, 0.5);\n  transform: translate(-50%, -50%) scale(1.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);\n  z-index: 11;\n}\n.document-option:hover .tooltip {\n  opacity: 1;\n  visibility: visible;\n  transform: translateY(-10px);\n}\n.document-option.show {\n  opacity: 1;\n  visibility: visible;\n  transform: translate(-50%, -50%) scale(1);\n  z-index: 10;\n}\n.document-option i {\n  font-size: 1.3rem;\n  color: white;\n}\n.document-resume.show {\n  transform: translate(-50%, -50%) translateX(130px) translateY(-40px) scale(1);\n  transition-delay: 0.1s;\n}\n.document-cover.show {\n  transform: translate(-50%, -50%) translateX(130px) translateY(40px) scale(1);\n  transition-delay: 0.2s;\n}\n.tooltip {\n  position: absolute;\n  top: -45px;\n  left: 50%;\n  transform: translateX(-50%) translateY(10px);\n  background: rgba(0, 0, 0, 0.95);\n  color: white;\n  padding: 8px 14px;\n  border-radius: 8px;\n  font-size: 0.85rem;\n  font-weight: 600;\n  white-space: nowrap;\n  opacity: 0;\n  visibility: hidden;\n  transition: all 0.3s ease;\n  z-index: 20;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n}\n.tooltip::after {\n  content: "";\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  border: 6px solid transparent;\n  border-top-color: rgba(0, 0, 0, 0.95);\n}\n.hero-social {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n}\n.social-link {\n  width: 60px;\n  height: 60px;\n  border-radius: 50%;\n  background: var(--apple-glass);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--white);\n  font-size: var(--text-xl);\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n.social-link:hover {\n  transform: translateY(-4px);\n  background: rgba(255, 255, 255, 0.2);\n  box-shadow: var(--shadow-xl);\n  color: var(--white);\n}\n.scroll-indicator {\n  position: absolute;\n  bottom: var(--space-8);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 2;\n}\n.scroll-arrow {\n  width: 30px;\n  height: 30px;\n  border: 2px solid var(--white);\n  border-top: none;\n  border-left: none;\n  transform: rotate(45deg);\n  animation: bounce 2s infinite;\n}\n@keyframes bounce {\n  0%, 20%, 50%, 80%, 100% {\n    transform: translateY(0) rotate(45deg);\n  }\n  40% {\n    transform: translateY(-10px) rotate(45deg);\n  }\n  60% {\n    transform: translateY(-5px) rotate(45deg);\n  }\n}\n@media (max-width: 768px) {\n  .hero-title {\n    font-size: var(--text-5xl);\n  }\n  .hero-subtitle {\n    font-size: var(--text-xl);\n  }\n  .hero-description {\n    font-size: var(--text-base);\n  }\n  .hero-actions {\n    flex-direction: column;\n    align-items: center;\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n    width: 100%;\n  }\n  .hero-actions > * {\n    width: 100%;\n    max-width: 280px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n  }\n  .hero-actions .apple-btn {\n    width: 100%;\n    max-width: 280px;\n    margin: 0;\n  }\n  .document-radial {\n    width: 100% !important;\n    max-width: 280px !important;\n    height: auto;\n    margin: 0 !important;\n  }\n  .document-radial.expanded {\n    margin: 0 !important;\n    width: 100% !important;\n    max-width: 280px !important;\n  }\n  .document-radial .document-center {\n    width: 100% !important;\n    max-width: 280px !important;\n    min-width: auto !important;\n    margin: 0 !important;\n  }\n  .document-radial .document-resume.show {\n    transform: translate(-50%, -50%) translateX(90px) translateY(-35px) scale(0.9);\n  }\n  .document-radial .document-cover.show {\n    transform: translate(-50%, -50%) translateX(90px) translateY(35px) scale(0.9);\n  }\n  .hero-social {\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n  }\n  .social-link {\n    width: 50px;\n    height: 50px;\n    font-size: var(--text-lg);\n  }\n  .hero-profile-image {\n    margin-bottom: var(--space-6);\n  }\n  .image-container {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container img {\n    width: 150px;\n    height: 150px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow {\n    width: 170px;\n    height: 170px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.3 !important;\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text,\n  .hero-actions,\n  .hero-social {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .hero-title {\n    font-size: var(--text-4xl);\n  }\n  .hero-subtitle {\n    font-size: var(--text-lg);\n  }\n  .hero-description {\n    font-size: var(--text-sm);\n    padding: 0 var(--space-4);\n  }\n  .hero-actions {\n    padding: 0 var(--space-4);\n  }\n  .hero-actions .apple-btn {\n    width: 100%;\n    max-width: 250px;\n    font-size: var(--text-sm);\n    padding: var(--space-3) var(--space-4);\n  }\n  .hero-social {\n    padding: 0 var(--space-4);\n  }\n  .social-link {\n    width: 45px;\n    height: 45px;\n    font-size: var(--text-base);\n  }\n  .image-container {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container img {\n    width: 120px;\n    height: 120px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow {\n    width: 140px;\n    height: 140px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.2 !important;\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text,\n  .hero-actions,\n  .hero-social {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */\n'] }]
+    args: [{ selector: "app-intro", standalone: true, template: '<div class="apple-hero">\n  <!-- Animated background elements -->\n  <div class="hero-background" data-parallax="0.15">\n    <div class="floating-shapes">\n      <div class="shape shape-1 apple-float"></div>\n      <div class="shape shape-2 apple-float-delay"></div>\n      <div class="shape shape-3 apple-float-slow"></div>\n      <div class="shape shape-4 apple-float"></div>\n      <div class="shape shape-5 apple-float-delay"></div>\n    </div>\n    <div class="gradient-overlay"></div>\n  </div>\n\n  <div class="apple-container">\n    <div class="hero-content">\n      <!-- Profile Image with Apple-style design -->\n      <div class="hero-profile-image apple-hero-anim">\n        <div class="image-container apple-glow">\n          <img alt="Ankit Sharma" src="./assets/images/ankit.png"/>\n          <div class="image-glow"></div>\n        </div>\n      </div>\n      \n      <!-- Hero Text -->\n      <div class="hero-text">\n        <h1 class="hero-title apple-text-display apple-hero-anim" data-text-reveal>\n          Ankit Sharma\n        </h1>\n        <p class="hero-subtitle apple-text-body apple-hero-anim">\n          Backend Engineer @ Salesforce | Distributed Systems, Real-time Processing & AI Tools\n        </p>\n        <p class="hero-experience apple-text-body apple-hero-anim">\n          6+ years | Java \xB7 Kafka \xB7 Redis \xB7 AWS | Salesforce \xB7 ex-Games24x7 \xB7 ex-Walmart\n        </p>\n      </div>\n      \n      <!-- Action Buttons -->\n      <div class="hero-actions apple-hero-anim">\n        <a class="apple-btn apple-btn-primary" href="#contact">\n          <i class="fas fa-paper-plane"></i>\n          Get In Touch\n        </a>\n        <div class="document-radial" [class.expanded]="showDocumentDropdown">\n          <button class="apple-btn apple-btn-primary document-center" \n                  (click)="toggleDocumentDropdown($event)"\n                  [class.active]="showDocumentDropdown">\n            <i class="fas fa-download center-icon"></i>\n            <span class="center-text">Download Documents</span>\n          </button>\n          \n          <!-- Radial Document Options -->\n          <a [href]="documentLinks.resume"\n             target="_blank" \n             class="document-option document-resume"\n             [class.show]="showDocumentDropdown">\n            <i class="fas fa-file-alt"></i>\n            <span class="tooltip">Resume</span>\n          </a>\n          \n          <a [href]="documentLinks.coverLetter"\n             target="_blank" \n             class="document-option document-cover"\n             [class.show]="showDocumentDropdown">\n            <i class="fas fa-envelope"></i>\n            <span class="tooltip">Cover Letter</span>\n          </a>\n        </div>\n      </div>\n      \n      <!-- Social Links -->\n      <div class="hero-social apple-hero-anim">\n        <a class="social-link" [href]="socialLinks.linkedin" \n           target="_blank" title="Connect on LinkedIn">\n          <i class="fab fa-linkedin"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.github"\n           target="_blank" title="View GitHub Profile">\n          <i class="fab fa-github"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.stackOverflow" \n           target="_blank" title="Stack Overflow Profile">\n          <i class="fab fa-stack-overflow"></i>\n        </a>\n      </div>\n    </div>\n  </div>\n  \n  <!-- Scroll indicator -->\n  <div class="scroll-indicator">\n    <div class="scroll-arrow"></div>\n  </div>\n</div>\n', styles: ['/* src/app/profile/intro/intro.component.scss */\n.apple-hero {\n  min-height: 100vh;\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  background: var(--gradient-dark);\n}\n.hero-background {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n}\n.floating-shapes {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.shape {\n  position: absolute;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.1);\n  backdrop-filter: blur(10px);\n  animation: float 6s ease-in-out infinite;\n  display: block !important;\n  visibility: visible !important;\n  opacity: 0.3 !important;\n}\n.shape-1 {\n  width: 80px;\n  height: 80px;\n  top: 20%;\n  left: 10%;\n  animation-delay: 0s;\n  background: rgba(102, 126, 234, 0.2);\n}\n.shape-2 {\n  width: 120px;\n  height: 120px;\n  top: 60%;\n  right: 15%;\n  animation-delay: 2s;\n  background: rgba(118, 75, 162, 0.2);\n}\n.shape-3 {\n  width: 60px;\n  height: 60px;\n  top: 80%;\n  left: 20%;\n  animation-delay: 4s;\n  background: rgba(245, 87, 108, 0.2);\n}\n.shape-4 {\n  width: 100px;\n  height: 100px;\n  top: 30%;\n  right: 30%;\n  animation-delay: 1s;\n  background: rgba(240, 147, 251, 0.2);\n}\n.shape-5 {\n  width: 40px;\n  height: 40px;\n  top: 10%;\n  right: 60%;\n  animation-delay: 3s;\n  background: rgba(79, 172, 254, 0.2);\n}\n@keyframes float {\n  0%, 100% {\n    transform: translateY(0px) rotate(0deg) scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: translateY(-15px) rotate(90deg) scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: translateY(-20px) rotate(180deg) scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: translateY(-15px) rotate(270deg) scale(1.05);\n    opacity: 0.4;\n  }\n}\n.gradient-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.3;\n}\n.hero-content {\n  position: relative;\n  z-index: 2;\n  text-align: center;\n  color: var(--white);\n  max-width: 800px;\n  margin: 0 auto;\n  padding: 0 var(--space-6);\n}\n.hero-profile-image {\n  margin-bottom: var(--space-12);\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n}\n.image-container {\n  position: relative;\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n}\n.image-container::before {\n  content: "";\n  position: absolute;\n  top: -20px;\n  left: -20px;\n  right: -20px;\n  bottom: -20px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  opacity: 0.3;\n  animation: heartbeat 2s ease-in-out infinite;\n}\n.image-container::after {\n  content: "";\n  position: absolute;\n  top: -40px;\n  left: -40px;\n  right: -40px;\n  bottom: -40px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--accent-purple),\n      var(--accent-pink));\n  opacity: 0.2;\n  animation: heartbeat 2s ease-in-out infinite 0.5s;\n}\n.image-container img {\n  width: 200px;\n  height: 200px;\n  border-radius: 50%;\n  border: 6px solid var(--white);\n  box-shadow: var(--shadow-2xl);\n  position: relative;\n  z-index: 2;\n  transition: all var(--transition-normal);\n  display: block !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n  object-fit: cover;\n}\n.image-container img:hover {\n  transform: scale(1.05);\n  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n}\n.image-glow {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 220px;\n  height: 220px;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      rgba(255, 255, 255, 0.2) 0%,\n      transparent 70%);\n  animation: glow 3s ease-in-out infinite alternate;\n}\n@keyframes heartbeat {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 0.3;\n  }\n  25% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n  50% {\n    transform: scale(1.1);\n    opacity: 0.5;\n  }\n  75% {\n    transform: scale(1.05);\n    opacity: 0.4;\n  }\n}\n@keyframes glow {\n  0% {\n    opacity: 0.3;\n    transform: translate(-50%, -50%) scale(1);\n  }\n  100% {\n    opacity: 0.6;\n    transform: translate(-50%, -50%) scale(1.1);\n  }\n}\n.hero-text {\n  margin-bottom: var(--space-12);\n}\n.hero-title {\n  font-size: var(--text-8xl);\n  font-weight: var(--font-extrabold);\n  margin-bottom: var(--space-6);\n  color: var(--text-primary);\n  text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);\n  letter-spacing: -0.02em;\n  line-height: 0.9;\n}\n.hero-subtitle {\n  font-size: var(--text-2xl);\n  font-weight: var(--font-medium);\n  margin-bottom: var(--space-4);\n  opacity: 0.95;\n  color: var(--white);\n}\n.hero-experience {\n  font-size: var(--text-lg);\n  opacity: 0.9;\n  color: var(--white);\n  margin-bottom: var(--space-6);\n  font-weight: var(--font-medium);\n}\n.hero-achievements-container {\n  max-width: 600px;\n  margin: 0 auto;\n}\n.achievements-toggle {\n  background: rgba(255, 255, 255, 0.1);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  border-radius: var(--radius-lg);\n  padding: var(--space-3) var(--space-6);\n  color: var(--white);\n  font-size: var(--text-base);\n  font-weight: var(--font-medium);\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n  margin: 0 auto;\n}\n.achievements-toggle:hover {\n  background: rgba(255, 255, 255, 0.15);\n  border-color: rgba(255, 255, 255, 0.3);\n  transform: translateY(-1px);\n}\n.achievements-toggle.expanded {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  border-bottom-color: transparent;\n}\n.toggle-text {\n  font-weight: var(--font-medium);\n}\n.toggle-icon {\n  font-size: var(--text-sm);\n  transition: transform var(--transition-normal);\n}\n.toggle-icon.expanded {\n  transform: rotate(180deg);\n}\n.hero-achievements {\n  max-width: 600px;\n  margin: 0 auto;\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-top: none;\n  border-radius: 0 0 var(--radius-lg) var(--radius-lg);\n  padding: 0;\n  backdrop-filter: blur(20px);\n  max-height: 0;\n  overflow: hidden;\n  transition: all var(--transition-normal);\n  opacity: 0;\n  border-color: transparent;\n}\n.hero-achievements.show {\n  max-height: 300px;\n  padding: var(--space-6);\n  opacity: 1;\n  border-color: rgba(255, 255, 255, 0.1);\n}\n.achievement {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--space-4);\n  margin-bottom: var(--space-4);\n  font-size: var(--text-base);\n  line-height: 1.5;\n  opacity: 0.9;\n  color: var(--white);\n}\n.achievement:last-child {\n  margin-bottom: 0;\n}\n.achievement-icon {\n  font-size: var(--text-lg);\n  margin-top: 2px;\n  flex-shrink: 0;\n  animation: achievementGlow 2s ease-in-out infinite;\n}\n@keyframes achievementGlow {\n  0%, 100% {\n    opacity: 0.8;\n    transform: scale(1);\n  }\n  50% {\n    opacity: 1;\n    transform: scale(1.1);\n  }\n}\n.hero-actions {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n  margin-bottom: var(--space-12);\n  flex-wrap: wrap;\n  align-items: center;\n}\n.hero-actions .apple-btn {\n  padding: var(--space-4) var(--space-8);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  min-width: 180px;\n}\n.hero-actions .apple-btn i {\n  margin-right: var(--space-2);\n}\n.document-radial {\n  position: relative;\n  display: inline-block;\n  width: auto;\n  height: auto;\n  z-index: 200;\n}\n.document-radial.expanded {\n  margin-right: 80px;\n}\n.document-center {\n  position: relative;\n  cursor: pointer;\n  min-width: 180px;\n  padding: var(--space-4) var(--space-8);\n  font-size: var(--text-lg);\n  font-weight: var(--font-semibold);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: var(--space-2);\n  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);\n  z-index: 1;\n}\n.document-center.active {\n  transform: scale(0.95);\n  z-index: 1;\n}\n.document-center.active .center-icon {\n  transform: rotate(180deg);\n}\n.document-center.active .center-text {\n  opacity: 0.8;\n}\n.document-center .center-icon {\n  transition: transform 0.3s ease;\n}\n.document-center .center-text {\n  transition: opacity 0.3s ease;\n}\n.document-option {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 55px;\n  height: 55px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.15);\n  backdrop-filter: blur(20px);\n  border: 2px solid rgba(255, 255, 255, 0.3);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: white;\n  text-decoration: none;\n  opacity: 0;\n  visibility: hidden;\n  transform: translate(-50%, -50%) scale(0.5);\n  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);\n  z-index: 10;\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);\n}\n.document-option:hover {\n  background: rgba(255, 255, 255, 0.25);\n  border-color: rgba(255, 255, 255, 0.5);\n  transform: translate(-50%, -50%) scale(1.15);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);\n  z-index: 11;\n}\n.document-option:hover .tooltip {\n  opacity: 1;\n  visibility: visible;\n  transform: translateY(-10px);\n}\n.document-option.show {\n  opacity: 1;\n  visibility: visible;\n  transform: translate(-50%, -50%) scale(1);\n  z-index: 10;\n}\n.document-option i {\n  font-size: 1.3rem;\n  color: white;\n}\n.document-resume.show {\n  transform: translate(-50%, -50%) translateX(130px) translateY(-40px) scale(1);\n  transition-delay: 0.1s;\n}\n.document-cover.show {\n  transform: translate(-50%, -50%) translateX(130px) translateY(40px) scale(1);\n  transition-delay: 0.2s;\n}\n.tooltip {\n  position: absolute;\n  top: -45px;\n  left: 50%;\n  transform: translateX(-50%) translateY(10px);\n  background: rgba(0, 0, 0, 0.95);\n  color: white;\n  padding: 8px 14px;\n  border-radius: 8px;\n  font-size: 0.85rem;\n  font-weight: 600;\n  white-space: nowrap;\n  opacity: 0;\n  visibility: hidden;\n  transition: all 0.3s ease;\n  z-index: 20;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n}\n.tooltip::after {\n  content: "";\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  border: 6px solid transparent;\n  border-top-color: rgba(0, 0, 0, 0.95);\n}\n.hero-social {\n  display: flex;\n  gap: var(--space-6);\n  justify-content: center;\n}\n.social-link {\n  width: 60px;\n  height: 60px;\n  border-radius: 50%;\n  background: var(--apple-glass);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--white);\n  font-size: var(--text-xl);\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(20px);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n}\n.social-link:hover {\n  transform: translateY(-4px);\n  background: rgba(255, 255, 255, 0.2);\n  box-shadow: var(--shadow-xl);\n  color: var(--white);\n}\n.scroll-indicator {\n  position: absolute;\n  bottom: var(--space-8);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 2;\n}\n.scroll-arrow {\n  width: 30px;\n  height: 30px;\n  border: 2px solid var(--white);\n  border-top: none;\n  border-left: none;\n  transform: rotate(45deg);\n  animation: bounce 2s infinite;\n}\n@keyframes bounce {\n  0%, 20%, 50%, 80%, 100% {\n    transform: translateY(0) rotate(45deg);\n  }\n  40% {\n    transform: translateY(-10px) rotate(45deg);\n  }\n  60% {\n    transform: translateY(-5px) rotate(45deg);\n  }\n}\n@media (max-width: 768px) {\n  .hero-title {\n    font-size: var(--text-5xl);\n  }\n  .hero-subtitle {\n    font-size: var(--text-xl);\n  }\n  .hero-description {\n    font-size: var(--text-base);\n  }\n  .hero-actions {\n    flex-direction: column;\n    align-items: center;\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n    width: 100%;\n  }\n  .hero-actions > * {\n    width: 100%;\n    max-width: 280px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n  }\n  .hero-actions .apple-btn {\n    width: 100%;\n    max-width: 280px;\n    margin: 0;\n  }\n  .document-radial {\n    width: 100% !important;\n    max-width: 280px !important;\n    height: auto;\n    margin: 0 !important;\n  }\n  .document-radial.expanded {\n    margin: 0 !important;\n    width: 100% !important;\n    max-width: 280px !important;\n  }\n  .document-radial .document-center {\n    width: 100% !important;\n    max-width: 280px !important;\n    min-width: auto !important;\n    margin: 0 !important;\n  }\n  .document-radial .document-resume.show {\n    transform: translate(-50%, -50%) translateX(90px) translateY(-35px) scale(0.9);\n  }\n  .document-radial .document-cover.show {\n    transform: translate(-50%, -50%) translateX(90px) translateY(35px) scale(0.9);\n  }\n  .hero-social {\n    gap: var(--space-4);\n    margin-top: var(--space-6);\n  }\n  .social-link {\n    width: 50px;\n    height: 50px;\n    font-size: var(--text-lg);\n  }\n  .hero-profile-image {\n    margin-bottom: var(--space-6);\n  }\n  .image-container {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container img {\n    width: 150px;\n    height: 150px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow {\n    width: 170px;\n    height: 170px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.3 !important;\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text,\n  .hero-actions,\n  .hero-social {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .hero-title {\n    font-size: var(--text-4xl);\n  }\n  .hero-subtitle {\n    font-size: var(--text-lg);\n  }\n  .hero-description {\n    font-size: var(--text-sm);\n    padding: 0 var(--space-4);\n  }\n  .hero-actions {\n    padding: 0 var(--space-4);\n  }\n  .hero-actions .apple-btn {\n    width: 100%;\n    max-width: 250px;\n    font-size: var(--text-sm);\n    padding: var(--space-3) var(--space-4);\n  }\n  .hero-social {\n    padding: 0 var(--space-4);\n  }\n  .social-link {\n    width: 45px;\n    height: 45px;\n    font-size: var(--text-base);\n  }\n  .image-container {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-container img {\n    width: 120px;\n    height: 120px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .image-glow {\n    width: 140px;\n    height: 140px;\n    display: block !important;\n    visibility: visible !important;\n    opacity: 1 !important;\n  }\n  .floating-shapes {\n    display: block !important;\n    visibility: visible !important;\n  }\n  .shape {\n    display: block !important;\n    visibility: visible !important;\n    opacity: 0.2 !important;\n  }\n  .apple-fade-in,\n  .apple-slide-up,\n  .apple-scale-in {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .hero-text,\n  .hero-actions,\n  .hero-social {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
@@ -32298,61 +32152,62 @@ var AboutComponent = class _AboutComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AboutComponent, selectors: [["app-about"]], decls: 47, vars: 0, consts: [["id", "about", 1, "apple-section"], [1, "apple-container"], [1, "about-content"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-anim", "fade-up", "data-delay", "200", 1, "section-subtitle", "apple-text-body"], [1, "about-grid"], ["data-anim", "blur", "data-delay", "100", 1, "about-text", "apple-card"], [1, "card-content"], ["data-stagger", "120", 1, "about-description"], [1, "apple-text-body"]], template: function AboutComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AboutComponent, selectors: [["app-about"]], decls: 48, vars: 0, consts: [["id", "about", 1, "apple-section"], [1, "apple-container"], [1, "about-content"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-anim", "fade-up", "data-delay", "200", 1, "section-subtitle", "apple-text-body"], [1, "about-grid"], ["data-anim", "blur", "data-delay", "100", 1, "about-text", "apple-card"], [1, "card-content"], ["data-stagger", "120", 1, "about-description"], [1, "apple-text-body"]], template: function AboutComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3)(4, "h2", 4);
         \u0275\u0275text(5, "About Me");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(6, "p", 5);
-        \u0275\u0275text(7, "Passionate about creating innovative digital solutions");
+        \u0275\u0275text(7, "Backend engineer who builds systems that scale");
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(8, "div", 6)(9, "div", 7)(10, "div", 8)(11, "div", 9)(12, "p", 10);
-        \u0275\u0275text(13, " \u{1F4BB} I'm a ");
+        \u0275\u0275text(13, " I'm a ");
         \u0275\u0275domElementStart(14, "strong");
-        \u0275\u0275text(15, "passionate software developer");
+        \u0275\u0275text(15, "backend engineer with 6+ years of experience");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(16, " with ");
+        \u0275\u0275text(16, " building high-throughput, distributed systems. Currently ");
         \u0275\u0275domElementStart(17, "strong");
-        \u0275\u0275text(18, "6+ years of experience");
+        \u0275\u0275text(18, "SMTS at Salesforce");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(19, " in building innovative digital solutions. Currently working as ");
+        \u0275\u0275text(19, ". Previously at ");
         \u0275\u0275domElementStart(20, "strong");
-        \u0275\u0275text(21, "Senior Member of Technical Staff (SMTS) at Salesforce");
+        \u0275\u0275text(21, "Games24x7");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(22, ", where I'm exploring enterprise cloud solutions and contributing to cutting-edge platform development. ");
+        \u0275\u0275text(22, ", where I built systems that handled ");
+        \u0275\u0275domElementStart(23, "strong");
+        \u0275\u0275text(24, "2.7K RPS during IPL");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(23, "p", 10);
-        \u0275\u0275text(24, " \u{1F680} My technical passion lies in ");
-        \u0275\u0275domElementStart(25, "strong");
-        \u0275\u0275text(26, "backend development");
+        \u0275\u0275text(25, " and processed ");
+        \u0275\u0275domElementStart(26, "strong");
+        \u0275\u0275text(27, "200K+ KYC verifications daily");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(27, " and ");
-        \u0275\u0275domElementStart(28, "strong");
-        \u0275\u0275text(29, "Large Language Models (LLMs)");
+        \u0275\u0275text(28, ". ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(30, ". I love diving deep into complex systems, optimizing performance, and creating scalable architectures that can handle real-world challenges. ");
+        \u0275\u0275domElementStart(29, "p", 10);
+        \u0275\u0275text(30, " I specialize in ");
+        \u0275\u0275domElementStart(31, "strong");
+        \u0275\u0275text(32, "event-driven architectures");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(31, "p", 10);
-        \u0275\u0275text(32, " \u{1F30D} Beyond coding, I'm an ");
-        \u0275\u0275domElementStart(33, "strong");
-        \u0275\u0275text(34, "avid traveler and adventure seeker");
+        \u0275\u0275text(33, " (Kafka, RabbitMQ), ");
+        \u0275\u0275domElementStart(34, "strong");
+        \u0275\u0275text(35, "real-time fraud detection");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(35, " who thrives on challenges. I've completed ");
-        \u0275\u0275domElementStart(36, "strong");
-        \u0275\u0275text(37, "solo trips across 7 countries");
+        \u0275\u0275text(36, " with ML pipelines, and ");
+        \u0275\u0275domElementStart(37, "strong");
+        \u0275\u0275text(38, "platform infrastructure");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(38, ", embracing new cultures and pushing my boundaries. This same spirit of exploration and resilience translates into my work - I approach every technical challenge with curiosity, determination, and a drive to find elegant solutions. ");
+        \u0275\u0275text(39, " that other teams build on. I've also published ");
+        \u0275\u0275domElementStart(40, "strong");
+        \u0275\u0275text(41, "8 open-source packages");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(39, "p", 10);
-        \u0275\u0275text(40, " \u{1F4C8} I believe in ");
-        \u0275\u0275domElementStart(41, "strong");
-        \u0275\u0275text(42, "continuous learning and growth");
+        \u0275\u0275text(42, " on NPM and Maven Central \u2014 developer tools for observability, tracing, and event loop diagnostics. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(43, ", both professionally and personally. Every day is an opportunity to become a better developer, problem solver, and human being. My goal is to create applications that not only solve problems but also make a ");
-        \u0275\u0275domElementStart(44, "strong");
-        \u0275\u0275text(45, "meaningful impact");
+        \u0275\u0275domElementStart(43, "p", 10);
+        \u0275\u0275text(44, " Outside engineering, I've solo-traveled ");
+        \u0275\u0275domElementStart(45, "strong");
+        \u0275\u0275text(46, "7 countries");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(46, " on people's lives. ");
+        \u0275\u0275text(47, " \u2014 the same instinct for navigating unfamiliar territory applies to how I approach complex technical problems: figure out the constraints, move fast, adapt. ");
         \u0275\u0275domElementEnd()()()()()()()();
       }
     }, styles: ['\n\n.about-content[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  color: var(--text-secondary);\n  max-width: 600px;\n  margin: 0 auto;\n}\n.about-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr;\n  gap: var(--space-4);\n  margin-top: var(--space-6);\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.about-text[_ngcontent-%COMP%], \n.personal-info[_ngcontent-%COMP%] {\n  padding: var(--space-4);\n  border-radius: var(--radius-xl);\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  backdrop-filter: blur(20px);\n  -webkit-backdrop-filter: blur(20px);\n  box-shadow: var(--glass-shadow);\n  transition: all var(--transition-normal);\n  position: relative;\n  overflow: hidden;\n}\n.about-text[_ngcontent-%COMP%]::before, \n.personal-info[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 3px;\n  background: var(--gradient-primary);\n}\n.about-text[_ngcontent-%COMP%]:hover, \n.personal-info[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.card-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 1;\n}\n.about-icon[_ngcontent-%COMP%], \n.info-icon[_ngcontent-%COMP%] {\n  width: 40px;\n  height: 40px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      45deg,\n      var(--primary-blue),\n      var(--accent-purple));\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-bottom: var(--space-3);\n  color: var(--white);\n  font-size: var(--text-base);\n  box-shadow: var(--shadow-sm);\n}\n.about-heading[_ngcontent-%COMP%], \n.info-heading[_ngcontent-%COMP%] {\n  font-size: var(--text-lg);\n  margin-bottom: var(--space-3);\n  color: var(--text-primary);\n  font-weight: var(--font-semibold);\n}\n.about-description[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin-bottom: var(--space-4);\n  line-height: 1.7;\n  color: var(--text-secondary);\n  font-size: var(--text-base);\n  font-weight: 400;\n  text-align: justify;\n  letter-spacing: 0.01em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    "Segoe UI",\n    Roboto,\n    "Helvetica Neue",\n    Arial,\n    sans-serif;\n}\n.about-description[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.about-description[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n}\n.about-description[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.about-description[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);\n}\n.about-description[_ngcontent-%COMP%] {\n}\n.about-description[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]    + p[_ngcontent-%COMP%] {\n  margin-top: var(--space-3);\n}\n.info-grid[_ngcontent-%COMP%] {\n  display: grid;\n  gap: var(--space-2);\n}\n.info-item[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: var(--space-1);\n  padding: var(--space-2);\n  border-radius: var(--radius-md);\n  background: var(--bg-secondary);\n  transition: all var(--transition-normal);\n}\n.info-item[_ngcontent-%COMP%]:hover {\n  background: var(--bg-tertiary);\n  transform: translateX(2px);\n}\n.info-label[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: var(--space-1);\n  color: var(--text-tertiary);\n  font-size: var(--text-xs);\n}\n.info-label[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: var(--primary-blue);\n  width: 14px;\n}\n.info-value[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: var(--font-medium);\n  font-size: var(--text-sm);\n}\n.info-link[_ngcontent-%COMP%] {\n  color: var(--primary-blue);\n  text-decoration: none;\n  transition: all var(--transition-normal);\n}\n.info-link[_ngcontent-%COMP%]:hover {\n  color: var(--primary-blue-dark);\n  text-decoration: underline;\n}\n@media (max-width: 768px) {\n  .about-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--space-3);\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: var(--text-3xl);\n  }\n  .section-subtitle[_ngcontent-%COMP%] {\n    font-size: var(--text-base);\n  }\n  .about-text[_ngcontent-%COMP%], \n   .personal-info[_ngcontent-%COMP%] {\n    padding: var(--space-3);\n  }\n  .about-heading[_ngcontent-%COMP%], \n   .info-heading[_ngcontent-%COMP%] {\n    font-size: var(--text-base);\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .section-header[_ngcontent-%COMP%], \n   .about-text[_ngcontent-%COMP%], \n   .about-content[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n@media (max-width: 480px) {\n  .section-title[_ngcontent-%COMP%] {\n    font-size: var(--text-2xl);\n  }\n  .about-text[_ngcontent-%COMP%], \n   .personal-info[_ngcontent-%COMP%] {\n    padding: var(--space-2);\n  }\n  .about-icon[_ngcontent-%COMP%], \n   .info-icon[_ngcontent-%COMP%] {\n    width: 35px;\n    height: 35px;\n    font-size: var(--text-sm);\n  }\n  .apple-fade-in[_ngcontent-%COMP%], \n   .apple-slide-up[_ngcontent-%COMP%], \n   .apple-scale-in[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n  .section-header[_ngcontent-%COMP%], \n   .about-text[_ngcontent-%COMP%], \n   .about-content[_ngcontent-%COMP%] {\n    opacity: 1 !important;\n    transform: none !important;\n    transition: none !important;\n  }\n}\n/*# sourceMappingURL=about.component.css.map */'] });
@@ -32367,7 +32222,7 @@ var AboutComponent = class _AboutComponent {
       <!-- Section Header -->
       <div class="section-header" data-anim="fade-up">
         <h2 class="section-title apple-text-display" data-text-reveal>About Me</h2>
-        <p class="section-subtitle apple-text-body" data-anim="fade-up" data-delay="200">Passionate about creating innovative digital solutions</p>
+        <p class="section-subtitle apple-text-body" data-anim="fade-up" data-delay="200">Backend engineer who builds systems that scale</p>
       </div>
       
       <div class="about-grid">
@@ -32376,21 +32231,18 @@ var AboutComponent = class _AboutComponent {
           <div class="card-content">
             <div class="about-description" data-stagger="120">
               <p class="apple-text-body">
-                \u{1F4BB} I'm a <strong>passionate software developer</strong> with <strong>6+ years of experience</strong> in building innovative digital solutions. 
-                Currently working as <strong>Senior Member of Technical Staff (SMTS) at Salesforce</strong>, where I'm exploring enterprise cloud solutions and contributing to cutting-edge platform development.
+                I'm a <strong>backend engineer with 6+ years of experience</strong> building high-throughput, distributed systems.
+                Currently <strong>SMTS at Salesforce</strong>. Previously at <strong>Games24x7</strong>, where I built systems that handled
+                <strong>2.7K RPS during IPL</strong> and processed <strong>200K+ KYC verifications daily</strong>.
               </p>
               <p class="apple-text-body">
-                \u{1F680} My technical passion lies in <strong>backend development</strong> and <strong>Large Language Models (LLMs)</strong>. I love diving deep into complex systems, 
-                optimizing performance, and creating scalable architectures that can handle real-world challenges.
+                I specialize in <strong>event-driven architectures</strong> (Kafka, RabbitMQ), <strong>real-time fraud detection</strong> with ML pipelines,
+                and <strong>platform infrastructure</strong> that other teams build on. I've also published <strong>8 open-source packages</strong> on NPM and Maven Central
+                \u2014 developer tools for observability, tracing, and event loop diagnostics.
               </p>
               <p class="apple-text-body">
-                \u{1F30D} Beyond coding, I'm an <strong>avid traveler and adventure seeker</strong> who thrives on challenges. I've completed <strong>solo trips across 7 countries</strong>, 
-                embracing new cultures and pushing my boundaries. This same spirit of exploration and resilience translates into my work - 
-                I approach every technical challenge with curiosity, determination, and a drive to find elegant solutions.
-              </p>
-              <p class="apple-text-body">
-                \u{1F4C8} I believe in <strong>continuous learning and growth</strong>, both professionally and personally. Every day is an opportunity to become a better developer, 
-                problem solver, and human being. My goal is to create applications that not only solve problems but also make a <strong>meaningful impact</strong> on people's lives.
+                Outside engineering, I've solo-traveled <strong>7 countries</strong> \u2014 the same instinct for navigating unfamiliar territory applies to
+                how I approach complex technical problems: figure out the constraints, move fast, adapt.
               </p>
             </div>
           </div>
@@ -37694,12 +37546,12 @@ var EXPERIENCE_ITEMS = [
     location: "Hybrid in Hyderabad, India",
     duration: "Current",
     period: "2025 - Present",
-    description: "Senior Member of Technical Staff role at Salesforce, exploring new challenges and opportunities in enterprise cloud solutions.",
-    technologies: ["Salesforce Platform", "Apex", "Lightning", "Java", "Cloud Technologies"],
+    description: "Senior Member of Technical Staff working on Salesforce platform infrastructure and cloud-native services.",
+    technologies: ["Java", "Salesforce Platform", "Apex", "Lightning", "Microservices", "Cloud Infrastructure"],
     achievements: [
-      "Still exploring and learning the Salesforce ecosystem",
-      "Transitioning into enterprise cloud solutions",
-      "Working on scalable cloud-based applications"
+      "Contributing to core platform services powering Salesforce's enterprise cloud",
+      "Designing and building scalable backend systems for multi-tenant architecture",
+      "Driving engineering best practices and code quality across the team"
     ]
   },
   {
@@ -37748,13 +37600,12 @@ var EXPERIENCE_ITEMS = [
     location: "Bangalore, India",
     duration: "4 months",
     period: "2021",
-    description: "Worked as Fullstack developer with Java as Backend and Angular as Frontend. Worked on Annual Enrollment for Walmart Employees to avail health benefits - life insurance, dental coverage, health insurance for year 2022.",
-    technologies: ["Java 8", "JSP", "WCNP", "OneOps", "Jenkins", "Angular"],
+    description: "Built features for Walmart's Annual Enrollment platform \u2014 the system employees use to enroll in health benefits (life insurance, dental, health coverage) for 2.2M+ associates.",
+    technologies: ["Java 8", "Angular", "JSP", "OneOps", "WCNP", "Jenkins"],
     achievements: [
-      "Worked on Walmart's own cloud OneOps and WCNP",
-      "Collaborated with global teams across different time zones",
-      "Gained experience of Retail projects",
-      "Developed features for Walmart's e-commerce platform"
+      "Developed enrollment features serving 2.2M+ Walmart associates across the US",
+      "Built on Walmart's private cloud (OneOps/WCNP) with CI/CD via Jenkins",
+      "Shipped production code within first month, collaborating across US and India teams"
     ]
   },
   {
@@ -40024,11 +39875,11 @@ var SkillsComponent = class _SkillsComponent {
 
 // src/app/profile/publications/publications.component.ts
 var _c04 = (a0, a1) => ({ "npm-badges": a0, "maven-badges": a1 });
-function PublicationsComponent_For_128_Template(rf, ctx) {
+function PublicationsComponent_For_318_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 34);
-    \u0275\u0275listener("click", function PublicationsComponent_For_128_Template_button_click_0_listener() {
+    \u0275\u0275elementStart(0, "button", 47);
+    \u0275\u0275listener("click", function PublicationsComponent_For_318_Template_button_click_0_listener() {
       const category_r2 = \u0275\u0275restoreView(_r1).$implicit;
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.filterByCategory(category_r2));
@@ -40038,94 +39889,99 @@ function PublicationsComponent_For_128_Template(rf, ctx) {
   }
   if (rf & 2) {
     const category_r2 = ctx.$implicit;
-    const \u0275$index_209_r4 = ctx.$index;
+    const \u0275$index_510_r4 = ctx.$index;
     const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275classProp("active", ctx_r2.selectedCategory === category_r2);
-    \u0275\u0275attribute("data-aos-delay", (\u0275$index_209_r4 + 1) * 100);
+    \u0275\u0275attribute("data-aos-delay", (\u0275$index_510_r4 + 1) * 100);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate1(" ", category_r2, " ");
   }
 }
-function PublicationsComponent_For_131_Conditional_13_Template(rf, ctx) {
+function PublicationsComponent_For_321_Conditional_15_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 36);
+    \u0275\u0275element(0, "img", 50);
   }
   if (rf & 2) {
     const project_r5 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r5.badges.version, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_131_Conditional_14_Template(rf, ctx) {
+function PublicationsComponent_For_321_Conditional_16_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 37);
+    \u0275\u0275element(0, "img", 51);
   }
   if (rf & 2) {
     const project_r5 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r5.badges.downloads, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_131_Conditional_15_Template(rf, ctx) {
+function PublicationsComponent_For_321_Conditional_17_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 38);
+    \u0275\u0275element(0, "img", 52);
   }
   if (rf & 2) {
     const project_r5 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r5.badges.total, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_131_Conditional_16_Template(rf, ctx) {
+function PublicationsComponent_For_321_Conditional_18_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 39);
+    \u0275\u0275element(0, "img", 53);
   }
   if (rf & 2) {
     const project_r5 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r5.badges.java, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_131_Template(rf, ctx) {
+function PublicationsComponent_For_321_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 33)(1, "div", 11)(2, "div", 12)(3, "span", 13);
+    \u0275\u0275elementStart(0, "div", 46)(1, "div", 24)(2, "div", 25)(3, "span", 26);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 14);
+    \u0275\u0275elementStart(5, "span", 27);
     \u0275\u0275text(6, "Published Package");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "h5", 15);
+    \u0275\u0275elementStart(7, "h5", 28);
     \u0275\u0275text(8);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "p", 16);
+    \u0275\u0275elementStart(9, "p", 48);
     \u0275\u0275text(10);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "div", 17)(12, "div", 35);
-    \u0275\u0275conditionalCreate(13, PublicationsComponent_For_131_Conditional_13_Template, 1, 1, "img", 36);
-    \u0275\u0275conditionalCreate(14, PublicationsComponent_For_131_Conditional_14_Template, 1, 1, "img", 37);
-    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_131_Conditional_15_Template, 1, 1, "img", 38);
-    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_131_Conditional_16_Template, 1, 1, "img", 39);
+    \u0275\u0275elementStart(11, "p", 29);
+    \u0275\u0275text(12);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(13, "div", 30)(14, "div", 49);
+    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_321_Conditional_15_Template, 1, 1, "img", 50);
+    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_321_Conditional_16_Template, 1, 1, "img", 51);
+    \u0275\u0275conditionalCreate(17, PublicationsComponent_For_321_Conditional_17_Template, 1, 1, "img", 52);
+    \u0275\u0275conditionalCreate(18, PublicationsComponent_For_321_Conditional_18_Template, 1, 1, "img", 53);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(17, "div", 20)(18, "a", 21);
-    \u0275\u0275text(19);
+    \u0275\u0275elementStart(19, "div", 33)(20, "a", 34);
+    \u0275\u0275text(21);
     \u0275\u0275elementEnd()()()();
   }
   if (rf & 2) {
     const project_r5 = ctx.$implicit;
-    const \u0275$index_215_r6 = ctx.$index;
-    \u0275\u0275attribute("data-delay", (\u0275$index_215_r6 + 1) * 100);
+    const \u0275$index_516_r6 = ctx.$index;
+    \u0275\u0275attribute("data-delay", (\u0275$index_516_r6 + 1) * 100);
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate(project_r5.category);
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate(project_r5.title);
     \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(project_r5.tagline);
+    \u0275\u0275advance(2);
     \u0275\u0275textInterpolate(project_r5.description);
     \u0275\u0275advance(2);
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(11, _c04, project_r5.category === "NPM", project_r5.category === "Maven Central"));
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(12, _c04, project_r5.category === "NPM", project_r5.category === "Maven Central"));
     \u0275\u0275advance();
-    \u0275\u0275conditional(project_r5.badges.version ? 13 : -1);
+    \u0275\u0275conditional(project_r5.badges.version ? 15 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(project_r5.badges.downloads ? 14 : -1);
+    \u0275\u0275conditional(project_r5.badges.downloads ? 16 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(project_r5.badges.total ? 15 : -1);
+    \u0275\u0275conditional(project_r5.badges.total ? 17 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(project_r5.badges.java ? 16 : -1);
+    \u0275\u0275conditional(project_r5.badges.java ? 18 : -1);
     \u0275\u0275advance(2);
     \u0275\u0275property("href", project_r5.link, \u0275\u0275sanitizeUrl);
     \u0275\u0275advance();
@@ -40135,10 +39991,12 @@ function PublicationsComponent_For_131_Template(rf, ctx) {
 var PublicationsComponent = class _PublicationsComponent {
   constructor() {
     this.projectLinks = PROJECT_LINKS;
+    this.companyLinks = COMPANY_LINKS;
     this.openSourceProjects = [
       {
         id: "node-actuator-lite",
         title: "node-actuator-lite",
+        tagline: "Spring Boot-style health checks for Node.js \u2014 zero deps",
         description: "A lightweight Node.js actuator similar to Spring Boot actuator with Prometheus integration, built with minimal external dependencies for maximum performance. Perfect for serverless platforms like Vercel, AWS Lambda, and microservices.",
         category: "NPM",
         badges: {
@@ -40152,6 +40010,7 @@ var PublicationsComponent = class _PublicationsComponent {
       {
         id: "node-request-trace",
         title: "node-request-trace",
+        tagline: "See exactly where your API request spends time",
         description: "Request tracing and performance visualization library for Node.js. Inspect the full execution lifecycle of API requests, detect performance bottlenecks, identify slow middleware or async operations, and debug production issues quickly.",
         category: "NPM",
         badges: {
@@ -40165,6 +40024,7 @@ var PublicationsComponent = class _PublicationsComponent {
       {
         id: "node-eventloop-watchdog",
         title: "node-eventloop-watchdog",
+        tagline: "Find exactly which line is blocking your event loop",
         description: "Lightweight Node.js event loop blocking detector with automatic code identification, blocking heatmaps, and production-safe diagnostics. Detects lag, captures blocking stack traces, identifies hotspots, and correlates with HTTP requests.",
         category: "NPM",
         badges: {
@@ -40178,6 +40038,7 @@ var PublicationsComponent = class _PublicationsComponent {
       {
         id: "meme-as-a-service",
         title: "meme-as-a-service",
+        tagline: "Generate memes via API \u2014 templates, text overlays, done",
         description: "A fun and lightweight service for generating and serving memes programmatically. Provides easy-to-use APIs for creating custom memes with text overlays and various templates.",
         category: "NPM",
         badges: {
@@ -40191,6 +40052,7 @@ var PublicationsComponent = class _PublicationsComponent {
       {
         id: "roastcode",
         title: "roastcode",
+        tagline: "AI code review, but it roasts you",
         description: "\u{1F525} A CLI tool that humorously roasts your code files, commit messages, and diffs with AI-powered savagery. Features multiple roast modes (Gentle, Savage, Toxic), AI engines (OpenAI, Ollama), git integration, meme generation, and smart code analysis. Perfect for code reviews, team bonding, and keeping your codebase honest.",
         category: "NPM",
         badges: {
@@ -40204,6 +40066,7 @@ var PublicationsComponent = class _PublicationsComponent {
       {
         id: "readme-cinema",
         title: "readme-cinema",
+        tagline: "Turn READMEs into cinematic terminal experiences",
         description: "\u{1F3AC} Transform your README files into cinematic terminal experiences with ASCII art, typewriter effects, and dramatic transitions. Features 8 color themes, progress bars, syntax highlighting, and movie-like scene transitions for creating engaging documentation.",
         category: "NPM",
         badges: {
@@ -40217,6 +40080,7 @@ var PublicationsComponent = class _PublicationsComponent {
       {
         id: "eli5",
         title: "eli5",
+        tagline: `AI-powered "Explain Like I'm 5" annotations for Java`,
         description: "Explain Like I'm 5 annotations for Java code documentation with AI-powered explanations. A Maven plugin that helps developers create simple, understandable documentation for complex code by generating child-friendly explanations.",
         category: "Maven Central",
         badges: {
@@ -40229,6 +40093,7 @@ var PublicationsComponent = class _PublicationsComponent {
       {
         id: "git-history-ui",
         title: "git-history-ui",
+        tagline: "Beautiful web UI for exploring git history",
         description: "A beautiful, modern web UI for visualizing git history with interactive commit graphs, search, filtering, and diff visualization. Built with Angular and Node.js. Features D3.js-powered visualizations, advanced search & filtering, dual view modes, color palette system, and responsive design.",
         category: "NPM",
         badges: {
@@ -40262,155 +40127,404 @@ var PublicationsComponent = class _PublicationsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 132, vars: 6, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-stagger", "150", 1, "projects-grid"], [1, "project-card", "algo-card"], [1, "project-preview-container"], ["target", "_blank", 3, "href"], [1, "project-preview", "algo-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"], [1, "project-card", "divine-card"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], [1, "project-card", "datesense-card"], [1, "project-preview", "datesense-preview"], [1, "heart-symbol"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "category-filters"], [1, "filter-buttons"], [1, "filter-btn", 3, "active"], [1, "open-source-grid"], ["data-anim", "fade-up", 1, "open-source-card"], [1, "filter-btn", 3, "click"], [1, "package-badges", 3, "ngClass"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"]], template: function PublicationsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 322, vars: 12, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], ["data-text-reveal", "", 1, "section-title", "apple-text-display"], ["data-stagger", "150", 1, "pro-projects-grid"], ["data-anim", "fade-up", 1, "pro-project-card"], [1, "pro-card-header"], [1, "pro-card-meta"], ["target", "_blank", "rel", "noopener", 1, "pro-badge", 3, "href"], [1, "pro-product"], [1, "pro-card-title"], [1, "pro-card-tagline"], [1, "pro-card-desc"], [1, "pro-card-tech"], [1, "pro-card-metrics"], [1, "metric"], ["data-anim", "fade-up", 1, "section-header", 2, "margin-top", "5rem"], ["data-stagger", "150", 1, "projects-grid"], [1, "project-card", "algo-card"], [1, "project-preview-container"], ["target", "_blank", 3, "href"], [1, "project-preview", "algo-preview"], [1, "tech-stack"], [1, "powered-by"], [1, "card-body"], [1, "project-meta"], [1, "badge"], [1, "text-muted"], [1, "card-title"], [1, "card-text"], [1, "project-stats"], [1, "tech-badges"], [1, "tech-badge"], [1, "project-actions"], ["target", "_blank", "rel", "noopener", 1, "btn", "btn-primary", 3, "href"], [1, "project-card", "divine-card"], [1, "project-preview", "divine-wisdom"], [1, "om-symbol"], [1, "project-card", "datesense-card"], [1, "project-preview", "datesense-preview"], [1, "heart-symbol"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "category-filters"], [1, "filter-buttons"], [1, "filter-btn", 3, "active"], [1, "open-source-grid"], ["data-anim", "fade-up", 1, "open-source-card"], [1, "filter-btn", 3, "click"], [1, "card-tagline"], [1, "package-badges", 3, "ngClass"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"]], template: function PublicationsComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h2", 3);
         \u0275\u0275text(4, "Projects");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "a", 7)(9, "div", 8)(10, "h3");
-        \u0275\u0275text(11, "\u{1F9E0} Algorithm Visualizer");
+        \u0275\u0275elementStart(5, "div", 4)(6, "div", 5)(7, "div", 6)(8, "div", 7)(9, "a", 8);
+        \u0275\u0275text(10, "Games24x7");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(12, "p");
-        \u0275\u0275text(13, "DSA Visualizer with Step-by-Step Animation");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(14, "div", 9);
-        \u0275\u0275text(15, "Sorting \u2022 Trees \u2022 Graphs \u2022 Backtracking");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(16, "div", 9);
-        \u0275\u0275text(17, "Audio Effects \u2022 Gamified Challenges");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(18, "div", 10);
-        \u0275\u0275text(19, "Learn DSA the Fun Way");
-        \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(20, "div", 11)(21, "div", 12)(22, "span", 13);
-        \u0275\u0275text(23, "Web App");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(24, "span", 14);
-        \u0275\u0275text(25, "Interactive Learning");
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(26, "h5", 15);
-        \u0275\u0275text(27, "\u{1F9E0} Algorithm Visualizer");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(28, "p", 16);
-        \u0275\u0275text(29, " A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles \u2014 learn DSA by playing, not just reading. ");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(30, "div", 17)(31, "div", 18)(32, "span", 19);
-        \u0275\u0275text(33, "JavaScript");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(34, "span", 19);
-        \u0275\u0275text(35, "React");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(36, "span", 19);
-        \u0275\u0275text(37, "Tailwind");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(38, "span", 19);
-        \u0275\u0275text(39, "Web Audio API");
+        \u0275\u0275elementStart(11, "span", 9);
+        \u0275\u0275text(12, "My11Circle \xB7 RummyCircle");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(40, "div", 20)(41, "a", 21);
-        \u0275\u0275text(42, " View Live Demo ");
-        \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(43, "div", 22)(44, "div", 6)(45, "a", 7)(46, "div", 23)(47, "h3");
-        \u0275\u0275text(48, "\u{1F549}\uFE0F Religious GPT");
+        \u0275\u0275elementStart(13, "h4", 10);
+        \u0275\u0275text(14, "Automated KYC Platform");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(49, "p");
-        \u0275\u0275text(50, "Learn Religion in an AI Way");
+        \u0275\u0275elementStart(15, "p", 11);
+        \u0275\u0275text(16, "Identity verification at scale \u2014 built from scratch");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(51, "div", 24);
-        \u0275\u0275text(52, "\u{1F549}\uFE0F");
+        \u0275\u0275elementStart(17, "p", 12);
+        \u0275\u0275text(18, " End-to-end document verification system supporting Digilocker, Aadhaar Lite, PAN validation, and OCR-based extraction. Processes 200K+ verifications daily across two gaming platforms with 99.95% uptime via a distributed Kafka pipeline. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(53, "div", 9);
-        \u0275\u0275text(54, "Bhagavad Gita \u2022 Quran \u2022 Bible \u2022 Vedas \u2022 Tripitaka");
+        \u0275\u0275elementStart(19, "div", 13)(20, "span");
+        \u0275\u0275text(21, "Java");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(55, "div", 9);
-        \u0275\u0275text(56, "AI-Powered Spiritual Insights");
+        \u0275\u0275elementStart(22, "span");
+        \u0275\u0275text(23, "Spring Boot");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(57, "div", 10);
-        \u0275\u0275text(58, "Powered by GPT-4.1");
-        \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(59, "div", 11)(60, "div", 12)(61, "span", 13);
-        \u0275\u0275text(62, "AI App");
+        \u0275\u0275elementStart(24, "span");
+        \u0275\u0275text(25, "Kafka");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(63, "span", 14);
-        \u0275\u0275text(64, "AI-Powered Learning");
+        \u0275\u0275elementStart(26, "span");
+        \u0275\u0275text(27, "Redis");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(28, "span");
+        \u0275\u0275text(29, "OCR");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(30, "span");
+        \u0275\u0275text(31, "Digilocker API");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(32, "span");
+        \u0275\u0275text(33, "AWS");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(65, "h5", 15);
-        \u0275\u0275text(66, "\u{1F549}\uFE0F Religious GPT");
+        \u0275\u0275elementStart(34, "div", 14)(35, "span", 15);
+        \u0275\u0275text(36, "200K+ verifications/day");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(67, "p", 16);
-        \u0275\u0275text(68, " Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Upanishads, and more. An AI companion that makes sacred knowledge accessible to everyone. ");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(69, "div", 17)(70, "div", 18)(71, "span", 19);
-        \u0275\u0275text(72, "React");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(73, "span", 19);
-        \u0275\u0275text(74, "Node.js");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(75, "span", 19);
-        \u0275\u0275text(76, "GPT-4.1");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(77, "span", 19);
-        \u0275\u0275text(78, "Vercel");
+        \u0275\u0275elementStart(37, "span", 15);
+        \u0275\u0275text(38, "99.95% uptime");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(79, "div", 20)(80, "a", 21);
-        \u0275\u0275text(81, " View Live Demo ");
-        \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(82, "div", 25)(83, "div", 6)(84, "a", 7)(85, "div", 26)(86, "h3");
-        \u0275\u0275text(87, "\u{1F498} DateSense");
+        \u0275\u0275elementStart(39, "div", 5)(40, "div", 6)(41, "div", 7)(42, "a", 8);
+        \u0275\u0275text(43, "Games24x7");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(88, "p");
-        \u0275\u0275text(89, "AI Dating Conversation Analyst");
+        \u0275\u0275elementStart(44, "span", 9);
+        \u0275\u0275text(45, "My11Circle \xB7 RummyCircle");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(46, "h4", 10);
+        \u0275\u0275text(47, "Risk Rule Engine");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(90, "div", 27);
-        \u0275\u0275text(91, "\u{1F498}");
+        \u0275\u0275elementStart(48, "p", 11);
+        \u0275\u0275text(49, "Real-time fraud detection powered by ML + graph analysis");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(92, "div", 9);
-        \u0275\u0275text(93, "Attraction Score \u2022 Ghosting Risk \u2022 Conversation Health");
+        \u0275\u0275elementStart(50, "p", 12);
+        \u0275\u0275text(51, " Built a rule engine that identifies fraudulent user behavior in real time across two platforms. Consumes millions of Kafka messages via pub/sub, runs ML-based scoring through SageMaker, and maps fraud networks using Neptune graph DB \u2014 preventing financial losses at scale. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(94, "div", 9);
-        \u0275\u0275text(95, "Scam Detection \u2022 Smart Reply Suggestions");
+        \u0275\u0275elementStart(52, "div", 13)(53, "span");
+        \u0275\u0275text(54, "Java");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(96, "div", 10);
-        \u0275\u0275text(97, "Powered by GPT-4.1 Nano");
-        \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(98, "div", 11)(99, "div", 12)(100, "span", 13);
-        \u0275\u0275text(101, "AI App");
+        \u0275\u0275elementStart(55, "span");
+        \u0275\u0275text(56, "Kafka");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(102, "span", 14);
-        \u0275\u0275text(103, "Conversation Intelligence");
+        \u0275\u0275elementStart(57, "span");
+        \u0275\u0275text(58, "SageMaker");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(59, "span");
+        \u0275\u0275text(60, "Neptune DB");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(61, "span");
+        \u0275\u0275text(62, "Gremlin");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(63, "span");
+        \u0275\u0275text(64, "Spring Cloud");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(104, "h5", 15);
-        \u0275\u0275text(105, "\u{1F498} DateSense");
+        \u0275\u0275elementStart(65, "div", 14)(66, "span", 15);
+        \u0275\u0275text(67, "Millions of events/day");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(106, "p", 16);
-        \u0275\u0275text(107, " An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Leverages GPT-4.1 Nano to extract conversational signals, generate contextual reply suggestions, recommend personalized date ideas, and detect potential scam or manipulative patterns \u2014 all presented through a sleek, interactive insights dashboard. ");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(108, "div", 17)(109, "div", 18)(110, "span", 19);
-        \u0275\u0275text(111, "Angular");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(112, "span", 19);
-        \u0275\u0275text(113, "GPT-4.1 Nano");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(114, "span", 19);
-        \u0275\u0275text(115, "OCR");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(116, "span", 19);
-        \u0275\u0275text(117, "Vercel");
+        \u0275\u0275elementStart(68, "span", 15);
+        \u0275\u0275text(69, "Real-time detection");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(118, "div", 20)(119, "a", 21);
-        \u0275\u0275text(120, " View Live Demo ");
+        \u0275\u0275elementStart(70, "div", 5)(71, "div", 6)(72, "div", 7)(73, "a", 8);
+        \u0275\u0275text(74, "Games24x7");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(75, "span", 9);
+        \u0275\u0275text(76, "My11Circle");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(77, "h4", 10);
+        \u0275\u0275text(78, "Fantasy Autoscaler");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(79, "p", 11);
+        \u0275\u0275text(80, "ML-powered predictive autoscaling for IPL-level traffic");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(81, "p", 12);
+        \u0275\u0275text(82, " Predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting. Anticipated traffic spikes before they hit, pre-scaling infrastructure ahead of toss time. Successfully handled 10M concurrent users during IPL 2025 with zero downtime. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(83, "div", 13)(84, "span");
+        \u0275\u0275text(85, "Kubernetes");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(86, "span");
+        \u0275\u0275text(87, "AWS ASG");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(88, "span");
+        \u0275\u0275text(89, "ML");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(90, "span");
+        \u0275\u0275text(91, "Grafana");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(92, "span");
+        \u0275\u0275text(93, "Prometheus");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(94, "span");
+        \u0275\u0275text(95, "Java");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(96, "div", 14)(97, "span", 15);
+        \u0275\u0275text(98, "10M concurrent users");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(99, "span", 15);
+        \u0275\u0275text(100, "Zero downtime @ IPL 2025");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(101, "div", 5)(102, "div", 6)(103, "div", 7)(104, "a", 8);
+        \u0275\u0275text(105, "Games24x7");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(106, "span", 9);
+        \u0275\u0275text(107, "My11Circle \xB7 RummyCircle");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(108, "h4", 10);
+        \u0275\u0275text(109, "PAJ3 \u2014 Single Sign-On");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(110, "p", 11);
+        \u0275\u0275text(111, "Frictionless mobile-first user onboarding");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(112, "p", 12);
+        \u0275\u0275text(113, " Replaced the traditional email + password registration with a mobile-number-based single sign-on flow. Dramatically reduced onboarding friction, improving user conversion across both gaming platforms with OTP-based authentication and seamless session management. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(114, "div", 13)(115, "span");
+        \u0275\u0275text(116, "Java");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(117, "span");
+        \u0275\u0275text(118, "Spring Security");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(119, "span");
+        \u0275\u0275text(120, "Redis");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(121, "span");
+        \u0275\u0275text(122, "OTP");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(123, "span");
+        \u0275\u0275text(124, "JWT");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(125, "span");
+        \u0275\u0275text(126, "Microservices");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(127, "div", 14)(128, "span", 15);
+        \u0275\u0275text(129, "2 platforms");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(130, "span", 15);
+        \u0275\u0275text(131, "Mobile-first auth");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(132, "div", 5)(133, "div", 6)(134, "div", 7)(135, "a", 8);
+        \u0275\u0275text(136, "Walmart");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(137, "span", 9);
+        \u0275\u0275text(138, "Stores");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(139, "h4", 10);
+        \u0275\u0275text(140, "Annual Enrollment");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(141, "p", 11);
+        \u0275\u0275text(142, "Benefits enrollment for 2.2M+ Walmart associates");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(143, "p", 12);
+        \u0275\u0275text(144, " Automated dashboard enabling Walmart associates to check eligibility and sign up for health and wealth benefits \u2014 dental coverage, life insurance, bonuses, and more. Served 2.2M+ associates across the US with a streamlined, self-service enrollment experience. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(145, "div", 13)(146, "span");
+        \u0275\u0275text(147, "Java 8");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(148, "span");
+        \u0275\u0275text(149, "Angular");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(150, "span");
+        \u0275\u0275text(151, "JSP");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(152, "span");
+        \u0275\u0275text(153, "OneOps");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(154, "span");
+        \u0275\u0275text(155, "Jenkins");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(156, "div", 14)(157, "span", 15);
+        \u0275\u0275text(158, "2.2M+ associates");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(159, "span", 15);
+        \u0275\u0275text(160, "US-wide rollout");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(161, "div", 5)(162, "div", 6)(163, "div", 7)(164, "a", 8);
+        \u0275\u0275text(165, "Extramarks");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(166, "span", 9);
+        \u0275\u0275text(167, "Elsa");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(168, "h4", 10);
+        \u0275\u0275text(169, "NEMR \u2014 Personalized K-12 Courses");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(170, "p", 11);
+        \u0275\u0275text(171, "Modular course purchasing for students");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(172, "p", 12);
+        \u0275\u0275text(173, " Enabled students to purchase individual subjects, concepts, or courses instead of the full curriculum. Built a personalized K-12 learning experience with granular content access, breaking the monolithic course structure into flexible, affordable modules. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(174, "div", 13)(175, "span");
+        \u0275\u0275text(176, "Java 11");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(177, "span");
+        \u0275\u0275text(178, "Spring Boot");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(179, "span");
+        \u0275\u0275text(180, "MySQL");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(181, "span");
+        \u0275\u0275text(182, "Docker");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(183, "span");
+        \u0275\u0275text(184, "AWS Cognito");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(185, "span");
+        \u0275\u0275text(186, "OAuth2.0");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(187, "div", 14)(188, "span", 15);
+        \u0275\u0275text(189, "K-12 platform");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(190, "span", 15);
+        \u0275\u0275text(191, "Modular pricing");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(192, "div", 16)(193, "h2", 3);
+        \u0275\u0275text(194, "Side Projects");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(195, "div", 17)(196, "div", 18)(197, "div", 19)(198, "a", 20)(199, "div", 21)(200, "h3");
+        \u0275\u0275text(201, "\u{1F9E0} Algorithm Visualizer");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(202, "p");
+        \u0275\u0275text(203, "DSA Visualizer with Step-by-Step Animation");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(204, "div", 22);
+        \u0275\u0275text(205, "Sorting \u2022 Trees \u2022 Graphs \u2022 Backtracking");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(206, "div", 22);
+        \u0275\u0275text(207, "Audio Effects \u2022 Gamified Challenges");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(208, "div", 23);
+        \u0275\u0275text(209, "Learn DSA the Fun Way");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(210, "div", 24)(211, "div", 25)(212, "span", 26);
+        \u0275\u0275text(213, "Web App");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(214, "span", 27);
+        \u0275\u0275text(215, "Interactive Learning");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(216, "h5", 28);
+        \u0275\u0275text(217, "\u{1F9E0} Algorithm Visualizer");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(218, "p", 29);
+        \u0275\u0275text(219, " A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles \u2014 learn DSA by playing, not just reading. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(220, "div", 30)(221, "div", 31)(222, "span", 32);
+        \u0275\u0275text(223, "JavaScript");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(224, "span", 32);
+        \u0275\u0275text(225, "React");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(226, "span", 32);
+        \u0275\u0275text(227, "Tailwind");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(228, "span", 32);
+        \u0275\u0275text(229, "Web Audio API");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(230, "div", 33)(231, "a", 34);
+        \u0275\u0275text(232, " View Live Demo ");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(233, "div", 35)(234, "div", 19)(235, "a", 20)(236, "div", 36)(237, "h3");
+        \u0275\u0275text(238, "\u{1F549}\uFE0F Religious GPT");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(239, "p");
+        \u0275\u0275text(240, "Learn Religion in an AI Way");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(241, "div", 37);
+        \u0275\u0275text(242, "\u{1F549}\uFE0F");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(243, "div", 22);
+        \u0275\u0275text(244, "Bhagavad Gita \u2022 Quran \u2022 Bible \u2022 Vedas \u2022 Tripitaka");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(245, "div", 22);
+        \u0275\u0275text(246, "AI-Powered Spiritual Insights");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(247, "div", 23);
+        \u0275\u0275text(248, "Powered by GPT-4.1");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(249, "div", 24)(250, "div", 25)(251, "span", 26);
+        \u0275\u0275text(252, "AI App");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(253, "span", 27);
+        \u0275\u0275text(254, "AI-Powered Learning");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(255, "h5", 28);
+        \u0275\u0275text(256, "\u{1F549}\uFE0F Religious GPT");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(257, "p", 29);
+        \u0275\u0275text(258, " Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Upanishads, and more. An AI companion that makes sacred knowledge accessible to everyone. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(259, "div", 30)(260, "div", 31)(261, "span", 32);
+        \u0275\u0275text(262, "React");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(263, "span", 32);
+        \u0275\u0275text(264, "Node.js");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(265, "span", 32);
+        \u0275\u0275text(266, "GPT-4.1");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(267, "span", 32);
+        \u0275\u0275text(268, "Vercel");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(269, "div", 33)(270, "a", 34);
+        \u0275\u0275text(271, " View Live Demo ");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(272, "div", 38)(273, "div", 19)(274, "a", 20)(275, "div", 39)(276, "h3");
+        \u0275\u0275text(277, "\u{1F498} DateSense");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(278, "p");
+        \u0275\u0275text(279, "AI Dating Conversation Analyst");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(280, "div", 40);
+        \u0275\u0275text(281, "\u{1F498}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(282, "div", 22);
+        \u0275\u0275text(283, "Attraction Score \u2022 Ghosting Risk \u2022 Conversation Health");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(284, "div", 22);
+        \u0275\u0275text(285, "Scam Detection \u2022 Smart Reply Suggestions");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(286, "div", 23);
+        \u0275\u0275text(287, "Powered by GPT-4.1 Nano");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(288, "div", 24)(289, "div", 25)(290, "span", 26);
+        \u0275\u0275text(291, "AI App");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(292, "span", 27);
+        \u0275\u0275text(293, "Conversation Intelligence");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(294, "h5", 28);
+        \u0275\u0275text(295, "\u{1F498} DateSense");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(296, "p", 29);
+        \u0275\u0275text(297, " An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Leverages GPT-4.1 Nano to extract conversational signals, generate contextual reply suggestions, recommend personalized date ideas, and detect potential scam or manipulative patterns \u2014 all presented through a sleek, interactive insights dashboard. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(298, "div", 30)(299, "div", 31)(300, "span", 32);
+        \u0275\u0275text(301, "Angular");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(302, "span", 32);
+        \u0275\u0275text(303, "GPT-4.1 Nano");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(304, "span", 32);
+        \u0275\u0275text(305, "OCR");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(306, "span", 32);
+        \u0275\u0275text(307, "Vercel");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(308, "div", 33)(309, "a", 34);
+        \u0275\u0275text(310, " View Live Demo ");
         \u0275\u0275elementEnd()()()()()();
-        \u0275\u0275elementStart(121, "div", 28)(122, "div", 2)(123, "h2", 3);
-        \u0275\u0275text(124, "Open Source");
+        \u0275\u0275elementStart(311, "div", 41)(312, "div", 2)(313, "h2", 3);
+        \u0275\u0275text(314, "Open Source");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(125, "div", 29)(126, "div", 30);
-        \u0275\u0275repeaterCreate(127, PublicationsComponent_For_128_Template, 2, 4, "button", 31, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementStart(315, "div", 42)(316, "div", 43);
+        \u0275\u0275repeaterCreate(317, PublicationsComponent_For_318_Template, 2, 4, "button", 44, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(129, "div", 32);
-        \u0275\u0275repeaterCreate(130, PublicationsComponent_For_131_Template, 20, 14, "div", 33, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementStart(319, "div", 45);
+        \u0275\u0275repeaterCreate(320, PublicationsComponent_For_321_Template, 22, 15, "div", 46, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275elementEnd()()();
       }
       if (rf & 2) {
-        \u0275\u0275advance(8);
+        \u0275\u0275advance(9);
+        \u0275\u0275property("href", ctx.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(33);
+        \u0275\u0275property("href", ctx.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(31);
+        \u0275\u0275property("href", ctx.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(31);
+        \u0275\u0275property("href", ctx.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(31);
+        \u0275\u0275property("href", ctx.companyLinks.walmart, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(29);
+        \u0275\u0275property("href", ctx.companyLinks.extramarks, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(34);
         \u0275\u0275property("href", ctx.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(33);
         \u0275\u0275property("href", ctx.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
@@ -40427,7 +40541,7 @@ var PublicationsComponent = class _PublicationsComponent {
         \u0275\u0275advance(3);
         \u0275\u0275repeater(ctx.filteredProjects);
       }
-    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n.projects-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 2.5rem;\n  margin-top: var(--spacing-2xl);\n  max-width: 1200px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.project-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  position: relative;\n  display: flex;\n  flex-direction: column;\n}\n.project-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: -75%;\n  width: 50%;\n  height: 100%;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.04),\n      transparent);\n  transition: left 0.8s ease;\n  z-index: 1;\n  pointer-events: none;\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);\n  transform: translateY(-10px) scale(1.015);\n  border-color: rgba(255, 255, 255, 0.15);\n}\n.project-card[_ngcontent-%COMP%]:hover::before {\n  left: 125%;\n}\n.project-card[_ngcontent-%COMP%] {\n}\n.project-card.algo-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(102, 126, 234, 0.15);\n}\n.project-card[_ngcontent-%COMP%] {\n}\n.project-card.divine-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 165, 0, 0.12);\n}\n.project-card[_ngcontent-%COMP%] {\n}\n.project-card.datesense-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(236, 72, 153, 0.18);\n}\n.project-image[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: 1.75rem;\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.01em;\n}\n.project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.75;\n  font-size: 0.925rem;\n  flex-grow: 1;\n  margin-bottom: 1.25rem;\n}\n.project-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.project-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 600;\n  padding: 0.3rem 0.7rem;\n  border-radius: var(--radius-full);\n  text-transform: uppercase;\n  letter-spacing: 0.06em;\n}\n.project-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  opacity: 0.6;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n  padding-top: 0.5rem;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.65rem 1.5rem;\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 600;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: #fff;\n  border: none;\n  text-decoration: none;\n  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  position: relative;\n  overflow: hidden;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]::after {\n  content: " \\2192";\n  transition: transform 0.3s ease;\n  display: inline-block;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35);\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover::after {\n  transform: translateX(4px);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 1100px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n    max-width: 700px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 700px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    max-width: 500px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 768px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    gap: 1.5rem;\n  }\n  .project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n    height: 200px;\n    padding: 1.5rem 1.25rem;\n  }\n  .project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n    font-size: 1.2rem;\n  }\n  .project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .project-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n}\n.project-card[_ngcontent-%COMP%] {\n  opacity: 0;\n  animation: _ngcontent-%COMP%_fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.15s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.35s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.55s;\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(40px) scale(0.97);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n.category-filters[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%]:last-child {\n  margin-right: 0;\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters[_ngcontent-%COMP%] {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n    gap: var(--spacing-xs);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n    height: 24px;\n  }\n}\n.open-source-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 240px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: #fff;\n  text-align: center;\n  padding: 2rem 1.5rem;\n  box-sizing: border-box;\n  position: relative;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  overflow: hidden;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 255, 255, 0.06) 0%,\n      transparent 50%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 255, 255, 0.04) 0%,\n      transparent 50%);\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    conic-gradient(\n      from 0deg,\n      transparent 0%,\n      rgba(255, 255, 255, 0.03) 25%,\n      transparent 50%);\n  animation: _ngcontent-%COMP%_previewRotate 8s linear infinite;\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]    > *[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 2;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0 0 0.5rem;\n  font-size: 1.4rem;\n  font-weight: 800;\n  letter-spacing: -0.01em;\n  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0 0 0.75rem;\n  font-size: 0.9rem;\n  opacity: 0.92;\n  line-height: 1.5;\n  font-weight: 500;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .om-symbol[_ngcontent-%COMP%] {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: _ngcontent-%COMP%_omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.6));\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  opacity: 0.75;\n  margin-top: 0.25rem;\n  letter-spacing: 0.03em;\n  font-weight: 400;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  opacity: 0.55;\n  margin-top: 0.5rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n  font-weight: 600;\n}\n.project-preview-container[_ngcontent-%COMP%] {\n}\n.project-card[_ngcontent-%COMP%]:hover   .project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  transform: scale(1.03);\n}\n.algo-preview[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f0c29 0%,\n      #302b63 50%,\n      #24243e 100%);\n}\n.algo-preview[_ngcontent-%COMP%]::before {\n  background:\n    radial-gradient(\n      circle at 15% 85%,\n      rgba(102, 126, 234, 0.25) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 85% 15%,\n      rgba(118, 75, 162, 0.2) 0%,\n      transparent 45%) !important;\n}\n.divine-wisdom[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0a00 0%,\n      #3d1c00 35%,\n      #2d1600 70%,\n      #1a0a00 100%);\n}\n.divine-wisdom[_ngcontent-%COMP%]::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 165, 0, 0.2) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 215, 0, 0.12) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0011 0%,\n      #3d0028 35%,\n      #2d001e 70%,\n      #1a0011 100%);\n}\n.datesense-preview[_ngcontent-%COMP%]::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(236, 72, 153, 0.22) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(244, 114, 182, 0.15) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview[_ngcontent-%COMP%]   .heart-symbol[_ngcontent-%COMP%] {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: _ngcontent-%COMP%_heartBeat 2s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(236, 72, 153, 0.6));\n}\n@keyframes _ngcontent-%COMP%_heartBeat {\n  0%, 100% {\n    transform: scale(1);\n  }\n  15% {\n    transform: scale(1.15);\n  }\n  30% {\n    transform: scale(1);\n  }\n  45% {\n    transform: scale(1.1);\n  }\n  60% {\n    transform: scale(1);\n  }\n}\n@keyframes _ngcontent-%COMP%_previewRotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_omFloat {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-8px);\n  }\n}\n.tech-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(102, 126, 234, 0.1);\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  border-radius: var(--radius-full);\n  padding: 0.3rem 0.75rem;\n  font-size: 0.72rem;\n  font-weight: 600;\n  color: rgba(255, 255, 255, 0.85);\n  letter-spacing: 0.02em;\n  transition: all 0.3s ease;\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(102, 126, 234, 0.2);\n  border-color: rgba(102, 126, 234, 0.4);\n  color: #fff;\n  transform: translateY(-1px);\n}\n.divine-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(255, 165, 0, 0.08);\n  border-color: rgba(255, 165, 0, 0.18);\n}\n.divine-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 165, 0, 0.18);\n  border-color: rgba(255, 165, 0, 0.35);\n}\n.datesense-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(236, 72, 153, 0.08);\n  border-color: rgba(236, 72, 153, 0.18);\n}\n.datesense-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(236, 72, 153, 0.18);\n  border-color: rgba(236, 72, 153, 0.35);\n}\n.algo-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n}\n.divine-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #f5af19,\n      #f12711);\n}\n.datesense-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ec4899,\n      #be185d);\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
+    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n.projects-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 2.5rem;\n  margin-top: var(--spacing-2xl);\n  max-width: 1200px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.project-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  position: relative;\n  display: flex;\n  flex-direction: column;\n}\n.project-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: -75%;\n  width: 50%;\n  height: 100%;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.04),\n      transparent);\n  transition: left 0.8s ease;\n  z-index: 1;\n  pointer-events: none;\n}\n.project-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);\n  transform: translateY(-10px) scale(1.015);\n  border-color: rgba(255, 255, 255, 0.15);\n}\n.project-card[_ngcontent-%COMP%]:hover::before {\n  left: 125%;\n}\n.project-card[_ngcontent-%COMP%] {\n}\n.project-card.algo-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(102, 126, 234, 0.15);\n}\n.project-card[_ngcontent-%COMP%] {\n}\n.project-card.divine-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 165, 0, 0.12);\n}\n.project-card[_ngcontent-%COMP%] {\n}\n.project-card.datesense-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(236, 72, 153, 0.18);\n}\n.project-image[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-content[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n}\n.project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content[_ngcontent-%COMP%]   .project-description[_ngcontent-%COMP%]   b[_ngcontent-%COMP%] {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: 1.75rem;\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.01em;\n}\n.project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.75;\n  font-size: 0.925rem;\n  flex-grow: 1;\n  margin-bottom: 1.25rem;\n}\n.project-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.project-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 600;\n  padding: 0.3rem 0.7rem;\n  border-radius: var(--radius-full);\n  text-transform: uppercase;\n  letter-spacing: 0.06em;\n}\n.project-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  opacity: 0.6;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n  padding-top: 0.5rem;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.65rem 1.5rem;\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 600;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: #fff;\n  border: none;\n  text-decoration: none;\n  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  position: relative;\n  overflow: hidden;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]::after {\n  content: " \\2192";\n  transition: transform 0.3s ease;\n  display: inline-block;\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35);\n}\n.project-card[_ngcontent-%COMP%]   .project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover::after {\n  transform: translateX(4px);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 1100px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n    max-width: 700px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 700px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    max-width: 500px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 768px) {\n  .projects-grid[_ngcontent-%COMP%] {\n    gap: 1.5rem;\n  }\n  .project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n    height: 200px;\n    padding: 1.5rem 1.25rem;\n  }\n  .project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n    font-size: 1.2rem;\n  }\n  .project-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .project-content[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .project-content[_ngcontent-%COMP%]   .project-title[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.5rem;\n  }\n}\n.project-card[_ngcontent-%COMP%] {\n  opacity: 0;\n  animation: _ngcontent-%COMP%_fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.15s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.35s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.55s;\n}\n@keyframes _ngcontent-%COMP%_fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(40px) scale(0.97);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n.category-filters[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters[_ngcontent-%COMP%]   .filter-btn.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card[_ngcontent-%COMP%]   .card-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta[_ngcontent-%COMP%]   .text-muted[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%] {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%]:last-child {\n  margin-right: 0;\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .npm-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%]:not([src]), \n.project-stats[_ngcontent-%COMP%]   .maven-badges[_ngcontent-%COMP%]   .package-badge[src=""][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%]:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters[_ngcontent-%COMP%] {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-buttons[_ngcontent-%COMP%] {\n    gap: var(--spacing-xs);\n  }\n  .category-filters[_ngcontent-%COMP%]   .filter-btn[_ngcontent-%COMP%] {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-body[_ngcontent-%COMP%] {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card[_ngcontent-%COMP%]   .card-title[_ngcontent-%COMP%] {\n    font-size: 1.125rem;\n  }\n  .project-stats[_ngcontent-%COMP%]   .stat[_ngcontent-%COMP%] {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .project-stats[_ngcontent-%COMP%]   .package-badges[_ngcontent-%COMP%]   .package-badge[_ngcontent-%COMP%] {\n    height: 24px;\n  }\n}\n.open-source-card[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_fadeInUp 0.6s ease-out;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 240px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: #fff;\n  text-align: center;\n  padding: 2rem 1.5rem;\n  box-sizing: border-box;\n  position: relative;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  overflow: hidden;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 255, 255, 0.06) 0%,\n      transparent 50%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 255, 255, 0.04) 0%,\n      transparent 50%);\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    conic-gradient(\n      from 0deg,\n      transparent 0%,\n      rgba(255, 255, 255, 0.03) 25%,\n      transparent 50%);\n  animation: _ngcontent-%COMP%_previewRotate 8s linear infinite;\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]    > *[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 2;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0 0 0.5rem;\n  font-size: 1.4rem;\n  font-weight: 800;\n  letter-spacing: -0.01em;\n  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0 0 0.75rem;\n  font-size: 0.9rem;\n  opacity: 0.92;\n  line-height: 1.5;\n  font-weight: 500;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .om-symbol[_ngcontent-%COMP%] {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: _ngcontent-%COMP%_omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.6));\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .tech-stack[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  opacity: 0.75;\n  margin-top: 0.25rem;\n  letter-spacing: 0.03em;\n  font-weight: 400;\n}\n.project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%]   .powered-by[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  opacity: 0.55;\n  margin-top: 0.5rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n  font-weight: 600;\n}\n.project-preview-container[_ngcontent-%COMP%] {\n}\n.project-card[_ngcontent-%COMP%]:hover   .project-preview-container[_ngcontent-%COMP%]   .project-preview[_ngcontent-%COMP%] {\n  transform: scale(1.03);\n}\n.algo-preview[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f0c29 0%,\n      #302b63 50%,\n      #24243e 100%);\n}\n.algo-preview[_ngcontent-%COMP%]::before {\n  background:\n    radial-gradient(\n      circle at 15% 85%,\n      rgba(102, 126, 234, 0.25) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 85% 15%,\n      rgba(118, 75, 162, 0.2) 0%,\n      transparent 45%) !important;\n}\n.divine-wisdom[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0a00 0%,\n      #3d1c00 35%,\n      #2d1600 70%,\n      #1a0a00 100%);\n}\n.divine-wisdom[_ngcontent-%COMP%]::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 165, 0, 0.2) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 215, 0, 0.12) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0011 0%,\n      #3d0028 35%,\n      #2d001e 70%,\n      #1a0011 100%);\n}\n.datesense-preview[_ngcontent-%COMP%]::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(236, 72, 153, 0.22) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(244, 114, 182, 0.15) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview[_ngcontent-%COMP%]   .heart-symbol[_ngcontent-%COMP%] {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: _ngcontent-%COMP%_heartBeat 2s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(236, 72, 153, 0.6));\n}\n@keyframes _ngcontent-%COMP%_heartBeat {\n  0%, 100% {\n    transform: scale(1);\n  }\n  15% {\n    transform: scale(1.15);\n  }\n  30% {\n    transform: scale(1);\n  }\n  45% {\n    transform: scale(1.1);\n  }\n  60% {\n    transform: scale(1);\n  }\n}\n@keyframes _ngcontent-%COMP%_previewRotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_omFloat {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-8px);\n  }\n}\n.tech-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(102, 126, 234, 0.1);\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  border-radius: var(--radius-full);\n  padding: 0.3rem 0.75rem;\n  font-size: 0.72rem;\n  font-weight: 600;\n  color: rgba(255, 255, 255, 0.85);\n  letter-spacing: 0.02em;\n  transition: all 0.3s ease;\n}\n.tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(102, 126, 234, 0.2);\n  border-color: rgba(102, 126, 234, 0.4);\n  color: #fff;\n  transform: translateY(-1px);\n}\n.divine-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(255, 165, 0, 0.08);\n  border-color: rgba(255, 165, 0, 0.18);\n}\n.divine-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 165, 0, 0.18);\n  border-color: rgba(255, 165, 0, 0.35);\n}\n.datesense-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%] {\n  background: rgba(236, 72, 153, 0.08);\n  border-color: rgba(236, 72, 153, 0.18);\n}\n.datesense-card[_ngcontent-%COMP%]   .tech-badges[_ngcontent-%COMP%]   .tech-badge[_ngcontent-%COMP%]:hover {\n  background: rgba(236, 72, 153, 0.18);\n  border-color: rgba(236, 72, 153, 0.35);\n}\n.algo-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n}\n.divine-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #f5af19,\n      #f12711);\n}\n.datesense-card[_ngcontent-%COMP%]   .project-meta[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ec4899,\n      #be185d);\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 2rem;\n  margin-top: var(--spacing-2xl);\n  max-width: 1200px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.pro-project-card[_ngcontent-%COMP%] {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  border: 1px solid var(--glass-border);\n  padding: 2rem;\n  display: flex;\n  flex-direction: column;\n  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  position: relative;\n  opacity: 0;\n  animation: _ngcontent-%COMP%_fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;\n}\n.pro-project-card[_ngcontent-%COMP%]:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.pro-project-card[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.pro-project-card[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.pro-project-card[_ngcontent-%COMP%]:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.pro-project-card[_ngcontent-%COMP%]:nth-child(5) {\n  animation-delay: 0.5s;\n}\n.pro-project-card[_ngcontent-%COMP%]:nth-child(6) {\n  animation-delay: 0.6s;\n}\n.pro-project-card[_ngcontent-%COMP%] {\n}\n.pro-project-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 2rem;\n  right: 2rem;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      #667eea,\n      #764ba2,\n      transparent);\n  border-radius: 2px;\n  opacity: 0;\n  transition: opacity 0.4s ease;\n}\n.pro-project-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-6px);\n  border-color: rgba(102, 126, 234, 0.25);\n  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5), 0 0 30px rgba(102, 126, 234, 0.08);\n}\n.pro-project-card[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.pro-card-header[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n}\n.pro-card-meta[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  flex-wrap: wrap;\n}\n.pro-badge[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 600;\n  padding: 0.25rem 0.65rem;\n  border-radius: var(--radius-full);\n  text-transform: uppercase;\n  letter-spacing: 0.06em;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: #fff;\n  text-decoration: none;\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.pro-badge[_ngcontent-%COMP%]:hover, \n.pro-badge[_ngcontent-%COMP%]:focus, \n.pro-badge[_ngcontent-%COMP%]:visited {\n  text-decoration: none;\n  color: #fff;\n  filter: brightness(1.15);\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);\n}\n.pro-product[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  font-weight: 500;\n}\n.pro-card-title[_ngcontent-%COMP%] {\n  font-size: 1.25rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.4rem;\n  letter-spacing: -0.01em;\n  line-height: 1.3;\n}\n.pro-card-tagline[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  font-weight: 500;\n  color: rgba(102, 126, 234, 0.85);\n  margin-bottom: 0.85rem;\n  line-height: 1.4;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: 1.25rem;\n}\n.pro-card-tech[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-bottom: 1rem;\n}\n.pro-card-tech[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  background: rgba(102, 126, 234, 0.08);\n  border: 1px solid rgba(102, 126, 234, 0.18);\n  border-radius: var(--radius-full);\n  padding: 0.25rem 0.65rem;\n  font-size: 0.7rem;\n  font-weight: 600;\n  color: rgba(255, 255, 255, 0.8);\n  letter-spacing: 0.02em;\n  transition: all 0.3s ease;\n}\n.pro-card-tech[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:hover {\n  background: rgba(102, 126, 234, 0.18);\n  border-color: rgba(102, 126, 234, 0.35);\n  color: #fff;\n}\n.pro-card-metrics[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.6rem;\n  flex-wrap: wrap;\n  margin-top: auto;\n}\n.pro-card-metrics[_ngcontent-%COMP%]   .metric[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 700;\n  color: #667eea;\n  background: rgba(102, 126, 234, 0.08);\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  padding: 0.3rem 0.7rem;\n  border-radius: var(--radius-full);\n  letter-spacing: 0.02em;\n}\n.card-tagline[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  font-weight: 500;\n  color: #667eea;\n  margin-bottom: 0.75rem;\n  font-style: italic;\n  line-height: 1.4;\n}\n@media (max-width: 1100px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n    max-width: 750px;\n  }\n}\n@media (max-width: 700px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    max-width: 500px;\n  }\n  .pro-project-card[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n}\n.project-card[_ngcontent-%COMP%]:nth-child(4) {\n  animation-delay: 0.75s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(5) {\n  animation-delay: 0.95s;\n}\n.project-card[_ngcontent-%COMP%]:nth-child(6) {\n  animation-delay: 1.15s;\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
   }
 };
 (() => {
@@ -40437,6 +40551,153 @@ var PublicationsComponent = class _PublicationsComponent {
   <div class="apple-container">
     <div class="section-header" data-anim="fade-up">
       <h2 class="section-title apple-text-display" data-text-reveal>Projects</h2>
+    </div>
+
+    <!-- Professional Impact Projects -->
+    <div class="pro-projects-grid" data-stagger="150">
+
+      <div class="pro-project-card" data-anim="fade-up">
+        <div class="pro-card-header">
+          <div class="pro-card-meta">
+            <a class="pro-badge" [href]="companyLinks.games24x7" target="_blank" rel="noopener">Games24x7</a>
+            <span class="pro-product">My11Circle &middot; RummyCircle</span>
+          </div>
+        </div>
+        <h4 class="pro-card-title">Automated KYC Platform</h4>
+        <p class="pro-card-tagline">Identity verification at scale \u2014 built from scratch</p>
+        <p class="pro-card-desc">
+          End-to-end document verification system supporting Digilocker, Aadhaar Lite, PAN validation, and OCR-based extraction.
+          Processes 200K+ verifications daily across two gaming platforms with 99.95% uptime via a distributed Kafka pipeline.
+        </p>
+        <div class="pro-card-tech">
+          <span>Java</span><span>Spring Boot</span><span>Kafka</span><span>Redis</span><span>OCR</span><span>Digilocker API</span><span>AWS</span>
+        </div>
+        <div class="pro-card-metrics">
+          <span class="metric">200K+ verifications/day</span>
+          <span class="metric">99.95% uptime</span>
+        </div>
+      </div>
+
+      <div class="pro-project-card" data-anim="fade-up">
+        <div class="pro-card-header">
+          <div class="pro-card-meta">
+            <a class="pro-badge" [href]="companyLinks.games24x7" target="_blank" rel="noopener">Games24x7</a>
+            <span class="pro-product">My11Circle &middot; RummyCircle</span>
+          </div>
+        </div>
+        <h4 class="pro-card-title">Risk Rule Engine</h4>
+        <p class="pro-card-tagline">Real-time fraud detection powered by ML + graph analysis</p>
+        <p class="pro-card-desc">
+          Built a rule engine that identifies fraudulent user behavior in real time across two platforms.
+          Consumes millions of Kafka messages via pub/sub, runs ML-based scoring through SageMaker,
+          and maps fraud networks using Neptune graph DB \u2014 preventing financial losses at scale.
+        </p>
+        <div class="pro-card-tech">
+          <span>Java</span><span>Kafka</span><span>SageMaker</span><span>Neptune DB</span><span>Gremlin</span><span>Spring Cloud</span>
+        </div>
+        <div class="pro-card-metrics">
+          <span class="metric">Millions of events/day</span>
+          <span class="metric">Real-time detection</span>
+        </div>
+      </div>
+
+      <div class="pro-project-card" data-anim="fade-up">
+        <div class="pro-card-header">
+          <div class="pro-card-meta">
+            <a class="pro-badge" [href]="companyLinks.games24x7" target="_blank" rel="noopener">Games24x7</a>
+            <span class="pro-product">My11Circle</span>
+          </div>
+        </div>
+        <h4 class="pro-card-title">Fantasy Autoscaler</h4>
+        <p class="pro-card-tagline">ML-powered predictive autoscaling for IPL-level traffic</p>
+        <p class="pro-card-desc">
+          Predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting.
+          Anticipated traffic spikes before they hit, pre-scaling infrastructure ahead of toss time.
+          Successfully handled 10M concurrent users during IPL 2025 with zero downtime.
+        </p>
+        <div class="pro-card-tech">
+          <span>Kubernetes</span><span>AWS ASG</span><span>ML</span><span>Grafana</span><span>Prometheus</span><span>Java</span>
+        </div>
+        <div class="pro-card-metrics">
+          <span class="metric">10M concurrent users</span>
+          <span class="metric">Zero downtime @ IPL 2025</span>
+        </div>
+      </div>
+
+      <div class="pro-project-card" data-anim="fade-up">
+        <div class="pro-card-header">
+          <div class="pro-card-meta">
+            <a class="pro-badge" [href]="companyLinks.games24x7" target="_blank" rel="noopener">Games24x7</a>
+            <span class="pro-product">My11Circle &middot; RummyCircle</span>
+          </div>
+        </div>
+        <h4 class="pro-card-title">PAJ3 \u2014 Single Sign-On</h4>
+        <p class="pro-card-tagline">Frictionless mobile-first user onboarding</p>
+        <p class="pro-card-desc">
+          Replaced the traditional email + password registration with a mobile-number-based single sign-on flow.
+          Dramatically reduced onboarding friction, improving user conversion across both gaming platforms
+          with OTP-based authentication and seamless session management.
+        </p>
+        <div class="pro-card-tech">
+          <span>Java</span><span>Spring Security</span><span>Redis</span><span>OTP</span><span>JWT</span><span>Microservices</span>
+        </div>
+        <div class="pro-card-metrics">
+          <span class="metric">2 platforms</span>
+          <span class="metric">Mobile-first auth</span>
+        </div>
+      </div>
+
+      <div class="pro-project-card" data-anim="fade-up">
+        <div class="pro-card-header">
+          <div class="pro-card-meta">
+            <a class="pro-badge" [href]="companyLinks.walmart" target="_blank" rel="noopener">Walmart</a>
+            <span class="pro-product">Stores</span>
+          </div>
+        </div>
+        <h4 class="pro-card-title">Annual Enrollment</h4>
+        <p class="pro-card-tagline">Benefits enrollment for 2.2M+ Walmart associates</p>
+        <p class="pro-card-desc">
+          Automated dashboard enabling Walmart associates to check eligibility and sign up for health and wealth benefits \u2014
+          dental coverage, life insurance, bonuses, and more. Served 2.2M+ associates across the US
+          with a streamlined, self-service enrollment experience.
+        </p>
+        <div class="pro-card-tech">
+          <span>Java 8</span><span>Angular</span><span>JSP</span><span>OneOps</span><span>Jenkins</span>
+        </div>
+        <div class="pro-card-metrics">
+          <span class="metric">2.2M+ associates</span>
+          <span class="metric">US-wide rollout</span>
+        </div>
+      </div>
+
+      <div class="pro-project-card" data-anim="fade-up">
+        <div class="pro-card-header">
+          <div class="pro-card-meta">
+            <a class="pro-badge" [href]="companyLinks.extramarks" target="_blank" rel="noopener">Extramarks</a>
+            <span class="pro-product">Elsa</span>
+          </div>
+        </div>
+        <h4 class="pro-card-title">NEMR \u2014 Personalized K-12 Courses</h4>
+        <p class="pro-card-tagline">Modular course purchasing for students</p>
+        <p class="pro-card-desc">
+          Enabled students to purchase individual subjects, concepts, or courses instead of the full curriculum.
+          Built a personalized K-12 learning experience with granular content access,
+          breaking the monolithic course structure into flexible, affordable modules.
+        </p>
+        <div class="pro-card-tech">
+          <span>Java 11</span><span>Spring Boot</span><span>MySQL</span><span>Docker</span><span>AWS Cognito</span><span>OAuth2.0</span>
+        </div>
+        <div class="pro-card-metrics">
+          <span class="metric">K-12 platform</span>
+          <span class="metric">Modular pricing</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Side Projects -->
+    <div class="section-header" data-anim="fade-up" style="margin-top: 5rem;">
+      <h2 class="section-title apple-text-display" data-text-reveal>Side Projects</h2>
     </div>
 
     <div class="projects-grid" data-stagger="150">
@@ -40597,6 +40858,7 @@ var PublicationsComponent = class _PublicationsComponent {
               <span class="text-muted">Published Package</span>
             </div>
             <h5 class="card-title">{{ project.title }}</h5>
+            <p class="card-tagline">{{ project.tagline }}</p>
             <p class="card-text">{{ project.description }}</p>
             <div class="project-stats">
               <div class="package-badges" [ngClass]="{'npm-badges': project.category === 'NPM', 'maven-badges': project.category === 'Maven Central'}">
@@ -40625,11 +40887,11 @@ var PublicationsComponent = class _PublicationsComponent {
     </div>
   </div>
 </div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n.projects-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 2.5rem;\n  margin-top: var(--spacing-2xl);\n  max-width: 1200px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.project-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  position: relative;\n  display: flex;\n  flex-direction: column;\n}\n.project-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: -75%;\n  width: 50%;\n  height: 100%;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.04),\n      transparent);\n  transition: left 0.8s ease;\n  z-index: 1;\n  pointer-events: none;\n}\n.project-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);\n  transform: translateY(-10px) scale(1.015);\n  border-color: rgba(255, 255, 255, 0.15);\n}\n.project-card:hover::before {\n  left: 125%;\n}\n.project-card {\n}\n.project-card.algo-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(102, 126, 234, 0.15);\n}\n.project-card {\n}\n.project-card.divine-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 165, 0, 0.12);\n}\n.project-card {\n}\n.project-card.datesense-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(236, 72, 153, 0.18);\n}\n.project-image {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-content {\n  padding: var(--spacing-xl);\n}\n.project-content .project-title {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content .project-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content .project-description b {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.project-card .card-body {\n  padding: 1.75rem;\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.project-card .card-body .card-title {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.01em;\n}\n.project-card .card-body .card-text {\n  color: var(--text-secondary);\n  line-height: 1.75;\n  font-size: 0.925rem;\n  flex-grow: 1;\n  margin-bottom: 1.25rem;\n}\n.project-card .project-meta {\n  margin-bottom: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.project-card .project-meta .badge {\n  font-size: 0.7rem;\n  font-weight: 600;\n  padding: 0.3rem 0.7rem;\n  border-radius: var(--radius-full);\n  text-transform: uppercase;\n  letter-spacing: 0.06em;\n}\n.project-card .project-meta .text-muted {\n  font-size: 0.8rem;\n  opacity: 0.6;\n}\n.project-card .project-actions {\n  margin-top: auto;\n  padding-top: 0.5rem;\n}\n.project-card .project-actions .btn-primary {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.65rem 1.5rem;\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 600;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: #fff;\n  border: none;\n  text-decoration: none;\n  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  position: relative;\n  overflow: hidden;\n}\n.project-card .project-actions .btn-primary::after {\n  content: " \\2192";\n  transition: transform 0.3s ease;\n  display: inline-block;\n}\n.project-card .project-actions .btn-primary:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35);\n}\n.project-card .project-actions .btn-primary:hover::after {\n  transform: translateX(4px);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 1100px) {\n  .projects-grid {\n    grid-template-columns: repeat(2, 1fr);\n    max-width: 700px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 700px) {\n  .projects-grid {\n    grid-template-columns: 1fr;\n    max-width: 500px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 768px) {\n  .projects-grid {\n    gap: 1.5rem;\n  }\n  .project-preview-container .project-preview {\n    height: 200px;\n    padding: 1.5rem 1.25rem;\n  }\n  .project-preview-container .project-preview h3 {\n    font-size: 1.2rem;\n  }\n  .project-card .card-body {\n    padding: 1.25rem;\n  }\n  .project-content {\n    padding: var(--spacing-lg);\n  }\n  .project-content .project-title {\n    font-size: 1.25rem;\n  }\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n.project-card {\n  opacity: 0;\n  animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;\n}\n.project-card:nth-child(1) {\n  animation-delay: 0.15s;\n}\n.project-card:nth-child(2) {\n  animation-delay: 0.35s;\n}\n.project-card:nth-child(3) {\n  animation-delay: 0.55s;\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(40px) scale(0.97);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n.category-filters {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters .filter-buttons {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters .filter-btn {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters .filter-btn:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters .filter-btn.active {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats .stat {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats .stat:last-child {\n  margin-right: 0;\n}\n.project-stats .package-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats .package-badges .package-badge {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats .package-badges .package-badge:not([src]),\n.project-stats .package-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats .npm-badges .package-badge:not([src]),\n.project-stats .npm-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats .maven-badges .package-badge:not([src]),\n.project-stats .maven-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions {\n  margin-top: auto;\n}\n.project-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters .filter-buttons {\n    gap: var(--spacing-xs);\n  }\n  .category-filters .filter-btn {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card .card-title {\n    font-size: 1.125rem;\n  }\n  .project-stats .stat {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats .package-badges {\n    justify-content: center;\n  }\n  .project-stats .package-badges .package-badge {\n    height: 24px;\n  }\n}\n.open-source-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.open-source-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container .project-preview {\n  width: 100%;\n  height: 240px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: #fff;\n  text-align: center;\n  padding: 2rem 1.5rem;\n  box-sizing: border-box;\n  position: relative;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  overflow: hidden;\n}\n.project-preview-container .project-preview::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 255, 255, 0.06) 0%,\n      transparent 50%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 255, 255, 0.04) 0%,\n      transparent 50%);\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container .project-preview {\n}\n.project-preview-container .project-preview::after {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    conic-gradient(\n      from 0deg,\n      transparent 0%,\n      rgba(255, 255, 255, 0.03) 25%,\n      transparent 50%);\n  animation: previewRotate 8s linear infinite;\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container .project-preview > * {\n  position: relative;\n  z-index: 2;\n}\n.project-preview-container .project-preview h3 {\n  margin: 0 0 0.5rem;\n  font-size: 1.4rem;\n  font-weight: 800;\n  letter-spacing: -0.01em;\n  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);\n}\n.project-preview-container .project-preview p {\n  margin: 0 0 0.75rem;\n  font-size: 0.9rem;\n  opacity: 0.92;\n  line-height: 1.5;\n  font-weight: 500;\n}\n.project-preview-container .project-preview .om-symbol {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.6));\n}\n.project-preview-container .project-preview .tech-stack {\n  font-size: 0.78rem;\n  opacity: 0.75;\n  margin-top: 0.25rem;\n  letter-spacing: 0.03em;\n  font-weight: 400;\n}\n.project-preview-container .project-preview .powered-by {\n  font-size: 0.72rem;\n  opacity: 0.55;\n  margin-top: 0.5rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n  font-weight: 600;\n}\n.project-preview-container {\n}\n.project-card:hover .project-preview-container .project-preview {\n  transform: scale(1.03);\n}\n.algo-preview {\n  background:\n    linear-gradient(\n      135deg,\n      #0f0c29 0%,\n      #302b63 50%,\n      #24243e 100%);\n}\n.algo-preview::before {\n  background:\n    radial-gradient(\n      circle at 15% 85%,\n      rgba(102, 126, 234, 0.25) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 85% 15%,\n      rgba(118, 75, 162, 0.2) 0%,\n      transparent 45%) !important;\n}\n.divine-wisdom {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0a00 0%,\n      #3d1c00 35%,\n      #2d1600 70%,\n      #1a0a00 100%);\n}\n.divine-wisdom::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 165, 0, 0.2) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 215, 0, 0.12) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0011 0%,\n      #3d0028 35%,\n      #2d001e 70%,\n      #1a0011 100%);\n}\n.datesense-preview::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(236, 72, 153, 0.22) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(244, 114, 182, 0.15) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview .heart-symbol {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: heartBeat 2s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(236, 72, 153, 0.6));\n}\n@keyframes heartBeat {\n  0%, 100% {\n    transform: scale(1);\n  }\n  15% {\n    transform: scale(1.15);\n  }\n  30% {\n    transform: scale(1);\n  }\n  45% {\n    transform: scale(1.1);\n  }\n  60% {\n    transform: scale(1);\n  }\n}\n@keyframes previewRotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes omFloat {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-8px);\n  }\n}\n.tech-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.tech-badges .tech-badge {\n  background: rgba(102, 126, 234, 0.1);\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  border-radius: var(--radius-full);\n  padding: 0.3rem 0.75rem;\n  font-size: 0.72rem;\n  font-weight: 600;\n  color: rgba(255, 255, 255, 0.85);\n  letter-spacing: 0.02em;\n  transition: all 0.3s ease;\n}\n.tech-badges .tech-badge:hover {\n  background: rgba(102, 126, 234, 0.2);\n  border-color: rgba(102, 126, 234, 0.4);\n  color: #fff;\n  transform: translateY(-1px);\n}\n.divine-card .tech-badges .tech-badge {\n  background: rgba(255, 165, 0, 0.08);\n  border-color: rgba(255, 165, 0, 0.18);\n}\n.divine-card .tech-badges .tech-badge:hover {\n  background: rgba(255, 165, 0, 0.18);\n  border-color: rgba(255, 165, 0, 0.35);\n}\n.datesense-card .tech-badges .tech-badge {\n  background: rgba(236, 72, 153, 0.08);\n  border-color: rgba(236, 72, 153, 0.18);\n}\n.datesense-card .tech-badges .tech-badge:hover {\n  background: rgba(236, 72, 153, 0.18);\n  border-color: rgba(236, 72, 153, 0.35);\n}\n.algo-card .project-meta .badge {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n}\n.divine-card .project-meta .badge {\n  background:\n    linear-gradient(\n      135deg,\n      #f5af19,\n      #f12711);\n}\n.datesense-card .project-meta .badge {\n  background:\n    linear-gradient(\n      135deg,\n      #ec4899,\n      #be185d);\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n.projects-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 2.5rem;\n  margin-top: var(--spacing-2xl);\n  max-width: 1200px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.project-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);\n  border: 1px solid var(--glass-border);\n  overflow: hidden;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  position: relative;\n  display: flex;\n  flex-direction: column;\n}\n.project-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: -75%;\n  width: 50%;\n  height: 100%;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.04),\n      transparent);\n  transition: left 0.8s ease;\n  z-index: 1;\n  pointer-events: none;\n}\n.project-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);\n  transform: translateY(-10px) scale(1.015);\n  border-color: rgba(255, 255, 255, 0.15);\n}\n.project-card:hover::before {\n  left: 125%;\n}\n.project-card {\n}\n.project-card.algo-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(102, 126, 234, 0.15);\n}\n.project-card {\n}\n.project-card.divine-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 165, 0, 0.12);\n}\n.project-card {\n}\n.project-card.datesense-card:hover {\n  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 40px rgba(236, 72, 153, 0.18);\n}\n.project-image {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-lg);\n  margin: var(--spacing-lg);\n}\n.project-image a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-content {\n  padding: var(--spacing-xl);\n}\n.project-content .project-title {\n  font-family: var(--font-secondary);\n  font-size: 1.5rem;\n  font-weight: 700;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n}\n.project-content .project-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 1rem;\n}\n.project-content .project-description b {\n  color: var(--text-primary);\n  font-weight: 600;\n}\n.project-card .card-body {\n  padding: 1.75rem;\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.project-card .card-body .card-title {\n  font-size: 1.3rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.75rem;\n  letter-spacing: -0.01em;\n}\n.project-card .card-body .card-text {\n  color: var(--text-secondary);\n  line-height: 1.75;\n  font-size: 0.925rem;\n  flex-grow: 1;\n  margin-bottom: 1.25rem;\n}\n.project-card .project-meta {\n  margin-bottom: 1rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.project-card .project-meta .badge {\n  font-size: 0.7rem;\n  font-weight: 600;\n  padding: 0.3rem 0.7rem;\n  border-radius: var(--radius-full);\n  text-transform: uppercase;\n  letter-spacing: 0.06em;\n}\n.project-card .project-meta .text-muted {\n  font-size: 0.8rem;\n  opacity: 0.6;\n}\n.project-card .project-actions {\n  margin-top: auto;\n  padding-top: 0.5rem;\n}\n.project-card .project-actions .btn-primary {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.65rem 1.5rem;\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 600;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: #fff;\n  border: none;\n  text-decoration: none;\n  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  position: relative;\n  overflow: hidden;\n}\n.project-card .project-actions .btn-primary::after {\n  content: " \\2192";\n  transition: transform 0.3s ease;\n  display: inline-block;\n}\n.project-card .project-actions .btn-primary:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35);\n}\n.project-card .project-actions .btn-primary:hover::after {\n  transform: translateX(4px);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 4rem;\n  width: 100%;\n  overflow: visible;\n}\n.section-title {\n  font-size: 3.5rem;\n  font-weight: 800;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2,\n      #f093fb);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 1rem;\n  letter-spacing: -0.02em;\n  font-family:\n    "SF Pro Display",\n    -apple-system,\n    BlinkMacSystemFont,\n    sans-serif;\n  white-space: nowrap;\n  overflow: visible;\n  text-overflow: unset;\n  line-height: 1.2;\n}\n@media (max-width: 1100px) {\n  .projects-grid {\n    grid-template-columns: repeat(2, 1fr);\n    max-width: 700px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 700px) {\n  .projects-grid {\n    grid-template-columns: 1fr;\n    max-width: 500px;\n    gap: 2rem;\n  }\n}\n@media (max-width: 768px) {\n  .projects-grid {\n    gap: 1.5rem;\n  }\n  .project-preview-container .project-preview {\n    height: 200px;\n    padding: 1.5rem 1.25rem;\n  }\n  .project-preview-container .project-preview h3 {\n    font-size: 1.2rem;\n  }\n  .project-card .card-body {\n    padding: 1.25rem;\n  }\n  .project-content {\n    padding: var(--spacing-lg);\n  }\n  .project-content .project-title {\n    font-size: 1.25rem;\n  }\n  .section-title {\n    font-size: 2.5rem;\n  }\n}\n.project-card {\n  opacity: 0;\n  animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;\n}\n.project-card:nth-child(1) {\n  animation-delay: 0.15s;\n}\n.project-card:nth-child(2) {\n  animation-delay: 0.35s;\n}\n.project-card:nth-child(3) {\n  animation-delay: 0.55s;\n}\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    transform: translateY(40px) scale(0.97);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n.category-filters {\n  margin-bottom: var(--spacing-2xl);\n}\n.category-filters .filter-buttons {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  justify-content: center;\n  align-items: center;\n}\n.category-filters .filter-btn {\n  background: var(--bg-secondary);\n  border: 1px solid var(--glass-border);\n  color: var(--text-secondary);\n  padding: var(--spacing-sm) var(--spacing-lg);\n  border-radius: var(--radius-xl);\n  font-size: 0.875rem;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all var(--transition-normal);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.category-filters .filter-btn:hover {\n  background: rgba(255, 255, 255, 0.1);\n  border-color: rgba(255, 255, 255, 0.2);\n  color: var(--text-primary);\n  transform: translateY(-1px);\n}\n.category-filters .filter-btn.active {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border-color: transparent;\n  color: var(--white);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.open-source-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: var(--spacing-xl);\n  margin-top: var(--spacing-2xl);\n}\n.open-source-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  box-shadow: var(--glass-shadow);\n  border: 1px solid var(--glass-border);\n  transition: all var(--transition-normal);\n  overflow: hidden;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n}\n.open-source-card:hover {\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);\n  transform: translateY(-8px);\n  border-color: rgba(255, 255, 255, 0.2);\n}\n.open-source-card .card-body {\n  padding: var(--spacing-xl);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n.open-source-card .card-title {\n  font-family: var(--font-secondary);\n  font-size: 1.25rem;\n  font-weight: 600;\n  margin-bottom: var(--spacing-md);\n  color: var(--text-primary);\n  line-height: 1.4;\n}\n.open-source-card .card-text {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: var(--spacing-lg);\n}\n.project-meta {\n  margin-bottom: var(--spacing-md);\n}\n.project-meta .badge {\n  font-size: 0.75rem;\n  font-weight: 500;\n  padding: var(--spacing-xs) var(--spacing-sm);\n  border-radius: var(--radius-sm);\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: var(--white);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.project-meta .text-muted {\n  color: var(--text-tertiary);\n  font-size: 0.875rem;\n  margin-left: var(--spacing-sm);\n}\n.project-stats {\n  margin-bottom: var(--spacing-lg);\n}\n.project-stats .stat {\n  display: inline-block;\n  font-size: 0.875rem;\n  color: var(--text-secondary);\n  margin-right: var(--spacing-md);\n  font-weight: 500;\n}\n.project-stats .stat:last-child {\n  margin-right: 0;\n}\n.project-stats .package-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: var(--spacing-sm);\n  margin-top: var(--spacing-sm);\n}\n.project-stats .package-badges .package-badge {\n  height: 28px;\n  border-radius: var(--radius-sm);\n  filter: brightness(0.9);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.project-stats .package-badges .package-badge:not([src]),\n.project-stats .package-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n  color: white;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  font-weight: 500;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 80px;\n  text-align: center;\n}\n.project-stats .npm-badges .package-badge:not([src]),\n.project-stats .npm-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #cb3837,\n      #e53e3e);\n}\n.project-stats .maven-badges .package-badge:not([src]),\n.project-stats .maven-badges .package-badge[src=""] {\n  background:\n    linear-gradient(\n      135deg,\n      #c71a36,\n      #e53e3e);\n}\n.project-actions {\n  margin-top: auto;\n}\n.project-actions .btn {\n  font-size: 0.875rem;\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-md);\n  font-weight: 500;\n  transition: all var(--transition-normal);\n}\n.project-actions .btn:hover {\n  transform: translateY(-1px);\n  box-shadow: var(--shadow-md);\n}\n.project-actions .btn-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  border: none;\n}\n.project-actions .btn-primary:hover {\n  background:\n    linear-gradient(\n      135deg,\n      #764ba2,\n      #667eea);\n}\n@media (max-width: 768px) {\n  .category-filters {\n    margin-bottom: var(--spacing-xl);\n  }\n  .category-filters .filter-buttons {\n    gap: var(--spacing-xs);\n  }\n  .category-filters .filter-btn {\n    padding: var(--spacing-xs) var(--spacing-md);\n    font-size: 0.8rem;\n  }\n  .open-source-grid {\n    grid-template-columns: 1fr;\n    gap: var(--spacing-lg);\n  }\n  .open-source-card .card-body {\n    padding: var(--spacing-lg);\n  }\n  .open-source-card .card-title {\n    font-size: 1.125rem;\n  }\n  .project-stats .stat {\n    display: block;\n    margin-bottom: var(--spacing-xs);\n  }\n  .project-stats .package-badges {\n    justify-content: center;\n  }\n  .project-stats .package-badges .package-badge {\n    height: 24px;\n  }\n}\n.open-source-card {\n  animation: fadeInUp 0.6s ease-out;\n}\n.open-source-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.open-source-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.open-source-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.project-preview-container {\n  position: relative;\n  overflow: hidden;\n  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;\n}\n.project-preview-container a {\n  text-decoration: none;\n  color: inherit;\n  display: block;\n}\n.project-preview-container .project-preview {\n  width: 100%;\n  height: 240px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: #fff;\n  text-align: center;\n  padding: 2rem 1.5rem;\n  box-sizing: border-box;\n  position: relative;\n  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  overflow: hidden;\n}\n.project-preview-container .project-preview::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 255, 255, 0.06) 0%,\n      transparent 50%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 255, 255, 0.04) 0%,\n      transparent 50%);\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container .project-preview {\n}\n.project-preview-container .project-preview::after {\n  content: "";\n  position: absolute;\n  top: -50%;\n  left: -50%;\n  width: 200%;\n  height: 200%;\n  background:\n    conic-gradient(\n      from 0deg,\n      transparent 0%,\n      rgba(255, 255, 255, 0.03) 25%,\n      transparent 50%);\n  animation: previewRotate 8s linear infinite;\n  pointer-events: none;\n  z-index: 1;\n}\n.project-preview-container .project-preview > * {\n  position: relative;\n  z-index: 2;\n}\n.project-preview-container .project-preview h3 {\n  margin: 0 0 0.5rem;\n  font-size: 1.4rem;\n  font-weight: 800;\n  letter-spacing: -0.01em;\n  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);\n}\n.project-preview-container .project-preview p {\n  margin: 0 0 0.75rem;\n  font-size: 0.9rem;\n  opacity: 0.92;\n  line-height: 1.5;\n  font-weight: 500;\n}\n.project-preview-container .project-preview .om-symbol {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: omFloat 3s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.6));\n}\n.project-preview-container .project-preview .tech-stack {\n  font-size: 0.78rem;\n  opacity: 0.75;\n  margin-top: 0.25rem;\n  letter-spacing: 0.03em;\n  font-weight: 400;\n}\n.project-preview-container .project-preview .powered-by {\n  font-size: 0.72rem;\n  opacity: 0.55;\n  margin-top: 0.5rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n  font-weight: 600;\n}\n.project-preview-container {\n}\n.project-card:hover .project-preview-container .project-preview {\n  transform: scale(1.03);\n}\n.algo-preview {\n  background:\n    linear-gradient(\n      135deg,\n      #0f0c29 0%,\n      #302b63 50%,\n      #24243e 100%);\n}\n.algo-preview::before {\n  background:\n    radial-gradient(\n      circle at 15% 85%,\n      rgba(102, 126, 234, 0.25) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 85% 15%,\n      rgba(118, 75, 162, 0.2) 0%,\n      transparent 45%) !important;\n}\n.divine-wisdom {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0a00 0%,\n      #3d1c00 35%,\n      #2d1600 70%,\n      #1a0a00 100%);\n}\n.divine-wisdom::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(255, 165, 0, 0.2) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(255, 215, 0, 0.12) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview {\n  background:\n    linear-gradient(\n      135deg,\n      #1a0011 0%,\n      #3d0028 35%,\n      #2d001e 70%,\n      #1a0011 100%);\n}\n.datesense-preview::before {\n  background:\n    radial-gradient(\n      circle at 20% 80%,\n      rgba(236, 72, 153, 0.22) 0%,\n      transparent 45%),\n    radial-gradient(\n      circle at 80% 20%,\n      rgba(244, 114, 182, 0.15) 0%,\n      transparent 45%) !important;\n}\n.datesense-preview .heart-symbol {\n  font-size: 2.2rem;\n  margin: 0.25rem 0 0.5rem;\n  animation: heartBeat 2s ease-in-out infinite;\n  filter: drop-shadow(0 0 14px rgba(236, 72, 153, 0.6));\n}\n@keyframes heartBeat {\n  0%, 100% {\n    transform: scale(1);\n  }\n  15% {\n    transform: scale(1.15);\n  }\n  30% {\n    transform: scale(1);\n  }\n  45% {\n    transform: scale(1.1);\n  }\n  60% {\n    transform: scale(1);\n  }\n}\n@keyframes previewRotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes omFloat {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-8px);\n  }\n}\n.tech-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.tech-badges .tech-badge {\n  background: rgba(102, 126, 234, 0.1);\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  border-radius: var(--radius-full);\n  padding: 0.3rem 0.75rem;\n  font-size: 0.72rem;\n  font-weight: 600;\n  color: rgba(255, 255, 255, 0.85);\n  letter-spacing: 0.02em;\n  transition: all 0.3s ease;\n}\n.tech-badges .tech-badge:hover {\n  background: rgba(102, 126, 234, 0.2);\n  border-color: rgba(102, 126, 234, 0.4);\n  color: #fff;\n  transform: translateY(-1px);\n}\n.divine-card .tech-badges .tech-badge {\n  background: rgba(255, 165, 0, 0.08);\n  border-color: rgba(255, 165, 0, 0.18);\n}\n.divine-card .tech-badges .tech-badge:hover {\n  background: rgba(255, 165, 0, 0.18);\n  border-color: rgba(255, 165, 0, 0.35);\n}\n.datesense-card .tech-badges .tech-badge {\n  background: rgba(236, 72, 153, 0.08);\n  border-color: rgba(236, 72, 153, 0.18);\n}\n.datesense-card .tech-badges .tech-badge:hover {\n  background: rgba(236, 72, 153, 0.18);\n  border-color: rgba(236, 72, 153, 0.35);\n}\n.algo-card .project-meta .badge {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n}\n.divine-card .project-meta .badge {\n  background:\n    linear-gradient(\n      135deg,\n      #f5af19,\n      #f12711);\n}\n.datesense-card .project-meta .badge {\n  background:\n    linear-gradient(\n      135deg,\n      #ec4899,\n      #be185d);\n}\n.pro-projects-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 2rem;\n  margin-top: var(--spacing-2xl);\n  max-width: 1200px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.pro-project-card {\n  background: var(--bg-secondary);\n  border-radius: var(--radius-2xl);\n  border: 1px solid var(--glass-border);\n  padding: 2rem;\n  display: flex;\n  flex-direction: column;\n  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n  backdrop-filter: blur(30px);\n  -webkit-backdrop-filter: blur(30px);\n  position: relative;\n  opacity: 0;\n  animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;\n}\n.pro-project-card:nth-child(1) {\n  animation-delay: 0.1s;\n}\n.pro-project-card:nth-child(2) {\n  animation-delay: 0.2s;\n}\n.pro-project-card:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.pro-project-card:nth-child(4) {\n  animation-delay: 0.4s;\n}\n.pro-project-card:nth-child(5) {\n  animation-delay: 0.5s;\n}\n.pro-project-card:nth-child(6) {\n  animation-delay: 0.6s;\n}\n.pro-project-card {\n}\n.pro-project-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 2rem;\n  right: 2rem;\n  height: 2px;\n  background:\n    linear-gradient(\n      90deg,\n      #667eea,\n      #764ba2,\n      transparent);\n  border-radius: 2px;\n  opacity: 0;\n  transition: opacity 0.4s ease;\n}\n.pro-project-card:hover {\n  transform: translateY(-6px);\n  border-color: rgba(102, 126, 234, 0.25);\n  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5), 0 0 30px rgba(102, 126, 234, 0.08);\n}\n.pro-project-card:hover::before {\n  opacity: 1;\n}\n.pro-card-header {\n  margin-bottom: 1rem;\n}\n.pro-card-meta {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  flex-wrap: wrap;\n}\n.pro-badge {\n  font-size: 0.7rem;\n  font-weight: 600;\n  padding: 0.25rem 0.65rem;\n  border-radius: var(--radius-full);\n  text-transform: uppercase;\n  letter-spacing: 0.06em;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea,\n      #764ba2);\n  color: #fff;\n  text-decoration: none;\n  cursor: pointer;\n  transition: all 0.3s ease;\n}\n.pro-badge:hover,\n.pro-badge:focus,\n.pro-badge:visited {\n  text-decoration: none;\n  color: #fff;\n  filter: brightness(1.15);\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);\n}\n.pro-product {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  font-weight: 500;\n}\n.pro-card-title {\n  font-size: 1.25rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.4rem;\n  letter-spacing: -0.01em;\n  line-height: 1.3;\n}\n.pro-card-tagline {\n  font-size: 0.82rem;\n  font-weight: 500;\n  color: rgba(102, 126, 234, 0.85);\n  margin-bottom: 0.85rem;\n  line-height: 1.4;\n}\n.pro-card-desc {\n  color: var(--text-secondary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  flex-grow: 1;\n  margin-bottom: 1.25rem;\n}\n.pro-card-tech {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-bottom: 1rem;\n}\n.pro-card-tech span {\n  background: rgba(102, 126, 234, 0.08);\n  border: 1px solid rgba(102, 126, 234, 0.18);\n  border-radius: var(--radius-full);\n  padding: 0.25rem 0.65rem;\n  font-size: 0.7rem;\n  font-weight: 600;\n  color: rgba(255, 255, 255, 0.8);\n  letter-spacing: 0.02em;\n  transition: all 0.3s ease;\n}\n.pro-card-tech span:hover {\n  background: rgba(102, 126, 234, 0.18);\n  border-color: rgba(102, 126, 234, 0.35);\n  color: #fff;\n}\n.pro-card-metrics {\n  display: flex;\n  gap: 0.6rem;\n  flex-wrap: wrap;\n  margin-top: auto;\n}\n.pro-card-metrics .metric {\n  font-size: 0.75rem;\n  font-weight: 700;\n  color: #667eea;\n  background: rgba(102, 126, 234, 0.08);\n  border: 1px solid rgba(102, 126, 234, 0.2);\n  padding: 0.3rem 0.7rem;\n  border-radius: var(--radius-full);\n  letter-spacing: 0.02em;\n}\n.card-tagline {\n  font-size: 0.85rem;\n  font-weight: 500;\n  color: #667eea;\n  margin-bottom: 0.75rem;\n  font-style: italic;\n  line-height: 1.4;\n}\n@media (max-width: 1100px) {\n  .pro-projects-grid {\n    grid-template-columns: repeat(2, 1fr);\n    max-width: 750px;\n  }\n}\n@media (max-width: 700px) {\n  .pro-projects-grid {\n    grid-template-columns: 1fr;\n    max-width: 500px;\n  }\n  .pro-project-card {\n    padding: 1.5rem;\n  }\n}\n.project-card:nth-child(4) {\n  animation-delay: 0.75s;\n}\n.project-card:nth-child(5) {\n  animation-delay: 0.95s;\n}\n.project-card:nth-child(6) {\n  animation-delay: 1.15s;\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
   }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 27 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 28 });
 })();
 
 // src/app/config/api-config.ts
