@@ -30,9 +30,9 @@ function shuffleKeywords(pool: string[]): string[] {
 }
 
 interface RawLevelData {
-  platforms?: { x: number; y: number; width: number; type?: string }[];
-  questionBlocks?: { x: number; y: number }[];
-  enemies?: { x: number; y: number; type?: string }[];
+  platforms?: { x: number; y: number; width: number; type?: string; label?: string }[];
+  questionBlocks?: { x: number; y: number; keyword?: string; reward?: string }[];
+  enemies?: { x: number; y: number; type?: string; keyword?: string }[];
   coins?: { x: number; y: number }[];
   flagPole?: { x: number };
 }
@@ -55,8 +55,8 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   const coins: Coin[] = [];
   const questionBlocks: QuestionBlock[] = [];
   const category = config.category || 'backend';
-  const keywords = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS['backend']);
-  const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS['backend']);
+  const fallbackKw = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS['backend']);
+  const fallbackBug = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS['backend']);
   let kwIdx = 0;
   let bugIdx = 0;
 
@@ -72,19 +72,21 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
         type as any
       );
       if (type === 'brick') {
-        plat.label = keywords[kwIdx % keywords.length];
-        kwIdx++;
+        plat.label = p.label || fallbackKw[kwIdx++ % fallbackKw.length];
       }
       platforms.push(plat);
     }
   }
 
   if (data.questionBlocks) {
-    const rewards = assignRewards(data.questionBlocks.length);
+    const fallbackRewards = assignRewards(data.questionBlocks.length);
     data.questionBlocks.forEach((qb, i) => {
-      const q = new QuestionBlock(qb.x * TILE, qb.y * TILE, rewards[i]);
-      q.keyword = keywords[kwIdx % keywords.length];
-      kwIdx++;
+      let reward: PowerUpType = fallbackRewards[i];
+      if (qb.reward === 'star' || qb.reward === 'mushroom' || qb.reward === 'coin') {
+        reward = qb.reward;
+      }
+      const q = new QuestionBlock(qb.x * TILE, qb.y * TILE, reward);
+      q.keyword = qb.keyword || fallbackKw[kwIdx++ % fallbackKw.length];
       questionBlocks.push(q);
     });
   }
@@ -93,8 +95,7 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
     for (const e of data.enemies) {
       const type = e.type === 'koopa' ? 'koopa' : 'goomba';
       const enemy = new Enemy(e.x * TILE, e.y * TILE, type as any);
-      enemy.keyword = bugKw[bugIdx % bugKw.length];
-      bugIdx++;
+      enemy.keyword = e.keyword || fallbackBug[bugIdx++ % fallbackBug.length];
       enemies.push(enemy);
     }
   }
@@ -226,32 +227,98 @@ export function createPlayer(): Player {
   return new Player(3 * TILE, (GROUND_ROW - 1) * TILE - TILE);
 }
 
+const CATEGORY_DESCRIPTIONS: Record<string, { domain: string; techExamples: string; bugExamples: string }> = {
+  backend: {
+    domain: 'Backend Engineering — APIs, databases, caching, auth, service design',
+    techExamples: 'REST API, Circuit Breaker, Connection Pool, Rate Limit, DB Index, gRPC, Middleware, ORM, Idempotent, Retry',
+    bugExamples: 'N+1 Query, SQL Injection, Deadlock, Race Condition, Null Ref, Memory Leak, 500 Error, Auth Bypass, OOM, Stale Cache',
+  },
+  distributed: {
+    domain: 'Distributed Systems — messaging, consistency, partitioning, resilience',
+    techExamples: 'Kafka, Partition, Replication, Consensus, Raft, Shard, Quorum, Saga, Event Bus, Backpressure',
+    bugExamples: 'Split Brain, Msg Lost, Data Skew, Hot Partition, Poison Pill, Dup Event, Clock Drift, Stale Read, Net Split, Zombie',
+  },
+  genai: {
+    domain: 'Gen AI & LLM Systems — RAG, embeddings, prompts, agents, evaluation',
+    techExamples: 'RAG, Embeddings, Vector DB, Prompt, Fine-tune, Token, Context Window, Agent, Tool Call, Guardrails',
+    bugExamples: 'Hallucinate, Token Limit, Prompt Leak, Embed Drift, Eval Fail, Latency, Cost Spike, Loop Agent, Bad Chunk, Jailbreak',
+  },
+  platform: {
+    domain: 'Platform Engineering — CI/CD, containers, observability, reliability',
+    techExamples: 'CI/CD, k8s, Docker, Terraform, Grafana, Prometheus, SLO, Canary, Feature Flag, Service Mesh',
+    bugExamples: 'OOM Kill, Pod Crash, Cert Expire, Drift, Flaky Test, Build Fail, Alert Noise, Rollback, DNS Fail, Quota Hit',
+  },
+  architecture: {
+    domain: 'System Architecture — trade-offs, patterns, scale, fault tolerance',
+    techExamples: 'Load Balancer, CDN, Cache, CQRS, Event Source, Microservice, API Gateway, BFF, Bounded Context, Bulkhead',
+    bugExamples: 'Circular Dep, Tight Couple, God Class, Leaky Abstraction, Spaghetti, Bottleneck, Single Point, Tech Debt, Big Ball of Mud',
+  },
+  leadership: {
+    domain: 'Staff Engineering & Leadership — influence, planning, execution, culture',
+    techExamples: 'RFC, ADR, Tech Debt, Roadmap, Stakeholder, Postmortem, Mentoring, Code Review, OKR, Alignment',
+    bugExamples: 'Scope Creep, Bikeshed, Silo, Bus Factor, Gold Plate, YAGNI, Cargo Cult, Burnout, Hero Code, Tunnel Vision',
+  },
+};
+
 export function getLevelGenerationPrompt(category: string, difficulty: string): string {
-  const qCount = difficulty === 'Hard' ? 5 : difficulty === 'Medium' ? 7 : 9;
-  const enemyGuide = difficulty === 'Hard' ? '18-22' : difficulty === 'Medium' ? '12-15' : '8-10';
+  const cat = CATEGORY_DESCRIPTIONS[category] ?? CATEGORY_DESCRIPTIONS['backend'];
+  const enemyCount = difficulty === 'Hard' ? '18-22' : difficulty === 'Medium' ? '12-15' : '8-10';
+  const qCount = difficulty === 'Hard' ? '4-6' : difficulty === 'Medium' ? '6-8' : '8-10';
   const gapGuide = difficulty === 'Hard' ? '3-4 gaps (2-3 tiles wide)' : difficulty === 'Medium' ? '2-3 gaps (2 tiles wide)' : '1-2 small gaps';
+  const brickGuide = difficulty === 'Hard' ? '6-8' : difficulty === 'Medium' ? '4-6' : '3-5';
+  const pipeGuide = difficulty === 'Hard' ? '3-4' : difficulty === 'Medium' ? '2-3' : '1-2';
 
-  return `Generate a Mario-style platform level layout as JSON for a ${category}-themed ${difficulty} difficulty challenge.
+  return `You are a game level designer building a Mario-style platformer level for a "${cat.domain}" themed world at "${difficulty}" difficulty.
 
-The level is on a grid: 80 tiles wide, 14 tiles tall. Row 0 is the top, row 12 is the ground surface.
-The player starts at tile (3, 11). The flag pole should be at tile x=76.
+GRID: 80 tiles wide × 14 tiles tall. Row 0 = top, row 12 = ground surface. Player starts at (3, 11). Flag pole at x=76.
 
-Requirements for ${difficulty} difficulty:
-- Ground segments with ${gapGuide}
-- ${qCount} question blocks (power-up blocks) placed at rows 7-9 (above ground, hittable from below)
-- ${enemyGuide} enemies (goomba or koopa) placed at row 11 (on ground)
-- 20-35 coins scattered at rows 4-10
-- 3-6 floating brick platforms (2-4 tiles wide) at rows 6-9
-- 1-3 pipes on the ground (2 tiles wide)
+PLACE THESE ELEMENTS (all x/y in tile units):
 
-Return ONLY valid JSON in this exact format:
+1. GROUND PLATFORMS (type "ground"): continuous segments at y=12 with ${gapGuide}. Cover most of the 80-tile width.
+
+2. PIPES (type "pipe"): ${pipeGuide} pipes, each 2 tiles wide, placed on the ground. Spread them evenly.
+
+3. BRICK PLATFORMS (type "brick"): ${brickGuide} floating brick rows at y=6-9, each 2-4 tiles wide.
+   Each brick gets a "label" — a short ${cat.domain.split('—')[0].trim()} concept (1-2 words max).
+   Examples: ${cat.techExamples}
+
+4. QUESTION BLOCKS: ${qCount} blocks at y=7-9 (hittable from below).
+   Each gets a "keyword" — a key concept the player "unlocks".
+   Each gets a "reward": "coin", "mushroom", or "star" (mostly mushroom and coin, 1-2 stars max).
+   Examples: ${cat.techExamples}
+
+5. ENEMIES: ${enemyCount} enemies at y=11 (on ground). Type "goomba" (70%) or "koopa" (30%).
+   IMPORTANT: spread them across the FULL level (x=8 to x=72). Don't cluster them.
+   Each enemy gets a "keyword" — a bug/anti-pattern that the player "squashes" by stomping it.
+   Make these realistic ${cat.domain.split('—')[0].trim()} bugs. Examples: ${cat.bugExamples}
+   Every enemy MUST have a unique keyword.
+
+6. COINS: 20-35 coins at y=4-10. Scatter across the level.
+
+7. FLAG POLE: {"x": 76}
+
+Return ONLY valid JSON, no explanation. Exact format:
 {
-  "platforms": [{"x": 0, "y": 12, "width": 10, "type": "ground"}, {"x": 20, "y": 7, "width": 3, "type": "brick"}],
-  "questionBlocks": [{"x": 15, "y": 8}],
-  "enemies": [{"x": 25, "y": 11, "type": "goomba"}],
+  "platforms": [
+    {"x": 0, "y": 12, "width": 10, "type": "ground"},
+    {"x": 20, "y": 7, "width": 3, "type": "brick", "label": "Rate Limit"}
+  ],
+  "questionBlocks": [
+    {"x": 15, "y": 8, "keyword": "Circuit Breaker", "reward": "mushroom"}
+  ],
+  "enemies": [
+    {"x": 12, "y": 11, "type": "goomba", "keyword": "N+1 Query"},
+    {"x": 25, "y": 11, "type": "koopa", "keyword": "Deadlock"}
+  ],
   "coins": [{"x": 12, "y": 6}],
   "flagPole": {"x": 76}
 }
 
-All coordinates are in tile units (not pixels). Ground should start at y=12 and gaps should be realistic (2-3 tiles). Make sure the level is playable - no impossible jumps.`;
+RULES:
+- All coordinates in TILE units (not pixels)
+- Ground at y=12. Enemies at y=11. No enemies in gaps or on pipes.
+- No impossible jumps (max gap = 3 tiles)
+- Enemies MUST be spread across x=8 to x=72, not clustered
+- Every enemy, brick, and question block MUST have its keyword/label field
+- Keywords should be real ${cat.domain.split('—')[0].trim()} terminology, not generic`;
 }
