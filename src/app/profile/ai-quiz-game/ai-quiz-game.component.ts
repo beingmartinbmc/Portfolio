@@ -139,6 +139,7 @@ export class AiQuizGameComponent implements OnDestroy {
   touchLeft(active: boolean): void { this.engine?.getControls().setTouchLeft(active); }
   touchRight(active: boolean): void { this.engine?.getControls().setTouchRight(active); }
   touchJump(active: boolean): void { this.engine?.getControls().setTouchJump(active); }
+  touchFire(active: boolean): void { this.engine?.getControls().setTouchFire(active); }
 
   private async generateAILevel(config: LevelConfig): Promise<any> {
     const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty);

@@ -87,5 +87,13 @@ export const MarioAudio = {
 
   brickBump(): void {
     playTone(220, 0.06, 'square', 0.07);
+  },
+
+  fireball(): void {
+    playSequence([[800, 0.03], [600, 0.03], [400, 0.04]], 'sawtooth', 0.07);
+  },
+
+  fireHit(): void {
+    playSequence([[500, 0.03], [700, 0.04], [350, 0.05]], 'square', 0.08);
   }
 };

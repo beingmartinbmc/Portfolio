@@ -40496,6 +40496,7 @@ var Player = class {
     this.onGround = false;
     this.invincibleTimer = 0;
     this.starTimer = 0;
+    this.fireCooldown = 0;
     this.x = x;
     this.y = y;
   }
@@ -40507,10 +40508,15 @@ var Player = class {
       this.state = "big";
       this.h = TILE * 1.5;
       this.y -= TILE * 0.5;
+    } else if (this.state === "big") {
+      this.state = "fire";
     }
   }
   shrink() {
-    if (this.state === "big") {
+    if (this.state === "fire") {
+      this.state = "big";
+      this.invincibleTimer = 90;
+    } else if (this.state === "big") {
       this.state = "small";
       this.y += TILE * 0.5;
       this.h = TILE;
@@ -40519,6 +40525,9 @@ var Player = class {
   }
   activateStar() {
     this.starTimer = 300;
+  }
+  get isBig() {
+    return this.state === "big" || this.state === "fire";
   }
 };
 var Platform = class {
@@ -40543,6 +40552,7 @@ var Enemy = class {
     this.h = TILE * 0.85;
     this.alive = true;
     this.squashTimer = 0;
+    this.keyword = "";
     this.x = x;
     this.y = y;
     this.type = type;
@@ -40560,6 +40570,23 @@ var Coin = class {
     this.animTimer = 0;
     this.x = x;
     this.y = y;
+  }
+  get box() {
+    return { x: this.x, y: this.y, w: this.w, h: this.h };
+  }
+};
+var Fireball = class {
+  constructor(x, y, direction) {
+    this.vy = 0;
+    this.w = TILE * 0.35;
+    this.h = TILE * 0.35;
+    this.alive = true;
+    this.bounces = 0;
+    this.life = 180;
+    this.x = x;
+    this.y = y;
+    this.vx = direction * 6;
+    this.vy = 2;
   }
   get box() {
     return { x: this.x, y: this.y, w: this.w, h: this.h };
@@ -40625,6 +40652,14 @@ var CATEGORY_KEYWORDS = {
   architecture: ["Load Balancer", "CDN", "Cache", "CQRS", "Event Source", "Domain", "Hexagonal", "Microservice", "Monolith", "API Gateway", "BFF", "Strangler Fig", "Bounded Context", "Anti-Corruption", "Bulkhead"],
   leadership: ["RFC", "ADR", "Tech Debt", "Roadmap", "Stakeholder", "Incident", "Postmortem", "On-Call", "Mentoring", "Code Review", "Sprint", "Retro", "OKR", "Scope", "Alignment"]
 };
+var CATEGORY_BUG_KEYWORDS = {
+  backend: ["N+1 Query", "SQL Inject", "Deadlock", "Race Cond", "Null Ref", "Mem Leak", "Timeout", "500 Error", "Auth Bypass", "OOM", "Stale Cache", "CORS Fail"],
+  distributed: ["Split Brain", "Msg Lost", "Data Skew", "Hot Part", "Rebalance", "Offset Lag", "Poison Pill", "Dup Event", "Clock Drift", "Stale Read", "Net Split", "Zombie"],
+  genai: ["Hallucinate", "Token Limit", "Prompt Leak", "Embed Drift", "Eval Fail", "Latency", "Cost Spike", "Guard Fail", "Loop Agent", "Stale Index", "Bad Chunk", "Jailbreak"],
+  platform: ["OOM Kill", "Pod Crash", "Cert Expire", "Drift", "Flaky Test", "Build Fail", "Alert Noise", "Rollback", "DNS Fail", "Port Clash", "Image Pull", "Quota Hit"],
+  architecture: ["Circular Dep", "Tight Couple", "N+1 Svc", "God Class", "Leaky Abs", "Big Ball", "Spaghetti", "Overfit", "Premature", "Bottleneck", "Single Point", "Tech Debt"],
+  leadership: ["Scope Creep", "Bike Shed", "Silo", "Bus Factor", "Gold Plate", "YAGNI", "Not Invented", "Cargo Cult", "Burnout", "Hero Code", "Tunnel Vision", "Stale RFC"]
+};
 
 // src/app/profile/ai-quiz-game/game/mario-renderer.ts
 var SKY_TOP = "#09091a";
@@ -40640,6 +40675,8 @@ var PIPE_DARK = "#16a34a";
 var PLAYER_RED = "#ef4444";
 var PLAYER_BLUE = "#3b82f6";
 var PLAYER_SKIN = "#fcd34d";
+var PLAYER_WHITE = "#f8fafc";
+var FIRE_ORANGE = "#f97316";
 var GOOMBA_BODY = "#8b4513";
 var GOOMBA_FEET = "#5c2d0e";
 var KOOPA_BODY = "#22c55e";
@@ -40695,6 +40732,8 @@ var MarioRenderer = class {
       this.drawCoin(coin);
     for (const enemy of level.enemies)
       this.drawEnemy(enemy);
+    for (const fb of level.fireballs)
+      this.drawFireball(fb);
     for (const d of level.debris)
       this.drawDebris(d);
     for (const ft of level.floatingTexts)
@@ -40867,6 +40906,16 @@ var MarioRenderer = class {
       this.ctx.fillStyle = GOOMBA_FEET;
       this.ctx.fillRect(enemy.x, enemy.y + enemy.h - 4, enemy.w * 0.35, 4);
       this.ctx.fillRect(enemy.x + enemy.w * 0.65, enemy.y + enemy.h - 4, enemy.w * 0.35, 4);
+      if (enemy.alive && enemy.keyword) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.45;
+        this.ctx.fillStyle = "#ff6b6b";
+        this.ctx.font = '5px "Press Start 2P", monospace';
+        this.ctx.textAlign = "center";
+        this.ctx.textBaseline = "top";
+        this.ctx.fillText(enemy.keyword, enemy.x + enemy.w / 2, enemy.y + enemy.h + 2);
+        this.ctx.restore();
+      }
     } else {
       this.ctx.fillStyle = KOOPA_SHELL;
       this.ctx.fillRect(enemy.x + 2, enemy.y + enemy.h * 0.3, enemy.w - 4, enemy.h * 0.5);
@@ -40878,8 +40927,38 @@ var MarioRenderer = class {
         this.ctx.fillStyle = "#000";
         this.ctx.fillRect(enemy.x + enemy.w * 0.38, enemy.y + 5, 2, 2);
       }
+      if (enemy.alive && enemy.keyword) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.45;
+        this.ctx.fillStyle = "#ff6b6b";
+        this.ctx.font = '5px "Press Start 2P", monospace';
+        this.ctx.textAlign = "center";
+        this.ctx.textBaseline = "top";
+        this.ctx.fillText(enemy.keyword, enemy.x + enemy.w / 2, enemy.y + enemy.h + 2);
+        this.ctx.restore();
+      }
     }
     this.ctx.globalAlpha = 1;
+  }
+  drawFireball(fb) {
+    if (!fb.alive)
+      return;
+    this.ctx.save();
+    const pulse = 0.8 + Math.sin(this.frameCount * 0.3) * 0.2;
+    const radius = fb.w / 2 * pulse;
+    this.ctx.shadowColor = FIRE_ORANGE;
+    this.ctx.shadowBlur = 8;
+    this.ctx.fillStyle = FIRE_ORANGE;
+    this.ctx.beginPath();
+    this.ctx.arc(fb.x + fb.w / 2, fb.y + fb.h / 2, radius + 2, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.fillStyle = "#fbbf24";
+    this.ctx.beginPath();
+    this.ctx.arc(fb.x + fb.w / 2, fb.y + fb.h / 2, radius * 0.6, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.shadowColor = "transparent";
+    this.ctx.shadowBlur = 0;
+    this.ctx.restore();
   }
   drawFlagPole(fp) {
     this.ctx.fillStyle = FLAG_POLE_COLOR;
@@ -40939,6 +41018,10 @@ var MarioRenderer = class {
     const w = player.w;
     const h = player.h;
     const flip = player.facing === "left";
+    const isFire = player.state === "fire";
+    const hatColor = isFire ? PLAYER_WHITE : PLAYER_RED;
+    const bodyColor = isFire ? PLAYER_WHITE : PLAYER_RED;
+    const overallColor = isFire ? FIRE_ORANGE : PLAYER_BLUE;
     this.ctx.save();
     if (flip) {
       this.ctx.translate(x + w, y);
@@ -40950,22 +41033,22 @@ var MarioRenderer = class {
     const headH = isSmall ? h * 0.45 : h * 0.3;
     const bodyH = isSmall ? h * 0.35 : h * 0.45;
     const legH = h - headH - bodyH;
-    this.ctx.fillStyle = PLAYER_RED;
+    this.ctx.fillStyle = hatColor;
     this.ctx.fillRect(w * 0.15, 0, w * 0.7, headH * 0.4);
     this.ctx.fillRect(w * 0.05, headH * 0.4, w * 0.9, headH * 0.2);
     this.ctx.fillStyle = PLAYER_SKIN;
     this.ctx.fillRect(w * 0.15, headH * 0.5, w * 0.7, headH * 0.5);
     this.ctx.fillStyle = "#000";
     this.ctx.fillRect(w * 0.55, headH * 0.55, 3, 3);
-    this.ctx.fillStyle = PLAYER_RED;
+    this.ctx.fillStyle = bodyColor;
     this.ctx.fillRect(w * 0.1, headH, w * 0.8, bodyH * 0.3);
-    this.ctx.fillStyle = PLAYER_BLUE;
+    this.ctx.fillStyle = overallColor;
     this.ctx.fillRect(w * 0.15, headH + bodyH * 0.3, w * 0.7, bodyH * 0.7);
     this.ctx.fillStyle = PLAYER_SKIN;
     const armW = w * 0.15;
     this.ctx.fillRect(-armW + 2, headH + 2, armW, bodyH * 0.5);
     this.ctx.fillRect(w - 2, headH + 2, armW, bodyH * 0.5);
-    this.ctx.fillStyle = PLAYER_BLUE;
+    this.ctx.fillStyle = overallColor;
     const legW = w * 0.3;
     const legY = headH + bodyH;
     const walkCycle = Math.sin(this.frameCount * 0.2) * 3;
@@ -40986,7 +41069,7 @@ var MarioRenderer = class {
 // src/app/profile/ai-quiz-game/game/mario-controls.ts
 var MarioControls = class {
   constructor() {
-    this.state = { left: false, right: false, jump: false };
+    this.state = { left: false, right: false, jump: false, fire: false };
     this.keydownHandler = (e) => this.onKeyDown(e);
     this.keyupHandler = (e) => this.onKeyUp(e);
   }
@@ -41000,7 +41083,7 @@ var MarioControls = class {
     this.reset();
   }
   reset() {
-    this.state = { left: false, right: false, jump: false };
+    this.state = { left: false, right: false, jump: false, fire: false };
   }
   getState() {
     return __spreadValues({}, this.state);
@@ -41013,6 +41096,9 @@ var MarioControls = class {
   }
   setTouchJump(active) {
     this.state.jump = active;
+  }
+  setTouchFire(active) {
+    this.state.fire = active;
   }
   onKeyDown(e) {
     switch (e.code) {
@@ -41032,6 +41118,13 @@ var MarioControls = class {
         this.state.jump = true;
         e.preventDefault();
         break;
+      case "KeyX":
+      case "KeyZ":
+      case "ShiftLeft":
+      case "ShiftRight":
+        this.state.fire = true;
+        e.preventDefault();
+        break;
     }
   }
   onKeyUp(e) {
@@ -41048,6 +41141,12 @@ var MarioControls = class {
       case "KeyW":
       case "Space":
         this.state.jump = false;
+        break;
+      case "KeyX":
+      case "KeyZ":
+      case "ShiftLeft":
+      case "ShiftRight":
+        this.state.fire = false;
         break;
     }
   }
@@ -41075,6 +41174,8 @@ function updatePhysics(player, level, keys) {
     hitQuestionBlock: null,
     hitEnemy: null,
     stompedEnemy: null,
+    fireballKilledEnemies: [],
+    firedFireball: false,
     brickBroken: null,
     brickBumped: null,
     reachedFlag: false,
@@ -41101,6 +41202,16 @@ function updatePhysics(player, level, keys) {
   player.vy += GRAVITY;
   if (player.vy > MAX_FALL)
     player.vy = MAX_FALL;
+  if (player.fireCooldown > 0)
+    player.fireCooldown--;
+  if (keys.fire && player.state === "fire" && player.fireCooldown <= 0 && level.fireballs.length < 3) {
+    const dir = player.facing === "right" ? 1 : -1;
+    const fx = player.facing === "right" ? player.x + player.w : player.x - TILE * 0.35;
+    const fy = player.y + player.h * 0.4;
+    level.fireballs.push(new Fireball(fx, fy, dir));
+    player.fireCooldown = 15;
+    result.firedFireball = true;
+  }
   const allPlatforms = solidPlatforms(level);
   player.x += player.vx;
   if (player.x < 0)
@@ -41136,7 +41247,7 @@ function updatePhysics(player, level, keys) {
         p.hit = true;
         result.hitQuestionBlock = p;
       } else if (p.type === "brick" && !p.destroyed) {
-        if (player.state === "big" || player.starTimer > 0) {
+        if (player.isBig || player.starTimer > 0) {
           p.destroyed = true;
           result.brickBroken = p;
           player.score += 20;
@@ -41187,6 +41298,51 @@ function updatePhysics(player, level, keys) {
       result.hitEnemy = enemy;
     }
   }
+  for (const fb of level.fireballs) {
+    if (!fb.alive)
+      continue;
+    fb.life--;
+    if (fb.life <= 0) {
+      fb.alive = false;
+      continue;
+    }
+    fb.x += fb.vx;
+    fb.vy += GRAVITY * 0.7;
+    fb.y += fb.vy;
+    for (const p of allPlatforms) {
+      if (aabbOverlap(fb.box, p.box)) {
+        if (fb.vy > 0) {
+          fb.y = p.y - fb.h;
+          fb.vy = -5;
+          fb.bounces++;
+          if (fb.bounces > 4)
+            fb.alive = false;
+        } else {
+          fb.alive = false;
+        }
+        break;
+      }
+    }
+    if (fb.x < 0 || fb.x > level.width) {
+      fb.alive = false;
+      continue;
+    }
+    if (!fb.alive)
+      continue;
+    for (const enemy of level.enemies) {
+      if (!enemy.alive)
+        continue;
+      if (aabbOverlap(fb.box, enemy.box)) {
+        enemy.alive = false;
+        enemy.squashTimer = 15;
+        fb.alive = false;
+        player.score += 50;
+        result.fireballKilledEnemies.push(enemy);
+        break;
+      }
+    }
+  }
+  level.fireballs = level.fireballs.filter((fb) => fb.alive);
   for (const enemy of level.enemies) {
     if (!enemy.alive) {
       if (enemy.squashTimer > 0)
@@ -41249,13 +41405,13 @@ function assignRewards(count) {
   }
   return rewards;
 }
-function shuffleKeywords(category) {
-  const pool = [...CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS["backend"]];
-  for (let i = pool.length - 1; i > 0; i--) {
+function shuffleKeywords(pool) {
+  const arr = [...pool];
+  for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return pool;
+  return arr;
 }
 function parseLevelFromAI(raw) {
   try {
@@ -41276,8 +41432,10 @@ function buildLevelFromData(data, config3) {
   const coins = [];
   const questionBlocks = [];
   const category = config3.category || "backend";
-  const keywords = shuffleKeywords(category);
+  const keywords = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS["backend"]);
+  const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS["backend"]);
   let kwIdx = 0;
+  let bugIdx = 0;
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
   if (data.platforms) {
@@ -41303,7 +41461,10 @@ function buildLevelFromData(data, config3) {
   if (data.enemies) {
     for (const e of data.enemies) {
       const type = e.type === "koopa" ? "koopa" : "goomba";
-      enemies.push(new Enemy(e.x * TILE, e.y * TILE, type));
+      const enemy = new Enemy(e.x * TILE, e.y * TILE, type);
+      enemy.keyword = bugKw[bugIdx % bugKw.length];
+      bugIdx++;
+      enemies.push(enemy);
     }
   }
   if (data.coins) {
@@ -41313,7 +41474,7 @@ function buildLevelFromData(data, config3) {
   }
   const flagX = data.flagPole?.x ? data.flagPole.x * TILE : (LEVEL_TILES_WIDE - 4) * TILE;
   const flagPole = new FlagPole(flagX, 3 * TILE, (GROUND_ROW - 3) * TILE);
-  return { platforms, enemies, coins, questionBlocks, flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
 }
 function generateProceduralLevel(config3) {
   const platforms = [];
@@ -41321,8 +41482,10 @@ function generateProceduralLevel(config3) {
   const coins = [];
   const questionBlocks = [];
   const category = config3.category || "backend";
-  const keywords = shuffleKeywords(category);
+  const keywords = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS["backend"]);
+  const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS["backend"]);
   let kwIdx = 0;
+  let bugIdx = 0;
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
   const gY = GROUND_ROW * TILE;
@@ -41392,7 +41555,10 @@ function generateProceduralLevel(config3) {
     } while (isNearPipe(ex) && attempts < 20);
     const ey = GROUND_ROW - 1;
     const type = Math.random() < 0.3 ? "koopa" : "goomba";
-    enemies.push(new Enemy(ex * TILE, ey * TILE, type));
+    const enemy = new Enemy(ex * TILE, ey * TILE, type);
+    enemy.keyword = bugKw[bugIdx % bugKw.length];
+    bugIdx++;
+    enemies.push(enemy);
   }
   const coinCount = config3.difficulty === "Hard" ? 20 : config3.difficulty === "Medium" ? 15 : 10;
   for (let i = 0; i < coinCount; i++) {
@@ -41406,7 +41572,7 @@ function generateProceduralLevel(config3) {
     coins.push(new Coin(cx * TILE + TILE * 0.25, cy * TILE + TILE * 0.25));
   }
   const flagPole = new FlagPole((LEVEL_TILES_WIDE - 4) * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
-  return { platforms, enemies, coins, questionBlocks, flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
 }
 function createPlayer() {
   return new Player(3 * TILE, (GROUND_ROW - 1) * TILE - TILE);
@@ -41534,6 +41700,12 @@ var MarioAudio = {
   },
   brickBump() {
     playTone(220, 0.06, "square", 0.07);
+  },
+  fireball() {
+    playSequence([[800, 0.03], [600, 0.03], [400, 0.04]], "sawtooth", 0.07);
+  },
+  fireHit() {
+    playSequence([[500, 0.03], [700, 0.04], [350, 0.05]], "square", 0.08);
   }
 };
 
@@ -41546,7 +41718,9 @@ var MarioEngine = class {
     this.accumulator = 0;
     this.STEP = 1e3 / 60;
     this.keywords = [];
+    this.bugKeywords = [];
     this.keywordIndex = 0;
+    this.bugKeywordIndex = 0;
     this.elapsedFrames = 0;
     this.enemiesStomped = 0;
     this.loop = (time) => {
@@ -41577,7 +41751,9 @@ var MarioEngine = class {
     this.enemiesStomped = 0;
     this.state = "idle";
     this.keywords = CATEGORY_KEYWORDS[level.category] ?? CATEGORY_KEYWORDS["backend"];
+    this.bugKeywords = CATEGORY_BUG_KEYWORDS[level.category] ?? CATEGORY_BUG_KEYWORDS["backend"];
     this.keywordIndex = 0;
+    this.bugKeywordIndex = 0;
     this.renderer.setCategory(level.category);
   }
   start() {
@@ -41617,6 +41793,15 @@ var MarioEngine = class {
     this.keywordIndex++;
     return kw;
   }
+  nextBugKeyword() {
+    const kw = this.bugKeywords[this.bugKeywordIndex % this.bugKeywords.length];
+    this.bugKeywordIndex++;
+    return kw;
+  }
+  spawnEnemyKeyword(enemy) {
+    const kw = enemy.keyword || this.nextBugKeyword();
+    this.level.floatingTexts.push(new FloatingText(enemy.x, enemy.y - 8, `\u{1F41B} ${kw}`, "#ff6b6b", 80));
+  }
   handlePowerUp(qb) {
     MarioAudio.questionBlock();
     const kw = qb.keyword || this.nextKeyword();
@@ -41629,10 +41814,15 @@ var MarioEngine = class {
         color = "#f59e0b";
         break;
       case "mushroom":
+        if (this.player.state === "big") {
+          MarioAudio.powerUp();
+          color = "#f97316";
+        } else {
+          MarioAudio.powerUp();
+          color = "#22c55e";
+        }
         this.player.grow();
         this.player.score += 100;
-        MarioAudio.powerUp();
-        color = "#22c55e";
         break;
       case "coin":
       default:
@@ -41666,6 +41856,8 @@ var MarioEngine = class {
   handleCollisionResult(result) {
     if (result.jumped)
       MarioAudio.jump();
+    if (result.firedFireball)
+      MarioAudio.fireball();
     if (result.coinCollected)
       MarioAudio.coin();
     if (result.hitQuestionBlock) {
@@ -41679,7 +41871,9 @@ var MarioEngine = class {
     }
     if (result.hitEnemy) {
       MarioAudio.hit();
-      if (this.player.state === "big") {
+      if (this.player.state === "fire") {
+        this.player.shrink();
+      } else if (this.player.state === "big") {
         this.player.shrink();
       } else {
         this.player.lives--;
@@ -41698,6 +41892,13 @@ var MarioEngine = class {
     if (result.stompedEnemy) {
       MarioAudio.stomp();
       this.enemiesStomped++;
+      this.spawnEnemyKeyword(result.stompedEnemy);
+      this.notifyScore();
+    }
+    for (const enemy of result.fireballKilledEnemies) {
+      MarioAudio.fireHit();
+      this.enemiesStomped++;
+      this.spawnEnemyKeyword(enemy);
       this.notifyScore();
     }
     if (result.died) {
@@ -41834,7 +42035,7 @@ function AiQuizGameComponent_Conditional_2_Template(rf, ctx2) {
     \u0275\u0275text(23, " Start Mission ");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(24, "div", 20)(25, "span");
-    \u0275\u0275text(26, "Arrow keys / WASD to move\u2002\xB7\u2002Space / Up to jump\u2002\xB7\u2002Stomp enemies & collect coins");
+    \u0275\u0275text(26, "Arrow keys / WASD to move\u2002\xB7\u2002Space / Up to jump\u2002\xB7\u2002X / Z / Shift to throw fireballs (fire mode)");
     \u0275\u0275elementEnd()()()();
   }
   if (rf & 2) {
@@ -41927,26 +42128,46 @@ function AiQuizGameComponent_Conditional_4_Template(rf, ctx2) {
     });
     \u0275\u0275text(28, "\u25B6");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(29, "button", 42);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_29_listener() {
+    \u0275\u0275elementStart(29, "div", 42)(30, "button", 43);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_30_listener() {
       \u0275\u0275restoreView(_r7);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.touchJump(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_29_listener() {
+    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_30_listener() {
       \u0275\u0275restoreView(_r7);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.touchJump(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_29_listener() {
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_30_listener() {
       \u0275\u0275restoreView(_r7);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.touchJump(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_29_listener() {
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_30_listener() {
       \u0275\u0275restoreView(_r7);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.touchJump(false));
     });
-    \u0275\u0275text(30, "\u25B2");
-    \u0275\u0275elementEnd()()()();
+    \u0275\u0275text(31, "\u25B2");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(32, "button", 44);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_32_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchFire(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_32_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchFire(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_32_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchFire(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_32_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchFire(false));
+    });
+    \u0275\u0275text(33, "\u{1F525}");
+    \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
     const ctx_r3 = \u0275\u0275nextContext();
@@ -41963,40 +42184,40 @@ function AiQuizGameComponent_Conditional_4_Template(rf, ctx2) {
 function AiQuizGameComponent_Conditional_5_Template(rf, ctx2) {
   if (rf & 1) {
     const _r8 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 5)(1, "div", 43)(2, "div", 44);
+    \u0275\u0275elementStart(0, "div", 5)(1, "div", 45)(2, "div", 46);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "h3", 45);
+    \u0275\u0275elementStart(4, "h3", 47);
     \u0275\u0275text(5);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "p", 46);
+    \u0275\u0275elementStart(6, "p", 48);
     \u0275\u0275text(7);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 47)(9, "div", 48)(10, "span", 49);
+    \u0275\u0275elementStart(8, "div", 49)(9, "div", 50)(10, "span", 51);
     \u0275\u0275text(11, "Score");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "span", 50);
+    \u0275\u0275elementStart(12, "span", 52);
     \u0275\u0275text(13);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(14, "div", 48)(15, "span", 49);
+    \u0275\u0275elementStart(14, "div", 50)(15, "span", 51);
     \u0275\u0275text(16, "Coins");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "span", 50);
+    \u0275\u0275elementStart(17, "span", 52);
     \u0275\u0275text(18);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "div", 48)(20, "span", 49);
+    \u0275\u0275elementStart(19, "div", 50)(20, "span", 51);
     \u0275\u0275text(21, "Enemies");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "span", 50);
+    \u0275\u0275elementStart(22, "span", 52);
     \u0275\u0275text(23);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(24, "div", 51)(25, "button", 18);
+    \u0275\u0275elementStart(24, "div", 53)(25, "button", 18);
     \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_5_Template_button_click_25_listener() {
       \u0275\u0275restoreView(_r8);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.restartGame());
     });
-    \u0275\u0275element(26, "i", 52);
+    \u0275\u0275element(26, "i", 54);
     \u0275\u0275text(27, " Play Again ");
     \u0275\u0275elementEnd()()()();
   }
@@ -42130,6 +42351,9 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
   touchJump(active) {
     this.engine?.getControls().setTouchJump(active);
   }
+  touchFire(active) {
+    this.engine?.getControls().setTouchFire(active);
+  }
   generateAILevel(config3) {
     return __async(this, null, function* () {
       const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty);
@@ -42180,12 +42404,12 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
         let _t;
         \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.canvasRef = _t.first);
       }
-    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx2) {
+    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-actions"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-fire", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "section", 1)(1, "div", 2);
         \u0275\u0275conditionalCreate(2, AiQuizGameComponent_Conditional_2_Template, 27, 0);
         \u0275\u0275conditionalCreate(3, AiQuizGameComponent_Conditional_3_Template, 10, 0, "div", 3);
-        \u0275\u0275conditionalCreate(4, AiQuizGameComponent_Conditional_4_Template, 31, 4, "div", 4);
+        \u0275\u0275conditionalCreate(4, AiQuizGameComponent_Conditional_4_Template, 34, 4, "div", 4);
         \u0275\u0275conditionalCreate(5, AiQuizGameComponent_Conditional_5_Template, 28, 6, "div", 5);
         \u0275\u0275elementEnd()();
       }
@@ -42199,7 +42423,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
         \u0275\u0275advance();
         \u0275\u0275conditional(ctx2.viewState === "results" ? 5 : -1);
       }
-    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.mario-game-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card[_ngcontent-%COMP%] {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n}\n.option-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active[_ngcontent-%COMP%] {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success[_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning[_ngcontent-%COMP%] {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card[_ngcontent-%COMP%] {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  animation: _ngcontent-%COMP%_bounce 0.6s ease infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: _ngcontent-%COMP%_loadProgress 3s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n}\n.canvas-container[_ngcontent-%COMP%]   canvas[_ngcontent-%COMP%] {\n  display: block;\n  width: 100%;\n}\n.touch-controls[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn[_ngcontent-%COMP%]:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-jump[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls[_ngcontent-%COMP%] {\n    display: flex;\n  }\n}\n.results-card[_ngcontent-%COMP%] {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge[_ngcontent-%COMP%] {\n  font-size: 3rem;\n}\n.results-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .setup-card[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n  .option-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .results-stats[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-hud[_ngcontent-%COMP%] {\n    gap: 1rem;\n    padding: 0.6rem 1rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */'] });
+    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.mario-game-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card[_ngcontent-%COMP%] {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n}\n.option-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active[_ngcontent-%COMP%] {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success[_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning[_ngcontent-%COMP%] {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card[_ngcontent-%COMP%] {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  animation: _ngcontent-%COMP%_bounce 0.6s ease infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: _ngcontent-%COMP%_loadProgress 3s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n}\n.canvas-container[_ngcontent-%COMP%]   canvas[_ngcontent-%COMP%] {\n  display: block;\n  width: 100%;\n}\n.touch-controls[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn[_ngcontent-%COMP%]:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls[_ngcontent-%COMP%] {\n    display: flex;\n  }\n}\n.results-card[_ngcontent-%COMP%] {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge[_ngcontent-%COMP%] {\n  font-size: 3rem;\n}\n.results-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .setup-card[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n  .option-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .results-stats[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-hud[_ngcontent-%COMP%] {\n    gap: 1rem;\n    padding: 0.6rem 1rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */'] });
   }
 };
 (() => {
@@ -42255,7 +42479,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
           </button>
 
           <div class="controls-hint">
-            <span>Arrow keys / WASD to move&ensp;\xB7&ensp;Space / Up to jump&ensp;\xB7&ensp;Stomp enemies &amp; collect coins</span>
+            <span>Arrow keys / WASD to move&ensp;\xB7&ensp;Space / Up to jump&ensp;\xB7&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
           </div>
         </div>
       </div>
@@ -42307,9 +42531,14 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
                       (touchstart)="touchRight(true)" (touchend)="touchRight(false)"
                       (mousedown)="touchRight(true)" (mouseup)="touchRight(false)">\u25B6</button>
             </div>
-            <button class="touch-btn touch-jump"
-                    (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
-                    (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">\u25B2</button>
+            <div class="touch-actions">
+              <button class="touch-btn touch-jump"
+                      (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
+                      (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">\u25B2</button>
+              <button class="touch-btn touch-fire"
+                      (touchstart)="touchFire(true)" (touchend)="touchFire(false)"
+                      (mousedown)="touchFire(true)" (mouseup)="touchFire(false)">\u{1F525}</button>
+            </div>
           </div>
         </div>
       </div>
@@ -42348,7 +42577,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     }
   </div>
 </section>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/ai-quiz-game/ai-quiz-game.component.scss */\n:host {\n  display: block;\n}\n.mario-game-section {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon {\n  font-size: 1.3rem;\n}\n.option-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon {\n  font-size: 2.5rem;\n  animation: bounce 0.6s ease infinite alternate;\n}\n@keyframes bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content h3 {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content p {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: loadProgress 3s ease-in-out infinite;\n}\n@keyframes loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper {\n  position: relative;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon {\n  font-size: 1rem;\n}\n.hud-val {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category .hud-val {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n}\n.canvas-container canvas {\n  display: block;\n  width: 100%;\n}\n.touch-controls {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-jump {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls {\n    display: flex;\n  }\n}\n.results-card {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge {\n  font-size: 3rem;\n}\n.results-title {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .setup-card {\n    padding: 1.5rem;\n  }\n  .option-grid {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row {\n    grid-template-columns: 1fr;\n  }\n  .results-stats {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-hud {\n    gap: 1rem;\n    padding: 0.6rem 1rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/ai-quiz-game/ai-quiz-game.component.scss */\n:host {\n  display: block;\n}\n.mario-game-section {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon {\n  font-size: 1.3rem;\n}\n.option-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon {\n  font-size: 2.5rem;\n  animation: bounce 0.6s ease infinite alternate;\n}\n@keyframes bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content h3 {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content p {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: loadProgress 3s ease-in-out infinite;\n}\n@keyframes loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper {\n  position: relative;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon {\n  font-size: 1rem;\n}\n.hud-val {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category .hud-val {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n}\n.canvas-container canvas {\n  display: block;\n  width: 100%;\n}\n.touch-controls {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls {\n    display: flex;\n  }\n}\n.results-card {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge {\n  font-size: 3rem;\n}\n.results-title {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .setup-card {\n    padding: 1.5rem;\n  }\n  .option-grid {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row {\n    grid-template-columns: 1fr;\n  }\n  .results-stats {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-hud {\n    gap: 1rem;\n    padding: 0.6rem 1rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */\n'] }]
   }], () => [{ type: HttpClient }, { type: NgZone }, { type: ChangeDetectorRef }], { canvasRef: [{
     type: ViewChild,
     args: ["gameCanvas"]

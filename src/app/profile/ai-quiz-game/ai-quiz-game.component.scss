@@ -269,10 +269,25 @@
   &:active { background: rgba(255, 255, 255, 0.15); }
 }
 
+.touch-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 .touch-jump {
   width: 64px;
   height: 64px;
   font-size: 1.4rem;
+}
+
+.touch-fire {
+  width: 52px;
+  height: 52px;
+  font-size: 1.2rem;
+  border-color: rgba(249, 115, 22, 0.5);
+  background: rgba(249, 115, 22, 0.2);
 }
 
 @media (hover: none) and (pointer: coarse) {

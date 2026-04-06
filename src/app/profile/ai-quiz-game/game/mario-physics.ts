@@ -1,6 +1,6 @@
 import {
   AABB, GRAVITY, MAX_FALL, MOVE_SPEED, JUMP_FORCE, TILE,
-  Player, Platform, Enemy, Coin, QuestionBlock, Level
+  Player, Platform, Enemy, Coin, QuestionBlock, Fireball, Level
 } from './mario-entities';
 
 export function aabbOverlap(a: AABB, b: AABB): boolean {
@@ -18,6 +18,8 @@ export interface CollisionResult {
   hitQuestionBlock: QuestionBlock | null;
   hitEnemy: Enemy | null;
   stompedEnemy: Enemy | null;
+  fireballKilledEnemies: Enemy[];
+  firedFireball: boolean;
   brickBroken: Platform | null;
   brickBumped: Platform | null;
   reachedFlag: boolean;
@@ -36,12 +38,14 @@ function solidPlatforms(level: Level): Platform[] {
 export function updatePhysics(
   player: Player,
   level: Level,
-  keys: { left: boolean; right: boolean; jump: boolean }
+  keys: { left: boolean; right: boolean; jump: boolean; fire: boolean }
 ): CollisionResult {
   const result: CollisionResult = {
     hitQuestionBlock: null,
     hitEnemy: null,
     stompedEnemy: null,
+    fireballKilledEnemies: [],
+    firedFireball: false,
     brickBroken: null,
     brickBumped: null,
     reachedFlag: false,
@@ -72,6 +76,19 @@ export function updatePhysics(
   // Gravity
   player.vy += GRAVITY;
   if (player.vy > MAX_FALL) player.vy = MAX_FALL;
+
+  // Fire cooldown
+  if (player.fireCooldown > 0) player.fireCooldown--;
+
+  // Shoot fireball
+  if (keys.fire && player.state === 'fire' && player.fireCooldown <= 0 && level.fireballs.length < 3) {
+    const dir = player.facing === 'right' ? 1 : -1;
+    const fx = player.facing === 'right' ? player.x + player.w : player.x - TILE * 0.35;
+    const fy = player.y + player.h * 0.4;
+    level.fireballs.push(new Fireball(fx, fy, dir));
+    player.fireCooldown = 15;
+    result.firedFireball = true;
+  }
 
   const allPlatforms = solidPlatforms(level);
 
@@ -110,7 +127,7 @@ export function updatePhysics(
         p.hit = true;
         result.hitQuestionBlock = p;
       } else if (p.type === 'brick' && !p.destroyed) {
-        if (player.state === 'big' || player.starTimer > 0) {
+        if (player.isBig || player.starTimer > 0) {
           p.destroyed = true;
           result.brickBroken = p;
           player.score += 20;
@@ -168,6 +185,50 @@ export function updatePhysics(
       result.hitEnemy = enemy;
     }
   }
+
+  // Fireball physics
+  for (const fb of level.fireballs) {
+    if (!fb.alive) continue;
+    fb.life--;
+    if (fb.life <= 0) { fb.alive = false; continue; }
+
+    fb.x += fb.vx;
+    fb.vy += GRAVITY * 0.7;
+    fb.y += fb.vy;
+
+    // Bounce off platforms
+    for (const p of allPlatforms) {
+      if (aabbOverlap(fb.box, p.box)) {
+        if (fb.vy > 0) {
+          fb.y = p.y - fb.h;
+          fb.vy = -5;
+          fb.bounces++;
+          if (fb.bounces > 4) fb.alive = false;
+        } else {
+          fb.alive = false;
+        }
+        break;
+      }
+    }
+
+    if (fb.x < 0 || fb.x > level.width) { fb.alive = false; continue; }
+
+    // Fireball kills enemies
+    if (!fb.alive) continue;
+    for (const enemy of level.enemies) {
+      if (!enemy.alive) continue;
+      if (aabbOverlap(fb.box, enemy.box)) {
+        enemy.alive = false;
+        enemy.squashTimer = 15;
+        fb.alive = false;
+        player.score += 50;
+        result.fireballKilledEnemies.push(enemy);
+        break;
+      }
+    }
+  }
+
+  level.fireballs = level.fireballs.filter(fb => fb.alive);
 
   // Enemy movement
   for (const enemy of level.enemies) {

@@ -1,4 +1,4 @@
-import { Player, Level, QuestionBlock, FloatingText, Debris, CATEGORY_KEYWORDS } from './mario-entities';
+import { Player, Level, QuestionBlock, Enemy, FloatingText, Debris, CATEGORY_KEYWORDS, CATEGORY_BUG_KEYWORDS } from './mario-entities';
 import { MarioRenderer } from './mario-renderer';
 import { MarioControls } from './mario-controls';
 import { updatePhysics, CollisionResult } from './mario-physics';
@@ -22,7 +22,9 @@ export class MarioEngine {
   private accumulator = 0;
   private readonly STEP = 1000 / 60;
   private keywords: string[] = [];
+  private bugKeywords: string[] = [];
   private keywordIndex = 0;
+  private bugKeywordIndex = 0;
 
   player: Player;
   level!: Level;
@@ -49,7 +51,9 @@ export class MarioEngine {
     this.state = 'idle';
 
     this.keywords = CATEGORY_KEYWORDS[level.category] ?? CATEGORY_KEYWORDS['backend'];
+    this.bugKeywords = CATEGORY_BUG_KEYWORDS[level.category] ?? CATEGORY_BUG_KEYWORDS['backend'];
     this.keywordIndex = 0;
+    this.bugKeywordIndex = 0;
     this.renderer.setCategory(level.category);
   }
 
@@ -91,6 +95,19 @@ export class MarioEngine {
     return kw;
   }
 
+  private nextBugKeyword(): string {
+    const kw = this.bugKeywords[this.bugKeywordIndex % this.bugKeywords.length];
+    this.bugKeywordIndex++;
+    return kw;
+  }
+
+  private spawnEnemyKeyword(enemy: Enemy): void {
+    const kw = enemy.keyword || this.nextBugKeyword();
+    this.level.floatingTexts.push(
+      new FloatingText(enemy.x, enemy.y - 8, `🐛 ${kw}`, '#ff6b6b', 80)
+    );
+  }
+
   private handlePowerUp(qb: QuestionBlock): void {
     MarioAudio.questionBlock();
     const kw = qb.keyword || this.nextKeyword();
@@ -104,10 +121,15 @@ export class MarioEngine {
         color = '#f59e0b';
         break;
       case 'mushroom':
+        if (this.player.state === 'big') {
+          MarioAudio.powerUp();
+          color = '#f97316';
+        } else {
+          MarioAudio.powerUp();
+          color = '#22c55e';
+        }
         this.player.grow();
         this.player.score += 100;
-        MarioAudio.powerUp();
-        color = '#22c55e';
         break;
       case 'coin':
       default:
@@ -171,6 +193,8 @@ export class MarioEngine {
   private handleCollisionResult(result: CollisionResult): void {
     if (result.jumped) MarioAudio.jump();
 
+    if (result.firedFireball) MarioAudio.fireball();
+
     if (result.coinCollected) MarioAudio.coin();
 
     if (result.hitQuestionBlock) {
@@ -187,7 +211,9 @@ export class MarioEngine {
 
     if (result.hitEnemy) {
       MarioAudio.hit();
-      if (this.player.state === 'big') {
+      if (this.player.state === 'fire') {
+        this.player.shrink();
+      } else if (this.player.state === 'big') {
         this.player.shrink();
       } else {
         this.player.lives--;
@@ -207,6 +233,14 @@ export class MarioEngine {
     if (result.stompedEnemy) {
       MarioAudio.stomp();
       this.enemiesStomped++;
+      this.spawnEnemyKeyword(result.stompedEnemy);
+      this.notifyScore();
+    }
+
+    for (const enemy of result.fireballKilledEnemies) {
+      MarioAudio.fireHit();
+      this.enemiesStomped++;
+      this.spawnEnemyKeyword(enemy);
       this.notifyScore();
     }
 
