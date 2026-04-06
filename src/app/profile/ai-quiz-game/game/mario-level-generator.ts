@@ -1,4 +1,4 @@
-import { TILE, Platform, Enemy, Coin, QuestionBlock, FlagPole, Level, Player, PowerUpType, FloatingText, Debris, CATEGORY_KEYWORDS } from './mario-entities';
+import { TILE, Platform, Enemy, Coin, QuestionBlock, FlagPole, Level, Player, PowerUpType, FloatingText, Debris, CATEGORY_KEYWORDS, CATEGORY_BUG_KEYWORDS } from './mario-entities';
 
 const LEVEL_TILES_WIDE = 80;
 const GROUND_ROW = 12;
@@ -20,13 +20,13 @@ function assignRewards(count: number): PowerUpType[] {
   return rewards;
 }
 
-function shuffleKeywords(category: string): string[] {
-  const pool = [...(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS['backend'])];
-  for (let i = pool.length - 1; i > 0; i--) {
+function shuffleKeywords(pool: string[]): string[] {
+  const arr = [...pool];
+  for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return pool;
+  return arr;
 }
 
 interface RawLevelData {
@@ -55,8 +55,10 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   const coins: Coin[] = [];
   const questionBlocks: QuestionBlock[] = [];
   const category = config.category || 'backend';
-  const keywords = shuffleKeywords(category);
+  const keywords = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS['backend']);
+  const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS['backend']);
   let kwIdx = 0;
+  let bugIdx = 0;
 
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
@@ -90,7 +92,10 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   if (data.enemies) {
     for (const e of data.enemies) {
       const type = e.type === 'koopa' ? 'koopa' : 'goomba';
-      enemies.push(new Enemy(e.x * TILE, e.y * TILE, type as any));
+      const enemy = new Enemy(e.x * TILE, e.y * TILE, type as any);
+      enemy.keyword = bugKw[bugIdx % bugKw.length];
+      bugIdx++;
+      enemies.push(enemy);
     }
   }
 
@@ -103,7 +108,7 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   const flagX = data.flagPole?.x ? data.flagPole.x * TILE : (LEVEL_TILES_WIDE - 4) * TILE;
   const flagPole = new FlagPole(flagX, 3 * TILE, (GROUND_ROW - 3) * TILE);
 
-  return { platforms, enemies, coins, questionBlocks, flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
 }
 
 export function generateProceduralLevel(config: LevelConfig): Level {
@@ -112,14 +117,16 @@ export function generateProceduralLevel(config: LevelConfig): Level {
   const coins: Coin[] = [];
   const questionBlocks: QuestionBlock[] = [];
   const category = config.category || 'backend';
-  const keywords = shuffleKeywords(category);
+  const keywords = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS['backend']);
+  const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS['backend']);
   let kwIdx = 0;
+  let bugIdx = 0;
 
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
   const gY = GROUND_ROW * TILE;
 
-  // Build ground with gaps
+  // Ground with gaps
   const gapChance = config.difficulty === 'Hard' ? 0.12 : config.difficulty === 'Medium' ? 0.07 : 0.04;
   let groundStart = 0;
 
@@ -184,7 +191,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
     questionBlocks.push(qb);
   }
 
-  // Enemies
+  // Enemies with bug keywords
   const enemyCount = config.difficulty === 'Hard' ? 10 : config.difficulty === 'Medium' ? 7 : 4;
   for (let i = 0; i < enemyCount; i++) {
     let ex: number;
@@ -193,7 +200,10 @@ export function generateProceduralLevel(config: LevelConfig): Level {
     while (isNearPipe(ex) && attempts < 20);
     const ey = GROUND_ROW - 1;
     const type = Math.random() < 0.3 ? 'koopa' : 'goomba';
-    enemies.push(new Enemy(ex * TILE, ey * TILE, type as any));
+    const enemy = new Enemy(ex * TILE, ey * TILE, type as any);
+    enemy.keyword = bugKw[bugIdx % bugKw.length];
+    bugIdx++;
+    enemies.push(enemy);
   }
 
   // Coins
@@ -209,7 +219,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
 
   const flagPole = new FlagPole((LEVEL_TILES_WIDE - 4) * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
 
-  return { platforms, enemies, coins, questionBlocks, flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
 }
 
 export function createPlayer(): Player {

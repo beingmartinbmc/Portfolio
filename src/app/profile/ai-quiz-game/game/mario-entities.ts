@@ -13,7 +13,7 @@ export interface AABB {
 
 export type PlatformType = 'ground' | 'brick' | 'question' | 'pipe';
 export type EnemyType = 'goomba' | 'koopa';
-export type PlayerState = 'small' | 'big' | 'star';
+export type PlayerState = 'small' | 'big' | 'fire' | 'star';
 export type Direction = 'left' | 'right';
 
 export class Player {
@@ -31,6 +31,7 @@ export class Player {
   onGround = false;
   invincibleTimer = 0;
   starTimer = 0;
+  fireCooldown = 0;
 
   constructor(x: number, y: number) {
     this.x = x;
@@ -46,11 +47,16 @@ export class Player {
       this.state = 'big';
       this.h = TILE * 1.5;
       this.y -= TILE * 0.5;
+    } else if (this.state === 'big') {
+      this.state = 'fire';
     }
   }
 
   shrink(): void {
-    if (this.state === 'big') {
+    if (this.state === 'fire') {
+      this.state = 'big';
+      this.invincibleTimer = 90;
+    } else if (this.state === 'big') {
       this.state = 'small';
       this.y += TILE * 0.5;
       this.h = TILE;
@@ -60,6 +66,10 @@ export class Player {
 
   activateStar(): void {
     this.starTimer = 300;
+  }
+
+  get isBig(): boolean {
+    return this.state === 'big' || this.state === 'fire';
   }
 }
 
@@ -96,6 +106,7 @@ export class Enemy {
   type: EnemyType;
   alive = true;
   squashTimer = 0;
+  keyword = '';
 
   constructor(x: number, y: number, type: EnemyType) {
     this.x = x;
@@ -120,6 +131,29 @@ export class Coin {
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
+  }
+
+  get box(): AABB {
+    return { x: this.x, y: this.y, w: this.w, h: this.h };
+  }
+}
+
+export class Fireball {
+  x: number;
+  y: number;
+  vx: number;
+  vy = 0;
+  w = TILE * 0.35;
+  h = TILE * 0.35;
+  alive = true;
+  bounces = 0;
+  life = 180;
+
+  constructor(x: number, y: number, direction: number) {
+    this.x = x;
+    this.y = y;
+    this.vx = direction * 6;
+    this.vy = 2;
   }
 
   get box(): AABB {
@@ -209,6 +243,7 @@ export interface Level {
   enemies: Enemy[];
   coins: Coin[];
   questionBlocks: QuestionBlock[];
+  fireballs: Fireball[];
   flagPole: FlagPole;
   floatingTexts: FloatingText[];
   debris: Debris[];
@@ -224,4 +259,13 @@ export const CATEGORY_KEYWORDS: Record<string, string[]> = {
   platform: ['CI/CD', 'k8s', 'Docker', 'Terraform', 'Grafana', 'Prometheus', 'SLO', 'Canary', 'Blue-Green', 'Feature Flag', 'GitOps', 'Helm', 'Sidecar', 'Service Mesh', 'Runbook'],
   architecture: ['Load Balancer', 'CDN', 'Cache', 'CQRS', 'Event Source', 'Domain', 'Hexagonal', 'Microservice', 'Monolith', 'API Gateway', 'BFF', 'Strangler Fig', 'Bounded Context', 'Anti-Corruption', 'Bulkhead'],
   leadership: ['RFC', 'ADR', 'Tech Debt', 'Roadmap', 'Stakeholder', 'Incident', 'Postmortem', 'On-Call', 'Mentoring', 'Code Review', 'Sprint', 'Retro', 'OKR', 'Scope', 'Alignment'],
+};
+
+export const CATEGORY_BUG_KEYWORDS: Record<string, string[]> = {
+  backend: ['N+1 Query', 'SQL Inject', 'Deadlock', 'Race Cond', 'Null Ref', 'Mem Leak', 'Timeout', '500 Error', 'Auth Bypass', 'OOM', 'Stale Cache', 'CORS Fail'],
+  distributed: ['Split Brain', 'Msg Lost', 'Data Skew', 'Hot Part', 'Rebalance', 'Offset Lag', 'Poison Pill', 'Dup Event', 'Clock Drift', 'Stale Read', 'Net Split', 'Zombie'],
+  genai: ['Hallucinate', 'Token Limit', 'Prompt Leak', 'Embed Drift', 'Eval Fail', 'Latency', 'Cost Spike', 'Guard Fail', 'Loop Agent', 'Stale Index', 'Bad Chunk', 'Jailbreak'],
+  platform: ['OOM Kill', 'Pod Crash', 'Cert Expire', 'Drift', 'Flaky Test', 'Build Fail', 'Alert Noise', 'Rollback', 'DNS Fail', 'Port Clash', 'Image Pull', 'Quota Hit'],
+  architecture: ['Circular Dep', 'Tight Couple', 'N+1 Svc', 'God Class', 'Leaky Abs', 'Big Ball', 'Spaghetti', 'Overfit', 'Premature', 'Bottleneck', 'Single Point', 'Tech Debt'],
+  leadership: ['Scope Creep', 'Bike Shed', 'Silo', 'Bus Factor', 'Gold Plate', 'YAGNI', 'Not Invented', 'Cargo Cult', 'Burnout', 'Hero Code', 'Tunnel Vision', 'Stale RFC'],
 };
