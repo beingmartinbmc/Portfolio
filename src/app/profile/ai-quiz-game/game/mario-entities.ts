@@ -1,7 +1,7 @@
 export const TILE = 32;
-export const GRAVITY = 0.55;
-export const JUMP_FORCE = -10.5;
-export const MOVE_SPEED = 3.5;
+export const GRAVITY = 0.52;
+export const JUMP_FORCE = -11;
+export const MOVE_SPEED = 3.8;
 export const MAX_FALL = 12;
 
 export interface AABB {

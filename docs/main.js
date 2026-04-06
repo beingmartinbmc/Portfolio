@@ -13242,9 +13242,9 @@ function maybeUnwrapEmpty(value) {
 function inheritViewQuery(definition, superViewQuery) {
   const prevViewQuery = definition.viewQuery;
   if (prevViewQuery) {
-    definition.viewQuery = (rf, ctx) => {
-      superViewQuery(rf, ctx);
-      prevViewQuery(rf, ctx);
+    definition.viewQuery = (rf, ctx2) => {
+      superViewQuery(rf, ctx2);
+      prevViewQuery(rf, ctx2);
     };
   } else {
     definition.viewQuery = superViewQuery;
@@ -13253,9 +13253,9 @@ function inheritViewQuery(definition, superViewQuery) {
 function inheritContentQueries(definition, superContentQueries) {
   const prevContentQueries = definition.contentQueries;
   if (prevContentQueries) {
-    definition.contentQueries = (rf, ctx, directiveIndex) => {
-      superContentQueries(rf, ctx, directiveIndex);
-      prevContentQueries(rf, ctx, directiveIndex);
+    definition.contentQueries = (rf, ctx2, directiveIndex) => {
+      superContentQueries(rf, ctx2, directiveIndex);
+      prevContentQueries(rf, ctx2, directiveIndex);
     };
   } else {
     definition.contentQueries = superContentQueries;
@@ -13264,9 +13264,9 @@ function inheritContentQueries(definition, superContentQueries) {
 function inheritHostBindings(definition, superHostBindings) {
   const prevHostBindings = definition.hostBindings;
   if (prevHostBindings) {
-    definition.hostBindings = (rf, ctx) => {
-      superHostBindings(rf, ctx);
-      prevHostBindings(rf, ctx);
+    definition.hostBindings = (rf, ctx2) => {
+      superHostBindings(rf, ctx2);
+      prevHostBindings(rf, ctx2);
     };
   } else {
     definition.hostBindings = superHostBindings;
@@ -25532,7 +25532,7 @@ var NgForOf = class _NgForOf {
       applyViewChange(viewRef, record);
     });
   }
-  static ngTemplateContextGuard(dir, ctx) {
+  static ngTemplateContextGuard(dir, ctx2) {
     return true;
   }
   static \u0275fac = function NgForOf_Factory(__ngFactoryType__) {
@@ -25626,7 +25626,7 @@ var NgIf = class _NgIf {
   }
   static ngIfUseIfTypeGuard;
   static ngTemplateGuard_ngIf;
-  static ngTemplateContextGuard(dir, ctx) {
+  static ngTemplateContextGuard(dir, ctx2) {
     return true;
   }
   static \u0275fac = function NgIf_Factory(__ngFactoryType__) {
@@ -27545,9 +27545,9 @@ var NgOptimizedImage = class _NgOptimizedImage {
     type: _NgOptimizedImage,
     selectors: [["img", "ngSrc", ""]],
     hostVars: 18,
-    hostBindings: function NgOptimizedImage_HostBindings(rf, ctx) {
+    hostBindings: function NgOptimizedImage_HostBindings(rf, ctx2) {
       if (rf & 2) {
-        \u0275\u0275styleProp("position", ctx.fill ? "absolute" : null)("width", ctx.fill ? "100%" : null)("height", ctx.fill ? "100%" : null)("inset", ctx.fill ? "0" : null)("background-size", ctx.placeholder ? "cover" : null)("background-position", ctx.placeholder ? "50% 50%" : null)("background-repeat", ctx.placeholder ? "no-repeat" : null)("background-image", ctx.placeholder ? ctx.generatePlaceholder(ctx.placeholder) : null)("filter", ctx.placeholder && ctx.shouldBlurPlaceholder(ctx.placeholderConfig) ? "blur(15px)" : null);
+        \u0275\u0275styleProp("position", ctx2.fill ? "absolute" : null)("width", ctx2.fill ? "100%" : null)("height", ctx2.fill ? "100%" : null)("inset", ctx2.fill ? "0" : null)("background-size", ctx2.placeholder ? "cover" : null)("background-position", ctx2.placeholder ? "50% 50%" : null)("background-repeat", ctx2.placeholder ? "no-repeat" : null)("background-image", ctx2.placeholder ? ctx2.generatePlaceholder(ctx2.placeholder) : null)("filter", ctx2.placeholder && ctx2.shouldBlurPlaceholder(ctx2.placeholderConfig) ? "blur(15px)" : null);
       }
     },
     inputs: {
@@ -31485,9 +31485,9 @@ var DomSanitizerImpl = class _DomSanitizerImpl extends DomSanitizer {
     super();
     this._doc = _doc;
   }
-  sanitize(ctx, value) {
+  sanitize(ctx2, value) {
     if (value == null) return null;
-    switch (ctx) {
+    switch (ctx2) {
       case SecurityContext.NONE:
         return value;
       case SecurityContext.HTML:
@@ -31516,7 +31516,7 @@ var DomSanitizerImpl = class _DomSanitizerImpl extends DomSanitizer {
         }
         throw new RuntimeError(5201, (typeof ngDevMode === "undefined" || ngDevMode) && `unsafe value used in a resource URL context (see ${XSS_SECURITY_URL})`);
       default:
-        throw new RuntimeError(5202, (typeof ngDevMode === "undefined" || ngDevMode) && `Unexpected SecurityContext ${ctx} (see ${XSS_SECURITY_URL})`);
+        throw new RuntimeError(5202, (typeof ngDevMode === "undefined" || ngDevMode) && `Unexpected SecurityContext ${ctx2} (see ${XSS_SECURITY_URL})`);
     }
   }
   bypassSecurityTrustHtml(value) {
@@ -31623,17 +31623,17 @@ var HeaderComponent = class _HeaderComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HeaderComponent, selectors: [["app-header"]], hostBindings: function HeaderComponent_HostBindings(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HeaderComponent, selectors: [["app-header"]], hostBindings: function HeaderComponent_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("scroll", function HeaderComponent_scroll_HostBindingHandler() {
-          return ctx.onWindowScroll();
+          return ctx2.onWindowScroll();
         }, \u0275\u0275resolveWindow);
       }
-    }, decls: 34, vars: 7, consts: [["role", "banner", 1, "site-header"], ["aria-label", "Main navigation", 1, "site-nav", "apple-container"], ["href", "#", 1, "brand", 3, "click"], [1, "brand-mark"], [1, "brand-copy"], [1, "brand-name"], [1, "brand-role"], [1, "nav-links"], ["href", "#about", 1, "nav-link", 3, "click"], ["href", "#avatar-3d", 1, "nav-link", 3, "click"], ["href", "#skill", 1, "nav-link", 3, "click"], ["href", "#experience", 1, "nav-link", 3, "click"], ["href", "#publications", 1, "nav-link", 3, "click"], ["href", "#blogs", 1, "nav-link", 3, "click"], ["href", "#ai-quiz-game", 1, "nav-link", 3, "click"], ["href", "#contact", 1, "nav-link", 3, "click"], [1, "nav-actions"], [1, "status-pill"], ["aria-label", "Toggle navigation menu", 1, "mobile-menu-btn", 3, "click"], [1, "hamburger-line"]], template: function HeaderComponent_Template(rf, ctx) {
+    }, decls: 34, vars: 7, consts: [["role", "banner", 1, "site-header"], ["aria-label", "Main navigation", 1, "site-nav", "apple-container"], ["href", "#", 1, "brand", 3, "click"], [1, "brand-mark"], [1, "brand-copy"], [1, "brand-name"], [1, "brand-role"], [1, "nav-links"], ["href", "#about", 1, "nav-link", 3, "click"], ["href", "#avatar-3d", 1, "nav-link", 3, "click"], ["href", "#skill", 1, "nav-link", 3, "click"], ["href", "#experience", 1, "nav-link", 3, "click"], ["href", "#publications", 1, "nav-link", 3, "click"], ["href", "#blogs", 1, "nav-link", 3, "click"], ["href", "#ai-quiz-game", 1, "nav-link", 3, "click"], ["href", "#contact", 1, "nav-link", 3, "click"], [1, "nav-actions"], [1, "status-pill"], ["aria-label", "Toggle navigation menu", 1, "mobile-menu-btn", 3, "click"], [1, "hamburger-line"]], template: function HeaderComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "header", 0)(1, "nav", 1)(2, "a", 2);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_2_listener() {
-          return ctx.onNavLinkClick();
+          return ctx2.onNavLinkClick();
         });
         \u0275\u0275domElementStart(3, "span", 3);
         \u0275\u0275text(4, "{}");
@@ -31646,49 +31646,49 @@ var HeaderComponent = class _HeaderComponent {
         \u0275\u0275domElementEnd()()();
         \u0275\u0275domElementStart(10, "div", 7)(11, "a", 8);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_11_listener() {
-          return ctx.onNavLinkClick();
+          return ctx2.onNavLinkClick();
         });
         \u0275\u0275text(12, "About");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(13, "a", 9);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_13_listener() {
-          return ctx.onNavLinkClick();
+          return ctx2.onNavLinkClick();
         });
         \u0275\u0275text(14, "AI Twin");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(15, "a", 10);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_15_listener() {
-          return ctx.onNavLinkClick();
+          return ctx2.onNavLinkClick();
         });
         \u0275\u0275text(16, "Skills");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(17, "a", 11);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_17_listener() {
-          return ctx.onNavLinkClick();
+          return ctx2.onNavLinkClick();
         });
         \u0275\u0275text(18, "Experience");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(19, "a", 12);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_19_listener() {
-          return ctx.onNavLinkClick();
+          return ctx2.onNavLinkClick();
         });
         \u0275\u0275text(20, "Projects");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(21, "a", 13);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_21_listener() {
-          return ctx.onNavLinkClick();
+          return ctx2.onNavLinkClick();
         });
         \u0275\u0275text(22, "Writing");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(23, "a", 14);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_23_listener() {
-          return ctx.onNavLinkClick();
+          return ctx2.onNavLinkClick();
         });
         \u0275\u0275text(24, "Mario Lab");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(25, "a", 15);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_25_listener() {
-          return ctx.onNavLinkClick();
+          return ctx2.onNavLinkClick();
         });
         \u0275\u0275text(26, "Contact");
         \u0275\u0275domElementEnd()();
@@ -31697,18 +31697,18 @@ var HeaderComponent = class _HeaderComponent {
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(30, "button", 18);
         \u0275\u0275domListener("click", function HeaderComponent_Template_button_click_30_listener() {
-          return ctx.toggleMenu();
+          return ctx2.toggleMenu();
         });
         \u0275\u0275domElement(31, "span", 19)(32, "span", 19)(33, "span", 19);
         \u0275\u0275domElementEnd()()();
       }
       if (rf & 2) {
-        \u0275\u0275classProp("scrolled", ctx.isScrolled);
+        \u0275\u0275classProp("scrolled", ctx2.isScrolled);
         \u0275\u0275advance(10);
-        \u0275\u0275classProp("active", ctx.isMenuOpen);
+        \u0275\u0275classProp("active", ctx2.isMenuOpen);
         \u0275\u0275advance(20);
-        \u0275\u0275classProp("active", ctx.isMenuOpen);
-        \u0275\u0275attribute("aria-expanded", ctx.isMenuOpen);
+        \u0275\u0275classProp("active", ctx2.isMenuOpen);
+        \u0275\u0275attribute("aria-expanded", ctx2.isMenuOpen);
       }
     }, styles: ["\n\n[_nghost-%COMP%] {\n  position: relative;\n  z-index: var(--z-fixed);\n}\n.site-header[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  padding-top: 0.85rem;\n  transition: padding var(--transition-normal);\n}\n.site-header.scrolled[_ngcontent-%COMP%] {\n  padding-top: 0.35rem;\n}\n.site-nav[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n  padding-block: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 999px;\n  background: rgba(9, 9, 26, 0.78);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 10px 30px rgba(0, 0, 10, 0.45), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.site-header.scrolled[_ngcontent-%COMP%]   .site-nav[_ngcontent-%COMP%] {\n  background: rgba(9, 9, 26, 0.92);\n  border-color: rgba(251, 191, 36, 0.22);\n}\n.brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-shrink: 0;\n}\n.brand-mark[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.5rem;\n  height: 2.5rem;\n  border-radius: 999px;\n  background: var(--gradient-primary);\n  color: #09091a;\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  font-weight: 800;\n  box-shadow: 0 0 16px rgba(251, 191, 36, 0.4);\n}\n.brand-copy[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.1rem;\n}\n.brand-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.brand-role[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  letter-spacing: 0.08em;\n  text-transform: uppercase;\n  color: var(--text-tertiary);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.3rem;\n  flex: 1;\n}\n.nav-link[_ngcontent-%COMP%] {\n  padding: 0.75rem 0.95rem;\n  border-radius: 999px;\n  font-size: 0.92rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  transition:\n    background var(--transition-normal),\n    color var(--transition-normal),\n    transform var(--transition-normal);\n}\n.nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--primary-color);\n  background: rgba(251, 191, 36, 0.08);\n}\n.nav-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-shrink: 0;\n}\n.status-pill[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.1);\n  color: #fde68a;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.04em;\n  white-space: nowrap;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.45);\n}\n.mobile-menu-btn[_ngcontent-%COMP%] {\n  display: none;\n  width: 2.9rem;\n  height: 2.9rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.04);\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  gap: 0.3rem;\n  cursor: pointer;\n  flex-shrink: 0;\n}\n.hamburger-line[_ngcontent-%COMP%] {\n  width: 1.1rem;\n  height: 2px;\n  border-radius: 999px;\n  background: var(--text-primary);\n  transition: transform var(--transition-normal), opacity var(--transition-normal);\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(1) {\n  transform: translateY(5px) rotate(45deg);\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(3) {\n  transform: translateY(-5px) rotate(-45deg);\n}\n@media (max-width: 1180px) {\n  .status-pill[_ngcontent-%COMP%] {\n    display: none;\n  }\n}\n@media (max-width: 960px) {\n  .site-nav[_ngcontent-%COMP%] {\n    padding-block: 0.7rem;\n  }\n  .nav-links[_ngcontent-%COMP%] {\n    position: fixed;\n    top: 5.2rem;\n    left: 1rem;\n    right: 1rem;\n    display: none;\n    flex-direction: column;\n    align-items: stretch;\n    gap: 0.35rem;\n    padding: 1rem;\n    border-radius: 1.5rem;\n    border: 1px solid rgba(251, 191, 36, 0.16);\n    background: rgba(9, 9, 26, 0.96);\n    backdrop-filter: blur(24px);\n    box-shadow: 0 18px 50px rgba(0, 0, 10, 0.55);\n  }\n  .nav-links.active[_ngcontent-%COMP%] {\n    display: flex;\n  }\n  .nav-link[_ngcontent-%COMP%] {\n    width: 100%;\n    text-align: left;\n  }\n  .mobile-menu-btn[_ngcontent-%COMP%] {\n    display: inline-flex;\n  }\n}\n@media (max-width: 680px) {\n  .brand-role[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .site-nav[_ngcontent-%COMP%] {\n    gap: 0.75rem;\n  }\n  .nav-actions[_ngcontent-%COMP%] {\n    margin-left: auto;\n  }\n}\n/*# sourceMappingURL=header.component.css.map */"] });
   }
@@ -31791,7 +31791,7 @@ var FooterComponent = class _FooterComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 18, vars: 2, consts: [[1, "footer-section"], [1, "footer-ground"], [1, "ground-grass"], [1, "ground-brick"], [1, "footer-bar"], [1, "footer-left"], ["src", "assets/images/mario-sprite.png", "alt", "Mario", 1, "footer-mario"], [1, "footer-text"], [1, "game-tag"], ["target", "_blank", "rel", "noopener", 1, "analytics-pill", 3, "href"], [1, "pill-dot"]], template: function FooterComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], decls: 18, vars: 2, consts: [[1, "footer-section"], [1, "footer-ground"], [1, "ground-grass"], [1, "ground-brick"], [1, "footer-bar"], [1, "footer-left"], ["src", "assets/images/mario-sprite.png", "alt", "Mario", 1, "footer-mario"], [1, "footer-text"], [1, "game-tag"], ["target", "_blank", "rel", "noopener", 1, "analytics-pill", 3, "href"], [1, "pill-dot"]], template: function FooterComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "footer", 0)(1, "div", 1);
         \u0275\u0275domElement(2, "div", 2)(3, "div", 3);
@@ -31815,9 +31815,9 @@ var FooterComponent = class _FooterComponent {
       }
       if (rf & 2) {
         \u0275\u0275advance(11);
-        \u0275\u0275textInterpolate1(" with \u2764\uFE0F \xB7 ", ctx.currentYear, " \xB7 ");
+        \u0275\u0275textInterpolate1(" with \u2764\uFE0F \xB7 ", ctx2.currentYear, " \xB7 ");
         \u0275\u0275advance(3);
-        \u0275\u0275domProperty("href", ctx.analyticsLinks.flagCounterPage, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.analyticsLinks.flagCounterPage, \u0275\u0275sanitizeUrl);
       }
     }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.footer-section[_ngcontent-%COMP%] {\n  position: relative;\n}\n.footer-ground[_ngcontent-%COMP%] {\n  height: 1.4rem;\n}\n.ground-grass[_ngcontent-%COMP%] {\n  height: 4px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #22c55e 0px,\n      #22c55e 28px,\n      #16a34a 28px,\n      #16a34a 32px);\n}\n.ground-brick[_ngcontent-%COMP%] {\n  height: calc(100% - 4px);\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #6b3e1c 0px,\n      #6b3e1c 30px,\n      #8b5e3c 30px,\n      #8b5e3c 32px);\n}\n.footer-bar[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.5rem;\n  background: rgba(5, 5, 15, 0.98);\n}\n.footer-left[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n}\n.footer-mario[_ngcontent-%COMP%] {\n  width: 24px;\n  height: 30px;\n  image-rendering: pixelated;\n  object-fit: contain;\n  animation: _ngcontent-%COMP%_marioWalk 1.6s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_marioWalk {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-3px);\n  }\n}\n.footer-text[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n}\n.footer-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: #fde68a;\n  font-weight: 700;\n}\n.game-tag[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.12em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n  vertical-align: middle;\n}\n.analytics-pill[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(251, 191, 36, 0.04);\n  color: var(--text-muted);\n  font-size: 0.75rem;\n  text-decoration: none;\n  transition: all 200ms ease;\n}\n.analytics-pill[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.35);\n  color: #fde68a;\n  box-shadow: 0 0 12px rgba(251, 191, 36, 0.08);\n}\n.pill-dot[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  background: #22c55e;\n  box-shadow: 0 0 6px rgba(34, 197, 94, 0.5);\n  animation: _ngcontent-%COMP%_dotPulse 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_dotPulse {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0.4;\n  }\n}\n@media (max-width: 480px) {\n  .footer-bar[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: 0.5rem;\n    padding: 0.65rem 1rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */'] });
   }
@@ -31835,7 +31835,7 @@ var FooterComponent = class _FooterComponent {
 // src/app/profile/intro/intro.component.ts
 var _forTrack0 = ($index, $item) => $item.label;
 var _forTrack1 = ($index, $item) => $item.title;
-function IntroComponent_Conditional_33_Template(rf, ctx) {
+function IntroComponent_Conditional_33_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "div", 14)(1, "a", 33);
     \u0275\u0275domElement(2, "i", 34);
@@ -31854,7 +31854,7 @@ function IntroComponent_Conditional_33_Template(rf, ctx) {
     \u0275\u0275domProperty("href", ctx_r0.documentLinks.coverLetter, \u0275\u0275sanitizeUrl);
   }
 }
-function IntroComponent_For_43_Template(rf, ctx) {
+function IntroComponent_For_43_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "div", 23)(1, "span", 36);
     \u0275\u0275text(2);
@@ -31864,14 +31864,14 @@ function IntroComponent_For_43_Template(rf, ctx) {
     \u0275\u0275domElementEnd()();
   }
   if (rf & 2) {
-    const metric_r2 = ctx.$implicit;
+    const metric_r2 = ctx2.$implicit;
     \u0275\u0275advance(2);
     \u0275\u0275textInterpolate(metric_r2.value);
     \u0275\u0275advance(2);
     \u0275\u0275textInterpolate(metric_r2.label);
   }
 }
-function IntroComponent_For_55_Template(rf, ctx) {
+function IntroComponent_For_55_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "article", 32)(1, "div", 38);
     \u0275\u0275text(2);
@@ -31887,7 +31887,7 @@ function IntroComponent_For_55_Template(rf, ctx) {
     \u0275\u0275domElementEnd()()();
   }
   if (rf & 2) {
-    const area_r3 = ctx.$implicit;
+    const area_r3 = ctx2.$implicit;
     \u0275\u0275attribute("data-color", area_r3.color);
     \u0275\u0275advance(2);
     \u0275\u0275textInterpolate(area_r3.icon);
@@ -31960,7 +31960,7 @@ var IntroComponent = class _IntroComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 56, vars: 6, consts: [[1, "hero-section"], [1, "apple-container", "hero-grid"], [1, "hero-copy"], [1, "section-kicker"], [1, "hero-title"], [1, "hero-summary"], [1, "hero-meta"], [1, "hero-chip"], [1, "hero-actions"], ["href", "#contact", 1, "apple-btn", "apple-btn-primary"], [1, "fas", "fa-paper-plane"], [1, "document-menu"], [1, "apple-btn", "apple-btn-secondary", 3, "click"], [1, "fas", "fa-file-arrow-down"], [1, "document-dropdown"], [1, "hero-social"], ["target", "_blank", "rel", "noopener", "title", "LinkedIn", 1, "social-link", 3, "href"], [1, "fab", "fa-linkedin-in"], ["target", "_blank", "rel", "noopener", "title", "GitHub", 1, "social-link", 3, "href"], [1, "fab", "fa-github"], ["target", "_blank", "rel", "noopener", "title", "Stack Overflow", 1, "social-link", 3, "href"], [1, "fab", "fa-stack-overflow"], [1, "hero-metrics"], [1, "metric-card"], [1, "hero-panel", "apple-card"], [1, "hero-portrait"], ["alt", "Ankit Sharma", "src", "./assets/images/ankit.png"], [1, "hero-panel-content"], [1, "panel-header"], [1, "panel-eyebrow"], [1, "panel-status"], [1, "focus-list"], [1, "focus-card"], ["target", "_blank", "rel", "noopener", 3, "href"], [1, "fas", "fa-file-lines"], [1, "fas", "fa-envelope-open-text"], [1, "metric-value"], [1, "metric-label"], [1, "fc-icon"], [1, "fc-body"], [1, "fc-header"], [1, "fc-title"], [1, "fc-tag"], [1, "fc-desc"]], template: function IntroComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 56, vars: 6, consts: [[1, "hero-section"], [1, "apple-container", "hero-grid"], [1, "hero-copy"], [1, "section-kicker"], [1, "hero-title"], [1, "hero-summary"], [1, "hero-meta"], [1, "hero-chip"], [1, "hero-actions"], ["href", "#contact", 1, "apple-btn", "apple-btn-primary"], [1, "fas", "fa-paper-plane"], [1, "document-menu"], [1, "apple-btn", "apple-btn-secondary", 3, "click"], [1, "fas", "fa-file-arrow-down"], [1, "document-dropdown"], [1, "hero-social"], ["target", "_blank", "rel", "noopener", "title", "LinkedIn", 1, "social-link", 3, "href"], [1, "fab", "fa-linkedin-in"], ["target", "_blank", "rel", "noopener", "title", "GitHub", 1, "social-link", 3, "href"], [1, "fab", "fa-github"], ["target", "_blank", "rel", "noopener", "title", "Stack Overflow", 1, "social-link", 3, "href"], [1, "fab", "fa-stack-overflow"], [1, "hero-metrics"], [1, "metric-card"], [1, "hero-panel", "apple-card"], [1, "hero-portrait"], ["alt", "Ankit Sharma", "src", "./assets/images/ankit.png"], [1, "hero-panel-content"], [1, "panel-header"], [1, "panel-eyebrow"], [1, "panel-status"], [1, "focus-list"], [1, "focus-card"], ["target", "_blank", "rel", "noopener", 3, "href"], [1, "fas", "fa-file-lines"], [1, "fas", "fa-envelope-open-text"], [1, "metric-value"], [1, "metric-label"], [1, "fc-icon"], [1, "fc-body"], [1, "fc-header"], [1, "fc-title"], [1, "fc-tag"], [1, "fc-desc"]], template: function IntroComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "section", 0)(1, "div", 1)(2, "div", 2)(3, "span", 3);
         \u0275\u0275text(4, "Staff Software Engineer \u2022 Backend \u2022 Gen AI");
@@ -31998,7 +31998,7 @@ var IntroComponent = class _IntroComponent {
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(29, "div", 11)(30, "button", 12);
         \u0275\u0275domListener("click", function IntroComponent_Template_button_click_30_listener($event) {
-          return ctx.toggleDocumentDropdown($event);
+          return ctx2.toggleDocumentDropdown($event);
         });
         \u0275\u0275domElement(31, "i", 13);
         \u0275\u0275text(32, " Download docs ");
@@ -32032,19 +32032,19 @@ var IntroComponent = class _IntroComponent {
       }
       if (rf & 2) {
         \u0275\u0275advance(29);
-        \u0275\u0275classProp("open", ctx.showDocumentDropdown);
+        \u0275\u0275classProp("open", ctx2.showDocumentDropdown);
         \u0275\u0275advance(4);
-        \u0275\u0275conditional(ctx.showDocumentDropdown ? 33 : -1);
+        \u0275\u0275conditional(ctx2.showDocumentDropdown ? 33 : -1);
         \u0275\u0275advance(2);
-        \u0275\u0275domProperty("href", ctx.socialLinks.linkedin, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.socialLinks.linkedin, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(2);
-        \u0275\u0275domProperty("href", ctx.socialLinks.github, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.socialLinks.github, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(2);
-        \u0275\u0275domProperty("href", ctx.socialLinks.stackOverflow, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.socialLinks.stackOverflow, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(3);
-        \u0275\u0275repeater(ctx.heroMetrics);
+        \u0275\u0275repeater(ctx2.heroMetrics);
         \u0275\u0275advance(12);
-        \u0275\u0275repeater(ctx.focusAreas);
+        \u0275\u0275repeater(ctx2.focusAreas);
       }
     }, styles: ['\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.hero-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 8.5rem 0 4rem;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.hero-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);\n  gap: 2rem;\n  align-items: center;\n}\n.hero-copy[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 1.4rem;\n}\n.hero-title[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.08em;\n  font-size: clamp(2.8rem, 7vw, 5rem);\n  font-weight: 800;\n  line-height: 0.96;\n  letter-spacing: -0.05em;\n  max-width: 9ch;\n}\n.hero-title[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n}\n.hero-summary[_ngcontent-%COMP%] {\n  max-width: 62ch;\n  font-size: 1.08rem;\n  color: var(--text-tertiary);\n}\n.hero-meta[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.65rem;\n}\n.hero-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  font-size: 0.82rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n}\n.hero-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-wrap: wrap;\n}\n.document-menu[_ngcontent-%COMP%] {\n  position: relative;\n}\n.document-dropdown[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 0.75rem);\n  left: 0;\n  min-width: 200px;\n  padding: 0.65rem;\n  border-radius: 1rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(10, 16, 31, 0.96);\n  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.4);\n}\n.document-dropdown[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  padding: 0.8rem 0.9rem;\n  border-radius: 0.85rem;\n  color: var(--text-secondary);\n}\n.document-dropdown[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.05);\n  color: var(--text-primary);\n}\n.hero-social[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.social-link[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  transition:\n    transform var(--transition-normal),\n    border-color var(--transition-normal),\n    color var(--transition-normal);\n}\n.social-link[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  border-color: rgba(251, 191, 36, 0.45);\n  color: var(--primary-color);\n}\n.hero-metrics[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n  gap: 0.85rem;\n  margin-top: 0.5rem;\n}\n.metric-card[_ngcontent-%COMP%] {\n  padding: 1rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.03);\n}\n.metric-value[_ngcontent-%COMP%] {\n  display: block;\n  margin-bottom: 0.35rem;\n  font-family: var(--font-display);\n  font-size: 1.55rem;\n  font-weight: 800;\n  color: var(--text-primary);\n}\n.metric-label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 0.84rem;\n  color: var(--text-tertiary);\n}\n.hero-panel[_ngcontent-%COMP%] {\n  overflow: hidden;\n}\n.hero-portrait[_ngcontent-%COMP%] {\n  position: relative;\n  aspect-ratio: 1/1.08;\n  padding: 1.5rem;\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.2),\n      transparent 36%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(239, 68, 68, 0.14),\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.03),\n      rgba(255, 255, 255, 0));\n}\n.hero-portrait[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  border-radius: 1.5rem;\n}\n.hero-panel-content[_ngcontent-%COMP%] {\n  padding: 1.5rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.panel-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n}\n.panel-eyebrow[_ngcontent-%COMP%], \n.panel-status[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.panel-eyebrow[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n}\n.panel-status[_ngcontent-%COMP%] {\n  color: var(--accent-color);\n}\n.focus-list[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n}\n.focus-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.85rem;\n  padding: 0.9rem 1rem;\n  border-radius: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n  transition:\n    border-color 0.25s,\n    background 0.25s,\n    transform 0.25s;\n  position: relative;\n  overflow: hidden;\n}\n.focus-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n  border-radius: inherit;\n}\n.focus-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  background: rgba(255, 255, 255, 0.04);\n}\n.focus-card[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.focus-card[_ngcontent-%COMP%]:hover   .fc-icon[_ngcontent-%COMP%] {\n  transform: scale(1.15) rotate(-6deg);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.2);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%]   .fc-tag[_ngcontent-%COMP%] {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n  text-shadow: 0 0 12px rgba(239, 68, 68, 0.3);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%]   .fc-icon[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.12);\n  border-color: rgba(239, 68, 68, 0.25);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.2);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%]   .fc-tag[_ngcontent-%COMP%] {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n  text-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%]   .fc-icon[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.12);\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.2);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(34, 197, 94, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%]   .fc-tag[_ngcontent-%COMP%] {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n  text-shadow: 0 0 12px rgba(34, 197, 94, 0.3);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%]   .fc-icon[_ngcontent-%COMP%] {\n  background: rgba(34, 197, 94, 0.12);\n  border-color: rgba(34, 197, 94, 0.25);\n}\n.fc-icon[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  width: 2.6rem;\n  height: 2.6rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.25rem;\n  border-radius: 0.6rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.04);\n  transition: transform 0.3s;\n}\n.fc-body[_ngcontent-%COMP%] {\n  flex: 1;\n  min-width: 0;\n}\n.fc-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  margin-bottom: 0.35rem;\n}\n.fc-title[_ngcontent-%COMP%] {\n  font-size: 0.92rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.fc-tag[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.06em;\n  padding: 0.2rem 0.45rem;\n  border-radius: 4px;\n  border: 1px solid rgba(148, 163, 184, 0.15);\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n.fc-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n@media (max-width: 1024px) {\n  .hero-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .hero-title[_ngcontent-%COMP%] {\n    max-width: 100%;\n  }\n  .hero-metrics[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n}\n@media (max-width: 640px) {\n  .hero-section[_ngcontent-%COMP%] {\n    padding-top: 7.5rem;\n  }\n  .hero-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: stretch;\n  }\n  .document-dropdown[_ngcontent-%COMP%] {\n    position: static;\n    margin-top: 0.75rem;\n  }\n  .hero-metrics[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .panel-header[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */'] });
   }
@@ -32067,7 +32067,7 @@ var AboutComponent = class _AboutComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AboutComponent, selectors: [["app-about"]], decls: 79, vars: 0, consts: [["id", "about", 1, "apple-section", "about-section"], [1, "apple-container"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "about-grid"], [1, "bio-panel"], [1, "panel-flag"], [1, "flag-label"], [1, "panel-body"], [1, "panel-title"], [1, "panel-text"], [1, "stat-highlight"], [1, "bio-stats"], [1, "bio-stat"], [1, "bs-icon"], [1, "bs-val"], [1, "bs-key"], [1, "about-stack"], [1, "quest-panel"], [1, "achievement-list"]], template: function AboutComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AboutComponent, selectors: [["app-about"]], decls: 79, vars: 0, consts: [["id", "about", 1, "apple-section", "about-section"], [1, "apple-container"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "about-grid"], [1, "bio-panel"], [1, "panel-flag"], [1, "flag-label"], [1, "panel-body"], [1, "panel-title"], [1, "panel-text"], [1, "stat-highlight"], [1, "bio-stats"], [1, "bio-stat"], [1, "bs-icon"], [1, "bs-val"], [1, "bs-key"], [1, "about-stack"], [1, "quest-panel"], [1, "achievement-list"]], template: function AboutComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "section", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
         \u0275\u0275text(4, "\u{1F5E1} CHARACTER BIO");
@@ -32338,12 +32338,12 @@ var CheckboxControlValueAccessor = class _CheckboxControlValueAccessor extends B
   static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
     type: _CheckboxControlValueAccessor,
     selectors: [["input", "type", "checkbox", "formControlName", ""], ["input", "type", "checkbox", "formControl", ""], ["input", "type", "checkbox", "ngModel", ""]],
-    hostBindings: function CheckboxControlValueAccessor_HostBindings(rf, ctx) {
+    hostBindings: function CheckboxControlValueAccessor_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("change", function CheckboxControlValueAccessor_change_HostBindingHandler($event) {
-          return ctx.onChange($event.target.checked);
+          return ctx2.onChange($event.target.checked);
         })("blur", function CheckboxControlValueAccessor_blur_HostBindingHandler() {
-          return ctx.onTouched();
+          return ctx2.onTouched();
         });
       }
     },
@@ -32407,16 +32407,16 @@ var DefaultValueAccessor = class _DefaultValueAccessor extends BaseControlValueA
   static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
     type: _DefaultValueAccessor,
     selectors: [["input", "formControlName", "", 3, "type", "checkbox"], ["textarea", "formControlName", ""], ["input", "formControl", "", 3, "type", "checkbox"], ["textarea", "formControl", ""], ["input", "ngModel", "", 3, "type", "checkbox"], ["textarea", "ngModel", ""], ["", "ngDefaultControl", ""]],
-    hostBindings: function DefaultValueAccessor_HostBindings(rf, ctx) {
+    hostBindings: function DefaultValueAccessor_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("input", function DefaultValueAccessor_input_HostBindingHandler($event) {
-          return ctx._handleInput($event.target.value);
+          return ctx2._handleInput($event.target.value);
         })("blur", function DefaultValueAccessor_blur_HostBindingHandler() {
-          return ctx.onTouched();
+          return ctx2.onTouched();
         })("compositionstart", function DefaultValueAccessor_compositionstart_HostBindingHandler() {
-          return ctx._compositionStart();
+          return ctx2._compositionStart();
         })("compositionend", function DefaultValueAccessor_compositionend_HostBindingHandler($event) {
-          return ctx._compositionEnd($event.target.value);
+          return ctx2._compositionEnd($event.target.value);
         });
       }
     },
@@ -32807,9 +32807,9 @@ var NgControlStatus = class _NgControlStatus extends AbstractControlStatus {
     type: _NgControlStatus,
     selectors: [["", "formControlName", ""], ["", "ngModel", ""], ["", "formControl", ""]],
     hostVars: 14,
-    hostBindings: function NgControlStatus_HostBindings(rf, ctx) {
+    hostBindings: function NgControlStatus_HostBindings(rf, ctx2) {
       if (rf & 2) {
-        \u0275\u0275classProp("ng-untouched", ctx.isUntouched)("ng-touched", ctx.isTouched)("ng-pristine", ctx.isPristine)("ng-dirty", ctx.isDirty)("ng-valid", ctx.isValid)("ng-invalid", ctx.isInvalid)("ng-pending", ctx.isPending);
+        \u0275\u0275classProp("ng-untouched", ctx2.isUntouched)("ng-touched", ctx2.isTouched)("ng-pristine", ctx2.isPristine)("ng-dirty", ctx2.isDirty)("ng-valid", ctx2.isValid)("ng-invalid", ctx2.isInvalid)("ng-pending", ctx2.isPending);
       }
     },
     standalone: false,
@@ -32842,9 +32842,9 @@ var NgControlStatusGroup = class _NgControlStatusGroup extends AbstractControlSt
     type: _NgControlStatusGroup,
     selectors: [["", "formGroupName", ""], ["", "formArrayName", ""], ["", "ngModelGroup", ""], ["", "formGroup", ""], ["", "formArray", ""], ["form", 3, "ngNoForm", ""], ["", "ngForm", ""]],
     hostVars: 16,
-    hostBindings: function NgControlStatusGroup_HostBindings(rf, ctx) {
+    hostBindings: function NgControlStatusGroup_HostBindings(rf, ctx2) {
       if (rf & 2) {
-        \u0275\u0275classProp("ng-untouched", ctx.isUntouched)("ng-touched", ctx.isTouched)("ng-pristine", ctx.isPristine)("ng-dirty", ctx.isDirty)("ng-valid", ctx.isValid)("ng-invalid", ctx.isInvalid)("ng-pending", ctx.isPending)("ng-submitted", ctx.isSubmitted);
+        \u0275\u0275classProp("ng-untouched", ctx2.isUntouched)("ng-touched", ctx2.isTouched)("ng-pristine", ctx2.isPristine)("ng-dirty", ctx2.isDirty)("ng-valid", ctx2.isValid)("ng-invalid", ctx2.isInvalid)("ng-pending", ctx2.isPending)("ng-submitted", ctx2.isSubmitted);
       }
     },
     standalone: false,
@@ -34065,12 +34065,12 @@ var NgForm = class _NgForm extends ControlContainer {
   static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
     type: _NgForm,
     selectors: [["form", 3, "ngNoForm", "", 3, "formGroup", "", 3, "formArray", ""], ["ng-form"], ["", "ngForm", ""]],
-    hostBindings: function NgForm_HostBindings(rf, ctx) {
+    hostBindings: function NgForm_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("submit", function NgForm_submit_HostBindingHandler($event) {
-          return ctx.onSubmit($event);
+          return ctx2.onSubmit($event);
         })("reset", function NgForm_reset_HostBindingHandler() {
-          return ctx.onReset();
+          return ctx2.onReset();
         });
       }
     },
@@ -34672,12 +34672,12 @@ var NumberValueAccessor = class _NumberValueAccessor extends BuiltInControlValue
   static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
     type: _NumberValueAccessor,
     selectors: [["input", "type", "number", "formControlName", ""], ["input", "type", "number", "formControl", ""], ["input", "type", "number", "ngModel", ""]],
-    hostBindings: function NumberValueAccessor_HostBindings(rf, ctx) {
+    hostBindings: function NumberValueAccessor_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("input", function NumberValueAccessor_input_HostBindingHandler($event) {
-          return ctx.onChange($event.target.value);
+          return ctx2.onChange($event.target.value);
         })("blur", function NumberValueAccessor_blur_HostBindingHandler() {
-          return ctx.onTouched();
+          return ctx2.onTouched();
         });
       }
     },
@@ -34811,12 +34811,12 @@ var RadioControlValueAccessor = class _RadioControlValueAccessor extends BuiltIn
   static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
     type: _RadioControlValueAccessor,
     selectors: [["input", "type", "radio", "formControlName", ""], ["input", "type", "radio", "formControl", ""], ["input", "type", "radio", "ngModel", ""]],
-    hostBindings: function RadioControlValueAccessor_HostBindings(rf, ctx) {
+    hostBindings: function RadioControlValueAccessor_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("change", function RadioControlValueAccessor_change_HostBindingHandler() {
-          return ctx.onChange();
+          return ctx2.onChange();
         })("blur", function RadioControlValueAccessor_blur_HostBindingHandler() {
-          return ctx.onTouched();
+          return ctx2.onTouched();
         });
       }
     },
@@ -34884,14 +34884,14 @@ var RangeValueAccessor = class _RangeValueAccessor extends BuiltInControlValueAc
   static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
     type: _RangeValueAccessor,
     selectors: [["input", "type", "range", "formControlName", ""], ["input", "type", "range", "formControl", ""], ["input", "type", "range", "ngModel", ""]],
-    hostBindings: function RangeValueAccessor_HostBindings(rf, ctx) {
+    hostBindings: function RangeValueAccessor_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("change", function RangeValueAccessor_change_HostBindingHandler($event) {
-          return ctx.onChange($event.target.value);
+          return ctx2.onChange($event.target.value);
         })("input", function RangeValueAccessor_input_HostBindingHandler($event) {
-          return ctx.onChange($event.target.value);
+          return ctx2.onChange($event.target.value);
         })("blur", function RangeValueAccessor_blur_HostBindingHandler() {
-          return ctx.onTouched();
+          return ctx2.onTouched();
         });
       }
     },
@@ -35287,12 +35287,12 @@ var FormArrayDirective = class _FormArrayDirective extends AbstractFormDirective
   static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
     type: _FormArrayDirective,
     selectors: [["", "formArray", ""]],
-    hostBindings: function FormArrayDirective_HostBindings(rf, ctx) {
+    hostBindings: function FormArrayDirective_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("submit", function FormArrayDirective_submit_HostBindingHandler($event) {
-          return ctx.onSubmit($event);
+          return ctx2.onSubmit($event);
         })("reset", function FormArrayDirective_reset_HostBindingHandler() {
-          return ctx.onReset();
+          return ctx2.onReset();
         });
       }
     },
@@ -35829,12 +35829,12 @@ var FormGroupDirective = class _FormGroupDirective extends AbstractFormDirective
   static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
     type: _FormGroupDirective,
     selectors: [["", "formGroup", ""]],
-    hostBindings: function FormGroupDirective_HostBindings(rf, ctx) {
+    hostBindings: function FormGroupDirective_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("submit", function FormGroupDirective_submit_HostBindingHandler($event) {
-          return ctx.onSubmit($event);
+          return ctx2.onSubmit($event);
         })("reset", function FormGroupDirective_reset_HostBindingHandler() {
-          return ctx.onReset();
+          return ctx2.onReset();
         });
       }
     },
@@ -35952,12 +35952,12 @@ var SelectControlValueAccessor = class _SelectControlValueAccessor extends Built
   static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
     type: _SelectControlValueAccessor,
     selectors: [["select", "formControlName", "", 3, "multiple", ""], ["select", "formControl", "", 3, "multiple", ""], ["select", "ngModel", "", 3, "multiple", ""]],
-    hostBindings: function SelectControlValueAccessor_HostBindings(rf, ctx) {
+    hostBindings: function SelectControlValueAccessor_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("change", function SelectControlValueAccessor_change_HostBindingHandler($event) {
-          return ctx.onChange($event.target.value);
+          return ctx2.onChange($event.target.value);
         })("blur", function SelectControlValueAccessor_blur_HostBindingHandler() {
-          return ctx.onTouched();
+          return ctx2.onTouched();
         });
       }
     },
@@ -36147,12 +36147,12 @@ var SelectMultipleControlValueAccessor = class _SelectMultipleControlValueAccess
   static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
     type: _SelectMultipleControlValueAccessor,
     selectors: [["select", "multiple", "", "formControlName", ""], ["select", "multiple", "", "formControl", ""], ["select", "multiple", "", "ngModel", ""]],
-    hostBindings: function SelectMultipleControlValueAccessor_HostBindings(rf, ctx) {
+    hostBindings: function SelectMultipleControlValueAccessor_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("change", function SelectMultipleControlValueAccessor_change_HostBindingHandler($event) {
-          return ctx.onChange($event.target);
+          return ctx2.onChange($event.target);
         })("blur", function SelectMultipleControlValueAccessor_blur_HostBindingHandler() {
-          return ctx.onTouched();
+          return ctx2.onTouched();
         });
       }
     },
@@ -36326,9 +36326,9 @@ var MaxValidator = class _MaxValidator extends AbstractValidatorDirective {
     type: _MaxValidator,
     selectors: [["input", "type", "number", "max", "", "formControlName", ""], ["input", "type", "number", "max", "", "formControl", ""], ["input", "type", "number", "max", "", "ngModel", ""]],
     hostVars: 1,
-    hostBindings: function MaxValidator_HostBindings(rf, ctx) {
+    hostBindings: function MaxValidator_HostBindings(rf, ctx2) {
       if (rf & 2) {
-        \u0275\u0275attribute("max", ctx._enabled ? ctx.max : null);
+        \u0275\u0275attribute("max", ctx2._enabled ? ctx2.max : null);
       }
     },
     inputs: {
@@ -36375,9 +36375,9 @@ var MinValidator = class _MinValidator extends AbstractValidatorDirective {
     type: _MinValidator,
     selectors: [["input", "type", "number", "min", "", "formControlName", ""], ["input", "type", "number", "min", "", "formControl", ""], ["input", "type", "number", "min", "", "ngModel", ""]],
     hostVars: 1,
-    hostBindings: function MinValidator_HostBindings(rf, ctx) {
+    hostBindings: function MinValidator_HostBindings(rf, ctx2) {
       if (rf & 2) {
-        \u0275\u0275attribute("min", ctx._enabled ? ctx.min : null);
+        \u0275\u0275attribute("min", ctx2._enabled ? ctx2.min : null);
       }
     },
     inputs: {
@@ -36432,9 +36432,9 @@ var RequiredValidator = class _RequiredValidator extends AbstractValidatorDirect
     type: _RequiredValidator,
     selectors: [["", "required", "", "formControlName", "", 3, "type", "checkbox"], ["", "required", "", "formControl", "", 3, "type", "checkbox"], ["", "required", "", "ngModel", "", 3, "type", "checkbox"]],
     hostVars: 1,
-    hostBindings: function RequiredValidator_HostBindings(rf, ctx) {
+    hostBindings: function RequiredValidator_HostBindings(rf, ctx2) {
       if (rf & 2) {
-        \u0275\u0275attribute("required", ctx._enabled ? "" : null);
+        \u0275\u0275attribute("required", ctx2._enabled ? "" : null);
       }
     },
     inputs: {
@@ -36473,9 +36473,9 @@ var CheckboxRequiredValidator = class _CheckboxRequiredValidator extends Require
     type: _CheckboxRequiredValidator,
     selectors: [["input", "type", "checkbox", "required", "", "formControlName", ""], ["input", "type", "checkbox", "required", "", "formControl", ""], ["input", "type", "checkbox", "required", "", "ngModel", ""]],
     hostVars: 1,
-    hostBindings: function CheckboxRequiredValidator_HostBindings(rf, ctx) {
+    hostBindings: function CheckboxRequiredValidator_HostBindings(rf, ctx2) {
       if (rf & 2) {
-        \u0275\u0275attribute("required", ctx._enabled ? "" : null);
+        \u0275\u0275attribute("required", ctx2._enabled ? "" : null);
       }
     },
     standalone: false,
@@ -36558,9 +36558,9 @@ var MinLengthValidator = class _MinLengthValidator extends AbstractValidatorDire
     type: _MinLengthValidator,
     selectors: [["", "minlength", "", "formControlName", ""], ["", "minlength", "", "formControl", ""], ["", "minlength", "", "ngModel", ""]],
     hostVars: 1,
-    hostBindings: function MinLengthValidator_HostBindings(rf, ctx) {
+    hostBindings: function MinLengthValidator_HostBindings(rf, ctx2) {
       if (rf & 2) {
-        \u0275\u0275attribute("minlength", ctx._enabled ? ctx.minlength : null);
+        \u0275\u0275attribute("minlength", ctx2._enabled ? ctx2.minlength : null);
       }
     },
     inputs: {
@@ -36607,9 +36607,9 @@ var MaxLengthValidator = class _MaxLengthValidator extends AbstractValidatorDire
     type: _MaxLengthValidator,
     selectors: [["", "maxlength", "", "formControlName", ""], ["", "maxlength", "", "formControl", ""], ["", "maxlength", "", "ngModel", ""]],
     hostVars: 1,
-    hostBindings: function MaxLengthValidator_HostBindings(rf, ctx) {
+    hostBindings: function MaxLengthValidator_HostBindings(rf, ctx2) {
       if (rf & 2) {
-        \u0275\u0275attribute("maxlength", ctx._enabled ? ctx.maxlength : null);
+        \u0275\u0275attribute("maxlength", ctx2._enabled ? ctx2.maxlength : null);
       }
     },
     inputs: {
@@ -36656,9 +36656,9 @@ var PatternValidator = class _PatternValidator extends AbstractValidatorDirectiv
     type: _PatternValidator,
     selectors: [["", "pattern", "", "formControlName", ""], ["", "pattern", "", "formControl", ""], ["", "pattern", "", "ngModel", ""]],
     hostVars: 1,
-    hostBindings: function PatternValidator_HostBindings(rf, ctx) {
+    hostBindings: function PatternValidator_HostBindings(rf, ctx2) {
       if (rf & 2) {
-        \u0275\u0275attribute("pattern", ctx._enabled ? ctx.pattern : null);
+        \u0275\u0275attribute("pattern", ctx2._enabled ? ctx2.pattern : null);
       }
     },
     inputs: {
@@ -36909,49 +36909,49 @@ var ReactiveFormsModule = class _ReactiveFormsModule {
 var _c0 = ["contactForm"];
 var _c1 = (a0) => ({ "is-invalid": a0 });
 var _c2 = (a0) => ({ "disabled": a0 });
-function ContactComponent_Conditional_68_Template(rf, ctx) {
+function ContactComponent_Conditional_68_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 32);
     \u0275\u0275text(1, "Please enter your name");
     \u0275\u0275elementEnd();
   }
 }
-function ContactComponent_Conditional_74_Template(rf, ctx) {
+function ContactComponent_Conditional_74_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 32);
     \u0275\u0275text(1, "Please enter a valid email address");
     \u0275\u0275elementEnd();
   }
 }
-function ContactComponent_Conditional_80_Template(rf, ctx) {
+function ContactComponent_Conditional_80_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 32);
     \u0275\u0275text(1, "Please enter a subject");
     \u0275\u0275elementEnd();
   }
 }
-function ContactComponent_Conditional_86_Template(rf, ctx) {
+function ContactComponent_Conditional_86_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 32);
     \u0275\u0275text(1, "Please enter your message");
     \u0275\u0275elementEnd();
   }
 }
-function ContactComponent_Conditional_91_Template(rf, ctx) {
+function ContactComponent_Conditional_91_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span", 41);
     \u0275\u0275text(1, "\u2192");
     \u0275\u0275elementEnd();
   }
 }
-function ContactComponent_Conditional_92_Template(rf, ctx) {
+function ContactComponent_Conditional_92_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span", 42);
     \u0275\u0275text(1, "\u23F3");
     \u0275\u0275elementEnd();
   }
 }
-function ContactComponent_Conditional_93_Template(rf, ctx) {
+function ContactComponent_Conditional_93_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 43)(1, "div", 44)(2, "div", 45);
     \u0275\u0275text(3);
@@ -37046,15 +37046,15 @@ var ContactComponent = class _ContactComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ContactComponent, selectors: [["app-contact"]], viewQuery: function ContactComponent_Query(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ContactComponent, selectors: [["app-contact"]], viewQuery: function ContactComponent_Query(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275viewQuery(_c0, 5);
       }
       if (rf & 2) {
         let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.contactForm = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.contactForm = _t.first);
       }
-    }, decls: 94, vars: 31, consts: [["contactForm", "ngForm"], ["name", "ngModel"], ["email", "ngModel"], ["subject", "ngModel"], ["message", "ngModel"], ["id", "contact", 1, "apple-section"], [1, "apple-container"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "mario-greeter"], [1, "mario-scene"], [1, "speech-bubble"], ["src", "assets/images/mario-sprite.png", "alt", "Mario", 1, "mario-sprite"], [1, "mario-cloud", "cloud-1"], [1, "mario-cloud", "cloud-2"], [1, "mario-ground"], [1, "contact-container"], [1, "contact-info-section"], [1, "info-cards"], [1, "info-card"], [1, "info-icon"], [1, "info-content"], [1, "contact-form-section"], [1, "form-card"], [1, "form-header"], ["name", "form", "novalidate", "", 3, "ngSubmit"], [1, "form-row"], [1, "form-group"], ["for", "name"], ["id", "name", "name", "name", "placeholder", "Your full name", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], [1, "error-message"], ["for", "email"], ["id", "email", "name", "email", "placeholder", "your.email@example.com", "required", "", "type", "email", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "subject"], ["id", "subject", "name", "subject", "placeholder", "Role, collaboration, or project intro", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "message"], ["id", "message", "name", "message", "placeholder", "Tell me about the team, the scope, and the kind of problems you want help solving...", "required", "", "rows", "5", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["type", "submit", 1, "submit-btn", 3, "disabled", "ngClass"], [1, "btn-text"], [1, "btn-icon"], [1, "btn-spinner"], [1, "toast-container"], [1, "toast", 3, "ngClass"], [1, "toast-icon"], [1, "toast-message"]], template: function ContactComponent_Template(rf, ctx) {
+    }, decls: 94, vars: 31, consts: [["contactForm", "ngForm"], ["name", "ngModel"], ["email", "ngModel"], ["subject", "ngModel"], ["message", "ngModel"], ["id", "contact", 1, "apple-section"], [1, "apple-container"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "mario-greeter"], [1, "mario-scene"], [1, "speech-bubble"], ["src", "assets/images/mario-sprite.png", "alt", "Mario", 1, "mario-sprite"], [1, "mario-cloud", "cloud-1"], [1, "mario-cloud", "cloud-2"], [1, "mario-ground"], [1, "contact-container"], [1, "contact-info-section"], [1, "info-cards"], [1, "info-card"], [1, "info-icon"], [1, "info-content"], [1, "contact-form-section"], [1, "form-card"], [1, "form-header"], ["name", "form", "novalidate", "", 3, "ngSubmit"], [1, "form-row"], [1, "form-group"], ["for", "name"], ["id", "name", "name", "name", "placeholder", "Your full name", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], [1, "error-message"], ["for", "email"], ["id", "email", "name", "email", "placeholder", "your.email@example.com", "required", "", "type", "email", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "subject"], ["id", "subject", "name", "subject", "placeholder", "Role, collaboration, or project intro", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "message"], ["id", "message", "name", "message", "placeholder", "Tell me about the team, the scope, and the kind of problems you want help solving...", "required", "", "rows", "5", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["type", "submit", 1, "submit-btn", 3, "disabled", "ngClass"], [1, "btn-text"], [1, "btn-icon"], [1, "btn-spinner"], [1, "toast-container"], [1, "toast", 3, "ngClass"], [1, "toast-icon"], [1, "toast-message"]], template: function ContactComponent_Template(rf, ctx2) {
       if (rf & 1) {
         const _r1 = \u0275\u0275getCurrentView();
         \u0275\u0275elementStart(0, "section", 5)(1, "div", 6)(2, "div", 7)(3, "span", 8);
@@ -37116,7 +37116,7 @@ var ContactComponent = class _ContactComponent {
         \u0275\u0275elementStart(60, "form", 27, 0);
         \u0275\u0275listener("ngSubmit", function ContactComponent_Template_form_ngSubmit_60_listener() {
           \u0275\u0275restoreView(_r1);
-          return \u0275\u0275resetView(ctx.onSubmit(ctx.model.name, ctx.model.subject, ctx.model.email, ctx.model.message));
+          return \u0275\u0275resetView(ctx2.onSubmit(ctx2.model.name, ctx2.model.subject, ctx2.model.email, ctx2.model.message));
         });
         \u0275\u0275elementStart(62, "div", 28)(63, "div", 29)(64, "label", 30);
         \u0275\u0275text(65, "Name");
@@ -37124,7 +37124,7 @@ var ContactComponent = class _ContactComponent {
         \u0275\u0275elementStart(66, "input", 31, 1);
         \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_66_listener($event) {
           \u0275\u0275restoreView(_r1);
-          \u0275\u0275twoWayBindingSet(ctx.model.name, $event) || (ctx.model.name = $event);
+          \u0275\u0275twoWayBindingSet(ctx2.model.name, $event) || (ctx2.model.name = $event);
           return \u0275\u0275resetView($event);
         });
         \u0275\u0275elementEnd();
@@ -37136,7 +37136,7 @@ var ContactComponent = class _ContactComponent {
         \u0275\u0275elementStart(72, "input", 34, 2);
         \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_72_listener($event) {
           \u0275\u0275restoreView(_r1);
-          \u0275\u0275twoWayBindingSet(ctx.model.email, $event) || (ctx.model.email = $event);
+          \u0275\u0275twoWayBindingSet(ctx2.model.email, $event) || (ctx2.model.email = $event);
           return \u0275\u0275resetView($event);
         });
         \u0275\u0275elementEnd();
@@ -37148,7 +37148,7 @@ var ContactComponent = class _ContactComponent {
         \u0275\u0275elementStart(78, "input", 36, 3);
         \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_78_listener($event) {
           \u0275\u0275restoreView(_r1);
-          \u0275\u0275twoWayBindingSet(ctx.model.subject, $event) || (ctx.model.subject = $event);
+          \u0275\u0275twoWayBindingSet(ctx2.model.subject, $event) || (ctx2.model.subject = $event);
           return \u0275\u0275resetView($event);
         });
         \u0275\u0275elementEnd();
@@ -37160,7 +37160,7 @@ var ContactComponent = class _ContactComponent {
         \u0275\u0275elementStart(84, "textarea", 38, 4);
         \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_textarea_ngModelChange_84_listener($event) {
           \u0275\u0275restoreView(_r1);
-          \u0275\u0275twoWayBindingSet(ctx.model.message, $event) || (ctx.model.message = $event);
+          \u0275\u0275twoWayBindingSet(ctx2.model.message, $event) || (ctx2.model.message = $event);
           return \u0275\u0275resetView($event);
         });
         \u0275\u0275elementEnd();
@@ -37182,39 +37182,39 @@ var ContactComponent = class _ContactComponent {
         const subject_r6 = \u0275\u0275reference(79);
         const message_r7 = \u0275\u0275reference(85);
         \u0275\u0275advance(9);
-        \u0275\u0275classProp("mario-greeter--jumping", ctx.marioJumping);
+        \u0275\u0275classProp("mario-greeter--jumping", ctx2.marioJumping);
         \u0275\u0275advance(4);
-        \u0275\u0275textInterpolate(ctx.marioJumping ? "Yahoo! Message sent!" : "It's-a me! Let's-a talk!");
+        \u0275\u0275textInterpolate(ctx2.marioJumping ? "Yahoo! Message sent!" : "It's-a me! Let's-a talk!");
         \u0275\u0275advance(53);
-        \u0275\u0275twoWayProperty("ngModel", ctx.model.name);
+        \u0275\u0275twoWayProperty("ngModel", ctx2.model.name);
         \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(21, _c1, contactForm_r3.submitted && name_r4.invalid));
         \u0275\u0275advance(2);
         \u0275\u0275conditional(contactForm_r3.submitted && name_r4.invalid ? 68 : -1);
         \u0275\u0275advance(4);
-        \u0275\u0275twoWayProperty("ngModel", ctx.model.email);
+        \u0275\u0275twoWayProperty("ngModel", ctx2.model.email);
         \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(23, _c1, contactForm_r3.submitted && email_r5.invalid));
         \u0275\u0275advance(2);
         \u0275\u0275conditional(contactForm_r3.submitted && email_r5.invalid ? 74 : -1);
         \u0275\u0275advance(4);
-        \u0275\u0275twoWayProperty("ngModel", ctx.model.subject);
+        \u0275\u0275twoWayProperty("ngModel", ctx2.model.subject);
         \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(25, _c1, contactForm_r3.submitted && subject_r6.invalid));
         \u0275\u0275advance(2);
         \u0275\u0275conditional(contactForm_r3.submitted && subject_r6.invalid ? 80 : -1);
         \u0275\u0275advance(4);
-        \u0275\u0275twoWayProperty("ngModel", ctx.model.message);
+        \u0275\u0275twoWayProperty("ngModel", ctx2.model.message);
         \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(27, _c1, contactForm_r3.submitted && message_r7.invalid));
         \u0275\u0275advance(2);
         \u0275\u0275conditional(contactForm_r3.submitted && message_r7.invalid ? 86 : -1);
         \u0275\u0275advance(2);
-        \u0275\u0275property("disabled", !ctx.isFormValid() || ctx.isSubmitting)("ngClass", \u0275\u0275pureFunction1(29, _c2, !ctx.isFormValid() || ctx.isSubmitting));
+        \u0275\u0275property("disabled", !ctx2.isFormValid() || ctx2.isSubmitting)("ngClass", \u0275\u0275pureFunction1(29, _c2, !ctx2.isFormValid() || ctx2.isSubmitting));
         \u0275\u0275advance(2);
-        \u0275\u0275textInterpolate(ctx.isSubmitting ? "Sending..." : "Send message");
+        \u0275\u0275textInterpolate(ctx2.isSubmitting ? "Sending..." : "Send message");
         \u0275\u0275advance();
-        \u0275\u0275conditional(!ctx.isSubmitting ? 91 : -1);
+        \u0275\u0275conditional(!ctx2.isSubmitting ? 91 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.isSubmitting ? 92 : -1);
+        \u0275\u0275conditional(ctx2.isSubmitting ? 92 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.showToast ? 93 : -1);
+        \u0275\u0275conditional(ctx2.showToast ? 93 : -1);
       }
     }, dependencies: [FormsModule, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, NgModel, NgForm, CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.mario-greeter[_ngcontent-%COMP%] {\n  margin: 0 auto 2.5rem;\n  max-width: 20rem;\n}\n.mario-scene[_ngcontent-%COMP%] {\n  position: relative;\n  height: 140px;\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n}\n.speech-bubble[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  transform: translateX(-30%);\n  background: rgba(251, 191, 36, 0.12);\n  border: 2px solid rgba(251, 191, 36, 0.35);\n  border-radius: 12px 12px 12px 2px;\n  padding: 0.55rem 0.9rem;\n  white-space: nowrap;\n  animation: _ngcontent-%COMP%_bubblePop 0.4s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.speech-bubble[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  color: #fde68a;\n  letter-spacing: 0.04em;\n}\n.speech-bubble[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -8px;\n  left: 12px;\n  width: 0;\n  height: 0;\n  border-left: 8px solid rgba(251, 191, 36, 0.35);\n  border-right: 8px solid transparent;\n  border-top: 8px solid rgba(251, 191, 36, 0.35);\n  border-bottom: 8px solid transparent;\n}\n@keyframes _ngcontent-%COMP%_bubblePop {\n  from {\n    transform: translateX(-30%) scale(0.7);\n    opacity: 0;\n  }\n  to {\n    transform: translateX(-30%) scale(1);\n    opacity: 1;\n  }\n}\n.mario-sprite[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 80px;\n  image-rendering: pixelated;\n  object-fit: contain;\n  position: relative;\n  z-index: 2;\n  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.2));\n  animation: _ngcontent-%COMP%_marioWave 2.5s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_marioWave {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-4px);\n  }\n}\n.mario-cloud[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 60px;\n  height: 24px;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: -8px 4px 0 rgba(255, 255, 255, 0.04), 8px 4px 0 rgba(255, 255, 255, 0.04);\n}\n.mario-cloud[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -8px;\n  left: 12px;\n  width: 20px;\n  height: 16px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.05);\n}\n.mario-cloud[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: -12px;\n  left: 28px;\n  width: 16px;\n  height: 14px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.04);\n}\n.cloud-1[_ngcontent-%COMP%] {\n  bottom: 70px;\n  left: 0;\n  animation: _ngcontent-%COMP%_cloudDrift 8s ease-in-out infinite;\n}\n.cloud-2[_ngcontent-%COMP%] {\n  bottom: 90px;\n  right: 0;\n  width: 48px;\n  height: 20px;\n  animation: _ngcontent-%COMP%_cloudDrift 12s ease-in-out infinite reverse;\n}\n@keyframes _ngcontent-%COMP%_cloudDrift {\n  0%, 100% {\n    transform: translateX(0);\n  }\n  50% {\n    transform: translateX(10px);\n  }\n}\n.mario-ground[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 100px;\n  height: 10px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #2d5016 0px,\n      #2d5016 10px,\n      #3a6b1e 10px,\n      #3a6b1e 20px);\n  border-radius: 3px;\n  border-top: 2px solid #4a8b2e;\n}\n.mario-greeter--jumping[_ngcontent-%COMP%]   .mario-sprite[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_marioJumpCloud 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;\n}\n.mario-greeter--jumping[_ngcontent-%COMP%]   .speech-bubble[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_bubbleJump 2.4s ease forwards;\n}\n.mario-greeter--jumping[_ngcontent-%COMP%]   .cloud-1[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_cloudCatch 2.4s ease forwards !important;\n}\n@keyframes _ngcontent-%COMP%_marioJumpCloud {\n  0% {\n    transform: translateY(0) scale(1);\n  }\n  10% {\n    transform: translateY(4px) scale(1.05, 0.9);\n  }\n  30% {\n    transform: translateY(-70px) scale(0.95, 1.05);\n  }\n  45% {\n    transform: translateY(-70px) scale(1);\n  }\n  55% {\n    transform: translateY(-70px) rotate(-5deg);\n  }\n  70% {\n    transform: translateY(-70px) rotate(5deg);\n  }\n  85% {\n    transform: translateY(-70px) rotate(-3deg);\n  }\n  100% {\n    transform: translateY(-70px) rotate(0deg) scale(1.1);\n  }\n}\n@keyframes _ngcontent-%COMP%_bubbleJump {\n  0% {\n    transform: translateX(-30%) translateY(0);\n    opacity: 1;\n  }\n  20% {\n    opacity: 0;\n    transform: translateX(-30%) translateY(-10px);\n  }\n  40% {\n    opacity: 0;\n    transform: translateX(-30%) translateY(-80px);\n  }\n  50% {\n    opacity: 1;\n    transform: translateX(-30%) translateY(-80px) scale(1.1);\n  }\n  100% {\n    opacity: 1;\n    transform: translateX(-30%) translateY(-80px) scale(1);\n  }\n}\n@keyframes _ngcontent-%COMP%_cloudCatch {\n  0% {\n    transform: translateX(0) scale(1);\n    opacity: 1;\n  }\n  30% {\n    transform: translateX(15px) scale(1);\n  }\n  45% {\n    transform: translateX(calc(50% + 10px)) translateY(2px) scale(1.4);\n    opacity: 1;\n  }\n  100% {\n    transform: translateX(calc(50% + 10px)) translateY(0) scale(1.4);\n    opacity: 1;\n  }\n}\n.contact-container[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);\n  gap: 1.5rem;\n}\n.contact-info-section[_ngcontent-%COMP%], \n.contact-form-section[_ngcontent-%COMP%] {\n  display: flex;\n}\n.info-cards[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  width: 100%;\n}\n.info-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  padding: 1rem 1.05rem;\n}\n.info-icon[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  font-size: 1.35rem;\n}\n.info-content[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  margin-bottom: 0.2rem;\n  font-size: 1rem;\n}\n.info-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.form-card[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 1.4rem;\n}\n.form-header[_ngcontent-%COMP%] {\n  margin-bottom: 1.25rem;\n}\n.form-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.5rem;\n  font-size: 1.35rem;\n}\n.form-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n}\n.form-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n  gap: 1rem;\n}\n.form-group[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n}\n.form-group[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  display: block;\n  margin-bottom: 0.45rem;\n  font-size: 0.86rem;\n  font-weight: 700;\n  color: var(--text-secondary);\n}\n.form-input.is-invalid[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);\n}\n.error-message[_ngcontent-%COMP%] {\n  margin-top: 0.45rem;\n  font-size: 0.8rem;\n  color: #fda4af;\n}\n.submit-btn[_ngcontent-%COMP%] {\n  width: 100%;\n  min-height: 3.2rem;\n  border: none;\n  border-radius: 999px;\n  background: var(--gradient-primary);\n  color: #09091a;\n  font-weight: 700;\n  cursor: pointer;\n}\n.submit-btn.disabled[_ngcontent-%COMP%] {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n.btn-icon[_ngcontent-%COMP%] {\n  transition: transform var(--transition-normal);\n}\n.submit-btn[_ngcontent-%COMP%]:hover:not(.disabled)   .btn-icon[_ngcontent-%COMP%] {\n  transform: translateX(3px);\n}\n.toast-container[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 1rem;\n  right: 1rem;\n  z-index: 1200;\n}\n.toast[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  padding: 0.95rem 1rem;\n  border-radius: 1rem;\n  color: #fff;\n  box-shadow: 0 18px 50px rgba(2, 6, 23, 0.36);\n}\n.toast-success[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n}\n.toast-error[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ef4444,\n      #f97316);\n}\n@media (max-width: 900px) {\n  .contact-container[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n@media (max-width: 640px) {\n  .form-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .toast-container[_ngcontent-%COMP%] {\n    left: 1rem;\n    right: 1rem;\n  }\n}\n/*# sourceMappingURL=contact.component.css.map */'] });
   }
@@ -37415,7 +37415,7 @@ var EducationComponent = class _EducationComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _EducationComponent, selectors: [["app-education"]], decls: 75, vars: 0, consts: [["id", "education", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], ["data-stagger", "120", 1, "training-grid"], [1, "level-card", "level-card--gold"], [1, "level-flag"], [1, "level-number"], [1, "level-status"], [1, "level-body"], [1, "level-year"], [1, "level-title"], [1, "level-location"], [1, "level-rewards"], [1, "reward-chip"], [1, "level-xp"], [1, "xp-label"], [1, "xp-bar"], [1, "xp-fill", 2, "width", "98%"], [1, "level-card", "level-card--silver"], [1, "xp-fill", 2, "width", "93%"], [1, "level-card", "level-card--bronze"], [1, "xp-fill", 2, "width", "90%"]], template: function EducationComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _EducationComponent, selectors: [["app-education"]], decls: 75, vars: 0, consts: [["id", "education", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], ["data-stagger", "120", 1, "training-grid"], [1, "level-card", "level-card--gold"], [1, "level-flag"], [1, "level-number"], [1, "level-status"], [1, "level-body"], [1, "level-year"], [1, "level-title"], [1, "level-location"], [1, "level-rewards"], [1, "reward-chip"], [1, "level-xp"], [1, "xp-label"], [1, "xp-bar"], [1, "xp-fill", 2, "width", "98%"], [1, "level-card", "level-card--silver"], [1, "xp-fill", 2, "width", "93%"], [1, "level-card", "level-card--bronze"], [1, "xp-fill", 2, "width", "90%"]], template: function EducationComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
         \u0275\u0275text(4, "\u{1F3EB} TRAINING GROUNDS");
@@ -37685,14 +37685,14 @@ var EXPERIENCE_ITEMS = [
 
 // src/app/profile/experience/experience.component.ts
 var _forTrack02 = ($index, $item) => $item.id;
-function ExperienceComponent_For_16_Conditional_5_Template(rf, ctx) {
+function ExperienceComponent_For_16_Conditional_5_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "div", 18)(1, "div", 23);
     \u0275\u0275domElement(2, "div", 24)(3, "div", 25)(4, "div", 26);
     \u0275\u0275domElementEnd()();
   }
 }
-function ExperienceComponent_For_16_Conditional_10_Template(rf, ctx) {
+function ExperienceComponent_For_16_Conditional_10_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "span", 22);
     \u0275\u0275text(1);
@@ -37704,7 +37704,7 @@ function ExperienceComponent_For_16_Conditional_10_Template(rf, ctx) {
     \u0275\u0275textInterpolate1("\u{1FA99} ", stop_r3.roles.length, " roles");
   }
 }
-function ExperienceComponent_For_16_Template(rf, ctx) {
+function ExperienceComponent_For_16_Template(rf, ctx2) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
     \u0275\u0275domElementStart(0, "button", 14);
@@ -37729,8 +37729,8 @@ function ExperienceComponent_For_16_Template(rf, ctx) {
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const stop_r3 = ctx.$implicit;
-    const \u0275$index_27_r4 = ctx.$index;
+    const stop_r3 = ctx2.$implicit;
+    const \u0275$index_27_r4 = ctx2.$index;
     const ctx_r4 = \u0275\u0275nextContext();
     \u0275\u0275classProp("active", ctx_r4.isStopActive(stop_r3))("current", stop_r3.isCurrent)("mario-here", ctx_r4.marioPosition === \u0275$index_27_r4);
     \u0275\u0275attribute("aria-label", "View experience at " + stop_r3.company);
@@ -37748,7 +37748,7 @@ function ExperienceComponent_For_16_Template(rf, ctx) {
     \u0275\u0275conditional(stop_r3.roles.length > 1 ? 10 : -1);
   }
 }
-function ExperienceComponent_Conditional_19_Conditional_9_For_2_Template(rf, ctx) {
+function ExperienceComponent_Conditional_19_Conditional_9_For_2_Template(rf, ctx2) {
   if (rf & 1) {
     const _r6 = \u0275\u0275getCurrentView();
     \u0275\u0275domElementStart(0, "button", 44);
@@ -37763,7 +37763,7 @@ function ExperienceComponent_Conditional_19_Conditional_9_For_2_Template(rf, ctx
     \u0275\u0275domElementEnd()();
   }
   if (rf & 2) {
-    const role_r7 = ctx.$implicit;
+    const role_r7 = ctx2.$implicit;
     const ctx_r4 = \u0275\u0275nextContext(3);
     \u0275\u0275classProp("active", ctx_r4.activeRole === role_r7);
     \u0275\u0275advance();
@@ -37772,7 +37772,7 @@ function ExperienceComponent_Conditional_19_Conditional_9_For_2_Template(rf, ctx
     \u0275\u0275textInterpolate(role_r7.period);
   }
 }
-function ExperienceComponent_Conditional_19_Conditional_9_Template(rf, ctx) {
+function ExperienceComponent_Conditional_19_Conditional_9_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "div", 32);
     \u0275\u0275repeaterCreate(1, ExperienceComponent_Conditional_19_Conditional_9_For_2_Template, 4, 4, "button", 43, _forTrack02);
@@ -37784,31 +37784,31 @@ function ExperienceComponent_Conditional_19_Conditional_9_Template(rf, ctx) {
     \u0275\u0275repeater(ctx_r4.activeStop.roles);
   }
 }
-function ExperienceComponent_Conditional_19_For_23_Template(rf, ctx) {
+function ExperienceComponent_Conditional_19_For_23_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "span", 41);
     \u0275\u0275text(1);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const tech_r8 = ctx.$implicit;
+    const tech_r8 = ctx2.$implicit;
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(tech_r8);
   }
 }
-function ExperienceComponent_Conditional_19_For_29_Template(rf, ctx) {
+function ExperienceComponent_Conditional_19_For_29_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "li");
     \u0275\u0275text(1);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const ach_r9 = ctx.$implicit;
+    const ach_r9 = ctx2.$implicit;
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(ach_r9);
   }
 }
-function ExperienceComponent_Conditional_19_Template(rf, ctx) {
+function ExperienceComponent_Conditional_19_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "div", 13)(1, "div", 27)(2, "div", 28);
     \u0275\u0275domElement(3, "img", 29);
@@ -37937,7 +37937,7 @@ var ExperienceComponent = class _ExperienceComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 20, vars: 3, consts: [["id", "experience", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], [1, "xp-total"], ["data-anim", "fade-up", 1, "world-map"], [1, "map-track"], [1, "ground-layer"], [1, "trail-line"], ["type", "button", 1, "map-stop", 3, "active", "current", "mario-here"], [1, "end-star"], ["data-anim", "fade-up", 1, "quest-log"], ["type", "button", 1, "map-stop", 3, "click"], [1, "flag-pole"], [1, "flag-banner"], [1, "flag-year"], [1, "mario-sprite"], [1, "stop-block"], ["loading", "lazy", 1, "stop-logo", 3, "src", "alt"], [1, "stop-name"], [1, "coin-count"], [1, "mario-pixel"], [1, "mario-hat"], [1, "mario-face"], [1, "mario-body"], [1, "quest-log-header"], [1, "ql-title-row"], [1, "ql-logo", 3, "src", "alt"], [1, "ql-company"], [1, "ql-period"], [1, "role-tabs"], [1, "quest-log-body"], [1, "ql-role-banner"], [1, "ql-role-title"], [1, "ql-location"], [1, "ql-description"], [1, "ql-section"], [1, "ql-section-label"], [1, "ql-tech-chips"], [1, "ql-tech"], [1, "ql-achievements"], [1, "role-tab", 3, "active"], [1, "role-tab", 3, "click"], [1, "role-tab-period"]], template: function ExperienceComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 20, vars: 3, consts: [["id", "experience", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], [1, "xp-total"], ["data-anim", "fade-up", 1, "world-map"], [1, "map-track"], [1, "ground-layer"], [1, "trail-line"], ["type", "button", 1, "map-stop", 3, "active", "current", "mario-here"], [1, "end-star"], ["data-anim", "fade-up", 1, "quest-log"], ["type", "button", 1, "map-stop", 3, "click"], [1, "flag-pole"], [1, "flag-banner"], [1, "flag-year"], [1, "mario-sprite"], [1, "stop-block"], ["loading", "lazy", 1, "stop-logo", 3, "src", "alt"], [1, "stop-name"], [1, "coin-count"], [1, "mario-pixel"], [1, "mario-hat"], [1, "mario-face"], [1, "mario-body"], [1, "quest-log-header"], [1, "ql-title-row"], [1, "ql-logo", 3, "src", "alt"], [1, "ql-company"], [1, "ql-period"], [1, "role-tabs"], [1, "quest-log-body"], [1, "ql-role-banner"], [1, "ql-role-title"], [1, "ql-location"], [1, "ql-description"], [1, "ql-section"], [1, "ql-section-label"], [1, "ql-tech-chips"], [1, "ql-tech"], [1, "ql-achievements"], [1, "role-tab", 3, "active"], [1, "role-tab", 3, "click"], [1, "role-tab-period"]], template: function ExperienceComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
         \u0275\u0275text(4, "\u2694 WORLD MAP");
@@ -37961,13 +37961,13 @@ var ExperienceComponent = class _ExperienceComponent {
       }
       if (rf & 2) {
         \u0275\u0275advance(9);
-        \u0275\u0275textInterpolate1("", ctx.totalExperience, " YRS");
+        \u0275\u0275textInterpolate1("", ctx2.totalExperience, " YRS");
         \u0275\u0275advance();
-        \u0275\u0275textInterpolate1(" of quests completed across ", ctx.stops.length, " worlds ");
+        \u0275\u0275textInterpolate1(" of quests completed across ", ctx2.stops.length, " worlds ");
         \u0275\u0275advance(5);
-        \u0275\u0275repeater(ctx.stops);
+        \u0275\u0275repeater(ctx2.stops);
         \u0275\u0275advance(4);
-        \u0275\u0275conditional(ctx.activeStop && ctx.activeRole ? 19 : -1);
+        \u0275\u0275conditional(ctx2.activeStop && ctx2.activeRole ? 19 : -1);
       }
     }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.apple-section[_ngcontent-%COMP%] {\n  padding: clamp(4rem, 8vw, 7rem) 0;\n  background: var(--bg-primary);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3rem;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.xp-total[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.35);\n}\n.world-map[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n}\n.map-track[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n  gap: 0;\n  padding: 7rem 2rem 3rem;\n}\n.ground-layer[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 2.2rem;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #6b3e1c 0px,\n      #6b3e1c 30px,\n      #8b5e3c 30px,\n      #8b5e3c 32px);\n  border-top: 3px solid #9a6f4e;\n}\n.ground-layer[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -4px;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #22c55e 0px,\n      #22c55e 28px,\n      #16a34a 28px,\n      #16a34a 32px);\n}\n.trail-line[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 2rem;\n  right: 2rem;\n  bottom: 3.2rem;\n  height: 2px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      rgba(251, 191, 36, 0.5) 0px,\n      rgba(251, 191, 36, 0.5) 10px,\n      transparent 10px,\n      transparent 18px);\n}\n.map-stop[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.6rem;\n  flex: 1;\n  max-width: 14rem;\n  padding: 0 1.5rem;\n  background: transparent;\n  border: none;\n  cursor: pointer;\n  z-index: 2;\n  transition: transform 200ms ease;\n}\n.map-stop[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n}\n.map-stop[_ngcontent-%COMP%]:hover   .stop-block[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.5);\n  box-shadow: 0 0 24px rgba(251, 191, 36, 0.18);\n}\n.map-stop[_ngcontent-%COMP%]:hover   .flag-banner[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.map-stop.active[_ngcontent-%COMP%]   .stop-block[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.7);\n  box-shadow: 0 0 32px rgba(251, 191, 36, 0.25);\n}\n.map-stop.active[_ngcontent-%COMP%]   .flag-banner[_ngcontent-%COMP%] {\n  opacity: 1;\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.map-stop.active[_ngcontent-%COMP%]   .stop-name[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n}\n.flag-pole[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.flag-pole[_ngcontent-%COMP%]::before {\n  content: "";\n  display: block;\n  width: 2px;\n  height: 2.6rem;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(251, 191, 36, 0.6),\n      rgba(251, 191, 36, 0.2));\n}\n.flag-banner[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  right: calc(50% + 3px);\n  white-space: nowrap;\n  padding: 0.22rem 0.55rem;\n  border-radius: 4px 0 0 4px;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  background: rgba(251, 191, 36, 0.08);\n  opacity: 0.65;\n  transition: opacity 200ms ease, background 200ms ease;\n}\n.flag-current[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.4) !important;\n  background: rgba(239, 68, 68, 0.12) !important;\n  opacity: 1 !important;\n  animation: _ngcontent-%COMP%_flagPulse 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_flagPulse {\n  0%, 100% {\n    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);\n  }\n  50% {\n    box-shadow: 0 0 12px 2px rgba(239, 68, 68, 0.2);\n  }\n}\n.flag-year[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.06em;\n  color: #fde68a;\n}\n.flag-current[_ngcontent-%COMP%]   .flag-year[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.mario-sprite[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: calc(100% + 0.8rem);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 5;\n  animation: _ngcontent-%COMP%_marioJump 1.2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_marioJump {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  50% {\n    transform: translateX(-50%) translateY(-8px);\n  }\n}\n.mario-pixel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.mario-hat[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 5px;\n  background: #ef4444;\n  border-radius: 2px 2px 0 0;\n  position: relative;\n}\n.mario-hat[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: -2px;\n  width: 20px;\n  height: 3px;\n  background: #ef4444;\n  border-radius: 1px;\n}\n.mario-face[_ngcontent-%COMP%] {\n  width: 14px;\n  height: 6px;\n  background: #fbbf24;\n  border-radius: 0 0 2px 2px;\n}\n.mario-body[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 8px;\n  background: #ef4444;\n  border-radius: 0 0 3px 3px;\n  position: relative;\n}\n.mario-body[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -4px;\n  left: 1px;\n  width: 5px;\n  height: 4px;\n  background: #6b3e1c;\n  border-radius: 0 0 2px 2px;\n  box-shadow: 9px 0 0 #6b3e1c;\n}\n.stop-block[_ngcontent-%COMP%] {\n  width: 5.5rem;\n  height: 5.5rem;\n  border-radius: 1rem;\n  border: 2px solid rgba(251, 191, 36, 0.22);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.95),\n      rgba(13, 13, 34, 0.95));\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0.75rem;\n  transition: border-color 200ms ease, box-shadow 200ms ease;\n  box-shadow: 0 4px 16px rgba(0, 0, 10, 0.4);\n  position: relative;\n}\n.stop-block[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: -1px;\n  border-radius: 1rem;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.1),\n      transparent);\n  pointer-events: none;\n}\n.stop-logo[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n  border-radius: 0.5rem;\n}\n.stop-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 600;\n  letter-spacing: 0.01em;\n  color: var(--text-secondary);\n  text-align: center;\n  max-width: 10rem;\n  transition: color 200ms ease;\n}\n.coin-count[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.end-star[_ngcontent-%COMP%] {\n  font-size: 1.6rem;\n  margin-left: 1rem;\n  animation: _ngcontent-%COMP%_starSpin 3s linear infinite;\n  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5));\n}\n@keyframes _ngcontent-%COMP%_starSpin {\n  0% {\n    transform: rotate(0deg) scale(1);\n  }\n  25% {\n    transform: rotate(10deg) scale(1.1);\n  }\n  50% {\n    transform: rotate(0deg) scale(1);\n  }\n  75% {\n    transform: rotate(-10deg) scale(1.1);\n  }\n  100% {\n    transform: rotate(0deg) scale(1);\n  }\n}\n.quest-log[_ngcontent-%COMP%] {\n  margin-top: 2.5rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  overflow: hidden;\n  animation: _ngcontent-%COMP%_panelSlideUp 0.35s ease-out;\n}\n@keyframes _ngcontent-%COMP%_panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(14px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.quest-log-header[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.5rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n  background: rgba(251, 191, 36, 0.03);\n}\n.ql-title-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 0.75rem;\n}\n.ql-logo[_ngcontent-%COMP%] {\n  width: 3rem;\n  height: 3rem;\n  border-radius: 0.65rem;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 0.3rem;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n}\n.ql-company[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-period[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  color: var(--primary-color);\n  letter-spacing: 0.08em;\n  margin-top: 0.2rem;\n}\n.role-tabs[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n  flex-wrap: wrap;\n}\n.role-tab[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.15rem;\n  padding: 0.55rem 0.85rem;\n  border-radius: 0.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.02);\n  color: var(--text-secondary);\n  cursor: pointer;\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 600;\n  transition: all 200ms ease;\n}\n.role-tab[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.05);\n}\n.role-tab.active[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.5);\n  background: rgba(251, 191, 36, 0.1);\n  color: var(--primary-color);\n}\n.role-tab-period[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  color: var(--text-muted);\n  letter-spacing: 0.06em;\n}\n.role-tab.active[_ngcontent-%COMP%]   .role-tab-period[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.65);\n}\n.quest-log-body[_ngcontent-%COMP%] {\n  padding: 1.5rem;\n  display: grid;\n  gap: 1.25rem;\n}\n.ql-role-banner[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.ql-role-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-location[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n}\n.ql-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 0.92rem;\n  margin: 0;\n}\n.ql-section[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.6rem;\n}\n.ql-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ql-tech-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ql-tech[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.ql-achievements[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.5rem;\n}\n.ql-achievements[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  font-size: 0.88rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.ql-achievements[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #fbbf24;\n  font-weight: bold;\n}\n@media (max-width: 768px) {\n  .map-track[_ngcontent-%COMP%] {\n    padding: 6rem 1rem 2.5rem;\n  }\n  .map-stop[_ngcontent-%COMP%] {\n    padding: 0 0.75rem;\n  }\n  .stop-block[_ngcontent-%COMP%] {\n    width: 4.5rem;\n    height: 4.5rem;\n  }\n  .stop-name[_ngcontent-%COMP%] {\n    font-size: 0.75rem;\n  }\n  .quest-log-header[_ngcontent-%COMP%], \n   .quest-log-body[_ngcontent-%COMP%] {\n    padding: 1.15rem;\n  }\n  .ql-role-banner[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n@media (max-width: 480px) {\n  .map-track[_ngcontent-%COMP%] {\n    padding: 5.5rem 0.75rem 2.5rem;\n  }\n  .map-stop[_ngcontent-%COMP%] {\n    padding: 0 0.5rem;\n  }\n  .stop-block[_ngcontent-%COMP%] {\n    width: 3.5rem;\n    height: 3.5rem;\n  }\n  .stop-name[_ngcontent-%COMP%] {\n    font-size: 0.7rem;\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */'] });
   }
@@ -38671,7 +38671,7 @@ var _c02 = (a0) => ({ "system-mode-toggle--active": a0 });
 var _c12 = (a0, a1, a2, a3, a4) => ({ "skill-card--primary": a0, "skill-card--secondary": a1, "skill-card--supporting": a2, "skill-card--expanded": a3, "skill-card--flow": a4 });
 var _forTrack03 = ($index, $item) => $item.id;
 var _forTrack12 = ($index, $item) => $item.name;
-function SkillsComponent_For_37_For_9_Conditional_1_Template(rf, ctx) {
+function SkillsComponent_For_37_For_9_Conditional_1_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 29);
     \u0275\u0275text(1);
@@ -38684,55 +38684,55 @@ function SkillsComponent_For_37_For_9_Conditional_1_Template(rf, ctx) {
     \u0275\u0275textInterpolate(ctx_r3.getSystemFlowIndex(skill_r2) + 1);
   }
 }
-function SkillsComponent_For_37_For_9_Conditional_13_For_8_Template(rf, ctx) {
+function SkillsComponent_For_37_For_9_Conditional_13_For_8_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "li");
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const exp_r5 = ctx.$implicit;
+    const exp_r5 = ctx2.$implicit;
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(exp_r5);
   }
 }
-function SkillsComponent_For_37_For_9_Conditional_13_For_14_Template(rf, ctx) {
+function SkillsComponent_For_37_For_9_Conditional_13_For_14_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span", 43);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const project_r6 = ctx.$implicit;
+    const project_r6 = ctx2.$implicit;
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(project_r6);
   }
 }
-function SkillsComponent_For_37_For_9_Conditional_13_For_20_Template(rf, ctx) {
+function SkillsComponent_For_37_For_9_Conditional_13_For_20_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "li");
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const achievement_r7 = ctx.$implicit;
+    const achievement_r7 = ctx2.$implicit;
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(achievement_r7);
   }
 }
-function SkillsComponent_For_37_For_9_Conditional_13_For_26_Template(rf, ctx) {
+function SkillsComponent_For_37_For_9_Conditional_13_For_26_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span", 46);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const rs_r8 = ctx.$implicit;
+    const rs_r8 = ctx2.$implicit;
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(rs_r8);
   }
 }
-function SkillsComponent_For_37_For_9_Conditional_13_Template(rf, ctx) {
+function SkillsComponent_For_37_For_9_Conditional_13_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 37)(1, "p", 38);
     \u0275\u0275text(2);
@@ -38776,7 +38776,7 @@ function SkillsComponent_For_37_For_9_Conditional_13_Template(rf, ctx) {
     \u0275\u0275repeater(skill_r2.details.relatedSkills);
   }
 }
-function SkillsComponent_For_37_For_9_Template(rf, ctx) {
+function SkillsComponent_For_37_For_9_Template(rf, ctx2) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "div", 28);
@@ -38806,7 +38806,7 @@ function SkillsComponent_For_37_For_9_Template(rf, ctx) {
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const skill_r2 = ctx.$implicit;
+    const skill_r2 = ctx2.$implicit;
     const constellation_r3 = \u0275\u0275nextContext().$implicit;
     const ctx_r3 = \u0275\u0275nextContext();
     \u0275\u0275property("ngClass", \u0275\u0275pureFunction5(14, _c12, skill_r2.level === "primary", skill_r2.level === "secondary", skill_r2.level === "supporting", ctx_r3.isExpanded(skill_r2), ctx_r3.isSystemFlowNode(skill_r2)));
@@ -38830,7 +38830,7 @@ function SkillsComponent_For_37_For_9_Template(rf, ctx) {
     \u0275\u0275conditional(ctx_r3.isExpanded(skill_r2) && skill_r2.details ? 13 : -1);
   }
 }
-function SkillsComponent_For_37_Template(rf, ctx) {
+function SkillsComponent_For_37_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 14)(1, "div", 22);
     \u0275\u0275element(2, "div", 23);
@@ -38845,7 +38845,7 @@ function SkillsComponent_For_37_Template(rf, ctx) {
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const constellation_r3 = ctx.$implicit;
+    const constellation_r3 = ctx2.$implicit;
     \u0275\u0275advance(2);
     \u0275\u0275styleProp("background", constellation_r3.color);
     \u0275\u0275advance();
@@ -39044,7 +39044,7 @@ var SkillsComponent = class _SkillsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 53, vars: 9, consts: [["id", "skill", 1, "rpg-skills-section"], [1, "rpg-container"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "skills-hud"], [1, "hud-card"], [1, "hud-label"], [1, "hud-value"], [1, "skills-controls"], [1, "system-mode-toggle", 3, "click", "ngClass"], [1, "system-mode-icon"], [1, "system-mode-label"], [1, "category-group"], [1, "legend-strip"], [1, "legend-item"], [1, "legend-dot", "legend-dot--primary"], [1, "legend-label"], [1, "legend-divider"], [1, "legend-dot", "legend-dot--secondary"], [1, "legend-dot", "legend-dot--supporting"], [1, "category-header"], [1, "category-color-bar"], [1, "category-name"], [1, "category-count"], [1, "skill-card-grid"], [1, "skill-card", 3, "ngClass"], [1, "skill-card", 3, "click", "ngClass"], [1, "flow-badge"], [1, "card-top"], [1, "level-tag", 3, "ngClass"], [1, "xp-number"], [1, "skill-name"], [1, "skill-tooltip"], [1, "xp-bar-track"], [1, "xp-bar-fill"], [1, "card-details"], [1, "detail-description"], [1, "detail-section"], [1, "detail-heading"], [1, "detail-list"], [1, "project-chips"], [1, "project-chip"], [1, "achievement-list"], [1, "related-tags"], [1, "related-tag"]], template: function SkillsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 53, vars: 9, consts: [["id", "skill", 1, "rpg-skills-section"], [1, "rpg-container"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "skills-hud"], [1, "hud-card"], [1, "hud-label"], [1, "hud-value"], [1, "skills-controls"], [1, "system-mode-toggle", 3, "click", "ngClass"], [1, "system-mode-icon"], [1, "system-mode-label"], [1, "category-group"], [1, "legend-strip"], [1, "legend-item"], [1, "legend-dot", "legend-dot--primary"], [1, "legend-label"], [1, "legend-divider"], [1, "legend-dot", "legend-dot--secondary"], [1, "legend-dot", "legend-dot--supporting"], [1, "category-header"], [1, "category-color-bar"], [1, "category-name"], [1, "category-count"], [1, "skill-card-grid"], [1, "skill-card", 3, "ngClass"], [1, "skill-card", 3, "click", "ngClass"], [1, "flow-badge"], [1, "card-top"], [1, "level-tag", 3, "ngClass"], [1, "xp-number"], [1, "skill-name"], [1, "skill-tooltip"], [1, "xp-bar-track"], [1, "xp-bar-fill"], [1, "card-details"], [1, "detail-description"], [1, "detail-section"], [1, "detail-heading"], [1, "detail-list"], [1, "project-chips"], [1, "project-chip"], [1, "achievement-list"], [1, "related-tags"], [1, "related-tag"]], template: function SkillsComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "span", 3);
         \u0275\u0275text(4, "Skill inventory");
@@ -39081,7 +39081,7 @@ var SkillsComponent = class _SkillsComponent {
         \u0275\u0275elementEnd()()();
         \u0275\u0275elementStart(30, "div", 10)(31, "button", 11);
         \u0275\u0275listener("click", function SkillsComponent_Template_button_click_31_listener() {
-          return ctx.toggleSystemMode();
+          return ctx2.toggleSystemMode();
         });
         \u0275\u0275elementStart(32, "span", 12);
         \u0275\u0275text(33, "\u{1F3AE}");
@@ -39110,21 +39110,21 @@ var SkillsComponent = class _SkillsComponent {
       }
       if (rf & 2) {
         \u0275\u0275advance(8);
-        \u0275\u0275textInterpolate1(" ", ctx.systemMode ? "Architecture route \u2014 how these skills connect in production" : "RPG inventory \u2014 tap any card for project proof", " ");
+        \u0275\u0275textInterpolate1(" ", ctx2.systemMode ? "Architecture route \u2014 how these skills connect in production" : "RPG inventory \u2014 tap any card for project proof", " ");
         \u0275\u0275advance(6);
-        \u0275\u0275textInterpolate(ctx.constellations.length);
+        \u0275\u0275textInterpolate(ctx2.constellations.length);
         \u0275\u0275advance(5);
-        \u0275\u0275textInterpolate(ctx.totalSkillCount);
+        \u0275\u0275textInterpolate(ctx2.totalSkillCount);
         \u0275\u0275advance(5);
-        \u0275\u0275textInterpolate(ctx.primarySkillCount);
+        \u0275\u0275textInterpolate(ctx2.primarySkillCount);
         \u0275\u0275advance(5);
-        \u0275\u0275textInterpolate1("", ctx.averageProficiency, "%");
+        \u0275\u0275textInterpolate1("", ctx2.averageProficiency, "%");
         \u0275\u0275advance(2);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(7, _c02, ctx.systemMode));
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(7, _c02, ctx2.systemMode));
         \u0275\u0275advance(4);
-        \u0275\u0275textInterpolate(ctx.systemMode ? "Skill inventory" : "Architecture route");
+        \u0275\u0275textInterpolate(ctx2.systemMode ? "Skill inventory" : "Architecture route");
         \u0275\u0275advance();
-        \u0275\u0275repeater(ctx.constellations);
+        \u0275\u0275repeater(ctx2.constellations);
       }
     }, dependencies: [NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.rpg-skills-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container[_ngcontent-%COMP%] {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls[_ngcontent-%COMP%] {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label[_ngcontent-%COMP%] {\n  white-space: nowrap;\n}\n.category-group[_ngcontent-%COMP%] {\n  margin-bottom: 2.5rem;\n}\n.category-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar[_ngcontent-%COMP%] {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.skill-card--primary[_ngcontent-%COMP%] {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded[_ngcontent-%COMP%]::before {\n  opacity: 1;\n}\n.skill-card--flow[_ngcontent-%COMP%] {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary[_ngcontent-%COMP%] {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track[_ngcontent-%COMP%] {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details[_ngcontent-%COMP%] {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: _ngcontent-%COMP%_detailSlideIn 0.3s ease-out;\n}\n@keyframes _ngcontent-%COMP%_detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section[_ngcontent-%COMP%] {\n  margin-bottom: 1.15rem;\n}\n.detail-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.detail-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.project-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.related-tags[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot[_ngcontent-%COMP%] {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary[_ngcontent-%COMP%] {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label[_ngcontent-%COMP%] {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 4rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.4rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item[_ngcontent-%COMP%] {\n    padding: 0;\n  }\n  .legend-divider[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 3.5rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
   }
@@ -39285,7 +39285,7 @@ var SkillsComponent = class _SkillsComponent {
 })();
 
 // src/app/profile/publications/publications.component.ts
-function PublicationsComponent_For_391_Template(rf, ctx) {
+function PublicationsComponent_For_391_Template(rf, ctx2) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
     \u0275\u0275domElementStart(0, "button", 65);
@@ -39298,8 +39298,8 @@ function PublicationsComponent_For_391_Template(rf, ctx) {
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
-    const category_r2 = ctx.$implicit;
-    const \u0275$index_628_r4 = ctx.$index;
+    const category_r2 = ctx2.$implicit;
+    const \u0275$index_628_r4 = ctx2.$index;
     const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275classProp("active", ctx_r2.selectedCategory === category_r2);
     \u0275\u0275attribute("data-aos-delay", (\u0275$index_628_r4 + 1) * 100);
@@ -39307,7 +39307,7 @@ function PublicationsComponent_For_391_Template(rf, ctx) {
     \u0275\u0275textInterpolate1(" ", category_r2, " ");
   }
 }
-function PublicationsComponent_For_394_Conditional_15_Template(rf, ctx) {
+function PublicationsComponent_For_394_Conditional_15_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElement(0, "img", 75);
   }
@@ -39316,7 +39316,7 @@ function PublicationsComponent_For_394_Conditional_15_Template(rf, ctx) {
     \u0275\u0275domProperty("src", project_r5.badges.version, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_394_Conditional_16_Template(rf, ctx) {
+function PublicationsComponent_For_394_Conditional_16_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElement(0, "img", 76);
   }
@@ -39325,7 +39325,7 @@ function PublicationsComponent_For_394_Conditional_16_Template(rf, ctx) {
     \u0275\u0275domProperty("src", project_r5.badges.downloads, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_394_Conditional_17_Template(rf, ctx) {
+function PublicationsComponent_For_394_Conditional_17_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElement(0, "img", 77);
   }
@@ -39334,7 +39334,7 @@ function PublicationsComponent_For_394_Conditional_17_Template(rf, ctx) {
     \u0275\u0275domProperty("src", project_r5.badges.total, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_394_Conditional_18_Template(rf, ctx) {
+function PublicationsComponent_For_394_Conditional_18_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElement(0, "img", 78);
   }
@@ -39343,7 +39343,7 @@ function PublicationsComponent_For_394_Conditional_18_Template(rf, ctx) {
     \u0275\u0275domProperty("src", project_r5.badges.java, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_394_Template(rf, ctx) {
+function PublicationsComponent_For_394_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "div", 64)(1, "div", 66)(2, "div", 67)(3, "span", 68);
     \u0275\u0275text(4);
@@ -39371,8 +39371,8 @@ function PublicationsComponent_For_394_Template(rf, ctx) {
     \u0275\u0275domElementEnd()()();
   }
   if (rf & 2) {
-    const project_r5 = ctx.$implicit;
-    const \u0275$index_634_r6 = ctx.$index;
+    const project_r5 = ctx2.$implicit;
+    const \u0275$index_634_r6 = ctx2.$index;
     \u0275\u0275attribute("data-delay", (\u0275$index_634_r6 + 1) * 100);
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate(project_r5.category === "NPM" ? "\u{1F4E6}" : project_r5.category === "Maven Central" ? "\u2615" : "\u2B50");
@@ -39537,7 +39537,7 @@ var PublicationsComponent = class _PublicationsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 395, vars: 12, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header", "quest-header"], [1, "quest-world-label"], ["data-text-reveal", "", 1, "section-title", "quest-title"], [1, "section-subtitle"], ["data-stagger", "150", 1, "pro-projects-grid"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card"], [1, "quest-rank-bar"], [1, "quest-inner"], [1, "quest-header-row"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-games", 3, "href"], [1, "world-icon"], [1, "quest-platform"], [1, "quest-status"], [1, "quest-name"], [1, "quest-tagline"], [1, "pro-card-desc"], [1, "abilities-row"], [1, "abilities-label"], [1, "ability-chips"], [1, "rewards-row"], [1, "rewards-label"], [1, "reward-chips"], [1, "reward-chip"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card", "boss-card"], [1, "quest-status", "boss-status"], [1, "reward-chip", "legendary"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "walmart-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-walmart", 3, "href"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "extramarks-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-extramarks", 3, "href"], ["data-anim", "fade-up", 1, "section-header", "quest-header", 2, "margin-top", "6rem"], ["data-stagger", "150", 1, "projects-grid", "side-quests-grid"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "algo-card"], ["target", "_blank", "rel", "noopener", 1, "game-screen-link", 3, "href"], [1, "game-screen", "algo-screen"], [1, "screen-scanlines"], [1, "screen-content"], [1, "screen-icon"], [1, "screen-title"], [1, "screen-subtitle"], [1, "screen-tags"], [1, "screen-press"], [1, "card-body", "side-quest-body"], [1, "sq-type-row"], [1, "sq-type-badge"], [1, "sq-xp"], [1, "sq-title"], [1, "card-text"], [1, "sq-tech-row"], [1, "tech-badge"], [1, "sq-action"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-primary", 3, "href"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "divine-card"], [1, "game-screen", "divine-screen"], [1, "screen-press", "powered"], [1, "sq-type-badge", "ai-badge"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "datesense-card"], [1, "game-screen", "datesense-screen"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "shop-filters"], [1, "shop-filter-btn", 3, "active"], [1, "open-source-grid", "powerup-grid"], ["data-anim", "fade-up", 1, "open-source-card", "powerup-card"], [1, "shop-filter-btn", 3, "click"], [1, "powerup-top"], [1, "powerup-icon-wrap"], [1, "powerup-icon"], [1, "powerup-category"], [1, "card-body", "powerup-body"], [1, "powerup-name"], [1, "powerup-tagline"], [1, "card-text", "powerup-desc"], [1, "powerup-badges"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-secondary", "powerup-btn", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 395, vars: 12, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header", "quest-header"], [1, "quest-world-label"], ["data-text-reveal", "", 1, "section-title", "quest-title"], [1, "section-subtitle"], ["data-stagger", "150", 1, "pro-projects-grid"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card"], [1, "quest-rank-bar"], [1, "quest-inner"], [1, "quest-header-row"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-games", 3, "href"], [1, "world-icon"], [1, "quest-platform"], [1, "quest-status"], [1, "quest-name"], [1, "quest-tagline"], [1, "pro-card-desc"], [1, "abilities-row"], [1, "abilities-label"], [1, "ability-chips"], [1, "rewards-row"], [1, "rewards-label"], [1, "reward-chips"], [1, "reward-chip"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card", "boss-card"], [1, "quest-status", "boss-status"], [1, "reward-chip", "legendary"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "walmart-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-walmart", 3, "href"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "extramarks-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-extramarks", 3, "href"], ["data-anim", "fade-up", 1, "section-header", "quest-header", 2, "margin-top", "6rem"], ["data-stagger", "150", 1, "projects-grid", "side-quests-grid"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "algo-card"], ["target", "_blank", "rel", "noopener", 1, "game-screen-link", 3, "href"], [1, "game-screen", "algo-screen"], [1, "screen-scanlines"], [1, "screen-content"], [1, "screen-icon"], [1, "screen-title"], [1, "screen-subtitle"], [1, "screen-tags"], [1, "screen-press"], [1, "card-body", "side-quest-body"], [1, "sq-type-row"], [1, "sq-type-badge"], [1, "sq-xp"], [1, "sq-title"], [1, "card-text"], [1, "sq-tech-row"], [1, "tech-badge"], [1, "sq-action"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-primary", 3, "href"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "divine-card"], [1, "game-screen", "divine-screen"], [1, "screen-press", "powered"], [1, "sq-type-badge", "ai-badge"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "datesense-card"], [1, "game-screen", "datesense-screen"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "shop-filters"], [1, "shop-filter-btn", 3, "active"], [1, "open-source-grid", "powerup-grid"], ["data-anim", "fade-up", 1, "open-source-card", "powerup-card"], [1, "shop-filter-btn", 3, "click"], [1, "powerup-top"], [1, "powerup-icon-wrap"], [1, "powerup-icon"], [1, "powerup-category"], [1, "card-body", "powerup-body"], [1, "powerup-name"], [1, "powerup-tagline"], [1, "card-text", "powerup-desc"], [1, "powerup-badges"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-secondary", "powerup-btn", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
         \u0275\u0275text(4, "\u2694 WORLD MAP");
@@ -40019,33 +40019,33 @@ var PublicationsComponent = class _PublicationsComponent {
       }
       if (rf & 2) {
         \u0275\u0275advance(14);
-        \u0275\u0275domProperty("href", ctx.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(44);
-        \u0275\u0275domProperty("href", ctx.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(42);
-        \u0275\u0275domProperty("href", ctx.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(42);
-        \u0275\u0275domProperty("href", ctx.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(42);
-        \u0275\u0275domProperty("href", ctx.companyLinks.walmart, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.walmart, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(40);
-        \u0275\u0275domProperty("href", ctx.companyLinks.extramarks, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.extramarks, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(47);
-        \u0275\u0275domProperty("href", ctx.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(34);
-        \u0275\u0275domProperty("href", ctx.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(3);
-        \u0275\u0275domProperty("href", ctx.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(34);
-        \u0275\u0275domProperty("href", ctx.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(3);
-        \u0275\u0275domProperty("href", ctx.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(34);
-        \u0275\u0275domProperty("href", ctx.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(11);
-        \u0275\u0275repeater(ctx.availableCategories);
+        \u0275\u0275repeater(ctx2.availableCategories);
         \u0275\u0275advance(3);
-        \u0275\u0275repeater(ctx.filteredProjects);
+        \u0275\u0275repeater(ctx2.filteredProjects);
       }
     }, dependencies: [CommonModule], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.quest-header[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover   .quest-rank-bar[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.boss-card[_ngcontent-%COMP%]   .quest-rank-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge[_ngcontent-%COMP%]:hover {\n  opacity: 0.85;\n}\n.world-games[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n}\n.quest-platform[_ngcontent-%COMP%] {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline[_ngcontent-%COMP%] {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.walmart-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #93c5fd;\n}\n.extramarks-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row[_ngcontent-%COMP%], \n.rewards-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label[_ngcontent-%COMP%], \n.rewards-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.side-quests-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card[_ngcontent-%COMP%] {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link[_ngcontent-%COMP%] {\n  display: block;\n  text-decoration: none;\n}\n.game-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link[_ngcontent-%COMP%]:hover   .game-screen[_ngcontent-%COMP%] {\n  filter: brightness(1.12);\n}\n.screen-scanlines[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon[_ngcontent-%COMP%] {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press[_ngcontent-%COMP%] {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: _ngcontent-%COMP%_blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body[_ngcontent-%COMP%] {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge[_ngcontent-%COMP%] {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.game-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn[_ngcontent-%COMP%]:hover, \n.shop-filter-btn.active[_ngcontent-%COMP%] {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline[_ngcontent-%COMP%] {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge[_ngcontent-%COMP%] {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn[_ngcontent-%COMP%] {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
   }
@@ -40478,9 +40478,9 @@ var STREAMING_VOICE_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.STREAMING_V
 
 // src/app/profile/ai-quiz-game/game/mario-entities.ts
 var TILE = 32;
-var GRAVITY = 0.55;
-var JUMP_FORCE = -10.5;
-var MOVE_SPEED = 3.5;
+var GRAVITY = 0.52;
+var JUMP_FORCE = -11;
+var MOVE_SPEED = 3.8;
 var MAX_FALL = 12;
 var Player = class {
   constructor(x, y) {
@@ -40930,13 +40930,22 @@ var MarioControls = class {
 function aabbOverlap(a, b) {
   return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 }
+function penetration(a, b) {
+  const ox = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+  const oy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
+  if (ox <= 0 || oy <= 0)
+    return null;
+  return { px: ox, py: oy };
+}
 function updatePhysics(player, level, keys) {
   const result = {
     hitQuestionBlock: null,
     hitEnemy: null,
     stompedEnemy: null,
     reachedFlag: false,
-    died: false
+    died: false,
+    jumped: false,
+    coinCollected: false
   };
   if (keys.left) {
     player.vx = -MOVE_SPEED;
@@ -40952,18 +40961,22 @@ function updatePhysics(player, level, keys) {
   if (keys.jump && player.onGround) {
     player.vy = JUMP_FORCE;
     player.onGround = false;
+    result.jumped = true;
   }
   player.vy += GRAVITY;
   if (player.vy > MAX_FALL)
     player.vy = MAX_FALL;
+  const allPlatforms = [...level.platforms, ...level.questionBlocks];
   player.x += player.vx;
   if (player.x < 0)
     player.x = 0;
   if (player.x + player.w > level.width)
     player.x = level.width - player.w;
-  const allPlatforms = [...level.platforms, ...level.questionBlocks];
   for (const p of allPlatforms) {
-    if (aabbOverlap(player.box, p.box)) {
+    const pen = penetration(player.box, p.box);
+    if (!pen)
+      continue;
+    if (pen.py > 6) {
       if (player.vx > 0) {
         player.x = p.x - player.w;
       } else if (player.vx < 0) {
@@ -40975,18 +40988,19 @@ function updatePhysics(player, level, keys) {
   player.y += player.vy;
   player.onGround = false;
   for (const p of allPlatforms) {
-    if (aabbOverlap(player.box, p.box)) {
-      if (player.vy > 0) {
-        player.y = p.y - player.h;
-        player.vy = 0;
-        player.onGround = true;
-      } else if (player.vy < 0) {
-        player.y = p.y + p.h;
-        player.vy = 0;
-        if (p instanceof QuestionBlock && !p.hit) {
-          p.hit = true;
-          result.hitQuestionBlock = p;
-        }
+    const pen = penetration(player.box, p.box);
+    if (!pen)
+      continue;
+    if (player.vy > 0) {
+      player.y = p.y - player.h;
+      player.vy = 0;
+      player.onGround = true;
+    } else if (player.vy < 0) {
+      player.y = p.y + p.h;
+      player.vy = 0;
+      if (p instanceof QuestionBlock && !p.hit) {
+        p.hit = true;
+        result.hitQuestionBlock = p;
       }
     }
   }
@@ -41004,6 +41018,7 @@ function updatePhysics(player, level, keys) {
       coin.animTimer = 20;
       player.coins++;
       player.score += 10;
+      result.coinCollected = true;
     }
   }
   for (const enemy of level.enemies) {
@@ -41019,7 +41034,6 @@ function updatePhysics(player, level, keys) {
       continue;
     }
     const playerBottom = player.y + player.h;
-    const enemyTop = enemy.y;
     const falling = player.vy > 0;
     if (falling && playerBottom - enemy.y < enemy.h * 0.4) {
       enemy.alive = false;
@@ -41038,7 +41052,7 @@ function updatePhysics(player, level, keys) {
       continue;
     }
     enemy.x += enemy.vx;
-    let onPlatform = false;
+    let hitWall = false;
     for (const p of allPlatforms) {
       if (aabbOverlap(enemy.box, p.box)) {
         if (enemy.vx > 0)
@@ -41046,11 +41060,11 @@ function updatePhysics(player, level, keys) {
         else
           enemy.x = p.x + p.w;
         enemy.vx *= -1;
-        onPlatform = true;
+        hitWall = true;
         break;
       }
     }
-    if (!onPlatform) {
+    if (!hitWall) {
       let landed = false;
       for (const p of allPlatforms) {
         const feetBox = { x: enemy.x, y: enemy.y + enemy.h, w: enemy.w, h: 2 };
@@ -41161,39 +41175,60 @@ function generateProceduralLevel(config3) {
   if (groundStart < LEVEL_TILES_WIDE) {
     platforms.push(new Platform(groundStart * TILE, gY, (LEVEL_TILES_WIDE - groundStart) * TILE, 2 * TILE, "ground"));
   }
+  const pipeCount = config3.difficulty === "Hard" ? 3 : 2;
+  const pipePositions = [];
+  const pipeSpacing = Math.floor((LEVEL_TILES_WIDE - 24) / (pipeCount + 1));
+  for (let i = 0; i < pipeCount; i++) {
+    const px = 12 + pipeSpacing * (i + 1);
+    const ph = 2 * TILE;
+    platforms.push(new Platform(px * TILE, gY - ph, TILE * 2, ph, "pipe"));
+    pipePositions.push(px);
+  }
+  const isNearPipe = (tx) => pipePositions.some((px) => tx >= px - 2 && tx <= px + 3);
   const brickCount = config3.difficulty === "Hard" ? 8 : config3.difficulty === "Medium" ? 6 : 4;
   for (let i = 0; i < brickCount; i++) {
-    const bx = 8 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 16));
-    const by = 6 + Math.floor(Math.random() * 4);
-    const bw = 2 + Math.floor(Math.random() * 4);
+    let bx;
+    let attempts = 0;
+    do {
+      bx = 8 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 16));
+      attempts++;
+    } while (isNearPipe(bx) && attempts < 20);
+    const by = 7 + Math.floor(Math.random() * 3);
+    const bw = 2 + Math.floor(Math.random() * 3);
     platforms.push(new Platform(bx * TILE, by * TILE, bw * TILE, TILE, "brick"));
   }
   const qCount = config3.difficulty === "Hard" ? 5 : config3.difficulty === "Medium" ? 7 : 9;
   const spacing = Math.floor((LEVEL_TILES_WIDE - 12) / (qCount + 1));
   const rewards = assignRewards(qCount);
   for (let i = 0; i < qCount; i++) {
-    const qx = 6 + spacing * (i + 1) + Math.floor(Math.random() * 3 - 1);
-    const qy = 7 + Math.floor(Math.random() * 2);
+    let qx = 6 + spacing * (i + 1) + Math.floor(Math.random() * 3 - 1);
+    if (isNearPipe(qx))
+      qx += 4;
+    const qy = 8 + Math.floor(Math.random() * 2);
     questionBlocks.push(new QuestionBlock(qx * TILE, qy * TILE, rewards[i]));
   }
   const enemyCount = config3.difficulty === "Hard" ? 10 : config3.difficulty === "Medium" ? 7 : 4;
   for (let i = 0; i < enemyCount; i++) {
-    const ex = 10 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 20));
+    let ex;
+    let attempts = 0;
+    do {
+      ex = 10 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 20));
+      attempts++;
+    } while (isNearPipe(ex) && attempts < 20);
     const ey = GROUND_ROW - 1;
     const type = Math.random() < 0.3 ? "koopa" : "goomba";
     enemies.push(new Enemy(ex * TILE, ey * TILE, type));
   }
   const coinCount = config3.difficulty === "Hard" ? 20 : config3.difficulty === "Medium" ? 15 : 10;
   for (let i = 0; i < coinCount; i++) {
-    const cx = 5 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 10));
-    const cy = 4 + Math.floor(Math.random() * 7);
+    let cx;
+    let attempts = 0;
+    do {
+      cx = 5 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 10));
+      attempts++;
+    } while (isNearPipe(cx) && attempts < 15);
+    const cy = 5 + Math.floor(Math.random() * 6);
     coins.push(new Coin(cx * TILE + TILE * 0.25, cy * TILE + TILE * 0.25));
-  }
-  const pipeCount = config3.difficulty === "Hard" ? 4 : 2;
-  for (let i = 0; i < pipeCount; i++) {
-    const px = 15 + Math.floor(i * (LEVEL_TILES_WIDE - 20) / (pipeCount + 1));
-    const ph = (2 + Math.floor(Math.random() * 2)) * TILE;
-    platforms.push(new Platform(px * TILE, gY - ph, TILE * 2, ph, "pipe"));
   }
   const flagPole = new FlagPole((LEVEL_TILES_WIDE - 4) * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
   return { platforms, enemies, coins, questionBlocks, flagPole, width: levelW, height: levelH };
@@ -41229,6 +41264,97 @@ Return ONLY valid JSON in this exact format:
 
 All coordinates are in tile units (not pixels). Ground should start at y=12 and gaps should be realistic (2-3 tiles). Make sure the level is playable - no impossible jumps.`;
 }
+
+// src/app/profile/ai-quiz-game/game/mario-audio.ts
+var audioCtx = null;
+function ctx() {
+  if (!audioCtx)
+    audioCtx = new AudioContext();
+  if (audioCtx.state === "suspended")
+    audioCtx.resume();
+  return audioCtx;
+}
+function playTone(freq, duration, type = "square", vol = 0.12) {
+  try {
+    const ac = ctx();
+    const osc = ac.createOscillator();
+    const gain = ac.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol, ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(1e-3, ac.currentTime + duration);
+    osc.connect(gain).connect(ac.destination);
+    osc.start(ac.currentTime);
+    osc.stop(ac.currentTime + duration);
+  } catch (e) {
+  }
+}
+function playSequence(notes, type = "square", vol = 0.1) {
+  try {
+    const ac = ctx();
+    let t = ac.currentTime;
+    for (const [freq, dur] of notes) {
+      const osc = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(vol, t);
+      gain.gain.exponentialRampToValueAtTime(1e-3, t + dur);
+      osc.connect(gain).connect(ac.destination);
+      osc.start(t);
+      osc.stop(t + dur);
+      t += dur * 0.85;
+    }
+  } catch (e) {
+  }
+}
+var MarioAudio = {
+  jump() {
+    playSequence([[260, 0.06], [340, 0.06], [420, 0.08]], "square", 0.08);
+  },
+  coin() {
+    playSequence([[988, 0.06], [1319, 0.12]], "square", 0.08);
+  },
+  stomp() {
+    playTone(180, 0.08, "square", 0.1);
+    setTimeout(() => playTone(260, 0.06, "square", 0.08), 40);
+  },
+  powerUp() {
+    playSequence([
+      [523, 0.07],
+      [659, 0.07],
+      [784, 0.07],
+      [1047, 0.07],
+      [1319, 0.07],
+      [1568, 0.12]
+    ], "square", 0.07);
+  },
+  hit() {
+    playSequence([[300, 0.08], [200, 0.12]], "sawtooth", 0.1);
+  },
+  die() {
+    playSequence([
+      [494, 0.15],
+      [466, 0.15],
+      [440, 0.15],
+      [330, 0.15],
+      [262, 0.25]
+    ], "triangle", 0.1);
+  },
+  win() {
+    playSequence([
+      [523, 0.1],
+      [659, 0.1],
+      [784, 0.1],
+      [1047, 0.15],
+      [784, 0.1],
+      [1047, 0.25]
+    ], "square", 0.08);
+  },
+  questionBlock() {
+    playSequence([[520, 0.04], [780, 0.06], [1040, 0.08]], "square", 0.06);
+  }
+};
 
 // src/app/profile/ai-quiz-game/game/mario-engine.ts
 var MarioEngine = class {
@@ -41301,19 +41427,23 @@ var MarioEngine = class {
     return this.controls;
   }
   handlePowerUp(qb) {
+    MarioAudio.questionBlock();
     switch (qb.reward) {
       case "star":
         this.player.activateStar();
         this.player.score += 200;
+        MarioAudio.powerUp();
         break;
       case "mushroom":
         this.player.grow();
         this.player.score += 100;
+        MarioAudio.powerUp();
         break;
       case "coin":
       default:
         this.player.coins += 3;
         this.player.score += 50;
+        MarioAudio.coin();
         break;
     }
     this.notifyScore();
@@ -41327,10 +41457,15 @@ var MarioEngine = class {
     this.handleCollisionResult(result);
   }
   handleCollisionResult(result) {
+    if (result.jumped)
+      MarioAudio.jump();
+    if (result.coinCollected)
+      MarioAudio.coin();
     if (result.hitQuestionBlock) {
       this.handlePowerUp(result.hitQuestionBlock);
     }
     if (result.hitEnemy) {
+      MarioAudio.hit();
       if (this.player.state === "big") {
         this.player.shrink();
       } else {
@@ -41339,6 +41474,7 @@ var MarioEngine = class {
           this.state = "lost";
           cancelAnimationFrame(this.animFrameId);
           this.controls.unbind();
+          MarioAudio.die();
           this.callbacks.onDeath();
           return;
         }
@@ -41347,6 +41483,7 @@ var MarioEngine = class {
       this.notifyScore();
     }
     if (result.stompedEnemy) {
+      MarioAudio.stomp();
       this.enemiesStomped++;
       this.notifyScore();
     }
@@ -41356,6 +41493,7 @@ var MarioEngine = class {
         this.state = "lost";
         cancelAnimationFrame(this.animFrameId);
         this.controls.unbind();
+        MarioAudio.die();
         this.callbacks.onDeath();
         return;
       }
@@ -41368,6 +41506,7 @@ var MarioEngine = class {
       this.state = "won";
       cancelAnimationFrame(this.animFrameId);
       this.controls.unbind();
+      MarioAudio.win();
       this.notifyScore();
       this.callbacks.onWin();
     }
@@ -41390,7 +41529,7 @@ var MarioEngine = class {
 // src/app/profile/ai-quiz-game/ai-quiz-game.component.ts
 var _c03 = ["gameCanvas"];
 var _forTrack04 = ($index, $item) => $item.value;
-function AiQuizGameComponent_Conditional_2_For_14_Template(rf, ctx) {
+function AiQuizGameComponent_Conditional_2_For_14_Template(rf, ctx2) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "button", 21);
@@ -41410,7 +41549,7 @@ function AiQuizGameComponent_Conditional_2_For_14_Template(rf, ctx) {
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const cat_r3 = ctx.$implicit;
+    const cat_r3 = ctx2.$implicit;
     const ctx_r3 = \u0275\u0275nextContext(2);
     \u0275\u0275classProp("option-btn--active", ctx_r3.selectedCategory === cat_r3.value);
     \u0275\u0275advance(2);
@@ -41421,7 +41560,7 @@ function AiQuizGameComponent_Conditional_2_For_14_Template(rf, ctx) {
     \u0275\u0275textInterpolate(cat_r3.description);
   }
 }
-function AiQuizGameComponent_Conditional_2_For_20_Template(rf, ctx) {
+function AiQuizGameComponent_Conditional_2_For_20_Template(rf, ctx2) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "button", 25);
@@ -41438,7 +41577,7 @@ function AiQuizGameComponent_Conditional_2_For_20_Template(rf, ctx) {
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const d_r6 = ctx.$implicit;
+    const d_r6 = ctx2.$implicit;
     const ctx_r3 = \u0275\u0275nextContext(2);
     \u0275\u0275classProp("diff-btn--active", ctx_r3.selectedDifficulty === d_r6.value);
     \u0275\u0275property("ngClass", "diff-btn--" + d_r6.color);
@@ -41448,7 +41587,7 @@ function AiQuizGameComponent_Conditional_2_For_20_Template(rf, ctx) {
     \u0275\u0275textInterpolate(d_r6.description);
   }
 }
-function AiQuizGameComponent_Conditional_2_Template(rf, ctx) {
+function AiQuizGameComponent_Conditional_2_Template(rf, ctx2) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "div", 6)(1, "span", 7);
@@ -41493,7 +41632,7 @@ function AiQuizGameComponent_Conditional_2_Template(rf, ctx) {
     \u0275\u0275repeater(ctx_r3.difficulties);
   }
 }
-function AiQuizGameComponent_Conditional_3_Template(rf, ctx) {
+function AiQuizGameComponent_Conditional_3_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 3)(1, "div", 28)(2, "div", 29);
     \u0275\u0275text(3, "\u{1F344}");
@@ -41509,7 +41648,7 @@ function AiQuizGameComponent_Conditional_3_Template(rf, ctx) {
     \u0275\u0275elementEnd()()();
   }
 }
-function AiQuizGameComponent_Conditional_4_Template(rf, ctx) {
+function AiQuizGameComponent_Conditional_4_Template(rf, ctx2) {
   if (rf & 1) {
     const _r7 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "div", 4)(1, "div", 32)(2, "div", 33)(3, "span", 34);
@@ -41608,7 +41747,7 @@ function AiQuizGameComponent_Conditional_4_Template(rf, ctx) {
     \u0275\u0275textInterpolate(ctx_r3.getCategoryLabel());
   }
 }
-function AiQuizGameComponent_Conditional_5_Template(rf, ctx) {
+function AiQuizGameComponent_Conditional_5_Template(rf, ctx2) {
   if (rf & 1) {
     const _r8 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "div", 5)(1, "div", 43)(2, "div", 44);
@@ -41820,15 +41959,15 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AiQuizGameComponent, selectors: [["app-ai-quiz-game"]], viewQuery: function AiQuizGameComponent_Query(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AiQuizGameComponent, selectors: [["app-ai-quiz-game"]], viewQuery: function AiQuizGameComponent_Query(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275viewQuery(_c03, 5);
       }
       if (rf & 2) {
         let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.canvasRef = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.canvasRef = _t.first);
       }
-    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx) {
+    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "section", 1)(1, "div", 2);
         \u0275\u0275conditionalCreate(2, AiQuizGameComponent_Conditional_2_Template, 27, 0);
@@ -41839,13 +41978,13 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
       }
       if (rf & 2) {
         \u0275\u0275advance(2);
-        \u0275\u0275conditional(ctx.viewState === "setup" ? 2 : -1);
+        \u0275\u0275conditional(ctx2.viewState === "setup" ? 2 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.viewState === "loading" ? 3 : -1);
+        \u0275\u0275conditional(ctx2.viewState === "loading" ? 3 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.viewState === "playing" ? 4 : -1);
+        \u0275\u0275conditional(ctx2.viewState === "playing" ? 4 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.viewState === "results" ? 5 : -1);
+        \u0275\u0275conditional(ctx2.viewState === "results" ? 5 : -1);
       }
     }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.mario-game-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card[_ngcontent-%COMP%] {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n}\n.option-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active[_ngcontent-%COMP%] {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success[_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning[_ngcontent-%COMP%] {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card[_ngcontent-%COMP%] {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  animation: _ngcontent-%COMP%_bounce 0.6s ease infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: _ngcontent-%COMP%_loadProgress 3s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n}\n.canvas-container[_ngcontent-%COMP%]   canvas[_ngcontent-%COMP%] {\n  display: block;\n  width: 100%;\n}\n.touch-controls[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn[_ngcontent-%COMP%]:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-jump[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls[_ngcontent-%COMP%] {\n    display: flex;\n  }\n}\n.results-card[_ngcontent-%COMP%] {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge[_ngcontent-%COMP%] {\n  font-size: 3rem;\n}\n.results-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .setup-card[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n  .option-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .results-stats[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-hud[_ngcontent-%COMP%] {\n    gap: 1rem;\n    padding: 0.6rem 1rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */'] });
   }
@@ -42017,7 +42156,7 @@ var BlogComponent = class _BlogComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 64, vars: 3, consts: [["id", "blogs", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], ["data-stagger", "120", 1, "scroll-grid"], ["target", "_blank", "rel", "noopener", 1, "scroll-card", 3, "href"], [1, "scroll-seal"], [1, "scroll-header"], [1, "scroll-badge"], [1, "scroll-origin"], [1, "scroll-body"], [1, "scroll-title"], [1, "scroll-text"], [1, "scroll-footer"], [1, "scroll-xp"], [1, "scroll-action"]], template: function BlogComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 64, vars: 3, consts: [["id", "blogs", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], ["data-stagger", "120", 1, "scroll-grid"], ["target", "_blank", "rel", "noopener", 1, "scroll-card", 3, "href"], [1, "scroll-seal"], [1, "scroll-header"], [1, "scroll-badge"], [1, "scroll-origin"], [1, "scroll-body"], [1, "scroll-title"], [1, "scroll-text"], [1, "scroll-footer"], [1, "scroll-xp"], [1, "scroll-action"]], template: function BlogComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
         \u0275\u0275text(4, "\u{1F4DC} QUEST SCROLLS");
@@ -42094,11 +42233,11 @@ var BlogComponent = class _BlogComponent {
       }
       if (rf & 2) {
         \u0275\u0275advance(10);
-        \u0275\u0275domProperty("href", ctx.blogLinks.fortressOfFairPlay, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.blogLinks.fortressOfFairPlay, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(18);
-        \u0275\u0275domProperty("href", ctx.blogLinks.neptuneNavigator, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.blogLinks.neptuneNavigator, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(18);
-        \u0275\u0275domProperty("href", ctx.blogLinks.trustMeetsGameplay, \u0275\u0275sanitizeUrl);
+        \u0275\u0275domProperty("href", ctx2.blogLinks.trustMeetsGameplay, \u0275\u0275sanitizeUrl);
       }
     }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.scroll-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.25rem;\n}\n.scroll-card[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  text-decoration: none;\n  color: inherit;\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.scroll-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.4);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.12), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.scroll-card[_ngcontent-%COMP%]:hover   .scroll-action[_ngcontent-%COMP%] {\n  color: #fbbf24;\n}\n.scroll-card[_ngcontent-%COMP%]:hover   .scroll-seal[_ngcontent-%COMP%] {\n  transform: rotate(-8deg) scale(1.15);\n}\n.scroll-seal[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.75rem;\n  right: 0.75rem;\n  font-size: 1.6rem;\n  opacity: 0.35;\n  transition: transform 300ms ease;\n  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.3));\n}\n.scroll-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0.65rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n}\n.scroll-badge[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.14em;\n  padding: 0.2rem 0.5rem;\n  border-radius: 4px;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  color: #fbbf24;\n}\n.scroll-origin[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-muted);\n}\n.scroll-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1rem;\n  flex: 1;\n  display: grid;\n  gap: 0.5rem;\n}\n.scroll-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.scroll-text[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  line-height: 1.6;\n  margin: 0;\n}\n.scroll-footer[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.03);\n}\n.scroll-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.08em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.3);\n}\n.scroll-action[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.06em;\n  color: var(--text-muted);\n  transition: color 200ms ease;\n}\n@media (max-width: 640px) {\n  .scroll-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */'] });
   }
@@ -76955,7 +77094,7 @@ var VoiceStreamingService = class _VoiceStreamingService {
 var _c04 = ["canvas"];
 var _c13 = ["chatMessages"];
 var _c22 = ["messageInput"];
-function Avatar3dComponent_Conditional_46_Template(rf, ctx) {
+function Avatar3dComponent_Conditional_46_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 21)(1, "div", 26);
     \u0275\u0275element(2, "div", 27);
@@ -76980,7 +77119,7 @@ function Avatar3dComponent_Conditional_46_Template(rf, ctx) {
     \u0275\u0275textInterpolate1("", ctx_r1.loadingProgress, "%");
   }
 }
-function Avatar3dComponent_Conditional_54_Conditional_10_Template(rf, ctx) {
+function Avatar3dComponent_Conditional_54_Conditional_10_Template(rf, ctx2) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "button", 44);
@@ -76993,7 +77132,7 @@ function Avatar3dComponent_Conditional_54_Conditional_10_Template(rf, ctx) {
     \u0275\u0275elementEnd();
   }
 }
-function Avatar3dComponent_Conditional_54_For_16_Template(rf, ctx) {
+function Avatar3dComponent_Conditional_54_For_16_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 45)(1, "div", 46);
     \u0275\u0275element(2, "span", 47);
@@ -77003,7 +77142,7 @@ function Avatar3dComponent_Conditional_54_For_16_Template(rf, ctx) {
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const message_r5 = ctx.$implicit;
+    const message_r5 = ctx2.$implicit;
     \u0275\u0275classProp("user-message", message_r5.isUser)("ai-message", !message_r5.isUser);
     \u0275\u0275advance(2);
     \u0275\u0275property("innerHTML", \u0275\u0275pipeBind1(3, 6, message_r5.text), \u0275\u0275sanitizeHtml);
@@ -77011,14 +77150,14 @@ function Avatar3dComponent_Conditional_54_For_16_Template(rf, ctx) {
     \u0275\u0275textInterpolate(message_r5.time);
   }
 }
-function Avatar3dComponent_Conditional_54_Conditional_17_Template(rf, ctx) {
+function Avatar3dComponent_Conditional_54_Conditional_17_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 40);
     \u0275\u0275element(1, "span")(2, "span")(3, "span");
     \u0275\u0275elementEnd();
   }
 }
-function Avatar3dComponent_Conditional_54_Template(rf, ctx) {
+function Avatar3dComponent_Conditional_54_Template(rf, ctx2) {
   if (rf & 1) {
     const _r3 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "div", 25)(1, "div", 33)(2, "div")(3, "h3");
@@ -77569,23 +77708,23 @@ var Avatar3dComponent = class _Avatar3dComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Avatar3dComponent, selectors: [["app-avatar-3d"]], viewQuery: function Avatar3dComponent_Query(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Avatar3dComponent, selectors: [["app-avatar-3d"]], viewQuery: function Avatar3dComponent_Query(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275viewQuery(_c04, 7)(_c13, 5)(_c22, 5);
       }
       if (rf & 2) {
         let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.canvasRef = _t.first);
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.chatMessages = _t.first);
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.messageInput = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.canvasRef = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.chatMessages = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.messageInput = _t.first);
       }
-    }, hostBindings: function Avatar3dComponent_HostBindings(rf, ctx) {
+    }, hostBindings: function Avatar3dComponent_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("keydown.escape", function Avatar3dComponent_keydown_escape_HostBindingHandler() {
-          return ctx.onEscapeKey();
+          return ctx2.onEscapeKey();
         }, \u0275\u0275resolveDocument);
       }
-    }, decls: 55, vars: 7, consts: [["canvas", ""], ["chatMessages", ""], ["messageInput", ""], ["id", "avatar-3d", 1, "avatar-lab-section", "apple-section"], [1, "container"], [1, "avatar-lab-shell"], [1, "avatar-lab-copy"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "lab-capabilities"], [1, "capability-card"], [1, "capability-icon"], [1, "lab-actions"], [1, "apple-btn", "apple-btn-primary", 3, "click"], [1, "fas", "fa-robot"], [1, "tts-status"], [1, "tts-dot"], [1, "avatar-stage"], [1, "avatar-container"], [1, "avatar-canvas"], [1, "loading-overlay"], [1, "controls-hint"], [1, "hint-chip"], ["aria-label", "Open or close chat", 1, "chat-button", 3, "click"], ["role", "dialog", "aria-label", "Chat with AI assistant", 1, "chat-window"], [1, "loading-content"], [1, "loading-spinner"], [1, "loading-text"], [1, "loading-progress"], [1, "progress-bar"], [1, "progress-fill"], [1, "progress-percentage"], [1, "chat-header"], [1, "header-controls"], ["aria-label", "Toggle text-to-speech", 1, "tts-toggle-btn", 3, "click", "title"], ["aria-label", "Stop speech", "title", "Stop speech", 1, "stop-speech-btn"], ["aria-label", "Close chat", 1, "close-btn", 3, "click"], [1, "chat-messages"], [1, "message", 3, "user-message", "ai-message"], [1, "typing-indicator"], [1, "chat-input-container"], ["type", "text", "placeholder", "Ask me anything about my portfolio...", "aria-label", "Type your message", 1, "chat-input", 3, "ngModelChange", "keyup.enter", "ngModel"], ["aria-label", "Send message", 1, "send-btn", 3, "click", "disabled"], ["aria-label", "Stop speech", "title", "Stop speech", 1, "stop-speech-btn", 3, "click"], [1, "message"], [1, "message-content"], [1, "message-text", 3, "innerHTML"], [1, "message-time"]], template: function Avatar3dComponent_Template(rf, ctx) {
+    }, decls: 55, vars: 7, consts: [["canvas", ""], ["chatMessages", ""], ["messageInput", ""], ["id", "avatar-3d", 1, "avatar-lab-section", "apple-section"], [1, "container"], [1, "avatar-lab-shell"], [1, "avatar-lab-copy"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "lab-capabilities"], [1, "capability-card"], [1, "capability-icon"], [1, "lab-actions"], [1, "apple-btn", "apple-btn-primary", 3, "click"], [1, "fas", "fa-robot"], [1, "tts-status"], [1, "tts-dot"], [1, "avatar-stage"], [1, "avatar-container"], [1, "avatar-canvas"], [1, "loading-overlay"], [1, "controls-hint"], [1, "hint-chip"], ["aria-label", "Open or close chat", 1, "chat-button", 3, "click"], ["role", "dialog", "aria-label", "Chat with AI assistant", 1, "chat-window"], [1, "loading-content"], [1, "loading-spinner"], [1, "loading-text"], [1, "loading-progress"], [1, "progress-bar"], [1, "progress-fill"], [1, "progress-percentage"], [1, "chat-header"], [1, "header-controls"], ["aria-label", "Toggle text-to-speech", 1, "tts-toggle-btn", 3, "click", "title"], ["aria-label", "Stop speech", "title", "Stop speech", 1, "stop-speech-btn"], ["aria-label", "Close chat", 1, "close-btn", 3, "click"], [1, "chat-messages"], [1, "message", 3, "user-message", "ai-message"], [1, "typing-indicator"], [1, "chat-input-container"], ["type", "text", "placeholder", "Ask me anything about my portfolio...", "aria-label", "Type your message", 1, "chat-input", 3, "ngModelChange", "keyup.enter", "ngModel"], ["aria-label", "Send message", 1, "send-btn", 3, "click", "disabled"], ["aria-label", "Stop speech", "title", "Stop speech", 1, "stop-speech-btn", 3, "click"], [1, "message"], [1, "message-content"], [1, "message-text", 3, "innerHTML"], [1, "message-time"]], template: function Avatar3dComponent_Template(rf, ctx2) {
       if (rf & 1) {
         const _r1 = \u0275\u0275getCurrentView();
         \u0275\u0275elementStart(0, "section", 3)(1, "div", 4)(2, "div", 5)(3, "div", 6)(4, "span", 7);
@@ -77627,7 +77766,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275elementStart(35, "div", 13)(36, "button", 14);
         \u0275\u0275listener("click", function Avatar3dComponent_Template_button_click_36_listener() {
           \u0275\u0275restoreView(_r1);
-          return \u0275\u0275resetView(ctx.toggleChat());
+          return \u0275\u0275resetView(ctx2.toggleChat());
         });
         \u0275\u0275element(37, "i", 15);
         \u0275\u0275text(38);
@@ -77648,7 +77787,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275elementStart(52, "button", 24);
         \u0275\u0275listener("click", function Avatar3dComponent_Template_button_click_52_listener() {
           \u0275\u0275restoreView(_r1);
-          return \u0275\u0275resetView(ctx.toggleChat());
+          return \u0275\u0275resetView(ctx2.toggleChat());
         });
         \u0275\u0275text(53);
         \u0275\u0275elementEnd()()()()();
@@ -77657,17 +77796,17 @@ var Avatar3dComponent = class _Avatar3dComponent {
       }
       if (rf & 2) {
         \u0275\u0275advance(38);
-        \u0275\u0275textInterpolate1(" ", ctx.isChatOpen ? "Hide AI chat" : "Open AI chat", " ");
+        \u0275\u0275textInterpolate1(" ", ctx2.isChatOpen ? "Hide AI chat" : "Open AI chat", " ");
         \u0275\u0275advance();
-        \u0275\u0275classProp("on", ctx.ttsEnabled);
+        \u0275\u0275classProp("on", ctx2.ttsEnabled);
         \u0275\u0275advance(2);
-        \u0275\u0275textInterpolate1(" ", ctx.ttsEnabled ? "Voice enabled" : "Voice muted", " ");
+        \u0275\u0275textInterpolate1(" ", ctx2.ttsEnabled ? "Voice enabled" : "Voice muted", " ");
         \u0275\u0275advance(5);
-        \u0275\u0275conditional(ctx.isLoading ? 46 : -1);
+        \u0275\u0275conditional(ctx2.isLoading ? 46 : -1);
         \u0275\u0275advance(7);
-        \u0275\u0275textInterpolate1(" ", ctx.isChatOpen ? "Close chat" : "Chat with the avatar", " ");
+        \u0275\u0275textInterpolate1(" ", ctx2.isChatOpen ? "Close chat" : "Chat with the avatar", " ");
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.isChatOpen ? 54 : -1);
+        \u0275\u0275conditional(ctx2.isChatOpen ? 54 : -1);
       }
     }, dependencies: [FormsModule, DefaultValueAccessor, NgControlStatus, NgModel, MarkdownPipe], styles: ["\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.avatar-lab-shell[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);\n  gap: 1.5rem;\n  align-items: stretch;\n}\n.avatar-lab-copy[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  gap: 1.25rem;\n}\n.lab-capabilities[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.85rem;\n}\n.capability-card[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 3rem 1fr;\n  gap: 0.9rem;\n  padding: 1rem;\n  border-radius: 1.2rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.capability-icon[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  color: #fff;\n  font-size: 0.78rem;\n  font-weight: 800;\n  letter-spacing: 0.1em;\n}\n.capability-card[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.35rem;\n  font-size: 1rem;\n}\n.capability-card[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.lab-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  flex-wrap: wrap;\n}\n.tts-status[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  font-size: 0.92rem;\n  color: var(--text-tertiary);\n}\n.tts-status.on[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.tts-dot[_ngcontent-%COMP%] {\n  width: 0.65rem;\n  height: 0.65rem;\n  border-radius: 999px;\n  background: currentColor;\n  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.14);\n}\n.avatar-stage[_ngcontent-%COMP%] {\n  min-height: 100%;\n}\n.avatar-container[_ngcontent-%COMP%] {\n  position: relative;\n  height: 100%;\n  min-height: 680px;\n  overflow: hidden;\n  border-radius: 1.75rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.12),\n      transparent 28%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(34, 197, 94, 0.08),\n      transparent 26%),\n    linear-gradient(\n      180deg,\n      #09091a 0%,\n      #0e0e22 100%);\n  box-shadow: 0 30px 90px rgba(0, 0, 10, 0.55), 0 0 0 1px rgba(251, 191, 36, 0.06);\n}\n.avatar-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  min-height: 680px;\n  display: block;\n}\n.loading-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  display: grid;\n  place-items: center;\n  background: rgba(9, 9, 26, 0.94);\n  backdrop-filter: blur(12px);\n}\n.loading-content[_ngcontent-%COMP%] {\n  width: min(100%, 300px);\n  text-align: center;\n}\n.loading-spinner[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 1rem;\n  border: 3px solid rgba(255, 255, 255, 0.12);\n  border-top-color: var(--primary-color);\n  border-radius: 999px;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n.loading-text[_ngcontent-%COMP%] {\n  margin-bottom: 0.8rem;\n  font-weight: 700;\n}\n.progress-bar[_ngcontent-%COMP%] {\n  height: 0.45rem;\n  border-radius: 999px;\n  overflow: hidden;\n  background: rgba(255, 255, 255, 0.08);\n}\n.progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background: var(--gradient-primary);\n}\n.progress-percentage[_ngcontent-%COMP%] {\n  margin-top: 0.55rem;\n  font-size: 0.82rem;\n  color: var(--text-tertiary);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 1rem;\n  right: 1rem;\n  bottom: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.hint-chip[_ngcontent-%COMP%], \n.chat-button[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 2.7rem;\n  padding: 0.75rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(8, 13, 25, 0.68);\n  backdrop-filter: blur(14px);\n  color: var(--text-secondary);\n}\n.chat-button[_ngcontent-%COMP%] {\n  cursor: pointer;\n  color: var(--text-primary);\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.chat-window[_ngcontent-%COMP%] {\n  margin-top: 1.5rem;\n  border-radius: 1.5rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(8, 13, 25, 0.9);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 28px 80px rgba(2, 6, 23, 0.44);\n  overflow: hidden;\n}\n.chat-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 1rem;\n  padding: 1.25rem 1.25rem 1rem;\n  border-bottom: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.35rem;\n}\n.chat-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.header-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.tts-toggle-btn[_ngcontent-%COMP%], \n.stop-speech-btn[_ngcontent-%COMP%], \n.close-btn[_ngcontent-%COMP%], \n.send-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.8rem;\n  height: 2.8rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.04);\n  color: var(--text-primary);\n  cursor: pointer;\n}\n.tts-toggle-btn.active[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.32);\n}\n.stop-speech-btn[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.16);\n  border-color: rgba(239, 68, 68, 0.28);\n}\n.chat-messages[_ngcontent-%COMP%] {\n  padding: 1.25rem;\n  max-height: 420px;\n  overflow-y: auto;\n  display: grid;\n  gap: 0.85rem;\n}\n.message[_ngcontent-%COMP%] {\n  display: flex;\n}\n.message.user-message[_ngcontent-%COMP%] {\n  justify-content: flex-end;\n}\n.message.ai-message[_ngcontent-%COMP%] {\n  justify-content: flex-start;\n}\n.message-content[_ngcontent-%COMP%] {\n  max-width: min(100%, 720px);\n  padding: 0.95rem 1rem;\n  border-radius: 1.1rem;\n}\n.user-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #fff;\n}\n.ai-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n}\n.message-text[_ngcontent-%COMP%] {\n  display: block;\n  color: inherit;\n}\n.message-time[_ngcontent-%COMP%] {\n  display: block;\n  margin-top: 0.55rem;\n  font-size: 0.76rem;\n  opacity: 0.75;\n}\n.typing-indicator[_ngcontent-%COMP%] {\n  display: inline-flex;\n  gap: 0.35rem;\n  width: fit-content;\n  padding: 0.9rem 1rem;\n  border-radius: 1rem;\n  background: rgba(255, 255, 255, 0.04);\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 0.45rem;\n  height: 0.45rem;\n  border-radius: 999px;\n  background: var(--primary-color);\n  animation: _ngcontent-%COMP%_bounce 1.2s infinite ease-in-out;\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.15s;\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.chat-input-container[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.75rem;\n  padding: 1rem 1.25rem 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-input[_ngcontent-%COMP%] {\n  flex: 1;\n  min-width: 0;\n  padding: 0.95rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-primary);\n}\n.chat-input[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.send-btn[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.send-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  0%, 80%, 100% {\n    transform: translateY(0);\n    opacity: 0.5;\n  }\n  40% {\n    transform: translateY(-4px);\n    opacity: 1;\n  }\n}\n@media (max-width: 960px) {\n  .avatar-lab-shell[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .avatar-container[_ngcontent-%COMP%], \n   .avatar-canvas[_ngcontent-%COMP%] {\n    min-height: 540px;\n  }\n}\n@media (max-width: 640px) {\n  .controls-hint[_ngcontent-%COMP%] {\n    align-items: stretch;\n  }\n  .hint-chip[_ngcontent-%COMP%], \n   .chat-button[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n  .chat-header[_ngcontent-%COMP%], \n   .chat-input-container[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .header-controls[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: flex-end;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */"], data: { animation: [
       trigger("chatAnimation", [
@@ -79703,7 +79842,7 @@ var \u0275EmptyOutletComponent = class _\u0275EmptyOutletComponent {
     exportAs: ["emptyRouterOutlet"],
     decls: 1,
     vars: 0,
-    template: function _EmptyOutletComponent_Template(rf, ctx) {
+    template: function _EmptyOutletComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275element(0, "router-outlet");
       }
@@ -82350,14 +82489,14 @@ var RouterLink = class _RouterLink {
     type: _RouterLink,
     selectors: [["", "routerLink", ""]],
     hostVars: 2,
-    hostBindings: function RouterLink_HostBindings(rf, ctx) {
+    hostBindings: function RouterLink_HostBindings(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275listener("click", function RouterLink_click_HostBindingHandler($event) {
-          return ctx.onClick($event.button, $event.ctrlKey, $event.shiftKey, $event.altKey, $event.metaKey);
+          return ctx2.onClick($event.button, $event.ctrlKey, $event.shiftKey, $event.altKey, $event.metaKey);
         });
       }
       if (rf & 2) {
-        \u0275\u0275attribute("href", ctx.reactiveHref(), \u0275\u0275sanitizeUrlOrResourceUrl)("target", ctx.target);
+        \u0275\u0275attribute("href", ctx2.reactiveHref(), \u0275\u0275sanitizeUrlOrResourceUrl)("target", ctx2.target);
       }
     },
     inputs: {
@@ -82551,13 +82690,13 @@ var RouterLinkActive = class _RouterLinkActive {
   static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
     type: _RouterLinkActive,
     selectors: [["", "routerLinkActive", ""]],
-    contentQueries: function RouterLinkActive_ContentQueries(rf, ctx, dirIndex) {
+    contentQueries: function RouterLinkActive_ContentQueries(rf, ctx2, dirIndex) {
       if (rf & 1) {
         \u0275\u0275contentQuery(dirIndex, RouterLink, 5);
       }
       if (rf & 2) {
         let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.links = _t);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.links = _t);
       }
     },
     inputs: {
@@ -83367,7 +83506,7 @@ var ProfileComponent = class _ProfileComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProfileComponent, selectors: [["app-profile"]], decls: 14, vars: 0, consts: [[1, "portfolio-shell"], [1, "page-content"]], template: function ProfileComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProfileComponent, selectors: [["app-profile"]], decls: 14, vars: 0, consts: [[1, "portfolio-shell"], [1, "page-content"]], template: function ProfileComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275element(0, "app-header");
         \u0275\u0275elementStart(1, "main", 0);
@@ -83427,7 +83566,7 @@ var AppComponent = class _AppComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AppComponent, selectors: [["app-root"]], decls: 1, vars: 0, template: function AppComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AppComponent, selectors: [["app-root"]], decls: 1, vars: 0, template: function AppComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275element(0, "app-profile");
       }
@@ -84609,25 +84748,25 @@ var AnimationTimelineBuilderVisitor = class {
   }
   visitSequence(ast, context2) {
     const subContextCount = context2.subContextCount;
-    let ctx = context2;
+    let ctx2 = context2;
     const options = ast.options;
     if (options && (options.params || options.delay)) {
-      ctx = context2.createSubContext(options);
-      ctx.transformIntoNewTimeline();
+      ctx2 = context2.createSubContext(options);
+      ctx2.transformIntoNewTimeline();
       if (options.delay != null) {
-        if (ctx.previousNode.type == AnimationMetadataType.Style) {
-          ctx.currentTimeline.snapshotCurrentStyles();
-          ctx.previousNode = DEFAULT_NOOP_PREVIOUS_NODE;
+        if (ctx2.previousNode.type == AnimationMetadataType.Style) {
+          ctx2.currentTimeline.snapshotCurrentStyles();
+          ctx2.previousNode = DEFAULT_NOOP_PREVIOUS_NODE;
         }
         const delay = resolveTimingValue(options.delay);
-        ctx.delayNextStep(delay);
+        ctx2.delayNextStep(delay);
       }
     }
     if (ast.steps.length) {
-      ast.steps.forEach((s) => visitDslNode(this, s, ctx));
-      ctx.currentTimeline.applyStylesToKeyframe();
-      if (ctx.subContextCount > subContextCount) {
-        ctx.transformIntoNewTimeline();
+      ast.steps.forEach((s) => visitDslNode(this, s, ctx2));
+      ctx2.currentTimeline.applyStylesToKeyframe();
+      if (ctx2.subContextCount > subContextCount) {
+        ctx2.transformIntoNewTimeline();
       }
     }
     context2.previousNode = ast;

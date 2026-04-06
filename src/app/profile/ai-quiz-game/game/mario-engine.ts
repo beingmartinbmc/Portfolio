@@ -3,6 +3,7 @@ import { MarioRenderer } from './mario-renderer';
 import { MarioControls } from './mario-controls';
 import { updatePhysics, CollisionResult } from './mario-physics';
 import { createPlayer } from './mario-level-generator';
+import { MarioAudio } from './mario-audio';
 
 export type GameState = 'idle' | 'running' | 'paused' | 'won' | 'lost';
 
@@ -79,19 +80,23 @@ export class MarioEngine {
   getControls(): MarioControls { return this.controls; }
 
   private handlePowerUp(qb: QuestionBlock): void {
+    MarioAudio.questionBlock();
     switch (qb.reward) {
       case 'star':
         this.player.activateStar();
         this.player.score += 200;
+        MarioAudio.powerUp();
         break;
       case 'mushroom':
         this.player.grow();
         this.player.score += 100;
+        MarioAudio.powerUp();
         break;
       case 'coin':
       default:
         this.player.coins += 3;
         this.player.score += 50;
+        MarioAudio.coin();
         break;
     }
     this.notifyScore();
@@ -123,11 +128,16 @@ export class MarioEngine {
   }
 
   private handleCollisionResult(result: CollisionResult): void {
+    if (result.jumped) MarioAudio.jump();
+
+    if (result.coinCollected) MarioAudio.coin();
+
     if (result.hitQuestionBlock) {
       this.handlePowerUp(result.hitQuestionBlock);
     }
 
     if (result.hitEnemy) {
+      MarioAudio.hit();
       if (this.player.state === 'big') {
         this.player.shrink();
       } else {
@@ -136,6 +146,7 @@ export class MarioEngine {
           this.state = 'lost';
           cancelAnimationFrame(this.animFrameId);
           this.controls.unbind();
+          MarioAudio.die();
           this.callbacks.onDeath();
           return;
         }
@@ -145,6 +156,7 @@ export class MarioEngine {
     }
 
     if (result.stompedEnemy) {
+      MarioAudio.stomp();
       this.enemiesStomped++;
       this.notifyScore();
     }
@@ -155,6 +167,7 @@ export class MarioEngine {
         this.state = 'lost';
         cancelAnimationFrame(this.animFrameId);
         this.controls.unbind();
+        MarioAudio.die();
         this.callbacks.onDeath();
         return;
       }
@@ -168,6 +181,7 @@ export class MarioEngine {
       this.state = 'won';
       cancelAnimationFrame(this.animFrameId);
       this.controls.unbind();
+      MarioAudio.win();
       this.notifyScore();
       this.callbacks.onWin();
     }
