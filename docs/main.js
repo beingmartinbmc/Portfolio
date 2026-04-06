@@ -40525,6 +40525,8 @@ var Platform = class {
   constructor(x, y, w, h, type) {
     this.hit = false;
     this.coinCollected = false;
+    this.destroyed = false;
+    this.label = "";
     this.x = x;
     this.y = y;
     this.w = w;
@@ -40576,8 +40578,52 @@ var FlagPole = class {
 var QuestionBlock = class extends Platform {
   constructor(x, y, reward = "coin") {
     super(x, y, TILE, TILE, "question");
+    this.keyword = "";
     this.reward = reward;
   }
+};
+var FloatingText = class {
+  constructor(x, y, text, color = "#fff", life = 60) {
+    this.x = x;
+    this.y = y;
+    this.text = text;
+    this.color = color;
+    this.life = life;
+    this.maxLife = life;
+  }
+  get alive() {
+    return this.life > 0;
+  }
+  tick() {
+    this.life--;
+    this.y -= 0.8;
+  }
+};
+var Debris = class {
+  constructor(x, y, vx, vy) {
+    this.life = 30;
+    this.x = x;
+    this.y = y;
+    this.vx = vx;
+    this.vy = vy;
+  }
+  get alive() {
+    return this.life > 0;
+  }
+  tick() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += 0.4;
+    this.life--;
+  }
+};
+var CATEGORY_KEYWORDS = {
+  backend: ["REST API", "CRUD", "Auth", "DB Index", "ORM", "Retry", "Timeout", "Circuit Breaker", "Rate Limit", "Idempotent", "Webhook", "gRPC", "Middleware", "Connection Pool", "Thread Pool"],
+  distributed: ["Kafka", "Partition", "Replication", "Consensus", "Raft", "Shard", "Quorum", "CAP", "Saga", "Event Bus", "Dead Letter", "Backpressure", "Fan-out", "Exactly Once", "Leader Election"],
+  genai: ["RAG", "Embeddings", "Vector DB", "Prompt", "Fine-tune", "Token", "Context Window", "Hallucination", "Eval", "Agent", "Tool Call", "Retrieval", "Chain of Thought", "Guardrails", "RLHF"],
+  platform: ["CI/CD", "k8s", "Docker", "Terraform", "Grafana", "Prometheus", "SLO", "Canary", "Blue-Green", "Feature Flag", "GitOps", "Helm", "Sidecar", "Service Mesh", "Runbook"],
+  architecture: ["Load Balancer", "CDN", "Cache", "CQRS", "Event Source", "Domain", "Hexagonal", "Microservice", "Monolith", "API Gateway", "BFF", "Strangler Fig", "Bounded Context", "Anti-Corruption", "Bulkhead"],
+  leadership: ["RFC", "ADR", "Tech Debt", "Roadmap", "Stakeholder", "Incident", "Postmortem", "On-Call", "Mentoring", "Code Review", "Sprint", "Retro", "OKR", "Scope", "Alignment"]
 };
 
 // src/app/profile/ai-quiz-game/game/mario-renderer.ts
@@ -40601,14 +40647,27 @@ var KOOPA_SHELL = "#15803d";
 var COIN_COLOR = "#fbbf24";
 var FLAG_POLE_COLOR = "#94a3b8";
 var FLAG_COLOR = "#ef4444";
+var DEBRIS_COLOR = "#a0522d";
+var CATEGORY_COLORS = {
+  backend: { accent: "#f97316", qIcon: "\u{1F344}" },
+  distributed: { accent: "#06b6d4", qIcon: "\u{1F687}" },
+  genai: { accent: "#a855f7", qIcon: "\u{1F916}" },
+  platform: { accent: "#14b8a6", qIcon: "\u{1F6E0}" },
+  architecture: { accent: "#eab308", qIcon: "\u{1F3F0}" },
+  leadership: { accent: "#f43f5e", qIcon: "\u2B50" }
+};
 var MarioRenderer = class {
   constructor(canvas) {
     this.canvas = canvas;
     this.frameCount = 0;
+    this.categoryKey = "backend";
     this.ctx = canvas.getContext("2d");
     this.canvasW = canvas.width;
     this.canvasH = canvas.height;
     this.ctx.imageSmoothingEnabled = false;
+  }
+  setCategory(cat) {
+    this.categoryKey = cat;
   }
   resize(w, h) {
     this.canvas.width = w;
@@ -40623,16 +40682,23 @@ var MarioRenderer = class {
     const camY = 0;
     this.drawSky();
     this.drawClouds(camX);
+    this.drawCategoryBanner(level.category);
     this.ctx.save();
     this.ctx.translate(-camX, -camY);
-    for (const p of level.platforms)
-      this.drawPlatform(p);
+    for (const p of level.platforms) {
+      if (!p.destroyed)
+        this.drawPlatform(p);
+    }
     for (const qb of level.questionBlocks)
       this.drawQuestionBlock(qb);
     for (const coin of level.coins)
       this.drawCoin(coin);
     for (const enemy of level.enemies)
       this.drawEnemy(enemy);
+    for (const d of level.debris)
+      this.drawDebris(d);
+    for (const ft of level.floatingTexts)
+      this.drawFloatingText(ft);
     this.drawFlagPole(level.flagPole);
     this.drawPlayer(player);
     this.ctx.restore();
@@ -40663,6 +40729,18 @@ var MarioRenderer = class {
       this.ctx.fill();
     }
   }
+  drawCategoryBanner(category) {
+    const catCfg = CATEGORY_COLORS[category] ?? CATEGORY_COLORS["backend"];
+    const label = `${catCfg.qIcon} ${category.toUpperCase()} WORLD`;
+    this.ctx.save();
+    this.ctx.globalAlpha = 0.4;
+    this.ctx.fillStyle = catCfg.accent;
+    this.ctx.font = '10px "Press Start 2P", monospace';
+    this.ctx.textAlign = "right";
+    this.ctx.textBaseline = "top";
+    this.ctx.fillText(label, this.canvasW - 8, 8);
+    this.ctx.restore();
+  }
   drawPlatform(p) {
     if (p.type === "ground") {
       this.ctx.fillStyle = GROUND_TOP;
@@ -40675,6 +40753,7 @@ var MarioRenderer = class {
         this.ctx.strokeRect(tx, p.y, TILE, p.h);
       }
     } else if (p.type === "brick") {
+      const catCfg = CATEGORY_COLORS[this.categoryKey] ?? CATEGORY_COLORS["backend"];
       this.ctx.fillStyle = BRICK_FILL;
       this.ctx.fillRect(p.x, p.y, p.w, p.h);
       this.ctx.strokeStyle = BRICK_LINE;
@@ -40687,6 +40766,17 @@ var MarioRenderer = class {
           this.ctx.fillRect(tx, ty + TILE / 2 - 0.5, TILE, 1);
           this.ctx.fillStyle = BRICK_FILL;
         }
+      }
+      if (p.label && p.w >= TILE * 2) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.75;
+        this.ctx.fillStyle = catCfg.accent;
+        const fontSize = Math.min(7, Math.floor(p.w / (p.label.length * 4.5)));
+        this.ctx.font = `${Math.max(5, fontSize)}px "Press Start 2P", monospace`;
+        this.ctx.textAlign = "center";
+        this.ctx.textBaseline = "bottom";
+        this.ctx.fillText(p.label, p.x + p.w / 2, p.y - 3);
+        this.ctx.restore();
       }
     } else if (p.type === "pipe") {
       this.ctx.fillStyle = PIPE_FILL;
@@ -40715,6 +40805,16 @@ var MarioRenderer = class {
       this.ctx.fillStyle = "#fff";
       this.ctx.font = 'bold 18px "Press Start 2P", monospace';
       this.ctx.fillText("?", qb.x + qb.w / 2, qb.y + qb.h / 2 + bounce);
+      if (qb.keyword) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "#fff";
+        this.ctx.font = '5px "Press Start 2P", monospace';
+        this.ctx.textAlign = "center";
+        this.ctx.textBaseline = "top";
+        this.ctx.fillText(qb.keyword, qb.x + qb.w / 2, qb.y + qb.h + 2);
+        this.ctx.restore();
+      }
     } else {
       this.ctx.fillStyle = "rgba(255,255,255,0.3)";
       this.ctx.font = 'bold 14px "Press Start 2P", monospace';
@@ -40796,6 +40896,34 @@ var MarioRenderer = class {
     this.ctx.closePath();
     this.ctx.fill();
   }
+  drawDebris(d) {
+    if (!d.alive)
+      return;
+    this.ctx.save();
+    this.ctx.globalAlpha = d.life / 30;
+    this.ctx.fillStyle = DEBRIS_COLOR;
+    this.ctx.fillRect(d.x - 4, d.y - 4, 8, 8);
+    this.ctx.strokeStyle = BRICK_LINE;
+    this.ctx.lineWidth = 1;
+    this.ctx.strokeRect(d.x - 4, d.y - 4, 8, 8);
+    this.ctx.restore();
+  }
+  drawFloatingText(ft) {
+    if (!ft.alive)
+      return;
+    this.ctx.save();
+    this.ctx.globalAlpha = Math.min(1, ft.life / (ft.maxLife * 0.3));
+    this.ctx.fillStyle = ft.color;
+    this.ctx.font = '8px "Press Start 2P", monospace';
+    this.ctx.textAlign = "center";
+    this.ctx.textBaseline = "bottom";
+    this.ctx.shadowColor = "rgba(0,0,0,0.7)";
+    this.ctx.shadowBlur = 3;
+    this.ctx.shadowOffsetX = 1;
+    this.ctx.shadowOffsetY = 1;
+    this.ctx.fillText(ft.text, ft.x + TILE / 2, ft.y);
+    this.ctx.restore();
+  }
   drawPlayer(player) {
     const blink = player.invincibleTimer > 0 && Math.floor(this.frameCount / 3) % 2 === 0;
     if (blink)
@@ -40815,7 +40943,6 @@ var MarioRenderer = class {
     if (flip) {
       this.ctx.translate(x + w, y);
       this.ctx.scale(-1, 1);
-      this.ctx.translate(0, 0);
     } else {
       this.ctx.translate(x, y);
     }
@@ -40937,11 +41064,19 @@ function penetration(a, b) {
     return null;
   return { px: ox, py: oy };
 }
+function solidPlatforms(level) {
+  return [
+    ...level.platforms.filter((p) => !p.destroyed),
+    ...level.questionBlocks
+  ];
+}
 function updatePhysics(player, level, keys) {
   const result = {
     hitQuestionBlock: null,
     hitEnemy: null,
     stompedEnemy: null,
+    brickBroken: null,
+    brickBumped: null,
     reachedFlag: false,
     died: false,
     jumped: false,
@@ -40966,7 +41101,7 @@ function updatePhysics(player, level, keys) {
   player.vy += GRAVITY;
   if (player.vy > MAX_FALL)
     player.vy = MAX_FALL;
-  const allPlatforms = [...level.platforms, ...level.questionBlocks];
+  const allPlatforms = solidPlatforms(level);
   player.x += player.vx;
   if (player.x < 0)
     player.x = 0;
@@ -40977,11 +41112,10 @@ function updatePhysics(player, level, keys) {
     if (!pen)
       continue;
     if (pen.py > 6) {
-      if (player.vx > 0) {
+      if (player.vx > 0)
         player.x = p.x - player.w;
-      } else if (player.vx < 0) {
+      else if (player.vx < 0)
         player.x = p.x + p.w;
-      }
       player.vx = 0;
     }
   }
@@ -41001,6 +41135,14 @@ function updatePhysics(player, level, keys) {
       if (p instanceof QuestionBlock && !p.hit) {
         p.hit = true;
         result.hitQuestionBlock = p;
+      } else if (p.type === "brick" && !p.destroyed) {
+        if (player.state === "big" || player.starTimer > 0) {
+          p.destroyed = true;
+          result.brickBroken = p;
+          player.score += 20;
+        } else {
+          result.brickBumped = p;
+        }
       }
     }
   }
@@ -41074,11 +41216,16 @@ function updatePhysics(player, level, keys) {
           break;
         }
       }
-      if (!landed) {
+      if (!landed)
         enemy.y += 2;
-      }
     }
   }
+  for (const ft of level.floatingTexts)
+    ft.tick();
+  for (const d of level.debris)
+    d.tick();
+  level.floatingTexts = level.floatingTexts.filter((ft) => ft.alive);
+  level.debris = level.debris.filter((d) => d.alive);
   if (aabbOverlap(player.box, level.flagPole.box)) {
     result.reachedFlag = true;
   }
@@ -41102,6 +41249,14 @@ function assignRewards(count) {
   }
   return rewards;
 }
+function shuffleKeywords(category) {
+  const pool = [...CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS["backend"]];
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool;
+}
 function parseLevelFromAI(raw) {
   try {
     const jsonMatch = raw.match(/\{[\s\S]*\}/);
@@ -41120,18 +41275,29 @@ function buildLevelFromData(data, config3) {
   const enemies = [];
   const coins = [];
   const questionBlocks = [];
+  const category = config3.category || "backend";
+  const keywords = shuffleKeywords(category);
+  let kwIdx = 0;
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
   if (data.platforms) {
     for (const p of data.platforms) {
       const type = p.type === "brick" || p.type === "pipe" || p.type === "ground" ? p.type : "ground";
-      platforms.push(new Platform(p.x * TILE, p.y * TILE, (p.width || 1) * TILE, TILE * (type === "ground" ? 2 : 1), type));
+      const plat = new Platform(p.x * TILE, p.y * TILE, (p.width || 1) * TILE, TILE * (type === "ground" ? 2 : 1), type);
+      if (type === "brick") {
+        plat.label = keywords[kwIdx % keywords.length];
+        kwIdx++;
+      }
+      platforms.push(plat);
     }
   }
   if (data.questionBlocks) {
     const rewards = assignRewards(data.questionBlocks.length);
     data.questionBlocks.forEach((qb, i) => {
-      questionBlocks.push(new QuestionBlock(qb.x * TILE, qb.y * TILE, rewards[i]));
+      const q = new QuestionBlock(qb.x * TILE, qb.y * TILE, rewards[i]);
+      q.keyword = keywords[kwIdx % keywords.length];
+      kwIdx++;
+      questionBlocks.push(q);
     });
   }
   if (data.enemies) {
@@ -41147,13 +41313,16 @@ function buildLevelFromData(data, config3) {
   }
   const flagX = data.flagPole?.x ? data.flagPole.x * TILE : (LEVEL_TILES_WIDE - 4) * TILE;
   const flagPole = new FlagPole(flagX, 3 * TILE, (GROUND_ROW - 3) * TILE);
-  return { platforms, enemies, coins, questionBlocks, flagPole, width: levelW, height: levelH };
+  return { platforms, enemies, coins, questionBlocks, flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
 }
 function generateProceduralLevel(config3) {
   const platforms = [];
   const enemies = [];
   const coins = [];
   const questionBlocks = [];
+  const category = config3.category || "backend";
+  const keywords = shuffleKeywords(category);
+  let kwIdx = 0;
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
   const gY = GROUND_ROW * TILE;
@@ -41195,7 +41364,10 @@ function generateProceduralLevel(config3) {
     } while (isNearPipe(bx) && attempts < 20);
     const by = 7 + Math.floor(Math.random() * 3);
     const bw = 2 + Math.floor(Math.random() * 3);
-    platforms.push(new Platform(bx * TILE, by * TILE, bw * TILE, TILE, "brick"));
+    const brick = new Platform(bx * TILE, by * TILE, bw * TILE, TILE, "brick");
+    brick.label = keywords[kwIdx % keywords.length];
+    kwIdx++;
+    platforms.push(brick);
   }
   const qCount = config3.difficulty === "Hard" ? 5 : config3.difficulty === "Medium" ? 7 : 9;
   const spacing = Math.floor((LEVEL_TILES_WIDE - 12) / (qCount + 1));
@@ -41205,7 +41377,10 @@ function generateProceduralLevel(config3) {
     if (isNearPipe(qx))
       qx += 4;
     const qy = 8 + Math.floor(Math.random() * 2);
-    questionBlocks.push(new QuestionBlock(qx * TILE, qy * TILE, rewards[i]));
+    const qb = new QuestionBlock(qx * TILE, qy * TILE, rewards[i]);
+    qb.keyword = keywords[kwIdx % keywords.length];
+    kwIdx++;
+    questionBlocks.push(qb);
   }
   const enemyCount = config3.difficulty === "Hard" ? 10 : config3.difficulty === "Medium" ? 7 : 4;
   for (let i = 0; i < enemyCount; i++) {
@@ -41231,7 +41406,7 @@ function generateProceduralLevel(config3) {
     coins.push(new Coin(cx * TILE + TILE * 0.25, cy * TILE + TILE * 0.25));
   }
   const flagPole = new FlagPole((LEVEL_TILES_WIDE - 4) * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
-  return { platforms, enemies, coins, questionBlocks, flagPole, width: levelW, height: levelH };
+  return { platforms, enemies, coins, questionBlocks, flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
 }
 function createPlayer() {
   return new Player(3 * TILE, (GROUND_ROW - 1) * TILE - TILE);
@@ -41353,6 +41528,12 @@ var MarioAudio = {
   },
   questionBlock() {
     playSequence([[520, 0.04], [780, 0.06], [1040, 0.08]], "square", 0.06);
+  },
+  brickBreak() {
+    playSequence([[400, 0.03], [300, 0.03], [200, 0.04], [150, 0.06]], "sawtooth", 0.09);
+  },
+  brickBump() {
+    playTone(220, 0.06, "square", 0.07);
   }
 };
 
@@ -41364,6 +41545,8 @@ var MarioEngine = class {
     this.lastTime = 0;
     this.accumulator = 0;
     this.STEP = 1e3 / 60;
+    this.keywords = [];
+    this.keywordIndex = 0;
     this.elapsedFrames = 0;
     this.enemiesStomped = 0;
     this.loop = (time) => {
@@ -41393,6 +41576,9 @@ var MarioEngine = class {
     this.elapsedFrames = 0;
     this.enemiesStomped = 0;
     this.state = "idle";
+    this.keywords = CATEGORY_KEYWORDS[level.category] ?? CATEGORY_KEYWORDS["backend"];
+    this.keywordIndex = 0;
+    this.renderer.setCategory(level.category);
   }
   start() {
     if (!this.level)
@@ -41426,25 +41612,46 @@ var MarioEngine = class {
   getControls() {
     return this.controls;
   }
+  nextKeyword() {
+    const kw = this.keywords[this.keywordIndex % this.keywords.length];
+    this.keywordIndex++;
+    return kw;
+  }
   handlePowerUp(qb) {
     MarioAudio.questionBlock();
+    const kw = qb.keyword || this.nextKeyword();
+    let color = "#fbbf24";
     switch (qb.reward) {
       case "star":
         this.player.activateStar();
         this.player.score += 200;
         MarioAudio.powerUp();
+        color = "#f59e0b";
         break;
       case "mushroom":
         this.player.grow();
         this.player.score += 100;
         MarioAudio.powerUp();
+        color = "#22c55e";
         break;
       case "coin":
       default:
         this.player.coins += 3;
         this.player.score += 50;
         MarioAudio.coin();
+        color = "#fbbf24";
         break;
+    }
+    this.level.floatingTexts.push(new FloatingText(qb.x, qb.y - 10, kw, color, 80));
+    this.notifyScore();
+  }
+  handleBrickBreak(brick) {
+    MarioAudio.brickBreak();
+    const cx = brick.x + brick.w / 2;
+    const cy = brick.y + brick.h / 2;
+    this.level.debris.push(new Debris(cx - 6, cy, -2, -5), new Debris(cx + 6, cy, 2, -5), new Debris(cx - 6, cy, -1, -3.5), new Debris(cx + 6, cy, 1, -3.5));
+    if (brick.label) {
+      this.level.floatingTexts.push(new FloatingText(brick.x, brick.y - 8, brick.label, "#ef4444", 70));
     }
     this.notifyScore();
   }
@@ -41463,6 +41670,12 @@ var MarioEngine = class {
       MarioAudio.coin();
     if (result.hitQuestionBlock) {
       this.handlePowerUp(result.hitQuestionBlock);
+    }
+    if (result.brickBroken) {
+      this.handleBrickBreak(result.brickBroken);
+    }
+    if (result.brickBumped) {
+      MarioAudio.brickBump();
     }
     if (result.hitEnemy) {
       MarioAudio.hit();
@@ -41844,7 +42057,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
       this.lives = 3;
       this.won = false;
       this.enemiesStomped = 0;
-      const config3 = { difficulty: this.selectedDifficulty };
+      const config3 = { difficulty: this.selectedDifficulty, category: this.selectedCategory };
       let level;
       try {
         const [levelResult] = yield Promise.allSettled([this.generateAILevel(config3)]);

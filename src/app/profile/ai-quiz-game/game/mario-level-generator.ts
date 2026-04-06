@@ -1,4 +1,4 @@
-import { TILE, Platform, Enemy, Coin, QuestionBlock, FlagPole, Level, Player, PowerUpType } from './mario-entities';
+import { TILE, Platform, Enemy, Coin, QuestionBlock, FlagPole, Level, Player, PowerUpType, FloatingText, Debris, CATEGORY_KEYWORDS } from './mario-entities';
 
 const LEVEL_TILES_WIDE = 80;
 const GROUND_ROW = 12;
@@ -6,6 +6,7 @@ const LEVEL_ROWS = 14;
 
 export interface LevelConfig {
   difficulty: string;
+  category?: string;
 }
 
 function assignRewards(count: number): PowerUpType[] {
@@ -17,6 +18,15 @@ function assignRewards(count: number): PowerUpType[] {
     else rewards.push('coin');
   }
   return rewards;
+}
+
+function shuffleKeywords(category: string): string[] {
+  const pool = [...(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS['backend'])];
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool;
 }
 
 interface RawLevelData {
@@ -44,6 +54,9 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   const enemies: Enemy[] = [];
   const coins: Coin[] = [];
   const questionBlocks: QuestionBlock[] = [];
+  const category = config.category || 'backend';
+  const keywords = shuffleKeywords(category);
+  let kwIdx = 0;
 
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
@@ -51,18 +64,26 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   if (data.platforms) {
     for (const p of data.platforms) {
       const type = (p.type === 'brick' || p.type === 'pipe' || p.type === 'ground') ? p.type : 'ground';
-      platforms.push(new Platform(
+      const plat = new Platform(
         p.x * TILE, p.y * TILE,
         (p.width || 1) * TILE, TILE * (type === 'ground' ? 2 : 1),
         type as any
-      ));
+      );
+      if (type === 'brick') {
+        plat.label = keywords[kwIdx % keywords.length];
+        kwIdx++;
+      }
+      platforms.push(plat);
     }
   }
 
   if (data.questionBlocks) {
     const rewards = assignRewards(data.questionBlocks.length);
     data.questionBlocks.forEach((qb, i) => {
-      questionBlocks.push(new QuestionBlock(qb.x * TILE, qb.y * TILE, rewards[i]));
+      const q = new QuestionBlock(qb.x * TILE, qb.y * TILE, rewards[i]);
+      q.keyword = keywords[kwIdx % keywords.length];
+      kwIdx++;
+      questionBlocks.push(q);
     });
   }
 
@@ -82,7 +103,7 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   const flagX = data.flagPole?.x ? data.flagPole.x * TILE : (LEVEL_TILES_WIDE - 4) * TILE;
   const flagPole = new FlagPole(flagX, 3 * TILE, (GROUND_ROW - 3) * TILE);
 
-  return { platforms, enemies, coins, questionBlocks, flagPole, width: levelW, height: levelH };
+  return { platforms, enemies, coins, questionBlocks, flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
 }
 
 export function generateProceduralLevel(config: LevelConfig): Level {
@@ -90,6 +111,9 @@ export function generateProceduralLevel(config: LevelConfig): Level {
   const enemies: Enemy[] = [];
   const coins: Coin[] = [];
   const questionBlocks: QuestionBlock[] = [];
+  const category = config.category || 'backend';
+  const keywords = shuffleKeywords(category);
+  let kwIdx = 0;
 
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
@@ -117,13 +141,13 @@ export function generateProceduralLevel(config: LevelConfig): Level {
     platforms.push(new Platform(groundStart * TILE, gY, (LEVEL_TILES_WIDE - groundStart) * TILE, 2 * TILE, 'ground'));
   }
 
-  // Pipes — placed first so we can avoid overlapping them
+  // Pipes
   const pipeCount = config.difficulty === 'Hard' ? 3 : 2;
   const pipePositions: number[] = [];
   const pipeSpacing = Math.floor((LEVEL_TILES_WIDE - 24) / (pipeCount + 1));
   for (let i = 0; i < pipeCount; i++) {
     const px = 12 + pipeSpacing * (i + 1);
-    const ph = 2 * TILE; // always 2 tiles — comfortably jumpable
+    const ph = 2 * TILE;
     platforms.push(new Platform(px * TILE, gY - ph, TILE * 2, ph, 'pipe'));
     pipePositions.push(px);
   }
@@ -131,30 +155,36 @@ export function generateProceduralLevel(config: LevelConfig): Level {
   const isNearPipe = (tx: number): boolean =>
     pipePositions.some(px => tx >= px - 2 && tx <= px + 3);
 
-  // Floating brick platforms — avoid pipe columns
+  // Floating brick platforms with category labels
   const brickCount = config.difficulty === 'Hard' ? 8 : config.difficulty === 'Medium' ? 6 : 4;
   for (let i = 0; i < brickCount; i++) {
     let bx: number;
     let attempts = 0;
     do { bx = 8 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 16)); attempts++; }
     while (isNearPipe(bx) && attempts < 20);
-    const by = 7 + Math.floor(Math.random() * 3); // rows 7-9 (reachable)
+    const by = 7 + Math.floor(Math.random() * 3);
     const bw = 2 + Math.floor(Math.random() * 3);
-    platforms.push(new Platform(bx * TILE, by * TILE, bw * TILE, TILE, 'brick'));
+    const brick = new Platform(bx * TILE, by * TILE, bw * TILE, TILE, 'brick');
+    brick.label = keywords[kwIdx % keywords.length];
+    kwIdx++;
+    platforms.push(brick);
   }
 
-  // Question blocks — avoid pipe columns, keep at reachable rows
+  // Question blocks with category keywords
   const qCount = config.difficulty === 'Hard' ? 5 : config.difficulty === 'Medium' ? 7 : 9;
   const spacing = Math.floor((LEVEL_TILES_WIDE - 12) / (qCount + 1));
   const rewards = assignRewards(qCount);
   for (let i = 0; i < qCount; i++) {
     let qx = 6 + spacing * (i + 1) + Math.floor(Math.random() * 3 - 1);
     if (isNearPipe(qx)) qx += 4;
-    const qy = 8 + Math.floor(Math.random() * 2); // rows 8-9 (easily hittable)
-    questionBlocks.push(new QuestionBlock(qx * TILE, qy * TILE, rewards[i]));
+    const qy = 8 + Math.floor(Math.random() * 2);
+    const qb = new QuestionBlock(qx * TILE, qy * TILE, rewards[i]);
+    qb.keyword = keywords[kwIdx % keywords.length];
+    kwIdx++;
+    questionBlocks.push(qb);
   }
 
-  // Enemies — avoid pipe columns and start area
+  // Enemies
   const enemyCount = config.difficulty === 'Hard' ? 10 : config.difficulty === 'Medium' ? 7 : 4;
   for (let i = 0; i < enemyCount; i++) {
     let ex: number;
@@ -166,7 +196,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
     enemies.push(new Enemy(ex * TILE, ey * TILE, type as any));
   }
 
-  // Coins — avoid pipe columns
+  // Coins
   const coinCount = config.difficulty === 'Hard' ? 20 : config.difficulty === 'Medium' ? 15 : 10;
   for (let i = 0; i < coinCount; i++) {
     let cx: number;
@@ -179,7 +209,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
 
   const flagPole = new FlagPole((LEVEL_TILES_WIDE - 4) * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
 
-  return { platforms, enemies, coins, questionBlocks, flagPole, width: levelW, height: levelH };
+  return { platforms, enemies, coins, questionBlocks, flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
 }
 
 export function createPlayer(): Player {

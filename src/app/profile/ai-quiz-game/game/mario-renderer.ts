@@ -1,4 +1,4 @@
-import { TILE, Player, Platform, Enemy, Coin, QuestionBlock, FlagPole, Level } from './mario-entities';
+import { TILE, Player, Platform, Enemy, Coin, QuestionBlock, FlagPole, Level, FloatingText, Debris } from './mario-entities';
 
 const SKY_TOP = '#09091a';
 const SKY_BOT = '#16213e';
@@ -20,18 +20,33 @@ const KOOPA_SHELL = '#15803d';
 const COIN_COLOR = '#fbbf24';
 const FLAG_POLE_COLOR = '#94a3b8';
 const FLAG_COLOR = '#ef4444';
+const DEBRIS_COLOR = '#a0522d';
+
+const CATEGORY_COLORS: Record<string, { accent: string; qIcon: string }> = {
+  backend:      { accent: '#f97316', qIcon: '🍄' },
+  distributed:  { accent: '#06b6d4', qIcon: '🚇' },
+  genai:        { accent: '#a855f7', qIcon: '🤖' },
+  platform:     { accent: '#14b8a6', qIcon: '🛠' },
+  architecture: { accent: '#eab308', qIcon: '🏰' },
+  leadership:   { accent: '#f43f5e', qIcon: '⭐' },
+};
 
 export class MarioRenderer {
   private ctx: CanvasRenderingContext2D;
   private canvasW: number;
   private canvasH: number;
   private frameCount = 0;
+  private categoryKey = 'backend';
 
   constructor(private canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d')!;
     this.canvasW = canvas.width;
     this.canvasH = canvas.height;
     this.ctx.imageSmoothingEnabled = false;
+  }
+
+  setCategory(cat: string): void {
+    this.categoryKey = cat;
   }
 
   resize(w: number, h: number): void {
@@ -49,14 +64,19 @@ export class MarioRenderer {
 
     this.drawSky();
     this.drawClouds(camX);
+    this.drawCategoryBanner(level.category);
 
     this.ctx.save();
     this.ctx.translate(-camX, -camY);
 
-    for (const p of level.platforms) this.drawPlatform(p);
+    for (const p of level.platforms) {
+      if (!p.destroyed) this.drawPlatform(p);
+    }
     for (const qb of level.questionBlocks) this.drawQuestionBlock(qb);
     for (const coin of level.coins) this.drawCoin(coin);
     for (const enemy of level.enemies) this.drawEnemy(enemy);
+    for (const d of level.debris) this.drawDebris(d);
+    for (const ft of level.floatingTexts) this.drawFloatingText(ft);
     this.drawFlagPole(level.flagPole);
     this.drawPlayer(player);
 
@@ -70,7 +90,6 @@ export class MarioRenderer {
     this.ctx.fillStyle = grad;
     this.ctx.fillRect(0, 0, this.canvasW, this.canvasH);
 
-    // Subtle stars
     this.ctx.fillStyle = 'rgba(255,255,255,0.15)';
     for (let i = 0; i < 30; i++) {
       const sx = (i * 137.5 + 50) % this.canvasW;
@@ -93,19 +112,32 @@ export class MarioRenderer {
     }
   }
 
+  private drawCategoryBanner(category: string): void {
+    const catCfg = CATEGORY_COLORS[category] ?? CATEGORY_COLORS['backend'];
+    const label = `${catCfg.qIcon} ${category.toUpperCase()} WORLD`;
+    this.ctx.save();
+    this.ctx.globalAlpha = 0.4;
+    this.ctx.fillStyle = catCfg.accent;
+    this.ctx.font = '10px "Press Start 2P", monospace';
+    this.ctx.textAlign = 'right';
+    this.ctx.textBaseline = 'top';
+    this.ctx.fillText(label, this.canvasW - 8, 8);
+    this.ctx.restore();
+  }
+
   private drawPlatform(p: Platform): void {
     if (p.type === 'ground') {
       this.ctx.fillStyle = GROUND_TOP;
       this.ctx.fillRect(p.x, p.y, p.w, TILE * 0.3);
       this.ctx.fillStyle = GROUND_SIDE;
       this.ctx.fillRect(p.x, p.y + TILE * 0.3, p.w, p.h - TILE * 0.3);
-      // Grid lines
       this.ctx.strokeStyle = 'rgba(0,0,0,0.15)';
       this.ctx.lineWidth = 1;
       for (let tx = p.x; tx < p.x + p.w; tx += TILE) {
         this.ctx.strokeRect(tx, p.y, TILE, p.h);
       }
     } else if (p.type === 'brick') {
+      const catCfg = CATEGORY_COLORS[this.categoryKey] ?? CATEGORY_COLORS['backend'];
       this.ctx.fillStyle = BRICK_FILL;
       this.ctx.fillRect(p.x, p.y, p.w, p.h);
       this.ctx.strokeStyle = BRICK_LINE;
@@ -113,12 +145,24 @@ export class MarioRenderer {
       for (let tx = p.x; tx < p.x + p.w; tx += TILE) {
         for (let ty = p.y; ty < p.y + p.h; ty += TILE) {
           this.ctx.strokeRect(tx + 1, ty + 1, TILE - 2, TILE - 2);
-          // Mortar
           this.ctx.fillStyle = BRICK_LINE;
           this.ctx.fillRect(tx + TILE / 2 - 0.5, ty, 1, TILE);
           this.ctx.fillRect(tx, ty + TILE / 2 - 0.5, TILE, 1);
           this.ctx.fillStyle = BRICK_FILL;
         }
+      }
+
+      // Category label above brick
+      if (p.label && p.w >= TILE * 2) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.75;
+        this.ctx.fillStyle = catCfg.accent;
+        const fontSize = Math.min(7, Math.floor(p.w / (p.label.length * 4.5)));
+        this.ctx.font = `${Math.max(5, fontSize)}px "Press Start 2P", monospace`;
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'bottom';
+        this.ctx.fillText(p.label, p.x + p.w / 2, p.y - 3);
+        this.ctx.restore();
       }
     } else if (p.type === 'pipe') {
       this.ctx.fillStyle = PIPE_FILL;
@@ -126,7 +170,6 @@ export class MarioRenderer {
       this.ctx.fillStyle = PIPE_DARK;
       this.ctx.fillRect(p.x, p.y, 4, p.h);
       this.ctx.fillRect(p.x + p.w - 4, p.y, 4, p.h);
-      // Pipe top rim
       this.ctx.fillStyle = PIPE_FILL;
       this.ctx.fillRect(p.x - 4, p.y, p.w + 8, TILE * 0.4);
       this.ctx.fillStyle = PIPE_DARK;
@@ -152,6 +195,18 @@ export class MarioRenderer {
       this.ctx.fillStyle = '#fff';
       this.ctx.font = 'bold 18px "Press Start 2P", monospace';
       this.ctx.fillText('?', qb.x + qb.w / 2, qb.y + qb.h / 2 + bounce);
+
+      // Keyword hint under block
+      if (qb.keyword) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = '#fff';
+        this.ctx.font = '5px "Press Start 2P", monospace';
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'top';
+        this.ctx.fillText(qb.keyword, qb.x + qb.w / 2, qb.y + qb.h + 2);
+        this.ctx.restore();
+      }
     } else {
       this.ctx.fillStyle = 'rgba(255,255,255,0.3)';
       this.ctx.font = 'bold 14px "Press Start 2P", monospace';
@@ -195,10 +250,8 @@ export class MarioRenderer {
 
     if (enemy.type === 'goomba') {
       const squash = enemy.alive ? 1 : 0.3;
-      // Body
       this.ctx.fillStyle = GOOMBA_BODY;
       this.ctx.fillRect(enemy.x + 2, enemy.y + enemy.h * (1 - squash), enemy.w - 4, enemy.h * squash);
-      // Eyes
       if (enemy.alive) {
         this.ctx.fillStyle = '#fff';
         this.ctx.fillRect(enemy.x + enemy.w * 0.25, enemy.y + enemy.h * 0.2, 5, 5);
@@ -207,17 +260,14 @@ export class MarioRenderer {
         this.ctx.fillRect(enemy.x + enemy.w * 0.3, enemy.y + enemy.h * 0.25, 3, 3);
         this.ctx.fillRect(enemy.x + enemy.w * 0.65, enemy.y + enemy.h * 0.25, 3, 3);
       }
-      // Feet
       this.ctx.fillStyle = GOOMBA_FEET;
       this.ctx.fillRect(enemy.x, enemy.y + enemy.h - 4, enemy.w * 0.35, 4);
       this.ctx.fillRect(enemy.x + enemy.w * 0.65, enemy.y + enemy.h - 4, enemy.w * 0.35, 4);
     } else {
-      // Koopa
       this.ctx.fillStyle = KOOPA_SHELL;
       this.ctx.fillRect(enemy.x + 2, enemy.y + enemy.h * 0.3, enemy.w - 4, enemy.h * 0.5);
       this.ctx.fillStyle = KOOPA_BODY;
       this.ctx.fillRect(enemy.x + enemy.w * 0.3, enemy.y, enemy.w * 0.4, enemy.h * 0.35);
-      // Eyes
       if (enemy.alive) {
         this.ctx.fillStyle = '#fff';
         this.ctx.fillRect(enemy.x + enemy.w * 0.35, enemy.y + 4, 4, 4);
@@ -230,17 +280,14 @@ export class MarioRenderer {
   }
 
   private drawFlagPole(fp: FlagPole): void {
-    // Pole
     this.ctx.fillStyle = FLAG_POLE_COLOR;
     this.ctx.fillRect(fp.x + TILE * 0.1, fp.y, TILE * 0.1, fp.h);
 
-    // Ball on top
     this.ctx.fillStyle = '#fbbf24';
     this.ctx.beginPath();
     this.ctx.arc(fp.x + TILE * 0.15, fp.y, 5, 0, Math.PI * 2);
     this.ctx.fill();
 
-    // Flag
     this.ctx.fillStyle = FLAG_COLOR;
     this.ctx.beginPath();
     this.ctx.moveTo(fp.x + TILE * 0.2, fp.y + 4);
@@ -248,6 +295,35 @@ export class MarioRenderer {
     this.ctx.lineTo(fp.x + TILE * 0.2, fp.y + 24);
     this.ctx.closePath();
     this.ctx.fill();
+  }
+
+  private drawDebris(d: Debris): void {
+    if (!d.alive) return;
+    this.ctx.save();
+    this.ctx.globalAlpha = d.life / 30;
+    this.ctx.fillStyle = DEBRIS_COLOR;
+    this.ctx.fillRect(d.x - 4, d.y - 4, 8, 8);
+    this.ctx.strokeStyle = BRICK_LINE;
+    this.ctx.lineWidth = 1;
+    this.ctx.strokeRect(d.x - 4, d.y - 4, 8, 8);
+    this.ctx.restore();
+  }
+
+  private drawFloatingText(ft: FloatingText): void {
+    if (!ft.alive) return;
+    this.ctx.save();
+    this.ctx.globalAlpha = Math.min(1, ft.life / (ft.maxLife * 0.3));
+    this.ctx.fillStyle = ft.color;
+    this.ctx.font = '8px "Press Start 2P", monospace';
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'bottom';
+
+    this.ctx.shadowColor = 'rgba(0,0,0,0.7)';
+    this.ctx.shadowBlur = 3;
+    this.ctx.shadowOffsetX = 1;
+    this.ctx.shadowOffsetY = 1;
+    this.ctx.fillText(ft.text, ft.x + TILE / 2, ft.y);
+    this.ctx.restore();
   }
 
   drawPlayer(player: Player): void {
@@ -271,7 +347,6 @@ export class MarioRenderer {
     if (flip) {
       this.ctx.translate(x + w, y);
       this.ctx.scale(-1, 1);
-      this.ctx.translate(0, 0);
     } else {
       this.ctx.translate(x, y);
     }
@@ -289,11 +364,10 @@ export class MarioRenderer {
     // Face
     this.ctx.fillStyle = PLAYER_SKIN;
     this.ctx.fillRect(w * 0.15, headH * 0.5, w * 0.7, headH * 0.5);
-    // Eyes
     this.ctx.fillStyle = '#000';
     this.ctx.fillRect(w * 0.55, headH * 0.55, 3, 3);
 
-    // Body / overalls
+    // Body
     this.ctx.fillStyle = PLAYER_RED;
     this.ctx.fillRect(w * 0.1, headH, w * 0.8, bodyH * 0.3);
     this.ctx.fillStyle = PLAYER_BLUE;

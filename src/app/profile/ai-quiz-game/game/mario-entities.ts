@@ -71,6 +71,8 @@ export class Platform {
   type: PlatformType;
   hit = false;
   coinCollected = false;
+  destroyed = false;
+  label = '';
 
   constructor(x: number, y: number, w: number, h: number, type: PlatformType) {
     this.x = x;
@@ -145,10 +147,60 @@ export type PowerUpType = 'coin' | 'mushroom' | 'star';
 
 export class QuestionBlock extends Platform {
   reward: PowerUpType;
+  keyword = '';
 
   constructor(x: number, y: number, reward: PowerUpType = 'coin') {
     super(x, y, TILE, TILE, 'question');
     this.reward = reward;
+  }
+}
+
+export class FloatingText {
+  x: number;
+  y: number;
+  text: string;
+  color: string;
+  life: number;
+  maxLife: number;
+
+  constructor(x: number, y: number, text: string, color = '#fff', life = 60) {
+    this.x = x;
+    this.y = y;
+    this.text = text;
+    this.color = color;
+    this.life = life;
+    this.maxLife = life;
+  }
+
+  get alive(): boolean { return this.life > 0; }
+
+  tick(): void {
+    this.life--;
+    this.y -= 0.8;
+  }
+}
+
+export class Debris {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life = 30;
+
+  constructor(x: number, y: number, vx: number, vy: number) {
+    this.x = x;
+    this.y = y;
+    this.vx = vx;
+    this.vy = vy;
+  }
+
+  get alive(): boolean { return this.life > 0; }
+
+  tick(): void {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += 0.4;
+    this.life--;
   }
 }
 
@@ -158,6 +210,18 @@ export interface Level {
   coins: Coin[];
   questionBlocks: QuestionBlock[];
   flagPole: FlagPole;
+  floatingTexts: FloatingText[];
+  debris: Debris[];
   width: number;
   height: number;
+  category: string;
 }
+
+export const CATEGORY_KEYWORDS: Record<string, string[]> = {
+  backend: ['REST API', 'CRUD', 'Auth', 'DB Index', 'ORM', 'Retry', 'Timeout', 'Circuit Breaker', 'Rate Limit', 'Idempotent', 'Webhook', 'gRPC', 'Middleware', 'Connection Pool', 'Thread Pool'],
+  distributed: ['Kafka', 'Partition', 'Replication', 'Consensus', 'Raft', 'Shard', 'Quorum', 'CAP', 'Saga', 'Event Bus', 'Dead Letter', 'Backpressure', 'Fan-out', 'Exactly Once', 'Leader Election'],
+  genai: ['RAG', 'Embeddings', 'Vector DB', 'Prompt', 'Fine-tune', 'Token', 'Context Window', 'Hallucination', 'Eval', 'Agent', 'Tool Call', 'Retrieval', 'Chain of Thought', 'Guardrails', 'RLHF'],
+  platform: ['CI/CD', 'k8s', 'Docker', 'Terraform', 'Grafana', 'Prometheus', 'SLO', 'Canary', 'Blue-Green', 'Feature Flag', 'GitOps', 'Helm', 'Sidecar', 'Service Mesh', 'Runbook'],
+  architecture: ['Load Balancer', 'CDN', 'Cache', 'CQRS', 'Event Source', 'Domain', 'Hexagonal', 'Microservice', 'Monolith', 'API Gateway', 'BFF', 'Strangler Fig', 'Bounded Context', 'Anti-Corruption', 'Bulkhead'],
+  leadership: ['RFC', 'ADR', 'Tech Debt', 'Roadmap', 'Stakeholder', 'Incident', 'Postmortem', 'On-Call', 'Mentoring', 'Code Review', 'Sprint', 'Retro', 'OKR', 'Scope', 'Alignment'],
+};

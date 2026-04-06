@@ -79,5 +79,13 @@ export const MarioAudio = {
 
   questionBlock(): void {
     playSequence([[520, 0.04], [780, 0.06], [1040, 0.08]], 'square', 0.06);
+  },
+
+  brickBreak(): void {
+    playSequence([[400, 0.03], [300, 0.03], [200, 0.04], [150, 0.06]], 'sawtooth', 0.09);
+  },
+
+  brickBump(): void {
+    playTone(220, 0.06, 'square', 0.07);
   }
 };
