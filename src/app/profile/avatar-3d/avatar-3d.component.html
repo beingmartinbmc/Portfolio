@@ -1,79 +1,129 @@
-<section id="avatar-3d" class="avatar-3d-section">
+<section id="avatar-3d" class="avatar-lab-section apple-section">
   <div class="container">
-    <div class="section-title">
-      <h2>Meet Me in 3D</h2>
-      <p>Interactive 3D Avatar - Drag to rotate, scroll to zoom, chat with me</p>
-    </div>
-    <div class="avatar-container">
-      <canvas #canvas class="avatar-canvas"></canvas>
+    <div class="avatar-lab-shell">
+      <div class="avatar-lab-copy">
+        <span class="section-kicker">Interactive AI twin</span>
+        <h2 class="section-title">3D avatar, live chat, and text-to-audio in one product-style demo.</h2>
+        <p class="section-subtitle">
+          The core functionality stays intact: a 3D model, portfolio-aware assistant, and voice playback pipeline. The
+          presentation is rebuilt to feel more like a modern AI interface than a portfolio widget.
+        </p>
 
-      <!-- Loading Overlay -->
-      @if (isLoading) {
-        <div class="loading-overlay" [@chatAnimation]>
-          <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <div class="loading-text">{{ loadingText }}</div>
-            <div class="loading-progress">
-              <div class="progress-bar">
-                <div class="progress-fill" [style.width.%]="loadingProgress"></div>
-              </div>
-              <div class="progress-percentage">{{ loadingProgress }}%</div>
+        <div class="lab-capabilities">
+          <article class="capability-card">
+            <span class="capability-icon">3D</span>
+            <div>
+              <h3>Interactive model</h3>
+              <p>Rotate, inspect, and explore the avatar with smooth camera controls.</p>
             </div>
+          </article>
+
+          <article class="capability-card">
+            <span class="capability-icon">AI</span>
+            <div>
+              <h3>Portfolio-aware chat</h3>
+              <p>Ask about projects, architecture decisions, backend systems, or career highlights.</p>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <span class="capability-icon">VO</span>
+            <div>
+              <h3>Text-to-audio responses</h3>
+              <p>Toggle voice output on demand and listen to answers instead of reading them.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="lab-actions">
+          <button class="apple-btn apple-btn-primary" (click)="toggleChat()">
+            <i class="fas fa-robot"></i>
+            {{ isChatOpen ? 'Hide AI chat' : 'Open AI chat' }}
+          </button>
+
+          <div class="tts-status" [class.on]="ttsEnabled">
+            <span class="tts-dot"></span>
+            {{ ttsEnabled ? 'Voice enabled' : 'Voice muted' }}
           </div>
         </div>
-      }
+      </div>
 
-      <div class="controls-hint">
-        <span>🖱️ Drag to rotate</span>
-        <span>🔍 Scroll to zoom</span>
-        <button class="chat-button" (click)="toggleChat()" aria-label="Open or close chat">
-          {{ isChatOpen ? '💭 Close Chat' : '🤖 Chat with Me' }}
-        </button>
+      <div class="avatar-stage">
+        <div class="avatar-container">
+          <canvas #canvas class="avatar-canvas"></canvas>
+
+          @if (isLoading) {
+            <div class="loading-overlay" [@chatAnimation]>
+              <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">{{ loadingText }}</div>
+                <div class="loading-progress">
+                  <div class="progress-bar">
+                    <div class="progress-fill" [style.width.%]="loadingProgress"></div>
+                  </div>
+                  <div class="progress-percentage">{{ loadingProgress }}%</div>
+                </div>
+              </div>
+            </div>
+          }
+
+          <div class="controls-hint">
+            <span class="hint-chip">Drag to rotate</span>
+            <span class="hint-chip">Scroll to zoom</span>
+            <button class="chat-button" (click)="toggleChat()" aria-label="Open or close chat">
+              {{ isChatOpen ? 'Close chat' : 'Chat with the avatar' }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Chat Window -->
     @if (isChatOpen) {
       <div class="chat-window" [@chatAnimation] role="dialog" aria-label="Chat with AI assistant">
         <div class="chat-header">
-          <h3>💬 Chat with Me</h3>
+          <div>
+            <h3>AI chat</h3>
+            <p>Ask about backend systems, projects, open source, or Gen AI work.</p>
+          </div>
+
           <div class="header-controls">
-            <button class="tts-toggle-btn"
+            <button
+              class="tts-toggle-btn"
               (click)="toggleTTS()"
               aria-label="Toggle text-to-speech"
               [class.active]="ttsEnabled"
-              title="{{ ttsEnabled ? 'Disable' : 'Enable' }} Text-to-Speech">
+              title="{{ ttsEnabled ? 'Disable' : 'Enable' }} Text-to-Speech"
+            >
               {{ ttsEnabled ? '🔊' : '🔇' }}
             </button>
+
             @if (isReallySpeaking) {
-              <button class="stop-speech-btn"
-                (click)="stopSpeech()"
-                aria-label="Stop speech"
-                title="Stop Speech">
-                ⏹️
+              <button class="stop-speech-btn" (click)="stopSpeech()" aria-label="Stop speech" title="Stop speech">
+                ⏹
               </button>
             }
+
             <button class="close-btn" (click)="toggleChat()" aria-label="Close chat">✕</button>
           </div>
         </div>
+
         <div class="chat-messages" #chatMessages>
           @for (message of messages; track message) {
-            <div
-              [class.user-message]="message.isUser"
-              [class.ai-message]="!message.isUser"
-              class="message">
+            <div [class.user-message]="message.isUser" [class.ai-message]="!message.isUser" class="message">
               <div class="message-content">
                 <span class="message-text" [innerHTML]="message.text | markdown"></span>
                 <span class="message-time">{{ message.time }}</span>
               </div>
             </div>
           }
+
           @if (isReallyTyping) {
             <div class="typing-indicator">
               <span></span><span></span><span></span>
             </div>
           }
         </div>
+
         <div class="chat-input-container">
           <input
             type="text"
@@ -82,11 +132,15 @@
             placeholder="Ask me anything about my portfolio..."
             aria-label="Type your message"
             #messageInput
-            class="chat-input">
-          <button (click)="sendMessage()" aria-label="Send message"
+            class="chat-input"
+          >
+          <button
+            (click)="sendMessage()"
+            aria-label="Send message"
             [disabled]="isReallyTyping || !userInput.trim()"
-            class="send-btn">
-            {{ isReallyTyping ? '⏳' : '�' }}
+            class="send-btn"
+          >
+            {{ isReallyTyping ? '...' : '→' }}
           </button>
         </div>
       </div>

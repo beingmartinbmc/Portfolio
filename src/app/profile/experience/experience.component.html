@@ -1,99 +1,132 @@
 <div class="apple-section" id="experience">
   <div class="apple-container">
+
+    <!-- Header -->
     <div class="section-header" data-anim="fade-up">
-      <h2 class="section-title apple-text-display" data-text-reveal>Professional Experience</h2>
+      <div class="world-label">⚔ WORLD MAP</div>
+      <h2 class="section-title" data-text-reveal>Professional Experience</h2>
+      <p class="section-subtitle">
+        <span class="xp-total">{{ totalExperience }} YRS</span> of quests completed across {{ stops.length }} worlds
+      </p>
     </div>
 
-    <div class="orbital-container" data-anim="scale" data-duration="1000">
-      <div class="orbital-ring">
-        <!-- Orbit Path -->
-        <div class="orbit-path"></div>
+    <!-- ═══════ WORLD MAP TIMELINE ═══════ -->
+    <div class="world-map" data-anim="fade-up">
 
-        <!-- Center: Total Experience -->
-        <div class="orbit-center">
-          <span class="center-years">{{totalExperience}}</span>
-          <span class="center-label">years</span>
-        </div>
+      <!-- Scrollable track -->
+      <div class="map-track">
 
-        <!-- Orbiting Company Planets -->
-        @for (planet of planets; track planet; let i = $index) {
-          <button class="orbit-item"
-            [style.animation-delay]="getOrbitDelay(i)"
-            [class.active]="isPlanetActive(planet)"
+        <!-- Ground / brick path -->
+        <div class="ground-layer"></div>
+
+        <!-- Dotted trail connecting stops -->
+        <div class="trail-line"></div>
+
+        <!-- Stops -->
+        @for (stop of stops; track stop.id; let i = $index; let last = $last) {
+          <button
+            class="map-stop"
+            [class.active]="isStopActive(stop)"
+            [class.current]="stop.isCurrent"
+            [class.mario-here]="marioPosition === i"
             type="button"
-            [attr.aria-label]="getPlanetActionLabel(planet)"
-            [attr.aria-expanded]="planet.items.length > 1 ? planet.isExpanded : null"
-            [attr.aria-pressed]="isPlanetActive(planet)"
-            (click)="togglePlanet(planet)">
-            <span class="orbit-node">
-              <img [src]="planet.logo" [alt]="planet.company + ' logo'" loading="lazy" />
-            </span>
-            <span class="orbit-label">{{planet.company}}</span>
+            [attr.aria-label]="'View experience at ' + stop.company"
+            (click)="selectStop(stop, i)">
+
+            <!-- Flag pole -->
+            <div class="flag-pole">
+              <div class="flag-banner" [class.flag-current]="stop.isCurrent">
+                <span class="flag-year">{{ getStopPeriod(stop) }}</span>
+              </div>
+            </div>
+
+            <!-- Mario sprite (shows at active position) -->
+            @if (marioPosition === i) {
+              <div class="mario-sprite">
+                <div class="mario-pixel">
+                  <div class="mario-hat"></div>
+                  <div class="mario-face"></div>
+                  <div class="mario-body"></div>
+                </div>
+              </div>
+            }
+
+            <!-- Platform block with logo -->
+            <div class="stop-block">
+              <img [src]="stop.logo" [alt]="stop.company + ' logo'" class="stop-logo" loading="lazy" />
+            </div>
+
+            <!-- Company name -->
+            <span class="stop-name">{{ stop.company }}</span>
+
+            <!-- Coin indicator for multi-role -->
+            @if (stop.roles.length > 1) {
+              <span class="coin-count">🪙 {{ stop.roles.length }} roles</span>
+            }
           </button>
         }
+
+        <!-- Star at the end -->
+        <div class="end-star">⭐</div>
       </div>
+    </div>
 
-      <!-- Sub-orbit ring for multi-role companies -->
-      @for (planet of planets; track planet) {
-        @if (planet.items.length > 1 && planet.isExpanded) {
-          <div class="sub-orbital-ring">
-            <div class="sub-ring-path"></div>
-            <div class="sub-ring-center">
-              <img [src]="planet.logo" [alt]="planet.company" />
-              <span>{{planet.company}}</span>
-            </div>
-            @for (sub of planet.items; track sub; let j = $index) {
-              <button class="sub-ring-item"
-                [style.animation-delay]="getSubOrbitDelay(j, planet.items.length)"
-                [class.active]="selectedItem === sub"
-                type="button"
-                [attr.aria-label]="getSubItemActionLabel(sub)"
-                [attr.aria-pressed]="selectedItem === sub"
-                (click)="selectSubItem(sub)">
-                <span class="sub-ring-node">
-                  <span class="sub-ring-title">{{sub.title}}</span>
-                </span>
-                <span class="sub-ring-label">{{sub.period}}</span>
-              </button>
-            }
-          </div>
-        }
-      }
-
-      <!-- Detail Panel -->
-      @if (selectedItem) {
-        <div class="detail-panel">
-          <div class="detail-header">
-            <img [src]="selectedItem.logo" [alt]="selectedItem.company" class="detail-logo" />
-            <div class="detail-header-info">
-              <h3 class="detail-title">{{selectedItem.title}}</h3>
-              <div class="detail-meta">
-                <span class="detail-company">{{selectedItem.company}}</span>
-                <span class="detail-separator">&bull;</span>
-                <span class="detail-period">{{selectedItem.period}}</span>
-              </div>
-              <div class="detail-location">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>{{selectedItem.location}}</span>
-              </div>
+    <!-- ═══════ DETAIL PANEL ═══════ -->
+    @if (activeStop && activeRole) {
+      <div class="quest-log" data-anim="fade-up">
+        <div class="quest-log-header">
+          <div class="ql-title-row">
+            <img [src]="activeStop.logo" [alt]="activeStop.company" class="ql-logo" />
+            <div>
+              <div class="ql-company">{{ activeStop.company }}</div>
+              <div class="ql-period">{{ getStopPeriod(activeStop) }}</div>
             </div>
           </div>
-          <p class="detail-description">{{selectedItem.description}}</p>
-          <div class="detail-technologies">
-            @for (tech of selectedItem.technologies; track tech) {
-              <span class="tech-tag">{{tech}}</span>
-            }
+
+          <!-- Role tabs if multi-role -->
+          @if (activeStop.roles.length > 1) {
+            <div class="role-tabs">
+              @for (role of activeStop.roles; track role.id) {
+                <button
+                  class="role-tab"
+                  [class.active]="activeRole === role"
+                  (click)="selectRole(role)">
+                  {{ role.title }}
+                  <span class="role-tab-period">{{ role.period }}</span>
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="quest-log-body">
+          <div class="ql-role-banner">
+            <span class="ql-role-title">{{ activeRole.title }}</span>
+            <span class="ql-location">📍 {{ activeRole.location }}</span>
           </div>
-          <div class="detail-achievements">
-            <h6 class="achievements-title">Key Achievements</h6>
-            <ul>
-              @for (achievement of selectedItem.achievements; track achievement) {
-                <li>{{achievement}}</li>
+
+          <p class="ql-description">{{ activeRole.description }}</p>
+
+          <div class="ql-section">
+            <div class="ql-section-label">⚡ ABILITIES USED</div>
+            <div class="ql-tech-chips">
+              @for (tech of activeRole.technologies; track tech) {
+                <span class="ql-tech">{{ tech }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="ql-section">
+            <div class="ql-section-label">🏆 KEY ACHIEVEMENTS</div>
+            <ul class="ql-achievements">
+              @for (ach of activeRole.achievements; track ach) {
+                <li>{{ ach }}</li>
               }
             </ul>
           </div>
         </div>
-      }
-    </div>
+      </div>
+    }
+
   </div>
 </div>

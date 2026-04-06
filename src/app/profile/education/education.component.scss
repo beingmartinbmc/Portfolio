@@ -1,147 +1,205 @@
-/* Apple-Inspired Education Component Styles */
+:host { display: block; }
 
-.education-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-xl);
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.education-card {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--glass-shadow);
-  border: 1px solid var(--glass-border);
-  transition: all var(--transition-normal);
-  overflow: hidden;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  
-  &:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-    transform: translateY(-8px);
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-}
-
-.education-header {
-  background: var(--bg-tertiary);
-  padding: var(--spacing-lg);
-  text-align: center;
-  border-bottom: 1px solid var(--glass-border);
-  
-  .year {
-    font-size: 0.875rem;
-    color: var(--text-tertiary);
-    font-weight: 500;
-    margin-bottom: var(--spacing-xs);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  
-  .degree-type {
-    font-size: 1rem;
-    color: var(--text-primary);
-    font-weight: 600;
-    margin: 0;
-  }
-}
-
-.education-content {
-  padding: var(--spacing-lg);
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  
-  .degree-title {
-    font-family: var(--font-secondary);
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-sm);
-    line-height: 1.4;
-  }
-  
-  .institution {
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: var(--spacing-md);
-  }
-
-  .institution-highlight {
-    color: var(--primary-color, #667eea);
-  }
-  
-  .details {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0;
-    font-size: 0.875rem;
-    
-    b {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-  }
-}
-
-/* Modern Section Header */
-.section-header {
-  text-align: center;
-  margin-bottom: 4rem;
-  width: 100%;
-  overflow: visible;
+/* ── Section header ──────────────────────────────────── */
+.world-label {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--primary-color);
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);
 }
 
 .section-title {
-  font-size: 3.5rem;
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
   font-weight: 800;
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  line-height: 1.2;
+  padding-block: 0.1em;
+  background: linear-gradient(120deg, #fef3c7 0%, #fbbf24 35%, #f59e0b 60%, #ef4444 85%, #fde68a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
-  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  white-space: nowrap;
-  overflow: visible;
-  text-overflow: unset;
-  line-height: 1.2;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.5rem;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .education-grid {
+.section-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-tertiary);
+}
+
+/* ── Training grid ───────────────────────────────────── */
+.training-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+/* ── Level card ──────────────────────────────────────── */
+.level-card {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(19, 19, 46, 0.98) 0%, rgba(13, 13, 34, 0.98) 100%);
+  border: 2px solid rgba(251, 191, 36, 0.12);
+  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba(251, 191, 36, 0.35);
+    box-shadow: 0 8px 32px rgba(251, 191, 36, 0.10);
+  }
+
+  &--gold  { border-color: rgba(251, 191, 36, 0.25); }
+  &--silver { border-color: rgba(148, 163, 184, 0.20); }
+  &--bronze { border-color: rgba(180, 120, 60, 0.20); }
+}
+
+/* ── Flag / header strip ─────────────────────────────── */
+.level-flag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  background: rgba(251, 191, 36, 0.06);
+  border-bottom: 1px solid rgba(251, 191, 36, 0.10);
+}
+
+.level-number {
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  color: var(--primary-color);
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.30);
+}
+
+.level-status {
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  letter-spacing: 0.10em;
+  color: #22c55e;
+  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);
+}
+
+.level-card--gold .level-flag {
+  background: rgba(251, 191, 36, 0.08);
+}
+
+.level-card--silver .level-flag {
+  background: rgba(148, 163, 184, 0.05);
+}
+
+.level-card--silver .level-number {
+  color: #94a3b8;
+  text-shadow: 0 0 8px rgba(148, 163, 184, 0.25);
+}
+
+.level-card--bronze .level-flag {
+  background: rgba(180, 120, 60, 0.05);
+}
+
+.level-card--bronze .level-number {
+  color: #b4783c;
+  text-shadow: 0 0 8px rgba(180, 120, 60, 0.25);
+}
+
+/* ── Card body ───────────────────────────────────────── */
+.level-body {
+  padding: 1.1rem 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.level-year {
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.level-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.level-location {
+  font-size: 0.85rem;
+  color: #fde68a;
+}
+
+.level-rewards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.reward-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(251, 191, 36, 0.18);
+  background: rgba(251, 191, 36, 0.06);
+  font-family: var(--font-pixel);
+  font-size: 0.42rem;
+  letter-spacing: 0.04em;
+  color: var(--primary-color);
+}
+
+/* ── XP bar ──────────────────────────────────────────── */
+.level-xp {
+  padding: 0.6rem 1rem 0.8rem;
+  border-top: 1px solid rgba(251, 191, 36, 0.08);
+  display: grid;
+  gap: 0.35rem;
+}
+
+.xp-label {
+  font-family: var(--font-pixel);
+  font-size: 0.38rem;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.xp-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.xp-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  box-shadow: 0 0 6px rgba(251, 191, 36, 0.4);
+  transition: width 0.8s ease;
+}
+
+.level-card--silver .xp-fill {
+  background: linear-gradient(90deg, #94a3b8, #cbd5e1);
+  box-shadow: 0 0 6px rgba(148, 163, 184, 0.35);
+}
+
+.level-card--bronze .xp-fill {
+  background: linear-gradient(90deg, #b4783c, #d4a574);
+  box-shadow: 0 0 6px rgba(180, 120, 60, 0.35);
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 900px) {
+  .training-grid {
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
+    max-width: 28rem;
+    margin-inline: auto;
   }
-  
-  .education-card {
-    height: auto;
-  }
-  
-  .education-header {
-    padding: var(--spacing-md);
-  }
-  
-  .education-content {
-    padding: var(--spacing-md);
-  }
-  
-  .education-section .section-title {
-    font-size: 2rem;
-  }
-}
-
-/* Animation for education cards */
-.education-card {
-  animation: fadeInUp 0.6s ease-out;
-  
-  &:nth-child(1) { animation-delay: 0.1s; }
-  &:nth-child(2) { animation-delay: 0.2s; }
-  &:nth-child(3) { animation-delay: 0.3s; }
 }

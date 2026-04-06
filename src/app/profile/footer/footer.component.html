@@ -1,19 +1,20 @@
 <footer class="footer-section">
-  <div class="footer-container">
-    <div class="footer-content" data-anim="fade-up" data-duration="1000">
-      <div class="footer-text">
-        <p>&copy; 2025 Ankit. Made with passion and creativity. Powered by Love and AI.</p>
-        
-        <!-- Portfolio Analytics -->
-        <div class="portfolio-analytics">
-          <div class="analytics-item">
-            <a [href]="analyticsLinks.flagCounterPage" target="_blank" class="analytics-link">
-              <span class="analytics-icon">📊</span>
-              <span class="analytics-text">View Analytics</span>
-            </a>
-          </div>
-        </div>
-      </div>
+  <div class="footer-ground">
+    <div class="ground-grass"></div>
+    <div class="ground-brick"></div>
+  </div>
+
+  <div class="footer-bar">
+    <div class="footer-left">
+      <img src="assets/images/mario-sprite.png" alt="Mario" class="footer-mario" />
+      <span class="footer-text">
+        Made by <strong>Ankit</strong> with ❤️ · {{ currentYear }} · <span class="game-tag">GAME NEVER OVER</span>
+      </span>
     </div>
+
+    <a [href]="analyticsLinks.flagCounterPage" target="_blank" rel="noopener" class="analytics-pill">
+      <span class="pill-dot"></span>
+      <span>Analytics</span>
+    </a>
   </div>
 </footer>

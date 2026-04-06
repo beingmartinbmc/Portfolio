@@ -3,11 +3,10 @@ import { Component, ElementRef, HostListener, AfterViewInit, ViewChild, OnDestro
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, style, transition, animate } from '@angular/animations';
 import { AI_CONTEXT } from './ai-context';
 import { MarkdownPipe } from './markdown.pipe';
-import { MusicService } from '../services/music.service';
-import { Subscription, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 interface Message {
   text: string;
@@ -45,13 +44,11 @@ export class AiFaceComponent implements AfterViewInit, OnDestroy {
   isTalking = false;
   hasNewMessage = false;
   mouthPath = 'M55 105 Q80 115 105 105'; // Default smile
-  isWhistling = false;
-  private musicSubscription?: Subscription;
   
   private blinkIntervalId: ReturnType<typeof setInterval> | null = null;
   private readonly CONTEXT = AI_CONTEXT;
 
-  constructor(private http: HttpClient, private musicService: MusicService) {
+  constructor(private http: HttpClient) {
     // Welcome message
     this.addMessage('Hi! 👋 I\'m Nova, your AI assistant. Ask me anything!', false);
   }
@@ -59,24 +56,12 @@ export class AiFaceComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.startIdleAnimation();
     
-    // Subscribe to music playing state
-    this.musicSubscription = this.musicService.musicPlaying$.subscribe(isPlaying => {
-      this.isWhistling = isPlaying;
-      if (isPlaying) {
-        this.startWhistlingAnimation();
-      } else {
-        this.stopWhistlingAnimation();
-      }
-    });
   }
 
   ngOnDestroy() {
     if (this.blinkIntervalId) {
       clearInterval(this.blinkIntervalId);
       this.blinkIntervalId = null;
-    }
-    if (this.musicSubscription) {
-      this.musicSubscription.unsubscribe();
     }
   }
 
@@ -184,7 +169,7 @@ export class AiFaceComponent implements AfterViewInit, OnDestroy {
   private startIdleAnimation() {
     // Blink animation
     this.blinkIntervalId = setInterval(() => {
-      if (!this.isTyping && !this.isTalking && !this.isWhistling) {
+      if (!this.isTyping && !this.isTalking) {
         const leftEye = document.querySelector('#left-eye-container');
         const rightEye = document.querySelector('#right-eye-container');
         
@@ -201,25 +186,9 @@ export class AiFaceComponent implements AfterViewInit, OnDestroy {
     }, 4000);
   }
 
-  private whistleInterval: any;
-  
-  private startWhistlingAnimation() {
-    // Keep mouth in a small O shape while whistling
-    this.mouthPath = 'M72 108 Q80 103 88 108';
-  }
-
-  private stopWhistlingAnimation() {
-    if (this.whistleInterval) {
-      clearInterval(this.whistleInterval);
-      this.whistleInterval = null;
-    }
-    // Return to normal smile
-    this.mouthPath = 'M55 105 Q80 115 105 105';
-  }
-
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
-    if (this.isTyping || this.isTalking || this.isWhistling) return;
+    if (this.isTyping || this.isTalking) return;
     
     const svg = document.querySelector('.ai-face-container svg');
     if (!svg) return;

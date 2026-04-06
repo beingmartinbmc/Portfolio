@@ -143,11 +143,8 @@ export class PublicationsComponent implements OnInit {
   ];
 
   availableCategories: string[] = [];
-  selectedCategory: string = 'All';
+  selectedCategory = 'All';
   filteredProjects: OpenSourceProject[] = [];
-
-  constructor() {
-  }
 
   ngOnInit(): void {
     this.availableCategories = ['All', ...Array.from(new Set(this.openSourceProjects.map(p => p.category)))];
