@@ -91,28 +91,25 @@ export class AiQuizGameComponent implements OnDestroy {
     const canvas = this.canvasRef.nativeElement;
     const container = canvas.parentElement!;
 
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const cssW = container.clientWidth;
-      const cssH = Math.round(Math.min(cssW * 0.5625, 480));
-      canvas.width = Math.round(cssW * dpr);
-      canvas.height = Math.round(cssH * dpr);
-      canvas.style.width = cssW + 'px';
-      canvas.style.height = cssH + 'px';
-      const ctx = canvas.getContext('2d');
-      if (ctx) ctx.scale(dpr, dpr);
-      this.engine?.resize(cssW, cssH);
-    };
-
-    resize();
-    this.resizeObserver = new ResizeObserver(resize);
-    this.resizeObserver.observe(container);
-
     this.engine = new MarioEngine(canvas, {
       onDeath: () => this.zone.run(() => this.handleDeath()),
       onWin: () => this.zone.run(() => this.handleWin()),
       onScoreChange: (s, c, l) => this.zone.run(() => { this.score = s; this.coins = c; this.lives = l; }),
     });
+
+    const resize = () => {
+      const w = container.clientWidth;
+      const h = Math.round(Math.min(w * 0.5625, 480));
+      canvas.width = w;
+      canvas.height = h;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      this.engine?.resize(w, h);
+    };
+
+    resize();
+    this.resizeObserver = new ResizeObserver(resize);
+    this.resizeObserver.observe(container);
 
     this.engine.loadLevel(level);
     setTimeout(() => this.engine?.start(), 200);

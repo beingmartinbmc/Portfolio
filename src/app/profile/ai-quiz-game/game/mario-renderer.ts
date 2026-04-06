@@ -52,6 +52,8 @@ export class MarioRenderer {
   }
 
   resize(w: number, h: number): void {
+    this.canvas.width = w;
+    this.canvas.height = h;
     this.canvasW = w;
     this.canvasH = h;
     this.ctx.imageSmoothingEnabled = false;

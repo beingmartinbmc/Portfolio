@@ -40707,6 +40707,8 @@ var MarioRenderer = class {
     this.categoryKey = cat;
   }
   resize(w, h) {
+    this.canvas.width = w;
+    this.canvas.height = h;
     this.canvasW = w;
     this.canvasH = h;
     this.ctx.imageSmoothingEnabled = false;
@@ -42396,22 +42398,6 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
   initGame(level) {
     const canvas = this.canvasRef.nativeElement;
     const container = canvas.parentElement;
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const cssW = container.clientWidth;
-      const cssH = Math.round(Math.min(cssW * 0.5625, 480));
-      canvas.width = Math.round(cssW * dpr);
-      canvas.height = Math.round(cssH * dpr);
-      canvas.style.width = cssW + "px";
-      canvas.style.height = cssH + "px";
-      const ctx2 = canvas.getContext("2d");
-      if (ctx2)
-        ctx2.scale(dpr, dpr);
-      this.engine?.resize(cssW, cssH);
-    };
-    resize();
-    this.resizeObserver = new ResizeObserver(resize);
-    this.resizeObserver.observe(container);
     this.engine = new MarioEngine(canvas, {
       onDeath: () => this.zone.run(() => this.handleDeath()),
       onWin: () => this.zone.run(() => this.handleWin()),
@@ -42421,6 +42407,18 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
         this.lives = l;
       })
     });
+    const resize = () => {
+      const w = container.clientWidth;
+      const h = Math.round(Math.min(w * 0.5625, 480));
+      canvas.width = w;
+      canvas.height = h;
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+      this.engine?.resize(w, h);
+    };
+    resize();
+    this.resizeObserver = new ResizeObserver(resize);
+    this.resizeObserver.observe(container);
     this.engine.loadLevel(level);
     setTimeout(() => this.engine?.start(), 200);
   }
