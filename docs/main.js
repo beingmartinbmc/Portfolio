@@ -41222,6 +41222,9 @@ function updatePhysics(player, level, keys) {
     const pen = penetration(player.box, p.box);
     if (!pen)
       continue;
+    const isHittableBlock = p instanceof QuestionBlock && !p.hit || p.type === "brick" && !p.destroyed && p.w <= TILE * 4;
+    if (isHittableBlock && player.vy < 0)
+      continue;
     if (pen.py > 6) {
       if (player.vx > 0)
         player.x = p.x - player.w;

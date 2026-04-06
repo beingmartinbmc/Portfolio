@@ -100,6 +100,12 @@ export function updatePhysics(
   for (const p of allPlatforms) {
     const pen = penetration(player.box, p.box);
     if (!pen) continue;
+
+    // When rising, skip X pushback for hittable blocks so headbutts register
+    const isHittableBlock = (p instanceof QuestionBlock && !p.hit) ||
+      (p.type === 'brick' && !p.destroyed && p.w <= TILE * 4);
+    if (isHittableBlock && player.vy < 0) continue;
+
     if (pen.py > 6) {
       if (player.vx > 0) player.x = p.x - player.w;
       else if (player.vx < 0) player.x = p.x + p.w;
