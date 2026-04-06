@@ -7,12 +7,21 @@ export function aabbOverlap(a: AABB, b: AABB): boolean {
   return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 }
 
+function penetration(a: AABB, b: AABB): { px: number; py: number } | null {
+  const ox = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+  const oy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
+  if (ox <= 0 || oy <= 0) return null;
+  return { px: ox, py: oy };
+}
+
 export interface CollisionResult {
   hitQuestionBlock: QuestionBlock | null;
   hitEnemy: Enemy | null;
   stompedEnemy: Enemy | null;
   reachedFlag: boolean;
   died: boolean;
+  jumped: boolean;
+  coinCollected: boolean;
 }
 
 export function updatePhysics(
@@ -26,6 +35,8 @@ export function updatePhysics(
     stompedEnemy: null,
     reachedFlag: false,
     died: false,
+    jumped: false,
+    coinCollected: false,
   };
 
   // Horizontal movement
@@ -44,20 +55,27 @@ export function updatePhysics(
   if (keys.jump && player.onGround) {
     player.vy = JUMP_FORCE;
     player.onGround = false;
+    result.jumped = true;
   }
 
   // Gravity
   player.vy += GRAVITY;
   if (player.vy > MAX_FALL) player.vy = MAX_FALL;
 
-  // Move X and resolve
+  const allPlatforms: Platform[] = [...level.platforms, ...level.questionBlocks];
+
+  // --- Move X, resolve X ---
   player.x += player.vx;
   if (player.x < 0) player.x = 0;
   if (player.x + player.w > level.width) player.x = level.width - player.w;
 
-  const allPlatforms: Platform[] = [...level.platforms, ...level.questionBlocks];
   for (const p of allPlatforms) {
-    if (aabbOverlap(player.box, p.box)) {
+    const pen = penetration(player.box, p.box);
+    if (!pen) continue;
+
+    // Only resolve as X collision if the vertical overlap is large enough
+    // (i.e. player is genuinely hitting the side, not grazing the top edge)
+    if (pen.py > 6) {
       if (player.vx > 0) {
         player.x = p.x - player.w;
       } else if (player.vx < 0) {
@@ -67,26 +85,27 @@ export function updatePhysics(
     }
   }
 
-  // Move Y and resolve
+  // --- Move Y, resolve Y ---
   player.y += player.vy;
   player.onGround = false;
 
   for (const p of allPlatforms) {
-    if (aabbOverlap(player.box, p.box)) {
-      if (player.vy > 0) {
-        // Landing on top
-        player.y = p.y - player.h;
-        player.vy = 0;
-        player.onGround = true;
-      } else if (player.vy < 0) {
-        // Hit from below
-        player.y = p.y + p.h;
-        player.vy = 0;
+    const pen = penetration(player.box, p.box);
+    if (!pen) continue;
 
-        if (p instanceof QuestionBlock && !p.hit) {
-          p.hit = true;
-          result.hitQuestionBlock = p;
-        }
+    if (player.vy > 0) {
+      // Falling — land on top
+      player.y = p.y - player.h;
+      player.vy = 0;
+      player.onGround = true;
+    } else if (player.vy < 0) {
+      // Rising — hit from below
+      player.y = p.y + p.h;
+      player.vy = 0;
+
+      if (p instanceof QuestionBlock && !p.hit) {
+        p.hit = true;
+        result.hitQuestionBlock = p;
       }
     }
   }
@@ -97,7 +116,7 @@ export function updatePhysics(
     return result;
   }
 
-  // Invincibility timer
+  // Invincibility / star timers
   if (player.invincibleTimer > 0) player.invincibleTimer--;
   if (player.starTimer > 0) player.starTimer--;
 
@@ -108,6 +127,7 @@ export function updatePhysics(
       coin.animTimer = 20;
       player.coins++;
       player.score += 10;
+      result.coinCollected = true;
     }
   }
 
@@ -125,11 +145,9 @@ export function updatePhysics(
     }
 
     const playerBottom = player.y + player.h;
-    const enemyTop = enemy.y;
     const falling = player.vy > 0;
 
     if (falling && playerBottom - enemy.y < enemy.h * 0.4) {
-      // Stomp
       enemy.alive = false;
       enemy.squashTimer = 15;
       player.vy = JUMP_FORCE * 0.6;
@@ -149,19 +167,18 @@ export function updatePhysics(
 
     enemy.x += enemy.vx;
 
-    let onPlatform = false;
+    let hitWall = false;
     for (const p of allPlatforms) {
       if (aabbOverlap(enemy.box, p.box)) {
         if (enemy.vx > 0) enemy.x = p.x - enemy.w;
         else enemy.x = p.x + p.w;
         enemy.vx *= -1;
-        onPlatform = true;
+        hitWall = true;
         break;
       }
     }
 
-    // Simple gravity for enemies: stay on ground
-    if (!onPlatform) {
+    if (!hitWall) {
       let landed = false;
       for (const p of allPlatforms) {
         const feetBox: AABB = { x: enemy.x, y: enemy.y + enemy.h, w: enemy.w, h: 2 };

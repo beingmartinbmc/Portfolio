@@ -117,48 +117,64 @@ export function generateProceduralLevel(config: LevelConfig): Level {
     platforms.push(new Platform(groundStart * TILE, gY, (LEVEL_TILES_WIDE - groundStart) * TILE, 2 * TILE, 'ground'));
   }
 
-  // Floating brick platforms
+  // Pipes — placed first so we can avoid overlapping them
+  const pipeCount = config.difficulty === 'Hard' ? 3 : 2;
+  const pipePositions: number[] = [];
+  const pipeSpacing = Math.floor((LEVEL_TILES_WIDE - 24) / (pipeCount + 1));
+  for (let i = 0; i < pipeCount; i++) {
+    const px = 12 + pipeSpacing * (i + 1);
+    const ph = 2 * TILE; // always 2 tiles — comfortably jumpable
+    platforms.push(new Platform(px * TILE, gY - ph, TILE * 2, ph, 'pipe'));
+    pipePositions.push(px);
+  }
+
+  const isNearPipe = (tx: number): boolean =>
+    pipePositions.some(px => tx >= px - 2 && tx <= px + 3);
+
+  // Floating brick platforms — avoid pipe columns
   const brickCount = config.difficulty === 'Hard' ? 8 : config.difficulty === 'Medium' ? 6 : 4;
   for (let i = 0; i < brickCount; i++) {
-    const bx = 8 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 16));
-    const by = 6 + Math.floor(Math.random() * 4);
-    const bw = 2 + Math.floor(Math.random() * 4);
+    let bx: number;
+    let attempts = 0;
+    do { bx = 8 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 16)); attempts++; }
+    while (isNearPipe(bx) && attempts < 20);
+    const by = 7 + Math.floor(Math.random() * 3); // rows 7-9 (reachable)
+    const bw = 2 + Math.floor(Math.random() * 3);
     platforms.push(new Platform(bx * TILE, by * TILE, bw * TILE, TILE, 'brick'));
   }
 
-  // Question blocks with power-up rewards
+  // Question blocks — avoid pipe columns, keep at reachable rows
   const qCount = config.difficulty === 'Hard' ? 5 : config.difficulty === 'Medium' ? 7 : 9;
   const spacing = Math.floor((LEVEL_TILES_WIDE - 12) / (qCount + 1));
   const rewards = assignRewards(qCount);
   for (let i = 0; i < qCount; i++) {
-    const qx = 6 + spacing * (i + 1) + Math.floor(Math.random() * 3 - 1);
-    const qy = 7 + Math.floor(Math.random() * 2);
+    let qx = 6 + spacing * (i + 1) + Math.floor(Math.random() * 3 - 1);
+    if (isNearPipe(qx)) qx += 4;
+    const qy = 8 + Math.floor(Math.random() * 2); // rows 8-9 (easily hittable)
     questionBlocks.push(new QuestionBlock(qx * TILE, qy * TILE, rewards[i]));
   }
 
-  // Enemies
+  // Enemies — avoid pipe columns and start area
   const enemyCount = config.difficulty === 'Hard' ? 10 : config.difficulty === 'Medium' ? 7 : 4;
   for (let i = 0; i < enemyCount; i++) {
-    const ex = 10 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 20));
+    let ex: number;
+    let attempts = 0;
+    do { ex = 10 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 20)); attempts++; }
+    while (isNearPipe(ex) && attempts < 20);
     const ey = GROUND_ROW - 1;
     const type = Math.random() < 0.3 ? 'koopa' : 'goomba';
     enemies.push(new Enemy(ex * TILE, ey * TILE, type as any));
   }
 
-  // Coins
+  // Coins — avoid pipe columns
   const coinCount = config.difficulty === 'Hard' ? 20 : config.difficulty === 'Medium' ? 15 : 10;
   for (let i = 0; i < coinCount; i++) {
-    const cx = 5 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 10));
-    const cy = 4 + Math.floor(Math.random() * 7);
+    let cx: number;
+    let attempts = 0;
+    do { cx = 5 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 10)); attempts++; }
+    while (isNearPipe(cx) && attempts < 15);
+    const cy = 5 + Math.floor(Math.random() * 6);
     coins.push(new Coin(cx * TILE + TILE * 0.25, cy * TILE + TILE * 0.25));
-  }
-
-  // Pipes
-  const pipeCount = config.difficulty === 'Hard' ? 4 : 2;
-  for (let i = 0; i < pipeCount; i++) {
-    const px = 15 + Math.floor(i * (LEVEL_TILES_WIDE - 20) / (pipeCount + 1));
-    const ph = (2 + Math.floor(Math.random() * 2)) * TILE;
-    platforms.push(new Platform(px * TILE, gY - ph, TILE * 2, ph, 'pipe'));
   }
 
   const flagPole = new FlagPole((LEVEL_TILES_WIDE - 4) * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
