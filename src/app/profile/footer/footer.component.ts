@@ -11,6 +11,7 @@ import { ANALYTICS_LINKS } from '../../config/profile-links';
 })
 export class FooterComponent implements OnInit {
   readonly analyticsLinks = ANALYTICS_LINKS;
+  readonly currentYear = new Date().getFullYear();
 
   ngOnInit(): void {
     this.incrementFlagCounter();

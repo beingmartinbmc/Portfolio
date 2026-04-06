@@ -1,68 +1,38 @@
-<header class="apple-header" [class.scrolled]="isScrolled" role="banner">
-  <nav class="apple-nav" aria-label="Main navigation">
-    <div class="apple-container">
-      <div class="nav-content">
-        <!-- Logo -->
-        <div class="nav-logo">
-          <a href="#" class="logo-link">
-            <span class="logo-text">Ankit Sharma</span>
-          </a>
-        </div>
-        
-        <!-- Navigation Links -->
-        <div class="nav-links" [class.active]="isMenuOpen">
-          <a href="#about" class="nav-link smooth-scroll" (click)="onNavLinkClick()">
-            <span class="link-text">About</span>
-          </a>
-          <a href="#experience" class="nav-link smooth-scroll" (click)="onNavLinkClick()">
-            <span class="link-text">Experience</span>
-          </a>
-          <a href="#publications" class="nav-link smooth-scroll" (click)="onNavLinkClick()">
-            <span class="link-text">Projects</span>
-          </a>
-          <a href="#blogs" class="nav-link smooth-scroll" (click)="onNavLinkClick()">
-            <span class="link-text">Blogs</span>
-          </a>
-          <a href="#open-source" class="nav-link smooth-scroll" (click)="onNavLinkClick()">
-            <span class="link-text">Open Source</span>
-          </a>
-          <a href="#skill" class="nav-link smooth-scroll" (click)="onNavLinkClick()">
-            <span class="link-text">Skills</span>
-          </a>
-                    <a href="#ai-quiz-game" class="nav-link smooth-scroll" (click)="onNavLinkClick()">
-            <span class="link-text">AI Quiz</span>
-          </a>
-          <a href="#education" class="nav-link smooth-scroll" (click)="onNavLinkClick()">
-            <span class="link-text">Education</span>
-          </a>
-          <a href="#contact" class="nav-link smooth-scroll" (click)="onNavLinkClick()">
-            <span class="link-text">Contact</span>
-          </a>
-        </div>
-        
-        <!-- Music Controls -->
-        <div class="music-controls">
-          <!-- Music Toggle -->
-          <button class="music-toggle" (click)="toggleMusic()" [class.playing]="isPlaying"
-            [attr.aria-pressed]="isPlaying" aria-label="Toggle background music">
-            <span class="music-emoji">🎵</span>
-          </button>
-          
-          <!-- Audio Visualizer -->
-          <div class="audio-visualizer" [class.active]="isPlaying">
-            <canvas #audioCanvas class="visualizer-canvas" width="120" height="40"></canvas>
-          </div>
-        </div>
-        
-        <!-- Mobile Menu Button -->
-        <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen"
-          [attr.aria-expanded]="isMenuOpen" aria-label="Toggle navigation menu">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-        </button>
-      </div>
+<header class="site-header" [class.scrolled]="isScrolled" role="banner">
+  <nav class="site-nav apple-container" aria-label="Main navigation">
+    <a href="#" class="brand" (click)="onNavLinkClick()">
+      <span class="brand-mark">&lbrace;&rbrace;</span>
+      <span class="brand-copy">
+        <span class="brand-name">Ankit Sharma</span>
+        <span class="brand-role">Staff Software Engineer • Backend + Gen AI</span>
+      </span>
+    </a>
+
+    <div class="nav-links" [class.active]="isMenuOpen">
+      <a href="#about" class="nav-link" (click)="onNavLinkClick()">About</a>
+      <a href="#avatar-3d" class="nav-link" (click)="onNavLinkClick()">AI Twin</a>
+      <a href="#skill" class="nav-link" (click)="onNavLinkClick()">Skills</a>
+      <a href="#experience" class="nav-link" (click)="onNavLinkClick()">Experience</a>
+      <a href="#publications" class="nav-link" (click)="onNavLinkClick()">Projects</a>
+      <a href="#blogs" class="nav-link" (click)="onNavLinkClick()">Writing</a>
+      <a href="#ai-quiz-game" class="nav-link" (click)="onNavLinkClick()">Mario Lab</a>
+      <a href="#contact" class="nav-link" (click)="onNavLinkClick()">Contact</a>
     </div>
+
+    <div class="nav-actions">
+      <div class="status-pill">&#x2605; Available for Staff Roles</div>
+    </div>
+
+    <button
+      class="mobile-menu-btn"
+      (click)="toggleMenu()"
+      [class.active]="isMenuOpen"
+      [attr.aria-expanded]="isMenuOpen"
+      aria-label="Toggle navigation menu"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
   </nav>
 </header>
-

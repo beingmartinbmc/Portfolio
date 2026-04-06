@@ -1,36 +1,92 @@
-<div class="apple-section" id="about">
+<section class="apple-section about-section" id="about">
   <div class="apple-container">
-    <div class="about-content">
-      <!-- Section Header -->
-      <div class="section-header" data-anim="fade-up">
-        <h2 class="section-title apple-text-display" data-text-reveal>About Me</h2>
-        <p class="section-subtitle apple-text-body" data-anim="fade-up" data-delay="200">Backend engineer who builds systems that scale</p>
-      </div>
-      
-      <div class="about-grid">
-        <!-- About Text -->
-        <div class="about-text apple-card" data-anim="blur" data-delay="100">
-          <div class="card-content">
-            <div class="about-description" data-stagger="120">
-              <p class="apple-text-body">
-                I'm a <strong>backend engineer with 6+ years of experience</strong> building high-throughput, distributed systems.
-                Currently <strong>SMTS at Salesforce</strong>. Previously at <strong>Games24x7</strong>, where I built systems that handled
-                <strong>2.7K RPS during IPL</strong> and processed <strong>200K+ KYC verifications daily</strong>.
-              </p>
-              <p class="apple-text-body">
-                I specialize in <strong>event-driven architectures</strong> (Kafka, RabbitMQ), <strong>real-time fraud detection</strong> with ML pipelines,
-                and <strong>platform infrastructure</strong> that other teams build on. I've also published <strong>8 open-source packages</strong> on NPM and Maven Central
-                — developer tools for observability, tracing, and event loop diagnostics.
-              </p>
-              <p class="apple-text-body">
-                Outside engineering, I've solo-traveled <strong>7 countries</strong> — the same instinct for navigating unfamiliar territory applies to
-                how I approach complex technical problems: figure out the constraints, move fast, adapt.
-              </p>
+    <div class="section-header">
+      <div class="world-label">🗡 CHARACTER BIO</div>
+      <h2 class="section-title">Staff-minded engineering across reliability, scale, and AI.</h2>
+      <p class="section-subtitle">
+        I enjoy ambiguous problems, high-traffic systems, and product bets that need strong backend fundamentals as much as
+        thoughtful AI integration.
+      </p>
+    </div>
+
+    <div class="about-grid">
+
+      <!-- Main bio panel -->
+      <div class="bio-panel">
+        <div class="panel-flag">
+          <span class="flag-label">📋 BACKSTORY</span>
+        </div>
+        <div class="panel-body">
+          <h3 class="panel-title">Systems first, with product judgment.</h3>
+          <p class="panel-text">
+            I've spent the last 6+ years building backend systems where latency, correctness, throughput, and operational
+            visibility all matter at the same time. That includes event-driven workflows, fraud systems, KYC automation,
+            predictive autoscaling, and platform infrastructure used by other teams.
+          </p>
+          <p class="panel-text">
+            Today I'm an SMTS at Salesforce. Earlier at Games24x7, I worked on systems that handled
+            <strong class="stat-highlight">2.7K RPS during IPL</strong>,
+            processed <strong class="stat-highlight">200K+ verifications a day</strong>, and supported
+            <strong class="stat-highlight">10M concurrent users</strong> with zero-downtime thinking.
+          </p>
+          <p class="panel-text">
+            I'm increasingly interested in the overlap between backend engineering and Gen AI: voice interfaces, AI assistants,
+            retrieval and prompt workflows, and the production concerns around latency, failure modes, and evaluation.
+          </p>
+
+          <!-- Inline stat chips -->
+          <div class="bio-stats">
+            <div class="bio-stat">
+              <span class="bs-icon">⚡</span>
+              <span class="bs-val">2.7K</span>
+              <span class="bs-key">RPS Peak</span>
+            </div>
+            <div class="bio-stat">
+              <span class="bs-icon">🔍</span>
+              <span class="bs-val">200K+</span>
+              <span class="bs-key">Verif/day</span>
+            </div>
+            <div class="bio-stat">
+              <span class="bs-icon">👥</span>
+              <span class="bs-val">10M</span>
+              <span class="bs-key">Concurrent</span>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Side panels -->
+      <div class="about-stack">
+
+        <!-- Impact panel -->
+        <div class="quest-panel">
+          <div class="panel-flag">
+            <span class="flag-label">🏆 IMPACT LOG</span>
+          </div>
+          <div class="panel-body">
+            <ul class="achievement-list">
+              <li>Built distributed systems for trust, risk, onboarding, and real-time decisioning.</li>
+              <li>Published open-source packages for tracing, diagnostics, and developer tooling.</li>
+              <li>Worked across architecture, implementation, debugging, and cross-team delivery.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Operating style panel -->
+        <div class="quest-panel">
+          <div class="panel-flag">
+            <span class="flag-label">⚙ PLAY STYLE</span>
+          </div>
+          <div class="panel-body">
+            <ul class="achievement-list">
+              <li>Start with constraints, then design for reliability and leverage.</li>
+              <li>Prefer boring infrastructure choices when they keep systems understandable.</li>
+              <li>Use AI where it improves product capability, not where it only adds novelty.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-</div>
-
+</section>

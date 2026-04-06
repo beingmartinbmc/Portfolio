@@ -1,31 +1,29 @@
-<div class="apple-section" id="contact">
+<section class="apple-section" id="contact">
   <div class="apple-container">
-    <div class="section-header" data-anim="fade-up">
-      <div class="greeting-character">
+    <div class="section-header">
+      <span class="section-kicker">Start a conversation</span>
+      <h2 class="section-title">Building backend platforms or practical AI products?</h2>
+      <p class="section-subtitle">
+        I’m interested in staff and lead opportunities where system design, platform thinking, and product-minded execution all matter.
+      </p>
+    </div>
+
+    <!-- Mario greeter -->
+    <div class="mario-greeter" [class.mario-greeter--jumping]="marioJumping">
+      <div class="mario-scene">
         <div class="speech-bubble">
-          <span class="speech-text">Hi!</span>
-          <span class="speech-contact">Contact Me</span>
-          <span class="speech-arrow">↓</span>
+          <span>{{ marioJumping ? 'Yahoo! Message sent!' : "It's-a me! Let's-a talk!" }}</span>
         </div>
-        <div class="character">
-          <div class="character-head">
-            <div class="character-eye left-eye"></div>
-            <div class="character-eye right-eye"></div>
-            <div class="character-mouth"></div>
-          </div>
-          <div class="character-body">
-            <div class="character-arm left-arm pointing"></div>
-            <div class="character-arm right-arm waving"></div>
-          </div>
-        </div>
+        <img class="mario-sprite" src="assets/images/mario-sprite.png" alt="Mario" />
+        <div class="mario-cloud cloud-1"></div>
+        <div class="mario-cloud cloud-2"></div>
+        <div class="mario-ground"></div>
       </div>
-      <h2 class="section-title apple-text-display" data-text-reveal>Contact Me</h2>
     </div>
 
     <div class="contact-container">
-      <!-- Contact Info Cards -->
-      <div class="contact-info-section" data-anim="fade-right">
-        <div class="info-cards" data-stagger="100">
+      <div class="contact-info-section">
+        <div class="info-cards">
           <div class="info-card">
             <div class="info-icon">📧</div>
             <div class="info-content">
@@ -43,107 +41,115 @@
           </div>
 
           <div class="info-card">
-            <div class="info-icon">💼</div>
+            <div class="info-icon">🧠</div>
             <div class="info-content">
-              <h4>Available for</h4>
-              <p>Full-time opportunities</p>
+              <h4>Best fit</h4>
+              <p>Staff backend, platform, and Gen AI product engineering roles</p>
             </div>
           </div>
 
           <div class="info-card">
-            <div class="info-icon">⏱️</div>
+            <div class="info-icon">⚡</div>
             <div class="info-content">
               <h4>Response time</h4>
-              <p>Within 24 hours</p>
+              <p>Usually within 24 hours</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Contact Form -->
-      <div class="contact-form-section" data-anim="fade-left" data-delay="200">
+      <div class="contact-form-section">
         <div class="form-card">
           <div class="form-header">
-            <h3>Send me a message</h3>
-            <p>I'm always open to discussing new opportunities and interesting projects!</p>
+            <h3>Tell me what you’re building</h3>
+            <p>
+              Share the role, the product, or the problem space. If it involves scale, systems, or useful AI, I’m interested.
+            </p>
           </div>
 
           <form #contactForm="ngForm" (ngSubmit)="onSubmit(model.name, model.subject, model.email, model.message)" name="form" novalidate>
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Name</label>
-                <input #name="ngModel" [(ngModel)]="model.name"
+                <input
+                  #name="ngModel"
+                  [(ngModel)]="model.name"
                   [ngClass]="{ 'is-invalid': contactForm.submitted && name.invalid }"
                   class="form-input"
                   id="name"
                   name="name"
                   placeholder="Your full name"
-                  required type="text"/>
+                  required
+                  type="text"
+                />
                 @if (contactForm.submitted && name.invalid) {
-                  <div class="error-message">
-                    Please enter your name
-                  </div>
+                  <div class="error-message">Please enter your name</div>
                 }
               </div>
 
               <div class="form-group">
                 <label for="email">Email</label>
-                <input #email="ngModel" [(ngModel)]="model.email"
+                <input
+                  #email="ngModel"
+                  [(ngModel)]="model.email"
                   [ngClass]="{ 'is-invalid': contactForm.submitted && email.invalid }"
                   class="form-input"
                   id="email"
                   name="email"
                   placeholder="your.email@example.com"
-                  required type="email"/>
+                  required
+                  type="email"
+                />
                 @if (contactForm.submitted && email.invalid) {
-                  <div class="error-message">
-                    Please enter a valid email address
-                  </div>
+                  <div class="error-message">Please enter a valid email address</div>
                 }
               </div>
             </div>
 
             <div class="form-group">
               <label for="subject">Subject</label>
-              <input #subject="ngModel" [(ngModel)]="model.subject"
+              <input
+                #subject="ngModel"
+                [(ngModel)]="model.subject"
                 [ngClass]="{ 'is-invalid': contactForm.submitted && subject.invalid }"
                 class="form-input"
                 id="subject"
                 name="subject"
-                placeholder="What's this about?"
-                required type="text"/>
+                placeholder="Role, collaboration, or project intro"
+                required
+                type="text"
+              />
               @if (contactForm.submitted && subject.invalid) {
-                <div class="error-message">
-                  Please enter a subject
-                </div>
+                <div class="error-message">Please enter a subject</div>
               }
             </div>
 
             <div class="form-group">
               <label for="message">Message</label>
-              <textarea #message="ngModel" [(ngModel)]="model.message"
+              <textarea
+                #message="ngModel"
+                [(ngModel)]="model.message"
                 [ngClass]="{ 'is-invalid': contactForm.submitted && message.invalid }"
                 class="form-input"
                 id="message"
                 name="message"
-                placeholder="Tell me about your project or opportunity..."
+                placeholder="Tell me about the team, the scope, and the kind of problems you want help solving..."
                 required
-              rows="5"></textarea>
+                rows="5"
+              ></textarea>
               @if (contactForm.submitted && message.invalid) {
-                <div class="error-message">
-                  Please enter your message
-                </div>
+                <div class="error-message">Please enter your message</div>
               }
             </div>
 
             <div class="form-group">
-              <button [disabled]="!isFormValid() || isSubmitting"
+              <button
+                [disabled]="!isFormValid() || isSubmitting"
                 class="submit-btn"
                 [ngClass]="{ 'disabled': !isFormValid() || isSubmitting }"
-                type="submit">
-                <span class="btn-text">
-                  {{ isSubmitting ? 'Sending...' : 'Send Message' }}
-                </span>
+                type="submit"
+              >
+                <span class="btn-text">{{ isSubmitting ? 'Sending...' : 'Send message' }}</span>
                 @if (!isSubmitting) {
                   <span class="btn-icon">→</span>
                 }
@@ -158,17 +164,12 @@
     </div>
   </div>
 
-  <!-- Toast Notification -->
   @if (showToast) {
     <div class="toast-container">
       <div class="toast" [ngClass]="'toast-' + toastType">
-        <div class="toast-icon">
-          {{ toastType === 'success' ? '✅' : '❌' }}
-        </div>
+        <div class="toast-icon">{{ toastType === 'success' ? '✅' : '❌' }}</div>
         <div class="toast-message">{{ toastMessage }}</div>
       </div>
     </div>
   }
-</div>
-
-
+</section>

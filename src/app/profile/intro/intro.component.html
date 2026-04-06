@@ -1,92 +1,102 @@
-<div class="apple-hero">
-  <!-- Animated background elements -->
-  <div class="hero-background" data-parallax="0.15">
-    <div class="floating-shapes">
-      <div class="shape shape-1 apple-float"></div>
-      <div class="shape shape-2 apple-float-delay"></div>
-      <div class="shape shape-3 apple-float-slow"></div>
-      <div class="shape shape-4 apple-float"></div>
-      <div class="shape shape-5 apple-float-delay"></div>
-    </div>
-    <div class="gradient-overlay"></div>
-  </div>
+<section class="hero-section">
+  <div class="apple-container hero-grid">
+    <div class="hero-copy">
+      <span class="section-kicker">Staff Software Engineer • Backend • Gen AI</span>
 
-  <div class="apple-container">
-    <div class="hero-content">
-      <!-- Profile Image with Apple-style design -->
-      <div class="hero-profile-image apple-hero-anim">
-        <div class="image-container apple-glow">
-          <img alt="Ankit Sharma" src="./assets/images/ankit.png"/>
-          <div class="image-glow"></div>
-        </div>
+      <h1 class="hero-title">
+        <span>Backend systems</span>
+        <span>that scale.</span>
+        <span>AI experiences</span>
+        <span>that ship.</span>
+      </h1>
+
+      <p class="hero-summary">
+        Staff-level engineer focused on distributed systems, real-time architectures, developer infrastructure, and Gen AI products
+        that need more than a demo to be useful.
+      </p>
+
+      <div class="hero-meta">
+        <span class="hero-chip">SMTS @ Salesforce</span>
+        <span class="hero-chip">ex-Games24x7</span>
+        <span class="hero-chip">ex-Walmart</span>
+        <span class="hero-chip">Java • Kafka • Redis • AI</span>
       </div>
-      
-      <!-- Hero Text -->
-      <div class="hero-text">
-        <h1 class="hero-title apple-text-display apple-hero-anim" data-text-reveal>
-          Ankit Sharma
-        </h1>
-        <p class="hero-subtitle apple-text-body apple-hero-anim">
-          Backend Engineer @ Salesforce | Distributed Systems, Real-time Processing & AI Tools
-        </p>
-        <p class="hero-experience apple-text-body apple-hero-anim">
-          6+ years | Java · Kafka · Redis · AWS | Salesforce · ex-Games24x7 · ex-Walmart
-        </p>
-      </div>
-      
-      <!-- Action Buttons -->
-      <div class="hero-actions apple-hero-anim">
+
+      <div class="hero-actions">
         <a class="apple-btn apple-btn-primary" href="#contact">
           <i class="fas fa-paper-plane"></i>
-          Get In Touch
+          Build with me
         </a>
-        <div class="document-radial" [class.expanded]="showDocumentDropdown">
-          <button class="apple-btn apple-btn-primary document-center" 
-                  (click)="toggleDocumentDropdown($event)"
-                  [class.active]="showDocumentDropdown">
-            <i class="fas fa-download center-icon"></i>
-            <span class="center-text">Download Documents</span>
+
+        <div class="document-menu" [class.open]="showDocumentDropdown">
+          <button class="apple-btn apple-btn-secondary" (click)="toggleDocumentDropdown($event)">
+            <i class="fas fa-file-arrow-down"></i>
+            Download docs
           </button>
-          
-          <!-- Radial Document Options -->
-          <a [href]="documentLinks.resume"
-             target="_blank" 
-             class="document-option document-resume"
-             [class.show]="showDocumentDropdown">
-            <i class="fas fa-file-alt"></i>
-            <span class="tooltip">Resume</span>
-          </a>
-          
-          <a [href]="documentLinks.coverLetter"
-             target="_blank" 
-             class="document-option document-cover"
-             [class.show]="showDocumentDropdown">
-            <i class="fas fa-envelope"></i>
-            <span class="tooltip">Cover Letter</span>
-          </a>
+
+          @if (showDocumentDropdown) {
+            <div class="document-dropdown">
+              <a [href]="documentLinks.resume" target="_blank" rel="noopener">
+                <i class="fas fa-file-lines"></i>
+                Resume
+              </a>
+              <a [href]="documentLinks.coverLetter" target="_blank" rel="noopener">
+                <i class="fas fa-envelope-open-text"></i>
+                Cover Letter
+              </a>
+            </div>
+          }
         </div>
       </div>
-      
-      <!-- Social Links -->
-      <div class="hero-social apple-hero-anim">
-        <a class="social-link" [href]="socialLinks.linkedin" 
-           target="_blank" title="Connect on LinkedIn">
-          <i class="fab fa-linkedin"></i>
+
+      <div class="hero-social">
+        <a class="social-link" [href]="socialLinks.linkedin" target="_blank" rel="noopener" title="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
         </a>
-        <a class="social-link" [href]="socialLinks.github"
-           target="_blank" title="View GitHub Profile">
+        <a class="social-link" [href]="socialLinks.github" target="_blank" rel="noopener" title="GitHub">
           <i class="fab fa-github"></i>
         </a>
-        <a class="social-link" [href]="socialLinks.stackOverflow" 
-           target="_blank" title="Stack Overflow Profile">
+        <a class="social-link" [href]="socialLinks.stackOverflow" target="_blank" rel="noopener" title="Stack Overflow">
           <i class="fab fa-stack-overflow"></i>
         </a>
       </div>
+
+      <div class="hero-metrics">
+        @for (metric of heroMetrics; track metric.label) {
+          <div class="metric-card">
+            <span class="metric-value">{{ metric.value }}</span>
+            <span class="metric-label">{{ metric.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="hero-panel apple-card">
+      <div class="hero-portrait">
+        <img alt="Ankit Sharma" src="./assets/images/ankit.png">
+      </div>
+
+      <div class="hero-panel-content">
+        <div class="panel-header">
+          <span class="panel-eyebrow">What I optimize for</span>
+          <span class="panel-status">Available for staff and lead roles</span>
+        </div>
+
+        <div class="focus-list">
+          @for (area of focusAreas; track area.title) {
+            <article class="focus-card" [attr.data-color]="area.color">
+              <div class="fc-icon">{{ area.icon }}</div>
+              <div class="fc-body">
+                <div class="fc-header">
+                  <h3 class="fc-title">{{ area.title }}</h3>
+                  <span class="fc-tag">{{ area.tag }}</span>
+                </div>
+                <p class="fc-desc">{{ area.description }}</p>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
     </div>
   </div>
-  
-  <!-- Scroll indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-arrow"></div>
-  </div>
-</div>
+</section>

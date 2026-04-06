@@ -8,10 +8,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { environment } from '../../../environments/environment';
 import { AI_CONTEXT } from '../../ai-face/ai-context';
 import { MarkdownPipe } from '../../ai-face/markdown.pipe';
-import { MusicService } from '../../services/music.service';
 import { VoiceStreamingService, VoiceStreamOptions, AudioChunk } from '../../services/voice-streaming.service';
 import { TTS_API_URL } from '../../config/api-config';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, style, transition, animate } from '@angular/animations';
 import { firstValueFrom } from 'rxjs';
 import { cleanTextForSpeech } from '../../utils/text-utils';
 
@@ -83,7 +82,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private voiceStreamingService: VoiceStreamingService
   ) {
-    // Welcome message will be added in ngOnInit
   }
 
   @HostListener('document:keydown.escape')
@@ -98,7 +96,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     this.loadAvatar();
     this.animate();
     
-    // Don't add welcome message immediately - wait for chat to open
   }
 
   ngOnDestroy(): void {
@@ -121,7 +118,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
 
     // Scene
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x1a1a2e);
+    this.scene.background = new THREE.Color(0x09091a);
 
     // Camera
     this.camera = new THREE.PerspectiveCamera(
@@ -162,7 +159,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     directionalLight.shadow.mapSize.height = 2048;
     this.scene.add(directionalLight);
 
-    const fillLight = new THREE.DirectionalLight(0x4080ff, 0.3);
+    const fillLight = new THREE.DirectionalLight(0xffd580, 0.20);
     fillLight.position.set(-5, 5, -5);
     this.scene.add(fillLight);
 
@@ -634,10 +631,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
   }
 
-  private delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
   private onWindowResize(): void {
     const canvas = this.canvasRef.nativeElement;
     this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -700,9 +693,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   private removeSpeakingAnimation(): void {
-    // Reset model to default state
-    if (this.model) {
-      // Reset any speaking animations
-    }
+    // No-op: extensible for future model animation resets
   }
 }

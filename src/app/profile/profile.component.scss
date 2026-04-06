@@ -1,0 +1,20 @@
+:host {
+  display: block;
+}
+
+.portfolio-shell {
+  position: relative;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+.portfolio-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 24%, rgba(251, 191, 36, 0.08), transparent 22%),
+    radial-gradient(circle at 85% 18%, rgba(239, 68,  68, 0.06), transparent 22%),
+    radial-gradient(circle at 50% 72%, rgba(34, 197, 94, 0.05), transparent 24%);
+}

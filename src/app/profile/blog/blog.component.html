@@ -1,69 +1,70 @@
 <div class="apple-section" id="blogs">
   <div class="apple-container">
     <div class="section-header" data-anim="fade-up">
-      <h2 class="section-title apple-text-display" data-text-reveal>Blogs</h2>
+      <div class="world-label">📜 QUEST SCROLLS</div>
+      <h2 class="section-title" data-text-reveal>Technical Notes &amp; Stories</h2>
+      <p class="section-subtitle">Field reports from production. Published on Medium.</p>
     </div>
-    
-    <div class="blog-grid" data-stagger="120">
-      <!-- Medium Blog Post 1 -->
-      <div class="blog-card">
-        <div class="card-body">
-          <div class="blog-meta">
-            <span class="badge">Medium</span>
-            <span class="text-muted">Games24x7 Tech</span>
-          </div>
-          <h5 class="card-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h5>
-          <p class="card-text">
-            Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay and maintain trust in our gaming ecosystem.
-          </p>
-          <div class="blog-actions">
-            <a [href]="blogLinks.fortressOfFairPlay" 
-               class="btn btn-primary" target="_blank" rel="noopener">
-              Read on Medium
-            </a>
-          </div>
-        </div>
-      </div>
 
-      <!-- Medium Blog Post 2 -->
-      <div class="blog-card">
-        <div class="card-body">
-          <div class="blog-meta">
-            <span class="badge">Medium</span>
-            <span class="text-muted">Games24x7 Tech</span>
-          </div>
-          <h5 class="card-title">Neptune Navigator: Navigating Performance Challenges</h5>
-          <p class="card-text">
-            Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms at Games24x7.
-          </p>
-          <div class="blog-actions">
-            <a [href]="blogLinks.neptuneNavigator" 
-               class="btn btn-primary" target="_blank" rel="noopener">
-              Read on Medium
-            </a>
-          </div>
-        </div>
-      </div>
+    <div class="scroll-grid" data-stagger="120">
 
-      <!-- Medium Blog Post 3 -->
-      <div class="blog-card">
-        <div class="card-body">
-          <div class="blog-meta">
-            <span class="badge">Medium</span>
-            <span class="text-muted">Games24x7 Tech</span>
-          </div>
-          <h5 class="card-title">Games24x7: Where Trust Meets Gameplay</h5>
-          <p class="card-text">
-            Discover how we build trust and create engaging gaming experiences that keep players coming back for more.
-          </p>
-          <div class="blog-actions">
-            <a [href]="blogLinks.trustMeetsGameplay" 
-               class="btn btn-primary" target="_blank" rel="noopener">
-              Read on Medium
-            </a>
-          </div>
+      <!-- Blog 1 -->
+      <a [href]="blogLinks.fortressOfFairPlay" class="scroll-card" target="_blank" rel="noopener">
+        <div class="scroll-seal">📜</div>
+        <div class="scroll-header">
+          <span class="scroll-badge">MEDIUM</span>
+          <span class="scroll-origin">Games24x7 Tech</span>
         </div>
-      </div>
+        <div class="scroll-body">
+          <h4 class="scroll-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h4>
+          <p class="scroll-text">
+            Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay.
+          </p>
+        </div>
+        <div class="scroll-footer">
+          <span class="scroll-xp">+120 XP</span>
+          <span class="scroll-action">📖 Read Scroll →</span>
+        </div>
+      </a>
+
+      <!-- Blog 2 -->
+      <a [href]="blogLinks.neptuneNavigator" class="scroll-card" target="_blank" rel="noopener">
+        <div class="scroll-seal">📜</div>
+        <div class="scroll-header">
+          <span class="scroll-badge">MEDIUM</span>
+          <span class="scroll-origin">Games24x7 Tech</span>
+        </div>
+        <div class="scroll-body">
+          <h4 class="scroll-title">Neptune Navigator: Navigating Performance Challenges</h4>
+          <p class="scroll-text">
+            Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms.
+          </p>
+        </div>
+        <div class="scroll-footer">
+          <span class="scroll-xp">+100 XP</span>
+          <span class="scroll-action">📖 Read Scroll →</span>
+        </div>
+      </a>
+
+      <!-- Blog 3 -->
+      <a [href]="blogLinks.trustMeetsGameplay" class="scroll-card" target="_blank" rel="noopener">
+        <div class="scroll-seal">📜</div>
+        <div class="scroll-header">
+          <span class="scroll-badge">MEDIUM</span>
+          <span class="scroll-origin">Games24x7 Tech</span>
+        </div>
+        <div class="scroll-body">
+          <h4 class="scroll-title">Games24x7: Where Trust Meets Gameplay</h4>
+          <p class="scroll-text">
+            Discover how we build trust and create engaging gaming experiences that keep players coming back.
+          </p>
+        </div>
+        <div class="scroll-footer">
+          <span class="scroll-xp">+90 XP</span>
+          <span class="scroll-action">📖 Read Scroll →</span>
+        </div>
+      </a>
+
     </div>
   </div>
-</div> 
+</div>

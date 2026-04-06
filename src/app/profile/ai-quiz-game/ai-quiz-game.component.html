@@ -1,275 +1,143 @@
-<div class="ai-quiz-game" id="ai-quiz-game">
+<section class="mario-game-section apple-section" id="ai-quiz-game">
   <div class="apple-container">
-    <div class="quiz-content">
 
-      <!-- Game Header -->
-      <div class="section-header apple-fade-in">
-        <h2 class="section-title apple-text-display">🧠 AI Quiz Challenge</h2>
-        <p class="section-subtitle apple-text-body">Test your knowledge with AI-powered quiz questions</p>
+    <!-- SETUP -->
+    @if (viewState === 'setup') {
+      <div class="section-header">
+        <span class="section-kicker">AI-powered platformer</span>
+        <h2 class="section-title">Mario Lab</h2>
+        <p class="section-subtitle">
+          A real Mario game. The AI generates the entire level — platforms, enemies, coins, power-ups. You just play.
+        </p>
       </div>
 
-      <!-- Game Setup Screen -->
-      @if (!gameStarted && !gameEnded) {
-        <div class="quiz-setup apple-card">
-          <div class="card-content">
-            <div class="setup-header">
-              <h3 class="setup-title">Ready for a Brain Challenge? 🎯</h3>
-              <p class="setup-description">Choose your category and difficulty level, then challenge yourself with AI-generated quiz questions!</p>
-            </div>
-            <div class="setup-options">
-              <!-- Category Selection -->
-              <div class="option-group">
-                <label class="option-label">Choose Your Topic</label>
-                <div class="category-grid">
-                  @for (category of categories; track category) {
-                    <button
-                      class="category-btn"
-                      [class.active]="selectedCategory === category.value"
-                      (click)="selectedCategory = category.value">
-                      <span class="category-icon">{{ category.icon }}</span>
-                      <div class="category-info">
-                        <span class="category-text">{{ category.label }}</span>
-                        <span class="category-desc">{{ category.description }}</span>
-                      </div>
-                    </button>
-                  }
-                </div>
-              </div>
-              <!-- Difficulty Selection -->
-              <div class="option-group">
-                <label class="option-label">Choose Difficulty Level</label>
-                <div class="difficulty-buttons">
-                  @for (difficulty of difficulties; track difficulty) {
-                    <button
-                      class="difficulty-btn"
-                      [class.active]="selectedDifficulty === difficulty.value"
-                      [class]="difficulty.color"
-                      (click)="selectedDifficulty = difficulty.value">
-                      <span class="diff-label">{{ difficulty.label }}</span>
-                      <span class="diff-desc">{{ difficulty.description }}</span>
-                    </button>
-                  }
-                </div>
-              </div>
-            </div>
-            <div class="setup-footer">
-              <button class="apple-btn apple-btn-primary start-game-btn" (click)="startGame()">
-                <i class="fas fa-play"></i>
-                Start Quiz Challenge
-              </button>
-              <div class="game-info">
-                <span class="info-item">📝 10 Questions</span>
-                <span class="info-item">⏱️ 30 seconds each</span>
-                <span class="info-item">🤖 AI Generated</span>
-                <span class="info-item">🏆 Score & Streak</span>
-              </div>
+      <div class="setup-card apple-card">
+        <div class="setup-inner">
+          <div class="setup-section">
+            <h3 class="setup-heading">Choose your world</h3>
+            <div class="option-grid">
+              @for (cat of categories; track cat.value) {
+                <button class="option-btn"
+                        [class.option-btn--active]="selectedCategory === cat.value"
+                        (click)="selectedCategory = cat.value">
+                  <span class="option-icon">{{ cat.icon }}</span>
+                  <span class="option-label">{{ cat.label }}</span>
+                  <span class="option-desc">{{ cat.description }}</span>
+                </button>
+              }
             </div>
           </div>
-        </div>
-      }
 
-      <!-- Game Playing Screen -->
-      @if (gameStarted && !gameEnded && !isLoading) {
-        <div class="quiz-playing apple-card">
-          <div class="card-content">
-            <!-- Game Progress -->
-            <div class="quiz-progress">
-              <div class="progress-info">
-                <span class="question-counter">Question {{ quizStats.totalQuestions + 1 }} of 10</span>
-                <div class="timer-display" [class.warning]="quizStats.timeLeft <= 10" [class.danger]="quizStats.timeLeft <= 5">
-                  <i class="fas fa-clock"></i>
-                  <span class="time-left">{{ quizStats.timeLeft }}s</span>
-                </div>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" [style.width.%]="((quizStats.totalQuestions + 1) / 10) * 100"></div>
-              </div>
-              <div class="timer-bar">
-                <div class="timer-fill" [style.width.%]="(quizStats.timeLeft / 30) * 100"
-                  [class.warning]="quizStats.timeLeft <= 10"
-                [class.danger]="quizStats.timeLeft <= 5"></div>
-              </div>
+          <div class="setup-section">
+            <h3 class="setup-heading">Difficulty</h3>
+            <div class="difficulty-row">
+              @for (d of difficulties; track d.value) {
+                <button class="diff-btn"
+                        [class.diff-btn--active]="selectedDifficulty === d.value"
+                        [ngClass]="'diff-btn--' + d.color"
+                        (click)="selectedDifficulty = d.value">
+                  <span class="diff-label">{{ d.label }}</span>
+                  <span class="diff-desc">{{ d.description }}</span>
+                </button>
+              }
             </div>
-            <!-- Game Stats -->
-            @if (quizStats.totalQuestions > 0) {
-              <div class="quiz-stats-live">
-                <div class="stat-item">
-                  <span class="stat-value">{{ quizStats.totalPoints }}</span>
-                  <span class="stat-label">Points</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-value">{{ quizStats.streak }}</span>
-                  <span class="stat-label">Streak</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-value">{{ getScorePercentage() }}%</span>
-                  <span class="stat-label">Accuracy</span>
-                </div>
-              </div>
-            }
-            <!-- Current Question -->
-            @if (currentQuestion) {
-              <div class="question-container">
-                <div class="question-header">
-                  <div class="question-meta">
-                    <span class="difficulty-badge" [class]="getDifficultyColor()">
-                      {{ currentQuestion.difficulty }}
-                    </span>
-                    <span class="category-badge">
-                      {{ getCategoryIcon() }} {{ getCategoryLabel() }}
-                    </span>
-                    <span class="points-badge">
-                      {{ currentQuestion.points }} pts
-                    </span>
-                  </div>
-                </div>
-                <h3 class="question-text">{{ currentQuestion.question }}</h3>
-                <div class="answer-options">
-                  @for (option of currentQuestion.options; track option; let i = $index) {
-                    <button
-                      class="answer-option"
-                      [class.selected]="selectedAnswer === i"
-                      [class.correct]="showAnswer && i === currentQuestion.correctAnswer"
-                      [class.incorrect]="showAnswer && selectedAnswer === i && i !== currentQuestion.correctAnswer"
-                      [class.disabled]="showAnswer || quizStats.timeLeft <= 0"
-                      (click)="selectAnswer(i)">
-                      <span class="option-letter">{{ ['A', 'B', 'C', 'D'][i] }}</span>
-                      <span class="option-text">{{ option }}</span>
-                      @if (showAnswer && i === currentQuestion.correctAnswer) {
-                        <span class="option-indicator">✓</span>
-                      }
-                      @if (showAnswer && selectedAnswer === i && i !== currentQuestion.correctAnswer) {
-                        <span class="option-indicator incorrect">✗</span>
-                      }
-                    </button>
-                  }
-                </div>
-                <!-- Answer Explanation -->
-                @if (showAnswer) {
-                  <div class="answer-explanation">
-                    <div class="explanation-header">
-                      <span class="result-icon"
-                        [class.correct]="selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1"
-                        [class.incorrect]="selectedAnswer !== currentQuestion.correctAnswer || selectedAnswer === -1">
-                        {{ selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1 ? '🎉' :
-                        selectedAnswer === -1 ? '⏰' : '💡' }}
-                      </span>
-                      <span class="result-text">
-                        {{ selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1 ? 'Correct!' :
-                        selectedAnswer === -1 ? 'Time\'s up!' : 'Not quite right' }}
-                      </span>
-                      @if (selectedAnswer === currentQuestion.correctAnswer && selectedAnswer !== -1) {
-                        <span class="points-earned">
-                          +{{ getTotalPoints() }} points
-                        </span>
-                      }
-                    </div>
-                    <p class="explanation-text">{{ currentQuestion.explanation }}</p>
-                  </div>
-                }
-                <!-- Action Buttons -->
-                <div class="question-actions">
-                  @if (!showAnswer && selectedAnswer !== null && quizStats.timeLeft > 0) {
-                    <button
-                      class="apple-btn apple-btn-primary"
-                      (click)="submitAnswer()">
-                      Submit Answer
-                    </button>
-                  }
-                  @if (showAnswer) {
-                    <button
-                      class="apple-btn apple-btn-primary"
-                      (click)="nextQuestion()">
-                      {{ quizStats.totalQuestions >= 10 ? 'View Results' : 'Next Question' }}
-                    </button>
-                  }
-                </div>
-              </div>
-            }
           </div>
-        </div>
-      }
 
-      <!-- Loading Screen -->
-      @if (isLoading) {
-        <div class="quiz-loading apple-card">
-          <div class="card-content">
-            <div class="loading-content">
-              <div class="ai-loader">
-                <div class="loader-brain">🤖</div>
-                <div class="loader-dots">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
-              <h3 class="loading-title">AI is crafting your question...</h3>
-              <p class="loading-subtitle">Generating {{ selectedDifficulty.toLowerCase() }} {{ getCategoryLabel() }} question</p>
-            </div>
-          </div>
-        </div>
-      }
+          <button class="start-btn" (click)="startGame()">
+            <i class="fas fa-play"></i> Start Mission
+          </button>
 
-      <!-- Game Results Screen -->
-      @if (gameEnded) {
-        <div class="quiz-results apple-card">
-          <div class="card-content">
-            <div class="results-header">
-              <div class="score-circle">
-                <div class="score-value">{{ getScorePercentage() }}%</div>
-                <div class="score-grade">{{ getScoreGrade() }}</div>
-              </div>
-              <h3 class="results-title">Quiz Complete! 🎊</h3>
-              <p class="results-subtitle">{{ getPerformanceMessage() }}</p>
-            </div>
-            <div class="results-stats">
-              <div class="stat-card">
-                <div class="stat-icon">📊</div>
-                <div class="stat-info">
-                  <div class="stat-number">{{ quizStats.correctAnswers }}/{{ quizStats.totalQuestions }}</div>
-                  <div class="stat-description">Correct Answers</div>
-                </div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon">⚡</div>
-                <div class="stat-info">
-                  <div class="stat-number">{{ quizStats.bestStreak }}</div>
-                  <div class="stat-description">Best Streak</div>
-                </div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon">🏆</div>
-                <div class="stat-info">
-                  <div class="stat-number">{{ quizStats.totalPoints }}</div>
-                  <div class="stat-description">Total Points</div>
-                </div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon">🎯</div>
-                <div class="stat-info">
-                  <div class="stat-number">{{ getCategoryIcon() }}</div>
-                  <div class="stat-description">{{ selectedCategory | titlecase }} {{ selectedDifficulty }}</div>
-                </div>
-              </div>
-            </div>
-            <div class="results-actions">
-              <button class="apple-btn apple-btn-primary" (click)="restartGame()">
-                <i class="fas fa-redo"></i>
-                Play Again
-              </button>
-              <button class="apple-btn apple-btn-secondary" (click)="gameEnded = false; gameStarted = false">
-                <i class="fas fa-cog"></i>
-                Change Settings
-              </button>
-            </div>
-            <div class="results-footer">
-              <div class="challenge-message">
-                <p>Want a bigger challenge? Try a different category or increase the difficulty!</p>
-              </div>
-            </div>
+          <div class="controls-hint">
+            <span>Arrow keys / WASD to move&ensp;·&ensp;Space / Up to jump&ensp;·&ensp;Stomp enemies &amp; collect coins</span>
           </div>
         </div>
-      }
-    </div>
+      </div>
+    }
+
+    <!-- LOADING -->
+    @if (viewState === 'loading') {
+      <div class="loading-card apple-card">
+        <div class="loading-content">
+          <div class="loader-icon">🍄</div>
+          <h3>Generating your level...</h3>
+          <p>AI is building the world — platforms, enemies, and power-ups</p>
+          <div class="loading-bar"><div class="loading-fill"></div></div>
+        </div>
+      </div>
+    }
+
+    <!-- PLAYING -->
+    @if (viewState === 'playing') {
+      <div class="game-wrapper">
+        <div class="game-hud">
+          <div class="hud-item">
+            <span class="hud-icon">❤️</span>
+            <span class="hud-val">{{ lives }}</span>
+          </div>
+          <div class="hud-item">
+            <span class="hud-icon">🪙</span>
+            <span class="hud-val">{{ coins }}</span>
+          </div>
+          <div class="hud-item">
+            <span class="hud-icon">⭐</span>
+            <span class="hud-val">{{ score }}</span>
+          </div>
+          <div class="hud-item hud-category">
+            <span class="hud-val">{{ getCategoryLabel() }}</span>
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <canvas #gameCanvas></canvas>
+
+          <!-- Touch controls (mobile) -->
+          <div class="touch-controls">
+            <div class="touch-dpad">
+              <button class="touch-btn touch-left"
+                      (touchstart)="touchLeft(true)" (touchend)="touchLeft(false)"
+                      (mousedown)="touchLeft(true)" (mouseup)="touchLeft(false)">◀</button>
+              <button class="touch-btn touch-right"
+                      (touchstart)="touchRight(true)" (touchend)="touchRight(false)"
+                      (mousedown)="touchRight(true)" (mouseup)="touchRight(false)">▶</button>
+            </div>
+            <button class="touch-btn touch-jump"
+                    (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
+                    (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">▲</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- RESULTS -->
+    @if (viewState === 'results') {
+      <div class="results-card apple-card">
+        <div class="results-inner">
+          <div class="results-badge">{{ won ? '🏆' : '💀' }}</div>
+          <h3 class="results-title">{{ won ? 'Level Complete!' : 'Game Over' }}</h3>
+          <p class="results-msg">{{ getResultMessage() }}</p>
+
+          <div class="results-stats">
+            <div class="stat-item">
+              <span class="stat-label">Score</span>
+              <span class="stat-value">{{ score }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Coins</span>
+              <span class="stat-value">{{ coins }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Enemies</span>
+              <span class="stat-value">{{ enemiesStomped }}</span>
+            </div>
+          </div>
+
+          <div class="results-actions">
+            <button class="start-btn" (click)="restartGame()">
+              <i class="fas fa-redo"></i> Play Again
+            </button>
+          </div>
+        </div>
+      </div>
+    }
   </div>
-</div>
+</section>

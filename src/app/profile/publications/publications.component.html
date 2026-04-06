@@ -1,337 +1,388 @@
 <div class="apple-section" id="publications">
   <div class="apple-container">
-    <div class="section-header" data-anim="fade-up">
-      <h2 class="section-title apple-text-display" data-text-reveal>Projects</h2>
+
+    <!-- ══════════════════ MAIN QUESTS ══════════════════ -->
+    <div class="section-header quest-header" data-anim="fade-up">
+      <div class="quest-world-label">⚔ WORLD MAP</div>
+      <h2 class="section-title quest-title" data-text-reveal>Main Quests</h2>
+      <p class="section-subtitle">Real systems. Real scale. Mission logs from the field.</p>
     </div>
 
-    <!-- Professional Impact Projects -->
     <div class="pro-projects-grid" data-stagger="150">
 
-      <div class="pro-project-card" data-anim="fade-up">
-        <div class="pro-card-header">
-          <div class="pro-card-meta">
-            <a class="pro-badge" [href]="companyLinks.games24x7" target="_blank" rel="noopener">Games24x7</a>
-            <span class="pro-product">My11Circle &middot; RummyCircle</span>
+      <div class="pro-project-card quest-card games-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
+              <span class="world-icon">🎮</span> Games24x7
+            </a>
+            <span class="quest-platform">My11Circle · RummyCircle</span>
           </div>
-        </div>
-        <h4 class="pro-card-title">Automated KYC Platform</h4>
-        <p class="pro-card-tagline">Identity verification at scale — built from scratch</p>
-        <p class="pro-card-desc">
-          End-to-end document verification system supporting Digilocker, Aadhaar Lite, PAN validation, and OCR-based extraction.
-          Processes 200K+ verifications daily across two gaming platforms with 99.95% uptime via a distributed Kafka pipeline.
-        </p>
-        <div class="pro-card-tech">
-          <span>Java</span><span>Spring Boot</span><span>Kafka</span><span>Redis</span><span>OCR</span><span>Digilocker API</span><span>AWS</span>
-        </div>
-        <div class="pro-card-metrics">
-          <span class="metric">200K+ verifications/day</span>
-          <span class="metric">99.95% uptime</span>
+          <div class="quest-status">MISSION CLEARED ✓</div>
+          <h4 class="quest-name">Automated KYC Platform</h4>
+          <p class="quest-tagline">Identity verification at scale — built from scratch</p>
+          <p class="pro-card-desc">
+            End-to-end document verification system supporting Digilocker, Aadhaar Lite, PAN validation, and OCR-based extraction.
+            Processes 200K+ verifications daily across two gaming platforms with 99.95% uptime via a distributed Kafka pipeline.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">⚡ ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Java</span><span>Spring Boot</span><span>Kafka</span><span>Redis</span><span>OCR</span><span>Digilocker API</span><span>AWS</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">🏆 REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">🪙 200K+ verifications/day</span>
+              <span class="reward-chip">⭐ 99.95% uptime</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="pro-project-card" data-anim="fade-up">
-        <div class="pro-card-header">
-          <div class="pro-card-meta">
-            <a class="pro-badge" [href]="companyLinks.games24x7" target="_blank" rel="noopener">Games24x7</a>
-            <span class="pro-product">My11Circle &middot; RummyCircle</span>
+      <div class="pro-project-card quest-card games-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
+              <span class="world-icon">🎮</span> Games24x7
+            </a>
+            <span class="quest-platform">My11Circle · RummyCircle</span>
           </div>
-        </div>
-        <h4 class="pro-card-title">Risk Rule Engine</h4>
-        <p class="pro-card-tagline">Real-time fraud detection powered by ML + graph analysis</p>
-        <p class="pro-card-desc">
-          Built a rule engine that identifies fraudulent user behavior in real time across two platforms.
-          Consumes millions of Kafka messages via pub/sub, runs ML-based scoring through SageMaker,
-          and maps fraud networks using Neptune graph DB — preventing financial losses at scale.
-        </p>
-        <div class="pro-card-tech">
-          <span>Java</span><span>Kafka</span><span>SageMaker</span><span>Neptune DB</span><span>Gremlin</span><span>Spring Cloud</span>
-        </div>
-        <div class="pro-card-metrics">
-          <span class="metric">Millions of events/day</span>
-          <span class="metric">Real-time detection</span>
+          <div class="quest-status">MISSION CLEARED ✓</div>
+          <h4 class="quest-name">Risk Rule Engine</h4>
+          <p class="quest-tagline">Real-time fraud detection powered by ML + graph analysis</p>
+          <p class="pro-card-desc">
+            Built a rule engine that identifies fraudulent user behavior in real time across two platforms.
+            Consumes millions of Kafka messages via pub/sub, runs ML-based scoring through SageMaker,
+            and maps fraud networks using Neptune graph DB — preventing financial losses at scale.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">⚡ ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Java</span><span>Kafka</span><span>SageMaker</span><span>Neptune DB</span><span>Gremlin</span><span>Spring Cloud</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">🏆 REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">🪙 Millions of events/day</span>
+              <span class="reward-chip">⭐ Real-time detection</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="pro-project-card" data-anim="fade-up">
-        <div class="pro-card-header">
-          <div class="pro-card-meta">
-            <a class="pro-badge" [href]="companyLinks.games24x7" target="_blank" rel="noopener">Games24x7</a>
-            <span class="pro-product">My11Circle</span>
+      <div class="pro-project-card quest-card games-card boss-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
+              <span class="world-icon">🎮</span> Games24x7
+            </a>
+            <span class="quest-platform">My11Circle</span>
           </div>
-        </div>
-        <h4 class="pro-card-title">Fantasy Autoscaler</h4>
-        <p class="pro-card-tagline">ML-powered predictive autoscaling for IPL-level traffic</p>
-        <p class="pro-card-desc">
-          Predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting.
-          Anticipated traffic spikes before they hit, pre-scaling infrastructure ahead of toss time.
-          Successfully handled 10M concurrent users during IPL 2025 with zero downtime.
-        </p>
-        <div class="pro-card-tech">
-          <span>Kubernetes</span><span>AWS ASG</span><span>ML</span><span>Grafana</span><span>Prometheus</span><span>Java</span>
-        </div>
-        <div class="pro-card-metrics">
-          <span class="metric">10M concurrent users</span>
-          <span class="metric">Zero downtime @ IPL 2025</span>
+          <div class="quest-status boss-status">👾 BOSS BATTLE CLEARED</div>
+          <h4 class="quest-name">Fantasy Autoscaler</h4>
+          <p class="quest-tagline">ML-powered predictive autoscaling for IPL-level traffic</p>
+          <p class="pro-card-desc">
+            Predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting.
+            Anticipated traffic spikes before they hit, pre-scaling infrastructure ahead of toss time.
+            Successfully handled 10M concurrent users during IPL 2025 with zero downtime.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">⚡ ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Kubernetes</span><span>AWS ASG</span><span>ML</span><span>Grafana</span><span>Prometheus</span><span>Java</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">🏆 REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip legendary">💎 10M concurrent users</span>
+              <span class="reward-chip legendary">🏆 Zero downtime &#64; IPL 2025</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="pro-project-card" data-anim="fade-up">
-        <div class="pro-card-header">
-          <div class="pro-card-meta">
-            <a class="pro-badge" [href]="companyLinks.games24x7" target="_blank" rel="noopener">Games24x7</a>
-            <span class="pro-product">My11Circle &middot; RummyCircle</span>
+      <div class="pro-project-card quest-card games-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
+              <span class="world-icon">🎮</span> Games24x7
+            </a>
+            <span class="quest-platform">My11Circle · RummyCircle</span>
           </div>
-        </div>
-        <h4 class="pro-card-title">PAJ3 — Single Sign-On</h4>
-        <p class="pro-card-tagline">Frictionless mobile-first user onboarding</p>
-        <p class="pro-card-desc">
-          Replaced the traditional email + password registration with a mobile-number-based single sign-on flow.
-          Dramatically reduced onboarding friction, improving user conversion across both gaming platforms
-          with OTP-based authentication and seamless session management.
-        </p>
-        <div class="pro-card-tech">
-          <span>Java</span><span>Spring Security</span><span>Redis</span><span>OTP</span><span>JWT</span><span>Microservices</span>
-        </div>
-        <div class="pro-card-metrics">
-          <span class="metric">2 platforms</span>
-          <span class="metric">Mobile-first auth</span>
+          <div class="quest-status">MISSION CLEARED ✓</div>
+          <h4 class="quest-name">PAJ3 — Single Sign-On</h4>
+          <p class="quest-tagline">Frictionless mobile-first user onboarding</p>
+          <p class="pro-card-desc">
+            Replaced the traditional email + password registration with a mobile-number-based single sign-on flow.
+            Dramatically reduced onboarding friction, improving user conversion across both gaming platforms
+            with OTP-based authentication and seamless session management.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">⚡ ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Java</span><span>Spring Security</span><span>Redis</span><span>OTP</span><span>JWT</span><span>Microservices</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">🏆 REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">🪙 2 platforms</span>
+              <span class="reward-chip">⭐ Mobile-first auth</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="pro-project-card" data-anim="fade-up">
-        <div class="pro-card-header">
-          <div class="pro-card-meta">
-            <a class="pro-badge" [href]="companyLinks.walmart" target="_blank" rel="noopener">Walmart</a>
-            <span class="pro-product">Stores</span>
+      <div class="pro-project-card quest-card walmart-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-walmart" [href]="companyLinks.walmart" target="_blank" rel="noopener">
+              <span class="world-icon">🏪</span> Walmart
+            </a>
+            <span class="quest-platform">Stores</span>
           </div>
-        </div>
-        <h4 class="pro-card-title">Annual Enrollment</h4>
-        <p class="pro-card-tagline">Benefits enrollment for 2.2M+ Walmart associates</p>
-        <p class="pro-card-desc">
-          Automated dashboard enabling Walmart associates to check eligibility and sign up for health and wealth benefits —
-          dental coverage, life insurance, bonuses, and more. Served 2.2M+ associates across the US
-          with a streamlined, self-service enrollment experience.
-        </p>
-        <div class="pro-card-tech">
-          <span>Java 8</span><span>Angular</span><span>JSP</span><span>OneOps</span><span>Jenkins</span>
-        </div>
-        <div class="pro-card-metrics">
-          <span class="metric">2.2M+ associates</span>
-          <span class="metric">US-wide rollout</span>
+          <div class="quest-status">MISSION CLEARED ✓</div>
+          <h4 class="quest-name">Annual Enrollment</h4>
+          <p class="quest-tagline">Benefits enrollment for 2.2M+ Walmart associates</p>
+          <p class="pro-card-desc">
+            Automated dashboard enabling Walmart associates to check eligibility and sign up for health and wealth benefits —
+            dental coverage, life insurance, bonuses, and more. Served 2.2M+ associates across the US
+            with a streamlined, self-service enrollment experience.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">⚡ ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Java 8</span><span>Angular</span><span>JSP</span><span>OneOps</span><span>Jenkins</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">🏆 REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">🪙 2.2M+ associates</span>
+              <span class="reward-chip">⭐ US-wide rollout</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="pro-project-card" data-anim="fade-up">
-        <div class="pro-card-header">
-          <div class="pro-card-meta">
-            <a class="pro-badge" [href]="companyLinks.extramarks" target="_blank" rel="noopener">Extramarks</a>
-            <span class="pro-product">Elsa</span>
+      <div class="pro-project-card quest-card extramarks-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-extramarks" [href]="companyLinks.extramarks" target="_blank" rel="noopener">
+              <span class="world-icon">📚</span> Extramarks
+            </a>
+            <span class="quest-platform">Elsa</span>
           </div>
-        </div>
-        <h4 class="pro-card-title">NEMR — Personalized K-12 Courses</h4>
-        <p class="pro-card-tagline">Modular course purchasing for students</p>
-        <p class="pro-card-desc">
-          Enabled students to purchase individual subjects, concepts, or courses instead of the full curriculum.
-          Built a personalized K-12 learning experience with granular content access,
-          breaking the monolithic course structure into flexible, affordable modules.
-        </p>
-        <div class="pro-card-tech">
-          <span>Java 11</span><span>Spring Boot</span><span>MySQL</span><span>Docker</span><span>AWS Cognito</span><span>OAuth2.0</span>
-        </div>
-        <div class="pro-card-metrics">
-          <span class="metric">K-12 platform</span>
-          <span class="metric">Modular pricing</span>
+          <div class="quest-status">MISSION CLEARED ✓</div>
+          <h4 class="quest-name">NEMR — Personalized K-12 Courses</h4>
+          <p class="quest-tagline">Modular course purchasing for students</p>
+          <p class="pro-card-desc">
+            Enabled students to purchase individual subjects, concepts, or courses instead of the full curriculum.
+            Built a personalized K-12 learning experience with granular content access,
+            breaking the monolithic course structure into flexible, affordable modules.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">⚡ ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Java 11</span><span>Spring Boot</span><span>MySQL</span><span>Docker</span><span>AWS Cognito</span><span>OAuth2.0</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">🏆 REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">🪙 K-12 platform</span>
+              <span class="reward-chip">⭐ Modular pricing</span>
+            </div>
+          </div>
         </div>
       </div>
 
     </div>
 
-    <!-- Side Projects -->
-    <div class="section-header" data-anim="fade-up" style="margin-top: 5rem;">
-      <h2 class="section-title apple-text-display" data-text-reveal>Side Projects</h2>
+    <!-- ══════════════════ SIDE QUESTS ══════════════════ -->
+    <div class="section-header quest-header" data-anim="fade-up" style="margin-top: 6rem;">
+      <div class="quest-world-label">🎮 SIDE QUESTS</div>
+      <h2 class="section-title quest-title" data-text-reveal>Side Projects &amp; AI Experiments</h2>
+      <p class="section-subtitle">Passion builds. Shipped for fun, learning, and the love of craft.</p>
     </div>
 
-    <div class="projects-grid" data-stagger="150">
-      <div class="project-card algo-card">
-        <!-- Project Preview -->
-        <div class="project-preview-container">
-          <a [href]="projectLinks.algorithmVisualizer" target="_blank">
-            <div class="project-preview algo-preview">
-              <h3>🧠 Algorithm Visualizer</h3>
-              <p>DSA Visualizer with Step-by-Step Animation</p>
-              <div class="tech-stack">Sorting • Trees • Graphs • Backtracking</div>
-              <div class="tech-stack">Audio Effects • Gamified Challenges</div>
-              <div class="powered-by">Learn DSA the Fun Way</div>
-            </div>
-          </a>
-        </div>
+    <div class="projects-grid side-quests-grid" data-stagger="150">
 
-        <!-- Project Content -->
-        <div class="card-body">
-          <div class="project-meta">
-            <span class="badge">Web App</span>
-            <span class="text-muted">Interactive Learning</span>
-          </div>
-          <h5 class="card-title">🧠 Algorithm Visualizer</h5>
-          <p class="card-text">
-            A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles — learn DSA by playing, not just reading.
-          </p>
-          <div class="project-stats">
-            <div class="tech-badges">
-              <span class="tech-badge">JavaScript</span>
-              <span class="tech-badge">React</span>
-              <span class="tech-badge">Tailwind</span>
-              <span class="tech-badge">Web Audio API</span>
+      <div class="project-card side-quest-card algo-card" data-anim="fade-up">
+        <a [href]="projectLinks.algorithmVisualizer" target="_blank" rel="noopener" class="game-screen-link">
+          <div class="game-screen algo-screen">
+            <div class="screen-scanlines"></div>
+            <div class="screen-content">
+              <div class="screen-icon">🧠</div>
+              <div class="screen-title">ALGORITHM VISUALIZER</div>
+              <div class="screen-subtitle">DSA Visualizer · Step-by-Step</div>
+              <div class="screen-tags">Sorting · Trees · Graphs · Backtracking</div>
+              <div class="screen-press">▶ PRESS TO PLAY</div>
             </div>
           </div>
-          <div class="project-actions">
-            <a [href]="projectLinks.algorithmVisualizer" class="btn btn-primary" target="_blank" rel="noopener">
-              View Live Demo
+        </a>
+        <div class="card-body side-quest-body">
+          <div class="sq-type-row">
+            <span class="sq-type-badge">🎯 WEB APP</span>
+            <span class="sq-xp">+500 XP</span>
+          </div>
+          <h5 class="sq-title">Algorithm Visualizer</h5>
+          <p class="card-text">
+            A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles.
+          </p>
+          <div class="sq-tech-row">
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Tailwind</span>
+            <span class="tech-badge">Web Audio API</span>
+          </div>
+          <div class="sq-action">
+            <a [href]="projectLinks.algorithmVisualizer" class="game-btn game-btn-primary" target="_blank" rel="noopener">
+              ▶&nbsp; Play Demo
             </a>
           </div>
         </div>
       </div>
 
-      <div class="project-card divine-card">
-        <!-- Project Preview -->
-        <div class="project-preview-container">
-          <a [href]="projectLinks.religiousGpt" target="_blank">
-            <div class="project-preview divine-wisdom">
-              <h3>🕉️ Religious GPT</h3>
-              <p>Learn Religion in an AI Way</p>
-              <div class="om-symbol">🕉️</div>
-              <div class="tech-stack">Bhagavad Gita • Quran • Bible • Vedas • Tripitaka</div>
-              <div class="tech-stack">AI-Powered Spiritual Insights</div>
-              <div class="powered-by">Powered by GPT-4.1</div>
+      <div class="project-card side-quest-card divine-card" data-anim="fade-up">
+        <a [href]="projectLinks.religiousGpt" target="_blank" rel="noopener" class="game-screen-link">
+          <div class="game-screen divine-screen">
+            <div class="screen-scanlines"></div>
+            <div class="screen-content">
+              <div class="screen-icon">🕉️</div>
+              <div class="screen-title">RELIGIOUS GPT</div>
+              <div class="screen-subtitle">Learn Religion the AI Way</div>
+              <div class="screen-tags">Gita · Quran · Bible · Vedas · Tripitaka</div>
+              <div class="screen-press powered">Powered by GPT-4.1</div>
             </div>
-          </a>
-        </div>
-
-        <!-- Project Content -->
-        <div class="card-body">
-          <div class="project-meta">
-            <span class="badge">AI App</span>
-            <span class="text-muted">AI-Powered Learning</span>
           </div>
-          <h5 class="card-title">🕉️ Religious GPT</h5>
+        </a>
+        <div class="card-body side-quest-body">
+          <div class="sq-type-row">
+            <span class="sq-type-badge ai-badge">🤖 AI APP</span>
+            <span class="sq-xp">+750 XP</span>
+          </div>
+          <h5 class="sq-title">Religious GPT</h5>
           <p class="card-text">
-            Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures — The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, The Tao Te Ching, The Upanishads, and more. An AI companion that makes sacred knowledge accessible to everyone.
+            Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures — The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, and more.
           </p>
-          <div class="project-stats">
-            <div class="tech-badges">
-              <span class="tech-badge">React</span>
-              <span class="tech-badge">Node.js</span>
-              <span class="tech-badge">GPT-4.1</span>
-              <span class="tech-badge">Vercel</span>
-            </div>
+          <div class="sq-tech-row">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">GPT-4.1</span>
+            <span class="tech-badge">Vercel</span>
           </div>
-          <div class="project-actions">
-            <a [href]="projectLinks.religiousGpt" class="btn btn-primary" target="_blank" rel="noopener">
-              View Live Demo
+          <div class="sq-action">
+            <a [href]="projectLinks.religiousGpt" class="game-btn game-btn-primary" target="_blank" rel="noopener">
+              ▶&nbsp; Play Demo
             </a>
           </div>
         </div>
       </div>
 
-      <div class="project-card datesense-card">
-        <!-- Project Preview -->
-        <div class="project-preview-container">
-          <a [href]="projectLinks.dateSense" target="_blank">
-            <div class="project-preview datesense-preview">
-              <h3>💘 DateSense</h3>
-              <p>AI Dating Conversation Analyst</p>
-              <div class="heart-symbol">💘</div>
-              <div class="tech-stack">Attraction Score • Ghosting Risk • Conversation Health</div>
-              <div class="tech-stack">Scam Detection • Smart Reply Suggestions</div>
-              <div class="powered-by">Powered by GPT-4.1 Nano</div>
+      <div class="project-card side-quest-card datesense-card" data-anim="fade-up">
+        <a [href]="projectLinks.dateSense" target="_blank" rel="noopener" class="game-screen-link">
+          <div class="game-screen datesense-screen">
+            <div class="screen-scanlines"></div>
+            <div class="screen-content">
+              <div class="screen-icon">💘</div>
+              <div class="screen-title">DATESENSE</div>
+              <div class="screen-subtitle">AI Dating Conversation Analyst</div>
+              <div class="screen-tags">Attraction Score · Ghosting Risk · Scam Detection</div>
+              <div class="screen-press powered">Powered by GPT-4.1 Nano</div>
             </div>
-          </a>
-        </div>
-
-        <!-- Project Content -->
-        <div class="card-body">
-          <div class="project-meta">
-            <span class="badge">AI App</span>
-            <span class="text-muted">Conversation Intelligence</span>
           </div>
-          <h5 class="card-title">💘 DateSense</h5>
+        </a>
+        <div class="card-body side-quest-body">
+          <div class="sq-type-row">
+            <span class="sq-type-badge ai-badge">🤖 AI APP</span>
+            <span class="sq-xp">+800 XP</span>
+          </div>
+          <h5 class="sq-title">DateSense</h5>
           <p class="card-text">
-            An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Leverages GPT-4.1 Nano to extract conversational signals, generate contextual reply suggestions, recommend personalized date ideas, and detect potential scam or manipulative patterns — all presented through a sleek, interactive insights dashboard.
+            An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Detects potential scam or manipulative patterns through GPT-4.1 Nano.
           </p>
-          <div class="project-stats">
-            <div class="tech-badges">
-              <span class="tech-badge">Angular</span>
-              <span class="tech-badge">GPT-4.1 Nano</span>
-              <span class="tech-badge">OCR</span>
-              <span class="tech-badge">Vercel</span>
-            </div>
+          <div class="sq-tech-row">
+            <span class="tech-badge">Angular</span>
+            <span class="tech-badge">GPT-4.1 Nano</span>
+            <span class="tech-badge">OCR</span>
+            <span class="tech-badge">Vercel</span>
           </div>
-          <div class="project-actions">
-            <a [href]="projectLinks.dateSense" class="btn btn-primary" target="_blank" rel="noopener">
-              View Live Demo
+          <div class="sq-action">
+            <a [href]="projectLinks.dateSense" class="game-btn game-btn-primary" target="_blank" rel="noopener">
+              ▶&nbsp; Play Demo
             </a>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
-  <!-- Open Source Section -->
+  <!-- ══════════════════ POWER-UPS / OPEN SOURCE ══════════════════ -->
   <div class="apple-container" id="open-source" style="margin-top: 6rem;">
-    <div class="section-header" data-anim="fade-up">
-      <h2 class="section-title apple-text-display" data-text-reveal>Open Source</h2>
+    <div class="section-header quest-header" data-anim="fade-up">
+      <div class="quest-world-label">📦 ITEM SHOP</div>
+      <h2 class="section-title quest-title" data-text-reveal>Open Source Power-Ups</h2>
+      <p class="section-subtitle">Free collectibles. Pick up and drop into your stack.</p>
     </div>
 
-    <!-- Category Filters -->
-    <div class="category-filters" data-anim="fade-up" data-delay="100">
-      <div class="filter-buttons">
-        @for (category of availableCategories; track category; let i = $index) {
-          <button
-            class="filter-btn"
-            [class.active]="selectedCategory === category"
-            (click)="filterByCategory(category)"
-            [attr.data-aos-delay]="(i + 1) * 100">
-            {{ category }}
-          </button>
-        }
-      </div>
+    <!-- Category Filters styled as game-menu tabs -->
+    <div class="shop-filters" data-anim="fade-up" data-delay="100">
+      @for (category of availableCategories; track category; let i = $index) {
+        <button
+          class="shop-filter-btn"
+          [class.active]="selectedCategory === category"
+          (click)="filterByCategory(category)"
+          [attr.data-aos-delay]="(i + 1) * 100">
+          {{ category }}
+        </button>
+      }
     </div>
 
-    <div class="open-source-grid">
+    <div class="open-source-grid powerup-grid">
       @for (project of filteredProjects; track project; let i = $index) {
         <div
-          class="open-source-card"
+          class="open-source-card powerup-card"
           [attr.data-delay]="(i + 1) * 100"
           data-anim="fade-up">
-          <div class="card-body">
-            <div class="project-meta">
-              <span class="badge">{{ project.category }}</span>
-              <span class="text-muted">Published Package</span>
+          <div class="powerup-top">
+            <div class="powerup-icon-wrap">
+              <span class="powerup-icon">{{ project.category === 'NPM' ? '📦' : project.category === 'Maven Central' ? '☕' : '⭐' }}</span>
             </div>
-            <h5 class="card-title">{{ project.title }}</h5>
-            <p class="card-tagline">{{ project.tagline }}</p>
-            <p class="card-text">{{ project.description }}</p>
-            <div class="project-stats">
-              <div class="package-badges" [ngClass]="{'npm-badges': project.category === 'NPM', 'maven-badges': project.category === 'Maven Central'}">
-                @if (project.badges.version) {
-                  <img [src]="project.badges.version" alt="version" class="package-badge">
-                }
-                @if (project.badges.downloads) {
-                  <img [src]="project.badges.downloads" alt="downloads" class="package-badge">
-                }
-                @if (project.badges.total) {
-                  <img [src]="project.badges.total" alt="total downloads" class="package-badge">
-                }
-                @if (project.badges.java) {
-                  <img [src]="project.badges.java" alt="java version" class="package-badge">
-                }
-              </div>
+            <div class="powerup-category">{{ project.category }}</div>
+          </div>
+          <div class="card-body powerup-body">
+            <h5 class="powerup-name">{{ project.title }}</h5>
+            <p class="powerup-tagline">{{ project.tagline }}</p>
+            <p class="card-text powerup-desc">{{ project.description }}</p>
+            <div class="powerup-badges">
+              @if (project.badges.version) {
+                <img [src]="project.badges.version" alt="version" class="package-badge">
+              }
+              @if (project.badges.downloads) {
+                <img [src]="project.badges.downloads" alt="downloads" class="package-badge">
+              }
+              @if (project.badges.total) {
+                <img [src]="project.badges.total" alt="total downloads" class="package-badge">
+              }
+              @if (project.badges.java) {
+                <img [src]="project.badges.java" alt="java version" class="package-badge">
+              }
             </div>
-            <div class="project-actions">
-              <a [href]="project.link" class="btn btn-primary" target="_blank" rel="noopener">
-                {{ project.linkText }}
-              </a>
-            </div>
+            <a [href]="project.link" class="game-btn game-btn-secondary powerup-btn" target="_blank" rel="noopener">
+              ⬇&nbsp; {{ project.linkText }}
+            </a>
           </div>
         </div>
       }

@@ -1,349 +1,144 @@
-<div class="apple-section" id="skill">
-  <div class="apple-container">
-    <div class="section-header" data-anim="fade-up">
-      <h2 class="section-title apple-text-display" data-text-reveal>Skills & Expertise</h2>
-      <p class="section-subtitle" data-anim="fade-up" data-delay="200">Tap a star to explore</p>
-      <button class="system-mode-toggle" [ngClass]="{'system-mode-toggle--active': systemMode}" (click)="toggleSystemMode()">
-        <span class="system-mode-icon">&#x1f9e0;</span>
-        <span class="system-mode-label">{{systemMode ? 'Skill View' : 'System Architecture'}}</span>
-      </button>
-    </div>
+<div class="rpg-skills-section" id="skill">
+  <div class="rpg-container">
+    <div class="section-header">
+      <span class="section-kicker">Skill inventory</span>
+      <h2 class="section-title">Backend, Platform &amp; Gen AI</h2>
+      <p class="section-subtitle">
+        {{ systemMode ? 'Architecture route — how these skills connect in production' : 'RPG inventory — tap any card for project proof' }}
+      </p>
 
-    <div class="viewport-wrapper" [ngClass]="{'viewport-wrapper--zooming': zooming}">
-      <div class="constellation-viewport" data-anim="scale" data-duration="1000"
-           [ngClass]="{'viewport-zooming': zooming, 'focus-mode': focusModeActive, 'has-hover': !!hoveredSkill, 'system-mode': systemMode}"
-           [style.transform]="getZoomTransform()">
-
-        <!-- Background ambient stars -->
-        <div class="star-field">
-          @for (star of backgroundStars; track $index) {
-            <div class="bg-star"
-              [style.left.%]="star.x"
-              [style.top.%]="star.y"
-              [style.width.px]="star.size"
-              [style.height.px]="star.size"
-              [style.animation-delay]="star.delay + 's'">
-            </div>
-          }
+      <div class="skills-hud">
+        <div class="hud-card">
+          <span class="hud-label">zones</span>
+          <span class="hud-value">{{ constellations.length }}</span>
         </div>
+        <div class="hud-card">
+          <span class="hud-label">nodes</span>
+          <span class="hud-value">{{ totalSkillCount }}</span>
+        </div>
+        <div class="hud-card">
+          <span class="hud-label">core skills</span>
+          <span class="hud-value">{{ primarySkillCount }}</span>
+        </div>
+        <div class="hud-card">
+          <span class="hud-label">avg xp</span>
+          <span class="hud-value">{{ averageProficiency }}%</span>
+        </div>
+      </div>
 
-        <!-- SVG Constellation -->
-        <svg class="constellation-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            @for (constellation of constellations; track constellation.id) {
-              <filter [attr.id]="'glow-' + constellation.id" x="-60%" y="-60%" width="220%" height="220%">
-                <feGaussianBlur stdDeviation="0.5" result="blur"/>
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            }
-            <filter id="tooltip-shadow" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="0.3" stdDeviation="0.8" flood-color="rgba(0,0,0,0.7)"/>
-            </filter>
-          </defs>
-
-          <!-- Cross-cluster semantic connections (dashed) -->
-          @for (link of crossClusterLines; track $index) {
-            <line
-              [attr.x1]="link.x1" [attr.y1]="link.y1"
-              [attr.x2]="link.x2" [attr.y2]="link.y2"
-              [attr.stroke]="link.color"
-              [attr.stroke-width]="link.strength === 'strong' ? 0.3 : 0.12"
-              [attr.stroke-dasharray]="link.strength === 'strong' ? '1.2,0.5' : '0.6,0.8'"
-              [ngClass]="getCrossLinkClasses(link)"/>
-          }
-
-          <!-- In-cluster constellation lines -->
-          @for (line of constellationLines; track $index) {
-            <line
-              [attr.x1]="line.x1" [attr.y1]="line.y1"
-              [attr.x2]="line.x2" [attr.y2]="line.y2"
-              [attr.stroke]="line.color"
-              stroke-width="0.15"
-              stroke-opacity="0.45"
-              class="constellation-line"/>
-          }
-
-          <!-- Skill stars -->
-          @for (constellation of constellations; track constellation.id) {
-            @for (skill of constellation.skills; track skill.name; let j = $index) {
-              <g [ngClass]="getStarClasses(skill, j)"
-                 (mouseenter)="hoverStar(skill, constellation)"
-                 (mouseleave)="unhoverStar()"
-                 (click)="selectStar(skill, constellation)">
-                <!-- Invisible hit area -->
-                <circle
-                  [attr.cx]="skill.x"
-                  [attr.cy]="skill.y"
-                  [attr.r]="getLevelGlowRadius(skill.level) + 1"
-                  fill="transparent"
-                  class="star-hitarea"/>
-                <!-- Outer glow halo -->
-                <circle
-                  [attr.cx]="skill.x"
-                  [attr.cy]="skill.y"
-                  [attr.r]="getLevelGlowRadius(skill.level)"
-                  [attr.fill]="constellation.glowColor"
-                  fill-opacity="0.15"
-                  class="star-glow"
-                  [ngClass]="{'star-glow--active': isSelected(skill)}"/>
-                <!-- Star core -->
-                <circle
-                  [attr.cx]="skill.x"
-                  [attr.cy]="skill.y"
-                  [attr.r]="getLevelStarRadius(skill.level)"
-                  [attr.fill]="constellation.color"
-                  [attr.filter]="'url(#glow-' + constellation.id + ')'"
-                  class="star-core"
-                  [ngClass]="{'star-core--active': isSelected(skill), 'star-core--hovered': hoveredSkill === skill}"/>
-                <!-- Star label -->
-                <text
-                  [attr.x]="skill.x"
-                  [attr.y]="skill.y + getLabelOffset(skill.level)"
-                  text-anchor="middle"
-                  class="star-label"
-                  [ngClass]="{'star-label--active': isSelected(skill), 'star-label--primary': skill.level === 'primary', 'star-label--system': systemMode && systemModeLabels[skill.name]}"
-                  [attr.fill]="constellation.color">
-                  {{getDisplayName(skill)}}
-                </text>
-                <!-- System mode flow order badge -->
-                @if (isSystemFlowNode(skill)) {
-                  <circle
-                    [attr.cx]="skill.x + getLevelStarRadius(skill.level) + 1.5"
-                    [attr.cy]="skill.y - getLevelStarRadius(skill.level) - 0.5"
-                    r="1.4"
-                    fill="rgba(76,175,80,0.9)"
-                    class="system-flow-badge"/>
-                  <text
-                    [attr.x]="skill.x + getLevelStarRadius(skill.level) + 1.5"
-                    [attr.cy]="skill.y - getLevelStarRadius(skill.level) - 0.5"
-                    [attr.y]="skill.y - getLevelStarRadius(skill.level) - 0.05"
-                    text-anchor="middle"
-                    dominant-baseline="middle"
-                    class="system-flow-number"
-                    fill="#fff">
-                    {{getSystemFlowIndex(skill) + 1}}
-                  </text>
-                }
-              </g>
-            }
-
-            <!-- Category label -->
-            <text
-              [attr.x]="getCategoryLabelX(constellation)"
-              [attr.y]="getCategoryLabelY(constellation)"
-              text-anchor="middle"
-              class="category-label"
-              [attr.fill]="constellation.color">
-              {{constellation.name}}
-            </text>
-          }
-
-          <!-- Radial proficiency ring -->
-          @if (selectedSkill && selectedConstellation) {
-            <g class="radial-ring">
-              <circle
-                [attr.cx]="selectedSkill.x" [attr.cy]="selectedSkill.y" [attr.r]="ringRadius"
-                fill="none" [attr.stroke]="selectedConstellation.color"
-                stroke-opacity="0.15" [attr.stroke-width]="ringStroke" class="ring-track"/>
-              <path
-                [attr.d]="getArcPath(selectedSkill.x, selectedSkill.y, selectedSkill.proficiency)"
-                fill="none" [attr.stroke]="selectedConstellation.color"
-                [attr.stroke-width]="ringStroke" stroke-linecap="round" class="ring-fill"/>
-              <text
-                [attr.x]="selectedSkill.x" [attr.y]="getPercentY(selectedSkill)"
-                text-anchor="middle" class="ring-percentage"
-                [attr.fill]="selectedConstellation.color">
-                {{selectedSkill.proficiency}}%
-              </text>
-            </g>
-          }
-
-          <!-- Hover tooltip -->
-          @if (hoveredSkill && hoveredConstellation && tooltipPos && !isSelected(hoveredSkill)) {
-            <g class="skill-tooltip" pointer-events="none" filter="url(#tooltip-shadow)">
-              <rect
-                [attr.x]="tooltipPos.x - tooltipWidth / 2"
-                [attr.y]="tooltipPos.y"
-                [attr.width]="tooltipWidth" height="10.5"
-                rx="1.2"
-                fill="rgba(6,8,24,0.95)"
-                [attr.stroke]="hoveredConstellation.color"
-                stroke-width="0.2"
-                stroke-opacity="0.6"/>
-              <!-- Level dot -->
-              <circle
-                [attr.cx]="tooltipPos.x - tooltipWidth / 2 + 2.2"
-                [attr.cy]="tooltipPos.y + 2.8"
-                r="0.65"
-                [attr.fill]="hoveredConstellation.color"
-                [attr.fill-opacity]="hoveredSkill.level === 'primary' ? 1 : hoveredSkill.level === 'secondary' ? 0.7 : 0.4"/>
-              <!-- Skill name -->
-              <text
-                [attr.x]="tooltipPos.x - tooltipWidth / 2 + 3.8"
-                [attr.y]="tooltipPos.y + 3.15"
-                class="tooltip-name"
-                [attr.fill]="hoveredConstellation.color"
-                dominant-baseline="middle">
-                {{hoveredSkill.name}}
-              </text>
-              <!-- Level label -->
-              <text
-                [attr.x]="tooltipPos.x - tooltipWidth / 2 + 1.8"
-                [attr.y]="tooltipPos.y + 5.8"
-                class="tooltip-meta"
-                dominant-baseline="middle">
-                {{hoveredConstellation.name}} · {{getLevelLabel(hoveredSkill.level)}}
-              </text>
-              <!-- 1-line proof / context -->
-              <text
-                [attr.x]="tooltipPos.x - tooltipWidth / 2 + 1.8"
-                [attr.y]="tooltipPos.y + 8.5"
-                class="tooltip-proof"
-                dominant-baseline="middle">
-                {{hoveredSkill.tooltip}}
-              </text>
-            </g>
-          }
-        </svg>
-
-        <!-- Rocket Ship -->
-        @if (rocketAnimating && rocketPosition) {
-          <div class="rocket-container" [ngClass]="{'rocket-container--zooming': zooming}">
-            <svg class="rocket-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <linearGradient id="rocketGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" style="stop-color:#E3F2FD;stop-opacity:1" />
-                  <stop offset="100%" style="stop-color:#90CAF9;stop-opacity:1" />
-                </linearGradient>
-                <radialGradient id="trailGlow">
-                  <stop offset="0%" style="stop-color:#4FC3F7;stop-opacity:0.8" />
-                  <stop offset="100%" style="stop-color:#4FC3F7;stop-opacity:0" />
-                </radialGradient>
-                <filter id="rocketGlowFilter" x="-100%" y="-100%" width="300%" height="300%">
-                  <feGaussianBlur stdDeviation="0.8" result="blur"/>
-                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-              </defs>
-              @for (particle of rocketTrail; track $index) {
-                <circle [attr.cx]="particle.x" [attr.cy]="particle.y" [attr.r]="particle.size"
-                  fill="url(#trailGlow)" [attr.opacity]="particle.opacity" class="trail-particle"/>
-              }
-              <g class="rocket-group"
-                 [attr.transform]="'translate(' + rocketPosition.x + ', ' + rocketPosition.y + ')'"
-                 filter="url(#rocketGlowFilter)">
-                <path d="M 0,-3.5 C -0.8,-2.5 -1.2,-0.5 -1.2,1.5 L -0.8,2.5 L 0,3 L 0.8,2.5 L 1.2,1.5 C 1.2,-0.5 0.8,-2.5 0,-3.5 Z"
-                      fill="url(#rocketGradient)" stroke="rgba(255,255,255,0.8)" stroke-width="0.15"/>
-                <path d="M 0,-3.5 C -0.3,-3.5 -0.6,-3 -0.8,-2.5 L 0,-3.5 L 0.8,-2.5 C 0.6,-3 0.3,-3.5 0,-3.5 Z"
-                      fill="#fff" opacity="0.4"/>
-                <circle cx="0" cy="-1" r="0.6" fill="#4FC3F7" stroke="rgba(255,255,255,0.9)" stroke-width="0.12"/>
-                <circle cx="-0.15" cy="-1.15" r="0.15" fill="rgba(255,255,255,0.6)"/>
-                <path d="M -1.2,1 L -2,2.5 L -1.2,2 Z" fill="#64B5F6" stroke="rgba(255,255,255,0.3)" stroke-width="0.08"/>
-                <path d="M 1.2,1 L 2,2.5 L 1.2,2 Z" fill="#64B5F6" stroke="rgba(255,255,255,0.3)" stroke-width="0.08"/>
-                <path d="M -0.8,2.5 Q -0.6,4.5 0,6 Q 0.6,4.5 0.8,2.5 Z" fill="#FF6B35" opacity="0.9" class="rocket-flame"/>
-                <path d="M -0.4,2.5 Q -0.2,4 0,5 Q 0.2,4 0.4,2.5 Z" fill="#FFD93D" opacity="0.9" class="rocket-flame-inner"/>
-                <path d="M -0.15,2.5 Q 0,3.8 0.15,2.5 Z" fill="#fff" opacity="0.7" class="rocket-flame-core"/>
-              </g>
-            </svg>
-          </div>
-        }
-
-        <!-- Star burst flash -->
-        @if (zooming && zoomTarget) {
-          <div class="star-burst" [style.left.%]="zoomTarget.x" [style.top.%]="zoomTarget.y"></div>
-        }
-
+      <div class="skills-controls">
+        <button class="system-mode-toggle" [ngClass]="{'system-mode-toggle--active': systemMode}" (click)="toggleSystemMode()">
+          <span class="system-mode-icon">&#x1f3ae;</span>
+          <span class="system-mode-label">{{ systemMode ? 'Skill inventory' : 'Architecture route' }}</span>
+        </button>
       </div>
     </div>
 
-    <!-- Skill Detail Modal -->
-    @if (showDetailModal && selectedSkill && selectedSkill.details) {
-      <div class="skill-modal-overlay" (click)="closeDetailModal()" role="dialog" aria-label="Skill detail">
-        <div class="skill-modal" (click)="$event.stopPropagation()">
-          <div class="modal-header">
-            <div class="modal-header-left">
-              <div class="modal-skill-icon" [style.background]="selectedConstellation?.color">
-                <span class="modal-skill-initial">{{selectedSkill.name.charAt(0)}}</span>
-              </div>
-              <div class="modal-title-section">
-                <h2 class="modal-skill-name">{{selectedSkill.name}}</h2>
-                <span class="modal-category" [style.color]="selectedConstellation?.color">
-                  {{selectedConstellation?.name}}
-                  <span class="modal-level-badge" [ngClass]="'modal-level-badge--' + selectedSkill.level">
-                    {{getLevelLabel(selectedSkill.level)}}
-                  </span>
+    <!-- Category groups -->
+    @for (constellation of constellations; track constellation.id) {
+      <div class="category-group">
+        <div class="category-header">
+          <div class="category-color-bar" [style.background]="constellation.color"></div>
+          <h3 class="category-name" [style.color]="constellation.color">{{ constellation.name }}</h3>
+          <span class="category-count">{{ constellation.skills.length }} skills</span>
+        </div>
+
+        <div class="skill-card-grid">
+          @for (skill of constellation.skills; track skill.name) {
+            <div class="skill-card"
+                 [ngClass]="{
+                   'skill-card--primary': skill.level === 'primary',
+                   'skill-card--secondary': skill.level === 'secondary',
+                   'skill-card--supporting': skill.level === 'supporting',
+                   'skill-card--expanded': isExpanded(skill),
+                   'skill-card--flow': isSystemFlowNode(skill)
+                 }"
+                 (click)="toggleCard(skill, constellation)">
+
+              <!-- Flow badge for system mode -->
+              @if (isSystemFlowNode(skill)) {
+                <div class="flow-badge">{{ getSystemFlowIndex(skill) + 1 }}</div>
+              }
+
+              <div class="card-top">
+                <span class="level-tag" [ngClass]="'level-tag--' + skill.level">
+                  {{ getLevelTag(skill.level) }}
                 </span>
+                <span class="xp-number" [style.color]="constellation.color">{{ skill.proficiency }} XP</span>
               </div>
-            </div>
-            <button class="modal-close" (click)="closeDetailModal()" aria-label="Close">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-          <div class="modal-content">
-            <div class="modal-section">
-              <h3 class="modal-section-title">Overview</h3>
-              <p class="section-description">{{selectedSkill.details.description}}</p>
-            </div>
-            <div class="modal-section">
-              <h3 class="modal-section-title">Experience</h3>
-              <ul class="detail-list">
-                @for (exp of selectedSkill.details.experience; track $index) {
-                  <li class="detail-item">{{exp}}</li>
-                }
-              </ul>
-            </div>
-            <div class="modal-section">
-              <h3 class="modal-section-title">Key Projects</h3>
-              <div class="project-grid">
-                @for (project of selectedSkill.details.projects; track $index) {
-                  <div class="project-card">
-                    <div class="project-icon">🚀</div>
-                    <span class="project-name">{{project}}</span>
+
+              <h4 class="skill-name">{{ getDisplayName(skill) }}</h4>
+              <p class="skill-tooltip">{{ skill.tooltip }}</p>
+
+              <div class="xp-bar-track">
+                <div class="xp-bar-fill"
+                     [style.width.%]="skill.proficiency"
+                     [style.background]="constellation.color">
+                </div>
+              </div>
+
+              <!-- Expanded detail panel -->
+              @if (isExpanded(skill) && skill.details) {
+                <div class="card-details">
+                  <p class="detail-description">{{ skill.details.description }}</p>
+
+                  <div class="detail-section">
+                    <h5 class="detail-heading">Experience</h5>
+                    <ul class="detail-list">
+                      @for (exp of skill.details.experience; track $index) {
+                        <li>{{ exp }}</li>
+                      }
+                    </ul>
                   </div>
-                }
-              </div>
-            </div>
-            <div class="modal-section">
-              <h3 class="modal-section-title">Achievements</h3>
-              <div class="achievement-list">
-                @for (achievement of selectedSkill.details.achievements; track $index) {
-                  <div class="achievement-item">
-                    <span class="achievement-icon">⭐</span>
-                    <span class="achievement-text">{{achievement}}</span>
+
+                  <div class="detail-section">
+                    <h5 class="detail-heading">Key Projects</h5>
+                    <div class="project-chips">
+                      @for (project of skill.details.projects; track $index) {
+                        <span class="project-chip">{{ project }}</span>
+                      }
+                    </div>
                   </div>
-                }
-              </div>
+
+                  <div class="detail-section">
+                    <h5 class="detail-heading">Achievements</h5>
+                    <ul class="achievement-list">
+                      @for (achievement of skill.details.achievements; track $index) {
+                        <li>{{ achievement }}</li>
+                      }
+                    </ul>
+                  </div>
+
+                  <div class="detail-section">
+                    <h5 class="detail-heading">Related</h5>
+                    <div class="related-tags">
+                      @for (rs of skill.details.relatedSkills; track $index) {
+                        <span class="related-tag">{{ rs }}</span>
+                      }
+                    </div>
+                  </div>
+                </div>
+              }
             </div>
-            <div class="modal-section">
-              <h3 class="modal-section-title">Related Skills</h3>
-              <div class="related-skills">
-                @for (relatedSkill of selectedSkill.details.relatedSkills; track $index) {
-                  <span class="related-skill-tag">{{relatedSkill}}</span>
-                }
-              </div>
-            </div>
-          </div>
+          }
         </div>
       </div>
     }
 
-    <!-- Level Legend -->
-    <div class="skill-level-legend">
-      <div class="level-legend-item">
-        <span class="level-legend-star level-legend-star--primary"></span>
-        <span class="level-legend-label">Core Strength</span>
+    <div class="legend-strip">
+      <div class="legend-item">
+        <span class="legend-dot legend-dot--primary"></span>
+        <span class="legend-label">Boss Skill</span>
       </div>
-      <div class="level-legend-divider"></div>
-      <div class="level-legend-item">
-        <span class="level-legend-star level-legend-star--secondary"></span>
-        <span class="level-legend-label">Strong Experience</span>
+      <div class="legend-divider"></div>
+      <div class="legend-item">
+        <span class="legend-dot legend-dot--secondary"></span>
+        <span class="legend-label">Main Class</span>
       </div>
-      <div class="level-legend-divider"></div>
-      <div class="level-legend-item">
-        <span class="level-legend-star level-legend-star--supporting"></span>
-        <span class="level-legend-label">Working Knowledge</span>
+      <div class="legend-divider"></div>
+      <div class="legend-item">
+        <span class="legend-dot legend-dot--supporting"></span>
+        <span class="legend-label">Support Tool</span>
       </div>
     </div>
   </div>

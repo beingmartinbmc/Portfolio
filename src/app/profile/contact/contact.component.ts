@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -12,7 +12,7 @@ import {NgForm} from '@angular/forms';
   standalone: true,
   imports: [FormsModule, CommonModule]
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent {
 
   @ViewChild('contactForm') contactForm!: NgForm;
 
@@ -27,14 +27,10 @@ export class ContactComponent implements OnInit {
   showToast = false;
   toastMessage = '';
   toastType = 'success';
+  marioJumping = false;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {
-  }
-
-  // Check if all fields are filled
   isFormValid(): boolean {
     return this.model.name?.trim() !== '' && 
            this.model.email?.trim() !== '' && 
@@ -42,47 +38,33 @@ export class ContactComponent implements OnInit {
            this.model.message?.trim() !== '';
   }
 
-  // Check if email is valid
   isEmailValid(): boolean {
     if (!this.model.email?.trim()) return false;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(this.model.email.trim());
   }
 
-  // Show toast notification
   showToastNotification(message: string, type: 'success' | 'error' = 'success') {
     this.toastMessage = message;
     this.toastType = type;
     this.showToast = true;
     
-    // Hide toast after 8 seconds (increased significantly)
     setTimeout(() => {
       this.showToast = false;
     }, 8000);
   }
 
   onSubmit(name: string, subject: string, email: string, message: string) {
-    console.log('Form submission triggered');
-    console.log('Form data:', { name, subject, email, message });
-    console.log('Model data:', this.model);
-    console.log('Is form valid:', this.isFormValid());
-    console.log('Is email valid:', this.isEmailValid());
-
-    // Validate all fields
     if (!this.isFormValid()) {
-      console.log('Form validation failed - missing fields');
       this.showToastNotification('Please fill in all fields', 'error');
       return;
     }
 
-    // Validate email format
     if (!this.isEmailValid()) {
-      console.log('Email validation failed');
       this.showToastNotification('Please enter a valid email address', 'error');
       return;
     }
 
-    console.log('All validations passed, submitting form...');
     this.isSubmitting = true;
 
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
@@ -90,14 +72,17 @@ export class ContactComponent implements OnInit {
       {name, subject, replyto: email, message},
       {headers}).subscribe(
       response => {
-        console.log('Form submission successful:', response);
         this.isSubmitting = false;
+        this.marioJumping = true;
         this.showToastNotification('Message sent successfully! I\'ll get back to you soon.');
         
-        // Reset form after a short delay to ensure toast is visible
         setTimeout(() => {
           this.resetForm();
         }, 1000);
+
+        setTimeout(() => {
+          this.marioJumping = false;
+        }, 2400);
       },
       error => {
         console.error('Form submission failed:', error);
@@ -107,9 +92,7 @@ export class ContactComponent implements OnInit {
     );
   }
 
-  // Reset form method
   resetForm() {
-    // Reset the model
     this.model = {
       name: '',
       email: '',
@@ -117,11 +100,9 @@ export class ContactComponent implements OnInit {
       message: ''
     };
     
-    // Reset the form state to clear validation errors
     if (this.contactForm) {
       this.contactForm.resetForm();
     }
     
-    console.log('Form reset completed');
   }
 }

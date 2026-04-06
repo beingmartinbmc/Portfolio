@@ -61,11 +61,10 @@
     [class.talking]="isTalking"
     [class.whistling]="isWhistling">
     <svg width="160" height="160" viewBox="0 0 160 160">
-      <!-- Face Circle with gradient -->
       <defs>
         <linearGradient id="faceGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:#667eea;stop-opacity:0.2" />
-          <stop offset="100%" style="stop-color:#764ba2;stop-opacity:0.3" />
+          <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.2" />
+          <stop offset="100%" style="stop-color:#d97706;stop-opacity:0.3" />
         </linearGradient>
         <filter id="glow">
           <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
@@ -76,33 +75,27 @@
         </filter>
       </defs>
 
-      <!-- Face -->
-      <circle cx="80" cy="80" r="70" fill="url(#faceGradient)" stroke="#667eea" stroke-width="3" filter="url(#glow)"/>
+      <circle cx="80" cy="80" r="70" fill="url(#faceGradient)" stroke="#fbbf24" stroke-width="3" filter="url(#glow)"/>
 
-      <!-- Left Eye Container -->
       <g id="left-eye-container">
-        <ellipse cx="55" cy="75" rx="15" ry="20" fill="#fff" stroke="#667eea" stroke-width="2"/>
-        <circle id="left-pupil" cx="55" cy="75" r="8" fill="#667eea"/>
+        <ellipse cx="55" cy="75" rx="15" ry="20" fill="#fff" stroke="#fbbf24" stroke-width="2"/>
+        <circle id="left-pupil" cx="55" cy="75" r="8" fill="#d97706"/>
         <circle cx="57" cy="73" r="3" fill="#fff" opacity="0.8"/>
       </g>
 
-      <!-- Right Eye Container -->
       <g id="right-eye-container">
-        <ellipse cx="105" cy="75" rx="15" ry="20" fill="#fff" stroke="#667eea" stroke-width="2"/>
-        <circle id="right-pupil" cx="105" cy="75" r="8" fill="#667eea"/>
+        <ellipse cx="105" cy="75" rx="15" ry="20" fill="#fff" stroke="#fbbf24" stroke-width="2"/>
+        <circle id="right-pupil" cx="105" cy="75" r="8" fill="#d97706"/>
         <circle cx="107" cy="73" r="3" fill="#fff" opacity="0.8"/>
       </g>
 
-      <!-- Eyebrows -->
-      <path id="left-eyebrow" d="M40 55 Q55 50 65 55" stroke="#667eea" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path id="right-eyebrow" d="M95 55 Q105 50 120 55" stroke="#667eea" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path id="left-eyebrow" d="M40 55 Q55 50 65 55" stroke="#fbbf24" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path id="right-eyebrow" d="M95 55 Q105 50 120 55" stroke="#fbbf24" stroke-width="3" fill="none" stroke-linecap="round"/>
 
-      <!-- Mouth (changes based on state) -->
-      <path id="mouth" [attr.d]="mouthPath" stroke="#667eea" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path id="mouth" [attr.d]="mouthPath" stroke="#fbbf24" stroke-width="3" fill="none" stroke-linecap="round"/>
 
-      <!-- Cheeks (blush when talking) -->
-      <circle cx="40" cy="90" r="8" fill="#ff6b9d" opacity="0.3" class="cheek left-cheek"/>
-      <circle cx="120" cy="90" r="8" fill="#ff6b9d" opacity="0.3" class="cheek right-cheek"/>
+      <circle cx="40" cy="90" r="8" fill="#ef4444" opacity="0.3" class="cheek left-cheek"/>
+      <circle cx="120" cy="90" r="8" fill="#ef4444" opacity="0.3" class="cheek right-cheek"/>
     </svg>
 
     <!-- Music Notes for whistling -->
