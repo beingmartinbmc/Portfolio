@@ -226,10 +226,11 @@
   overflow: hidden;
   border: 1px solid rgba(148, 163, 184, 0.12);
   background: #09091a;
+  width: 100%;
 
   canvas {
     display: block;
-    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -352,9 +353,56 @@
 
 /* ── Responsive ──────────────────────────────────────── */
 @media (max-width: 640px) {
+  .mario-game-section { padding: clamp(2rem, 4vw, 3rem) 0; }
   .setup-card { padding: 1.5rem; }
   .option-grid { grid-template-columns: 1fr; }
   .difficulty-row { grid-template-columns: 1fr; }
   .results-stats { grid-template-columns: repeat(3, 1fr); }
-  .game-hud { gap: 1rem; padding: 0.6rem 1rem; }
+
+  .game-wrapper {
+    margin: 0 -1rem;
+  }
+
+  .game-hud {
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    margin-left: 1rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+  }
+
+  .hud-val { font-size: 0.6rem; }
+  .hud-icon { font-size: 0.85rem; }
+
+  .canvas-container {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .touch-controls {
+    bottom: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .touch-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+  }
+
+  .touch-jump {
+    width: 56px;
+    height: 56px;
+    font-size: 1.2rem;
+  }
+
+  .touch-fire {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+  }
+
+  .results-card { margin: 1rem; padding: 2rem 1.5rem; }
 }
