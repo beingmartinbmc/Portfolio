@@ -41545,7 +41545,7 @@ function generateProceduralLevel(config3) {
     kwIdx++;
     questionBlocks.push(qb);
   }
-  const enemyCount = config3.difficulty === "Hard" ? 10 : config3.difficulty === "Medium" ? 7 : 4;
+  const enemyCount = config3.difficulty === "Hard" ? 20 : config3.difficulty === "Medium" ? 14 : 9;
   for (let i = 0; i < enemyCount; i++) {
     let ex;
     let attempts = 0;
@@ -41560,7 +41560,7 @@ function generateProceduralLevel(config3) {
     bugIdx++;
     enemies.push(enemy);
   }
-  const coinCount = config3.difficulty === "Hard" ? 20 : config3.difficulty === "Medium" ? 15 : 10;
+  const coinCount = config3.difficulty === "Hard" ? 30 : config3.difficulty === "Medium" ? 25 : 18;
   for (let i = 0; i < coinCount; i++) {
     let cx;
     let attempts = 0;
@@ -41579,7 +41579,7 @@ function createPlayer() {
 }
 function getLevelGenerationPrompt(category, difficulty) {
   const qCount = difficulty === "Hard" ? 5 : difficulty === "Medium" ? 7 : 9;
-  const enemyGuide = difficulty === "Hard" ? "8-12" : difficulty === "Medium" ? "5-8" : "3-5";
+  const enemyGuide = difficulty === "Hard" ? "18-22" : difficulty === "Medium" ? "12-15" : "8-10";
   const gapGuide = difficulty === "Hard" ? "3-4 gaps (2-3 tiles wide)" : difficulty === "Medium" ? "2-3 gaps (2 tiles wide)" : "1-2 small gaps";
   return `Generate a Mario-style platform level layout as JSON for a ${category}-themed ${difficulty} difficulty challenge.
 
@@ -41590,7 +41590,7 @@ Requirements for ${difficulty} difficulty:
 - Ground segments with ${gapGuide}
 - ${qCount} question blocks (power-up blocks) placed at rows 7-9 (above ground, hittable from below)
 - ${enemyGuide} enemies (goomba or koopa) placed at row 11 (on ground)
-- 15-30 coins scattered at rows 4-10
+- 20-35 coins scattered at rows 4-10
 - 3-6 floating brick platforms (2-4 tiles wide) at rows 6-9
 - 1-3 pipes on the ground (2 tiles wide)
 
