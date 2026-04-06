@@ -192,19 +192,42 @@ export function generateProceduralLevel(config: LevelConfig): Level {
     questionBlocks.push(qb);
   }
 
-  // Enemies with bug keywords
-  const enemyCount = config.difficulty === 'Hard' ? 20 : config.difficulty === 'Medium' ? 14 : 9;
-  for (let i = 0; i < enemyCount; i++) {
-    let ex: number;
-    let attempts = 0;
-    do { ex = 10 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 20)); attempts++; }
-    while (isNearPipe(ex) && attempts < 20);
-    const ey = GROUND_ROW - 1;
-    const type = Math.random() < 0.3 ? 'koopa' : 'goomba';
-    const enemy = new Enemy(ex * TILE, ey * TILE, type as any);
-    enemy.keyword = bugKw[bugIdx % bugKw.length];
-    bugIdx++;
-    enemies.push(enemy);
+  // Enemies in staged zones — progressively harder waves
+  const zones: { start: number; end: number; count: number; koopaChance: number }[] =
+    config.difficulty === 'Hard' ? [
+      { start: 8,  end: 20, count: 3, koopaChance: 0.2 },
+      { start: 20, end: 35, count: 5, koopaChance: 0.3 },
+      { start: 35, end: 50, count: 5, koopaChance: 0.35 },
+      { start: 50, end: 62, count: 4, koopaChance: 0.3 },
+      { start: 62, end: 72, count: 3, koopaChance: 0.5 },
+    ] : config.difficulty === 'Medium' ? [
+      { start: 8,  end: 20, count: 2, koopaChance: 0.15 },
+      { start: 20, end: 35, count: 3, koopaChance: 0.25 },
+      { start: 35, end: 50, count: 4, koopaChance: 0.3 },
+      { start: 50, end: 62, count: 3, koopaChance: 0.3 },
+      { start: 62, end: 72, count: 2, koopaChance: 0.5 },
+    ] : [
+      { start: 8,  end: 20, count: 1, koopaChance: 0.1 },
+      { start: 20, end: 35, count: 2, koopaChance: 0.2 },
+      { start: 35, end: 50, count: 3, koopaChance: 0.25 },
+      { start: 50, end: 62, count: 2, koopaChance: 0.25 },
+      { start: 62, end: 72, count: 1, koopaChance: 0.4 },
+    ];
+
+  for (const zone of zones) {
+    const zoneWidth = zone.end - zone.start;
+    const step = Math.max(3, Math.floor(zoneWidth / (zone.count + 1)));
+    for (let i = 0; i < zone.count; i++) {
+      let ex = zone.start + step * (i + 1) + Math.floor(Math.random() * 2 - 1);
+      ex = Math.max(zone.start, Math.min(zone.end - 1, ex));
+      if (isNearPipe(ex)) ex += 3;
+      if (ex > zone.end) ex = zone.end - 2;
+      const type = Math.random() < zone.koopaChance ? 'koopa' : 'goomba';
+      const enemy = new Enemy(ex * TILE, (GROUND_ROW - 1) * TILE, type as any);
+      enemy.keyword = bugKw[bugIdx % bugKw.length];
+      bugIdx++;
+      enemies.push(enemy);
+    }
   }
 
   // Coins
@@ -288,7 +311,14 @@ PLACE THESE ELEMENTS (all x/y in tile units):
    Examples: ${cat.techExamples}
 
 5. ENEMIES: ${enemyCount} enemies at y=11 (on ground). Type "goomba" (70%) or "koopa" (30%).
-   IMPORTANT: spread them across the FULL level (x=8 to x=72). Don't cluster them.
+   CRITICAL — distribute enemies in STAGES across the level like real Mario:
+   - Zone 1 (x=8–20):  light warm-up, 1-2 enemies spaced 4+ tiles apart
+   - Zone 2 (x=20–35): ramp up, 2-4 enemies, mix goomba + koopa, some in pairs (2 tiles apart)
+   - Zone 3 (x=35–50): mid-level gauntlet, densest zone, 3-5 enemies, some in tight groups of 2-3
+   - Zone 4 (x=50–62): second wave after a breather, 2-4 enemies
+   - Zone 5 (x=62–72): final push before the flag, 2-3 enemies including at least 1 koopa
+   Within each zone, space enemies at least 3 tiles apart (except intentional pairs).
+   Never put more than 3 enemies within a 6-tile span.
    Each enemy gets a "keyword" — a bug/anti-pattern that the player "squashes" by stomping it.
    Make these realistic ${cat.domain.split('—')[0].trim()} bugs. Examples: ${cat.bugExamples}
    Every enemy MUST have a unique keyword.
@@ -318,7 +348,8 @@ RULES:
 - All coordinates in TILE units (not pixels)
 - Ground at y=12. Enemies at y=11. No enemies in gaps or on pipes.
 - No impossible jumps (max gap = 3 tiles)
-- Enemies MUST be spread across x=8 to x=72, not clustered
+- Enemies MUST follow the 5-zone staged layout described above — NO clustering all enemies together
+- Between zones, leave breathing room (at least 3-4 tiles with no enemies)
 - Every enemy, brick, and question block MUST have its keyword/label field
 - Keywords should be real ${cat.domain.split('—')[0].trim()} terminology, not generic`;
 }
