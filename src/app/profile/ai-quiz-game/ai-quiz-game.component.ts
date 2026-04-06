@@ -92,13 +92,16 @@ export class AiQuizGameComponent implements OnDestroy {
     const container = canvas.parentElement!;
 
     const resize = () => {
-      const w = container.clientWidth;
-      const h = Math.min(w * 0.5625, 480);
-      canvas.width = w;
-      canvas.height = h;
-      canvas.style.width = w + 'px';
-      canvas.style.height = h + 'px';
-      this.engine?.resize(w, h);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const cssW = container.clientWidth;
+      const cssH = Math.round(Math.min(cssW * 0.5625, 480));
+      canvas.width = Math.round(cssW * dpr);
+      canvas.height = Math.round(cssH * dpr);
+      canvas.style.width = cssW + 'px';
+      canvas.style.height = cssH + 'px';
+      const ctx = canvas.getContext('2d');
+      if (ctx) ctx.scale(dpr, dpr);
+      this.engine?.resize(cssW, cssH);
     };
 
     resize();
