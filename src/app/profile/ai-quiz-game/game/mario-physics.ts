@@ -1,5 +1,5 @@
 import {
-  AABB, GRAVITY, MAX_FALL, MOVE_SPEED, JUMP_FORCE,
+  AABB, GRAVITY, MAX_FALL, MOVE_SPEED, JUMP_FORCE, TILE,
   Player, Platform, Enemy, Coin, QuestionBlock, Level
 } from './mario-entities';
 
@@ -18,10 +18,19 @@ export interface CollisionResult {
   hitQuestionBlock: QuestionBlock | null;
   hitEnemy: Enemy | null;
   stompedEnemy: Enemy | null;
+  brickBroken: Platform | null;
+  brickBumped: Platform | null;
   reachedFlag: boolean;
   died: boolean;
   jumped: boolean;
   coinCollected: boolean;
+}
+
+function solidPlatforms(level: Level): Platform[] {
+  return [
+    ...level.platforms.filter(p => !p.destroyed),
+    ...level.questionBlocks,
+  ];
 }
 
 export function updatePhysics(
@@ -33,6 +42,8 @@ export function updatePhysics(
     hitQuestionBlock: null,
     hitEnemy: null,
     stompedEnemy: null,
+    brickBroken: null,
+    brickBumped: null,
     reachedFlag: false,
     died: false,
     jumped: false,
@@ -62,7 +73,7 @@ export function updatePhysics(
   player.vy += GRAVITY;
   if (player.vy > MAX_FALL) player.vy = MAX_FALL;
 
-  const allPlatforms: Platform[] = [...level.platforms, ...level.questionBlocks];
+  const allPlatforms = solidPlatforms(level);
 
   // --- Move X, resolve X ---
   player.x += player.vx;
@@ -72,15 +83,9 @@ export function updatePhysics(
   for (const p of allPlatforms) {
     const pen = penetration(player.box, p.box);
     if (!pen) continue;
-
-    // Only resolve as X collision if the vertical overlap is large enough
-    // (i.e. player is genuinely hitting the side, not grazing the top edge)
     if (pen.py > 6) {
-      if (player.vx > 0) {
-        player.x = p.x - player.w;
-      } else if (player.vx < 0) {
-        player.x = p.x + p.w;
-      }
+      if (player.vx > 0) player.x = p.x - player.w;
+      else if (player.vx < 0) player.x = p.x + p.w;
       player.vx = 0;
     }
   }
@@ -94,18 +99,24 @@ export function updatePhysics(
     if (!pen) continue;
 
     if (player.vy > 0) {
-      // Falling — land on top
       player.y = p.y - player.h;
       player.vy = 0;
       player.onGround = true;
     } else if (player.vy < 0) {
-      // Rising — hit from below
       player.y = p.y + p.h;
       player.vy = 0;
 
       if (p instanceof QuestionBlock && !p.hit) {
         p.hit = true;
         result.hitQuestionBlock = p;
+      } else if (p.type === 'brick' && !p.destroyed) {
+        if (player.state === 'big' || player.starTimer > 0) {
+          p.destroyed = true;
+          result.brickBroken = p;
+          player.score += 20;
+        } else {
+          result.brickBumped = p;
+        }
       }
     }
   }
@@ -116,7 +127,7 @@ export function updatePhysics(
     return result;
   }
 
-  // Invincibility / star timers
+  // Timers
   if (player.invincibleTimer > 0) player.invincibleTimer--;
   if (player.starTimer > 0) player.starTimer--;
 
@@ -188,11 +199,15 @@ export function updatePhysics(
           break;
         }
       }
-      if (!landed) {
-        enemy.y += 2;
-      }
+      if (!landed) enemy.y += 2;
     }
   }
+
+  // Floating texts & debris
+  for (const ft of level.floatingTexts) ft.tick();
+  for (const d of level.debris) d.tick();
+  level.floatingTexts = level.floatingTexts.filter(ft => ft.alive);
+  level.debris = level.debris.filter(d => d.alive);
 
   // Flag pole
   if (aabbOverlap(player.box, level.flagPole.box)) {

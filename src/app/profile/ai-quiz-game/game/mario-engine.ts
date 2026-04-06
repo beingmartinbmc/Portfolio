@@ -1,4 +1,4 @@
-import { Player, Level, QuestionBlock } from './mario-entities';
+import { Player, Level, QuestionBlock, FloatingText, Debris, CATEGORY_KEYWORDS } from './mario-entities';
 import { MarioRenderer } from './mario-renderer';
 import { MarioControls } from './mario-controls';
 import { updatePhysics, CollisionResult } from './mario-physics';
@@ -21,6 +21,8 @@ export class MarioEngine {
   private lastTime = 0;
   private accumulator = 0;
   private readonly STEP = 1000 / 60;
+  private keywords: string[] = [];
+  private keywordIndex = 0;
 
   player: Player;
   level!: Level;
@@ -45,6 +47,10 @@ export class MarioEngine {
     this.elapsedFrames = 0;
     this.enemiesStomped = 0;
     this.state = 'idle';
+
+    this.keywords = CATEGORY_KEYWORDS[level.category] ?? CATEGORY_KEYWORDS['backend'];
+    this.keywordIndex = 0;
+    this.renderer.setCategory(level.category);
   }
 
   start(): void {
@@ -79,25 +85,60 @@ export class MarioEngine {
   getState(): GameState { return this.state; }
   getControls(): MarioControls { return this.controls; }
 
+  private nextKeyword(): string {
+    const kw = this.keywords[this.keywordIndex % this.keywords.length];
+    this.keywordIndex++;
+    return kw;
+  }
+
   private handlePowerUp(qb: QuestionBlock): void {
     MarioAudio.questionBlock();
+    const kw = qb.keyword || this.nextKeyword();
+    let color = '#fbbf24';
+
     switch (qb.reward) {
       case 'star':
         this.player.activateStar();
         this.player.score += 200;
         MarioAudio.powerUp();
+        color = '#f59e0b';
         break;
       case 'mushroom':
         this.player.grow();
         this.player.score += 100;
         MarioAudio.powerUp();
+        color = '#22c55e';
         break;
       case 'coin':
       default:
         this.player.coins += 3;
         this.player.score += 50;
         MarioAudio.coin();
+        color = '#fbbf24';
         break;
+    }
+
+    this.level.floatingTexts.push(
+      new FloatingText(qb.x, qb.y - 10, kw, color, 80)
+    );
+    this.notifyScore();
+  }
+
+  private handleBrickBreak(brick: import('./mario-entities').Platform): void {
+    MarioAudio.brickBreak();
+    const cx = brick.x + brick.w / 2;
+    const cy = brick.y + brick.h / 2;
+    this.level.debris.push(
+      new Debris(cx - 6, cy, -2, -5),
+      new Debris(cx + 6, cy, 2, -5),
+      new Debris(cx - 6, cy, -1, -3.5),
+      new Debris(cx + 6, cy, 1, -3.5),
+    );
+
+    if (brick.label) {
+      this.level.floatingTexts.push(
+        new FloatingText(brick.x, brick.y - 8, brick.label, '#ef4444', 70)
+      );
     }
     this.notifyScore();
   }
@@ -134,6 +175,14 @@ export class MarioEngine {
 
     if (result.hitQuestionBlock) {
       this.handlePowerUp(result.hitQuestionBlock);
+    }
+
+    if (result.brickBroken) {
+      this.handleBrickBreak(result.brickBroken);
+    }
+
+    if (result.brickBumped) {
+      MarioAudio.brickBump();
     }
 
     if (result.hitEnemy) {

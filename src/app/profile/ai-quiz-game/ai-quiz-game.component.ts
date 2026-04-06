@@ -65,7 +65,7 @@ export class AiQuizGameComponent implements OnDestroy {
     this.won = false;
     this.enemiesStomped = 0;
 
-    const config: LevelConfig = { difficulty: this.selectedDifficulty };
+    const config: LevelConfig = { difficulty: this.selectedDifficulty, category: this.selectedCategory };
 
     let level;
     try {
