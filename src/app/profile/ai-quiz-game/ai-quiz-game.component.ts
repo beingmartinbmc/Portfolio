@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ElementRef, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -50,7 +50,7 @@ export class AiQuizGameComponent implements OnDestroy {
     { value: 'Hard', label: 'Boss Fight', description: 'Dense enemies, big gaps', color: 'danger' }
   ];
 
-  constructor(private http: HttpClient, private zone: NgZone) {}
+  constructor(private http: HttpClient, private zone: NgZone, private cdr: ChangeDetectorRef) {}
 
   ngOnDestroy(): void {
     this.engine?.stop();
@@ -79,8 +79,11 @@ export class AiQuizGameComponent implements OnDestroy {
       level = generateProceduralLevel(config);
     }
 
+    this.viewState = 'playing';
+    this.cdr.detectChanges();
+
     this.zone.runOutsideAngular(() => {
-      this.initGame(level);
+      requestAnimationFrame(() => this.initGame(level));
     });
   }
 
@@ -109,11 +112,6 @@ export class AiQuizGameComponent implements OnDestroy {
     });
 
     this.engine.loadLevel(level);
-
-    this.zone.run(() => {
-      this.viewState = 'playing';
-    });
-
     setTimeout(() => this.engine?.start(), 200);
   }
 
