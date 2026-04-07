@@ -44,7 +44,6 @@ export const PACKAGE_LINKS = {
 
 // ── Contact / form endpoint ───────────────────────────────────
 export const CONTACT_LINKS = {
-  formspree: 'https://formspree.io/f/mbjpqzgz',
   email: 'ankit.sharma199803@gmail.com',
 } as const;
 

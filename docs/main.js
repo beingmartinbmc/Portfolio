@@ -31804,7 +31804,6 @@ var PACKAGE_LINKS = {
   gitHistoryUi: "https://www.npmjs.com/package/git-history-ui"
 };
 var CONTACT_LINKS = {
-  formspree: "https://formspree.io/f/mbjpqzgz",
   email: "ankit.sharma199803@gmail.com"
 };
 var ANALYTICS_LINKS = {
@@ -36960,6 +36959,40 @@ var ReactiveFormsModule = class _ReactiveFormsModule {
   }], null, null);
 })();
 
+// src/app/config/api-config.ts
+var API_CONFIG = {
+  // Base URL for all APIs
+  BASE_URL: "https://epic-backend-f9tfcyn1d-beingmartinbmcs-projects.vercel.app",
+  // API Endpoints
+  ENDPOINTS: {
+    // AI Chat API - used in environment files
+    AI_GENERIC: "/api/generic",
+    // Text-to-Speech API
+    TEXT_TO_SPEECH: "/api/text-to-speech",
+    // Streaming Voice API
+    STREAMING_VOICE: "/api/stream-voice"
+    // Add other endpoints here as needed
+    // MUSIC: '/api/music',
+    // PROFILE: '/api/profile',
+  },
+  // Helper method to get full URL
+  getUrl(endpoint) {
+    return `${this.BASE_URL}${endpoint}`;
+  }
+};
+var AI_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.AI_GENERIC);
+var TTS_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.TEXT_TO_SPEECH);
+var STREAMING_VOICE_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.STREAMING_VOICE);
+
+// src/environments/environment.ts
+var environment = {
+  production: false,
+  //baseUrl : `${window.location.protocol}//${window.location.hostname}/portfolio/`,
+  baseUrl: `http://localhost:4200/`,
+  aiApiUrl: AI_API_URL,
+  web3FormsAccessKey: ""
+};
+
 // src/app/profile/contact/contact.component.ts
 var _c0 = ["contactForm"];
 var _c1 = (a0) => ({ "is-invalid": a0 });
@@ -37026,8 +37059,7 @@ function ContactComponent_Conditional_93_Template(rf, ctx2) {
   }
 }
 var ContactComponent = class _ContactComponent {
-  constructor(http) {
-    this.http = http;
+  constructor() {
     this.model = {
       name: "",
       email: "",
@@ -37058,34 +37090,51 @@ var ContactComponent = class _ContactComponent {
     }, 8e3);
   }
   onSubmit(name, subject, email, message) {
-    if (!this.isFormValid()) {
-      this.showToastNotification("Please fill in all fields", "error");
-      return;
-    }
-    if (!this.isEmailValid()) {
-      this.showToastNotification("Please enter a valid email address", "error");
-      return;
-    }
-    this.isSubmitting = true;
-    const headers = new HttpHeaders({ "Content-Type": "application/json", "Accept": "application/json" });
-    this.http.post(CONTACT_LINKS.formspree, { name, subject, replyto: email, message }, { headers }).subscribe((response) => {
-      this.isSubmitting = false;
-      this.marioJumping = true;
-      this.showToastNotification("Message sent successfully! I'll get back to you soon.");
-      setTimeout(() => {
-        this.resetForm();
-      }, 1e3);
-      setTimeout(() => {
-        this.marioJumping = false;
-      }, 2400);
-    }, (error2) => {
-      console.error("Form submission failed:", error2);
-      this.isSubmitting = false;
-      if (error2.status === 0) {
-        this.showToastNotification(`Contact service is unreachable right now. Please email me at ${CONTACT_LINKS.email}.`, "error");
+    return __async(this, null, function* () {
+      if (!this.isFormValid()) {
+        this.showToastNotification("Please fill in all fields", "error");
         return;
       }
-      this.showToastNotification("Failed to send message. Please try again.", "error");
+      if (!this.isEmailValid()) {
+        this.showToastNotification("Please enter a valid email address", "error");
+        return;
+      }
+      this.isSubmitting = true;
+      if (!environment.web3FormsAccessKey) {
+        this.isSubmitting = false;
+        this.showToastNotification(`Contact form is not configured right now. Please email me at ${CONTACT_LINKS.email}.`, "error");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("access_key", environment.web3FormsAccessKey);
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("subject", subject);
+      formData.append("message", message);
+      try {
+        const response = yield fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        });
+        const data = yield response.json();
+        if (!response.ok) {
+          this.showToastNotification(`Failed to send message: ${data?.message ?? "Please try again."}`, "error");
+          return;
+        }
+        this.marioJumping = true;
+        this.showToastNotification("Message sent successfully! I'll get back to you soon.");
+        setTimeout(() => {
+          this.resetForm();
+        }, 1e3);
+        setTimeout(() => {
+          this.marioJumping = false;
+        }, 2400);
+      } catch (error2) {
+        console.error("Form submission failed:", error2);
+        this.showToastNotification(`Contact service is unreachable right now. Please email me at ${CONTACT_LINKS.email}.`, "error");
+      } finally {
+        this.isSubmitting = false;
+      }
     });
   }
   resetForm() {
@@ -37101,7 +37150,7 @@ var ContactComponent = class _ContactComponent {
   }
   static {
     this.\u0275fac = function ContactComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _ContactComponent)(\u0275\u0275directiveInject(HttpClient));
+      return new (__ngFactoryType__ || _ContactComponent)();
     };
   }
   static {
@@ -37457,7 +37506,7 @@ var ContactComponent = class _ContactComponent {
   }
 </section>
 `, styles: ['@charset "UTF-8";\n\n/* src/app/profile/contact/contact.component.scss */\n:host {\n  display: block;\n}\n.mario-greeter {\n  margin: 0 auto 2.5rem;\n  max-width: 20rem;\n}\n.mario-scene {\n  position: relative;\n  height: 140px;\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n}\n.speech-bubble {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  transform: translateX(-30%);\n  background: rgba(251, 191, 36, 0.12);\n  border: 2px solid rgba(251, 191, 36, 0.35);\n  border-radius: 12px 12px 12px 2px;\n  padding: 0.55rem 0.9rem;\n  white-space: nowrap;\n  animation: bubblePop 0.4s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.speech-bubble span {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  color: #fde68a;\n  letter-spacing: 0.04em;\n}\n.speech-bubble::after {\n  content: "";\n  position: absolute;\n  bottom: -8px;\n  left: 12px;\n  width: 0;\n  height: 0;\n  border-left: 8px solid rgba(251, 191, 36, 0.35);\n  border-right: 8px solid transparent;\n  border-top: 8px solid rgba(251, 191, 36, 0.35);\n  border-bottom: 8px solid transparent;\n}\n@keyframes bubblePop {\n  from {\n    transform: translateX(-30%) scale(0.7);\n    opacity: 0;\n  }\n  to {\n    transform: translateX(-30%) scale(1);\n    opacity: 1;\n  }\n}\n.mario-sprite {\n  width: 64px;\n  height: 80px;\n  image-rendering: pixelated;\n  object-fit: contain;\n  position: relative;\n  z-index: 2;\n  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.2));\n  animation: marioWave 2.5s ease-in-out infinite;\n}\n@keyframes marioWave {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-4px);\n  }\n}\n.mario-cloud {\n  position: absolute;\n  width: 60px;\n  height: 24px;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: -8px 4px 0 rgba(255, 255, 255, 0.04), 8px 4px 0 rgba(255, 255, 255, 0.04);\n}\n.mario-cloud::before {\n  content: "";\n  position: absolute;\n  top: -8px;\n  left: 12px;\n  width: 20px;\n  height: 16px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.05);\n}\n.mario-cloud::after {\n  content: "";\n  position: absolute;\n  top: -12px;\n  left: 28px;\n  width: 16px;\n  height: 14px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.04);\n}\n.cloud-1 {\n  bottom: 70px;\n  left: 0;\n  animation: cloudDrift 8s ease-in-out infinite;\n}\n.cloud-2 {\n  bottom: 90px;\n  right: 0;\n  width: 48px;\n  height: 20px;\n  animation: cloudDrift 12s ease-in-out infinite reverse;\n}\n@keyframes cloudDrift {\n  0%, 100% {\n    transform: translateX(0);\n  }\n  50% {\n    transform: translateX(10px);\n  }\n}\n.mario-ground {\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 100px;\n  height: 10px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #2d5016 0px,\n      #2d5016 10px,\n      #3a6b1e 10px,\n      #3a6b1e 20px);\n  border-radius: 3px;\n  border-top: 2px solid #4a8b2e;\n}\n.mario-greeter--jumping .mario-sprite {\n  animation: marioJumpCloud 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;\n}\n.mario-greeter--jumping .speech-bubble {\n  animation: bubbleJump 2.4s ease forwards;\n}\n.mario-greeter--jumping .cloud-1 {\n  animation: cloudCatch 2.4s ease forwards !important;\n}\n@keyframes marioJumpCloud {\n  0% {\n    transform: translateY(0) scale(1);\n  }\n  10% {\n    transform: translateY(4px) scale(1.05, 0.9);\n  }\n  30% {\n    transform: translateY(-70px) scale(0.95, 1.05);\n  }\n  45% {\n    transform: translateY(-70px) scale(1);\n  }\n  55% {\n    transform: translateY(-70px) rotate(-5deg);\n  }\n  70% {\n    transform: translateY(-70px) rotate(5deg);\n  }\n  85% {\n    transform: translateY(-70px) rotate(-3deg);\n  }\n  100% {\n    transform: translateY(-70px) rotate(0deg) scale(1.1);\n  }\n}\n@keyframes bubbleJump {\n  0% {\n    transform: translateX(-30%) translateY(0);\n    opacity: 1;\n  }\n  20% {\n    opacity: 0;\n    transform: translateX(-30%) translateY(-10px);\n  }\n  40% {\n    opacity: 0;\n    transform: translateX(-30%) translateY(-80px);\n  }\n  50% {\n    opacity: 1;\n    transform: translateX(-30%) translateY(-80px) scale(1.1);\n  }\n  100% {\n    opacity: 1;\n    transform: translateX(-30%) translateY(-80px) scale(1);\n  }\n}\n@keyframes cloudCatch {\n  0% {\n    transform: translateX(0) scale(1);\n    opacity: 1;\n  }\n  30% {\n    transform: translateX(15px) scale(1);\n  }\n  45% {\n    transform: translateX(calc(50% + 10px)) translateY(2px) scale(1.4);\n    opacity: 1;\n  }\n  100% {\n    transform: translateX(calc(50% + 10px)) translateY(0) scale(1.4);\n    opacity: 1;\n  }\n}\n.contact-container {\n  display: grid;\n  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);\n  gap: 1.5rem;\n}\n.contact-info-section,\n.contact-form-section {\n  display: flex;\n}\n.info-cards {\n  display: grid;\n  gap: 1rem;\n  width: 100%;\n}\n.info-card {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  padding: 1rem 1.05rem;\n}\n.info-icon {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  font-size: 1.35rem;\n}\n.info-content h4 {\n  margin-bottom: 0.2rem;\n  font-size: 1rem;\n}\n.info-content p {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.form-card {\n  width: 100%;\n  padding: 1.4rem;\n}\n.form-header {\n  margin-bottom: 1.25rem;\n}\n.form-header h3 {\n  margin-bottom: 0.5rem;\n  font-size: 1.35rem;\n}\n.form-header p {\n  color: var(--text-tertiary);\n}\n.form-row {\n  display: grid;\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n  gap: 1rem;\n}\n.form-group {\n  margin-bottom: 1rem;\n}\n.form-group label {\n  display: block;\n  margin-bottom: 0.45rem;\n  font-size: 0.86rem;\n  font-weight: 700;\n  color: var(--text-secondary);\n}\n.form-input.is-invalid {\n  border-color: rgba(239, 68, 68, 0.5);\n  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);\n}\n.error-message {\n  margin-top: 0.45rem;\n  font-size: 0.8rem;\n  color: #fda4af;\n}\n.submit-btn {\n  width: 100%;\n  min-height: 3.2rem;\n  border: none;\n  border-radius: 999px;\n  background: var(--gradient-primary);\n  color: #09091a;\n  font-weight: 700;\n  cursor: pointer;\n}\n.submit-btn.disabled {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n.btn-icon {\n  transition: transform var(--transition-normal);\n}\n.submit-btn:hover:not(.disabled) .btn-icon {\n  transform: translateX(3px);\n}\n.toast-container {\n  position: fixed;\n  top: 1rem;\n  right: 1rem;\n  z-index: 1200;\n}\n.toast {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  padding: 0.95rem 1rem;\n  border-radius: 1rem;\n  color: #fff;\n  box-shadow: 0 18px 50px rgba(2, 6, 23, 0.36);\n}\n.toast-success {\n  background: var(--gradient-primary);\n  color: #09091a;\n}\n.toast-error {\n  background:\n    linear-gradient(\n      135deg,\n      #ef4444,\n      #f97316);\n}\n@media (max-width: 900px) {\n  .contact-container {\n    grid-template-columns: 1fr;\n  }\n}\n@media (max-width: 640px) {\n  .form-row {\n    grid-template-columns: 1fr;\n  }\n  .toast-container {\n    left: 1rem;\n    right: 1rem;\n  }\n}\n/*# sourceMappingURL=contact.component.css.map */\n'] }]
-  }], () => [{ type: HttpClient }], { contactForm: [{
+  }], null, { contactForm: [{
     type: ViewChild,
     args: ["contactForm"]
   }] });
@@ -40509,31 +40558,6 @@ var PublicationsComponent = class _PublicationsComponent {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 28 });
 })();
-
-// src/app/config/api-config.ts
-var API_CONFIG = {
-  // Base URL for all APIs
-  BASE_URL: "https://epic-backend-f9tfcyn1d-beingmartinbmcs-projects.vercel.app",
-  // API Endpoints
-  ENDPOINTS: {
-    // AI Chat API - used in environment files
-    AI_GENERIC: "/api/generic",
-    // Text-to-Speech API
-    TEXT_TO_SPEECH: "/api/text-to-speech",
-    // Streaming Voice API
-    STREAMING_VOICE: "/api/stream-voice"
-    // Add other endpoints here as needed
-    // MUSIC: '/api/music',
-    // PROFILE: '/api/profile',
-  },
-  // Helper method to get full URL
-  getUrl(endpoint) {
-    return `${this.BASE_URL}${endpoint}`;
-  }
-};
-var AI_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.AI_GENERIC);
-var TTS_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.TEXT_TO_SPEECH);
-var STREAMING_VOICE_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.STREAMING_VOICE);
 
 // src/app/profile/ai-quiz-game/game/mario-entities.ts
 var TILE = 32;
@@ -77371,14 +77395,6 @@ function interceptControlUp(event) {
     document2.removeEventListener("keyup", this._interceptControlUp, { passive: true, capture: true });
   }
 }
-
-// src/environments/environment.ts
-var environment = {
-  production: false,
-  //baseUrl : `${window.location.protocol}//${window.location.hostname}/portfolio/`,
-  baseUrl: `http://localhost:4200/`,
-  aiApiUrl: AI_API_URL
-};
 
 // src/app/ai-face/ai-context.ts
 var AI_CONTEXT = `You are Nova, a friendly AI assistant on Ankit Sharma's portfolio website.

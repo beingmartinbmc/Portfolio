@@ -8,7 +8,8 @@ export const environment = {
   production: false,
   //baseUrl : `${window.location.protocol}//${window.location.hostname}/portfolio/`,
   baseUrl: `http://localhost:4200/`,
-  aiApiUrl: AI_API_URL
+  aiApiUrl: AI_API_URL,
+  web3FormsAccessKey: ''
 };
 
 /*
