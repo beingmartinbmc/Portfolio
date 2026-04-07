@@ -55,9 +55,19 @@ export class HeaderComponent {
     }
   }
 
-  onNavLinkClick() {
+  onNavLinkClick(event?: Event, sectionId?: string) {
+    event?.preventDefault();
     if (this.isMenuOpen) {
       this.closeMenu();
     }
+
+    window.setTimeout(() => {
+      if (sectionId) {
+        document.getElementById(sectionId)?.scrollIntoView({behavior: 'smooth', block: 'start'});
+        return;
+      }
+
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }, 0);
   }
 }

@@ -64,6 +64,13 @@ export class IntroComponent implements OnDestroy {
     }
   }
 
+  scrollToContact(event: Event): void {
+    event.preventDefault();
+    window.setTimeout(() => {
+      document.getElementById('contact')?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }, 0);
+  }
+
   private closeDropdown(): void {
     this.showDocumentDropdown = false;
   }

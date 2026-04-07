@@ -67,7 +67,7 @@ export class ContactComponent {
 
     this.isSubmitting = true;
 
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Accept': 'application/json'});
     this.http.post(CONTACT_LINKS.formspree,
       {name, subject, replyto: email, message},
       {headers}).subscribe(
@@ -87,6 +87,11 @@ export class ContactComponent {
       error => {
         console.error('Form submission failed:', error);
         this.isSubmitting = false;
+        if (error.status === 0) {
+          this.showToastNotification(`Contact service is unreachable right now. Please email me at ${CONTACT_LINKS.email}.`, 'error');
+          return;
+        }
+
         this.showToastNotification('Failed to send message. Please try again.', 'error');
       }
     );
