@@ -1,8 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CONTACT_LINKS} from '../../config/profile-links';
+import {environment} from '../../../environments/environment';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -29,8 +29,6 @@ export class ContactComponent {
   toastType = 'success';
   marioJumping = false;
 
-  constructor(private http: HttpClient) {}
-
   isFormValid(): boolean {
     return this.model.name?.trim() !== '' && 
            this.model.email?.trim() !== '' && 
@@ -54,7 +52,7 @@ export class ContactComponent {
     }, 8000);
   }
 
-  onSubmit(name: string, subject: string, email: string, message: string) {
+  async onSubmit(name: string, subject: string, email: string, message: string) {
     if (!this.isFormValid()) {
       this.showToastNotification('Please fill in all fields', 'error');
       return;
@@ -67,34 +65,48 @@ export class ContactComponent {
 
     this.isSubmitting = true;
 
-    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Accept': 'application/json'});
-    this.http.post(CONTACT_LINKS.formspree,
-      {name, subject, replyto: email, message},
-      {headers}).subscribe(
-      response => {
-        this.isSubmitting = false;
-        this.marioJumping = true;
-        this.showToastNotification('Message sent successfully! I\'ll get back to you soon.');
-        
-        setTimeout(() => {
-          this.resetForm();
-        }, 1000);
+    if (!environment.web3FormsAccessKey) {
+      this.isSubmitting = false;
+      this.showToastNotification(`Contact form is not configured right now. Please email me at ${CONTACT_LINKS.email}.`, 'error');
+      return;
+    }
 
-        setTimeout(() => {
-          this.marioJumping = false;
-        }, 2400);
-      },
-      error => {
-        console.error('Form submission failed:', error);
-        this.isSubmitting = false;
-        if (error.status === 0) {
-          this.showToastNotification(`Contact service is unreachable right now. Please email me at ${CONTACT_LINKS.email}.`, 'error');
-          return;
-        }
+    const formData = new FormData();
+    formData.append('access_key', environment.web3FormsAccessKey);
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('subject', subject);
+    formData.append('message', message);
 
-        this.showToastNotification('Failed to send message. Please try again.', 'error');
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        this.showToastNotification(`Failed to send message: ${data?.message ?? 'Please try again.'}`, 'error');
+        return;
       }
-    );
+
+      this.marioJumping = true;
+      this.showToastNotification('Message sent successfully! I\'ll get back to you soon.');
+
+      setTimeout(() => {
+        this.resetForm();
+      }, 1000);
+
+      setTimeout(() => {
+        this.marioJumping = false;
+      }, 2400);
+    } catch (error) {
+      console.error('Form submission failed:', error);
+      this.showToastNotification(`Contact service is unreachable right now. Please email me at ${CONTACT_LINKS.email}.`, 'error');
+    } finally {
+      this.isSubmitting = false;
+    }
   }
 
   resetForm() {
