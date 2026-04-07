@@ -30,21 +30,6 @@ jobs:
         
     - name: Install dependencies
       run: npm install
-
-    - name: Inject Web3Forms access key
-      env:
-        WEB3_FORM_ACCESS_KEY: ${{ secrets.WEB3_FORM_ACCESS_KEY }}
-      run: |
-        python - <<'PY'
-        import os
-        from pathlib import Path
-
-        path = Path('src/environments/environment.prod.ts')
-        text = path.read_text()
-        key = os.environ.get('WEB3_FORM_ACCESS_KEY', '')
-        text = text.replace("web3FormsAccessKey: ''", f"web3FormsAccessKey: '{key}'")
-        path.write_text(text)
-        PY
       
     - name: Build application
       run: npm run build

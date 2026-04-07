@@ -31696,9 +31696,9 @@ var HeaderComponent = class _HeaderComponent {
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(25, "a", 8);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_25_listener($event) {
-          return ctx2.onNavLinkClick($event, "contact");
+          return ctx2.onNavLinkClick($event, "operating-style");
         });
-        \u0275\u0275text(26, "Contact");
+        \u0275\u0275text(26, "How I Work");
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(27, "div", 9)(28, "div", 10);
         \u0275\u0275text(29, "\u2605 Available for Staff Roles");
@@ -31742,7 +31742,7 @@ var HeaderComponent = class _HeaderComponent {
       <a href="" class="nav-link" (click)="onNavLinkClick($event, 'publications')">Projects</a>
       <a href="" class="nav-link" (click)="onNavLinkClick($event, 'blogs')">Writing</a>
       <a href="" class="nav-link" (click)="onNavLinkClick($event, 'ai-quiz-game')">Mario Lab</a>
-      <a href="" class="nav-link" (click)="onNavLinkClick($event, 'contact')">Contact</a>
+      <a href="" class="nav-link" (click)="onNavLinkClick($event, 'operating-style')">How I Work</a>
     </div>
 
     <div class="nav-actions">
@@ -31996,10 +31996,10 @@ var IntroComponent = class _IntroComponent {
       document.removeEventListener("click", this.boundCloseDropdown);
     }
   }
-  scrollToContact(event) {
+  scrollToOperatingStyle(event) {
     event.preventDefault();
     window.setTimeout(() => {
-      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById("operating-style")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 0);
   }
   closeDropdown() {
@@ -32045,10 +32045,10 @@ var IntroComponent = class _IntroComponent {
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(25, "div", 8)(26, "a", 9);
         \u0275\u0275domListener("click", function IntroComponent_Template_a_click_26_listener($event) {
-          return ctx2.scrollToContact($event);
+          return ctx2.scrollToOperatingStyle($event);
         });
         \u0275\u0275domElement(27, "i", 10);
-        \u0275\u0275text(28, " Build with me ");
+        \u0275\u0275text(28, " How I work ");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(29, "div", 11)(30, "button", 12);
         \u0275\u0275domListener("click", function IntroComponent_Template_button_click_30_listener($event) {
@@ -32106,7 +32106,7 @@ var IntroComponent = class _IntroComponent {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(IntroComponent, [{
     type: Component,
-    args: [{ selector: "app-intro", standalone: true, template: '<section class="hero-section">\n  <div class="apple-container hero-grid">\n    <div class="hero-copy">\n      <span class="section-kicker">Staff Software Engineer \u2022 Backend \u2022 Gen AI</span>\n\n      <h1 class="hero-title">\n        <span>Backend systems</span>\n        <span>that scale.</span>\n        <span>AI experiences</span>\n        <span>that ship.</span>\n      </h1>\n\n      <p class="hero-summary">\n        Staff-level engineer focused on distributed systems, real-time architectures, developer infrastructure, and Gen AI products\n        that need more than a demo to be useful.\n      </p>\n\n      <div class="hero-meta">\n        <span class="hero-chip">SMTS @ Salesforce</span>\n        <span class="hero-chip">ex-Games24x7</span>\n        <span class="hero-chip">ex-Walmart</span>\n        <span class="hero-chip">Java \u2022 Kafka \u2022 Redis \u2022 AI</span>\n      </div>\n\n      <div class="hero-actions">\n        <a class="apple-btn apple-btn-primary" href="" (click)="scrollToContact($event)">\n          <i class="fas fa-paper-plane"></i>\n          Build with me\n        </a>\n\n        <div class="document-menu" [class.open]="showDocumentDropdown">\n          <button class="apple-btn apple-btn-secondary" (click)="toggleDocumentDropdown($event)">\n            <i class="fas fa-file-arrow-down"></i>\n            Download docs\n          </button>\n\n          @if (showDocumentDropdown) {\n            <div class="document-dropdown">\n              <a [href]="documentLinks.resume" target="_blank" rel="noopener">\n                <i class="fas fa-file-lines"></i>\n                Resume\n              </a>\n              <a [href]="documentLinks.coverLetter" target="_blank" rel="noopener">\n                <i class="fas fa-envelope-open-text"></i>\n                Cover Letter\n              </a>\n            </div>\n          }\n        </div>\n      </div>\n\n      <div class="hero-social">\n        <a class="social-link" [href]="socialLinks.linkedin" target="_blank" rel="noopener" title="LinkedIn">\n          <i class="fab fa-linkedin-in"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.github" target="_blank" rel="noopener" title="GitHub">\n          <i class="fab fa-github"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.stackOverflow" target="_blank" rel="noopener" title="Stack Overflow">\n          <i class="fab fa-stack-overflow"></i>\n        </a>\n      </div>\n\n      <div class="hero-metrics">\n        @for (metric of heroMetrics; track metric.label) {\n          <div class="metric-card">\n            <span class="metric-value">{{ metric.value }}</span>\n            <span class="metric-label">{{ metric.label }}</span>\n          </div>\n        }\n      </div>\n    </div>\n\n    <div class="hero-panel apple-card">\n      <div class="hero-portrait">\n        <img alt="Ankit Sharma" src="./assets/images/ankit.png">\n      </div>\n\n      <div class="hero-panel-content">\n        <div class="panel-header">\n          <span class="panel-eyebrow">What I optimize for</span>\n          <span class="panel-status">Available for staff and lead roles</span>\n        </div>\n\n        <div class="focus-list">\n          @for (area of focusAreas; track area.title) {\n            <article class="focus-card" [attr.data-color]="area.color">\n              <div class="fc-icon">{{ area.icon }}</div>\n              <div class="fc-body">\n                <div class="fc-header">\n                  <h3 class="fc-title">{{ area.title }}</h3>\n                  <span class="fc-tag">{{ area.tag }}</span>\n                </div>\n                <p class="fc-desc">{{ area.description }}</p>\n              </div>\n            </article>\n          }\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n', styles: ['/* src/app/profile/intro/intro.component.scss */\n:host {\n  display: block;\n}\n.hero-section {\n  position: relative;\n  padding: 8.5rem 0 4rem;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.hero-grid {\n  display: grid;\n  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);\n  gap: 2rem;\n  align-items: center;\n}\n.hero-copy {\n  display: flex;\n  flex-direction: column;\n  gap: 1.4rem;\n}\n.hero-title {\n  display: grid;\n  gap: 0.08em;\n  font-size: clamp(2.8rem, 7vw, 5rem);\n  font-weight: 800;\n  line-height: 0.96;\n  letter-spacing: -0.05em;\n  max-width: 9ch;\n}\n.hero-title span {\n  display: block;\n}\n.hero-summary {\n  max-width: 62ch;\n  font-size: 1.08rem;\n  color: var(--text-tertiary);\n}\n.hero-meta {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.65rem;\n}\n.hero-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  font-size: 0.82rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n}\n.hero-actions {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-wrap: wrap;\n}\n.document-menu {\n  position: relative;\n}\n.document-dropdown {\n  position: absolute;\n  top: calc(100% + 0.75rem);\n  left: 0;\n  min-width: 200px;\n  padding: 0.65rem;\n  border-radius: 1rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(10, 16, 31, 0.96);\n  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.4);\n}\n.document-dropdown a {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  padding: 0.8rem 0.9rem;\n  border-radius: 0.85rem;\n  color: var(--text-secondary);\n}\n.document-dropdown a:hover {\n  background: rgba(255, 255, 255, 0.05);\n  color: var(--text-primary);\n}\n.hero-social {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.social-link {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  transition:\n    transform var(--transition-normal),\n    border-color var(--transition-normal),\n    color var(--transition-normal);\n}\n.social-link:hover {\n  transform: translateY(-2px);\n  border-color: rgba(251, 191, 36, 0.45);\n  color: var(--primary-color);\n}\n.hero-metrics {\n  display: grid;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n  gap: 0.85rem;\n  margin-top: 0.5rem;\n}\n.metric-card {\n  padding: 1rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.03);\n}\n.metric-value {\n  display: block;\n  margin-bottom: 0.35rem;\n  font-family: var(--font-display);\n  font-size: 1.55rem;\n  font-weight: 800;\n  color: var(--text-primary);\n}\n.metric-label {\n  display: block;\n  font-size: 0.84rem;\n  color: var(--text-tertiary);\n}\n.hero-panel {\n  overflow: hidden;\n}\n.hero-portrait {\n  position: relative;\n  aspect-ratio: 1/1.08;\n  padding: 1.5rem;\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.2),\n      transparent 36%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(239, 68, 68, 0.14),\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.03),\n      rgba(255, 255, 255, 0));\n}\n.hero-portrait img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  border-radius: 1.5rem;\n}\n.hero-panel-content {\n  padding: 1.5rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.panel-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n}\n.panel-eyebrow,\n.panel-status {\n  font-size: 0.8rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.panel-eyebrow {\n  color: var(--primary-color);\n}\n.panel-status {\n  color: var(--accent-color);\n}\n.focus-list {\n  display: grid;\n  gap: 0.75rem;\n}\n.focus-card {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.85rem;\n  padding: 0.9rem 1rem;\n  border-radius: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n  transition:\n    border-color 0.25s,\n    background 0.25s,\n    transform 0.25s;\n  position: relative;\n  overflow: hidden;\n}\n.focus-card::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n  border-radius: inherit;\n}\n.focus-card:hover {\n  transform: translateY(-2px);\n  background: rgba(255, 255, 255, 0.04);\n}\n.focus-card:hover::before {\n  opacity: 1;\n}\n.focus-card:hover .fc-icon {\n  transform: scale(1.15) rotate(-6deg);\n}\n.focus-card[data-color=red] {\n  border-color: rgba(239, 68, 68, 0.2);\n}\n.focus-card[data-color=red]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=red] .fc-tag {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n  text-shadow: 0 0 12px rgba(239, 68, 68, 0.3);\n}\n.focus-card[data-color=red] .fc-icon {\n  background: rgba(239, 68, 68, 0.12);\n  border-color: rgba(239, 68, 68, 0.25);\n}\n.focus-card[data-color=gold] {\n  border-color: rgba(251, 191, 36, 0.2);\n}\n.focus-card[data-color=gold]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=gold] .fc-tag {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n  text-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.focus-card[data-color=gold] .fc-icon {\n  background: rgba(251, 191, 36, 0.12);\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.focus-card[data-color=green] {\n  border-color: rgba(34, 197, 94, 0.2);\n}\n.focus-card[data-color=green]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(34, 197, 94, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=green] .fc-tag {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n  text-shadow: 0 0 12px rgba(34, 197, 94, 0.3);\n}\n.focus-card[data-color=green] .fc-icon {\n  background: rgba(34, 197, 94, 0.12);\n  border-color: rgba(34, 197, 94, 0.25);\n}\n.fc-icon {\n  flex-shrink: 0;\n  width: 2.6rem;\n  height: 2.6rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.25rem;\n  border-radius: 0.6rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.04);\n  transition: transform 0.3s;\n}\n.fc-body {\n  flex: 1;\n  min-width: 0;\n}\n.fc-header {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  margin-bottom: 0.35rem;\n}\n.fc-title {\n  font-size: 0.92rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.fc-tag {\n  flex-shrink: 0;\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.06em;\n  padding: 0.2rem 0.45rem;\n  border-radius: 4px;\n  border: 1px solid rgba(148, 163, 184, 0.15);\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n.fc-desc {\n  font-size: 0.82rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n@media (max-width: 1024px) {\n  .hero-grid {\n    grid-template-columns: 1fr;\n  }\n  .hero-title {\n    max-width: 100%;\n  }\n  .hero-metrics {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n}\n@media (max-width: 640px) {\n  .hero-section {\n    padding-top: 7.5rem;\n  }\n  .hero-actions {\n    flex-direction: column;\n    align-items: stretch;\n  }\n  .document-dropdown {\n    position: static;\n    margin-top: 0.75rem;\n  }\n  .hero-metrics {\n    grid-template-columns: 1fr;\n  }\n  .panel-header {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */\n'] }]
+    args: [{ selector: "app-intro", standalone: true, template: '<section class="hero-section">\n  <div class="apple-container hero-grid">\n    <div class="hero-copy">\n      <span class="section-kicker">Staff Software Engineer \u2022 Backend \u2022 Gen AI</span>\n\n      <h1 class="hero-title">\n        <span>Backend systems</span>\n        <span>that scale.</span>\n        <span>AI experiences</span>\n        <span>that ship.</span>\n      </h1>\n\n      <p class="hero-summary">\n        Staff-level engineer focused on distributed systems, real-time architectures, developer infrastructure, and Gen AI products\n        that need more than a demo to be useful.\n      </p>\n\n      <div class="hero-meta">\n        <span class="hero-chip">SMTS @ Salesforce</span>\n        <span class="hero-chip">ex-Games24x7</span>\n        <span class="hero-chip">ex-Walmart</span>\n        <span class="hero-chip">Java \u2022 Kafka \u2022 Redis \u2022 AI</span>\n      </div>\n\n      <div class="hero-actions">\n        <a class="apple-btn apple-btn-primary" href="" (click)="scrollToOperatingStyle($event)">\n          <i class="fas fa-paper-plane"></i>\n          How I work\n        </a>\n\n        <div class="document-menu" [class.open]="showDocumentDropdown">\n          <button class="apple-btn apple-btn-secondary" (click)="toggleDocumentDropdown($event)">\n            <i class="fas fa-file-arrow-down"></i>\n            Download docs\n          </button>\n\n          @if (showDocumentDropdown) {\n            <div class="document-dropdown">\n              <a [href]="documentLinks.resume" target="_blank" rel="noopener">\n                <i class="fas fa-file-lines"></i>\n                Resume\n              </a>\n              <a [href]="documentLinks.coverLetter" target="_blank" rel="noopener">\n                <i class="fas fa-envelope-open-text"></i>\n                Cover Letter\n              </a>\n            </div>\n          }\n        </div>\n      </div>\n\n      <div class="hero-social">\n        <a class="social-link" [href]="socialLinks.linkedin" target="_blank" rel="noopener" title="LinkedIn">\n          <i class="fab fa-linkedin-in"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.github" target="_blank" rel="noopener" title="GitHub">\n          <i class="fab fa-github"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.stackOverflow" target="_blank" rel="noopener" title="Stack Overflow">\n          <i class="fab fa-stack-overflow"></i>\n        </a>\n      </div>\n\n      <div class="hero-metrics">\n        @for (metric of heroMetrics; track metric.label) {\n          <div class="metric-card">\n            <span class="metric-value">{{ metric.value }}</span>\n            <span class="metric-label">{{ metric.label }}</span>\n          </div>\n        }\n      </div>\n    </div>\n\n    <div class="hero-panel apple-card">\n      <div class="hero-portrait">\n        <img alt="Ankit Sharma" src="./assets/images/ankit.png">\n      </div>\n\n      <div class="hero-panel-content">\n        <div class="panel-header">\n          <span class="panel-eyebrow">What I optimize for</span>\n          <span class="panel-status">Available for staff and lead roles</span>\n        </div>\n\n        <div class="focus-list">\n          @for (area of focusAreas; track area.title) {\n            <article class="focus-card" [attr.data-color]="area.color">\n              <div class="fc-icon">{{ area.icon }}</div>\n              <div class="fc-body">\n                <div class="fc-header">\n                  <h3 class="fc-title">{{ area.title }}</h3>\n                  <span class="fc-tag">{{ area.tag }}</span>\n                </div>\n                <p class="fc-desc">{{ area.description }}</p>\n              </div>\n            </article>\n          }\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n', styles: ['/* src/app/profile/intro/intro.component.scss */\n:host {\n  display: block;\n}\n.hero-section {\n  position: relative;\n  padding: 8.5rem 0 4rem;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.hero-grid {\n  display: grid;\n  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);\n  gap: 2rem;\n  align-items: center;\n}\n.hero-copy {\n  display: flex;\n  flex-direction: column;\n  gap: 1.4rem;\n}\n.hero-title {\n  display: grid;\n  gap: 0.08em;\n  font-size: clamp(2.8rem, 7vw, 5rem);\n  font-weight: 800;\n  line-height: 0.96;\n  letter-spacing: -0.05em;\n  max-width: 9ch;\n}\n.hero-title span {\n  display: block;\n}\n.hero-summary {\n  max-width: 62ch;\n  font-size: 1.08rem;\n  color: var(--text-tertiary);\n}\n.hero-meta {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.65rem;\n}\n.hero-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  font-size: 0.82rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n}\n.hero-actions {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-wrap: wrap;\n}\n.document-menu {\n  position: relative;\n}\n.document-dropdown {\n  position: absolute;\n  top: calc(100% + 0.75rem);\n  left: 0;\n  min-width: 200px;\n  padding: 0.65rem;\n  border-radius: 1rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(10, 16, 31, 0.96);\n  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.4);\n}\n.document-dropdown a {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  padding: 0.8rem 0.9rem;\n  border-radius: 0.85rem;\n  color: var(--text-secondary);\n}\n.document-dropdown a:hover {\n  background: rgba(255, 255, 255, 0.05);\n  color: var(--text-primary);\n}\n.hero-social {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.social-link {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  transition:\n    transform var(--transition-normal),\n    border-color var(--transition-normal),\n    color var(--transition-normal);\n}\n.social-link:hover {\n  transform: translateY(-2px);\n  border-color: rgba(251, 191, 36, 0.45);\n  color: var(--primary-color);\n}\n.hero-metrics {\n  display: grid;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n  gap: 0.85rem;\n  margin-top: 0.5rem;\n}\n.metric-card {\n  padding: 1rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.03);\n}\n.metric-value {\n  display: block;\n  margin-bottom: 0.35rem;\n  font-family: var(--font-display);\n  font-size: 1.55rem;\n  font-weight: 800;\n  color: var(--text-primary);\n}\n.metric-label {\n  display: block;\n  font-size: 0.84rem;\n  color: var(--text-tertiary);\n}\n.hero-panel {\n  overflow: hidden;\n}\n.hero-portrait {\n  position: relative;\n  aspect-ratio: 1/1.08;\n  padding: 1.5rem;\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.2),\n      transparent 36%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(239, 68, 68, 0.14),\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.03),\n      rgba(255, 255, 255, 0));\n}\n.hero-portrait img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  border-radius: 1.5rem;\n}\n.hero-panel-content {\n  padding: 1.5rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.panel-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n}\n.panel-eyebrow,\n.panel-status {\n  font-size: 0.8rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.panel-eyebrow {\n  color: var(--primary-color);\n}\n.panel-status {\n  color: var(--accent-color);\n}\n.focus-list {\n  display: grid;\n  gap: 0.75rem;\n}\n.focus-card {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.85rem;\n  padding: 0.9rem 1rem;\n  border-radius: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n  transition:\n    border-color 0.25s,\n    background 0.25s,\n    transform 0.25s;\n  position: relative;\n  overflow: hidden;\n}\n.focus-card::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n  border-radius: inherit;\n}\n.focus-card:hover {\n  transform: translateY(-2px);\n  background: rgba(255, 255, 255, 0.04);\n}\n.focus-card:hover::before {\n  opacity: 1;\n}\n.focus-card:hover .fc-icon {\n  transform: scale(1.15) rotate(-6deg);\n}\n.focus-card[data-color=red] {\n  border-color: rgba(239, 68, 68, 0.2);\n}\n.focus-card[data-color=red]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=red] .fc-tag {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n  text-shadow: 0 0 12px rgba(239, 68, 68, 0.3);\n}\n.focus-card[data-color=red] .fc-icon {\n  background: rgba(239, 68, 68, 0.12);\n  border-color: rgba(239, 68, 68, 0.25);\n}\n.focus-card[data-color=gold] {\n  border-color: rgba(251, 191, 36, 0.2);\n}\n.focus-card[data-color=gold]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=gold] .fc-tag {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n  text-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.focus-card[data-color=gold] .fc-icon {\n  background: rgba(251, 191, 36, 0.12);\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.focus-card[data-color=green] {\n  border-color: rgba(34, 197, 94, 0.2);\n}\n.focus-card[data-color=green]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(34, 197, 94, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=green] .fc-tag {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n  text-shadow: 0 0 12px rgba(34, 197, 94, 0.3);\n}\n.focus-card[data-color=green] .fc-icon {\n  background: rgba(34, 197, 94, 0.12);\n  border-color: rgba(34, 197, 94, 0.25);\n}\n.fc-icon {\n  flex-shrink: 0;\n  width: 2.6rem;\n  height: 2.6rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.25rem;\n  border-radius: 0.6rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.04);\n  transition: transform 0.3s;\n}\n.fc-body {\n  flex: 1;\n  min-width: 0;\n}\n.fc-header {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  margin-bottom: 0.35rem;\n}\n.fc-title {\n  font-size: 0.92rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.fc-tag {\n  flex-shrink: 0;\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.06em;\n  padding: 0.2rem 0.45rem;\n  border-radius: 4px;\n  border: 1px solid rgba(148, 163, 184, 0.15);\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n.fc-desc {\n  font-size: 0.82rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n@media (max-width: 1024px) {\n  .hero-grid {\n    grid-template-columns: 1fr;\n  }\n  .hero-title {\n    max-width: 100%;\n  }\n  .hero-metrics {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n}\n@media (max-width: 640px) {\n  .hero-section {\n    padding-top: 7.5rem;\n  }\n  .hero-actions {\n    flex-direction: column;\n    align-items: stretch;\n  }\n  .document-dropdown {\n    position: static;\n    margin-top: 0.75rem;\n  }\n  .hero-metrics {\n    grid-template-columns: 1fr;\n  }\n  .panel-header {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */\n'] }]
   }], null, null);
 })();
 (() => {
@@ -32314,6 +32314,6208 @@ var AboutComponent = class _AboutComponent {
 })();
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AboutComponent, { className: "AboutComponent", filePath: "src/app/profile/about/about.component.ts", lineNumber: 9 });
+})();
+
+// src/app/profile/contact/contact.component.ts
+var _forTrack02 = ($index, $item) => $item.title;
+var _forTrack12 = ($index, $item) => $item.label;
+function ContactComponent_For_16_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "div", 21);
+    \u0275\u0275domListener("mouseenter", function ContactComponent_For_16_Template_div_mouseenter_0_listener() {
+      const \u0275$index_27_r2 = \u0275\u0275restoreView(_r1).$index;
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.selectedCard = \u0275$index_27_r2);
+    });
+    \u0275\u0275domElementStart(1, "div", 22);
+    \u0275\u0275text(2);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "h4", 23);
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(5, "span", 24);
+    \u0275\u0275text(6);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(7, "div", 25)(8, "div", 26);
+    \u0275\u0275domElement(9, "div", 27);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(10, "span", 28);
+    \u0275\u0275text(11);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(12, "p", 29);
+    \u0275\u0275text(13);
+    \u0275\u0275domElementEnd()();
+  }
+  if (rf & 2) {
+    const card_r4 = ctx2.$implicit;
+    const \u0275$index_27_r2 = ctx2.$index;
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("active", ctx_r2.selectedCard === \u0275$index_27_r2);
+    \u0275\u0275attribute("data-color", card_r4.color);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(card_r4.icon);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(card_r4.title);
+    \u0275\u0275advance();
+    \u0275\u0275attribute("data-color", card_r4.color);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(card_r4.tag);
+    \u0275\u0275advance(3);
+    \u0275\u0275styleProp("width", card_r4.stat + "%");
+    \u0275\u0275attribute("data-color", card_r4.color);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("", card_r4.stat, "%");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(card_r4.body);
+  }
+}
+function ContactComponent_For_25_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "li");
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const track_r5 = ctx2.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(track_r5);
+  }
+}
+function ContactComponent_For_33_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "li");
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const outcome_r6 = ctx2.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(outcome_r6);
+  }
+}
+function ContactComponent_For_41_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 18)(1, "h5");
+    \u0275\u0275text(2);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "p");
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd()();
+  }
+  if (rf & 2) {
+    const p_r7 = ctx2.$implicit;
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(p_r7.title);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(p_r7.body);
+  }
+}
+function ContactComponent_For_44_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 20)(1, "div", 30);
+    \u0275\u0275domElement(2, "div", 31);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "span", 32);
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(5, "span", 33);
+    \u0275\u0275text(6);
+    \u0275\u0275domElementEnd()();
+  }
+  if (rf & 2) {
+    const item_r8 = ctx2.$implicit;
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("width", item_r8.pct + "%");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(item_r8.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(item_r8.value);
+  }
+}
+var ContactComponent = class _ContactComponent {
+  constructor() {
+    this.selectedCard = 0;
+    this.fitCards = [
+      { icon: "\u{1F9E0}", title: "Best fit", tag: "QUEST MATCH", color: "gold", stat: 95, body: "Staff and lead roles spanning backend platforms, distributed systems, and practical AI products." },
+      { icon: "\u2699\uFE0F", title: "Operating mode", tag: "LEVEL FLOW", color: "red", stat: 92, body: "Architecture clarity, delivery momentum, and execution that turns ambiguity into shipped systems." },
+      { icon: "\u{1F91D}", title: "Team style", tag: "CO-OP MODE", color: "green", stat: 90, body: "Works best with product-minded teams that want fast iteration without losing engineering rigor." },
+      { icon: "\u{1F4CD}", title: "Collab shape", tag: "WORLD MAP", color: "blue", stat: 93, body: "Comfortable leading across distributed teams, ambiguous problem spaces, and high-leverage technical decisions." }
+    ];
+    this.collaborationTracks = [
+      "Platform and backend architecture for systems that need reliability under real traffic.",
+      "0\u21921 or scaling Gen AI product work where quality, UX, and operational constraints all matter.",
+      "Staff-level execution: technical direction, prioritization, system design, and cross-team leverage."
+    ];
+    this.firstWeekOutcomes = [
+      "Pressure-test the system shape, product constraints, and delivery risks.",
+      "Identify the technical decisions that unblock product speed the most.",
+      "Turn broad goals into an execution plan the team can actually ship against."
+    ];
+    this.operatingPrinciples = [
+      { title: "Reduce ambiguity fast", body: "Turning fuzzy goals into system shapes, trade-offs, and concrete execution paths early." },
+      { title: "Bias toward durable systems", body: "Optimizing for systems that hold up in production, not just on architecture diagrams." },
+      { title: "Create leverage, not noise", body: "Better decisions, faster teams, and a clearer technical direction that compounds." }
+    ];
+    this.emphasisAreas = [
+      { label: "Reliability", value: "production-first systems", pct: 96 },
+      { label: "Speed", value: "high-signal execution", pct: 93 },
+      { label: "Leadership", value: "cross-team leverage", pct: 91 },
+      { label: "Product sense", value: "useful AI + platform outcomes", pct: 94 }
+    ];
+  }
+  static {
+    this.\u0275fac = function ContactComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _ContactComponent)();
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ContactComponent, selectors: [["app-contact"]], decls: 45, vars: 0, consts: [["id", "operating-style", 1, "apple-section"], [1, "apple-container"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "style-panel"], [1, "panel-flag"], [1, "flag-label"], [1, "panel-body"], [1, "style-grid"], [1, "style-card", 3, "active"], [1, "duo-row"], [1, "power-panel", "power-panel--red"], [1, "power-list"], [1, "power-panel", "power-panel--purple"], [1, "power-panel", "power-panel--orange"], [1, "principles"], [1, "principle-card"], [1, "hud-row"], [1, "hud-card"], [1, "style-card", 3, "mouseenter"], [1, "sc-icon"], [1, "sc-name"], [1, "sc-tag"], [1, "sc-bar-wrap"], [1, "sc-bar"], [1, "sc-bar-fill"], [1, "sc-bar-pct"], [1, "sc-desc"], [1, "hud-bar"], [1, "hud-fill"], [1, "hud-label"], [1, "hud-value"]], template: function ContactComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275domElementStart(0, "section", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
+        \u0275\u0275text(4, "\u{1F3AE} CHARACTER SELECT");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(5, "h2", 4);
+        \u0275\u0275text(6, "Player Profile");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(7, "p", 5);
+        \u0275\u0275text(8, " Select a trait to inspect. Every stat is earned from real quests. ");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(9, "div", 6)(10, "div", 7)(11, "span", 8);
+        \u0275\u0275text(12, "\u2B1B WORK STYLE \u2014 SELECT YOUR CO-OP PARTNER");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(13, "div", 9)(14, "div", 10);
+        \u0275\u0275repeaterCreate(15, ContactComponent_For_16_Template, 14, 12, "div", 11, _forTrack02);
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(17, "div", 12)(18, "div", 13)(19, "div", 7)(20, "span", 8);
+        \u0275\u0275text(21, "\u{1F344} STRONGEST FIT \u2014 POWER-UP");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(22, "div", 9)(23, "ul", 14);
+        \u0275\u0275repeaterCreate(24, ContactComponent_For_25_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(26, "div", 15)(27, "div", 7)(28, "span", 8);
+        \u0275\u0275text(29, "\u2B50 FIRST-WEEK OUTCOMES \u2014 STAR MODE");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(30, "div", 9)(31, "ul", 14);
+        \u0275\u0275repeaterCreate(32, ContactComponent_For_33_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275domElementEnd()()()();
+        \u0275\u0275domElementStart(34, "div", 16)(35, "div", 7)(36, "span", 8);
+        \u0275\u0275text(37, "\u{1F525} OPERATING PRINCIPLES \u2014 FIRE FLOWER");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(38, "div", 9)(39, "div", 17);
+        \u0275\u0275repeaterCreate(40, ContactComponent_For_41_Template, 5, 2, "div", 18, _forTrack02);
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(42, "div", 19);
+        \u0275\u0275repeaterCreate(43, ContactComponent_For_44_Template, 7, 4, "div", 20, _forTrack12);
+        \u0275\u0275domElementEnd()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance(15);
+        \u0275\u0275repeater(ctx2.fitCards);
+        \u0275\u0275advance(9);
+        \u0275\u0275repeater(ctx2.collaborationTracks);
+        \u0275\u0275advance(8);
+        \u0275\u0275repeater(ctx2.firstWeekOutcomes);
+        \u0275\u0275advance(8);
+        \u0275\u0275repeater(ctx2.operatingPrinciples);
+        \u0275\u0275advance(3);
+        \u0275\u0275repeater(ctx2.emphasisAreas);
+      }
+    }, dependencies: [CommonModule], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: #fbbf24;\n  text-shadow: 0 0 16px rgba(251, 191, 36, 0.35);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.style-panel[_ngcontent-%COMP%], \n.power-panel[_ngcontent-%COMP%] {\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  margin-bottom: 1.25rem;\n  transition: border-color 250ms ease, box-shadow 250ms ease;\n}\n.style-panel[_ngcontent-%COMP%]:hover, \n.power-panel[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 6px 28px rgba(251, 191, 36, 0.08);\n}\n.panel-flag[_ngcontent-%COMP%] {\n  padding: 0.55rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.flag-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: #fbbf24;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.25);\n}\n.panel-body[_ngcontent-%COMP%] {\n  padding: 1.15rem;\n}\n.style-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n}\n.style-card[_ngcontent-%COMP%] {\n  padding: 1rem;\n  border-radius: 0.8rem;\n  border: 1px solid rgba(255, 255, 255, 0.06);\n  background: rgba(255, 255, 255, 0.02);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  text-align: center;\n  position: relative;\n}\n.style-card[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  inset: 0;\n  border-radius: inherit;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n}\n.style-card.active[_ngcontent-%COMP%], \n.style-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.25);\n  background: rgba(255, 255, 255, 0.04);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);\n}\n.style-card.active[_ngcontent-%COMP%]::after, \n.style-card[_ngcontent-%COMP%]:hover::after {\n  opacity: 1;\n}\n.style-card.active[_ngcontent-%COMP%]   .sc-icon[_ngcontent-%COMP%], \n.style-card[_ngcontent-%COMP%]:hover   .sc-icon[_ngcontent-%COMP%] {\n  transform: scale(1.15) rotate(-5deg);\n}\n.style-card[data-color=gold].active[_ngcontent-%COMP%], \n.style-card[data-color=gold][_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.style-card[data-color=gold][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(251, 191, 36, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=red].active[_ngcontent-%COMP%], \n.style-card[data-color=red][_ngcontent-%COMP%]:hover {\n  border-color: rgba(239, 68, 68, 0.4);\n}\n.style-card[data-color=red][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(239, 68, 68, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=green].active[_ngcontent-%COMP%], \n.style-card[data-color=green][_ngcontent-%COMP%]:hover {\n  border-color: rgba(34, 197, 94, 0.4);\n}\n.style-card[data-color=green][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(34, 197, 94, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=blue].active[_ngcontent-%COMP%], \n.style-card[data-color=blue][_ngcontent-%COMP%]:hover {\n  border-color: rgba(96, 165, 250, 0.4);\n}\n.style-card[data-color=blue][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(96, 165, 250, 0.1),\n      transparent 60%);\n}\n.sc-icon[_ngcontent-%COMP%] {\n  font-size: 1.8rem;\n  margin-bottom: 0.6rem;\n  transition: transform 0.3s;\n  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));\n}\n.sc-name[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.35rem;\n}\n.sc-tag[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.08em;\n  padding: 0.18rem 0.4rem;\n  border-radius: 3px;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  margin-bottom: 0.6rem;\n}\n.sc-tag[data-color=gold][_ngcontent-%COMP%] {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n}\n.sc-tag[data-color=red][_ngcontent-%COMP%] {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n}\n.sc-tag[data-color=green][_ngcontent-%COMP%] {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n}\n.sc-tag[data-color=blue][_ngcontent-%COMP%] {\n  color: #60a5fa;\n  border-color: rgba(96, 165, 250, 0.3);\n}\n.sc-bar-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  margin-bottom: 0.6rem;\n}\n.sc-bar[_ngcontent-%COMP%] {\n  flex: 1;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 3px;\n  overflow: hidden;\n}\n.sc-bar-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 3px;\n  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);\n}\n.sc-bar-fill[data-color=gold][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #d4a017);\n  box-shadow: 0 0 6px rgba(251, 191, 36, 0.35);\n}\n.sc-bar-fill[data-color=red][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #ef4444,\n      #c82333);\n  box-shadow: 0 0 6px rgba(239, 68, 68, 0.35);\n}\n.sc-bar-fill[data-color=green][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #22c55e,\n      #16a34a);\n  box-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sc-bar-fill[data-color=blue][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #60a5fa,\n      #3b82f6);\n  box-shadow: 0 0 6px rgba(96, 165, 250, 0.35);\n}\n.sc-bar-pct[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.35rem;\n  color: rgba(255, 255, 255, 0.35);\n  flex-shrink: 0;\n}\n.sc-desc[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n.duo-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.25rem;\n}\n.duo-row[_ngcontent-%COMP%]   .power-panel[_ngcontent-%COMP%] {\n  margin-bottom: 0;\n}\n.power-panel--red[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.15);\n}\n.power-panel--red[_ngcontent-%COMP%]   .panel-flag[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.06);\n  border-color: rgba(239, 68, 68, 0.1);\n}\n.power-panel--red[_ngcontent-%COMP%]   .flag-label[_ngcontent-%COMP%] {\n  color: #ef4444;\n  text-shadow: 0 0 8px rgba(239, 68, 68, 0.3);\n}\n.power-panel--red[_ngcontent-%COMP%]:hover {\n  border-color: rgba(239, 68, 68, 0.3);\n  box-shadow: 0 6px 28px rgba(239, 68, 68, 0.06);\n}\n.power-panel--purple[_ngcontent-%COMP%] {\n  border-color: rgba(167, 139, 250, 0.15);\n}\n.power-panel--purple[_ngcontent-%COMP%]   .panel-flag[_ngcontent-%COMP%] {\n  background: rgba(167, 139, 250, 0.06);\n  border-color: rgba(167, 139, 250, 0.1);\n}\n.power-panel--purple[_ngcontent-%COMP%]   .flag-label[_ngcontent-%COMP%] {\n  color: #a78bfa;\n  text-shadow: 0 0 8px rgba(167, 139, 250, 0.3);\n}\n.power-panel--purple[_ngcontent-%COMP%]:hover {\n  border-color: rgba(167, 139, 250, 0.3);\n  box-shadow: 0 6px 28px rgba(167, 139, 250, 0.06);\n}\n.power-panel--orange[_ngcontent-%COMP%] {\n  margin-top: 1.25rem;\n  border-color: rgba(249, 115, 22, 0.15);\n}\n.power-panel--orange[_ngcontent-%COMP%]   .panel-flag[_ngcontent-%COMP%] {\n  background: rgba(249, 115, 22, 0.06);\n  border-color: rgba(249, 115, 22, 0.1);\n}\n.power-panel--orange[_ngcontent-%COMP%]   .flag-label[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 8px rgba(249, 115, 22, 0.3);\n}\n.power-panel--orange[_ngcontent-%COMP%]:hover {\n  border-color: rgba(249, 115, 22, 0.3);\n  box-shadow: 0 6px 28px rgba(249, 115, 22, 0.06);\n}\n.power-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.6rem;\n}\n.power-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 0.7rem 0.85rem 0.7rem 1.5rem;\n  border-radius: 0.6rem;\n  background: rgba(0, 0, 0, 0.2);\n  border: 1px solid rgba(255, 255, 255, 0.05);\n  font-size: 0.84rem;\n  line-height: 1.55;\n  color: var(--text-secondary);\n  transition: border-color 0.25s, background 0.25s;\n}\n.power-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0.55rem;\n  top: 0.7rem;\n  color: #fbbf24;\n  font-weight: bold;\n  font-size: 0.85rem;\n}\n.power-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 255, 255, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n}\n.principles[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.85rem;\n}\n.principle-card[_ngcontent-%COMP%] {\n  padding: 1rem 1.1rem;\n  border-radius: 0.6rem;\n  background: rgba(0, 0, 0, 0.2);\n  border: 1px solid rgba(255, 255, 255, 0.05);\n  transition: border-color 0.25s, transform 0.25s;\n}\n.principle-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(249, 115, 22, 0.25);\n  transform: translateY(-2px);\n}\n.principle-card[_ngcontent-%COMP%]   h5[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.35rem;\n}\n.principle-card[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  line-height: 1.55;\n  color: var(--text-tertiary);\n}\n.hud-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 1rem;\n  margin-top: 1.25rem;\n}\n.hud-card[_ngcontent-%COMP%] {\n  padding: 1rem 1.1rem;\n  border-radius: 0.85rem;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  transition:\n    border-color 250ms ease,\n    box-shadow 250ms ease,\n    transform 250ms ease;\n}\n.hud-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-3px);\n  border-color: rgba(251, 191, 36, 0.3);\n  box-shadow: 0 6px 24px rgba(251, 191, 36, 0.08);\n}\n.hud-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 3px;\n  margin-bottom: 0.75rem;\n  overflow: hidden;\n}\n.hud-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #f97316);\n  box-shadow: 0 0 8px rgba(251, 191, 36, 0.35);\n  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);\n}\n.hud-label[_ngcontent-%COMP%] {\n  display: block;\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  text-transform: uppercase;\n  margin-bottom: 0.3rem;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.2);\n}\n.hud-value[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 0.82rem;\n  color: var(--text-secondary);\n  line-height: 1.45;\n}\n@media (max-width: 960px) {\n  .style-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .duo-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .principles[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .hud-row[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n@media (max-width: 640px) {\n  .style-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .hud-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=contact.component.css.map */'] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ContactComponent, [{
+    type: Component,
+    args: [{ selector: "app-contact", standalone: true, imports: [CommonModule], template: `<section class="apple-section" id="operating-style">
+  <div class="apple-container">
+    <div class="section-header">
+      <div class="world-label">\u{1F3AE} CHARACTER SELECT</div>
+      <h2 class="section-title">Player Profile</h2>
+      <p class="section-subtitle">
+        Select a trait to inspect. Every stat is earned from real quests.
+      </p>
+    </div>
+
+    <!-- \u2550\u2550\u2550 Work Style: 4 cards in a row \u2550\u2550\u2550 -->
+    <div class="style-panel">
+      <div class="panel-flag">
+        <span class="flag-label">\u2B1B WORK STYLE \u2014 SELECT YOUR CO-OP PARTNER</span>
+      </div>
+      <div class="panel-body">
+        <div class="style-grid">
+          @for (card of fitCards; track card.title; let i = $index) {
+            <div class="style-card" [attr.data-color]="card.color" [class.active]="selectedCard === i" (mouseenter)="selectedCard = i">
+              <div class="sc-icon">{{ card.icon }}</div>
+              <h4 class="sc-name">{{ card.title }}</h4>
+              <span class="sc-tag" [attr.data-color]="card.color">{{ card.tag }}</span>
+              <div class="sc-bar-wrap">
+                <div class="sc-bar">
+                  <div class="sc-bar-fill" [attr.data-color]="card.color" [style.width]="card.stat + '%'"></div>
+                </div>
+                <span class="sc-bar-pct">{{ card.stat }}%</span>
+              </div>
+              <p class="sc-desc">{{ card.body }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- \u2550\u2550\u2550 Two-column: Strongest Fit + First-Week Outcomes \u2550\u2550\u2550 -->
+    <div class="duo-row">
+      <div class="power-panel power-panel--red">
+        <div class="panel-flag">
+          <span class="flag-label">\u{1F344} STRONGEST FIT \u2014 POWER-UP</span>
+        </div>
+        <div class="panel-body">
+          <ul class="power-list">
+            @for (track of collaborationTracks; track track) {
+              <li>{{ track }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="power-panel power-panel--purple">
+        <div class="panel-flag">
+          <span class="flag-label">\u2B50 FIRST-WEEK OUTCOMES \u2014 STAR MODE</span>
+        </div>
+        <div class="panel-body">
+          <ul class="power-list">
+            @for (outcome of firstWeekOutcomes; track outcome) {
+              <li>{{ outcome }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- \u2550\u2550\u2550 Full-width: Operating Principles \u2550\u2550\u2550 -->
+    <div class="power-panel power-panel--orange">
+      <div class="panel-flag">
+        <span class="flag-label">\u{1F525} OPERATING PRINCIPLES \u2014 FIRE FLOWER</span>
+      </div>
+      <div class="panel-body">
+        <div class="principles">
+          @for (p of operatingPrinciples; track p.title) {
+            <div class="principle-card">
+              <h5>{{ p.title }}</h5>
+              <p>{{ p.body }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- \u2550\u2550\u2550 Stats HUD Row \u2550\u2550\u2550 -->
+    <div class="hud-row">
+      @for (item of emphasisAreas; track item.label) {
+        <div class="hud-card">
+          <div class="hud-bar">
+            <div class="hud-fill" [style.width]="item.pct + '%'"></div>
+          </div>
+          <span class="hud-label">{{ item.label }}</span>
+          <span class="hud-value">{{ item.value }}</span>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/contact/contact.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: #fbbf24;\n  text-shadow: 0 0 16px rgba(251, 191, 36, 0.35);\n}\n.section-title {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.style-panel,\n.power-panel {\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  margin-bottom: 1.25rem;\n  transition: border-color 250ms ease, box-shadow 250ms ease;\n}\n.style-panel:hover,\n.power-panel:hover {\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 6px 28px rgba(251, 191, 36, 0.08);\n}\n.panel-flag {\n  padding: 0.55rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.flag-label {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: #fbbf24;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.25);\n}\n.panel-body {\n  padding: 1.15rem;\n}\n.style-grid {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n}\n.style-card {\n  padding: 1rem;\n  border-radius: 0.8rem;\n  border: 1px solid rgba(255, 255, 255, 0.06);\n  background: rgba(255, 255, 255, 0.02);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  text-align: center;\n  position: relative;\n}\n.style-card::after {\n  content: "";\n  position: absolute;\n  inset: 0;\n  border-radius: inherit;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n}\n.style-card.active,\n.style-card:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.25);\n  background: rgba(255, 255, 255, 0.04);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);\n}\n.style-card.active::after,\n.style-card:hover::after {\n  opacity: 1;\n}\n.style-card.active .sc-icon,\n.style-card:hover .sc-icon {\n  transform: scale(1.15) rotate(-5deg);\n}\n.style-card[data-color=gold].active,\n.style-card[data-color=gold]:hover {\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.style-card[data-color=gold]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(251, 191, 36, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=red].active,\n.style-card[data-color=red]:hover {\n  border-color: rgba(239, 68, 68, 0.4);\n}\n.style-card[data-color=red]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(239, 68, 68, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=green].active,\n.style-card[data-color=green]:hover {\n  border-color: rgba(34, 197, 94, 0.4);\n}\n.style-card[data-color=green]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(34, 197, 94, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=blue].active,\n.style-card[data-color=blue]:hover {\n  border-color: rgba(96, 165, 250, 0.4);\n}\n.style-card[data-color=blue]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(96, 165, 250, 0.1),\n      transparent 60%);\n}\n.sc-icon {\n  font-size: 1.8rem;\n  margin-bottom: 0.6rem;\n  transition: transform 0.3s;\n  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));\n}\n.sc-name {\n  font-size: 0.88rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.35rem;\n}\n.sc-tag {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.08em;\n  padding: 0.18rem 0.4rem;\n  border-radius: 3px;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  margin-bottom: 0.6rem;\n}\n.sc-tag[data-color=gold] {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n}\n.sc-tag[data-color=red] {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n}\n.sc-tag[data-color=green] {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n}\n.sc-tag[data-color=blue] {\n  color: #60a5fa;\n  border-color: rgba(96, 165, 250, 0.3);\n}\n.sc-bar-wrap {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  margin-bottom: 0.6rem;\n}\n.sc-bar {\n  flex: 1;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 3px;\n  overflow: hidden;\n}\n.sc-bar-fill {\n  height: 100%;\n  border-radius: 3px;\n  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);\n}\n.sc-bar-fill[data-color=gold] {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #d4a017);\n  box-shadow: 0 0 6px rgba(251, 191, 36, 0.35);\n}\n.sc-bar-fill[data-color=red] {\n  background:\n    linear-gradient(\n      90deg,\n      #ef4444,\n      #c82333);\n  box-shadow: 0 0 6px rgba(239, 68, 68, 0.35);\n}\n.sc-bar-fill[data-color=green] {\n  background:\n    linear-gradient(\n      90deg,\n      #22c55e,\n      #16a34a);\n  box-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sc-bar-fill[data-color=blue] {\n  background:\n    linear-gradient(\n      90deg,\n      #60a5fa,\n      #3b82f6);\n  box-shadow: 0 0 6px rgba(96, 165, 250, 0.35);\n}\n.sc-bar-pct {\n  font-family: var(--font-pixel);\n  font-size: 0.35rem;\n  color: rgba(255, 255, 255, 0.35);\n  flex-shrink: 0;\n}\n.sc-desc {\n  font-size: 0.78rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n.duo-row {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.25rem;\n}\n.duo-row .power-panel {\n  margin-bottom: 0;\n}\n.power-panel--red {\n  border-color: rgba(239, 68, 68, 0.15);\n}\n.power-panel--red .panel-flag {\n  background: rgba(239, 68, 68, 0.06);\n  border-color: rgba(239, 68, 68, 0.1);\n}\n.power-panel--red .flag-label {\n  color: #ef4444;\n  text-shadow: 0 0 8px rgba(239, 68, 68, 0.3);\n}\n.power-panel--red:hover {\n  border-color: rgba(239, 68, 68, 0.3);\n  box-shadow: 0 6px 28px rgba(239, 68, 68, 0.06);\n}\n.power-panel--purple {\n  border-color: rgba(167, 139, 250, 0.15);\n}\n.power-panel--purple .panel-flag {\n  background: rgba(167, 139, 250, 0.06);\n  border-color: rgba(167, 139, 250, 0.1);\n}\n.power-panel--purple .flag-label {\n  color: #a78bfa;\n  text-shadow: 0 0 8px rgba(167, 139, 250, 0.3);\n}\n.power-panel--purple:hover {\n  border-color: rgba(167, 139, 250, 0.3);\n  box-shadow: 0 6px 28px rgba(167, 139, 250, 0.06);\n}\n.power-panel--orange {\n  margin-top: 1.25rem;\n  border-color: rgba(249, 115, 22, 0.15);\n}\n.power-panel--orange .panel-flag {\n  background: rgba(249, 115, 22, 0.06);\n  border-color: rgba(249, 115, 22, 0.1);\n}\n.power-panel--orange .flag-label {\n  color: #f97316;\n  text-shadow: 0 0 8px rgba(249, 115, 22, 0.3);\n}\n.power-panel--orange:hover {\n  border-color: rgba(249, 115, 22, 0.3);\n  box-shadow: 0 6px 28px rgba(249, 115, 22, 0.06);\n}\n.power-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.6rem;\n}\n.power-list li {\n  position: relative;\n  padding: 0.7rem 0.85rem 0.7rem 1.5rem;\n  border-radius: 0.6rem;\n  background: rgba(0, 0, 0, 0.2);\n  border: 1px solid rgba(255, 255, 255, 0.05);\n  font-size: 0.84rem;\n  line-height: 1.55;\n  color: var(--text-secondary);\n  transition: border-color 0.25s, background 0.25s;\n}\n.power-list li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0.55rem;\n  top: 0.7rem;\n  color: #fbbf24;\n  font-weight: bold;\n  font-size: 0.85rem;\n}\n.power-list li:hover {\n  border-color: rgba(255, 255, 255, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n}\n.principles {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.85rem;\n}\n.principle-card {\n  padding: 1rem 1.1rem;\n  border-radius: 0.6rem;\n  background: rgba(0, 0, 0, 0.2);\n  border: 1px solid rgba(255, 255, 255, 0.05);\n  transition: border-color 0.25s, transform 0.25s;\n}\n.principle-card:hover {\n  border-color: rgba(249, 115, 22, 0.25);\n  transform: translateY(-2px);\n}\n.principle-card h5 {\n  font-size: 0.88rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.35rem;\n}\n.principle-card p {\n  font-size: 0.8rem;\n  line-height: 1.55;\n  color: var(--text-tertiary);\n}\n.hud-row {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 1rem;\n  margin-top: 1.25rem;\n}\n.hud-card {\n  padding: 1rem 1.1rem;\n  border-radius: 0.85rem;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  transition:\n    border-color 250ms ease,\n    box-shadow 250ms ease,\n    transform 250ms ease;\n}\n.hud-card:hover {\n  transform: translateY(-3px);\n  border-color: rgba(251, 191, 36, 0.3);\n  box-shadow: 0 6px 24px rgba(251, 191, 36, 0.08);\n}\n.hud-bar {\n  width: 100%;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 3px;\n  margin-bottom: 0.75rem;\n  overflow: hidden;\n}\n.hud-fill {\n  height: 100%;\n  border-radius: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #f97316);\n  box-shadow: 0 0 8px rgba(251, 191, 36, 0.35);\n  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);\n}\n.hud-label {\n  display: block;\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  text-transform: uppercase;\n  margin-bottom: 0.3rem;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.2);\n}\n.hud-value {\n  display: block;\n  font-size: 0.82rem;\n  color: var(--text-secondary);\n  line-height: 1.45;\n}\n@media (max-width: 960px) {\n  .style-grid {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .duo-row {\n    grid-template-columns: 1fr;\n  }\n  .principles {\n    grid-template-columns: 1fr;\n  }\n  .hud-row {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n@media (max-width: 640px) {\n  .style-grid {\n    grid-template-columns: 1fr;\n  }\n  .hud-row {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=contact.component.css.map */\n'] }]
+  }], null, null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ContactComponent, { className: "ContactComponent", filePath: "src/app/profile/contact/contact.component.ts", lineNumber: 11 });
+})();
+
+// src/app/profile/education/education.component.ts
+var EducationComponent = class _EducationComponent {
+  static {
+    this.\u0275fac = function EducationComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _EducationComponent)();
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _EducationComponent, selectors: [["app-education"]], decls: 75, vars: 0, consts: [["id", "education", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], ["data-stagger", "120", 1, "training-grid"], [1, "level-card", "level-card--gold"], [1, "level-flag"], [1, "level-number"], [1, "level-status"], [1, "level-body"], [1, "level-year"], [1, "level-title"], [1, "level-location"], [1, "level-rewards"], [1, "reward-chip"], [1, "level-xp"], [1, "xp-label"], [1, "xp-bar"], [1, "xp-fill", 2, "width", "98%"], [1, "level-card", "level-card--silver"], [1, "xp-fill", 2, "width", "93%"], [1, "level-card", "level-card--bronze"], [1, "xp-fill", 2, "width", "90%"]], template: function EducationComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
+        \u0275\u0275text(4, "\u{1F3EB} TRAINING GROUNDS");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(5, "h2", 4);
+        \u0275\u0275text(6, "Education");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(7, "p", 5);
+        \u0275\u0275text(8, "Worlds cleared before the quests began.");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(9, "div", 6)(10, "div", 7)(11, "div", 8)(12, "span", 9);
+        \u0275\u0275text(13, "W-3");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(14, "span", 10);
+        \u0275\u0275text(15, "\u2713 CLEARED");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(16, "div", 11)(17, "div", 12);
+        \u0275\u0275text(18, "2016 \u2013 2020");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(19, "h4", 13);
+        \u0275\u0275text(20, "Bachelor of Technology in Computer Science");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(21, "div", 14);
+        \u0275\u0275text(22, "\u{1F4CD} GLA University");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(23, "div", 15)(24, "span", 16);
+        \u0275\u0275text(25, "\u2B50 8.03 GPA");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(26, "span", 16);
+        \u0275\u0275text(27, "\u{1FA99} 4 Years");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(28, "div", 17)(29, "div", 18);
+        \u0275\u0275text(30, "XP EARNED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(31, "div", 19);
+        \u0275\u0275domElement(32, "div", 20);
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(33, "div", 21)(34, "div", 8)(35, "span", 9);
+        \u0275\u0275text(36, "W-2");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(37, "span", 10);
+        \u0275\u0275text(38, "\u2713 CLEARED");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(39, "div", 11)(40, "div", 12);
+        \u0275\u0275text(41, "2016");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(42, "h4", 13);
+        \u0275\u0275text(43, "Physics, Chemistry, Maths");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(44, "div", 14);
+        \u0275\u0275text(45, "\u{1F4CD} Ess Ess Convent School (CBSE)");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(46, "div", 15)(47, "span", 16);
+        \u0275\u0275text(48, "\u{1F3AF} Intermediate");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(49, "div", 17)(50, "div", 18);
+        \u0275\u0275text(51, "XP EARNED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(52, "div", 19);
+        \u0275\u0275domElement(53, "div", 22);
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(54, "div", 23)(55, "div", 8)(56, "span", 9);
+        \u0275\u0275text(57, "W-1");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(58, "span", 10);
+        \u0275\u0275text(59, "\u2713 CLEARED");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(60, "div", 11)(61, "div", 12);
+        \u0275\u0275text(62, "2014");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(63, "h4", 13);
+        \u0275\u0275text(64, "Science and Computers");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(65, "div", 14);
+        \u0275\u0275text(66, "\u{1F4CD} St. Conrad's Inter College (ICSE)");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(67, "div", 15)(68, "span", 16);
+        \u0275\u0275text(69, "\u{1F3AF} High School");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(70, "div", 17)(71, "div", 18);
+        \u0275\u0275text(72, "XP EARNED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(73, "div", 19);
+        \u0275\u0275domElement(74, "div", 24);
+        \u0275\u0275domElementEnd()()()()()();
+      }
+    }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.training-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.25rem;\n}\n.level-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.level-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.35);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.1);\n}\n.level-card--gold[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.level-card--silver[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.2);\n}\n.level-card--bronze[_ngcontent-%COMP%] {\n  border-color: rgba(180, 120, 60, 0.2);\n}\n.level-flag[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  background: rgba(251, 191, 36, 0.06);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.level-number[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.12em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.level-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.1em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.level-card--gold[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.08);\n}\n.level-card--silver[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(148, 163, 184, 0.05);\n}\n.level-card--silver[_ngcontent-%COMP%]   .level-number[_ngcontent-%COMP%] {\n  color: #94a3b8;\n  text-shadow: 0 0 8px rgba(148, 163, 184, 0.25);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(180, 120, 60, 0.05);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .level-number[_ngcontent-%COMP%] {\n  color: #b4783c;\n  text-shadow: 0 0 8px rgba(180, 120, 60, 0.25);\n}\n.level-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1rem;\n  display: grid;\n  gap: 0.5rem;\n}\n.level-year[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.08em;\n  color: var(--text-muted);\n}\n.level-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.05rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.level-location[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  color: #fde68a;\n}\n.level-rewards[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.2rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.25rem;\n  padding: 0.25rem 0.6rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.04em;\n  color: var(--primary-color);\n}\n.level-xp[_ngcontent-%COMP%] {\n  padding: 0.6rem 1rem 0.8rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  display: grid;\n  gap: 0.35rem;\n}\n.xp-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.16em;\n  color: var(--text-muted);\n}\n.xp-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 6px;\n  border-radius: 3px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #f59e0b);\n  box-shadow: 0 0 6px rgba(251, 191, 36, 0.4);\n  transition: width 0.8s ease;\n}\n.level-card--silver[_ngcontent-%COMP%]   .xp-fill[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #94a3b8,\n      #cbd5e1);\n  box-shadow: 0 0 6px rgba(148, 163, 184, 0.35);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .xp-fill[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #b4783c,\n      #d4a574);\n  box-shadow: 0 0 6px rgba(180, 120, 60, 0.35);\n}\n@media (max-width: 900px) {\n  .training-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    max-width: 28rem;\n    margin-inline: auto;\n  }\n}\n/*# sourceMappingURL=education.component.css.map */'] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(EducationComponent, [{
+    type: Component,
+    args: [{ selector: "app-education", standalone: true, template: `<div class="apple-section" id="education">
+  <div class="apple-container">
+    <div class="section-header" data-anim="fade-up">
+      <div class="world-label">\u{1F3EB} TRAINING GROUNDS</div>
+      <h2 class="section-title" data-text-reveal>Education</h2>
+      <p class="section-subtitle">Worlds cleared before the quests began.</p>
+    </div>
+
+    <div class="training-grid" data-stagger="120">
+
+      <!-- Bachelor Degree -->
+      <div class="level-card level-card--gold">
+        <div class="level-flag">
+          <span class="level-number">W-3</span>
+          <span class="level-status">\u2713 CLEARED</span>
+        </div>
+        <div class="level-body">
+          <div class="level-year">2016 \u2013 2020</div>
+          <h4 class="level-title">Bachelor of Technology in Computer Science</h4>
+          <div class="level-location">\u{1F4CD} GLA University</div>
+          <div class="level-rewards">
+            <span class="reward-chip">\u2B50 8.03 GPA</span>
+            <span class="reward-chip">\u{1FA99} 4 Years</span>
+          </div>
+        </div>
+        <div class="level-xp">
+          <div class="xp-label">XP EARNED</div>
+          <div class="xp-bar"><div class="xp-fill" style="width: 98%"></div></div>
+        </div>
+      </div>
+
+      <!-- Intermediate -->
+      <div class="level-card level-card--silver">
+        <div class="level-flag">
+          <span class="level-number">W-2</span>
+          <span class="level-status">\u2713 CLEARED</span>
+        </div>
+        <div class="level-body">
+          <div class="level-year">2016</div>
+          <h4 class="level-title">Physics, Chemistry, Maths</h4>
+          <div class="level-location">\u{1F4CD} Ess Ess Convent School (CBSE)</div>
+          <div class="level-rewards">
+            <span class="reward-chip">\u{1F3AF} Intermediate</span>
+          </div>
+        </div>
+        <div class="level-xp">
+          <div class="xp-label">XP EARNED</div>
+          <div class="xp-bar"><div class="xp-fill" style="width: 93%"></div></div>
+        </div>
+      </div>
+
+      <!-- High School -->
+      <div class="level-card level-card--bronze">
+        <div class="level-flag">
+          <span class="level-number">W-1</span>
+          <span class="level-status">\u2713 CLEARED</span>
+        </div>
+        <div class="level-body">
+          <div class="level-year">2014</div>
+          <h4 class="level-title">Science and Computers</h4>
+          <div class="level-location">\u{1F4CD} St. Conrad's Inter College (ICSE)</div>
+          <div class="level-rewards">
+            <span class="reward-chip">\u{1F3AF} High School</span>
+          </div>
+        </div>
+        <div class="level-xp">
+          <div class="xp-label">XP EARNED</div>
+          <div class="xp-bar"><div class="xp-fill" style="width: 90%"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/education/education.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.training-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.25rem;\n}\n.level-card {\n  position: relative;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.level-card:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.35);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.1);\n}\n.level-card--gold {\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.level-card--silver {\n  border-color: rgba(148, 163, 184, 0.2);\n}\n.level-card--bronze {\n  border-color: rgba(180, 120, 60, 0.2);\n}\n.level-flag {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  background: rgba(251, 191, 36, 0.06);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.level-number {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.12em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.level-status {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.1em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.level-card--gold .level-flag {\n  background: rgba(251, 191, 36, 0.08);\n}\n.level-card--silver .level-flag {\n  background: rgba(148, 163, 184, 0.05);\n}\n.level-card--silver .level-number {\n  color: #94a3b8;\n  text-shadow: 0 0 8px rgba(148, 163, 184, 0.25);\n}\n.level-card--bronze .level-flag {\n  background: rgba(180, 120, 60, 0.05);\n}\n.level-card--bronze .level-number {\n  color: #b4783c;\n  text-shadow: 0 0 8px rgba(180, 120, 60, 0.25);\n}\n.level-body {\n  padding: 1.1rem 1rem;\n  display: grid;\n  gap: 0.5rem;\n}\n.level-year {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.08em;\n  color: var(--text-muted);\n}\n.level-title {\n  font-family: var(--font-display);\n  font-size: 1.05rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.level-location {\n  font-size: 0.85rem;\n  color: #fde68a;\n}\n.level-rewards {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.2rem;\n}\n.reward-chip {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.25rem;\n  padding: 0.25rem 0.6rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.04em;\n  color: var(--primary-color);\n}\n.level-xp {\n  padding: 0.6rem 1rem 0.8rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  display: grid;\n  gap: 0.35rem;\n}\n.xp-label {\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.16em;\n  color: var(--text-muted);\n}\n.xp-bar {\n  width: 100%;\n  height: 6px;\n  border-radius: 3px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-fill {\n  height: 100%;\n  border-radius: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #f59e0b);\n  box-shadow: 0 0 6px rgba(251, 191, 36, 0.4);\n  transition: width 0.8s ease;\n}\n.level-card--silver .xp-fill {\n  background:\n    linear-gradient(\n      90deg,\n      #94a3b8,\n      #cbd5e1);\n  box-shadow: 0 0 6px rgba(148, 163, 184, 0.35);\n}\n.level-card--bronze .xp-fill {\n  background:\n    linear-gradient(\n      90deg,\n      #b4783c,\n      #d4a574);\n  box-shadow: 0 0 6px rgba(180, 120, 60, 0.35);\n}\n@media (max-width: 900px) {\n  .training-grid {\n    grid-template-columns: 1fr;\n    max-width: 28rem;\n    margin-inline: auto;\n  }\n}\n/*# sourceMappingURL=education.component.css.map */\n'] }]
+  }], null, null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(EducationComponent, { className: "EducationComponent", filePath: "src/app/profile/education/education.component.ts", lineNumber: 9 });
+})();
+
+// src/app/profile/experience/experience.data.ts
+var EXPERIENCE_START_DATE = "2019-12-20";
+var EXPERIENCE_ITEMS = [
+  {
+    id: "smts-salesforce",
+    title: "SMTS (Senior Member of Technical Staff)",
+    company: "Salesforce",
+    companyUrl: COMPANY_LINKS.salesforce,
+    logo: "assets/images/salesforce.jpeg",
+    location: "Hybrid in Hyderabad, India",
+    duration: "Current",
+    period: "2025 - Present",
+    description: "Senior Member of Technical Staff working on Slack. Powering Salesforce Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration.",
+    technologies: ["Java", "Slack Platform", "Agentforce", "Thunderbird", "Einstein AI", "Microservices"],
+    achievements: [
+      "Powering Salesforce Thunderbird architecture for Slack",
+      "Enhancing Slackbot & Einstein with Agentforce integration",
+      "Driving engineering best practices and code quality across the team"
+    ]
+  },
+  {
+    id: "sde2-games24x7",
+    title: "SDE-2",
+    company: "Games24x7",
+    companyUrl: COMPANY_LINKS.games24x7,
+    logo: "assets/images/games24x7.png",
+    location: "Bangalore, India",
+    duration: "3 years",
+    period: "2022 - 2025",
+    description: "Worked as a backend developer in Platform services, for both RummyCircle and My11Circle. Led critical platform initiatives and mentored junior developers.",
+    technologies: ["Kafka", "Spring Cloud", "LLM", "AWS Sage Maker", "Google AD APIs", "Elasti-cache", "JDK 21", "Neptune DB", "Gremlin", "Grafana", "Prometheus", "Pager Duty"],
+    achievements: [
+      "Developed Risk Rule Engine for Games24x7 that works in My11Circle and RummyCircle, that identifies Fraud done by users in real time",
+      "Developed Google ad monitoring service which keeps on monitoring the campaign spends done by the marketing team",
+      "Standardized and migrated services from EC2 to Graviton in K8s",
+      "Set up proper alerting for business dashboards and created PD alerts",
+      "Mentored a team of 3 junior developers"
+    ]
+  },
+  {
+    id: "sde1-games24x7",
+    title: "SDE-1",
+    company: "Games24x7",
+    companyUrl: COMPANY_LINKS.games24x7,
+    logo: "assets/images/games24x7.png",
+    location: "Bangalore, India",
+    duration: "1.1 years",
+    period: "2021 - 2022",
+    description: "Working as a backend developer in My11Circle team. Developed scalable solutions for high-traffic gaming platform.",
+    technologies: ["Java 11", "Microservices", "AWS", "OCR", "Redis", "Kafka", "RabbitMQ", "MySQL", "Spring Boot", "Spring Cloud", "Distributed Locking"],
+    achievements: [
+      "Helped My11Circle grow and scale to achieve 10 Million concurrent users",
+      "Worked on several projects for My11Circle and RummyCircle",
+      "Developed Automated KYC system of Games24x7 from scratch",
+      "Developed Club upgradation to turn to VIP users, features for My11Circle users"
+    ]
+  },
+  {
+    id: "swe-walmart",
+    title: "SWE IN2",
+    company: "Walmart Global Tech",
+    companyUrl: COMPANY_LINKS.walmart,
+    logo: "assets/images/walmart.png",
+    location: "Bangalore, India",
+    duration: "4 months",
+    period: "2021",
+    description: "Built features for Walmart's Annual Enrollment platform \u2014 the system employees use to enroll in health benefits (life insurance, dental, health coverage) for 2.2M+ associates.",
+    technologies: ["Java 8", "Angular", "JSP", "OneOps", "WCNP", "Jenkins"],
+    achievements: [
+      "Developed enrollment features serving 2.2M+ Walmart associates across the US",
+      "Built on Walmart's private cloud (OneOps/WCNP) with CI/CD via Jenkins",
+      "Shipped production code within first month, collaborating across US and India teams"
+    ]
+  },
+  {
+    id: "sde1-extramarks",
+    title: "SDE 1",
+    company: "Extramarks Education",
+    companyUrl: COMPANY_LINKS.extramarks,
+    logo: "assets/images/extramarks.png",
+    location: "Noida, India",
+    duration: "1.3 years",
+    period: "2020 - 2021",
+    description: "Got hands on project experience, worked in a collaborative environment. Created from scratch projects and deployed it into production environment.",
+    technologies: ["Java 8/11", "Spring Boot", "OAuth2.0 + JWT", "AWS Cognito", "Docker", "MySQL 8+"],
+    achievements: [
+      "Broke Monolithic architecture to Microservices and discussed the whole architecture with the team",
+      "Developed and deployed 5+ production-ready applications",
+      "Implemented OAuth2.0 authentication system",
+      "Reduced system downtime by 80% through improved architecture"
+    ]
+  }
+];
+
+// src/app/profile/experience/experience.component.ts
+var _forTrack03 = ($index, $item) => $item.id;
+function ExperienceComponent_For_16_Conditional_5_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 18)(1, "div", 23);
+    \u0275\u0275domElement(2, "div", 24)(3, "div", 25)(4, "div", 26);
+    \u0275\u0275domElementEnd()();
+  }
+}
+function ExperienceComponent_For_16_Conditional_10_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "span", 22);
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const stop_r3 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1("\u{1FA99} ", stop_r3.roles.length, " roles");
+  }
+}
+function ExperienceComponent_For_16_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 14);
+    \u0275\u0275domListener("click", function ExperienceComponent_For_16_Template_button_click_0_listener() {
+      const ctx_r1 = \u0275\u0275restoreView(_r1);
+      const stop_r3 = ctx_r1.$implicit;
+      const \u0275$index_27_r4 = ctx_r1.$index;
+      const ctx_r4 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r4.selectStop(stop_r3, \u0275$index_27_r4));
+    });
+    \u0275\u0275domElementStart(1, "div", 15)(2, "div", 16)(3, "span", 17);
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd()()();
+    \u0275\u0275conditionalCreate(5, ExperienceComponent_For_16_Conditional_5_Template, 5, 0, "div", 18);
+    \u0275\u0275domElementStart(6, "div", 19);
+    \u0275\u0275domElement(7, "img", 20);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(8, "span", 21);
+    \u0275\u0275text(9);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275conditionalCreate(10, ExperienceComponent_For_16_Conditional_10_Template, 2, 1, "span", 22);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const stop_r3 = ctx2.$implicit;
+    const \u0275$index_27_r4 = ctx2.$index;
+    const ctx_r4 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("active", ctx_r4.isStopActive(stop_r3))("current", stop_r3.isCurrent)("mario-here", ctx_r4.marioPosition === \u0275$index_27_r4);
+    \u0275\u0275attribute("aria-label", "View experience at " + stop_r3.company);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("flag-current", stop_r3.isCurrent);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r4.getStopPeriod(stop_r3));
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r4.marioPosition === \u0275$index_27_r4 ? 5 : -1);
+    \u0275\u0275advance(2);
+    \u0275\u0275domProperty("src", stop_r3.logo, \u0275\u0275sanitizeUrl)("alt", stop_r3.company + " logo");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(stop_r3.company);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(stop_r3.roles.length > 1 ? 10 : -1);
+  }
+}
+function ExperienceComponent_Conditional_19_Conditional_9_For_2_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 44);
+    \u0275\u0275domListener("click", function ExperienceComponent_Conditional_19_Conditional_9_For_2_Template_button_click_0_listener() {
+      const role_r7 = \u0275\u0275restoreView(_r6).$implicit;
+      const ctx_r4 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r4.selectRole(role_r7));
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275domElementStart(2, "span", 45);
+    \u0275\u0275text(3);
+    \u0275\u0275domElementEnd()();
+  }
+  if (rf & 2) {
+    const role_r7 = ctx2.$implicit;
+    const ctx_r4 = \u0275\u0275nextContext(3);
+    \u0275\u0275classProp("active", ctx_r4.activeRole === role_r7);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", role_r7.title, " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(role_r7.period);
+  }
+}
+function ExperienceComponent_Conditional_19_Conditional_9_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 32);
+    \u0275\u0275repeaterCreate(1, ExperienceComponent_Conditional_19_Conditional_9_For_2_Template, 4, 4, "button", 43, _forTrack03);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r4 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r4.activeStop.roles);
+  }
+}
+function ExperienceComponent_Conditional_19_For_23_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "span", 41);
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const tech_r8 = ctx2.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(tech_r8);
+  }
+}
+function ExperienceComponent_Conditional_19_For_29_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "li");
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const ach_r9 = ctx2.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ach_r9);
+  }
+}
+function ExperienceComponent_Conditional_19_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 13)(1, "div", 27)(2, "div", 28);
+    \u0275\u0275domElement(3, "img", 29);
+    \u0275\u0275domElementStart(4, "div")(5, "div", 30);
+    \u0275\u0275text(6);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(7, "div", 31);
+    \u0275\u0275text(8);
+    \u0275\u0275domElementEnd()()();
+    \u0275\u0275conditionalCreate(9, ExperienceComponent_Conditional_19_Conditional_9_Template, 3, 0, "div", 32);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(10, "div", 33)(11, "div", 34)(12, "span", 35);
+    \u0275\u0275text(13);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(14, "span", 36);
+    \u0275\u0275text(15);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(16, "p", 37);
+    \u0275\u0275text(17);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(18, "div", 38)(19, "div", 39);
+    \u0275\u0275text(20, "\u26A1 ABILITIES USED");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(21, "div", 40);
+    \u0275\u0275repeaterCreate(22, ExperienceComponent_Conditional_19_For_23_Template, 2, 1, "span", 41, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(24, "div", 38)(25, "div", 39);
+    \u0275\u0275text(26, "\u{1F3C6} KEY ACHIEVEMENTS");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(27, "ul", 42);
+    \u0275\u0275repeaterCreate(28, ExperienceComponent_Conditional_19_For_29_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275domElementEnd()()()();
+  }
+  if (rf & 2) {
+    const ctx_r4 = \u0275\u0275nextContext();
+    \u0275\u0275advance(3);
+    \u0275\u0275domProperty("src", ctx_r4.activeStop.logo, \u0275\u0275sanitizeUrl)("alt", ctx_r4.activeStop.company);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r4.activeStop.company);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r4.getStopPeriod(ctx_r4.activeStop));
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r4.activeStop.roles.length > 1 ? 9 : -1);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(ctx_r4.activeRole.title);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("\u{1F4CD} ", ctx_r4.activeRole.location);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r4.activeRole.description);
+    \u0275\u0275advance(5);
+    \u0275\u0275repeater(ctx_r4.activeRole.technologies);
+    \u0275\u0275advance(6);
+    \u0275\u0275repeater(ctx_r4.activeRole.achievements);
+  }
+}
+var ExperienceComponent = class _ExperienceComponent {
+  constructor() {
+    this.totalExperience = "0.0";
+    this.stops = [];
+    this.activeStop = null;
+    this.activeRole = null;
+    this.marioPosition = -1;
+    this.experienceItems = EXPERIENCE_ITEMS;
+  }
+  ngOnInit() {
+    this.calculateTotalExperience();
+    this.buildTimeline();
+    this.marioPosition = this.stops.length - 1;
+  }
+  calculateTotalExperience() {
+    const start = new Date(EXPERIENCE_START_DATE);
+    const now = /* @__PURE__ */ new Date();
+    const years = Math.abs(now.getTime() - start.getTime()) / (1e3 * 60 * 60 * 24 * 365.25);
+    this.totalExperience = years.toFixed(1);
+  }
+  buildTimeline() {
+    const companyMap = /* @__PURE__ */ new Map();
+    const order = [];
+    this.experienceItems.forEach((item) => {
+      if (!companyMap.has(item.company)) {
+        companyMap.set(item.company, []);
+        order.push(item.company);
+      }
+      companyMap.get(item.company).push(item);
+    });
+    this.stops = order.reverse().map((company) => {
+      const roles = companyMap.get(company);
+      return {
+        id: company.toLowerCase().replace(/\s+/g, "-"),
+        company,
+        logo: roles[0].logo,
+        roles,
+        isCurrent: roles.some((r) => r.duration === "Current")
+      };
+    });
+  }
+  selectStop(stop, idx) {
+    if (this.activeStop === stop) {
+      this.activeStop = null;
+      this.activeRole = null;
+      return;
+    }
+    this.activeStop = stop;
+    this.activeRole = stop.roles[0];
+    this.marioPosition = idx;
+  }
+  selectRole(role) {
+    this.activeRole = role;
+  }
+  isStopActive(stop) {
+    return this.activeStop === stop;
+  }
+  getStopPeriod(stop) {
+    if (stop.roles.length === 1)
+      return stop.roles[0].period;
+    const periods = stop.roles.map((r) => r.period);
+    const first2 = periods[periods.length - 1];
+    const last3 = periods[0];
+    const startYear = first2.split(" - ")[0].split(" ")[0];
+    const endPart = last3.includes("Present") ? "Present" : last3.split(" - ")[1]?.trim() || last3;
+    return `${startYear} - ${endPart}`;
+  }
+  static {
+    this.\u0275fac = function ExperienceComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _ExperienceComponent)();
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 20, vars: 3, consts: [["id", "experience", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], [1, "xp-total"], ["data-anim", "fade-up", 1, "world-map"], [1, "map-track"], [1, "ground-layer"], [1, "trail-line"], ["type", "button", 1, "map-stop", 3, "active", "current", "mario-here"], [1, "end-star"], ["data-anim", "fade-up", 1, "quest-log"], ["type", "button", 1, "map-stop", 3, "click"], [1, "flag-pole"], [1, "flag-banner"], [1, "flag-year"], [1, "mario-sprite"], [1, "stop-block"], ["loading", "lazy", 1, "stop-logo", 3, "src", "alt"], [1, "stop-name"], [1, "coin-count"], [1, "mario-pixel"], [1, "mario-hat"], [1, "mario-face"], [1, "mario-body"], [1, "quest-log-header"], [1, "ql-title-row"], [1, "ql-logo", 3, "src", "alt"], [1, "ql-company"], [1, "ql-period"], [1, "role-tabs"], [1, "quest-log-body"], [1, "ql-role-banner"], [1, "ql-role-title"], [1, "ql-location"], [1, "ql-description"], [1, "ql-section"], [1, "ql-section-label"], [1, "ql-tech-chips"], [1, "ql-tech"], [1, "ql-achievements"], [1, "role-tab", 3, "active"], [1, "role-tab", 3, "click"], [1, "role-tab-period"]], template: function ExperienceComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
+        \u0275\u0275text(4, "\u2694 WORLD MAP");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(5, "h2", 4);
+        \u0275\u0275text(6, "Professional Experience");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(7, "p", 5)(8, "span", 6);
+        \u0275\u0275text(9);
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(10);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(11, "div", 7)(12, "div", 8);
+        \u0275\u0275domElement(13, "div", 9)(14, "div", 10);
+        \u0275\u0275repeaterCreate(15, ExperienceComponent_For_16_Template, 11, 15, "button", 11, _forTrack03);
+        \u0275\u0275domElementStart(17, "div", 12);
+        \u0275\u0275text(18, "\u2B50");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275conditionalCreate(19, ExperienceComponent_Conditional_19_Template, 30, 8, "div", 13);
+        \u0275\u0275domElementEnd()();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance(9);
+        \u0275\u0275textInterpolate1("", ctx2.totalExperience, " YRS");
+        \u0275\u0275advance();
+        \u0275\u0275textInterpolate1(" of quests completed across ", ctx2.stops.length, " worlds ");
+        \u0275\u0275advance(5);
+        \u0275\u0275repeater(ctx2.stops);
+        \u0275\u0275advance(4);
+        \u0275\u0275conditional(ctx2.activeStop && ctx2.activeRole ? 19 : -1);
+      }
+    }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.apple-section[_ngcontent-%COMP%] {\n  padding: clamp(4rem, 8vw, 7rem) 0;\n  background: var(--bg-primary);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3rem;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.xp-total[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.35);\n}\n.world-map[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n}\n.map-track[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n  gap: 0;\n  padding: 7rem 2rem 3rem;\n}\n.ground-layer[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 2.2rem;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #6b3e1c 0px,\n      #6b3e1c 30px,\n      #8b5e3c 30px,\n      #8b5e3c 32px);\n  border-top: 3px solid #9a6f4e;\n}\n.ground-layer[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -4px;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #22c55e 0px,\n      #22c55e 28px,\n      #16a34a 28px,\n      #16a34a 32px);\n}\n.trail-line[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 2rem;\n  right: 2rem;\n  bottom: 3.2rem;\n  height: 2px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      rgba(251, 191, 36, 0.5) 0px,\n      rgba(251, 191, 36, 0.5) 10px,\n      transparent 10px,\n      transparent 18px);\n}\n.map-stop[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.6rem;\n  flex: 1;\n  max-width: 14rem;\n  padding: 0 1.5rem;\n  background: transparent;\n  border: none;\n  cursor: pointer;\n  z-index: 2;\n  transition: transform 200ms ease;\n}\n.map-stop[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n}\n.map-stop[_ngcontent-%COMP%]:hover   .stop-block[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.5);\n  box-shadow: 0 0 24px rgba(251, 191, 36, 0.18);\n}\n.map-stop[_ngcontent-%COMP%]:hover   .flag-banner[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.map-stop.active[_ngcontent-%COMP%]   .stop-block[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.7);\n  box-shadow: 0 0 32px rgba(251, 191, 36, 0.25);\n}\n.map-stop.active[_ngcontent-%COMP%]   .flag-banner[_ngcontent-%COMP%] {\n  opacity: 1;\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.map-stop.active[_ngcontent-%COMP%]   .stop-name[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n}\n.flag-pole[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.flag-pole[_ngcontent-%COMP%]::before {\n  content: "";\n  display: block;\n  width: 2px;\n  height: 2.6rem;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(251, 191, 36, 0.6),\n      rgba(251, 191, 36, 0.2));\n}\n.flag-banner[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  right: calc(50% + 3px);\n  white-space: nowrap;\n  padding: 0.22rem 0.55rem;\n  border-radius: 4px 0 0 4px;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  background: rgba(251, 191, 36, 0.08);\n  opacity: 0.65;\n  transition: opacity 200ms ease, background 200ms ease;\n}\n.flag-current[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.4) !important;\n  background: rgba(239, 68, 68, 0.12) !important;\n  opacity: 1 !important;\n  animation: _ngcontent-%COMP%_flagPulse 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_flagPulse {\n  0%, 100% {\n    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);\n  }\n  50% {\n    box-shadow: 0 0 12px 2px rgba(239, 68, 68, 0.2);\n  }\n}\n.flag-year[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.06em;\n  color: #fde68a;\n}\n.flag-current[_ngcontent-%COMP%]   .flag-year[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.mario-sprite[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: calc(100% + 0.8rem);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 5;\n  animation: _ngcontent-%COMP%_marioJump 1.2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_marioJump {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  50% {\n    transform: translateX(-50%) translateY(-8px);\n  }\n}\n.mario-pixel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.mario-hat[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 5px;\n  background: #ef4444;\n  border-radius: 2px 2px 0 0;\n  position: relative;\n}\n.mario-hat[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: -2px;\n  width: 20px;\n  height: 3px;\n  background: #ef4444;\n  border-radius: 1px;\n}\n.mario-face[_ngcontent-%COMP%] {\n  width: 14px;\n  height: 6px;\n  background: #fbbf24;\n  border-radius: 0 0 2px 2px;\n}\n.mario-body[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 8px;\n  background: #ef4444;\n  border-radius: 0 0 3px 3px;\n  position: relative;\n}\n.mario-body[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -4px;\n  left: 1px;\n  width: 5px;\n  height: 4px;\n  background: #6b3e1c;\n  border-radius: 0 0 2px 2px;\n  box-shadow: 9px 0 0 #6b3e1c;\n}\n.stop-block[_ngcontent-%COMP%] {\n  width: 5.5rem;\n  height: 5.5rem;\n  border-radius: 1rem;\n  border: 2px solid rgba(251, 191, 36, 0.22);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.95),\n      rgba(13, 13, 34, 0.95));\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0.75rem;\n  transition: border-color 200ms ease, box-shadow 200ms ease;\n  box-shadow: 0 4px 16px rgba(0, 0, 10, 0.4);\n  position: relative;\n}\n.stop-block[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: -1px;\n  border-radius: 1rem;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.1),\n      transparent);\n  pointer-events: none;\n}\n.stop-logo[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n  border-radius: 0.5rem;\n}\n.stop-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 600;\n  letter-spacing: 0.01em;\n  color: var(--text-secondary);\n  text-align: center;\n  max-width: 10rem;\n  transition: color 200ms ease;\n}\n.coin-count[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.end-star[_ngcontent-%COMP%] {\n  font-size: 1.6rem;\n  margin-left: 1rem;\n  animation: _ngcontent-%COMP%_starSpin 3s linear infinite;\n  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5));\n}\n@keyframes _ngcontent-%COMP%_starSpin {\n  0% {\n    transform: rotate(0deg) scale(1);\n  }\n  25% {\n    transform: rotate(10deg) scale(1.1);\n  }\n  50% {\n    transform: rotate(0deg) scale(1);\n  }\n  75% {\n    transform: rotate(-10deg) scale(1.1);\n  }\n  100% {\n    transform: rotate(0deg) scale(1);\n  }\n}\n.quest-log[_ngcontent-%COMP%] {\n  margin-top: 2.5rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  overflow: hidden;\n  animation: _ngcontent-%COMP%_panelSlideUp 0.35s ease-out;\n}\n@keyframes _ngcontent-%COMP%_panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(14px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.quest-log-header[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.5rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n  background: rgba(251, 191, 36, 0.03);\n}\n.ql-title-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 0.75rem;\n}\n.ql-logo[_ngcontent-%COMP%] {\n  width: 3rem;\n  height: 3rem;\n  border-radius: 0.65rem;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 0.3rem;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n}\n.ql-company[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-period[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  color: var(--primary-color);\n  letter-spacing: 0.08em;\n  margin-top: 0.2rem;\n}\n.role-tabs[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n  flex-wrap: wrap;\n}\n.role-tab[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.15rem;\n  padding: 0.55rem 0.85rem;\n  border-radius: 0.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.02);\n  color: var(--text-secondary);\n  cursor: pointer;\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 600;\n  transition: all 200ms ease;\n}\n.role-tab[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.05);\n}\n.role-tab.active[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.5);\n  background: rgba(251, 191, 36, 0.1);\n  color: var(--primary-color);\n}\n.role-tab-period[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  color: var(--text-muted);\n  letter-spacing: 0.06em;\n}\n.role-tab.active[_ngcontent-%COMP%]   .role-tab-period[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.65);\n}\n.quest-log-body[_ngcontent-%COMP%] {\n  padding: 1.5rem;\n  display: grid;\n  gap: 1.25rem;\n}\n.ql-role-banner[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.ql-role-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-location[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n}\n.ql-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 0.92rem;\n  margin: 0;\n}\n.ql-section[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.6rem;\n}\n.ql-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ql-tech-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ql-tech[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.ql-achievements[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.5rem;\n}\n.ql-achievements[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  font-size: 0.88rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.ql-achievements[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #fbbf24;\n  font-weight: bold;\n}\n@media (max-width: 768px) {\n  .map-track[_ngcontent-%COMP%] {\n    padding: 6rem 1rem 2.5rem;\n  }\n  .map-stop[_ngcontent-%COMP%] {\n    padding: 0 0.75rem;\n  }\n  .stop-block[_ngcontent-%COMP%] {\n    width: 4.5rem;\n    height: 4.5rem;\n  }\n  .stop-name[_ngcontent-%COMP%] {\n    font-size: 0.75rem;\n  }\n  .quest-log-header[_ngcontent-%COMP%], \n   .quest-log-body[_ngcontent-%COMP%] {\n    padding: 1.15rem;\n  }\n  .ql-role-banner[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n@media (max-width: 480px) {\n  .map-track[_ngcontent-%COMP%] {\n    padding: 5.5rem 0.75rem 2.5rem;\n  }\n  .map-stop[_ngcontent-%COMP%] {\n    padding: 0 0.5rem;\n  }\n  .stop-block[_ngcontent-%COMP%] {\n    width: 3.5rem;\n    height: 3.5rem;\n  }\n  .stop-name[_ngcontent-%COMP%] {\n    font-size: 0.7rem;\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */'] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ExperienceComponent, [{
+    type: Component,
+    args: [{ selector: "app-experience", standalone: true, imports: [], template: `<div class="apple-section" id="experience">
+  <div class="apple-container">
+
+    <!-- Header -->
+    <div class="section-header" data-anim="fade-up">
+      <div class="world-label">\u2694 WORLD MAP</div>
+      <h2 class="section-title" data-text-reveal>Professional Experience</h2>
+      <p class="section-subtitle">
+        <span class="xp-total">{{ totalExperience }} YRS</span> of quests completed across {{ stops.length }} worlds
+      </p>
+    </div>
+
+    <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550 WORLD MAP TIMELINE \u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+    <div class="world-map" data-anim="fade-up">
+
+      <!-- Scrollable track -->
+      <div class="map-track">
+
+        <!-- Ground / brick path -->
+        <div class="ground-layer"></div>
+
+        <!-- Dotted trail connecting stops -->
+        <div class="trail-line"></div>
+
+        <!-- Stops -->
+        @for (stop of stops; track stop.id; let i = $index; let last = $last) {
+          <button
+            class="map-stop"
+            [class.active]="isStopActive(stop)"
+            [class.current]="stop.isCurrent"
+            [class.mario-here]="marioPosition === i"
+            type="button"
+            [attr.aria-label]="'View experience at ' + stop.company"
+            (click)="selectStop(stop, i)">
+
+            <!-- Flag pole -->
+            <div class="flag-pole">
+              <div class="flag-banner" [class.flag-current]="stop.isCurrent">
+                <span class="flag-year">{{ getStopPeriod(stop) }}</span>
+              </div>
+            </div>
+
+            <!-- Mario sprite (shows at active position) -->
+            @if (marioPosition === i) {
+              <div class="mario-sprite">
+                <div class="mario-pixel">
+                  <div class="mario-hat"></div>
+                  <div class="mario-face"></div>
+                  <div class="mario-body"></div>
+                </div>
+              </div>
+            }
+
+            <!-- Platform block with logo -->
+            <div class="stop-block">
+              <img [src]="stop.logo" [alt]="stop.company + ' logo'" class="stop-logo" loading="lazy" />
+            </div>
+
+            <!-- Company name -->
+            <span class="stop-name">{{ stop.company }}</span>
+
+            <!-- Coin indicator for multi-role -->
+            @if (stop.roles.length > 1) {
+              <span class="coin-count">\u{1FA99} {{ stop.roles.length }} roles</span>
+            }
+          </button>
+        }
+
+        <!-- Star at the end -->
+        <div class="end-star">\u2B50</div>
+      </div>
+    </div>
+
+    <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550 DETAIL PANEL \u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+    @if (activeStop && activeRole) {
+      <div class="quest-log" data-anim="fade-up">
+        <div class="quest-log-header">
+          <div class="ql-title-row">
+            <img [src]="activeStop.logo" [alt]="activeStop.company" class="ql-logo" />
+            <div>
+              <div class="ql-company">{{ activeStop.company }}</div>
+              <div class="ql-period">{{ getStopPeriod(activeStop) }}</div>
+            </div>
+          </div>
+
+          <!-- Role tabs if multi-role -->
+          @if (activeStop.roles.length > 1) {
+            <div class="role-tabs">
+              @for (role of activeStop.roles; track role.id) {
+                <button
+                  class="role-tab"
+                  [class.active]="activeRole === role"
+                  (click)="selectRole(role)">
+                  {{ role.title }}
+                  <span class="role-tab-period">{{ role.period }}</span>
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="quest-log-body">
+          <div class="ql-role-banner">
+            <span class="ql-role-title">{{ activeRole.title }}</span>
+            <span class="ql-location">\u{1F4CD} {{ activeRole.location }}</span>
+          </div>
+
+          <p class="ql-description">{{ activeRole.description }}</p>
+
+          <div class="ql-section">
+            <div class="ql-section-label">\u26A1 ABILITIES USED</div>
+            <div class="ql-tech-chips">
+              @for (tech of activeRole.technologies; track tech) {
+                <span class="ql-tech">{{ tech }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="ql-section">
+            <div class="ql-section-label">\u{1F3C6} KEY ACHIEVEMENTS</div>
+            <ul class="ql-achievements">
+              @for (ach of activeRole.achievements; track ach) {
+                <li>{{ ach }}</li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div>
+</div>
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/experience/experience.component.scss */\n:host {\n  display: block;\n}\n.apple-section {\n  padding: clamp(4rem, 8vw, 7rem) 0;\n  background: var(--bg-primary);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 3rem;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title {\n  font-size: clamp(2.6rem, 5.5vw, 4rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.xp-total {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.35);\n}\n.world-map {\n  position: relative;\n  overflow: visible;\n}\n.map-track {\n  position: relative;\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n  gap: 0;\n  padding: 7rem 2rem 3rem;\n}\n.ground-layer {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 2.2rem;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #6b3e1c 0px,\n      #6b3e1c 30px,\n      #8b5e3c 30px,\n      #8b5e3c 32px);\n  border-top: 3px solid #9a6f4e;\n}\n.ground-layer::before {\n  content: "";\n  position: absolute;\n  top: -4px;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #22c55e 0px,\n      #22c55e 28px,\n      #16a34a 28px,\n      #16a34a 32px);\n}\n.trail-line {\n  position: absolute;\n  left: 2rem;\n  right: 2rem;\n  bottom: 3.2rem;\n  height: 2px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      rgba(251, 191, 36, 0.5) 0px,\n      rgba(251, 191, 36, 0.5) 10px,\n      transparent 10px,\n      transparent 18px);\n}\n.map-stop {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.6rem;\n  flex: 1;\n  max-width: 14rem;\n  padding: 0 1.5rem;\n  background: transparent;\n  border: none;\n  cursor: pointer;\n  z-index: 2;\n  transition: transform 200ms ease;\n}\n.map-stop:hover {\n  transform: translateY(-4px);\n}\n.map-stop:hover .stop-block {\n  border-color: rgba(251, 191, 36, 0.5);\n  box-shadow: 0 0 24px rgba(251, 191, 36, 0.18);\n}\n.map-stop:hover .flag-banner {\n  opacity: 1;\n}\n.map-stop.active .stop-block {\n  border-color: rgba(251, 191, 36, 0.7);\n  box-shadow: 0 0 32px rgba(251, 191, 36, 0.25);\n}\n.map-stop.active .flag-banner {\n  opacity: 1;\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.map-stop.active .stop-name {\n  color: var(--primary-color);\n}\n.flag-pole {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.flag-pole::before {\n  content: "";\n  display: block;\n  width: 2px;\n  height: 2.6rem;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(251, 191, 36, 0.6),\n      rgba(251, 191, 36, 0.2));\n}\n.flag-banner {\n  position: absolute;\n  top: 0;\n  right: calc(50% + 3px);\n  white-space: nowrap;\n  padding: 0.22rem 0.55rem;\n  border-radius: 4px 0 0 4px;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  background: rgba(251, 191, 36, 0.08);\n  opacity: 0.65;\n  transition: opacity 200ms ease, background 200ms ease;\n}\n.flag-current {\n  border-color: rgba(239, 68, 68, 0.4) !important;\n  background: rgba(239, 68, 68, 0.12) !important;\n  opacity: 1 !important;\n  animation: flagPulse 2s ease-in-out infinite;\n}\n@keyframes flagPulse {\n  0%, 100% {\n    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);\n  }\n  50% {\n    box-shadow: 0 0 12px 2px rgba(239, 68, 68, 0.2);\n  }\n}\n.flag-year {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.06em;\n  color: #fde68a;\n}\n.flag-current .flag-year {\n  color: #fca5a5;\n}\n.mario-sprite {\n  position: absolute;\n  bottom: calc(100% + 0.8rem);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 5;\n  animation: marioJump 1.2s ease-in-out infinite;\n}\n@keyframes marioJump {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  50% {\n    transform: translateX(-50%) translateY(-8px);\n  }\n}\n.mario-pixel {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.mario-hat {\n  width: 16px;\n  height: 5px;\n  background: #ef4444;\n  border-radius: 2px 2px 0 0;\n  position: relative;\n}\n.mario-hat::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: -2px;\n  width: 20px;\n  height: 3px;\n  background: #ef4444;\n  border-radius: 1px;\n}\n.mario-face {\n  width: 14px;\n  height: 6px;\n  background: #fbbf24;\n  border-radius: 0 0 2px 2px;\n}\n.mario-body {\n  width: 16px;\n  height: 8px;\n  background: #ef4444;\n  border-radius: 0 0 3px 3px;\n  position: relative;\n}\n.mario-body::after {\n  content: "";\n  position: absolute;\n  bottom: -4px;\n  left: 1px;\n  width: 5px;\n  height: 4px;\n  background: #6b3e1c;\n  border-radius: 0 0 2px 2px;\n  box-shadow: 9px 0 0 #6b3e1c;\n}\n.stop-block {\n  width: 5.5rem;\n  height: 5.5rem;\n  border-radius: 1rem;\n  border: 2px solid rgba(251, 191, 36, 0.22);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.95),\n      rgba(13, 13, 34, 0.95));\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0.75rem;\n  transition: border-color 200ms ease, box-shadow 200ms ease;\n  box-shadow: 0 4px 16px rgba(0, 0, 10, 0.4);\n  position: relative;\n}\n.stop-block::before {\n  content: "";\n  position: absolute;\n  inset: -1px;\n  border-radius: 1rem;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.1),\n      transparent);\n  pointer-events: none;\n}\n.stop-logo {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n  border-radius: 0.5rem;\n}\n.stop-name {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 600;\n  letter-spacing: 0.01em;\n  color: var(--text-secondary);\n  text-align: center;\n  max-width: 10rem;\n  transition: color 200ms ease;\n}\n.coin-count {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.end-star {\n  font-size: 1.6rem;\n  margin-left: 1rem;\n  animation: starSpin 3s linear infinite;\n  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5));\n}\n@keyframes starSpin {\n  0% {\n    transform: rotate(0deg) scale(1);\n  }\n  25% {\n    transform: rotate(10deg) scale(1.1);\n  }\n  50% {\n    transform: rotate(0deg) scale(1);\n  }\n  75% {\n    transform: rotate(-10deg) scale(1.1);\n  }\n  100% {\n    transform: rotate(0deg) scale(1);\n  }\n}\n.quest-log {\n  margin-top: 2.5rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  overflow: hidden;\n  animation: panelSlideUp 0.35s ease-out;\n}\n@keyframes panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(14px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.quest-log-header {\n  padding: 1.4rem 1.5rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n  background: rgba(251, 191, 36, 0.03);\n}\n.ql-title-row {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 0.75rem;\n}\n.ql-logo {\n  width: 3rem;\n  height: 3rem;\n  border-radius: 0.65rem;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 0.3rem;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n}\n.ql-company {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-period {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  color: var(--primary-color);\n  letter-spacing: 0.08em;\n  margin-top: 0.2rem;\n}\n.role-tabs {\n  display: flex;\n  gap: 0.5rem;\n  flex-wrap: wrap;\n}\n.role-tab {\n  display: flex;\n  flex-direction: column;\n  gap: 0.15rem;\n  padding: 0.55rem 0.85rem;\n  border-radius: 0.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.02);\n  color: var(--text-secondary);\n  cursor: pointer;\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 600;\n  transition: all 200ms ease;\n}\n.role-tab:hover {\n  border-color: rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.05);\n}\n.role-tab.active {\n  border-color: rgba(251, 191, 36, 0.5);\n  background: rgba(251, 191, 36, 0.1);\n  color: var(--primary-color);\n}\n.role-tab-period {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  color: var(--text-muted);\n  letter-spacing: 0.06em;\n}\n.role-tab.active .role-tab-period {\n  color: rgba(251, 191, 36, 0.65);\n}\n.quest-log-body {\n  padding: 1.5rem;\n  display: grid;\n  gap: 1.25rem;\n}\n.ql-role-banner {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.ql-role-title {\n  font-family: var(--font-display);\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-location {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n}\n.ql-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 0.92rem;\n  margin: 0;\n}\n.ql-section {\n  display: grid;\n  gap: 0.6rem;\n}\n.ql-section-label {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ql-tech-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ql-tech {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.ql-achievements {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.5rem;\n}\n.ql-achievements li {\n  position: relative;\n  padding-left: 1.4rem;\n  font-size: 0.88rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.ql-achievements li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #fbbf24;\n  font-weight: bold;\n}\n@media (max-width: 768px) {\n  .map-track {\n    padding: 6rem 1rem 2.5rem;\n  }\n  .map-stop {\n    padding: 0 0.75rem;\n  }\n  .stop-block {\n    width: 4.5rem;\n    height: 4.5rem;\n  }\n  .stop-name {\n    font-size: 0.75rem;\n  }\n  .quest-log-header,\n  .quest-log-body {\n    padding: 1.15rem;\n  }\n  .ql-role-banner {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n@media (max-width: 480px) {\n  .map-track {\n    padding: 5.5rem 0.75rem 2.5rem;\n  }\n  .map-stop {\n    padding: 0 0.5rem;\n  }\n  .stop-block {\n    width: 3.5rem;\n    height: 3.5rem;\n  }\n  .stop-name {\n    font-size: 0.7rem;\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */\n'] }]
+  }], null, null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ExperienceComponent, { className: "ExperienceComponent", filePath: "src/app/profile/experience/experience.component.ts", lineNumber: 19 });
+})();
+
+// src/app/profile/skills/skills.data.ts
+var SKILL_DETAILS = {
+  // ─── Languages ────────────────────────────────────────
+  "Java": {
+    description: "Strong Java experience with modern language features, concurrency improvements, and production-grade backend development on recent JDKs including Java 21.",
+    experience: [
+      "Worked across Java 8 through Java 21 in production systems",
+      "Used records, sealed classes, switch pattern matching, and record patterns to simplify domain modeling",
+      "Applied virtual threads selectively for I/O-heavy request flows and background tasks",
+      "Built and maintained backend services with attention to performance, observability, and clean API design"
+    ],
+    projects: [
+      "Backend microservices using modern Java features",
+      "Concurrent data processing and job execution pipelines",
+      "REST APIs with strong typing and validation"
+    ],
+    achievements: [
+      "Improved throughput on selected I/O-bound flows after adopting virtual threads",
+      "Reduced branching complexity in polymorphic business logic using sealed classes and pattern matching",
+      "Helped modernize legacy Java codebases by incrementally adopting newer language features"
+    ],
+    relatedSkills: ["Spring Boot", "Microservices", "DSA"]
+  },
+  "Python": {
+    description: "Strong Python skills for backend services, automation, data processing, and AI-enabled application development.",
+    experience: [
+      "Built REST APIs using Flask and FastAPI",
+      "Developed automation scripts for CI/CD, support workflows, and operational tasks",
+      "Used Pandas and NumPy for data analysis, transformation, and reporting",
+      "Implemented ML and LLM-backed workflows in Python for internal tools and prototypes"
+    ],
+    projects: [
+      "AI-assisted code review and analysis tooling",
+      "Data processing and reporting pipelines",
+      "Internal automation and developer productivity tools"
+    ],
+    achievements: [
+      "Automated recurring manual workflows and saved engineering/support time each week",
+      "Built internal CLI and utility scripts adopted across multiple teams",
+      "Implemented anomaly detection and data quality checks for operational datasets"
+    ],
+    relatedSkills: ["Generative AI", "LLM", "RAG"]
+  },
+  "GO": {
+    description: "Proficient in Go for building backend services, concurrent workers, and lightweight CLI tooling.",
+    experience: [
+      "Built production services in Go using standard library patterns and Echo where appropriate",
+      "Implemented concurrent processing with goroutines, channels, contexts, and worker pools",
+      "Developed HTTP and gRPC services for internal and external APIs",
+      "Used profiling and benchmarking to improve latency, memory use, and CPU efficiency"
+    ],
+    projects: [
+      "Real-time event processing service",
+      "Low-latency API layer in Go",
+      "Internal developer tooling and command-line utilities"
+    ],
+    achievements: [
+      "Delivered services with predictable latency and small runtime footprint",
+      "Reduced memory usage and startup overhead for selected workloads by moving them to Go",
+      "Improved operational simplicity through static binaries and straightforward deployment patterns"
+    ],
+    relatedSkills: ["Echo", "Microservices", "Kafka"]
+  },
+  "NodeJS": {
+    description: "Experienced with Node.js for building APIs, real-time features, and serverless backends.",
+    experience: [
+      "Built REST APIs using Express and NestJS",
+      "Implemented real-time features with WebSockets and Socket.io",
+      "Developed Lambda-based services and utility functions on AWS",
+      "Used Node.js for scripting, build tooling, and SSR-related backend tasks"
+    ],
+    projects: [
+      "Real-time notification and chat features",
+      "Serverless API backend on AWS",
+      "SSR support service for frontend rendering"
+    ],
+    achievements: [
+      "Built socket-based features that handled high concurrent connection counts reliably",
+      "Improved Lambda cold-start behavior through dependency and bundle-size optimization",
+      "Implemented streaming and queue-backed processing for bursty workloads"
+    ],
+    relatedSkills: ["Kafka", "RabbitMQ", "MongoDB"]
+  },
+  // ─── Architecture ─────────────────────────────────────
+  "High Level Design": {
+    description: "Strong system design skills for building scalable, observable, and maintainable distributed systems.",
+    experience: [
+      "Designed service-oriented systems with clear boundaries, failure isolation, and operational ownership",
+      "Created architecture documents, reviewed trade-offs, and participated in design reviews",
+      "Evaluated consistency, availability, caching, and asynchronous processing trade-offs for different workloads",
+      "Designed for horizontal scaling, high availability, and graceful degradation"
+    ],
+    projects: [
+      "Scalable gaming and leaderboard systems",
+      "Real-time event-driven backend architecture",
+      "Multi-tenant SaaS-style platform design"
+    ],
+    achievements: [
+      "Designed systems with clearer service boundaries and more predictable scaling characteristics",
+      "Improved reliability by introducing retries, idempotency, fallback paths, and rate limiting where needed",
+      "Reduced infrastructure waste through better capacity planning, caching, and async processing"
+    ],
+    relatedSkills: ["Low Level Design", "Microservices", "Kafka"]
+  },
+  "Low Level Design": {
+    description: "Strong low-level design skills with focus on domain modeling, SOLID principles, extensibility, and testable code.",
+    experience: [
+      "Designed object-oriented systems with clear abstractions and separation of concerns",
+      "Applied design patterns pragmatically rather than by default",
+      "Reviewed code for maintainability, coupling, and API ergonomics",
+      "Built reusable libraries and shared components for common application concerns"
+    ],
+    projects: [
+      "Payment gateway abstraction with pluggable providers",
+      "Rule engine for configurable business workflows",
+      "Notification framework supporting multiple delivery channels"
+    ],
+    achievements: [
+      "Improved code readability and change safety through better interfaces and domain boundaries",
+      "Built reusable internal components adopted by multiple teams",
+      "Increased test coverage and reduced mocking complexity through cleaner design"
+    ],
+    relatedSkills: ["High Level Design", "Java", "Spring Boot"]
+  },
+  "Microservices": {
+    description: "Hands-on experience designing and implementing microservices with clear ownership, observability, and resilience patterns.",
+    experience: [
+      "Helped decompose monolithic or tightly coupled systems into service-aligned modules where it made sense",
+      "Built service-to-service communication using REST, gRPC, and event-driven messaging",
+      "Implemented resilience patterns such as timeouts, retries, circuit breaking, and dead-letter handling",
+      "Set up tracing, structured logging, and metrics for distributed debugging"
+    ],
+    projects: [
+      "Gaming platform service decomposition",
+      "Financial workflow orchestration services",
+      "E-commerce-style order processing system"
+    ],
+    achievements: [
+      "Improved deployment velocity through independently deployable services and CI/CD pipelines",
+      "Reduced cross-service failure impact with better timeout, retry, and fallback strategies",
+      "Introduced clearer ownership boundaries around APIs, data, and operational responsibilities"
+    ],
+    relatedSkills: ["Spring Boot", "Kafka", "High Level Design"]
+  },
+  // ─── Databases ────────────────────────────────────────
+  "MySQL": {
+    description: "Hands-on experience with MySQL 5.6, 5.7, and 8.0 in transactional production systems.",
+    experience: [
+      "Designed normalized and denormalized schemas based on access patterns and consistency needs",
+      "Tuned slow queries using EXPLAIN, indexing, query rewrites, and execution-plan analysis",
+      "Worked with replication, backups, migration strategies, and operational monitoring",
+      "Used Amazon DMS and controlled cutovers for database migration work"
+    ],
+    projects: [
+      "Production database migration for gaming workloads",
+      "Query optimization for high-traffic APIs",
+      "Schema design for service-oriented applications"
+    ],
+    achievements: [
+      "Improved hot-path query performance through indexing and execution-plan tuning",
+      "Supported production migrations with rollback plans and low-risk cutover approaches",
+      "Added visibility into slow queries, lock contention, and replication lag"
+    ],
+    relatedSkills: ["MongoDB", "Redis", "Elasti-Cache"]
+  },
+  "MongoDB": {
+    description: "Proficient in MongoDB for document-oriented data models, flexible schemas, and aggregation-heavy workloads.",
+    experience: [
+      "Designed collections and document shapes around application access patterns",
+      "Built aggregation pipelines for reporting, filtering, and event analytics",
+      "Worked with replica sets, sharding, indexing, and TTL-based data retention",
+      "Used change streams for event-driven integrations where near-real-time updates were needed"
+    ],
+    projects: [
+      "User activity and event logging platform",
+      "Content management backend with flexible schemas",
+      "Analytics dashboard backend using MongoDB aggregations"
+    ],
+    achievements: [
+      "Improved read and write performance using better indexing and document modeling",
+      "Supported high-ingest workloads through sharding and batch-write strategies",
+      "Migrated selected workloads to MongoDB where schema flexibility was a better fit than relational storage"
+    ],
+    relatedSkills: ["MySQL", "Neptune", "Cassandra"]
+  },
+  "Neptune": {
+    description: "Experience using Amazon Neptune for graph-oriented use cases such as relationship traversal, recommendations, and fraud/risk analysis.",
+    experience: [
+      "Modeled entities and relationships using graph structures for multi-hop queries",
+      "Wrote Gremlin and SPARQL queries for traversal-heavy access patterns",
+      "Integrated graph-backed services with application APIs and recommendation workflows",
+      "Optimized traversals and indexing choices for low-latency relationship lookups"
+    ],
+    projects: [
+      "Relationship and recommendation prototype",
+      "Fraud/risk analysis using graph traversal",
+      "Knowledge graph-backed search use case"
+    ],
+    achievements: [
+      "Modeled relationship-heavy domains that were awkward to express in relational schemas",
+      "Reduced complexity of multi-hop lookups by moving them to a graph model",
+      "Built graph-backed features over datasets with millions of connected records"
+    ],
+    relatedSkills: ["MongoDB", "MySQL", "VectorDB"]
+  },
+  "Salesforce DB": {
+    description: "Experience working with Salesforce data models, SOQL/SOSL, custom objects, and integration patterns with external systems.",
+    experience: [
+      "Designed custom objects, relationships, and field mappings in Salesforce",
+      "Wrote SOQL and SOSL queries for reporting, support workflows, and operational data extraction",
+      "Integrated Salesforce with external services through APIs and data sync jobs",
+      "Supported data migrations, cleanup, and reconciliation across orgs or systems"
+    ],
+    projects: [
+      "CRM data integration for operational reporting",
+      "Custom Salesforce workflow support tooling",
+      "Salesforce sync with internal systems"
+    ],
+    achievements: [
+      "Automated recurring reporting and synchronization tasks",
+      "Improved data quality through validation, deduplication, and reconciliation checks",
+      "Supported integration flows with clear field mapping, retry handling, and auditability"
+    ],
+    relatedSkills: ["MySQL", "MongoDB", "High Level Design"]
+  },
+  "Cassandra": {
+    description: "Working knowledge of Apache Cassandra for write-heavy, high-availability workloads and time-series/event data.",
+    experience: [
+      "Designed schemas around query patterns using partition keys and clustering columns carefully",
+      "Worked with replication, consistency levels, TTL-based expiry, and operational tuning",
+      "Handled time-series and append-heavy data models with awareness of tombstones and compaction behavior",
+      "Monitored repair, compaction, and partition hot spots in production-like environments"
+    ],
+    projects: [
+      "Time-series event storage",
+      "User session and activity tracking",
+      "Append-heavy event logging pipeline"
+    ],
+    achievements: [
+      "Designed schemas that avoided hot partitions and supported predictable read paths",
+      "Supported sustained write-heavy workloads with replication across nodes or zones",
+      "Improved cluster health by tuning compaction strategy and query patterns"
+    ],
+    relatedSkills: ["MongoDB", "MySQL", "Kafka"]
+  },
+  // ─── Frameworks ───────────────────────────────────────
+  "Spring Boot": {
+    description: "Deep experience with Spring Boot for building production-ready services, REST APIs, and internal platforms.",
+    experience: [
+      "Built multiple production services using Spring Boot and Spring MVC/WebFlux where appropriate",
+      "Implemented authentication and authorization with Spring Security, OAuth2, and JWT",
+      "Used Spring Data JPA, transactional boundaries, and caching for data access layers",
+      "Added Actuator, metrics, logging, and tracing for operational visibility"
+    ],
+    projects: [
+      "Gaming and transaction-processing backend services",
+      "Authentication and user-management services",
+      "Internal platform APIs and business workflows"
+    ],
+    achievements: [
+      "Shipped multiple services using shared conventions and reusable starters",
+      "Improved maintainability through consistent error handling, validation, and configuration patterns",
+      "Made services easier to operate through health checks, metrics, and structured observability"
+    ],
+    relatedSkills: ["Java", "Microservices", "MySQL"]
+  },
+  "Echo": {
+    description: "Experienced with Echo for building lightweight, high-performance Go web services.",
+    experience: [
+      "Built REST APIs using Echo middleware, routing, and request binding",
+      "Implemented middleware for authentication, logging, panic recovery, and rate limiting",
+      "Used context-aware request handling and cancellation for robust service behavior",
+      "Integrated Echo services with gRPC, Kafka, and background workers"
+    ],
+    projects: [
+      "Low-latency Go API service",
+      "Internal developer platform APIs",
+      "Data ingestion endpoint for asynchronous processing"
+    ],
+    achievements: [
+      "Built lean APIs with a small memory footprint and fast startup time",
+      "Improved latency compared with heavier service stacks for selected endpoints",
+      "Standardized middleware and lifecycle handling across Go services"
+    ],
+    relatedSkills: ["GO", "Microservices", "Kafka"]
+  },
+  "Dropwizard": {
+    description: "Experience with Dropwizard for lightweight, ops-friendly Java services with strong operational conventions.",
+    experience: [
+      "Built services using Dropwizard with Jersey, Jetty, and Jackson",
+      "Integrated persistence layers using Hibernate and migration tooling",
+      "Used Dropwizard Metrics and health checks for monitoring and operational readiness",
+      "Tuned thread pools and request handling for predictable service behavior"
+    ],
+    projects: [
+      "Payment and workflow microservice",
+      "Profile and preference management API",
+      "Operational admin backend service"
+    ],
+    achievements: [
+      "Built services with clear health endpoints and operational visibility",
+      "Kept latency predictable by controlling thread pools and dependency footprint",
+      "Simplified troubleshooting with structured logs and metrics-first service design"
+    ],
+    relatedSkills: ["Java", "Spring Boot", "MySQL"]
+  },
+  "Google Guice": {
+    description: "Proficient in Google Guice for dependency injection in lightweight Java applications and non-Spring services.",
+    experience: [
+      "Used Guice modules and providers to structure non-Spring Java services cleanly",
+      "Built test-friendly wiring for service, repository, and infrastructure layers",
+      "Implemented custom bindings and scopes where needed",
+      "Integrated Guice with service frameworks and internal libraries"
+    ],
+    projects: [
+      "Modular data processing service",
+      "Plugin-style service architecture",
+      "Testable service layer with dependency injection"
+    ],
+    achievements: [
+      "Improved modularity and testability in non-Spring Java codebases",
+      "Reduced manual wiring boilerplate through consistent DI configuration",
+      "Kept startup and framework overhead low for simpler services"
+    ],
+    relatedSkills: ["Java", "Dropwizard", "Spring Boot"]
+  },
+  // ─── AI / ML ──────────────────────────────────────────
+  "Generative AI": {
+    description: "Hands-on experience building applications on top of modern generative AI models, including chat, summarization, retrieval, and multimodal workflows.",
+    experience: [
+      "Integrated hosted models from providers such as OpenAI, Anthropic, and Google into application workflows",
+      "Designed prompt workflows, tool-calling flows, and response validation strategies",
+      "Built multimodal prototypes using text, image, and audio capabilities where relevant",
+      "Evaluated outputs with human review and task-specific quality checks"
+    ],
+    projects: [
+      "AI-assisted portfolio and interactive demo features",
+      "Code review and analysis assistant",
+      "Content generation and summarization workflows"
+    ],
+    achievements: [
+      "Built AI-assisted features that reduced manual drafting and triage effort",
+      "Improved output quality through prompt iteration, retrieval, and structured response handling",
+      "Added moderation, fallback logic, and validation checks to make AI features safer in production"
+    ],
+    relatedSkills: ["LLM", "RAG", "VectorDB"]
+  },
+  "LLM": {
+    description: "Practical experience integrating large language models into applications for Q&A, summarization, extraction, and developer productivity workflows.",
+    experience: [
+      "Integrated LLM APIs into backend services and internal tools",
+      "Built retrieval-backed flows for grounded question answering and document understanding",
+      "Used prompt engineering, structured outputs, and tool use to improve reliability",
+      "Evaluated when prompt-based approaches, retrieval, or fine-tuning-style customization were the right fit"
+    ],
+    projects: [
+      "Customer support and documentation assistant",
+      "Document analysis and summarization workflow",
+      "Code generation and review helper"
+    ],
+    achievements: [
+      "Reduced response or turnaround time on knowledge-heavy workflows",
+      "Improved answer grounding by combining retrieval with clear response formatting",
+      "Automated selected support or review steps with human-in-the-loop checks"
+    ],
+    relatedSkills: ["Generative AI", "RAG", "VectorDB"]
+  },
+  "RAG": {
+    description: "Strong experience with Retrieval-Augmented Generation for grounding LLM responses in internal and domain-specific knowledge sources.",
+    experience: [
+      "Designed RAG pipelines including chunking, embeddings, indexing, retrieval, and answer synthesis",
+      "Implemented hybrid retrieval using semantic search, keyword filtering, and metadata constraints",
+      "Used reranking and chunking strategies tailored to different document types",
+      "Built evaluation datasets and review loops to measure retrieval relevance and answer quality"
+    ],
+    projects: [
+      "Internal knowledge base assistant",
+      "Documentation search and Q&A system",
+      "Long-form document analysis workflow"
+    ],
+    achievements: [
+      "Improved answer relevance on internal evaluation sets through better retrieval and reranking",
+      "Reduced hallucinations compared with pure prompt-only generation by grounding responses in retrieved content",
+      "Built pipelines that scaled to large internal document collections"
+    ],
+    relatedSkills: ["LLM", "VectorDB", "Generative AI"]
+  },
+  "VectorDB": {
+    description: "Experience with vector search systems for semantic retrieval, similarity matching, and recommendation-style applications.",
+    experience: [
+      "Worked with Pinecone, Weaviate, and pgvector-based setups",
+      "Designed embedding and metadata strategies for documents, code, and mixed-content search",
+      "Used ANN search, filtering, and reranking to balance latency and relevance",
+      "Managed embedding backfills, re-indexing, and versioned retrieval workflows"
+    ],
+    projects: [
+      "Semantic search for internal or product data",
+      "Similar document recommendation workflow",
+      "Content similarity and deduplication use case"
+    ],
+    achievements: [
+      "Built low-latency semantic retrieval for AI-assisted workflows",
+      "Improved relevance by combining vector retrieval with keyword filters and reranking",
+      "Operationalized embedding refresh and index maintenance for evolving datasets"
+    ],
+    relatedSkills: ["RAG", "LLM", "Generative AI"]
+  },
+  // ─── Queues ───────────────────────────────────────────
+  "Kafka": {
+    description: "Strong working experience with Apache Kafka for event-driven systems, asynchronous processing, and real-time data pipelines.",
+    experience: [
+      "Designed topics, partitions, and consumer-group strategies for scalable event processing",
+      "Built producers and consumers with schema-aware event contracts",
+      "Used retries, dead-letter topics, idempotent processing, and lag monitoring",
+      "Worked with streaming-style workflows and service integration through events"
+    ],
+    projects: [
+      "Real-time analytics and event pipeline",
+      "Event-driven backend integration flows",
+      "Messaging backbone for service communication"
+    ],
+    achievements: [
+      "Built event-driven pipelines that handled sustained high-throughput workloads",
+      "Reduced coupling between services by shifting integrations to asynchronous events",
+      "Improved resiliency with retry topics, monitoring, and safer consumer handling"
+    ],
+    relatedSkills: ["RabbitMQ", "AmazonSQS", "Microservices"]
+  },
+  "RabbitMQ": {
+    description: "Experienced with RabbitMQ for reliable asynchronous job processing and queue-based workflow orchestration.",
+    experience: [
+      "Designed exchanges, queues, routing keys, and consumer patterns for task distribution",
+      "Implemented retry handling, dead-letter queues, acknowledgments, and prefetch tuning",
+      "Worked with publisher confirms and delivery guarantees appropriate to the use case",
+      "Operated queue-backed worker systems for background processing"
+    ],
+    projects: [
+      "Order and task processing workflow",
+      "Email and notification dispatch pipeline",
+      "Background job orchestration service"
+    ],
+    achievements: [
+      "Improved delivery reliability through acknowledgments, retries, and dead-letter handling",
+      "Smoothed traffic spikes by moving expensive work off the request path",
+      "Simplified task routing with clean exchange and queue topology design"
+    ],
+    relatedSkills: ["Kafka", "AmazonSQS", "Microservices"]
+  },
+  "AmazonSQS": {
+    description: "Proficient with Amazon SQS and SNS for managed queue-based and fan-out architectures on AWS.",
+    experience: [
+      "Designed workflows using Standard and FIFO queues depending on ordering and throughput needs",
+      "Integrated SQS with Lambda, ECS, and other AWS consumers for background processing",
+      "Implemented DLQs, redrive policies, visibility timeouts, and idempotent consumers",
+      "Used SNS plus SQS fan-out patterns for event distribution"
+    ],
+    projects: [
+      "Serverless background processing pipeline",
+      "Async media or file-processing workflow",
+      "Cross-service notification architecture on AWS"
+    ],
+    achievements: [
+      "Reduced operational overhead by moving async workloads to fully managed messaging",
+      "Improved resilience for bursty traffic using decoupled queues and dead-letter handling",
+      "Built cost-effective background job pipelines with simple AWS-native components"
+    ],
+    relatedSkills: ["Kafka", "RabbitMQ", "Microservices"]
+  },
+  // ─── Core CS ──────────────────────────────────────────
+  "DSA": {
+    description: "Solid foundation in data structures and algorithms, applied both in problem-solving practice and production engineering.",
+    experience: [
+      "Solved hundreds of problems across platforms such as LeetCode, Codeforces, and HackerRank",
+      "Worked with advanced structures such as tries, heaps, union-find, segment trees, and graph algorithms",
+      "Applied time and space complexity analysis when designing production code paths",
+      "Mentored junior engineers on problem solving, complexity analysis, and interview preparation"
+    ],
+    projects: [
+      "Trie-based autocomplete/search prototype",
+      "Graph-based optimization workflow",
+      "Ranking and scoring logic for competitive systems"
+    ],
+    achievements: [
+      "Built strong algorithmic intuition through sustained problem-solving practice",
+      "Used better data structures to eliminate obvious bottlenecks in hot paths",
+      "Created explanations and guidance that helped others improve problem-solving skills"
+    ],
+    relatedSkills: ["Networking", "Java", "Python"]
+  },
+  "Networking": {
+    description: "Good grasp of networking fundamentals relevant to backend engineering and distributed systems.",
+    experience: [
+      "Worked with TCP/IP, HTTP/1.1, HTTP/2, gRPC, and WebSocket-based communication",
+      "Designed systems behind load balancers, reverse proxies, and service discovery layers",
+      "Debugged issues related to DNS, TLS, keep-alives, connection reuse, and timeouts",
+      "Used logs, traces, and network-level diagnostics to investigate production issues"
+    ],
+    projects: [
+      "Real-time communication layer",
+      "Backend systems behind load balancers and proxies",
+      "Network-aware service diagnostics and monitoring"
+    ],
+    achievements: [
+      "Improved service-to-service latency through connection reuse and timeout tuning",
+      "Diagnosed and resolved issues involving retransmissions, handshake failures, and unstable upstream calls",
+      "Applied networking knowledge to make real-time and API-heavy systems more reliable"
+    ],
+    relatedSkills: ["DSA", "High Level Design", "Microservices"]
+  },
+  // ─── Cache ────────────────────────────────────────────
+  "Elasti-Cache": {
+    description: "Experience with Amazon ElastiCache, primarily Redis, for caching, session storage, and low-latency shared state.",
+    experience: [
+      "Deployed and operated ElastiCache Redis clusters in production environments",
+      "Configured replication, failover, TTL policies, and memory-aware caching strategies",
+      "Implemented cache-aside and write-through patterns based on workload characteristics",
+      "Used CloudWatch metrics and alarms for cache health, memory pressure, and latency visibility"
+    ],
+    projects: [
+      "Session storage for distributed applications",
+      "Read-heavy API caching layer",
+      "Low-latency configuration and feature flag cache"
+    ],
+    achievements: [
+      "Reduced database pressure by caching hot reads and frequently accessed session data",
+      "Improved resiliency with replicated cache setups and failover support",
+      "Added visibility into hit rates, evictions, memory usage, and cache latency"
+    ],
+    relatedSkills: ["Redis", "MySQL", "High Level Design"]
+  },
+  "Redis": {
+    description: "Strong Redis experience for caching, counters, leaderboards, rate limiting, and lightweight coordination patterns.",
+    experience: [
+      "Designed Redis-based caching strategies with appropriate TTLs and eviction behavior",
+      "Used Redis data structures such as hashes, sets, sorted sets, and streams for real-time use cases",
+      "Implemented session storage, counters, feature flags, and request-throttling workflows",
+      "Applied Redis-based coordination carefully for idempotency and simple locking scenarios"
+    ],
+    projects: [
+      "Real-time leaderboard and ranking features",
+      "Session and token storage for distributed services",
+      "Cache layer for read-heavy APIs"
+    ],
+    achievements: [
+      "Reduced response times for hot endpoints by caching frequently requested data",
+      "Built real-time features using sorted sets, counters, and stream-based event handling",
+      "Used Redis pragmatically for low-latency shared state without overextending it as a primary datastore"
+    ],
+    relatedSkills: ["Elasti-Cache", "MySQL", "Kafka"]
+  }
+};
+
+// src/app/profile/skills/skills.component.ts
+var _c0 = (a0) => ({ "system-mode-toggle--active": a0 });
+var _c1 = (a0, a1, a2, a3, a4) => ({ "skill-card--primary": a0, "skill-card--secondary": a1, "skill-card--supporting": a2, "skill-card--expanded": a3, "skill-card--flow": a4 });
+var _forTrack04 = ($index, $item) => $item.id;
+var _forTrack13 = ($index, $item) => $item.name;
+function SkillsComponent_For_37_For_9_Conditional_1_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 29);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const skill_r2 = \u0275\u0275nextContext().$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r3.getSystemFlowIndex(skill_r2) + 1);
+  }
+}
+function SkillsComponent_For_37_For_9_Conditional_13_For_8_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "li");
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const exp_r5 = ctx2.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(exp_r5);
+  }
+}
+function SkillsComponent_For_37_For_9_Conditional_13_For_14_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 43);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const project_r6 = ctx2.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(project_r6);
+  }
+}
+function SkillsComponent_For_37_For_9_Conditional_13_For_20_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "li");
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const achievement_r7 = ctx2.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(achievement_r7);
+  }
+}
+function SkillsComponent_For_37_For_9_Conditional_13_For_26_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 46);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const rs_r8 = ctx2.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(rs_r8);
+  }
+}
+function SkillsComponent_For_37_For_9_Conditional_13_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 37)(1, "p", 38);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 39)(4, "h5", 40);
+    \u0275\u0275text(5, "Experience");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "ul", 41);
+    \u0275\u0275repeaterCreate(7, SkillsComponent_For_37_For_9_Conditional_13_For_8_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(9, "div", 39)(10, "h5", 40);
+    \u0275\u0275text(11, "Key Projects");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "div", 42);
+    \u0275\u0275repeaterCreate(13, SkillsComponent_For_37_For_9_Conditional_13_For_14_Template, 2, 1, "span", 43, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(15, "div", 39)(16, "h5", 40);
+    \u0275\u0275text(17, "Achievements");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(18, "ul", 44);
+    \u0275\u0275repeaterCreate(19, SkillsComponent_For_37_For_9_Conditional_13_For_20_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(21, "div", 39)(22, "h5", 40);
+    \u0275\u0275text(23, "Related");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(24, "div", 45);
+    \u0275\u0275repeaterCreate(25, SkillsComponent_For_37_For_9_Conditional_13_For_26_Template, 2, 1, "span", 46, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const skill_r2 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(skill_r2.details.description);
+    \u0275\u0275advance(5);
+    \u0275\u0275repeater(skill_r2.details.experience);
+    \u0275\u0275advance(6);
+    \u0275\u0275repeater(skill_r2.details.projects);
+    \u0275\u0275advance(6);
+    \u0275\u0275repeater(skill_r2.details.achievements);
+    \u0275\u0275advance(6);
+    \u0275\u0275repeater(skill_r2.details.relatedSkills);
+  }
+}
+function SkillsComponent_For_37_For_9_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 28);
+    \u0275\u0275listener("click", function SkillsComponent_For_37_For_9_Template_div_click_0_listener() {
+      const skill_r2 = \u0275\u0275restoreView(_r1).$implicit;
+      const constellation_r3 = \u0275\u0275nextContext().$implicit;
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.toggleCard(skill_r2, constellation_r3));
+    });
+    \u0275\u0275conditionalCreate(1, SkillsComponent_For_37_For_9_Conditional_1_Template, 2, 1, "div", 29);
+    \u0275\u0275elementStart(2, "div", 30)(3, "span", 31);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 32);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(7, "h4", 33);
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "p", 34);
+    \u0275\u0275text(10);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "div", 35);
+    \u0275\u0275element(12, "div", 36);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(13, SkillsComponent_For_37_For_9_Conditional_13_Template, 27, 1, "div", 37);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const skill_r2 = ctx2.$implicit;
+    const constellation_r3 = \u0275\u0275nextContext().$implicit;
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction5(14, _c1, skill_r2.level === "primary", skill_r2.level === "secondary", skill_r2.level === "supporting", ctx_r3.isExpanded(skill_r2), ctx_r3.isSystemFlowNode(skill_r2)));
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r3.isSystemFlowNode(skill_r2) ? 1 : -1);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngClass", "level-tag--" + skill_r2.level);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r3.getLevelTag(skill_r2.level), " ");
+    \u0275\u0275advance();
+    \u0275\u0275styleProp("color", constellation_r3.color);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1("", skill_r2.proficiency, " XP");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.getDisplayName(skill_r2));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(skill_r2.tooltip);
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("width", skill_r2.proficiency, "%")("background", constellation_r3.color);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r3.isExpanded(skill_r2) && skill_r2.details ? 13 : -1);
+  }
+}
+function SkillsComponent_For_37_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 14)(1, "div", 22);
+    \u0275\u0275element(2, "div", 23);
+    \u0275\u0275elementStart(3, "h3", 24);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 25);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(7, "div", 26);
+    \u0275\u0275repeaterCreate(8, SkillsComponent_For_37_For_9_Template, 14, 20, "div", 27, _forTrack13);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const constellation_r3 = ctx2.$implicit;
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("background", constellation_r3.color);
+    \u0275\u0275advance();
+    \u0275\u0275styleProp("color", constellation_r3.color);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(constellation_r3.name);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("", constellation_r3.skills.length, " skills");
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(constellation_r3.skills);
+  }
+}
+var SkillsComponent = class _SkillsComponent {
+  constructor() {
+    this.constellations = [];
+    this.expandedSkill = null;
+    this.systemMode = false;
+    this.systemModeLabels = {
+      "Kafka": "Event Bus",
+      "Redis": "Cache Layer",
+      "MySQL": "Primary DB",
+      "MongoDB": "Document Store",
+      "Microservices": "Service Mesh",
+      "Spring Boot": "API Framework",
+      "High Level Design": "System Design",
+      "LLM": "AI Engine",
+      "RAG": "Knowledge Retrieval",
+      "VectorDB": "Embedding Store",
+      "Elasti-Cache": "Cache Cluster",
+      "RabbitMQ": "Task Queue",
+      "AmazonSQS": "Managed Queue",
+      "Neptune": "Graph Store",
+      "Cassandra": "Time-Series DB"
+    };
+    this.systemModeFlow = [
+      "Spring Boot",
+      "Microservices",
+      "Kafka",
+      "Redis",
+      "MySQL"
+    ];
+  }
+  ngOnInit() {
+    this.buildConstellations();
+    this.addSkillDetails();
+  }
+  buildConstellations() {
+    this.constellations = [
+      {
+        id: "languages",
+        name: "Languages",
+        color: "#64B5F6",
+        glowColor: "rgba(100,181,246,0.6)",
+        skills: [
+          { name: "Java", proficiency: 90, level: "primary", tooltip: "Microservices \xB7 virtual threads (8\u201321)", x: 12, y: 14 },
+          { name: "Python", proficiency: 92, level: "secondary", tooltip: "AI pipelines \xB7 automation \xB7 FastAPI", x: 24, y: 10 },
+          { name: "GO", proficiency: 93, level: "secondary", tooltip: "gRPC services \xB7 goroutines \xB7 CLI", x: 8, y: 28 },
+          { name: "NodeJS", proficiency: 91, level: "secondary", tooltip: "WebSockets \xB7 Lambda \xB7 real-time", x: 22, y: 26 }
+        ]
+      },
+      {
+        id: "architecture",
+        name: "Architecture",
+        color: "#CE93D8",
+        glowColor: "rgba(206,147,216,0.6)",
+        skills: [
+          { name: "High Level Design", proficiency: 95, level: "primary", tooltip: "Scaled to millions of events/day", x: 48, y: 8 },
+          { name: "Low Level Design", proficiency: 90, level: "secondary", tooltip: "SOLID \xB7 domain modeling \xB7 clean APIs", x: 38, y: 24 },
+          { name: "Microservices", proficiency: 95, level: "primary", tooltip: "Decomposed monoliths \xB7 event-driven", x: 58, y: 24 }
+        ]
+      },
+      {
+        id: "databases",
+        name: "Databases",
+        color: "#80CBC4",
+        glowColor: "rgba(128,203,196,0.6)",
+        skills: [
+          { name: "MySQL", proficiency: 95, level: "primary", tooltip: "Query tuning \xB7 DMS migrations", x: 78, y: 10 },
+          { name: "MongoDB", proficiency: 90, level: "secondary", tooltip: "Aggregation pipelines \xB7 sharding", x: 90, y: 16 },
+          { name: "Neptune", proficiency: 91, level: "supporting", tooltip: "Graph traversals \xB7 fraud analysis", x: 74, y: 22 },
+          { name: "Salesforce DB", proficiency: 90, level: "supporting", tooltip: "SOQL reporting \xB7 CRM sync", x: 88, y: 28 },
+          { name: "Cassandra", proficiency: 91, level: "supporting", tooltip: "Time-series \xB7 partition design", x: 80, y: 34 }
+        ]
+      },
+      {
+        id: "frameworks",
+        name: "Frameworks",
+        color: "#FFB74D",
+        glowColor: "rgba(255,183,77,0.6)",
+        skills: [
+          { name: "Spring Boot", proficiency: 90, level: "secondary", tooltip: "Production APIs \xB7 Spring Security", x: 6, y: 48 },
+          { name: "Echo", proficiency: 91, level: "secondary", tooltip: "Lean Go APIs \xB7 sub-ms overhead", x: 18, y: 54 },
+          { name: "Dropwizard", proficiency: 92, level: "supporting", tooltip: "Metrics-first \xB7 predictable latency", x: 32, y: 50 },
+          { name: "Google Guice", proficiency: 90, level: "supporting", tooltip: "Modular DI for non-Spring Java", x: 12, y: 64 }
+        ]
+      },
+      {
+        id: "ai",
+        name: "AI / ML",
+        color: "#F48FB1",
+        glowColor: "rgba(244,143,177,0.6)",
+        skills: [
+          { name: "Generative AI", proficiency: 90, level: "primary", tooltip: "Cut manual triage effort by 50%", x: 38, y: 46 },
+          { name: "LLM", proficiency: 90, level: "primary", tooltip: "API integration \xB7 tool-calling", x: 54, y: 40 },
+          { name: "RAG", proficiency: 92, level: "secondary", tooltip: "Rerank pipelines \xB7 less hallucination", x: 42, y: 60 },
+          { name: "VectorDB", proficiency: 90, level: "secondary", tooltip: "Pinecone \xB7 pgvector \xB7 semantic search", x: 60, y: 56 }
+        ]
+      },
+      {
+        id: "queues",
+        name: "Queues",
+        color: "#81C784",
+        glowColor: "rgba(129,199,132,0.6)",
+        skills: [
+          { name: "Kafka", proficiency: 99, level: "primary", tooltip: "Event pipelines \xB7 high throughput", x: 76, y: 48 },
+          { name: "RabbitMQ", proficiency: 90, level: "secondary", tooltip: "Task queues \xB7 dead-letter retries", x: 88, y: 54 },
+          { name: "AmazonSQS", proficiency: 92, level: "supporting", tooltip: "Serverless fan-out \xB7 FIFO queues", x: 80, y: 64 }
+        ]
+      },
+      {
+        id: "core",
+        name: "Core CS",
+        color: "#FFD54F",
+        glowColor: "rgba(255,213,79,0.6)",
+        skills: [
+          { name: "DSA", proficiency: 95, level: "secondary", tooltip: "500+ problems \xB7 interview mentoring", x: 16, y: 76 },
+          { name: "Networking", proficiency: 95, level: "supporting", tooltip: "TCP/IP \xB7 TLS debugging \xB7 keep-alives", x: 30, y: 82 }
+        ]
+      },
+      {
+        id: "cache",
+        name: "Cache",
+        color: "#E57373",
+        glowColor: "rgba(229,115,115,0.6)",
+        skills: [
+          { name: "Elasti-Cache", proficiency: 91, level: "supporting", tooltip: "Redis clusters \xB7 failover \xB7 TTL", x: 74, y: 76 },
+          { name: "Redis", proficiency: 90, level: "secondary", tooltip: "Leaderboards \xB7 rate limiting \xB7 sub-ms", x: 88, y: 74 }
+        ]
+      }
+    ];
+  }
+  addSkillDetails() {
+    this.constellations.forEach((c) => {
+      c.skills.forEach((s) => {
+        if (SKILL_DETAILS[s.name])
+          s.details = SKILL_DETAILS[s.name];
+      });
+    });
+  }
+  toggleSystemMode() {
+    this.systemMode = !this.systemMode;
+  }
+  getDisplayName(skill) {
+    if (this.systemMode && this.systemModeLabels[skill.name]) {
+      return this.systemModeLabels[skill.name];
+    }
+    return skill.name;
+  }
+  isSystemFlowNode(skill) {
+    return this.systemMode && this.systemModeFlow.includes(skill.name);
+  }
+  getSystemFlowIndex(skill) {
+    return this.systemModeFlow.indexOf(skill.name);
+  }
+  getLevelLabel(level) {
+    return level === "primary" ? "Boss" : level === "secondary" ? "Main" : "Support";
+  }
+  getLevelTag(level) {
+    return level === "primary" ? "BOSS" : level === "secondary" ? "MAIN" : "SUPPORT";
+  }
+  get totalSkillCount() {
+    return this.constellations.reduce((sum, c) => sum + c.skills.length, 0);
+  }
+  get primarySkillCount() {
+    return this.constellations.reduce((sum, c) => sum + c.skills.filter((s) => s.level === "primary").length, 0);
+  }
+  get averageProficiency() {
+    const all = this.constellations.flatMap((c) => c.skills);
+    if (!all.length)
+      return 0;
+    return Math.round(all.reduce((sum, s) => sum + s.proficiency, 0) / all.length);
+  }
+  toggleCard(skill, constellation) {
+    if (this.expandedSkill === skill) {
+      this.expandedSkill = null;
+      return;
+    }
+    this.expandedSkill = skill;
+  }
+  isExpanded(skill) {
+    return this.expandedSkill === skill;
+  }
+  static {
+    this.\u0275fac = function SkillsComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _SkillsComponent)();
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 53, vars: 9, consts: [["id", "skill", 1, "rpg-skills-section"], [1, "rpg-container"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "skills-hud"], [1, "hud-card"], [1, "hud-label"], [1, "hud-value"], [1, "skills-controls"], [1, "system-mode-toggle", 3, "click", "ngClass"], [1, "system-mode-icon"], [1, "system-mode-label"], [1, "category-group"], [1, "legend-strip"], [1, "legend-item"], [1, "legend-dot", "legend-dot--primary"], [1, "legend-label"], [1, "legend-divider"], [1, "legend-dot", "legend-dot--secondary"], [1, "legend-dot", "legend-dot--supporting"], [1, "category-header"], [1, "category-color-bar"], [1, "category-name"], [1, "category-count"], [1, "skill-card-grid"], [1, "skill-card", 3, "ngClass"], [1, "skill-card", 3, "click", "ngClass"], [1, "flow-badge"], [1, "card-top"], [1, "level-tag", 3, "ngClass"], [1, "xp-number"], [1, "skill-name"], [1, "skill-tooltip"], [1, "xp-bar-track"], [1, "xp-bar-fill"], [1, "card-details"], [1, "detail-description"], [1, "detail-section"], [1, "detail-heading"], [1, "detail-list"], [1, "project-chips"], [1, "project-chip"], [1, "achievement-list"], [1, "related-tags"], [1, "related-tag"]], template: function SkillsComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
+        \u0275\u0275text(4, "\u2694 SKILL INVENTORY");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(5, "h2", 4);
+        \u0275\u0275text(6, "Backend, Platform & Gen AI");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(7, "p", 5);
+        \u0275\u0275text(8);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(9, "div", 6)(10, "div", 7)(11, "span", 8);
+        \u0275\u0275text(12, "zones");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(13, "span", 9);
+        \u0275\u0275text(14);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(15, "div", 7)(16, "span", 8);
+        \u0275\u0275text(17, "nodes");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(18, "span", 9);
+        \u0275\u0275text(19);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(20, "div", 7)(21, "span", 8);
+        \u0275\u0275text(22, "core skills");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(23, "span", 9);
+        \u0275\u0275text(24);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(25, "div", 7)(26, "span", 8);
+        \u0275\u0275text(27, "avg xp");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(28, "span", 9);
+        \u0275\u0275text(29);
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(30, "div", 10)(31, "button", 11);
+        \u0275\u0275listener("click", function SkillsComponent_Template_button_click_31_listener() {
+          return ctx2.toggleSystemMode();
+        });
+        \u0275\u0275elementStart(32, "span", 12);
+        \u0275\u0275text(33, "\u{1F3AE}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(34, "span", 13);
+        \u0275\u0275text(35);
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275repeaterCreate(36, SkillsComponent_For_37_Template, 10, 6, "div", 14, _forTrack04);
+        \u0275\u0275elementStart(38, "div", 15)(39, "div", 16);
+        \u0275\u0275element(40, "span", 17);
+        \u0275\u0275elementStart(41, "span", 18);
+        \u0275\u0275text(42, "Boss Skill");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275element(43, "div", 19);
+        \u0275\u0275elementStart(44, "div", 16);
+        \u0275\u0275element(45, "span", 20);
+        \u0275\u0275elementStart(46, "span", 18);
+        \u0275\u0275text(47, "Main Class");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275element(48, "div", 19);
+        \u0275\u0275elementStart(49, "div", 16);
+        \u0275\u0275element(50, "span", 21);
+        \u0275\u0275elementStart(51, "span", 18);
+        \u0275\u0275text(52, "Support Tool");
+        \u0275\u0275elementEnd()()()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance(8);
+        \u0275\u0275textInterpolate1(" ", ctx2.systemMode ? "Architecture route \u2014 how these skills connect in production" : "RPG inventory \u2014 tap any card for project proof", " ");
+        \u0275\u0275advance(6);
+        \u0275\u0275textInterpolate(ctx2.constellations.length);
+        \u0275\u0275advance(5);
+        \u0275\u0275textInterpolate(ctx2.totalSkillCount);
+        \u0275\u0275advance(5);
+        \u0275\u0275textInterpolate(ctx2.primarySkillCount);
+        \u0275\u0275advance(5);
+        \u0275\u0275textInterpolate1("", ctx2.averageProficiency, "%");
+        \u0275\u0275advance(2);
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(7, _c0, ctx2.systemMode));
+        \u0275\u0275advance(4);
+        \u0275\u0275textInterpolate(ctx2.systemMode ? "Skill inventory" : "Architecture route");
+        \u0275\u0275advance();
+        \u0275\u0275repeater(ctx2.constellations);
+      }
+    }, dependencies: [NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.rpg-skills-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container[_ngcontent-%COMP%] {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls[_ngcontent-%COMP%] {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label[_ngcontent-%COMP%] {\n  white-space: nowrap;\n}\n.category-group[_ngcontent-%COMP%] {\n  margin-bottom: 2.5rem;\n}\n.category-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar[_ngcontent-%COMP%] {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.skill-card--primary[_ngcontent-%COMP%] {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded[_ngcontent-%COMP%]::before {\n  opacity: 1;\n}\n.skill-card--flow[_ngcontent-%COMP%] {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary[_ngcontent-%COMP%] {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track[_ngcontent-%COMP%] {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details[_ngcontent-%COMP%] {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: _ngcontent-%COMP%_detailSlideIn 0.3s ease-out;\n}\n@keyframes _ngcontent-%COMP%_detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section[_ngcontent-%COMP%] {\n  margin-bottom: 1.15rem;\n}\n.detail-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.detail-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.project-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.related-tags[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot[_ngcontent-%COMP%] {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary[_ngcontent-%COMP%] {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label[_ngcontent-%COMP%] {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 4rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.4rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item[_ngcontent-%COMP%] {\n    padding: 0;\n  }\n  .legend-divider[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 3.5rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(SkillsComponent, [{
+    type: Component,
+    args: [{ selector: "app-skills", standalone: true, imports: [NgClass], template: `<div class="rpg-skills-section" id="skill">
+  <div class="rpg-container">
+    <div class="section-header">
+      <div class="world-label">\u2694 SKILL INVENTORY</div>
+      <h2 class="section-title">Backend, Platform &amp; Gen AI</h2>
+      <p class="section-subtitle">
+        {{ systemMode ? 'Architecture route \u2014 how these skills connect in production' : 'RPG inventory \u2014 tap any card for project proof' }}
+      </p>
+
+      <div class="skills-hud">
+        <div class="hud-card">
+          <span class="hud-label">zones</span>
+          <span class="hud-value">{{ constellations.length }}</span>
+        </div>
+        <div class="hud-card">
+          <span class="hud-label">nodes</span>
+          <span class="hud-value">{{ totalSkillCount }}</span>
+        </div>
+        <div class="hud-card">
+          <span class="hud-label">core skills</span>
+          <span class="hud-value">{{ primarySkillCount }}</span>
+        </div>
+        <div class="hud-card">
+          <span class="hud-label">avg xp</span>
+          <span class="hud-value">{{ averageProficiency }}%</span>
+        </div>
+      </div>
+
+      <div class="skills-controls">
+        <button class="system-mode-toggle" [ngClass]="{'system-mode-toggle--active': systemMode}" (click)="toggleSystemMode()">
+          <span class="system-mode-icon">&#x1f3ae;</span>
+          <span class="system-mode-label">{{ systemMode ? 'Skill inventory' : 'Architecture route' }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category groups -->
+    @for (constellation of constellations; track constellation.id) {
+      <div class="category-group">
+        <div class="category-header">
+          <div class="category-color-bar" [style.background]="constellation.color"></div>
+          <h3 class="category-name" [style.color]="constellation.color">{{ constellation.name }}</h3>
+          <span class="category-count">{{ constellation.skills.length }} skills</span>
+        </div>
+
+        <div class="skill-card-grid">
+          @for (skill of constellation.skills; track skill.name) {
+            <div class="skill-card"
+                 [ngClass]="{
+                   'skill-card--primary': skill.level === 'primary',
+                   'skill-card--secondary': skill.level === 'secondary',
+                   'skill-card--supporting': skill.level === 'supporting',
+                   'skill-card--expanded': isExpanded(skill),
+                   'skill-card--flow': isSystemFlowNode(skill)
+                 }"
+                 (click)="toggleCard(skill, constellation)">
+
+              <!-- Flow badge for system mode -->
+              @if (isSystemFlowNode(skill)) {
+                <div class="flow-badge">{{ getSystemFlowIndex(skill) + 1 }}</div>
+              }
+
+              <div class="card-top">
+                <span class="level-tag" [ngClass]="'level-tag--' + skill.level">
+                  {{ getLevelTag(skill.level) }}
+                </span>
+                <span class="xp-number" [style.color]="constellation.color">{{ skill.proficiency }} XP</span>
+              </div>
+
+              <h4 class="skill-name">{{ getDisplayName(skill) }}</h4>
+              <p class="skill-tooltip">{{ skill.tooltip }}</p>
+
+              <div class="xp-bar-track">
+                <div class="xp-bar-fill"
+                     [style.width.%]="skill.proficiency"
+                     [style.background]="constellation.color">
+                </div>
+              </div>
+
+              <!-- Expanded detail panel -->
+              @if (isExpanded(skill) && skill.details) {
+                <div class="card-details">
+                  <p class="detail-description">{{ skill.details.description }}</p>
+
+                  <div class="detail-section">
+                    <h5 class="detail-heading">Experience</h5>
+                    <ul class="detail-list">
+                      @for (exp of skill.details.experience; track $index) {
+                        <li>{{ exp }}</li>
+                      }
+                    </ul>
+                  </div>
+
+                  <div class="detail-section">
+                    <h5 class="detail-heading">Key Projects</h5>
+                    <div class="project-chips">
+                      @for (project of skill.details.projects; track $index) {
+                        <span class="project-chip">{{ project }}</span>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="detail-section">
+                    <h5 class="detail-heading">Achievements</h5>
+                    <ul class="achievement-list">
+                      @for (achievement of skill.details.achievements; track $index) {
+                        <li>{{ achievement }}</li>
+                      }
+                    </ul>
+                  </div>
+
+                  <div class="detail-section">
+                    <h5 class="detail-heading">Related</h5>
+                    <div class="related-tags">
+                      @for (rs of skill.details.relatedSkills; track $index) {
+                        <span class="related-tag">{{ rs }}</span>
+                      }
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <div class="legend-strip">
+      <div class="legend-item">
+        <span class="legend-dot legend-dot--primary"></span>
+        <span class="legend-label">Boss Skill</span>
+      </div>
+      <div class="legend-divider"></div>
+      <div class="legend-item">
+        <span class="legend-dot legend-dot--secondary"></span>
+        <span class="legend-label">Main Class</span>
+      </div>
+      <div class="legend-divider"></div>
+      <div class="legend-item">
+        <span class="legend-dot legend-dot--supporting"></span>
+        <span class="legend-label">Support Tool</span>
+      </div>
+    </div>
+  </div>
+</div>
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/skills/skills.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.rpg-skills-section {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label {\n  white-space: nowrap;\n}\n.category-group {\n  margin-bottom: 2.5rem;\n}\n.category-header {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card:hover::before {\n  opacity: 1;\n}\n.skill-card--primary {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded::before {\n  opacity: 1;\n}\n.skill-card--flow {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: detailSlideIn 0.3s ease-out;\n}\n@keyframes detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section {\n  margin-bottom: 1.15rem;\n}\n.detail-section:last-child {\n  margin-bottom: 0;\n}\n.detail-heading {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list li {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list li:last-child {\n  margin-bottom: 0;\n}\n.project-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list li {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list li::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list li:last-child {\n  margin-bottom: 0;\n}\n.related-tags {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .rpg-skills-section {\n    padding: 4rem 0;\n  }\n  .section-title {\n    font-size: 2.4rem;\n  }\n  .skills-hud {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item {\n    padding: 0;\n  }\n  .legend-divider {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section {\n    padding: 3.5rem 0;\n  }\n  .section-title {\n    font-size: 2rem;\n  }\n  .skills-hud {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
+  }], null, null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(SkillsComponent, { className: "SkillsComponent", filePath: "src/app/profile/skills/skills.component.ts", lineNumber: 32 });
+})();
+
+// src/app/profile/publications/publications.component.ts
+function PublicationsComponent_For_391_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 65);
+    \u0275\u0275domListener("click", function PublicationsComponent_For_391_Template_button_click_0_listener() {
+      const category_r2 = \u0275\u0275restoreView(_r1).$implicit;
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.filterByCategory(category_r2));
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const category_r2 = ctx2.$implicit;
+    const \u0275$index_628_r4 = ctx2.$index;
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("active", ctx_r2.selectedCategory === category_r2);
+    \u0275\u0275attribute("data-aos-delay", (\u0275$index_628_r4 + 1) * 100);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", category_r2, " ");
+  }
+}
+function PublicationsComponent_For_394_Conditional_15_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElement(0, "img", 75);
+  }
+  if (rf & 2) {
+    const project_r5 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275domProperty("src", project_r5.badges.version, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_For_394_Conditional_16_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElement(0, "img", 76);
+  }
+  if (rf & 2) {
+    const project_r5 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275domProperty("src", project_r5.badges.downloads, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_For_394_Conditional_17_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElement(0, "img", 77);
+  }
+  if (rf & 2) {
+    const project_r5 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275domProperty("src", project_r5.badges.total, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_For_394_Conditional_18_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElement(0, "img", 78);
+  }
+  if (rf & 2) {
+    const project_r5 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275domProperty("src", project_r5.badges.java, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_For_394_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 64)(1, "div", 66)(2, "div", 67)(3, "span", 68);
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(5, "div", 69);
+    \u0275\u0275text(6);
+    \u0275\u0275domElementEnd()();
+    \u0275\u0275domElementStart(7, "div", 70)(8, "h5", 71);
+    \u0275\u0275text(9);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(10, "p", 72);
+    \u0275\u0275text(11);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(12, "p", 73);
+    \u0275\u0275text(13);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(14, "div", 74);
+    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_394_Conditional_15_Template, 1, 1, "img", 75);
+    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_394_Conditional_16_Template, 1, 1, "img", 76);
+    \u0275\u0275conditionalCreate(17, PublicationsComponent_For_394_Conditional_17_Template, 1, 1, "img", 77);
+    \u0275\u0275conditionalCreate(18, PublicationsComponent_For_394_Conditional_18_Template, 1, 1, "img", 78);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(19, "a", 79);
+    \u0275\u0275text(20);
+    \u0275\u0275domElementEnd()()();
+  }
+  if (rf & 2) {
+    const project_r5 = ctx2.$implicit;
+    const \u0275$index_634_r6 = ctx2.$index;
+    \u0275\u0275attribute("data-delay", (\u0275$index_634_r6 + 1) * 100);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(project_r5.category === "NPM" ? "\u{1F4E6}" : project_r5.category === "Maven Central" ? "\u2615" : "\u2B50");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(project_r5.category);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(project_r5.title);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(project_r5.tagline);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(project_r5.description);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(project_r5.badges.version ? 15 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(project_r5.badges.downloads ? 16 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(project_r5.badges.total ? 17 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(project_r5.badges.java ? 18 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275domProperty("href", project_r5.link, \u0275\u0275sanitizeUrl);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" \u2B07\xA0 ", project_r5.linkText, " ");
+  }
+}
+var PublicationsComponent = class _PublicationsComponent {
+  constructor() {
+    this.projectLinks = PROJECT_LINKS;
+    this.companyLinks = COMPANY_LINKS;
+    this.openSourceProjects = [
+      {
+        id: "node-actuator-lite",
+        title: "node-actuator-lite",
+        tagline: "Spring Boot-style health checks for Node.js \u2014 zero deps",
+        description: "A lightweight Node.js actuator similar to Spring Boot actuator with Prometheus integration, built with minimal external dependencies for maximum performance. Perfect for serverless platforms like Vercel, AWS Lambda, and microservices.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
+          total: "https://img.shields.io/npm/dt/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: PACKAGE_LINKS.nodeActuatorLite,
+        linkText: "View on NPM"
+      },
+      {
+        id: "node-request-trace",
+        title: "node-request-trace",
+        tagline: "See exactly where your API request spends time",
+        description: "Request tracing and performance visualization library for Node.js. Inspect the full execution lifecycle of API requests, detect performance bottlenecks, identify slow middleware or async operations, and debug production issues quickly.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
+          total: "https://img.shields.io/npm/dt/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: PACKAGE_LINKS.nodeRequestTrace,
+        linkText: "View on NPM"
+      },
+      {
+        id: "node-eventloop-watchdog",
+        title: "node-eventloop-watchdog",
+        tagline: "Find exactly which line is blocking your event loop",
+        description: "Lightweight Node.js event loop blocking detector with automatic code identification, blocking heatmaps, and production-safe diagnostics. Detects lag, captures blocking stack traces, identifies hotspots, and correlates with HTTP requests.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
+          total: "https://img.shields.io/npm/dt/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: PACKAGE_LINKS.nodeEventloopWatchdog,
+        linkText: "View on NPM"
+      },
+      {
+        id: "meme-as-a-service",
+        title: "meme-as-a-service",
+        tagline: "Generate memes via API \u2014 templates, text overlays, done",
+        description: "A fun and lightweight service for generating and serving memes programmatically. Provides easy-to-use APIs for creating custom memes with text overlays and various templates.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
+          total: "https://img.shields.io/npm/dt/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: PACKAGE_LINKS.memeAsAService,
+        linkText: "View on NPM"
+      },
+      {
+        id: "roastcode",
+        title: "roastcode",
+        tagline: "AI code review, but it roasts you",
+        description: "\u{1F525} A CLI tool that humorously roasts your code files, commit messages, and diffs with AI-powered savagery. Features multiple roast modes (Gentle, Savage, Toxic), AI engines (OpenAI, Ollama), git integration, meme generation, and smart code analysis. Perfect for code reviews, team bonding, and keeping your codebase honest.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/roastcode?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/roastcode?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
+          total: "https://img.shields.io/npm/dt/roastcode?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: PACKAGE_LINKS.roastcode,
+        linkText: "View on NPM"
+      },
+      {
+        id: "readme-cinema",
+        title: "readme-cinema",
+        tagline: "Turn READMEs into cinematic terminal experiences",
+        description: "\u{1F3AC} Transform your README files into cinematic terminal experiences with ASCII art, typewriter effects, and dramatic transitions. Features 8 color themes, progress bars, syntax highlighting, and movie-like scene transitions for creating engaging documentation.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=downloads/week",
+          total: "https://img.shields.io/npm/dt/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: PACKAGE_LINKS.readmeCinema,
+        linkText: "View on NPM"
+      },
+      {
+        id: "eli5",
+        title: "eli5",
+        tagline: `AI-powered "Explain Like I'm 5" annotations for Java`,
+        description: "Explain Like I'm 5 annotations for Java code documentation with AI-powered explanations. A Maven plugin that helps developers create simple, understandable documentation for complex code by generating child-friendly explanations.",
+        category: "Maven Central",
+        badges: {
+          version: "https://img.shields.io/maven-central/v/io.github.beingmartinbmc/eli5?style=flat-square&logo=apache-maven&color=c71a36&label=version",
+          java: "https://img.shields.io/badge/Java-11+-orange?style=flat-square&logo=java&color=ED8B00"
+        },
+        link: PACKAGE_LINKS.eli5,
+        linkText: "View on Maven Central"
+      },
+      {
+        id: "git-history-ui",
+        title: "git-history-ui",
+        tagline: "Beautiful web UI for exploring git history",
+        description: "A beautiful, modern web UI for visualizing git history with interactive commit graphs, search, filtering, and diff visualization. Built with Angular and Node.js. Features D3.js-powered visualizations, advanced search & filtering, dual view modes, color palette system, and responsive design.",
+        category: "NPM",
+        badges: {
+          version: "https://img.shields.io/npm/v/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=version",
+          downloads: "https://img.shields.io/npm/dm/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=downloads/week",
+          total: "https://img.shields.io/npm/dt/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=total"
+        },
+        link: PACKAGE_LINKS.gitHistoryUi,
+        linkText: "View on NPM"
+      }
+    ];
+    this.availableCategories = [];
+    this.selectedCategory = "All";
+    this.filteredProjects = [];
+  }
+  ngOnInit() {
+    this.availableCategories = ["All", ...Array.from(new Set(this.openSourceProjects.map((p) => p.category)))];
+    this.filteredProjects = this.openSourceProjects;
+  }
+  filterByCategory(category) {
+    this.selectedCategory = category;
+    if (category === "All") {
+      this.filteredProjects = this.openSourceProjects;
+    } else {
+      this.filteredProjects = this.openSourceProjects.filter((project) => project.category === category);
+    }
+  }
+  static {
+    this.\u0275fac = function PublicationsComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _PublicationsComponent)();
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 395, vars: 12, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header", "quest-header"], [1, "quest-world-label"], ["data-text-reveal", "", 1, "section-title", "quest-title"], [1, "section-subtitle"], ["data-stagger", "150", 1, "pro-projects-grid"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card"], [1, "quest-rank-bar"], [1, "quest-inner"], [1, "quest-header-row"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-games", 3, "href"], [1, "world-icon"], [1, "quest-platform"], [1, "quest-status"], [1, "quest-name"], [1, "quest-tagline"], [1, "pro-card-desc"], [1, "abilities-row"], [1, "abilities-label"], [1, "ability-chips"], [1, "rewards-row"], [1, "rewards-label"], [1, "reward-chips"], [1, "reward-chip"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card", "boss-card"], [1, "quest-status", "boss-status"], [1, "reward-chip", "legendary"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "walmart-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-walmart", 3, "href"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "extramarks-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-extramarks", 3, "href"], ["data-anim", "fade-up", 1, "section-header", "quest-header", 2, "margin-top", "6rem"], ["data-stagger", "150", 1, "projects-grid", "side-quests-grid"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "algo-card"], ["target", "_blank", "rel", "noopener", 1, "game-screen-link", 3, "href"], [1, "game-screen", "algo-screen"], [1, "screen-scanlines"], [1, "screen-content"], [1, "screen-icon"], [1, "screen-title"], [1, "screen-subtitle"], [1, "screen-tags"], [1, "screen-press"], [1, "card-body", "side-quest-body"], [1, "sq-type-row"], [1, "sq-type-badge"], [1, "sq-xp"], [1, "sq-title"], [1, "card-text"], [1, "sq-tech-row"], [1, "tech-badge"], [1, "sq-action"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-primary", 3, "href"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "divine-card"], [1, "game-screen", "divine-screen"], [1, "screen-press", "powered"], [1, "sq-type-badge", "ai-badge"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "datesense-card"], [1, "game-screen", "datesense-screen"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "shop-filters"], [1, "shop-filter-btn", 3, "active"], [1, "open-source-grid", "powerup-grid"], ["data-anim", "fade-up", 1, "open-source-card", "powerup-card"], [1, "shop-filter-btn", 3, "click"], [1, "powerup-top"], [1, "powerup-icon-wrap"], [1, "powerup-icon"], [1, "powerup-category"], [1, "card-body", "powerup-body"], [1, "powerup-name"], [1, "powerup-tagline"], [1, "card-text", "powerup-desc"], [1, "powerup-badges"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-secondary", "powerup-btn", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
+        \u0275\u0275text(4, "\u2694 WORLD MAP");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(5, "h2", 4);
+        \u0275\u0275text(6, "Main Quests");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(7, "p", 5);
+        \u0275\u0275text(8, "Real systems. Real scale. Mission logs from the field.");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(9, "div", 6)(10, "div", 7);
+        \u0275\u0275domElement(11, "div", 8);
+        \u0275\u0275domElementStart(12, "div", 9)(13, "div", 10)(14, "a", 11)(15, "span", 12);
+        \u0275\u0275text(16, "\u{1F3AE}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(17, " Games24x7 ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(18, "span", 13);
+        \u0275\u0275text(19, "My11Circle \xB7 RummyCircle");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(20, "div", 14);
+        \u0275\u0275text(21, "MISSION CLEARED \u2713");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(22, "h4", 15);
+        \u0275\u0275text(23, "Automated KYC Platform");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(24, "p", 16);
+        \u0275\u0275text(25, "Identity verification at scale \u2014 built from scratch");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(26, "p", 17);
+        \u0275\u0275text(27, " End-to-end document verification system supporting Digilocker, Aadhaar Lite, PAN validation, and OCR-based extraction. Processes 200K+ verifications daily across two gaming platforms with 99.95% uptime via a distributed Kafka pipeline. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(28, "div", 18)(29, "span", 19);
+        \u0275\u0275text(30, "\u26A1 ABILITIES USED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(31, "div", 20)(32, "span");
+        \u0275\u0275text(33, "Java");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(34, "span");
+        \u0275\u0275text(35, "Spring Boot");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(36, "span");
+        \u0275\u0275text(37, "Kafka");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(38, "span");
+        \u0275\u0275text(39, "Redis");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(40, "span");
+        \u0275\u0275text(41, "OCR");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(42, "span");
+        \u0275\u0275text(43, "Digilocker API");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(44, "span");
+        \u0275\u0275text(45, "AWS");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(46, "div", 21)(47, "span", 22);
+        \u0275\u0275text(48, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(49, "div", 23)(50, "span", 24);
+        \u0275\u0275text(51, "\u{1FA99} 200K+ verifications/day");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(52, "span", 24);
+        \u0275\u0275text(53, "\u2B50 99.95% uptime");
+        \u0275\u0275domElementEnd()()()()();
+        \u0275\u0275domElementStart(54, "div", 7);
+        \u0275\u0275domElement(55, "div", 8);
+        \u0275\u0275domElementStart(56, "div", 9)(57, "div", 10)(58, "a", 11)(59, "span", 12);
+        \u0275\u0275text(60, "\u{1F3AE}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(61, " Games24x7 ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(62, "span", 13);
+        \u0275\u0275text(63, "My11Circle \xB7 RummyCircle");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(64, "div", 14);
+        \u0275\u0275text(65, "MISSION CLEARED \u2713");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(66, "h4", 15);
+        \u0275\u0275text(67, "Risk Rule Engine");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(68, "p", 16);
+        \u0275\u0275text(69, "Real-time fraud detection powered by ML + graph analysis");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(70, "p", 17);
+        \u0275\u0275text(71, " Built a rule engine that identifies fraudulent user behavior in real time across two platforms. Consumes millions of Kafka messages via pub/sub, runs ML-based scoring through SageMaker, and maps fraud networks using Neptune graph DB \u2014 preventing financial losses at scale. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(72, "div", 18)(73, "span", 19);
+        \u0275\u0275text(74, "\u26A1 ABILITIES USED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(75, "div", 20)(76, "span");
+        \u0275\u0275text(77, "Java");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(78, "span");
+        \u0275\u0275text(79, "Kafka");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(80, "span");
+        \u0275\u0275text(81, "SageMaker");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(82, "span");
+        \u0275\u0275text(83, "Neptune DB");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(84, "span");
+        \u0275\u0275text(85, "Gremlin");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(86, "span");
+        \u0275\u0275text(87, "Spring Cloud");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(88, "div", 21)(89, "span", 22);
+        \u0275\u0275text(90, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(91, "div", 23)(92, "span", 24);
+        \u0275\u0275text(93, "\u{1FA99} Millions of events/day");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(94, "span", 24);
+        \u0275\u0275text(95, "\u2B50 Real-time detection");
+        \u0275\u0275domElementEnd()()()()();
+        \u0275\u0275domElementStart(96, "div", 25);
+        \u0275\u0275domElement(97, "div", 8);
+        \u0275\u0275domElementStart(98, "div", 9)(99, "div", 10)(100, "a", 11)(101, "span", 12);
+        \u0275\u0275text(102, "\u{1F3AE}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(103, " Games24x7 ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(104, "span", 13);
+        \u0275\u0275text(105, "My11Circle");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(106, "div", 26);
+        \u0275\u0275text(107, "\u{1F47E} BOSS BATTLE CLEARED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(108, "h4", 15);
+        \u0275\u0275text(109, "Fantasy Autoscaler");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(110, "p", 16);
+        \u0275\u0275text(111, "ML-powered predictive autoscaling for IPL-level traffic");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(112, "p", 17);
+        \u0275\u0275text(113, " Predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting. Anticipated traffic spikes before they hit, pre-scaling infrastructure ahead of toss time. Successfully handled 10M concurrent users during IPL 2025 with zero downtime. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(114, "div", 18)(115, "span", 19);
+        \u0275\u0275text(116, "\u26A1 ABILITIES USED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(117, "div", 20)(118, "span");
+        \u0275\u0275text(119, "Kubernetes");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(120, "span");
+        \u0275\u0275text(121, "AWS ASG");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(122, "span");
+        \u0275\u0275text(123, "ML");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(124, "span");
+        \u0275\u0275text(125, "Grafana");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(126, "span");
+        \u0275\u0275text(127, "Prometheus");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(128, "span");
+        \u0275\u0275text(129, "Java");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(130, "div", 21)(131, "span", 22);
+        \u0275\u0275text(132, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(133, "div", 23)(134, "span", 27);
+        \u0275\u0275text(135, "\u{1F48E} 10M concurrent users");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(136, "span", 27);
+        \u0275\u0275text(137, "\u{1F3C6} Zero downtime @ IPL 2025");
+        \u0275\u0275domElementEnd()()()()();
+        \u0275\u0275domElementStart(138, "div", 7);
+        \u0275\u0275domElement(139, "div", 8);
+        \u0275\u0275domElementStart(140, "div", 9)(141, "div", 10)(142, "a", 11)(143, "span", 12);
+        \u0275\u0275text(144, "\u{1F3AE}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(145, " Games24x7 ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(146, "span", 13);
+        \u0275\u0275text(147, "My11Circle \xB7 RummyCircle");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(148, "div", 14);
+        \u0275\u0275text(149, "MISSION CLEARED \u2713");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(150, "h4", 15);
+        \u0275\u0275text(151, "PAJ3 \u2014 Single Sign-On");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(152, "p", 16);
+        \u0275\u0275text(153, "Frictionless mobile-first user onboarding");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(154, "p", 17);
+        \u0275\u0275text(155, " Replaced the traditional email + password registration with a mobile-number-based single sign-on flow. Dramatically reduced onboarding friction, improving user conversion across both gaming platforms with OTP-based authentication and seamless session management. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(156, "div", 18)(157, "span", 19);
+        \u0275\u0275text(158, "\u26A1 ABILITIES USED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(159, "div", 20)(160, "span");
+        \u0275\u0275text(161, "Java");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(162, "span");
+        \u0275\u0275text(163, "Spring Security");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(164, "span");
+        \u0275\u0275text(165, "Redis");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(166, "span");
+        \u0275\u0275text(167, "OTP");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(168, "span");
+        \u0275\u0275text(169, "JWT");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(170, "span");
+        \u0275\u0275text(171, "Microservices");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(172, "div", 21)(173, "span", 22);
+        \u0275\u0275text(174, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(175, "div", 23)(176, "span", 24);
+        \u0275\u0275text(177, "\u{1FA99} 2 platforms");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(178, "span", 24);
+        \u0275\u0275text(179, "\u2B50 Mobile-first auth");
+        \u0275\u0275domElementEnd()()()()();
+        \u0275\u0275domElementStart(180, "div", 28);
+        \u0275\u0275domElement(181, "div", 8);
+        \u0275\u0275domElementStart(182, "div", 9)(183, "div", 10)(184, "a", 29)(185, "span", 12);
+        \u0275\u0275text(186, "\u{1F3EA}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(187, " Walmart ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(188, "span", 13);
+        \u0275\u0275text(189, "Stores");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(190, "div", 14);
+        \u0275\u0275text(191, "MISSION CLEARED \u2713");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(192, "h4", 15);
+        \u0275\u0275text(193, "Annual Enrollment");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(194, "p", 16);
+        \u0275\u0275text(195, "Benefits enrollment for 2.2M+ Walmart associates");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(196, "p", 17);
+        \u0275\u0275text(197, " Automated dashboard enabling Walmart associates to check eligibility and sign up for health and wealth benefits \u2014 dental coverage, life insurance, bonuses, and more. Served 2.2M+ associates across the US with a streamlined, self-service enrollment experience. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(198, "div", 18)(199, "span", 19);
+        \u0275\u0275text(200, "\u26A1 ABILITIES USED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(201, "div", 20)(202, "span");
+        \u0275\u0275text(203, "Java 8");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(204, "span");
+        \u0275\u0275text(205, "Angular");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(206, "span");
+        \u0275\u0275text(207, "JSP");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(208, "span");
+        \u0275\u0275text(209, "OneOps");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(210, "span");
+        \u0275\u0275text(211, "Jenkins");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(212, "div", 21)(213, "span", 22);
+        \u0275\u0275text(214, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(215, "div", 23)(216, "span", 24);
+        \u0275\u0275text(217, "\u{1FA99} 2.2M+ associates");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(218, "span", 24);
+        \u0275\u0275text(219, "\u2B50 US-wide rollout");
+        \u0275\u0275domElementEnd()()()()();
+        \u0275\u0275domElementStart(220, "div", 30);
+        \u0275\u0275domElement(221, "div", 8);
+        \u0275\u0275domElementStart(222, "div", 9)(223, "div", 10)(224, "a", 31)(225, "span", 12);
+        \u0275\u0275text(226, "\u{1F4DA}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(227, " Extramarks ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(228, "span", 13);
+        \u0275\u0275text(229, "Elsa");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(230, "div", 14);
+        \u0275\u0275text(231, "MISSION CLEARED \u2713");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(232, "h4", 15);
+        \u0275\u0275text(233, "NEMR \u2014 Personalized K-12 Courses");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(234, "p", 16);
+        \u0275\u0275text(235, "Modular course purchasing for students");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(236, "p", 17);
+        \u0275\u0275text(237, " Enabled students to purchase individual subjects, concepts, or courses instead of the full curriculum. Built a personalized K-12 learning experience with granular content access, breaking the monolithic course structure into flexible, affordable modules. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(238, "div", 18)(239, "span", 19);
+        \u0275\u0275text(240, "\u26A1 ABILITIES USED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(241, "div", 20)(242, "span");
+        \u0275\u0275text(243, "Java 11");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(244, "span");
+        \u0275\u0275text(245, "Spring Boot");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(246, "span");
+        \u0275\u0275text(247, "MySQL");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(248, "span");
+        \u0275\u0275text(249, "Docker");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(250, "span");
+        \u0275\u0275text(251, "AWS Cognito");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(252, "span");
+        \u0275\u0275text(253, "OAuth2.0");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(254, "div", 21)(255, "span", 22);
+        \u0275\u0275text(256, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(257, "div", 23)(258, "span", 24);
+        \u0275\u0275text(259, "\u{1FA99} K-12 platform");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(260, "span", 24);
+        \u0275\u0275text(261, "\u2B50 Modular pricing");
+        \u0275\u0275domElementEnd()()()()()();
+        \u0275\u0275domElementStart(262, "div", 32)(263, "div", 3);
+        \u0275\u0275text(264, "\u{1F3AE} SIDE QUESTS");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(265, "h2", 4);
+        \u0275\u0275text(266, "Side Projects & AI Experiments");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(267, "p", 5);
+        \u0275\u0275text(268, "Passion builds. Shipped for fun, learning, and the love of craft.");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(269, "div", 33)(270, "div", 34)(271, "a", 35)(272, "div", 36);
+        \u0275\u0275domElement(273, "div", 37);
+        \u0275\u0275domElementStart(274, "div", 38)(275, "div", 39);
+        \u0275\u0275text(276, "\u{1F9E0}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(277, "div", 40);
+        \u0275\u0275text(278, "ALGORITHM VISUALIZER");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(279, "div", 41);
+        \u0275\u0275text(280, "DSA Visualizer \xB7 Step-by-Step");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(281, "div", 42);
+        \u0275\u0275text(282, "Sorting \xB7 Trees \xB7 Graphs \xB7 Backtracking");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(283, "div", 43);
+        \u0275\u0275text(284, "\u25B6 PRESS TO PLAY");
+        \u0275\u0275domElementEnd()()()();
+        \u0275\u0275domElementStart(285, "div", 44)(286, "div", 45)(287, "span", 46);
+        \u0275\u0275text(288, "\u{1F3AF} WEB APP");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(289, "span", 47);
+        \u0275\u0275text(290, "+500 XP");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(291, "h5", 48);
+        \u0275\u0275text(292, "Algorithm Visualizer");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(293, "p", 49);
+        \u0275\u0275text(294, " A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(295, "div", 50)(296, "span", 51);
+        \u0275\u0275text(297, "JavaScript");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(298, "span", 51);
+        \u0275\u0275text(299, "React");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(300, "span", 51);
+        \u0275\u0275text(301, "Tailwind");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(302, "span", 51);
+        \u0275\u0275text(303, "Web Audio API");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(304, "div", 52)(305, "a", 53);
+        \u0275\u0275text(306, " \u25B6\xA0 Play Demo ");
+        \u0275\u0275domElementEnd()()()();
+        \u0275\u0275domElementStart(307, "div", 54)(308, "a", 35)(309, "div", 55);
+        \u0275\u0275domElement(310, "div", 37);
+        \u0275\u0275domElementStart(311, "div", 38)(312, "div", 39);
+        \u0275\u0275text(313, "\u{1F549}\uFE0F");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(314, "div", 40);
+        \u0275\u0275text(315, "RELIGIOUS GPT");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(316, "div", 41);
+        \u0275\u0275text(317, "Learn Religion the AI Way");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(318, "div", 42);
+        \u0275\u0275text(319, "Gita \xB7 Quran \xB7 Bible \xB7 Vedas \xB7 Tripitaka");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(320, "div", 56);
+        \u0275\u0275text(321, "Powered by GPT-4.1");
+        \u0275\u0275domElementEnd()()()();
+        \u0275\u0275domElementStart(322, "div", 44)(323, "div", 45)(324, "span", 57);
+        \u0275\u0275text(325, "\u{1F916} AI APP");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(326, "span", 47);
+        \u0275\u0275text(327, "+750 XP");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(328, "h5", 48);
+        \u0275\u0275text(329, "Religious GPT");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(330, "p", 49);
+        \u0275\u0275text(331, " Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, and more. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(332, "div", 50)(333, "span", 51);
+        \u0275\u0275text(334, "React");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(335, "span", 51);
+        \u0275\u0275text(336, "Node.js");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(337, "span", 51);
+        \u0275\u0275text(338, "GPT-4.1");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(339, "span", 51);
+        \u0275\u0275text(340, "Vercel");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(341, "div", 52)(342, "a", 53);
+        \u0275\u0275text(343, " \u25B6\xA0 Play Demo ");
+        \u0275\u0275domElementEnd()()()();
+        \u0275\u0275domElementStart(344, "div", 58)(345, "a", 35)(346, "div", 59);
+        \u0275\u0275domElement(347, "div", 37);
+        \u0275\u0275domElementStart(348, "div", 38)(349, "div", 39);
+        \u0275\u0275text(350, "\u{1F498}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(351, "div", 40);
+        \u0275\u0275text(352, "DATESENSE");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(353, "div", 41);
+        \u0275\u0275text(354, "AI Dating Conversation Analyst");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(355, "div", 42);
+        \u0275\u0275text(356, "Attraction Score \xB7 Ghosting Risk \xB7 Scam Detection");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(357, "div", 56);
+        \u0275\u0275text(358, "Powered by GPT-4.1 Nano");
+        \u0275\u0275domElementEnd()()()();
+        \u0275\u0275domElementStart(359, "div", 44)(360, "div", 45)(361, "span", 57);
+        \u0275\u0275text(362, "\u{1F916} AI APP");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(363, "span", 47);
+        \u0275\u0275text(364, "+800 XP");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(365, "h5", 48);
+        \u0275\u0275text(366, "DateSense");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(367, "p", 49);
+        \u0275\u0275text(368, " An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Detects potential scam or manipulative patterns through GPT-4.1 Nano. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(369, "div", 50)(370, "span", 51);
+        \u0275\u0275text(371, "Angular");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(372, "span", 51);
+        \u0275\u0275text(373, "GPT-4.1 Nano");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(374, "span", 51);
+        \u0275\u0275text(375, "OCR");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(376, "span", 51);
+        \u0275\u0275text(377, "Vercel");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(378, "div", 52)(379, "a", 53);
+        \u0275\u0275text(380, " \u25B6\xA0 Play Demo ");
+        \u0275\u0275domElementEnd()()()()()();
+        \u0275\u0275domElementStart(381, "div", 60)(382, "div", 2)(383, "div", 3);
+        \u0275\u0275text(384, "\u{1F4E6} ITEM SHOP");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(385, "h2", 4);
+        \u0275\u0275text(386, "Open Source Power-Ups");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(387, "p", 5);
+        \u0275\u0275text(388, "Free collectibles. Pick up and drop into your stack.");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(389, "div", 61);
+        \u0275\u0275repeaterCreate(390, PublicationsComponent_For_391_Template, 2, 4, "button", 62, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(392, "div", 63);
+        \u0275\u0275repeaterCreate(393, PublicationsComponent_For_394_Template, 21, 12, "div", 64, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275domElementEnd()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance(14);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(44);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(42);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(42);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(42);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.walmart, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(40);
+        \u0275\u0275domProperty("href", ctx2.companyLinks.extramarks, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(47);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(34);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(3);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(34);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(3);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(34);
+        \u0275\u0275domProperty("href", ctx2.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(11);
+        \u0275\u0275repeater(ctx2.availableCategories);
+        \u0275\u0275advance(3);
+        \u0275\u0275repeater(ctx2.filteredProjects);
+      }
+    }, dependencies: [CommonModule], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.quest-header[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover   .quest-rank-bar[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.boss-card[_ngcontent-%COMP%]   .quest-rank-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge[_ngcontent-%COMP%]:hover {\n  opacity: 0.85;\n}\n.world-games[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n}\n.quest-platform[_ngcontent-%COMP%] {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline[_ngcontent-%COMP%] {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.walmart-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #93c5fd;\n}\n.extramarks-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row[_ngcontent-%COMP%], \n.rewards-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label[_ngcontent-%COMP%], \n.rewards-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.side-quests-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card[_ngcontent-%COMP%] {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link[_ngcontent-%COMP%] {\n  display: block;\n  text-decoration: none;\n}\n.game-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link[_ngcontent-%COMP%]:hover   .game-screen[_ngcontent-%COMP%] {\n  filter: brightness(1.12);\n}\n.screen-scanlines[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon[_ngcontent-%COMP%] {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press[_ngcontent-%COMP%] {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: _ngcontent-%COMP%_blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body[_ngcontent-%COMP%] {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge[_ngcontent-%COMP%] {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.game-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn[_ngcontent-%COMP%]:hover, \n.shop-filter-btn.active[_ngcontent-%COMP%] {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline[_ngcontent-%COMP%] {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge[_ngcontent-%COMP%] {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn[_ngcontent-%COMP%] {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PublicationsComponent, [{
+    type: Component,
+    args: [{ selector: "app-publications", standalone: true, imports: [CommonModule], template: `<div class="apple-section" id="publications">
+  <div class="apple-container">
+
+    <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 MAIN QUESTS \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+    <div class="section-header quest-header" data-anim="fade-up">
+      <div class="quest-world-label">\u2694 WORLD MAP</div>
+      <h2 class="section-title quest-title" data-text-reveal>Main Quests</h2>
+      <p class="section-subtitle">Real systems. Real scale. Mission logs from the field.</p>
+    </div>
+
+    <div class="pro-projects-grid" data-stagger="150">
+
+      <div class="pro-project-card quest-card games-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
+              <span class="world-icon">\u{1F3AE}</span> Games24x7
+            </a>
+            <span class="quest-platform">My11Circle \xB7 RummyCircle</span>
+          </div>
+          <div class="quest-status">MISSION CLEARED \u2713</div>
+          <h4 class="quest-name">Automated KYC Platform</h4>
+          <p class="quest-tagline">Identity verification at scale \u2014 built from scratch</p>
+          <p class="pro-card-desc">
+            End-to-end document verification system supporting Digilocker, Aadhaar Lite, PAN validation, and OCR-based extraction.
+            Processes 200K+ verifications daily across two gaming platforms with 99.95% uptime via a distributed Kafka pipeline.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">\u26A1 ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Java</span><span>Spring Boot</span><span>Kafka</span><span>Redis</span><span>OCR</span><span>Digilocker API</span><span>AWS</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">\u{1FA99} 200K+ verifications/day</span>
+              <span class="reward-chip">\u2B50 99.95% uptime</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pro-project-card quest-card games-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
+              <span class="world-icon">\u{1F3AE}</span> Games24x7
+            </a>
+            <span class="quest-platform">My11Circle \xB7 RummyCircle</span>
+          </div>
+          <div class="quest-status">MISSION CLEARED \u2713</div>
+          <h4 class="quest-name">Risk Rule Engine</h4>
+          <p class="quest-tagline">Real-time fraud detection powered by ML + graph analysis</p>
+          <p class="pro-card-desc">
+            Built a rule engine that identifies fraudulent user behavior in real time across two platforms.
+            Consumes millions of Kafka messages via pub/sub, runs ML-based scoring through SageMaker,
+            and maps fraud networks using Neptune graph DB \u2014 preventing financial losses at scale.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">\u26A1 ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Java</span><span>Kafka</span><span>SageMaker</span><span>Neptune DB</span><span>Gremlin</span><span>Spring Cloud</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">\u{1FA99} Millions of events/day</span>
+              <span class="reward-chip">\u2B50 Real-time detection</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pro-project-card quest-card games-card boss-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
+              <span class="world-icon">\u{1F3AE}</span> Games24x7
+            </a>
+            <span class="quest-platform">My11Circle</span>
+          </div>
+          <div class="quest-status boss-status">\u{1F47E} BOSS BATTLE CLEARED</div>
+          <h4 class="quest-name">Fantasy Autoscaler</h4>
+          <p class="quest-tagline">ML-powered predictive autoscaling for IPL-level traffic</p>
+          <p class="pro-card-desc">
+            Predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting.
+            Anticipated traffic spikes before they hit, pre-scaling infrastructure ahead of toss time.
+            Successfully handled 10M concurrent users during IPL 2025 with zero downtime.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">\u26A1 ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Kubernetes</span><span>AWS ASG</span><span>ML</span><span>Grafana</span><span>Prometheus</span><span>Java</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip legendary">\u{1F48E} 10M concurrent users</span>
+              <span class="reward-chip legendary">\u{1F3C6} Zero downtime &#64; IPL 2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pro-project-card quest-card games-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
+              <span class="world-icon">\u{1F3AE}</span> Games24x7
+            </a>
+            <span class="quest-platform">My11Circle \xB7 RummyCircle</span>
+          </div>
+          <div class="quest-status">MISSION CLEARED \u2713</div>
+          <h4 class="quest-name">PAJ3 \u2014 Single Sign-On</h4>
+          <p class="quest-tagline">Frictionless mobile-first user onboarding</p>
+          <p class="pro-card-desc">
+            Replaced the traditional email + password registration with a mobile-number-based single sign-on flow.
+            Dramatically reduced onboarding friction, improving user conversion across both gaming platforms
+            with OTP-based authentication and seamless session management.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">\u26A1 ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Java</span><span>Spring Security</span><span>Redis</span><span>OTP</span><span>JWT</span><span>Microservices</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">\u{1FA99} 2 platforms</span>
+              <span class="reward-chip">\u2B50 Mobile-first auth</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pro-project-card quest-card walmart-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-walmart" [href]="companyLinks.walmart" target="_blank" rel="noopener">
+              <span class="world-icon">\u{1F3EA}</span> Walmart
+            </a>
+            <span class="quest-platform">Stores</span>
+          </div>
+          <div class="quest-status">MISSION CLEARED \u2713</div>
+          <h4 class="quest-name">Annual Enrollment</h4>
+          <p class="quest-tagline">Benefits enrollment for 2.2M+ Walmart associates</p>
+          <p class="pro-card-desc">
+            Automated dashboard enabling Walmart associates to check eligibility and sign up for health and wealth benefits \u2014
+            dental coverage, life insurance, bonuses, and more. Served 2.2M+ associates across the US
+            with a streamlined, self-service enrollment experience.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">\u26A1 ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Java 8</span><span>Angular</span><span>JSP</span><span>OneOps</span><span>Jenkins</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">\u{1FA99} 2.2M+ associates</span>
+              <span class="reward-chip">\u2B50 US-wide rollout</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pro-project-card quest-card extramarks-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-extramarks" [href]="companyLinks.extramarks" target="_blank" rel="noopener">
+              <span class="world-icon">\u{1F4DA}</span> Extramarks
+            </a>
+            <span class="quest-platform">Elsa</span>
+          </div>
+          <div class="quest-status">MISSION CLEARED \u2713</div>
+          <h4 class="quest-name">NEMR \u2014 Personalized K-12 Courses</h4>
+          <p class="quest-tagline">Modular course purchasing for students</p>
+          <p class="pro-card-desc">
+            Enabled students to purchase individual subjects, concepts, or courses instead of the full curriculum.
+            Built a personalized K-12 learning experience with granular content access,
+            breaking the monolithic course structure into flexible, affordable modules.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">\u26A1 ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Java 11</span><span>Spring Boot</span><span>MySQL</span><span>Docker</span><span>AWS Cognito</span><span>OAuth2.0</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">\u{1FA99} K-12 platform</span>
+              <span class="reward-chip">\u2B50 Modular pricing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 SIDE QUESTS \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+    <div class="section-header quest-header" data-anim="fade-up" style="margin-top: 6rem;">
+      <div class="quest-world-label">\u{1F3AE} SIDE QUESTS</div>
+      <h2 class="section-title quest-title" data-text-reveal>Side Projects &amp; AI Experiments</h2>
+      <p class="section-subtitle">Passion builds. Shipped for fun, learning, and the love of craft.</p>
+    </div>
+
+    <div class="projects-grid side-quests-grid" data-stagger="150">
+
+      <div class="project-card side-quest-card algo-card" data-anim="fade-up">
+        <a [href]="projectLinks.algorithmVisualizer" target="_blank" rel="noopener" class="game-screen-link">
+          <div class="game-screen algo-screen">
+            <div class="screen-scanlines"></div>
+            <div class="screen-content">
+              <div class="screen-icon">\u{1F9E0}</div>
+              <div class="screen-title">ALGORITHM VISUALIZER</div>
+              <div class="screen-subtitle">DSA Visualizer \xB7 Step-by-Step</div>
+              <div class="screen-tags">Sorting \xB7 Trees \xB7 Graphs \xB7 Backtracking</div>
+              <div class="screen-press">\u25B6 PRESS TO PLAY</div>
+            </div>
+          </div>
+        </a>
+        <div class="card-body side-quest-body">
+          <div class="sq-type-row">
+            <span class="sq-type-badge">\u{1F3AF} WEB APP</span>
+            <span class="sq-xp">+500 XP</span>
+          </div>
+          <h5 class="sq-title">Algorithm Visualizer</h5>
+          <p class="card-text">
+            A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles.
+          </p>
+          <div class="sq-tech-row">
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Tailwind</span>
+            <span class="tech-badge">Web Audio API</span>
+          </div>
+          <div class="sq-action">
+            <a [href]="projectLinks.algorithmVisualizer" class="game-btn game-btn-primary" target="_blank" rel="noopener">
+              \u25B6&nbsp; Play Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card side-quest-card divine-card" data-anim="fade-up">
+        <a [href]="projectLinks.religiousGpt" target="_blank" rel="noopener" class="game-screen-link">
+          <div class="game-screen divine-screen">
+            <div class="screen-scanlines"></div>
+            <div class="screen-content">
+              <div class="screen-icon">\u{1F549}\uFE0F</div>
+              <div class="screen-title">RELIGIOUS GPT</div>
+              <div class="screen-subtitle">Learn Religion the AI Way</div>
+              <div class="screen-tags">Gita \xB7 Quran \xB7 Bible \xB7 Vedas \xB7 Tripitaka</div>
+              <div class="screen-press powered">Powered by GPT-4.1</div>
+            </div>
+          </div>
+        </a>
+        <div class="card-body side-quest-body">
+          <div class="sq-type-row">
+            <span class="sq-type-badge ai-badge">\u{1F916} AI APP</span>
+            <span class="sq-xp">+750 XP</span>
+          </div>
+          <h5 class="sq-title">Religious GPT</h5>
+          <p class="card-text">
+            Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, and more.
+          </p>
+          <div class="sq-tech-row">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">GPT-4.1</span>
+            <span class="tech-badge">Vercel</span>
+          </div>
+          <div class="sq-action">
+            <a [href]="projectLinks.religiousGpt" class="game-btn game-btn-primary" target="_blank" rel="noopener">
+              \u25B6&nbsp; Play Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card side-quest-card datesense-card" data-anim="fade-up">
+        <a [href]="projectLinks.dateSense" target="_blank" rel="noopener" class="game-screen-link">
+          <div class="game-screen datesense-screen">
+            <div class="screen-scanlines"></div>
+            <div class="screen-content">
+              <div class="screen-icon">\u{1F498}</div>
+              <div class="screen-title">DATESENSE</div>
+              <div class="screen-subtitle">AI Dating Conversation Analyst</div>
+              <div class="screen-tags">Attraction Score \xB7 Ghosting Risk \xB7 Scam Detection</div>
+              <div class="screen-press powered">Powered by GPT-4.1 Nano</div>
+            </div>
+          </div>
+        </a>
+        <div class="card-body side-quest-body">
+          <div class="sq-type-row">
+            <span class="sq-type-badge ai-badge">\u{1F916} AI APP</span>
+            <span class="sq-xp">+800 XP</span>
+          </div>
+          <h5 class="sq-title">DateSense</h5>
+          <p class="card-text">
+            An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Detects potential scam or manipulative patterns through GPT-4.1 Nano.
+          </p>
+          <div class="sq-tech-row">
+            <span class="tech-badge">Angular</span>
+            <span class="tech-badge">GPT-4.1 Nano</span>
+            <span class="tech-badge">OCR</span>
+            <span class="tech-badge">Vercel</span>
+          </div>
+          <div class="sq-action">
+            <a [href]="projectLinks.dateSense" class="game-btn game-btn-primary" target="_blank" rel="noopener">
+              \u25B6&nbsp; Play Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 POWER-UPS / OPEN SOURCE \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+  <div class="apple-container" id="open-source" style="margin-top: 6rem;">
+    <div class="section-header quest-header" data-anim="fade-up">
+      <div class="quest-world-label">\u{1F4E6} ITEM SHOP</div>
+      <h2 class="section-title quest-title" data-text-reveal>Open Source Power-Ups</h2>
+      <p class="section-subtitle">Free collectibles. Pick up and drop into your stack.</p>
+    </div>
+
+    <!-- Category Filters styled as game-menu tabs -->
+    <div class="shop-filters" data-anim="fade-up" data-delay="100">
+      @for (category of availableCategories; track category; let i = $index) {
+        <button
+          class="shop-filter-btn"
+          [class.active]="selectedCategory === category"
+          (click)="filterByCategory(category)"
+          [attr.data-aos-delay]="(i + 1) * 100">
+          {{ category }}
+        </button>
+      }
+    </div>
+
+    <div class="open-source-grid powerup-grid">
+      @for (project of filteredProjects; track project; let i = $index) {
+        <div
+          class="open-source-card powerup-card"
+          [attr.data-delay]="(i + 1) * 100"
+          data-anim="fade-up">
+          <div class="powerup-top">
+            <div class="powerup-icon-wrap">
+              <span class="powerup-icon">{{ project.category === 'NPM' ? '\u{1F4E6}' : project.category === 'Maven Central' ? '\u2615' : '\u2B50' }}</span>
+            </div>
+            <div class="powerup-category">{{ project.category }}</div>
+          </div>
+          <div class="card-body powerup-body">
+            <h5 class="powerup-name">{{ project.title }}</h5>
+            <p class="powerup-tagline">{{ project.tagline }}</p>
+            <p class="card-text powerup-desc">{{ project.description }}</p>
+            <div class="powerup-badges">
+              @if (project.badges.version) {
+                <img [src]="project.badges.version" alt="version" class="package-badge">
+              }
+              @if (project.badges.downloads) {
+                <img [src]="project.badges.downloads" alt="downloads" class="package-badge">
+              }
+              @if (project.badges.total) {
+                <img [src]="project.badges.total" alt="total downloads" class="package-badge">
+              }
+              @if (project.badges.java) {
+                <img [src]="project.badges.java" alt="java version" class="package-badge">
+              }
+            </div>
+            <a [href]="project.link" class="game-btn game-btn-secondary powerup-btn" target="_blank" rel="noopener">
+              \u2B07&nbsp; {{ project.linkText }}
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n:host {\n  display: block;\n}\n.quest-header {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card:hover .quest-rank-bar {\n  opacity: 1;\n}\n.boss-card .quest-rank-bar {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge:hover {\n  opacity: 0.85;\n}\n.world-games {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon {\n  font-size: 0.75rem;\n}\n.quest-platform {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card .quest-tagline {\n  color: #fca5a5;\n}\n.walmart-card .quest-tagline {\n  color: #93c5fd;\n}\n.extramarks-card .quest-tagline {\n  color: #fde68a;\n}\n.pro-card-desc {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row,\n.rewards-row {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label,\n.rewards-label {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips span {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.side-quests-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link {\n  display: block;\n  text-decoration: none;\n}\n.game-screen {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link:hover .game-screen {\n  filter: brightness(1.12);\n}\n.screen-scanlines {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action {\n  margin-top: auto;\n}\n.game-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn:hover,\n.shop-filter-btn.active {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
+  }], null, null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 28 });
+})();
+
+// src/app/config/api-config.ts
+var API_CONFIG = {
+  // Base URL for all APIs
+  BASE_URL: "https://epic-backend-f9tfcyn1d-beingmartinbmcs-projects.vercel.app",
+  // API Endpoints
+  ENDPOINTS: {
+    // AI Chat API - used in environment files
+    AI_GENERIC: "/api/generic",
+    // Text-to-Speech API
+    TEXT_TO_SPEECH: "/api/text-to-speech",
+    // Streaming Voice API
+    STREAMING_VOICE: "/api/stream-voice"
+    // Add other endpoints here as needed
+    // MUSIC: '/api/music',
+    // PROFILE: '/api/profile',
+  },
+  // Helper method to get full URL
+  getUrl(endpoint) {
+    return `${this.BASE_URL}${endpoint}`;
+  }
+};
+var AI_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.AI_GENERIC);
+var TTS_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.TEXT_TO_SPEECH);
+var STREAMING_VOICE_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.STREAMING_VOICE);
+
+// src/app/profile/ai-quiz-game/game/mario-entities.ts
+var TILE = 32;
+var GRAVITY = 0.52;
+var JUMP_FORCE = -11;
+var MOVE_SPEED = 3.8;
+var MAX_FALL = 12;
+var Player = class {
+  constructor(x, y) {
+    this.vx = 0;
+    this.vy = 0;
+    this.w = TILE * 0.75;
+    this.h = TILE;
+    this.lives = 3;
+    this.coins = 0;
+    this.score = 0;
+    this.state = "small";
+    this.facing = "right";
+    this.onGround = false;
+    this.invincibleTimer = 0;
+    this.starTimer = 0;
+    this.fireCooldown = 0;
+    this.swimStrokeCooldown = 0;
+    this.x = x;
+    this.y = y;
+  }
+  get box() {
+    return { x: this.x, y: this.y, w: this.w, h: this.h };
+  }
+  grow() {
+    if (this.state === "small") {
+      this.state = "big";
+      this.h = TILE * 1.5;
+      this.y -= TILE * 0.5;
+    } else if (this.state === "big") {
+      this.state = "fire";
+    }
+  }
+  shrink() {
+    if (this.state === "fire") {
+      this.state = "big";
+      this.invincibleTimer = 90;
+    } else if (this.state === "big") {
+      this.state = "small";
+      this.y += TILE * 0.5;
+      this.h = TILE;
+      this.invincibleTimer = 90;
+    }
+  }
+  activateStar() {
+    this.starTimer = 300;
+  }
+  get isBig() {
+    return this.state === "big" || this.state === "fire";
+  }
+};
+var Platform = class {
+  constructor(x, y, w, h, type) {
+    this.hit = false;
+    this.coinCollected = false;
+    this.destroyed = false;
+    this.label = "";
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.type = type;
+  }
+  get box() {
+    return { x: this.x, y: this.y, w: this.w, h: this.h };
+  }
+};
+var Enemy = class {
+  constructor(x, y, type) {
+    this.w = TILE * 0.85;
+    this.h = TILE * 0.85;
+    this.alive = true;
+    this.squashTimer = 0;
+    this.keyword = "";
+    this.x = x;
+    this.y = y;
+    this.type = type;
+    this.vx = type === "koopa" ? -1.5 : -1;
+  }
+  get box() {
+    return { x: this.x, y: this.y, w: this.w, h: this.h };
+  }
+};
+var Coin = class {
+  constructor(x, y) {
+    this.w = TILE * 0.5;
+    this.h = TILE * 0.5;
+    this.collected = false;
+    this.animTimer = 0;
+    this.x = x;
+    this.y = y;
+  }
+  get box() {
+    return { x: this.x, y: this.y, w: this.w, h: this.h };
+  }
+};
+var Fireball = class {
+  constructor(x, y, direction) {
+    this.vy = 0;
+    this.w = TILE * 0.35;
+    this.h = TILE * 0.35;
+    this.alive = true;
+    this.bounces = 0;
+    this.life = 180;
+    this.x = x;
+    this.y = y;
+    this.vx = direction * 6;
+    this.vy = 2;
+  }
+  get box() {
+    return { x: this.x, y: this.y, w: this.w, h: this.h };
+  }
+};
+var FlagPole = class {
+  constructor(x, y, h) {
+    this.x = x;
+    this.y = y;
+    this.h = h;
+  }
+  get box() {
+    return { x: this.x, y: this.y, w: TILE * 0.3, h: this.h };
+  }
+};
+var QuestionBlock = class extends Platform {
+  constructor(x, y, reward = "coin") {
+    super(x, y, TILE, TILE, "question");
+    this.keyword = "";
+    this.reward = reward;
+  }
+};
+var FloatingText = class {
+  constructor(x, y, text, color = "#fff", life = 60) {
+    this.x = x;
+    this.y = y;
+    this.text = text;
+    this.color = color;
+    this.life = life;
+    this.maxLife = life;
+  }
+  get alive() {
+    return this.life > 0;
+  }
+  tick() {
+    this.life--;
+    this.y -= 0.8;
+  }
+};
+var Debris = class {
+  constructor(x, y, vx, vy) {
+    this.life = 30;
+    this.x = x;
+    this.y = y;
+    this.vx = vx;
+    this.vy = vy;
+  }
+  get alive() {
+    return this.life > 0;
+  }
+  tick() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += 0.4;
+    this.life--;
+  }
+};
+var CATEGORY_KEYWORDS = {
+  backend: ["REST API", "CRUD", "Auth", "DB Index", "ORM", "Retry", "Timeout", "Circuit Breaker", "Rate Limit", "Idempotent", "Webhook", "gRPC", "Middleware", "Connection Pool", "Thread Pool"],
+  distributed: ["Kafka", "Partition", "Replication", "Consensus", "Raft", "Shard", "Quorum", "CAP", "Saga", "Event Bus", "Dead Letter", "Backpressure", "Fan-out", "Exactly Once", "Leader Election"],
+  genai: ["RAG", "Embeddings", "Vector DB", "Prompt", "Fine-tune", "Token", "Context Window", "Hallucination", "Eval", "Agent", "Tool Call", "Retrieval", "Chain of Thought", "Guardrails", "RLHF"],
+  platform: ["CI/CD", "k8s", "Docker", "Terraform", "Grafana", "Prometheus", "SLO", "Canary", "Blue-Green", "Feature Flag", "GitOps", "Helm", "Sidecar", "Service Mesh", "Runbook"],
+  architecture: ["Load Balancer", "CDN", "Cache", "CQRS", "Event Source", "Domain", "Hexagonal", "Microservice", "Monolith", "API Gateway", "BFF", "Strangler Fig", "Bounded Context", "Anti-Corruption", "Bulkhead"],
+  leadership: ["RFC", "ADR", "Tech Debt", "Roadmap", "Stakeholder", "Incident", "Postmortem", "On-Call", "Mentoring", "Code Review", "Sprint", "Retro", "OKR", "Scope", "Alignment"]
+};
+var CATEGORY_BUG_KEYWORDS = {
+  backend: ["N+1 Query", "SQL Inject", "Deadlock", "Race Cond", "Null Ref", "Mem Leak", "Timeout", "500 Error", "Auth Bypass", "OOM", "Stale Cache", "CORS Fail"],
+  distributed: ["Split Brain", "Msg Lost", "Data Skew", "Hot Part", "Rebalance", "Offset Lag", "Poison Pill", "Dup Event", "Clock Drift", "Stale Read", "Net Split", "Zombie"],
+  genai: ["Hallucinate", "Token Limit", "Prompt Leak", "Embed Drift", "Eval Fail", "Latency", "Cost Spike", "Guard Fail", "Loop Agent", "Stale Index", "Bad Chunk", "Jailbreak"],
+  platform: ["OOM Kill", "Pod Crash", "Cert Expire", "Drift", "Flaky Test", "Build Fail", "Alert Noise", "Rollback", "DNS Fail", "Port Clash", "Image Pull", "Quota Hit"],
+  architecture: ["Circular Dep", "Tight Couple", "N+1 Svc", "God Class", "Leaky Abs", "Big Ball", "Spaghetti", "Overfit", "Premature", "Bottleneck", "Single Point", "Tech Debt"],
+  leadership: ["Scope Creep", "Bike Shed", "Silo", "Bus Factor", "Gold Plate", "YAGNI", "Not Invented", "Cargo Cult", "Burnout", "Hero Code", "Tunnel Vision", "Stale RFC"]
+};
+
+// src/app/profile/ai-quiz-game/game/mario-renderer.ts
+var SKY_TOP = "#09091a";
+var SKY_BOT = "#16213e";
+var SKY_STAGE_TOP = "#7dd3fc";
+var SKY_STAGE_BOT = "#eff6ff";
+var WATER_TOP = "#082f49";
+var WATER_BOT = "#155e75";
+var GROUND_TOP = "#2d5016";
+var GROUND_SIDE = "#3a6b1e";
+var SKY_GROUND_TOP = "#cbd5e1";
+var SKY_GROUND_SIDE = "#94a3b8";
+var WATER_GROUND_TOP = "#0f766e";
+var WATER_GROUND_SIDE = "#115e59";
+var BRICK_FILL = "#8b4513";
+var BRICK_LINE = "#6b3410";
+var QUESTION_FILL = "#fbbf24";
+var QUESTION_HIT = "#7c6312";
+var PIPE_FILL = "#22c55e";
+var PIPE_DARK = "#16a34a";
+var PLAYER_RED = "#ef4444";
+var PLAYER_BLUE = "#3b82f6";
+var PLAYER_SKIN = "#fcd34d";
+var PLAYER_WHITE = "#f8fafc";
+var FIRE_ORANGE = "#f97316";
+var GOOMBA_BODY = "#8b4513";
+var GOOMBA_FEET = "#5c2d0e";
+var KOOPA_BODY = "#22c55e";
+var KOOPA_SHELL = "#15803d";
+var COIN_COLOR = "#fbbf24";
+var FLAG_POLE_COLOR = "#94a3b8";
+var FLAG_COLOR = "#ef4444";
+var DEBRIS_COLOR = "#a0522d";
+var CATEGORY_COLORS = {
+  backend: { accent: "#f97316", qIcon: "\u{1F344}" },
+  distributed: { accent: "#06b6d4", qIcon: "\u{1F687}" },
+  genai: { accent: "#a855f7", qIcon: "\u{1F916}" },
+  platform: { accent: "#14b8a6", qIcon: "\u{1F6E0}" },
+  architecture: { accent: "#eab308", qIcon: "\u{1F3F0}" },
+  leadership: { accent: "#f43f5e", qIcon: "\u2B50" }
+};
+var MarioRenderer = class {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.frameCount = 0;
+    this.categoryKey = "backend";
+    this.levelType = "ground";
+    this.ctx = canvas.getContext("2d");
+    this.canvasW = canvas.width;
+    this.canvasH = canvas.height;
+    this.ctx.imageSmoothingEnabled = false;
+  }
+  setCategory(cat) {
+    this.categoryKey = cat;
+  }
+  setLevelType(levelType) {
+    this.levelType = levelType;
+  }
+  resize(w, h) {
+    this.canvas.width = w;
+    this.canvas.height = h;
+    this.canvasW = w;
+    this.canvasH = h;
+    this.ctx.imageSmoothingEnabled = false;
+  }
+  render(player, level) {
+    this.frameCount++;
+    const camX = Math.max(0, Math.min(player.x - this.canvasW / 2 + player.w / 2, level.width - this.canvasW));
+    const camY = 0;
+    this.drawBackdrop(camX);
+    this.drawCategoryBanner(level.category);
+    this.ctx.save();
+    this.ctx.translate(-camX, -camY);
+    for (const p of level.platforms) {
+      if (!p.destroyed)
+        this.drawPlatform(p);
+    }
+    for (const qb of level.questionBlocks)
+      this.drawQuestionBlock(qb);
+    for (const coin of level.coins)
+      this.drawCoin(coin);
+    for (const enemy of level.enemies)
+      this.drawEnemy(enemy);
+    for (const fb of level.fireballs)
+      this.drawFireball(fb);
+    for (const d of level.debris)
+      this.drawDebris(d);
+    for (const ft of level.floatingTexts)
+      this.drawFloatingText(ft);
+    this.drawFlagPole(level.flagPole);
+    this.drawPlayer(player);
+    this.ctx.restore();
+  }
+  drawBackdrop(camX) {
+    if (this.levelType === "sky") {
+      this.drawSkyStage(camX);
+      return;
+    }
+    if (this.levelType === "water") {
+      this.drawWaterStage(camX);
+      return;
+    }
+    this.drawSky();
+    this.drawClouds(camX);
+  }
+  drawSky() {
+    const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvasH);
+    grad.addColorStop(0, SKY_TOP);
+    grad.addColorStop(1, SKY_BOT);
+    this.ctx.fillStyle = grad;
+    this.ctx.fillRect(0, 0, this.canvasW, this.canvasH);
+    this.ctx.fillStyle = "rgba(255,255,255,0.15)";
+    for (let i = 0; i < 30; i++) {
+      const sx = (i * 137.5 + 50) % this.canvasW;
+      const sy = (i * 97.3 + 20) % (this.canvasH * 0.5);
+      const size = i % 3 + 1;
+      this.ctx.fillRect(sx, sy, size, size);
+    }
+  }
+  drawClouds(camX) {
+    this.ctx.fillStyle = "rgba(255,255,255,0.06)";
+    for (let i = 0; i < 6; i++) {
+      const cx = (i * 320 + 100 - camX * 0.3) % (this.canvasW + 200) - 50;
+      const cy = 40 + i % 3 * 50;
+      this.ctx.beginPath();
+      this.ctx.arc(cx, cy, 30, 0, Math.PI * 2);
+      this.ctx.arc(cx + 25, cy - 10, 25, 0, Math.PI * 2);
+      this.ctx.arc(cx + 50, cy, 30, 0, Math.PI * 2);
+      this.ctx.fill();
+    }
+  }
+  drawSkyStage(camX) {
+    const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvasH);
+    grad.addColorStop(0, SKY_STAGE_TOP);
+    grad.addColorStop(1, SKY_STAGE_BOT);
+    this.ctx.fillStyle = grad;
+    this.ctx.fillRect(0, 0, this.canvasW, this.canvasH);
+    this.ctx.fillStyle = "rgba(255,255,255,0.9)";
+    this.ctx.beginPath();
+    this.ctx.arc(this.canvasW - 90, 70, 26, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.fillStyle = "rgba(255,255,255,0.5)";
+    for (let i = 0; i < 10; i++) {
+      const cx = (i * 210 + 80 - camX * 0.35) % (this.canvasW + 280) - 80;
+      const cy = 55 + i % 4 * 42;
+      this.ctx.beginPath();
+      this.ctx.arc(cx, cy, 24, 0, Math.PI * 2);
+      this.ctx.arc(cx + 20, cy - 8, 18, 0, Math.PI * 2);
+      this.ctx.arc(cx + 40, cy, 24, 0, Math.PI * 2);
+      this.ctx.fill();
+    }
+  }
+  drawWaterStage(camX) {
+    const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvasH);
+    grad.addColorStop(0, WATER_TOP);
+    grad.addColorStop(1, WATER_BOT);
+    this.ctx.fillStyle = grad;
+    this.ctx.fillRect(0, 0, this.canvasW, this.canvasH);
+    this.ctx.strokeStyle = "rgba(125,211,252,0.35)";
+    this.ctx.lineWidth = 2;
+    for (let i = 0; i < 4; i++) {
+      const waveY = 28 + i * 9;
+      this.ctx.beginPath();
+      for (let x = -40; x <= this.canvasW + 40; x += 18) {
+        const y = waveY + Math.sin((x + camX * 0.25 + i * 22) * 0.03) * 4;
+        if (x === -40)
+          this.ctx.moveTo(x, y);
+        else
+          this.ctx.lineTo(x, y);
+      }
+      this.ctx.stroke();
+    }
+    this.ctx.fillStyle = "rgba(186,230,253,0.3)";
+    for (let i = 0; i < 22; i++) {
+      const bx = (i * 97 + 30 - camX * 0.18) % (this.canvasW + 60) - 20;
+      const by = 50 + i * 37 % (this.canvasH - 80);
+      const r = i % 3 + 2;
+      this.ctx.beginPath();
+      this.ctx.arc(bx, by, r, 0, Math.PI * 2);
+      this.ctx.fill();
+    }
+  }
+  drawCategoryBanner(category) {
+    const catCfg = CATEGORY_COLORS[category] ?? CATEGORY_COLORS["backend"];
+    const label = `${catCfg.qIcon} ${category.toUpperCase()} \xB7 ${this.levelType.toUpperCase()}`;
+    this.ctx.save();
+    this.ctx.globalAlpha = 0.4;
+    this.ctx.fillStyle = catCfg.accent;
+    this.ctx.font = '10px "Press Start 2P", monospace';
+    this.ctx.textAlign = "right";
+    this.ctx.textBaseline = "top";
+    this.ctx.fillText(label, this.canvasW - 8, 8);
+    this.ctx.restore();
+  }
+  drawPlatform(p) {
+    if (p.type === "ground") {
+      const topColor = this.levelType === "sky" ? SKY_GROUND_TOP : this.levelType === "water" ? WATER_GROUND_TOP : GROUND_TOP;
+      const sideColor = this.levelType === "sky" ? SKY_GROUND_SIDE : this.levelType === "water" ? WATER_GROUND_SIDE : GROUND_SIDE;
+      this.ctx.fillStyle = topColor;
+      this.ctx.fillRect(p.x, p.y, p.w, TILE * 0.3);
+      this.ctx.fillStyle = sideColor;
+      this.ctx.fillRect(p.x, p.y + TILE * 0.3, p.w, p.h - TILE * 0.3);
+      this.ctx.strokeStyle = "rgba(0,0,0,0.15)";
+      this.ctx.lineWidth = 1;
+      for (let tx = p.x; tx < p.x + p.w; tx += TILE) {
+        this.ctx.strokeRect(tx, p.y, TILE, p.h);
+      }
+    } else if (p.type === "brick") {
+      const catCfg = CATEGORY_COLORS[this.categoryKey] ?? CATEGORY_COLORS["backend"];
+      this.ctx.fillStyle = BRICK_FILL;
+      this.ctx.fillRect(p.x, p.y, p.w, p.h);
+      this.ctx.strokeStyle = BRICK_LINE;
+      this.ctx.lineWidth = 1;
+      for (let tx = p.x; tx < p.x + p.w; tx += TILE) {
+        for (let ty = p.y; ty < p.y + p.h; ty += TILE) {
+          this.ctx.strokeRect(tx + 1, ty + 1, TILE - 2, TILE - 2);
+          this.ctx.fillStyle = BRICK_LINE;
+          this.ctx.fillRect(tx + TILE / 2 - 0.5, ty, 1, TILE);
+          this.ctx.fillRect(tx, ty + TILE / 2 - 0.5, TILE, 1);
+          this.ctx.fillStyle = BRICK_FILL;
+        }
+      }
+      if (p.label && p.w >= TILE * 2) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.75;
+        this.ctx.fillStyle = catCfg.accent;
+        const fontSize = Math.min(7, Math.floor(p.w / (p.label.length * 4.5)));
+        this.ctx.font = `${Math.max(5, fontSize)}px "Press Start 2P", monospace`;
+        this.ctx.textAlign = "center";
+        this.ctx.textBaseline = "bottom";
+        this.ctx.fillText(p.label, p.x + p.w / 2, p.y - 3);
+        this.ctx.restore();
+      }
+    } else if (p.type === "pipe") {
+      this.ctx.fillStyle = PIPE_FILL;
+      this.ctx.fillRect(p.x, p.y, p.w, p.h);
+      this.ctx.fillStyle = PIPE_DARK;
+      this.ctx.fillRect(p.x, p.y, 4, p.h);
+      this.ctx.fillRect(p.x + p.w - 4, p.y, 4, p.h);
+      this.ctx.fillStyle = PIPE_FILL;
+      this.ctx.fillRect(p.x - 4, p.y, p.w + 8, TILE * 0.4);
+      this.ctx.fillStyle = PIPE_DARK;
+      this.ctx.fillRect(p.x - 4, p.y, 4, TILE * 0.4);
+      this.ctx.fillRect(p.x + p.w, p.y, 4, TILE * 0.4);
+    }
+  }
+  drawQuestionBlock(qb) {
+    const fill = qb.hit ? QUESTION_HIT : QUESTION_FILL;
+    this.ctx.fillStyle = fill;
+    this.ctx.fillRect(qb.x, qb.y, qb.w, qb.h);
+    this.ctx.strokeStyle = "rgba(0,0,0,0.3)";
+    this.ctx.lineWidth = 2;
+    this.ctx.strokeRect(qb.x, qb.y, qb.w, qb.h);
+    this.ctx.textAlign = "center";
+    this.ctx.textBaseline = "middle";
+    if (!qb.hit) {
+      const bounce = Math.sin(this.frameCount * 0.08) * 2;
+      this.ctx.fillStyle = "#fff";
+      this.ctx.font = 'bold 18px "Press Start 2P", monospace';
+      this.ctx.fillText("?", qb.x + qb.w / 2, qb.y + qb.h / 2 + bounce);
+      if (qb.keyword) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.5;
+        this.ctx.fillStyle = "#fff";
+        this.ctx.font = '5px "Press Start 2P", monospace';
+        this.ctx.textAlign = "center";
+        this.ctx.textBaseline = "top";
+        this.ctx.fillText(qb.keyword, qb.x + qb.w / 2, qb.y + qb.h + 2);
+        this.ctx.restore();
+      }
+    } else {
+      this.ctx.fillStyle = "rgba(255,255,255,0.3)";
+      this.ctx.font = 'bold 14px "Press Start 2P", monospace';
+      this.ctx.fillText("X", qb.x + qb.w / 2, qb.y + qb.h / 2);
+    }
+  }
+  drawCoin(coin) {
+    if (coin.collected) {
+      if (coin.animTimer > 0) {
+        coin.animTimer--;
+        this.ctx.globalAlpha = coin.animTimer / 20;
+        this.ctx.fillStyle = COIN_COLOR;
+        this.ctx.beginPath();
+        this.ctx.arc(coin.x + coin.w / 2, coin.y - (20 - coin.animTimer) * 2, coin.w / 2, 0, Math.PI * 2);
+        this.ctx.fill();
+        this.ctx.globalAlpha = 1;
+      }
+      return;
+    }
+    const scaleX = Math.abs(Math.cos(this.frameCount * 0.06));
+    this.ctx.save();
+    this.ctx.translate(coin.x + coin.w / 2, coin.y + coin.h / 2);
+    this.ctx.scale(scaleX, 1);
+    this.ctx.fillStyle = COIN_COLOR;
+    this.ctx.beginPath();
+    this.ctx.arc(0, 0, coin.w / 2, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.strokeStyle = "#d97706";
+    this.ctx.lineWidth = 1.5;
+    this.ctx.stroke();
+    this.ctx.restore();
+  }
+  drawEnemy(enemy) {
+    if (!enemy.alive && enemy.squashTimer <= 0)
+      return;
+    const alpha = enemy.alive ? 1 : enemy.squashTimer / 15;
+    this.ctx.globalAlpha = alpha;
+    if (enemy.type === "goomba") {
+      const squash = enemy.alive ? 1 : 0.3;
+      this.ctx.fillStyle = GOOMBA_BODY;
+      this.ctx.fillRect(enemy.x + 2, enemy.y + enemy.h * (1 - squash), enemy.w - 4, enemy.h * squash);
+      if (enemy.alive) {
+        this.ctx.fillStyle = "#fff";
+        this.ctx.fillRect(enemy.x + enemy.w * 0.25, enemy.y + enemy.h * 0.2, 5, 5);
+        this.ctx.fillRect(enemy.x + enemy.w * 0.6, enemy.y + enemy.h * 0.2, 5, 5);
+        this.ctx.fillStyle = "#000";
+        this.ctx.fillRect(enemy.x + enemy.w * 0.3, enemy.y + enemy.h * 0.25, 3, 3);
+        this.ctx.fillRect(enemy.x + enemy.w * 0.65, enemy.y + enemy.h * 0.25, 3, 3);
+      }
+      this.ctx.fillStyle = GOOMBA_FEET;
+      this.ctx.fillRect(enemy.x, enemy.y + enemy.h - 4, enemy.w * 0.35, 4);
+      this.ctx.fillRect(enemy.x + enemy.w * 0.65, enemy.y + enemy.h - 4, enemy.w * 0.35, 4);
+      if (enemy.alive && enemy.keyword) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.45;
+        this.ctx.fillStyle = "#ff6b6b";
+        this.ctx.font = '5px "Press Start 2P", monospace';
+        this.ctx.textAlign = "center";
+        this.ctx.textBaseline = "top";
+        this.ctx.fillText(enemy.keyword, enemy.x + enemy.w / 2, enemy.y + enemy.h + 2);
+        this.ctx.restore();
+      }
+    } else {
+      this.ctx.fillStyle = KOOPA_SHELL;
+      this.ctx.fillRect(enemy.x + 2, enemy.y + enemy.h * 0.3, enemy.w - 4, enemy.h * 0.5);
+      this.ctx.fillStyle = KOOPA_BODY;
+      this.ctx.fillRect(enemy.x + enemy.w * 0.3, enemy.y, enemy.w * 0.4, enemy.h * 0.35);
+      if (enemy.alive) {
+        this.ctx.fillStyle = "#fff";
+        this.ctx.fillRect(enemy.x + enemy.w * 0.35, enemy.y + 4, 4, 4);
+        this.ctx.fillStyle = "#000";
+        this.ctx.fillRect(enemy.x + enemy.w * 0.38, enemy.y + 5, 2, 2);
+      }
+      if (enemy.alive && enemy.keyword) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.45;
+        this.ctx.fillStyle = "#ff6b6b";
+        this.ctx.font = '5px "Press Start 2P", monospace';
+        this.ctx.textAlign = "center";
+        this.ctx.textBaseline = "top";
+        this.ctx.fillText(enemy.keyword, enemy.x + enemy.w / 2, enemy.y + enemy.h + 2);
+        this.ctx.restore();
+      }
+    }
+    this.ctx.globalAlpha = 1;
+  }
+  drawFireball(fb) {
+    if (!fb.alive)
+      return;
+    this.ctx.save();
+    const pulse = 0.8 + Math.sin(this.frameCount * 0.3) * 0.2;
+    const radius = fb.w / 2 * pulse;
+    this.ctx.shadowColor = FIRE_ORANGE;
+    this.ctx.shadowBlur = 8;
+    this.ctx.fillStyle = FIRE_ORANGE;
+    this.ctx.beginPath();
+    this.ctx.arc(fb.x + fb.w / 2, fb.y + fb.h / 2, radius + 2, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.fillStyle = "#fbbf24";
+    this.ctx.beginPath();
+    this.ctx.arc(fb.x + fb.w / 2, fb.y + fb.h / 2, radius * 0.6, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.shadowColor = "transparent";
+    this.ctx.shadowBlur = 0;
+    this.ctx.restore();
+  }
+  drawFlagPole(fp) {
+    this.ctx.fillStyle = FLAG_POLE_COLOR;
+    this.ctx.fillRect(fp.x + TILE * 0.1, fp.y, TILE * 0.1, fp.h);
+    this.ctx.fillStyle = "#fbbf24";
+    this.ctx.beginPath();
+    this.ctx.arc(fp.x + TILE * 0.15, fp.y, 5, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.fillStyle = FLAG_COLOR;
+    this.ctx.beginPath();
+    this.ctx.moveTo(fp.x + TILE * 0.2, fp.y + 4);
+    this.ctx.lineTo(fp.x + TILE * 0.2 + 24, fp.y + 14);
+    this.ctx.lineTo(fp.x + TILE * 0.2, fp.y + 24);
+    this.ctx.closePath();
+    this.ctx.fill();
+  }
+  drawDebris(d) {
+    if (!d.alive)
+      return;
+    this.ctx.save();
+    this.ctx.globalAlpha = d.life / 30;
+    this.ctx.fillStyle = DEBRIS_COLOR;
+    this.ctx.fillRect(d.x - 4, d.y - 4, 8, 8);
+    this.ctx.strokeStyle = BRICK_LINE;
+    this.ctx.lineWidth = 1;
+    this.ctx.strokeRect(d.x - 4, d.y - 4, 8, 8);
+    this.ctx.restore();
+  }
+  drawFloatingText(ft) {
+    if (!ft.alive)
+      return;
+    this.ctx.save();
+    this.ctx.globalAlpha = Math.min(1, ft.life / (ft.maxLife * 0.3));
+    this.ctx.fillStyle = ft.color;
+    this.ctx.font = '8px "Press Start 2P", monospace';
+    this.ctx.textAlign = "center";
+    this.ctx.textBaseline = "bottom";
+    this.ctx.shadowColor = "rgba(0,0,0,0.7)";
+    this.ctx.shadowBlur = 3;
+    this.ctx.shadowOffsetX = 1;
+    this.ctx.shadowOffsetY = 1;
+    this.ctx.fillText(ft.text, ft.x + TILE / 2, ft.y);
+    this.ctx.restore();
+  }
+  drawPlayer(player) {
+    const blink = player.invincibleTimer > 0 && Math.floor(this.frameCount / 3) % 2 === 0;
+    if (blink)
+      return;
+    const starGlow = player.starTimer > 0;
+    if (starGlow) {
+      const hue = this.frameCount * 8 % 360;
+      this.ctx.shadowColor = `hsl(${hue}, 100%, 60%)`;
+      this.ctx.shadowBlur = 12;
+    }
+    const x = player.x;
+    const y = player.y;
+    const w = player.w;
+    const h = player.h;
+    const flip = player.facing === "left";
+    const isFire = player.state === "fire";
+    const hatColor = isFire ? PLAYER_WHITE : PLAYER_RED;
+    const bodyColor = isFire ? PLAYER_WHITE : PLAYER_RED;
+    const overallColor = isFire ? FIRE_ORANGE : PLAYER_BLUE;
+    this.ctx.save();
+    if (flip) {
+      this.ctx.translate(x + w, y);
+      this.ctx.scale(-1, 1);
+    } else {
+      this.ctx.translate(x, y);
+    }
+    const isSmall = player.state === "small";
+    const headH = isSmall ? h * 0.45 : h * 0.3;
+    const bodyH = isSmall ? h * 0.35 : h * 0.45;
+    const legH = h - headH - bodyH;
+    this.ctx.fillStyle = hatColor;
+    this.ctx.fillRect(w * 0.15, 0, w * 0.7, headH * 0.4);
+    this.ctx.fillRect(w * 0.05, headH * 0.4, w * 0.9, headH * 0.2);
+    this.ctx.fillStyle = PLAYER_SKIN;
+    this.ctx.fillRect(w * 0.15, headH * 0.5, w * 0.7, headH * 0.5);
+    this.ctx.fillStyle = "#000";
+    this.ctx.fillRect(w * 0.55, headH * 0.55, 3, 3);
+    this.ctx.fillStyle = bodyColor;
+    this.ctx.fillRect(w * 0.1, headH, w * 0.8, bodyH * 0.3);
+    this.ctx.fillStyle = overallColor;
+    this.ctx.fillRect(w * 0.15, headH + bodyH * 0.3, w * 0.7, bodyH * 0.7);
+    this.ctx.fillStyle = PLAYER_SKIN;
+    const armW = w * 0.15;
+    this.ctx.fillRect(-armW + 2, headH + 2, armW, bodyH * 0.5);
+    this.ctx.fillRect(w - 2, headH + 2, armW, bodyH * 0.5);
+    this.ctx.fillStyle = overallColor;
+    const legW = w * 0.3;
+    const legY = headH + bodyH;
+    const walkCycle = Math.sin(this.frameCount * 0.2) * 3;
+    const moving = Math.abs(player.vx) > 0.5;
+    this.ctx.fillRect(w * 0.1, legY + (moving ? walkCycle : 0), legW, legH);
+    this.ctx.fillRect(w * 0.6, legY + (moving ? -walkCycle : 0), legW, legH);
+    this.ctx.fillStyle = "#7c2d12";
+    this.ctx.fillRect(w * 0.05, legY + legH - 4 + (moving ? walkCycle : 0), legW + 3, 4);
+    this.ctx.fillRect(w * 0.55, legY + legH - 4 + (moving ? -walkCycle : 0), legW + 3, 4);
+    this.ctx.restore();
+    if (starGlow) {
+      this.ctx.shadowColor = "transparent";
+      this.ctx.shadowBlur = 0;
+    }
+  }
+};
+
+// src/app/profile/ai-quiz-game/game/mario-controls.ts
+var MarioControls = class {
+  constructor() {
+    this.state = { left: false, right: false, jump: false, fire: false };
+    this.keydownHandler = (e) => this.onKeyDown(e);
+    this.keyupHandler = (e) => this.onKeyUp(e);
+  }
+  bind() {
+    window.addEventListener("keydown", this.keydownHandler);
+    window.addEventListener("keyup", this.keyupHandler);
+  }
+  unbind() {
+    window.removeEventListener("keydown", this.keydownHandler);
+    window.removeEventListener("keyup", this.keyupHandler);
+    this.reset();
+  }
+  reset() {
+    this.state = { left: false, right: false, jump: false, fire: false };
+  }
+  getState() {
+    return __spreadValues({}, this.state);
+  }
+  setTouchLeft(active) {
+    this.state.left = active;
+  }
+  setTouchRight(active) {
+    this.state.right = active;
+  }
+  setTouchJump(active) {
+    this.state.jump = active;
+  }
+  setTouchFire(active) {
+    this.state.fire = active;
+  }
+  onKeyDown(e) {
+    switch (e.code) {
+      case "ArrowLeft":
+      case "KeyA":
+        this.state.left = true;
+        e.preventDefault();
+        break;
+      case "ArrowRight":
+      case "KeyD":
+        this.state.right = true;
+        e.preventDefault();
+        break;
+      case "ArrowUp":
+      case "KeyW":
+      case "Space":
+        this.state.jump = true;
+        e.preventDefault();
+        break;
+      case "KeyX":
+      case "KeyZ":
+      case "ShiftLeft":
+      case "ShiftRight":
+        this.state.fire = true;
+        e.preventDefault();
+        break;
+    }
+  }
+  onKeyUp(e) {
+    switch (e.code) {
+      case "ArrowLeft":
+      case "KeyA":
+        this.state.left = false;
+        break;
+      case "ArrowRight":
+      case "KeyD":
+        this.state.right = false;
+        break;
+      case "ArrowUp":
+      case "KeyW":
+      case "Space":
+        this.state.jump = false;
+        break;
+      case "KeyX":
+      case "KeyZ":
+      case "ShiftLeft":
+      case "ShiftRight":
+        this.state.fire = false;
+        break;
+    }
+  }
+};
+
+// src/app/profile/ai-quiz-game/game/mario-physics.ts
+function aabbOverlap(a, b) {
+  return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+}
+function penetration(a, b) {
+  const ox = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+  const oy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
+  if (ox <= 0 || oy <= 0)
+    return null;
+  return { px: ox, py: oy };
+}
+function solidPlatforms(level) {
+  return [
+    ...level.platforms.filter((p) => !p.destroyed),
+    ...level.questionBlocks
+  ];
+}
+function updatePhysics(player, level, keys) {
+  const result = {
+    hitQuestionBlock: null,
+    hitEnemy: null,
+    stompedEnemy: null,
+    fireballKilledEnemies: [],
+    firedFireball: false,
+    brickBroken: null,
+    brickBumped: null,
+    reachedFlag: false,
+    died: false,
+    jumped: false,
+    coinCollected: false
+  };
+  const isWater = level.levelType === "water";
+  const moveSpeed = isWater ? MOVE_SPEED * 0.72 : MOVE_SPEED;
+  const fallLimit = isWater ? MAX_FALL * 0.35 : MAX_FALL;
+  if (keys.left) {
+    player.vx = -moveSpeed;
+    player.facing = "left";
+  } else if (keys.right) {
+    player.vx = moveSpeed;
+    player.facing = "right";
+  } else {
+    player.vx *= isWater ? 0.84 : 0.7;
+    if (Math.abs(player.vx) < 0.2)
+      player.vx = 0;
+  }
+  if (isWater) {
+    if (player.swimStrokeCooldown > 0)
+      player.swimStrokeCooldown--;
+    if (keys.jump && player.swimStrokeCooldown <= 0) {
+      player.vy = Math.min(player.vy - 4.4, -5.4);
+      player.onGround = false;
+      player.swimStrokeCooldown = 10;
+      result.jumped = true;
+    }
+  } else if (keys.jump && player.onGround) {
+    player.vy = JUMP_FORCE;
+    player.onGround = false;
+    result.jumped = true;
+  }
+  player.vy += isWater ? GRAVITY * 0.22 : GRAVITY;
+  if (isWater)
+    player.vy *= 0.94;
+  if (player.vy > fallLimit)
+    player.vy = fallLimit;
+  if (player.fireCooldown > 0)
+    player.fireCooldown--;
+  if (keys.fire && player.state === "fire" && player.fireCooldown <= 0 && level.fireballs.length < 3) {
+    const dir = player.facing === "right" ? 1 : -1;
+    const fx = player.facing === "right" ? player.x + player.w : player.x - TILE * 0.35;
+    const fy = player.y + player.h * 0.4;
+    level.fireballs.push(new Fireball(fx, fy, dir));
+    player.fireCooldown = 15;
+    result.firedFireball = true;
+  }
+  const allPlatforms = solidPlatforms(level);
+  player.x += player.vx;
+  if (player.x < 0)
+    player.x = 0;
+  if (player.x + player.w > level.width)
+    player.x = level.width - player.w;
+  for (const p of allPlatforms) {
+    const pen = penetration(player.box, p.box);
+    if (!pen)
+      continue;
+    const isHittableBlock = p instanceof QuestionBlock && !p.hit || p.type === "brick" && !p.destroyed && p.w <= TILE * 4;
+    if (isHittableBlock && player.vy < 0)
+      continue;
+    if (pen.py > 6) {
+      if (player.vx > 0)
+        player.x = p.x - player.w;
+      else if (player.vx < 0)
+        player.x = p.x + p.w;
+      player.vx = 0;
+    }
+  }
+  player.y += player.vy;
+  player.onGround = false;
+  for (const p of allPlatforms) {
+    const pen = penetration(player.box, p.box);
+    if (!pen)
+      continue;
+    if (player.vy > 0) {
+      player.y = p.y - player.h;
+      player.vy = 0;
+      player.onGround = true;
+    } else if (player.vy < 0) {
+      player.y = p.y + p.h;
+      player.vy = 0;
+      if (p instanceof QuestionBlock && !p.hit) {
+        p.hit = true;
+        result.hitQuestionBlock = p;
+      } else if (p.type === "brick" && !p.destroyed) {
+        if (player.isBig || player.starTimer > 0) {
+          p.destroyed = true;
+          result.brickBroken = p;
+          player.score += 20;
+        } else {
+          result.brickBumped = p;
+        }
+      }
+    }
+  }
+  if (player.y > level.height + 100) {
+    result.died = true;
+    return result;
+  }
+  if (player.invincibleTimer > 0)
+    player.invincibleTimer--;
+  if (player.starTimer > 0)
+    player.starTimer--;
+  for (const coin of level.coins) {
+    if (!coin.collected && aabbOverlap(player.box, coin.box)) {
+      coin.collected = true;
+      coin.animTimer = 20;
+      player.coins++;
+      player.score += 10;
+      result.coinCollected = true;
+    }
+  }
+  for (const enemy of level.enemies) {
+    if (!enemy.alive)
+      continue;
+    if (!aabbOverlap(player.box, enemy.box))
+      continue;
+    if (player.starTimer > 0) {
+      enemy.alive = false;
+      enemy.squashTimer = 15;
+      player.score += 50;
+      result.stompedEnemy = enemy;
+      continue;
+    }
+    const playerBottom = player.y + player.h;
+    const falling = player.vy > 0;
+    if (falling && playerBottom - enemy.y < enemy.h * 0.4) {
+      enemy.alive = false;
+      enemy.squashTimer = 15;
+      player.vy = JUMP_FORCE * 0.6;
+      player.score += 50;
+      result.stompedEnemy = enemy;
+    } else if (player.invincibleTimer <= 0) {
+      result.hitEnemy = enemy;
+    }
+  }
+  for (const fb of level.fireballs) {
+    if (!fb.alive)
+      continue;
+    fb.life--;
+    if (fb.life <= 0) {
+      fb.alive = false;
+      continue;
+    }
+    fb.x += fb.vx;
+    fb.vy += isWater ? GRAVITY * 0.18 : GRAVITY * 0.7;
+    fb.y += fb.vy;
+    for (const p of allPlatforms) {
+      if (aabbOverlap(fb.box, p.box)) {
+        if (fb.vy > 0) {
+          fb.y = p.y - fb.h;
+          fb.vy = -5;
+          fb.bounces++;
+          if (fb.bounces > 4)
+            fb.alive = false;
+        } else {
+          fb.alive = false;
+        }
+        break;
+      }
+    }
+    if (fb.x < 0 || fb.x > level.width) {
+      fb.alive = false;
+      continue;
+    }
+    if (!fb.alive)
+      continue;
+    for (const enemy of level.enemies) {
+      if (!enemy.alive)
+        continue;
+      if (aabbOverlap(fb.box, enemy.box)) {
+        enemy.alive = false;
+        enemy.squashTimer = 15;
+        fb.alive = false;
+        player.score += 50;
+        result.fireballKilledEnemies.push(enemy);
+        break;
+      }
+    }
+  }
+  level.fireballs = level.fireballs.filter((fb) => fb.alive);
+  for (const enemy of level.enemies) {
+    if (!enemy.alive) {
+      if (enemy.squashTimer > 0)
+        enemy.squashTimer--;
+      continue;
+    }
+    enemy.x += enemy.vx * (isWater ? 0.6 : 1);
+    let hitWall = false;
+    for (const p of allPlatforms) {
+      if (aabbOverlap(enemy.box, p.box)) {
+        if (enemy.vx > 0)
+          enemy.x = p.x - enemy.w;
+        else
+          enemy.x = p.x + p.w;
+        enemy.vx *= -1;
+        hitWall = true;
+        break;
+      }
+    }
+    if (!hitWall) {
+      let landed = false;
+      for (const p of allPlatforms) {
+        const feetBox = { x: enemy.x, y: enemy.y + enemy.h, w: enemy.w, h: 2 };
+        if (aabbOverlap(feetBox, p.box)) {
+          enemy.y = p.y - enemy.h;
+          landed = true;
+          break;
+        }
+      }
+      if (!landed)
+        enemy.y += isWater ? 1 : 2;
+    }
+  }
+  for (const ft of level.floatingTexts)
+    ft.tick();
+  for (const d of level.debris)
+    d.tick();
+  level.floatingTexts = level.floatingTexts.filter((ft) => ft.alive);
+  level.debris = level.debris.filter((d) => d.alive);
+  if (aabbOverlap(player.box, level.flagPole.box)) {
+    result.reachedFlag = true;
+  }
+  return result;
+}
+
+// src/app/profile/ai-quiz-game/game/mario-level-generator.ts
+var LEVEL_TILES_WIDE = 96;
+var GROUND_ROW = 12;
+var LEVEL_ROWS = 14;
+var PLAYER_START_X = 3;
+var PLAYER_START_Y = GROUND_ROW - 1;
+var FLAG_POLE_X = LEVEL_TILES_WIDE - 4;
+var SAFE_START_END_X = 7;
+var SAFE_FINISH_START_X = FLAG_POLE_X - 3;
+function getGuideLabel(range) {
+  return range.min === range.max ? `${range.min}` : `${range.min}-${range.max}`;
+}
+function getTargetCount(range) {
+  return Math.round((range.min + range.max) / 2);
+}
+function inRange(value, range) {
+  return value >= range.min && value <= range.max;
+}
+function normalizePlatformType(type) {
+  return type === "brick" || type === "pipe" || type === "ground" ? type : "ground";
+}
+function resolveLevelType(levelType) {
+  return levelType === "sky" || levelType === "water" || levelType === "ground" ? levelType : "ground";
+}
+function getLayoutGuide(difficulty, levelType = "ground") {
+  let guide;
+  if (difficulty === "Hard") {
+    guide = {
+      pipeCount: { min: 4, max: 4 },
+      brickCount: { min: 8, max: 10 },
+      questionCount: { min: 5, max: 7 },
+      enemyCount: { min: 20, max: 24 },
+      coinCount: { min: 30, max: 38 },
+      gapCount: { min: 4, max: 5 },
+      maxGapWidth: 3,
+      brickRows: { min: 6, max: 9 },
+      questionRows: { min: 7, max: 9 },
+      coinRows: { min: 4, max: 10 },
+      enemyZones: [
+        { label: "Zone 1", start: 8, end: 20, min: 3, max: 4, koopaChance: 0.2, note: "warm-up wave with clear approaches" },
+        { label: "Zone 2", start: 22, end: 34, min: 3, max: 4, koopaChance: 0.25, note: "ramp up with a few close pairs" },
+        { label: "Zone 3", start: 36, end: 48, min: 4, max: 5, koopaChance: 0.3, note: "mid-level gauntlet, the densest section" },
+        { label: "Zone 4", start: 50, end: 62, min: 3, max: 4, koopaChance: 0.35, note: "second wave after a brief breather" },
+        { label: "Zone 5", start: 64, end: 76, min: 3, max: 4, koopaChance: 0.4, note: "late pressure with mixed types" },
+        { label: "Zone 6", start: 78, end: 88, min: 3, max: 4, koopaChance: 0.55, note: "final push before the flag", requireKoopa: true }
+      ]
+    };
+  } else if (difficulty === "Medium") {
+    guide = {
+      pipeCount: { min: 3, max: 3 },
+      brickCount: { min: 6, max: 8 },
+      questionCount: { min: 7, max: 9 },
+      enemyCount: { min: 14, max: 18 },
+      coinCount: { min: 26, max: 34 },
+      gapCount: { min: 3, max: 4 },
+      maxGapWidth: 3,
+      brickRows: { min: 6, max: 9 },
+      questionRows: { min: 7, max: 9 },
+      coinRows: { min: 4, max: 10 },
+      enemyZones: [
+        { label: "Zone 1", start: 8, end: 20, min: 2, max: 2, koopaChance: 0.15, note: "warm-up, readable spacing" },
+        { label: "Zone 2", start: 22, end: 34, min: 2, max: 3, koopaChance: 0.2, note: "light ramp with one intentional pair" },
+        { label: "Zone 3", start: 36, end: 48, min: 3, max: 4, koopaChance: 0.25, note: "mid-level pressure zone" },
+        { label: "Zone 4", start: 50, end: 62, min: 2, max: 3, koopaChance: 0.3, note: "short breather then second wave" },
+        { label: "Zone 5", start: 64, end: 76, min: 2, max: 3, koopaChance: 0.35, note: "late challenge, still fair" },
+        { label: "Zone 6", start: 78, end: 88, min: 2, max: 3, koopaChance: 0.45, note: "final push with at least one koopa", requireKoopa: true }
+      ]
+    };
+  } else {
+    guide = {
+      pipeCount: { min: 2, max: 3 },
+      brickCount: { min: 4, max: 6 },
+      questionCount: { min: 8, max: 10 },
+      enemyCount: { min: 9, max: 12 },
+      coinCount: { min: 22, max: 30 },
+      gapCount: { min: 2, max: 3 },
+      maxGapWidth: 2,
+      brickRows: { min: 6, max: 9 },
+      questionRows: { min: 7, max: 9 },
+      coinRows: { min: 4, max: 10 },
+      enemyZones: [
+        { label: "Zone 1", start: 8, end: 20, min: 1, max: 2, koopaChance: 0.1, note: "gentle opening with wide spacing" },
+        { label: "Zone 2", start: 22, end: 34, min: 1, max: 2, koopaChance: 0.15, note: "small ramp, still forgiving" },
+        { label: "Zone 3", start: 36, end: 48, min: 2, max: 3, koopaChance: 0.2, note: "mid-level challenge, readable groupings" },
+        { label: "Zone 4", start: 50, end: 62, min: 1, max: 2, koopaChance: 0.25, note: "short second wave" },
+        { label: "Zone 5", start: 64, end: 76, min: 2, max: 2, koopaChance: 0.3, note: "late challenge without crowding" },
+        { label: "Zone 6", start: 78, end: 88, min: 1, max: 2, koopaChance: 0.35, note: "easy final push before the flag" }
+      ]
+    };
+  }
+  if (levelType === "sky") {
+    return __spreadProps(__spreadValues({}, guide), {
+      pipeCount: { min: 0, max: 0 },
+      brickCount: { min: guide.brickCount.min + 2, max: guide.brickCount.max + 3 },
+      questionCount: { min: guide.questionCount.min + 1, max: guide.questionCount.max + 1 },
+      coinCount: { min: guide.coinCount.min + 4, max: guide.coinCount.max + 6 },
+      gapCount: { min: Math.max(guide.gapCount.min, 3), max: guide.gapCount.max + 1 },
+      brickRows: { min: 4, max: 7 },
+      questionRows: { min: 5, max: 8 },
+      coinRows: { min: 2, max: 8 },
+      enemyZones: guide.enemyZones.map((zone) => __spreadProps(__spreadValues({}, zone), { note: `${zone.note}; emphasize elevated jumps between platforms` }))
+    });
+  }
+  if (levelType === "water") {
+    return __spreadProps(__spreadValues({}, guide), {
+      pipeCount: { min: 0, max: 0 },
+      brickCount: { min: guide.brickCount.min + 1, max: guide.brickCount.max + 2 },
+      questionCount: { min: guide.questionCount.min, max: guide.questionCount.max + 1 },
+      coinCount: { min: guide.coinCount.min + 2, max: guide.coinCount.max + 4 },
+      gapCount: { min: 0, max: 0 },
+      maxGapWidth: 0,
+      brickRows: { min: 7, max: 10 },
+      questionRows: { min: 6, max: 9 },
+      coinRows: { min: 5, max: 10 },
+      enemyZones: guide.enemyZones.map((zone) => __spreadProps(__spreadValues({}, zone), { note: `${zone.note}; leave more open water to swim through` }))
+    });
+  }
+  return guide;
+}
+function getLevelTypePrompt(levelType) {
+  if (levelType === "sky") {
+    return "Sky stage: floating platforms, airy jumps, sparse ground, and lots of vertical coin trails. Keep the route readable and fun to hop across.";
+  }
+  if (levelType === "water") {
+    return "Water stage: underwater course with a swimmable route, continuous seabed, low-to-mid platforms, and dense coin trails that reward exploration. Avoid giant pits and keep room to swim.";
+  }
+  return "Ground stage: classic Mario overworld with solid footing, staged gaps, and a balanced mix of ground hazards and platforming.";
+}
+function assignRewards(count) {
+  const rewards = [];
+  for (let i = 0; i < count; i++) {
+    const roll = Math.random();
+    if (roll < 0.15)
+      rewards.push("star");
+    else if (roll < 0.45)
+      rewards.push("mushroom");
+    else
+      rewards.push("coin");
+  }
+  return rewards;
+}
+function shuffleKeywords(pool) {
+  const arr = [...pool];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+function markCoveredTiles(tiles, startX, width) {
+  const from2 = Math.max(0, Math.floor(startX));
+  const to = Math.min(tiles.length, Math.ceil(startX + Math.max(1, width)));
+  for (let tx = from2; tx < to; tx++) {
+    tiles[tx] = true;
+  }
+}
+function parseLevelFromAI(raw) {
+  try {
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if (!jsonMatch)
+      return null;
+    const data = JSON.parse(jsonMatch[0]);
+    if (data.platforms && Array.isArray(data.platforms))
+      return data;
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
+function validateAILevelData(data, config3) {
+  const levelType = resolveLevelType(data.levelType ?? config3.levelType);
+  const guide = getLayoutGuide(config3.difficulty, levelType);
+  const issues = [];
+  const platforms = data.platforms ?? [];
+  const questionBlocks = data.questionBlocks ?? [];
+  const enemies = data.enemies ?? [];
+  const coins = data.coins ?? [];
+  const groundTiles = new Array(LEVEL_TILES_WIDE).fill(false);
+  const pipeTiles = new Array(LEVEL_TILES_WIDE).fill(false);
+  const enemyKeywords = /* @__PURE__ */ new Set();
+  const zoneCounts = guide.enemyZones.map(() => 0);
+  const requiredKoopas = guide.enemyZones.map(() => 0);
+  let pipeCount = 0;
+  let brickCount = 0;
+  if (data.levelType && data.levelType !== levelType) {
+    issues.push(`levelType must be "${levelType}".`);
+  }
+  for (const p of platforms) {
+    const width = Math.max(1, Math.floor(p.width || 1));
+    const type = normalizePlatformType(p.type);
+    if (!Number.isFinite(p.x) || !Number.isFinite(p.y) || !Number.isFinite(width)) {
+      issues.push("Every platform must have finite x, y, and width values.");
+      continue;
+    }
+    if (p.x < 0 || p.y < 0 || p.y >= LEVEL_ROWS || p.x + width > LEVEL_TILES_WIDE) {
+      issues.push(`Platform ${type} at (${p.x}, ${p.y}) is out of bounds.`);
+    }
+    if (type === "ground" && p.y === GROUND_ROW) {
+      markCoveredTiles(groundTiles, p.x, width);
+    }
+    if (type === "pipe") {
+      pipeCount++;
+      markCoveredTiles(pipeTiles, p.x, width);
+      if (p.x <= SAFE_START_END_X || p.x >= SAFE_FINISH_START_X) {
+        issues.push(`Pipe at x=${p.x} is inside a protected start/finish zone.`);
+      }
+    }
+    if (type === "brick") {
+      brickCount++;
+      if (!p.label) {
+        issues.push(`Brick platform at (${p.x}, ${p.y}) is missing a label.`);
+      }
+      if (!inRange(p.y, guide.brickRows)) {
+        issues.push(`Brick platform at y=${p.y} is outside the allowed brick rows.`);
+      }
+    }
+  }
+  for (let tx = 0; tx <= SAFE_START_END_X; tx++) {
+    if (!groundTiles[tx]) {
+      issues.push("The start zone must be flat ground with no gaps.");
+      break;
+    }
+  }
+  for (let tx = SAFE_FINISH_START_X; tx < FLAG_POLE_X; tx++) {
+    if (!groundTiles[tx]) {
+      issues.push("The finish approach must stay flat with no gaps.");
+      break;
+    }
+  }
+  let gapCount = 0;
+  let gapStart = -1;
+  for (let tx = SAFE_START_END_X + 1; tx < SAFE_FINISH_START_X; tx++) {
+    if (!groundTiles[tx]) {
+      if (gapStart === -1)
+        gapStart = tx;
+      continue;
+    }
+    if (gapStart !== -1) {
+      gapCount++;
+      if (tx - gapStart > guide.maxGapWidth) {
+        issues.push(`Gap from x=${gapStart} to x=${tx - 1} is too wide for ${config3.difficulty}.`);
+      }
+      gapStart = -1;
+    }
+  }
+  if (gapStart !== -1) {
+    gapCount++;
+    if (SAFE_FINISH_START_X - gapStart > guide.maxGapWidth) {
+      issues.push(`Gap from x=${gapStart} to x=${SAFE_FINISH_START_X - 1} is too wide for ${config3.difficulty}.`);
+    }
+  }
+  if (!inRange(pipeCount, guide.pipeCount)) {
+    issues.push(`Pipe count ${pipeCount} is outside the ${config3.difficulty} range ${getGuideLabel(guide.pipeCount)}.`);
+  }
+  if (!inRange(brickCount, guide.brickCount)) {
+    issues.push(`Brick count ${brickCount} is outside the ${config3.difficulty} range ${getGuideLabel(guide.brickCount)}.`);
+  }
+  if (!inRange(questionBlocks.length, guide.questionCount)) {
+    issues.push(`Question block count ${questionBlocks.length} is outside the ${config3.difficulty} range ${getGuideLabel(guide.questionCount)}.`);
+  }
+  if (!inRange(enemies.length, guide.enemyCount)) {
+    issues.push(`Enemy count ${enemies.length} is outside the ${config3.difficulty} range ${getGuideLabel(guide.enemyCount)}.`);
+  }
+  if (!inRange(coins.length, guide.coinCount)) {
+    issues.push(`Coin count ${coins.length} is outside the ${config3.difficulty} range ${getGuideLabel(guide.coinCount)}.`);
+  }
+  if (!inRange(gapCount, guide.gapCount)) {
+    issues.push(`Gap count ${gapCount} is outside the ${config3.difficulty} range ${getGuideLabel(guide.gapCount)}.`);
+  }
+  questionBlocks.forEach((qb) => {
+    if (qb.x < 0 || qb.x >= LEVEL_TILES_WIDE || qb.y < 0 || qb.y >= LEVEL_ROWS) {
+      issues.push(`Question block at (${qb.x}, ${qb.y}) is out of bounds.`);
+    }
+    if (!qb.keyword) {
+      issues.push(`Question block at (${qb.x}, ${qb.y}) is missing a keyword.`);
+    }
+    if (!inRange(qb.y, guide.questionRows)) {
+      issues.push(`Question block at y=${qb.y} is outside the allowed rows.`);
+    }
+  });
+  coins.forEach((coin) => {
+    if (coin.x < 0 || coin.x >= LEVEL_TILES_WIDE || coin.y < 0 || coin.y >= LEVEL_ROWS) {
+      issues.push(`Coin at (${coin.x}, ${coin.y}) is out of bounds.`);
+    }
+    if (!inRange(coin.y, guide.coinRows)) {
+      issues.push(`Coin at y=${coin.y} is outside the allowed rows.`);
+    }
+  });
+  enemies.forEach((enemy) => {
+    if (enemy.x < 0 || enemy.x >= LEVEL_TILES_WIDE || enemy.y < 0 || enemy.y >= LEVEL_ROWS) {
+      issues.push(`Enemy at (${enemy.x}, ${enemy.y}) is out of bounds.`);
+      return;
+    }
+    if (enemy.y !== GROUND_ROW - 1) {
+      issues.push(`Enemy at x=${enemy.x} must be placed at y=${GROUND_ROW - 1}.`);
+    }
+    if (enemy.x <= SAFE_START_END_X || enemy.x >= SAFE_FINISH_START_X) {
+      issues.push(`Enemy at x=${enemy.x} is inside a protected start/finish zone.`);
+    }
+    if (!groundTiles[Math.floor(enemy.x)]) {
+      issues.push(`Enemy at x=${enemy.x} is not standing on ground.`);
+    }
+    if (pipeTiles[Math.floor(enemy.x)]) {
+      issues.push(`Enemy at x=${enemy.x} overlaps a pipe footprint.`);
+    }
+    if (!enemy.keyword) {
+      issues.push(`Enemy at x=${enemy.x} is missing a keyword.`);
+    } else if (enemyKeywords.has(enemy.keyword)) {
+      issues.push(`Enemy keyword "${enemy.keyword}" must be unique.`);
+    } else {
+      enemyKeywords.add(enemy.keyword);
+    }
+    const zoneIndex = guide.enemyZones.findIndex((zone) => enemy.x >= zone.start && enemy.x <= zone.end);
+    if (zoneIndex === -1) {
+      issues.push(`Enemy at x=${enemy.x} is outside the allowed enemy zones.`);
+      return;
+    }
+    zoneCounts[zoneIndex]++;
+    if (guide.enemyZones[zoneIndex].requireKoopa && enemy.type === "koopa") {
+      requiredKoopas[zoneIndex]++;
+    }
+  });
+  guide.enemyZones.forEach((zone, index) => {
+    if (!inRange(zoneCounts[index], { min: zone.min, max: zone.max })) {
+      issues.push(`${zone.label} enemy count ${zoneCounts[index]} is outside the expected ${zone.min}-${zone.max}.`);
+    }
+    if (zone.requireKoopa && requiredKoopas[index] === 0) {
+      issues.push(`${zone.label} requires at least one koopa.`);
+    }
+  });
+  if (data.flagPole?.x !== void 0 && data.flagPole.x !== FLAG_POLE_X) {
+    issues.push(`Flag pole must be placed at x=${FLAG_POLE_X}.`);
+  }
+  return { valid: issues.length === 0, issues };
+}
+function buildLevelFromData(data, config3) {
+  const platforms = [];
+  const enemies = [];
+  const coins = [];
+  const questionBlocks = [];
+  const category = config3.category || "backend";
+  const levelType = resolveLevelType(data.levelType ?? config3.levelType);
+  const fallbackKw = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS["backend"]);
+  const fallbackBug = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS["backend"]);
+  let kwIdx = 0;
+  let bugIdx = 0;
+  const levelW = LEVEL_TILES_WIDE * TILE;
+  const levelH = LEVEL_ROWS * TILE;
+  if (data.platforms) {
+    for (const p of data.platforms) {
+      const type = normalizePlatformType(p.type);
+      const plat = new Platform(p.x * TILE, p.y * TILE, (p.width || 1) * TILE, TILE * (type === "ground" ? 2 : 1), type);
+      if (type === "brick") {
+        plat.label = p.label || fallbackKw[kwIdx++ % fallbackKw.length];
+      }
+      platforms.push(plat);
+    }
+  }
+  if (data.questionBlocks) {
+    const fallbackRewards = assignRewards(data.questionBlocks.length);
+    data.questionBlocks.forEach((qb, i) => {
+      let reward = fallbackRewards[i];
+      if (qb.reward === "star" || qb.reward === "mushroom" || qb.reward === "coin") {
+        reward = qb.reward;
+      }
+      const q = new QuestionBlock(qb.x * TILE, qb.y * TILE, reward);
+      q.keyword = qb.keyword || fallbackKw[kwIdx++ % fallbackKw.length];
+      questionBlocks.push(q);
+    });
+  }
+  if (data.enemies) {
+    for (const e of data.enemies) {
+      const type = e.type === "koopa" ? "koopa" : "goomba";
+      const enemy = new Enemy(e.x * TILE, e.y * TILE, type);
+      enemy.keyword = e.keyword || fallbackBug[bugIdx++ % fallbackBug.length];
+      enemies.push(enemy);
+    }
+  }
+  if (data.coins) {
+    for (const c of data.coins) {
+      coins.push(new Coin(c.x * TILE, c.y * TILE));
+    }
+  }
+  const flagX = data.flagPole?.x ? data.flagPole.x * TILE : FLAG_POLE_X * TILE;
+  const flagPole = new FlagPole(flagX, 3 * TILE, (GROUND_ROW - 3) * TILE);
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
+}
+function generateProceduralLevel(config3) {
+  const platforms = [];
+  const enemies = [];
+  const coins = [];
+  const questionBlocks = [];
+  const category = config3.category || "backend";
+  const levelType = resolveLevelType(config3.levelType);
+  const guide = getLayoutGuide(config3.difficulty, levelType);
+  const keywords = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS["backend"]);
+  const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS["backend"]);
+  let kwIdx = 0;
+  let bugIdx = 0;
+  const levelW = LEVEL_TILES_WIDE * TILE;
+  const levelH = LEVEL_ROWS * TILE;
+  const gY = GROUND_ROW * TILE;
+  const targetGapCount = getTargetCount(guide.gapCount);
+  const plannedGaps = [];
+  const gapStartMin = SAFE_START_END_X + 5;
+  const gapStartMax = SAFE_FINISH_START_X - 6;
+  const gapSpacing = Math.floor((gapStartMax - gapStartMin) / Math.max(1, targetGapCount));
+  for (let i = 0; i < targetGapCount; i++) {
+    const width = guide.maxGapWidth > 2 && Math.random() < 0.35 ? 3 : 2;
+    const jitter = Math.floor(Math.random() * 3) - 1;
+    const rawStart = gapStartMin + i * gapSpacing + jitter;
+    const previousGap = plannedGaps[plannedGaps.length - 1];
+    const minStart = previousGap ? previousGap.start + previousGap.width + 6 : gapStartMin;
+    const start = Math.min(Math.max(rawStart, minStart), gapStartMax - width);
+    plannedGaps.push({ start, width });
+  }
+  let groundStart = 0;
+  for (const gap of plannedGaps) {
+    if (gap.start > groundStart) {
+      platforms.push(new Platform(groundStart * TILE, gY, (gap.start - groundStart) * TILE, 2 * TILE, "ground"));
+    }
+    groundStart = gap.start + gap.width;
+  }
+  if (groundStart < LEVEL_TILES_WIDE) {
+    platforms.push(new Platform(groundStart * TILE, gY, (LEVEL_TILES_WIDE - groundStart) * TILE, 2 * TILE, "ground"));
+  }
+  const pipeCount = getTargetCount(guide.pipeCount);
+  const pipePositions = [];
+  const pipeSpacing = Math.floor((LEVEL_TILES_WIDE - 26) / (pipeCount + 1));
+  for (let i = 0; i < pipeCount; i++) {
+    const px = 12 + pipeSpacing * (i + 1);
+    const ph = 2 * TILE;
+    platforms.push(new Platform(px * TILE, gY - ph, TILE * 2, ph, "pipe"));
+    pipePositions.push(px);
+  }
+  const isNearPipe = (tx) => pipePositions.some((px) => tx >= px - 2 && tx <= px + 3);
+  const brickCount = getTargetCount(guide.brickCount);
+  for (let i = 0; i < brickCount; i++) {
+    let bx;
+    let attempts = 0;
+    do {
+      bx = 8 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 16));
+      attempts++;
+    } while (isNearPipe(bx) && attempts < 20);
+    const by = guide.brickRows.min + Math.floor(Math.random() * (guide.brickRows.max - guide.brickRows.min + 1));
+    const bw = 2 + Math.floor(Math.random() * 3);
+    const brick = new Platform(bx * TILE, by * TILE, bw * TILE, TILE, "brick");
+    brick.label = keywords[kwIdx % keywords.length];
+    kwIdx++;
+    platforms.push(brick);
+  }
+  if (levelType === "sky" || levelType === "water") {
+    const accentCount = levelType === "sky" ? 4 : 2;
+    for (let i = 0; i < accentCount; i++) {
+      const span = Math.floor((SAFE_FINISH_START_X - 16) / (accentCount + 1));
+      const bx = 12 + span * (i + 1) + Math.floor(Math.random() * 3 - 1);
+      const by = levelType === "sky" ? Math.max(3, guide.brickRows.min - 1 + i % 3) : Math.min(GROUND_ROW - 1, guide.brickRows.max - i % 2);
+      const bw = levelType === "sky" ? 4 * TILE : 3 * TILE;
+      const accentPlatform = new Platform(bx * TILE, by * TILE, bw, TILE, "brick");
+      accentPlatform.label = keywords[kwIdx % keywords.length];
+      kwIdx++;
+      platforms.push(accentPlatform);
+    }
+  }
+  const qCount = getTargetCount(guide.questionCount);
+  const spacing = Math.floor((LEVEL_TILES_WIDE - 14) / (qCount + 1));
+  const rewards = assignRewards(qCount);
+  for (let i = 0; i < qCount; i++) {
+    let qx = 6 + spacing * (i + 1) + Math.floor(Math.random() * 3 - 1);
+    if (isNearPipe(qx))
+      qx += 4;
+    const qy = guide.questionRows.min + Math.floor(Math.random() * (guide.questionRows.max - guide.questionRows.min + 1));
+    const qb = new QuestionBlock(qx * TILE, qy * TILE, rewards[i]);
+    qb.keyword = keywords[kwIdx % keywords.length];
+    kwIdx++;
+    questionBlocks.push(qb);
+  }
+  const zones = guide.enemyZones.map((zone) => ({
+    start: zone.start,
+    end: zone.end,
+    count: getTargetCount({ min: zone.min, max: zone.max }),
+    koopaChance: zone.koopaChance,
+    requireKoopa: zone.requireKoopa === true
+  }));
+  zones.forEach((zone, zoneIndex) => {
+    const zoneWidth = zone.end - zone.start;
+    const step = Math.max(3, Math.floor(zoneWidth / (zone.count + 1)));
+    let koopaPlaced = false;
+    for (let i = 0; i < zone.count; i++) {
+      let ex = zone.start + step * (i + 1) + Math.floor(Math.random() * 2 - 1);
+      ex = Math.max(zone.start, Math.min(zone.end - 1, ex));
+      if (isNearPipe(ex))
+        ex += 3;
+      if (ex > zone.end)
+        ex = zone.end - 2;
+      const mustUseKoopa = zone.requireKoopa && !koopaPlaced && i === zone.count - 1;
+      const type = mustUseKoopa || Math.random() < zone.koopaChance ? "koopa" : "goomba";
+      const enemy = new Enemy(ex * TILE, (GROUND_ROW - 1) * TILE, type);
+      enemy.keyword = bugKw[bugIdx % bugKw.length];
+      bugIdx++;
+      enemies.push(enemy);
+      koopaPlaced = koopaPlaced || type === "koopa";
+    }
+  });
+  const coinCount = getTargetCount(guide.coinCount);
+  for (let i = 0; i < coinCount; i++) {
+    let cx;
+    let attempts = 0;
+    do {
+      cx = 5 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 10));
+      attempts++;
+    } while (isNearPipe(cx) && attempts < 15);
+    const cy = guide.coinRows.min + Math.floor(Math.random() * (guide.coinRows.max - guide.coinRows.min + 1));
+    coins.push(new Coin(cx * TILE + TILE * 0.25, cy * TILE + TILE * 0.25));
+  }
+  const flagPole = new FlagPole(FLAG_POLE_X * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
+}
+function createPlayer() {
+  return new Player(PLAYER_START_X * TILE, PLAYER_START_Y * TILE - TILE);
+}
+var CATEGORY_DESCRIPTIONS = {
+  backend: {
+    domain: "Backend Engineering \u2014 APIs, databases, caching, auth, service design",
+    techExamples: "REST API, Circuit Breaker, Connection Pool, Rate Limit, DB Index, gRPC, Middleware, ORM, Idempotent, Retry",
+    bugExamples: "N+1 Query, SQL Injection, Deadlock, Race Condition, Null Ref, Memory Leak, 500 Error, Auth Bypass, OOM, Stale Cache"
+  },
+  distributed: {
+    domain: "Distributed Systems \u2014 messaging, consistency, partitioning, resilience",
+    techExamples: "Kafka, Partition, Replication, Consensus, Raft, Shard, Quorum, Saga, Event Bus, Backpressure",
+    bugExamples: "Split Brain, Msg Lost, Data Skew, Hot Partition, Poison Pill, Dup Event, Clock Drift, Stale Read, Net Split, Zombie"
+  },
+  genai: {
+    domain: "Gen AI & LLM Systems \u2014 RAG, embeddings, prompts, agents, evaluation",
+    techExamples: "RAG, Embeddings, Vector DB, Prompt, Fine-tune, Token, Context Window, Agent, Tool Call, Guardrails",
+    bugExamples: "Hallucinate, Token Limit, Prompt Leak, Embed Drift, Eval Fail, Latency, Cost Spike, Loop Agent, Bad Chunk, Jailbreak"
+  },
+  platform: {
+    domain: "Platform Engineering \u2014 CI/CD, containers, observability, reliability",
+    techExamples: "CI/CD, k8s, Docker, Terraform, Grafana, Prometheus, SLO, Canary, Feature Flag, Service Mesh",
+    bugExamples: "OOM Kill, Pod Crash, Cert Expire, Drift, Flaky Test, Build Fail, Alert Noise, Rollback, DNS Fail, Quota Hit"
+  },
+  architecture: {
+    domain: "System Architecture \u2014 trade-offs, patterns, scale, fault tolerance",
+    techExamples: "Load Balancer, CDN, Cache, CQRS, Event Source, Microservice, API Gateway, BFF, Bounded Context, Bulkhead",
+    bugExamples: "Circular Dep, Tight Couple, God Class, Leaky Abstraction, Spaghetti, Bottleneck, Single Point, Tech Debt, Big Ball of Mud"
+  },
+  leadership: {
+    domain: "Staff Engineering & Leadership \u2014 influence, planning, execution, culture",
+    techExamples: "RFC, ADR, Tech Debt, Roadmap, Stakeholder, Postmortem, Mentoring, Code Review, OKR, Alignment",
+    bugExamples: "Scope Creep, Bikeshed, Silo, Bus Factor, Gold Plate, YAGNI, Cargo Cult, Burnout, Hero Code, Tunnel Vision"
+  }
+};
+function getLevelGenerationPrompt(category, difficulty, requestedLevelType = "ground") {
+  const cat = CATEGORY_DESCRIPTIONS[category] ?? CATEGORY_DESCRIPTIONS["backend"];
+  const levelType = resolveLevelType(requestedLevelType);
+  const guide = getLayoutGuide(difficulty, levelType);
+  const coursePrompt = getLevelTypePrompt(levelType);
+  const zoneGuide = guide.enemyZones.map((zone) => `   - ${zone.label} (x=${zone.start}-${zone.end}): ${zone.note}; ${zone.min}-${zone.max} enemies${zone.requireKoopa ? "; at least 1 koopa" : ""}`).join("\n");
+  return `You are a game level designer building a Mario-style platformer level for a "${cat.domain}" themed world at "${difficulty}" difficulty.
+
+Your output will be checked by a strict validator. Generate a level that is fun, playable, and already satisfies the validation rules.
+
+COURSE STYLE: "${levelType}"
+${coursePrompt}
+
+LAYOUT BLUEPRINT TO FOLLOW:
+{
+  "levelType": "${levelType}",
+  "grid": { "width": ${LEVEL_TILES_WIDE}, "height": ${LEVEL_ROWS}, "groundRow": ${GROUND_ROW}, "playerStart": { "x": ${PLAYER_START_X}, "y": ${PLAYER_START_Y} }, "flagPole": { "x": ${FLAG_POLE_X} } },
+  "safeZones": {
+    "start": { "xRange": [0, ${SAFE_START_END_X}], "rules": ["flat ground", "no enemies", "no pipes", "no gaps"] },
+    "finish": { "xRange": [${SAFE_FINISH_START_X}, ${LEVEL_TILES_WIDE - 1}], "rules": ["flat ground", "no gaps", "no enemies after x=${SAFE_FINISH_START_X - 1}"] }
+  },
+  "difficultyTargets": {
+    "gaps": "${getGuideLabel(guide.gapCount)} gaps, max width ${guide.maxGapWidth} tiles",
+    "pipes": "${getGuideLabel(guide.pipeCount)} pipes, each 2 tiles wide",
+    "brickPlatforms": "${getGuideLabel(guide.brickCount)} rows at y=${guide.brickRows.min}-${guide.brickRows.max}",
+    "questionBlocks": "${getGuideLabel(guide.questionCount)} blocks at y=${guide.questionRows.min}-${guide.questionRows.max}",
+    "enemies": "${getGuideLabel(guide.enemyCount)} total enemies at y=${GROUND_ROW - 1}",
+    "coins": "${getGuideLabel(guide.coinCount)} coins at y=${guide.coinRows.min}-${guide.coinRows.max}"
+  }
+}
+
+PLACE THESE ELEMENTS (all x/y in tile units):
+
+1. GROUND PLATFORMS (type "ground"): continuous segments at y=${GROUND_ROW} with ${getGuideLabel(guide.gapCount)} playable gaps. Cover most of the ${LEVEL_TILES_WIDE}-tile width. Never put a gap in the start or finish safe zones.
+
+2. PIPES (type "pipe"): ${getGuideLabel(guide.pipeCount)} pipes, each 2 tiles wide, placed on the ground and spread across the middle of the level.
+
+3. BRICK PLATFORMS (type "brick"): ${getGuideLabel(guide.brickCount)} floating brick rows at y=${guide.brickRows.min}-${guide.brickRows.max}, each 2-4 tiles wide.
+   Each brick gets a "label" \u2014 a short ${cat.domain.split("\u2014")[0].trim()} concept (1-2 words max).
+   Examples: ${cat.techExamples}
+
+4. QUESTION BLOCKS: ${getGuideLabel(guide.questionCount)} blocks at y=${guide.questionRows.min}-${guide.questionRows.max} (hittable from below).
+   Each gets a "keyword" \u2014 a key concept the player "unlocks".
+   Each gets a "reward": "coin", "mushroom", or "star" (mostly mushroom and coin, 1-2 stars max).
+   Examples: ${cat.techExamples}
+
+5. ENEMIES: ${getGuideLabel(guide.enemyCount)} enemies at y=${GROUND_ROW - 1} (on ground). Type "goomba" or "koopa".
+   CRITICAL \u2014 distribute enemies in staged zones like a real Mario level:
+${zoneGuide}
+   Within each zone, space enemies at least 3 tiles apart except for intentional 2-enemy pairs.
+   Never put more than 3 enemies within a 6-tile span.
+   Keep the breather tiles between zones comparatively light.
+   Each enemy gets a "keyword" \u2014 a bug/anti-pattern that the player "squashes" by stomping it.
+   Make these realistic ${cat.domain.split("\u2014")[0].trim()} bugs. Examples: ${cat.bugExamples}
+   Every enemy MUST have a unique keyword.
+
+6. COINS: ${getGuideLabel(guide.coinCount)} coins at y=${guide.coinRows.min}-${guide.coinRows.max}. Scatter them across the full route.
+
+7. FLAG POLE: {"x": ${FLAG_POLE_X}}
+
+Return ONLY valid JSON, no explanation. Exact format:
+{
+  "levelType": "${levelType}",
+  "platforms": [
+    {"x": 0, "y": 12, "width": 10, "type": "ground"},
+    {"x": 20, "y": 7, "width": 3, "type": "brick", "label": "Rate Limit"}
+  ],
+  "questionBlocks": [
+    {"x": 15, "y": 8, "keyword": "Circuit Breaker", "reward": "mushroom"}
+  ],
+  "enemies": [
+    {"x": 12, "y": 11, "type": "goomba", "keyword": "N+1 Query"},
+    {"x": 25, "y": 11, "type": "koopa", "keyword": "Deadlock"}
+  ],
+  "coins": [{"x": 12, "y": 6}],
+  "flagPole": {"x": ${FLAG_POLE_X}}
+}
+
+SELF-CHECK BEFORE RESPONDING (do not output this checklist):
+- levelType must be exactly "${levelType}"
+- All coordinates in TILE units (not pixels)
+- Ground at y=${GROUND_ROW}. Enemies at y=${GROUND_ROW - 1}. No enemies in gaps or on pipes.
+- No impossible jumps (max gap = ${guide.maxGapWidth} tiles)
+- Start zone x=0-${SAFE_START_END_X} must stay safe and flat.
+- Finish zone x=${SAFE_FINISH_START_X}-${LEVEL_TILES_WIDE - 1} must stay safe and flat.
+- Enemy totals and per-zone counts must match the difficulty blueprint above.
+- Every enemy, brick, and question block must include its keyword/label field.
+- Keywords should be real ${cat.domain.split("\u2014")[0].trim()} terminology, not generic.
+- If any rule fails, fix the layout before emitting the final JSON.`;
+}
+
+// src/app/profile/ai-quiz-game/game/mario-audio.ts
+var audioCtx = null;
+function ctx() {
+  if (!audioCtx)
+    audioCtx = new AudioContext();
+  if (audioCtx.state === "suspended")
+    audioCtx.resume();
+  return audioCtx;
+}
+function playTone(freq, duration, type = "square", vol = 0.12) {
+  try {
+    const ac = ctx();
+    const osc = ac.createOscillator();
+    const gain = ac.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol, ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(1e-3, ac.currentTime + duration);
+    osc.connect(gain).connect(ac.destination);
+    osc.start(ac.currentTime);
+    osc.stop(ac.currentTime + duration);
+  } catch (e) {
+  }
+}
+function playSequence(notes, type = "square", vol = 0.1) {
+  try {
+    const ac = ctx();
+    let t = ac.currentTime;
+    for (const [freq, dur] of notes) {
+      const osc = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(vol, t);
+      gain.gain.exponentialRampToValueAtTime(1e-3, t + dur);
+      osc.connect(gain).connect(ac.destination);
+      osc.start(t);
+      osc.stop(t + dur);
+      t += dur * 0.85;
+    }
+  } catch (e) {
+  }
+}
+var MarioAudio = {
+  jump() {
+    playSequence([[260, 0.06], [340, 0.06], [420, 0.08]], "square", 0.08);
+  },
+  coin() {
+    playSequence([[988, 0.06], [1319, 0.12]], "square", 0.08);
+  },
+  stomp() {
+    playTone(180, 0.08, "square", 0.1);
+    setTimeout(() => playTone(260, 0.06, "square", 0.08), 40);
+  },
+  powerUp() {
+    playSequence([
+      [523, 0.07],
+      [659, 0.07],
+      [784, 0.07],
+      [1047, 0.07],
+      [1319, 0.07],
+      [1568, 0.12]
+    ], "square", 0.07);
+  },
+  hit() {
+    playSequence([[300, 0.08], [200, 0.12]], "sawtooth", 0.1);
+  },
+  die() {
+    playSequence([
+      [494, 0.15],
+      [466, 0.15],
+      [440, 0.15],
+      [330, 0.15],
+      [262, 0.25]
+    ], "triangle", 0.1);
+  },
+  win() {
+    playSequence([
+      [523, 0.1],
+      [659, 0.1],
+      [784, 0.1],
+      [1047, 0.15],
+      [784, 0.1],
+      [1047, 0.25]
+    ], "square", 0.08);
+  },
+  questionBlock() {
+    playSequence([[520, 0.04], [780, 0.06], [1040, 0.08]], "square", 0.06);
+  },
+  brickBreak() {
+    playSequence([[400, 0.03], [300, 0.03], [200, 0.04], [150, 0.06]], "sawtooth", 0.09);
+  },
+  brickBump() {
+    playTone(220, 0.06, "square", 0.07);
+  },
+  fireball() {
+    playSequence([[800, 0.03], [600, 0.03], [400, 0.04]], "sawtooth", 0.07);
+  },
+  fireHit() {
+    playSequence([[500, 0.03], [700, 0.04], [350, 0.05]], "square", 0.08);
+  }
+};
+
+// src/app/profile/ai-quiz-game/game/mario-engine.ts
+var MarioEngine = class {
+  constructor(canvas, callbacks) {
+    this.animFrameId = 0;
+    this.state = "idle";
+    this.lastTime = 0;
+    this.accumulator = 0;
+    this.STEP = 1e3 / 60;
+    this.keywords = [];
+    this.bugKeywords = [];
+    this.keywordIndex = 0;
+    this.bugKeywordIndex = 0;
+    this.elapsedFrames = 0;
+    this.enemiesStomped = 0;
+    this.loop = (time) => {
+      if (this.state !== "running")
+        return;
+      this.animFrameId = requestAnimationFrame(this.loop);
+      const dt = Math.min(time - this.lastTime, 100);
+      this.lastTime = time;
+      this.accumulator += dt;
+      while (this.accumulator >= this.STEP) {
+        this.tick();
+        this.accumulator -= this.STEP;
+      }
+      this.renderer.render(this.player, this.level);
+    };
+    this.renderer = new MarioRenderer(canvas);
+    this.controls = new MarioControls();
+    this.callbacks = callbacks;
+    this.player = createPlayer();
+  }
+  resize(w, h) {
+    this.renderer.resize(w, h);
+  }
+  loadLevel(level) {
+    this.level = level;
+    this.player = createPlayer();
+    this.elapsedFrames = 0;
+    this.enemiesStomped = 0;
+    this.state = "idle";
+    this.keywords = CATEGORY_KEYWORDS[level.category] ?? CATEGORY_KEYWORDS["backend"];
+    this.bugKeywords = CATEGORY_BUG_KEYWORDS[level.category] ?? CATEGORY_BUG_KEYWORDS["backend"];
+    this.keywordIndex = 0;
+    this.bugKeywordIndex = 0;
+    this.renderer.setCategory(level.category);
+    this.renderer.setLevelType(level.levelType);
+  }
+  start() {
+    if (!this.level)
+      return;
+    this.state = "running";
+    this.controls.bind();
+    this.lastTime = performance.now();
+    this.accumulator = 0;
+    this.loop(this.lastTime);
+  }
+  pause() {
+    this.state = "paused";
+    this.controls.reset();
+  }
+  resume() {
+    if (this.state === "paused") {
+      this.state = "running";
+      this.lastTime = performance.now();
+      this.accumulator = 0;
+      this.loop(this.lastTime);
+    }
+  }
+  stop() {
+    this.state = "idle";
+    cancelAnimationFrame(this.animFrameId);
+    this.controls.unbind();
+  }
+  getState() {
+    return this.state;
+  }
+  getControls() {
+    return this.controls;
+  }
+  nextKeyword() {
+    const kw = this.keywords[this.keywordIndex % this.keywords.length];
+    this.keywordIndex++;
+    return kw;
+  }
+  nextBugKeyword() {
+    const kw = this.bugKeywords[this.bugKeywordIndex % this.bugKeywords.length];
+    this.bugKeywordIndex++;
+    return kw;
+  }
+  spawnEnemyKeyword(enemy) {
+    const kw = enemy.keyword || this.nextBugKeyword();
+    this.level.floatingTexts.push(new FloatingText(enemy.x, enemy.y - 8, `\u{1F41B} ${kw}`, "#ff6b6b", 80));
+  }
+  handlePowerUp(qb) {
+    MarioAudio.questionBlock();
+    const kw = qb.keyword || this.nextKeyword();
+    let color = "#fbbf24";
+    switch (qb.reward) {
+      case "star":
+        this.player.activateStar();
+        this.player.score += 200;
+        MarioAudio.powerUp();
+        color = "#f59e0b";
+        break;
+      case "mushroom":
+        if (this.player.state === "big") {
+          MarioAudio.powerUp();
+          color = "#f97316";
+        } else {
+          MarioAudio.powerUp();
+          color = "#22c55e";
+        }
+        this.player.grow();
+        this.player.score += 100;
+        break;
+      case "coin":
+      default:
+        this.player.coins += 3;
+        this.player.score += 50;
+        MarioAudio.coin();
+        color = "#fbbf24";
+        break;
+    }
+    this.level.floatingTexts.push(new FloatingText(qb.x, qb.y - 10, kw, color, 80));
+    this.notifyScore();
+  }
+  handleBrickBreak(brick) {
+    MarioAudio.brickBreak();
+    const cx = brick.x + brick.w / 2;
+    const cy = brick.y + brick.h / 2;
+    this.level.debris.push(new Debris(cx - 6, cy, -2, -5), new Debris(cx + 6, cy, 2, -5), new Debris(cx - 6, cy, -1, -3.5), new Debris(cx + 6, cy, 1, -3.5));
+    if (brick.label) {
+      this.level.floatingTexts.push(new FloatingText(brick.x, brick.y - 8, brick.label, "#ef4444", 70));
+    }
+    this.notifyScore();
+  }
+  tick() {
+    if (this.state !== "running")
+      return;
+    this.elapsedFrames++;
+    const keys = this.controls.getState();
+    const result = updatePhysics(this.player, this.level, keys);
+    this.handleCollisionResult(result);
+  }
+  handleCollisionResult(result) {
+    if (result.jumped)
+      MarioAudio.jump();
+    if (result.firedFireball)
+      MarioAudio.fireball();
+    if (result.coinCollected)
+      MarioAudio.coin();
+    if (result.hitQuestionBlock) {
+      this.handlePowerUp(result.hitQuestionBlock);
+    }
+    if (result.brickBroken) {
+      this.handleBrickBreak(result.brickBroken);
+    }
+    if (result.brickBumped) {
+      MarioAudio.brickBump();
+    }
+    if (result.hitEnemy) {
+      MarioAudio.hit();
+      if (this.player.state === "fire") {
+        this.player.shrink();
+      } else if (this.player.state === "big") {
+        this.player.shrink();
+      } else {
+        this.player.lives--;
+        if (this.player.lives <= 0) {
+          this.state = "lost";
+          cancelAnimationFrame(this.animFrameId);
+          this.controls.unbind();
+          MarioAudio.die();
+          this.callbacks.onDeath();
+          return;
+        }
+        this.player.invincibleTimer = 90;
+      }
+      this.notifyScore();
+    }
+    if (result.stompedEnemy) {
+      MarioAudio.stomp();
+      this.enemiesStomped++;
+      this.spawnEnemyKeyword(result.stompedEnemy);
+      this.notifyScore();
+    }
+    for (const enemy of result.fireballKilledEnemies) {
+      MarioAudio.fireHit();
+      this.enemiesStomped++;
+      this.spawnEnemyKeyword(enemy);
+      this.notifyScore();
+    }
+    if (result.died) {
+      this.player.lives--;
+      if (this.player.lives <= 0) {
+        this.state = "lost";
+        cancelAnimationFrame(this.animFrameId);
+        this.controls.unbind();
+        MarioAudio.die();
+        this.callbacks.onDeath();
+        return;
+      }
+      this.respawn();
+      this.notifyScore();
+    }
+    if (result.reachedFlag) {
+      const timeBonus = Math.max(0, 300 - Math.floor(this.elapsedFrames / 60)) * 2;
+      this.player.score += timeBonus;
+      this.state = "won";
+      cancelAnimationFrame(this.animFrameId);
+      this.controls.unbind();
+      MarioAudio.win();
+      this.notifyScore();
+      this.callbacks.onWin();
+    }
+  }
+  respawn() {
+    const p = createPlayer();
+    this.player.x = p.x;
+    this.player.y = p.y;
+    this.player.vx = 0;
+    this.player.vy = 0;
+    this.player.state = "small";
+    this.player.h = p.h;
+    this.player.invincibleTimer = 120;
+  }
+  notifyScore() {
+    this.callbacks.onScoreChange(this.player.score, this.player.coins, this.player.lives);
+  }
+};
+
+// src/app/profile/ai-quiz-game/ai-quiz-game.component.ts
+var _c02 = ["gameCanvas"];
+var _forTrack05 = ($index, $item) => $item.value;
+function AiQuizGameComponent_Conditional_2_For_14_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r2 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 22);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_14_Template_button_click_0_listener() {
+      const cat_r3 = \u0275\u0275restoreView(_r2).$implicit;
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.selectedCategory = cat_r3.value);
+    });
+    \u0275\u0275elementStart(1, "span", 23);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 24);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 25);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const cat_r3 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275classProp("option-btn--active", ctx_r3.selectedCategory === cat_r3.value);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(cat_r3.icon);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(cat_r3.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(cat_r3.description);
+  }
+}
+function AiQuizGameComponent_Conditional_2_For_20_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 26);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_20_Template_button_click_0_listener() {
+      const d_r6 = \u0275\u0275restoreView(_r5).$implicit;
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.selectedDifficulty = d_r6.value);
+    });
+    \u0275\u0275elementStart(1, "span", 27);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 28);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const d_r6 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275classProp("diff-btn--active", ctx_r3.selectedDifficulty === d_r6.value);
+    \u0275\u0275property("ngClass", "diff-btn--" + d_r6.color);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(d_r6.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(d_r6.description);
+  }
+}
+function AiQuizGameComponent_Conditional_2_For_26_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 22);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_26_Template_button_click_0_listener() {
+      const type_r8 = \u0275\u0275restoreView(_r7).$implicit;
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.selectedLevelType = type_r8.value);
+    });
+    \u0275\u0275elementStart(1, "span", 23);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 24);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 25);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const type_r8 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275classProp("option-btn--active", ctx_r3.selectedLevelType === type_r8.value);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r8.icon);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r8.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r8.description);
+  }
+}
+function AiQuizGameComponent_Conditional_2_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 6)(1, "div", 7);
+    \u0275\u0275text(2, "\u{1F579} MARIO LAB");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "h2", 8);
+    \u0275\u0275text(4, "AI-Powered Platformer");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "p", 9);
+    \u0275\u0275text(6, " A real Mario game. The AI generates the entire level \u2014 platforms, enemies, coins, power-ups. You just play. ");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(7, "div", 10)(8, "div", 11)(9, "div", 12)(10, "h3", 13);
+    \u0275\u0275text(11, "Choose your world");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "div", 14);
+    \u0275\u0275repeaterCreate(13, AiQuizGameComponent_Conditional_2_For_14_Template, 7, 5, "button", 15, _forTrack05);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(15, "div", 12)(16, "h3", 13);
+    \u0275\u0275text(17, "Difficulty");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(18, "div", 16);
+    \u0275\u0275repeaterCreate(19, AiQuizGameComponent_Conditional_2_For_20_Template, 5, 5, "button", 17, _forTrack05);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(21, "div", 12)(22, "h3", 13);
+    \u0275\u0275text(23, "Course Style");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(24, "div", 18);
+    \u0275\u0275repeaterCreate(25, AiQuizGameComponent_Conditional_2_For_26_Template, 7, 5, "button", 15, _forTrack05);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(27, "button", 19);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_Template_button_click_27_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.startGame());
+    });
+    \u0275\u0275element(28, "i", 20);
+    \u0275\u0275text(29, " Start Mission ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(30, "div", 21)(31, "span");
+    \u0275\u0275text(32, "Arrow keys / WASD to move\u2002\xB7\u2002Space / Up to jump or swim stroke\u2002\xB7\u2002X / Z / Shift to throw fireballs (fire mode)");
+    \u0275\u0275elementEnd()()()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance(13);
+    \u0275\u0275repeater(ctx_r3.categories);
+    \u0275\u0275advance(6);
+    \u0275\u0275repeater(ctx_r3.difficulties);
+    \u0275\u0275advance(6);
+    \u0275\u0275repeater(ctx_r3.levelTypes);
+  }
+}
+function AiQuizGameComponent_Conditional_3_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 3)(1, "div", 29)(2, "div", 30);
+    \u0275\u0275text(3, "\u{1F344}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "h3");
+    \u0275\u0275text(5, "Generating your level...");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "p");
+    \u0275\u0275text(7, "AI is building the world \u2014 platforms, enemies, and power-ups");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "div", 31);
+    \u0275\u0275element(9, "div", 32);
+    \u0275\u0275elementEnd()()();
+  }
+}
+function AiQuizGameComponent_Conditional_4_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r9 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 4)(1, "div", 33)(2, "div", 34)(3, "span", 35);
+    \u0275\u0275text(4, "\u2764\uFE0F");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 36);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(7, "div", 34)(8, "span", 35);
+    \u0275\u0275text(9, "\u{1FA99}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(10, "span", 36);
+    \u0275\u0275text(11);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(12, "div", 34)(13, "span", 35);
+    \u0275\u0275text(14, "\u2B50");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(15, "span", 36);
+    \u0275\u0275text(16);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(17, "div", 37)(18, "span", 36);
+    \u0275\u0275text(19);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(20, "div", 37)(21, "span", 36);
+    \u0275\u0275text(22);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(23, "div", 38);
+    \u0275\u0275element(24, "canvas", null, 0);
+    \u0275\u0275elementStart(26, "div", 39)(27, "div", 40)(28, "button", 41);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_28_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_28_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_28_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_28_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
+    });
+    \u0275\u0275text(29, "\u25C0");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(30, "button", 42);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_30_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchRight(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_30_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchRight(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_30_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchRight(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_30_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchRight(false));
+    });
+    \u0275\u0275text(31, "\u25B6");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(32, "div", 43)(33, "button", 44);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_33_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchJump(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_33_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchJump(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_33_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchJump(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_33_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchJump(false));
+    });
+    \u0275\u0275text(34, "\u25B2");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(35, "button", 45);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_35_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchFire(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_35_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchFire(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_35_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchFire(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_35_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchFire(false));
+    });
+    \u0275\u0275text(36, "\u{1F525}");
+    \u0275\u0275elementEnd()()()()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate(ctx_r3.lives);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(ctx_r3.coins);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(ctx_r3.score);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.getCategoryLabel());
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.getLevelTypeLabel());
+  }
+}
+function AiQuizGameComponent_Conditional_5_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r10 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 5)(1, "div", 46)(2, "div", 47);
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "h3", 48);
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "p", 49);
+    \u0275\u0275text(7);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "div", 50)(9, "div", 51)(10, "span", 52);
+    \u0275\u0275text(11, "Score");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "span", 53);
+    \u0275\u0275text(13);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(14, "div", 51)(15, "span", 52);
+    \u0275\u0275text(16, "Coins");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(17, "span", 53);
+    \u0275\u0275text(18);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(19, "div", 51)(20, "span", 52);
+    \u0275\u0275text(21, "Enemies");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "span", 53);
+    \u0275\u0275text(23);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(24, "div", 54)(25, "button", 19);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_5_Template_button_click_25_listener() {
+      \u0275\u0275restoreView(_r10);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.restartGame());
+    });
+    \u0275\u0275element(26, "i", 55);
+    \u0275\u0275text(27, " Play Again ");
+    \u0275\u0275elementEnd()()()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.won ? "\u{1F3C6}" : "\u{1F480}");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.won ? "Level Complete!" : "Game Over");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.getResultMessage());
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate(ctx_r3.score);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(ctx_r3.coins);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(ctx_r3.enemiesStomped);
+  }
+}
+var AiQuizGameComponent = class _AiQuizGameComponent {
+  constructor(http, zone, cdr) {
+    this.http = http;
+    this.zone = zone;
+    this.cdr = cdr;
+    this.viewState = "setup";
+    this.selectedCategory = "backend";
+    this.selectedDifficulty = "Medium";
+    this.selectedLevelType = "ground";
+    this.score = 0;
+    this.coins = 0;
+    this.lives = 3;
+    this.won = false;
+    this.enemiesStomped = 0;
+    this.engine = null;
+    this.resizeObserver = null;
+    this.categories = [
+      { value: "backend", label: "Backend Foundations", icon: "\u{1F344}", description: "APIs, data flows, idempotency, service design" },
+      { value: "distributed", label: "Distributed Systems", icon: "\u{1F687}", description: "Kafka, queues, caching, consistency, resilience" },
+      { value: "genai", label: "Gen AI Systems", icon: "\u{1F916}", description: "RAG, evals, prompts, agents, product quality" },
+      { value: "platform", label: "Platform Engineering", icon: "\u{1F6E0}\uFE0F", description: "Observability, CI/CD, reliability, tooling leverage" },
+      { value: "architecture", label: "System Design", icon: "\u{1F3F0}", description: "Trade-offs, scale paths, fault tolerance, throughput" },
+      { value: "leadership", label: "Staff Engineering", icon: "\u2B50", description: "Cross-team influence, prioritization, technical leadership" }
+    ];
+    this.difficulties = [
+      { value: "Easy", label: "Warm-Up", description: "Fewer enemies, more power-ups", color: "success" },
+      { value: "Medium", label: "Speed Run", description: "Balanced challenge", color: "warning" },
+      { value: "Hard", label: "Boss Fight", description: "Dense enemies, big gaps", color: "danger" }
+    ];
+    this.levelTypes = [
+      { value: "ground", label: "Ground Run", icon: "\u{1F33F}", description: "Classic overworld with staged gaps and grounded enemy waves" },
+      { value: "sky", label: "Sky Jump", icon: "\u2601\uFE0F", description: "Airy platform chains, higher jumps, and floating routes" },
+      { value: "water", label: "Water Swim", icon: "\u{1F30A}", description: "Underwater movement, dense coins, and safer seabed routes" }
+    ];
+  }
+  ngOnDestroy() {
+    this.engine?.stop();
+    this.resizeObserver?.disconnect();
+  }
+  startGame() {
+    return __async(this, null, function* () {
+      this.viewState = "loading";
+      this.score = 0;
+      this.coins = 0;
+      this.lives = 3;
+      this.won = false;
+      this.enemiesStomped = 0;
+      const config3 = {
+        difficulty: this.selectedDifficulty,
+        category: this.selectedCategory,
+        levelType: this.selectedLevelType
+      };
+      let level;
+      try {
+        const [levelResult] = yield Promise.allSettled([this.generateAILevel(config3)]);
+        if (levelResult.status === "fulfilled" && levelResult.value) {
+          level = levelResult.value;
+        } else {
+          level = generateProceduralLevel(config3);
+        }
+      } catch (e) {
+        level = generateProceduralLevel(config3);
+      }
+      this.viewState = "playing";
+      this.cdr.detectChanges();
+      this.zone.runOutsideAngular(() => {
+        requestAnimationFrame(() => this.initGame(level));
+      });
+    });
+  }
+  initGame(level) {
+    const canvas = this.canvasRef.nativeElement;
+    const container = canvas.parentElement;
+    this.engine = new MarioEngine(canvas, {
+      onDeath: () => this.zone.run(() => this.handleDeath()),
+      onWin: () => this.zone.run(() => this.handleWin()),
+      onScoreChange: (s, c, l) => this.zone.run(() => {
+        this.score = s;
+        this.coins = c;
+        this.lives = l;
+      })
+    });
+    const resize = () => {
+      const w = container.clientWidth;
+      const h = Math.round(Math.min(w * 0.5625, 480));
+      canvas.width = w;
+      canvas.height = h;
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+      this.engine?.resize(w, h);
+    };
+    resize();
+    this.resizeObserver = new ResizeObserver(resize);
+    this.resizeObserver.observe(container);
+    this.engine.loadLevel(level);
+    setTimeout(() => this.engine?.start(), 200);
+  }
+  handleDeath() {
+    this.won = false;
+    this.enemiesStomped = this.engine?.enemiesStomped ?? 0;
+    this.viewState = "results";
+    this.engine?.stop();
+  }
+  handleWin() {
+    this.won = true;
+    this.score = this.engine?.player.score ?? this.score;
+    this.enemiesStomped = this.engine?.enemiesStomped ?? 0;
+    this.viewState = "results";
+    this.engine?.stop();
+  }
+  restartGame() {
+    this.engine?.stop();
+    this.resizeObserver?.disconnect();
+    this.viewState = "setup";
+  }
+  touchLeft(active) {
+    this.engine?.getControls().setTouchLeft(active);
+  }
+  touchRight(active) {
+    this.engine?.getControls().setTouchRight(active);
+  }
+  touchJump(active) {
+    this.engine?.getControls().setTouchJump(active);
+  }
+  touchFire(active) {
+    this.engine?.getControls().setTouchFire(active);
+  }
+  generateAILevel(config3) {
+    return __async(this, null, function* () {
+      const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty, this.selectedLevelType);
+      try {
+        const response = yield firstValueFrom(this.http.post(AI_API_URL, {
+          prompt,
+          context: "Generate a Mario-style level layout as JSON that follows the provided layout blueprint and already passes the difficulty validation rules."
+        }, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }));
+        if (response && typeof response === "object" && "data" in response) {
+          const responseData = response.data;
+          if (responseData?.choices?.length > 0) {
+            const content = responseData.choices[0].message.content;
+            const parsed = parseLevelFromAI(content);
+            if (parsed) {
+              const validation = validateAILevelData(parsed, config3);
+              if (validation.valid) {
+                return buildLevelFromData(parsed, config3);
+              }
+              console.warn("AI level rejected by validator:", validation.issues);
+            }
+          }
+        }
+      } catch (e) {
+        console.error("AI level generation failed:", e);
+      }
+      return null;
+    });
+  }
+  getCategoryLabel() {
+    return this.categories.find((c) => c.value === this.selectedCategory)?.label || "World";
+  }
+  getLevelTypeLabel() {
+    return this.levelTypes.find((t) => t.value === this.selectedLevelType)?.label || "Ground Run";
+  }
+  getResultMessage() {
+    if (this.won) {
+      if (this.score >= 1e3)
+        return "Perfect run. That looked like staff-level platforming.";
+      if (this.score >= 500)
+        return "Strong run! You cleared the course with style.";
+      return "Level complete! Nice platforming.";
+    }
+    return "Game Over. Every run teaches something \u2014 hit restart and try again.";
+  }
+  static {
+    this.\u0275fac = function AiQuizGameComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _AiQuizGameComponent)(\u0275\u0275directiveInject(HttpClient), \u0275\u0275directiveInject(NgZone), \u0275\u0275directiveInject(ChangeDetectorRef));
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AiQuizGameComponent, selectors: [["app-ai-quiz-game"]], viewQuery: function AiQuizGameComponent_Query(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275viewQuery(_c02, 5);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.canvasRef = _t.first);
+      }
+    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "option-grid", "option-grid--compact"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-actions"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-fire", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275elementStart(0, "section", 1)(1, "div", 2);
+        \u0275\u0275conditionalCreate(2, AiQuizGameComponent_Conditional_2_Template, 33, 0);
+        \u0275\u0275conditionalCreate(3, AiQuizGameComponent_Conditional_3_Template, 10, 0, "div", 3);
+        \u0275\u0275conditionalCreate(4, AiQuizGameComponent_Conditional_4_Template, 37, 5, "div", 4);
+        \u0275\u0275conditionalCreate(5, AiQuizGameComponent_Conditional_5_Template, 28, 6, "div", 5);
+        \u0275\u0275elementEnd()();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance(2);
+        \u0275\u0275conditional(ctx2.viewState === "setup" ? 2 : -1);
+        \u0275\u0275advance();
+        \u0275\u0275conditional(ctx2.viewState === "loading" ? 3 : -1);
+        \u0275\u0275advance();
+        \u0275\u0275conditional(ctx2.viewState === "playing" ? 4 : -1);
+        \u0275\u0275advance();
+        \u0275\u0275conditional(ctx2.viewState === "results" ? 5 : -1);
+      }
+    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.mario-game-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card[_ngcontent-%COMP%] {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact[_ngcontent-%COMP%] {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n}\n.option-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active[_ngcontent-%COMP%] {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success[_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning[_ngcontent-%COMP%] {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card[_ngcontent-%COMP%] {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  animation: _ngcontent-%COMP%_bounce 0.6s ease infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: _ngcontent-%COMP%_loadProgress 3s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container[_ngcontent-%COMP%]   canvas[_ngcontent-%COMP%] {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn[_ngcontent-%COMP%]:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls[_ngcontent-%COMP%] {\n    display: flex;\n  }\n}\n.results-card[_ngcontent-%COMP%] {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge[_ngcontent-%COMP%] {\n  font-size: 3rem;\n}\n.results-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section[_ngcontent-%COMP%] {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .setup-card[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n  .option-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .results-stats[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper[_ngcontent-%COMP%] {\n    margin: 0 -1rem;\n  }\n  .game-hud[_ngcontent-%COMP%] {\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin-left: 1rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.6rem;\n  }\n  .hud-icon[_ngcontent-%COMP%] {\n    font-size: 0.85rem;\n  }\n  .canvas-container[_ngcontent-%COMP%] {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls[_ngcontent-%COMP%] {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn[_ngcontent-%COMP%] {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump[_ngcontent-%COMP%] {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire[_ngcontent-%COMP%] {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card[_ngcontent-%COMP%] {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */'] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AiQuizGameComponent, [{
+    type: Component,
+    args: [{ selector: "app-ai-quiz-game", standalone: true, imports: [CommonModule], template: `<section class="mario-game-section apple-section" id="ai-quiz-game">
+  <div class="apple-container">
+
+    <!-- SETUP -->
+    @if (viewState === 'setup') {
+      <div class="section-header">
+        <div class="world-label">\u{1F579} MARIO LAB</div>
+        <h2 class="section-title">AI-Powered Platformer</h2>
+        <p class="section-subtitle">
+          A real Mario game. The AI generates the entire level \u2014 platforms, enemies, coins, power-ups. You just play.
+        </p>
+      </div>
+
+      <div class="setup-card apple-card">
+        <div class="setup-inner">
+          <div class="setup-section">
+            <h3 class="setup-heading">Choose your world</h3>
+            <div class="option-grid">
+              @for (cat of categories; track cat.value) {
+                <button class="option-btn"
+                        [class.option-btn--active]="selectedCategory === cat.value"
+                        (click)="selectedCategory = cat.value">
+                  <span class="option-icon">{{ cat.icon }}</span>
+                  <span class="option-label">{{ cat.label }}</span>
+                  <span class="option-desc">{{ cat.description }}</span>
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="setup-section">
+            <h3 class="setup-heading">Difficulty</h3>
+            <div class="difficulty-row">
+              @for (d of difficulties; track d.value) {
+                <button class="diff-btn"
+                        [class.diff-btn--active]="selectedDifficulty === d.value"
+                        [ngClass]="'diff-btn--' + d.color"
+                        (click)="selectedDifficulty = d.value">
+                  <span class="diff-label">{{ d.label }}</span>
+                  <span class="diff-desc">{{ d.description }}</span>
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="setup-section">
+            <h3 class="setup-heading">Course Style</h3>
+            <div class="option-grid option-grid--compact">
+              @for (type of levelTypes; track type.value) {
+                <button class="option-btn"
+                        [class.option-btn--active]="selectedLevelType === type.value"
+                        (click)="selectedLevelType = type.value">
+                  <span class="option-icon">{{ type.icon }}</span>
+                  <span class="option-label">{{ type.label }}</span>
+                  <span class="option-desc">{{ type.description }}</span>
+                </button>
+              }
+            </div>
+          </div>
+
+          <button class="start-btn" (click)="startGame()">
+            <i class="fas fa-play"></i> Start Mission
+          </button>
+
+          <div class="controls-hint">
+            <span>Arrow keys / WASD to move&ensp;\xB7&ensp;Space / Up to jump or swim stroke&ensp;\xB7&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- LOADING -->
+    @if (viewState === 'loading') {
+      <div class="loading-card apple-card">
+        <div class="loading-content">
+          <div class="loader-icon">\u{1F344}</div>
+          <h3>Generating your level...</h3>
+          <p>AI is building the world \u2014 platforms, enemies, and power-ups</p>
+          <div class="loading-bar"><div class="loading-fill"></div></div>
+        </div>
+      </div>
+    }
+
+    <!-- PLAYING -->
+    @if (viewState === 'playing') {
+      <div class="game-wrapper">
+        <div class="game-hud">
+          <div class="hud-item">
+            <span class="hud-icon">\u2764\uFE0F</span>
+            <span class="hud-val">{{ lives }}</span>
+          </div>
+          <div class="hud-item">
+            <span class="hud-icon">\u{1FA99}</span>
+            <span class="hud-val">{{ coins }}</span>
+          </div>
+          <div class="hud-item">
+            <span class="hud-icon">\u2B50</span>
+            <span class="hud-val">{{ score }}</span>
+          </div>
+          <div class="hud-item hud-category">
+            <span class="hud-val">{{ getCategoryLabel() }}</span>
+          </div>
+          <div class="hud-item hud-category">
+            <span class="hud-val">{{ getLevelTypeLabel() }}</span>
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <canvas #gameCanvas></canvas>
+
+          <!-- Touch controls (mobile) -->
+          <div class="touch-controls">
+            <div class="touch-dpad">
+              <button class="touch-btn touch-left"
+                      (touchstart)="touchLeft(true)" (touchend)="touchLeft(false)"
+                      (mousedown)="touchLeft(true)" (mouseup)="touchLeft(false)">\u25C0</button>
+              <button class="touch-btn touch-right"
+                      (touchstart)="touchRight(true)" (touchend)="touchRight(false)"
+                      (mousedown)="touchRight(true)" (mouseup)="touchRight(false)">\u25B6</button>
+            </div>
+            <div class="touch-actions">
+              <button class="touch-btn touch-jump"
+                      (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
+                      (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">\u25B2</button>
+              <button class="touch-btn touch-fire"
+                      (touchstart)="touchFire(true)" (touchend)="touchFire(false)"
+                      (mousedown)="touchFire(true)" (mouseup)="touchFire(false)">\u{1F525}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- RESULTS -->
+    @if (viewState === 'results') {
+      <div class="results-card apple-card">
+        <div class="results-inner">
+          <div class="results-badge">{{ won ? '\u{1F3C6}' : '\u{1F480}' }}</div>
+          <h3 class="results-title">{{ won ? 'Level Complete!' : 'Game Over' }}</h3>
+          <p class="results-msg">{{ getResultMessage() }}</p>
+
+          <div class="results-stats">
+            <div class="stat-item">
+              <span class="stat-label">Score</span>
+              <span class="stat-value">{{ score }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Coins</span>
+              <span class="stat-value">{{ coins }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Enemies</span>
+              <span class="stat-value">{{ enemiesStomped }}</span>
+            </div>
+          </div>
+
+          <div class="results-actions">
+            <button class="start-btn" (click)="restartGame()">
+              <i class="fas fa-redo"></i> Play Again
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/ai-quiz-game/ai-quiz-game.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.mario-game-section {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon {\n  font-size: 1.3rem;\n}\n.option-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon {\n  font-size: 2.5rem;\n  animation: bounce 0.6s ease infinite alternate;\n}\n@keyframes bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content h3 {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content p {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: loadProgress 3s ease-in-out infinite;\n}\n@keyframes loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper {\n  position: relative;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon {\n  font-size: 1rem;\n}\n.hud-val {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category .hud-val {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container canvas {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls {\n    display: flex;\n  }\n}\n.results-card {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge {\n  font-size: 3rem;\n}\n.results-title {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .setup-card {\n    padding: 1.5rem;\n  }\n  .option-grid {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row {\n    grid-template-columns: 1fr;\n  }\n  .results-stats {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper {\n    margin: 0 -1rem;\n  }\n  .game-hud {\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin-left: 1rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-val {\n    font-size: 0.6rem;\n  }\n  .hud-icon {\n    font-size: 0.85rem;\n  }\n  .canvas-container {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */\n'] }]
+  }], () => [{ type: HttpClient }, { type: NgZone }, { type: ChangeDetectorRef }], { canvasRef: [{
+    type: ViewChild,
+    args: ["gameCanvas"]
+  }] });
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 22 });
+})();
+
+// src/app/profile/blog/blog.component.ts
+var BlogComponent = class _BlogComponent {
+  constructor() {
+    this.blogLinks = BLOG_LINKS;
+  }
+  static {
+    this.\u0275fac = function BlogComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _BlogComponent)();
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 64, vars: 3, consts: [["id", "blogs", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], ["data-stagger", "120", 1, "scroll-grid"], ["target", "_blank", "rel", "noopener", 1, "scroll-card", 3, "href"], [1, "scroll-seal"], [1, "scroll-header"], [1, "scroll-badge"], [1, "scroll-origin"], [1, "scroll-body"], [1, "scroll-title"], [1, "scroll-text"], [1, "scroll-footer"], [1, "scroll-xp"], [1, "scroll-action"]], template: function BlogComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
+        \u0275\u0275text(4, "\u{1F4DC} QUEST SCROLLS");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(5, "h2", 4);
+        \u0275\u0275text(6, "Technical Notes & Stories");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(7, "p", 5);
+        \u0275\u0275text(8, "Field reports from production. Published on Medium.");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(9, "div", 6)(10, "a", 7)(11, "div", 8);
+        \u0275\u0275text(12, "\u{1F4DC}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(13, "div", 9)(14, "span", 10);
+        \u0275\u0275text(15, "MEDIUM");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(16, "span", 11);
+        \u0275\u0275text(17, "Games24x7 Tech");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(18, "div", 12)(19, "h4", 13);
+        \u0275\u0275text(20, "Fortress of Fair Play: Stopping Frauds at Games24x7");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(21, "p", 14);
+        \u0275\u0275text(22, " Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay. ");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(23, "div", 15)(24, "span", 16);
+        \u0275\u0275text(25, "+120 XP");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(26, "span", 17);
+        \u0275\u0275text(27, "\u{1F4D6} Read Scroll \u2192");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(28, "a", 7)(29, "div", 8);
+        \u0275\u0275text(30, "\u{1F4DC}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(31, "div", 9)(32, "span", 10);
+        \u0275\u0275text(33, "MEDIUM");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(34, "span", 11);
+        \u0275\u0275text(35, "Games24x7 Tech");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(36, "div", 12)(37, "h4", 13);
+        \u0275\u0275text(38, "Neptune Navigator: Navigating Performance Challenges");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(39, "p", 14);
+        \u0275\u0275text(40, " Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms. ");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(41, "div", 15)(42, "span", 16);
+        \u0275\u0275text(43, "+100 XP");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(44, "span", 17);
+        \u0275\u0275text(45, "\u{1F4D6} Read Scroll \u2192");
+        \u0275\u0275domElementEnd()()();
+        \u0275\u0275domElementStart(46, "a", 7)(47, "div", 8);
+        \u0275\u0275text(48, "\u{1F4DC}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(49, "div", 9)(50, "span", 10);
+        \u0275\u0275text(51, "MEDIUM");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(52, "span", 11);
+        \u0275\u0275text(53, "Games24x7 Tech");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(54, "div", 12)(55, "h4", 13);
+        \u0275\u0275text(56, "Games24x7: Where Trust Meets Gameplay");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(57, "p", 14);
+        \u0275\u0275text(58, " Discover how we build trust and create engaging gaming experiences that keep players coming back. ");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(59, "div", 15)(60, "span", 16);
+        \u0275\u0275text(61, "+90 XP");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(62, "span", 17);
+        \u0275\u0275text(63, "\u{1F4D6} Read Scroll \u2192");
+        \u0275\u0275domElementEnd()()()()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance(10);
+        \u0275\u0275domProperty("href", ctx2.blogLinks.fortressOfFairPlay, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(18);
+        \u0275\u0275domProperty("href", ctx2.blogLinks.neptuneNavigator, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(18);
+        \u0275\u0275domProperty("href", ctx2.blogLinks.trustMeetsGameplay, \u0275\u0275sanitizeUrl);
+      }
+    }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.scroll-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.25rem;\n}\n.scroll-card[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  text-decoration: none;\n  color: inherit;\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.scroll-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.4);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.12), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.scroll-card[_ngcontent-%COMP%]:hover   .scroll-action[_ngcontent-%COMP%] {\n  color: #fbbf24;\n}\n.scroll-card[_ngcontent-%COMP%]:hover   .scroll-seal[_ngcontent-%COMP%] {\n  transform: rotate(-8deg) scale(1.15);\n}\n.scroll-seal[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.75rem;\n  right: 0.75rem;\n  font-size: 1.6rem;\n  opacity: 0.35;\n  transition: transform 300ms ease;\n  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.3));\n}\n.scroll-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0.65rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n}\n.scroll-badge[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.14em;\n  padding: 0.2rem 0.5rem;\n  border-radius: 4px;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  color: #fbbf24;\n}\n.scroll-origin[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-muted);\n}\n.scroll-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1rem;\n  flex: 1;\n  display: grid;\n  gap: 0.5rem;\n}\n.scroll-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.scroll-text[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  line-height: 1.6;\n  margin: 0;\n}\n.scroll-footer[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.03);\n}\n.scroll-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.08em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.3);\n}\n.scroll-action[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.06em;\n  color: var(--text-muted);\n  transition: color 200ms ease;\n}\n@media (max-width: 640px) {\n  .scroll-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */'] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BlogComponent, [{
+    type: Component,
+    args: [{ selector: "app-blog", standalone: true, template: '<div class="apple-section" id="blogs">\n  <div class="apple-container">\n    <div class="section-header" data-anim="fade-up">\n      <div class="world-label">\u{1F4DC} QUEST SCROLLS</div>\n      <h2 class="section-title" data-text-reveal>Technical Notes &amp; Stories</h2>\n      <p class="section-subtitle">Field reports from production. Published on Medium.</p>\n    </div>\n\n    <div class="scroll-grid" data-stagger="120">\n\n      <!-- Blog 1 -->\n      <a [href]="blogLinks.fortressOfFairPlay" class="scroll-card" target="_blank" rel="noopener">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h4>\n          <p class="scroll-text">\n            Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+120 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n      <!-- Blog 2 -->\n      <a [href]="blogLinks.neptuneNavigator" class="scroll-card" target="_blank" rel="noopener">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Neptune Navigator: Navigating Performance Challenges</h4>\n          <p class="scroll-text">\n            Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+100 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n      <!-- Blog 3 -->\n      <a [href]="blogLinks.trustMeetsGameplay" class="scroll-card" target="_blank" rel="noopener">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Games24x7: Where Trust Meets Gameplay</h4>\n          <p class="scroll-text">\n            Discover how we build trust and create engaging gaming experiences that keep players coming back.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+90 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n    </div>\n  </div>\n</div>\n', styles: ['@charset "UTF-8";\n\n/* src/app/profile/blog/blog.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.scroll-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.25rem;\n}\n.scroll-card {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  text-decoration: none;\n  color: inherit;\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.scroll-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.4);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.12), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.scroll-card:hover .scroll-action {\n  color: #fbbf24;\n}\n.scroll-card:hover .scroll-seal {\n  transform: rotate(-8deg) scale(1.15);\n}\n.scroll-seal {\n  position: absolute;\n  top: 0.75rem;\n  right: 0.75rem;\n  font-size: 1.6rem;\n  opacity: 0.35;\n  transition: transform 300ms ease;\n  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.3));\n}\n.scroll-header {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0.65rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n}\n.scroll-badge {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.14em;\n  padding: 0.2rem 0.5rem;\n  border-radius: 4px;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  color: #fbbf24;\n}\n.scroll-origin {\n  font-size: 0.78rem;\n  color: var(--text-muted);\n}\n.scroll-body {\n  padding: 1.1rem 1rem;\n  flex: 1;\n  display: grid;\n  gap: 0.5rem;\n}\n.scroll-title {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.scroll-text {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  line-height: 1.6;\n  margin: 0;\n}\n.scroll-footer {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.03);\n}\n.scroll-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.08em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.3);\n}\n.scroll-action {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.06em;\n  color: var(--text-muted);\n  transition: color 200ms ease;\n}\n@media (max-width: 640px) {\n  .scroll-grid {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */\n'] }]
+  }], () => [], null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(BlogComponent, { className: "BlogComponent", filePath: "src/app/profile/blog/blog.component.ts", lineNumber: 10 });
 })();
 
 // node_modules/@angular/forms/fesm2022/forms.mjs
@@ -36957,6425 +43159,6 @@ var ReactiveFormsModule = class _ReactiveFormsModule {
       exports: [\u0275InternalFormsSharedModule, REACTIVE_DRIVEN_DIRECTIVES]
     }]
   }], null, null);
-})();
-
-// src/app/config/api-config.ts
-var API_CONFIG = {
-  // Base URL for all APIs
-  BASE_URL: "https://epic-backend-f9tfcyn1d-beingmartinbmcs-projects.vercel.app",
-  // API Endpoints
-  ENDPOINTS: {
-    // AI Chat API - used in environment files
-    AI_GENERIC: "/api/generic",
-    // Text-to-Speech API
-    TEXT_TO_SPEECH: "/api/text-to-speech",
-    // Streaming Voice API
-    STREAMING_VOICE: "/api/stream-voice"
-    // Add other endpoints here as needed
-    // MUSIC: '/api/music',
-    // PROFILE: '/api/profile',
-  },
-  // Helper method to get full URL
-  getUrl(endpoint) {
-    return `${this.BASE_URL}${endpoint}`;
-  }
-};
-var AI_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.AI_GENERIC);
-var TTS_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.TEXT_TO_SPEECH);
-var STREAMING_VOICE_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.STREAMING_VOICE);
-
-// src/environments/environment.ts
-var environment = {
-  production: false,
-  //baseUrl : `${window.location.protocol}//${window.location.hostname}/portfolio/`,
-  baseUrl: `http://localhost:4200/`,
-  aiApiUrl: AI_API_URL,
-  web3FormsAccessKey: ""
-};
-
-// src/app/profile/contact/contact.component.ts
-var _c0 = ["contactForm"];
-var _c1 = (a0) => ({ "is-invalid": a0 });
-var _c2 = (a0) => ({ "disabled": a0 });
-function ContactComponent_Conditional_68_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 32);
-    \u0275\u0275text(1, "Please enter your name");
-    \u0275\u0275elementEnd();
-  }
-}
-function ContactComponent_Conditional_74_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 32);
-    \u0275\u0275text(1, "Please enter a valid email address");
-    \u0275\u0275elementEnd();
-  }
-}
-function ContactComponent_Conditional_80_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 32);
-    \u0275\u0275text(1, "Please enter a subject");
-    \u0275\u0275elementEnd();
-  }
-}
-function ContactComponent_Conditional_86_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 32);
-    \u0275\u0275text(1, "Please enter your message");
-    \u0275\u0275elementEnd();
-  }
-}
-function ContactComponent_Conditional_91_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 41);
-    \u0275\u0275text(1, "\u2192");
-    \u0275\u0275elementEnd();
-  }
-}
-function ContactComponent_Conditional_92_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 42);
-    \u0275\u0275text(1, "\u23F3");
-    \u0275\u0275elementEnd();
-  }
-}
-function ContactComponent_Conditional_93_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 43)(1, "div", 44)(2, "div", 45);
-    \u0275\u0275text(3);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "div", 46);
-    \u0275\u0275text(5);
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance();
-    \u0275\u0275property("ngClass", "toast-" + ctx_r1.toastType);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.toastType === "success" ? "\u2705" : "\u274C");
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.toastMessage);
-  }
-}
-var ContactComponent = class _ContactComponent {
-  constructor() {
-    this.model = {
-      name: "",
-      email: "",
-      subject: "",
-      message: ""
-    };
-    this.isSubmitting = false;
-    this.showToast = false;
-    this.toastMessage = "";
-    this.toastType = "success";
-    this.marioJumping = false;
-  }
-  isFormValid() {
-    return this.model.name?.trim() !== "" && this.model.email?.trim() !== "" && this.model.subject?.trim() !== "" && this.model.message?.trim() !== "";
-  }
-  isEmailValid() {
-    if (!this.model.email?.trim())
-      return false;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(this.model.email.trim());
-  }
-  showToastNotification(message, type = "success") {
-    this.toastMessage = message;
-    this.toastType = type;
-    this.showToast = true;
-    setTimeout(() => {
-      this.showToast = false;
-    }, 8e3);
-  }
-  onSubmit(name, subject, email, message) {
-    return __async(this, null, function* () {
-      if (!this.isFormValid()) {
-        this.showToastNotification("Please fill in all fields", "error");
-        return;
-      }
-      if (!this.isEmailValid()) {
-        this.showToastNotification("Please enter a valid email address", "error");
-        return;
-      }
-      this.isSubmitting = true;
-      if (!environment.web3FormsAccessKey) {
-        this.isSubmitting = false;
-        this.showToastNotification(`Contact form is not configured right now. Please email me at ${CONTACT_LINKS.email}.`, "error");
-        return;
-      }
-      const formData = new FormData();
-      formData.append("access_key", environment.web3FormsAccessKey);
-      formData.append("name", name);
-      formData.append("email", email);
-      formData.append("subject", subject);
-      formData.append("message", message);
-      try {
-        const response = yield fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          body: formData
-        });
-        const data = yield response.json();
-        if (!response.ok) {
-          this.showToastNotification(`Failed to send message: ${data?.message ?? "Please try again."}`, "error");
-          return;
-        }
-        this.marioJumping = true;
-        this.showToastNotification("Message sent successfully! I'll get back to you soon.");
-        setTimeout(() => {
-          this.resetForm();
-        }, 1e3);
-        setTimeout(() => {
-          this.marioJumping = false;
-        }, 2400);
-      } catch (error2) {
-        console.error("Form submission failed:", error2);
-        this.showToastNotification(`Contact service is unreachable right now. Please email me at ${CONTACT_LINKS.email}.`, "error");
-      } finally {
-        this.isSubmitting = false;
-      }
-    });
-  }
-  resetForm() {
-    this.model = {
-      name: "",
-      email: "",
-      subject: "",
-      message: ""
-    };
-    if (this.contactForm) {
-      this.contactForm.resetForm();
-    }
-  }
-  static {
-    this.\u0275fac = function ContactComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _ContactComponent)();
-    };
-  }
-  static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ContactComponent, selectors: [["app-contact"]], viewQuery: function ContactComponent_Query(rf, ctx2) {
-      if (rf & 1) {
-        \u0275\u0275viewQuery(_c0, 5);
-      }
-      if (rf & 2) {
-        let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.contactForm = _t.first);
-      }
-    }, decls: 94, vars: 31, consts: [["contactForm", "ngForm"], ["name", "ngModel"], ["email", "ngModel"], ["subject", "ngModel"], ["message", "ngModel"], ["id", "contact", 1, "apple-section"], [1, "apple-container"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "mario-greeter"], [1, "mario-scene"], [1, "speech-bubble"], ["src", "assets/images/mario-sprite.png", "alt", "Mario", 1, "mario-sprite"], [1, "mario-cloud", "cloud-1"], [1, "mario-cloud", "cloud-2"], [1, "mario-ground"], [1, "contact-container"], [1, "contact-info-section"], [1, "info-cards"], [1, "info-card"], [1, "info-icon"], [1, "info-content"], [1, "contact-form-section"], [1, "form-card"], [1, "form-header"], ["name", "form", "novalidate", "", 3, "ngSubmit"], [1, "form-row"], [1, "form-group"], ["for", "name"], ["id", "name", "name", "name", "placeholder", "Your full name", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], [1, "error-message"], ["for", "email"], ["id", "email", "name", "email", "placeholder", "your.email@example.com", "required", "", "type", "email", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "subject"], ["id", "subject", "name", "subject", "placeholder", "Role, collaboration, or project intro", "required", "", "type", "text", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["for", "message"], ["id", "message", "name", "message", "placeholder", "Tell me about the team, the scope, and the kind of problems you want help solving...", "required", "", "rows", "5", 1, "form-input", 3, "ngModelChange", "ngModel", "ngClass"], ["type", "submit", 1, "submit-btn", 3, "disabled", "ngClass"], [1, "btn-text"], [1, "btn-icon"], [1, "btn-spinner"], [1, "toast-container"], [1, "toast", 3, "ngClass"], [1, "toast-icon"], [1, "toast-message"]], template: function ContactComponent_Template(rf, ctx2) {
-      if (rf & 1) {
-        const _r1 = \u0275\u0275getCurrentView();
-        \u0275\u0275elementStart(0, "section", 5)(1, "div", 6)(2, "div", 7)(3, "span", 8);
-        \u0275\u0275text(4, "Start a conversation");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(5, "h2", 9);
-        \u0275\u0275text(6, "Building backend platforms or practical AI products?");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(7, "p", 10);
-        \u0275\u0275text(8, " I\u2019m interested in staff and lead opportunities where system design, platform thinking, and product-minded execution all matter. ");
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(9, "div", 11)(10, "div", 12)(11, "div", 13)(12, "span");
-        \u0275\u0275text(13);
-        \u0275\u0275elementEnd()();
-        \u0275\u0275element(14, "img", 14)(15, "div", 15)(16, "div", 16)(17, "div", 17);
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(18, "div", 18)(19, "div", 19)(20, "div", 20)(21, "div", 21)(22, "div", 22);
-        \u0275\u0275text(23, "\u{1F4E7}");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(24, "div", 23)(25, "h4");
-        \u0275\u0275text(26, "Email");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(27, "p");
-        \u0275\u0275text(28, "ankit.sharma199803@gmail.com");
-        \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(29, "div", 21)(30, "div", 22);
-        \u0275\u0275text(31, "\u{1F4CD}");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(32, "div", 23)(33, "h4");
-        \u0275\u0275text(34, "Location");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(35, "p");
-        \u0275\u0275text(36, "Bangalore, India");
-        \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(37, "div", 21)(38, "div", 22);
-        \u0275\u0275text(39, "\u{1F9E0}");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(40, "div", 23)(41, "h4");
-        \u0275\u0275text(42, "Best fit");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(43, "p");
-        \u0275\u0275text(44, "Staff backend, platform, and Gen AI product engineering roles");
-        \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(45, "div", 21)(46, "div", 22);
-        \u0275\u0275text(47, "\u26A1");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(48, "div", 23)(49, "h4");
-        \u0275\u0275text(50, "Response time");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(51, "p");
-        \u0275\u0275text(52, "Usually within 24 hours");
-        \u0275\u0275elementEnd()()()()();
-        \u0275\u0275elementStart(53, "div", 24)(54, "div", 25)(55, "div", 26)(56, "h3");
-        \u0275\u0275text(57, "Tell me what you\u2019re building");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(58, "p");
-        \u0275\u0275text(59, " Share the role, the product, or the problem space. If it involves scale, systems, or useful AI, I\u2019m interested. ");
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(60, "form", 27, 0);
-        \u0275\u0275listener("ngSubmit", function ContactComponent_Template_form_ngSubmit_60_listener() {
-          \u0275\u0275restoreView(_r1);
-          return \u0275\u0275resetView(ctx2.onSubmit(ctx2.model.name, ctx2.model.subject, ctx2.model.email, ctx2.model.message));
-        });
-        \u0275\u0275elementStart(62, "div", 28)(63, "div", 29)(64, "label", 30);
-        \u0275\u0275text(65, "Name");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(66, "input", 31, 1);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_66_listener($event) {
-          \u0275\u0275restoreView(_r1);
-          \u0275\u0275twoWayBindingSet(ctx2.model.name, $event) || (ctx2.model.name = $event);
-          return \u0275\u0275resetView($event);
-        });
-        \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(68, ContactComponent_Conditional_68_Template, 2, 0, "div", 32);
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(69, "div", 29)(70, "label", 33);
-        \u0275\u0275text(71, "Email");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(72, "input", 34, 2);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_72_listener($event) {
-          \u0275\u0275restoreView(_r1);
-          \u0275\u0275twoWayBindingSet(ctx2.model.email, $event) || (ctx2.model.email = $event);
-          return \u0275\u0275resetView($event);
-        });
-        \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(74, ContactComponent_Conditional_74_Template, 2, 0, "div", 32);
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(75, "div", 29)(76, "label", 35);
-        \u0275\u0275text(77, "Subject");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(78, "input", 36, 3);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_input_ngModelChange_78_listener($event) {
-          \u0275\u0275restoreView(_r1);
-          \u0275\u0275twoWayBindingSet(ctx2.model.subject, $event) || (ctx2.model.subject = $event);
-          return \u0275\u0275resetView($event);
-        });
-        \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(80, ContactComponent_Conditional_80_Template, 2, 0, "div", 32);
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(81, "div", 29)(82, "label", 37);
-        \u0275\u0275text(83, "Message");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(84, "textarea", 38, 4);
-        \u0275\u0275twoWayListener("ngModelChange", function ContactComponent_Template_textarea_ngModelChange_84_listener($event) {
-          \u0275\u0275restoreView(_r1);
-          \u0275\u0275twoWayBindingSet(ctx2.model.message, $event) || (ctx2.model.message = $event);
-          return \u0275\u0275resetView($event);
-        });
-        \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(86, ContactComponent_Conditional_86_Template, 2, 0, "div", 32);
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(87, "div", 29)(88, "button", 39)(89, "span", 40);
-        \u0275\u0275text(90);
-        \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(91, ContactComponent_Conditional_91_Template, 2, 0, "span", 41);
-        \u0275\u0275conditionalCreate(92, ContactComponent_Conditional_92_Template, 2, 0, "span", 42);
-        \u0275\u0275elementEnd()()()()()()();
-        \u0275\u0275conditionalCreate(93, ContactComponent_Conditional_93_Template, 6, 3, "div", 43);
-        \u0275\u0275elementEnd();
-      }
-      if (rf & 2) {
-        const contactForm_r3 = \u0275\u0275reference(61);
-        const name_r4 = \u0275\u0275reference(67);
-        const email_r5 = \u0275\u0275reference(73);
-        const subject_r6 = \u0275\u0275reference(79);
-        const message_r7 = \u0275\u0275reference(85);
-        \u0275\u0275advance(9);
-        \u0275\u0275classProp("mario-greeter--jumping", ctx2.marioJumping);
-        \u0275\u0275advance(4);
-        \u0275\u0275textInterpolate(ctx2.marioJumping ? "Yahoo! Message sent!" : "It's-a me! Let's-a talk!");
-        \u0275\u0275advance(53);
-        \u0275\u0275twoWayProperty("ngModel", ctx2.model.name);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(21, _c1, contactForm_r3.submitted && name_r4.invalid));
-        \u0275\u0275advance(2);
-        \u0275\u0275conditional(contactForm_r3.submitted && name_r4.invalid ? 68 : -1);
-        \u0275\u0275advance(4);
-        \u0275\u0275twoWayProperty("ngModel", ctx2.model.email);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(23, _c1, contactForm_r3.submitted && email_r5.invalid));
-        \u0275\u0275advance(2);
-        \u0275\u0275conditional(contactForm_r3.submitted && email_r5.invalid ? 74 : -1);
-        \u0275\u0275advance(4);
-        \u0275\u0275twoWayProperty("ngModel", ctx2.model.subject);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(25, _c1, contactForm_r3.submitted && subject_r6.invalid));
-        \u0275\u0275advance(2);
-        \u0275\u0275conditional(contactForm_r3.submitted && subject_r6.invalid ? 80 : -1);
-        \u0275\u0275advance(4);
-        \u0275\u0275twoWayProperty("ngModel", ctx2.model.message);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(27, _c1, contactForm_r3.submitted && message_r7.invalid));
-        \u0275\u0275advance(2);
-        \u0275\u0275conditional(contactForm_r3.submitted && message_r7.invalid ? 86 : -1);
-        \u0275\u0275advance(2);
-        \u0275\u0275property("disabled", !ctx2.isFormValid() || ctx2.isSubmitting)("ngClass", \u0275\u0275pureFunction1(29, _c2, !ctx2.isFormValid() || ctx2.isSubmitting));
-        \u0275\u0275advance(2);
-        \u0275\u0275textInterpolate(ctx2.isSubmitting ? "Sending..." : "Send message");
-        \u0275\u0275advance();
-        \u0275\u0275conditional(!ctx2.isSubmitting ? 91 : -1);
-        \u0275\u0275advance();
-        \u0275\u0275conditional(ctx2.isSubmitting ? 92 : -1);
-        \u0275\u0275advance();
-        \u0275\u0275conditional(ctx2.showToast ? 93 : -1);
-      }
-    }, dependencies: [FormsModule, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, NgModel, NgForm, CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.mario-greeter[_ngcontent-%COMP%] {\n  margin: 0 auto 2.5rem;\n  max-width: 20rem;\n}\n.mario-scene[_ngcontent-%COMP%] {\n  position: relative;\n  height: 140px;\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n}\n.speech-bubble[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  transform: translateX(-30%);\n  background: rgba(251, 191, 36, 0.12);\n  border: 2px solid rgba(251, 191, 36, 0.35);\n  border-radius: 12px 12px 12px 2px;\n  padding: 0.55rem 0.9rem;\n  white-space: nowrap;\n  animation: _ngcontent-%COMP%_bubblePop 0.4s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.speech-bubble[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  color: #fde68a;\n  letter-spacing: 0.04em;\n}\n.speech-bubble[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -8px;\n  left: 12px;\n  width: 0;\n  height: 0;\n  border-left: 8px solid rgba(251, 191, 36, 0.35);\n  border-right: 8px solid transparent;\n  border-top: 8px solid rgba(251, 191, 36, 0.35);\n  border-bottom: 8px solid transparent;\n}\n@keyframes _ngcontent-%COMP%_bubblePop {\n  from {\n    transform: translateX(-30%) scale(0.7);\n    opacity: 0;\n  }\n  to {\n    transform: translateX(-30%) scale(1);\n    opacity: 1;\n  }\n}\n.mario-sprite[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 80px;\n  image-rendering: pixelated;\n  object-fit: contain;\n  position: relative;\n  z-index: 2;\n  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.2));\n  animation: _ngcontent-%COMP%_marioWave 2.5s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_marioWave {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-4px);\n  }\n}\n.mario-cloud[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 60px;\n  height: 24px;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: -8px 4px 0 rgba(255, 255, 255, 0.04), 8px 4px 0 rgba(255, 255, 255, 0.04);\n}\n.mario-cloud[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -8px;\n  left: 12px;\n  width: 20px;\n  height: 16px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.05);\n}\n.mario-cloud[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: -12px;\n  left: 28px;\n  width: 16px;\n  height: 14px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.04);\n}\n.cloud-1[_ngcontent-%COMP%] {\n  bottom: 70px;\n  left: 0;\n  animation: _ngcontent-%COMP%_cloudDrift 8s ease-in-out infinite;\n}\n.cloud-2[_ngcontent-%COMP%] {\n  bottom: 90px;\n  right: 0;\n  width: 48px;\n  height: 20px;\n  animation: _ngcontent-%COMP%_cloudDrift 12s ease-in-out infinite reverse;\n}\n@keyframes _ngcontent-%COMP%_cloudDrift {\n  0%, 100% {\n    transform: translateX(0);\n  }\n  50% {\n    transform: translateX(10px);\n  }\n}\n.mario-ground[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 100px;\n  height: 10px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #2d5016 0px,\n      #2d5016 10px,\n      #3a6b1e 10px,\n      #3a6b1e 20px);\n  border-radius: 3px;\n  border-top: 2px solid #4a8b2e;\n}\n.mario-greeter--jumping[_ngcontent-%COMP%]   .mario-sprite[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_marioJumpCloud 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;\n}\n.mario-greeter--jumping[_ngcontent-%COMP%]   .speech-bubble[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_bubbleJump 2.4s ease forwards;\n}\n.mario-greeter--jumping[_ngcontent-%COMP%]   .cloud-1[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_cloudCatch 2.4s ease forwards !important;\n}\n@keyframes _ngcontent-%COMP%_marioJumpCloud {\n  0% {\n    transform: translateY(0) scale(1);\n  }\n  10% {\n    transform: translateY(4px) scale(1.05, 0.9);\n  }\n  30% {\n    transform: translateY(-70px) scale(0.95, 1.05);\n  }\n  45% {\n    transform: translateY(-70px) scale(1);\n  }\n  55% {\n    transform: translateY(-70px) rotate(-5deg);\n  }\n  70% {\n    transform: translateY(-70px) rotate(5deg);\n  }\n  85% {\n    transform: translateY(-70px) rotate(-3deg);\n  }\n  100% {\n    transform: translateY(-70px) rotate(0deg) scale(1.1);\n  }\n}\n@keyframes _ngcontent-%COMP%_bubbleJump {\n  0% {\n    transform: translateX(-30%) translateY(0);\n    opacity: 1;\n  }\n  20% {\n    opacity: 0;\n    transform: translateX(-30%) translateY(-10px);\n  }\n  40% {\n    opacity: 0;\n    transform: translateX(-30%) translateY(-80px);\n  }\n  50% {\n    opacity: 1;\n    transform: translateX(-30%) translateY(-80px) scale(1.1);\n  }\n  100% {\n    opacity: 1;\n    transform: translateX(-30%) translateY(-80px) scale(1);\n  }\n}\n@keyframes _ngcontent-%COMP%_cloudCatch {\n  0% {\n    transform: translateX(0) scale(1);\n    opacity: 1;\n  }\n  30% {\n    transform: translateX(15px) scale(1);\n  }\n  45% {\n    transform: translateX(calc(50% + 10px)) translateY(2px) scale(1.4);\n    opacity: 1;\n  }\n  100% {\n    transform: translateX(calc(50% + 10px)) translateY(0) scale(1.4);\n    opacity: 1;\n  }\n}\n.contact-container[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);\n  gap: 1.5rem;\n}\n.contact-info-section[_ngcontent-%COMP%], \n.contact-form-section[_ngcontent-%COMP%] {\n  display: flex;\n}\n.info-cards[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  width: 100%;\n}\n.info-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  padding: 1rem 1.05rem;\n}\n.info-icon[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  font-size: 1.35rem;\n}\n.info-content[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  margin-bottom: 0.2rem;\n  font-size: 1rem;\n}\n.info-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.form-card[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 1.4rem;\n}\n.form-header[_ngcontent-%COMP%] {\n  margin-bottom: 1.25rem;\n}\n.form-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.5rem;\n  font-size: 1.35rem;\n}\n.form-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n}\n.form-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n  gap: 1rem;\n}\n.form-group[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n}\n.form-group[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  display: block;\n  margin-bottom: 0.45rem;\n  font-size: 0.86rem;\n  font-weight: 700;\n  color: var(--text-secondary);\n}\n.form-input.is-invalid[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);\n}\n.error-message[_ngcontent-%COMP%] {\n  margin-top: 0.45rem;\n  font-size: 0.8rem;\n  color: #fda4af;\n}\n.submit-btn[_ngcontent-%COMP%] {\n  width: 100%;\n  min-height: 3.2rem;\n  border: none;\n  border-radius: 999px;\n  background: var(--gradient-primary);\n  color: #09091a;\n  font-weight: 700;\n  cursor: pointer;\n}\n.submit-btn.disabled[_ngcontent-%COMP%] {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n.btn-icon[_ngcontent-%COMP%] {\n  transition: transform var(--transition-normal);\n}\n.submit-btn[_ngcontent-%COMP%]:hover:not(.disabled)   .btn-icon[_ngcontent-%COMP%] {\n  transform: translateX(3px);\n}\n.toast-container[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 1rem;\n  right: 1rem;\n  z-index: 1200;\n}\n.toast[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  padding: 0.95rem 1rem;\n  border-radius: 1rem;\n  color: #fff;\n  box-shadow: 0 18px 50px rgba(2, 6, 23, 0.36);\n}\n.toast-success[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n}\n.toast-error[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ef4444,\n      #f97316);\n}\n@media (max-width: 900px) {\n  .contact-container[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n@media (max-width: 640px) {\n  .form-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .toast-container[_ngcontent-%COMP%] {\n    left: 1rem;\n    right: 1rem;\n  }\n}\n/*# sourceMappingURL=contact.component.css.map */'] });
-  }
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ContactComponent, [{
-    type: Component,
-    args: [{ selector: "app-contact", standalone: true, imports: [FormsModule, CommonModule], template: `<section class="apple-section" id="contact">
-  <div class="apple-container">
-    <div class="section-header">
-      <span class="section-kicker">Start a conversation</span>
-      <h2 class="section-title">Building backend platforms or practical AI products?</h2>
-      <p class="section-subtitle">
-        I\u2019m interested in staff and lead opportunities where system design, platform thinking, and product-minded execution all matter.
-      </p>
-    </div>
-
-    <!-- Mario greeter -->
-    <div class="mario-greeter" [class.mario-greeter--jumping]="marioJumping">
-      <div class="mario-scene">
-        <div class="speech-bubble">
-          <span>{{ marioJumping ? 'Yahoo! Message sent!' : "It's-a me! Let's-a talk!" }}</span>
-        </div>
-        <img class="mario-sprite" src="assets/images/mario-sprite.png" alt="Mario" />
-        <div class="mario-cloud cloud-1"></div>
-        <div class="mario-cloud cloud-2"></div>
-        <div class="mario-ground"></div>
-      </div>
-    </div>
-
-    <div class="contact-container">
-      <div class="contact-info-section">
-        <div class="info-cards">
-          <div class="info-card">
-            <div class="info-icon">\u{1F4E7}</div>
-            <div class="info-content">
-              <h4>Email</h4>
-              <p>ankit.sharma199803@gmail.com</p>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon">\u{1F4CD}</div>
-            <div class="info-content">
-              <h4>Location</h4>
-              <p>Bangalore, India</p>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon">\u{1F9E0}</div>
-            <div class="info-content">
-              <h4>Best fit</h4>
-              <p>Staff backend, platform, and Gen AI product engineering roles</p>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon">\u26A1</div>
-            <div class="info-content">
-              <h4>Response time</h4>
-              <p>Usually within 24 hours</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="contact-form-section">
-        <div class="form-card">
-          <div class="form-header">
-            <h3>Tell me what you\u2019re building</h3>
-            <p>
-              Share the role, the product, or the problem space. If it involves scale, systems, or useful AI, I\u2019m interested.
-            </p>
-          </div>
-
-          <form #contactForm="ngForm" (ngSubmit)="onSubmit(model.name, model.subject, model.email, model.message)" name="form" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input
-                  #name="ngModel"
-                  [(ngModel)]="model.name"
-                  [ngClass]="{ 'is-invalid': contactForm.submitted && name.invalid }"
-                  class="form-input"
-                  id="name"
-                  name="name"
-                  placeholder="Your full name"
-                  required
-                  type="text"
-                />
-                @if (contactForm.submitted && name.invalid) {
-                  <div class="error-message">Please enter your name</div>
-                }
-              </div>
-
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                  #email="ngModel"
-                  [(ngModel)]="model.email"
-                  [ngClass]="{ 'is-invalid': contactForm.submitted && email.invalid }"
-                  class="form-input"
-                  id="email"
-                  name="email"
-                  placeholder="your.email@example.com"
-                  required
-                  type="email"
-                />
-                @if (contactForm.submitted && email.invalid) {
-                  <div class="error-message">Please enter a valid email address</div>
-                }
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="subject">Subject</label>
-              <input
-                #subject="ngModel"
-                [(ngModel)]="model.subject"
-                [ngClass]="{ 'is-invalid': contactForm.submitted && subject.invalid }"
-                class="form-input"
-                id="subject"
-                name="subject"
-                placeholder="Role, collaboration, or project intro"
-                required
-                type="text"
-              />
-              @if (contactForm.submitted && subject.invalid) {
-                <div class="error-message">Please enter a subject</div>
-              }
-            </div>
-
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea
-                #message="ngModel"
-                [(ngModel)]="model.message"
-                [ngClass]="{ 'is-invalid': contactForm.submitted && message.invalid }"
-                class="form-input"
-                id="message"
-                name="message"
-                placeholder="Tell me about the team, the scope, and the kind of problems you want help solving..."
-                required
-                rows="5"
-              ></textarea>
-              @if (contactForm.submitted && message.invalid) {
-                <div class="error-message">Please enter your message</div>
-              }
-            </div>
-
-            <div class="form-group">
-              <button
-                [disabled]="!isFormValid() || isSubmitting"
-                class="submit-btn"
-                [ngClass]="{ 'disabled': !isFormValid() || isSubmitting }"
-                type="submit"
-              >
-                <span class="btn-text">{{ isSubmitting ? 'Sending...' : 'Send message' }}</span>
-                @if (!isSubmitting) {
-                  <span class="btn-icon">\u2192</span>
-                }
-                @if (isSubmitting) {
-                  <span class="btn-spinner">\u23F3</span>
-                }
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  @if (showToast) {
-    <div class="toast-container">
-      <div class="toast" [ngClass]="'toast-' + toastType">
-        <div class="toast-icon">{{ toastType === 'success' ? '\u2705' : '\u274C' }}</div>
-        <div class="toast-message">{{ toastMessage }}</div>
-      </div>
-    </div>
-  }
-</section>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/contact/contact.component.scss */\n:host {\n  display: block;\n}\n.mario-greeter {\n  margin: 0 auto 2.5rem;\n  max-width: 20rem;\n}\n.mario-scene {\n  position: relative;\n  height: 140px;\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n}\n.speech-bubble {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  transform: translateX(-30%);\n  background: rgba(251, 191, 36, 0.12);\n  border: 2px solid rgba(251, 191, 36, 0.35);\n  border-radius: 12px 12px 12px 2px;\n  padding: 0.55rem 0.9rem;\n  white-space: nowrap;\n  animation: bubblePop 0.4s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.speech-bubble span {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  color: #fde68a;\n  letter-spacing: 0.04em;\n}\n.speech-bubble::after {\n  content: "";\n  position: absolute;\n  bottom: -8px;\n  left: 12px;\n  width: 0;\n  height: 0;\n  border-left: 8px solid rgba(251, 191, 36, 0.35);\n  border-right: 8px solid transparent;\n  border-top: 8px solid rgba(251, 191, 36, 0.35);\n  border-bottom: 8px solid transparent;\n}\n@keyframes bubblePop {\n  from {\n    transform: translateX(-30%) scale(0.7);\n    opacity: 0;\n  }\n  to {\n    transform: translateX(-30%) scale(1);\n    opacity: 1;\n  }\n}\n.mario-sprite {\n  width: 64px;\n  height: 80px;\n  image-rendering: pixelated;\n  object-fit: contain;\n  position: relative;\n  z-index: 2;\n  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.2));\n  animation: marioWave 2.5s ease-in-out infinite;\n}\n@keyframes marioWave {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-4px);\n  }\n}\n.mario-cloud {\n  position: absolute;\n  width: 60px;\n  height: 24px;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: -8px 4px 0 rgba(255, 255, 255, 0.04), 8px 4px 0 rgba(255, 255, 255, 0.04);\n}\n.mario-cloud::before {\n  content: "";\n  position: absolute;\n  top: -8px;\n  left: 12px;\n  width: 20px;\n  height: 16px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.05);\n}\n.mario-cloud::after {\n  content: "";\n  position: absolute;\n  top: -12px;\n  left: 28px;\n  width: 16px;\n  height: 14px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.04);\n}\n.cloud-1 {\n  bottom: 70px;\n  left: 0;\n  animation: cloudDrift 8s ease-in-out infinite;\n}\n.cloud-2 {\n  bottom: 90px;\n  right: 0;\n  width: 48px;\n  height: 20px;\n  animation: cloudDrift 12s ease-in-out infinite reverse;\n}\n@keyframes cloudDrift {\n  0%, 100% {\n    transform: translateX(0);\n  }\n  50% {\n    transform: translateX(10px);\n  }\n}\n.mario-ground {\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 100px;\n  height: 10px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #2d5016 0px,\n      #2d5016 10px,\n      #3a6b1e 10px,\n      #3a6b1e 20px);\n  border-radius: 3px;\n  border-top: 2px solid #4a8b2e;\n}\n.mario-greeter--jumping .mario-sprite {\n  animation: marioJumpCloud 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;\n}\n.mario-greeter--jumping .speech-bubble {\n  animation: bubbleJump 2.4s ease forwards;\n}\n.mario-greeter--jumping .cloud-1 {\n  animation: cloudCatch 2.4s ease forwards !important;\n}\n@keyframes marioJumpCloud {\n  0% {\n    transform: translateY(0) scale(1);\n  }\n  10% {\n    transform: translateY(4px) scale(1.05, 0.9);\n  }\n  30% {\n    transform: translateY(-70px) scale(0.95, 1.05);\n  }\n  45% {\n    transform: translateY(-70px) scale(1);\n  }\n  55% {\n    transform: translateY(-70px) rotate(-5deg);\n  }\n  70% {\n    transform: translateY(-70px) rotate(5deg);\n  }\n  85% {\n    transform: translateY(-70px) rotate(-3deg);\n  }\n  100% {\n    transform: translateY(-70px) rotate(0deg) scale(1.1);\n  }\n}\n@keyframes bubbleJump {\n  0% {\n    transform: translateX(-30%) translateY(0);\n    opacity: 1;\n  }\n  20% {\n    opacity: 0;\n    transform: translateX(-30%) translateY(-10px);\n  }\n  40% {\n    opacity: 0;\n    transform: translateX(-30%) translateY(-80px);\n  }\n  50% {\n    opacity: 1;\n    transform: translateX(-30%) translateY(-80px) scale(1.1);\n  }\n  100% {\n    opacity: 1;\n    transform: translateX(-30%) translateY(-80px) scale(1);\n  }\n}\n@keyframes cloudCatch {\n  0% {\n    transform: translateX(0) scale(1);\n    opacity: 1;\n  }\n  30% {\n    transform: translateX(15px) scale(1);\n  }\n  45% {\n    transform: translateX(calc(50% + 10px)) translateY(2px) scale(1.4);\n    opacity: 1;\n  }\n  100% {\n    transform: translateX(calc(50% + 10px)) translateY(0) scale(1.4);\n    opacity: 1;\n  }\n}\n.contact-container {\n  display: grid;\n  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);\n  gap: 1.5rem;\n}\n.contact-info-section,\n.contact-form-section {\n  display: flex;\n}\n.info-cards {\n  display: grid;\n  gap: 1rem;\n  width: 100%;\n}\n.info-card {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  padding: 1rem 1.05rem;\n}\n.info-icon {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  font-size: 1.35rem;\n}\n.info-content h4 {\n  margin-bottom: 0.2rem;\n  font-size: 1rem;\n}\n.info-content p {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.form-card {\n  width: 100%;\n  padding: 1.4rem;\n}\n.form-header {\n  margin-bottom: 1.25rem;\n}\n.form-header h3 {\n  margin-bottom: 0.5rem;\n  font-size: 1.35rem;\n}\n.form-header p {\n  color: var(--text-tertiary);\n}\n.form-row {\n  display: grid;\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n  gap: 1rem;\n}\n.form-group {\n  margin-bottom: 1rem;\n}\n.form-group label {\n  display: block;\n  margin-bottom: 0.45rem;\n  font-size: 0.86rem;\n  font-weight: 700;\n  color: var(--text-secondary);\n}\n.form-input.is-invalid {\n  border-color: rgba(239, 68, 68, 0.5);\n  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);\n}\n.error-message {\n  margin-top: 0.45rem;\n  font-size: 0.8rem;\n  color: #fda4af;\n}\n.submit-btn {\n  width: 100%;\n  min-height: 3.2rem;\n  border: none;\n  border-radius: 999px;\n  background: var(--gradient-primary);\n  color: #09091a;\n  font-weight: 700;\n  cursor: pointer;\n}\n.submit-btn.disabled {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n.btn-icon {\n  transition: transform var(--transition-normal);\n}\n.submit-btn:hover:not(.disabled) .btn-icon {\n  transform: translateX(3px);\n}\n.toast-container {\n  position: fixed;\n  top: 1rem;\n  right: 1rem;\n  z-index: 1200;\n}\n.toast {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  padding: 0.95rem 1rem;\n  border-radius: 1rem;\n  color: #fff;\n  box-shadow: 0 18px 50px rgba(2, 6, 23, 0.36);\n}\n.toast-success {\n  background: var(--gradient-primary);\n  color: #09091a;\n}\n.toast-error {\n  background:\n    linear-gradient(\n      135deg,\n      #ef4444,\n      #f97316);\n}\n@media (max-width: 900px) {\n  .contact-container {\n    grid-template-columns: 1fr;\n  }\n}\n@media (max-width: 640px) {\n  .form-row {\n    grid-template-columns: 1fr;\n  }\n  .toast-container {\n    left: 1rem;\n    right: 1rem;\n  }\n}\n/*# sourceMappingURL=contact.component.css.map */\n'] }]
-  }], null, { contactForm: [{
-    type: ViewChild,
-    args: ["contactForm"]
-  }] });
-})();
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ContactComponent, { className: "ContactComponent", filePath: "src/app/profile/contact/contact.component.ts", lineNumber: 15 });
-})();
-
-// src/app/profile/education/education.component.ts
-var EducationComponent = class _EducationComponent {
-  static {
-    this.\u0275fac = function EducationComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _EducationComponent)();
-    };
-  }
-  static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _EducationComponent, selectors: [["app-education"]], decls: 75, vars: 0, consts: [["id", "education", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], ["data-stagger", "120", 1, "training-grid"], [1, "level-card", "level-card--gold"], [1, "level-flag"], [1, "level-number"], [1, "level-status"], [1, "level-body"], [1, "level-year"], [1, "level-title"], [1, "level-location"], [1, "level-rewards"], [1, "reward-chip"], [1, "level-xp"], [1, "xp-label"], [1, "xp-bar"], [1, "xp-fill", 2, "width", "98%"], [1, "level-card", "level-card--silver"], [1, "xp-fill", 2, "width", "93%"], [1, "level-card", "level-card--bronze"], [1, "xp-fill", 2, "width", "90%"]], template: function EducationComponent_Template(rf, ctx2) {
-      if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
-        \u0275\u0275text(4, "\u{1F3EB} TRAINING GROUNDS");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(5, "h2", 4);
-        \u0275\u0275text(6, "Education");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(7, "p", 5);
-        \u0275\u0275text(8, "Worlds cleared before the quests began.");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(9, "div", 6)(10, "div", 7)(11, "div", 8)(12, "span", 9);
-        \u0275\u0275text(13, "W-3");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(14, "span", 10);
-        \u0275\u0275text(15, "\u2713 CLEARED");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(16, "div", 11)(17, "div", 12);
-        \u0275\u0275text(18, "2016 \u2013 2020");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(19, "h4", 13);
-        \u0275\u0275text(20, "Bachelor of Technology in Computer Science");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(21, "div", 14);
-        \u0275\u0275text(22, "\u{1F4CD} GLA University");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(23, "div", 15)(24, "span", 16);
-        \u0275\u0275text(25, "\u2B50 8.03 GPA");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(26, "span", 16);
-        \u0275\u0275text(27, "\u{1FA99} 4 Years");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(28, "div", 17)(29, "div", 18);
-        \u0275\u0275text(30, "XP EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(31, "div", 19);
-        \u0275\u0275domElement(32, "div", 20);
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(33, "div", 21)(34, "div", 8)(35, "span", 9);
-        \u0275\u0275text(36, "W-2");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(37, "span", 10);
-        \u0275\u0275text(38, "\u2713 CLEARED");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(39, "div", 11)(40, "div", 12);
-        \u0275\u0275text(41, "2016");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(42, "h4", 13);
-        \u0275\u0275text(43, "Physics, Chemistry, Maths");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(44, "div", 14);
-        \u0275\u0275text(45, "\u{1F4CD} Ess Ess Convent School (CBSE)");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(46, "div", 15)(47, "span", 16);
-        \u0275\u0275text(48, "\u{1F3AF} Intermediate");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(49, "div", 17)(50, "div", 18);
-        \u0275\u0275text(51, "XP EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(52, "div", 19);
-        \u0275\u0275domElement(53, "div", 22);
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(54, "div", 23)(55, "div", 8)(56, "span", 9);
-        \u0275\u0275text(57, "W-1");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(58, "span", 10);
-        \u0275\u0275text(59, "\u2713 CLEARED");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(60, "div", 11)(61, "div", 12);
-        \u0275\u0275text(62, "2014");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(63, "h4", 13);
-        \u0275\u0275text(64, "Science and Computers");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(65, "div", 14);
-        \u0275\u0275text(66, "\u{1F4CD} St. Conrad's Inter College (ICSE)");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(67, "div", 15)(68, "span", 16);
-        \u0275\u0275text(69, "\u{1F3AF} High School");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(70, "div", 17)(71, "div", 18);
-        \u0275\u0275text(72, "XP EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(73, "div", 19);
-        \u0275\u0275domElement(74, "div", 24);
-        \u0275\u0275domElementEnd()()()()()();
-      }
-    }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.training-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.25rem;\n}\n.level-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.level-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.35);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.1);\n}\n.level-card--gold[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.level-card--silver[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.2);\n}\n.level-card--bronze[_ngcontent-%COMP%] {\n  border-color: rgba(180, 120, 60, 0.2);\n}\n.level-flag[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  background: rgba(251, 191, 36, 0.06);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.level-number[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.12em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.level-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.1em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.level-card--gold[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.08);\n}\n.level-card--silver[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(148, 163, 184, 0.05);\n}\n.level-card--silver[_ngcontent-%COMP%]   .level-number[_ngcontent-%COMP%] {\n  color: #94a3b8;\n  text-shadow: 0 0 8px rgba(148, 163, 184, 0.25);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(180, 120, 60, 0.05);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .level-number[_ngcontent-%COMP%] {\n  color: #b4783c;\n  text-shadow: 0 0 8px rgba(180, 120, 60, 0.25);\n}\n.level-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1rem;\n  display: grid;\n  gap: 0.5rem;\n}\n.level-year[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.08em;\n  color: var(--text-muted);\n}\n.level-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.05rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.level-location[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  color: #fde68a;\n}\n.level-rewards[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.2rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.25rem;\n  padding: 0.25rem 0.6rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.04em;\n  color: var(--primary-color);\n}\n.level-xp[_ngcontent-%COMP%] {\n  padding: 0.6rem 1rem 0.8rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  display: grid;\n  gap: 0.35rem;\n}\n.xp-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.16em;\n  color: var(--text-muted);\n}\n.xp-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 6px;\n  border-radius: 3px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #f59e0b);\n  box-shadow: 0 0 6px rgba(251, 191, 36, 0.4);\n  transition: width 0.8s ease;\n}\n.level-card--silver[_ngcontent-%COMP%]   .xp-fill[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #94a3b8,\n      #cbd5e1);\n  box-shadow: 0 0 6px rgba(148, 163, 184, 0.35);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .xp-fill[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #b4783c,\n      #d4a574);\n  box-shadow: 0 0 6px rgba(180, 120, 60, 0.35);\n}\n@media (max-width: 900px) {\n  .training-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    max-width: 28rem;\n    margin-inline: auto;\n  }\n}\n/*# sourceMappingURL=education.component.css.map */'] });
-  }
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(EducationComponent, [{
-    type: Component,
-    args: [{ selector: "app-education", standalone: true, template: `<div class="apple-section" id="education">
-  <div class="apple-container">
-    <div class="section-header" data-anim="fade-up">
-      <div class="world-label">\u{1F3EB} TRAINING GROUNDS</div>
-      <h2 class="section-title" data-text-reveal>Education</h2>
-      <p class="section-subtitle">Worlds cleared before the quests began.</p>
-    </div>
-
-    <div class="training-grid" data-stagger="120">
-
-      <!-- Bachelor Degree -->
-      <div class="level-card level-card--gold">
-        <div class="level-flag">
-          <span class="level-number">W-3</span>
-          <span class="level-status">\u2713 CLEARED</span>
-        </div>
-        <div class="level-body">
-          <div class="level-year">2016 \u2013 2020</div>
-          <h4 class="level-title">Bachelor of Technology in Computer Science</h4>
-          <div class="level-location">\u{1F4CD} GLA University</div>
-          <div class="level-rewards">
-            <span class="reward-chip">\u2B50 8.03 GPA</span>
-            <span class="reward-chip">\u{1FA99} 4 Years</span>
-          </div>
-        </div>
-        <div class="level-xp">
-          <div class="xp-label">XP EARNED</div>
-          <div class="xp-bar"><div class="xp-fill" style="width: 98%"></div></div>
-        </div>
-      </div>
-
-      <!-- Intermediate -->
-      <div class="level-card level-card--silver">
-        <div class="level-flag">
-          <span class="level-number">W-2</span>
-          <span class="level-status">\u2713 CLEARED</span>
-        </div>
-        <div class="level-body">
-          <div class="level-year">2016</div>
-          <h4 class="level-title">Physics, Chemistry, Maths</h4>
-          <div class="level-location">\u{1F4CD} Ess Ess Convent School (CBSE)</div>
-          <div class="level-rewards">
-            <span class="reward-chip">\u{1F3AF} Intermediate</span>
-          </div>
-        </div>
-        <div class="level-xp">
-          <div class="xp-label">XP EARNED</div>
-          <div class="xp-bar"><div class="xp-fill" style="width: 93%"></div></div>
-        </div>
-      </div>
-
-      <!-- High School -->
-      <div class="level-card level-card--bronze">
-        <div class="level-flag">
-          <span class="level-number">W-1</span>
-          <span class="level-status">\u2713 CLEARED</span>
-        </div>
-        <div class="level-body">
-          <div class="level-year">2014</div>
-          <h4 class="level-title">Science and Computers</h4>
-          <div class="level-location">\u{1F4CD} St. Conrad's Inter College (ICSE)</div>
-          <div class="level-rewards">
-            <span class="reward-chip">\u{1F3AF} High School</span>
-          </div>
-        </div>
-        <div class="level-xp">
-          <div class="xp-label">XP EARNED</div>
-          <div class="xp-bar"><div class="xp-fill" style="width: 90%"></div></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/education/education.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.training-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.25rem;\n}\n.level-card {\n  position: relative;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.level-card:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.35);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.1);\n}\n.level-card--gold {\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.level-card--silver {\n  border-color: rgba(148, 163, 184, 0.2);\n}\n.level-card--bronze {\n  border-color: rgba(180, 120, 60, 0.2);\n}\n.level-flag {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  background: rgba(251, 191, 36, 0.06);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.level-number {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.12em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.level-status {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.1em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.level-card--gold .level-flag {\n  background: rgba(251, 191, 36, 0.08);\n}\n.level-card--silver .level-flag {\n  background: rgba(148, 163, 184, 0.05);\n}\n.level-card--silver .level-number {\n  color: #94a3b8;\n  text-shadow: 0 0 8px rgba(148, 163, 184, 0.25);\n}\n.level-card--bronze .level-flag {\n  background: rgba(180, 120, 60, 0.05);\n}\n.level-card--bronze .level-number {\n  color: #b4783c;\n  text-shadow: 0 0 8px rgba(180, 120, 60, 0.25);\n}\n.level-body {\n  padding: 1.1rem 1rem;\n  display: grid;\n  gap: 0.5rem;\n}\n.level-year {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.08em;\n  color: var(--text-muted);\n}\n.level-title {\n  font-family: var(--font-display);\n  font-size: 1.05rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.level-location {\n  font-size: 0.85rem;\n  color: #fde68a;\n}\n.level-rewards {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.2rem;\n}\n.reward-chip {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.25rem;\n  padding: 0.25rem 0.6rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.04em;\n  color: var(--primary-color);\n}\n.level-xp {\n  padding: 0.6rem 1rem 0.8rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  display: grid;\n  gap: 0.35rem;\n}\n.xp-label {\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.16em;\n  color: var(--text-muted);\n}\n.xp-bar {\n  width: 100%;\n  height: 6px;\n  border-radius: 3px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-fill {\n  height: 100%;\n  border-radius: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #f59e0b);\n  box-shadow: 0 0 6px rgba(251, 191, 36, 0.4);\n  transition: width 0.8s ease;\n}\n.level-card--silver .xp-fill {\n  background:\n    linear-gradient(\n      90deg,\n      #94a3b8,\n      #cbd5e1);\n  box-shadow: 0 0 6px rgba(148, 163, 184, 0.35);\n}\n.level-card--bronze .xp-fill {\n  background:\n    linear-gradient(\n      90deg,\n      #b4783c,\n      #d4a574);\n  box-shadow: 0 0 6px rgba(180, 120, 60, 0.35);\n}\n@media (max-width: 900px) {\n  .training-grid {\n    grid-template-columns: 1fr;\n    max-width: 28rem;\n    margin-inline: auto;\n  }\n}\n/*# sourceMappingURL=education.component.css.map */\n'] }]
-  }], null, null);
-})();
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(EducationComponent, { className: "EducationComponent", filePath: "src/app/profile/education/education.component.ts", lineNumber: 9 });
-})();
-
-// src/app/profile/experience/experience.data.ts
-var EXPERIENCE_START_DATE = "2019-12-20";
-var EXPERIENCE_ITEMS = [
-  {
-    id: "smts-salesforce",
-    title: "SMTS (Senior Member of Technical Staff)",
-    company: "Salesforce",
-    companyUrl: COMPANY_LINKS.salesforce,
-    logo: "assets/images/salesforce.jpeg",
-    location: "Hybrid in Hyderabad, India",
-    duration: "Current",
-    period: "2025 - Present",
-    description: "Senior Member of Technical Staff working on Slack. Powering Salesforce Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration.",
-    technologies: ["Java", "Slack Platform", "Agentforce", "Thunderbird", "Einstein AI", "Microservices"],
-    achievements: [
-      "Powering Salesforce Thunderbird architecture for Slack",
-      "Enhancing Slackbot & Einstein with Agentforce integration",
-      "Driving engineering best practices and code quality across the team"
-    ]
-  },
-  {
-    id: "sde2-games24x7",
-    title: "SDE-2",
-    company: "Games24x7",
-    companyUrl: COMPANY_LINKS.games24x7,
-    logo: "assets/images/games24x7.png",
-    location: "Bangalore, India",
-    duration: "3 years",
-    period: "2022 - 2025",
-    description: "Worked as a backend developer in Platform services, for both RummyCircle and My11Circle. Led critical platform initiatives and mentored junior developers.",
-    technologies: ["Kafka", "Spring Cloud", "LLM", "AWS Sage Maker", "Google AD APIs", "Elasti-cache", "JDK 21", "Neptune DB", "Gremlin", "Grafana", "Prometheus", "Pager Duty"],
-    achievements: [
-      "Developed Risk Rule Engine for Games24x7 that works in My11Circle and RummyCircle, that identifies Fraud done by users in real time",
-      "Developed Google ad monitoring service which keeps on monitoring the campaign spends done by the marketing team",
-      "Standardized and migrated services from EC2 to Graviton in K8s",
-      "Set up proper alerting for business dashboards and created PD alerts",
-      "Mentored a team of 3 junior developers"
-    ]
-  },
-  {
-    id: "sde1-games24x7",
-    title: "SDE-1",
-    company: "Games24x7",
-    companyUrl: COMPANY_LINKS.games24x7,
-    logo: "assets/images/games24x7.png",
-    location: "Bangalore, India",
-    duration: "1.1 years",
-    period: "2021 - 2022",
-    description: "Working as a backend developer in My11Circle team. Developed scalable solutions for high-traffic gaming platform.",
-    technologies: ["Java 11", "Microservices", "AWS", "OCR", "Redis", "Kafka", "RabbitMQ", "MySQL", "Spring Boot", "Spring Cloud", "Distributed Locking"],
-    achievements: [
-      "Helped My11Circle grow and scale to achieve 10 Million concurrent users",
-      "Worked on several projects for My11Circle and RummyCircle",
-      "Developed Automated KYC system of Games24x7 from scratch",
-      "Developed Club upgradation to turn to VIP users, features for My11Circle users"
-    ]
-  },
-  {
-    id: "swe-walmart",
-    title: "SWE IN2",
-    company: "Walmart Global Tech",
-    companyUrl: COMPANY_LINKS.walmart,
-    logo: "assets/images/walmart.png",
-    location: "Bangalore, India",
-    duration: "4 months",
-    period: "2021",
-    description: "Built features for Walmart's Annual Enrollment platform \u2014 the system employees use to enroll in health benefits (life insurance, dental, health coverage) for 2.2M+ associates.",
-    technologies: ["Java 8", "Angular", "JSP", "OneOps", "WCNP", "Jenkins"],
-    achievements: [
-      "Developed enrollment features serving 2.2M+ Walmart associates across the US",
-      "Built on Walmart's private cloud (OneOps/WCNP) with CI/CD via Jenkins",
-      "Shipped production code within first month, collaborating across US and India teams"
-    ]
-  },
-  {
-    id: "sde1-extramarks",
-    title: "SDE 1",
-    company: "Extramarks Education",
-    companyUrl: COMPANY_LINKS.extramarks,
-    logo: "assets/images/extramarks.png",
-    location: "Noida, India",
-    duration: "1.3 years",
-    period: "2020 - 2021",
-    description: "Got hands on project experience, worked in a collaborative environment. Created from scratch projects and deployed it into production environment.",
-    technologies: ["Java 8/11", "Spring Boot", "OAuth2.0 + JWT", "AWS Cognito", "Docker", "MySQL 8+"],
-    achievements: [
-      "Broke Monolithic architecture to Microservices and discussed the whole architecture with the team",
-      "Developed and deployed 5+ production-ready applications",
-      "Implemented OAuth2.0 authentication system",
-      "Reduced system downtime by 80% through improved architecture"
-    ]
-  }
-];
-
-// src/app/profile/experience/experience.component.ts
-var _forTrack02 = ($index, $item) => $item.id;
-function ExperienceComponent_For_16_Conditional_5_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 18)(1, "div", 23);
-    \u0275\u0275domElement(2, "div", 24)(3, "div", 25)(4, "div", 26);
-    \u0275\u0275domElementEnd()();
-  }
-}
-function ExperienceComponent_For_16_Conditional_10_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElementStart(0, "span", 22);
-    \u0275\u0275text(1);
-    \u0275\u0275domElementEnd();
-  }
-  if (rf & 2) {
-    const stop_r3 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1("\u{1FA99} ", stop_r3.roles.length, " roles");
-  }
-}
-function ExperienceComponent_For_16_Template(rf, ctx2) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "button", 14);
-    \u0275\u0275domListener("click", function ExperienceComponent_For_16_Template_button_click_0_listener() {
-      const ctx_r1 = \u0275\u0275restoreView(_r1);
-      const stop_r3 = ctx_r1.$implicit;
-      const \u0275$index_27_r4 = ctx_r1.$index;
-      const ctx_r4 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r4.selectStop(stop_r3, \u0275$index_27_r4));
-    });
-    \u0275\u0275domElementStart(1, "div", 15)(2, "div", 16)(3, "span", 17);
-    \u0275\u0275text(4);
-    \u0275\u0275domElementEnd()()();
-    \u0275\u0275conditionalCreate(5, ExperienceComponent_For_16_Conditional_5_Template, 5, 0, "div", 18);
-    \u0275\u0275domElementStart(6, "div", 19);
-    \u0275\u0275domElement(7, "img", 20);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(8, "span", 21);
-    \u0275\u0275text(9);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(10, ExperienceComponent_For_16_Conditional_10_Template, 2, 1, "span", 22);
-    \u0275\u0275domElementEnd();
-  }
-  if (rf & 2) {
-    const stop_r3 = ctx2.$implicit;
-    const \u0275$index_27_r4 = ctx2.$index;
-    const ctx_r4 = \u0275\u0275nextContext();
-    \u0275\u0275classProp("active", ctx_r4.isStopActive(stop_r3))("current", stop_r3.isCurrent)("mario-here", ctx_r4.marioPosition === \u0275$index_27_r4);
-    \u0275\u0275attribute("aria-label", "View experience at " + stop_r3.company);
-    \u0275\u0275advance(2);
-    \u0275\u0275classProp("flag-current", stop_r3.isCurrent);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r4.getStopPeriod(stop_r3));
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r4.marioPosition === \u0275$index_27_r4 ? 5 : -1);
-    \u0275\u0275advance(2);
-    \u0275\u0275domProperty("src", stop_r3.logo, \u0275\u0275sanitizeUrl)("alt", stop_r3.company + " logo");
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(stop_r3.company);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(stop_r3.roles.length > 1 ? 10 : -1);
-  }
-}
-function ExperienceComponent_Conditional_19_Conditional_9_For_2_Template(rf, ctx2) {
-  if (rf & 1) {
-    const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "button", 44);
-    \u0275\u0275domListener("click", function ExperienceComponent_Conditional_19_Conditional_9_For_2_Template_button_click_0_listener() {
-      const role_r7 = \u0275\u0275restoreView(_r6).$implicit;
-      const ctx_r4 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r4.selectRole(role_r7));
-    });
-    \u0275\u0275text(1);
-    \u0275\u0275domElementStart(2, "span", 45);
-    \u0275\u0275text(3);
-    \u0275\u0275domElementEnd()();
-  }
-  if (rf & 2) {
-    const role_r7 = ctx2.$implicit;
-    const ctx_r4 = \u0275\u0275nextContext(3);
-    \u0275\u0275classProp("active", ctx_r4.activeRole === role_r7);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", role_r7.title, " ");
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(role_r7.period);
-  }
-}
-function ExperienceComponent_Conditional_19_Conditional_9_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 32);
-    \u0275\u0275repeaterCreate(1, ExperienceComponent_Conditional_19_Conditional_9_For_2_Template, 4, 4, "button", 43, _forTrack02);
-    \u0275\u0275domElementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r4 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance();
-    \u0275\u0275repeater(ctx_r4.activeStop.roles);
-  }
-}
-function ExperienceComponent_Conditional_19_For_23_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElementStart(0, "span", 41);
-    \u0275\u0275text(1);
-    \u0275\u0275domElementEnd();
-  }
-  if (rf & 2) {
-    const tech_r8 = ctx2.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(tech_r8);
-  }
-}
-function ExperienceComponent_Conditional_19_For_29_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElementStart(0, "li");
-    \u0275\u0275text(1);
-    \u0275\u0275domElementEnd();
-  }
-  if (rf & 2) {
-    const ach_r9 = ctx2.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ach_r9);
-  }
-}
-function ExperienceComponent_Conditional_19_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 13)(1, "div", 27)(2, "div", 28);
-    \u0275\u0275domElement(3, "img", 29);
-    \u0275\u0275domElementStart(4, "div")(5, "div", 30);
-    \u0275\u0275text(6);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "div", 31);
-    \u0275\u0275text(8);
-    \u0275\u0275domElementEnd()()();
-    \u0275\u0275conditionalCreate(9, ExperienceComponent_Conditional_19_Conditional_9_Template, 3, 0, "div", 32);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(10, "div", 33)(11, "div", 34)(12, "span", 35);
-    \u0275\u0275text(13);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(14, "span", 36);
-    \u0275\u0275text(15);
-    \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(16, "p", 37);
-    \u0275\u0275text(17);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(18, "div", 38)(19, "div", 39);
-    \u0275\u0275text(20, "\u26A1 ABILITIES USED");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(21, "div", 40);
-    \u0275\u0275repeaterCreate(22, ExperienceComponent_Conditional_19_For_23_Template, 2, 1, "span", 41, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(24, "div", 38)(25, "div", 39);
-    \u0275\u0275text(26, "\u{1F3C6} KEY ACHIEVEMENTS");
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(27, "ul", 42);
-    \u0275\u0275repeaterCreate(28, ExperienceComponent_Conditional_19_For_29_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275domElementEnd()()()();
-  }
-  if (rf & 2) {
-    const ctx_r4 = \u0275\u0275nextContext();
-    \u0275\u0275advance(3);
-    \u0275\u0275domProperty("src", ctx_r4.activeStop.logo, \u0275\u0275sanitizeUrl)("alt", ctx_r4.activeStop.company);
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r4.activeStop.company);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r4.getStopPeriod(ctx_r4.activeStop));
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r4.activeStop.roles.length > 1 ? 9 : -1);
-    \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(ctx_r4.activeRole.title);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("\u{1F4CD} ", ctx_r4.activeRole.location);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r4.activeRole.description);
-    \u0275\u0275advance(5);
-    \u0275\u0275repeater(ctx_r4.activeRole.technologies);
-    \u0275\u0275advance(6);
-    \u0275\u0275repeater(ctx_r4.activeRole.achievements);
-  }
-}
-var ExperienceComponent = class _ExperienceComponent {
-  constructor() {
-    this.totalExperience = "0.0";
-    this.stops = [];
-    this.activeStop = null;
-    this.activeRole = null;
-    this.marioPosition = -1;
-    this.experienceItems = EXPERIENCE_ITEMS;
-  }
-  ngOnInit() {
-    this.calculateTotalExperience();
-    this.buildTimeline();
-    this.marioPosition = this.stops.length - 1;
-  }
-  calculateTotalExperience() {
-    const start = new Date(EXPERIENCE_START_DATE);
-    const now = /* @__PURE__ */ new Date();
-    const years = Math.abs(now.getTime() - start.getTime()) / (1e3 * 60 * 60 * 24 * 365.25);
-    this.totalExperience = years.toFixed(1);
-  }
-  buildTimeline() {
-    const companyMap = /* @__PURE__ */ new Map();
-    const order = [];
-    this.experienceItems.forEach((item) => {
-      if (!companyMap.has(item.company)) {
-        companyMap.set(item.company, []);
-        order.push(item.company);
-      }
-      companyMap.get(item.company).push(item);
-    });
-    this.stops = order.reverse().map((company) => {
-      const roles = companyMap.get(company);
-      return {
-        id: company.toLowerCase().replace(/\s+/g, "-"),
-        company,
-        logo: roles[0].logo,
-        roles,
-        isCurrent: roles.some((r) => r.duration === "Current")
-      };
-    });
-  }
-  selectStop(stop, idx) {
-    if (this.activeStop === stop) {
-      this.activeStop = null;
-      this.activeRole = null;
-      return;
-    }
-    this.activeStop = stop;
-    this.activeRole = stop.roles[0];
-    this.marioPosition = idx;
-  }
-  selectRole(role) {
-    this.activeRole = role;
-  }
-  isStopActive(stop) {
-    return this.activeStop === stop;
-  }
-  getStopPeriod(stop) {
-    if (stop.roles.length === 1)
-      return stop.roles[0].period;
-    const periods = stop.roles.map((r) => r.period);
-    const first2 = periods[periods.length - 1];
-    const last3 = periods[0];
-    const startYear = first2.split(" - ")[0].split(" ")[0];
-    const endPart = last3.includes("Present") ? "Present" : last3.split(" - ")[1]?.trim() || last3;
-    return `${startYear} - ${endPart}`;
-  }
-  static {
-    this.\u0275fac = function ExperienceComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _ExperienceComponent)();
-    };
-  }
-  static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ExperienceComponent, selectors: [["app-experience"]], decls: 20, vars: 3, consts: [["id", "experience", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], [1, "xp-total"], ["data-anim", "fade-up", 1, "world-map"], [1, "map-track"], [1, "ground-layer"], [1, "trail-line"], ["type", "button", 1, "map-stop", 3, "active", "current", "mario-here"], [1, "end-star"], ["data-anim", "fade-up", 1, "quest-log"], ["type", "button", 1, "map-stop", 3, "click"], [1, "flag-pole"], [1, "flag-banner"], [1, "flag-year"], [1, "mario-sprite"], [1, "stop-block"], ["loading", "lazy", 1, "stop-logo", 3, "src", "alt"], [1, "stop-name"], [1, "coin-count"], [1, "mario-pixel"], [1, "mario-hat"], [1, "mario-face"], [1, "mario-body"], [1, "quest-log-header"], [1, "ql-title-row"], [1, "ql-logo", 3, "src", "alt"], [1, "ql-company"], [1, "ql-period"], [1, "role-tabs"], [1, "quest-log-body"], [1, "ql-role-banner"], [1, "ql-role-title"], [1, "ql-location"], [1, "ql-description"], [1, "ql-section"], [1, "ql-section-label"], [1, "ql-tech-chips"], [1, "ql-tech"], [1, "ql-achievements"], [1, "role-tab", 3, "active"], [1, "role-tab", 3, "click"], [1, "role-tab-period"]], template: function ExperienceComponent_Template(rf, ctx2) {
-      if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
-        \u0275\u0275text(4, "\u2694 WORLD MAP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(5, "h2", 4);
-        \u0275\u0275text(6, "Professional Experience");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(7, "p", 5)(8, "span", 6);
-        \u0275\u0275text(9);
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(10);
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(11, "div", 7)(12, "div", 8);
-        \u0275\u0275domElement(13, "div", 9)(14, "div", 10);
-        \u0275\u0275repeaterCreate(15, ExperienceComponent_For_16_Template, 11, 15, "button", 11, _forTrack02);
-        \u0275\u0275domElementStart(17, "div", 12);
-        \u0275\u0275text(18, "\u2B50");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275conditionalCreate(19, ExperienceComponent_Conditional_19_Template, 30, 8, "div", 13);
-        \u0275\u0275domElementEnd()();
-      }
-      if (rf & 2) {
-        \u0275\u0275advance(9);
-        \u0275\u0275textInterpolate1("", ctx2.totalExperience, " YRS");
-        \u0275\u0275advance();
-        \u0275\u0275textInterpolate1(" of quests completed across ", ctx2.stops.length, " worlds ");
-        \u0275\u0275advance(5);
-        \u0275\u0275repeater(ctx2.stops);
-        \u0275\u0275advance(4);
-        \u0275\u0275conditional(ctx2.activeStop && ctx2.activeRole ? 19 : -1);
-      }
-    }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.apple-section[_ngcontent-%COMP%] {\n  padding: clamp(4rem, 8vw, 7rem) 0;\n  background: var(--bg-primary);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3rem;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.xp-total[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.35);\n}\n.world-map[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n}\n.map-track[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n  gap: 0;\n  padding: 7rem 2rem 3rem;\n}\n.ground-layer[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 2.2rem;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #6b3e1c 0px,\n      #6b3e1c 30px,\n      #8b5e3c 30px,\n      #8b5e3c 32px);\n  border-top: 3px solid #9a6f4e;\n}\n.ground-layer[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -4px;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #22c55e 0px,\n      #22c55e 28px,\n      #16a34a 28px,\n      #16a34a 32px);\n}\n.trail-line[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 2rem;\n  right: 2rem;\n  bottom: 3.2rem;\n  height: 2px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      rgba(251, 191, 36, 0.5) 0px,\n      rgba(251, 191, 36, 0.5) 10px,\n      transparent 10px,\n      transparent 18px);\n}\n.map-stop[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.6rem;\n  flex: 1;\n  max-width: 14rem;\n  padding: 0 1.5rem;\n  background: transparent;\n  border: none;\n  cursor: pointer;\n  z-index: 2;\n  transition: transform 200ms ease;\n}\n.map-stop[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n}\n.map-stop[_ngcontent-%COMP%]:hover   .stop-block[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.5);\n  box-shadow: 0 0 24px rgba(251, 191, 36, 0.18);\n}\n.map-stop[_ngcontent-%COMP%]:hover   .flag-banner[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.map-stop.active[_ngcontent-%COMP%]   .stop-block[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.7);\n  box-shadow: 0 0 32px rgba(251, 191, 36, 0.25);\n}\n.map-stop.active[_ngcontent-%COMP%]   .flag-banner[_ngcontent-%COMP%] {\n  opacity: 1;\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.map-stop.active[_ngcontent-%COMP%]   .stop-name[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n}\n.flag-pole[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.flag-pole[_ngcontent-%COMP%]::before {\n  content: "";\n  display: block;\n  width: 2px;\n  height: 2.6rem;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(251, 191, 36, 0.6),\n      rgba(251, 191, 36, 0.2));\n}\n.flag-banner[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  right: calc(50% + 3px);\n  white-space: nowrap;\n  padding: 0.22rem 0.55rem;\n  border-radius: 4px 0 0 4px;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  background: rgba(251, 191, 36, 0.08);\n  opacity: 0.65;\n  transition: opacity 200ms ease, background 200ms ease;\n}\n.flag-current[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.4) !important;\n  background: rgba(239, 68, 68, 0.12) !important;\n  opacity: 1 !important;\n  animation: _ngcontent-%COMP%_flagPulse 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_flagPulse {\n  0%, 100% {\n    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);\n  }\n  50% {\n    box-shadow: 0 0 12px 2px rgba(239, 68, 68, 0.2);\n  }\n}\n.flag-year[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.06em;\n  color: #fde68a;\n}\n.flag-current[_ngcontent-%COMP%]   .flag-year[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.mario-sprite[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: calc(100% + 0.8rem);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 5;\n  animation: _ngcontent-%COMP%_marioJump 1.2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_marioJump {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  50% {\n    transform: translateX(-50%) translateY(-8px);\n  }\n}\n.mario-pixel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.mario-hat[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 5px;\n  background: #ef4444;\n  border-radius: 2px 2px 0 0;\n  position: relative;\n}\n.mario-hat[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: -2px;\n  width: 20px;\n  height: 3px;\n  background: #ef4444;\n  border-radius: 1px;\n}\n.mario-face[_ngcontent-%COMP%] {\n  width: 14px;\n  height: 6px;\n  background: #fbbf24;\n  border-radius: 0 0 2px 2px;\n}\n.mario-body[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 8px;\n  background: #ef4444;\n  border-radius: 0 0 3px 3px;\n  position: relative;\n}\n.mario-body[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -4px;\n  left: 1px;\n  width: 5px;\n  height: 4px;\n  background: #6b3e1c;\n  border-radius: 0 0 2px 2px;\n  box-shadow: 9px 0 0 #6b3e1c;\n}\n.stop-block[_ngcontent-%COMP%] {\n  width: 5.5rem;\n  height: 5.5rem;\n  border-radius: 1rem;\n  border: 2px solid rgba(251, 191, 36, 0.22);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.95),\n      rgba(13, 13, 34, 0.95));\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0.75rem;\n  transition: border-color 200ms ease, box-shadow 200ms ease;\n  box-shadow: 0 4px 16px rgba(0, 0, 10, 0.4);\n  position: relative;\n}\n.stop-block[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: -1px;\n  border-radius: 1rem;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.1),\n      transparent);\n  pointer-events: none;\n}\n.stop-logo[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n  border-radius: 0.5rem;\n}\n.stop-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 600;\n  letter-spacing: 0.01em;\n  color: var(--text-secondary);\n  text-align: center;\n  max-width: 10rem;\n  transition: color 200ms ease;\n}\n.coin-count[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.end-star[_ngcontent-%COMP%] {\n  font-size: 1.6rem;\n  margin-left: 1rem;\n  animation: _ngcontent-%COMP%_starSpin 3s linear infinite;\n  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5));\n}\n@keyframes _ngcontent-%COMP%_starSpin {\n  0% {\n    transform: rotate(0deg) scale(1);\n  }\n  25% {\n    transform: rotate(10deg) scale(1.1);\n  }\n  50% {\n    transform: rotate(0deg) scale(1);\n  }\n  75% {\n    transform: rotate(-10deg) scale(1.1);\n  }\n  100% {\n    transform: rotate(0deg) scale(1);\n  }\n}\n.quest-log[_ngcontent-%COMP%] {\n  margin-top: 2.5rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  overflow: hidden;\n  animation: _ngcontent-%COMP%_panelSlideUp 0.35s ease-out;\n}\n@keyframes _ngcontent-%COMP%_panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(14px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.quest-log-header[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.5rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n  background: rgba(251, 191, 36, 0.03);\n}\n.ql-title-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 0.75rem;\n}\n.ql-logo[_ngcontent-%COMP%] {\n  width: 3rem;\n  height: 3rem;\n  border-radius: 0.65rem;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 0.3rem;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n}\n.ql-company[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-period[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  color: var(--primary-color);\n  letter-spacing: 0.08em;\n  margin-top: 0.2rem;\n}\n.role-tabs[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n  flex-wrap: wrap;\n}\n.role-tab[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.15rem;\n  padding: 0.55rem 0.85rem;\n  border-radius: 0.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.02);\n  color: var(--text-secondary);\n  cursor: pointer;\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 600;\n  transition: all 200ms ease;\n}\n.role-tab[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.05);\n}\n.role-tab.active[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.5);\n  background: rgba(251, 191, 36, 0.1);\n  color: var(--primary-color);\n}\n.role-tab-period[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  color: var(--text-muted);\n  letter-spacing: 0.06em;\n}\n.role-tab.active[_ngcontent-%COMP%]   .role-tab-period[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.65);\n}\n.quest-log-body[_ngcontent-%COMP%] {\n  padding: 1.5rem;\n  display: grid;\n  gap: 1.25rem;\n}\n.ql-role-banner[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.ql-role-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-location[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n}\n.ql-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 0.92rem;\n  margin: 0;\n}\n.ql-section[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.6rem;\n}\n.ql-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ql-tech-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ql-tech[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.ql-achievements[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.5rem;\n}\n.ql-achievements[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  font-size: 0.88rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.ql-achievements[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #fbbf24;\n  font-weight: bold;\n}\n@media (max-width: 768px) {\n  .map-track[_ngcontent-%COMP%] {\n    padding: 6rem 1rem 2.5rem;\n  }\n  .map-stop[_ngcontent-%COMP%] {\n    padding: 0 0.75rem;\n  }\n  .stop-block[_ngcontent-%COMP%] {\n    width: 4.5rem;\n    height: 4.5rem;\n  }\n  .stop-name[_ngcontent-%COMP%] {\n    font-size: 0.75rem;\n  }\n  .quest-log-header[_ngcontent-%COMP%], \n   .quest-log-body[_ngcontent-%COMP%] {\n    padding: 1.15rem;\n  }\n  .ql-role-banner[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n@media (max-width: 480px) {\n  .map-track[_ngcontent-%COMP%] {\n    padding: 5.5rem 0.75rem 2.5rem;\n  }\n  .map-stop[_ngcontent-%COMP%] {\n    padding: 0 0.5rem;\n  }\n  .stop-block[_ngcontent-%COMP%] {\n    width: 3.5rem;\n    height: 3.5rem;\n  }\n  .stop-name[_ngcontent-%COMP%] {\n    font-size: 0.7rem;\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */'] });
-  }
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ExperienceComponent, [{
-    type: Component,
-    args: [{ selector: "app-experience", standalone: true, imports: [], template: `<div class="apple-section" id="experience">
-  <div class="apple-container">
-
-    <!-- Header -->
-    <div class="section-header" data-anim="fade-up">
-      <div class="world-label">\u2694 WORLD MAP</div>
-      <h2 class="section-title" data-text-reveal>Professional Experience</h2>
-      <p class="section-subtitle">
-        <span class="xp-total">{{ totalExperience }} YRS</span> of quests completed across {{ stops.length }} worlds
-      </p>
-    </div>
-
-    <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550 WORLD MAP TIMELINE \u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
-    <div class="world-map" data-anim="fade-up">
-
-      <!-- Scrollable track -->
-      <div class="map-track">
-
-        <!-- Ground / brick path -->
-        <div class="ground-layer"></div>
-
-        <!-- Dotted trail connecting stops -->
-        <div class="trail-line"></div>
-
-        <!-- Stops -->
-        @for (stop of stops; track stop.id; let i = $index; let last = $last) {
-          <button
-            class="map-stop"
-            [class.active]="isStopActive(stop)"
-            [class.current]="stop.isCurrent"
-            [class.mario-here]="marioPosition === i"
-            type="button"
-            [attr.aria-label]="'View experience at ' + stop.company"
-            (click)="selectStop(stop, i)">
-
-            <!-- Flag pole -->
-            <div class="flag-pole">
-              <div class="flag-banner" [class.flag-current]="stop.isCurrent">
-                <span class="flag-year">{{ getStopPeriod(stop) }}</span>
-              </div>
-            </div>
-
-            <!-- Mario sprite (shows at active position) -->
-            @if (marioPosition === i) {
-              <div class="mario-sprite">
-                <div class="mario-pixel">
-                  <div class="mario-hat"></div>
-                  <div class="mario-face"></div>
-                  <div class="mario-body"></div>
-                </div>
-              </div>
-            }
-
-            <!-- Platform block with logo -->
-            <div class="stop-block">
-              <img [src]="stop.logo" [alt]="stop.company + ' logo'" class="stop-logo" loading="lazy" />
-            </div>
-
-            <!-- Company name -->
-            <span class="stop-name">{{ stop.company }}</span>
-
-            <!-- Coin indicator for multi-role -->
-            @if (stop.roles.length > 1) {
-              <span class="coin-count">\u{1FA99} {{ stop.roles.length }} roles</span>
-            }
-          </button>
-        }
-
-        <!-- Star at the end -->
-        <div class="end-star">\u2B50</div>
-      </div>
-    </div>
-
-    <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550 DETAIL PANEL \u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
-    @if (activeStop && activeRole) {
-      <div class="quest-log" data-anim="fade-up">
-        <div class="quest-log-header">
-          <div class="ql-title-row">
-            <img [src]="activeStop.logo" [alt]="activeStop.company" class="ql-logo" />
-            <div>
-              <div class="ql-company">{{ activeStop.company }}</div>
-              <div class="ql-period">{{ getStopPeriod(activeStop) }}</div>
-            </div>
-          </div>
-
-          <!-- Role tabs if multi-role -->
-          @if (activeStop.roles.length > 1) {
-            <div class="role-tabs">
-              @for (role of activeStop.roles; track role.id) {
-                <button
-                  class="role-tab"
-                  [class.active]="activeRole === role"
-                  (click)="selectRole(role)">
-                  {{ role.title }}
-                  <span class="role-tab-period">{{ role.period }}</span>
-                </button>
-              }
-            </div>
-          }
-        </div>
-
-        <div class="quest-log-body">
-          <div class="ql-role-banner">
-            <span class="ql-role-title">{{ activeRole.title }}</span>
-            <span class="ql-location">\u{1F4CD} {{ activeRole.location }}</span>
-          </div>
-
-          <p class="ql-description">{{ activeRole.description }}</p>
-
-          <div class="ql-section">
-            <div class="ql-section-label">\u26A1 ABILITIES USED</div>
-            <div class="ql-tech-chips">
-              @for (tech of activeRole.technologies; track tech) {
-                <span class="ql-tech">{{ tech }}</span>
-              }
-            </div>
-          </div>
-
-          <div class="ql-section">
-            <div class="ql-section-label">\u{1F3C6} KEY ACHIEVEMENTS</div>
-            <ul class="ql-achievements">
-              @for (ach of activeRole.achievements; track ach) {
-                <li>{{ ach }}</li>
-              }
-            </ul>
-          </div>
-        </div>
-      </div>
-    }
-
-  </div>
-</div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/experience/experience.component.scss */\n:host {\n  display: block;\n}\n.apple-section {\n  padding: clamp(4rem, 8vw, 7rem) 0;\n  background: var(--bg-primary);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 3rem;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title {\n  font-size: clamp(2.6rem, 5.5vw, 4rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.xp-total {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.35);\n}\n.world-map {\n  position: relative;\n  overflow: visible;\n}\n.map-track {\n  position: relative;\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n  gap: 0;\n  padding: 7rem 2rem 3rem;\n}\n.ground-layer {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 2.2rem;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #6b3e1c 0px,\n      #6b3e1c 30px,\n      #8b5e3c 30px,\n      #8b5e3c 32px);\n  border-top: 3px solid #9a6f4e;\n}\n.ground-layer::before {\n  content: "";\n  position: absolute;\n  top: -4px;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #22c55e 0px,\n      #22c55e 28px,\n      #16a34a 28px,\n      #16a34a 32px);\n}\n.trail-line {\n  position: absolute;\n  left: 2rem;\n  right: 2rem;\n  bottom: 3.2rem;\n  height: 2px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      rgba(251, 191, 36, 0.5) 0px,\n      rgba(251, 191, 36, 0.5) 10px,\n      transparent 10px,\n      transparent 18px);\n}\n.map-stop {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.6rem;\n  flex: 1;\n  max-width: 14rem;\n  padding: 0 1.5rem;\n  background: transparent;\n  border: none;\n  cursor: pointer;\n  z-index: 2;\n  transition: transform 200ms ease;\n}\n.map-stop:hover {\n  transform: translateY(-4px);\n}\n.map-stop:hover .stop-block {\n  border-color: rgba(251, 191, 36, 0.5);\n  box-shadow: 0 0 24px rgba(251, 191, 36, 0.18);\n}\n.map-stop:hover .flag-banner {\n  opacity: 1;\n}\n.map-stop.active .stop-block {\n  border-color: rgba(251, 191, 36, 0.7);\n  box-shadow: 0 0 32px rgba(251, 191, 36, 0.25);\n}\n.map-stop.active .flag-banner {\n  opacity: 1;\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.map-stop.active .stop-name {\n  color: var(--primary-color);\n}\n.flag-pole {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.flag-pole::before {\n  content: "";\n  display: block;\n  width: 2px;\n  height: 2.6rem;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(251, 191, 36, 0.6),\n      rgba(251, 191, 36, 0.2));\n}\n.flag-banner {\n  position: absolute;\n  top: 0;\n  right: calc(50% + 3px);\n  white-space: nowrap;\n  padding: 0.22rem 0.55rem;\n  border-radius: 4px 0 0 4px;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  background: rgba(251, 191, 36, 0.08);\n  opacity: 0.65;\n  transition: opacity 200ms ease, background 200ms ease;\n}\n.flag-current {\n  border-color: rgba(239, 68, 68, 0.4) !important;\n  background: rgba(239, 68, 68, 0.12) !important;\n  opacity: 1 !important;\n  animation: flagPulse 2s ease-in-out infinite;\n}\n@keyframes flagPulse {\n  0%, 100% {\n    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);\n  }\n  50% {\n    box-shadow: 0 0 12px 2px rgba(239, 68, 68, 0.2);\n  }\n}\n.flag-year {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.06em;\n  color: #fde68a;\n}\n.flag-current .flag-year {\n  color: #fca5a5;\n}\n.mario-sprite {\n  position: absolute;\n  bottom: calc(100% + 0.8rem);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 5;\n  animation: marioJump 1.2s ease-in-out infinite;\n}\n@keyframes marioJump {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  50% {\n    transform: translateX(-50%) translateY(-8px);\n  }\n}\n.mario-pixel {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.mario-hat {\n  width: 16px;\n  height: 5px;\n  background: #ef4444;\n  border-radius: 2px 2px 0 0;\n  position: relative;\n}\n.mario-hat::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: -2px;\n  width: 20px;\n  height: 3px;\n  background: #ef4444;\n  border-radius: 1px;\n}\n.mario-face {\n  width: 14px;\n  height: 6px;\n  background: #fbbf24;\n  border-radius: 0 0 2px 2px;\n}\n.mario-body {\n  width: 16px;\n  height: 8px;\n  background: #ef4444;\n  border-radius: 0 0 3px 3px;\n  position: relative;\n}\n.mario-body::after {\n  content: "";\n  position: absolute;\n  bottom: -4px;\n  left: 1px;\n  width: 5px;\n  height: 4px;\n  background: #6b3e1c;\n  border-radius: 0 0 2px 2px;\n  box-shadow: 9px 0 0 #6b3e1c;\n}\n.stop-block {\n  width: 5.5rem;\n  height: 5.5rem;\n  border-radius: 1rem;\n  border: 2px solid rgba(251, 191, 36, 0.22);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.95),\n      rgba(13, 13, 34, 0.95));\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0.75rem;\n  transition: border-color 200ms ease, box-shadow 200ms ease;\n  box-shadow: 0 4px 16px rgba(0, 0, 10, 0.4);\n  position: relative;\n}\n.stop-block::before {\n  content: "";\n  position: absolute;\n  inset: -1px;\n  border-radius: 1rem;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.1),\n      transparent);\n  pointer-events: none;\n}\n.stop-logo {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n  border-radius: 0.5rem;\n}\n.stop-name {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 600;\n  letter-spacing: 0.01em;\n  color: var(--text-secondary);\n  text-align: center;\n  max-width: 10rem;\n  transition: color 200ms ease;\n}\n.coin-count {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.end-star {\n  font-size: 1.6rem;\n  margin-left: 1rem;\n  animation: starSpin 3s linear infinite;\n  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5));\n}\n@keyframes starSpin {\n  0% {\n    transform: rotate(0deg) scale(1);\n  }\n  25% {\n    transform: rotate(10deg) scale(1.1);\n  }\n  50% {\n    transform: rotate(0deg) scale(1);\n  }\n  75% {\n    transform: rotate(-10deg) scale(1.1);\n  }\n  100% {\n    transform: rotate(0deg) scale(1);\n  }\n}\n.quest-log {\n  margin-top: 2.5rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  overflow: hidden;\n  animation: panelSlideUp 0.35s ease-out;\n}\n@keyframes panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(14px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.quest-log-header {\n  padding: 1.4rem 1.5rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n  background: rgba(251, 191, 36, 0.03);\n}\n.ql-title-row {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 0.75rem;\n}\n.ql-logo {\n  width: 3rem;\n  height: 3rem;\n  border-radius: 0.65rem;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 0.3rem;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n}\n.ql-company {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-period {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  color: var(--primary-color);\n  letter-spacing: 0.08em;\n  margin-top: 0.2rem;\n}\n.role-tabs {\n  display: flex;\n  gap: 0.5rem;\n  flex-wrap: wrap;\n}\n.role-tab {\n  display: flex;\n  flex-direction: column;\n  gap: 0.15rem;\n  padding: 0.55rem 0.85rem;\n  border-radius: 0.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.02);\n  color: var(--text-secondary);\n  cursor: pointer;\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 600;\n  transition: all 200ms ease;\n}\n.role-tab:hover {\n  border-color: rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.05);\n}\n.role-tab.active {\n  border-color: rgba(251, 191, 36, 0.5);\n  background: rgba(251, 191, 36, 0.1);\n  color: var(--primary-color);\n}\n.role-tab-period {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  color: var(--text-muted);\n  letter-spacing: 0.06em;\n}\n.role-tab.active .role-tab-period {\n  color: rgba(251, 191, 36, 0.65);\n}\n.quest-log-body {\n  padding: 1.5rem;\n  display: grid;\n  gap: 1.25rem;\n}\n.ql-role-banner {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.ql-role-title {\n  font-family: var(--font-display);\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-location {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n}\n.ql-description {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 0.92rem;\n  margin: 0;\n}\n.ql-section {\n  display: grid;\n  gap: 0.6rem;\n}\n.ql-section-label {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ql-tech-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ql-tech {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.ql-achievements {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.5rem;\n}\n.ql-achievements li {\n  position: relative;\n  padding-left: 1.4rem;\n  font-size: 0.88rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.ql-achievements li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #fbbf24;\n  font-weight: bold;\n}\n@media (max-width: 768px) {\n  .map-track {\n    padding: 6rem 1rem 2.5rem;\n  }\n  .map-stop {\n    padding: 0 0.75rem;\n  }\n  .stop-block {\n    width: 4.5rem;\n    height: 4.5rem;\n  }\n  .stop-name {\n    font-size: 0.75rem;\n  }\n  .quest-log-header,\n  .quest-log-body {\n    padding: 1.15rem;\n  }\n  .ql-role-banner {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n@media (max-width: 480px) {\n  .map-track {\n    padding: 5.5rem 0.75rem 2.5rem;\n  }\n  .map-stop {\n    padding: 0 0.5rem;\n  }\n  .stop-block {\n    width: 3.5rem;\n    height: 3.5rem;\n  }\n  .stop-name {\n    font-size: 0.7rem;\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */\n'] }]
-  }], null, null);
-})();
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ExperienceComponent, { className: "ExperienceComponent", filePath: "src/app/profile/experience/experience.component.ts", lineNumber: 19 });
-})();
-
-// src/app/profile/skills/skills.data.ts
-var SKILL_DETAILS = {
-  // ─── Languages ────────────────────────────────────────
-  "Java": {
-    description: "Strong Java experience with modern language features, concurrency improvements, and production-grade backend development on recent JDKs including Java 21.",
-    experience: [
-      "Worked across Java 8 through Java 21 in production systems",
-      "Used records, sealed classes, switch pattern matching, and record patterns to simplify domain modeling",
-      "Applied virtual threads selectively for I/O-heavy request flows and background tasks",
-      "Built and maintained backend services with attention to performance, observability, and clean API design"
-    ],
-    projects: [
-      "Backend microservices using modern Java features",
-      "Concurrent data processing and job execution pipelines",
-      "REST APIs with strong typing and validation"
-    ],
-    achievements: [
-      "Improved throughput on selected I/O-bound flows after adopting virtual threads",
-      "Reduced branching complexity in polymorphic business logic using sealed classes and pattern matching",
-      "Helped modernize legacy Java codebases by incrementally adopting newer language features"
-    ],
-    relatedSkills: ["Spring Boot", "Microservices", "DSA"]
-  },
-  "Python": {
-    description: "Strong Python skills for backend services, automation, data processing, and AI-enabled application development.",
-    experience: [
-      "Built REST APIs using Flask and FastAPI",
-      "Developed automation scripts for CI/CD, support workflows, and operational tasks",
-      "Used Pandas and NumPy for data analysis, transformation, and reporting",
-      "Implemented ML and LLM-backed workflows in Python for internal tools and prototypes"
-    ],
-    projects: [
-      "AI-assisted code review and analysis tooling",
-      "Data processing and reporting pipelines",
-      "Internal automation and developer productivity tools"
-    ],
-    achievements: [
-      "Automated recurring manual workflows and saved engineering/support time each week",
-      "Built internal CLI and utility scripts adopted across multiple teams",
-      "Implemented anomaly detection and data quality checks for operational datasets"
-    ],
-    relatedSkills: ["Generative AI", "LLM", "RAG"]
-  },
-  "GO": {
-    description: "Proficient in Go for building backend services, concurrent workers, and lightweight CLI tooling.",
-    experience: [
-      "Built production services in Go using standard library patterns and Echo where appropriate",
-      "Implemented concurrent processing with goroutines, channels, contexts, and worker pools",
-      "Developed HTTP and gRPC services for internal and external APIs",
-      "Used profiling and benchmarking to improve latency, memory use, and CPU efficiency"
-    ],
-    projects: [
-      "Real-time event processing service",
-      "Low-latency API layer in Go",
-      "Internal developer tooling and command-line utilities"
-    ],
-    achievements: [
-      "Delivered services with predictable latency and small runtime footprint",
-      "Reduced memory usage and startup overhead for selected workloads by moving them to Go",
-      "Improved operational simplicity through static binaries and straightforward deployment patterns"
-    ],
-    relatedSkills: ["Echo", "Microservices", "Kafka"]
-  },
-  "NodeJS": {
-    description: "Experienced with Node.js for building APIs, real-time features, and serverless backends.",
-    experience: [
-      "Built REST APIs using Express and NestJS",
-      "Implemented real-time features with WebSockets and Socket.io",
-      "Developed Lambda-based services and utility functions on AWS",
-      "Used Node.js for scripting, build tooling, and SSR-related backend tasks"
-    ],
-    projects: [
-      "Real-time notification and chat features",
-      "Serverless API backend on AWS",
-      "SSR support service for frontend rendering"
-    ],
-    achievements: [
-      "Built socket-based features that handled high concurrent connection counts reliably",
-      "Improved Lambda cold-start behavior through dependency and bundle-size optimization",
-      "Implemented streaming and queue-backed processing for bursty workloads"
-    ],
-    relatedSkills: ["Kafka", "RabbitMQ", "MongoDB"]
-  },
-  // ─── Architecture ─────────────────────────────────────
-  "High Level Design": {
-    description: "Strong system design skills for building scalable, observable, and maintainable distributed systems.",
-    experience: [
-      "Designed service-oriented systems with clear boundaries, failure isolation, and operational ownership",
-      "Created architecture documents, reviewed trade-offs, and participated in design reviews",
-      "Evaluated consistency, availability, caching, and asynchronous processing trade-offs for different workloads",
-      "Designed for horizontal scaling, high availability, and graceful degradation"
-    ],
-    projects: [
-      "Scalable gaming and leaderboard systems",
-      "Real-time event-driven backend architecture",
-      "Multi-tenant SaaS-style platform design"
-    ],
-    achievements: [
-      "Designed systems with clearer service boundaries and more predictable scaling characteristics",
-      "Improved reliability by introducing retries, idempotency, fallback paths, and rate limiting where needed",
-      "Reduced infrastructure waste through better capacity planning, caching, and async processing"
-    ],
-    relatedSkills: ["Low Level Design", "Microservices", "Kafka"]
-  },
-  "Low Level Design": {
-    description: "Strong low-level design skills with focus on domain modeling, SOLID principles, extensibility, and testable code.",
-    experience: [
-      "Designed object-oriented systems with clear abstractions and separation of concerns",
-      "Applied design patterns pragmatically rather than by default",
-      "Reviewed code for maintainability, coupling, and API ergonomics",
-      "Built reusable libraries and shared components for common application concerns"
-    ],
-    projects: [
-      "Payment gateway abstraction with pluggable providers",
-      "Rule engine for configurable business workflows",
-      "Notification framework supporting multiple delivery channels"
-    ],
-    achievements: [
-      "Improved code readability and change safety through better interfaces and domain boundaries",
-      "Built reusable internal components adopted by multiple teams",
-      "Increased test coverage and reduced mocking complexity through cleaner design"
-    ],
-    relatedSkills: ["High Level Design", "Java", "Spring Boot"]
-  },
-  "Microservices": {
-    description: "Hands-on experience designing and implementing microservices with clear ownership, observability, and resilience patterns.",
-    experience: [
-      "Helped decompose monolithic or tightly coupled systems into service-aligned modules where it made sense",
-      "Built service-to-service communication using REST, gRPC, and event-driven messaging",
-      "Implemented resilience patterns such as timeouts, retries, circuit breaking, and dead-letter handling",
-      "Set up tracing, structured logging, and metrics for distributed debugging"
-    ],
-    projects: [
-      "Gaming platform service decomposition",
-      "Financial workflow orchestration services",
-      "E-commerce-style order processing system"
-    ],
-    achievements: [
-      "Improved deployment velocity through independently deployable services and CI/CD pipelines",
-      "Reduced cross-service failure impact with better timeout, retry, and fallback strategies",
-      "Introduced clearer ownership boundaries around APIs, data, and operational responsibilities"
-    ],
-    relatedSkills: ["Spring Boot", "Kafka", "High Level Design"]
-  },
-  // ─── Databases ────────────────────────────────────────
-  "MySQL": {
-    description: "Hands-on experience with MySQL 5.6, 5.7, and 8.0 in transactional production systems.",
-    experience: [
-      "Designed normalized and denormalized schemas based on access patterns and consistency needs",
-      "Tuned slow queries using EXPLAIN, indexing, query rewrites, and execution-plan analysis",
-      "Worked with replication, backups, migration strategies, and operational monitoring",
-      "Used Amazon DMS and controlled cutovers for database migration work"
-    ],
-    projects: [
-      "Production database migration for gaming workloads",
-      "Query optimization for high-traffic APIs",
-      "Schema design for service-oriented applications"
-    ],
-    achievements: [
-      "Improved hot-path query performance through indexing and execution-plan tuning",
-      "Supported production migrations with rollback plans and low-risk cutover approaches",
-      "Added visibility into slow queries, lock contention, and replication lag"
-    ],
-    relatedSkills: ["MongoDB", "Redis", "Elasti-Cache"]
-  },
-  "MongoDB": {
-    description: "Proficient in MongoDB for document-oriented data models, flexible schemas, and aggregation-heavy workloads.",
-    experience: [
-      "Designed collections and document shapes around application access patterns",
-      "Built aggregation pipelines for reporting, filtering, and event analytics",
-      "Worked with replica sets, sharding, indexing, and TTL-based data retention",
-      "Used change streams for event-driven integrations where near-real-time updates were needed"
-    ],
-    projects: [
-      "User activity and event logging platform",
-      "Content management backend with flexible schemas",
-      "Analytics dashboard backend using MongoDB aggregations"
-    ],
-    achievements: [
-      "Improved read and write performance using better indexing and document modeling",
-      "Supported high-ingest workloads through sharding and batch-write strategies",
-      "Migrated selected workloads to MongoDB where schema flexibility was a better fit than relational storage"
-    ],
-    relatedSkills: ["MySQL", "Neptune", "Cassandra"]
-  },
-  "Neptune": {
-    description: "Experience using Amazon Neptune for graph-oriented use cases such as relationship traversal, recommendations, and fraud/risk analysis.",
-    experience: [
-      "Modeled entities and relationships using graph structures for multi-hop queries",
-      "Wrote Gremlin and SPARQL queries for traversal-heavy access patterns",
-      "Integrated graph-backed services with application APIs and recommendation workflows",
-      "Optimized traversals and indexing choices for low-latency relationship lookups"
-    ],
-    projects: [
-      "Relationship and recommendation prototype",
-      "Fraud/risk analysis using graph traversal",
-      "Knowledge graph-backed search use case"
-    ],
-    achievements: [
-      "Modeled relationship-heavy domains that were awkward to express in relational schemas",
-      "Reduced complexity of multi-hop lookups by moving them to a graph model",
-      "Built graph-backed features over datasets with millions of connected records"
-    ],
-    relatedSkills: ["MongoDB", "MySQL", "VectorDB"]
-  },
-  "Salesforce DB": {
-    description: "Experience working with Salesforce data models, SOQL/SOSL, custom objects, and integration patterns with external systems.",
-    experience: [
-      "Designed custom objects, relationships, and field mappings in Salesforce",
-      "Wrote SOQL and SOSL queries for reporting, support workflows, and operational data extraction",
-      "Integrated Salesforce with external services through APIs and data sync jobs",
-      "Supported data migrations, cleanup, and reconciliation across orgs or systems"
-    ],
-    projects: [
-      "CRM data integration for operational reporting",
-      "Custom Salesforce workflow support tooling",
-      "Salesforce sync with internal systems"
-    ],
-    achievements: [
-      "Automated recurring reporting and synchronization tasks",
-      "Improved data quality through validation, deduplication, and reconciliation checks",
-      "Supported integration flows with clear field mapping, retry handling, and auditability"
-    ],
-    relatedSkills: ["MySQL", "MongoDB", "High Level Design"]
-  },
-  "Cassandra": {
-    description: "Working knowledge of Apache Cassandra for write-heavy, high-availability workloads and time-series/event data.",
-    experience: [
-      "Designed schemas around query patterns using partition keys and clustering columns carefully",
-      "Worked with replication, consistency levels, TTL-based expiry, and operational tuning",
-      "Handled time-series and append-heavy data models with awareness of tombstones and compaction behavior",
-      "Monitored repair, compaction, and partition hot spots in production-like environments"
-    ],
-    projects: [
-      "Time-series event storage",
-      "User session and activity tracking",
-      "Append-heavy event logging pipeline"
-    ],
-    achievements: [
-      "Designed schemas that avoided hot partitions and supported predictable read paths",
-      "Supported sustained write-heavy workloads with replication across nodes or zones",
-      "Improved cluster health by tuning compaction strategy and query patterns"
-    ],
-    relatedSkills: ["MongoDB", "MySQL", "Kafka"]
-  },
-  // ─── Frameworks ───────────────────────────────────────
-  "Spring Boot": {
-    description: "Deep experience with Spring Boot for building production-ready services, REST APIs, and internal platforms.",
-    experience: [
-      "Built multiple production services using Spring Boot and Spring MVC/WebFlux where appropriate",
-      "Implemented authentication and authorization with Spring Security, OAuth2, and JWT",
-      "Used Spring Data JPA, transactional boundaries, and caching for data access layers",
-      "Added Actuator, metrics, logging, and tracing for operational visibility"
-    ],
-    projects: [
-      "Gaming and transaction-processing backend services",
-      "Authentication and user-management services",
-      "Internal platform APIs and business workflows"
-    ],
-    achievements: [
-      "Shipped multiple services using shared conventions and reusable starters",
-      "Improved maintainability through consistent error handling, validation, and configuration patterns",
-      "Made services easier to operate through health checks, metrics, and structured observability"
-    ],
-    relatedSkills: ["Java", "Microservices", "MySQL"]
-  },
-  "Echo": {
-    description: "Experienced with Echo for building lightweight, high-performance Go web services.",
-    experience: [
-      "Built REST APIs using Echo middleware, routing, and request binding",
-      "Implemented middleware for authentication, logging, panic recovery, and rate limiting",
-      "Used context-aware request handling and cancellation for robust service behavior",
-      "Integrated Echo services with gRPC, Kafka, and background workers"
-    ],
-    projects: [
-      "Low-latency Go API service",
-      "Internal developer platform APIs",
-      "Data ingestion endpoint for asynchronous processing"
-    ],
-    achievements: [
-      "Built lean APIs with a small memory footprint and fast startup time",
-      "Improved latency compared with heavier service stacks for selected endpoints",
-      "Standardized middleware and lifecycle handling across Go services"
-    ],
-    relatedSkills: ["GO", "Microservices", "Kafka"]
-  },
-  "Dropwizard": {
-    description: "Experience with Dropwizard for lightweight, ops-friendly Java services with strong operational conventions.",
-    experience: [
-      "Built services using Dropwizard with Jersey, Jetty, and Jackson",
-      "Integrated persistence layers using Hibernate and migration tooling",
-      "Used Dropwizard Metrics and health checks for monitoring and operational readiness",
-      "Tuned thread pools and request handling for predictable service behavior"
-    ],
-    projects: [
-      "Payment and workflow microservice",
-      "Profile and preference management API",
-      "Operational admin backend service"
-    ],
-    achievements: [
-      "Built services with clear health endpoints and operational visibility",
-      "Kept latency predictable by controlling thread pools and dependency footprint",
-      "Simplified troubleshooting with structured logs and metrics-first service design"
-    ],
-    relatedSkills: ["Java", "Spring Boot", "MySQL"]
-  },
-  "Google Guice": {
-    description: "Proficient in Google Guice for dependency injection in lightweight Java applications and non-Spring services.",
-    experience: [
-      "Used Guice modules and providers to structure non-Spring Java services cleanly",
-      "Built test-friendly wiring for service, repository, and infrastructure layers",
-      "Implemented custom bindings and scopes where needed",
-      "Integrated Guice with service frameworks and internal libraries"
-    ],
-    projects: [
-      "Modular data processing service",
-      "Plugin-style service architecture",
-      "Testable service layer with dependency injection"
-    ],
-    achievements: [
-      "Improved modularity and testability in non-Spring Java codebases",
-      "Reduced manual wiring boilerplate through consistent DI configuration",
-      "Kept startup and framework overhead low for simpler services"
-    ],
-    relatedSkills: ["Java", "Dropwizard", "Spring Boot"]
-  },
-  // ─── AI / ML ──────────────────────────────────────────
-  "Generative AI": {
-    description: "Hands-on experience building applications on top of modern generative AI models, including chat, summarization, retrieval, and multimodal workflows.",
-    experience: [
-      "Integrated hosted models from providers such as OpenAI, Anthropic, and Google into application workflows",
-      "Designed prompt workflows, tool-calling flows, and response validation strategies",
-      "Built multimodal prototypes using text, image, and audio capabilities where relevant",
-      "Evaluated outputs with human review and task-specific quality checks"
-    ],
-    projects: [
-      "AI-assisted portfolio and interactive demo features",
-      "Code review and analysis assistant",
-      "Content generation and summarization workflows"
-    ],
-    achievements: [
-      "Built AI-assisted features that reduced manual drafting and triage effort",
-      "Improved output quality through prompt iteration, retrieval, and structured response handling",
-      "Added moderation, fallback logic, and validation checks to make AI features safer in production"
-    ],
-    relatedSkills: ["LLM", "RAG", "VectorDB"]
-  },
-  "LLM": {
-    description: "Practical experience integrating large language models into applications for Q&A, summarization, extraction, and developer productivity workflows.",
-    experience: [
-      "Integrated LLM APIs into backend services and internal tools",
-      "Built retrieval-backed flows for grounded question answering and document understanding",
-      "Used prompt engineering, structured outputs, and tool use to improve reliability",
-      "Evaluated when prompt-based approaches, retrieval, or fine-tuning-style customization were the right fit"
-    ],
-    projects: [
-      "Customer support and documentation assistant",
-      "Document analysis and summarization workflow",
-      "Code generation and review helper"
-    ],
-    achievements: [
-      "Reduced response or turnaround time on knowledge-heavy workflows",
-      "Improved answer grounding by combining retrieval with clear response formatting",
-      "Automated selected support or review steps with human-in-the-loop checks"
-    ],
-    relatedSkills: ["Generative AI", "RAG", "VectorDB"]
-  },
-  "RAG": {
-    description: "Strong experience with Retrieval-Augmented Generation for grounding LLM responses in internal and domain-specific knowledge sources.",
-    experience: [
-      "Designed RAG pipelines including chunking, embeddings, indexing, retrieval, and answer synthesis",
-      "Implemented hybrid retrieval using semantic search, keyword filtering, and metadata constraints",
-      "Used reranking and chunking strategies tailored to different document types",
-      "Built evaluation datasets and review loops to measure retrieval relevance and answer quality"
-    ],
-    projects: [
-      "Internal knowledge base assistant",
-      "Documentation search and Q&A system",
-      "Long-form document analysis workflow"
-    ],
-    achievements: [
-      "Improved answer relevance on internal evaluation sets through better retrieval and reranking",
-      "Reduced hallucinations compared with pure prompt-only generation by grounding responses in retrieved content",
-      "Built pipelines that scaled to large internal document collections"
-    ],
-    relatedSkills: ["LLM", "VectorDB", "Generative AI"]
-  },
-  "VectorDB": {
-    description: "Experience with vector search systems for semantic retrieval, similarity matching, and recommendation-style applications.",
-    experience: [
-      "Worked with Pinecone, Weaviate, and pgvector-based setups",
-      "Designed embedding and metadata strategies for documents, code, and mixed-content search",
-      "Used ANN search, filtering, and reranking to balance latency and relevance",
-      "Managed embedding backfills, re-indexing, and versioned retrieval workflows"
-    ],
-    projects: [
-      "Semantic search for internal or product data",
-      "Similar document recommendation workflow",
-      "Content similarity and deduplication use case"
-    ],
-    achievements: [
-      "Built low-latency semantic retrieval for AI-assisted workflows",
-      "Improved relevance by combining vector retrieval with keyword filters and reranking",
-      "Operationalized embedding refresh and index maintenance for evolving datasets"
-    ],
-    relatedSkills: ["RAG", "LLM", "Generative AI"]
-  },
-  // ─── Queues ───────────────────────────────────────────
-  "Kafka": {
-    description: "Strong working experience with Apache Kafka for event-driven systems, asynchronous processing, and real-time data pipelines.",
-    experience: [
-      "Designed topics, partitions, and consumer-group strategies for scalable event processing",
-      "Built producers and consumers with schema-aware event contracts",
-      "Used retries, dead-letter topics, idempotent processing, and lag monitoring",
-      "Worked with streaming-style workflows and service integration through events"
-    ],
-    projects: [
-      "Real-time analytics and event pipeline",
-      "Event-driven backend integration flows",
-      "Messaging backbone for service communication"
-    ],
-    achievements: [
-      "Built event-driven pipelines that handled sustained high-throughput workloads",
-      "Reduced coupling between services by shifting integrations to asynchronous events",
-      "Improved resiliency with retry topics, monitoring, and safer consumer handling"
-    ],
-    relatedSkills: ["RabbitMQ", "AmazonSQS", "Microservices"]
-  },
-  "RabbitMQ": {
-    description: "Experienced with RabbitMQ for reliable asynchronous job processing and queue-based workflow orchestration.",
-    experience: [
-      "Designed exchanges, queues, routing keys, and consumer patterns for task distribution",
-      "Implemented retry handling, dead-letter queues, acknowledgments, and prefetch tuning",
-      "Worked with publisher confirms and delivery guarantees appropriate to the use case",
-      "Operated queue-backed worker systems for background processing"
-    ],
-    projects: [
-      "Order and task processing workflow",
-      "Email and notification dispatch pipeline",
-      "Background job orchestration service"
-    ],
-    achievements: [
-      "Improved delivery reliability through acknowledgments, retries, and dead-letter handling",
-      "Smoothed traffic spikes by moving expensive work off the request path",
-      "Simplified task routing with clean exchange and queue topology design"
-    ],
-    relatedSkills: ["Kafka", "AmazonSQS", "Microservices"]
-  },
-  "AmazonSQS": {
-    description: "Proficient with Amazon SQS and SNS for managed queue-based and fan-out architectures on AWS.",
-    experience: [
-      "Designed workflows using Standard and FIFO queues depending on ordering and throughput needs",
-      "Integrated SQS with Lambda, ECS, and other AWS consumers for background processing",
-      "Implemented DLQs, redrive policies, visibility timeouts, and idempotent consumers",
-      "Used SNS plus SQS fan-out patterns for event distribution"
-    ],
-    projects: [
-      "Serverless background processing pipeline",
-      "Async media or file-processing workflow",
-      "Cross-service notification architecture on AWS"
-    ],
-    achievements: [
-      "Reduced operational overhead by moving async workloads to fully managed messaging",
-      "Improved resilience for bursty traffic using decoupled queues and dead-letter handling",
-      "Built cost-effective background job pipelines with simple AWS-native components"
-    ],
-    relatedSkills: ["Kafka", "RabbitMQ", "Microservices"]
-  },
-  // ─── Core CS ──────────────────────────────────────────
-  "DSA": {
-    description: "Solid foundation in data structures and algorithms, applied both in problem-solving practice and production engineering.",
-    experience: [
-      "Solved hundreds of problems across platforms such as LeetCode, Codeforces, and HackerRank",
-      "Worked with advanced structures such as tries, heaps, union-find, segment trees, and graph algorithms",
-      "Applied time and space complexity analysis when designing production code paths",
-      "Mentored junior engineers on problem solving, complexity analysis, and interview preparation"
-    ],
-    projects: [
-      "Trie-based autocomplete/search prototype",
-      "Graph-based optimization workflow",
-      "Ranking and scoring logic for competitive systems"
-    ],
-    achievements: [
-      "Built strong algorithmic intuition through sustained problem-solving practice",
-      "Used better data structures to eliminate obvious bottlenecks in hot paths",
-      "Created explanations and guidance that helped others improve problem-solving skills"
-    ],
-    relatedSkills: ["Networking", "Java", "Python"]
-  },
-  "Networking": {
-    description: "Good grasp of networking fundamentals relevant to backend engineering and distributed systems.",
-    experience: [
-      "Worked with TCP/IP, HTTP/1.1, HTTP/2, gRPC, and WebSocket-based communication",
-      "Designed systems behind load balancers, reverse proxies, and service discovery layers",
-      "Debugged issues related to DNS, TLS, keep-alives, connection reuse, and timeouts",
-      "Used logs, traces, and network-level diagnostics to investigate production issues"
-    ],
-    projects: [
-      "Real-time communication layer",
-      "Backend systems behind load balancers and proxies",
-      "Network-aware service diagnostics and monitoring"
-    ],
-    achievements: [
-      "Improved service-to-service latency through connection reuse and timeout tuning",
-      "Diagnosed and resolved issues involving retransmissions, handshake failures, and unstable upstream calls",
-      "Applied networking knowledge to make real-time and API-heavy systems more reliable"
-    ],
-    relatedSkills: ["DSA", "High Level Design", "Microservices"]
-  },
-  // ─── Cache ────────────────────────────────────────────
-  "Elasti-Cache": {
-    description: "Experience with Amazon ElastiCache, primarily Redis, for caching, session storage, and low-latency shared state.",
-    experience: [
-      "Deployed and operated ElastiCache Redis clusters in production environments",
-      "Configured replication, failover, TTL policies, and memory-aware caching strategies",
-      "Implemented cache-aside and write-through patterns based on workload characteristics",
-      "Used CloudWatch metrics and alarms for cache health, memory pressure, and latency visibility"
-    ],
-    projects: [
-      "Session storage for distributed applications",
-      "Read-heavy API caching layer",
-      "Low-latency configuration and feature flag cache"
-    ],
-    achievements: [
-      "Reduced database pressure by caching hot reads and frequently accessed session data",
-      "Improved resiliency with replicated cache setups and failover support",
-      "Added visibility into hit rates, evictions, memory usage, and cache latency"
-    ],
-    relatedSkills: ["Redis", "MySQL", "High Level Design"]
-  },
-  "Redis": {
-    description: "Strong Redis experience for caching, counters, leaderboards, rate limiting, and lightweight coordination patterns.",
-    experience: [
-      "Designed Redis-based caching strategies with appropriate TTLs and eviction behavior",
-      "Used Redis data structures such as hashes, sets, sorted sets, and streams for real-time use cases",
-      "Implemented session storage, counters, feature flags, and request-throttling workflows",
-      "Applied Redis-based coordination carefully for idempotency and simple locking scenarios"
-    ],
-    projects: [
-      "Real-time leaderboard and ranking features",
-      "Session and token storage for distributed services",
-      "Cache layer for read-heavy APIs"
-    ],
-    achievements: [
-      "Reduced response times for hot endpoints by caching frequently requested data",
-      "Built real-time features using sorted sets, counters, and stream-based event handling",
-      "Used Redis pragmatically for low-latency shared state without overextending it as a primary datastore"
-    ],
-    relatedSkills: ["Elasti-Cache", "MySQL", "Kafka"]
-  }
-};
-
-// src/app/profile/skills/skills.component.ts
-var _c02 = (a0) => ({ "system-mode-toggle--active": a0 });
-var _c12 = (a0, a1, a2, a3, a4) => ({ "skill-card--primary": a0, "skill-card--secondary": a1, "skill-card--supporting": a2, "skill-card--expanded": a3, "skill-card--flow": a4 });
-var _forTrack03 = ($index, $item) => $item.id;
-var _forTrack12 = ($index, $item) => $item.name;
-function SkillsComponent_For_37_For_9_Conditional_1_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 29);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const skill_r2 = \u0275\u0275nextContext().$implicit;
-    const ctx_r3 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r3.getSystemFlowIndex(skill_r2) + 1);
-  }
-}
-function SkillsComponent_For_37_For_9_Conditional_13_For_8_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "li");
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const exp_r5 = ctx2.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(exp_r5);
-  }
-}
-function SkillsComponent_For_37_For_9_Conditional_13_For_14_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 43);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const project_r6 = ctx2.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(project_r6);
-  }
-}
-function SkillsComponent_For_37_For_9_Conditional_13_For_20_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "li");
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const achievement_r7 = ctx2.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(achievement_r7);
-  }
-}
-function SkillsComponent_For_37_For_9_Conditional_13_For_26_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 46);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const rs_r8 = ctx2.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(rs_r8);
-  }
-}
-function SkillsComponent_For_37_For_9_Conditional_13_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 37)(1, "p", 38);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 39)(4, "h5", 40);
-    \u0275\u0275text(5, "Experience");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "ul", 41);
-    \u0275\u0275repeaterCreate(7, SkillsComponent_For_37_For_9_Conditional_13_For_8_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "div", 39)(10, "h5", 40);
-    \u0275\u0275text(11, "Key Projects");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "div", 42);
-    \u0275\u0275repeaterCreate(13, SkillsComponent_For_37_For_9_Conditional_13_For_14_Template, 2, 1, "span", 43, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(15, "div", 39)(16, "h5", 40);
-    \u0275\u0275text(17, "Achievements");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "ul", 44);
-    \u0275\u0275repeaterCreate(19, SkillsComponent_For_37_For_9_Conditional_13_For_20_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(21, "div", 39)(22, "h5", 40);
-    \u0275\u0275text(23, "Related");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "div", 45);
-    \u0275\u0275repeaterCreate(25, SkillsComponent_For_37_For_9_Conditional_13_For_26_Template, 2, 1, "span", 46, \u0275\u0275repeaterTrackByIndex);
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    const skill_r2 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(skill_r2.details.description);
-    \u0275\u0275advance(5);
-    \u0275\u0275repeater(skill_r2.details.experience);
-    \u0275\u0275advance(6);
-    \u0275\u0275repeater(skill_r2.details.projects);
-    \u0275\u0275advance(6);
-    \u0275\u0275repeater(skill_r2.details.achievements);
-    \u0275\u0275advance(6);
-    \u0275\u0275repeater(skill_r2.details.relatedSkills);
-  }
-}
-function SkillsComponent_For_37_For_9_Template(rf, ctx2) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 28);
-    \u0275\u0275listener("click", function SkillsComponent_For_37_For_9_Template_div_click_0_listener() {
-      const skill_r2 = \u0275\u0275restoreView(_r1).$implicit;
-      const constellation_r3 = \u0275\u0275nextContext().$implicit;
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.toggleCard(skill_r2, constellation_r3));
-    });
-    \u0275\u0275conditionalCreate(1, SkillsComponent_For_37_For_9_Conditional_1_Template, 2, 1, "div", 29);
-    \u0275\u0275elementStart(2, "div", 30)(3, "span", 31);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 32);
-    \u0275\u0275text(6);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "h4", 33);
-    \u0275\u0275text(8);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "p", 34);
-    \u0275\u0275text(10);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "div", 35);
-    \u0275\u0275element(12, "div", 36);
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(13, SkillsComponent_For_37_For_9_Conditional_13_Template, 27, 1, "div", 37);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const skill_r2 = ctx2.$implicit;
-    const constellation_r3 = \u0275\u0275nextContext().$implicit;
-    const ctx_r3 = \u0275\u0275nextContext();
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction5(14, _c12, skill_r2.level === "primary", skill_r2.level === "secondary", skill_r2.level === "supporting", ctx_r3.isExpanded(skill_r2), ctx_r3.isSystemFlowNode(skill_r2)));
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r3.isSystemFlowNode(skill_r2) ? 1 : -1);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("ngClass", "level-tag--" + skill_r2.level);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r3.getLevelTag(skill_r2.level), " ");
-    \u0275\u0275advance();
-    \u0275\u0275styleProp("color", constellation_r3.color);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1("", skill_r2.proficiency, " XP");
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r3.getDisplayName(skill_r2));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(skill_r2.tooltip);
-    \u0275\u0275advance(2);
-    \u0275\u0275styleProp("width", skill_r2.proficiency, "%")("background", constellation_r3.color);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r3.isExpanded(skill_r2) && skill_r2.details ? 13 : -1);
-  }
-}
-function SkillsComponent_For_37_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 14)(1, "div", 22);
-    \u0275\u0275element(2, "div", 23);
-    \u0275\u0275elementStart(3, "h3", 24);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 25);
-    \u0275\u0275text(6);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "div", 26);
-    \u0275\u0275repeaterCreate(8, SkillsComponent_For_37_For_9_Template, 14, 20, "div", 27, _forTrack12);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const constellation_r3 = ctx2.$implicit;
-    \u0275\u0275advance(2);
-    \u0275\u0275styleProp("background", constellation_r3.color);
-    \u0275\u0275advance();
-    \u0275\u0275styleProp("color", constellation_r3.color);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(constellation_r3.name);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("", constellation_r3.skills.length, " skills");
-    \u0275\u0275advance(2);
-    \u0275\u0275repeater(constellation_r3.skills);
-  }
-}
-var SkillsComponent = class _SkillsComponent {
-  constructor() {
-    this.constellations = [];
-    this.expandedSkill = null;
-    this.systemMode = false;
-    this.systemModeLabels = {
-      "Kafka": "Event Bus",
-      "Redis": "Cache Layer",
-      "MySQL": "Primary DB",
-      "MongoDB": "Document Store",
-      "Microservices": "Service Mesh",
-      "Spring Boot": "API Framework",
-      "High Level Design": "System Design",
-      "LLM": "AI Engine",
-      "RAG": "Knowledge Retrieval",
-      "VectorDB": "Embedding Store",
-      "Elasti-Cache": "Cache Cluster",
-      "RabbitMQ": "Task Queue",
-      "AmazonSQS": "Managed Queue",
-      "Neptune": "Graph Store",
-      "Cassandra": "Time-Series DB"
-    };
-    this.systemModeFlow = [
-      "Spring Boot",
-      "Microservices",
-      "Kafka",
-      "Redis",
-      "MySQL"
-    ];
-  }
-  ngOnInit() {
-    this.buildConstellations();
-    this.addSkillDetails();
-  }
-  buildConstellations() {
-    this.constellations = [
-      {
-        id: "languages",
-        name: "Languages",
-        color: "#64B5F6",
-        glowColor: "rgba(100,181,246,0.6)",
-        skills: [
-          { name: "Java", proficiency: 90, level: "primary", tooltip: "Microservices \xB7 virtual threads (8\u201321)", x: 12, y: 14 },
-          { name: "Python", proficiency: 92, level: "secondary", tooltip: "AI pipelines \xB7 automation \xB7 FastAPI", x: 24, y: 10 },
-          { name: "GO", proficiency: 93, level: "secondary", tooltip: "gRPC services \xB7 goroutines \xB7 CLI", x: 8, y: 28 },
-          { name: "NodeJS", proficiency: 91, level: "secondary", tooltip: "WebSockets \xB7 Lambda \xB7 real-time", x: 22, y: 26 }
-        ]
-      },
-      {
-        id: "architecture",
-        name: "Architecture",
-        color: "#CE93D8",
-        glowColor: "rgba(206,147,216,0.6)",
-        skills: [
-          { name: "High Level Design", proficiency: 95, level: "primary", tooltip: "Scaled to millions of events/day", x: 48, y: 8 },
-          { name: "Low Level Design", proficiency: 90, level: "secondary", tooltip: "SOLID \xB7 domain modeling \xB7 clean APIs", x: 38, y: 24 },
-          { name: "Microservices", proficiency: 95, level: "primary", tooltip: "Decomposed monoliths \xB7 event-driven", x: 58, y: 24 }
-        ]
-      },
-      {
-        id: "databases",
-        name: "Databases",
-        color: "#80CBC4",
-        glowColor: "rgba(128,203,196,0.6)",
-        skills: [
-          { name: "MySQL", proficiency: 95, level: "primary", tooltip: "Query tuning \xB7 DMS migrations", x: 78, y: 10 },
-          { name: "MongoDB", proficiency: 90, level: "secondary", tooltip: "Aggregation pipelines \xB7 sharding", x: 90, y: 16 },
-          { name: "Neptune", proficiency: 91, level: "supporting", tooltip: "Graph traversals \xB7 fraud analysis", x: 74, y: 22 },
-          { name: "Salesforce DB", proficiency: 90, level: "supporting", tooltip: "SOQL reporting \xB7 CRM sync", x: 88, y: 28 },
-          { name: "Cassandra", proficiency: 91, level: "supporting", tooltip: "Time-series \xB7 partition design", x: 80, y: 34 }
-        ]
-      },
-      {
-        id: "frameworks",
-        name: "Frameworks",
-        color: "#FFB74D",
-        glowColor: "rgba(255,183,77,0.6)",
-        skills: [
-          { name: "Spring Boot", proficiency: 90, level: "secondary", tooltip: "Production APIs \xB7 Spring Security", x: 6, y: 48 },
-          { name: "Echo", proficiency: 91, level: "secondary", tooltip: "Lean Go APIs \xB7 sub-ms overhead", x: 18, y: 54 },
-          { name: "Dropwizard", proficiency: 92, level: "supporting", tooltip: "Metrics-first \xB7 predictable latency", x: 32, y: 50 },
-          { name: "Google Guice", proficiency: 90, level: "supporting", tooltip: "Modular DI for non-Spring Java", x: 12, y: 64 }
-        ]
-      },
-      {
-        id: "ai",
-        name: "AI / ML",
-        color: "#F48FB1",
-        glowColor: "rgba(244,143,177,0.6)",
-        skills: [
-          { name: "Generative AI", proficiency: 90, level: "primary", tooltip: "Cut manual triage effort by 50%", x: 38, y: 46 },
-          { name: "LLM", proficiency: 90, level: "primary", tooltip: "API integration \xB7 tool-calling", x: 54, y: 40 },
-          { name: "RAG", proficiency: 92, level: "secondary", tooltip: "Rerank pipelines \xB7 less hallucination", x: 42, y: 60 },
-          { name: "VectorDB", proficiency: 90, level: "secondary", tooltip: "Pinecone \xB7 pgvector \xB7 semantic search", x: 60, y: 56 }
-        ]
-      },
-      {
-        id: "queues",
-        name: "Queues",
-        color: "#81C784",
-        glowColor: "rgba(129,199,132,0.6)",
-        skills: [
-          { name: "Kafka", proficiency: 99, level: "primary", tooltip: "Event pipelines \xB7 high throughput", x: 76, y: 48 },
-          { name: "RabbitMQ", proficiency: 90, level: "secondary", tooltip: "Task queues \xB7 dead-letter retries", x: 88, y: 54 },
-          { name: "AmazonSQS", proficiency: 92, level: "supporting", tooltip: "Serverless fan-out \xB7 FIFO queues", x: 80, y: 64 }
-        ]
-      },
-      {
-        id: "core",
-        name: "Core CS",
-        color: "#FFD54F",
-        glowColor: "rgba(255,213,79,0.6)",
-        skills: [
-          { name: "DSA", proficiency: 95, level: "secondary", tooltip: "500+ problems \xB7 interview mentoring", x: 16, y: 76 },
-          { name: "Networking", proficiency: 95, level: "supporting", tooltip: "TCP/IP \xB7 TLS debugging \xB7 keep-alives", x: 30, y: 82 }
-        ]
-      },
-      {
-        id: "cache",
-        name: "Cache",
-        color: "#E57373",
-        glowColor: "rgba(229,115,115,0.6)",
-        skills: [
-          { name: "Elasti-Cache", proficiency: 91, level: "supporting", tooltip: "Redis clusters \xB7 failover \xB7 TTL", x: 74, y: 76 },
-          { name: "Redis", proficiency: 90, level: "secondary", tooltip: "Leaderboards \xB7 rate limiting \xB7 sub-ms", x: 88, y: 74 }
-        ]
-      }
-    ];
-  }
-  addSkillDetails() {
-    this.constellations.forEach((c) => {
-      c.skills.forEach((s) => {
-        if (SKILL_DETAILS[s.name])
-          s.details = SKILL_DETAILS[s.name];
-      });
-    });
-  }
-  toggleSystemMode() {
-    this.systemMode = !this.systemMode;
-  }
-  getDisplayName(skill) {
-    if (this.systemMode && this.systemModeLabels[skill.name]) {
-      return this.systemModeLabels[skill.name];
-    }
-    return skill.name;
-  }
-  isSystemFlowNode(skill) {
-    return this.systemMode && this.systemModeFlow.includes(skill.name);
-  }
-  getSystemFlowIndex(skill) {
-    return this.systemModeFlow.indexOf(skill.name);
-  }
-  getLevelLabel(level) {
-    return level === "primary" ? "Boss" : level === "secondary" ? "Main" : "Support";
-  }
-  getLevelTag(level) {
-    return level === "primary" ? "BOSS" : level === "secondary" ? "MAIN" : "SUPPORT";
-  }
-  get totalSkillCount() {
-    return this.constellations.reduce((sum, c) => sum + c.skills.length, 0);
-  }
-  get primarySkillCount() {
-    return this.constellations.reduce((sum, c) => sum + c.skills.filter((s) => s.level === "primary").length, 0);
-  }
-  get averageProficiency() {
-    const all = this.constellations.flatMap((c) => c.skills);
-    if (!all.length)
-      return 0;
-    return Math.round(all.reduce((sum, s) => sum + s.proficiency, 0) / all.length);
-  }
-  toggleCard(skill, constellation) {
-    if (this.expandedSkill === skill) {
-      this.expandedSkill = null;
-      return;
-    }
-    this.expandedSkill = skill;
-  }
-  isExpanded(skill) {
-    return this.expandedSkill === skill;
-  }
-  static {
-    this.\u0275fac = function SkillsComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _SkillsComponent)();
-    };
-  }
-  static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 53, vars: 9, consts: [["id", "skill", 1, "rpg-skills-section"], [1, "rpg-container"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "skills-hud"], [1, "hud-card"], [1, "hud-label"], [1, "hud-value"], [1, "skills-controls"], [1, "system-mode-toggle", 3, "click", "ngClass"], [1, "system-mode-icon"], [1, "system-mode-label"], [1, "category-group"], [1, "legend-strip"], [1, "legend-item"], [1, "legend-dot", "legend-dot--primary"], [1, "legend-label"], [1, "legend-divider"], [1, "legend-dot", "legend-dot--secondary"], [1, "legend-dot", "legend-dot--supporting"], [1, "category-header"], [1, "category-color-bar"], [1, "category-name"], [1, "category-count"], [1, "skill-card-grid"], [1, "skill-card", 3, "ngClass"], [1, "skill-card", 3, "click", "ngClass"], [1, "flow-badge"], [1, "card-top"], [1, "level-tag", 3, "ngClass"], [1, "xp-number"], [1, "skill-name"], [1, "skill-tooltip"], [1, "xp-bar-track"], [1, "xp-bar-fill"], [1, "card-details"], [1, "detail-description"], [1, "detail-section"], [1, "detail-heading"], [1, "detail-list"], [1, "project-chips"], [1, "project-chip"], [1, "achievement-list"], [1, "related-tags"], [1, "related-tag"]], template: function SkillsComponent_Template(rf, ctx2) {
-      if (rf & 1) {
-        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "span", 3);
-        \u0275\u0275text(4, "Skill inventory");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(5, "h2", 4);
-        \u0275\u0275text(6, "Backend, Platform & Gen AI");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(7, "p", 5);
-        \u0275\u0275text(8);
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(9, "div", 6)(10, "div", 7)(11, "span", 8);
-        \u0275\u0275text(12, "zones");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(13, "span", 9);
-        \u0275\u0275text(14);
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(15, "div", 7)(16, "span", 8);
-        \u0275\u0275text(17, "nodes");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(18, "span", 9);
-        \u0275\u0275text(19);
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(20, "div", 7)(21, "span", 8);
-        \u0275\u0275text(22, "core skills");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(23, "span", 9);
-        \u0275\u0275text(24);
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(25, "div", 7)(26, "span", 8);
-        \u0275\u0275text(27, "avg xp");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(28, "span", 9);
-        \u0275\u0275text(29);
-        \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(30, "div", 10)(31, "button", 11);
-        \u0275\u0275listener("click", function SkillsComponent_Template_button_click_31_listener() {
-          return ctx2.toggleSystemMode();
-        });
-        \u0275\u0275elementStart(32, "span", 12);
-        \u0275\u0275text(33, "\u{1F3AE}");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(34, "span", 13);
-        \u0275\u0275text(35);
-        \u0275\u0275elementEnd()()()();
-        \u0275\u0275repeaterCreate(36, SkillsComponent_For_37_Template, 10, 6, "div", 14, _forTrack03);
-        \u0275\u0275elementStart(38, "div", 15)(39, "div", 16);
-        \u0275\u0275element(40, "span", 17);
-        \u0275\u0275elementStart(41, "span", 18);
-        \u0275\u0275text(42, "Boss Skill");
-        \u0275\u0275elementEnd()();
-        \u0275\u0275element(43, "div", 19);
-        \u0275\u0275elementStart(44, "div", 16);
-        \u0275\u0275element(45, "span", 20);
-        \u0275\u0275elementStart(46, "span", 18);
-        \u0275\u0275text(47, "Main Class");
-        \u0275\u0275elementEnd()();
-        \u0275\u0275element(48, "div", 19);
-        \u0275\u0275elementStart(49, "div", 16);
-        \u0275\u0275element(50, "span", 21);
-        \u0275\u0275elementStart(51, "span", 18);
-        \u0275\u0275text(52, "Support Tool");
-        \u0275\u0275elementEnd()()()()();
-      }
-      if (rf & 2) {
-        \u0275\u0275advance(8);
-        \u0275\u0275textInterpolate1(" ", ctx2.systemMode ? "Architecture route \u2014 how these skills connect in production" : "RPG inventory \u2014 tap any card for project proof", " ");
-        \u0275\u0275advance(6);
-        \u0275\u0275textInterpolate(ctx2.constellations.length);
-        \u0275\u0275advance(5);
-        \u0275\u0275textInterpolate(ctx2.totalSkillCount);
-        \u0275\u0275advance(5);
-        \u0275\u0275textInterpolate(ctx2.primarySkillCount);
-        \u0275\u0275advance(5);
-        \u0275\u0275textInterpolate1("", ctx2.averageProficiency, "%");
-        \u0275\u0275advance(2);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(7, _c02, ctx2.systemMode));
-        \u0275\u0275advance(4);
-        \u0275\u0275textInterpolate(ctx2.systemMode ? "Skill inventory" : "Architecture route");
-        \u0275\u0275advance();
-        \u0275\u0275repeater(ctx2.constellations);
-      }
-    }, dependencies: [NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.rpg-skills-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container[_ngcontent-%COMP%] {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls[_ngcontent-%COMP%] {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label[_ngcontent-%COMP%] {\n  white-space: nowrap;\n}\n.category-group[_ngcontent-%COMP%] {\n  margin-bottom: 2.5rem;\n}\n.category-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar[_ngcontent-%COMP%] {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.skill-card--primary[_ngcontent-%COMP%] {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded[_ngcontent-%COMP%]::before {\n  opacity: 1;\n}\n.skill-card--flow[_ngcontent-%COMP%] {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary[_ngcontent-%COMP%] {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track[_ngcontent-%COMP%] {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details[_ngcontent-%COMP%] {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: _ngcontent-%COMP%_detailSlideIn 0.3s ease-out;\n}\n@keyframes _ngcontent-%COMP%_detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section[_ngcontent-%COMP%] {\n  margin-bottom: 1.15rem;\n}\n.detail-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.detail-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.project-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.related-tags[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot[_ngcontent-%COMP%] {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary[_ngcontent-%COMP%] {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label[_ngcontent-%COMP%] {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 4rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.4rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item[_ngcontent-%COMP%] {\n    padding: 0;\n  }\n  .legend-divider[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 3.5rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
-  }
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(SkillsComponent, [{
-    type: Component,
-    args: [{ selector: "app-skills", standalone: true, imports: [NgClass], template: `<div class="rpg-skills-section" id="skill">
-  <div class="rpg-container">
-    <div class="section-header">
-      <span class="section-kicker">Skill inventory</span>
-      <h2 class="section-title">Backend, Platform &amp; Gen AI</h2>
-      <p class="section-subtitle">
-        {{ systemMode ? 'Architecture route \u2014 how these skills connect in production' : 'RPG inventory \u2014 tap any card for project proof' }}
-      </p>
-
-      <div class="skills-hud">
-        <div class="hud-card">
-          <span class="hud-label">zones</span>
-          <span class="hud-value">{{ constellations.length }}</span>
-        </div>
-        <div class="hud-card">
-          <span class="hud-label">nodes</span>
-          <span class="hud-value">{{ totalSkillCount }}</span>
-        </div>
-        <div class="hud-card">
-          <span class="hud-label">core skills</span>
-          <span class="hud-value">{{ primarySkillCount }}</span>
-        </div>
-        <div class="hud-card">
-          <span class="hud-label">avg xp</span>
-          <span class="hud-value">{{ averageProficiency }}%</span>
-        </div>
-      </div>
-
-      <div class="skills-controls">
-        <button class="system-mode-toggle" [ngClass]="{'system-mode-toggle--active': systemMode}" (click)="toggleSystemMode()">
-          <span class="system-mode-icon">&#x1f3ae;</span>
-          <span class="system-mode-label">{{ systemMode ? 'Skill inventory' : 'Architecture route' }}</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Category groups -->
-    @for (constellation of constellations; track constellation.id) {
-      <div class="category-group">
-        <div class="category-header">
-          <div class="category-color-bar" [style.background]="constellation.color"></div>
-          <h3 class="category-name" [style.color]="constellation.color">{{ constellation.name }}</h3>
-          <span class="category-count">{{ constellation.skills.length }} skills</span>
-        </div>
-
-        <div class="skill-card-grid">
-          @for (skill of constellation.skills; track skill.name) {
-            <div class="skill-card"
-                 [ngClass]="{
-                   'skill-card--primary': skill.level === 'primary',
-                   'skill-card--secondary': skill.level === 'secondary',
-                   'skill-card--supporting': skill.level === 'supporting',
-                   'skill-card--expanded': isExpanded(skill),
-                   'skill-card--flow': isSystemFlowNode(skill)
-                 }"
-                 (click)="toggleCard(skill, constellation)">
-
-              <!-- Flow badge for system mode -->
-              @if (isSystemFlowNode(skill)) {
-                <div class="flow-badge">{{ getSystemFlowIndex(skill) + 1 }}</div>
-              }
-
-              <div class="card-top">
-                <span class="level-tag" [ngClass]="'level-tag--' + skill.level">
-                  {{ getLevelTag(skill.level) }}
-                </span>
-                <span class="xp-number" [style.color]="constellation.color">{{ skill.proficiency }} XP</span>
-              </div>
-
-              <h4 class="skill-name">{{ getDisplayName(skill) }}</h4>
-              <p class="skill-tooltip">{{ skill.tooltip }}</p>
-
-              <div class="xp-bar-track">
-                <div class="xp-bar-fill"
-                     [style.width.%]="skill.proficiency"
-                     [style.background]="constellation.color">
-                </div>
-              </div>
-
-              <!-- Expanded detail panel -->
-              @if (isExpanded(skill) && skill.details) {
-                <div class="card-details">
-                  <p class="detail-description">{{ skill.details.description }}</p>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Experience</h5>
-                    <ul class="detail-list">
-                      @for (exp of skill.details.experience; track $index) {
-                        <li>{{ exp }}</li>
-                      }
-                    </ul>
-                  </div>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Key Projects</h5>
-                    <div class="project-chips">
-                      @for (project of skill.details.projects; track $index) {
-                        <span class="project-chip">{{ project }}</span>
-                      }
-                    </div>
-                  </div>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Achievements</h5>
-                    <ul class="achievement-list">
-                      @for (achievement of skill.details.achievements; track $index) {
-                        <li>{{ achievement }}</li>
-                      }
-                    </ul>
-                  </div>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Related</h5>
-                    <div class="related-tags">
-                      @for (rs of skill.details.relatedSkills; track $index) {
-                        <span class="related-tag">{{ rs }}</span>
-                      }
-                    </div>
-                  </div>
-                </div>
-              }
-            </div>
-          }
-        </div>
-      </div>
-    }
-
-    <div class="legend-strip">
-      <div class="legend-item">
-        <span class="legend-dot legend-dot--primary"></span>
-        <span class="legend-label">Boss Skill</span>
-      </div>
-      <div class="legend-divider"></div>
-      <div class="legend-item">
-        <span class="legend-dot legend-dot--secondary"></span>
-        <span class="legend-label">Main Class</span>
-      </div>
-      <div class="legend-divider"></div>
-      <div class="legend-item">
-        <span class="legend-dot legend-dot--supporting"></span>
-        <span class="legend-label">Support Tool</span>
-      </div>
-    </div>
-  </div>
-</div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/skills/skills.component.scss */\n:host {\n  display: block;\n}\n.rpg-skills-section {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label {\n  white-space: nowrap;\n}\n.category-group {\n  margin-bottom: 2.5rem;\n}\n.category-header {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card:hover::before {\n  opacity: 1;\n}\n.skill-card--primary {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded::before {\n  opacity: 1;\n}\n.skill-card--flow {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: detailSlideIn 0.3s ease-out;\n}\n@keyframes detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section {\n  margin-bottom: 1.15rem;\n}\n.detail-section:last-child {\n  margin-bottom: 0;\n}\n.detail-heading {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list li {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list li:last-child {\n  margin-bottom: 0;\n}\n.project-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list li {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list li::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list li:last-child {\n  margin-bottom: 0;\n}\n.related-tags {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .rpg-skills-section {\n    padding: 4rem 0;\n  }\n  .section-title {\n    font-size: 2.4rem;\n  }\n  .skills-hud {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item {\n    padding: 0;\n  }\n  .legend-divider {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section {\n    padding: 3.5rem 0;\n  }\n  .section-title {\n    font-size: 2rem;\n  }\n  .skills-hud {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
-  }], null, null);
-})();
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(SkillsComponent, { className: "SkillsComponent", filePath: "src/app/profile/skills/skills.component.ts", lineNumber: 32 });
-})();
-
-// src/app/profile/publications/publications.component.ts
-function PublicationsComponent_For_391_Template(rf, ctx2) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "button", 65);
-    \u0275\u0275domListener("click", function PublicationsComponent_For_391_Template_button_click_0_listener() {
-      const category_r2 = \u0275\u0275restoreView(_r1).$implicit;
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.filterByCategory(category_r2));
-    });
-    \u0275\u0275text(1);
-    \u0275\u0275domElementEnd();
-  }
-  if (rf & 2) {
-    const category_r2 = ctx2.$implicit;
-    const \u0275$index_628_r4 = ctx2.$index;
-    const ctx_r2 = \u0275\u0275nextContext();
-    \u0275\u0275classProp("active", ctx_r2.selectedCategory === category_r2);
-    \u0275\u0275attribute("data-aos-delay", (\u0275$index_628_r4 + 1) * 100);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", category_r2, " ");
-  }
-}
-function PublicationsComponent_For_394_Conditional_15_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElement(0, "img", 75);
-  }
-  if (rf & 2) {
-    const project_r5 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275domProperty("src", project_r5.badges.version, \u0275\u0275sanitizeUrl);
-  }
-}
-function PublicationsComponent_For_394_Conditional_16_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElement(0, "img", 76);
-  }
-  if (rf & 2) {
-    const project_r5 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275domProperty("src", project_r5.badges.downloads, \u0275\u0275sanitizeUrl);
-  }
-}
-function PublicationsComponent_For_394_Conditional_17_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElement(0, "img", 77);
-  }
-  if (rf & 2) {
-    const project_r5 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275domProperty("src", project_r5.badges.total, \u0275\u0275sanitizeUrl);
-  }
-}
-function PublicationsComponent_For_394_Conditional_18_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElement(0, "img", 78);
-  }
-  if (rf & 2) {
-    const project_r5 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275domProperty("src", project_r5.badges.java, \u0275\u0275sanitizeUrl);
-  }
-}
-function PublicationsComponent_For_394_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 64)(1, "div", 66)(2, "div", 67)(3, "span", 68);
-    \u0275\u0275text(4);
-    \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(5, "div", 69);
-    \u0275\u0275text(6);
-    \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(7, "div", 70)(8, "h5", 71);
-    \u0275\u0275text(9);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(10, "p", 72);
-    \u0275\u0275text(11);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(12, "p", 73);
-    \u0275\u0275text(13);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(14, "div", 74);
-    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_394_Conditional_15_Template, 1, 1, "img", 75);
-    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_394_Conditional_16_Template, 1, 1, "img", 76);
-    \u0275\u0275conditionalCreate(17, PublicationsComponent_For_394_Conditional_17_Template, 1, 1, "img", 77);
-    \u0275\u0275conditionalCreate(18, PublicationsComponent_For_394_Conditional_18_Template, 1, 1, "img", 78);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(19, "a", 79);
-    \u0275\u0275text(20);
-    \u0275\u0275domElementEnd()()();
-  }
-  if (rf & 2) {
-    const project_r5 = ctx2.$implicit;
-    const \u0275$index_634_r6 = ctx2.$index;
-    \u0275\u0275attribute("data-delay", (\u0275$index_634_r6 + 1) * 100);
-    \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(project_r5.category === "NPM" ? "\u{1F4E6}" : project_r5.category === "Maven Central" ? "\u2615" : "\u2B50");
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(project_r5.category);
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(project_r5.title);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(project_r5.tagline);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(project_r5.description);
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(project_r5.badges.version ? 15 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(project_r5.badges.downloads ? 16 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(project_r5.badges.total ? 17 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(project_r5.badges.java ? 18 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275domProperty("href", project_r5.link, \u0275\u0275sanitizeUrl);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" \u2B07\xA0 ", project_r5.linkText, " ");
-  }
-}
-var PublicationsComponent = class _PublicationsComponent {
-  constructor() {
-    this.projectLinks = PROJECT_LINKS;
-    this.companyLinks = COMPANY_LINKS;
-    this.openSourceProjects = [
-      {
-        id: "node-actuator-lite",
-        title: "node-actuator-lite",
-        tagline: "Spring Boot-style health checks for Node.js \u2014 zero deps",
-        description: "A lightweight Node.js actuator similar to Spring Boot actuator with Prometheus integration, built with minimal external dependencies for maximum performance. Perfect for serverless platforms like Vercel, AWS Lambda, and microservices.",
-        category: "NPM",
-        badges: {
-          version: "https://img.shields.io/npm/v/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=version",
-          downloads: "https://img.shields.io/npm/dm/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
-          total: "https://img.shields.io/npm/dt/node-actuator-lite?style=flat-square&logo=npm&color=cb3837&label=total"
-        },
-        link: PACKAGE_LINKS.nodeActuatorLite,
-        linkText: "View on NPM"
-      },
-      {
-        id: "node-request-trace",
-        title: "node-request-trace",
-        tagline: "See exactly where your API request spends time",
-        description: "Request tracing and performance visualization library for Node.js. Inspect the full execution lifecycle of API requests, detect performance bottlenecks, identify slow middleware or async operations, and debug production issues quickly.",
-        category: "NPM",
-        badges: {
-          version: "https://img.shields.io/npm/v/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=version",
-          downloads: "https://img.shields.io/npm/dm/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
-          total: "https://img.shields.io/npm/dt/node-request-trace?style=flat-square&logo=npm&color=cb3837&label=total"
-        },
-        link: PACKAGE_LINKS.nodeRequestTrace,
-        linkText: "View on NPM"
-      },
-      {
-        id: "node-eventloop-watchdog",
-        title: "node-eventloop-watchdog",
-        tagline: "Find exactly which line is blocking your event loop",
-        description: "Lightweight Node.js event loop blocking detector with automatic code identification, blocking heatmaps, and production-safe diagnostics. Detects lag, captures blocking stack traces, identifies hotspots, and correlates with HTTP requests.",
-        category: "NPM",
-        badges: {
-          version: "https://img.shields.io/npm/v/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=version",
-          downloads: "https://img.shields.io/npm/dm/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
-          total: "https://img.shields.io/npm/dt/node-eventloop-watchdog?style=flat-square&logo=npm&color=cb3837&label=total"
-        },
-        link: PACKAGE_LINKS.nodeEventloopWatchdog,
-        linkText: "View on NPM"
-      },
-      {
-        id: "meme-as-a-service",
-        title: "meme-as-a-service",
-        tagline: "Generate memes via API \u2014 templates, text overlays, done",
-        description: "A fun and lightweight service for generating and serving memes programmatically. Provides easy-to-use APIs for creating custom memes with text overlays and various templates.",
-        category: "NPM",
-        badges: {
-          version: "https://img.shields.io/npm/v/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=version",
-          downloads: "https://img.shields.io/npm/dm/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
-          total: "https://img.shields.io/npm/dt/meme-as-a-service?style=flat-square&logo=npm&color=cb3837&label=total"
-        },
-        link: PACKAGE_LINKS.memeAsAService,
-        linkText: "View on NPM"
-      },
-      {
-        id: "roastcode",
-        title: "roastcode",
-        tagline: "AI code review, but it roasts you",
-        description: "\u{1F525} A CLI tool that humorously roasts your code files, commit messages, and diffs with AI-powered savagery. Features multiple roast modes (Gentle, Savage, Toxic), AI engines (OpenAI, Ollama), git integration, meme generation, and smart code analysis. Perfect for code reviews, team bonding, and keeping your codebase honest.",
-        category: "NPM",
-        badges: {
-          version: "https://img.shields.io/npm/v/roastcode?style=flat-square&logo=npm&color=cb3837&label=version",
-          downloads: "https://img.shields.io/npm/dm/roastcode?style=flat-square&logo=npm&color=cb3837&label=downloads/month",
-          total: "https://img.shields.io/npm/dt/roastcode?style=flat-square&logo=npm&color=cb3837&label=total"
-        },
-        link: PACKAGE_LINKS.roastcode,
-        linkText: "View on NPM"
-      },
-      {
-        id: "readme-cinema",
-        title: "readme-cinema",
-        tagline: "Turn READMEs into cinematic terminal experiences",
-        description: "\u{1F3AC} Transform your README files into cinematic terminal experiences with ASCII art, typewriter effects, and dramatic transitions. Features 8 color themes, progress bars, syntax highlighting, and movie-like scene transitions for creating engaging documentation.",
-        category: "NPM",
-        badges: {
-          version: "https://img.shields.io/npm/v/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=version",
-          downloads: "https://img.shields.io/npm/dm/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=downloads/week",
-          total: "https://img.shields.io/npm/dt/readme-cinema?style=flat-square&logo=npm&color=cb3837&label=total"
-        },
-        link: PACKAGE_LINKS.readmeCinema,
-        linkText: "View on NPM"
-      },
-      {
-        id: "eli5",
-        title: "eli5",
-        tagline: `AI-powered "Explain Like I'm 5" annotations for Java`,
-        description: "Explain Like I'm 5 annotations for Java code documentation with AI-powered explanations. A Maven plugin that helps developers create simple, understandable documentation for complex code by generating child-friendly explanations.",
-        category: "Maven Central",
-        badges: {
-          version: "https://img.shields.io/maven-central/v/io.github.beingmartinbmc/eli5?style=flat-square&logo=apache-maven&color=c71a36&label=version",
-          java: "https://img.shields.io/badge/Java-11+-orange?style=flat-square&logo=java&color=ED8B00"
-        },
-        link: PACKAGE_LINKS.eli5,
-        linkText: "View on Maven Central"
-      },
-      {
-        id: "git-history-ui",
-        title: "git-history-ui",
-        tagline: "Beautiful web UI for exploring git history",
-        description: "A beautiful, modern web UI for visualizing git history with interactive commit graphs, search, filtering, and diff visualization. Built with Angular and Node.js. Features D3.js-powered visualizations, advanced search & filtering, dual view modes, color palette system, and responsive design.",
-        category: "NPM",
-        badges: {
-          version: "https://img.shields.io/npm/v/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=version",
-          downloads: "https://img.shields.io/npm/dm/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=downloads/week",
-          total: "https://img.shields.io/npm/dt/git-history-ui?style=flat-square&logo=npm&color=cb3837&label=total"
-        },
-        link: PACKAGE_LINKS.gitHistoryUi,
-        linkText: "View on NPM"
-      }
-    ];
-    this.availableCategories = [];
-    this.selectedCategory = "All";
-    this.filteredProjects = [];
-  }
-  ngOnInit() {
-    this.availableCategories = ["All", ...Array.from(new Set(this.openSourceProjects.map((p) => p.category)))];
-    this.filteredProjects = this.openSourceProjects;
-  }
-  filterByCategory(category) {
-    this.selectedCategory = category;
-    if (category === "All") {
-      this.filteredProjects = this.openSourceProjects;
-    } else {
-      this.filteredProjects = this.openSourceProjects.filter((project) => project.category === category);
-    }
-  }
-  static {
-    this.\u0275fac = function PublicationsComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _PublicationsComponent)();
-    };
-  }
-  static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 395, vars: 12, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header", "quest-header"], [1, "quest-world-label"], ["data-text-reveal", "", 1, "section-title", "quest-title"], [1, "section-subtitle"], ["data-stagger", "150", 1, "pro-projects-grid"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card"], [1, "quest-rank-bar"], [1, "quest-inner"], [1, "quest-header-row"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-games", 3, "href"], [1, "world-icon"], [1, "quest-platform"], [1, "quest-status"], [1, "quest-name"], [1, "quest-tagline"], [1, "pro-card-desc"], [1, "abilities-row"], [1, "abilities-label"], [1, "ability-chips"], [1, "rewards-row"], [1, "rewards-label"], [1, "reward-chips"], [1, "reward-chip"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card", "boss-card"], [1, "quest-status", "boss-status"], [1, "reward-chip", "legendary"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "walmart-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-walmart", 3, "href"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "extramarks-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-extramarks", 3, "href"], ["data-anim", "fade-up", 1, "section-header", "quest-header", 2, "margin-top", "6rem"], ["data-stagger", "150", 1, "projects-grid", "side-quests-grid"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "algo-card"], ["target", "_blank", "rel", "noopener", 1, "game-screen-link", 3, "href"], [1, "game-screen", "algo-screen"], [1, "screen-scanlines"], [1, "screen-content"], [1, "screen-icon"], [1, "screen-title"], [1, "screen-subtitle"], [1, "screen-tags"], [1, "screen-press"], [1, "card-body", "side-quest-body"], [1, "sq-type-row"], [1, "sq-type-badge"], [1, "sq-xp"], [1, "sq-title"], [1, "card-text"], [1, "sq-tech-row"], [1, "tech-badge"], [1, "sq-action"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-primary", 3, "href"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "divine-card"], [1, "game-screen", "divine-screen"], [1, "screen-press", "powered"], [1, "sq-type-badge", "ai-badge"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "datesense-card"], [1, "game-screen", "datesense-screen"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "shop-filters"], [1, "shop-filter-btn", 3, "active"], [1, "open-source-grid", "powerup-grid"], ["data-anim", "fade-up", 1, "open-source-card", "powerup-card"], [1, "shop-filter-btn", 3, "click"], [1, "powerup-top"], [1, "powerup-icon-wrap"], [1, "powerup-icon"], [1, "powerup-category"], [1, "card-body", "powerup-body"], [1, "powerup-name"], [1, "powerup-tagline"], [1, "card-text", "powerup-desc"], [1, "powerup-badges"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-secondary", "powerup-btn", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx2) {
-      if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
-        \u0275\u0275text(4, "\u2694 WORLD MAP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(5, "h2", 4);
-        \u0275\u0275text(6, "Main Quests");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(7, "p", 5);
-        \u0275\u0275text(8, "Real systems. Real scale. Mission logs from the field.");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(9, "div", 6)(10, "div", 7);
-        \u0275\u0275domElement(11, "div", 8);
-        \u0275\u0275domElementStart(12, "div", 9)(13, "div", 10)(14, "a", 11)(15, "span", 12);
-        \u0275\u0275text(16, "\u{1F3AE}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(17, " Games24x7 ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(18, "span", 13);
-        \u0275\u0275text(19, "My11Circle \xB7 RummyCircle");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(20, "div", 14);
-        \u0275\u0275text(21, "MISSION CLEARED \u2713");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(22, "h4", 15);
-        \u0275\u0275text(23, "Automated KYC Platform");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(24, "p", 16);
-        \u0275\u0275text(25, "Identity verification at scale \u2014 built from scratch");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(26, "p", 17);
-        \u0275\u0275text(27, " End-to-end document verification system supporting Digilocker, Aadhaar Lite, PAN validation, and OCR-based extraction. Processes 200K+ verifications daily across two gaming platforms with 99.95% uptime via a distributed Kafka pipeline. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(28, "div", 18)(29, "span", 19);
-        \u0275\u0275text(30, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(31, "div", 20)(32, "span");
-        \u0275\u0275text(33, "Java");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(34, "span");
-        \u0275\u0275text(35, "Spring Boot");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(36, "span");
-        \u0275\u0275text(37, "Kafka");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(38, "span");
-        \u0275\u0275text(39, "Redis");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(40, "span");
-        \u0275\u0275text(41, "OCR");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(42, "span");
-        \u0275\u0275text(43, "Digilocker API");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(44, "span");
-        \u0275\u0275text(45, "AWS");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(46, "div", 21)(47, "span", 22);
-        \u0275\u0275text(48, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(49, "div", 23)(50, "span", 24);
-        \u0275\u0275text(51, "\u{1FA99} 200K+ verifications/day");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(52, "span", 24);
-        \u0275\u0275text(53, "\u2B50 99.95% uptime");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(54, "div", 7);
-        \u0275\u0275domElement(55, "div", 8);
-        \u0275\u0275domElementStart(56, "div", 9)(57, "div", 10)(58, "a", 11)(59, "span", 12);
-        \u0275\u0275text(60, "\u{1F3AE}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(61, " Games24x7 ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(62, "span", 13);
-        \u0275\u0275text(63, "My11Circle \xB7 RummyCircle");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(64, "div", 14);
-        \u0275\u0275text(65, "MISSION CLEARED \u2713");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(66, "h4", 15);
-        \u0275\u0275text(67, "Risk Rule Engine");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(68, "p", 16);
-        \u0275\u0275text(69, "Real-time fraud detection powered by ML + graph analysis");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(70, "p", 17);
-        \u0275\u0275text(71, " Built a rule engine that identifies fraudulent user behavior in real time across two platforms. Consumes millions of Kafka messages via pub/sub, runs ML-based scoring through SageMaker, and maps fraud networks using Neptune graph DB \u2014 preventing financial losses at scale. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(72, "div", 18)(73, "span", 19);
-        \u0275\u0275text(74, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(75, "div", 20)(76, "span");
-        \u0275\u0275text(77, "Java");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(78, "span");
-        \u0275\u0275text(79, "Kafka");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(80, "span");
-        \u0275\u0275text(81, "SageMaker");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(82, "span");
-        \u0275\u0275text(83, "Neptune DB");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(84, "span");
-        \u0275\u0275text(85, "Gremlin");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(86, "span");
-        \u0275\u0275text(87, "Spring Cloud");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(88, "div", 21)(89, "span", 22);
-        \u0275\u0275text(90, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(91, "div", 23)(92, "span", 24);
-        \u0275\u0275text(93, "\u{1FA99} Millions of events/day");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(94, "span", 24);
-        \u0275\u0275text(95, "\u2B50 Real-time detection");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(96, "div", 25);
-        \u0275\u0275domElement(97, "div", 8);
-        \u0275\u0275domElementStart(98, "div", 9)(99, "div", 10)(100, "a", 11)(101, "span", 12);
-        \u0275\u0275text(102, "\u{1F3AE}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(103, " Games24x7 ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(104, "span", 13);
-        \u0275\u0275text(105, "My11Circle");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(106, "div", 26);
-        \u0275\u0275text(107, "\u{1F47E} BOSS BATTLE CLEARED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(108, "h4", 15);
-        \u0275\u0275text(109, "Fantasy Autoscaler");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(110, "p", 16);
-        \u0275\u0275text(111, "ML-powered predictive autoscaling for IPL-level traffic");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(112, "p", 17);
-        \u0275\u0275text(113, " Predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting. Anticipated traffic spikes before they hit, pre-scaling infrastructure ahead of toss time. Successfully handled 10M concurrent users during IPL 2025 with zero downtime. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(114, "div", 18)(115, "span", 19);
-        \u0275\u0275text(116, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(117, "div", 20)(118, "span");
-        \u0275\u0275text(119, "Kubernetes");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(120, "span");
-        \u0275\u0275text(121, "AWS ASG");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(122, "span");
-        \u0275\u0275text(123, "ML");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(124, "span");
-        \u0275\u0275text(125, "Grafana");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(126, "span");
-        \u0275\u0275text(127, "Prometheus");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(128, "span");
-        \u0275\u0275text(129, "Java");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(130, "div", 21)(131, "span", 22);
-        \u0275\u0275text(132, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(133, "div", 23)(134, "span", 27);
-        \u0275\u0275text(135, "\u{1F48E} 10M concurrent users");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(136, "span", 27);
-        \u0275\u0275text(137, "\u{1F3C6} Zero downtime @ IPL 2025");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(138, "div", 7);
-        \u0275\u0275domElement(139, "div", 8);
-        \u0275\u0275domElementStart(140, "div", 9)(141, "div", 10)(142, "a", 11)(143, "span", 12);
-        \u0275\u0275text(144, "\u{1F3AE}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(145, " Games24x7 ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(146, "span", 13);
-        \u0275\u0275text(147, "My11Circle \xB7 RummyCircle");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(148, "div", 14);
-        \u0275\u0275text(149, "MISSION CLEARED \u2713");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(150, "h4", 15);
-        \u0275\u0275text(151, "PAJ3 \u2014 Single Sign-On");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(152, "p", 16);
-        \u0275\u0275text(153, "Frictionless mobile-first user onboarding");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(154, "p", 17);
-        \u0275\u0275text(155, " Replaced the traditional email + password registration with a mobile-number-based single sign-on flow. Dramatically reduced onboarding friction, improving user conversion across both gaming platforms with OTP-based authentication and seamless session management. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(156, "div", 18)(157, "span", 19);
-        \u0275\u0275text(158, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(159, "div", 20)(160, "span");
-        \u0275\u0275text(161, "Java");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(162, "span");
-        \u0275\u0275text(163, "Spring Security");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(164, "span");
-        \u0275\u0275text(165, "Redis");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(166, "span");
-        \u0275\u0275text(167, "OTP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(168, "span");
-        \u0275\u0275text(169, "JWT");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(170, "span");
-        \u0275\u0275text(171, "Microservices");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(172, "div", 21)(173, "span", 22);
-        \u0275\u0275text(174, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(175, "div", 23)(176, "span", 24);
-        \u0275\u0275text(177, "\u{1FA99} 2 platforms");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(178, "span", 24);
-        \u0275\u0275text(179, "\u2B50 Mobile-first auth");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(180, "div", 28);
-        \u0275\u0275domElement(181, "div", 8);
-        \u0275\u0275domElementStart(182, "div", 9)(183, "div", 10)(184, "a", 29)(185, "span", 12);
-        \u0275\u0275text(186, "\u{1F3EA}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(187, " Walmart ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(188, "span", 13);
-        \u0275\u0275text(189, "Stores");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(190, "div", 14);
-        \u0275\u0275text(191, "MISSION CLEARED \u2713");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(192, "h4", 15);
-        \u0275\u0275text(193, "Annual Enrollment");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(194, "p", 16);
-        \u0275\u0275text(195, "Benefits enrollment for 2.2M+ Walmart associates");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(196, "p", 17);
-        \u0275\u0275text(197, " Automated dashboard enabling Walmart associates to check eligibility and sign up for health and wealth benefits \u2014 dental coverage, life insurance, bonuses, and more. Served 2.2M+ associates across the US with a streamlined, self-service enrollment experience. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(198, "div", 18)(199, "span", 19);
-        \u0275\u0275text(200, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(201, "div", 20)(202, "span");
-        \u0275\u0275text(203, "Java 8");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(204, "span");
-        \u0275\u0275text(205, "Angular");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(206, "span");
-        \u0275\u0275text(207, "JSP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(208, "span");
-        \u0275\u0275text(209, "OneOps");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(210, "span");
-        \u0275\u0275text(211, "Jenkins");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(212, "div", 21)(213, "span", 22);
-        \u0275\u0275text(214, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(215, "div", 23)(216, "span", 24);
-        \u0275\u0275text(217, "\u{1FA99} 2.2M+ associates");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(218, "span", 24);
-        \u0275\u0275text(219, "\u2B50 US-wide rollout");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(220, "div", 30);
-        \u0275\u0275domElement(221, "div", 8);
-        \u0275\u0275domElementStart(222, "div", 9)(223, "div", 10)(224, "a", 31)(225, "span", 12);
-        \u0275\u0275text(226, "\u{1F4DA}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(227, " Extramarks ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(228, "span", 13);
-        \u0275\u0275text(229, "Elsa");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(230, "div", 14);
-        \u0275\u0275text(231, "MISSION CLEARED \u2713");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(232, "h4", 15);
-        \u0275\u0275text(233, "NEMR \u2014 Personalized K-12 Courses");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(234, "p", 16);
-        \u0275\u0275text(235, "Modular course purchasing for students");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(236, "p", 17);
-        \u0275\u0275text(237, " Enabled students to purchase individual subjects, concepts, or courses instead of the full curriculum. Built a personalized K-12 learning experience with granular content access, breaking the monolithic course structure into flexible, affordable modules. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(238, "div", 18)(239, "span", 19);
-        \u0275\u0275text(240, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(241, "div", 20)(242, "span");
-        \u0275\u0275text(243, "Java 11");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(244, "span");
-        \u0275\u0275text(245, "Spring Boot");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(246, "span");
-        \u0275\u0275text(247, "MySQL");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(248, "span");
-        \u0275\u0275text(249, "Docker");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(250, "span");
-        \u0275\u0275text(251, "AWS Cognito");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(252, "span");
-        \u0275\u0275text(253, "OAuth2.0");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(254, "div", 21)(255, "span", 22);
-        \u0275\u0275text(256, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(257, "div", 23)(258, "span", 24);
-        \u0275\u0275text(259, "\u{1FA99} K-12 platform");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(260, "span", 24);
-        \u0275\u0275text(261, "\u2B50 Modular pricing");
-        \u0275\u0275domElementEnd()()()()()();
-        \u0275\u0275domElementStart(262, "div", 32)(263, "div", 3);
-        \u0275\u0275text(264, "\u{1F3AE} SIDE QUESTS");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(265, "h2", 4);
-        \u0275\u0275text(266, "Side Projects & AI Experiments");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(267, "p", 5);
-        \u0275\u0275text(268, "Passion builds. Shipped for fun, learning, and the love of craft.");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(269, "div", 33)(270, "div", 34)(271, "a", 35)(272, "div", 36);
-        \u0275\u0275domElement(273, "div", 37);
-        \u0275\u0275domElementStart(274, "div", 38)(275, "div", 39);
-        \u0275\u0275text(276, "\u{1F9E0}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(277, "div", 40);
-        \u0275\u0275text(278, "ALGORITHM VISUALIZER");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(279, "div", 41);
-        \u0275\u0275text(280, "DSA Visualizer \xB7 Step-by-Step");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(281, "div", 42);
-        \u0275\u0275text(282, "Sorting \xB7 Trees \xB7 Graphs \xB7 Backtracking");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(283, "div", 43);
-        \u0275\u0275text(284, "\u25B6 PRESS TO PLAY");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(285, "div", 44)(286, "div", 45)(287, "span", 46);
-        \u0275\u0275text(288, "\u{1F3AF} WEB APP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(289, "span", 47);
-        \u0275\u0275text(290, "+500 XP");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(291, "h5", 48);
-        \u0275\u0275text(292, "Algorithm Visualizer");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(293, "p", 49);
-        \u0275\u0275text(294, " A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(295, "div", 50)(296, "span", 51);
-        \u0275\u0275text(297, "JavaScript");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(298, "span", 51);
-        \u0275\u0275text(299, "React");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(300, "span", 51);
-        \u0275\u0275text(301, "Tailwind");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(302, "span", 51);
-        \u0275\u0275text(303, "Web Audio API");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(304, "div", 52)(305, "a", 53);
-        \u0275\u0275text(306, " \u25B6\xA0 Play Demo ");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(307, "div", 54)(308, "a", 35)(309, "div", 55);
-        \u0275\u0275domElement(310, "div", 37);
-        \u0275\u0275domElementStart(311, "div", 38)(312, "div", 39);
-        \u0275\u0275text(313, "\u{1F549}\uFE0F");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(314, "div", 40);
-        \u0275\u0275text(315, "RELIGIOUS GPT");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(316, "div", 41);
-        \u0275\u0275text(317, "Learn Religion the AI Way");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(318, "div", 42);
-        \u0275\u0275text(319, "Gita \xB7 Quran \xB7 Bible \xB7 Vedas \xB7 Tripitaka");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(320, "div", 56);
-        \u0275\u0275text(321, "Powered by GPT-4.1");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(322, "div", 44)(323, "div", 45)(324, "span", 57);
-        \u0275\u0275text(325, "\u{1F916} AI APP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(326, "span", 47);
-        \u0275\u0275text(327, "+750 XP");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(328, "h5", 48);
-        \u0275\u0275text(329, "Religious GPT");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(330, "p", 49);
-        \u0275\u0275text(331, " Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, and more. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(332, "div", 50)(333, "span", 51);
-        \u0275\u0275text(334, "React");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(335, "span", 51);
-        \u0275\u0275text(336, "Node.js");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(337, "span", 51);
-        \u0275\u0275text(338, "GPT-4.1");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(339, "span", 51);
-        \u0275\u0275text(340, "Vercel");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(341, "div", 52)(342, "a", 53);
-        \u0275\u0275text(343, " \u25B6\xA0 Play Demo ");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(344, "div", 58)(345, "a", 35)(346, "div", 59);
-        \u0275\u0275domElement(347, "div", 37);
-        \u0275\u0275domElementStart(348, "div", 38)(349, "div", 39);
-        \u0275\u0275text(350, "\u{1F498}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(351, "div", 40);
-        \u0275\u0275text(352, "DATESENSE");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(353, "div", 41);
-        \u0275\u0275text(354, "AI Dating Conversation Analyst");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(355, "div", 42);
-        \u0275\u0275text(356, "Attraction Score \xB7 Ghosting Risk \xB7 Scam Detection");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(357, "div", 56);
-        \u0275\u0275text(358, "Powered by GPT-4.1 Nano");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(359, "div", 44)(360, "div", 45)(361, "span", 57);
-        \u0275\u0275text(362, "\u{1F916} AI APP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(363, "span", 47);
-        \u0275\u0275text(364, "+800 XP");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(365, "h5", 48);
-        \u0275\u0275text(366, "DateSense");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(367, "p", 49);
-        \u0275\u0275text(368, " An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Detects potential scam or manipulative patterns through GPT-4.1 Nano. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(369, "div", 50)(370, "span", 51);
-        \u0275\u0275text(371, "Angular");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(372, "span", 51);
-        \u0275\u0275text(373, "GPT-4.1 Nano");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(374, "span", 51);
-        \u0275\u0275text(375, "OCR");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(376, "span", 51);
-        \u0275\u0275text(377, "Vercel");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(378, "div", 52)(379, "a", 53);
-        \u0275\u0275text(380, " \u25B6\xA0 Play Demo ");
-        \u0275\u0275domElementEnd()()()()()();
-        \u0275\u0275domElementStart(381, "div", 60)(382, "div", 2)(383, "div", 3);
-        \u0275\u0275text(384, "\u{1F4E6} ITEM SHOP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(385, "h2", 4);
-        \u0275\u0275text(386, "Open Source Power-Ups");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(387, "p", 5);
-        \u0275\u0275text(388, "Free collectibles. Pick up and drop into your stack.");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(389, "div", 61);
-        \u0275\u0275repeaterCreate(390, PublicationsComponent_For_391_Template, 2, 4, "button", 62, \u0275\u0275repeaterTrackByIdentity);
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(392, "div", 63);
-        \u0275\u0275repeaterCreate(393, PublicationsComponent_For_394_Template, 21, 12, "div", 64, \u0275\u0275repeaterTrackByIdentity);
-        \u0275\u0275domElementEnd()()();
-      }
-      if (rf & 2) {
-        \u0275\u0275advance(14);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(44);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(42);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(42);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(42);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.walmart, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(40);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.extramarks, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(47);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(34);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(3);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(34);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(3);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(34);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(11);
-        \u0275\u0275repeater(ctx2.availableCategories);
-        \u0275\u0275advance(3);
-        \u0275\u0275repeater(ctx2.filteredProjects);
-      }
-    }, dependencies: [CommonModule], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.quest-header[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover   .quest-rank-bar[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.boss-card[_ngcontent-%COMP%]   .quest-rank-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge[_ngcontent-%COMP%]:hover {\n  opacity: 0.85;\n}\n.world-games[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n}\n.quest-platform[_ngcontent-%COMP%] {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline[_ngcontent-%COMP%] {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.walmart-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #93c5fd;\n}\n.extramarks-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row[_ngcontent-%COMP%], \n.rewards-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label[_ngcontent-%COMP%], \n.rewards-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.side-quests-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card[_ngcontent-%COMP%] {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link[_ngcontent-%COMP%] {\n  display: block;\n  text-decoration: none;\n}\n.game-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link[_ngcontent-%COMP%]:hover   .game-screen[_ngcontent-%COMP%] {\n  filter: brightness(1.12);\n}\n.screen-scanlines[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon[_ngcontent-%COMP%] {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press[_ngcontent-%COMP%] {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: _ngcontent-%COMP%_blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body[_ngcontent-%COMP%] {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge[_ngcontent-%COMP%] {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.game-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn[_ngcontent-%COMP%]:hover, \n.shop-filter-btn.active[_ngcontent-%COMP%] {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline[_ngcontent-%COMP%] {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge[_ngcontent-%COMP%] {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn[_ngcontent-%COMP%] {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
-  }
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PublicationsComponent, [{
-    type: Component,
-    args: [{ selector: "app-publications", standalone: true, imports: [CommonModule], template: `<div class="apple-section" id="publications">
-  <div class="apple-container">
-
-    <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 MAIN QUESTS \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
-    <div class="section-header quest-header" data-anim="fade-up">
-      <div class="quest-world-label">\u2694 WORLD MAP</div>
-      <h2 class="section-title quest-title" data-text-reveal>Main Quests</h2>
-      <p class="section-subtitle">Real systems. Real scale. Mission logs from the field.</p>
-    </div>
-
-    <div class="pro-projects-grid" data-stagger="150">
-
-      <div class="pro-project-card quest-card games-card" data-anim="fade-up">
-        <div class="quest-rank-bar"></div>
-        <div class="quest-inner">
-          <div class="quest-header-row">
-            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
-              <span class="world-icon">\u{1F3AE}</span> Games24x7
-            </a>
-            <span class="quest-platform">My11Circle \xB7 RummyCircle</span>
-          </div>
-          <div class="quest-status">MISSION CLEARED \u2713</div>
-          <h4 class="quest-name">Automated KYC Platform</h4>
-          <p class="quest-tagline">Identity verification at scale \u2014 built from scratch</p>
-          <p class="pro-card-desc">
-            End-to-end document verification system supporting Digilocker, Aadhaar Lite, PAN validation, and OCR-based extraction.
-            Processes 200K+ verifications daily across two gaming platforms with 99.95% uptime via a distributed Kafka pipeline.
-          </p>
-          <div class="abilities-row">
-            <span class="abilities-label">\u26A1 ABILITIES USED</span>
-            <div class="ability-chips">
-              <span>Java</span><span>Spring Boot</span><span>Kafka</span><span>Redis</span><span>OCR</span><span>Digilocker API</span><span>AWS</span>
-            </div>
-          </div>
-          <div class="rewards-row">
-            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
-            <div class="reward-chips">
-              <span class="reward-chip">\u{1FA99} 200K+ verifications/day</span>
-              <span class="reward-chip">\u2B50 99.95% uptime</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pro-project-card quest-card games-card" data-anim="fade-up">
-        <div class="quest-rank-bar"></div>
-        <div class="quest-inner">
-          <div class="quest-header-row">
-            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
-              <span class="world-icon">\u{1F3AE}</span> Games24x7
-            </a>
-            <span class="quest-platform">My11Circle \xB7 RummyCircle</span>
-          </div>
-          <div class="quest-status">MISSION CLEARED \u2713</div>
-          <h4 class="quest-name">Risk Rule Engine</h4>
-          <p class="quest-tagline">Real-time fraud detection powered by ML + graph analysis</p>
-          <p class="pro-card-desc">
-            Built a rule engine that identifies fraudulent user behavior in real time across two platforms.
-            Consumes millions of Kafka messages via pub/sub, runs ML-based scoring through SageMaker,
-            and maps fraud networks using Neptune graph DB \u2014 preventing financial losses at scale.
-          </p>
-          <div class="abilities-row">
-            <span class="abilities-label">\u26A1 ABILITIES USED</span>
-            <div class="ability-chips">
-              <span>Java</span><span>Kafka</span><span>SageMaker</span><span>Neptune DB</span><span>Gremlin</span><span>Spring Cloud</span>
-            </div>
-          </div>
-          <div class="rewards-row">
-            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
-            <div class="reward-chips">
-              <span class="reward-chip">\u{1FA99} Millions of events/day</span>
-              <span class="reward-chip">\u2B50 Real-time detection</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pro-project-card quest-card games-card boss-card" data-anim="fade-up">
-        <div class="quest-rank-bar"></div>
-        <div class="quest-inner">
-          <div class="quest-header-row">
-            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
-              <span class="world-icon">\u{1F3AE}</span> Games24x7
-            </a>
-            <span class="quest-platform">My11Circle</span>
-          </div>
-          <div class="quest-status boss-status">\u{1F47E} BOSS BATTLE CLEARED</div>
-          <h4 class="quest-name">Fantasy Autoscaler</h4>
-          <p class="quest-tagline">ML-powered predictive autoscaling for IPL-level traffic</p>
-          <p class="pro-card-desc">
-            Predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting.
-            Anticipated traffic spikes before they hit, pre-scaling infrastructure ahead of toss time.
-            Successfully handled 10M concurrent users during IPL 2025 with zero downtime.
-          </p>
-          <div class="abilities-row">
-            <span class="abilities-label">\u26A1 ABILITIES USED</span>
-            <div class="ability-chips">
-              <span>Kubernetes</span><span>AWS ASG</span><span>ML</span><span>Grafana</span><span>Prometheus</span><span>Java</span>
-            </div>
-          </div>
-          <div class="rewards-row">
-            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
-            <div class="reward-chips">
-              <span class="reward-chip legendary">\u{1F48E} 10M concurrent users</span>
-              <span class="reward-chip legendary">\u{1F3C6} Zero downtime &#64; IPL 2025</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pro-project-card quest-card games-card" data-anim="fade-up">
-        <div class="quest-rank-bar"></div>
-        <div class="quest-inner">
-          <div class="quest-header-row">
-            <a class="world-badge world-games" [href]="companyLinks.games24x7" target="_blank" rel="noopener">
-              <span class="world-icon">\u{1F3AE}</span> Games24x7
-            </a>
-            <span class="quest-platform">My11Circle \xB7 RummyCircle</span>
-          </div>
-          <div class="quest-status">MISSION CLEARED \u2713</div>
-          <h4 class="quest-name">PAJ3 \u2014 Single Sign-On</h4>
-          <p class="quest-tagline">Frictionless mobile-first user onboarding</p>
-          <p class="pro-card-desc">
-            Replaced the traditional email + password registration with a mobile-number-based single sign-on flow.
-            Dramatically reduced onboarding friction, improving user conversion across both gaming platforms
-            with OTP-based authentication and seamless session management.
-          </p>
-          <div class="abilities-row">
-            <span class="abilities-label">\u26A1 ABILITIES USED</span>
-            <div class="ability-chips">
-              <span>Java</span><span>Spring Security</span><span>Redis</span><span>OTP</span><span>JWT</span><span>Microservices</span>
-            </div>
-          </div>
-          <div class="rewards-row">
-            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
-            <div class="reward-chips">
-              <span class="reward-chip">\u{1FA99} 2 platforms</span>
-              <span class="reward-chip">\u2B50 Mobile-first auth</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pro-project-card quest-card walmart-card" data-anim="fade-up">
-        <div class="quest-rank-bar"></div>
-        <div class="quest-inner">
-          <div class="quest-header-row">
-            <a class="world-badge world-walmart" [href]="companyLinks.walmart" target="_blank" rel="noopener">
-              <span class="world-icon">\u{1F3EA}</span> Walmart
-            </a>
-            <span class="quest-platform">Stores</span>
-          </div>
-          <div class="quest-status">MISSION CLEARED \u2713</div>
-          <h4 class="quest-name">Annual Enrollment</h4>
-          <p class="quest-tagline">Benefits enrollment for 2.2M+ Walmart associates</p>
-          <p class="pro-card-desc">
-            Automated dashboard enabling Walmart associates to check eligibility and sign up for health and wealth benefits \u2014
-            dental coverage, life insurance, bonuses, and more. Served 2.2M+ associates across the US
-            with a streamlined, self-service enrollment experience.
-          </p>
-          <div class="abilities-row">
-            <span class="abilities-label">\u26A1 ABILITIES USED</span>
-            <div class="ability-chips">
-              <span>Java 8</span><span>Angular</span><span>JSP</span><span>OneOps</span><span>Jenkins</span>
-            </div>
-          </div>
-          <div class="rewards-row">
-            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
-            <div class="reward-chips">
-              <span class="reward-chip">\u{1FA99} 2.2M+ associates</span>
-              <span class="reward-chip">\u2B50 US-wide rollout</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pro-project-card quest-card extramarks-card" data-anim="fade-up">
-        <div class="quest-rank-bar"></div>
-        <div class="quest-inner">
-          <div class="quest-header-row">
-            <a class="world-badge world-extramarks" [href]="companyLinks.extramarks" target="_blank" rel="noopener">
-              <span class="world-icon">\u{1F4DA}</span> Extramarks
-            </a>
-            <span class="quest-platform">Elsa</span>
-          </div>
-          <div class="quest-status">MISSION CLEARED \u2713</div>
-          <h4 class="quest-name">NEMR \u2014 Personalized K-12 Courses</h4>
-          <p class="quest-tagline">Modular course purchasing for students</p>
-          <p class="pro-card-desc">
-            Enabled students to purchase individual subjects, concepts, or courses instead of the full curriculum.
-            Built a personalized K-12 learning experience with granular content access,
-            breaking the monolithic course structure into flexible, affordable modules.
-          </p>
-          <div class="abilities-row">
-            <span class="abilities-label">\u26A1 ABILITIES USED</span>
-            <div class="ability-chips">
-              <span>Java 11</span><span>Spring Boot</span><span>MySQL</span><span>Docker</span><span>AWS Cognito</span><span>OAuth2.0</span>
-            </div>
-          </div>
-          <div class="rewards-row">
-            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
-            <div class="reward-chips">
-              <span class="reward-chip">\u{1FA99} K-12 platform</span>
-              <span class="reward-chip">\u2B50 Modular pricing</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 SIDE QUESTS \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
-    <div class="section-header quest-header" data-anim="fade-up" style="margin-top: 6rem;">
-      <div class="quest-world-label">\u{1F3AE} SIDE QUESTS</div>
-      <h2 class="section-title quest-title" data-text-reveal>Side Projects &amp; AI Experiments</h2>
-      <p class="section-subtitle">Passion builds. Shipped for fun, learning, and the love of craft.</p>
-    </div>
-
-    <div class="projects-grid side-quests-grid" data-stagger="150">
-
-      <div class="project-card side-quest-card algo-card" data-anim="fade-up">
-        <a [href]="projectLinks.algorithmVisualizer" target="_blank" rel="noopener" class="game-screen-link">
-          <div class="game-screen algo-screen">
-            <div class="screen-scanlines"></div>
-            <div class="screen-content">
-              <div class="screen-icon">\u{1F9E0}</div>
-              <div class="screen-title">ALGORITHM VISUALIZER</div>
-              <div class="screen-subtitle">DSA Visualizer \xB7 Step-by-Step</div>
-              <div class="screen-tags">Sorting \xB7 Trees \xB7 Graphs \xB7 Backtracking</div>
-              <div class="screen-press">\u25B6 PRESS TO PLAY</div>
-            </div>
-          </div>
-        </a>
-        <div class="card-body side-quest-body">
-          <div class="sq-type-row">
-            <span class="sq-type-badge">\u{1F3AF} WEB APP</span>
-            <span class="sq-xp">+500 XP</span>
-          </div>
-          <h5 class="sq-title">Algorithm Visualizer</h5>
-          <p class="card-text">
-            A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles.
-          </p>
-          <div class="sq-tech-row">
-            <span class="tech-badge">JavaScript</span>
-            <span class="tech-badge">React</span>
-            <span class="tech-badge">Tailwind</span>
-            <span class="tech-badge">Web Audio API</span>
-          </div>
-          <div class="sq-action">
-            <a [href]="projectLinks.algorithmVisualizer" class="game-btn game-btn-primary" target="_blank" rel="noopener">
-              \u25B6&nbsp; Play Demo
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card side-quest-card divine-card" data-anim="fade-up">
-        <a [href]="projectLinks.religiousGpt" target="_blank" rel="noopener" class="game-screen-link">
-          <div class="game-screen divine-screen">
-            <div class="screen-scanlines"></div>
-            <div class="screen-content">
-              <div class="screen-icon">\u{1F549}\uFE0F</div>
-              <div class="screen-title">RELIGIOUS GPT</div>
-              <div class="screen-subtitle">Learn Religion the AI Way</div>
-              <div class="screen-tags">Gita \xB7 Quran \xB7 Bible \xB7 Vedas \xB7 Tripitaka</div>
-              <div class="screen-press powered">Powered by GPT-4.1</div>
-            </div>
-          </div>
-        </a>
-        <div class="card-body side-quest-body">
-          <div class="sq-type-row">
-            <span class="sq-type-badge ai-badge">\u{1F916} AI APP</span>
-            <span class="sq-xp">+750 XP</span>
-          </div>
-          <h5 class="sq-title">Religious GPT</h5>
-          <p class="card-text">
-            Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, and more.
-          </p>
-          <div class="sq-tech-row">
-            <span class="tech-badge">React</span>
-            <span class="tech-badge">Node.js</span>
-            <span class="tech-badge">GPT-4.1</span>
-            <span class="tech-badge">Vercel</span>
-          </div>
-          <div class="sq-action">
-            <a [href]="projectLinks.religiousGpt" class="game-btn game-btn-primary" target="_blank" rel="noopener">
-              \u25B6&nbsp; Play Demo
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card side-quest-card datesense-card" data-anim="fade-up">
-        <a [href]="projectLinks.dateSense" target="_blank" rel="noopener" class="game-screen-link">
-          <div class="game-screen datesense-screen">
-            <div class="screen-scanlines"></div>
-            <div class="screen-content">
-              <div class="screen-icon">\u{1F498}</div>
-              <div class="screen-title">DATESENSE</div>
-              <div class="screen-subtitle">AI Dating Conversation Analyst</div>
-              <div class="screen-tags">Attraction Score \xB7 Ghosting Risk \xB7 Scam Detection</div>
-              <div class="screen-press powered">Powered by GPT-4.1 Nano</div>
-            </div>
-          </div>
-        </a>
-        <div class="card-body side-quest-body">
-          <div class="sq-type-row">
-            <span class="sq-type-badge ai-badge">\u{1F916} AI APP</span>
-            <span class="sq-xp">+800 XP</span>
-          </div>
-          <h5 class="sq-title">DateSense</h5>
-          <p class="card-text">
-            An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Detects potential scam or manipulative patterns through GPT-4.1 Nano.
-          </p>
-          <div class="sq-tech-row">
-            <span class="tech-badge">Angular</span>
-            <span class="tech-badge">GPT-4.1 Nano</span>
-            <span class="tech-badge">OCR</span>
-            <span class="tech-badge">Vercel</span>
-          </div>
-          <div class="sq-action">
-            <a [href]="projectLinks.dateSense" class="game-btn game-btn-primary" target="_blank" rel="noopener">
-              \u25B6&nbsp; Play Demo
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 POWER-UPS / OPEN SOURCE \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
-  <div class="apple-container" id="open-source" style="margin-top: 6rem;">
-    <div class="section-header quest-header" data-anim="fade-up">
-      <div class="quest-world-label">\u{1F4E6} ITEM SHOP</div>
-      <h2 class="section-title quest-title" data-text-reveal>Open Source Power-Ups</h2>
-      <p class="section-subtitle">Free collectibles. Pick up and drop into your stack.</p>
-    </div>
-
-    <!-- Category Filters styled as game-menu tabs -->
-    <div class="shop-filters" data-anim="fade-up" data-delay="100">
-      @for (category of availableCategories; track category; let i = $index) {
-        <button
-          class="shop-filter-btn"
-          [class.active]="selectedCategory === category"
-          (click)="filterByCategory(category)"
-          [attr.data-aos-delay]="(i + 1) * 100">
-          {{ category }}
-        </button>
-      }
-    </div>
-
-    <div class="open-source-grid powerup-grid">
-      @for (project of filteredProjects; track project; let i = $index) {
-        <div
-          class="open-source-card powerup-card"
-          [attr.data-delay]="(i + 1) * 100"
-          data-anim="fade-up">
-          <div class="powerup-top">
-            <div class="powerup-icon-wrap">
-              <span class="powerup-icon">{{ project.category === 'NPM' ? '\u{1F4E6}' : project.category === 'Maven Central' ? '\u2615' : '\u2B50' }}</span>
-            </div>
-            <div class="powerup-category">{{ project.category }}</div>
-          </div>
-          <div class="card-body powerup-body">
-            <h5 class="powerup-name">{{ project.title }}</h5>
-            <p class="powerup-tagline">{{ project.tagline }}</p>
-            <p class="card-text powerup-desc">{{ project.description }}</p>
-            <div class="powerup-badges">
-              @if (project.badges.version) {
-                <img [src]="project.badges.version" alt="version" class="package-badge">
-              }
-              @if (project.badges.downloads) {
-                <img [src]="project.badges.downloads" alt="downloads" class="package-badge">
-              }
-              @if (project.badges.total) {
-                <img [src]="project.badges.total" alt="total downloads" class="package-badge">
-              }
-              @if (project.badges.java) {
-                <img [src]="project.badges.java" alt="java version" class="package-badge">
-              }
-            </div>
-            <a [href]="project.link" class="game-btn game-btn-secondary powerup-btn" target="_blank" rel="noopener">
-              \u2B07&nbsp; {{ project.linkText }}
-            </a>
-          </div>
-        </div>
-      }
-    </div>
-  </div>
-</div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n:host {\n  display: block;\n}\n.quest-header {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card:hover .quest-rank-bar {\n  opacity: 1;\n}\n.boss-card .quest-rank-bar {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge:hover {\n  opacity: 0.85;\n}\n.world-games {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon {\n  font-size: 0.75rem;\n}\n.quest-platform {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card .quest-tagline {\n  color: #fca5a5;\n}\n.walmart-card .quest-tagline {\n  color: #93c5fd;\n}\n.extramarks-card .quest-tagline {\n  color: #fde68a;\n}\n.pro-card-desc {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row,\n.rewards-row {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label,\n.rewards-label {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips span {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.side-quests-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link {\n  display: block;\n  text-decoration: none;\n}\n.game-screen {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link:hover .game-screen {\n  filter: brightness(1.12);\n}\n.screen-scanlines {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action {\n  margin-top: auto;\n}\n.game-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn:hover,\n.shop-filter-btn.active {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
-  }], null, null);
-})();
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PublicationsComponent, { className: "PublicationsComponent", filePath: "src/app/profile/publications/publications.component.ts", lineNumber: 28 });
-})();
-
-// src/app/profile/ai-quiz-game/game/mario-entities.ts
-var TILE = 32;
-var GRAVITY = 0.52;
-var JUMP_FORCE = -11;
-var MOVE_SPEED = 3.8;
-var MAX_FALL = 12;
-var Player = class {
-  constructor(x, y) {
-    this.vx = 0;
-    this.vy = 0;
-    this.w = TILE * 0.75;
-    this.h = TILE;
-    this.lives = 3;
-    this.coins = 0;
-    this.score = 0;
-    this.state = "small";
-    this.facing = "right";
-    this.onGround = false;
-    this.invincibleTimer = 0;
-    this.starTimer = 0;
-    this.fireCooldown = 0;
-    this.swimStrokeCooldown = 0;
-    this.x = x;
-    this.y = y;
-  }
-  get box() {
-    return { x: this.x, y: this.y, w: this.w, h: this.h };
-  }
-  grow() {
-    if (this.state === "small") {
-      this.state = "big";
-      this.h = TILE * 1.5;
-      this.y -= TILE * 0.5;
-    } else if (this.state === "big") {
-      this.state = "fire";
-    }
-  }
-  shrink() {
-    if (this.state === "fire") {
-      this.state = "big";
-      this.invincibleTimer = 90;
-    } else if (this.state === "big") {
-      this.state = "small";
-      this.y += TILE * 0.5;
-      this.h = TILE;
-      this.invincibleTimer = 90;
-    }
-  }
-  activateStar() {
-    this.starTimer = 300;
-  }
-  get isBig() {
-    return this.state === "big" || this.state === "fire";
-  }
-};
-var Platform = class {
-  constructor(x, y, w, h, type) {
-    this.hit = false;
-    this.coinCollected = false;
-    this.destroyed = false;
-    this.label = "";
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-    this.type = type;
-  }
-  get box() {
-    return { x: this.x, y: this.y, w: this.w, h: this.h };
-  }
-};
-var Enemy = class {
-  constructor(x, y, type) {
-    this.w = TILE * 0.85;
-    this.h = TILE * 0.85;
-    this.alive = true;
-    this.squashTimer = 0;
-    this.keyword = "";
-    this.x = x;
-    this.y = y;
-    this.type = type;
-    this.vx = type === "koopa" ? -1.5 : -1;
-  }
-  get box() {
-    return { x: this.x, y: this.y, w: this.w, h: this.h };
-  }
-};
-var Coin = class {
-  constructor(x, y) {
-    this.w = TILE * 0.5;
-    this.h = TILE * 0.5;
-    this.collected = false;
-    this.animTimer = 0;
-    this.x = x;
-    this.y = y;
-  }
-  get box() {
-    return { x: this.x, y: this.y, w: this.w, h: this.h };
-  }
-};
-var Fireball = class {
-  constructor(x, y, direction) {
-    this.vy = 0;
-    this.w = TILE * 0.35;
-    this.h = TILE * 0.35;
-    this.alive = true;
-    this.bounces = 0;
-    this.life = 180;
-    this.x = x;
-    this.y = y;
-    this.vx = direction * 6;
-    this.vy = 2;
-  }
-  get box() {
-    return { x: this.x, y: this.y, w: this.w, h: this.h };
-  }
-};
-var FlagPole = class {
-  constructor(x, y, h) {
-    this.x = x;
-    this.y = y;
-    this.h = h;
-  }
-  get box() {
-    return { x: this.x, y: this.y, w: TILE * 0.3, h: this.h };
-  }
-};
-var QuestionBlock = class extends Platform {
-  constructor(x, y, reward = "coin") {
-    super(x, y, TILE, TILE, "question");
-    this.keyword = "";
-    this.reward = reward;
-  }
-};
-var FloatingText = class {
-  constructor(x, y, text, color = "#fff", life = 60) {
-    this.x = x;
-    this.y = y;
-    this.text = text;
-    this.color = color;
-    this.life = life;
-    this.maxLife = life;
-  }
-  get alive() {
-    return this.life > 0;
-  }
-  tick() {
-    this.life--;
-    this.y -= 0.8;
-  }
-};
-var Debris = class {
-  constructor(x, y, vx, vy) {
-    this.life = 30;
-    this.x = x;
-    this.y = y;
-    this.vx = vx;
-    this.vy = vy;
-  }
-  get alive() {
-    return this.life > 0;
-  }
-  tick() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.vy += 0.4;
-    this.life--;
-  }
-};
-var CATEGORY_KEYWORDS = {
-  backend: ["REST API", "CRUD", "Auth", "DB Index", "ORM", "Retry", "Timeout", "Circuit Breaker", "Rate Limit", "Idempotent", "Webhook", "gRPC", "Middleware", "Connection Pool", "Thread Pool"],
-  distributed: ["Kafka", "Partition", "Replication", "Consensus", "Raft", "Shard", "Quorum", "CAP", "Saga", "Event Bus", "Dead Letter", "Backpressure", "Fan-out", "Exactly Once", "Leader Election"],
-  genai: ["RAG", "Embeddings", "Vector DB", "Prompt", "Fine-tune", "Token", "Context Window", "Hallucination", "Eval", "Agent", "Tool Call", "Retrieval", "Chain of Thought", "Guardrails", "RLHF"],
-  platform: ["CI/CD", "k8s", "Docker", "Terraform", "Grafana", "Prometheus", "SLO", "Canary", "Blue-Green", "Feature Flag", "GitOps", "Helm", "Sidecar", "Service Mesh", "Runbook"],
-  architecture: ["Load Balancer", "CDN", "Cache", "CQRS", "Event Source", "Domain", "Hexagonal", "Microservice", "Monolith", "API Gateway", "BFF", "Strangler Fig", "Bounded Context", "Anti-Corruption", "Bulkhead"],
-  leadership: ["RFC", "ADR", "Tech Debt", "Roadmap", "Stakeholder", "Incident", "Postmortem", "On-Call", "Mentoring", "Code Review", "Sprint", "Retro", "OKR", "Scope", "Alignment"]
-};
-var CATEGORY_BUG_KEYWORDS = {
-  backend: ["N+1 Query", "SQL Inject", "Deadlock", "Race Cond", "Null Ref", "Mem Leak", "Timeout", "500 Error", "Auth Bypass", "OOM", "Stale Cache", "CORS Fail"],
-  distributed: ["Split Brain", "Msg Lost", "Data Skew", "Hot Part", "Rebalance", "Offset Lag", "Poison Pill", "Dup Event", "Clock Drift", "Stale Read", "Net Split", "Zombie"],
-  genai: ["Hallucinate", "Token Limit", "Prompt Leak", "Embed Drift", "Eval Fail", "Latency", "Cost Spike", "Guard Fail", "Loop Agent", "Stale Index", "Bad Chunk", "Jailbreak"],
-  platform: ["OOM Kill", "Pod Crash", "Cert Expire", "Drift", "Flaky Test", "Build Fail", "Alert Noise", "Rollback", "DNS Fail", "Port Clash", "Image Pull", "Quota Hit"],
-  architecture: ["Circular Dep", "Tight Couple", "N+1 Svc", "God Class", "Leaky Abs", "Big Ball", "Spaghetti", "Overfit", "Premature", "Bottleneck", "Single Point", "Tech Debt"],
-  leadership: ["Scope Creep", "Bike Shed", "Silo", "Bus Factor", "Gold Plate", "YAGNI", "Not Invented", "Cargo Cult", "Burnout", "Hero Code", "Tunnel Vision", "Stale RFC"]
-};
-
-// src/app/profile/ai-quiz-game/game/mario-renderer.ts
-var SKY_TOP = "#09091a";
-var SKY_BOT = "#16213e";
-var SKY_STAGE_TOP = "#7dd3fc";
-var SKY_STAGE_BOT = "#eff6ff";
-var WATER_TOP = "#082f49";
-var WATER_BOT = "#155e75";
-var GROUND_TOP = "#2d5016";
-var GROUND_SIDE = "#3a6b1e";
-var SKY_GROUND_TOP = "#cbd5e1";
-var SKY_GROUND_SIDE = "#94a3b8";
-var WATER_GROUND_TOP = "#0f766e";
-var WATER_GROUND_SIDE = "#115e59";
-var BRICK_FILL = "#8b4513";
-var BRICK_LINE = "#6b3410";
-var QUESTION_FILL = "#fbbf24";
-var QUESTION_HIT = "#7c6312";
-var PIPE_FILL = "#22c55e";
-var PIPE_DARK = "#16a34a";
-var PLAYER_RED = "#ef4444";
-var PLAYER_BLUE = "#3b82f6";
-var PLAYER_SKIN = "#fcd34d";
-var PLAYER_WHITE = "#f8fafc";
-var FIRE_ORANGE = "#f97316";
-var GOOMBA_BODY = "#8b4513";
-var GOOMBA_FEET = "#5c2d0e";
-var KOOPA_BODY = "#22c55e";
-var KOOPA_SHELL = "#15803d";
-var COIN_COLOR = "#fbbf24";
-var FLAG_POLE_COLOR = "#94a3b8";
-var FLAG_COLOR = "#ef4444";
-var DEBRIS_COLOR = "#a0522d";
-var CATEGORY_COLORS = {
-  backend: { accent: "#f97316", qIcon: "\u{1F344}" },
-  distributed: { accent: "#06b6d4", qIcon: "\u{1F687}" },
-  genai: { accent: "#a855f7", qIcon: "\u{1F916}" },
-  platform: { accent: "#14b8a6", qIcon: "\u{1F6E0}" },
-  architecture: { accent: "#eab308", qIcon: "\u{1F3F0}" },
-  leadership: { accent: "#f43f5e", qIcon: "\u2B50" }
-};
-var MarioRenderer = class {
-  constructor(canvas) {
-    this.canvas = canvas;
-    this.frameCount = 0;
-    this.categoryKey = "backend";
-    this.levelType = "ground";
-    this.ctx = canvas.getContext("2d");
-    this.canvasW = canvas.width;
-    this.canvasH = canvas.height;
-    this.ctx.imageSmoothingEnabled = false;
-  }
-  setCategory(cat) {
-    this.categoryKey = cat;
-  }
-  setLevelType(levelType) {
-    this.levelType = levelType;
-  }
-  resize(w, h) {
-    this.canvas.width = w;
-    this.canvas.height = h;
-    this.canvasW = w;
-    this.canvasH = h;
-    this.ctx.imageSmoothingEnabled = false;
-  }
-  render(player, level) {
-    this.frameCount++;
-    const camX = Math.max(0, Math.min(player.x - this.canvasW / 2 + player.w / 2, level.width - this.canvasW));
-    const camY = 0;
-    this.drawBackdrop(camX);
-    this.drawCategoryBanner(level.category);
-    this.ctx.save();
-    this.ctx.translate(-camX, -camY);
-    for (const p of level.platforms) {
-      if (!p.destroyed)
-        this.drawPlatform(p);
-    }
-    for (const qb of level.questionBlocks)
-      this.drawQuestionBlock(qb);
-    for (const coin of level.coins)
-      this.drawCoin(coin);
-    for (const enemy of level.enemies)
-      this.drawEnemy(enemy);
-    for (const fb of level.fireballs)
-      this.drawFireball(fb);
-    for (const d of level.debris)
-      this.drawDebris(d);
-    for (const ft of level.floatingTexts)
-      this.drawFloatingText(ft);
-    this.drawFlagPole(level.flagPole);
-    this.drawPlayer(player);
-    this.ctx.restore();
-  }
-  drawBackdrop(camX) {
-    if (this.levelType === "sky") {
-      this.drawSkyStage(camX);
-      return;
-    }
-    if (this.levelType === "water") {
-      this.drawWaterStage(camX);
-      return;
-    }
-    this.drawSky();
-    this.drawClouds(camX);
-  }
-  drawSky() {
-    const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvasH);
-    grad.addColorStop(0, SKY_TOP);
-    grad.addColorStop(1, SKY_BOT);
-    this.ctx.fillStyle = grad;
-    this.ctx.fillRect(0, 0, this.canvasW, this.canvasH);
-    this.ctx.fillStyle = "rgba(255,255,255,0.15)";
-    for (let i = 0; i < 30; i++) {
-      const sx = (i * 137.5 + 50) % this.canvasW;
-      const sy = (i * 97.3 + 20) % (this.canvasH * 0.5);
-      const size = i % 3 + 1;
-      this.ctx.fillRect(sx, sy, size, size);
-    }
-  }
-  drawClouds(camX) {
-    this.ctx.fillStyle = "rgba(255,255,255,0.06)";
-    for (let i = 0; i < 6; i++) {
-      const cx = (i * 320 + 100 - camX * 0.3) % (this.canvasW + 200) - 50;
-      const cy = 40 + i % 3 * 50;
-      this.ctx.beginPath();
-      this.ctx.arc(cx, cy, 30, 0, Math.PI * 2);
-      this.ctx.arc(cx + 25, cy - 10, 25, 0, Math.PI * 2);
-      this.ctx.arc(cx + 50, cy, 30, 0, Math.PI * 2);
-      this.ctx.fill();
-    }
-  }
-  drawSkyStage(camX) {
-    const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvasH);
-    grad.addColorStop(0, SKY_STAGE_TOP);
-    grad.addColorStop(1, SKY_STAGE_BOT);
-    this.ctx.fillStyle = grad;
-    this.ctx.fillRect(0, 0, this.canvasW, this.canvasH);
-    this.ctx.fillStyle = "rgba(255,255,255,0.9)";
-    this.ctx.beginPath();
-    this.ctx.arc(this.canvasW - 90, 70, 26, 0, Math.PI * 2);
-    this.ctx.fill();
-    this.ctx.fillStyle = "rgba(255,255,255,0.5)";
-    for (let i = 0; i < 10; i++) {
-      const cx = (i * 210 + 80 - camX * 0.35) % (this.canvasW + 280) - 80;
-      const cy = 55 + i % 4 * 42;
-      this.ctx.beginPath();
-      this.ctx.arc(cx, cy, 24, 0, Math.PI * 2);
-      this.ctx.arc(cx + 20, cy - 8, 18, 0, Math.PI * 2);
-      this.ctx.arc(cx + 40, cy, 24, 0, Math.PI * 2);
-      this.ctx.fill();
-    }
-  }
-  drawWaterStage(camX) {
-    const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvasH);
-    grad.addColorStop(0, WATER_TOP);
-    grad.addColorStop(1, WATER_BOT);
-    this.ctx.fillStyle = grad;
-    this.ctx.fillRect(0, 0, this.canvasW, this.canvasH);
-    this.ctx.strokeStyle = "rgba(125,211,252,0.35)";
-    this.ctx.lineWidth = 2;
-    for (let i = 0; i < 4; i++) {
-      const waveY = 28 + i * 9;
-      this.ctx.beginPath();
-      for (let x = -40; x <= this.canvasW + 40; x += 18) {
-        const y = waveY + Math.sin((x + camX * 0.25 + i * 22) * 0.03) * 4;
-        if (x === -40)
-          this.ctx.moveTo(x, y);
-        else
-          this.ctx.lineTo(x, y);
-      }
-      this.ctx.stroke();
-    }
-    this.ctx.fillStyle = "rgba(186,230,253,0.3)";
-    for (let i = 0; i < 22; i++) {
-      const bx = (i * 97 + 30 - camX * 0.18) % (this.canvasW + 60) - 20;
-      const by = 50 + i * 37 % (this.canvasH - 80);
-      const r = i % 3 + 2;
-      this.ctx.beginPath();
-      this.ctx.arc(bx, by, r, 0, Math.PI * 2);
-      this.ctx.fill();
-    }
-  }
-  drawCategoryBanner(category) {
-    const catCfg = CATEGORY_COLORS[category] ?? CATEGORY_COLORS["backend"];
-    const label = `${catCfg.qIcon} ${category.toUpperCase()} \xB7 ${this.levelType.toUpperCase()}`;
-    this.ctx.save();
-    this.ctx.globalAlpha = 0.4;
-    this.ctx.fillStyle = catCfg.accent;
-    this.ctx.font = '10px "Press Start 2P", monospace';
-    this.ctx.textAlign = "right";
-    this.ctx.textBaseline = "top";
-    this.ctx.fillText(label, this.canvasW - 8, 8);
-    this.ctx.restore();
-  }
-  drawPlatform(p) {
-    if (p.type === "ground") {
-      const topColor = this.levelType === "sky" ? SKY_GROUND_TOP : this.levelType === "water" ? WATER_GROUND_TOP : GROUND_TOP;
-      const sideColor = this.levelType === "sky" ? SKY_GROUND_SIDE : this.levelType === "water" ? WATER_GROUND_SIDE : GROUND_SIDE;
-      this.ctx.fillStyle = topColor;
-      this.ctx.fillRect(p.x, p.y, p.w, TILE * 0.3);
-      this.ctx.fillStyle = sideColor;
-      this.ctx.fillRect(p.x, p.y + TILE * 0.3, p.w, p.h - TILE * 0.3);
-      this.ctx.strokeStyle = "rgba(0,0,0,0.15)";
-      this.ctx.lineWidth = 1;
-      for (let tx = p.x; tx < p.x + p.w; tx += TILE) {
-        this.ctx.strokeRect(tx, p.y, TILE, p.h);
-      }
-    } else if (p.type === "brick") {
-      const catCfg = CATEGORY_COLORS[this.categoryKey] ?? CATEGORY_COLORS["backend"];
-      this.ctx.fillStyle = BRICK_FILL;
-      this.ctx.fillRect(p.x, p.y, p.w, p.h);
-      this.ctx.strokeStyle = BRICK_LINE;
-      this.ctx.lineWidth = 1;
-      for (let tx = p.x; tx < p.x + p.w; tx += TILE) {
-        for (let ty = p.y; ty < p.y + p.h; ty += TILE) {
-          this.ctx.strokeRect(tx + 1, ty + 1, TILE - 2, TILE - 2);
-          this.ctx.fillStyle = BRICK_LINE;
-          this.ctx.fillRect(tx + TILE / 2 - 0.5, ty, 1, TILE);
-          this.ctx.fillRect(tx, ty + TILE / 2 - 0.5, TILE, 1);
-          this.ctx.fillStyle = BRICK_FILL;
-        }
-      }
-      if (p.label && p.w >= TILE * 2) {
-        this.ctx.save();
-        this.ctx.globalAlpha = 0.75;
-        this.ctx.fillStyle = catCfg.accent;
-        const fontSize = Math.min(7, Math.floor(p.w / (p.label.length * 4.5)));
-        this.ctx.font = `${Math.max(5, fontSize)}px "Press Start 2P", monospace`;
-        this.ctx.textAlign = "center";
-        this.ctx.textBaseline = "bottom";
-        this.ctx.fillText(p.label, p.x + p.w / 2, p.y - 3);
-        this.ctx.restore();
-      }
-    } else if (p.type === "pipe") {
-      this.ctx.fillStyle = PIPE_FILL;
-      this.ctx.fillRect(p.x, p.y, p.w, p.h);
-      this.ctx.fillStyle = PIPE_DARK;
-      this.ctx.fillRect(p.x, p.y, 4, p.h);
-      this.ctx.fillRect(p.x + p.w - 4, p.y, 4, p.h);
-      this.ctx.fillStyle = PIPE_FILL;
-      this.ctx.fillRect(p.x - 4, p.y, p.w + 8, TILE * 0.4);
-      this.ctx.fillStyle = PIPE_DARK;
-      this.ctx.fillRect(p.x - 4, p.y, 4, TILE * 0.4);
-      this.ctx.fillRect(p.x + p.w, p.y, 4, TILE * 0.4);
-    }
-  }
-  drawQuestionBlock(qb) {
-    const fill = qb.hit ? QUESTION_HIT : QUESTION_FILL;
-    this.ctx.fillStyle = fill;
-    this.ctx.fillRect(qb.x, qb.y, qb.w, qb.h);
-    this.ctx.strokeStyle = "rgba(0,0,0,0.3)";
-    this.ctx.lineWidth = 2;
-    this.ctx.strokeRect(qb.x, qb.y, qb.w, qb.h);
-    this.ctx.textAlign = "center";
-    this.ctx.textBaseline = "middle";
-    if (!qb.hit) {
-      const bounce = Math.sin(this.frameCount * 0.08) * 2;
-      this.ctx.fillStyle = "#fff";
-      this.ctx.font = 'bold 18px "Press Start 2P", monospace';
-      this.ctx.fillText("?", qb.x + qb.w / 2, qb.y + qb.h / 2 + bounce);
-      if (qb.keyword) {
-        this.ctx.save();
-        this.ctx.globalAlpha = 0.5;
-        this.ctx.fillStyle = "#fff";
-        this.ctx.font = '5px "Press Start 2P", monospace';
-        this.ctx.textAlign = "center";
-        this.ctx.textBaseline = "top";
-        this.ctx.fillText(qb.keyword, qb.x + qb.w / 2, qb.y + qb.h + 2);
-        this.ctx.restore();
-      }
-    } else {
-      this.ctx.fillStyle = "rgba(255,255,255,0.3)";
-      this.ctx.font = 'bold 14px "Press Start 2P", monospace';
-      this.ctx.fillText("X", qb.x + qb.w / 2, qb.y + qb.h / 2);
-    }
-  }
-  drawCoin(coin) {
-    if (coin.collected) {
-      if (coin.animTimer > 0) {
-        coin.animTimer--;
-        this.ctx.globalAlpha = coin.animTimer / 20;
-        this.ctx.fillStyle = COIN_COLOR;
-        this.ctx.beginPath();
-        this.ctx.arc(coin.x + coin.w / 2, coin.y - (20 - coin.animTimer) * 2, coin.w / 2, 0, Math.PI * 2);
-        this.ctx.fill();
-        this.ctx.globalAlpha = 1;
-      }
-      return;
-    }
-    const scaleX = Math.abs(Math.cos(this.frameCount * 0.06));
-    this.ctx.save();
-    this.ctx.translate(coin.x + coin.w / 2, coin.y + coin.h / 2);
-    this.ctx.scale(scaleX, 1);
-    this.ctx.fillStyle = COIN_COLOR;
-    this.ctx.beginPath();
-    this.ctx.arc(0, 0, coin.w / 2, 0, Math.PI * 2);
-    this.ctx.fill();
-    this.ctx.strokeStyle = "#d97706";
-    this.ctx.lineWidth = 1.5;
-    this.ctx.stroke();
-    this.ctx.restore();
-  }
-  drawEnemy(enemy) {
-    if (!enemy.alive && enemy.squashTimer <= 0)
-      return;
-    const alpha = enemy.alive ? 1 : enemy.squashTimer / 15;
-    this.ctx.globalAlpha = alpha;
-    if (enemy.type === "goomba") {
-      const squash = enemy.alive ? 1 : 0.3;
-      this.ctx.fillStyle = GOOMBA_BODY;
-      this.ctx.fillRect(enemy.x + 2, enemy.y + enemy.h * (1 - squash), enemy.w - 4, enemy.h * squash);
-      if (enemy.alive) {
-        this.ctx.fillStyle = "#fff";
-        this.ctx.fillRect(enemy.x + enemy.w * 0.25, enemy.y + enemy.h * 0.2, 5, 5);
-        this.ctx.fillRect(enemy.x + enemy.w * 0.6, enemy.y + enemy.h * 0.2, 5, 5);
-        this.ctx.fillStyle = "#000";
-        this.ctx.fillRect(enemy.x + enemy.w * 0.3, enemy.y + enemy.h * 0.25, 3, 3);
-        this.ctx.fillRect(enemy.x + enemy.w * 0.65, enemy.y + enemy.h * 0.25, 3, 3);
-      }
-      this.ctx.fillStyle = GOOMBA_FEET;
-      this.ctx.fillRect(enemy.x, enemy.y + enemy.h - 4, enemy.w * 0.35, 4);
-      this.ctx.fillRect(enemy.x + enemy.w * 0.65, enemy.y + enemy.h - 4, enemy.w * 0.35, 4);
-      if (enemy.alive && enemy.keyword) {
-        this.ctx.save();
-        this.ctx.globalAlpha = 0.45;
-        this.ctx.fillStyle = "#ff6b6b";
-        this.ctx.font = '5px "Press Start 2P", monospace';
-        this.ctx.textAlign = "center";
-        this.ctx.textBaseline = "top";
-        this.ctx.fillText(enemy.keyword, enemy.x + enemy.w / 2, enemy.y + enemy.h + 2);
-        this.ctx.restore();
-      }
-    } else {
-      this.ctx.fillStyle = KOOPA_SHELL;
-      this.ctx.fillRect(enemy.x + 2, enemy.y + enemy.h * 0.3, enemy.w - 4, enemy.h * 0.5);
-      this.ctx.fillStyle = KOOPA_BODY;
-      this.ctx.fillRect(enemy.x + enemy.w * 0.3, enemy.y, enemy.w * 0.4, enemy.h * 0.35);
-      if (enemy.alive) {
-        this.ctx.fillStyle = "#fff";
-        this.ctx.fillRect(enemy.x + enemy.w * 0.35, enemy.y + 4, 4, 4);
-        this.ctx.fillStyle = "#000";
-        this.ctx.fillRect(enemy.x + enemy.w * 0.38, enemy.y + 5, 2, 2);
-      }
-      if (enemy.alive && enemy.keyword) {
-        this.ctx.save();
-        this.ctx.globalAlpha = 0.45;
-        this.ctx.fillStyle = "#ff6b6b";
-        this.ctx.font = '5px "Press Start 2P", monospace';
-        this.ctx.textAlign = "center";
-        this.ctx.textBaseline = "top";
-        this.ctx.fillText(enemy.keyword, enemy.x + enemy.w / 2, enemy.y + enemy.h + 2);
-        this.ctx.restore();
-      }
-    }
-    this.ctx.globalAlpha = 1;
-  }
-  drawFireball(fb) {
-    if (!fb.alive)
-      return;
-    this.ctx.save();
-    const pulse = 0.8 + Math.sin(this.frameCount * 0.3) * 0.2;
-    const radius = fb.w / 2 * pulse;
-    this.ctx.shadowColor = FIRE_ORANGE;
-    this.ctx.shadowBlur = 8;
-    this.ctx.fillStyle = FIRE_ORANGE;
-    this.ctx.beginPath();
-    this.ctx.arc(fb.x + fb.w / 2, fb.y + fb.h / 2, radius + 2, 0, Math.PI * 2);
-    this.ctx.fill();
-    this.ctx.fillStyle = "#fbbf24";
-    this.ctx.beginPath();
-    this.ctx.arc(fb.x + fb.w / 2, fb.y + fb.h / 2, radius * 0.6, 0, Math.PI * 2);
-    this.ctx.fill();
-    this.ctx.shadowColor = "transparent";
-    this.ctx.shadowBlur = 0;
-    this.ctx.restore();
-  }
-  drawFlagPole(fp) {
-    this.ctx.fillStyle = FLAG_POLE_COLOR;
-    this.ctx.fillRect(fp.x + TILE * 0.1, fp.y, TILE * 0.1, fp.h);
-    this.ctx.fillStyle = "#fbbf24";
-    this.ctx.beginPath();
-    this.ctx.arc(fp.x + TILE * 0.15, fp.y, 5, 0, Math.PI * 2);
-    this.ctx.fill();
-    this.ctx.fillStyle = FLAG_COLOR;
-    this.ctx.beginPath();
-    this.ctx.moveTo(fp.x + TILE * 0.2, fp.y + 4);
-    this.ctx.lineTo(fp.x + TILE * 0.2 + 24, fp.y + 14);
-    this.ctx.lineTo(fp.x + TILE * 0.2, fp.y + 24);
-    this.ctx.closePath();
-    this.ctx.fill();
-  }
-  drawDebris(d) {
-    if (!d.alive)
-      return;
-    this.ctx.save();
-    this.ctx.globalAlpha = d.life / 30;
-    this.ctx.fillStyle = DEBRIS_COLOR;
-    this.ctx.fillRect(d.x - 4, d.y - 4, 8, 8);
-    this.ctx.strokeStyle = BRICK_LINE;
-    this.ctx.lineWidth = 1;
-    this.ctx.strokeRect(d.x - 4, d.y - 4, 8, 8);
-    this.ctx.restore();
-  }
-  drawFloatingText(ft) {
-    if (!ft.alive)
-      return;
-    this.ctx.save();
-    this.ctx.globalAlpha = Math.min(1, ft.life / (ft.maxLife * 0.3));
-    this.ctx.fillStyle = ft.color;
-    this.ctx.font = '8px "Press Start 2P", monospace';
-    this.ctx.textAlign = "center";
-    this.ctx.textBaseline = "bottom";
-    this.ctx.shadowColor = "rgba(0,0,0,0.7)";
-    this.ctx.shadowBlur = 3;
-    this.ctx.shadowOffsetX = 1;
-    this.ctx.shadowOffsetY = 1;
-    this.ctx.fillText(ft.text, ft.x + TILE / 2, ft.y);
-    this.ctx.restore();
-  }
-  drawPlayer(player) {
-    const blink = player.invincibleTimer > 0 && Math.floor(this.frameCount / 3) % 2 === 0;
-    if (blink)
-      return;
-    const starGlow = player.starTimer > 0;
-    if (starGlow) {
-      const hue = this.frameCount * 8 % 360;
-      this.ctx.shadowColor = `hsl(${hue}, 100%, 60%)`;
-      this.ctx.shadowBlur = 12;
-    }
-    const x = player.x;
-    const y = player.y;
-    const w = player.w;
-    const h = player.h;
-    const flip = player.facing === "left";
-    const isFire = player.state === "fire";
-    const hatColor = isFire ? PLAYER_WHITE : PLAYER_RED;
-    const bodyColor = isFire ? PLAYER_WHITE : PLAYER_RED;
-    const overallColor = isFire ? FIRE_ORANGE : PLAYER_BLUE;
-    this.ctx.save();
-    if (flip) {
-      this.ctx.translate(x + w, y);
-      this.ctx.scale(-1, 1);
-    } else {
-      this.ctx.translate(x, y);
-    }
-    const isSmall = player.state === "small";
-    const headH = isSmall ? h * 0.45 : h * 0.3;
-    const bodyH = isSmall ? h * 0.35 : h * 0.45;
-    const legH = h - headH - bodyH;
-    this.ctx.fillStyle = hatColor;
-    this.ctx.fillRect(w * 0.15, 0, w * 0.7, headH * 0.4);
-    this.ctx.fillRect(w * 0.05, headH * 0.4, w * 0.9, headH * 0.2);
-    this.ctx.fillStyle = PLAYER_SKIN;
-    this.ctx.fillRect(w * 0.15, headH * 0.5, w * 0.7, headH * 0.5);
-    this.ctx.fillStyle = "#000";
-    this.ctx.fillRect(w * 0.55, headH * 0.55, 3, 3);
-    this.ctx.fillStyle = bodyColor;
-    this.ctx.fillRect(w * 0.1, headH, w * 0.8, bodyH * 0.3);
-    this.ctx.fillStyle = overallColor;
-    this.ctx.fillRect(w * 0.15, headH + bodyH * 0.3, w * 0.7, bodyH * 0.7);
-    this.ctx.fillStyle = PLAYER_SKIN;
-    const armW = w * 0.15;
-    this.ctx.fillRect(-armW + 2, headH + 2, armW, bodyH * 0.5);
-    this.ctx.fillRect(w - 2, headH + 2, armW, bodyH * 0.5);
-    this.ctx.fillStyle = overallColor;
-    const legW = w * 0.3;
-    const legY = headH + bodyH;
-    const walkCycle = Math.sin(this.frameCount * 0.2) * 3;
-    const moving = Math.abs(player.vx) > 0.5;
-    this.ctx.fillRect(w * 0.1, legY + (moving ? walkCycle : 0), legW, legH);
-    this.ctx.fillRect(w * 0.6, legY + (moving ? -walkCycle : 0), legW, legH);
-    this.ctx.fillStyle = "#7c2d12";
-    this.ctx.fillRect(w * 0.05, legY + legH - 4 + (moving ? walkCycle : 0), legW + 3, 4);
-    this.ctx.fillRect(w * 0.55, legY + legH - 4 + (moving ? -walkCycle : 0), legW + 3, 4);
-    this.ctx.restore();
-    if (starGlow) {
-      this.ctx.shadowColor = "transparent";
-      this.ctx.shadowBlur = 0;
-    }
-  }
-};
-
-// src/app/profile/ai-quiz-game/game/mario-controls.ts
-var MarioControls = class {
-  constructor() {
-    this.state = { left: false, right: false, jump: false, fire: false };
-    this.keydownHandler = (e) => this.onKeyDown(e);
-    this.keyupHandler = (e) => this.onKeyUp(e);
-  }
-  bind() {
-    window.addEventListener("keydown", this.keydownHandler);
-    window.addEventListener("keyup", this.keyupHandler);
-  }
-  unbind() {
-    window.removeEventListener("keydown", this.keydownHandler);
-    window.removeEventListener("keyup", this.keyupHandler);
-    this.reset();
-  }
-  reset() {
-    this.state = { left: false, right: false, jump: false, fire: false };
-  }
-  getState() {
-    return __spreadValues({}, this.state);
-  }
-  setTouchLeft(active) {
-    this.state.left = active;
-  }
-  setTouchRight(active) {
-    this.state.right = active;
-  }
-  setTouchJump(active) {
-    this.state.jump = active;
-  }
-  setTouchFire(active) {
-    this.state.fire = active;
-  }
-  onKeyDown(e) {
-    switch (e.code) {
-      case "ArrowLeft":
-      case "KeyA":
-        this.state.left = true;
-        e.preventDefault();
-        break;
-      case "ArrowRight":
-      case "KeyD":
-        this.state.right = true;
-        e.preventDefault();
-        break;
-      case "ArrowUp":
-      case "KeyW":
-      case "Space":
-        this.state.jump = true;
-        e.preventDefault();
-        break;
-      case "KeyX":
-      case "KeyZ":
-      case "ShiftLeft":
-      case "ShiftRight":
-        this.state.fire = true;
-        e.preventDefault();
-        break;
-    }
-  }
-  onKeyUp(e) {
-    switch (e.code) {
-      case "ArrowLeft":
-      case "KeyA":
-        this.state.left = false;
-        break;
-      case "ArrowRight":
-      case "KeyD":
-        this.state.right = false;
-        break;
-      case "ArrowUp":
-      case "KeyW":
-      case "Space":
-        this.state.jump = false;
-        break;
-      case "KeyX":
-      case "KeyZ":
-      case "ShiftLeft":
-      case "ShiftRight":
-        this.state.fire = false;
-        break;
-    }
-  }
-};
-
-// src/app/profile/ai-quiz-game/game/mario-physics.ts
-function aabbOverlap(a, b) {
-  return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
-}
-function penetration(a, b) {
-  const ox = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
-  const oy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
-  if (ox <= 0 || oy <= 0)
-    return null;
-  return { px: ox, py: oy };
-}
-function solidPlatforms(level) {
-  return [
-    ...level.platforms.filter((p) => !p.destroyed),
-    ...level.questionBlocks
-  ];
-}
-function updatePhysics(player, level, keys) {
-  const result = {
-    hitQuestionBlock: null,
-    hitEnemy: null,
-    stompedEnemy: null,
-    fireballKilledEnemies: [],
-    firedFireball: false,
-    brickBroken: null,
-    brickBumped: null,
-    reachedFlag: false,
-    died: false,
-    jumped: false,
-    coinCollected: false
-  };
-  const isWater = level.levelType === "water";
-  const moveSpeed = isWater ? MOVE_SPEED * 0.72 : MOVE_SPEED;
-  const fallLimit = isWater ? MAX_FALL * 0.35 : MAX_FALL;
-  if (keys.left) {
-    player.vx = -moveSpeed;
-    player.facing = "left";
-  } else if (keys.right) {
-    player.vx = moveSpeed;
-    player.facing = "right";
-  } else {
-    player.vx *= isWater ? 0.84 : 0.7;
-    if (Math.abs(player.vx) < 0.2)
-      player.vx = 0;
-  }
-  if (isWater) {
-    if (player.swimStrokeCooldown > 0)
-      player.swimStrokeCooldown--;
-    if (keys.jump && player.swimStrokeCooldown <= 0) {
-      player.vy = Math.min(player.vy - 4.4, -5.4);
-      player.onGround = false;
-      player.swimStrokeCooldown = 10;
-      result.jumped = true;
-    }
-  } else if (keys.jump && player.onGround) {
-    player.vy = JUMP_FORCE;
-    player.onGround = false;
-    result.jumped = true;
-  }
-  player.vy += isWater ? GRAVITY * 0.22 : GRAVITY;
-  if (isWater)
-    player.vy *= 0.94;
-  if (player.vy > fallLimit)
-    player.vy = fallLimit;
-  if (player.fireCooldown > 0)
-    player.fireCooldown--;
-  if (keys.fire && player.state === "fire" && player.fireCooldown <= 0 && level.fireballs.length < 3) {
-    const dir = player.facing === "right" ? 1 : -1;
-    const fx = player.facing === "right" ? player.x + player.w : player.x - TILE * 0.35;
-    const fy = player.y + player.h * 0.4;
-    level.fireballs.push(new Fireball(fx, fy, dir));
-    player.fireCooldown = 15;
-    result.firedFireball = true;
-  }
-  const allPlatforms = solidPlatforms(level);
-  player.x += player.vx;
-  if (player.x < 0)
-    player.x = 0;
-  if (player.x + player.w > level.width)
-    player.x = level.width - player.w;
-  for (const p of allPlatforms) {
-    const pen = penetration(player.box, p.box);
-    if (!pen)
-      continue;
-    const isHittableBlock = p instanceof QuestionBlock && !p.hit || p.type === "brick" && !p.destroyed && p.w <= TILE * 4;
-    if (isHittableBlock && player.vy < 0)
-      continue;
-    if (pen.py > 6) {
-      if (player.vx > 0)
-        player.x = p.x - player.w;
-      else if (player.vx < 0)
-        player.x = p.x + p.w;
-      player.vx = 0;
-    }
-  }
-  player.y += player.vy;
-  player.onGround = false;
-  for (const p of allPlatforms) {
-    const pen = penetration(player.box, p.box);
-    if (!pen)
-      continue;
-    if (player.vy > 0) {
-      player.y = p.y - player.h;
-      player.vy = 0;
-      player.onGround = true;
-    } else if (player.vy < 0) {
-      player.y = p.y + p.h;
-      player.vy = 0;
-      if (p instanceof QuestionBlock && !p.hit) {
-        p.hit = true;
-        result.hitQuestionBlock = p;
-      } else if (p.type === "brick" && !p.destroyed) {
-        if (player.isBig || player.starTimer > 0) {
-          p.destroyed = true;
-          result.brickBroken = p;
-          player.score += 20;
-        } else {
-          result.brickBumped = p;
-        }
-      }
-    }
-  }
-  if (player.y > level.height + 100) {
-    result.died = true;
-    return result;
-  }
-  if (player.invincibleTimer > 0)
-    player.invincibleTimer--;
-  if (player.starTimer > 0)
-    player.starTimer--;
-  for (const coin of level.coins) {
-    if (!coin.collected && aabbOverlap(player.box, coin.box)) {
-      coin.collected = true;
-      coin.animTimer = 20;
-      player.coins++;
-      player.score += 10;
-      result.coinCollected = true;
-    }
-  }
-  for (const enemy of level.enemies) {
-    if (!enemy.alive)
-      continue;
-    if (!aabbOverlap(player.box, enemy.box))
-      continue;
-    if (player.starTimer > 0) {
-      enemy.alive = false;
-      enemy.squashTimer = 15;
-      player.score += 50;
-      result.stompedEnemy = enemy;
-      continue;
-    }
-    const playerBottom = player.y + player.h;
-    const falling = player.vy > 0;
-    if (falling && playerBottom - enemy.y < enemy.h * 0.4) {
-      enemy.alive = false;
-      enemy.squashTimer = 15;
-      player.vy = JUMP_FORCE * 0.6;
-      player.score += 50;
-      result.stompedEnemy = enemy;
-    } else if (player.invincibleTimer <= 0) {
-      result.hitEnemy = enemy;
-    }
-  }
-  for (const fb of level.fireballs) {
-    if (!fb.alive)
-      continue;
-    fb.life--;
-    if (fb.life <= 0) {
-      fb.alive = false;
-      continue;
-    }
-    fb.x += fb.vx;
-    fb.vy += isWater ? GRAVITY * 0.18 : GRAVITY * 0.7;
-    fb.y += fb.vy;
-    for (const p of allPlatforms) {
-      if (aabbOverlap(fb.box, p.box)) {
-        if (fb.vy > 0) {
-          fb.y = p.y - fb.h;
-          fb.vy = -5;
-          fb.bounces++;
-          if (fb.bounces > 4)
-            fb.alive = false;
-        } else {
-          fb.alive = false;
-        }
-        break;
-      }
-    }
-    if (fb.x < 0 || fb.x > level.width) {
-      fb.alive = false;
-      continue;
-    }
-    if (!fb.alive)
-      continue;
-    for (const enemy of level.enemies) {
-      if (!enemy.alive)
-        continue;
-      if (aabbOverlap(fb.box, enemy.box)) {
-        enemy.alive = false;
-        enemy.squashTimer = 15;
-        fb.alive = false;
-        player.score += 50;
-        result.fireballKilledEnemies.push(enemy);
-        break;
-      }
-    }
-  }
-  level.fireballs = level.fireballs.filter((fb) => fb.alive);
-  for (const enemy of level.enemies) {
-    if (!enemy.alive) {
-      if (enemy.squashTimer > 0)
-        enemy.squashTimer--;
-      continue;
-    }
-    enemy.x += enemy.vx * (isWater ? 0.6 : 1);
-    let hitWall = false;
-    for (const p of allPlatforms) {
-      if (aabbOverlap(enemy.box, p.box)) {
-        if (enemy.vx > 0)
-          enemy.x = p.x - enemy.w;
-        else
-          enemy.x = p.x + p.w;
-        enemy.vx *= -1;
-        hitWall = true;
-        break;
-      }
-    }
-    if (!hitWall) {
-      let landed = false;
-      for (const p of allPlatforms) {
-        const feetBox = { x: enemy.x, y: enemy.y + enemy.h, w: enemy.w, h: 2 };
-        if (aabbOverlap(feetBox, p.box)) {
-          enemy.y = p.y - enemy.h;
-          landed = true;
-          break;
-        }
-      }
-      if (!landed)
-        enemy.y += isWater ? 1 : 2;
-    }
-  }
-  for (const ft of level.floatingTexts)
-    ft.tick();
-  for (const d of level.debris)
-    d.tick();
-  level.floatingTexts = level.floatingTexts.filter((ft) => ft.alive);
-  level.debris = level.debris.filter((d) => d.alive);
-  if (aabbOverlap(player.box, level.flagPole.box)) {
-    result.reachedFlag = true;
-  }
-  return result;
-}
-
-// src/app/profile/ai-quiz-game/game/mario-level-generator.ts
-var LEVEL_TILES_WIDE = 96;
-var GROUND_ROW = 12;
-var LEVEL_ROWS = 14;
-var PLAYER_START_X = 3;
-var PLAYER_START_Y = GROUND_ROW - 1;
-var FLAG_POLE_X = LEVEL_TILES_WIDE - 4;
-var SAFE_START_END_X = 7;
-var SAFE_FINISH_START_X = FLAG_POLE_X - 3;
-function getGuideLabel(range) {
-  return range.min === range.max ? `${range.min}` : `${range.min}-${range.max}`;
-}
-function getTargetCount(range) {
-  return Math.round((range.min + range.max) / 2);
-}
-function inRange(value, range) {
-  return value >= range.min && value <= range.max;
-}
-function normalizePlatformType(type) {
-  return type === "brick" || type === "pipe" || type === "ground" ? type : "ground";
-}
-function resolveLevelType(levelType) {
-  return levelType === "sky" || levelType === "water" || levelType === "ground" ? levelType : "ground";
-}
-function getLayoutGuide(difficulty, levelType = "ground") {
-  let guide;
-  if (difficulty === "Hard") {
-    guide = {
-      pipeCount: { min: 4, max: 4 },
-      brickCount: { min: 8, max: 10 },
-      questionCount: { min: 5, max: 7 },
-      enemyCount: { min: 20, max: 24 },
-      coinCount: { min: 30, max: 38 },
-      gapCount: { min: 4, max: 5 },
-      maxGapWidth: 3,
-      brickRows: { min: 6, max: 9 },
-      questionRows: { min: 7, max: 9 },
-      coinRows: { min: 4, max: 10 },
-      enemyZones: [
-        { label: "Zone 1", start: 8, end: 20, min: 3, max: 4, koopaChance: 0.2, note: "warm-up wave with clear approaches" },
-        { label: "Zone 2", start: 22, end: 34, min: 3, max: 4, koopaChance: 0.25, note: "ramp up with a few close pairs" },
-        { label: "Zone 3", start: 36, end: 48, min: 4, max: 5, koopaChance: 0.3, note: "mid-level gauntlet, the densest section" },
-        { label: "Zone 4", start: 50, end: 62, min: 3, max: 4, koopaChance: 0.35, note: "second wave after a brief breather" },
-        { label: "Zone 5", start: 64, end: 76, min: 3, max: 4, koopaChance: 0.4, note: "late pressure with mixed types" },
-        { label: "Zone 6", start: 78, end: 88, min: 3, max: 4, koopaChance: 0.55, note: "final push before the flag", requireKoopa: true }
-      ]
-    };
-  } else if (difficulty === "Medium") {
-    guide = {
-      pipeCount: { min: 3, max: 3 },
-      brickCount: { min: 6, max: 8 },
-      questionCount: { min: 7, max: 9 },
-      enemyCount: { min: 14, max: 18 },
-      coinCount: { min: 26, max: 34 },
-      gapCount: { min: 3, max: 4 },
-      maxGapWidth: 3,
-      brickRows: { min: 6, max: 9 },
-      questionRows: { min: 7, max: 9 },
-      coinRows: { min: 4, max: 10 },
-      enemyZones: [
-        { label: "Zone 1", start: 8, end: 20, min: 2, max: 2, koopaChance: 0.15, note: "warm-up, readable spacing" },
-        { label: "Zone 2", start: 22, end: 34, min: 2, max: 3, koopaChance: 0.2, note: "light ramp with one intentional pair" },
-        { label: "Zone 3", start: 36, end: 48, min: 3, max: 4, koopaChance: 0.25, note: "mid-level pressure zone" },
-        { label: "Zone 4", start: 50, end: 62, min: 2, max: 3, koopaChance: 0.3, note: "short breather then second wave" },
-        { label: "Zone 5", start: 64, end: 76, min: 2, max: 3, koopaChance: 0.35, note: "late challenge, still fair" },
-        { label: "Zone 6", start: 78, end: 88, min: 2, max: 3, koopaChance: 0.45, note: "final push with at least one koopa", requireKoopa: true }
-      ]
-    };
-  } else {
-    guide = {
-      pipeCount: { min: 2, max: 3 },
-      brickCount: { min: 4, max: 6 },
-      questionCount: { min: 8, max: 10 },
-      enemyCount: { min: 9, max: 12 },
-      coinCount: { min: 22, max: 30 },
-      gapCount: { min: 2, max: 3 },
-      maxGapWidth: 2,
-      brickRows: { min: 6, max: 9 },
-      questionRows: { min: 7, max: 9 },
-      coinRows: { min: 4, max: 10 },
-      enemyZones: [
-        { label: "Zone 1", start: 8, end: 20, min: 1, max: 2, koopaChance: 0.1, note: "gentle opening with wide spacing" },
-        { label: "Zone 2", start: 22, end: 34, min: 1, max: 2, koopaChance: 0.15, note: "small ramp, still forgiving" },
-        { label: "Zone 3", start: 36, end: 48, min: 2, max: 3, koopaChance: 0.2, note: "mid-level challenge, readable groupings" },
-        { label: "Zone 4", start: 50, end: 62, min: 1, max: 2, koopaChance: 0.25, note: "short second wave" },
-        { label: "Zone 5", start: 64, end: 76, min: 2, max: 2, koopaChance: 0.3, note: "late challenge without crowding" },
-        { label: "Zone 6", start: 78, end: 88, min: 1, max: 2, koopaChance: 0.35, note: "easy final push before the flag" }
-      ]
-    };
-  }
-  if (levelType === "sky") {
-    return __spreadProps(__spreadValues({}, guide), {
-      pipeCount: { min: 0, max: 0 },
-      brickCount: { min: guide.brickCount.min + 2, max: guide.brickCount.max + 3 },
-      questionCount: { min: guide.questionCount.min + 1, max: guide.questionCount.max + 1 },
-      coinCount: { min: guide.coinCount.min + 4, max: guide.coinCount.max + 6 },
-      gapCount: { min: Math.max(guide.gapCount.min, 3), max: guide.gapCount.max + 1 },
-      brickRows: { min: 4, max: 7 },
-      questionRows: { min: 5, max: 8 },
-      coinRows: { min: 2, max: 8 },
-      enemyZones: guide.enemyZones.map((zone) => __spreadProps(__spreadValues({}, zone), { note: `${zone.note}; emphasize elevated jumps between platforms` }))
-    });
-  }
-  if (levelType === "water") {
-    return __spreadProps(__spreadValues({}, guide), {
-      pipeCount: { min: 0, max: 0 },
-      brickCount: { min: guide.brickCount.min + 1, max: guide.brickCount.max + 2 },
-      questionCount: { min: guide.questionCount.min, max: guide.questionCount.max + 1 },
-      coinCount: { min: guide.coinCount.min + 2, max: guide.coinCount.max + 4 },
-      gapCount: { min: 0, max: 0 },
-      maxGapWidth: 0,
-      brickRows: { min: 7, max: 10 },
-      questionRows: { min: 6, max: 9 },
-      coinRows: { min: 5, max: 10 },
-      enemyZones: guide.enemyZones.map((zone) => __spreadProps(__spreadValues({}, zone), { note: `${zone.note}; leave more open water to swim through` }))
-    });
-  }
-  return guide;
-}
-function getLevelTypePrompt(levelType) {
-  if (levelType === "sky") {
-    return "Sky stage: floating platforms, airy jumps, sparse ground, and lots of vertical coin trails. Keep the route readable and fun to hop across.";
-  }
-  if (levelType === "water") {
-    return "Water stage: underwater course with a swimmable route, continuous seabed, low-to-mid platforms, and dense coin trails that reward exploration. Avoid giant pits and keep room to swim.";
-  }
-  return "Ground stage: classic Mario overworld with solid footing, staged gaps, and a balanced mix of ground hazards and platforming.";
-}
-function assignRewards(count) {
-  const rewards = [];
-  for (let i = 0; i < count; i++) {
-    const roll = Math.random();
-    if (roll < 0.15)
-      rewards.push("star");
-    else if (roll < 0.45)
-      rewards.push("mushroom");
-    else
-      rewards.push("coin");
-  }
-  return rewards;
-}
-function shuffleKeywords(pool) {
-  const arr = [...pool];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-function markCoveredTiles(tiles, startX, width) {
-  const from2 = Math.max(0, Math.floor(startX));
-  const to = Math.min(tiles.length, Math.ceil(startX + Math.max(1, width)));
-  for (let tx = from2; tx < to; tx++) {
-    tiles[tx] = true;
-  }
-}
-function parseLevelFromAI(raw) {
-  try {
-    const jsonMatch = raw.match(/\{[\s\S]*\}/);
-    if (!jsonMatch)
-      return null;
-    const data = JSON.parse(jsonMatch[0]);
-    if (data.platforms && Array.isArray(data.platforms))
-      return data;
-    return null;
-  } catch (e) {
-    return null;
-  }
-}
-function validateAILevelData(data, config3) {
-  const levelType = resolveLevelType(data.levelType ?? config3.levelType);
-  const guide = getLayoutGuide(config3.difficulty, levelType);
-  const issues = [];
-  const platforms = data.platforms ?? [];
-  const questionBlocks = data.questionBlocks ?? [];
-  const enemies = data.enemies ?? [];
-  const coins = data.coins ?? [];
-  const groundTiles = new Array(LEVEL_TILES_WIDE).fill(false);
-  const pipeTiles = new Array(LEVEL_TILES_WIDE).fill(false);
-  const enemyKeywords = /* @__PURE__ */ new Set();
-  const zoneCounts = guide.enemyZones.map(() => 0);
-  const requiredKoopas = guide.enemyZones.map(() => 0);
-  let pipeCount = 0;
-  let brickCount = 0;
-  if (data.levelType && data.levelType !== levelType) {
-    issues.push(`levelType must be "${levelType}".`);
-  }
-  for (const p of platforms) {
-    const width = Math.max(1, Math.floor(p.width || 1));
-    const type = normalizePlatformType(p.type);
-    if (!Number.isFinite(p.x) || !Number.isFinite(p.y) || !Number.isFinite(width)) {
-      issues.push("Every platform must have finite x, y, and width values.");
-      continue;
-    }
-    if (p.x < 0 || p.y < 0 || p.y >= LEVEL_ROWS || p.x + width > LEVEL_TILES_WIDE) {
-      issues.push(`Platform ${type} at (${p.x}, ${p.y}) is out of bounds.`);
-    }
-    if (type === "ground" && p.y === GROUND_ROW) {
-      markCoveredTiles(groundTiles, p.x, width);
-    }
-    if (type === "pipe") {
-      pipeCount++;
-      markCoveredTiles(pipeTiles, p.x, width);
-      if (p.x <= SAFE_START_END_X || p.x >= SAFE_FINISH_START_X) {
-        issues.push(`Pipe at x=${p.x} is inside a protected start/finish zone.`);
-      }
-    }
-    if (type === "brick") {
-      brickCount++;
-      if (!p.label) {
-        issues.push(`Brick platform at (${p.x}, ${p.y}) is missing a label.`);
-      }
-      if (!inRange(p.y, guide.brickRows)) {
-        issues.push(`Brick platform at y=${p.y} is outside the allowed brick rows.`);
-      }
-    }
-  }
-  for (let tx = 0; tx <= SAFE_START_END_X; tx++) {
-    if (!groundTiles[tx]) {
-      issues.push("The start zone must be flat ground with no gaps.");
-      break;
-    }
-  }
-  for (let tx = SAFE_FINISH_START_X; tx < FLAG_POLE_X; tx++) {
-    if (!groundTiles[tx]) {
-      issues.push("The finish approach must stay flat with no gaps.");
-      break;
-    }
-  }
-  let gapCount = 0;
-  let gapStart = -1;
-  for (let tx = SAFE_START_END_X + 1; tx < SAFE_FINISH_START_X; tx++) {
-    if (!groundTiles[tx]) {
-      if (gapStart === -1)
-        gapStart = tx;
-      continue;
-    }
-    if (gapStart !== -1) {
-      gapCount++;
-      if (tx - gapStart > guide.maxGapWidth) {
-        issues.push(`Gap from x=${gapStart} to x=${tx - 1} is too wide for ${config3.difficulty}.`);
-      }
-      gapStart = -1;
-    }
-  }
-  if (gapStart !== -1) {
-    gapCount++;
-    if (SAFE_FINISH_START_X - gapStart > guide.maxGapWidth) {
-      issues.push(`Gap from x=${gapStart} to x=${SAFE_FINISH_START_X - 1} is too wide for ${config3.difficulty}.`);
-    }
-  }
-  if (!inRange(pipeCount, guide.pipeCount)) {
-    issues.push(`Pipe count ${pipeCount} is outside the ${config3.difficulty} range ${getGuideLabel(guide.pipeCount)}.`);
-  }
-  if (!inRange(brickCount, guide.brickCount)) {
-    issues.push(`Brick count ${brickCount} is outside the ${config3.difficulty} range ${getGuideLabel(guide.brickCount)}.`);
-  }
-  if (!inRange(questionBlocks.length, guide.questionCount)) {
-    issues.push(`Question block count ${questionBlocks.length} is outside the ${config3.difficulty} range ${getGuideLabel(guide.questionCount)}.`);
-  }
-  if (!inRange(enemies.length, guide.enemyCount)) {
-    issues.push(`Enemy count ${enemies.length} is outside the ${config3.difficulty} range ${getGuideLabel(guide.enemyCount)}.`);
-  }
-  if (!inRange(coins.length, guide.coinCount)) {
-    issues.push(`Coin count ${coins.length} is outside the ${config3.difficulty} range ${getGuideLabel(guide.coinCount)}.`);
-  }
-  if (!inRange(gapCount, guide.gapCount)) {
-    issues.push(`Gap count ${gapCount} is outside the ${config3.difficulty} range ${getGuideLabel(guide.gapCount)}.`);
-  }
-  questionBlocks.forEach((qb) => {
-    if (qb.x < 0 || qb.x >= LEVEL_TILES_WIDE || qb.y < 0 || qb.y >= LEVEL_ROWS) {
-      issues.push(`Question block at (${qb.x}, ${qb.y}) is out of bounds.`);
-    }
-    if (!qb.keyword) {
-      issues.push(`Question block at (${qb.x}, ${qb.y}) is missing a keyword.`);
-    }
-    if (!inRange(qb.y, guide.questionRows)) {
-      issues.push(`Question block at y=${qb.y} is outside the allowed rows.`);
-    }
-  });
-  coins.forEach((coin) => {
-    if (coin.x < 0 || coin.x >= LEVEL_TILES_WIDE || coin.y < 0 || coin.y >= LEVEL_ROWS) {
-      issues.push(`Coin at (${coin.x}, ${coin.y}) is out of bounds.`);
-    }
-    if (!inRange(coin.y, guide.coinRows)) {
-      issues.push(`Coin at y=${coin.y} is outside the allowed rows.`);
-    }
-  });
-  enemies.forEach((enemy) => {
-    if (enemy.x < 0 || enemy.x >= LEVEL_TILES_WIDE || enemy.y < 0 || enemy.y >= LEVEL_ROWS) {
-      issues.push(`Enemy at (${enemy.x}, ${enemy.y}) is out of bounds.`);
-      return;
-    }
-    if (enemy.y !== GROUND_ROW - 1) {
-      issues.push(`Enemy at x=${enemy.x} must be placed at y=${GROUND_ROW - 1}.`);
-    }
-    if (enemy.x <= SAFE_START_END_X || enemy.x >= SAFE_FINISH_START_X) {
-      issues.push(`Enemy at x=${enemy.x} is inside a protected start/finish zone.`);
-    }
-    if (!groundTiles[Math.floor(enemy.x)]) {
-      issues.push(`Enemy at x=${enemy.x} is not standing on ground.`);
-    }
-    if (pipeTiles[Math.floor(enemy.x)]) {
-      issues.push(`Enemy at x=${enemy.x} overlaps a pipe footprint.`);
-    }
-    if (!enemy.keyword) {
-      issues.push(`Enemy at x=${enemy.x} is missing a keyword.`);
-    } else if (enemyKeywords.has(enemy.keyword)) {
-      issues.push(`Enemy keyword "${enemy.keyword}" must be unique.`);
-    } else {
-      enemyKeywords.add(enemy.keyword);
-    }
-    const zoneIndex = guide.enemyZones.findIndex((zone) => enemy.x >= zone.start && enemy.x <= zone.end);
-    if (zoneIndex === -1) {
-      issues.push(`Enemy at x=${enemy.x} is outside the allowed enemy zones.`);
-      return;
-    }
-    zoneCounts[zoneIndex]++;
-    if (guide.enemyZones[zoneIndex].requireKoopa && enemy.type === "koopa") {
-      requiredKoopas[zoneIndex]++;
-    }
-  });
-  guide.enemyZones.forEach((zone, index) => {
-    if (!inRange(zoneCounts[index], { min: zone.min, max: zone.max })) {
-      issues.push(`${zone.label} enemy count ${zoneCounts[index]} is outside the expected ${zone.min}-${zone.max}.`);
-    }
-    if (zone.requireKoopa && requiredKoopas[index] === 0) {
-      issues.push(`${zone.label} requires at least one koopa.`);
-    }
-  });
-  if (data.flagPole?.x !== void 0 && data.flagPole.x !== FLAG_POLE_X) {
-    issues.push(`Flag pole must be placed at x=${FLAG_POLE_X}.`);
-  }
-  return { valid: issues.length === 0, issues };
-}
-function buildLevelFromData(data, config3) {
-  const platforms = [];
-  const enemies = [];
-  const coins = [];
-  const questionBlocks = [];
-  const category = config3.category || "backend";
-  const levelType = resolveLevelType(data.levelType ?? config3.levelType);
-  const fallbackKw = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS["backend"]);
-  const fallbackBug = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS["backend"]);
-  let kwIdx = 0;
-  let bugIdx = 0;
-  const levelW = LEVEL_TILES_WIDE * TILE;
-  const levelH = LEVEL_ROWS * TILE;
-  if (data.platforms) {
-    for (const p of data.platforms) {
-      const type = normalizePlatformType(p.type);
-      const plat = new Platform(p.x * TILE, p.y * TILE, (p.width || 1) * TILE, TILE * (type === "ground" ? 2 : 1), type);
-      if (type === "brick") {
-        plat.label = p.label || fallbackKw[kwIdx++ % fallbackKw.length];
-      }
-      platforms.push(plat);
-    }
-  }
-  if (data.questionBlocks) {
-    const fallbackRewards = assignRewards(data.questionBlocks.length);
-    data.questionBlocks.forEach((qb, i) => {
-      let reward = fallbackRewards[i];
-      if (qb.reward === "star" || qb.reward === "mushroom" || qb.reward === "coin") {
-        reward = qb.reward;
-      }
-      const q = new QuestionBlock(qb.x * TILE, qb.y * TILE, reward);
-      q.keyword = qb.keyword || fallbackKw[kwIdx++ % fallbackKw.length];
-      questionBlocks.push(q);
-    });
-  }
-  if (data.enemies) {
-    for (const e of data.enemies) {
-      const type = e.type === "koopa" ? "koopa" : "goomba";
-      const enemy = new Enemy(e.x * TILE, e.y * TILE, type);
-      enemy.keyword = e.keyword || fallbackBug[bugIdx++ % fallbackBug.length];
-      enemies.push(enemy);
-    }
-  }
-  if (data.coins) {
-    for (const c of data.coins) {
-      coins.push(new Coin(c.x * TILE, c.y * TILE));
-    }
-  }
-  const flagX = data.flagPole?.x ? data.flagPole.x * TILE : FLAG_POLE_X * TILE;
-  const flagPole = new FlagPole(flagX, 3 * TILE, (GROUND_ROW - 3) * TILE);
-  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
-}
-function generateProceduralLevel(config3) {
-  const platforms = [];
-  const enemies = [];
-  const coins = [];
-  const questionBlocks = [];
-  const category = config3.category || "backend";
-  const levelType = resolveLevelType(config3.levelType);
-  const guide = getLayoutGuide(config3.difficulty, levelType);
-  const keywords = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS["backend"]);
-  const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS["backend"]);
-  let kwIdx = 0;
-  let bugIdx = 0;
-  const levelW = LEVEL_TILES_WIDE * TILE;
-  const levelH = LEVEL_ROWS * TILE;
-  const gY = GROUND_ROW * TILE;
-  const targetGapCount = getTargetCount(guide.gapCount);
-  const plannedGaps = [];
-  const gapStartMin = SAFE_START_END_X + 5;
-  const gapStartMax = SAFE_FINISH_START_X - 6;
-  const gapSpacing = Math.floor((gapStartMax - gapStartMin) / Math.max(1, targetGapCount));
-  for (let i = 0; i < targetGapCount; i++) {
-    const width = guide.maxGapWidth > 2 && Math.random() < 0.35 ? 3 : 2;
-    const jitter = Math.floor(Math.random() * 3) - 1;
-    const rawStart = gapStartMin + i * gapSpacing + jitter;
-    const previousGap = plannedGaps[plannedGaps.length - 1];
-    const minStart = previousGap ? previousGap.start + previousGap.width + 6 : gapStartMin;
-    const start = Math.min(Math.max(rawStart, minStart), gapStartMax - width);
-    plannedGaps.push({ start, width });
-  }
-  let groundStart = 0;
-  for (const gap of plannedGaps) {
-    if (gap.start > groundStart) {
-      platforms.push(new Platform(groundStart * TILE, gY, (gap.start - groundStart) * TILE, 2 * TILE, "ground"));
-    }
-    groundStart = gap.start + gap.width;
-  }
-  if (groundStart < LEVEL_TILES_WIDE) {
-    platforms.push(new Platform(groundStart * TILE, gY, (LEVEL_TILES_WIDE - groundStart) * TILE, 2 * TILE, "ground"));
-  }
-  const pipeCount = getTargetCount(guide.pipeCount);
-  const pipePositions = [];
-  const pipeSpacing = Math.floor((LEVEL_TILES_WIDE - 26) / (pipeCount + 1));
-  for (let i = 0; i < pipeCount; i++) {
-    const px = 12 + pipeSpacing * (i + 1);
-    const ph = 2 * TILE;
-    platforms.push(new Platform(px * TILE, gY - ph, TILE * 2, ph, "pipe"));
-    pipePositions.push(px);
-  }
-  const isNearPipe = (tx) => pipePositions.some((px) => tx >= px - 2 && tx <= px + 3);
-  const brickCount = getTargetCount(guide.brickCount);
-  for (let i = 0; i < brickCount; i++) {
-    let bx;
-    let attempts = 0;
-    do {
-      bx = 8 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 16));
-      attempts++;
-    } while (isNearPipe(bx) && attempts < 20);
-    const by = guide.brickRows.min + Math.floor(Math.random() * (guide.brickRows.max - guide.brickRows.min + 1));
-    const bw = 2 + Math.floor(Math.random() * 3);
-    const brick = new Platform(bx * TILE, by * TILE, bw * TILE, TILE, "brick");
-    brick.label = keywords[kwIdx % keywords.length];
-    kwIdx++;
-    platforms.push(brick);
-  }
-  if (levelType === "sky" || levelType === "water") {
-    const accentCount = levelType === "sky" ? 4 : 2;
-    for (let i = 0; i < accentCount; i++) {
-      const span = Math.floor((SAFE_FINISH_START_X - 16) / (accentCount + 1));
-      const bx = 12 + span * (i + 1) + Math.floor(Math.random() * 3 - 1);
-      const by = levelType === "sky" ? Math.max(3, guide.brickRows.min - 1 + i % 3) : Math.min(GROUND_ROW - 1, guide.brickRows.max - i % 2);
-      const bw = levelType === "sky" ? 4 * TILE : 3 * TILE;
-      const accentPlatform = new Platform(bx * TILE, by * TILE, bw, TILE, "brick");
-      accentPlatform.label = keywords[kwIdx % keywords.length];
-      kwIdx++;
-      platforms.push(accentPlatform);
-    }
-  }
-  const qCount = getTargetCount(guide.questionCount);
-  const spacing = Math.floor((LEVEL_TILES_WIDE - 14) / (qCount + 1));
-  const rewards = assignRewards(qCount);
-  for (let i = 0; i < qCount; i++) {
-    let qx = 6 + spacing * (i + 1) + Math.floor(Math.random() * 3 - 1);
-    if (isNearPipe(qx))
-      qx += 4;
-    const qy = guide.questionRows.min + Math.floor(Math.random() * (guide.questionRows.max - guide.questionRows.min + 1));
-    const qb = new QuestionBlock(qx * TILE, qy * TILE, rewards[i]);
-    qb.keyword = keywords[kwIdx % keywords.length];
-    kwIdx++;
-    questionBlocks.push(qb);
-  }
-  const zones = guide.enemyZones.map((zone) => ({
-    start: zone.start,
-    end: zone.end,
-    count: getTargetCount({ min: zone.min, max: zone.max }),
-    koopaChance: zone.koopaChance,
-    requireKoopa: zone.requireKoopa === true
-  }));
-  zones.forEach((zone, zoneIndex) => {
-    const zoneWidth = zone.end - zone.start;
-    const step = Math.max(3, Math.floor(zoneWidth / (zone.count + 1)));
-    let koopaPlaced = false;
-    for (let i = 0; i < zone.count; i++) {
-      let ex = zone.start + step * (i + 1) + Math.floor(Math.random() * 2 - 1);
-      ex = Math.max(zone.start, Math.min(zone.end - 1, ex));
-      if (isNearPipe(ex))
-        ex += 3;
-      if (ex > zone.end)
-        ex = zone.end - 2;
-      const mustUseKoopa = zone.requireKoopa && !koopaPlaced && i === zone.count - 1;
-      const type = mustUseKoopa || Math.random() < zone.koopaChance ? "koopa" : "goomba";
-      const enemy = new Enemy(ex * TILE, (GROUND_ROW - 1) * TILE, type);
-      enemy.keyword = bugKw[bugIdx % bugKw.length];
-      bugIdx++;
-      enemies.push(enemy);
-      koopaPlaced = koopaPlaced || type === "koopa";
-    }
-  });
-  const coinCount = getTargetCount(guide.coinCount);
-  for (let i = 0; i < coinCount; i++) {
-    let cx;
-    let attempts = 0;
-    do {
-      cx = 5 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 10));
-      attempts++;
-    } while (isNearPipe(cx) && attempts < 15);
-    const cy = guide.coinRows.min + Math.floor(Math.random() * (guide.coinRows.max - guide.coinRows.min + 1));
-    coins.push(new Coin(cx * TILE + TILE * 0.25, cy * TILE + TILE * 0.25));
-  }
-  const flagPole = new FlagPole(FLAG_POLE_X * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
-  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
-}
-function createPlayer() {
-  return new Player(PLAYER_START_X * TILE, PLAYER_START_Y * TILE - TILE);
-}
-var CATEGORY_DESCRIPTIONS = {
-  backend: {
-    domain: "Backend Engineering \u2014 APIs, databases, caching, auth, service design",
-    techExamples: "REST API, Circuit Breaker, Connection Pool, Rate Limit, DB Index, gRPC, Middleware, ORM, Idempotent, Retry",
-    bugExamples: "N+1 Query, SQL Injection, Deadlock, Race Condition, Null Ref, Memory Leak, 500 Error, Auth Bypass, OOM, Stale Cache"
-  },
-  distributed: {
-    domain: "Distributed Systems \u2014 messaging, consistency, partitioning, resilience",
-    techExamples: "Kafka, Partition, Replication, Consensus, Raft, Shard, Quorum, Saga, Event Bus, Backpressure",
-    bugExamples: "Split Brain, Msg Lost, Data Skew, Hot Partition, Poison Pill, Dup Event, Clock Drift, Stale Read, Net Split, Zombie"
-  },
-  genai: {
-    domain: "Gen AI & LLM Systems \u2014 RAG, embeddings, prompts, agents, evaluation",
-    techExamples: "RAG, Embeddings, Vector DB, Prompt, Fine-tune, Token, Context Window, Agent, Tool Call, Guardrails",
-    bugExamples: "Hallucinate, Token Limit, Prompt Leak, Embed Drift, Eval Fail, Latency, Cost Spike, Loop Agent, Bad Chunk, Jailbreak"
-  },
-  platform: {
-    domain: "Platform Engineering \u2014 CI/CD, containers, observability, reliability",
-    techExamples: "CI/CD, k8s, Docker, Terraform, Grafana, Prometheus, SLO, Canary, Feature Flag, Service Mesh",
-    bugExamples: "OOM Kill, Pod Crash, Cert Expire, Drift, Flaky Test, Build Fail, Alert Noise, Rollback, DNS Fail, Quota Hit"
-  },
-  architecture: {
-    domain: "System Architecture \u2014 trade-offs, patterns, scale, fault tolerance",
-    techExamples: "Load Balancer, CDN, Cache, CQRS, Event Source, Microservice, API Gateway, BFF, Bounded Context, Bulkhead",
-    bugExamples: "Circular Dep, Tight Couple, God Class, Leaky Abstraction, Spaghetti, Bottleneck, Single Point, Tech Debt, Big Ball of Mud"
-  },
-  leadership: {
-    domain: "Staff Engineering & Leadership \u2014 influence, planning, execution, culture",
-    techExamples: "RFC, ADR, Tech Debt, Roadmap, Stakeholder, Postmortem, Mentoring, Code Review, OKR, Alignment",
-    bugExamples: "Scope Creep, Bikeshed, Silo, Bus Factor, Gold Plate, YAGNI, Cargo Cult, Burnout, Hero Code, Tunnel Vision"
-  }
-};
-function getLevelGenerationPrompt(category, difficulty, requestedLevelType = "ground") {
-  const cat = CATEGORY_DESCRIPTIONS[category] ?? CATEGORY_DESCRIPTIONS["backend"];
-  const levelType = resolveLevelType(requestedLevelType);
-  const guide = getLayoutGuide(difficulty, levelType);
-  const coursePrompt = getLevelTypePrompt(levelType);
-  const zoneGuide = guide.enemyZones.map((zone) => `   - ${zone.label} (x=${zone.start}-${zone.end}): ${zone.note}; ${zone.min}-${zone.max} enemies${zone.requireKoopa ? "; at least 1 koopa" : ""}`).join("\n");
-  return `You are a game level designer building a Mario-style platformer level for a "${cat.domain}" themed world at "${difficulty}" difficulty.
-
-Your output will be checked by a strict validator. Generate a level that is fun, playable, and already satisfies the validation rules.
-
-COURSE STYLE: "${levelType}"
-${coursePrompt}
-
-LAYOUT BLUEPRINT TO FOLLOW:
-{
-  "levelType": "${levelType}",
-  "grid": { "width": ${LEVEL_TILES_WIDE}, "height": ${LEVEL_ROWS}, "groundRow": ${GROUND_ROW}, "playerStart": { "x": ${PLAYER_START_X}, "y": ${PLAYER_START_Y} }, "flagPole": { "x": ${FLAG_POLE_X} } },
-  "safeZones": {
-    "start": { "xRange": [0, ${SAFE_START_END_X}], "rules": ["flat ground", "no enemies", "no pipes", "no gaps"] },
-    "finish": { "xRange": [${SAFE_FINISH_START_X}, ${LEVEL_TILES_WIDE - 1}], "rules": ["flat ground", "no gaps", "no enemies after x=${SAFE_FINISH_START_X - 1}"] }
-  },
-  "difficultyTargets": {
-    "gaps": "${getGuideLabel(guide.gapCount)} gaps, max width ${guide.maxGapWidth} tiles",
-    "pipes": "${getGuideLabel(guide.pipeCount)} pipes, each 2 tiles wide",
-    "brickPlatforms": "${getGuideLabel(guide.brickCount)} rows at y=${guide.brickRows.min}-${guide.brickRows.max}",
-    "questionBlocks": "${getGuideLabel(guide.questionCount)} blocks at y=${guide.questionRows.min}-${guide.questionRows.max}",
-    "enemies": "${getGuideLabel(guide.enemyCount)} total enemies at y=${GROUND_ROW - 1}",
-    "coins": "${getGuideLabel(guide.coinCount)} coins at y=${guide.coinRows.min}-${guide.coinRows.max}"
-  }
-}
-
-PLACE THESE ELEMENTS (all x/y in tile units):
-
-1. GROUND PLATFORMS (type "ground"): continuous segments at y=${GROUND_ROW} with ${getGuideLabel(guide.gapCount)} playable gaps. Cover most of the ${LEVEL_TILES_WIDE}-tile width. Never put a gap in the start or finish safe zones.
-
-2. PIPES (type "pipe"): ${getGuideLabel(guide.pipeCount)} pipes, each 2 tiles wide, placed on the ground and spread across the middle of the level.
-
-3. BRICK PLATFORMS (type "brick"): ${getGuideLabel(guide.brickCount)} floating brick rows at y=${guide.brickRows.min}-${guide.brickRows.max}, each 2-4 tiles wide.
-   Each brick gets a "label" \u2014 a short ${cat.domain.split("\u2014")[0].trim()} concept (1-2 words max).
-   Examples: ${cat.techExamples}
-
-4. QUESTION BLOCKS: ${getGuideLabel(guide.questionCount)} blocks at y=${guide.questionRows.min}-${guide.questionRows.max} (hittable from below).
-   Each gets a "keyword" \u2014 a key concept the player "unlocks".
-   Each gets a "reward": "coin", "mushroom", or "star" (mostly mushroom and coin, 1-2 stars max).
-   Examples: ${cat.techExamples}
-
-5. ENEMIES: ${getGuideLabel(guide.enemyCount)} enemies at y=${GROUND_ROW - 1} (on ground). Type "goomba" or "koopa".
-   CRITICAL \u2014 distribute enemies in staged zones like a real Mario level:
-${zoneGuide}
-   Within each zone, space enemies at least 3 tiles apart except for intentional 2-enemy pairs.
-   Never put more than 3 enemies within a 6-tile span.
-   Keep the breather tiles between zones comparatively light.
-   Each enemy gets a "keyword" \u2014 a bug/anti-pattern that the player "squashes" by stomping it.
-   Make these realistic ${cat.domain.split("\u2014")[0].trim()} bugs. Examples: ${cat.bugExamples}
-   Every enemy MUST have a unique keyword.
-
-6. COINS: ${getGuideLabel(guide.coinCount)} coins at y=${guide.coinRows.min}-${guide.coinRows.max}. Scatter them across the full route.
-
-7. FLAG POLE: {"x": ${FLAG_POLE_X}}
-
-Return ONLY valid JSON, no explanation. Exact format:
-{
-  "levelType": "${levelType}",
-  "platforms": [
-    {"x": 0, "y": 12, "width": 10, "type": "ground"},
-    {"x": 20, "y": 7, "width": 3, "type": "brick", "label": "Rate Limit"}
-  ],
-  "questionBlocks": [
-    {"x": 15, "y": 8, "keyword": "Circuit Breaker", "reward": "mushroom"}
-  ],
-  "enemies": [
-    {"x": 12, "y": 11, "type": "goomba", "keyword": "N+1 Query"},
-    {"x": 25, "y": 11, "type": "koopa", "keyword": "Deadlock"}
-  ],
-  "coins": [{"x": 12, "y": 6}],
-  "flagPole": {"x": ${FLAG_POLE_X}}
-}
-
-SELF-CHECK BEFORE RESPONDING (do not output this checklist):
-- levelType must be exactly "${levelType}"
-- All coordinates in TILE units (not pixels)
-- Ground at y=${GROUND_ROW}. Enemies at y=${GROUND_ROW - 1}. No enemies in gaps or on pipes.
-- No impossible jumps (max gap = ${guide.maxGapWidth} tiles)
-- Start zone x=0-${SAFE_START_END_X} must stay safe and flat.
-- Finish zone x=${SAFE_FINISH_START_X}-${LEVEL_TILES_WIDE - 1} must stay safe and flat.
-- Enemy totals and per-zone counts must match the difficulty blueprint above.
-- Every enemy, brick, and question block must include its keyword/label field.
-- Keywords should be real ${cat.domain.split("\u2014")[0].trim()} terminology, not generic.
-- If any rule fails, fix the layout before emitting the final JSON.`;
-}
-
-// src/app/profile/ai-quiz-game/game/mario-audio.ts
-var audioCtx = null;
-function ctx() {
-  if (!audioCtx)
-    audioCtx = new AudioContext();
-  if (audioCtx.state === "suspended")
-    audioCtx.resume();
-  return audioCtx;
-}
-function playTone(freq, duration, type = "square", vol = 0.12) {
-  try {
-    const ac = ctx();
-    const osc = ac.createOscillator();
-    const gain = ac.createGain();
-    osc.type = type;
-    osc.frequency.value = freq;
-    gain.gain.setValueAtTime(vol, ac.currentTime);
-    gain.gain.exponentialRampToValueAtTime(1e-3, ac.currentTime + duration);
-    osc.connect(gain).connect(ac.destination);
-    osc.start(ac.currentTime);
-    osc.stop(ac.currentTime + duration);
-  } catch (e) {
-  }
-}
-function playSequence(notes, type = "square", vol = 0.1) {
-  try {
-    const ac = ctx();
-    let t = ac.currentTime;
-    for (const [freq, dur] of notes) {
-      const osc = ac.createOscillator();
-      const gain = ac.createGain();
-      osc.type = type;
-      osc.frequency.value = freq;
-      gain.gain.setValueAtTime(vol, t);
-      gain.gain.exponentialRampToValueAtTime(1e-3, t + dur);
-      osc.connect(gain).connect(ac.destination);
-      osc.start(t);
-      osc.stop(t + dur);
-      t += dur * 0.85;
-    }
-  } catch (e) {
-  }
-}
-var MarioAudio = {
-  jump() {
-    playSequence([[260, 0.06], [340, 0.06], [420, 0.08]], "square", 0.08);
-  },
-  coin() {
-    playSequence([[988, 0.06], [1319, 0.12]], "square", 0.08);
-  },
-  stomp() {
-    playTone(180, 0.08, "square", 0.1);
-    setTimeout(() => playTone(260, 0.06, "square", 0.08), 40);
-  },
-  powerUp() {
-    playSequence([
-      [523, 0.07],
-      [659, 0.07],
-      [784, 0.07],
-      [1047, 0.07],
-      [1319, 0.07],
-      [1568, 0.12]
-    ], "square", 0.07);
-  },
-  hit() {
-    playSequence([[300, 0.08], [200, 0.12]], "sawtooth", 0.1);
-  },
-  die() {
-    playSequence([
-      [494, 0.15],
-      [466, 0.15],
-      [440, 0.15],
-      [330, 0.15],
-      [262, 0.25]
-    ], "triangle", 0.1);
-  },
-  win() {
-    playSequence([
-      [523, 0.1],
-      [659, 0.1],
-      [784, 0.1],
-      [1047, 0.15],
-      [784, 0.1],
-      [1047, 0.25]
-    ], "square", 0.08);
-  },
-  questionBlock() {
-    playSequence([[520, 0.04], [780, 0.06], [1040, 0.08]], "square", 0.06);
-  },
-  brickBreak() {
-    playSequence([[400, 0.03], [300, 0.03], [200, 0.04], [150, 0.06]], "sawtooth", 0.09);
-  },
-  brickBump() {
-    playTone(220, 0.06, "square", 0.07);
-  },
-  fireball() {
-    playSequence([[800, 0.03], [600, 0.03], [400, 0.04]], "sawtooth", 0.07);
-  },
-  fireHit() {
-    playSequence([[500, 0.03], [700, 0.04], [350, 0.05]], "square", 0.08);
-  }
-};
-
-// src/app/profile/ai-quiz-game/game/mario-engine.ts
-var MarioEngine = class {
-  constructor(canvas, callbacks) {
-    this.animFrameId = 0;
-    this.state = "idle";
-    this.lastTime = 0;
-    this.accumulator = 0;
-    this.STEP = 1e3 / 60;
-    this.keywords = [];
-    this.bugKeywords = [];
-    this.keywordIndex = 0;
-    this.bugKeywordIndex = 0;
-    this.elapsedFrames = 0;
-    this.enemiesStomped = 0;
-    this.loop = (time) => {
-      if (this.state !== "running")
-        return;
-      this.animFrameId = requestAnimationFrame(this.loop);
-      const dt = Math.min(time - this.lastTime, 100);
-      this.lastTime = time;
-      this.accumulator += dt;
-      while (this.accumulator >= this.STEP) {
-        this.tick();
-        this.accumulator -= this.STEP;
-      }
-      this.renderer.render(this.player, this.level);
-    };
-    this.renderer = new MarioRenderer(canvas);
-    this.controls = new MarioControls();
-    this.callbacks = callbacks;
-    this.player = createPlayer();
-  }
-  resize(w, h) {
-    this.renderer.resize(w, h);
-  }
-  loadLevel(level) {
-    this.level = level;
-    this.player = createPlayer();
-    this.elapsedFrames = 0;
-    this.enemiesStomped = 0;
-    this.state = "idle";
-    this.keywords = CATEGORY_KEYWORDS[level.category] ?? CATEGORY_KEYWORDS["backend"];
-    this.bugKeywords = CATEGORY_BUG_KEYWORDS[level.category] ?? CATEGORY_BUG_KEYWORDS["backend"];
-    this.keywordIndex = 0;
-    this.bugKeywordIndex = 0;
-    this.renderer.setCategory(level.category);
-    this.renderer.setLevelType(level.levelType);
-  }
-  start() {
-    if (!this.level)
-      return;
-    this.state = "running";
-    this.controls.bind();
-    this.lastTime = performance.now();
-    this.accumulator = 0;
-    this.loop(this.lastTime);
-  }
-  pause() {
-    this.state = "paused";
-    this.controls.reset();
-  }
-  resume() {
-    if (this.state === "paused") {
-      this.state = "running";
-      this.lastTime = performance.now();
-      this.accumulator = 0;
-      this.loop(this.lastTime);
-    }
-  }
-  stop() {
-    this.state = "idle";
-    cancelAnimationFrame(this.animFrameId);
-    this.controls.unbind();
-  }
-  getState() {
-    return this.state;
-  }
-  getControls() {
-    return this.controls;
-  }
-  nextKeyword() {
-    const kw = this.keywords[this.keywordIndex % this.keywords.length];
-    this.keywordIndex++;
-    return kw;
-  }
-  nextBugKeyword() {
-    const kw = this.bugKeywords[this.bugKeywordIndex % this.bugKeywords.length];
-    this.bugKeywordIndex++;
-    return kw;
-  }
-  spawnEnemyKeyword(enemy) {
-    const kw = enemy.keyword || this.nextBugKeyword();
-    this.level.floatingTexts.push(new FloatingText(enemy.x, enemy.y - 8, `\u{1F41B} ${kw}`, "#ff6b6b", 80));
-  }
-  handlePowerUp(qb) {
-    MarioAudio.questionBlock();
-    const kw = qb.keyword || this.nextKeyword();
-    let color = "#fbbf24";
-    switch (qb.reward) {
-      case "star":
-        this.player.activateStar();
-        this.player.score += 200;
-        MarioAudio.powerUp();
-        color = "#f59e0b";
-        break;
-      case "mushroom":
-        if (this.player.state === "big") {
-          MarioAudio.powerUp();
-          color = "#f97316";
-        } else {
-          MarioAudio.powerUp();
-          color = "#22c55e";
-        }
-        this.player.grow();
-        this.player.score += 100;
-        break;
-      case "coin":
-      default:
-        this.player.coins += 3;
-        this.player.score += 50;
-        MarioAudio.coin();
-        color = "#fbbf24";
-        break;
-    }
-    this.level.floatingTexts.push(new FloatingText(qb.x, qb.y - 10, kw, color, 80));
-    this.notifyScore();
-  }
-  handleBrickBreak(brick) {
-    MarioAudio.brickBreak();
-    const cx = brick.x + brick.w / 2;
-    const cy = brick.y + brick.h / 2;
-    this.level.debris.push(new Debris(cx - 6, cy, -2, -5), new Debris(cx + 6, cy, 2, -5), new Debris(cx - 6, cy, -1, -3.5), new Debris(cx + 6, cy, 1, -3.5));
-    if (brick.label) {
-      this.level.floatingTexts.push(new FloatingText(brick.x, brick.y - 8, brick.label, "#ef4444", 70));
-    }
-    this.notifyScore();
-  }
-  tick() {
-    if (this.state !== "running")
-      return;
-    this.elapsedFrames++;
-    const keys = this.controls.getState();
-    const result = updatePhysics(this.player, this.level, keys);
-    this.handleCollisionResult(result);
-  }
-  handleCollisionResult(result) {
-    if (result.jumped)
-      MarioAudio.jump();
-    if (result.firedFireball)
-      MarioAudio.fireball();
-    if (result.coinCollected)
-      MarioAudio.coin();
-    if (result.hitQuestionBlock) {
-      this.handlePowerUp(result.hitQuestionBlock);
-    }
-    if (result.brickBroken) {
-      this.handleBrickBreak(result.brickBroken);
-    }
-    if (result.brickBumped) {
-      MarioAudio.brickBump();
-    }
-    if (result.hitEnemy) {
-      MarioAudio.hit();
-      if (this.player.state === "fire") {
-        this.player.shrink();
-      } else if (this.player.state === "big") {
-        this.player.shrink();
-      } else {
-        this.player.lives--;
-        if (this.player.lives <= 0) {
-          this.state = "lost";
-          cancelAnimationFrame(this.animFrameId);
-          this.controls.unbind();
-          MarioAudio.die();
-          this.callbacks.onDeath();
-          return;
-        }
-        this.player.invincibleTimer = 90;
-      }
-      this.notifyScore();
-    }
-    if (result.stompedEnemy) {
-      MarioAudio.stomp();
-      this.enemiesStomped++;
-      this.spawnEnemyKeyword(result.stompedEnemy);
-      this.notifyScore();
-    }
-    for (const enemy of result.fireballKilledEnemies) {
-      MarioAudio.fireHit();
-      this.enemiesStomped++;
-      this.spawnEnemyKeyword(enemy);
-      this.notifyScore();
-    }
-    if (result.died) {
-      this.player.lives--;
-      if (this.player.lives <= 0) {
-        this.state = "lost";
-        cancelAnimationFrame(this.animFrameId);
-        this.controls.unbind();
-        MarioAudio.die();
-        this.callbacks.onDeath();
-        return;
-      }
-      this.respawn();
-      this.notifyScore();
-    }
-    if (result.reachedFlag) {
-      const timeBonus = Math.max(0, 300 - Math.floor(this.elapsedFrames / 60)) * 2;
-      this.player.score += timeBonus;
-      this.state = "won";
-      cancelAnimationFrame(this.animFrameId);
-      this.controls.unbind();
-      MarioAudio.win();
-      this.notifyScore();
-      this.callbacks.onWin();
-    }
-  }
-  respawn() {
-    const p = createPlayer();
-    this.player.x = p.x;
-    this.player.y = p.y;
-    this.player.vx = 0;
-    this.player.vy = 0;
-    this.player.state = "small";
-    this.player.h = p.h;
-    this.player.invincibleTimer = 120;
-  }
-  notifyScore() {
-    this.callbacks.onScoreChange(this.player.score, this.player.coins, this.player.lives);
-  }
-};
-
-// src/app/profile/ai-quiz-game/ai-quiz-game.component.ts
-var _c03 = ["gameCanvas"];
-var _forTrack04 = ($index, $item) => $item.value;
-function AiQuizGameComponent_Conditional_2_For_14_Template(rf, ctx2) {
-  if (rf & 1) {
-    const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 22);
-    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_14_Template_button_click_0_listener() {
-      const cat_r3 = \u0275\u0275restoreView(_r2).$implicit;
-      const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.selectedCategory = cat_r3.value);
-    });
-    \u0275\u0275elementStart(1, "span", 23);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 24);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 25);
-    \u0275\u0275text(6);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const cat_r3 = ctx2.$implicit;
-    const ctx_r3 = \u0275\u0275nextContext(2);
-    \u0275\u0275classProp("option-btn--active", ctx_r3.selectedCategory === cat_r3.value);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(cat_r3.icon);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(cat_r3.label);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(cat_r3.description);
-  }
-}
-function AiQuizGameComponent_Conditional_2_For_20_Template(rf, ctx2) {
-  if (rf & 1) {
-    const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 26);
-    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_20_Template_button_click_0_listener() {
-      const d_r6 = \u0275\u0275restoreView(_r5).$implicit;
-      const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.selectedDifficulty = d_r6.value);
-    });
-    \u0275\u0275elementStart(1, "span", 27);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 28);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const d_r6 = ctx2.$implicit;
-    const ctx_r3 = \u0275\u0275nextContext(2);
-    \u0275\u0275classProp("diff-btn--active", ctx_r3.selectedDifficulty === d_r6.value);
-    \u0275\u0275property("ngClass", "diff-btn--" + d_r6.color);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(d_r6.label);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(d_r6.description);
-  }
-}
-function AiQuizGameComponent_Conditional_2_For_26_Template(rf, ctx2) {
-  if (rf & 1) {
-    const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 22);
-    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_26_Template_button_click_0_listener() {
-      const type_r8 = \u0275\u0275restoreView(_r7).$implicit;
-      const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.selectedLevelType = type_r8.value);
-    });
-    \u0275\u0275elementStart(1, "span", 23);
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 24);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 25);
-    \u0275\u0275text(6);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const type_r8 = ctx2.$implicit;
-    const ctx_r3 = \u0275\u0275nextContext(2);
-    \u0275\u0275classProp("option-btn--active", ctx_r3.selectedLevelType === type_r8.value);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(type_r8.icon);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(type_r8.label);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(type_r8.description);
-  }
-}
-function AiQuizGameComponent_Conditional_2_Template(rf, ctx2) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 6)(1, "span", 7);
-    \u0275\u0275text(2, "AI-powered platformer");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "h2", 8);
-    \u0275\u0275text(4, "Mario Lab");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "p", 9);
-    \u0275\u0275text(6, " A real Mario game. The AI generates the entire level \u2014 platforms, enemies, coins, power-ups. You just play. ");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "div", 10)(8, "div", 11)(9, "div", 12)(10, "h3", 13);
-    \u0275\u0275text(11, "Choose your world");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "div", 14);
-    \u0275\u0275repeaterCreate(13, AiQuizGameComponent_Conditional_2_For_14_Template, 7, 5, "button", 15, _forTrack04);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(15, "div", 12)(16, "h3", 13);
-    \u0275\u0275text(17, "Difficulty");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "div", 16);
-    \u0275\u0275repeaterCreate(19, AiQuizGameComponent_Conditional_2_For_20_Template, 5, 5, "button", 17, _forTrack04);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(21, "div", 12)(22, "h3", 13);
-    \u0275\u0275text(23, "Course Style");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "div", 18);
-    \u0275\u0275repeaterCreate(25, AiQuizGameComponent_Conditional_2_For_26_Template, 7, 5, "button", 15, _forTrack04);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(27, "button", 19);
-    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_Template_button_click_27_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.startGame());
-    });
-    \u0275\u0275element(28, "i", 20);
-    \u0275\u0275text(29, " Start Mission ");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(30, "div", 21)(31, "span");
-    \u0275\u0275text(32, "Arrow keys / WASD to move\u2002\xB7\u2002Space / Up to jump or swim stroke\u2002\xB7\u2002X / Z / Shift to throw fireballs (fire mode)");
-    \u0275\u0275elementEnd()()()();
-  }
-  if (rf & 2) {
-    const ctx_r3 = \u0275\u0275nextContext();
-    \u0275\u0275advance(13);
-    \u0275\u0275repeater(ctx_r3.categories);
-    \u0275\u0275advance(6);
-    \u0275\u0275repeater(ctx_r3.difficulties);
-    \u0275\u0275advance(6);
-    \u0275\u0275repeater(ctx_r3.levelTypes);
-  }
-}
-function AiQuizGameComponent_Conditional_3_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 3)(1, "div", 29)(2, "div", 30);
-    \u0275\u0275text(3, "\u{1F344}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "h3");
-    \u0275\u0275text(5, "Generating your level...");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "p");
-    \u0275\u0275text(7, "AI is building the world \u2014 platforms, enemies, and power-ups");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 31);
-    \u0275\u0275element(9, "div", 32);
-    \u0275\u0275elementEnd()()();
-  }
-}
-function AiQuizGameComponent_Conditional_4_Template(rf, ctx2) {
-  if (rf & 1) {
-    const _r9 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 4)(1, "div", 33)(2, "div", 34)(3, "span", 35);
-    \u0275\u0275text(4, "\u2764\uFE0F");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 36);
-    \u0275\u0275text(6);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "div", 34)(8, "span", 35);
-    \u0275\u0275text(9, "\u{1FA99}");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "span", 36);
-    \u0275\u0275text(11);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(12, "div", 34)(13, "span", 35);
-    \u0275\u0275text(14, "\u2B50");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(15, "span", 36);
-    \u0275\u0275text(16);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(17, "div", 37)(18, "span", 36);
-    \u0275\u0275text(19);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(20, "div", 37)(21, "span", 36);
-    \u0275\u0275text(22);
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(23, "div", 38);
-    \u0275\u0275element(24, "canvas", null, 0);
-    \u0275\u0275elementStart(26, "div", 39)(27, "div", 40)(28, "button", 41);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_28_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_28_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_28_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_28_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
-    });
-    \u0275\u0275text(29, "\u25C0");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(30, "button", 42);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_30_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_30_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_30_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_30_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(false));
-    });
-    \u0275\u0275text(31, "\u25B6");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(32, "div", 43)(33, "button", 44);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(false));
-    });
-    \u0275\u0275text(34, "\u25B2");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(35, "button", 45);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_35_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_35_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_35_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_35_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(false));
-    });
-    \u0275\u0275text(36, "\u{1F525}");
-    \u0275\u0275elementEnd()()()()();
-  }
-  if (rf & 2) {
-    const ctx_r3 = \u0275\u0275nextContext();
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate(ctx_r3.lives);
-    \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r3.coins);
-    \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r3.score);
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r3.getCategoryLabel());
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r3.getLevelTypeLabel());
-  }
-}
-function AiQuizGameComponent_Conditional_5_Template(rf, ctx2) {
-  if (rf & 1) {
-    const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 5)(1, "div", 46)(2, "div", 47);
-    \u0275\u0275text(3);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "h3", 48);
-    \u0275\u0275text(5);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "p", 49);
-    \u0275\u0275text(7);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 50)(9, "div", 51)(10, "span", 52);
-    \u0275\u0275text(11, "Score");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "span", 53);
-    \u0275\u0275text(13);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(14, "div", 51)(15, "span", 52);
-    \u0275\u0275text(16, "Coins");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "span", 53);
-    \u0275\u0275text(18);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "div", 51)(20, "span", 52);
-    \u0275\u0275text(21, "Enemies");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "span", 53);
-    \u0275\u0275text(23);
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(24, "div", 54)(25, "button", 19);
-    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_5_Template_button_click_25_listener() {
-      \u0275\u0275restoreView(_r10);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.restartGame());
-    });
-    \u0275\u0275element(26, "i", 55);
-    \u0275\u0275text(27, " Play Again ");
-    \u0275\u0275elementEnd()()()();
-  }
-  if (rf & 2) {
-    const ctx_r3 = \u0275\u0275nextContext();
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r3.won ? "\u{1F3C6}" : "\u{1F480}");
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r3.won ? "Level Complete!" : "Game Over");
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r3.getResultMessage());
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate(ctx_r3.score);
-    \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r3.coins);
-    \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r3.enemiesStomped);
-  }
-}
-var AiQuizGameComponent = class _AiQuizGameComponent {
-  constructor(http, zone, cdr) {
-    this.http = http;
-    this.zone = zone;
-    this.cdr = cdr;
-    this.viewState = "setup";
-    this.selectedCategory = "backend";
-    this.selectedDifficulty = "Medium";
-    this.selectedLevelType = "ground";
-    this.score = 0;
-    this.coins = 0;
-    this.lives = 3;
-    this.won = false;
-    this.enemiesStomped = 0;
-    this.engine = null;
-    this.resizeObserver = null;
-    this.categories = [
-      { value: "backend", label: "Backend Foundations", icon: "\u{1F344}", description: "APIs, data flows, idempotency, service design" },
-      { value: "distributed", label: "Distributed Systems", icon: "\u{1F687}", description: "Kafka, queues, caching, consistency, resilience" },
-      { value: "genai", label: "Gen AI Systems", icon: "\u{1F916}", description: "RAG, evals, prompts, agents, product quality" },
-      { value: "platform", label: "Platform Engineering", icon: "\u{1F6E0}\uFE0F", description: "Observability, CI/CD, reliability, tooling leverage" },
-      { value: "architecture", label: "System Design", icon: "\u{1F3F0}", description: "Trade-offs, scale paths, fault tolerance, throughput" },
-      { value: "leadership", label: "Staff Engineering", icon: "\u2B50", description: "Cross-team influence, prioritization, technical leadership" }
-    ];
-    this.difficulties = [
-      { value: "Easy", label: "Warm-Up", description: "Fewer enemies, more power-ups", color: "success" },
-      { value: "Medium", label: "Speed Run", description: "Balanced challenge", color: "warning" },
-      { value: "Hard", label: "Boss Fight", description: "Dense enemies, big gaps", color: "danger" }
-    ];
-    this.levelTypes = [
-      { value: "ground", label: "Ground Run", icon: "\u{1F33F}", description: "Classic overworld with staged gaps and grounded enemy waves" },
-      { value: "sky", label: "Sky Jump", icon: "\u2601\uFE0F", description: "Airy platform chains, higher jumps, and floating routes" },
-      { value: "water", label: "Water Swim", icon: "\u{1F30A}", description: "Underwater movement, dense coins, and safer seabed routes" }
-    ];
-  }
-  ngOnDestroy() {
-    this.engine?.stop();
-    this.resizeObserver?.disconnect();
-  }
-  startGame() {
-    return __async(this, null, function* () {
-      this.viewState = "loading";
-      this.score = 0;
-      this.coins = 0;
-      this.lives = 3;
-      this.won = false;
-      this.enemiesStomped = 0;
-      const config3 = {
-        difficulty: this.selectedDifficulty,
-        category: this.selectedCategory,
-        levelType: this.selectedLevelType
-      };
-      let level;
-      try {
-        const [levelResult] = yield Promise.allSettled([this.generateAILevel(config3)]);
-        if (levelResult.status === "fulfilled" && levelResult.value) {
-          level = levelResult.value;
-        } else {
-          level = generateProceduralLevel(config3);
-        }
-      } catch (e) {
-        level = generateProceduralLevel(config3);
-      }
-      this.viewState = "playing";
-      this.cdr.detectChanges();
-      this.zone.runOutsideAngular(() => {
-        requestAnimationFrame(() => this.initGame(level));
-      });
-    });
-  }
-  initGame(level) {
-    const canvas = this.canvasRef.nativeElement;
-    const container = canvas.parentElement;
-    this.engine = new MarioEngine(canvas, {
-      onDeath: () => this.zone.run(() => this.handleDeath()),
-      onWin: () => this.zone.run(() => this.handleWin()),
-      onScoreChange: (s, c, l) => this.zone.run(() => {
-        this.score = s;
-        this.coins = c;
-        this.lives = l;
-      })
-    });
-    const resize = () => {
-      const w = container.clientWidth;
-      const h = Math.round(Math.min(w * 0.5625, 480));
-      canvas.width = w;
-      canvas.height = h;
-      canvas.style.width = w + "px";
-      canvas.style.height = h + "px";
-      this.engine?.resize(w, h);
-    };
-    resize();
-    this.resizeObserver = new ResizeObserver(resize);
-    this.resizeObserver.observe(container);
-    this.engine.loadLevel(level);
-    setTimeout(() => this.engine?.start(), 200);
-  }
-  handleDeath() {
-    this.won = false;
-    this.enemiesStomped = this.engine?.enemiesStomped ?? 0;
-    this.viewState = "results";
-    this.engine?.stop();
-  }
-  handleWin() {
-    this.won = true;
-    this.score = this.engine?.player.score ?? this.score;
-    this.enemiesStomped = this.engine?.enemiesStomped ?? 0;
-    this.viewState = "results";
-    this.engine?.stop();
-  }
-  restartGame() {
-    this.engine?.stop();
-    this.resizeObserver?.disconnect();
-    this.viewState = "setup";
-  }
-  touchLeft(active) {
-    this.engine?.getControls().setTouchLeft(active);
-  }
-  touchRight(active) {
-    this.engine?.getControls().setTouchRight(active);
-  }
-  touchJump(active) {
-    this.engine?.getControls().setTouchJump(active);
-  }
-  touchFire(active) {
-    this.engine?.getControls().setTouchFire(active);
-  }
-  generateAILevel(config3) {
-    return __async(this, null, function* () {
-      const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty, this.selectedLevelType);
-      try {
-        const response = yield firstValueFrom(this.http.post(AI_API_URL, {
-          prompt,
-          context: "Generate a Mario-style level layout as JSON that follows the provided layout blueprint and already passes the difficulty validation rules."
-        }, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }));
-        if (response && typeof response === "object" && "data" in response) {
-          const responseData = response.data;
-          if (responseData?.choices?.length > 0) {
-            const content = responseData.choices[0].message.content;
-            const parsed = parseLevelFromAI(content);
-            if (parsed) {
-              const validation = validateAILevelData(parsed, config3);
-              if (validation.valid) {
-                return buildLevelFromData(parsed, config3);
-              }
-              console.warn("AI level rejected by validator:", validation.issues);
-            }
-          }
-        }
-      } catch (e) {
-        console.error("AI level generation failed:", e);
-      }
-      return null;
-    });
-  }
-  getCategoryLabel() {
-    return this.categories.find((c) => c.value === this.selectedCategory)?.label || "World";
-  }
-  getLevelTypeLabel() {
-    return this.levelTypes.find((t) => t.value === this.selectedLevelType)?.label || "Ground Run";
-  }
-  getResultMessage() {
-    if (this.won) {
-      if (this.score >= 1e3)
-        return "Perfect run. That looked like staff-level platforming.";
-      if (this.score >= 500)
-        return "Strong run! You cleared the course with style.";
-      return "Level complete! Nice platforming.";
-    }
-    return "Game Over. Every run teaches something \u2014 hit restart and try again.";
-  }
-  static {
-    this.\u0275fac = function AiQuizGameComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _AiQuizGameComponent)(\u0275\u0275directiveInject(HttpClient), \u0275\u0275directiveInject(NgZone), \u0275\u0275directiveInject(ChangeDetectorRef));
-    };
-  }
-  static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AiQuizGameComponent, selectors: [["app-ai-quiz-game"]], viewQuery: function AiQuizGameComponent_Query(rf, ctx2) {
-      if (rf & 1) {
-        \u0275\u0275viewQuery(_c03, 5);
-      }
-      if (rf & 2) {
-        let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.canvasRef = _t.first);
-      }
-    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "option-grid", "option-grid--compact"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-actions"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-fire", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx2) {
-      if (rf & 1) {
-        \u0275\u0275elementStart(0, "section", 1)(1, "div", 2);
-        \u0275\u0275conditionalCreate(2, AiQuizGameComponent_Conditional_2_Template, 33, 0);
-        \u0275\u0275conditionalCreate(3, AiQuizGameComponent_Conditional_3_Template, 10, 0, "div", 3);
-        \u0275\u0275conditionalCreate(4, AiQuizGameComponent_Conditional_4_Template, 37, 5, "div", 4);
-        \u0275\u0275conditionalCreate(5, AiQuizGameComponent_Conditional_5_Template, 28, 6, "div", 5);
-        \u0275\u0275elementEnd()();
-      }
-      if (rf & 2) {
-        \u0275\u0275advance(2);
-        \u0275\u0275conditional(ctx2.viewState === "setup" ? 2 : -1);
-        \u0275\u0275advance();
-        \u0275\u0275conditional(ctx2.viewState === "loading" ? 3 : -1);
-        \u0275\u0275advance();
-        \u0275\u0275conditional(ctx2.viewState === "playing" ? 4 : -1);
-        \u0275\u0275advance();
-        \u0275\u0275conditional(ctx2.viewState === "results" ? 5 : -1);
-      }
-    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.mario-game-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card[_ngcontent-%COMP%] {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact[_ngcontent-%COMP%] {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n}\n.option-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active[_ngcontent-%COMP%] {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success[_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning[_ngcontent-%COMP%] {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card[_ngcontent-%COMP%] {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  animation: _ngcontent-%COMP%_bounce 0.6s ease infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: _ngcontent-%COMP%_loadProgress 3s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container[_ngcontent-%COMP%]   canvas[_ngcontent-%COMP%] {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn[_ngcontent-%COMP%]:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls[_ngcontent-%COMP%] {\n    display: flex;\n  }\n}\n.results-card[_ngcontent-%COMP%] {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge[_ngcontent-%COMP%] {\n  font-size: 3rem;\n}\n.results-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section[_ngcontent-%COMP%] {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .setup-card[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n  .option-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .results-stats[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper[_ngcontent-%COMP%] {\n    margin: 0 -1rem;\n  }\n  .game-hud[_ngcontent-%COMP%] {\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin-left: 1rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.6rem;\n  }\n  .hud-icon[_ngcontent-%COMP%] {\n    font-size: 0.85rem;\n  }\n  .canvas-container[_ngcontent-%COMP%] {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls[_ngcontent-%COMP%] {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn[_ngcontent-%COMP%] {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump[_ngcontent-%COMP%] {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire[_ngcontent-%COMP%] {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card[_ngcontent-%COMP%] {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */'] });
-  }
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AiQuizGameComponent, [{
-    type: Component,
-    args: [{ selector: "app-ai-quiz-game", standalone: true, imports: [CommonModule], template: `<section class="mario-game-section apple-section" id="ai-quiz-game">
-  <div class="apple-container">
-
-    <!-- SETUP -->
-    @if (viewState === 'setup') {
-      <div class="section-header">
-        <span class="section-kicker">AI-powered platformer</span>
-        <h2 class="section-title">Mario Lab</h2>
-        <p class="section-subtitle">
-          A real Mario game. The AI generates the entire level \u2014 platforms, enemies, coins, power-ups. You just play.
-        </p>
-      </div>
-
-      <div class="setup-card apple-card">
-        <div class="setup-inner">
-          <div class="setup-section">
-            <h3 class="setup-heading">Choose your world</h3>
-            <div class="option-grid">
-              @for (cat of categories; track cat.value) {
-                <button class="option-btn"
-                        [class.option-btn--active]="selectedCategory === cat.value"
-                        (click)="selectedCategory = cat.value">
-                  <span class="option-icon">{{ cat.icon }}</span>
-                  <span class="option-label">{{ cat.label }}</span>
-                  <span class="option-desc">{{ cat.description }}</span>
-                </button>
-              }
-            </div>
-          </div>
-
-          <div class="setup-section">
-            <h3 class="setup-heading">Difficulty</h3>
-            <div class="difficulty-row">
-              @for (d of difficulties; track d.value) {
-                <button class="diff-btn"
-                        [class.diff-btn--active]="selectedDifficulty === d.value"
-                        [ngClass]="'diff-btn--' + d.color"
-                        (click)="selectedDifficulty = d.value">
-                  <span class="diff-label">{{ d.label }}</span>
-                  <span class="diff-desc">{{ d.description }}</span>
-                </button>
-              }
-            </div>
-          </div>
-
-          <div class="setup-section">
-            <h3 class="setup-heading">Course Style</h3>
-            <div class="option-grid option-grid--compact">
-              @for (type of levelTypes; track type.value) {
-                <button class="option-btn"
-                        [class.option-btn--active]="selectedLevelType === type.value"
-                        (click)="selectedLevelType = type.value">
-                  <span class="option-icon">{{ type.icon }}</span>
-                  <span class="option-label">{{ type.label }}</span>
-                  <span class="option-desc">{{ type.description }}</span>
-                </button>
-              }
-            </div>
-          </div>
-
-          <button class="start-btn" (click)="startGame()">
-            <i class="fas fa-play"></i> Start Mission
-          </button>
-
-          <div class="controls-hint">
-            <span>Arrow keys / WASD to move&ensp;\xB7&ensp;Space / Up to jump or swim stroke&ensp;\xB7&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
-          </div>
-        </div>
-      </div>
-    }
-
-    <!-- LOADING -->
-    @if (viewState === 'loading') {
-      <div class="loading-card apple-card">
-        <div class="loading-content">
-          <div class="loader-icon">\u{1F344}</div>
-          <h3>Generating your level...</h3>
-          <p>AI is building the world \u2014 platforms, enemies, and power-ups</p>
-          <div class="loading-bar"><div class="loading-fill"></div></div>
-        </div>
-      </div>
-    }
-
-    <!-- PLAYING -->
-    @if (viewState === 'playing') {
-      <div class="game-wrapper">
-        <div class="game-hud">
-          <div class="hud-item">
-            <span class="hud-icon">\u2764\uFE0F</span>
-            <span class="hud-val">{{ lives }}</span>
-          </div>
-          <div class="hud-item">
-            <span class="hud-icon">\u{1FA99}</span>
-            <span class="hud-val">{{ coins }}</span>
-          </div>
-          <div class="hud-item">
-            <span class="hud-icon">\u2B50</span>
-            <span class="hud-val">{{ score }}</span>
-          </div>
-          <div class="hud-item hud-category">
-            <span class="hud-val">{{ getCategoryLabel() }}</span>
-          </div>
-          <div class="hud-item hud-category">
-            <span class="hud-val">{{ getLevelTypeLabel() }}</span>
-          </div>
-        </div>
-
-        <div class="canvas-container">
-          <canvas #gameCanvas></canvas>
-
-          <!-- Touch controls (mobile) -->
-          <div class="touch-controls">
-            <div class="touch-dpad">
-              <button class="touch-btn touch-left"
-                      (touchstart)="touchLeft(true)" (touchend)="touchLeft(false)"
-                      (mousedown)="touchLeft(true)" (mouseup)="touchLeft(false)">\u25C0</button>
-              <button class="touch-btn touch-right"
-                      (touchstart)="touchRight(true)" (touchend)="touchRight(false)"
-                      (mousedown)="touchRight(true)" (mouseup)="touchRight(false)">\u25B6</button>
-            </div>
-            <div class="touch-actions">
-              <button class="touch-btn touch-jump"
-                      (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
-                      (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">\u25B2</button>
-              <button class="touch-btn touch-fire"
-                      (touchstart)="touchFire(true)" (touchend)="touchFire(false)"
-                      (mousedown)="touchFire(true)" (mouseup)="touchFire(false)">\u{1F525}</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    }
-
-    <!-- RESULTS -->
-    @if (viewState === 'results') {
-      <div class="results-card apple-card">
-        <div class="results-inner">
-          <div class="results-badge">{{ won ? '\u{1F3C6}' : '\u{1F480}' }}</div>
-          <h3 class="results-title">{{ won ? 'Level Complete!' : 'Game Over' }}</h3>
-          <p class="results-msg">{{ getResultMessage() }}</p>
-
-          <div class="results-stats">
-            <div class="stat-item">
-              <span class="stat-label">Score</span>
-              <span class="stat-value">{{ score }}</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Coins</span>
-              <span class="stat-value">{{ coins }}</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Enemies</span>
-              <span class="stat-value">{{ enemiesStomped }}</span>
-            </div>
-          </div>
-
-          <div class="results-actions">
-            <button class="start-btn" (click)="restartGame()">
-              <i class="fas fa-redo"></i> Play Again
-            </button>
-          </div>
-        </div>
-      </div>
-    }
-  </div>
-</section>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/ai-quiz-game/ai-quiz-game.component.scss */\n:host {\n  display: block;\n}\n.mario-game-section {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon {\n  font-size: 1.3rem;\n}\n.option-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon {\n  font-size: 2.5rem;\n  animation: bounce 0.6s ease infinite alternate;\n}\n@keyframes bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content h3 {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content p {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: loadProgress 3s ease-in-out infinite;\n}\n@keyframes loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper {\n  position: relative;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon {\n  font-size: 1rem;\n}\n.hud-val {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category .hud-val {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container canvas {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls {\n    display: flex;\n  }\n}\n.results-card {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge {\n  font-size: 3rem;\n}\n.results-title {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .setup-card {\n    padding: 1.5rem;\n  }\n  .option-grid {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row {\n    grid-template-columns: 1fr;\n  }\n  .results-stats {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper {\n    margin: 0 -1rem;\n  }\n  .game-hud {\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin-left: 1rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-val {\n    font-size: 0.6rem;\n  }\n  .hud-icon {\n    font-size: 0.85rem;\n  }\n  .canvas-container {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */\n'] }]
-  }], () => [{ type: HttpClient }, { type: NgZone }, { type: ChangeDetectorRef }], { canvasRef: [{
-    type: ViewChild,
-    args: ["gameCanvas"]
-  }] });
-})();
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 22 });
-})();
-
-// src/app/profile/blog/blog.component.ts
-var BlogComponent = class _BlogComponent {
-  constructor() {
-    this.blogLinks = BLOG_LINKS;
-  }
-  static {
-    this.\u0275fac = function BlogComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _BlogComponent)();
-    };
-  }
-  static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 64, vars: 3, consts: [["id", "blogs", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], ["data-stagger", "120", 1, "scroll-grid"], ["target", "_blank", "rel", "noopener", 1, "scroll-card", 3, "href"], [1, "scroll-seal"], [1, "scroll-header"], [1, "scroll-badge"], [1, "scroll-origin"], [1, "scroll-body"], [1, "scroll-title"], [1, "scroll-text"], [1, "scroll-footer"], [1, "scroll-xp"], [1, "scroll-action"]], template: function BlogComponent_Template(rf, ctx2) {
-      if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
-        \u0275\u0275text(4, "\u{1F4DC} QUEST SCROLLS");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(5, "h2", 4);
-        \u0275\u0275text(6, "Technical Notes & Stories");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(7, "p", 5);
-        \u0275\u0275text(8, "Field reports from production. Published on Medium.");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(9, "div", 6)(10, "a", 7)(11, "div", 8);
-        \u0275\u0275text(12, "\u{1F4DC}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(13, "div", 9)(14, "span", 10);
-        \u0275\u0275text(15, "MEDIUM");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(16, "span", 11);
-        \u0275\u0275text(17, "Games24x7 Tech");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(18, "div", 12)(19, "h4", 13);
-        \u0275\u0275text(20, "Fortress of Fair Play: Stopping Frauds at Games24x7");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(21, "p", 14);
-        \u0275\u0275text(22, " Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay. ");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(23, "div", 15)(24, "span", 16);
-        \u0275\u0275text(25, "+120 XP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(26, "span", 17);
-        \u0275\u0275text(27, "\u{1F4D6} Read Scroll \u2192");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(28, "a", 7)(29, "div", 8);
-        \u0275\u0275text(30, "\u{1F4DC}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(31, "div", 9)(32, "span", 10);
-        \u0275\u0275text(33, "MEDIUM");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(34, "span", 11);
-        \u0275\u0275text(35, "Games24x7 Tech");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(36, "div", 12)(37, "h4", 13);
-        \u0275\u0275text(38, "Neptune Navigator: Navigating Performance Challenges");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(39, "p", 14);
-        \u0275\u0275text(40, " Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms. ");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(41, "div", 15)(42, "span", 16);
-        \u0275\u0275text(43, "+100 XP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(44, "span", 17);
-        \u0275\u0275text(45, "\u{1F4D6} Read Scroll \u2192");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(46, "a", 7)(47, "div", 8);
-        \u0275\u0275text(48, "\u{1F4DC}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(49, "div", 9)(50, "span", 10);
-        \u0275\u0275text(51, "MEDIUM");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(52, "span", 11);
-        \u0275\u0275text(53, "Games24x7 Tech");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(54, "div", 12)(55, "h4", 13);
-        \u0275\u0275text(56, "Games24x7: Where Trust Meets Gameplay");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(57, "p", 14);
-        \u0275\u0275text(58, " Discover how we build trust and create engaging gaming experiences that keep players coming back. ");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(59, "div", 15)(60, "span", 16);
-        \u0275\u0275text(61, "+90 XP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(62, "span", 17);
-        \u0275\u0275text(63, "\u{1F4D6} Read Scroll \u2192");
-        \u0275\u0275domElementEnd()()()()()();
-      }
-      if (rf & 2) {
-        \u0275\u0275advance(10);
-        \u0275\u0275domProperty("href", ctx2.blogLinks.fortressOfFairPlay, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(18);
-        \u0275\u0275domProperty("href", ctx2.blogLinks.neptuneNavigator, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(18);
-        \u0275\u0275domProperty("href", ctx2.blogLinks.trustMeetsGameplay, \u0275\u0275sanitizeUrl);
-      }
-    }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.scroll-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.25rem;\n}\n.scroll-card[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  text-decoration: none;\n  color: inherit;\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.scroll-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.4);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.12), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.scroll-card[_ngcontent-%COMP%]:hover   .scroll-action[_ngcontent-%COMP%] {\n  color: #fbbf24;\n}\n.scroll-card[_ngcontent-%COMP%]:hover   .scroll-seal[_ngcontent-%COMP%] {\n  transform: rotate(-8deg) scale(1.15);\n}\n.scroll-seal[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.75rem;\n  right: 0.75rem;\n  font-size: 1.6rem;\n  opacity: 0.35;\n  transition: transform 300ms ease;\n  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.3));\n}\n.scroll-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0.65rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n}\n.scroll-badge[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.14em;\n  padding: 0.2rem 0.5rem;\n  border-radius: 4px;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  color: #fbbf24;\n}\n.scroll-origin[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-muted);\n}\n.scroll-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1rem;\n  flex: 1;\n  display: grid;\n  gap: 0.5rem;\n}\n.scroll-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.scroll-text[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  line-height: 1.6;\n  margin: 0;\n}\n.scroll-footer[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.03);\n}\n.scroll-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.08em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.3);\n}\n.scroll-action[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.06em;\n  color: var(--text-muted);\n  transition: color 200ms ease;\n}\n@media (max-width: 640px) {\n  .scroll-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */'] });
-  }
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BlogComponent, [{
-    type: Component,
-    args: [{ selector: "app-blog", standalone: true, template: '<div class="apple-section" id="blogs">\n  <div class="apple-container">\n    <div class="section-header" data-anim="fade-up">\n      <div class="world-label">\u{1F4DC} QUEST SCROLLS</div>\n      <h2 class="section-title" data-text-reveal>Technical Notes &amp; Stories</h2>\n      <p class="section-subtitle">Field reports from production. Published on Medium.</p>\n    </div>\n\n    <div class="scroll-grid" data-stagger="120">\n\n      <!-- Blog 1 -->\n      <a [href]="blogLinks.fortressOfFairPlay" class="scroll-card" target="_blank" rel="noopener">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h4>\n          <p class="scroll-text">\n            Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+120 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n      <!-- Blog 2 -->\n      <a [href]="blogLinks.neptuneNavigator" class="scroll-card" target="_blank" rel="noopener">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Neptune Navigator: Navigating Performance Challenges</h4>\n          <p class="scroll-text">\n            Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+100 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n      <!-- Blog 3 -->\n      <a [href]="blogLinks.trustMeetsGameplay" class="scroll-card" target="_blank" rel="noopener">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Games24x7: Where Trust Meets Gameplay</h4>\n          <p class="scroll-text">\n            Discover how we build trust and create engaging gaming experiences that keep players coming back.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+90 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n    </div>\n  </div>\n</div>\n', styles: ['@charset "UTF-8";\n\n/* src/app/profile/blog/blog.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.scroll-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.25rem;\n}\n.scroll-card {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  text-decoration: none;\n  color: inherit;\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.scroll-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.4);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.12), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.scroll-card:hover .scroll-action {\n  color: #fbbf24;\n}\n.scroll-card:hover .scroll-seal {\n  transform: rotate(-8deg) scale(1.15);\n}\n.scroll-seal {\n  position: absolute;\n  top: 0.75rem;\n  right: 0.75rem;\n  font-size: 1.6rem;\n  opacity: 0.35;\n  transition: transform 300ms ease;\n  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.3));\n}\n.scroll-header {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0.65rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n}\n.scroll-badge {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.14em;\n  padding: 0.2rem 0.5rem;\n  border-radius: 4px;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  color: #fbbf24;\n}\n.scroll-origin {\n  font-size: 0.78rem;\n  color: var(--text-muted);\n}\n.scroll-body {\n  padding: 1.1rem 1rem;\n  flex: 1;\n  display: grid;\n  gap: 0.5rem;\n}\n.scroll-title {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.scroll-text {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  line-height: 1.6;\n  margin: 0;\n}\n.scroll-footer {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.03);\n}\n.scroll-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.08em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.3);\n}\n.scroll-action {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.06em;\n  color: var(--text-muted);\n  transition: color 200ms ease;\n}\n@media (max-width: 640px) {\n  .scroll-grid {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */\n'] }]
-  }], () => [], null);
-})();
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(BlogComponent, { className: "BlogComponent", filePath: "src/app/profile/blog/blog.component.ts", lineNumber: 10 });
 })();
 
 // node_modules/three/build/three.core.js
@@ -77396,6 +77179,14 @@ function interceptControlUp(event) {
   }
 }
 
+// src/environments/environment.ts
+var environment = {
+  production: false,
+  //baseUrl : `${window.location.protocol}//${window.location.hostname}/portfolio/`,
+  baseUrl: `http://localhost:4200/`,
+  aiApiUrl: AI_API_URL
+};
+
 // src/app/ai-face/ai-context.ts
 var AI_CONTEXT = `You are Nova, a friendly AI assistant on Ankit Sharma's portfolio website.
 
@@ -78209,9 +78000,9 @@ var VoiceStreamingService = class _VoiceStreamingService {
 })();
 
 // src/app/profile/avatar-3d/avatar-3d.component.ts
-var _c04 = ["canvas"];
-var _c13 = ["chatMessages"];
-var _c22 = ["messageInput"];
+var _c03 = ["canvas"];
+var _c12 = ["chatMessages"];
+var _c2 = ["messageInput"];
 function Avatar3dComponent_Conditional_46_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 21)(1, "div", 26);
@@ -78828,7 +78619,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
   static {
     this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Avatar3dComponent, selectors: [["app-avatar-3d"]], viewQuery: function Avatar3dComponent_Query(rf, ctx2) {
       if (rf & 1) {
-        \u0275\u0275viewQuery(_c04, 7)(_c13, 5)(_c22, 5);
+        \u0275\u0275viewQuery(_c03, 7)(_c12, 5)(_c2, 5);
       }
       if (rf & 2) {
         let _t;
@@ -78842,11 +78633,11 @@ var Avatar3dComponent = class _Avatar3dComponent {
           return ctx2.onEscapeKey();
         }, \u0275\u0275resolveDocument);
       }
-    }, decls: 55, vars: 7, consts: [["canvas", ""], ["chatMessages", ""], ["messageInput", ""], ["id", "avatar-3d", 1, "avatar-lab-section", "apple-section"], [1, "container"], [1, "avatar-lab-shell"], [1, "avatar-lab-copy"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "lab-capabilities"], [1, "capability-card"], [1, "capability-icon"], [1, "lab-actions"], [1, "apple-btn", "apple-btn-primary", 3, "click"], [1, "fas", "fa-robot"], [1, "tts-status"], [1, "tts-dot"], [1, "avatar-stage"], [1, "avatar-container"], [1, "avatar-canvas"], [1, "loading-overlay"], [1, "controls-hint"], [1, "hint-chip"], ["aria-label", "Open or close chat", 1, "chat-button", 3, "click"], ["role", "dialog", "aria-label", "Chat with AI assistant", 1, "chat-window"], [1, "loading-content"], [1, "loading-spinner"], [1, "loading-text"], [1, "loading-progress"], [1, "progress-bar"], [1, "progress-fill"], [1, "progress-percentage"], [1, "chat-header"], [1, "header-controls"], ["aria-label", "Toggle text-to-speech", 1, "tts-toggle-btn", 3, "click", "title"], ["aria-label", "Stop speech", "title", "Stop speech", 1, "stop-speech-btn"], ["aria-label", "Close chat", 1, "close-btn", 3, "click"], [1, "chat-messages"], [1, "message", 3, "user-message", "ai-message"], [1, "typing-indicator"], [1, "chat-input-container"], ["type", "text", "placeholder", "Ask me anything about my portfolio...", "aria-label", "Type your message", 1, "chat-input", 3, "ngModelChange", "keyup.enter", "ngModel"], ["aria-label", "Send message", 1, "send-btn", 3, "click", "disabled"], ["aria-label", "Stop speech", "title", "Stop speech", 1, "stop-speech-btn", 3, "click"], [1, "message"], [1, "message-content"], [1, "message-text", 3, "innerHTML"], [1, "message-time"]], template: function Avatar3dComponent_Template(rf, ctx2) {
+    }, decls: 55, vars: 7, consts: [["canvas", ""], ["chatMessages", ""], ["messageInput", ""], ["id", "avatar-3d", 1, "avatar-lab-section", "apple-section"], [1, "container"], [1, "avatar-lab-shell"], [1, "avatar-lab-copy"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "lab-capabilities"], [1, "capability-card"], [1, "capability-icon"], [1, "lab-actions"], [1, "apple-btn", "apple-btn-primary", 3, "click"], [1, "fas", "fa-robot"], [1, "tts-status"], [1, "tts-dot"], [1, "avatar-stage"], [1, "avatar-container"], [1, "avatar-canvas"], [1, "loading-overlay"], [1, "controls-hint"], [1, "hint-chip"], ["aria-label", "Open or close chat", 1, "chat-button", 3, "click"], ["role", "dialog", "aria-label", "Chat with AI assistant", 1, "chat-window"], [1, "loading-content"], [1, "loading-spinner"], [1, "loading-text"], [1, "loading-progress"], [1, "progress-bar"], [1, "progress-fill"], [1, "progress-percentage"], [1, "chat-header"], [1, "header-controls"], ["aria-label", "Toggle text-to-speech", 1, "tts-toggle-btn", 3, "click", "title"], ["aria-label", "Stop speech", "title", "Stop speech", 1, "stop-speech-btn"], ["aria-label", "Close chat", 1, "close-btn", 3, "click"], [1, "chat-messages"], [1, "message", 3, "user-message", "ai-message"], [1, "typing-indicator"], [1, "chat-input-container"], ["type", "text", "placeholder", "Ask me anything about my portfolio...", "aria-label", "Type your message", 1, "chat-input", 3, "ngModelChange", "keyup.enter", "ngModel"], ["aria-label", "Send message", 1, "send-btn", 3, "click", "disabled"], ["aria-label", "Stop speech", "title", "Stop speech", 1, "stop-speech-btn", 3, "click"], [1, "message"], [1, "message-content"], [1, "message-text", 3, "innerHTML"], [1, "message-time"]], template: function Avatar3dComponent_Template(rf, ctx2) {
       if (rf & 1) {
         const _r1 = \u0275\u0275getCurrentView();
-        \u0275\u0275elementStart(0, "section", 3)(1, "div", 4)(2, "div", 5)(3, "div", 6)(4, "span", 7);
-        \u0275\u0275text(5, "Interactive AI twin");
+        \u0275\u0275elementStart(0, "section", 3)(1, "div", 4)(2, "div", 5)(3, "div", 6)(4, "div", 7);
+        \u0275\u0275text(5, "\u{1F916} AI TWIN");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(6, "h2", 8);
         \u0275\u0275text(7, "3D avatar, live chat, and text-to-audio in one product-style demo.");
@@ -78926,7 +78717,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275advance();
         \u0275\u0275conditional(ctx2.isChatOpen ? 54 : -1);
       }
-    }, dependencies: [FormsModule, DefaultValueAccessor, NgControlStatus, NgModel, MarkdownPipe], styles: ["\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.avatar-lab-shell[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);\n  gap: 1.5rem;\n  align-items: stretch;\n}\n.avatar-lab-copy[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  gap: 1.25rem;\n}\n.lab-capabilities[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.85rem;\n}\n.capability-card[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 3rem 1fr;\n  gap: 0.9rem;\n  padding: 1rem;\n  border-radius: 1.2rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.capability-icon[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  color: #fff;\n  font-size: 0.78rem;\n  font-weight: 800;\n  letter-spacing: 0.1em;\n}\n.capability-card[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.35rem;\n  font-size: 1rem;\n}\n.capability-card[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.lab-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  flex-wrap: wrap;\n}\n.tts-status[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  font-size: 0.92rem;\n  color: var(--text-tertiary);\n}\n.tts-status.on[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.tts-dot[_ngcontent-%COMP%] {\n  width: 0.65rem;\n  height: 0.65rem;\n  border-radius: 999px;\n  background: currentColor;\n  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.14);\n}\n.avatar-stage[_ngcontent-%COMP%] {\n  min-height: 100%;\n}\n.avatar-container[_ngcontent-%COMP%] {\n  position: relative;\n  height: 100%;\n  min-height: 680px;\n  overflow: hidden;\n  border-radius: 1.75rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.12),\n      transparent 28%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(34, 197, 94, 0.08),\n      transparent 26%),\n    linear-gradient(\n      180deg,\n      #09091a 0%,\n      #0e0e22 100%);\n  box-shadow: 0 30px 90px rgba(0, 0, 10, 0.55), 0 0 0 1px rgba(251, 191, 36, 0.06);\n}\n.avatar-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  min-height: 680px;\n  display: block;\n}\n.loading-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  display: grid;\n  place-items: center;\n  background: rgba(9, 9, 26, 0.94);\n  backdrop-filter: blur(12px);\n}\n.loading-content[_ngcontent-%COMP%] {\n  width: min(100%, 300px);\n  text-align: center;\n}\n.loading-spinner[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 1rem;\n  border: 3px solid rgba(255, 255, 255, 0.12);\n  border-top-color: var(--primary-color);\n  border-radius: 999px;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n.loading-text[_ngcontent-%COMP%] {\n  margin-bottom: 0.8rem;\n  font-weight: 700;\n}\n.progress-bar[_ngcontent-%COMP%] {\n  height: 0.45rem;\n  border-radius: 999px;\n  overflow: hidden;\n  background: rgba(255, 255, 255, 0.08);\n}\n.progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background: var(--gradient-primary);\n}\n.progress-percentage[_ngcontent-%COMP%] {\n  margin-top: 0.55rem;\n  font-size: 0.82rem;\n  color: var(--text-tertiary);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 1rem;\n  right: 1rem;\n  bottom: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.hint-chip[_ngcontent-%COMP%], \n.chat-button[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 2.7rem;\n  padding: 0.75rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(8, 13, 25, 0.68);\n  backdrop-filter: blur(14px);\n  color: var(--text-secondary);\n}\n.chat-button[_ngcontent-%COMP%] {\n  cursor: pointer;\n  color: var(--text-primary);\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.chat-window[_ngcontent-%COMP%] {\n  margin-top: 1.5rem;\n  border-radius: 1.5rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(8, 13, 25, 0.9);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 28px 80px rgba(2, 6, 23, 0.44);\n  overflow: hidden;\n}\n.chat-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 1rem;\n  padding: 1.25rem 1.25rem 1rem;\n  border-bottom: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.35rem;\n}\n.chat-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.header-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.tts-toggle-btn[_ngcontent-%COMP%], \n.stop-speech-btn[_ngcontent-%COMP%], \n.close-btn[_ngcontent-%COMP%], \n.send-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.8rem;\n  height: 2.8rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.04);\n  color: var(--text-primary);\n  cursor: pointer;\n}\n.tts-toggle-btn.active[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.32);\n}\n.stop-speech-btn[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.16);\n  border-color: rgba(239, 68, 68, 0.28);\n}\n.chat-messages[_ngcontent-%COMP%] {\n  padding: 1.25rem;\n  max-height: 420px;\n  overflow-y: auto;\n  display: grid;\n  gap: 0.85rem;\n}\n.message[_ngcontent-%COMP%] {\n  display: flex;\n}\n.message.user-message[_ngcontent-%COMP%] {\n  justify-content: flex-end;\n}\n.message.ai-message[_ngcontent-%COMP%] {\n  justify-content: flex-start;\n}\n.message-content[_ngcontent-%COMP%] {\n  max-width: min(100%, 720px);\n  padding: 0.95rem 1rem;\n  border-radius: 1.1rem;\n}\n.user-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #fff;\n}\n.ai-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n}\n.message-text[_ngcontent-%COMP%] {\n  display: block;\n  color: inherit;\n}\n.message-time[_ngcontent-%COMP%] {\n  display: block;\n  margin-top: 0.55rem;\n  font-size: 0.76rem;\n  opacity: 0.75;\n}\n.typing-indicator[_ngcontent-%COMP%] {\n  display: inline-flex;\n  gap: 0.35rem;\n  width: fit-content;\n  padding: 0.9rem 1rem;\n  border-radius: 1rem;\n  background: rgba(255, 255, 255, 0.04);\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 0.45rem;\n  height: 0.45rem;\n  border-radius: 999px;\n  background: var(--primary-color);\n  animation: _ngcontent-%COMP%_bounce 1.2s infinite ease-in-out;\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.15s;\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.chat-input-container[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.75rem;\n  padding: 1rem 1.25rem 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-input[_ngcontent-%COMP%] {\n  flex: 1;\n  min-width: 0;\n  padding: 0.95rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-primary);\n}\n.chat-input[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.send-btn[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.send-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  0%, 80%, 100% {\n    transform: translateY(0);\n    opacity: 0.5;\n  }\n  40% {\n    transform: translateY(-4px);\n    opacity: 1;\n  }\n}\n@media (max-width: 960px) {\n  .avatar-lab-shell[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .avatar-container[_ngcontent-%COMP%], \n   .avatar-canvas[_ngcontent-%COMP%] {\n    min-height: 540px;\n  }\n}\n@media (max-width: 640px) {\n  .controls-hint[_ngcontent-%COMP%] {\n    align-items: stretch;\n  }\n  .hint-chip[_ngcontent-%COMP%], \n   .chat-button[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n  .chat-header[_ngcontent-%COMP%], \n   .chat-input-container[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .header-controls[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: flex-end;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */"], data: { animation: [
+    }, dependencies: [FormsModule, DefaultValueAccessor, NgControlStatus, NgModel, MarkdownPipe], styles: ["\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.avatar-lab-shell[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);\n  gap: 1.5rem;\n  align-items: stretch;\n}\n.avatar-lab-copy[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  gap: 1.25rem;\n}\n.lab-capabilities[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.85rem;\n}\n.capability-card[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 3rem 1fr;\n  gap: 0.9rem;\n  padding: 1rem;\n  border-radius: 1.2rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.capability-icon[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  color: #fff;\n  font-size: 0.78rem;\n  font-weight: 800;\n  letter-spacing: 0.1em;\n}\n.capability-card[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.35rem;\n  font-size: 1rem;\n}\n.capability-card[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.lab-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  flex-wrap: wrap;\n}\n.tts-status[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  font-size: 0.92rem;\n  color: var(--text-tertiary);\n}\n.tts-status.on[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.tts-dot[_ngcontent-%COMP%] {\n  width: 0.65rem;\n  height: 0.65rem;\n  border-radius: 999px;\n  background: currentColor;\n  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.14);\n}\n.avatar-stage[_ngcontent-%COMP%] {\n  min-height: 100%;\n}\n.avatar-container[_ngcontent-%COMP%] {\n  position: relative;\n  height: 100%;\n  min-height: 680px;\n  overflow: hidden;\n  border-radius: 1.75rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.12),\n      transparent 28%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(34, 197, 94, 0.08),\n      transparent 26%),\n    linear-gradient(\n      180deg,\n      #09091a 0%,\n      #0e0e22 100%);\n  box-shadow: 0 30px 90px rgba(0, 0, 10, 0.55), 0 0 0 1px rgba(251, 191, 36, 0.06);\n}\n.avatar-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  min-height: 680px;\n  display: block;\n}\n.loading-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  display: grid;\n  place-items: center;\n  background: rgba(9, 9, 26, 0.94);\n  backdrop-filter: blur(12px);\n}\n.loading-content[_ngcontent-%COMP%] {\n  width: min(100%, 300px);\n  text-align: center;\n}\n.loading-spinner[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 1rem;\n  border: 3px solid rgba(255, 255, 255, 0.12);\n  border-top-color: var(--primary-color);\n  border-radius: 999px;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n.loading-text[_ngcontent-%COMP%] {\n  margin-bottom: 0.8rem;\n  font-weight: 700;\n}\n.progress-bar[_ngcontent-%COMP%] {\n  height: 0.45rem;\n  border-radius: 999px;\n  overflow: hidden;\n  background: rgba(255, 255, 255, 0.08);\n}\n.progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background: var(--gradient-primary);\n}\n.progress-percentage[_ngcontent-%COMP%] {\n  margin-top: 0.55rem;\n  font-size: 0.82rem;\n  color: var(--text-tertiary);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 1rem;\n  right: 1rem;\n  bottom: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.hint-chip[_ngcontent-%COMP%], \n.chat-button[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 2.7rem;\n  padding: 0.75rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(8, 13, 25, 0.68);\n  backdrop-filter: blur(14px);\n  color: var(--text-secondary);\n}\n.chat-button[_ngcontent-%COMP%] {\n  cursor: pointer;\n  color: var(--text-primary);\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.chat-window[_ngcontent-%COMP%] {\n  margin-top: 1.5rem;\n  border-radius: 1.5rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(8, 13, 25, 0.9);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 28px 80px rgba(2, 6, 23, 0.44);\n  overflow: hidden;\n}\n.chat-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 1rem;\n  padding: 1.25rem 1.25rem 1rem;\n  border-bottom: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.35rem;\n}\n.chat-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.header-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.tts-toggle-btn[_ngcontent-%COMP%], \n.stop-speech-btn[_ngcontent-%COMP%], \n.close-btn[_ngcontent-%COMP%], \n.send-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.8rem;\n  height: 2.8rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.04);\n  color: var(--text-primary);\n  cursor: pointer;\n}\n.tts-toggle-btn.active[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.32);\n}\n.stop-speech-btn[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.16);\n  border-color: rgba(239, 68, 68, 0.28);\n}\n.chat-messages[_ngcontent-%COMP%] {\n  padding: 1.25rem;\n  max-height: 420px;\n  overflow-y: auto;\n  display: grid;\n  gap: 0.85rem;\n}\n.message[_ngcontent-%COMP%] {\n  display: flex;\n}\n.message.user-message[_ngcontent-%COMP%] {\n  justify-content: flex-end;\n}\n.message.ai-message[_ngcontent-%COMP%] {\n  justify-content: flex-start;\n}\n.message-content[_ngcontent-%COMP%] {\n  max-width: min(100%, 720px);\n  padding: 0.95rem 1rem;\n  border-radius: 1.1rem;\n}\n.user-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #fff;\n}\n.ai-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n}\n.message-text[_ngcontent-%COMP%] {\n  display: block;\n  color: inherit;\n}\n.message-time[_ngcontent-%COMP%] {\n  display: block;\n  margin-top: 0.55rem;\n  font-size: 0.76rem;\n  opacity: 0.75;\n}\n.typing-indicator[_ngcontent-%COMP%] {\n  display: inline-flex;\n  gap: 0.35rem;\n  width: fit-content;\n  padding: 0.9rem 1rem;\n  border-radius: 1rem;\n  background: rgba(255, 255, 255, 0.04);\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 0.45rem;\n  height: 0.45rem;\n  border-radius: 999px;\n  background: var(--primary-color);\n  animation: _ngcontent-%COMP%_bounce 1.2s infinite ease-in-out;\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.15s;\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.chat-input-container[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.75rem;\n  padding: 1rem 1.25rem 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-input[_ngcontent-%COMP%] {\n  flex: 1;\n  min-width: 0;\n  padding: 0.95rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-primary);\n}\n.chat-input[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.send-btn[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.send-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  0%, 80%, 100% {\n    transform: translateY(0);\n    opacity: 0.5;\n  }\n  40% {\n    transform: translateY(-4px);\n    opacity: 1;\n  }\n}\n@media (max-width: 960px) {\n  .avatar-lab-shell[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .avatar-container[_ngcontent-%COMP%], \n   .avatar-canvas[_ngcontent-%COMP%] {\n    min-height: 540px;\n  }\n}\n@media (max-width: 640px) {\n  .controls-hint[_ngcontent-%COMP%] {\n    align-items: stretch;\n  }\n  .hint-chip[_ngcontent-%COMP%], \n   .chat-button[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n  .chat-header[_ngcontent-%COMP%], \n   .chat-input-container[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .header-controls[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: flex-end;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */"], data: { animation: [
       trigger("chatAnimation", [
         transition(":enter", [
           style({ opacity: 0, transform: "scale(0.8) translateY(20px)" }),
@@ -78956,7 +78747,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
   <div class="container">
     <div class="avatar-lab-shell">
       <div class="avatar-lab-copy">
-        <span class="section-kicker">Interactive AI twin</span>
+        <div class="world-label">\u{1F916} AI TWIN</div>
         <h2 class="section-title">3D avatar, live chat, and text-to-audio in one product-style demo.</h2>
         <p class="section-subtitle">
           The core functionality stays intact: a 3D model, portfolio-aware assistant, and voice playback pipeline. The
@@ -79101,7 +78892,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
     }
   </div>
 </section>
-`, styles: ["/* src/app/profile/avatar-3d/avatar-3d.component.scss */\n:host {\n  display: block;\n}\n.avatar-lab-shell {\n  display: grid;\n  grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);\n  gap: 1.5rem;\n  align-items: stretch;\n}\n.avatar-lab-copy {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  gap: 1.25rem;\n}\n.lab-capabilities {\n  display: grid;\n  gap: 0.85rem;\n}\n.capability-card {\n  display: grid;\n  grid-template-columns: 3rem 1fr;\n  gap: 0.9rem;\n  padding: 1rem;\n  border-radius: 1.2rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.capability-icon {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  color: #fff;\n  font-size: 0.78rem;\n  font-weight: 800;\n  letter-spacing: 0.1em;\n}\n.capability-card h3 {\n  margin-bottom: 0.35rem;\n  font-size: 1rem;\n}\n.capability-card p {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.lab-actions {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  flex-wrap: wrap;\n}\n.tts-status {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  font-size: 0.92rem;\n  color: var(--text-tertiary);\n}\n.tts-status.on {\n  color: #fde68a;\n}\n.tts-dot {\n  width: 0.65rem;\n  height: 0.65rem;\n  border-radius: 999px;\n  background: currentColor;\n  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.14);\n}\n.avatar-stage {\n  min-height: 100%;\n}\n.avatar-container {\n  position: relative;\n  height: 100%;\n  min-height: 680px;\n  overflow: hidden;\n  border-radius: 1.75rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.12),\n      transparent 28%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(34, 197, 94, 0.08),\n      transparent 26%),\n    linear-gradient(\n      180deg,\n      #09091a 0%,\n      #0e0e22 100%);\n  box-shadow: 0 30px 90px rgba(0, 0, 10, 0.55), 0 0 0 1px rgba(251, 191, 36, 0.06);\n}\n.avatar-canvas {\n  width: 100%;\n  height: 100%;\n  min-height: 680px;\n  display: block;\n}\n.loading-overlay {\n  position: absolute;\n  inset: 0;\n  display: grid;\n  place-items: center;\n  background: rgba(9, 9, 26, 0.94);\n  backdrop-filter: blur(12px);\n}\n.loading-content {\n  width: min(100%, 300px);\n  text-align: center;\n}\n.loading-spinner {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 1rem;\n  border: 3px solid rgba(255, 255, 255, 0.12);\n  border-top-color: var(--primary-color);\n  border-radius: 999px;\n  animation: spin 1s linear infinite;\n}\n.loading-text {\n  margin-bottom: 0.8rem;\n  font-weight: 700;\n}\n.progress-bar {\n  height: 0.45rem;\n  border-radius: 999px;\n  overflow: hidden;\n  background: rgba(255, 255, 255, 0.08);\n}\n.progress-fill {\n  height: 100%;\n  background: var(--gradient-primary);\n}\n.progress-percentage {\n  margin-top: 0.55rem;\n  font-size: 0.82rem;\n  color: var(--text-tertiary);\n}\n.controls-hint {\n  position: absolute;\n  left: 1rem;\n  right: 1rem;\n  bottom: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.hint-chip,\n.chat-button {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 2.7rem;\n  padding: 0.75rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(8, 13, 25, 0.68);\n  backdrop-filter: blur(14px);\n  color: var(--text-secondary);\n}\n.chat-button {\n  cursor: pointer;\n  color: var(--text-primary);\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.chat-window {\n  margin-top: 1.5rem;\n  border-radius: 1.5rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(8, 13, 25, 0.9);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 28px 80px rgba(2, 6, 23, 0.44);\n  overflow: hidden;\n}\n.chat-header {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 1rem;\n  padding: 1.25rem 1.25rem 1rem;\n  border-bottom: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-header h3 {\n  margin-bottom: 0.35rem;\n}\n.chat-header p {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.header-controls {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.tts-toggle-btn,\n.stop-speech-btn,\n.close-btn,\n.send-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.8rem;\n  height: 2.8rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.04);\n  color: var(--text-primary);\n  cursor: pointer;\n}\n.tts-toggle-btn.active {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.32);\n}\n.stop-speech-btn {\n  background: rgba(239, 68, 68, 0.16);\n  border-color: rgba(239, 68, 68, 0.28);\n}\n.chat-messages {\n  padding: 1.25rem;\n  max-height: 420px;\n  overflow-y: auto;\n  display: grid;\n  gap: 0.85rem;\n}\n.message {\n  display: flex;\n}\n.message.user-message {\n  justify-content: flex-end;\n}\n.message.ai-message {\n  justify-content: flex-start;\n}\n.message-content {\n  max-width: min(100%, 720px);\n  padding: 0.95rem 1rem;\n  border-radius: 1.1rem;\n}\n.user-message .message-content {\n  background: var(--gradient-primary);\n  color: #fff;\n}\n.ai-message .message-content {\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n}\n.message-text {\n  display: block;\n  color: inherit;\n}\n.message-time {\n  display: block;\n  margin-top: 0.55rem;\n  font-size: 0.76rem;\n  opacity: 0.75;\n}\n.typing-indicator {\n  display: inline-flex;\n  gap: 0.35rem;\n  width: fit-content;\n  padding: 0.9rem 1rem;\n  border-radius: 1rem;\n  background: rgba(255, 255, 255, 0.04);\n}\n.typing-indicator span {\n  width: 0.45rem;\n  height: 0.45rem;\n  border-radius: 999px;\n  background: var(--primary-color);\n  animation: bounce 1.2s infinite ease-in-out;\n}\n.typing-indicator span:nth-child(2) {\n  animation-delay: 0.15s;\n}\n.typing-indicator span:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.chat-input-container {\n  display: flex;\n  gap: 0.75rem;\n  padding: 1rem 1.25rem 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-input {\n  flex: 1;\n  min-width: 0;\n  padding: 0.95rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-primary);\n}\n.chat-input:focus {\n  outline: none;\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.send-btn {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.send-btn:disabled {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes bounce {\n  0%, 80%, 100% {\n    transform: translateY(0);\n    opacity: 0.5;\n  }\n  40% {\n    transform: translateY(-4px);\n    opacity: 1;\n  }\n}\n@media (max-width: 960px) {\n  .avatar-lab-shell {\n    grid-template-columns: 1fr;\n  }\n  .avatar-container,\n  .avatar-canvas {\n    min-height: 540px;\n  }\n}\n@media (max-width: 640px) {\n  .controls-hint {\n    align-items: stretch;\n  }\n  .hint-chip,\n  .chat-button {\n    width: 100%;\n  }\n  .chat-header,\n  .chat-input-container {\n    flex-direction: column;\n  }\n  .header-controls {\n    width: 100%;\n    justify-content: flex-end;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */\n"] }]
+`, styles: ["/* src/app/profile/avatar-3d/avatar-3d.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.avatar-lab-shell {\n  display: grid;\n  grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);\n  gap: 1.5rem;\n  align-items: stretch;\n}\n.avatar-lab-copy {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  gap: 1.25rem;\n}\n.lab-capabilities {\n  display: grid;\n  gap: 0.85rem;\n}\n.capability-card {\n  display: grid;\n  grid-template-columns: 3rem 1fr;\n  gap: 0.9rem;\n  padding: 1rem;\n  border-radius: 1.2rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.capability-icon {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  color: #fff;\n  font-size: 0.78rem;\n  font-weight: 800;\n  letter-spacing: 0.1em;\n}\n.capability-card h3 {\n  margin-bottom: 0.35rem;\n  font-size: 1rem;\n}\n.capability-card p {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.lab-actions {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  flex-wrap: wrap;\n}\n.tts-status {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  font-size: 0.92rem;\n  color: var(--text-tertiary);\n}\n.tts-status.on {\n  color: #fde68a;\n}\n.tts-dot {\n  width: 0.65rem;\n  height: 0.65rem;\n  border-radius: 999px;\n  background: currentColor;\n  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.14);\n}\n.avatar-stage {\n  min-height: 100%;\n}\n.avatar-container {\n  position: relative;\n  height: 100%;\n  min-height: 680px;\n  overflow: hidden;\n  border-radius: 1.75rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.12),\n      transparent 28%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(34, 197, 94, 0.08),\n      transparent 26%),\n    linear-gradient(\n      180deg,\n      #09091a 0%,\n      #0e0e22 100%);\n  box-shadow: 0 30px 90px rgba(0, 0, 10, 0.55), 0 0 0 1px rgba(251, 191, 36, 0.06);\n}\n.avatar-canvas {\n  width: 100%;\n  height: 100%;\n  min-height: 680px;\n  display: block;\n}\n.loading-overlay {\n  position: absolute;\n  inset: 0;\n  display: grid;\n  place-items: center;\n  background: rgba(9, 9, 26, 0.94);\n  backdrop-filter: blur(12px);\n}\n.loading-content {\n  width: min(100%, 300px);\n  text-align: center;\n}\n.loading-spinner {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 1rem;\n  border: 3px solid rgba(255, 255, 255, 0.12);\n  border-top-color: var(--primary-color);\n  border-radius: 999px;\n  animation: spin 1s linear infinite;\n}\n.loading-text {\n  margin-bottom: 0.8rem;\n  font-weight: 700;\n}\n.progress-bar {\n  height: 0.45rem;\n  border-radius: 999px;\n  overflow: hidden;\n  background: rgba(255, 255, 255, 0.08);\n}\n.progress-fill {\n  height: 100%;\n  background: var(--gradient-primary);\n}\n.progress-percentage {\n  margin-top: 0.55rem;\n  font-size: 0.82rem;\n  color: var(--text-tertiary);\n}\n.controls-hint {\n  position: absolute;\n  left: 1rem;\n  right: 1rem;\n  bottom: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.hint-chip,\n.chat-button {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 2.7rem;\n  padding: 0.75rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(8, 13, 25, 0.68);\n  backdrop-filter: blur(14px);\n  color: var(--text-secondary);\n}\n.chat-button {\n  cursor: pointer;\n  color: var(--text-primary);\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.chat-window {\n  margin-top: 1.5rem;\n  border-radius: 1.5rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(8, 13, 25, 0.9);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 28px 80px rgba(2, 6, 23, 0.44);\n  overflow: hidden;\n}\n.chat-header {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 1rem;\n  padding: 1.25rem 1.25rem 1rem;\n  border-bottom: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-header h3 {\n  margin-bottom: 0.35rem;\n}\n.chat-header p {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.header-controls {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.tts-toggle-btn,\n.stop-speech-btn,\n.close-btn,\n.send-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.8rem;\n  height: 2.8rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.04);\n  color: var(--text-primary);\n  cursor: pointer;\n}\n.tts-toggle-btn.active {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.32);\n}\n.stop-speech-btn {\n  background: rgba(239, 68, 68, 0.16);\n  border-color: rgba(239, 68, 68, 0.28);\n}\n.chat-messages {\n  padding: 1.25rem;\n  max-height: 420px;\n  overflow-y: auto;\n  display: grid;\n  gap: 0.85rem;\n}\n.message {\n  display: flex;\n}\n.message.user-message {\n  justify-content: flex-end;\n}\n.message.ai-message {\n  justify-content: flex-start;\n}\n.message-content {\n  max-width: min(100%, 720px);\n  padding: 0.95rem 1rem;\n  border-radius: 1.1rem;\n}\n.user-message .message-content {\n  background: var(--gradient-primary);\n  color: #fff;\n}\n.ai-message .message-content {\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n}\n.message-text {\n  display: block;\n  color: inherit;\n}\n.message-time {\n  display: block;\n  margin-top: 0.55rem;\n  font-size: 0.76rem;\n  opacity: 0.75;\n}\n.typing-indicator {\n  display: inline-flex;\n  gap: 0.35rem;\n  width: fit-content;\n  padding: 0.9rem 1rem;\n  border-radius: 1rem;\n  background: rgba(255, 255, 255, 0.04);\n}\n.typing-indicator span {\n  width: 0.45rem;\n  height: 0.45rem;\n  border-radius: 999px;\n  background: var(--primary-color);\n  animation: bounce 1.2s infinite ease-in-out;\n}\n.typing-indicator span:nth-child(2) {\n  animation-delay: 0.15s;\n}\n.typing-indicator span:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.chat-input-container {\n  display: flex;\n  gap: 0.75rem;\n  padding: 1rem 1.25rem 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-input {\n  flex: 1;\n  min-width: 0;\n  padding: 0.95rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-primary);\n}\n.chat-input:focus {\n  outline: none;\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.send-btn {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.send-btn:disabled {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes bounce {\n  0%, 80%, 100% {\n    transform: translateY(0);\n    opacity: 0.5;\n  }\n  40% {\n    transform: translateY(-4px);\n    opacity: 1;\n  }\n}\n@media (max-width: 960px) {\n  .avatar-lab-shell {\n    grid-template-columns: 1fr;\n  }\n  .avatar-container,\n  .avatar-canvas {\n    min-height: 540px;\n  }\n}\n@media (max-width: 640px) {\n  .controls-hint {\n    align-items: stretch;\n  }\n  .hint-chip,\n  .chat-button {\n    width: 100%;\n  }\n  .chat-header,\n  .chat-input-container {\n    flex-direction: column;\n  }\n  .header-controls {\n    width: 100%;\n    justify-content: flex-end;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */\n"] }]
   }], () => [{ type: HttpClient }, { type: VoiceStreamingService }], { canvasRef: [{
     type: ViewChild,
     args: ["canvas", { static: true }]

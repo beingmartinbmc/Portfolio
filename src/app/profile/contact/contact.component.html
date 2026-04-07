@@ -1,175 +1,96 @@
-<section class="apple-section" id="contact">
+<section class="apple-section" id="operating-style">
   <div class="apple-container">
     <div class="section-header">
-      <span class="section-kicker">Start a conversation</span>
-      <h2 class="section-title">Building backend platforms or practical AI products?</h2>
+      <div class="world-label">🎮 CHARACTER SELECT</div>
+      <h2 class="section-title">Player Profile</h2>
       <p class="section-subtitle">
-        I’m interested in staff and lead opportunities where system design, platform thinking, and product-minded execution all matter.
+        Select a trait to inspect. Every stat is earned from real quests.
       </p>
     </div>
 
-    <!-- Mario greeter -->
-    <div class="mario-greeter" [class.mario-greeter--jumping]="marioJumping">
-      <div class="mario-scene">
-        <div class="speech-bubble">
-          <span>{{ marioJumping ? 'Yahoo! Message sent!' : "It's-a me! Let's-a talk!" }}</span>
+    <!-- ═══ Work Style: 4 cards in a row ═══ -->
+    <div class="style-panel">
+      <div class="panel-flag">
+        <span class="flag-label">⬛ WORK STYLE — SELECT YOUR CO-OP PARTNER</span>
+      </div>
+      <div class="panel-body">
+        <div class="style-grid">
+          @for (card of fitCards; track card.title; let i = $index) {
+            <div class="style-card" [attr.data-color]="card.color" [class.active]="selectedCard === i" (mouseenter)="selectedCard = i">
+              <div class="sc-icon">{{ card.icon }}</div>
+              <h4 class="sc-name">{{ card.title }}</h4>
+              <span class="sc-tag" [attr.data-color]="card.color">{{ card.tag }}</span>
+              <div class="sc-bar-wrap">
+                <div class="sc-bar">
+                  <div class="sc-bar-fill" [attr.data-color]="card.color" [style.width]="card.stat + '%'"></div>
+                </div>
+                <span class="sc-bar-pct">{{ card.stat }}%</span>
+              </div>
+              <p class="sc-desc">{{ card.body }}</p>
+            </div>
+          }
         </div>
-        <img class="mario-sprite" src="assets/images/mario-sprite.png" alt="Mario" />
-        <div class="mario-cloud cloud-1"></div>
-        <div class="mario-cloud cloud-2"></div>
-        <div class="mario-ground"></div>
       </div>
     </div>
 
-    <div class="contact-container">
-      <div class="contact-info-section">
-        <div class="info-cards">
-          <div class="info-card">
-            <div class="info-icon">📧</div>
-            <div class="info-content">
-              <h4>Email</h4>
-              <p>ankit.sharma199803@gmail.com</p>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon">📍</div>
-            <div class="info-content">
-              <h4>Location</h4>
-              <p>Bangalore, India</p>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon">🧠</div>
-            <div class="info-content">
-              <h4>Best fit</h4>
-              <p>Staff backend, platform, and Gen AI product engineering roles</p>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon">⚡</div>
-            <div class="info-content">
-              <h4>Response time</h4>
-              <p>Usually within 24 hours</p>
-            </div>
-          </div>
+    <!-- ═══ Two-column: Strongest Fit + First-Week Outcomes ═══ -->
+    <div class="duo-row">
+      <div class="power-panel power-panel--red">
+        <div class="panel-flag">
+          <span class="flag-label">🍄 STRONGEST FIT — POWER-UP</span>
+        </div>
+        <div class="panel-body">
+          <ul class="power-list">
+            @for (track of collaborationTracks; track track) {
+              <li>{{ track }}</li>
+            }
+          </ul>
         </div>
       </div>
 
-      <div class="contact-form-section">
-        <div class="form-card">
-          <div class="form-header">
-            <h3>Tell me what you’re building</h3>
-            <p>
-              Share the role, the product, or the problem space. If it involves scale, systems, or useful AI, I’m interested.
-            </p>
-          </div>
-
-          <form #contactForm="ngForm" (ngSubmit)="onSubmit(model.name, model.subject, model.email, model.message)" name="form" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input
-                  #name="ngModel"
-                  [(ngModel)]="model.name"
-                  [ngClass]="{ 'is-invalid': contactForm.submitted && name.invalid }"
-                  class="form-input"
-                  id="name"
-                  name="name"
-                  placeholder="Your full name"
-                  required
-                  type="text"
-                />
-                @if (contactForm.submitted && name.invalid) {
-                  <div class="error-message">Please enter your name</div>
-                }
-              </div>
-
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                  #email="ngModel"
-                  [(ngModel)]="model.email"
-                  [ngClass]="{ 'is-invalid': contactForm.submitted && email.invalid }"
-                  class="form-input"
-                  id="email"
-                  name="email"
-                  placeholder="your.email@example.com"
-                  required
-                  type="email"
-                />
-                @if (contactForm.submitted && email.invalid) {
-                  <div class="error-message">Please enter a valid email address</div>
-                }
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="subject">Subject</label>
-              <input
-                #subject="ngModel"
-                [(ngModel)]="model.subject"
-                [ngClass]="{ 'is-invalid': contactForm.submitted && subject.invalid }"
-                class="form-input"
-                id="subject"
-                name="subject"
-                placeholder="Role, collaboration, or project intro"
-                required
-                type="text"
-              />
-              @if (contactForm.submitted && subject.invalid) {
-                <div class="error-message">Please enter a subject</div>
-              }
-            </div>
-
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea
-                #message="ngModel"
-                [(ngModel)]="model.message"
-                [ngClass]="{ 'is-invalid': contactForm.submitted && message.invalid }"
-                class="form-input"
-                id="message"
-                name="message"
-                placeholder="Tell me about the team, the scope, and the kind of problems you want help solving..."
-                required
-                rows="5"
-              ></textarea>
-              @if (contactForm.submitted && message.invalid) {
-                <div class="error-message">Please enter your message</div>
-              }
-            </div>
-
-            <div class="form-group">
-              <button
-                [disabled]="!isFormValid() || isSubmitting"
-                class="submit-btn"
-                [ngClass]="{ 'disabled': !isFormValid() || isSubmitting }"
-                type="submit"
-              >
-                <span class="btn-text">{{ isSubmitting ? 'Sending...' : 'Send message' }}</span>
-                @if (!isSubmitting) {
-                  <span class="btn-icon">→</span>
-                }
-                @if (isSubmitting) {
-                  <span class="btn-spinner">⏳</span>
-                }
-              </button>
-            </div>
-          </form>
+      <div class="power-panel power-panel--purple">
+        <div class="panel-flag">
+          <span class="flag-label">⭐ FIRST-WEEK OUTCOMES — STAR MODE</span>
+        </div>
+        <div class="panel-body">
+          <ul class="power-list">
+            @for (outcome of firstWeekOutcomes; track outcome) {
+              <li>{{ outcome }}</li>
+            }
+          </ul>
         </div>
       </div>
     </div>
+
+    <!-- ═══ Full-width: Operating Principles ═══ -->
+    <div class="power-panel power-panel--orange">
+      <div class="panel-flag">
+        <span class="flag-label">🔥 OPERATING PRINCIPLES — FIRE FLOWER</span>
+      </div>
+      <div class="panel-body">
+        <div class="principles">
+          @for (p of operatingPrinciples; track p.title) {
+            <div class="principle-card">
+              <h5>{{ p.title }}</h5>
+              <p>{{ p.body }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Stats HUD Row ═══ -->
+    <div class="hud-row">
+      @for (item of emphasisAreas; track item.label) {
+        <div class="hud-card">
+          <div class="hud-bar">
+            <div class="hud-fill" [style.width]="item.pct + '%'"></div>
+          </div>
+          <span class="hud-label">{{ item.label }}</span>
+          <span class="hud-value">{{ item.value }}</span>
+        </div>
+      }
+    </div>
+
   </div>
-
-  @if (showToast) {
-    <div class="toast-container">
-      <div class="toast" [ngClass]="'toast-' + toastType">
-        <div class="toast-icon">{{ toastType === 'success' ? '✅' : '❌' }}</div>
-        <div class="toast-message">{{ toastMessage }}</div>
-      </div>
-    </div>
-  }
 </section>

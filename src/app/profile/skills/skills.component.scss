@@ -1,5 +1,15 @@
 :host { display: block; }
 
+.world-label {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--primary-color);
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);
+}
+
 .rpg-skills-section {
   position: relative;
   padding: clamp(5rem, 9vw, 7rem) 0;
