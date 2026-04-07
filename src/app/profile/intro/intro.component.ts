@@ -64,10 +64,10 @@ export class IntroComponent implements OnDestroy {
     }
   }
 
-  scrollToContact(event: Event): void {
+  scrollToOperatingStyle(event: Event): void {
     event.preventDefault();
     window.setTimeout(() => {
-      document.getElementById('contact')?.scrollIntoView({behavior: 'smooth', block: 'start'});
+      document.getElementById('operating-style')?.scrollIntoView({behavior: 'smooth', block: 'start'});
     }, 0);
   }
 
