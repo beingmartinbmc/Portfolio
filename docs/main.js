@@ -40497,6 +40497,7 @@ var Player = class {
     this.invincibleTimer = 0;
     this.starTimer = 0;
     this.fireCooldown = 0;
+    this.swimStrokeCooldown = 0;
     this.x = x;
     this.y = y;
   }
@@ -40664,8 +40665,16 @@ var CATEGORY_BUG_KEYWORDS = {
 // src/app/profile/ai-quiz-game/game/mario-renderer.ts
 var SKY_TOP = "#09091a";
 var SKY_BOT = "#16213e";
+var SKY_STAGE_TOP = "#7dd3fc";
+var SKY_STAGE_BOT = "#eff6ff";
+var WATER_TOP = "#082f49";
+var WATER_BOT = "#155e75";
 var GROUND_TOP = "#2d5016";
 var GROUND_SIDE = "#3a6b1e";
+var SKY_GROUND_TOP = "#cbd5e1";
+var SKY_GROUND_SIDE = "#94a3b8";
+var WATER_GROUND_TOP = "#0f766e";
+var WATER_GROUND_SIDE = "#115e59";
 var BRICK_FILL = "#8b4513";
 var BRICK_LINE = "#6b3410";
 var QUESTION_FILL = "#fbbf24";
@@ -40698,6 +40707,7 @@ var MarioRenderer = class {
     this.canvas = canvas;
     this.frameCount = 0;
     this.categoryKey = "backend";
+    this.levelType = "ground";
     this.ctx = canvas.getContext("2d");
     this.canvasW = canvas.width;
     this.canvasH = canvas.height;
@@ -40705,6 +40715,9 @@ var MarioRenderer = class {
   }
   setCategory(cat) {
     this.categoryKey = cat;
+  }
+  setLevelType(levelType) {
+    this.levelType = levelType;
   }
   resize(w, h) {
     this.canvas.width = w;
@@ -40717,8 +40730,7 @@ var MarioRenderer = class {
     this.frameCount++;
     const camX = Math.max(0, Math.min(player.x - this.canvasW / 2 + player.w / 2, level.width - this.canvasW));
     const camY = 0;
-    this.drawSky();
-    this.drawClouds(camX);
+    this.drawBackdrop(camX);
     this.drawCategoryBanner(level.category);
     this.ctx.save();
     this.ctx.translate(-camX, -camY);
@@ -40741,6 +40753,18 @@ var MarioRenderer = class {
     this.drawFlagPole(level.flagPole);
     this.drawPlayer(player);
     this.ctx.restore();
+  }
+  drawBackdrop(camX) {
+    if (this.levelType === "sky") {
+      this.drawSkyStage(camX);
+      return;
+    }
+    if (this.levelType === "water") {
+      this.drawWaterStage(camX);
+      return;
+    }
+    this.drawSky();
+    this.drawClouds(camX);
   }
   drawSky() {
     const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvasH);
@@ -40768,9 +40792,60 @@ var MarioRenderer = class {
       this.ctx.fill();
     }
   }
+  drawSkyStage(camX) {
+    const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvasH);
+    grad.addColorStop(0, SKY_STAGE_TOP);
+    grad.addColorStop(1, SKY_STAGE_BOT);
+    this.ctx.fillStyle = grad;
+    this.ctx.fillRect(0, 0, this.canvasW, this.canvasH);
+    this.ctx.fillStyle = "rgba(255,255,255,0.9)";
+    this.ctx.beginPath();
+    this.ctx.arc(this.canvasW - 90, 70, 26, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.fillStyle = "rgba(255,255,255,0.5)";
+    for (let i = 0; i < 10; i++) {
+      const cx = (i * 210 + 80 - camX * 0.35) % (this.canvasW + 280) - 80;
+      const cy = 55 + i % 4 * 42;
+      this.ctx.beginPath();
+      this.ctx.arc(cx, cy, 24, 0, Math.PI * 2);
+      this.ctx.arc(cx + 20, cy - 8, 18, 0, Math.PI * 2);
+      this.ctx.arc(cx + 40, cy, 24, 0, Math.PI * 2);
+      this.ctx.fill();
+    }
+  }
+  drawWaterStage(camX) {
+    const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvasH);
+    grad.addColorStop(0, WATER_TOP);
+    grad.addColorStop(1, WATER_BOT);
+    this.ctx.fillStyle = grad;
+    this.ctx.fillRect(0, 0, this.canvasW, this.canvasH);
+    this.ctx.strokeStyle = "rgba(125,211,252,0.35)";
+    this.ctx.lineWidth = 2;
+    for (let i = 0; i < 4; i++) {
+      const waveY = 28 + i * 9;
+      this.ctx.beginPath();
+      for (let x = -40; x <= this.canvasW + 40; x += 18) {
+        const y = waveY + Math.sin((x + camX * 0.25 + i * 22) * 0.03) * 4;
+        if (x === -40)
+          this.ctx.moveTo(x, y);
+        else
+          this.ctx.lineTo(x, y);
+      }
+      this.ctx.stroke();
+    }
+    this.ctx.fillStyle = "rgba(186,230,253,0.3)";
+    for (let i = 0; i < 22; i++) {
+      const bx = (i * 97 + 30 - camX * 0.18) % (this.canvasW + 60) - 20;
+      const by = 50 + i * 37 % (this.canvasH - 80);
+      const r = i % 3 + 2;
+      this.ctx.beginPath();
+      this.ctx.arc(bx, by, r, 0, Math.PI * 2);
+      this.ctx.fill();
+    }
+  }
   drawCategoryBanner(category) {
     const catCfg = CATEGORY_COLORS[category] ?? CATEGORY_COLORS["backend"];
-    const label = `${catCfg.qIcon} ${category.toUpperCase()} WORLD`;
+    const label = `${catCfg.qIcon} ${category.toUpperCase()} \xB7 ${this.levelType.toUpperCase()}`;
     this.ctx.save();
     this.ctx.globalAlpha = 0.4;
     this.ctx.fillStyle = catCfg.accent;
@@ -40782,9 +40857,11 @@ var MarioRenderer = class {
   }
   drawPlatform(p) {
     if (p.type === "ground") {
-      this.ctx.fillStyle = GROUND_TOP;
+      const topColor = this.levelType === "sky" ? SKY_GROUND_TOP : this.levelType === "water" ? WATER_GROUND_TOP : GROUND_TOP;
+      const sideColor = this.levelType === "sky" ? SKY_GROUND_SIDE : this.levelType === "water" ? WATER_GROUND_SIDE : GROUND_SIDE;
+      this.ctx.fillStyle = topColor;
       this.ctx.fillRect(p.x, p.y, p.w, TILE * 0.3);
-      this.ctx.fillStyle = GROUND_SIDE;
+      this.ctx.fillStyle = sideColor;
       this.ctx.fillRect(p.x, p.y + TILE * 0.3, p.w, p.h - TILE * 0.3);
       this.ctx.strokeStyle = "rgba(0,0,0,0.15)";
       this.ctx.lineWidth = 1;
@@ -41183,25 +41260,39 @@ function updatePhysics(player, level, keys) {
     jumped: false,
     coinCollected: false
   };
+  const isWater = level.levelType === "water";
+  const moveSpeed = isWater ? MOVE_SPEED * 0.72 : MOVE_SPEED;
+  const fallLimit = isWater ? MAX_FALL * 0.35 : MAX_FALL;
   if (keys.left) {
-    player.vx = -MOVE_SPEED;
+    player.vx = -moveSpeed;
     player.facing = "left";
   } else if (keys.right) {
-    player.vx = MOVE_SPEED;
+    player.vx = moveSpeed;
     player.facing = "right";
   } else {
-    player.vx *= 0.7;
+    player.vx *= isWater ? 0.84 : 0.7;
     if (Math.abs(player.vx) < 0.2)
       player.vx = 0;
   }
-  if (keys.jump && player.onGround) {
+  if (isWater) {
+    if (player.swimStrokeCooldown > 0)
+      player.swimStrokeCooldown--;
+    if (keys.jump && player.swimStrokeCooldown <= 0) {
+      player.vy = Math.min(player.vy - 4.4, -5.4);
+      player.onGround = false;
+      player.swimStrokeCooldown = 10;
+      result.jumped = true;
+    }
+  } else if (keys.jump && player.onGround) {
     player.vy = JUMP_FORCE;
     player.onGround = false;
     result.jumped = true;
   }
-  player.vy += GRAVITY;
-  if (player.vy > MAX_FALL)
-    player.vy = MAX_FALL;
+  player.vy += isWater ? GRAVITY * 0.22 : GRAVITY;
+  if (isWater)
+    player.vy *= 0.94;
+  if (player.vy > fallLimit)
+    player.vy = fallLimit;
   if (player.fireCooldown > 0)
     player.fireCooldown--;
   if (keys.fire && player.state === "fire" && player.fireCooldown <= 0 && level.fireballs.length < 3) {
@@ -41310,7 +41401,7 @@ function updatePhysics(player, level, keys) {
       continue;
     }
     fb.x += fb.vx;
-    fb.vy += GRAVITY * 0.7;
+    fb.vy += isWater ? GRAVITY * 0.18 : GRAVITY * 0.7;
     fb.y += fb.vy;
     for (const p of allPlatforms) {
       if (aabbOverlap(fb.box, p.box)) {
@@ -41352,7 +41443,7 @@ function updatePhysics(player, level, keys) {
         enemy.squashTimer--;
       continue;
     }
-    enemy.x += enemy.vx;
+    enemy.x += enemy.vx * (isWater ? 0.6 : 1);
     let hitWall = false;
     for (const p of allPlatforms) {
       if (aabbOverlap(enemy.box, p.box)) {
@@ -41376,7 +41467,7 @@ function updatePhysics(player, level, keys) {
         }
       }
       if (!landed)
-        enemy.y += 2;
+        enemy.y += isWater ? 1 : 2;
     }
   }
   for (const ft of level.floatingTexts)
@@ -41392,9 +41483,133 @@ function updatePhysics(player, level, keys) {
 }
 
 // src/app/profile/ai-quiz-game/game/mario-level-generator.ts
-var LEVEL_TILES_WIDE = 80;
+var LEVEL_TILES_WIDE = 96;
 var GROUND_ROW = 12;
 var LEVEL_ROWS = 14;
+var PLAYER_START_X = 3;
+var PLAYER_START_Y = GROUND_ROW - 1;
+var FLAG_POLE_X = LEVEL_TILES_WIDE - 4;
+var SAFE_START_END_X = 7;
+var SAFE_FINISH_START_X = FLAG_POLE_X - 3;
+function getGuideLabel(range) {
+  return range.min === range.max ? `${range.min}` : `${range.min}-${range.max}`;
+}
+function getTargetCount(range) {
+  return Math.round((range.min + range.max) / 2);
+}
+function inRange(value, range) {
+  return value >= range.min && value <= range.max;
+}
+function normalizePlatformType(type) {
+  return type === "brick" || type === "pipe" || type === "ground" ? type : "ground";
+}
+function resolveLevelType(levelType) {
+  return levelType === "sky" || levelType === "water" || levelType === "ground" ? levelType : "ground";
+}
+function getLayoutGuide(difficulty, levelType = "ground") {
+  let guide;
+  if (difficulty === "Hard") {
+    guide = {
+      pipeCount: { min: 4, max: 4 },
+      brickCount: { min: 8, max: 10 },
+      questionCount: { min: 5, max: 7 },
+      enemyCount: { min: 20, max: 24 },
+      coinCount: { min: 30, max: 38 },
+      gapCount: { min: 4, max: 5 },
+      maxGapWidth: 3,
+      brickRows: { min: 6, max: 9 },
+      questionRows: { min: 7, max: 9 },
+      coinRows: { min: 4, max: 10 },
+      enemyZones: [
+        { label: "Zone 1", start: 8, end: 20, min: 3, max: 4, koopaChance: 0.2, note: "warm-up wave with clear approaches" },
+        { label: "Zone 2", start: 22, end: 34, min: 3, max: 4, koopaChance: 0.25, note: "ramp up with a few close pairs" },
+        { label: "Zone 3", start: 36, end: 48, min: 4, max: 5, koopaChance: 0.3, note: "mid-level gauntlet, the densest section" },
+        { label: "Zone 4", start: 50, end: 62, min: 3, max: 4, koopaChance: 0.35, note: "second wave after a brief breather" },
+        { label: "Zone 5", start: 64, end: 76, min: 3, max: 4, koopaChance: 0.4, note: "late pressure with mixed types" },
+        { label: "Zone 6", start: 78, end: 88, min: 3, max: 4, koopaChance: 0.55, note: "final push before the flag", requireKoopa: true }
+      ]
+    };
+  } else if (difficulty === "Medium") {
+    guide = {
+      pipeCount: { min: 3, max: 3 },
+      brickCount: { min: 6, max: 8 },
+      questionCount: { min: 7, max: 9 },
+      enemyCount: { min: 14, max: 18 },
+      coinCount: { min: 26, max: 34 },
+      gapCount: { min: 3, max: 4 },
+      maxGapWidth: 3,
+      brickRows: { min: 6, max: 9 },
+      questionRows: { min: 7, max: 9 },
+      coinRows: { min: 4, max: 10 },
+      enemyZones: [
+        { label: "Zone 1", start: 8, end: 20, min: 2, max: 2, koopaChance: 0.15, note: "warm-up, readable spacing" },
+        { label: "Zone 2", start: 22, end: 34, min: 2, max: 3, koopaChance: 0.2, note: "light ramp with one intentional pair" },
+        { label: "Zone 3", start: 36, end: 48, min: 3, max: 4, koopaChance: 0.25, note: "mid-level pressure zone" },
+        { label: "Zone 4", start: 50, end: 62, min: 2, max: 3, koopaChance: 0.3, note: "short breather then second wave" },
+        { label: "Zone 5", start: 64, end: 76, min: 2, max: 3, koopaChance: 0.35, note: "late challenge, still fair" },
+        { label: "Zone 6", start: 78, end: 88, min: 2, max: 3, koopaChance: 0.45, note: "final push with at least one koopa", requireKoopa: true }
+      ]
+    };
+  } else {
+    guide = {
+      pipeCount: { min: 2, max: 3 },
+      brickCount: { min: 4, max: 6 },
+      questionCount: { min: 8, max: 10 },
+      enemyCount: { min: 9, max: 12 },
+      coinCount: { min: 22, max: 30 },
+      gapCount: { min: 2, max: 3 },
+      maxGapWidth: 2,
+      brickRows: { min: 6, max: 9 },
+      questionRows: { min: 7, max: 9 },
+      coinRows: { min: 4, max: 10 },
+      enemyZones: [
+        { label: "Zone 1", start: 8, end: 20, min: 1, max: 2, koopaChance: 0.1, note: "gentle opening with wide spacing" },
+        { label: "Zone 2", start: 22, end: 34, min: 1, max: 2, koopaChance: 0.15, note: "small ramp, still forgiving" },
+        { label: "Zone 3", start: 36, end: 48, min: 2, max: 3, koopaChance: 0.2, note: "mid-level challenge, readable groupings" },
+        { label: "Zone 4", start: 50, end: 62, min: 1, max: 2, koopaChance: 0.25, note: "short second wave" },
+        { label: "Zone 5", start: 64, end: 76, min: 2, max: 2, koopaChance: 0.3, note: "late challenge without crowding" },
+        { label: "Zone 6", start: 78, end: 88, min: 1, max: 2, koopaChance: 0.35, note: "easy final push before the flag" }
+      ]
+    };
+  }
+  if (levelType === "sky") {
+    return __spreadProps(__spreadValues({}, guide), {
+      pipeCount: { min: 0, max: 0 },
+      brickCount: { min: guide.brickCount.min + 2, max: guide.brickCount.max + 3 },
+      questionCount: { min: guide.questionCount.min + 1, max: guide.questionCount.max + 1 },
+      coinCount: { min: guide.coinCount.min + 4, max: guide.coinCount.max + 6 },
+      gapCount: { min: Math.max(guide.gapCount.min, 3), max: guide.gapCount.max + 1 },
+      brickRows: { min: 4, max: 7 },
+      questionRows: { min: 5, max: 8 },
+      coinRows: { min: 2, max: 8 },
+      enemyZones: guide.enemyZones.map((zone) => __spreadProps(__spreadValues({}, zone), { note: `${zone.note}; emphasize elevated jumps between platforms` }))
+    });
+  }
+  if (levelType === "water") {
+    return __spreadProps(__spreadValues({}, guide), {
+      pipeCount: { min: 0, max: 0 },
+      brickCount: { min: guide.brickCount.min + 1, max: guide.brickCount.max + 2 },
+      questionCount: { min: guide.questionCount.min, max: guide.questionCount.max + 1 },
+      coinCount: { min: guide.coinCount.min + 2, max: guide.coinCount.max + 4 },
+      gapCount: { min: 0, max: 0 },
+      maxGapWidth: 0,
+      brickRows: { min: 7, max: 10 },
+      questionRows: { min: 6, max: 9 },
+      coinRows: { min: 5, max: 10 },
+      enemyZones: guide.enemyZones.map((zone) => __spreadProps(__spreadValues({}, zone), { note: `${zone.note}; leave more open water to swim through` }))
+    });
+  }
+  return guide;
+}
+function getLevelTypePrompt(levelType) {
+  if (levelType === "sky") {
+    return "Sky stage: floating platforms, airy jumps, sparse ground, and lots of vertical coin trails. Keep the route readable and fun to hop across.";
+  }
+  if (levelType === "water") {
+    return "Water stage: underwater course with a swimmable route, continuous seabed, low-to-mid platforms, and dense coin trails that reward exploration. Avoid giant pits and keep room to swim.";
+  }
+  return "Ground stage: classic Mario overworld with solid footing, staged gaps, and a balanced mix of ground hazards and platforming.";
+}
 function assignRewards(count) {
   const rewards = [];
   for (let i = 0; i < count; i++) {
@@ -41416,6 +41631,13 @@ function shuffleKeywords(pool) {
   }
   return arr;
 }
+function markCoveredTiles(tiles, startX, width) {
+  const from2 = Math.max(0, Math.floor(startX));
+  const to = Math.min(tiles.length, Math.ceil(startX + Math.max(1, width)));
+  for (let tx = from2; tx < to; tx++) {
+    tiles[tx] = true;
+  }
+}
 function parseLevelFromAI(raw) {
   try {
     const jsonMatch = raw.match(/\{[\s\S]*\}/);
@@ -41429,12 +41651,179 @@ function parseLevelFromAI(raw) {
     return null;
   }
 }
+function validateAILevelData(data, config3) {
+  const levelType = resolveLevelType(data.levelType ?? config3.levelType);
+  const guide = getLayoutGuide(config3.difficulty, levelType);
+  const issues = [];
+  const platforms = data.platforms ?? [];
+  const questionBlocks = data.questionBlocks ?? [];
+  const enemies = data.enemies ?? [];
+  const coins = data.coins ?? [];
+  const groundTiles = new Array(LEVEL_TILES_WIDE).fill(false);
+  const pipeTiles = new Array(LEVEL_TILES_WIDE).fill(false);
+  const enemyKeywords = /* @__PURE__ */ new Set();
+  const zoneCounts = guide.enemyZones.map(() => 0);
+  const requiredKoopas = guide.enemyZones.map(() => 0);
+  let pipeCount = 0;
+  let brickCount = 0;
+  if (data.levelType && data.levelType !== levelType) {
+    issues.push(`levelType must be "${levelType}".`);
+  }
+  for (const p of platforms) {
+    const width = Math.max(1, Math.floor(p.width || 1));
+    const type = normalizePlatformType(p.type);
+    if (!Number.isFinite(p.x) || !Number.isFinite(p.y) || !Number.isFinite(width)) {
+      issues.push("Every platform must have finite x, y, and width values.");
+      continue;
+    }
+    if (p.x < 0 || p.y < 0 || p.y >= LEVEL_ROWS || p.x + width > LEVEL_TILES_WIDE) {
+      issues.push(`Platform ${type} at (${p.x}, ${p.y}) is out of bounds.`);
+    }
+    if (type === "ground" && p.y === GROUND_ROW) {
+      markCoveredTiles(groundTiles, p.x, width);
+    }
+    if (type === "pipe") {
+      pipeCount++;
+      markCoveredTiles(pipeTiles, p.x, width);
+      if (p.x <= SAFE_START_END_X || p.x >= SAFE_FINISH_START_X) {
+        issues.push(`Pipe at x=${p.x} is inside a protected start/finish zone.`);
+      }
+    }
+    if (type === "brick") {
+      brickCount++;
+      if (!p.label) {
+        issues.push(`Brick platform at (${p.x}, ${p.y}) is missing a label.`);
+      }
+      if (!inRange(p.y, guide.brickRows)) {
+        issues.push(`Brick platform at y=${p.y} is outside the allowed brick rows.`);
+      }
+    }
+  }
+  for (let tx = 0; tx <= SAFE_START_END_X; tx++) {
+    if (!groundTiles[tx]) {
+      issues.push("The start zone must be flat ground with no gaps.");
+      break;
+    }
+  }
+  for (let tx = SAFE_FINISH_START_X; tx < FLAG_POLE_X; tx++) {
+    if (!groundTiles[tx]) {
+      issues.push("The finish approach must stay flat with no gaps.");
+      break;
+    }
+  }
+  let gapCount = 0;
+  let gapStart = -1;
+  for (let tx = SAFE_START_END_X + 1; tx < SAFE_FINISH_START_X; tx++) {
+    if (!groundTiles[tx]) {
+      if (gapStart === -1)
+        gapStart = tx;
+      continue;
+    }
+    if (gapStart !== -1) {
+      gapCount++;
+      if (tx - gapStart > guide.maxGapWidth) {
+        issues.push(`Gap from x=${gapStart} to x=${tx - 1} is too wide for ${config3.difficulty}.`);
+      }
+      gapStart = -1;
+    }
+  }
+  if (gapStart !== -1) {
+    gapCount++;
+    if (SAFE_FINISH_START_X - gapStart > guide.maxGapWidth) {
+      issues.push(`Gap from x=${gapStart} to x=${SAFE_FINISH_START_X - 1} is too wide for ${config3.difficulty}.`);
+    }
+  }
+  if (!inRange(pipeCount, guide.pipeCount)) {
+    issues.push(`Pipe count ${pipeCount} is outside the ${config3.difficulty} range ${getGuideLabel(guide.pipeCount)}.`);
+  }
+  if (!inRange(brickCount, guide.brickCount)) {
+    issues.push(`Brick count ${brickCount} is outside the ${config3.difficulty} range ${getGuideLabel(guide.brickCount)}.`);
+  }
+  if (!inRange(questionBlocks.length, guide.questionCount)) {
+    issues.push(`Question block count ${questionBlocks.length} is outside the ${config3.difficulty} range ${getGuideLabel(guide.questionCount)}.`);
+  }
+  if (!inRange(enemies.length, guide.enemyCount)) {
+    issues.push(`Enemy count ${enemies.length} is outside the ${config3.difficulty} range ${getGuideLabel(guide.enemyCount)}.`);
+  }
+  if (!inRange(coins.length, guide.coinCount)) {
+    issues.push(`Coin count ${coins.length} is outside the ${config3.difficulty} range ${getGuideLabel(guide.coinCount)}.`);
+  }
+  if (!inRange(gapCount, guide.gapCount)) {
+    issues.push(`Gap count ${gapCount} is outside the ${config3.difficulty} range ${getGuideLabel(guide.gapCount)}.`);
+  }
+  questionBlocks.forEach((qb) => {
+    if (qb.x < 0 || qb.x >= LEVEL_TILES_WIDE || qb.y < 0 || qb.y >= LEVEL_ROWS) {
+      issues.push(`Question block at (${qb.x}, ${qb.y}) is out of bounds.`);
+    }
+    if (!qb.keyword) {
+      issues.push(`Question block at (${qb.x}, ${qb.y}) is missing a keyword.`);
+    }
+    if (!inRange(qb.y, guide.questionRows)) {
+      issues.push(`Question block at y=${qb.y} is outside the allowed rows.`);
+    }
+  });
+  coins.forEach((coin) => {
+    if (coin.x < 0 || coin.x >= LEVEL_TILES_WIDE || coin.y < 0 || coin.y >= LEVEL_ROWS) {
+      issues.push(`Coin at (${coin.x}, ${coin.y}) is out of bounds.`);
+    }
+    if (!inRange(coin.y, guide.coinRows)) {
+      issues.push(`Coin at y=${coin.y} is outside the allowed rows.`);
+    }
+  });
+  enemies.forEach((enemy) => {
+    if (enemy.x < 0 || enemy.x >= LEVEL_TILES_WIDE || enemy.y < 0 || enemy.y >= LEVEL_ROWS) {
+      issues.push(`Enemy at (${enemy.x}, ${enemy.y}) is out of bounds.`);
+      return;
+    }
+    if (enemy.y !== GROUND_ROW - 1) {
+      issues.push(`Enemy at x=${enemy.x} must be placed at y=${GROUND_ROW - 1}.`);
+    }
+    if (enemy.x <= SAFE_START_END_X || enemy.x >= SAFE_FINISH_START_X) {
+      issues.push(`Enemy at x=${enemy.x} is inside a protected start/finish zone.`);
+    }
+    if (!groundTiles[Math.floor(enemy.x)]) {
+      issues.push(`Enemy at x=${enemy.x} is not standing on ground.`);
+    }
+    if (pipeTiles[Math.floor(enemy.x)]) {
+      issues.push(`Enemy at x=${enemy.x} overlaps a pipe footprint.`);
+    }
+    if (!enemy.keyword) {
+      issues.push(`Enemy at x=${enemy.x} is missing a keyword.`);
+    } else if (enemyKeywords.has(enemy.keyword)) {
+      issues.push(`Enemy keyword "${enemy.keyword}" must be unique.`);
+    } else {
+      enemyKeywords.add(enemy.keyword);
+    }
+    const zoneIndex = guide.enemyZones.findIndex((zone) => enemy.x >= zone.start && enemy.x <= zone.end);
+    if (zoneIndex === -1) {
+      issues.push(`Enemy at x=${enemy.x} is outside the allowed enemy zones.`);
+      return;
+    }
+    zoneCounts[zoneIndex]++;
+    if (guide.enemyZones[zoneIndex].requireKoopa && enemy.type === "koopa") {
+      requiredKoopas[zoneIndex]++;
+    }
+  });
+  guide.enemyZones.forEach((zone, index) => {
+    if (!inRange(zoneCounts[index], { min: zone.min, max: zone.max })) {
+      issues.push(`${zone.label} enemy count ${zoneCounts[index]} is outside the expected ${zone.min}-${zone.max}.`);
+    }
+    if (zone.requireKoopa && requiredKoopas[index] === 0) {
+      issues.push(`${zone.label} requires at least one koopa.`);
+    }
+  });
+  if (data.flagPole?.x !== void 0 && data.flagPole.x !== FLAG_POLE_X) {
+    issues.push(`Flag pole must be placed at x=${FLAG_POLE_X}.`);
+  }
+  return { valid: issues.length === 0, issues };
+}
 function buildLevelFromData(data, config3) {
   const platforms = [];
   const enemies = [];
   const coins = [];
   const questionBlocks = [];
   const category = config3.category || "backend";
+  const levelType = resolveLevelType(data.levelType ?? config3.levelType);
   const fallbackKw = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS["backend"]);
   const fallbackBug = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS["backend"]);
   let kwIdx = 0;
@@ -41443,7 +41832,7 @@ function buildLevelFromData(data, config3) {
   const levelH = LEVEL_ROWS * TILE;
   if (data.platforms) {
     for (const p of data.platforms) {
-      const type = p.type === "brick" || p.type === "pipe" || p.type === "ground" ? p.type : "ground";
+      const type = normalizePlatformType(p.type);
       const plat = new Platform(p.x * TILE, p.y * TILE, (p.width || 1) * TILE, TILE * (type === "ground" ? 2 : 1), type);
       if (type === "brick") {
         plat.label = p.label || fallbackKw[kwIdx++ % fallbackKw.length];
@@ -41476,9 +41865,9 @@ function buildLevelFromData(data, config3) {
       coins.push(new Coin(c.x * TILE, c.y * TILE));
     }
   }
-  const flagX = data.flagPole?.x ? data.flagPole.x * TILE : (LEVEL_TILES_WIDE - 4) * TILE;
+  const flagX = data.flagPole?.x ? data.flagPole.x * TILE : FLAG_POLE_X * TILE;
   const flagPole = new FlagPole(flagX, 3 * TILE, (GROUND_ROW - 3) * TILE);
-  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
 }
 function generateProceduralLevel(config3) {
   const platforms = [];
@@ -41486,6 +41875,8 @@ function generateProceduralLevel(config3) {
   const coins = [];
   const questionBlocks = [];
   const category = config3.category || "backend";
+  const levelType = resolveLevelType(config3.levelType);
+  const guide = getLayoutGuide(config3.difficulty, levelType);
   const keywords = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS["backend"]);
   const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS["backend"]);
   let kwIdx = 0;
@@ -41493,27 +41884,33 @@ function generateProceduralLevel(config3) {
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
   const gY = GROUND_ROW * TILE;
-  const gapChance = config3.difficulty === "Hard" ? 0.12 : config3.difficulty === "Medium" ? 0.07 : 0.04;
+  const targetGapCount = getTargetCount(guide.gapCount);
+  const plannedGaps = [];
+  const gapStartMin = SAFE_START_END_X + 5;
+  const gapStartMax = SAFE_FINISH_START_X - 6;
+  const gapSpacing = Math.floor((gapStartMax - gapStartMin) / Math.max(1, targetGapCount));
+  for (let i = 0; i < targetGapCount; i++) {
+    const width = guide.maxGapWidth > 2 && Math.random() < 0.35 ? 3 : 2;
+    const jitter = Math.floor(Math.random() * 3) - 1;
+    const rawStart = gapStartMin + i * gapSpacing + jitter;
+    const previousGap = plannedGaps[plannedGaps.length - 1];
+    const minStart = previousGap ? previousGap.start + previousGap.width + 6 : gapStartMin;
+    const start = Math.min(Math.max(rawStart, minStart), gapStartMax - width);
+    plannedGaps.push({ start, width });
+  }
   let groundStart = 0;
-  for (let tx = 0; tx < LEVEL_TILES_WIDE; tx++) {
-    const isEnd = tx >= LEVEL_TILES_WIDE - 6;
-    const isStart = tx < 6;
-    const makeGap = !isStart && !isEnd && Math.random() < gapChance;
-    if (makeGap) {
-      if (tx > groundStart) {
-        platforms.push(new Platform(groundStart * TILE, gY, (tx - groundStart) * TILE, 2 * TILE, "ground"));
-      }
-      const gapW = Math.random() < 0.3 ? 3 : 2;
-      tx += gapW;
-      groundStart = tx;
+  for (const gap of plannedGaps) {
+    if (gap.start > groundStart) {
+      platforms.push(new Platform(groundStart * TILE, gY, (gap.start - groundStart) * TILE, 2 * TILE, "ground"));
     }
+    groundStart = gap.start + gap.width;
   }
   if (groundStart < LEVEL_TILES_WIDE) {
     platforms.push(new Platform(groundStart * TILE, gY, (LEVEL_TILES_WIDE - groundStart) * TILE, 2 * TILE, "ground"));
   }
-  const pipeCount = config3.difficulty === "Hard" ? 3 : 2;
+  const pipeCount = getTargetCount(guide.pipeCount);
   const pipePositions = [];
-  const pipeSpacing = Math.floor((LEVEL_TILES_WIDE - 24) / (pipeCount + 1));
+  const pipeSpacing = Math.floor((LEVEL_TILES_WIDE - 26) / (pipeCount + 1));
   for (let i = 0; i < pipeCount; i++) {
     const px = 12 + pipeSpacing * (i + 1);
     const ph = 2 * TILE;
@@ -41521,7 +41918,7 @@ function generateProceduralLevel(config3) {
     pipePositions.push(px);
   }
   const isNearPipe = (tx) => pipePositions.some((px) => tx >= px - 2 && tx <= px + 3);
-  const brickCount = config3.difficulty === "Hard" ? 8 : config3.difficulty === "Medium" ? 6 : 4;
+  const brickCount = getTargetCount(guide.brickCount);
   for (let i = 0; i < brickCount; i++) {
     let bx;
     let attempts = 0;
@@ -41529,48 +41926,50 @@ function generateProceduralLevel(config3) {
       bx = 8 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 16));
       attempts++;
     } while (isNearPipe(bx) && attempts < 20);
-    const by = 7 + Math.floor(Math.random() * 3);
+    const by = guide.brickRows.min + Math.floor(Math.random() * (guide.brickRows.max - guide.brickRows.min + 1));
     const bw = 2 + Math.floor(Math.random() * 3);
     const brick = new Platform(bx * TILE, by * TILE, bw * TILE, TILE, "brick");
     brick.label = keywords[kwIdx % keywords.length];
     kwIdx++;
     platforms.push(brick);
   }
-  const qCount = config3.difficulty === "Hard" ? 5 : config3.difficulty === "Medium" ? 7 : 9;
-  const spacing = Math.floor((LEVEL_TILES_WIDE - 12) / (qCount + 1));
+  if (levelType === "sky" || levelType === "water") {
+    const accentCount = levelType === "sky" ? 4 : 2;
+    for (let i = 0; i < accentCount; i++) {
+      const span = Math.floor((SAFE_FINISH_START_X - 16) / (accentCount + 1));
+      const bx = 12 + span * (i + 1) + Math.floor(Math.random() * 3 - 1);
+      const by = levelType === "sky" ? Math.max(3, guide.brickRows.min - 1 + i % 3) : Math.min(GROUND_ROW - 1, guide.brickRows.max - i % 2);
+      const bw = levelType === "sky" ? 4 * TILE : 3 * TILE;
+      const accentPlatform = new Platform(bx * TILE, by * TILE, bw, TILE, "brick");
+      accentPlatform.label = keywords[kwIdx % keywords.length];
+      kwIdx++;
+      platforms.push(accentPlatform);
+    }
+  }
+  const qCount = getTargetCount(guide.questionCount);
+  const spacing = Math.floor((LEVEL_TILES_WIDE - 14) / (qCount + 1));
   const rewards = assignRewards(qCount);
   for (let i = 0; i < qCount; i++) {
     let qx = 6 + spacing * (i + 1) + Math.floor(Math.random() * 3 - 1);
     if (isNearPipe(qx))
       qx += 4;
-    const qy = 8 + Math.floor(Math.random() * 2);
+    const qy = guide.questionRows.min + Math.floor(Math.random() * (guide.questionRows.max - guide.questionRows.min + 1));
     const qb = new QuestionBlock(qx * TILE, qy * TILE, rewards[i]);
     qb.keyword = keywords[kwIdx % keywords.length];
     kwIdx++;
     questionBlocks.push(qb);
   }
-  const zones = config3.difficulty === "Hard" ? [
-    { start: 8, end: 20, count: 3, koopaChance: 0.2 },
-    { start: 20, end: 35, count: 5, koopaChance: 0.3 },
-    { start: 35, end: 50, count: 5, koopaChance: 0.35 },
-    { start: 50, end: 62, count: 4, koopaChance: 0.3 },
-    { start: 62, end: 72, count: 3, koopaChance: 0.5 }
-  ] : config3.difficulty === "Medium" ? [
-    { start: 8, end: 20, count: 2, koopaChance: 0.15 },
-    { start: 20, end: 35, count: 3, koopaChance: 0.25 },
-    { start: 35, end: 50, count: 4, koopaChance: 0.3 },
-    { start: 50, end: 62, count: 3, koopaChance: 0.3 },
-    { start: 62, end: 72, count: 2, koopaChance: 0.5 }
-  ] : [
-    { start: 8, end: 20, count: 1, koopaChance: 0.1 },
-    { start: 20, end: 35, count: 2, koopaChance: 0.2 },
-    { start: 35, end: 50, count: 3, koopaChance: 0.25 },
-    { start: 50, end: 62, count: 2, koopaChance: 0.25 },
-    { start: 62, end: 72, count: 1, koopaChance: 0.4 }
-  ];
-  for (const zone of zones) {
+  const zones = guide.enemyZones.map((zone) => ({
+    start: zone.start,
+    end: zone.end,
+    count: getTargetCount({ min: zone.min, max: zone.max }),
+    koopaChance: zone.koopaChance,
+    requireKoopa: zone.requireKoopa === true
+  }));
+  zones.forEach((zone, zoneIndex) => {
     const zoneWidth = zone.end - zone.start;
     const step = Math.max(3, Math.floor(zoneWidth / (zone.count + 1)));
+    let koopaPlaced = false;
     for (let i = 0; i < zone.count; i++) {
       let ex = zone.start + step * (i + 1) + Math.floor(Math.random() * 2 - 1);
       ex = Math.max(zone.start, Math.min(zone.end - 1, ex));
@@ -41578,14 +41977,16 @@ function generateProceduralLevel(config3) {
         ex += 3;
       if (ex > zone.end)
         ex = zone.end - 2;
-      const type = Math.random() < zone.koopaChance ? "koopa" : "goomba";
+      const mustUseKoopa = zone.requireKoopa && !koopaPlaced && i === zone.count - 1;
+      const type = mustUseKoopa || Math.random() < zone.koopaChance ? "koopa" : "goomba";
       const enemy = new Enemy(ex * TILE, (GROUND_ROW - 1) * TILE, type);
       enemy.keyword = bugKw[bugIdx % bugKw.length];
       bugIdx++;
       enemies.push(enemy);
+      koopaPlaced = koopaPlaced || type === "koopa";
     }
-  }
-  const coinCount = config3.difficulty === "Hard" ? 30 : config3.difficulty === "Medium" ? 25 : 18;
+  });
+  const coinCount = getTargetCount(guide.coinCount);
   for (let i = 0; i < coinCount; i++) {
     let cx;
     let attempts = 0;
@@ -41593,14 +41994,14 @@ function generateProceduralLevel(config3) {
       cx = 5 + Math.floor(Math.random() * (LEVEL_TILES_WIDE - 10));
       attempts++;
     } while (isNearPipe(cx) && attempts < 15);
-    const cy = 5 + Math.floor(Math.random() * 6);
+    const cy = guide.coinRows.min + Math.floor(Math.random() * (guide.coinRows.max - guide.coinRows.min + 1));
     coins.push(new Coin(cx * TILE + TILE * 0.25, cy * TILE + TILE * 0.25));
   }
-  const flagPole = new FlagPole((LEVEL_TILES_WIDE - 4) * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
-  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category };
+  const flagPole = new FlagPole(FLAG_POLE_X * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
 }
 function createPlayer() {
-  return new Player(3 * TILE, (GROUND_ROW - 1) * TILE - TILE);
+  return new Player(PLAYER_START_X * TILE, PLAYER_START_Y * TILE - TILE);
 }
 var CATEGORY_DESCRIPTIONS = {
   backend: {
@@ -41634,51 +42035,69 @@ var CATEGORY_DESCRIPTIONS = {
     bugExamples: "Scope Creep, Bikeshed, Silo, Bus Factor, Gold Plate, YAGNI, Cargo Cult, Burnout, Hero Code, Tunnel Vision"
   }
 };
-function getLevelGenerationPrompt(category, difficulty) {
+function getLevelGenerationPrompt(category, difficulty, requestedLevelType = "ground") {
   const cat = CATEGORY_DESCRIPTIONS[category] ?? CATEGORY_DESCRIPTIONS["backend"];
-  const enemyCount = difficulty === "Hard" ? "18-22" : difficulty === "Medium" ? "12-15" : "8-10";
-  const qCount = difficulty === "Hard" ? "4-6" : difficulty === "Medium" ? "6-8" : "8-10";
-  const gapGuide = difficulty === "Hard" ? "3-4 gaps (2-3 tiles wide)" : difficulty === "Medium" ? "2-3 gaps (2 tiles wide)" : "1-2 small gaps";
-  const brickGuide = difficulty === "Hard" ? "6-8" : difficulty === "Medium" ? "4-6" : "3-5";
-  const pipeGuide = difficulty === "Hard" ? "3-4" : difficulty === "Medium" ? "2-3" : "1-2";
+  const levelType = resolveLevelType(requestedLevelType);
+  const guide = getLayoutGuide(difficulty, levelType);
+  const coursePrompt = getLevelTypePrompt(levelType);
+  const zoneGuide = guide.enemyZones.map((zone) => `   - ${zone.label} (x=${zone.start}-${zone.end}): ${zone.note}; ${zone.min}-${zone.max} enemies${zone.requireKoopa ? "; at least 1 koopa" : ""}`).join("\n");
   return `You are a game level designer building a Mario-style platformer level for a "${cat.domain}" themed world at "${difficulty}" difficulty.
 
-GRID: 80 tiles wide \xD7 14 tiles tall. Row 0 = top, row 12 = ground surface. Player starts at (3, 11). Flag pole at x=76.
+Your output will be checked by a strict validator. Generate a level that is fun, playable, and already satisfies the validation rules.
+
+COURSE STYLE: "${levelType}"
+${coursePrompt}
+
+LAYOUT BLUEPRINT TO FOLLOW:
+{
+  "levelType": "${levelType}",
+  "grid": { "width": ${LEVEL_TILES_WIDE}, "height": ${LEVEL_ROWS}, "groundRow": ${GROUND_ROW}, "playerStart": { "x": ${PLAYER_START_X}, "y": ${PLAYER_START_Y} }, "flagPole": { "x": ${FLAG_POLE_X} } },
+  "safeZones": {
+    "start": { "xRange": [0, ${SAFE_START_END_X}], "rules": ["flat ground", "no enemies", "no pipes", "no gaps"] },
+    "finish": { "xRange": [${SAFE_FINISH_START_X}, ${LEVEL_TILES_WIDE - 1}], "rules": ["flat ground", "no gaps", "no enemies after x=${SAFE_FINISH_START_X - 1}"] }
+  },
+  "difficultyTargets": {
+    "gaps": "${getGuideLabel(guide.gapCount)} gaps, max width ${guide.maxGapWidth} tiles",
+    "pipes": "${getGuideLabel(guide.pipeCount)} pipes, each 2 tiles wide",
+    "brickPlatforms": "${getGuideLabel(guide.brickCount)} rows at y=${guide.brickRows.min}-${guide.brickRows.max}",
+    "questionBlocks": "${getGuideLabel(guide.questionCount)} blocks at y=${guide.questionRows.min}-${guide.questionRows.max}",
+    "enemies": "${getGuideLabel(guide.enemyCount)} total enemies at y=${GROUND_ROW - 1}",
+    "coins": "${getGuideLabel(guide.coinCount)} coins at y=${guide.coinRows.min}-${guide.coinRows.max}"
+  }
+}
 
 PLACE THESE ELEMENTS (all x/y in tile units):
 
-1. GROUND PLATFORMS (type "ground"): continuous segments at y=12 with ${gapGuide}. Cover most of the 80-tile width.
+1. GROUND PLATFORMS (type "ground"): continuous segments at y=${GROUND_ROW} with ${getGuideLabel(guide.gapCount)} playable gaps. Cover most of the ${LEVEL_TILES_WIDE}-tile width. Never put a gap in the start or finish safe zones.
 
-2. PIPES (type "pipe"): ${pipeGuide} pipes, each 2 tiles wide, placed on the ground. Spread them evenly.
+2. PIPES (type "pipe"): ${getGuideLabel(guide.pipeCount)} pipes, each 2 tiles wide, placed on the ground and spread across the middle of the level.
 
-3. BRICK PLATFORMS (type "brick"): ${brickGuide} floating brick rows at y=6-9, each 2-4 tiles wide.
+3. BRICK PLATFORMS (type "brick"): ${getGuideLabel(guide.brickCount)} floating brick rows at y=${guide.brickRows.min}-${guide.brickRows.max}, each 2-4 tiles wide.
    Each brick gets a "label" \u2014 a short ${cat.domain.split("\u2014")[0].trim()} concept (1-2 words max).
    Examples: ${cat.techExamples}
 
-4. QUESTION BLOCKS: ${qCount} blocks at y=7-9 (hittable from below).
+4. QUESTION BLOCKS: ${getGuideLabel(guide.questionCount)} blocks at y=${guide.questionRows.min}-${guide.questionRows.max} (hittable from below).
    Each gets a "keyword" \u2014 a key concept the player "unlocks".
    Each gets a "reward": "coin", "mushroom", or "star" (mostly mushroom and coin, 1-2 stars max).
    Examples: ${cat.techExamples}
 
-5. ENEMIES: ${enemyCount} enemies at y=11 (on ground). Type "goomba" (70%) or "koopa" (30%).
-   CRITICAL \u2014 distribute enemies in STAGES across the level like real Mario:
-   - Zone 1 (x=8\u201320):  light warm-up, 1-2 enemies spaced 4+ tiles apart
-   - Zone 2 (x=20\u201335): ramp up, 2-4 enemies, mix goomba + koopa, some in pairs (2 tiles apart)
-   - Zone 3 (x=35\u201350): mid-level gauntlet, densest zone, 3-5 enemies, some in tight groups of 2-3
-   - Zone 4 (x=50\u201362): second wave after a breather, 2-4 enemies
-   - Zone 5 (x=62\u201372): final push before the flag, 2-3 enemies including at least 1 koopa
-   Within each zone, space enemies at least 3 tiles apart (except intentional pairs).
+5. ENEMIES: ${getGuideLabel(guide.enemyCount)} enemies at y=${GROUND_ROW - 1} (on ground). Type "goomba" or "koopa".
+   CRITICAL \u2014 distribute enemies in staged zones like a real Mario level:
+${zoneGuide}
+   Within each zone, space enemies at least 3 tiles apart except for intentional 2-enemy pairs.
    Never put more than 3 enemies within a 6-tile span.
+   Keep the breather tiles between zones comparatively light.
    Each enemy gets a "keyword" \u2014 a bug/anti-pattern that the player "squashes" by stomping it.
    Make these realistic ${cat.domain.split("\u2014")[0].trim()} bugs. Examples: ${cat.bugExamples}
    Every enemy MUST have a unique keyword.
 
-6. COINS: 20-35 coins at y=4-10. Scatter across the level.
+6. COINS: ${getGuideLabel(guide.coinCount)} coins at y=${guide.coinRows.min}-${guide.coinRows.max}. Scatter them across the full route.
 
-7. FLAG POLE: {"x": 76}
+7. FLAG POLE: {"x": ${FLAG_POLE_X}}
 
 Return ONLY valid JSON, no explanation. Exact format:
 {
+  "levelType": "${levelType}",
   "platforms": [
     {"x": 0, "y": 12, "width": 10, "type": "ground"},
     {"x": 20, "y": 7, "width": 3, "type": "brick", "label": "Rate Limit"}
@@ -41691,17 +42110,20 @@ Return ONLY valid JSON, no explanation. Exact format:
     {"x": 25, "y": 11, "type": "koopa", "keyword": "Deadlock"}
   ],
   "coins": [{"x": 12, "y": 6}],
-  "flagPole": {"x": 76}
+  "flagPole": {"x": ${FLAG_POLE_X}}
 }
 
-RULES:
+SELF-CHECK BEFORE RESPONDING (do not output this checklist):
+- levelType must be exactly "${levelType}"
 - All coordinates in TILE units (not pixels)
-- Ground at y=12. Enemies at y=11. No enemies in gaps or on pipes.
-- No impossible jumps (max gap = 3 tiles)
-- Enemies MUST follow the 5-zone staged layout described above \u2014 NO clustering all enemies together
-- Between zones, leave breathing room (at least 3-4 tiles with no enemies)
-- Every enemy, brick, and question block MUST have its keyword/label field
-- Keywords should be real ${cat.domain.split("\u2014")[0].trim()} terminology, not generic`;
+- Ground at y=${GROUND_ROW}. Enemies at y=${GROUND_ROW - 1}. No enemies in gaps or on pipes.
+- No impossible jumps (max gap = ${guide.maxGapWidth} tiles)
+- Start zone x=0-${SAFE_START_END_X} must stay safe and flat.
+- Finish zone x=${SAFE_FINISH_START_X}-${LEVEL_TILES_WIDE - 1} must stay safe and flat.
+- Enemy totals and per-zone counts must match the difficulty blueprint above.
+- Every enemy, brick, and question block must include its keyword/label field.
+- Keywords should be real ${cat.domain.split("\u2014")[0].trim()} terminology, not generic.
+- If any rule fails, fix the layout before emitting the final JSON.`;
 }
 
 // src/app/profile/ai-quiz-game/game/mario-audio.ts
@@ -41853,6 +42275,7 @@ var MarioEngine = class {
     this.keywordIndex = 0;
     this.bugKeywordIndex = 0;
     this.renderer.setCategory(level.category);
+    this.renderer.setLevelType(level.levelType);
   }
   start() {
     if (!this.level)
@@ -42044,19 +42467,19 @@ var _forTrack04 = ($index, $item) => $item.value;
 function AiQuizGameComponent_Conditional_2_For_14_Template(rf, ctx2) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 21);
+    \u0275\u0275elementStart(0, "button", 22);
     \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_14_Template_button_click_0_listener() {
       const cat_r3 = \u0275\u0275restoreView(_r2).$implicit;
       const ctx_r3 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r3.selectedCategory = cat_r3.value);
     });
-    \u0275\u0275elementStart(1, "span", 22);
+    \u0275\u0275elementStart(1, "span", 23);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 23);
+    \u0275\u0275elementStart(3, "span", 24);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 24);
+    \u0275\u0275elementStart(5, "span", 25);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
   }
@@ -42075,16 +42498,16 @@ function AiQuizGameComponent_Conditional_2_For_14_Template(rf, ctx2) {
 function AiQuizGameComponent_Conditional_2_For_20_Template(rf, ctx2) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 25);
+    \u0275\u0275elementStart(0, "button", 26);
     \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_20_Template_button_click_0_listener() {
       const d_r6 = \u0275\u0275restoreView(_r5).$implicit;
       const ctx_r3 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r3.selectedDifficulty = d_r6.value);
     });
-    \u0275\u0275elementStart(1, "span", 26);
+    \u0275\u0275elementStart(1, "span", 27);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 27);
+    \u0275\u0275elementStart(3, "span", 28);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()();
   }
@@ -42097,6 +42520,37 @@ function AiQuizGameComponent_Conditional_2_For_20_Template(rf, ctx2) {
     \u0275\u0275textInterpolate(d_r6.label);
     \u0275\u0275advance(2);
     \u0275\u0275textInterpolate(d_r6.description);
+  }
+}
+function AiQuizGameComponent_Conditional_2_For_26_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 22);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_26_Template_button_click_0_listener() {
+      const type_r8 = \u0275\u0275restoreView(_r7).$implicit;
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.selectedLevelType = type_r8.value);
+    });
+    \u0275\u0275elementStart(1, "span", 23);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 24);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 25);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const type_r8 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275classProp("option-btn--active", ctx_r3.selectedLevelType === type_r8.value);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r8.icon);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r8.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r8.description);
   }
 }
 function AiQuizGameComponent_Conditional_2_Template(rf, ctx2) {
@@ -42123,17 +42577,23 @@ function AiQuizGameComponent_Conditional_2_Template(rf, ctx2) {
     \u0275\u0275elementStart(18, "div", 16);
     \u0275\u0275repeaterCreate(19, AiQuizGameComponent_Conditional_2_For_20_Template, 5, 5, "button", 17, _forTrack04);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(21, "button", 18);
-    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_Template_button_click_21_listener() {
+    \u0275\u0275elementStart(21, "div", 12)(22, "h3", 13);
+    \u0275\u0275text(23, "Course Style");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(24, "div", 18);
+    \u0275\u0275repeaterCreate(25, AiQuizGameComponent_Conditional_2_For_26_Template, 7, 5, "button", 15, _forTrack04);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(27, "button", 19);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_Template_button_click_27_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.startGame());
     });
-    \u0275\u0275element(22, "i", 19);
-    \u0275\u0275text(23, " Start Mission ");
+    \u0275\u0275element(28, "i", 20);
+    \u0275\u0275text(29, " Start Mission ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "div", 20)(25, "span");
-    \u0275\u0275text(26, "Arrow keys / WASD to move\u2002\xB7\u2002Space / Up to jump\u2002\xB7\u2002X / Z / Shift to throw fireballs (fire mode)");
+    \u0275\u0275elementStart(30, "div", 21)(31, "span");
+    \u0275\u0275text(32, "Arrow keys / WASD to move\u2002\xB7\u2002Space / Up to jump or swim stroke\u2002\xB7\u2002X / Z / Shift to throw fireballs (fire mode)");
     \u0275\u0275elementEnd()()()();
   }
   if (rf & 2) {
@@ -42142,11 +42602,13 @@ function AiQuizGameComponent_Conditional_2_Template(rf, ctx2) {
     \u0275\u0275repeater(ctx_r3.categories);
     \u0275\u0275advance(6);
     \u0275\u0275repeater(ctx_r3.difficulties);
+    \u0275\u0275advance(6);
+    \u0275\u0275repeater(ctx_r3.levelTypes);
   }
 }
 function AiQuizGameComponent_Conditional_3_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 3)(1, "div", 28)(2, "div", 29);
+    \u0275\u0275elementStart(0, "div", 3)(1, "div", 29)(2, "div", 30);
     \u0275\u0275text(3, "\u{1F344}");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(4, "h3");
@@ -42155,116 +42617,119 @@ function AiQuizGameComponent_Conditional_3_Template(rf, ctx2) {
     \u0275\u0275elementStart(6, "p");
     \u0275\u0275text(7, "AI is building the world \u2014 platforms, enemies, and power-ups");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 30);
-    \u0275\u0275element(9, "div", 31);
+    \u0275\u0275elementStart(8, "div", 31);
+    \u0275\u0275element(9, "div", 32);
     \u0275\u0275elementEnd()()();
   }
 }
 function AiQuizGameComponent_Conditional_4_Template(rf, ctx2) {
   if (rf & 1) {
-    const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 4)(1, "div", 32)(2, "div", 33)(3, "span", 34);
+    const _r9 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 4)(1, "div", 33)(2, "div", 34)(3, "span", 35);
     \u0275\u0275text(4, "\u2764\uFE0F");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 35);
+    \u0275\u0275elementStart(5, "span", 36);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "div", 33)(8, "span", 34);
+    \u0275\u0275elementStart(7, "div", 34)(8, "span", 35);
     \u0275\u0275text(9, "\u{1FA99}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "span", 35);
+    \u0275\u0275elementStart(10, "span", 36);
     \u0275\u0275text(11);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(12, "div", 33)(13, "span", 34);
+    \u0275\u0275elementStart(12, "div", 34)(13, "span", 35);
     \u0275\u0275text(14, "\u2B50");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(15, "span", 35);
+    \u0275\u0275elementStart(15, "span", 36);
     \u0275\u0275text(16);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(17, "div", 36)(18, "span", 35);
+    \u0275\u0275elementStart(17, "div", 37)(18, "span", 36);
     \u0275\u0275text(19);
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(20, "div", 37);
-    \u0275\u0275element(21, "canvas", null, 0);
-    \u0275\u0275elementStart(23, "div", 38)(24, "div", 39)(25, "button", 40);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_25_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_25_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_25_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_25_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
-    });
-    \u0275\u0275text(26, "\u25C0");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(27, "button", 41);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_27_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_27_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_27_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_27_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(false));
-    });
-    \u0275\u0275text(28, "\u25B6");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(29, "div", 42)(30, "button", 43);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_30_listener() {
-      \u0275\u0275restoreView(_r7);
+    \u0275\u0275elementStart(20, "div", 37)(21, "span", 36);
+    \u0275\u0275text(22);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(23, "div", 38);
+    \u0275\u0275element(24, "canvas", null, 0);
+    \u0275\u0275elementStart(26, "div", 39)(27, "div", 40)(28, "button", 41);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_28_listener() {
+      \u0275\u0275restoreView(_r9);
       const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_30_listener() {
-      \u0275\u0275restoreView(_r7);
+      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_28_listener() {
+      \u0275\u0275restoreView(_r9);
       const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_30_listener() {
-      \u0275\u0275restoreView(_r7);
+      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_28_listener() {
+      \u0275\u0275restoreView(_r9);
       const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_30_listener() {
-      \u0275\u0275restoreView(_r7);
+      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_28_listener() {
+      \u0275\u0275restoreView(_r9);
       const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(false));
+      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
     });
-    \u0275\u0275text(31, "\u25B2");
+    \u0275\u0275text(29, "\u25C0");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(32, "button", 44);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_32_listener() {
-      \u0275\u0275restoreView(_r7);
+    \u0275\u0275elementStart(30, "button", 42);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_30_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchRight(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_30_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchRight(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_30_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchRight(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_30_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchRight(false));
+    });
+    \u0275\u0275text(31, "\u25B6");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(32, "div", 43)(33, "button", 44);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_33_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchJump(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_33_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchJump(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_33_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchJump(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_33_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.touchJump(false));
+    });
+    \u0275\u0275text(34, "\u25B2");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(35, "button", 45);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_35_listener() {
+      \u0275\u0275restoreView(_r9);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.touchFire(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_32_listener() {
-      \u0275\u0275restoreView(_r7);
+    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_35_listener() {
+      \u0275\u0275restoreView(_r9);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.touchFire(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_32_listener() {
-      \u0275\u0275restoreView(_r7);
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_35_listener() {
+      \u0275\u0275restoreView(_r9);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.touchFire(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_32_listener() {
-      \u0275\u0275restoreView(_r7);
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_35_listener() {
+      \u0275\u0275restoreView(_r9);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.touchFire(false));
     });
-    \u0275\u0275text(33, "\u{1F525}");
+    \u0275\u0275text(36, "\u{1F525}");
     \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
@@ -42277,45 +42742,47 @@ function AiQuizGameComponent_Conditional_4_Template(rf, ctx2) {
     \u0275\u0275textInterpolate(ctx_r3.score);
     \u0275\u0275advance(3);
     \u0275\u0275textInterpolate(ctx_r3.getCategoryLabel());
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.getLevelTypeLabel());
   }
 }
 function AiQuizGameComponent_Conditional_5_Template(rf, ctx2) {
   if (rf & 1) {
-    const _r8 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 5)(1, "div", 45)(2, "div", 46);
+    const _r10 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 5)(1, "div", 46)(2, "div", 47);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "h3", 47);
+    \u0275\u0275elementStart(4, "h3", 48);
     \u0275\u0275text(5);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "p", 48);
+    \u0275\u0275elementStart(6, "p", 49);
     \u0275\u0275text(7);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 49)(9, "div", 50)(10, "span", 51);
+    \u0275\u0275elementStart(8, "div", 50)(9, "div", 51)(10, "span", 52);
     \u0275\u0275text(11, "Score");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "span", 52);
+    \u0275\u0275elementStart(12, "span", 53);
     \u0275\u0275text(13);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(14, "div", 50)(15, "span", 51);
+    \u0275\u0275elementStart(14, "div", 51)(15, "span", 52);
     \u0275\u0275text(16, "Coins");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "span", 52);
+    \u0275\u0275elementStart(17, "span", 53);
     \u0275\u0275text(18);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "div", 50)(20, "span", 51);
+    \u0275\u0275elementStart(19, "div", 51)(20, "span", 52);
     \u0275\u0275text(21, "Enemies");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "span", 52);
+    \u0275\u0275elementStart(22, "span", 53);
     \u0275\u0275text(23);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(24, "div", 53)(25, "button", 18);
+    \u0275\u0275elementStart(24, "div", 54)(25, "button", 19);
     \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_5_Template_button_click_25_listener() {
-      \u0275\u0275restoreView(_r8);
+      \u0275\u0275restoreView(_r10);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.restartGame());
     });
-    \u0275\u0275element(26, "i", 54);
+    \u0275\u0275element(26, "i", 55);
     \u0275\u0275text(27, " Play Again ");
     \u0275\u0275elementEnd()()()();
   }
@@ -42343,6 +42810,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     this.viewState = "setup";
     this.selectedCategory = "backend";
     this.selectedDifficulty = "Medium";
+    this.selectedLevelType = "ground";
     this.score = 0;
     this.coins = 0;
     this.lives = 3;
@@ -42363,6 +42831,11 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
       { value: "Medium", label: "Speed Run", description: "Balanced challenge", color: "warning" },
       { value: "Hard", label: "Boss Fight", description: "Dense enemies, big gaps", color: "danger" }
     ];
+    this.levelTypes = [
+      { value: "ground", label: "Ground Run", icon: "\u{1F33F}", description: "Classic overworld with staged gaps and grounded enemy waves" },
+      { value: "sky", label: "Sky Jump", icon: "\u2601\uFE0F", description: "Airy platform chains, higher jumps, and floating routes" },
+      { value: "water", label: "Water Swim", icon: "\u{1F30A}", description: "Underwater movement, dense coins, and safer seabed routes" }
+    ];
   }
   ngOnDestroy() {
     this.engine?.stop();
@@ -42376,7 +42849,11 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
       this.lives = 3;
       this.won = false;
       this.enemiesStomped = 0;
-      const config3 = { difficulty: this.selectedDifficulty, category: this.selectedCategory };
+      const config3 = {
+        difficulty: this.selectedDifficulty,
+        category: this.selectedCategory,
+        levelType: this.selectedLevelType
+      };
       let level;
       try {
         const [levelResult] = yield Promise.allSettled([this.generateAILevel(config3)]);
@@ -42454,19 +42931,24 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
   }
   generateAILevel(config3) {
     return __async(this, null, function* () {
-      const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty);
+      const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty, this.selectedLevelType);
       try {
         const response = yield firstValueFrom(this.http.post(AI_API_URL, {
           prompt,
-          context: "Generate a Mario-style level layout as JSON."
+          context: "Generate a Mario-style level layout as JSON that follows the provided layout blueprint and already passes the difficulty validation rules."
         }, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }));
         if (response && typeof response === "object" && "data" in response) {
           const responseData = response.data;
           if (responseData?.choices?.length > 0) {
             const content = responseData.choices[0].message.content;
             const parsed = parseLevelFromAI(content);
-            if (parsed)
-              return buildLevelFromData(parsed, config3);
+            if (parsed) {
+              const validation = validateAILevelData(parsed, config3);
+              if (validation.valid) {
+                return buildLevelFromData(parsed, config3);
+              }
+              console.warn("AI level rejected by validator:", validation.issues);
+            }
           }
         }
       } catch (e) {
@@ -42477,6 +42959,9 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
   }
   getCategoryLabel() {
     return this.categories.find((c) => c.value === this.selectedCategory)?.label || "World";
+  }
+  getLevelTypeLabel() {
+    return this.levelTypes.find((t) => t.value === this.selectedLevelType)?.label || "Ground Run";
   }
   getResultMessage() {
     if (this.won) {
@@ -42502,12 +42987,12 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
         let _t;
         \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.canvasRef = _t.first);
       }
-    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-actions"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-fire", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx2) {
+    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "section-kicker"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "option-grid", "option-grid--compact"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-actions"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-fire", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "section", 1)(1, "div", 2);
-        \u0275\u0275conditionalCreate(2, AiQuizGameComponent_Conditional_2_Template, 27, 0);
+        \u0275\u0275conditionalCreate(2, AiQuizGameComponent_Conditional_2_Template, 33, 0);
         \u0275\u0275conditionalCreate(3, AiQuizGameComponent_Conditional_3_Template, 10, 0, "div", 3);
-        \u0275\u0275conditionalCreate(4, AiQuizGameComponent_Conditional_4_Template, 34, 4, "div", 4);
+        \u0275\u0275conditionalCreate(4, AiQuizGameComponent_Conditional_4_Template, 37, 5, "div", 4);
         \u0275\u0275conditionalCreate(5, AiQuizGameComponent_Conditional_5_Template, 28, 6, "div", 5);
         \u0275\u0275elementEnd()();
       }
@@ -42521,7 +43006,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
         \u0275\u0275advance();
         \u0275\u0275conditional(ctx2.viewState === "results" ? 5 : -1);
       }
-    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.mario-game-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card[_ngcontent-%COMP%] {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n}\n.option-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active[_ngcontent-%COMP%] {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success[_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning[_ngcontent-%COMP%] {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card[_ngcontent-%COMP%] {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  animation: _ngcontent-%COMP%_bounce 0.6s ease infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: _ngcontent-%COMP%_loadProgress 3s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container[_ngcontent-%COMP%]   canvas[_ngcontent-%COMP%] {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn[_ngcontent-%COMP%]:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls[_ngcontent-%COMP%] {\n    display: flex;\n  }\n}\n.results-card[_ngcontent-%COMP%] {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge[_ngcontent-%COMP%] {\n  font-size: 3rem;\n}\n.results-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section[_ngcontent-%COMP%] {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .setup-card[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n  .option-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .results-stats[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper[_ngcontent-%COMP%] {\n    margin: 0 -1rem;\n  }\n  .game-hud[_ngcontent-%COMP%] {\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin-left: 1rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.6rem;\n  }\n  .hud-icon[_ngcontent-%COMP%] {\n    font-size: 0.85rem;\n  }\n  .canvas-container[_ngcontent-%COMP%] {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls[_ngcontent-%COMP%] {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn[_ngcontent-%COMP%] {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump[_ngcontent-%COMP%] {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire[_ngcontent-%COMP%] {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card[_ngcontent-%COMP%] {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */'] });
+    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.mario-game-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card[_ngcontent-%COMP%] {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact[_ngcontent-%COMP%] {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n}\n.option-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active[_ngcontent-%COMP%] {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success[_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning[_ngcontent-%COMP%] {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card[_ngcontent-%COMP%] {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  animation: _ngcontent-%COMP%_bounce 0.6s ease infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: _ngcontent-%COMP%_loadProgress 3s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container[_ngcontent-%COMP%]   canvas[_ngcontent-%COMP%] {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn[_ngcontent-%COMP%]:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls[_ngcontent-%COMP%] {\n    display: flex;\n  }\n}\n.results-card[_ngcontent-%COMP%] {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge[_ngcontent-%COMP%] {\n  font-size: 3rem;\n}\n.results-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section[_ngcontent-%COMP%] {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .setup-card[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n  .option-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .results-stats[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper[_ngcontent-%COMP%] {\n    margin: 0 -1rem;\n  }\n  .game-hud[_ngcontent-%COMP%] {\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin-left: 1rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.6rem;\n  }\n  .hud-icon[_ngcontent-%COMP%] {\n    font-size: 0.85rem;\n  }\n  .canvas-container[_ngcontent-%COMP%] {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls[_ngcontent-%COMP%] {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn[_ngcontent-%COMP%] {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump[_ngcontent-%COMP%] {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire[_ngcontent-%COMP%] {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card[_ngcontent-%COMP%] {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */'] });
   }
 };
 (() => {
@@ -42572,12 +43057,27 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
             </div>
           </div>
 
+          <div class="setup-section">
+            <h3 class="setup-heading">Course Style</h3>
+            <div class="option-grid option-grid--compact">
+              @for (type of levelTypes; track type.value) {
+                <button class="option-btn"
+                        [class.option-btn--active]="selectedLevelType === type.value"
+                        (click)="selectedLevelType = type.value">
+                  <span class="option-icon">{{ type.icon }}</span>
+                  <span class="option-label">{{ type.label }}</span>
+                  <span class="option-desc">{{ type.description }}</span>
+                </button>
+              }
+            </div>
+          </div>
+
           <button class="start-btn" (click)="startGame()">
             <i class="fas fa-play"></i> Start Mission
           </button>
 
           <div class="controls-hint">
-            <span>Arrow keys / WASD to move&ensp;\xB7&ensp;Space / Up to jump&ensp;\xB7&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
+            <span>Arrow keys / WASD to move&ensp;\xB7&ensp;Space / Up to jump or swim stroke&ensp;\xB7&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
           </div>
         </div>
       </div>
@@ -42613,6 +43113,9 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
           </div>
           <div class="hud-item hud-category">
             <span class="hud-val">{{ getCategoryLabel() }}</span>
+          </div>
+          <div class="hud-item hud-category">
+            <span class="hud-val">{{ getLevelTypeLabel() }}</span>
           </div>
         </div>
 
@@ -42675,14 +43178,14 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     }
   </div>
 </section>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/ai-quiz-game/ai-quiz-game.component.scss */\n:host {\n  display: block;\n}\n.mario-game-section {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon {\n  font-size: 1.3rem;\n}\n.option-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon {\n  font-size: 2.5rem;\n  animation: bounce 0.6s ease infinite alternate;\n}\n@keyframes bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content h3 {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content p {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: loadProgress 3s ease-in-out infinite;\n}\n@keyframes loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper {\n  position: relative;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon {\n  font-size: 1rem;\n}\n.hud-val {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category .hud-val {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container canvas {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls {\n    display: flex;\n  }\n}\n.results-card {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge {\n  font-size: 3rem;\n}\n.results-title {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .setup-card {\n    padding: 1.5rem;\n  }\n  .option-grid {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row {\n    grid-template-columns: 1fr;\n  }\n  .results-stats {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper {\n    margin: 0 -1rem;\n  }\n  .game-hud {\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin-left: 1rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-val {\n    font-size: 0.6rem;\n  }\n  .hud-icon {\n    font-size: 0.85rem;\n  }\n  .canvas-container {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/ai-quiz-game/ai-quiz-game.component.scss */\n:host {\n  display: block;\n}\n.mario-game-section {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon {\n  font-size: 1.3rem;\n}\n.option-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon {\n  font-size: 2.5rem;\n  animation: bounce 0.6s ease infinite alternate;\n}\n@keyframes bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content h3 {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content p {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: loadProgress 3s ease-in-out infinite;\n}\n@keyframes loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper {\n  position: relative;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon {\n  font-size: 1rem;\n}\n.hud-val {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category .hud-val {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container canvas {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls {\n    display: flex;\n  }\n}\n.results-card {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge {\n  font-size: 3rem;\n}\n.results-title {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .setup-card {\n    padding: 1.5rem;\n  }\n  .option-grid {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row {\n    grid-template-columns: 1fr;\n  }\n  .results-stats {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper {\n    margin: 0 -1rem;\n  }\n  .game-hud {\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin-left: 1rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-val {\n    font-size: 0.6rem;\n  }\n  .hud-icon {\n    font-size: 0.85rem;\n  }\n  .canvas-container {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */\n'] }]
   }], () => [{ type: HttpClient }, { type: NgZone }, { type: ChangeDetectorRef }], { canvasRef: [{
     type: ViewChild,
     args: ["gameCanvas"]
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 21 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 22 });
 })();
 
 // src/app/profile/blog/blog.component.ts

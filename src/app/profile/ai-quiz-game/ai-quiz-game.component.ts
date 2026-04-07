@@ -6,8 +6,9 @@ import { AI_API_URL } from '../../config/api-config';
 import { MarioEngine } from './game/mario-engine';
 import {
   generateProceduralLevel, parseLevelFromAI, buildLevelFromData,
-  getLevelGenerationPrompt, LevelConfig
+  getLevelGenerationPrompt, validateAILevelData, LevelConfig
 } from './game/mario-level-generator';
+import { LevelType } from './game/mario-entities';
 
 type ViewState = 'setup' | 'loading' | 'playing' | 'results';
 
@@ -24,6 +25,7 @@ export class AiQuizGameComponent implements OnDestroy {
   viewState: ViewState = 'setup';
   selectedCategory = 'backend';
   selectedDifficulty = 'Medium';
+  selectedLevelType: LevelType = 'ground';
 
   score = 0;
   coins = 0;
@@ -50,6 +52,12 @@ export class AiQuizGameComponent implements OnDestroy {
     { value: 'Hard', label: 'Boss Fight', description: 'Dense enemies, big gaps', color: 'danger' }
   ];
 
+  levelTypes: { value: LevelType; label: string; icon: string; description: string }[] = [
+    { value: 'ground', label: 'Ground Run', icon: '🌿', description: 'Classic overworld with staged gaps and grounded enemy waves' },
+    { value: 'sky', label: 'Sky Jump', icon: '☁️', description: 'Airy platform chains, higher jumps, and floating routes' },
+    { value: 'water', label: 'Water Swim', icon: '🌊', description: 'Underwater movement, dense coins, and safer seabed routes' },
+  ];
+
   constructor(private http: HttpClient, private zone: NgZone, private cdr: ChangeDetectorRef) {}
 
   ngOnDestroy(): void {
@@ -65,7 +73,11 @@ export class AiQuizGameComponent implements OnDestroy {
     this.won = false;
     this.enemiesStomped = 0;
 
-    const config: LevelConfig = { difficulty: this.selectedDifficulty, category: this.selectedCategory };
+    const config: LevelConfig = {
+      difficulty: this.selectedDifficulty,
+      category: this.selectedCategory,
+      levelType: this.selectedLevelType,
+    };
 
     let level;
     try {
@@ -142,11 +154,11 @@ export class AiQuizGameComponent implements OnDestroy {
   touchFire(active: boolean): void { this.engine?.getControls().setTouchFire(active); }
 
   private async generateAILevel(config: LevelConfig): Promise<any> {
-    const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty);
+    const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty, this.selectedLevelType);
     try {
       const response = await firstValueFrom(this.http.post(AI_API_URL, {
         prompt,
-        context: 'Generate a Mario-style level layout as JSON.'
+        context: 'Generate a Mario-style level layout as JSON that follows the provided layout blueprint and already passes the difficulty validation rules.'
       }, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }));
 
       if (response && typeof response === 'object' && 'data' in response) {
@@ -154,7 +166,13 @@ export class AiQuizGameComponent implements OnDestroy {
         if (responseData?.choices?.length > 0) {
           const content = responseData.choices[0].message.content;
           const parsed = parseLevelFromAI(content);
-          if (parsed) return buildLevelFromData(parsed, config);
+          if (parsed) {
+            const validation = validateAILevelData(parsed, config);
+            if (validation.valid) {
+              return buildLevelFromData(parsed, config);
+            }
+            console.warn('AI level rejected by validator:', validation.issues);
+          }
         }
       }
     } catch (e) {
@@ -165,6 +183,10 @@ export class AiQuizGameComponent implements OnDestroy {
 
   getCategoryLabel(): string {
     return this.categories.find(c => c.value === this.selectedCategory)?.label || 'World';
+  }
+
+  getLevelTypeLabel(): string {
+    return this.levelTypes.find(t => t.value === this.selectedLevelType)?.label || 'Ground Run';
   }
 
   getResultMessage(): string {

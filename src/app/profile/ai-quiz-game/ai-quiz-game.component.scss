@@ -71,6 +71,10 @@
   gap: 0.75rem;
 }
 
+.option-grid--compact {
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
 .option-btn {
   display: grid;
   gap: 0.15rem;
@@ -356,6 +360,7 @@
   .mario-game-section { padding: clamp(2rem, 4vw, 3rem) 0; }
   .setup-card { padding: 1.5rem; }
   .option-grid { grid-template-columns: 1fr; }
+  .option-grid--compact { grid-template-columns: 1fr; }
   .difficulty-row { grid-template-columns: 1fr; }
   .results-stats { grid-template-columns: repeat(3, 1fr); }
 

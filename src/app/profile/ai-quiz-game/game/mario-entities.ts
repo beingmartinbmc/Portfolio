@@ -15,6 +15,7 @@ export type PlatformType = 'ground' | 'brick' | 'question' | 'pipe';
 export type EnemyType = 'goomba' | 'koopa';
 export type PlayerState = 'small' | 'big' | 'fire' | 'star';
 export type Direction = 'left' | 'right';
+export type LevelType = 'ground' | 'sky' | 'water';
 
 export class Player {
   x: number;
@@ -32,6 +33,7 @@ export class Player {
   invincibleTimer = 0;
   starTimer = 0;
   fireCooldown = 0;
+  swimStrokeCooldown = 0;
 
   constructor(x: number, y: number) {
     this.x = x;
@@ -250,6 +252,7 @@ export interface Level {
   width: number;
   height: number;
   category: string;
+  levelType: LevelType;
 }
 
 export const CATEGORY_KEYWORDS: Record<string, string[]> = {

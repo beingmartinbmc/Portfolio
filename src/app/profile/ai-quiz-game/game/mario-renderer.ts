@@ -2,8 +2,16 @@ import { TILE, Player, Platform, Enemy, Coin, QuestionBlock, Fireball, FlagPole,
 
 const SKY_TOP = '#09091a';
 const SKY_BOT = '#16213e';
+const SKY_STAGE_TOP = '#7dd3fc';
+const SKY_STAGE_BOT = '#eff6ff';
+const WATER_TOP = '#082f49';
+const WATER_BOT = '#155e75';
 const GROUND_TOP = '#2d5016';
 const GROUND_SIDE = '#3a6b1e';
+const SKY_GROUND_TOP = '#cbd5e1';
+const SKY_GROUND_SIDE = '#94a3b8';
+const WATER_GROUND_TOP = '#0f766e';
+const WATER_GROUND_SIDE = '#115e59';
 const BRICK_FILL = '#8b4513';
 const BRICK_LINE = '#6b3410';
 const QUESTION_FILL = '#fbbf24';
@@ -39,6 +47,7 @@ export class MarioRenderer {
   private canvasH: number;
   private frameCount = 0;
   private categoryKey = 'backend';
+  private levelType: Level['levelType'] = 'ground';
 
   constructor(private canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d')!;
@@ -49,6 +58,10 @@ export class MarioRenderer {
 
   setCategory(cat: string): void {
     this.categoryKey = cat;
+  }
+
+  setLevelType(levelType: Level['levelType']): void {
+    this.levelType = levelType;
   }
 
   resize(w: number, h: number): void {
@@ -64,8 +77,7 @@ export class MarioRenderer {
     const camX = Math.max(0, Math.min(player.x - this.canvasW / 2 + player.w / 2, level.width - this.canvasW));
     const camY = 0;
 
-    this.drawSky();
-    this.drawClouds(camX);
+    this.drawBackdrop(camX);
     this.drawCategoryBanner(level.category);
 
     this.ctx.save();
@@ -84,6 +96,19 @@ export class MarioRenderer {
     this.drawPlayer(player);
 
     this.ctx.restore();
+  }
+
+  private drawBackdrop(camX: number): void {
+    if (this.levelType === 'sky') {
+      this.drawSkyStage(camX);
+      return;
+    }
+    if (this.levelType === 'water') {
+      this.drawWaterStage(camX);
+      return;
+    }
+    this.drawSky();
+    this.drawClouds(camX);
   }
 
   private drawSky(): void {
@@ -115,9 +140,64 @@ export class MarioRenderer {
     }
   }
 
+  private drawSkyStage(camX: number): void {
+    const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvasH);
+    grad.addColorStop(0, SKY_STAGE_TOP);
+    grad.addColorStop(1, SKY_STAGE_BOT);
+    this.ctx.fillStyle = grad;
+    this.ctx.fillRect(0, 0, this.canvasW, this.canvasH);
+
+    this.ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    this.ctx.beginPath();
+    this.ctx.arc(this.canvasW - 90, 70, 26, 0, Math.PI * 2);
+    this.ctx.fill();
+
+    this.ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    for (let i = 0; i < 10; i++) {
+      const cx = (i * 210 + 80 - camX * 0.35) % (this.canvasW + 280) - 80;
+      const cy = 55 + (i % 4) * 42;
+      this.ctx.beginPath();
+      this.ctx.arc(cx, cy, 24, 0, Math.PI * 2);
+      this.ctx.arc(cx + 20, cy - 8, 18, 0, Math.PI * 2);
+      this.ctx.arc(cx + 40, cy, 24, 0, Math.PI * 2);
+      this.ctx.fill();
+    }
+  }
+
+  private drawWaterStage(camX: number): void {
+    const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvasH);
+    grad.addColorStop(0, WATER_TOP);
+    grad.addColorStop(1, WATER_BOT);
+    this.ctx.fillStyle = grad;
+    this.ctx.fillRect(0, 0, this.canvasW, this.canvasH);
+
+    this.ctx.strokeStyle = 'rgba(125,211,252,0.35)';
+    this.ctx.lineWidth = 2;
+    for (let i = 0; i < 4; i++) {
+      const waveY = 28 + i * 9;
+      this.ctx.beginPath();
+      for (let x = -40; x <= this.canvasW + 40; x += 18) {
+        const y = waveY + Math.sin((x + camX * 0.25 + i * 22) * 0.03) * 4;
+        if (x === -40) this.ctx.moveTo(x, y);
+        else this.ctx.lineTo(x, y);
+      }
+      this.ctx.stroke();
+    }
+
+    this.ctx.fillStyle = 'rgba(186,230,253,0.3)';
+    for (let i = 0; i < 22; i++) {
+      const bx = (i * 97 + 30 - camX * 0.18) % (this.canvasW + 60) - 20;
+      const by = 50 + (i * 37) % (this.canvasH - 80);
+      const r = (i % 3) + 2;
+      this.ctx.beginPath();
+      this.ctx.arc(bx, by, r, 0, Math.PI * 2);
+      this.ctx.fill();
+    }
+  }
+
   private drawCategoryBanner(category: string): void {
     const catCfg = CATEGORY_COLORS[category] ?? CATEGORY_COLORS['backend'];
-    const label = `${catCfg.qIcon} ${category.toUpperCase()} WORLD`;
+    const label = `${catCfg.qIcon} ${category.toUpperCase()} · ${this.levelType.toUpperCase()}`;
     this.ctx.save();
     this.ctx.globalAlpha = 0.4;
     this.ctx.fillStyle = catCfg.accent;
@@ -130,9 +210,11 @@ export class MarioRenderer {
 
   private drawPlatform(p: Platform): void {
     if (p.type === 'ground') {
-      this.ctx.fillStyle = GROUND_TOP;
+      const topColor = this.levelType === 'sky' ? SKY_GROUND_TOP : this.levelType === 'water' ? WATER_GROUND_TOP : GROUND_TOP;
+      const sideColor = this.levelType === 'sky' ? SKY_GROUND_SIDE : this.levelType === 'water' ? WATER_GROUND_SIDE : GROUND_SIDE;
+      this.ctx.fillStyle = topColor;
       this.ctx.fillRect(p.x, p.y, p.w, TILE * 0.3);
-      this.ctx.fillStyle = GROUND_SIDE;
+      this.ctx.fillStyle = sideColor;
       this.ctx.fillRect(p.x, p.y + TILE * 0.3, p.w, p.h - TILE * 0.3);
       this.ctx.strokeStyle = 'rgba(0,0,0,0.15)';
       this.ctx.lineWidth = 1;
