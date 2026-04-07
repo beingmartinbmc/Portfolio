@@ -43,12 +43,27 @@
             </div>
           </div>
 
+          <div class="setup-section">
+            <h3 class="setup-heading">Course Style</h3>
+            <div class="option-grid option-grid--compact">
+              @for (type of levelTypes; track type.value) {
+                <button class="option-btn"
+                        [class.option-btn--active]="selectedLevelType === type.value"
+                        (click)="selectedLevelType = type.value">
+                  <span class="option-icon">{{ type.icon }}</span>
+                  <span class="option-label">{{ type.label }}</span>
+                  <span class="option-desc">{{ type.description }}</span>
+                </button>
+              }
+            </div>
+          </div>
+
           <button class="start-btn" (click)="startGame()">
             <i class="fas fa-play"></i> Start Mission
           </button>
 
           <div class="controls-hint">
-            <span>Arrow keys / WASD to move&ensp;·&ensp;Space / Up to jump&ensp;·&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
+            <span>Arrow keys / WASD to move&ensp;·&ensp;Space / Up to jump or swim stroke&ensp;·&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
           </div>
         </div>
       </div>
@@ -84,6 +99,9 @@
           </div>
           <div class="hud-item hud-category">
             <span class="hud-val">{{ getCategoryLabel() }}</span>
+          </div>
+          <div class="hud-item hud-category">
+            <span class="hud-val">{{ getLevelTypeLabel() }}</span>
           </div>
         </div>
 

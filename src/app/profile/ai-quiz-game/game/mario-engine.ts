@@ -55,6 +55,7 @@ export class MarioEngine {
     this.keywordIndex = 0;
     this.bugKeywordIndex = 0;
     this.renderer.setCategory(level.category);
+    this.renderer.setLevelType(level.levelType);
   }
 
   start(): void {

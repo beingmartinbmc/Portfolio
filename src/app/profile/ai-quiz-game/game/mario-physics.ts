@@ -54,28 +54,41 @@ export function updatePhysics(
     coinCollected: false,
   };
 
+  const isWater = level.levelType === 'water';
+  const moveSpeed = isWater ? MOVE_SPEED * 0.72 : MOVE_SPEED;
+  const fallLimit = isWater ? MAX_FALL * 0.35 : MAX_FALL;
+
   // Horizontal movement
   if (keys.left) {
-    player.vx = -MOVE_SPEED;
+    player.vx = -moveSpeed;
     player.facing = 'left';
   } else if (keys.right) {
-    player.vx = MOVE_SPEED;
+    player.vx = moveSpeed;
     player.facing = 'right';
   } else {
-    player.vx *= 0.7;
+    player.vx *= isWater ? 0.84 : 0.7;
     if (Math.abs(player.vx) < 0.2) player.vx = 0;
   }
 
   // Jump
-  if (keys.jump && player.onGround) {
+  if (isWater) {
+    if (player.swimStrokeCooldown > 0) player.swimStrokeCooldown--;
+    if (keys.jump && player.swimStrokeCooldown <= 0) {
+      player.vy = Math.min(player.vy - 4.4, -5.4);
+      player.onGround = false;
+      player.swimStrokeCooldown = 10;
+      result.jumped = true;
+    }
+  } else if (keys.jump && player.onGround) {
     player.vy = JUMP_FORCE;
     player.onGround = false;
     result.jumped = true;
   }
 
   // Gravity
-  player.vy += GRAVITY;
-  if (player.vy > MAX_FALL) player.vy = MAX_FALL;
+  player.vy += isWater ? GRAVITY * 0.22 : GRAVITY;
+  if (isWater) player.vy *= 0.94;
+  if (player.vy > fallLimit) player.vy = fallLimit;
 
   // Fire cooldown
   if (player.fireCooldown > 0) player.fireCooldown--;
@@ -199,7 +212,7 @@ export function updatePhysics(
     if (fb.life <= 0) { fb.alive = false; continue; }
 
     fb.x += fb.vx;
-    fb.vy += GRAVITY * 0.7;
+    fb.vy += (isWater ? GRAVITY * 0.18 : GRAVITY * 0.7);
     fb.y += fb.vy;
 
     // Bounce off platforms
@@ -243,7 +256,7 @@ export function updatePhysics(
       continue;
     }
 
-    enemy.x += enemy.vx;
+    enemy.x += enemy.vx * (isWater ? 0.6 : 1);
 
     let hitWall = false;
     for (const p of allPlatforms) {
@@ -266,7 +279,7 @@ export function updatePhysics(
           break;
         }
       }
-      if (!landed) enemy.y += 2;
+      if (!landed) enemy.y += isWater ? 1 : 2;
     }
   }
 
