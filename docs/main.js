@@ -37601,11 +37601,11 @@ var EXPERIENCE_ITEMS = [
     location: "Hybrid in Hyderabad, India",
     duration: "Current",
     period: "2025 - Present",
-    description: "Senior Member of Technical Staff working on Salesforce platform infrastructure and cloud-native services.",
-    technologies: ["Java", "Salesforce Platform", "Apex", "Lightning", "Microservices", "Cloud Infrastructure"],
+    description: "Senior Member of Technical Staff working on Slack. Powering Salesforce Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration.",
+    technologies: ["Java", "Slack Platform", "Agentforce", "Thunderbird", "Einstein AI", "Microservices"],
     achievements: [
-      "Contributing to core platform services powering Salesforce's enterprise cloud",
-      "Designing and building scalable backend systems for multi-tenant architecture",
+      "Powering Salesforce Thunderbird architecture for Slack",
+      "Enhancing Slackbot & Einstein with Agentforce integration",
       "Driving engineering best practices and code quality across the team"
     ]
   },
@@ -76850,7 +76850,7 @@ ABOUT ANKIT SHARMA:
 - Response time: Within 24 hours
 
 PROFESSIONAL BACKGROUND:
-- Currently at Salesforce exploring enterprise cloud solutions
+- Currently at Salesforce working on Slack, powering Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration
 - Previously: SDE-2 at Games24x7 (3 years, 2022-2025) working on RummyCircle and My11Circle platforms
 - Built Risk Rule Engine for fraud detection in real-time
 - Scaled My11Circle to 2.7K RPS during IPL 2025 with 10M concurrent users
