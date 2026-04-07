@@ -31,7 +31,7 @@ ABOUT ANKIT SHARMA:
 - Response time: Within 24 hours
 
 PROFESSIONAL BACKGROUND:
-- Currently at Salesforce exploring enterprise cloud solutions
+- Currently at Salesforce working on Slack, powering Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration
 - Previously: SDE-2 at Games24x7 (3 years, 2022-2025) working on RummyCircle and My11Circle platforms
 - Built Risk Rule Engine for fraud detection in real-time
 - Scaled My11Circle to 2.7K RPS during IPL 2025 with 10M concurrent users

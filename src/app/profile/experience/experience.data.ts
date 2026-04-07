@@ -34,11 +34,11 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     location: 'Hybrid in Hyderabad, India',
     duration: 'Current',
     period: '2025 - Present',
-    description: 'Senior Member of Technical Staff working on Salesforce platform infrastructure and cloud-native services.',
-    technologies: ['Java', 'Salesforce Platform', 'Apex', 'Lightning', 'Microservices', 'Cloud Infrastructure'],
+    description: 'Senior Member of Technical Staff working on Slack. Powering Salesforce Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration.',
+    technologies: ['Java', 'Slack Platform', 'Agentforce', 'Thunderbird', 'Einstein AI', 'Microservices'],
     achievements: [
-      'Contributing to core platform services powering Salesforce\'s enterprise cloud',
-      'Designing and building scalable backend systems for multi-tenant architecture',
+      'Powering Salesforce Thunderbird architecture for Slack',
+      'Enhancing Slackbot & Einstein with Agentforce integration',
       'Driving engineering best practices and code quality across the team'
     ]
   },
