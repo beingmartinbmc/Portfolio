@@ -31674,7 +31674,7 @@ var HeaderComponent = class _HeaderComponent {
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_17_listener($event) {
           return ctx2.onNavLinkClick($event, "experience");
         });
-        \u0275\u0275text(18, "Experience");
+        \u0275\u0275text(18, "Work");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(19, "a", 8);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_19_listener($event) {
@@ -31692,13 +31692,13 @@ var HeaderComponent = class _HeaderComponent {
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_23_listener($event) {
           return ctx2.onNavLinkClick($event, "ai-quiz-game");
         });
-        \u0275\u0275text(24, "Mario Lab");
+        \u0275\u0275text(24, "Game");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(25, "a", 8);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_25_listener($event) {
           return ctx2.onNavLinkClick($event, "operating-style");
         });
-        \u0275\u0275text(26, "How I Work");
+        \u0275\u0275text(26, "Profile");
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(27, "div", 9)(28, "div", 10);
         \u0275\u0275text(29, "\u2605 Available for Staff Roles");
@@ -31738,11 +31738,11 @@ var HeaderComponent = class _HeaderComponent {
       <a href="" class="nav-link" (click)="onNavLinkClick($event, 'about')">About</a>
       <a href="" class="nav-link" (click)="onNavLinkClick($event, 'avatar-3d')">AI Twin</a>
       <a href="" class="nav-link" (click)="onNavLinkClick($event, 'skill')">Skills</a>
-      <a href="" class="nav-link" (click)="onNavLinkClick($event, 'experience')">Experience</a>
+      <a href="" class="nav-link" (click)="onNavLinkClick($event, 'experience')">Work</a>
       <a href="" class="nav-link" (click)="onNavLinkClick($event, 'publications')">Projects</a>
       <a href="" class="nav-link" (click)="onNavLinkClick($event, 'blogs')">Writing</a>
-      <a href="" class="nav-link" (click)="onNavLinkClick($event, 'ai-quiz-game')">Mario Lab</a>
-      <a href="" class="nav-link" (click)="onNavLinkClick($event, 'operating-style')">How I Work</a>
+      <a href="" class="nav-link" (click)="onNavLinkClick($event, 'ai-quiz-game')">Game</a>
+      <a href="" class="nav-link" (click)="onNavLinkClick($event, 'operating-style')">Profile</a>
     </div>
 
     <div class="nav-actions">
