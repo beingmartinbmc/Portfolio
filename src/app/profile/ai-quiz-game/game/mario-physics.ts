@@ -114,14 +114,16 @@ export function updatePhysics(
     const pen = penetration(player.box, p.box);
     if (!pen) continue;
 
-    // When rising, skip X pushback for hittable blocks so headbutts register
     const isHittableBlock = (p instanceof QuestionBlock && !p.hit) ||
       (p.type === 'brick' && !p.destroyed && p.w <= TILE * 4);
     if (isHittableBlock && player.vy < 0) continue;
 
-    if (pen.py > 6) {
-      if (player.vx > 0) player.x = p.x - player.w;
-      else if (player.vx < 0) player.x = p.x + p.w;
+    // Minimum-penetration-axis: only resolve X when X overlap < Y overlap (side hit)
+    if (pen.px < pen.py) {
+      const playerCenter = player.x + player.w / 2;
+      const platCenter = p.x + p.w / 2;
+      if (playerCenter < platCenter) player.x = p.x - player.w;
+      else player.x = p.x + p.w;
       player.vx = 0;
     }
   }
@@ -134,11 +136,14 @@ export function updatePhysics(
     const pen = penetration(player.box, p.box);
     if (!pen) continue;
 
-    if (player.vy > 0) {
+    // Skip side-collision leaks: only resolve Y when Y is the min penetration axis
+    if (pen.py > pen.px) continue;
+
+    if (player.vy >= 0) {
       player.y = p.y - player.h;
       player.vy = 0;
       player.onGround = true;
-    } else if (player.vy < 0) {
+    } else {
       player.y = p.y + p.h;
       player.vy = 0;
 
@@ -192,9 +197,10 @@ export function updatePhysics(
     }
 
     const playerBottom = player.y + player.h;
-    const falling = player.vy > 0;
+    const enemyMidY = enemy.y + enemy.h * 0.55;
 
-    if (falling && playerBottom - enemy.y < enemy.h * 0.4) {
+    // Stomp: feet are in the upper half of enemy AND not actively rising
+    if (player.vy >= -0.5 && playerBottom <= enemyMidY) {
       enemy.alive = false;
       enemy.squashTimer = 15;
       player.vy = JUMP_FORCE * 0.6;
