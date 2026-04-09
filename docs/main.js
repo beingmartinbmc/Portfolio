@@ -36539,10 +36539,12 @@ function updatePhysics(player, level, keys) {
     const isHittableBlock = p instanceof QuestionBlock && !p.hit || p.type === "brick" && !p.destroyed && p.w <= TILE * 4;
     if (isHittableBlock && player.vy < 0)
       continue;
-    if (pen.py > 6) {
-      if (player.vx > 0)
+    if (pen.px < pen.py) {
+      const playerCenter = player.x + player.w / 2;
+      const platCenter = p.x + p.w / 2;
+      if (playerCenter < platCenter)
         player.x = p.x - player.w;
-      else if (player.vx < 0)
+      else
         player.x = p.x + p.w;
       player.vx = 0;
     }
@@ -36553,11 +36555,13 @@ function updatePhysics(player, level, keys) {
     const pen = penetration(player.box, p.box);
     if (!pen)
       continue;
-    if (player.vy > 0) {
+    if (pen.py > pen.px)
+      continue;
+    if (player.vy >= 0) {
       player.y = p.y - player.h;
       player.vy = 0;
       player.onGround = true;
-    } else if (player.vy < 0) {
+    } else {
       player.y = p.y + p.h;
       player.vy = 0;
       if (p instanceof QuestionBlock && !p.hit) {
@@ -36604,8 +36608,8 @@ function updatePhysics(player, level, keys) {
       continue;
     }
     const playerBottom = player.y + player.h;
-    const falling = player.vy > 0;
-    if (falling && playerBottom - enemy.y < enemy.h * 0.4) {
+    const enemyMidY = enemy.y + enemy.h * 0.55;
+    if (player.vy >= -0.5 && playerBottom <= enemyMidY) {
       enemy.alive = false;
       enemy.squashTimer = 15;
       player.vy = JUMP_FORCE * 0.6;
