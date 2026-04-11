@@ -28,6 +28,28 @@ interface OpenSourceProject {
 export class PublicationsComponent implements OnInit {
   readonly projectLinks = PROJECT_LINKS;
   readonly companyLinks = COMPANY_LINKS;
+  showRREDeepDive = false;
+
+  readonly rreArchNodes = [
+    { icon: '👤', label: 'User Actions', color: '#fbbf24' },
+    { icon: '📡', label: 'Kafka', color: '#34d399' },
+    { icon: '⚙️', label: 'Aggregator', color: '#60a5fa' },
+    { icon: '🧮', label: 'Evaluator', color: '#f97316' },
+    { icon: '🕸️', label: 'Graph Service', color: '#a78bfa' },
+    { icon: '🧠', label: 'ML Models', color: '#f472b6' },
+    { icon: '📊', label: 'User Rating', color: '#34d399' },
+    { icon: '🎯', label: 'Action Service', color: '#ef4444' },
+    { icon: '🖥️', label: 'Agent UI', color: '#fbbf24' },
+  ];
+
+  readonly rreStats = [
+    { value: '5,547', label: 'RPS peak load' },
+    { value: '19.9M', label: 'requests/hour' },
+    { value: '7.16M', label: 'hand-history ops/sec' },
+    { value: '20+', label: 'concurrent fraud rules' },
+  ];
+
+  readonly rreTech = ['Java 11/21', 'ScyllaDB', 'Kafka', 'Redis + Redisson', 'Elasticsearch', 'MongoDB', 'Druid', 'SageMaker', 'Neptune'];
   openSourceProjects: OpenSourceProject[] = [
     {
       id: 'node-actuator-lite',

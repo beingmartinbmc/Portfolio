@@ -14,6 +14,7 @@ import {PublicationsComponent} from './publications/publications.component';
 import {AiQuizGameComponent} from './ai-quiz-game/ai-quiz-game.component';
 import {BlogComponent} from './blog/blog.component';
 import {Avatar3dComponent} from './avatar-3d/avatar-3d.component';
+import {MetricsDashboardComponent} from './metrics-dashboard/metrics-dashboard.component';
 
 @Component({
   selector: 'app-profile',
@@ -32,7 +33,8 @@ import {Avatar3dComponent} from './avatar-3d/avatar-3d.component';
     SkillsComponent,
     PublicationsComponent,
     AiQuizGameComponent,
-    BlogComponent
+    BlogComponent,
+    MetricsDashboardComponent
   ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
