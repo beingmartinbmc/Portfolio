@@ -1,0 +1,35 @@
+<section class="metrics-section" id="metrics">
+  <div class="metrics-header">
+    <div class="world-label">📊 SYSTEM METRICS</div>
+    <h2 class="section-title">Production Telemetry</h2>
+    <p class="section-subtitle">Numbers from real systems at real scale. Not benchmarks — production.</p>
+  </div>
+
+  <div class="dashboard-grid">
+    <div
+      *ngFor="let metric of metrics; let i = index"
+      class="metric-panel"
+      [class.accent-green]="metric.accent === 'green'"
+      [class.accent-gold]="metric.accent === 'gold'"
+      [class.animated]="animated"
+      [style.animation-delay]="(i * 100) + 'ms'"
+    >
+      <div class="panel-accent"></div>
+      <div class="panel-body">
+        <div class="metric-value">
+          <span class="counter">{{ displayValues[i] }}</span>
+          <span class="suffix">{{ metric.suffix }}</span>
+        </div>
+        <div class="metric-label">{{ metric.label }}</div>
+        <div class="metric-sublabel">{{ metric.sublabel }}</div>
+        <div class="sparkline-track">
+          <div
+            class="sparkline-bar"
+            [style.width]="animated ? metric.barPct + '%' : '0%'"
+            [style.transition-delay]="(i * 100 + 400) + 'ms'"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

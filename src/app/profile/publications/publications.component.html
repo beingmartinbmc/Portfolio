@@ -23,8 +23,9 @@
           <h4 class="quest-name">Automated KYC Platform</h4>
           <p class="quest-tagline">Identity verification at scale — built from scratch</p>
           <p class="pro-card-desc">
-            End-to-end document verification system supporting Digilocker, Aadhaar Lite, PAN validation, and OCR-based extraction.
-            Processes 200K+ verifications daily across two gaming platforms with 99.95% uptime via a distributed Kafka pipeline.
+            Manual identity checks were slow, error-prone, and couldn't keep up with onboarding volume.
+            Built an automated end-to-end pipeline — Digilocker, Aadhaar Lite, PAN validation, OCR extraction —
+            processing 200K+ verifications daily across two platforms with 99.95% uptime via a distributed Kafka pipeline.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
@@ -55,9 +56,9 @@
           <h4 class="quest-name">Risk Rule Engine</h4>
           <p class="quest-tagline">Real-time fraud detection powered by ML + graph analysis</p>
           <p class="pro-card-desc">
-            Built a rule engine that identifies fraudulent user behavior in real time across two platforms.
-            Consumes millions of Kafka messages via pub/sub, runs ML-based scoring through SageMaker,
-            and maps fraud networks using Neptune graph DB — preventing financial losses at scale.
+            Agents manually sifted through logs to investigate fraud — static JBPM rules needed dev cycles for every change.
+            Built a real-time rule engine consuming millions of Kafka events, running ML scoring through SageMaker, and mapping
+            fraud networks via Neptune graph DB — replacing manual processes with instant, self-service detection at scale.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
@@ -72,6 +73,58 @@
               <span class="reward-chip">⭐ Real-time detection</span>
             </div>
           </div>
+          <button class="game-btn game-btn-secondary rre-toggle-btn" (click)="showRREDeepDive = !showRREDeepDive">
+            {{ showRREDeepDive ? '▲ HIDE ARCHITECTURE' : '▼ VIEW ARCHITECTURE' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- RRE Deep-Dive Panel -->
+      <div class="rre-deepdive" *ngIf="showRREDeepDive" data-anim="fade-up">
+        <div class="rre-deepdive-inner">
+          <div class="rre-section-label">🔍 THE PROBLEM</div>
+          <p class="rre-problem">
+            Fraud investigation relied on agents manually sifting through logs and daily cron jobs.
+            Static JBPM rules needed developer cycles for every change, creating a bottleneck that let
+            fraudulent activity slip through during high-traffic windows.
+          </p>
+
+          <div class="rre-section-label">🏗️ ARCHITECTURE</div>
+          <div class="rre-arch-flow">
+            <div *ngFor="let node of rreArchNodes; let last = last" class="rre-arch-segment">
+              <div class="rre-arch-node" [style.border-color]="node.color">
+                <span class="rre-arch-icon">{{ node.icon }}</span>
+                <span class="rre-arch-label">{{ node.label }}</span>
+              </div>
+              <div class="rre-pipe" *ngIf="!last">
+                <span class="pipe-arrow">▸</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rre-section-label">📈 SCALE</div>
+          <div class="rre-stats-row">
+            <div *ngFor="let stat of rreStats" class="rre-stat-card">
+              <div class="rre-stat-value">{{ stat.value }}</div>
+              <div class="rre-stat-label">{{ stat.label }}</div>
+            </div>
+          </div>
+
+          <div class="rre-section-label">⚡ TECH STACK</div>
+          <div class="rre-tech-row">
+            <span *ngFor="let tech of rreTech" class="rre-tech-chip">{{ tech }}</span>
+          </div>
+
+          <div class="rre-section-label">🏆 IMPACT</div>
+          <p class="rre-impact">
+            Real-time detection replaced manual processes. Agents got self-service rule creation via Agent UI —
+            no more developer cycles for rule changes. Fraud networks mapped via graph analysis caught previously
+            invisible collusion patterns.
+          </p>
+
+          <a href="https://beingmartinbmc.medium.com/creating-a-real-time-rule-engine-with-graph-integration-and-ml-models-cd2e2365d19" target="_blank" rel="noopener" class="game-btn game-btn-primary rre-blog-link">
+            📖&nbsp; Read the Full Case Study on Medium
+          </a>
         </div>
       </div>
 
@@ -88,9 +141,9 @@
           <h4 class="quest-name">Fantasy Autoscaler</h4>
           <p class="quest-tagline">ML-powered predictive autoscaling for IPL-level traffic</p>
           <p class="pro-card-desc">
-            Predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting.
-            Anticipated traffic spikes before they hit, pre-scaling infrastructure ahead of toss time.
-            Successfully handled 10M concurrent users during IPL 2025 with zero downtime.
+            IPL traffic spikes were unpredictable and crashed infrastructure during peak moments.
+            Built a predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting —
+            pre-scaling infrastructure ahead of toss time. Handled 10M concurrent users during IPL 2025 with zero downtime.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
@@ -121,9 +174,9 @@
           <h4 class="quest-name">PAJ3 — Single Sign-On</h4>
           <p class="quest-tagline">Frictionless mobile-first user onboarding</p>
           <p class="pro-card-desc">
-            Replaced the traditional email + password registration with a mobile-number-based single sign-on flow.
-            Dramatically reduced onboarding friction, improving user conversion across both gaming platforms
-            with OTP-based authentication and seamless session management.
+            Traditional email + password registration caused high drop-off and fragmented sessions across platforms.
+            Replaced it with a mobile-number OTP-based single sign-on flow — dramatically reducing onboarding friction
+            and improving user conversion across both gaming platforms with seamless session management.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
@@ -154,9 +207,9 @@
           <h4 class="quest-name">Annual Enrollment</h4>
           <p class="quest-tagline">Benefits enrollment for 2.2M+ Walmart associates</p>
           <p class="pro-card-desc">
-            Automated dashboard enabling Walmart associates to check eligibility and sign up for health and wealth benefits —
-            dental coverage, life insurance, bonuses, and more. Served 2.2M+ associates across the US
-            with a streamlined, self-service enrollment experience.
+            2.2M Walmart associates needed a self-service way to enroll in benefits without relying on HR workflows.
+            Built an automated dashboard for eligibility checks and enrollment — dental, life insurance, bonuses, and more —
+            serving every US store with a streamlined, zero-friction experience.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
@@ -187,9 +240,9 @@
           <h4 class="quest-name">NEMR — Personalized K-12 Courses</h4>
           <p class="quest-tagline">Modular course purchasing for students</p>
           <p class="pro-card-desc">
-            Enabled students to purchase individual subjects, concepts, or courses instead of the full curriculum.
-            Built a personalized K-12 learning experience with granular content access,
-            breaking the monolithic course structure into flexible, affordable modules.
+            Students were forced to buy entire curriculums even when they needed just one subject.
+            Enabled granular subject-level purchasing — breaking the monolithic course structure into flexible,
+            affordable modules and building a personalized K-12 learning experience with fine-grained content access.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>

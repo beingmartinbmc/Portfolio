@@ -34508,123 +34508,248 @@ var SkillsComponent = class _SkillsComponent {
 })();
 
 // src/app/profile/publications/publications.component.ts
-function PublicationsComponent_For_391_Template(rf, ctx2) {
+function PublicationsComponent_div_98_div_9_div_6_Template(rf, ctx2) {
   if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "button", 65);
-    \u0275\u0275domListener("click", function PublicationsComponent_For_391_Template_button_click_0_listener() {
-      const category_r2 = \u0275\u0275restoreView(_r1).$implicit;
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.filterByCategory(category_r2));
-    });
-    \u0275\u0275text(1);
-    \u0275\u0275domElementEnd();
+    \u0275\u0275elementStart(0, "div", 84)(1, "span", 85);
+    \u0275\u0275text(2, "\u25B8");
+    \u0275\u0275elementEnd()();
+  }
+}
+function PublicationsComponent_div_98_div_9_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 79)(1, "div", 80)(2, "span", 81);
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "span", 82);
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275template(6, PublicationsComponent_div_98_div_9_div_6_Template, 3, 0, "div", 83);
+    \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const category_r2 = ctx2.$implicit;
-    const \u0275$index_628_r4 = ctx2.$index;
-    const ctx_r2 = \u0275\u0275nextContext();
-    \u0275\u0275classProp("active", ctx_r2.selectedCategory === category_r2);
-    \u0275\u0275attribute("data-aos-delay", (\u0275$index_628_r4 + 1) * 100);
+    const node_r1 = ctx2.$implicit;
+    const last_r2 = ctx2.last;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", category_r2, " ");
+    \u0275\u0275styleProp("border-color", node_r1.color);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(node_r1.icon);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(node_r1.label);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !last_r2);
   }
 }
-function PublicationsComponent_For_394_Conditional_15_Template(rf, ctx2) {
+function PublicationsComponent_div_98_div_13_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275domElement(0, "img", 75);
+    \u0275\u0275elementStart(0, "div", 86)(1, "div", 87);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 88);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const project_r5 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275domProperty("src", project_r5.badges.version, \u0275\u0275sanitizeUrl);
+    const stat_r3 = ctx2.$implicit;
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(stat_r3.value);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(stat_r3.label);
   }
 }
-function PublicationsComponent_For_394_Conditional_16_Template(rf, ctx2) {
+function PublicationsComponent_div_98_span_17_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275domElement(0, "img", 76);
+    \u0275\u0275elementStart(0, "span", 89);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const project_r5 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275domProperty("src", project_r5.badges.downloads, \u0275\u0275sanitizeUrl);
+    const tech_r4 = ctx2.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(tech_r4);
   }
 }
-function PublicationsComponent_For_394_Conditional_17_Template(rf, ctx2) {
+function PublicationsComponent_div_98_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275domElement(0, "img", 77);
+    \u0275\u0275elementStart(0, "div", 67)(1, "div", 68)(2, "div", 69);
+    \u0275\u0275text(3, "\u{1F50D} THE PROBLEM");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "p", 70);
+    \u0275\u0275text(5, " Fraud investigation relied on agents manually sifting through logs and daily cron jobs. Static JBPM rules needed developer cycles for every change, creating a bottleneck that let fraudulent activity slip through during high-traffic windows. ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "div", 69);
+    \u0275\u0275text(7, "\u{1F3D7}\uFE0F ARCHITECTURE");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "div", 71);
+    \u0275\u0275template(9, PublicationsComponent_div_98_div_9_Template, 7, 5, "div", 72);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(10, "div", 69);
+    \u0275\u0275text(11, "\u{1F4C8} SCALE");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "div", 73);
+    \u0275\u0275template(13, PublicationsComponent_div_98_div_13_Template, 5, 2, "div", 74);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(14, "div", 69);
+    \u0275\u0275text(15, "\u26A1 TECH STACK");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(16, "div", 75);
+    \u0275\u0275template(17, PublicationsComponent_div_98_span_17_Template, 2, 1, "span", 76);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(18, "div", 69);
+    \u0275\u0275text(19, "\u{1F3C6} IMPACT");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(20, "p", 77);
+    \u0275\u0275text(21, " Real-time detection replaced manual processes. Agents got self-service rule creation via Agent UI \u2014 no more developer cycles for rule changes. Fraud networks mapped via graph analysis caught previously invisible collusion patterns. ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "a", 78);
+    \u0275\u0275text(23, " \u{1F4D6}\xA0 Read the Full Case Study on Medium ");
+    \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const project_r5 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275domProperty("src", project_r5.badges.total, \u0275\u0275sanitizeUrl);
-  }
-}
-function PublicationsComponent_For_394_Conditional_18_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275domElement(0, "img", 78);
-  }
-  if (rf & 2) {
-    const project_r5 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275domProperty("src", project_r5.badges.java, \u0275\u0275sanitizeUrl);
+    const ctx_r4 = \u0275\u0275nextContext();
+    \u0275\u0275advance(9);
+    \u0275\u0275property("ngForOf", ctx_r4.rreArchNodes);
+    \u0275\u0275advance(4);
+    \u0275\u0275property("ngForOf", ctx_r4.rreStats);
+    \u0275\u0275advance(4);
+    \u0275\u0275property("ngForOf", ctx_r4.rreTech);
   }
 }
 function PublicationsComponent_For_394_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 64)(1, "div", 66)(2, "div", 67)(3, "span", 68);
-    \u0275\u0275text(4);
-    \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(5, "div", 69);
-    \u0275\u0275text(6);
-    \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(7, "div", 70)(8, "h5", 71);
-    \u0275\u0275text(9);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(10, "p", 72);
-    \u0275\u0275text(11);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(12, "p", 73);
-    \u0275\u0275text(13);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(14, "div", 74);
-    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_394_Conditional_15_Template, 1, 1, "img", 75);
-    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_394_Conditional_16_Template, 1, 1, "img", 76);
-    \u0275\u0275conditionalCreate(17, PublicationsComponent_For_394_Conditional_17_Template, 1, 1, "img", 77);
-    \u0275\u0275conditionalCreate(18, PublicationsComponent_For_394_Conditional_18_Template, 1, 1, "img", 78);
-    \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(19, "a", 79);
-    \u0275\u0275text(20);
-    \u0275\u0275domElementEnd()()();
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 90);
+    \u0275\u0275listener("click", function PublicationsComponent_For_394_Template_button_click_0_listener() {
+      const category_r7 = \u0275\u0275restoreView(_r6).$implicit;
+      const ctx_r4 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r4.filterByCategory(category_r7));
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const project_r5 = ctx2.$implicit;
-    const \u0275$index_634_r6 = ctx2.$index;
-    \u0275\u0275attribute("data-delay", (\u0275$index_634_r6 + 1) * 100);
+    const category_r7 = ctx2.$implicit;
+    const \u0275$index_701_r8 = ctx2.$index;
+    const ctx_r4 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("active", ctx_r4.selectedCategory === category_r7);
+    \u0275\u0275attribute("data-aos-delay", (\u0275$index_701_r8 + 1) * 100);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", category_r7, " ");
+  }
+}
+function PublicationsComponent_For_397_Conditional_15_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "img", 100);
+  }
+  if (rf & 2) {
+    const project_r9 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275property("src", project_r9.badges.version, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_For_397_Conditional_16_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "img", 101);
+  }
+  if (rf & 2) {
+    const project_r9 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275property("src", project_r9.badges.downloads, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_For_397_Conditional_17_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "img", 102);
+  }
+  if (rf & 2) {
+    const project_r9 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275property("src", project_r9.badges.total, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_For_397_Conditional_18_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "img", 103);
+  }
+  if (rf & 2) {
+    const project_r9 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275property("src", project_r9.badges.java, \u0275\u0275sanitizeUrl);
+  }
+}
+function PublicationsComponent_For_397_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 66)(1, "div", 91)(2, "div", 92)(3, "span", 93);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(5, "div", 94);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(7, "div", 95)(8, "h5", 96);
+    \u0275\u0275text(9);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(10, "p", 97);
+    \u0275\u0275text(11);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "p", 98);
+    \u0275\u0275text(13);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(14, "div", 99);
+    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_397_Conditional_15_Template, 1, 1, "img", 100);
+    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_397_Conditional_16_Template, 1, 1, "img", 101);
+    \u0275\u0275conditionalCreate(17, PublicationsComponent_For_397_Conditional_17_Template, 1, 1, "img", 102);
+    \u0275\u0275conditionalCreate(18, PublicationsComponent_For_397_Conditional_18_Template, 1, 1, "img", 103);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(19, "a", 104);
+    \u0275\u0275text(20);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const project_r9 = ctx2.$implicit;
+    const \u0275$index_707_r10 = ctx2.$index;
+    \u0275\u0275attribute("data-delay", (\u0275$index_707_r10 + 1) * 100);
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(project_r5.category === "NPM" ? "\u{1F4E6}" : project_r5.category === "Maven Central" ? "\u2615" : "\u2B50");
+    \u0275\u0275textInterpolate(project_r9.category === "NPM" ? "\u{1F4E6}" : project_r9.category === "Maven Central" ? "\u2615" : "\u2B50");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(project_r5.category);
+    \u0275\u0275textInterpolate(project_r9.category);
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(project_r5.title);
+    \u0275\u0275textInterpolate(project_r9.title);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(project_r5.tagline);
+    \u0275\u0275textInterpolate(project_r9.tagline);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(project_r5.description);
+    \u0275\u0275textInterpolate(project_r9.description);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(project_r5.badges.version ? 15 : -1);
+    \u0275\u0275conditional(project_r9.badges.version ? 15 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(project_r5.badges.downloads ? 16 : -1);
+    \u0275\u0275conditional(project_r9.badges.downloads ? 16 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(project_r5.badges.total ? 17 : -1);
+    \u0275\u0275conditional(project_r9.badges.total ? 17 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(project_r5.badges.java ? 18 : -1);
+    \u0275\u0275conditional(project_r9.badges.java ? 18 : -1);
     \u0275\u0275advance();
-    \u0275\u0275domProperty("href", project_r5.link, \u0275\u0275sanitizeUrl);
+    \u0275\u0275property("href", project_r9.link, \u0275\u0275sanitizeUrl);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" \u2B07\xA0 ", project_r5.linkText, " ");
+    \u0275\u0275textInterpolate1(" \u2B07\xA0 ", project_r9.linkText, " ");
   }
 }
 var PublicationsComponent = class _PublicationsComponent {
   constructor() {
     this.projectLinks = PROJECT_LINKS;
     this.companyLinks = COMPANY_LINKS;
+    this.showRREDeepDive = false;
+    this.rreArchNodes = [
+      { icon: "\u{1F464}", label: "User Actions", color: "#fbbf24" },
+      { icon: "\u{1F4E1}", label: "Kafka", color: "#34d399" },
+      { icon: "\u2699\uFE0F", label: "Aggregator", color: "#60a5fa" },
+      { icon: "\u{1F9EE}", label: "Evaluator", color: "#f97316" },
+      { icon: "\u{1F578}\uFE0F", label: "Graph Service", color: "#a78bfa" },
+      { icon: "\u{1F9E0}", label: "ML Models", color: "#f472b6" },
+      { icon: "\u{1F4CA}", label: "User Rating", color: "#34d399" },
+      { icon: "\u{1F3AF}", label: "Action Service", color: "#ef4444" },
+      { icon: "\u{1F5A5}\uFE0F", label: "Agent UI", color: "#fbbf24" }
+    ];
+    this.rreStats = [
+      { value: "5,547", label: "RPS peak load" },
+      { value: "19.9M", label: "requests/hour" },
+      { value: "7.16M", label: "hand-history ops/sec" },
+      { value: "20+", label: "concurrent fraud rules" }
+    ];
+    this.rreTech = ["Java 11/21", "ScyllaDB", "Kafka", "Redis + Redisson", "Elasticsearch", "MongoDB", "Druid", "SageMaker", "Neptune"];
     this.openSourceProjects = [
       {
         id: "node-actuator-lite",
@@ -34760,517 +34885,528 @@ var PublicationsComponent = class _PublicationsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 395, vars: 12, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header", "quest-header"], [1, "quest-world-label"], ["data-text-reveal", "", 1, "section-title", "quest-title"], [1, "section-subtitle"], ["data-stagger", "150", 1, "pro-projects-grid"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card"], [1, "quest-rank-bar"], [1, "quest-inner"], [1, "quest-header-row"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-games", 3, "href"], [1, "world-icon"], [1, "quest-platform"], [1, "quest-status"], [1, "quest-name"], [1, "quest-tagline"], [1, "pro-card-desc"], [1, "abilities-row"], [1, "abilities-label"], [1, "ability-chips"], [1, "rewards-row"], [1, "rewards-label"], [1, "reward-chips"], [1, "reward-chip"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card", "boss-card"], [1, "quest-status", "boss-status"], [1, "reward-chip", "legendary"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "walmart-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-walmart", 3, "href"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "extramarks-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-extramarks", 3, "href"], ["data-anim", "fade-up", 1, "section-header", "quest-header", 2, "margin-top", "6rem"], ["data-stagger", "150", 1, "projects-grid", "side-quests-grid"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "algo-card"], ["target", "_blank", "rel", "noopener", 1, "game-screen-link", 3, "href"], [1, "game-screen", "algo-screen"], [1, "screen-scanlines"], [1, "screen-content"], [1, "screen-icon"], [1, "screen-title"], [1, "screen-subtitle"], [1, "screen-tags"], [1, "screen-press"], [1, "card-body", "side-quest-body"], [1, "sq-type-row"], [1, "sq-type-badge"], [1, "sq-xp"], [1, "sq-title"], [1, "card-text"], [1, "sq-tech-row"], [1, "tech-badge"], [1, "sq-action"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-primary", 3, "href"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "divine-card"], [1, "game-screen", "divine-screen"], [1, "screen-press", "powered"], [1, "sq-type-badge", "ai-badge"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "datesense-card"], [1, "game-screen", "datesense-screen"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "shop-filters"], [1, "shop-filter-btn", 3, "active"], [1, "open-source-grid", "powerup-grid"], ["data-anim", "fade-up", 1, "open-source-card", "powerup-card"], [1, "shop-filter-btn", 3, "click"], [1, "powerup-top"], [1, "powerup-icon-wrap"], [1, "powerup-icon"], [1, "powerup-category"], [1, "card-body", "powerup-body"], [1, "powerup-name"], [1, "powerup-tagline"], [1, "card-text", "powerup-desc"], [1, "powerup-badges"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-secondary", "powerup-btn", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx2) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 398, vars: 14, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header", "quest-header"], [1, "quest-world-label"], ["data-text-reveal", "", 1, "section-title", "quest-title"], [1, "section-subtitle"], ["data-stagger", "150", 1, "pro-projects-grid"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card"], [1, "quest-rank-bar"], [1, "quest-inner"], [1, "quest-header-row"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-games", 3, "href"], [1, "world-icon"], [1, "quest-platform"], [1, "quest-status"], [1, "quest-name"], [1, "quest-tagline"], [1, "pro-card-desc"], [1, "abilities-row"], [1, "abilities-label"], [1, "ability-chips"], [1, "rewards-row"], [1, "rewards-label"], [1, "reward-chips"], [1, "reward-chip"], [1, "game-btn", "game-btn-secondary", "rre-toggle-btn", 3, "click"], ["class", "rre-deepdive", "data-anim", "fade-up", 4, "ngIf"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card", "boss-card"], [1, "quest-status", "boss-status"], [1, "reward-chip", "legendary"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "walmart-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-walmart", 3, "href"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "extramarks-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-extramarks", 3, "href"], ["data-anim", "fade-up", 1, "section-header", "quest-header", 2, "margin-top", "6rem"], ["data-stagger", "150", 1, "projects-grid", "side-quests-grid"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "algo-card"], ["target", "_blank", "rel", "noopener", 1, "game-screen-link", 3, "href"], [1, "game-screen", "algo-screen"], [1, "screen-scanlines"], [1, "screen-content"], [1, "screen-icon"], [1, "screen-title"], [1, "screen-subtitle"], [1, "screen-tags"], [1, "screen-press"], [1, "card-body", "side-quest-body"], [1, "sq-type-row"], [1, "sq-type-badge"], [1, "sq-xp"], [1, "sq-title"], [1, "card-text"], [1, "sq-tech-row"], [1, "tech-badge"], [1, "sq-action"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-primary", 3, "href"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "divine-card"], [1, "game-screen", "divine-screen"], [1, "screen-press", "powered"], [1, "sq-type-badge", "ai-badge"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "datesense-card"], [1, "game-screen", "datesense-screen"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "shop-filters"], [1, "shop-filter-btn", 3, "active"], [1, "open-source-grid", "powerup-grid"], ["data-anim", "fade-up", 1, "open-source-card", "powerup-card"], ["data-anim", "fade-up", 1, "rre-deepdive"], [1, "rre-deepdive-inner"], [1, "rre-section-label"], [1, "rre-problem"], [1, "rre-arch-flow"], ["class", "rre-arch-segment", 4, "ngFor", "ngForOf"], [1, "rre-stats-row"], ["class", "rre-stat-card", 4, "ngFor", "ngForOf"], [1, "rre-tech-row"], ["class", "rre-tech-chip", 4, "ngFor", "ngForOf"], [1, "rre-impact"], ["href", "https://beingmartinbmc.medium.com/creating-a-real-time-rule-engine-with-graph-integration-and-ml-models-cd2e2365d19", "target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-primary", "rre-blog-link"], [1, "rre-arch-segment"], [1, "rre-arch-node"], [1, "rre-arch-icon"], [1, "rre-arch-label"], ["class", "rre-pipe", 4, "ngIf"], [1, "rre-pipe"], [1, "pipe-arrow"], [1, "rre-stat-card"], [1, "rre-stat-value"], [1, "rre-stat-label"], [1, "rre-tech-chip"], [1, "shop-filter-btn", 3, "click"], [1, "powerup-top"], [1, "powerup-icon-wrap"], [1, "powerup-icon"], [1, "powerup-category"], [1, "card-body", "powerup-body"], [1, "powerup-name"], [1, "powerup-tagline"], [1, "card-text", "powerup-desc"], [1, "powerup-badges"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-secondary", "powerup-btn", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx2) {
       if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
+        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
         \u0275\u0275text(4, "\u2694 WORLD MAP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(5, "h2", 4);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(5, "h2", 4);
         \u0275\u0275text(6, "Main Quests");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(7, "p", 5);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(7, "p", 5);
         \u0275\u0275text(8, "Real systems. Real scale. Mission logs from the field.");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(9, "div", 6)(10, "div", 7);
-        \u0275\u0275domElement(11, "div", 8);
-        \u0275\u0275domElementStart(12, "div", 9)(13, "div", 10)(14, "a", 11)(15, "span", 12);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(9, "div", 6)(10, "div", 7);
+        \u0275\u0275element(11, "div", 8);
+        \u0275\u0275elementStart(12, "div", 9)(13, "div", 10)(14, "a", 11)(15, "span", 12);
         \u0275\u0275text(16, "\u{1F3AE}");
-        \u0275\u0275domElementEnd();
+        \u0275\u0275elementEnd();
         \u0275\u0275text(17, " Games24x7 ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(18, "span", 13);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(18, "span", 13);
         \u0275\u0275text(19, "My11Circle \xB7 RummyCircle");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(20, "div", 14);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(20, "div", 14);
         \u0275\u0275text(21, "MISSION CLEARED \u2713");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(22, "h4", 15);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(22, "h4", 15);
         \u0275\u0275text(23, "Automated KYC Platform");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(24, "p", 16);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(24, "p", 16);
         \u0275\u0275text(25, "Identity verification at scale \u2014 built from scratch");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(26, "p", 17);
-        \u0275\u0275text(27, " End-to-end document verification system supporting Digilocker, Aadhaar Lite, PAN validation, and OCR-based extraction. Processes 200K+ verifications daily across two gaming platforms with 99.95% uptime via a distributed Kafka pipeline. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(28, "div", 18)(29, "span", 19);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(26, "p", 17);
+        \u0275\u0275text(27, " Manual identity checks were slow, error-prone, and couldn't keep up with onboarding volume. Built an automated end-to-end pipeline \u2014 Digilocker, Aadhaar Lite, PAN validation, OCR extraction \u2014 processing 200K+ verifications daily across two platforms with 99.95% uptime via a distributed Kafka pipeline. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(28, "div", 18)(29, "span", 19);
         \u0275\u0275text(30, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(31, "div", 20)(32, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(31, "div", 20)(32, "span");
         \u0275\u0275text(33, "Java");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(34, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(34, "span");
         \u0275\u0275text(35, "Spring Boot");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(36, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(36, "span");
         \u0275\u0275text(37, "Kafka");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(38, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(38, "span");
         \u0275\u0275text(39, "Redis");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(40, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(40, "span");
         \u0275\u0275text(41, "OCR");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(42, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(42, "span");
         \u0275\u0275text(43, "Digilocker API");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(44, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(44, "span");
         \u0275\u0275text(45, "AWS");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(46, "div", 21)(47, "span", 22);
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(46, "div", 21)(47, "span", 22);
         \u0275\u0275text(48, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(49, "div", 23)(50, "span", 24);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(49, "div", 23)(50, "span", 24);
         \u0275\u0275text(51, "\u{1FA99} 200K+ verifications/day");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(52, "span", 24);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(52, "span", 24);
         \u0275\u0275text(53, "\u2B50 99.95% uptime");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(54, "div", 7);
-        \u0275\u0275domElement(55, "div", 8);
-        \u0275\u0275domElementStart(56, "div", 9)(57, "div", 10)(58, "a", 11)(59, "span", 12);
+        \u0275\u0275elementEnd()()()()();
+        \u0275\u0275elementStart(54, "div", 7);
+        \u0275\u0275element(55, "div", 8);
+        \u0275\u0275elementStart(56, "div", 9)(57, "div", 10)(58, "a", 11)(59, "span", 12);
         \u0275\u0275text(60, "\u{1F3AE}");
-        \u0275\u0275domElementEnd();
+        \u0275\u0275elementEnd();
         \u0275\u0275text(61, " Games24x7 ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(62, "span", 13);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(62, "span", 13);
         \u0275\u0275text(63, "My11Circle \xB7 RummyCircle");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(64, "div", 14);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(64, "div", 14);
         \u0275\u0275text(65, "MISSION CLEARED \u2713");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(66, "h4", 15);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(66, "h4", 15);
         \u0275\u0275text(67, "Risk Rule Engine");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(68, "p", 16);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(68, "p", 16);
         \u0275\u0275text(69, "Real-time fraud detection powered by ML + graph analysis");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(70, "p", 17);
-        \u0275\u0275text(71, " Built a rule engine that identifies fraudulent user behavior in real time across two platforms. Consumes millions of Kafka messages via pub/sub, runs ML-based scoring through SageMaker, and maps fraud networks using Neptune graph DB \u2014 preventing financial losses at scale. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(72, "div", 18)(73, "span", 19);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(70, "p", 17);
+        \u0275\u0275text(71, " Agents manually sifted through logs to investigate fraud \u2014 static JBPM rules needed dev cycles for every change. Built a real-time rule engine consuming millions of Kafka events, running ML scoring through SageMaker, and mapping fraud networks via Neptune graph DB \u2014 replacing manual processes with instant, self-service detection at scale. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(72, "div", 18)(73, "span", 19);
         \u0275\u0275text(74, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(75, "div", 20)(76, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(75, "div", 20)(76, "span");
         \u0275\u0275text(77, "Java");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(78, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(78, "span");
         \u0275\u0275text(79, "Kafka");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(80, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(80, "span");
         \u0275\u0275text(81, "SageMaker");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(82, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(82, "span");
         \u0275\u0275text(83, "Neptune DB");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(84, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(84, "span");
         \u0275\u0275text(85, "Gremlin");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(86, "span");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(86, "span");
         \u0275\u0275text(87, "Spring Cloud");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(88, "div", 21)(89, "span", 22);
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(88, "div", 21)(89, "span", 22);
         \u0275\u0275text(90, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(91, "div", 23)(92, "span", 24);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(91, "div", 23)(92, "span", 24);
         \u0275\u0275text(93, "\u{1FA99} Millions of events/day");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(94, "span", 24);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(94, "span", 24);
         \u0275\u0275text(95, "\u2B50 Real-time detection");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(96, "div", 25);
-        \u0275\u0275domElement(97, "div", 8);
-        \u0275\u0275domElementStart(98, "div", 9)(99, "div", 10)(100, "a", 11)(101, "span", 12);
-        \u0275\u0275text(102, "\u{1F3AE}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(103, " Games24x7 ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(104, "span", 13);
-        \u0275\u0275text(105, "My11Circle");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(106, "div", 26);
-        \u0275\u0275text(107, "\u{1F47E} BOSS BATTLE CLEARED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(108, "h4", 15);
-        \u0275\u0275text(109, "Fantasy Autoscaler");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(110, "p", 16);
-        \u0275\u0275text(111, "ML-powered predictive autoscaling for IPL-level traffic");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(112, "p", 17);
-        \u0275\u0275text(113, " Predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting. Anticipated traffic spikes before they hit, pre-scaling infrastructure ahead of toss time. Successfully handled 10M concurrent users during IPL 2025 with zero downtime. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(114, "div", 18)(115, "span", 19);
-        \u0275\u0275text(116, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(117, "div", 20)(118, "span");
-        \u0275\u0275text(119, "Kubernetes");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(120, "span");
-        \u0275\u0275text(121, "AWS ASG");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(122, "span");
-        \u0275\u0275text(123, "ML");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(124, "span");
-        \u0275\u0275text(125, "Grafana");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(126, "span");
-        \u0275\u0275text(127, "Prometheus");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(128, "span");
-        \u0275\u0275text(129, "Java");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(130, "div", 21)(131, "span", 22);
-        \u0275\u0275text(132, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(133, "div", 23)(134, "span", 27);
-        \u0275\u0275text(135, "\u{1F48E} 10M concurrent users");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(136, "span", 27);
-        \u0275\u0275text(137, "\u{1F3C6} Zero downtime @ IPL 2025");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(138, "div", 7);
-        \u0275\u0275domElement(139, "div", 8);
-        \u0275\u0275domElementStart(140, "div", 9)(141, "div", 10)(142, "a", 11)(143, "span", 12);
-        \u0275\u0275text(144, "\u{1F3AE}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(145, " Games24x7 ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(146, "span", 13);
-        \u0275\u0275text(147, "My11Circle \xB7 RummyCircle");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(148, "div", 14);
-        \u0275\u0275text(149, "MISSION CLEARED \u2713");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(150, "h4", 15);
-        \u0275\u0275text(151, "PAJ3 \u2014 Single Sign-On");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(152, "p", 16);
-        \u0275\u0275text(153, "Frictionless mobile-first user onboarding");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(154, "p", 17);
-        \u0275\u0275text(155, " Replaced the traditional email + password registration with a mobile-number-based single sign-on flow. Dramatically reduced onboarding friction, improving user conversion across both gaming platforms with OTP-based authentication and seamless session management. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(156, "div", 18)(157, "span", 19);
-        \u0275\u0275text(158, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(159, "div", 20)(160, "span");
-        \u0275\u0275text(161, "Java");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(162, "span");
-        \u0275\u0275text(163, "Spring Security");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(164, "span");
-        \u0275\u0275text(165, "Redis");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(166, "span");
-        \u0275\u0275text(167, "OTP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(168, "span");
-        \u0275\u0275text(169, "JWT");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(170, "span");
-        \u0275\u0275text(171, "Microservices");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(172, "div", 21)(173, "span", 22);
-        \u0275\u0275text(174, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(175, "div", 23)(176, "span", 24);
-        \u0275\u0275text(177, "\u{1FA99} 2 platforms");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(178, "span", 24);
-        \u0275\u0275text(179, "\u2B50 Mobile-first auth");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(180, "div", 28);
-        \u0275\u0275domElement(181, "div", 8);
-        \u0275\u0275domElementStart(182, "div", 9)(183, "div", 10)(184, "a", 29)(185, "span", 12);
-        \u0275\u0275text(186, "\u{1F3EA}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(187, " Walmart ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(188, "span", 13);
-        \u0275\u0275text(189, "Stores");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(190, "div", 14);
-        \u0275\u0275text(191, "MISSION CLEARED \u2713");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(192, "h4", 15);
-        \u0275\u0275text(193, "Annual Enrollment");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(194, "p", 16);
-        \u0275\u0275text(195, "Benefits enrollment for 2.2M+ Walmart associates");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(196, "p", 17);
-        \u0275\u0275text(197, " Automated dashboard enabling Walmart associates to check eligibility and sign up for health and wealth benefits \u2014 dental coverage, life insurance, bonuses, and more. Served 2.2M+ associates across the US with a streamlined, self-service enrollment experience. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(198, "div", 18)(199, "span", 19);
-        \u0275\u0275text(200, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(201, "div", 20)(202, "span");
-        \u0275\u0275text(203, "Java 8");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(204, "span");
-        \u0275\u0275text(205, "Angular");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(206, "span");
-        \u0275\u0275text(207, "JSP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(208, "span");
-        \u0275\u0275text(209, "OneOps");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(210, "span");
-        \u0275\u0275text(211, "Jenkins");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(212, "div", 21)(213, "span", 22);
-        \u0275\u0275text(214, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(215, "div", 23)(216, "span", 24);
-        \u0275\u0275text(217, "\u{1FA99} 2.2M+ associates");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(218, "span", 24);
-        \u0275\u0275text(219, "\u2B50 US-wide rollout");
-        \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(220, "div", 30);
-        \u0275\u0275domElement(221, "div", 8);
-        \u0275\u0275domElementStart(222, "div", 9)(223, "div", 10)(224, "a", 31)(225, "span", 12);
-        \u0275\u0275text(226, "\u{1F4DA}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275text(227, " Extramarks ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(228, "span", 13);
-        \u0275\u0275text(229, "Elsa");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(230, "div", 14);
-        \u0275\u0275text(231, "MISSION CLEARED \u2713");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(232, "h4", 15);
-        \u0275\u0275text(233, "NEMR \u2014 Personalized K-12 Courses");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(234, "p", 16);
-        \u0275\u0275text(235, "Modular course purchasing for students");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(236, "p", 17);
-        \u0275\u0275text(237, " Enabled students to purchase individual subjects, concepts, or courses instead of the full curriculum. Built a personalized K-12 learning experience with granular content access, breaking the monolithic course structure into flexible, affordable modules. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(238, "div", 18)(239, "span", 19);
-        \u0275\u0275text(240, "\u26A1 ABILITIES USED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(241, "div", 20)(242, "span");
-        \u0275\u0275text(243, "Java 11");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(244, "span");
-        \u0275\u0275text(245, "Spring Boot");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(246, "span");
-        \u0275\u0275text(247, "MySQL");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(248, "span");
-        \u0275\u0275text(249, "Docker");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(250, "span");
-        \u0275\u0275text(251, "AWS Cognito");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(252, "span");
-        \u0275\u0275text(253, "OAuth2.0");
-        \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(254, "div", 21)(255, "span", 22);
-        \u0275\u0275text(256, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(257, "div", 23)(258, "span", 24);
-        \u0275\u0275text(259, "\u{1FA99} K-12 platform");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(260, "span", 24);
-        \u0275\u0275text(261, "\u2B50 Modular pricing");
-        \u0275\u0275domElementEnd()()()()()();
-        \u0275\u0275domElementStart(262, "div", 32)(263, "div", 3);
-        \u0275\u0275text(264, "\u{1F3AE} SIDE QUESTS");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(265, "h2", 4);
-        \u0275\u0275text(266, "Side Projects & AI Experiments");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(267, "p", 5);
-        \u0275\u0275text(268, "Passion builds. Shipped for fun, learning, and the love of craft.");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(269, "div", 33)(270, "div", 34)(271, "a", 35)(272, "div", 36);
-        \u0275\u0275domElement(273, "div", 37);
-        \u0275\u0275domElementStart(274, "div", 38)(275, "div", 39);
-        \u0275\u0275text(276, "\u{1F9E0}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(277, "div", 40);
-        \u0275\u0275text(278, "ALGORITHM VISUALIZER");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(279, "div", 41);
-        \u0275\u0275text(280, "DSA Visualizer \xB7 Step-by-Step");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(281, "div", 42);
-        \u0275\u0275text(282, "Sorting \xB7 Trees \xB7 Graphs \xB7 Backtracking");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(283, "div", 43);
-        \u0275\u0275text(284, "\u25B6 PRESS TO PLAY");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(285, "div", 44)(286, "div", 45)(287, "span", 46);
-        \u0275\u0275text(288, "\u{1F3AF} WEB APP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(289, "span", 47);
-        \u0275\u0275text(290, "+500 XP");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(291, "h5", 48);
-        \u0275\u0275text(292, "Algorithm Visualizer");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(293, "p", 49);
-        \u0275\u0275text(294, " A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(295, "div", 50)(296, "span", 51);
-        \u0275\u0275text(297, "JavaScript");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(298, "span", 51);
-        \u0275\u0275text(299, "React");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(300, "span", 51);
-        \u0275\u0275text(301, "Tailwind");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(302, "span", 51);
-        \u0275\u0275text(303, "Web Audio API");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(304, "div", 52)(305, "a", 53);
-        \u0275\u0275text(306, " \u25B6\xA0 Play Demo ");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(307, "div", 54)(308, "a", 35)(309, "div", 55);
-        \u0275\u0275domElement(310, "div", 37);
-        \u0275\u0275domElementStart(311, "div", 38)(312, "div", 39);
-        \u0275\u0275text(313, "\u{1F549}\uFE0F");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(314, "div", 40);
-        \u0275\u0275text(315, "RELIGIOUS GPT");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(316, "div", 41);
-        \u0275\u0275text(317, "Learn Religion the AI Way");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(318, "div", 42);
-        \u0275\u0275text(319, "Gita \xB7 Quran \xB7 Bible \xB7 Vedas \xB7 Tripitaka");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(320, "div", 56);
-        \u0275\u0275text(321, "Powered by GPT-4.1");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(322, "div", 44)(323, "div", 45)(324, "span", 57);
-        \u0275\u0275text(325, "\u{1F916} AI APP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(326, "span", 47);
-        \u0275\u0275text(327, "+750 XP");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(328, "h5", 48);
-        \u0275\u0275text(329, "Religious GPT");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(330, "p", 49);
-        \u0275\u0275text(331, " Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, and more. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(332, "div", 50)(333, "span", 51);
-        \u0275\u0275text(334, "React");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(335, "span", 51);
-        \u0275\u0275text(336, "Node.js");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(337, "span", 51);
-        \u0275\u0275text(338, "GPT-4.1");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(339, "span", 51);
-        \u0275\u0275text(340, "Vercel");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(341, "div", 52)(342, "a", 53);
-        \u0275\u0275text(343, " \u25B6\xA0 Play Demo ");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(344, "div", 58)(345, "a", 35)(346, "div", 59);
-        \u0275\u0275domElement(347, "div", 37);
-        \u0275\u0275domElementStart(348, "div", 38)(349, "div", 39);
-        \u0275\u0275text(350, "\u{1F498}");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(351, "div", 40);
-        \u0275\u0275text(352, "DATESENSE");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(353, "div", 41);
-        \u0275\u0275text(354, "AI Dating Conversation Analyst");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(355, "div", 42);
-        \u0275\u0275text(356, "Attraction Score \xB7 Ghosting Risk \xB7 Scam Detection");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(357, "div", 56);
-        \u0275\u0275text(358, "Powered by GPT-4.1 Nano");
-        \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(359, "div", 44)(360, "div", 45)(361, "span", 57);
-        \u0275\u0275text(362, "\u{1F916} AI APP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(363, "span", 47);
-        \u0275\u0275text(364, "+800 XP");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(365, "h5", 48);
-        \u0275\u0275text(366, "DateSense");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(367, "p", 49);
-        \u0275\u0275text(368, " An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Detects potential scam or manipulative patterns through GPT-4.1 Nano. ");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(369, "div", 50)(370, "span", 51);
-        \u0275\u0275text(371, "Angular");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(372, "span", 51);
-        \u0275\u0275text(373, "GPT-4.1 Nano");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(374, "span", 51);
-        \u0275\u0275text(375, "OCR");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(376, "span", 51);
-        \u0275\u0275text(377, "Vercel");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(378, "div", 52)(379, "a", 53);
-        \u0275\u0275text(380, " \u25B6\xA0 Play Demo ");
-        \u0275\u0275domElementEnd()()()()()();
-        \u0275\u0275domElementStart(381, "div", 60)(382, "div", 2)(383, "div", 3);
-        \u0275\u0275text(384, "\u{1F4E6} ITEM SHOP");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(385, "h2", 4);
-        \u0275\u0275text(386, "Open Source Power-Ups");
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(387, "p", 5);
-        \u0275\u0275text(388, "Free collectibles. Pick up and drop into your stack.");
-        \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(389, "div", 61);
-        \u0275\u0275repeaterCreate(390, PublicationsComponent_For_391_Template, 2, 4, "button", 62, \u0275\u0275repeaterTrackByIdentity);
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(392, "div", 63);
-        \u0275\u0275repeaterCreate(393, PublicationsComponent_For_394_Template, 21, 12, "div", 64, \u0275\u0275repeaterTrackByIdentity);
-        \u0275\u0275domElementEnd()()();
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(96, "button", 25);
+        \u0275\u0275listener("click", function PublicationsComponent_Template_button_click_96_listener() {
+          return ctx2.showRREDeepDive = !ctx2.showRREDeepDive;
+        });
+        \u0275\u0275text(97);
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275template(98, PublicationsComponent_div_98_Template, 24, 3, "div", 26);
+        \u0275\u0275elementStart(99, "div", 27);
+        \u0275\u0275element(100, "div", 8);
+        \u0275\u0275elementStart(101, "div", 9)(102, "div", 10)(103, "a", 11)(104, "span", 12);
+        \u0275\u0275text(105, "\u{1F3AE}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275text(106, " Games24x7 ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(107, "span", 13);
+        \u0275\u0275text(108, "My11Circle");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(109, "div", 28);
+        \u0275\u0275text(110, "\u{1F47E} BOSS BATTLE CLEARED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(111, "h4", 15);
+        \u0275\u0275text(112, "Fantasy Autoscaler");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(113, "p", 16);
+        \u0275\u0275text(114, "ML-powered predictive autoscaling for IPL-level traffic");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(115, "p", 17);
+        \u0275\u0275text(116, " IPL traffic spikes were unpredictable and crashed infrastructure during peak moments. Built a predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting \u2014 pre-scaling infrastructure ahead of toss time. Handled 10M concurrent users during IPL 2025 with zero downtime. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(117, "div", 18)(118, "span", 19);
+        \u0275\u0275text(119, "\u26A1 ABILITIES USED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(120, "div", 20)(121, "span");
+        \u0275\u0275text(122, "Kubernetes");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(123, "span");
+        \u0275\u0275text(124, "AWS ASG");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(125, "span");
+        \u0275\u0275text(126, "ML");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(127, "span");
+        \u0275\u0275text(128, "Grafana");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(129, "span");
+        \u0275\u0275text(130, "Prometheus");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(131, "span");
+        \u0275\u0275text(132, "Java");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(133, "div", 21)(134, "span", 22);
+        \u0275\u0275text(135, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(136, "div", 23)(137, "span", 29);
+        \u0275\u0275text(138, "\u{1F48E} 10M concurrent users");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(139, "span", 29);
+        \u0275\u0275text(140, "\u{1F3C6} Zero downtime @ IPL 2025");
+        \u0275\u0275elementEnd()()()()();
+        \u0275\u0275elementStart(141, "div", 7);
+        \u0275\u0275element(142, "div", 8);
+        \u0275\u0275elementStart(143, "div", 9)(144, "div", 10)(145, "a", 11)(146, "span", 12);
+        \u0275\u0275text(147, "\u{1F3AE}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275text(148, " Games24x7 ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(149, "span", 13);
+        \u0275\u0275text(150, "My11Circle \xB7 RummyCircle");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(151, "div", 14);
+        \u0275\u0275text(152, "MISSION CLEARED \u2713");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(153, "h4", 15);
+        \u0275\u0275text(154, "PAJ3 \u2014 Single Sign-On");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(155, "p", 16);
+        \u0275\u0275text(156, "Frictionless mobile-first user onboarding");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(157, "p", 17);
+        \u0275\u0275text(158, " Traditional email + password registration caused high drop-off and fragmented sessions across platforms. Replaced it with a mobile-number OTP-based single sign-on flow \u2014 dramatically reducing onboarding friction and improving user conversion across both gaming platforms with seamless session management. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(159, "div", 18)(160, "span", 19);
+        \u0275\u0275text(161, "\u26A1 ABILITIES USED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(162, "div", 20)(163, "span");
+        \u0275\u0275text(164, "Java");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(165, "span");
+        \u0275\u0275text(166, "Spring Security");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(167, "span");
+        \u0275\u0275text(168, "Redis");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(169, "span");
+        \u0275\u0275text(170, "OTP");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(171, "span");
+        \u0275\u0275text(172, "JWT");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(173, "span");
+        \u0275\u0275text(174, "Microservices");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(175, "div", 21)(176, "span", 22);
+        \u0275\u0275text(177, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(178, "div", 23)(179, "span", 24);
+        \u0275\u0275text(180, "\u{1FA99} 2 platforms");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(181, "span", 24);
+        \u0275\u0275text(182, "\u2B50 Mobile-first auth");
+        \u0275\u0275elementEnd()()()()();
+        \u0275\u0275elementStart(183, "div", 30);
+        \u0275\u0275element(184, "div", 8);
+        \u0275\u0275elementStart(185, "div", 9)(186, "div", 10)(187, "a", 31)(188, "span", 12);
+        \u0275\u0275text(189, "\u{1F3EA}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275text(190, " Walmart ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(191, "span", 13);
+        \u0275\u0275text(192, "Stores");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(193, "div", 14);
+        \u0275\u0275text(194, "MISSION CLEARED \u2713");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(195, "h4", 15);
+        \u0275\u0275text(196, "Annual Enrollment");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(197, "p", 16);
+        \u0275\u0275text(198, "Benefits enrollment for 2.2M+ Walmart associates");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(199, "p", 17);
+        \u0275\u0275text(200, " 2.2M Walmart associates needed a self-service way to enroll in benefits without relying on HR workflows. Built an automated dashboard for eligibility checks and enrollment \u2014 dental, life insurance, bonuses, and more \u2014 serving every US store with a streamlined, zero-friction experience. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(201, "div", 18)(202, "span", 19);
+        \u0275\u0275text(203, "\u26A1 ABILITIES USED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(204, "div", 20)(205, "span");
+        \u0275\u0275text(206, "Java 8");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(207, "span");
+        \u0275\u0275text(208, "Angular");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(209, "span");
+        \u0275\u0275text(210, "JSP");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(211, "span");
+        \u0275\u0275text(212, "OneOps");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(213, "span");
+        \u0275\u0275text(214, "Jenkins");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(215, "div", 21)(216, "span", 22);
+        \u0275\u0275text(217, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(218, "div", 23)(219, "span", 24);
+        \u0275\u0275text(220, "\u{1FA99} 2.2M+ associates");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(221, "span", 24);
+        \u0275\u0275text(222, "\u2B50 US-wide rollout");
+        \u0275\u0275elementEnd()()()()();
+        \u0275\u0275elementStart(223, "div", 32);
+        \u0275\u0275element(224, "div", 8);
+        \u0275\u0275elementStart(225, "div", 9)(226, "div", 10)(227, "a", 33)(228, "span", 12);
+        \u0275\u0275text(229, "\u{1F4DA}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275text(230, " Extramarks ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(231, "span", 13);
+        \u0275\u0275text(232, "Elsa");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(233, "div", 14);
+        \u0275\u0275text(234, "MISSION CLEARED \u2713");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(235, "h4", 15);
+        \u0275\u0275text(236, "NEMR \u2014 Personalized K-12 Courses");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(237, "p", 16);
+        \u0275\u0275text(238, "Modular course purchasing for students");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(239, "p", 17);
+        \u0275\u0275text(240, " Students were forced to buy entire curriculums even when they needed just one subject. Enabled granular subject-level purchasing \u2014 breaking the monolithic course structure into flexible, affordable modules and building a personalized K-12 learning experience with fine-grained content access. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(241, "div", 18)(242, "span", 19);
+        \u0275\u0275text(243, "\u26A1 ABILITIES USED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(244, "div", 20)(245, "span");
+        \u0275\u0275text(246, "Java 11");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(247, "span");
+        \u0275\u0275text(248, "Spring Boot");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(249, "span");
+        \u0275\u0275text(250, "MySQL");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(251, "span");
+        \u0275\u0275text(252, "Docker");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(253, "span");
+        \u0275\u0275text(254, "AWS Cognito");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(255, "span");
+        \u0275\u0275text(256, "OAuth2.0");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(257, "div", 21)(258, "span", 22);
+        \u0275\u0275text(259, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(260, "div", 23)(261, "span", 24);
+        \u0275\u0275text(262, "\u{1FA99} K-12 platform");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(263, "span", 24);
+        \u0275\u0275text(264, "\u2B50 Modular pricing");
+        \u0275\u0275elementEnd()()()()()();
+        \u0275\u0275elementStart(265, "div", 34)(266, "div", 3);
+        \u0275\u0275text(267, "\u{1F3AE} SIDE QUESTS");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(268, "h2", 4);
+        \u0275\u0275text(269, "Side Projects & AI Experiments");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(270, "p", 5);
+        \u0275\u0275text(271, "Passion builds. Shipped for fun, learning, and the love of craft.");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(272, "div", 35)(273, "div", 36)(274, "a", 37)(275, "div", 38);
+        \u0275\u0275element(276, "div", 39);
+        \u0275\u0275elementStart(277, "div", 40)(278, "div", 41);
+        \u0275\u0275text(279, "\u{1F9E0}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(280, "div", 42);
+        \u0275\u0275text(281, "ALGORITHM VISUALIZER");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(282, "div", 43);
+        \u0275\u0275text(283, "DSA Visualizer \xB7 Step-by-Step");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(284, "div", 44);
+        \u0275\u0275text(285, "Sorting \xB7 Trees \xB7 Graphs \xB7 Backtracking");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(286, "div", 45);
+        \u0275\u0275text(287, "\u25B6 PRESS TO PLAY");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(288, "div", 46)(289, "div", 47)(290, "span", 48);
+        \u0275\u0275text(291, "\u{1F3AF} WEB APP");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(292, "span", 49);
+        \u0275\u0275text(293, "+500 XP");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(294, "h5", 50);
+        \u0275\u0275text(295, "Algorithm Visualizer");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(296, "p", 51);
+        \u0275\u0275text(297, " A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(298, "div", 52)(299, "span", 53);
+        \u0275\u0275text(300, "JavaScript");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(301, "span", 53);
+        \u0275\u0275text(302, "React");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(303, "span", 53);
+        \u0275\u0275text(304, "Tailwind");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(305, "span", 53);
+        \u0275\u0275text(306, "Web Audio API");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(307, "div", 54)(308, "a", 55);
+        \u0275\u0275text(309, " \u25B6\xA0 Play Demo ");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(310, "div", 56)(311, "a", 37)(312, "div", 57);
+        \u0275\u0275element(313, "div", 39);
+        \u0275\u0275elementStart(314, "div", 40)(315, "div", 41);
+        \u0275\u0275text(316, "\u{1F549}\uFE0F");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(317, "div", 42);
+        \u0275\u0275text(318, "RELIGIOUS GPT");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(319, "div", 43);
+        \u0275\u0275text(320, "Learn Religion the AI Way");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(321, "div", 44);
+        \u0275\u0275text(322, "Gita \xB7 Quran \xB7 Bible \xB7 Vedas \xB7 Tripitaka");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(323, "div", 58);
+        \u0275\u0275text(324, "Powered by GPT-4.1");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(325, "div", 46)(326, "div", 47)(327, "span", 59);
+        \u0275\u0275text(328, "\u{1F916} AI APP");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(329, "span", 49);
+        \u0275\u0275text(330, "+750 XP");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(331, "h5", 50);
+        \u0275\u0275text(332, "Religious GPT");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(333, "p", 51);
+        \u0275\u0275text(334, " Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, and more. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(335, "div", 52)(336, "span", 53);
+        \u0275\u0275text(337, "React");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(338, "span", 53);
+        \u0275\u0275text(339, "Node.js");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(340, "span", 53);
+        \u0275\u0275text(341, "GPT-4.1");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(342, "span", 53);
+        \u0275\u0275text(343, "Vercel");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(344, "div", 54)(345, "a", 55);
+        \u0275\u0275text(346, " \u25B6\xA0 Play Demo ");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(347, "div", 60)(348, "a", 37)(349, "div", 61);
+        \u0275\u0275element(350, "div", 39);
+        \u0275\u0275elementStart(351, "div", 40)(352, "div", 41);
+        \u0275\u0275text(353, "\u{1F498}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(354, "div", 42);
+        \u0275\u0275text(355, "DATESENSE");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(356, "div", 43);
+        \u0275\u0275text(357, "AI Dating Conversation Analyst");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(358, "div", 44);
+        \u0275\u0275text(359, "Attraction Score \xB7 Ghosting Risk \xB7 Scam Detection");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(360, "div", 58);
+        \u0275\u0275text(361, "Powered by GPT-4.1 Nano");
+        \u0275\u0275elementEnd()()()();
+        \u0275\u0275elementStart(362, "div", 46)(363, "div", 47)(364, "span", 59);
+        \u0275\u0275text(365, "\u{1F916} AI APP");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(366, "span", 49);
+        \u0275\u0275text(367, "+800 XP");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(368, "h5", 50);
+        \u0275\u0275text(369, "DateSense");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(370, "p", 51);
+        \u0275\u0275text(371, " An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Detects potential scam or manipulative patterns through GPT-4.1 Nano. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(372, "div", 52)(373, "span", 53);
+        \u0275\u0275text(374, "Angular");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(375, "span", 53);
+        \u0275\u0275text(376, "GPT-4.1 Nano");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(377, "span", 53);
+        \u0275\u0275text(378, "OCR");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(379, "span", 53);
+        \u0275\u0275text(380, "Vercel");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(381, "div", 54)(382, "a", 55);
+        \u0275\u0275text(383, " \u25B6\xA0 Play Demo ");
+        \u0275\u0275elementEnd()()()()()();
+        \u0275\u0275elementStart(384, "div", 62)(385, "div", 2)(386, "div", 3);
+        \u0275\u0275text(387, "\u{1F4E6} ITEM SHOP");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(388, "h2", 4);
+        \u0275\u0275text(389, "Open Source Power-Ups");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(390, "p", 5);
+        \u0275\u0275text(391, "Free collectibles. Pick up and drop into your stack.");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(392, "div", 63);
+        \u0275\u0275repeaterCreate(393, PublicationsComponent_For_394_Template, 2, 4, "button", 64, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(395, "div", 65);
+        \u0275\u0275repeaterCreate(396, PublicationsComponent_For_397_Template, 21, 12, "div", 66, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementEnd()()();
       }
       if (rf & 2) {
         \u0275\u0275advance(14);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275property("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(44);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275property("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(39);
+        \u0275\u0275textInterpolate1(" ", ctx2.showRREDeepDive ? "\u25B2 HIDE ARCHITECTURE" : "\u25BC VIEW ARCHITECTURE", " ");
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx2.showRREDeepDive);
+        \u0275\u0275advance(5);
+        \u0275\u0275property("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(42);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
+        \u0275\u0275property("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(42);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
-        \u0275\u0275advance(42);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.walmart, \u0275\u0275sanitizeUrl);
+        \u0275\u0275property("href", ctx2.companyLinks.walmart, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(40);
-        \u0275\u0275domProperty("href", ctx2.companyLinks.extramarks, \u0275\u0275sanitizeUrl);
+        \u0275\u0275property("href", ctx2.companyLinks.extramarks, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(47);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
+        \u0275\u0275property("href", ctx2.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(34);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
+        \u0275\u0275property("href", ctx2.projectLinks.algorithmVisualizer, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(3);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
+        \u0275\u0275property("href", ctx2.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(34);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
+        \u0275\u0275property("href", ctx2.projectLinks.religiousGpt, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(3);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
+        \u0275\u0275property("href", ctx2.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(34);
-        \u0275\u0275domProperty("href", ctx2.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
+        \u0275\u0275property("href", ctx2.projectLinks.dateSense, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(11);
         \u0275\u0275repeater(ctx2.availableCategories);
         \u0275\u0275advance(3);
         \u0275\u0275repeater(ctx2.filteredProjects);
       }
-    }, dependencies: [CommonModule], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.quest-header[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover   .quest-rank-bar[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.boss-card[_ngcontent-%COMP%]   .quest-rank-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge[_ngcontent-%COMP%]:hover {\n  opacity: 0.85;\n}\n.world-games[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n}\n.quest-platform[_ngcontent-%COMP%] {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline[_ngcontent-%COMP%] {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.walmart-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #93c5fd;\n}\n.extramarks-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row[_ngcontent-%COMP%], \n.rewards-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label[_ngcontent-%COMP%], \n.rewards-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.side-quests-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card[_ngcontent-%COMP%] {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link[_ngcontent-%COMP%] {\n  display: block;\n  text-decoration: none;\n}\n.game-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link[_ngcontent-%COMP%]:hover   .game-screen[_ngcontent-%COMP%] {\n  filter: brightness(1.12);\n}\n.screen-scanlines[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon[_ngcontent-%COMP%] {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press[_ngcontent-%COMP%] {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: _ngcontent-%COMP%_blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body[_ngcontent-%COMP%] {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge[_ngcontent-%COMP%] {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.game-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn[_ngcontent-%COMP%]:hover, \n.shop-filter-btn.active[_ngcontent-%COMP%] {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline[_ngcontent-%COMP%] {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge[_ngcontent-%COMP%] {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn[_ngcontent-%COMP%] {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
+    }, dependencies: [CommonModule, NgForOf, NgIf], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.quest-header[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover   .quest-rank-bar[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.boss-card[_ngcontent-%COMP%]   .quest-rank-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge[_ngcontent-%COMP%]:hover {\n  opacity: 0.85;\n}\n.world-games[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n}\n.quest-platform[_ngcontent-%COMP%] {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline[_ngcontent-%COMP%] {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.walmart-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #93c5fd;\n}\n.extramarks-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row[_ngcontent-%COMP%], \n.rewards-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label[_ngcontent-%COMP%], \n.rewards-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive[_ngcontent-%COMP%] {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: _ngcontent-%COMP%_rre-slide-in 0.4s ease;\n}\n@keyframes _ngcontent-%COMP%_rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner[_ngcontent-%COMP%] {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem[_ngcontent-%COMP%], \n.rre-impact[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link[_ngcontent-%COMP%] {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .rre-stats-row[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card[_ngcontent-%COMP%] {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link[_ngcontent-%COMP%] {\n  display: block;\n  text-decoration: none;\n}\n.game-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link[_ngcontent-%COMP%]:hover   .game-screen[_ngcontent-%COMP%] {\n  filter: brightness(1.12);\n}\n.screen-scanlines[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon[_ngcontent-%COMP%] {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press[_ngcontent-%COMP%] {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: _ngcontent-%COMP%_blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body[_ngcontent-%COMP%] {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge[_ngcontent-%COMP%] {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.game-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn[_ngcontent-%COMP%]:hover, \n.shop-filter-btn.active[_ngcontent-%COMP%] {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline[_ngcontent-%COMP%] {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge[_ngcontent-%COMP%] {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn[_ngcontent-%COMP%] {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
   }
 };
 (() => {
@@ -35301,8 +35437,9 @@ var PublicationsComponent = class _PublicationsComponent {
           <h4 class="quest-name">Automated KYC Platform</h4>
           <p class="quest-tagline">Identity verification at scale \u2014 built from scratch</p>
           <p class="pro-card-desc">
-            End-to-end document verification system supporting Digilocker, Aadhaar Lite, PAN validation, and OCR-based extraction.
-            Processes 200K+ verifications daily across two gaming platforms with 99.95% uptime via a distributed Kafka pipeline.
+            Manual identity checks were slow, error-prone, and couldn't keep up with onboarding volume.
+            Built an automated end-to-end pipeline \u2014 Digilocker, Aadhaar Lite, PAN validation, OCR extraction \u2014
+            processing 200K+ verifications daily across two platforms with 99.95% uptime via a distributed Kafka pipeline.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">\u26A1 ABILITIES USED</span>
@@ -35333,9 +35470,9 @@ var PublicationsComponent = class _PublicationsComponent {
           <h4 class="quest-name">Risk Rule Engine</h4>
           <p class="quest-tagline">Real-time fraud detection powered by ML + graph analysis</p>
           <p class="pro-card-desc">
-            Built a rule engine that identifies fraudulent user behavior in real time across two platforms.
-            Consumes millions of Kafka messages via pub/sub, runs ML-based scoring through SageMaker,
-            and maps fraud networks using Neptune graph DB \u2014 preventing financial losses at scale.
+            Agents manually sifted through logs to investigate fraud \u2014 static JBPM rules needed dev cycles for every change.
+            Built a real-time rule engine consuming millions of Kafka events, running ML scoring through SageMaker, and mapping
+            fraud networks via Neptune graph DB \u2014 replacing manual processes with instant, self-service detection at scale.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">\u26A1 ABILITIES USED</span>
@@ -35350,6 +35487,58 @@ var PublicationsComponent = class _PublicationsComponent {
               <span class="reward-chip">\u2B50 Real-time detection</span>
             </div>
           </div>
+          <button class="game-btn game-btn-secondary rre-toggle-btn" (click)="showRREDeepDive = !showRREDeepDive">
+            {{ showRREDeepDive ? '\u25B2 HIDE ARCHITECTURE' : '\u25BC VIEW ARCHITECTURE' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- RRE Deep-Dive Panel -->
+      <div class="rre-deepdive" *ngIf="showRREDeepDive" data-anim="fade-up">
+        <div class="rre-deepdive-inner">
+          <div class="rre-section-label">\u{1F50D} THE PROBLEM</div>
+          <p class="rre-problem">
+            Fraud investigation relied on agents manually sifting through logs and daily cron jobs.
+            Static JBPM rules needed developer cycles for every change, creating a bottleneck that let
+            fraudulent activity slip through during high-traffic windows.
+          </p>
+
+          <div class="rre-section-label">\u{1F3D7}\uFE0F ARCHITECTURE</div>
+          <div class="rre-arch-flow">
+            <div *ngFor="let node of rreArchNodes; let last = last" class="rre-arch-segment">
+              <div class="rre-arch-node" [style.border-color]="node.color">
+                <span class="rre-arch-icon">{{ node.icon }}</span>
+                <span class="rre-arch-label">{{ node.label }}</span>
+              </div>
+              <div class="rre-pipe" *ngIf="!last">
+                <span class="pipe-arrow">\u25B8</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rre-section-label">\u{1F4C8} SCALE</div>
+          <div class="rre-stats-row">
+            <div *ngFor="let stat of rreStats" class="rre-stat-card">
+              <div class="rre-stat-value">{{ stat.value }}</div>
+              <div class="rre-stat-label">{{ stat.label }}</div>
+            </div>
+          </div>
+
+          <div class="rre-section-label">\u26A1 TECH STACK</div>
+          <div class="rre-tech-row">
+            <span *ngFor="let tech of rreTech" class="rre-tech-chip">{{ tech }}</span>
+          </div>
+
+          <div class="rre-section-label">\u{1F3C6} IMPACT</div>
+          <p class="rre-impact">
+            Real-time detection replaced manual processes. Agents got self-service rule creation via Agent UI \u2014
+            no more developer cycles for rule changes. Fraud networks mapped via graph analysis caught previously
+            invisible collusion patterns.
+          </p>
+
+          <a href="https://beingmartinbmc.medium.com/creating-a-real-time-rule-engine-with-graph-integration-and-ml-models-cd2e2365d19" target="_blank" rel="noopener" class="game-btn game-btn-primary rre-blog-link">
+            \u{1F4D6}&nbsp; Read the Full Case Study on Medium
+          </a>
         </div>
       </div>
 
@@ -35366,9 +35555,9 @@ var PublicationsComponent = class _PublicationsComponent {
           <h4 class="quest-name">Fantasy Autoscaler</h4>
           <p class="quest-tagline">ML-powered predictive autoscaling for IPL-level traffic</p>
           <p class="pro-card-desc">
-            Predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting.
-            Anticipated traffic spikes before they hit, pre-scaling infrastructure ahead of toss time.
-            Successfully handled 10M concurrent users during IPL 2025 with zero downtime.
+            IPL traffic spikes were unpredictable and crashed infrastructure during peak moments.
+            Built a predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting \u2014
+            pre-scaling infrastructure ahead of toss time. Handled 10M concurrent users during IPL 2025 with zero downtime.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">\u26A1 ABILITIES USED</span>
@@ -35399,9 +35588,9 @@ var PublicationsComponent = class _PublicationsComponent {
           <h4 class="quest-name">PAJ3 \u2014 Single Sign-On</h4>
           <p class="quest-tagline">Frictionless mobile-first user onboarding</p>
           <p class="pro-card-desc">
-            Replaced the traditional email + password registration with a mobile-number-based single sign-on flow.
-            Dramatically reduced onboarding friction, improving user conversion across both gaming platforms
-            with OTP-based authentication and seamless session management.
+            Traditional email + password registration caused high drop-off and fragmented sessions across platforms.
+            Replaced it with a mobile-number OTP-based single sign-on flow \u2014 dramatically reducing onboarding friction
+            and improving user conversion across both gaming platforms with seamless session management.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">\u26A1 ABILITIES USED</span>
@@ -35432,9 +35621,9 @@ var PublicationsComponent = class _PublicationsComponent {
           <h4 class="quest-name">Annual Enrollment</h4>
           <p class="quest-tagline">Benefits enrollment for 2.2M+ Walmart associates</p>
           <p class="pro-card-desc">
-            Automated dashboard enabling Walmart associates to check eligibility and sign up for health and wealth benefits \u2014
-            dental coverage, life insurance, bonuses, and more. Served 2.2M+ associates across the US
-            with a streamlined, self-service enrollment experience.
+            2.2M Walmart associates needed a self-service way to enroll in benefits without relying on HR workflows.
+            Built an automated dashboard for eligibility checks and enrollment \u2014 dental, life insurance, bonuses, and more \u2014
+            serving every US store with a streamlined, zero-friction experience.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">\u26A1 ABILITIES USED</span>
@@ -35465,9 +35654,9 @@ var PublicationsComponent = class _PublicationsComponent {
           <h4 class="quest-name">NEMR \u2014 Personalized K-12 Courses</h4>
           <p class="quest-tagline">Modular course purchasing for students</p>
           <p class="pro-card-desc">
-            Enabled students to purchase individual subjects, concepts, or courses instead of the full curriculum.
-            Built a personalized K-12 learning experience with granular content access,
-            breaking the monolithic course structure into flexible, affordable modules.
+            Students were forced to buy entire curriculums even when they needed just one subject.
+            Enabled granular subject-level purchasing \u2014 breaking the monolithic course structure into flexible,
+            affordable modules and building a personalized K-12 learning experience with fine-grained content access.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">\u26A1 ABILITIES USED</span>
@@ -35667,7 +35856,7 @@ var PublicationsComponent = class _PublicationsComponent {
     </div>
   </div>
 </div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n:host {\n  display: block;\n}\n.quest-header {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card:hover .quest-rank-bar {\n  opacity: 1;\n}\n.boss-card .quest-rank-bar {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge:hover {\n  opacity: 0.85;\n}\n.world-games {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon {\n  font-size: 0.75rem;\n}\n.quest-platform {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card .quest-tagline {\n  color: #fca5a5;\n}\n.walmart-card .quest-tagline {\n  color: #93c5fd;\n}\n.extramarks-card .quest-tagline {\n  color: #fde68a;\n}\n.pro-card-desc {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row,\n.rewards-row {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label,\n.rewards-label {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips span {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.side-quests-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link {\n  display: block;\n  text-decoration: none;\n}\n.game-screen {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link:hover .game-screen {\n  filter: brightness(1.12);\n}\n.screen-scanlines {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action {\n  margin-top: auto;\n}\n.game-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn:hover,\n.shop-filter-btn.active {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n:host {\n  display: block;\n}\n.quest-header {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card:hover .quest-rank-bar {\n  opacity: 1;\n}\n.boss-card .quest-rank-bar {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge:hover {\n  opacity: 0.85;\n}\n.world-games {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon {\n  font-size: 0.75rem;\n}\n.quest-platform {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card .quest-tagline {\n  color: #fca5a5;\n}\n.walmart-card .quest-tagline {\n  color: #93c5fd;\n}\n.extramarks-card .quest-tagline {\n  color: #fde68a;\n}\n.pro-card-desc {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row,\n.rewards-row {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label,\n.rewards-label {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips span {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: rre-slide-in 0.4s ease;\n}\n@keyframes rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem,\n.rre-impact {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow {\n    justify-content: center;\n  }\n  .rre-stats-row {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link {\n  display: block;\n  text-decoration: none;\n}\n.game-screen {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link:hover .game-screen {\n  filter: brightness(1.12);\n}\n.screen-scanlines {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action {\n  margin-top: auto;\n}\n.game-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn:hover,\n.shop-filter-btn.active {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
   }], null, null);
 })();
 (() => {
@@ -78915,6 +79104,174 @@ var Avatar3dComponent = class _Avatar3dComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Avatar3dComponent, { className: "Avatar3dComponent", filePath: "src/app/profile/avatar-3d/avatar-3d.component.ts", lineNumber: 41 });
 })();
 
+// src/app/profile/metrics-dashboard/metrics-dashboard.component.ts
+function MetricsDashboardComponent_div_9_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 7);
+    \u0275\u0275element(1, "div", 8);
+    \u0275\u0275elementStart(2, "div", 9)(3, "div", 10)(4, "span", 11);
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "span", 12);
+    \u0275\u0275text(7);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(8, "div", 13);
+    \u0275\u0275text(9);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(10, "div", 14);
+    \u0275\u0275text(11);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "div", 15);
+    \u0275\u0275element(13, "div", 16);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const metric_r1 = ctx2.$implicit;
+    const i_r2 = ctx2.index;
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275styleProp("animation-delay", i_r2 * 100 + "ms");
+    \u0275\u0275classProp("accent-green", metric_r1.accent === "green")("accent-gold", metric_r1.accent === "gold")("animated", ctx_r2.animated);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(ctx_r2.displayValues[i_r2]);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(metric_r1.suffix);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(metric_r1.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(metric_r1.sublabel);
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("width", ctx_r2.animated ? metric_r1.barPct + "%" : "0%")("transition-delay", i_r2 * 100 + 400 + "ms");
+  }
+}
+var MetricsDashboardComponent = class _MetricsDashboardComponent {
+  constructor(el) {
+    this.el = el;
+    this.animated = false;
+    this.metrics = [
+      { value: "0", numericEnd: 5547, suffix: "", label: "PEAK THROUGHPUT", sublabel: "requests per second", barPct: 92, accent: "green" },
+      { value: "0", numericEnd: 19.9, suffix: "M", label: "REQUESTS / HOUR", sublabel: "fraud rule evaluations", barPct: 88, accent: "green" },
+      { value: "0", numericEnd: 7.16, suffix: "M", label: "HAND-HISTORY OPS/SEC", sublabel: "real-time card tracking", barPct: 95, accent: "gold" },
+      { value: "0", numericEnd: 200, suffix: "K+", label: "VERIFICATIONS / DAY", sublabel: "automated KYC pipeline", barPct: 85, accent: "gold" },
+      { value: "0", numericEnd: 10, suffix: "M", label: "CONCURRENT USERS", sublabel: "IPL 2025 peak load", barPct: 97, accent: "green" },
+      { value: "0", numericEnd: 99.95, suffix: "%", label: "UPTIME SLA", sublabel: "KYC platform reliability", barPct: 99, accent: "gold" }
+    ];
+    this.displayValues = [];
+    this.displayValues = this.metrics.map(() => "0");
+  }
+  ngOnInit() {
+    this.observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !this.animated) {
+        this.animated = true;
+        this.animateCounters();
+      }
+    }, { threshold: 0.3 });
+    this.observer.observe(this.el.nativeElement);
+  }
+  ngOnDestroy() {
+    this.observer?.disconnect();
+  }
+  animateCounters() {
+    const duration = 1800;
+    const fps = 60;
+    const totalFrames = Math.round(duration / (1e3 / fps));
+    this.metrics.forEach((metric, idx) => {
+      let frame = 0;
+      const interval = setInterval(() => {
+        frame++;
+        const progress = this.easeOutExpo(frame / totalFrames);
+        const current = metric.numericEnd * progress;
+        if (Number.isInteger(metric.numericEnd) && metric.numericEnd >= 100) {
+          this.displayValues[idx] = Math.round(current).toLocaleString();
+        } else {
+          this.displayValues[idx] = current.toFixed(current < 10 ? 2 : 1);
+        }
+        if (frame >= totalFrames) {
+          clearInterval(interval);
+          if (Number.isInteger(metric.numericEnd) && metric.numericEnd >= 100) {
+            this.displayValues[idx] = metric.numericEnd.toLocaleString();
+          } else {
+            this.displayValues[idx] = metric.numericEnd.toString();
+          }
+        }
+      }, 1e3 / fps);
+    });
+  }
+  easeOutExpo(t) {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+  static {
+    this.\u0275fac = function MetricsDashboardComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _MetricsDashboardComponent)(\u0275\u0275directiveInject(ElementRef));
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _MetricsDashboardComponent, selectors: [["app-metrics-dashboard"]], decls: 10, vars: 1, consts: [["id", "metrics", 1, "metrics-section"], [1, "metrics-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "dashboard-grid"], ["class", "metric-panel", 3, "accent-green", "accent-gold", "animated", "animation-delay", 4, "ngFor", "ngForOf"], [1, "metric-panel"], [1, "panel-accent"], [1, "panel-body"], [1, "metric-value"], [1, "counter"], [1, "suffix"], [1, "metric-label"], [1, "metric-sublabel"], [1, "sparkline-track"], [1, "sparkline-bar"]], template: function MetricsDashboardComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275elementStart(0, "section", 0)(1, "div", 1)(2, "div", 2);
+        \u0275\u0275text(3, "\u{1F4CA} SYSTEM METRICS");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(4, "h2", 3);
+        \u0275\u0275text(5, "Production Telemetry");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(6, "p", 4);
+        \u0275\u0275text(7, "Numbers from real systems at real scale. Not benchmarks \u2014 production.");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(8, "div", 5);
+        \u0275\u0275template(9, MetricsDashboardComponent_div_9_Template, 14, 16, "div", 6);
+        \u0275\u0275elementEnd()();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance(9);
+        \u0275\u0275property("ngForOf", ctx2.metrics);
+      }
+    }, dependencies: [CommonModule, NgForOf], styles: ['\n\n.metrics-section[_ngcontent-%COMP%] {\n  max-width: 1100px;\n  margin: 0 auto;\n  padding: 5rem 1.5rem 4rem;\n}\n.metrics-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3rem;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: "Press Start 2P", monospace;\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: #fbbf24;\n  text-shadow: 0 0 16px rgba(251, 191, 36, 0.35);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n  font-size: 0.95rem;\n  color: rgba(255, 255, 255, 0.5);\n  max-width: 480px;\n  margin-inline: auto;\n}\n.dashboard-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1rem;\n}\n.metric-panel[_ngcontent-%COMP%] {\n  position: relative;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 42, 0.98) 0%,\n      rgba(10, 10, 30, 0.95) 100%);\n  border: 1px solid rgba(255, 255, 255, 0.06);\n  border-radius: 12px;\n  overflow: hidden;\n  opacity: 0;\n  transform: translateY(20px);\n  transition:\n    opacity 0.5s ease,\n    transform 0.5s ease,\n    border-color 0.3s ease,\n    box-shadow 0.3s ease;\n}\n.metric-panel.animated[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: translateY(0);\n}\n.metric-panel[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 255, 255, 0.12);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);\n}\n.panel-accent[_ngcontent-%COMP%] {\n  height: 3px;\n  width: 100%;\n}\n.accent-green[_ngcontent-%COMP%]   .panel-accent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #34d399,\n      rgba(52, 211, 153, 0.3));\n  box-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n}\n.accent-gold[_ngcontent-%COMP%]   .panel-accent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      rgba(251, 191, 36, 0.3));\n  box-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.panel-body[_ngcontent-%COMP%] {\n  padding: 1.5rem 1.25rem 1.25rem;\n}\n.metric-value[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 0.15rem;\n  margin-bottom: 0.6rem;\n}\n.counter[_ngcontent-%COMP%] {\n  font-family: "Press Start 2P", monospace;\n  font-size: clamp(1.5rem, 3vw, 2rem);\n  font-weight: 700;\n  line-height: 1;\n}\n.accent-green[_ngcontent-%COMP%]   .counter[_ngcontent-%COMP%] {\n  color: #34d399;\n  text-shadow: 0 0 20px rgba(52, 211, 153, 0.3);\n}\n.accent-gold[_ngcontent-%COMP%]   .counter[_ngcontent-%COMP%] {\n  color: #fbbf24;\n  text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);\n}\n.suffix[_ngcontent-%COMP%] {\n  font-family: "Press Start 2P", monospace;\n  font-size: clamp(0.75rem, 1.5vw, 1rem);\n  opacity: 0.7;\n}\n.accent-green[_ngcontent-%COMP%]   .suffix[_ngcontent-%COMP%] {\n  color: #34d399;\n}\n.accent-gold[_ngcontent-%COMP%]   .suffix[_ngcontent-%COMP%] {\n  color: #fbbf24;\n}\n.metric-label[_ngcontent-%COMP%] {\n  font-family: "Press Start 2P", monospace;\n  font-size: 0.55rem;\n  letter-spacing: 0.15em;\n  text-transform: uppercase;\n  color: rgba(255, 255, 255, 0.7);\n  margin-bottom: 0.25rem;\n}\n.metric-sublabel[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.35);\n  margin-bottom: 1rem;\n}\n.sparkline-track[_ngcontent-%COMP%] {\n  height: 4px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 2px;\n  overflow: hidden;\n}\n.sparkline-bar[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  width: 0%;\n  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.accent-green[_ngcontent-%COMP%]   .sparkline-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #34d399,\n      rgba(52, 211, 153, 0.6));\n  box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);\n}\n.accent-gold[_ngcontent-%COMP%]   .sparkline-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      rgba(251, 191, 36, 0.6));\n  box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);\n}\n@media (max-width: 768px) {\n  .dashboard-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .metrics-section[_ngcontent-%COMP%] {\n    padding: 3rem 1rem 2.5rem;\n  }\n}\n@media (max-width: 480px) {\n  .dashboard-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n    gap: 0.75rem;\n  }\n  .panel-body[_ngcontent-%COMP%] {\n    padding: 1rem 0.85rem 0.85rem;\n  }\n  .counter[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n}\n/*# sourceMappingURL=metrics-dashboard.component.css.map */'] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MetricsDashboardComponent, [{
+    type: Component,
+    args: [{ selector: "app-metrics-dashboard", standalone: true, imports: [CommonModule], template: `<section class="metrics-section" id="metrics">
+  <div class="metrics-header">
+    <div class="world-label">\u{1F4CA} SYSTEM METRICS</div>
+    <h2 class="section-title">Production Telemetry</h2>
+    <p class="section-subtitle">Numbers from real systems at real scale. Not benchmarks \u2014 production.</p>
+  </div>
+
+  <div class="dashboard-grid">
+    <div
+      *ngFor="let metric of metrics; let i = index"
+      class="metric-panel"
+      [class.accent-green]="metric.accent === 'green'"
+      [class.accent-gold]="metric.accent === 'gold'"
+      [class.animated]="animated"
+      [style.animation-delay]="(i * 100) + 'ms'"
+    >
+      <div class="panel-accent"></div>
+      <div class="panel-body">
+        <div class="metric-value">
+          <span class="counter">{{ displayValues[i] }}</span>
+          <span class="suffix">{{ metric.suffix }}</span>
+        </div>
+        <div class="metric-label">{{ metric.label }}</div>
+        <div class="metric-sublabel">{{ metric.sublabel }}</div>
+        <div class="sparkline-track">
+          <div
+            class="sparkline-bar"
+            [style.width]="animated ? metric.barPct + '%' : '0%'"
+            [style.transition-delay]="(i * 100 + 400) + 'ms'"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+`, styles: ['/* src/app/profile/metrics-dashboard/metrics-dashboard.component.scss */\n.metrics-section {\n  max-width: 1100px;\n  margin: 0 auto;\n  padding: 5rem 1.5rem 4rem;\n}\n.metrics-header {\n  text-align: center;\n  margin-bottom: 3rem;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: "Press Start 2P", monospace;\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: #fbbf24;\n  text-shadow: 0 0 16px rgba(251, 191, 36, 0.35);\n}\n.section-title {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.section-subtitle {\n  margin-top: 0.5rem;\n  font-size: 0.95rem;\n  color: rgba(255, 255, 255, 0.5);\n  max-width: 480px;\n  margin-inline: auto;\n}\n.dashboard-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1rem;\n}\n.metric-panel {\n  position: relative;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 42, 0.98) 0%,\n      rgba(10, 10, 30, 0.95) 100%);\n  border: 1px solid rgba(255, 255, 255, 0.06);\n  border-radius: 12px;\n  overflow: hidden;\n  opacity: 0;\n  transform: translateY(20px);\n  transition:\n    opacity 0.5s ease,\n    transform 0.5s ease,\n    border-color 0.3s ease,\n    box-shadow 0.3s ease;\n}\n.metric-panel.animated {\n  opacity: 1;\n  transform: translateY(0);\n}\n.metric-panel:hover {\n  border-color: rgba(255, 255, 255, 0.12);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);\n}\n.panel-accent {\n  height: 3px;\n  width: 100%;\n}\n.accent-green .panel-accent {\n  background:\n    linear-gradient(\n      90deg,\n      #34d399,\n      rgba(52, 211, 153, 0.3));\n  box-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n}\n.accent-gold .panel-accent {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      rgba(251, 191, 36, 0.3));\n  box-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.panel-body {\n  padding: 1.5rem 1.25rem 1.25rem;\n}\n.metric-value {\n  display: flex;\n  align-items: baseline;\n  gap: 0.15rem;\n  margin-bottom: 0.6rem;\n}\n.counter {\n  font-family: "Press Start 2P", monospace;\n  font-size: clamp(1.5rem, 3vw, 2rem);\n  font-weight: 700;\n  line-height: 1;\n}\n.accent-green .counter {\n  color: #34d399;\n  text-shadow: 0 0 20px rgba(52, 211, 153, 0.3);\n}\n.accent-gold .counter {\n  color: #fbbf24;\n  text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);\n}\n.suffix {\n  font-family: "Press Start 2P", monospace;\n  font-size: clamp(0.75rem, 1.5vw, 1rem);\n  opacity: 0.7;\n}\n.accent-green .suffix {\n  color: #34d399;\n}\n.accent-gold .suffix {\n  color: #fbbf24;\n}\n.metric-label {\n  font-family: "Press Start 2P", monospace;\n  font-size: 0.55rem;\n  letter-spacing: 0.15em;\n  text-transform: uppercase;\n  color: rgba(255, 255, 255, 0.7);\n  margin-bottom: 0.25rem;\n}\n.metric-sublabel {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.35);\n  margin-bottom: 1rem;\n}\n.sparkline-track {\n  height: 4px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 2px;\n  overflow: hidden;\n}\n.sparkline-bar {\n  height: 100%;\n  border-radius: 2px;\n  width: 0%;\n  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.accent-green .sparkline-bar {\n  background:\n    linear-gradient(\n      90deg,\n      #34d399,\n      rgba(52, 211, 153, 0.6));\n  box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);\n}\n.accent-gold .sparkline-bar {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      rgba(251, 191, 36, 0.6));\n  box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);\n}\n@media (max-width: 768px) {\n  .dashboard-grid {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .metrics-section {\n    padding: 3rem 1rem 2.5rem;\n  }\n}\n@media (max-width: 480px) {\n  .dashboard-grid {\n    grid-template-columns: 1fr 1fr;\n    gap: 0.75rem;\n  }\n  .panel-body {\n    padding: 1rem 0.85rem 0.85rem;\n  }\n  .counter {\n    font-size: 1.25rem;\n  }\n}\n/*# sourceMappingURL=metrics-dashboard.component.css.map */\n'] }]
+  }], () => [{ type: ElementRef }], null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(MetricsDashboardComponent, { className: "MetricsDashboardComponent", filePath: "src/app/profile/metrics-dashboard/metrics-dashboard.component.ts", lineNumber: 21 });
+})();
+
 // node_modules/@angular/router/fesm2022/_router-chunk.mjs
 var PRIMARY_OUTLET = "primary";
 var RouteTitleKey = /* @__PURE__ */ Symbol("RouteTitle");
@@ -84419,15 +84776,15 @@ var ProfileComponent = class _ProfileComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProfileComponent, selectors: [["app-profile"]], decls: 14, vars: 0, consts: [[1, "portfolio-shell"], [1, "page-content"]], template: function ProfileComponent_Template(rf, ctx2) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProfileComponent, selectors: [["app-profile"]], decls: 15, vars: 0, consts: [[1, "portfolio-shell"], [1, "page-content"]], template: function ProfileComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275element(0, "app-header");
         \u0275\u0275elementStart(1, "main", 0);
         \u0275\u0275element(2, "app-intro");
         \u0275\u0275elementStart(3, "div", 1);
-        \u0275\u0275element(4, "app-avatar-3d")(5, "app-about")(6, "app-skills")(7, "app-experience")(8, "app-publications")(9, "app-blog")(10, "app-ai-quiz-game")(11, "app-education")(12, "app-contact");
+        \u0275\u0275element(4, "app-avatar-3d")(5, "app-about")(6, "app-skills")(7, "app-experience")(8, "app-metrics-dashboard")(9, "app-publications")(10, "app-blog")(11, "app-ai-quiz-game")(12, "app-education")(13, "app-contact");
         \u0275\u0275elementEnd()();
-        \u0275\u0275element(13, "app-footer");
+        \u0275\u0275element(14, "app-footer");
       }
     }, dependencies: [
       HeaderComponent,
@@ -84441,7 +84798,8 @@ var ProfileComponent = class _ProfileComponent {
       SkillsComponent,
       PublicationsComponent,
       AiQuizGameComponent,
-      BlogComponent
+      BlogComponent,
+      MetricsDashboardComponent
     ], styles: ['\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.portfolio-shell[_ngcontent-%COMP%] {\n  position: relative;\n  overflow-x: clip;\n  overflow-y: visible;\n}\n.portfolio-shell[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    radial-gradient(\n      circle at 12% 24%,\n      rgba(251, 191, 36, 0.08),\n      transparent 22%),\n    radial-gradient(\n      circle at 85% 18%,\n      rgba(239, 68, 68, 0.06),\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 72%,\n      rgba(34, 197, 94, 0.05),\n      transparent 24%);\n}\n/*# sourceMappingURL=profile.component.css.map */'] });
   }
 };
@@ -84460,12 +84818,13 @@ var ProfileComponent = class _ProfileComponent {
       SkillsComponent,
       PublicationsComponent,
       AiQuizGameComponent,
-      BlogComponent
-    ], template: '<app-header></app-header>\n\n<main class="portfolio-shell">\n  <app-intro></app-intro>\n\n  <div class="page-content">\n    <app-avatar-3d></app-avatar-3d>\n    <app-about></app-about>\n    <app-skills></app-skills>\n    <app-experience></app-experience>\n    <app-publications></app-publications>\n    <app-blog></app-blog>\n    <app-ai-quiz-game></app-ai-quiz-game>\n    <app-education></app-education>\n    <app-contact></app-contact>\n  </div>\n</main>\n\n<app-footer></app-footer>\n', styles: ['/* src/app/profile/profile.component.scss */\n:host {\n  display: block;\n}\n.portfolio-shell {\n  position: relative;\n  overflow-x: clip;\n  overflow-y: visible;\n}\n.portfolio-shell::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    radial-gradient(\n      circle at 12% 24%,\n      rgba(251, 191, 36, 0.08),\n      transparent 22%),\n    radial-gradient(\n      circle at 85% 18%,\n      rgba(239, 68, 68, 0.06),\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 72%,\n      rgba(34, 197, 94, 0.05),\n      transparent 24%);\n}\n/*# sourceMappingURL=profile.component.css.map */\n'] }]
+      BlogComponent,
+      MetricsDashboardComponent
+    ], template: '<app-header></app-header>\n\n<main class="portfolio-shell">\n  <app-intro></app-intro>\n\n  <div class="page-content">\n    <app-avatar-3d></app-avatar-3d>\n    <app-about></app-about>\n    <app-skills></app-skills>\n    <app-experience></app-experience>\n    <app-metrics-dashboard></app-metrics-dashboard>\n    <app-publications></app-publications>\n    <app-blog></app-blog>\n    <app-ai-quiz-game></app-ai-quiz-game>\n    <app-education></app-education>\n    <app-contact></app-contact>\n  </div>\n</main>\n\n<app-footer></app-footer>\n', styles: ['/* src/app/profile/profile.component.scss */\n:host {\n  display: block;\n}\n.portfolio-shell {\n  position: relative;\n  overflow-x: clip;\n  overflow-y: visible;\n}\n.portfolio-shell::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    radial-gradient(\n      circle at 12% 24%,\n      rgba(251, 191, 36, 0.08),\n      transparent 22%),\n    radial-gradient(\n      circle at 85% 18%,\n      rgba(239, 68, 68, 0.06),\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 72%,\n      rgba(34, 197, 94, 0.05),\n      transparent 24%);\n}\n/*# sourceMappingURL=profile.component.css.map */\n'] }]
   }], () => [{ type: ActivatedRoute }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProfileComponent, { className: "ProfileComponent", filePath: "src/app/profile/profile.component.ts", lineNumber: 38 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProfileComponent, { className: "ProfileComponent", filePath: "src/app/profile/profile.component.ts", lineNumber: 40 });
 })();
 
 // src/app/app.component.ts
