@@ -14,6 +14,8 @@ import { LevelType } from './game/mario-entities';
 type ViewState = 'setup' | 'loading' | 'playing' | 'results';
 type GameMode = 'runner' | 'platformer' | 'match3';
 type RunnerItemKind = 'coin' | 'bug' | 'power';
+type RunnerAction = 'run' | 'jump' | 'slide';
+type RunnerAvoidAction = 'dodge' | 'jump' | 'slide';
 
 interface RunnerItem {
   id: number;
@@ -21,6 +23,7 @@ interface RunnerItem {
   y: number;
   kind: RunnerItemKind;
   label: string;
+  avoidAction?: RunnerAvoidAction;
 }
 
 interface RunnerPlan {
@@ -44,6 +47,8 @@ interface MatchTile {
   type: string;
   label: string;
   selected: boolean;
+  blocked?: boolean;
+  clearing?: boolean;
 }
 
 @Component({
@@ -72,8 +77,10 @@ export class AiQuizGameComponent implements OnDestroy {
   private engine: MarioEngine | null = null;
   private resizeObserver: ResizeObserver | null = null;
   private runnerTimerId: number | null = null;
+  private runnerActionTimerId: number | null = null;
   private runnerItemId = 0;
   private runnerTicks = 0;
+  private matchTileId = 0;
 
   gameModes: { value: GameMode; label: string; icon: string; description: string }[] = [
     { value: 'runner', label: 'Mario Run', icon: '🏃', description: 'Subway-surfer style lanes with AI-generated bug waves and reward paths' },
@@ -107,6 +114,7 @@ export class AiQuizGameComponent implements OnDestroy {
   runnerDistance = 0;
   runnerTheme = 'AI systems sprint';
   runnerMessage = '';
+  runnerAction: RunnerAction = 'run';
 
   matchTiles: MatchTile[] = [];
   matchGoal = '';
@@ -115,6 +123,7 @@ export class AiQuizGameComponent implements OnDestroy {
   matchTarget = 6;
   matchSelectedIndex: number | null = null;
   matchMessage = '';
+  matchPlan: Match3Plan | null = null;
 
   constructor(private http: HttpClient, private zone: NgZone, private cdr: ChangeDetectorRef) {}
 
@@ -134,6 +143,16 @@ export class AiQuizGameComponent implements OnDestroy {
     if (event.key === 'ArrowRight' || event.key.toLowerCase() === 'd') {
       event.preventDefault();
       this.moveRunner(1);
+    }
+
+    if (event.key === 'ArrowUp' || event.key.toLowerCase() === 'w' || event.key === ' ') {
+      event.preventDefault();
+      this.runnerJump();
+    }
+
+    if (event.key === 'ArrowDown' || event.key.toLowerCase() === 's') {
+      event.preventDefault();
+      this.runnerSlide();
     }
   }
 
@@ -290,6 +309,7 @@ export class AiQuizGameComponent implements OnDestroy {
     this.runnerLane = 1;
     this.runnerItems = [];
     this.runnerDistance = 0;
+    this.runnerAction = 'run';
     this.runnerTicks = 0;
     this.runnerItemId = 0;
     this.viewState = 'playing';
@@ -302,11 +322,13 @@ export class AiQuizGameComponent implements OnDestroy {
 
   private async startMatch3Game(): Promise<void> {
     const plan = await this.generateAIMatch3Plan() ?? this.createFallbackMatch3Plan();
+    this.matchPlan = plan;
     this.matchGoal = plan.goal;
     this.matchMovesRemaining = plan.moves;
     this.matchMatches = 0;
     this.matchTarget = this.selectedDifficulty === 'Easy' ? 5 : this.selectedDifficulty === 'Hard' ? 10 : 7;
     this.matchSelectedIndex = null;
+    this.matchTileId = 0;
     this.matchTiles = this.createMatchTiles(plan);
     this.viewState = 'playing';
     this.cdr.detectChanges();
@@ -379,15 +401,15 @@ Use realistic engineering terminology. Keep labels 1-2 words.`;
       this.runnerItems.push(this.createRunnerItem(plan));
     }
 
-    const speed = this.selectedDifficulty === 'Hard' ? 5.2 : this.selectedDifficulty === 'Easy' ? 3.6 : 4.4;
+    const speed = this.selectedDifficulty === 'Hard' ? 4.9 : this.selectedDifficulty === 'Easy' ? 3.3 : 4.1;
     this.runnerItems = this.runnerItems
       .map(item => ({ ...item, y: item.y + speed }))
       .filter(item => {
-        if (item.y >= 82 && item.y <= 96 && item.lane === this.runnerLane) {
+        if (item.y >= 78 && item.y <= 96 && item.lane === this.runnerLane) {
           this.resolveRunnerCollision(item);
           return false;
         }
-        return item.y < 108;
+        return item.y < 112;
       });
 
     const finishDistance = this.selectedDifficulty === 'Hard' ? 430 : this.selectedDifficulty === 'Easy' ? 300 : 360;
@@ -398,21 +420,33 @@ Use realistic engineering terminology. Keep labels 1-2 words.`;
 
   private createRunnerItem(plan: RunnerPlan): RunnerItem {
     const roll = Math.random();
-    const kind: RunnerItemKind = roll < 0.5 ? 'coin' : roll < 0.86 ? 'bug' : 'power';
+    const kind: RunnerItemKind = roll < 0.48 ? 'coin' : roll < 0.88 ? 'bug' : 'power';
     const source = kind === 'coin' ? plan.coins : kind === 'bug' ? plan.obstacles : plan.powerUps;
+    const avoidActions: RunnerAvoidAction[] = ['dodge', 'jump', 'slide'];
     return {
       id: this.runnerItemId++,
       lane: Math.floor(Math.random() * 3),
-      y: -8,
+      y: 8,
       kind,
       label: source[this.runnerItemId % source.length] ?? 'Concept',
+      avoidAction: kind === 'bug' ? avoidActions[this.runnerItemId % avoidActions.length] : undefined,
     };
   }
 
   private resolveRunnerCollision(item: RunnerItem): void {
     if (item.kind === 'bug') {
+      if (item.avoidAction !== 'dodge' && item.avoidAction === this.runnerAction) {
+        this.score += 140;
+        this.runnerMessage = item.avoidAction === 'jump' ? `Jumped ${item.label}` : `Slid under ${item.label}`;
+        return;
+      }
+
       this.lives -= 1;
-      this.runnerMessage = `Hit ${item.label}`;
+      this.runnerMessage = item.avoidAction === 'jump'
+        ? `Jump ${item.label}`
+        : item.avoidAction === 'slide'
+          ? `Slide under ${item.label}`
+          : `Dodge ${item.label}`;
       if (this.lives <= 0) {
         this.handleDeath();
       }
@@ -428,8 +462,55 @@ Use realistic engineering terminology. Keep labels 1-2 words.`;
     this.runnerLane = Math.max(0, Math.min(2, this.runnerLane + delta));
   }
 
+  runnerJump(): void {
+    this.setRunnerAction('jump', 520);
+  }
+
+  runnerSlide(): void {
+    this.setRunnerAction('slide', 560);
+  }
+
+  getRunnerItemIcon(item: RunnerItem): string {
+    if (item.kind === 'coin') return '🪙';
+    if (item.kind === 'power') return '⭐';
+    if (item.avoidAction === 'jump') return '🚧';
+    if (item.avoidAction === 'slide') return '🚇';
+    return '🐛';
+  }
+
+  getRunnerItemTransform(item: RunnerItem): string {
+    const scale = 0.22 + Math.min(item.y, 100) / 100 * 1.2;
+    return `translate(-50%, -50%) scale(${scale.toFixed(2)})`;
+  }
+
+  getRunnerItemLeft(item: RunnerItem): number {
+    const depth = Math.max(0, Math.min(1, item.y / 100));
+    const laneSpread = 5 + depth * 24;
+    return 50 + (item.lane - 1) * laneSpread;
+  }
+
+  getRunnerItemOpacity(item: RunnerItem): number {
+    return Math.max(0.28, Math.min(1, item.y / 42));
+  }
+
+  private setRunnerAction(action: RunnerAction, durationMs: number): void {
+    this.runnerAction = action;
+    if (this.runnerActionTimerId !== null) {
+      window.clearTimeout(this.runnerActionTimerId);
+    }
+    this.runnerActionTimerId = window.setTimeout(() => {
+      this.runnerAction = 'run';
+      this.runnerActionTimerId = null;
+    }, durationMs);
+  }
+
   onMatchTileClick(index: number): void {
     if (this.viewState !== 'playing' || this.selectedGameMode !== 'match3') return;
+    if (this.matchTiles[index]?.blocked) {
+      this.matchMessage = `Break ${this.matchTiles[index].label} by matching next to it.`;
+      return;
+    }
+
     if (this.matchSelectedIndex === null) {
       this.selectMatchTile(index);
       return;
@@ -446,6 +527,12 @@ Use realistic engineering terminology. Keep labels 1-2 words.`;
     }
 
     const firstIndex = this.matchSelectedIndex;
+    if (this.matchTiles[firstIndex]?.blocked || this.matchTiles[index]?.blocked) {
+      this.matchMessage = 'Blockers cannot be swapped. Clear adjacent candies first.';
+      this.clearMatchSelection();
+      return;
+    }
+
     this.swapTiles(firstIndex, index);
     this.clearMatchSelection();
     this.matchMovesRemaining--;
@@ -475,25 +562,28 @@ Use realistic engineering terminology. Keep labels 1-2 words.`;
   }
 
   private resolveMatch3Board(): boolean {
-    const matches = this.findMatches();
-    if (matches.size === 0) return false;
+    let totalCleared = 0;
+    let cascades = 0;
 
-    this.matchMatches++;
-    this.score += matches.size * 90;
-    this.coins += Math.floor(matches.size / 3);
-    this.matchMessage = `Cleared ${matches.size} AI tiles`;
+    while (cascades < 4) {
+      const matches = this.findMatches();
+      if (matches.size === 0) break;
 
-    const labels = this.matchTiles.map(tile => tile.label);
-    const types = this.matchTiles.map(tile => tile.type);
-    matches.forEach(index => {
-      const type = types[Math.floor(Math.random() * types.length)] ?? 'api';
-      this.matchTiles[index] = {
-        ...this.matchTiles[index],
-        type,
-        label: labels[Math.floor(Math.random() * labels.length)] ?? 'API',
-        selected: false,
-      };
-    });
+      const blockers = this.findAdjacentBlockers(matches);
+      const cleared = new Set([...matches, ...blockers]);
+      totalCleared += cleared.size;
+      cascades++;
+      this.applyMatch3Gravity(cleared);
+    }
+
+    if (totalCleared === 0) return false;
+
+    this.matchMatches += cascades;
+    this.score += totalCleared * 95 + Math.max(0, cascades - 1) * 250;
+    this.coins += Math.max(1, Math.floor(totalCleared / 3));
+    this.matchMessage = cascades > 1
+      ? `Sweet cascade x${cascades}! Cleared ${totalCleared} tiles.`
+      : `Sweet! Cleared ${totalCleared} tiles.`;
 
     return true;
   }
@@ -505,8 +595,10 @@ Use realistic engineering terminology. Keep labels 1-2 words.`;
     for (let row = 0; row < size; row++) {
       let runStart = 0;
       for (let col = 1; col <= size; col++) {
-        const current = col < size ? this.matchTiles[this.matchIndex(row, col)].type : null;
-        const previous = this.matchTiles[this.matchIndex(row, col - 1)].type;
+        const currentTile = col < size ? this.matchTiles[this.matchIndex(row, col)] : null;
+        const previousTile = this.matchTiles[this.matchIndex(row, col - 1)];
+        const current = currentTile && !currentTile.blocked ? currentTile.type : null;
+        const previous = !previousTile.blocked ? previousTile.type : null;
         if (current !== previous) {
           if (col - runStart >= 3) {
             for (let c = runStart; c < col; c++) matched.add(this.matchIndex(row, c));
@@ -519,8 +611,10 @@ Use realistic engineering terminology. Keep labels 1-2 words.`;
     for (let col = 0; col < size; col++) {
       let runStart = 0;
       for (let row = 1; row <= size; row++) {
-        const current = row < size ? this.matchTiles[this.matchIndex(row, col)].type : null;
-        const previous = this.matchTiles[this.matchIndex(row - 1, col)].type;
+        const currentTile = row < size ? this.matchTiles[this.matchIndex(row, col)] : null;
+        const previousTile = this.matchTiles[this.matchIndex(row - 1, col)];
+        const current = currentTile && !currentTile.blocked ? currentTile.type : null;
+        const previous = !previousTile.blocked ? previousTile.type : null;
         if (current !== previous) {
           if (row - runStart >= 3) {
             for (let r = runStart; r < row; r++) matched.add(this.matchIndex(r, col));
@@ -549,12 +643,32 @@ Use realistic engineering terminology. Keep labels 1-2 words.`;
   private createMatchTiles(plan: Match3Plan): MatchTile[] {
     const types = ['api', 'cache', 'queue', 'llm', 'deploy', 'data'];
     const labels = plan.tileLabels.length ? plan.tileLabels : this.createFallbackMatch3Plan().tileLabels;
+    const blockers = plan.blockerLabels.length ? plan.blockerLabels : this.createFallbackMatch3Plan().blockerLabels;
+    const blockerCount = this.selectedDifficulty === 'Hard' ? 7 : this.selectedDifficulty === 'Easy' ? 3 : 5;
+    const blockerIndexes = new Set<number>();
+    while (blockerIndexes.size < blockerCount) {
+      const index = 6 + Math.floor(Math.random() * 24);
+      blockerIndexes.add(index);
+    }
+
     return Array.from({ length: 36 }, (_, id) => {
       const row = Math.floor(id / 6);
       const col = id % 6;
+      if (blockerIndexes.has(id)) {
+        return {
+          id: this.matchTileId++,
+          row,
+          col,
+          type: 'blocker',
+          label: blockers[id % blockers.length] ?? 'Bug',
+          selected: false,
+          blocked: true,
+        };
+      }
+
       const type = types[(row * 2 + col + Math.floor(Math.random() * 3)) % types.length];
       return {
-        id,
+        id: this.matchTileId++,
         row,
         col,
         type,
@@ -562,6 +676,77 @@ Use realistic engineering terminology. Keep labels 1-2 words.`;
         selected: false,
       };
     });
+  }
+
+  getMatchTileIcon(tile: MatchTile): string {
+    if (tile.blocked) return '🧱';
+    const icons: Record<string, string> = {
+      api: '🍒',
+      cache: '🍋',
+      queue: '🍇',
+      llm: '🍬',
+      deploy: '🍊',
+      data: '💎',
+    };
+    return icons[tile.type] ?? '🍭';
+  }
+
+  private findAdjacentBlockers(matches: Set<number>): Set<number> {
+    const blockers = new Set<number>();
+    matches.forEach(index => {
+      const tile = this.matchTiles[index];
+      const neighbors = [
+        [tile.row - 1, tile.col],
+        [tile.row + 1, tile.col],
+        [tile.row, tile.col - 1],
+        [tile.row, tile.col + 1],
+      ];
+      neighbors.forEach(([row, col]) => {
+        if (row < 0 || row >= 6 || col < 0 || col >= 6) return;
+        const neighborIndex = this.matchIndex(row, col);
+        if (this.matchTiles[neighborIndex]?.blocked) blockers.add(neighborIndex);
+      });
+    });
+    return blockers;
+  }
+
+  private applyMatch3Gravity(cleared: Set<number>): void {
+    const nextTiles = [...this.matchTiles];
+
+    for (let col = 0; col < 6; col++) {
+      const survivors: MatchTile[] = [];
+      for (let row = 5; row >= 0; row--) {
+        const index = this.matchIndex(row, col);
+        if (!cleared.has(index)) {
+          survivors.push(this.matchTiles[index]);
+        }
+      }
+
+      for (let row = 5; row >= 0; row--) {
+        const index = this.matchIndex(row, col);
+        const survivor = survivors.shift();
+        nextTiles[index] = survivor
+          ? { ...survivor, row, col, selected: false, clearing: false }
+          : this.createFreshMatchTile(row, col);
+      }
+    }
+
+    this.matchTiles = nextTiles;
+  }
+
+  private createFreshMatchTile(row: number, col: number): MatchTile {
+    const plan = this.matchPlan ?? this.createFallbackMatch3Plan();
+    const types = ['api', 'cache', 'queue', 'llm', 'deploy', 'data'];
+    const labels = plan.tileLabels.length ? plan.tileLabels : this.createFallbackMatch3Plan().tileLabels;
+    const type = types[Math.floor(Math.random() * types.length)];
+    return {
+      id: this.matchTileId++,
+      row,
+      col,
+      type,
+      label: labels[(this.matchTileId + row + col) % labels.length] ?? 'API',
+      selected: false,
+    };
   }
 
   private parseAiJson(content: string | null): any {
@@ -643,6 +828,11 @@ Use realistic engineering terminology. Keep labels 1-2 words.`;
       window.clearInterval(this.runnerTimerId);
       this.runnerTimerId = null;
     }
+    if (this.runnerActionTimerId !== null) {
+      window.clearTimeout(this.runnerActionTimerId);
+      this.runnerActionTimerId = null;
+    }
+    this.runnerAction = 'run';
   }
 
   getCategoryLabel(): string {
