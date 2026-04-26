@@ -4,15 +4,30 @@
     <!-- SETUP -->
     @if (viewState === 'setup') {
       <div class="section-header">
-        <div class="world-label">🕹 MARIO LAB</div>
-        <h2 class="section-title">AI-Powered Platformer</h2>
+        <div class="world-label">🕹 AI GAME LAB</div>
+        <h2 class="section-title">AI-Powered Mini-Arcade</h2>
         <p class="section-subtitle">
-          A real Mario game. The AI generates the entire level — platforms, enemies, coins, power-ups. You just play.
+          Three Mario-inspired games. AI generates the lanes, levels, boards, concepts, bugs, rewards, and missions. You just play.
         </p>
       </div>
 
       <div class="setup-card apple-card">
         <div class="setup-inner">
+          <div class="setup-section">
+            <h3 class="setup-heading">Choose your game</h3>
+            <div class="game-mode-grid">
+              @for (mode of gameModes; track mode.value) {
+                <button class="game-mode-btn"
+                        [class.game-mode-btn--active]="selectedGameMode === mode.value"
+                        (click)="selectGameMode(mode.value)">
+                  <span class="game-mode-icon">{{ mode.icon }}</span>
+                  <span class="game-mode-label">{{ mode.label }}</span>
+                  <span class="game-mode-desc">{{ mode.description }}</span>
+                </button>
+              }
+            </div>
+          </div>
+
           <div class="setup-section">
             <h3 class="setup-heading">Choose your world</h3>
             <div class="option-grid">
@@ -43,27 +58,35 @@
             </div>
           </div>
 
-          <div class="setup-section">
-            <h3 class="setup-heading">Course Style</h3>
-            <div class="option-grid option-grid--compact">
-              @for (type of levelTypes; track type.value) {
-                <button class="option-btn"
-                        [class.option-btn--active]="selectedLevelType === type.value"
-                        (click)="selectedLevelType = type.value">
-                  <span class="option-icon">{{ type.icon }}</span>
-                  <span class="option-label">{{ type.label }}</span>
-                  <span class="option-desc">{{ type.description }}</span>
-                </button>
-              }
+          @if (selectedGameMode === 'platformer') {
+            <div class="setup-section">
+              <h3 class="setup-heading">Course Style</h3>
+              <div class="option-grid option-grid--compact">
+                @for (type of levelTypes; track type.value) {
+                  <button class="option-btn"
+                          [class.option-btn--active]="selectedLevelType === type.value"
+                          (click)="selectedLevelType = type.value">
+                    <span class="option-icon">{{ type.icon }}</span>
+                    <span class="option-label">{{ type.label }}</span>
+                    <span class="option-desc">{{ type.description }}</span>
+                  </button>
+                }
+              </div>
             </div>
-          </div>
+          }
 
           <button class="start-btn" (click)="startGame()">
             <i class="fas fa-play"></i> Start Mission
           </button>
 
           <div class="controls-hint">
-            <span>Arrow keys / WASD to move&ensp;·&ensp;Space / Up to jump or swim stroke&ensp;·&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
+            @if (selectedGameMode === 'runner') {
+              <span>Arrow keys / A-D to switch lanes · dodge bugs · collect AI concepts</span>
+            } @else if (selectedGameMode === 'match3') {
+              <span>Swap adjacent tiles to match 3+ AI concepts before moves run out</span>
+            } @else {
+              <span>Arrow keys / WASD to move&ensp;·&ensp;Space / Up to jump or swim stroke&ensp;·&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
+            }
           </div>
         </div>
       </div>
@@ -74,8 +97,8 @@
       <div class="loading-card apple-card">
         <div class="loading-content">
           <div class="loader-icon">🍄</div>
-          <h3>Generating your level...</h3>
-          <p>AI is building the world — platforms, enemies, and power-ups</p>
+          <h3>Generating {{ getGameModeLabel() }}...</h3>
+          <p>AI is building the mission — concepts, bugs, rewards, and difficulty curve</p>
           <div class="loading-bar"><div class="loading-fill"></div></div>
         </div>
       </div>
@@ -83,7 +106,7 @@
 
     <!-- PLAYING -->
     @if (viewState === 'playing') {
-      <div class="game-wrapper">
+      <div class="game-wrapper" [class.game-wrapper--arcade]="selectedGameMode !== 'platformer'">
         <div class="game-hud">
           <div class="hud-item">
             <span class="hud-icon">❤️</span>
@@ -98,36 +121,89 @@
             <span class="hud-val">{{ score }}</span>
           </div>
           <div class="hud-item hud-category">
-            <span class="hud-val">{{ getCategoryLabel() }}</span>
+            <span class="hud-val">{{ getGameModeLabel() }}</span>
           </div>
-          <div class="hud-item hud-category">
-            <span class="hud-val">{{ getLevelTypeLabel() }}</span>
-          </div>
+          @if (selectedGameMode === 'platformer') {
+            <div class="hud-item hud-category">
+              <span class="hud-val">{{ getLevelTypeLabel() }}</span>
+            </div>
+          }
         </div>
 
-        <div class="canvas-container">
-          <canvas #gameCanvas></canvas>
+        @if (selectedGameMode === 'platformer') {
+          <div class="canvas-container">
+            <canvas #gameCanvas></canvas>
 
-          <!-- Touch controls (mobile) -->
-          <div class="touch-controls">
-            <div class="touch-dpad">
-              <button class="touch-btn touch-left"
-                      (touchstart)="touchLeft(true)" (touchend)="touchLeft(false)"
-                      (mousedown)="touchLeft(true)" (mouseup)="touchLeft(false)">◀</button>
-              <button class="touch-btn touch-right"
-                      (touchstart)="touchRight(true)" (touchend)="touchRight(false)"
-                      (mousedown)="touchRight(true)" (mouseup)="touchRight(false)">▶</button>
-            </div>
-            <div class="touch-actions">
-              <button class="touch-btn touch-jump"
-                      (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
-                      (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">▲</button>
-              <button class="touch-btn touch-fire"
-                      (touchstart)="touchFire(true)" (touchend)="touchFire(false)"
-                      (mousedown)="touchFire(true)" (mouseup)="touchFire(false)">🔥</button>
+            <!-- Touch controls (mobile) -->
+            <div class="touch-controls">
+              <div class="touch-dpad">
+                <button class="touch-btn touch-left"
+                        (touchstart)="touchLeft(true)" (touchend)="touchLeft(false)"
+                        (mousedown)="touchLeft(true)" (mouseup)="touchLeft(false)">◀</button>
+                <button class="touch-btn touch-right"
+                        (touchstart)="touchRight(true)" (touchend)="touchRight(false)"
+                        (mousedown)="touchRight(true)" (mouseup)="touchRight(false)">▶</button>
+              </div>
+              <div class="touch-actions">
+                <button class="touch-btn touch-jump"
+                        (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
+                        (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">▲</button>
+                <button class="touch-btn touch-fire"
+                        (touchstart)="touchFire(true)" (touchend)="touchFire(false)"
+                        (mousedown)="touchFire(true)" (mouseup)="touchFire(false)">🔥</button>
+              </div>
             </div>
           </div>
-        </div>
+        }
+
+        @if (selectedGameMode === 'runner') {
+          <div class="runner-arena apple-card">
+            <div class="runner-meta">
+              <span>{{ runnerTheme }}</span>
+              <span>Distance {{ runnerDistance }}</span>
+            </div>
+            <div class="runner-track">
+              @for (lane of [0, 1, 2]; track lane) {
+                <div class="runner-lane" [class.runner-lane--active]="runnerLane === lane"></div>
+              }
+              @for (item of runnerItems; track item.id) {
+                <div class="runner-item"
+                     [ngClass]="'runner-item--' + item.kind"
+                     [style.left.%]="item.lane * 33.333 + 16.666"
+                     [style.top.%]="item.y">
+                  <span class="runner-item-icon">{{ item.kind === 'bug' ? '🐛' : item.kind === 'power' ? '⭐' : '🪙' }}</span>
+                  <span>{{ item.label }}</span>
+                </div>
+              }
+              <div class="runner-player" [style.left.%]="runnerLane * 33.333 + 16.666">🏃</div>
+            </div>
+            <div class="runner-controls">
+              <button class="touch-btn" (click)="moveRunner(-1)">◀</button>
+              <span>{{ runnerMessage || 'Dodge bugs. Collect concepts.' }}</span>
+              <button class="touch-btn" (click)="moveRunner(1)">▶</button>
+            </div>
+          </div>
+        }
+
+        @if (selectedGameMode === 'match3') {
+          <div class="match3-arena apple-card">
+            <div class="match3-meta">
+              <span>{{ matchGoal }}</span>
+              <span>Moves {{ matchMovesRemaining }} · Combos {{ matchMatches }}/{{ matchTarget }}</span>
+            </div>
+            <div class="match3-board">
+              @for (tile of matchTiles; track tile.id; let i = $index) {
+                <button class="match3-tile"
+                        [ngClass]="'match3-tile--' + tile.type"
+                        [class.match3-tile--selected]="tile.selected"
+                        (click)="onMatchTileClick(i)">
+                  {{ tile.label }}
+                </button>
+              }
+            </div>
+            <p class="match3-message">{{ matchMessage || 'Swap adjacent AI tiles to build 3+ matches.' }}</p>
+          </div>
+        }
       </div>
     }
 
@@ -149,8 +225,8 @@
               <span class="stat-value">{{ coins }}</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">Enemies</span>
-              <span class="stat-value">{{ enemiesStomped }}</span>
+              <span class="stat-label">{{ selectedGameMode === 'match3' ? 'Combos' : selectedGameMode === 'runner' ? 'Distance' : 'Enemies' }}</span>
+              <span class="stat-value">{{ selectedGameMode === 'match3' ? matchMatches : selectedGameMode === 'runner' ? runnerDistance : enemiesStomped }}</span>
             </div>
           </div>
 
