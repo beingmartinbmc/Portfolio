@@ -8,8 +8,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { environment } from '../../../environments/environment';
 import { AI_CONTEXT } from '../../ai-face/ai-context';
 import { MarkdownPipe } from '../../ai-face/markdown.pipe';
-import { VoiceStreamingService, VoiceStreamOptions, AudioChunk } from '../../services/voice-streaming.service';
-import { TTS_API_URL } from '../../config/api-config';
+import { getAiResponseText, TTS_API_URL } from '../../config/api-config';
 import { trigger, style, transition, animate } from '@angular/animations';
 import { firstValueFrom } from 'rxjs';
 import { cleanTextForSpeech } from '../../utils/text-utils';
@@ -68,19 +67,13 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private currentAudio?: HTMLAudioElement;
   private ttsCache = new Map<string, Blob>(); // Cache for faster repeated phrases
   
-  // Voice streaming functionality
-  private streamingResponse = '';
-  private retryCount = 0;
-  private maxRetries = 3;
-  private isStreaming = false;
   private lastRequestTime = 0;
   private minRequestInterval = 1000; // Minimum 1 second between requests
   
   private readonly CONTEXT = AI_CONTEXT;
 
   constructor(
-    private http: HttpClient,
-    private voiceStreamingService: VoiceStreamingService
+    private http: HttpClient
   ) {
   }
 
@@ -108,9 +101,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     
     // Stop any ongoing speech and cleanup
     this.stopSpeech();
-    
-    // Stop voice streaming
-    this.voiceStreamingService.stopStream();
   }
 
   private initThreeJS(): void {
@@ -276,7 +266,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   public async sendMessage(): Promise<void> {
-    if (!this.userInput.trim() || this.isTyping || this.isStreaming) return;
+    if (!this.userInput.trim() || this.isTyping) return;
 
     // Debounce: Prevent rapid successive requests
     const now = Date.now();
@@ -290,171 +280,30 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     this.userInput = '';
     
     // Prevent multiple concurrent requests
-    if (this.isTyping || this.isStreaming) {
+    if (this.isTyping) {
       return;
     }
     
     this.isTyping = true;
-    this.isStreaming = true;
-    this.streamingResponse = '';
-    this.retryCount = 0;
     
-    // Stop any existing voice streaming
-    this.voiceStreamingService.stopStream();
-    
-    try {
-      await this.startVoiceStreaming(userMessage);
-    } catch (error) {
-      console.error('Voice streaming failed:', error);
-      await this.fallbackToRegularAPI(userMessage);
-    }
-  }
-
-  private async startVoiceStreaming(userMessage: string): Promise<void> {
-    const voiceOptions: VoiceStreamOptions = {
-      audioFormat: 'mp3',
-      voiceModel: 'aura-2-draco-en',
-      sampleRate: 24000,
-      naturalBreaks: true,
-      chunkSize: 30
-    };
-
-    // Set a timeout to fallback if streaming takes too long
-    const streamTimeout = setTimeout(() => {
-      this.fallbackToRegularAPI(userMessage);
-    }, 30000); // 30 second timeout
-
-    try {
-      await this.voiceStreamingService.startVoiceStream(
-        userMessage,
-        this.CONTEXT,
-        voiceOptions,
-        {
-          onStart: (data) => {
-            this.prepare3DModelForSpeech();
-            this.isSpeaking = false; // Will be set to true when audio starts playing
-            clearTimeout(streamTimeout); // Clear timeout once stream starts
-          },
-          onText: (content) => {
-            // Update the streaming response in real-time
-            this.streamingResponse += content;
-            this.updateStreamingMessage(this.streamingResponse);
-          },
-          onAudio: (chunk: AudioChunk) => {
-            // Audio is handled automatically by the service
-            this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
-          },
-          onComplete: (data) => {
-            clearTimeout(streamTimeout); // Clear timeout on completion
-            this.finalize3DModelAnimation(data.timing, data.performance);
-            this.isTyping = false;
-            this.isStreaming = false;
-            this.streamingResponse = ''; // Clear the response
-            this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
-          },
-          onError: (error) => {
-            console.error('❌ Voice streaming error:', error);
-            clearTimeout(streamTimeout); // Clear timeout on error
-            this.isTyping = false;
-            this.isStreaming = false;
-            this.streamingResponse = '';
-            
-            // Check if this is a backend error and fallback immediately
-            if (error?.message && error.message.includes('text.split is not a function')) {
-              this.fallbackToRegularAPI(userMessage);
-            } else {
-              this.handleStreamingError(error, userMessage);
-            }
-          },
-          onFallback: (data) => {
-            clearTimeout(streamTimeout); // Clear timeout on fallback
-            this.fallbackToRegularAPI(userMessage);
-          }
-        }
-      );
-    } catch (error) {
-      console.error('Failed to start voice streaming:', error);
-      clearTimeout(streamTimeout);
-      throw error;
-    }
-  }
-
-  private updateStreamingMessage(content: string): void {
-    // Find the last AI message and update it, or create a new one
-    const lastMessage = this.messages[this.messages.length - 1];
-    if (lastMessage && !lastMessage.isUser) {
-      lastMessage.text = content;
-    } else {
-      this.addMessage(content, false, false); // Don't trigger TTS since streaming handles audio
-    }
-    
-    // Scroll to bottom
-    setTimeout(() => this.scrollToBottom(), 10);
-  }
-
-  private async handleStreamingError(error: any, userMessage: string): Promise<void> {
-    // Check for backend code errors that shouldn't be retried
-    const backendErrors = [
-      'text.split is not a function',
-      'TypeError:',
-      'ReferenceError:',
-      'SyntaxError:'
-    ];
-    
-    const isBackendCodeError = backendErrors.some(errorType => 
-      error?.message?.includes(errorType) || error?.error?.includes(errorType)
-    );
-    
-    if (isBackendCodeError) {
-      await this.fallbackToRegularAPI(userMessage);
-      return;
-    }
-    
-    if (error.retryable && this.retryCount < this.maxRetries) {
-      this.retryCount++;
-      
-      // Exponential backoff
-      const delay = Math.pow(2, this.retryCount) * 1000;
-      setTimeout(() => this.startVoiceStreaming(userMessage), delay);
-    } else {
-      // Fall back to regular API
-      await this.fallbackToRegularAPI(userMessage);
-    }
+    await this.fallbackToRegularAPI(userMessage);
   }
 
   private async fallbackToRegularAPI(userMessage: string): Promise<void> {
     // Ensure we're not already processing
-    if (!this.isTyping && !this.isStreaming) {
+    if (!this.isTyping) {
       return;
     }
     
     try {
       const response = await firstValueFrom(this.http.post<any>(environment.aiApiUrl, {
-        prompt: userMessage,
+        message: userMessage,
         context: this.CONTEXT
       }));
       
-      let aiResponse = 'Sorry, I couldn\'t process that. Please try again!';
+      const aiResponse = getAiResponseText(response) ?? 'Sorry, I couldn\'t process that. Please try again!';
       
-      if (response?.data?.choices?.[0]?.message?.content) {
-        aiResponse = response.data.choices[0].message.content;
-      } else if (response?.response) {
-        aiResponse = response.response;
-      } else if (response?.message) {
-        aiResponse = response.message;
-      }
-      
-      // If we have a partial streaming response, remove it and add the full response
-      if (this.streamingResponse) {
-        // Remove the partial streaming message
-        const lastMessage = this.messages[this.messages.length - 1];
-        if (lastMessage && !lastMessage.isUser && lastMessage.text === this.streamingResponse) {
-          this.messages.pop();
-        }
-        this.streamingResponse = '';
-      }
-      
-      // Use the legacy TTS system as fallback
+      // Chat and TTS are separate backend APIs: render the chat answer, then synthesize it.
       if (this.ttsEnabled) {
         this.speakText(aiResponse, true);
       } else {
@@ -467,8 +316,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       this.addMessage('Oops! Something went wrong. Please try again later. 😅', false);
       this.isTyping = false;
     }
-    
-    this.isStreaming = false;
   }
 
   private addMessage(text: string, isUser: boolean, triggerTTS: boolean = true): void {
@@ -609,9 +456,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   public stopSpeech(): void {
-    // Stop voice streaming
-    this.voiceStreamingService.stopStream();
-    
     // Stop regular audio
     if (this.currentAudio) {
       this.currentAudio.pause();
@@ -620,7 +464,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
     
     this.isSpeaking = false;
-    this.isStreaming = false;
   }
 
   private cleanupAudio(): void {
@@ -640,20 +483,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
 
   // Getters for template bindings
   public get isReallyTyping(): boolean {
-    return this.isTyping || this.isStreaming;
+    return this.isTyping;
   }
 
   public get isReallySpeaking(): boolean {
-    return this.isSpeaking || this.voiceStreamingService.isAudioPlaying();
-  }
-
-  // Voice streaming status methods
-  public isVoiceStreamActive(): boolean {
-    return this.voiceStreamingService.isStreamActive();
-  }
-
-  public getAudioQueueLength(): number {
-    return this.voiceStreamingService.getAudioQueueLength();
+    return this.isSpeaking;
   }
 
   // 3D Model animation methods for voice synchronization

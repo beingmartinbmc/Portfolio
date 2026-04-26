@@ -2,7 +2,8 @@ import { Component, OnDestroy, ViewChild, ElementRef, NgZone, ChangeDetectorRef 
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { AI_API_URL } from '../../config/api-config';
+import { environment } from '../../../environments/environment';
+import { getAiResponseText } from '../../config/api-config';
 import { MarioEngine } from './game/mario-engine';
 import {
   generateProceduralLevel, parseLevelFromAI, buildLevelFromData,
@@ -156,23 +157,20 @@ export class AiQuizGameComponent implements OnDestroy {
   private async generateAILevel(config: LevelConfig): Promise<any> {
     const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty, this.selectedLevelType);
     try {
-      const response = await firstValueFrom(this.http.post(AI_API_URL, {
-        prompt,
+      const response = await firstValueFrom(this.http.post(environment.aiApiUrl, {
+        message: prompt,
         context: 'Generate a Mario-style level layout as JSON that follows the provided layout blueprint and already passes the difficulty validation rules.'
       }, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }));
 
-      if (response && typeof response === 'object' && 'data' in response) {
-        const responseData = (response as any).data;
-        if (responseData?.choices?.length > 0) {
-          const content = responseData.choices[0].message.content;
-          const parsed = parseLevelFromAI(content);
-          if (parsed) {
-            const validation = validateAILevelData(parsed, config);
-            if (validation.valid) {
-              return buildLevelFromData(parsed, config);
-            }
-            console.warn('AI level rejected by validator:', validation.issues);
+      const content = getAiResponseText(response);
+      if (content) {
+        const parsed = parseLevelFromAI(content);
+        if (parsed) {
+          const validation = validateAILevelData(parsed, config);
+          if (validation.valid) {
+            return buildLevelFromData(parsed, config);
           }
+          console.warn('AI level rejected by validator:', validation.issues);
         }
       }
     } catch (e) {

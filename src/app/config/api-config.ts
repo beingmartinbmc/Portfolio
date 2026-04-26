@@ -1,18 +1,17 @@
 export const API_CONFIG = {
   // Base URL for all APIs
-
-  BASE_URL: 'https://epic-backend-f9tfcyn1d-beingmartinbmcs-projects.vercel.app',
+  BASE_URL: 'https://ai-gateway-production-0388.up.railway.app',
 
   // API Endpoints
   ENDPOINTS: {
     // AI Chat API - used in environment files
-    AI_GENERIC: '/api/generic',
+    AI_GENERIC: '/api/v1/chat',
 
     // Text-to-Speech API
-    TEXT_TO_SPEECH: '/api/text-to-speech',
+    TEXT_TO_SPEECH: '/api/v1/tts',
 
-    // Streaming Voice API
-    STREAMING_VOICE: '/api/stream-voice',
+    // Combined chat + synthesized speech stream API
+    STREAMING_VOICE: '/api/v1/voice/stream',
 
     // Add other endpoints here as needed
     // MUSIC: '/api/music',
@@ -29,3 +28,20 @@ export const API_CONFIG = {
 export const AI_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.AI_GENERIC);
 export const TTS_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.TEXT_TO_SPEECH);
 export const STREAMING_VOICE_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.STREAMING_VOICE);
+
+export function getAiResponseText(response: any): string | null {
+  const candidates = [
+    response?.data?.choices?.[0]?.message?.content,
+    response?.choices?.[0]?.message?.content,
+    response?.data?.response,
+    response?.data?.message,
+    response?.data?.answer,
+    response?.data?.content,
+    response?.response,
+    response?.message,
+    response?.answer,
+    response?.content,
+  ];
+
+  return candidates.find((candidate) => typeof candidate === 'string' && candidate.trim().length > 0)?.trim() ?? null;
+}

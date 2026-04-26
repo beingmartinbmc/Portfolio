@@ -7,6 +7,7 @@ import { trigger, style, transition, animate } from '@angular/animations';
 import { AI_CONTEXT } from './ai-context';
 import { MarkdownPipe } from './markdown.pipe';
 import { firstValueFrom } from 'rxjs';
+import { getAiResponseText } from '../config/api-config';
 
 interface Message {
   text: string;
@@ -100,23 +101,14 @@ export class AiFaceComponent implements AfterViewInit, OnDestroy {
     
     try {
       const response = await firstValueFrom(this.http.post<any>(environment.aiApiUrl, {
-        prompt: userMessage,
+        message: userMessage,
         context: this.CONTEXT
       }));
       
       // Simulate typing delay for more natural feel
       await this.delay(500);
       
-      // Parse the response - it comes in data.choices[0].message.content
-      let aiResponse = 'Sorry, I couldn\'t process that. Please try again!';
-      
-      if (response?.data?.choices?.[0]?.message?.content) {
-        aiResponse = response.data.choices[0].message.content;
-      } else if (response?.response) {
-        aiResponse = response.response;
-      } else if (response?.message) {
-        aiResponse = response.message;
-      }
+      const aiResponse = getAiResponseText(response) ?? 'Sorry, I couldn\'t process that. Please try again!';
       
       this.addMessage(aiResponse, false);
       

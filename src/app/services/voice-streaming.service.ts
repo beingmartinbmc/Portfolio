@@ -72,7 +72,7 @@ export class VoiceStreamingService {
           'Accept': 'text/event-stream'
         },
         body: JSON.stringify({ 
-          prompt, 
+          message: prompt,
           context, 
           voiceSettings 
         })
