@@ -163,23 +163,40 @@
               <span>Distance {{ runnerDistance }}</span>
             </div>
             <div class="runner-track">
+              <div class="runner-skyline"></div>
+              <div class="runner-horizon">Next station: {{ getCategoryLabel() }}</div>
+              <div class="runner-rails"></div>
               @for (lane of [0, 1, 2]; track lane) {
-                <div class="runner-lane" [class.runner-lane--active]="runnerLane === lane"></div>
+                <div class="runner-lane"
+                     [ngClass]="'runner-lane--' + lane"
+                     [class.runner-lane--active]="runnerLane === lane"></div>
               }
               @for (item of runnerItems; track item.id) {
                 <div class="runner-item"
                      [ngClass]="'runner-item--' + item.kind"
-                     [style.left.%]="item.lane * 33.333 + 16.666"
-                     [style.top.%]="item.y">
-                  <span class="runner-item-icon">{{ item.kind === 'bug' ? '🐛' : item.kind === 'power' ? '⭐' : '🪙' }}</span>
+                     [style.left.%]="getRunnerItemLeft(item)"
+                     [style.top.%]="item.y"
+                     [style.transform]="getRunnerItemTransform(item)"
+                     [style.opacity]="getRunnerItemOpacity(item)">
+                  <span class="runner-item-icon">{{ getRunnerItemIcon(item) }}</span>
                   <span>{{ item.label }}</span>
+                  @if (item.kind === 'bug') {
+                    <span class="runner-item-action">{{ item.avoidAction }}</span>
+                  }
                 </div>
               }
-              <div class="runner-player" [style.left.%]="runnerLane * 33.333 + 16.666">🏃</div>
+              <div class="runner-player"
+                   [class.runner-player--jump]="runnerAction === 'jump'"
+                   [class.runner-player--slide]="runnerAction === 'slide'"
+                   [style.left.%]="50 + (runnerLane - 1) * 29">
+                <span>{{ runnerAction === 'slide' ? '🛝' : '🏃' }}</span>
+              </div>
             </div>
             <div class="runner-controls">
               <button class="touch-btn" (click)="moveRunner(-1)">◀</button>
-              <span>{{ runnerMessage || 'Dodge bugs. Collect concepts.' }}</span>
+              <button class="touch-btn runner-action-btn" (click)="runnerJump()">▲</button>
+              <span>{{ runnerMessage || 'Switch lanes, jump barriers, slide under tunnels.' }}</span>
+              <button class="touch-btn runner-action-btn" (click)="runnerSlide()">▼</button>
               <button class="touch-btn" (click)="moveRunner(1)">▶</button>
             </div>
           </div>
@@ -196,8 +213,10 @@
                 <button class="match3-tile"
                         [ngClass]="'match3-tile--' + tile.type"
                         [class.match3-tile--selected]="tile.selected"
+                        [class.match3-tile--blocked]="tile.blocked"
                         (click)="onMatchTileClick(i)">
-                  {{ tile.label }}
+                  <span class="match3-tile-icon">{{ getMatchTileIcon(tile) }}</span>
+                  <span class="match3-tile-label">{{ tile.label }}</span>
                 </button>
               }
             </div>
