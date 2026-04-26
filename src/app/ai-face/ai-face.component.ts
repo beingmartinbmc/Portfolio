@@ -7,7 +7,7 @@ import { trigger, style, transition, animate } from '@angular/animations';
 import { AI_CONTEXT } from './ai-context';
 import { MarkdownPipe } from './markdown.pipe';
 import { firstValueFrom } from 'rxjs';
-import { getAiResponseText } from '../config/api-config';
+import { createOpenAiProxyRequest, getAiResponseText } from '../config/api-config';
 
 interface Message {
   text: string;
@@ -100,10 +100,13 @@ export class AiFaceComponent implements AfterViewInit, OnDestroy {
     this.mouthPath = 'M55 105 Q80 105 105 105'; // Thinking face
     
     try {
-      const response = await firstValueFrom(this.http.post<any>(environment.aiApiUrl, {
-        message: userMessage,
-        context: this.CONTEXT
-      }));
+      const response = await firstValueFrom(this.http.post<any>(
+        environment.aiApiUrl,
+        createOpenAiProxyRequest([
+          { role: 'system', content: this.CONTEXT },
+          { role: 'user', content: userMessage },
+        ]),
+      ));
       
       // Simulate typing delay for more natural feel
       await this.delay(500);

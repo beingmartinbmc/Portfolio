@@ -5,7 +5,7 @@ export const API_CONFIG = {
   // API Endpoints
   ENDPOINTS: {
     // AI Chat API - used in environment files
-    AI_GENERIC: '/api/v1/chat',
+    AI_GENERIC: '/api/v1/openai-proxy',
 
     // Text-to-Speech API
     TEXT_TO_SPEECH: '/api/v1/tts',
@@ -28,6 +28,21 @@ export const API_CONFIG = {
 export const AI_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.AI_GENERIC);
 export const TTS_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.TEXT_TO_SPEECH);
 export const STREAMING_VOICE_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.STREAMING_VOICE);
+
+type OpenAiProxyRole = 'system' | 'user' | 'assistant';
+
+export interface OpenAiProxyMessage {
+  role: OpenAiProxyRole;
+  content: string;
+}
+
+export function createOpenAiProxyRequest(messages: OpenAiProxyMessage[], maxTokens = 1000) {
+  return {
+    model: 'gpt-5-nano',
+    maxTokens,
+    messages,
+  };
+}
 
 export function getAiResponseText(response: any): string | null {
   const candidates = [

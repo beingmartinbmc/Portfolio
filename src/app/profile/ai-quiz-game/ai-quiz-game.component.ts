@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { getAiResponseText } from '../../config/api-config';
+import { createOpenAiProxyRequest, getAiResponseText } from '../../config/api-config';
 import { MarioEngine } from './game/mario-engine';
 import {
   generateProceduralLevel, parseLevelFromAI, buildLevelFromData,
@@ -157,10 +157,14 @@ export class AiQuizGameComponent implements OnDestroy {
   private async generateAILevel(config: LevelConfig): Promise<any> {
     const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty, this.selectedLevelType);
     try {
-      const response = await firstValueFrom(this.http.post(environment.aiApiUrl, {
-        message: prompt,
-        context: 'Generate a Mario-style level layout as JSON that follows the provided layout blueprint and already passes the difficulty validation rules.'
-      }, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }));
+      const response = await firstValueFrom(this.http.post(
+        environment.aiApiUrl,
+        createOpenAiProxyRequest([
+          { role: 'system', content: 'Return only valid JSON. No markdown. No explanation.' },
+          { role: 'user', content: prompt },
+        ]),
+        { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) },
+      ));
 
       const content = getAiResponseText(response);
       if (content) {
