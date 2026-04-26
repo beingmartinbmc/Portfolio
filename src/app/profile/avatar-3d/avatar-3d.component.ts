@@ -8,7 +8,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { environment } from '../../../environments/environment';
 import { AI_CONTEXT } from '../../ai-face/ai-context';
 import { MarkdownPipe } from '../../ai-face/markdown.pipe';
-import { getAiResponseText, TTS_API_URL } from '../../config/api-config';
+import { createOpenAiProxyRequest, getAiResponseText, TTS_API_URL } from '../../config/api-config';
 import { trigger, style, transition, animate } from '@angular/animations';
 import { firstValueFrom } from 'rxjs';
 import { cleanTextForSpeech } from '../../utils/text-utils';
@@ -296,19 +296,22 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
     
     try {
-      const response = await firstValueFrom(this.http.post<any>(environment.aiApiUrl, {
-        message: userMessage,
-        context: this.CONTEXT
-      }));
+      const response = await firstValueFrom(this.http.post<any>(
+        environment.aiApiUrl,
+        createOpenAiProxyRequest([
+          { role: 'system', content: this.CONTEXT },
+          { role: 'user', content: userMessage },
+        ]),
+      ));
       
       const aiResponse = getAiResponseText(response) ?? 'Sorry, I couldn\'t process that. Please try again!';
       
-      // Chat and TTS are separate backend APIs: render the chat answer, then synthesize it.
+      // Render the answer as soon as chat returns; TTS should not block the chat bubble.
+      this.addMessage(aiResponse, false, false);
+      this.isTyping = false;
+
       if (this.ttsEnabled) {
-        this.speakText(aiResponse, true);
-      } else {
-        this.addMessage(aiResponse, false, false);
-        this.isTyping = false;
+        this.speakText(aiResponse);
       }
       
     } catch (error) {
