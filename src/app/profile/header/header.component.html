@@ -35,4 +35,12 @@
       <span class="hamburger-line"></span>
     </button>
   </nav>
+
+  <!-- XP Progress Bar -->
+  <div class="xp-bar-container" [class.visible]="isScrolled">
+    <div class="xp-bar-track">
+      <div class="xp-bar-fill" [style.width.%]="xpPercent"></div>
+    </div>
+    <span class="xp-level-label">LVL {{ levelNum }} · {{ levelTitle }}</span>
+  </div>
 </header>

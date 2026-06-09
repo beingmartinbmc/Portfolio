@@ -51,6 +51,11 @@ var __async = (__this, __arguments, generator) => {
 };
 
 // node_modules/@angular/core/fesm2022/_effect-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var activeConsumer = null;
 var inNotificationPhase = false;
 var epoch = 1;
@@ -317,8 +322,7 @@ function createComputed(computation, equal) {
   };
   computed2[SIGNAL] = node;
   if (typeof ngDevMode !== "undefined" && ngDevMode) {
-    const debugName = node.debugName ? " (" + node.debugName + ")" : "";
-    computed2.toString = () => `[Computed${debugName}: ${String(node.value)}]`;
+    computed2.toString = () => `[Computed${node.debugName ? " (" + node.debugName + ")" : ""}: ${String(node.value)}]`;
   }
   runPostProducerCreatedFn(node);
   return computed2;
@@ -384,8 +388,7 @@ function createSignal(initialValue, equal) {
   const getter = () => signalGetFn(node);
   getter[SIGNAL] = node;
   if (typeof ngDevMode !== "undefined" && ngDevMode) {
-    const debugName = node.debugName ? " (" + node.debugName + ")" : "";
-    getter.toString = () => `[Signal${debugName}: ${String(node.value)}]`;
+    getter.toString = () => `[Signal${node.debugName ? " (" + node.debugName + ")" : ""}: ${String(node.value)}]`;
   }
   runPostProducerCreatedFn(node);
   const set = (newValue) => signalSetFn(node, newValue);
@@ -423,14 +426,6 @@ function signalValueChanged(node) {
   producerIncrementEpoch();
   producerNotifyConsumers(node);
   postSignalSetFn?.(node);
-}
-function untracked(nonReactiveReadsFn) {
-  const prevConsumer = setActiveConsumer(null);
-  try {
-    return nonReactiveReadsFn();
-  } finally {
-    setActiveConsumer(prevConsumer);
-  }
 }
 var BASE_EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, REACTIVE_NODE), {
   consumerIsAlwaysLive: true,
@@ -2029,6 +2024,11 @@ function tap(observerOrNext, error2, complete) {
 }
 
 // node_modules/@angular/core/fesm2022/_not_found-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var _currentInjector = void 0;
 function getCurrentInjector() {
   return _currentInjector;
@@ -2043,7 +2043,12 @@ function isNotFound(e) {
   return e === NOT_FOUND || e?.name === "\u0275NotFound";
 }
 
-// node_modules/@angular/core/fesm2022/_linked_signal-chunk.mjs
+// node_modules/@angular/core/fesm2022/_untracked-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 function createLinkedSignal(sourceFn, computationFn, equalityFn) {
   const node = Object.create(LINKED_SIGNAL_NODE);
   node.source = sourceFn;
@@ -2062,8 +2067,7 @@ function createLinkedSignal(sourceFn, computationFn, equalityFn) {
   const getter = linkedSignalGetter;
   getter[SIGNAL] = node;
   if (typeof ngDevMode !== "undefined" && ngDevMode) {
-    const debugName = node.debugName ? " (" + node.debugName + ")" : "";
-    getter.toString = () => `[LinkedSignal${debugName}: ${String(node.value)}]`;
+    getter.toString = () => `[LinkedSignal${node.debugName ? " (" + node.debugName + ")" : ""}: ${String(node.value)}]`;
   }
   runPostProducerCreatedFn(node);
   return getter;
@@ -2099,21 +2103,25 @@ var LINKED_SIGNAL_NODE = /* @__PURE__ */ (() => {
       node.value = COMPUTING;
       const prevConsumer = consumerBeforeComputation(node);
       let newValue;
+      let wasEqual = false;
       try {
         const newSourceValue = node.source();
-        const prev = oldValue === UNSET || oldValue === ERRORED ? void 0 : {
+        const oldValueValid = oldValue !== UNSET && oldValue !== ERRORED;
+        const prev = oldValueValid ? {
           source: node.sourceValue,
           value: oldValue
-        };
+        } : void 0;
         newValue = node.computation(newSourceValue, prev);
         node.sourceValue = newSourceValue;
+        setActiveConsumer(null);
+        wasEqual = oldValueValid && newValue !== ERRORED && node.equal(oldValue, newValue);
       } catch (err) {
         newValue = ERRORED;
         node.error = err;
       } finally {
         consumerAfterComputation(node, prevConsumer);
       }
-      if (oldValue !== UNSET && newValue !== ERRORED && node.equal(oldValue, newValue)) {
+      if (wasEqual) {
         node.value = oldValue;
         return;
       }
@@ -2122,8 +2130,21 @@ var LINKED_SIGNAL_NODE = /* @__PURE__ */ (() => {
     }
   });
 })();
+function untracked(nonReactiveReadsFn) {
+  const prevConsumer = setActiveConsumer(null);
+  try {
+    return nonReactiveReadsFn();
+  } finally {
+    setActiveConsumer(prevConsumer);
+  }
+}
 
 // node_modules/@angular/core/fesm2022/primitives-signals.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var formatter = {
   header: (sig, config3) => {
     if (!isSignal(sig) || config3?.ngSkipFormatting) return null;
@@ -2225,7 +2246,19 @@ if (typeof ngDevMode === "undefined" || ngDevMode) {
   installDevToolsSignalFormatter();
 }
 
-// node_modules/@angular/core/fesm2022/_untracked-chunk.mjs
+// node_modules/@angular/core/fesm2022/primitives-di.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
+
+// node_modules/@angular/core/fesm2022/_effect-chunk2.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var Version = class {
   full;
   major;
@@ -2239,7 +2272,7 @@ var Version = class {
     this.patch = parts.slice(2).join(".");
   }
 };
-var VERSION = /* @__PURE__ */ new Version("21.1.3");
+var VERSION = /* @__PURE__ */ new Version("21.2.10");
 var DOC_PAGE_BASE_URL = (() => {
   const full = VERSION.full;
   const isPreRelease = full.includes("-next") || full.includes("-rc") || full === "0.0.0-PLACEHOLDER";
@@ -2342,14 +2375,22 @@ function concatStringsWithSpace(before, after) {
   if (!after) return before;
   return `${before} ${after}`;
 }
+function truncateMiddle(str, maxLength = 100) {
+  if (!str || maxLength < 1 || str.length <= maxLength) return str;
+  if (maxLength == 1) return str.substring(0, 1) + "...";
+  const halfLimit = Math.round(maxLength / 2);
+  return str.substring(0, halfLimit) + "..." + str.substring(str.length - halfLimit);
+}
 var __forward_ref__ = getClosureSafeProperty({
   __forward_ref__: getClosureSafeProperty
 });
 function forwardRef(forwardRefFn) {
   forwardRefFn.__forward_ref__ = forwardRef;
-  forwardRefFn.toString = function() {
-    return stringify(this());
-  };
+  if (ngDevMode) {
+    forwardRefFn.toString = function() {
+      return stringify(this());
+    };
+  }
   return forwardRefFn;
 }
 function resolveForwardRef(type) {
@@ -2746,9 +2787,9 @@ function throwInvalidProviderError(ngModuleType, providers, provider) {
     throw new Error(`Invalid provider for the NgModule '${stringify(ngModuleType)}' - only instances of Provider and Type are allowed, got: [${providerDetail.join(", ")}]`);
   } else if (isEnvironmentProviders(provider)) {
     if (provider.\u0275fromNgModule) {
-      throw new RuntimeError(207, `Invalid providers from 'importProvidersFrom' present in a non-environment injector. 'importProvidersFrom' can't be used for component providers.`);
+      throw new RuntimeError(-207, `Invalid providers from 'importProvidersFrom' present in a non-environment injector. 'importProvidersFrom' can't be used for component providers.`);
     } else {
-      throw new RuntimeError(207, `Invalid providers present in a non-environment injector. 'EnvironmentProviders' can't be used for component providers.`);
+      throw new RuntimeError(-207, `Invalid providers present in a non-environment injector. 'EnvironmentProviders' can't be used for component providers.`);
     }
   } else {
     throw new Error("Invalid provider");
@@ -3420,12 +3461,15 @@ var R3Injector = class extends EnvironmentInjector {
     }
   }
   toString() {
-    const tokens = [];
-    const records = this.records;
-    for (const token of records.keys()) {
-      tokens.push(stringify(token));
+    if (ngDevMode) {
+      const tokens = [];
+      const records = this.records;
+      for (const token of records.keys()) {
+        tokens.push(stringify(token));
+      }
+      return `R3Injector[${tokens.join(", ")}]`;
     }
-    return `R3Injector[${tokens.join(", ")}]`;
+    return "R3Injector[...]";
   }
   processProvider(provider) {
     provider = resolveForwardRef(provider);
@@ -3467,7 +3511,7 @@ var R3Injector = class extends EnvironmentInjector {
     const prevConsumer = setActiveConsumer(null);
     try {
       if (record.value === CIRCULAR) {
-        throw cyclicDependencyError(stringify(token));
+        throw cyclicDependencyError(ngDevMode ? stringify(token) : "");
       } else if (record.value === NOT_YET) {
         record.value = CIRCULAR;
         if (ngDevMode) {
@@ -3513,17 +3557,17 @@ function injectableDefOrInjectorDefFactory(token) {
     return factory;
   }
   if (token instanceof InjectionToken) {
-    throw new RuntimeError(204, ngDevMode && `Token ${stringify(token)} is missing a \u0275prov definition.`);
+    throw new RuntimeError(-204, ngDevMode && `Token ${stringify(token)} is missing a \u0275prov definition.`);
   }
   if (token instanceof Function) {
     return getUndecoratedInjectableFactory(token);
   }
-  throw new RuntimeError(204, ngDevMode && "unreachable");
+  throw new RuntimeError(-204, ngDevMode && "unreachable");
 }
 function getUndecoratedInjectableFactory(token) {
   const paramLength = token.length;
   if (paramLength > 0) {
-    throw new RuntimeError(204, ngDevMode && `Can't resolve all parameters for ${stringify(token)}: (${newArray(paramLength, "?").join(", ")}).`);
+    throw new RuntimeError(-204, ngDevMode && `Can't resolve all parameters for ${stringify(token)}: (${newArray(paramLength, "?").join(", ")}).`);
   }
   const inheritedInjectableDef = getInheritedInjectableDef(token);
   if (inheritedInjectableDef !== null) {
@@ -3571,7 +3615,7 @@ function providerToFactory(provider, ngModuleType, providers) {
 }
 function assertNotDestroyed(injector) {
   if (injector.destroyed) {
-    throw new RuntimeError(205, ngDevMode && "Injector has already been destroyed.");
+    throw new RuntimeError(-205, ngDevMode && "Injector has already been destroyed.");
   }
 }
 function makeRecord(factory, value, multi = false) {
@@ -4258,8 +4302,11 @@ function createInjector(defType, parent = null, additionalProviders = null, name
 }
 function createInjectorWithoutInjectorInstances(defType, parent = null, additionalProviders = null, name, scopes = /* @__PURE__ */ new Set()) {
   const providers = [additionalProviders || EMPTY_ARRAY, importProvidersFrom(defType)];
-  name = name || (typeof defType === "object" ? void 0 : stringify(defType));
-  return new R3Injector(providers, parent || getNullInjector(), name || null, scopes);
+  let source = void 0;
+  if (ngDevMode) {
+    source = name || (typeof defType === "object" ? void 0 : stringify(defType));
+  }
+  return new R3Injector(providers, parent || getNullInjector(), source || null, scopes);
 }
 var Injector = class _Injector {
   static THROW_IF_NOT_FOUND = THROW_IF_NOT_FOUND;
@@ -4794,9 +4841,10 @@ function signal(initialValue, options) {
   signalFn.set = set;
   signalFn.update = update;
   signalFn.asReadonly = signalAsReadonlyFn.bind(signalFn);
-  if (ngDevMode) {
-    signalFn.toString = () => `[Signal: ${signalFn()}]`;
-    node.debugName = options?.debugName;
+  if (typeof ngDevMode !== "undefined" && ngDevMode) {
+    const debugName = options?.debugName;
+    node.debugName = debugName;
+    signalFn.toString = () => `[Signal${debugName ? " (" + debugName + ")" : ""}: ${signalFn()}]`;
   }
   return signalFn;
 }
@@ -5069,11 +5117,13 @@ function createEffectFn(node, fn) {
     fn((cleanupFn) => (node.cleanupFns ??= []).push(cleanupFn));
   };
 }
-function untracked2(nonReactiveReadsFn) {
-  return untracked(nonReactiveReadsFn);
-}
 
 // node_modules/@angular/core/fesm2022/_debug_node-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 function noSideEffects(fn) {
   return {
     toString: fn
@@ -6193,7 +6243,7 @@ function lookupTokenUsingEmbeddedInjector(tNode, lView, token, flags, notFoundVa
     if (!parentTNode) {
       const embeddedViewInjector = currentLView[EMBEDDED_VIEW_INJECTOR];
       if (embeddedViewInjector) {
-        const embeddedViewInjectorValue = embeddedViewInjector.get(token, NOT_FOUND2, flags);
+        const embeddedViewInjectorValue = embeddedViewInjector.get(token, NOT_FOUND2, flags & -5);
         if (embeddedViewInjectorValue !== NOT_FOUND2) {
           return embeddedViewInjectorValue;
         }
@@ -6219,9 +6269,9 @@ function getTNodeFromLView(lView) {
 function \u0275\u0275injectAttribute(attrNameToInject) {
   return injectAttributeImpl(getCurrentTNode(), attrNameToInject);
 }
-var Attribute = makeParamDecorator("Attribute", (attributeName2) => ({
-  attributeName: attributeName2,
-  __NG_ELEMENT_ID__: () => \u0275\u0275injectAttribute(attributeName2)
+var Attribute = makeParamDecorator("Attribute", (attributeName) => ({
+  attributeName,
+  __NG_ELEMENT_ID__: () => \u0275\u0275injectAttribute(attributeName)
 }));
 var _reflect = null;
 function getReflect() {
@@ -6261,7 +6311,7 @@ function reflectDependency(dep) {
         meta.token = param.token;
       } else if (param instanceof Attribute) {
         if (param.attributeName === void 0) {
-          throw new RuntimeError(204, ngDevMode && `Attribute name must be defined.`);
+          throw new RuntimeError(-204, ngDevMode && `Attribute name must be defined.`);
         }
         meta.attribute = param.attributeName;
       } else {
@@ -6453,6 +6503,7 @@ function hasInSkipHydrationBlockFlag(tNode) {
 var ChangeDetectionStrategy;
 (function(ChangeDetectionStrategy2) {
   ChangeDetectionStrategy2[ChangeDetectionStrategy2["OnPush"] = 0] = "OnPush";
+  ChangeDetectionStrategy2[ChangeDetectionStrategy2["Eager"] = 1] = "Eager";
   ChangeDetectionStrategy2[ChangeDetectionStrategy2["Default"] = 1] = "Default";
 })(ChangeDetectionStrategy || (ChangeDetectionStrategy = {}));
 var TRACKED_LVIEWS = /* @__PURE__ */ new Map();
@@ -6786,7 +6837,7 @@ function getDirectiveMetadata$1(directiveOrComponentInstance) {
       inputs,
       outputs: componentDef.outputs,
       encapsulation: componentDef.encapsulation,
-      changeDetection: componentDef.onPush ? ChangeDetectionStrategy.OnPush : ChangeDetectionStrategy.Default
+      changeDetection: componentDef.onPush ? ChangeDetectionStrategy.OnPush : ChangeDetectionStrategy.Eager
     };
   }
   const directiveDef = getDirectiveDef(constructor);
@@ -6950,7 +7001,7 @@ var TransferState = class _TransferState {
         }
       }
     }
-    return JSON.stringify(this.store).replace(/</g, "\\u003C");
+    return JSON.stringify(this.store).replace(/</g, "\\u003C").replace(/\//g, "\\u002F");
   }
 };
 function retrieveTransferredState(doc, appId) {
@@ -7563,6 +7614,7 @@ var HTML_ATTRS = tagSet("abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,c
 var ARIA_ATTRS = tagSet("aria-activedescendant,aria-atomic,aria-autocomplete,aria-busy,aria-checked,aria-colcount,aria-colindex,aria-colspan,aria-controls,aria-current,aria-describedby,aria-details,aria-disabled,aria-dropeffect,aria-errormessage,aria-expanded,aria-flowto,aria-grabbed,aria-haspopup,aria-hidden,aria-invalid,aria-keyshortcuts,aria-label,aria-labelledby,aria-level,aria-live,aria-modal,aria-multiline,aria-multiselectable,aria-orientation,aria-owns,aria-placeholder,aria-posinset,aria-pressed,aria-readonly,aria-relevant,aria-required,aria-roledescription,aria-rowcount,aria-rowindex,aria-rowspan,aria-selected,aria-setsize,aria-sort,aria-valuemax,aria-valuemin,aria-valuenow,aria-valuetext");
 var VALID_ATTRS = merge(URI_ATTRS, HTML_ATTRS, ARIA_ATTRS);
 var SKIP_TRAVERSING_CONTENT_IF_INVALID_ELEMENTS = tagSet("script,style,template");
+var SENSITIVE_ATTRS = merge(URI_ATTRS, tagSet("action,formaction,data,codebase"));
 var SanitizingHtmlSerializer = class {
   sanitizedSomething = false;
   buf = [];
@@ -7847,10 +7899,37 @@ function \u0275\u0275trustConstantResourceUrl(url) {
   }
   return trustedScriptURLFromString(url[0]);
 }
-var SRC_RESOURCE_TAGS = /* @__PURE__ */ new Set(["embed", "frame", "iframe", "media", "script"]);
-var HREF_RESOURCE_TAGS = /* @__PURE__ */ new Set(["base", "link", "script"]);
+var RESOURCE_MAP = {
+  "embed": {
+    "src": true
+  },
+  "frame": {
+    "src": true
+  },
+  "iframe": {
+    "src": true
+  },
+  "media": {
+    "src": true
+  },
+  "script": {
+    "src": true,
+    "href": true,
+    "xlink:href": true
+  },
+  "base": {
+    "href": true
+  },
+  "link": {
+    "href": true
+  },
+  "object": {
+    "data": true,
+    "codebase": true
+  }
+};
 function getUrlSanitizer(tag, prop) {
-  const isResource = prop === "src" && SRC_RESOURCE_TAGS.has(tag) || prop === "href" && HREF_RESOURCE_TAGS.has(tag) || prop === "xlink:href" && tag === "script";
+  const isResource = RESOURCE_MAP[tag]?.[prop] === true;
   return isResource ? \u0275\u0275sanitizeResourceUrl : \u0275\u0275sanitizeUrl;
 }
 function \u0275\u0275sanitizeUrlOrResourceUrl(unsafeUrl, tag, prop) {
@@ -7873,18 +7952,38 @@ function getSanitizer() {
   const lView = getLView();
   return lView && lView[ENVIRONMENT].sanitizer;
 }
-var attributeName = /* @__PURE__ */ new Set(["attributename"]);
+var SECURITY_SENSITIVE_ATTRIBUTE_NAMES = /* @__PURE__ */ new Set(["href", "xlink:href"]);
 var SECURITY_SENSITIVE_ELEMENTS = {
-  "iframe": /* @__PURE__ */ new Set(["sandbox", "allow", "allowfullscreen", "referrerpolicy", "csp", "fetchpriority"]),
-  "animate": attributeName,
-  "set": attributeName,
-  "animatemotion": attributeName,
-  "animatetransform": attributeName
+  "iframe": {
+    "sandbox": true,
+    "allow": true,
+    "allowfullscreen": true,
+    "referrerpolicy": true,
+    "csp": true,
+    "fetchpriority": true
+  },
+  "animate": {
+    "attributename": true,
+    "to": SECURITY_SENSITIVE_ATTRIBUTE_NAMES,
+    "values": SECURITY_SENSITIVE_ATTRIBUTE_NAMES,
+    "from": SECURITY_SENSITIVE_ATTRIBUTE_NAMES
+  },
+  "set": {
+    "attributename": true,
+    "to": SECURITY_SENSITIVE_ATTRIBUTE_NAMES
+  },
+  "animatemotion": {
+    "attributename": true
+  },
+  "animatetransform": {
+    "attributename": true
+  }
 };
-function \u0275\u0275validateAttribute(value, tagName, attributeName2) {
+function \u0275\u0275validateAttribute(value, tagName, attributeName) {
   const lowerCaseTagName = tagName.toLowerCase();
-  const lowerCaseAttrName = attributeName2.toLowerCase();
-  if (!SECURITY_SENSITIVE_ELEMENTS[lowerCaseTagName]?.has(lowerCaseAttrName)) {
+  const lowerCaseAttrName = attributeName.toLowerCase();
+  const validationConfig = SECURITY_SENSITIVE_ELEMENTS[lowerCaseTagName]?.[lowerCaseAttrName];
+  if (!validationConfig) {
     return value;
   }
   const tNode = getSelectedTNode();
@@ -7896,8 +7995,18 @@ function \u0275\u0275validateAttribute(value, tagName, attributeName2) {
     const element = getNativeByTNode(tNode, lView);
     enforceIframeSecurity(element);
   }
-  const errorMessage = ngDevMode && `Angular has detected that the \`${attributeName2}\` was applied as a binding to the <${tagName}> element${getTemplateLocationDetails(lView)}. For security reasons, the \`${attributeName2}\` can be set on the <${tagName}> element as a static attribute only. 
-To fix this, switch the \`${attributeName2}\` binding to a static attribute in a template or in host bindings section.`;
+  if (typeof validationConfig !== "boolean") {
+    const element = getNativeByTNode(tNode, lView);
+    const attributeNameValue = element.getAttribute("attributeName");
+    if (attributeNameValue && validationConfig.has(attributeNameValue.toLowerCase())) {
+      const errorMessage2 = ngDevMode && `Angular has detected that the \`${attributeName}\` was applied as a binding to the <${tagName}> element${getTemplateLocationDetails(lView)}. For security reasons, the \`${attributeName}\` can be set on the <${tagName}> element as a static attribute only when the "attributeName" is set to '${attributeNameValue}'. 
+To fix this, switch the \`${attributeNameValue}\` binding to a static attribute in a template or in host bindings section.`;
+      throw new RuntimeError(-910, errorMessage2);
+    }
+    return value;
+  }
+  const errorMessage = ngDevMode && `Angular has detected that the \`${attributeName}\` was applied as a binding to the <${tagName}> element${getTemplateLocationDetails(lView)}. For security reasons, the \`${attributeName}\` can be set on the <${tagName}> element as a static attribute only. 
+To fix this, switch the \`${attributeName}\` binding to a static attribute in a template or in host bindings section.`;
   throw new RuntimeError(-910, errorMessage);
 }
 var NG_REFLECT_ATTRS_FLAG_DEFAULT = false;
@@ -8463,6 +8572,174 @@ function ensureIcuContainerVisitorLoaded(loader) {
     _icuContainerIterate = loader();
   }
 }
+var ANIMATIONS_DISABLED = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "AnimationsDisabled" : "", {
+  factory: () => false
+});
+var MAX_ANIMATION_TIMEOUT = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "MaxAnimationTimeout" : "", {
+  factory: () => MAX_ANIMATION_TIMEOUT_DEFAULT
+});
+var MAX_ANIMATION_TIMEOUT_DEFAULT = 4e3;
+var DEFAULT_ANIMATIONS_DISABLED = false;
+var areAnimationSupported = typeof document !== "undefined" && typeof document?.documentElement?.getAnimations === "function";
+function areAnimationsDisabled(lView) {
+  const injector = lView[INJECTOR];
+  return injector.get(ANIMATIONS_DISABLED, DEFAULT_ANIMATIONS_DISABLED);
+}
+function assertAnimationTypes(value, instruction) {
+  if (value == null || typeof value !== "string" && typeof value !== "function") {
+    throw new RuntimeError(650, `'${instruction}' value must be a string of CSS classes or an animation function, got ${stringify(value)}`);
+  }
+}
+function assertElementNodes(nativeElement, instruction) {
+  if (nativeElement.nodeType !== Node.ELEMENT_NODE) {
+    throw new RuntimeError(650, `'${instruction}' can only be used on an element node, got ${stringify(nativeElement.nodeType)}`);
+  }
+}
+function trackEnterClasses(el, classList, cleanupFns) {
+  const elementData = enterClassMap.get(el);
+  if (elementData) {
+    for (const klass of classList) {
+      elementData.classList.push(klass);
+    }
+    for (const fn of cleanupFns) {
+      elementData.cleanupFns.push(fn);
+    }
+  } else {
+    enterClassMap.set(el, {
+      classList,
+      cleanupFns
+    });
+  }
+}
+function cleanupEnterClassData(element) {
+  const elementData = enterClassMap.get(element);
+  if (elementData) {
+    for (const fn of elementData.cleanupFns) {
+      fn();
+    }
+    enterClassMap.delete(element);
+  }
+  longestAnimations.delete(element);
+}
+var noOpAnimationComplete = () => {
+};
+var enterClassMap = /* @__PURE__ */ new WeakMap();
+var longestAnimations = /* @__PURE__ */ new WeakMap();
+var leavingNodes = /* @__PURE__ */ new WeakMap();
+var reusedNodes = /* @__PURE__ */ new WeakSet();
+function clearLeavingNodes(tNode, el) {
+  const nodes = leavingNodes.get(tNode);
+  if (nodes && nodes.length > 0) {
+    const ix = nodes.findIndex((node) => node === el);
+    if (ix > -1) nodes.splice(ix, 1);
+  }
+  if (nodes?.length === 0) {
+    leavingNodes.delete(tNode);
+  }
+}
+function cancelLeavingNodes(tNode, newElement) {
+  const nodes = leavingNodes.get(tNode);
+  if (!nodes || nodes.length === 0) return;
+  const newParent = newElement.parentNode;
+  const prevSibling = newElement.previousSibling;
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const leavingEl = nodes[i];
+    const leavingParent = leavingEl.parentNode;
+    if (leavingEl === newElement) {
+      nodes.splice(i, 1);
+      reusedNodes.add(leavingEl);
+      leavingEl.dispatchEvent(new CustomEvent("animationend", {
+        detail: {
+          cancel: true
+        }
+      }));
+    } else if (prevSibling && leavingEl === prevSibling || leavingParent && newParent && leavingParent !== newParent) {
+      nodes.splice(i, 1);
+      leavingEl.dispatchEvent(new CustomEvent("animationend", {
+        detail: {
+          cancel: true
+        }
+      }));
+      leavingEl.parentNode?.removeChild(leavingEl);
+    }
+  }
+}
+function trackLeavingNodes(tNode, el) {
+  const nodes = leavingNodes.get(tNode);
+  if (nodes) {
+    if (!nodes.includes(el)) {
+      nodes.push(el);
+    }
+  } else {
+    leavingNodes.set(tNode, [el]);
+  }
+}
+function getLViewEnterAnimations(lView) {
+  const animationData = lView[ANIMATIONS] ??= {};
+  return animationData.enter ??= /* @__PURE__ */ new Map();
+}
+function getLViewLeaveAnimations(lView) {
+  const animationData = lView[ANIMATIONS] ??= {};
+  return animationData.leave ??= /* @__PURE__ */ new Map();
+}
+function getClassListFromValue(value) {
+  const classes = typeof value === "function" ? value() : value;
+  let classList = Array.isArray(classes) ? classes : null;
+  if (typeof classes === "string") {
+    classList = classes.trim().split(/\s+/).filter((k) => k);
+  }
+  return classList;
+}
+function cancelAnimationsIfRunning(element, renderer) {
+  if (!areAnimationSupported) return;
+  const elementData = enterClassMap.get(element);
+  if (elementData && elementData.classList.length > 0 && elementHasClassList(element, elementData.classList)) {
+    for (const klass of elementData.classList) {
+      renderer.removeClass(element, klass);
+    }
+  }
+  cleanupEnterClassData(element);
+}
+function elementHasClassList(element, classList) {
+  for (const className of classList) {
+    if (element.classList.contains(className)) return true;
+  }
+  return false;
+}
+function getEventTarget(event) {
+  return event.composedPath ? event.composedPath()[0] : event.target;
+}
+function isLongestAnimation(event, nativeElement) {
+  const longestAnimation = longestAnimations.get(nativeElement);
+  if (longestAnimation === void 0) return true;
+  return nativeElement === getEventTarget(event) && (longestAnimation.animationName !== void 0 && event.animationName === longestAnimation.animationName || longestAnimation.propertyName !== void 0 && (longestAnimation.propertyName === "all" || event.propertyName === longestAnimation.propertyName));
+}
+function addAnimationToLView(animations, tNode, fn) {
+  const nodeAnimations = animations.get(tNode.index) ?? {
+    animateFns: []
+  };
+  nodeAnimations.animateFns.push(fn);
+  animations.set(tNode.index, nodeAnimations);
+}
+function cleanupAfterLeaveAnimations(resolvers, cleanupFns) {
+  if (resolvers) {
+    for (const fn of resolvers) {
+      fn();
+    }
+  }
+  for (const fn of cleanupFns) {
+    fn();
+  }
+}
+function clearLViewNodeAnimationResolvers(lView, tNode) {
+  const nodeAnimations = getLViewLeaveAnimations(lView).get(tNode.index);
+  if (nodeAnimations) nodeAnimations.resolvers = void 0;
+}
+function leaveAnimationFunctionCleanup(lView, tNode, nativeElement, resolvers, cleanupFns) {
+  clearLeavingNodes(tNode, nativeElement);
+  cleanupAfterLeaveAnimations(resolvers, cleanupFns);
+  clearLViewNodeAnimationResolvers(lView, tNode);
+}
 function parseCssTimeUnitsToMs(value) {
   if (!value) return 0;
   const multiplier = value.toLowerCase().indexOf("ms") > -1 ? 1 : 1e3;
@@ -8494,6 +8771,7 @@ function getLongestComputedAnimation(computedStyle) {
   const rawNames = parseCssPropertyValue(computedStyle, "animation-name");
   const rawDelays = parseCssPropertyValue(computedStyle, "animation-delay");
   const rawDurations = parseCssPropertyValue(computedStyle, "animation-duration");
+  const rawIterationCounts = parseCssPropertyValue(computedStyle, "animation-iteration-count");
   const longest = {
     animationName: "",
     propertyName: void 0,
@@ -8501,7 +8779,8 @@ function getLongestComputedAnimation(computedStyle) {
   };
   for (let i = 0; i < rawNames.length; i++) {
     const duration = parseCssTimeUnitsToMs(rawDelays[i]) + parseCssTimeUnitsToMs(rawDurations[i]);
-    if (duration > longest.duration) {
+    const iterationCount = rawIterationCounts[i];
+    if (duration > longest.duration && iterationCount !== "infinite") {
       longest.animationName = rawNames[i];
       longest.duration = duration;
     }
@@ -8537,8 +8816,15 @@ function determineLongestAnimationFromElementAnimations(el, animationsMap, anima
   };
   for (const animation2 of animations) {
     const timing = animation2.effect?.getTiming();
+    if (timing?.iterations === Infinity) {
+      continue;
+    }
     const animDuration = typeof timing?.duration === "number" ? timing.duration : 0;
     let duration = (timing?.delay ?? 0) + animDuration;
+    const playbackRate = animation2.playbackRate;
+    if (playbackRate !== void 0 && playbackRate !== 0 && playbackRate !== 1) {
+      duration /= Math.abs(playbackRate);
+    }
     let propertyName;
     let animationName;
     if (animation2.animationName) {
@@ -8816,16 +9102,6 @@ function queueEnterAnimations(injector, enterAnimations) {
     addToAnimationQueue(injector, nodeAnimations.animateFns);
   }
 }
-function removeAnimationsFromQueue(injector, animationFns) {
-  const animationQueue = injector.get(ANIMATION_QUEUE);
-  if (Array.isArray(animationFns)) {
-    for (const animateFn of animationFns) {
-      animationQueue.queue.delete(animateFn);
-    }
-  } else {
-    animationQueue.queue.delete(animationFns);
-  }
-}
 function maybeQueueEnterAnimation(parentLView, parent, tNode, injector) {
   const enterAnimations = parentLView?.[ANIMATIONS]?.enter;
   if (parent !== null && enterAnimations && enterAnimations.has(tNode.index)) {
@@ -8854,11 +9130,21 @@ function applyToElementOrContainer(action, renderer, injector, parent, lNodeToHa
     } else if (action === 1 && parent !== null) {
       maybeQueueEnterAnimation(parentLView, parent, tNode, injector);
       nativeInsertBefore(renderer, parent, rNode, beforeNode || null, true);
+      cancelLeavingNodes(tNode, rNode);
     } else if (action === 2) {
+      if (parentLView?.[ANIMATIONS]?.leave?.has(tNode.index)) {
+        trackLeavingNodes(tNode, rNode);
+      }
+      reusedNodes.delete(rNode);
       runLeaveAnimationsWithCallback(parentLView, tNode, injector, (nodeHasLeaveAnimations) => {
+        if (reusedNodes.has(rNode)) {
+          reusedNodes.delete(rNode);
+          return;
+        }
         nativeRemoveNode(renderer, rNode, isComponent2, nodeHasLeaveAnimations);
       });
     } else if (action === 3) {
+      reusedNodes.delete(rNode);
       runLeaveAnimationsWithCallback(parentLView, tNode, injector, () => {
         renderer.destroyNode(rNode);
       });
@@ -8960,9 +9246,6 @@ function cleanUpView(tView, lView) {
 }
 function runLeaveAnimationsWithCallback(lView, tNode, injector, callback) {
   const animations = lView?.[ANIMATIONS];
-  if (animations?.enter?.has(tNode.index)) {
-    removeAnimationsFromQueue(injector, animations.enter.get(tNode.index).animateFns);
-  }
   if (animations == null || animations.leave == void 0 || !animations.leave.has(tNode.index)) return callback(false);
   if (lView) allLeavingAnimations.add(lView[ID]);
   addToAnimationQueue(injector, () => {
@@ -9676,7 +9959,7 @@ function renderView(tView, lView, context2) {
     }
     throw error2;
   } finally {
-    lView[FLAGS] &= ~4;
+    lView[FLAGS] &= -5;
     leaveView();
   }
 }
@@ -10053,7 +10336,7 @@ function detectChangesInView(lView, mode) {
   if (consumer) {
     consumer.dirty = false;
   }
-  lView[FLAGS] &= ~(8192 | 1024);
+  lView[FLAGS] &= -9217;
   if (shouldRefreshView) {
     refreshView(tView, lView, tView.template, lView[CONTEXT]);
   } else if (flags & 8192) {
@@ -10177,7 +10460,7 @@ function detachView(lContainer, removeIndex) {
     }
     viewToDetach[PARENT] = null;
     viewToDetach[NEXT] = null;
-    viewToDetach[FLAGS] &= ~128;
+    viewToDetach[FLAGS] &= -129;
   }
   return viewToDetach;
 }
@@ -10283,7 +10566,7 @@ var ViewRef = class {
     markViewDirty(this._cdRefInjectingView || this._lView, 4);
   }
   detach() {
-    this._lView[FLAGS] &= ~128;
+    this._lView[FLAGS] &= -129;
   }
   reattach() {
     updateAncestorTraversalFlagsOnAttach(this._lView);
@@ -10366,6 +10649,7 @@ function createTemplateRef(hostTNode, hostLView) {
   return null;
 }
 var AT_THIS_LOCATION = "<-- AT THIS LOCATION";
+var THIRD_PARTY_SCRIPTS_URL = `/guide/hydration#third-party-scripts-with-dom-manipulation`;
 function getFriendlyStringFromTNodeType(tNodeType) {
   switch (tNodeType) {
     case 4:
@@ -10523,6 +10807,7 @@ function getHydrationErrorFooter(componentClassName) {
   return `To fix this problem:
   * check ${componentInfo} component for hydration-related issues
   * check to see if your template has valid HTML structure
+  * check if there are any third-party scripts that manipulate the DOM. More info: ${DOC_PAGE_BASE_URL}${THIRD_PARTY_SCRIPTS_URL}
   * or skip hydration by adding the \`ngSkipHydration\` attribute to its host node in a template
 
 `;
@@ -10629,7 +10914,7 @@ function createTNode(tView, tParent, type, index, value, attrs) {
     directiveEnd: -1,
     directiveStylingLast: -1,
     componentOffset: -1,
-    fieldIndex: -1,
+    controlDirectiveIndex: -1,
     customControlIndex: -1,
     propertyBindings: null,
     flags,
@@ -11649,7 +11934,6 @@ function bindingUpdated4(lView, bindingIndex, exp1, exp2, exp3, exp4) {
   const different = bindingUpdated2(lView, bindingIndex, exp1, exp2);
   return bindingUpdated2(lView, bindingIndex + 2, exp3, exp4) || different;
 }
-var \u0275CONTROL = /* @__PURE__ */ Symbol("CONTROL");
 function wrapListener(tNode, lView, listenerFn) {
   return function wrapListenerIn_markDirtyAndPreventDefault(event) {
     const startView = isComponentHost(tNode) ? getComponentLViewByIndex(tNode.index, lView) : lView;
@@ -11745,7 +12029,163 @@ function listenToOutput(tNode, lView, directiveIndex, lookupName, eventName, lis
 function isOutputSubscribable(value) {
   return value != null && typeof value.subscribe === "function";
 }
+function \u0275\u0275controlCreate() {
+  controlCreateInternal();
+}
+function controlCreateInternal() {
+  const lView = getLView();
+  const tView = getTView();
+  const tNode = getCurrentTNode();
+  if (tView.firstCreatePass) {
+    initializeControlFirstCreatePass(tView, tNode);
+  }
+  if (tNode.controlDirectiveIndex === -1) {
+    return;
+  }
+  performanceMarkFeature("NgSignalForms");
+  const instance = lView[tNode.controlDirectiveIndex];
+  const controlDef = tView.data[tNode.controlDirectiveIndex].controlDef;
+  controlDef.create(instance, new ControlDirectiveHostImpl(lView, tView, tNode));
+}
+function \u0275\u0275control() {
+  controlUpdateInternal();
+}
+function controlUpdateInternal() {
+  if (ngDevMode && isInCheckNoChangesMode()) {
+    return;
+  }
+  const lView = getLView();
+  const tView = getTView();
+  const tNode = getSelectedTNode();
+  if (tNode.controlDirectiveIndex === -1) {
+    return;
+  }
+  const controlDef = tView.data[tNode.controlDirectiveIndex].controlDef;
+  const instance = lView[tNode.controlDirectiveIndex];
+  controlDef.update(instance, new ControlDirectiveHostImpl(lView, tView, tNode));
+}
+var ControlDirectiveHostImpl = class {
+  lView;
+  tView;
+  tNode;
+  hasPassThrough;
+  constructor(lView, tView, tNode) {
+    this.lView = lView;
+    this.tView = tView;
+    this.tNode = tNode;
+    this.hasPassThrough = !!(tNode.flags & 4096);
+  }
+  get customControl() {
+    return this.tNode.customControlIndex !== -1 ? this.lView[this.tNode.customControlIndex] : void 0;
+  }
+  get descriptor() {
+    if (ngDevMode && isComponentHost(this.tNode)) {
+      const componentIndex = this.tNode.directiveStart + this.tNode.componentOffset;
+      const componentDef = this.tView.data[componentIndex];
+      return `Component ${debugStringifyTypeForError(componentDef.type)}`;
+    }
+    return `<${this.tNode.value}>`;
+  }
+  listenToCustomControlOutput(outputName, callback) {
+    if (!hasOutput(this.tView.data[this.tNode.customControlIndex], outputName)) {
+      return;
+    }
+    listenToOutput(this.tNode, this.lView, this.tNode.customControlIndex, outputName, outputName, wrapListener(this.tNode, this.lView, callback));
+  }
+  listenToCustomControlModel(listener) {
+    const modelName = this.tNode.flags & 1024 ? "valueChange" : "checkedChange";
+    listenToOutput(this.tNode, this.lView, this.tNode.customControlIndex, modelName, modelName, wrapListener(this.tNode, this.lView, listener));
+  }
+  listenToDom(eventName, listener) {
+    listenToDomEvent(this.tNode, this.tView, this.lView, void 0, this.lView[RENDERER], eventName, listener, wrapListener(this.tNode, this.lView, listener));
+  }
+  setInputOnDirectives(inputName, value) {
+    const directiveIndices = this.tNode.inputs?.[inputName];
+    const hostDirectiveInputs = this.tNode.hostDirectiveInputs?.[inputName];
+    if (!directiveIndices && !hostDirectiveInputs) {
+      return false;
+    }
+    if (directiveIndices) {
+      for (const index of directiveIndices) {
+        const directiveDef = this.tView.data[index];
+        const directive = this.lView[index];
+        writeToDirectiveInput(directiveDef, directive, inputName, value);
+      }
+    }
+    if (hostDirectiveInputs) {
+      for (let i = 0; i < hostDirectiveInputs.length; i += 2) {
+        const index = hostDirectiveInputs[i];
+        const internalName = hostDirectiveInputs[i + 1];
+        const directiveDef = this.tView.data[index];
+        const directive = this.lView[index];
+        writeToDirectiveInput(directiveDef, directive, internalName, value);
+      }
+    }
+    return true;
+  }
+  setCustomControlModelInput(value) {
+    const directive = this.lView[this.tNode.customControlIndex];
+    const directiveDef = this.tView.data[this.tNode.customControlIndex];
+    const modelName = this.tNode.flags & 1024 ? "value" : "checked";
+    writeToDirectiveInput(directiveDef, directive, modelName, value);
+  }
+  customControlHasInput(inputName) {
+    if (this.tNode.customControlIndex === -1) {
+      return false;
+    }
+    const directiveDef = this.tView.data[this.tNode.customControlIndex];
+    return directiveDef.inputs[inputName] != void 0;
+  }
+};
+function initializeControlFirstCreatePass(tView, tNode, lView) {
+  ngDevMode && assertFirstCreatePass(tView);
+  for (let i = tNode.directiveStart; i < tNode.directiveEnd; i++) {
+    const directiveDef = tView.data[i];
+    if (directiveDef.controlDef) {
+      tNode.controlDirectiveIndex = i;
+      break;
+    }
+  }
+  if (tNode.controlDirectiveIndex === -1) {
+    return;
+  }
+  const controlDef = tView.data[tNode.controlDirectiveIndex].controlDef;
+  if (controlDef.passThroughInput) {
+    if ((tNode.inputs?.[controlDef.passThroughInput]?.length ?? 0) > 1) {
+      tNode.flags |= 4096;
+      return;
+    }
+  }
+  initializeCustomControlStatus(tView, tNode);
+}
+function initializeCustomControlStatus(tView, tNode) {
+  for (let i = tNode.directiveStart; i < tNode.directiveEnd; i++) {
+    const directiveDef = tView.data[i];
+    if (hasModelInput(directiveDef, "value")) {
+      tNode.flags |= 1024;
+      tNode.customControlIndex = i;
+      return;
+    }
+    if (hasModelInput(directiveDef, "checked")) {
+      tNode.flags |= 2048;
+      tNode.customControlIndex = i;
+      return;
+    }
+  }
+}
+function hasModelInput(directiveDef, name) {
+  return hasInput(directiveDef, name) && hasOutput(directiveDef, name + "Change");
+}
+function hasInput(directiveDef, name) {
+  return name in directiveDef.inputs;
+}
+function hasOutput(directiveDef, name) {
+  return name in directiveDef.outputs;
+}
 var BINDING = /* @__PURE__ */ Symbol("BINDING");
+function getComponentName(def) {
+  return def.debugInfo?.className || def.type.name || null;
+}
 var ComponentFactoryResolver2 = class extends ComponentFactoryResolver$1 {
   ngModule;
   constructor(ngModule) {
@@ -11800,6 +12240,9 @@ function createRootLViewEnvironment(rootLViewInjector) {
   }
   const sanitizer = rootLViewInjector.get(Sanitizer, null);
   const changeDetectionScheduler = rootLViewInjector.get(ChangeDetectionScheduler, null);
+  const tracingService = rootLViewInjector.get(TracingService, null, {
+    optional: true
+  });
   let ngReflect = false;
   if (typeof ngDevMode === "undefined" || ngDevMode) {
     ngReflect = rootLViewInjector.get(NG_REFLECT_ATTRS_FLAG, NG_REFLECT_ATTRS_FLAG_DEFAULT);
@@ -11808,7 +12251,8 @@ function createRootLViewEnvironment(rootLViewInjector) {
     rendererFactory,
     sanitizer,
     changeDetectionScheduler,
-    ngReflect
+    ngReflect,
+    tracingService
   };
 }
 function createHostElement(componentDef, renderer) {
@@ -11851,47 +12295,56 @@ var ComponentFactory2 = class extends ComponentFactory$1 {
     try {
       const cmpDef = this.componentDef;
       ngDevMode && verifyNotAnOrphanComponent(cmpDef);
-      const rootTView = createRootTView(rootSelectorOrNode, cmpDef, componentBindings, directives);
       const rootViewInjector = createRootViewInjector(cmpDef, environmentInjector || this.ngModule, injector);
       const environment2 = createRootLViewEnvironment(rootViewInjector);
-      const hostRenderer = environment2.rendererFactory.createRenderer(null, cmpDef);
-      const hostElement = rootSelectorOrNode ? locateHostElement(hostRenderer, rootSelectorOrNode, cmpDef.encapsulation, rootViewInjector) : createHostElement(cmpDef, hostRenderer);
-      const hasInputBindings = componentBindings?.some(isInputBinding) || directives?.some((d) => typeof d !== "function" && d.bindings.some(isInputBinding));
-      const rootLView = createLView(null, rootTView, null, 512 | getInitialLViewFlagsFromDef(cmpDef), null, null, environment2, hostRenderer, rootViewInjector, null, retrieveHydrationInfo(hostElement, rootViewInjector, true));
-      rootLView[HEADER_OFFSET] = hostElement;
-      enterView(rootLView);
-      let componentView = null;
-      try {
-        const hostTNode = directiveHostFirstCreatePass(HEADER_OFFSET, rootLView, 2, "#host", () => rootTView.directiveRegistry, true, 0);
-        setupStaticAttributes(hostRenderer, hostElement, hostTNode);
-        attachPatchData(hostElement, rootLView);
-        createDirectivesInstances(rootTView, rootLView, hostTNode);
-        executeContentQueries(rootTView, hostTNode, rootLView);
-        directiveHostEndFirstCreatePass(rootTView, hostTNode);
-        if (projectableNodes !== void 0) {
-          projectNodes(hostTNode, this.ngContentSelectors, projectableNodes);
-        }
-        componentView = getComponentLViewByIndex(hostTNode.index, rootLView);
-        rootLView[CONTEXT] = componentView[CONTEXT];
-        renderView(rootTView, rootLView, null);
-      } catch (e) {
-        if (componentView !== null) {
-          unregisterLView(componentView);
-        }
-        unregisterLView(rootLView);
-        throw e;
-      } finally {
-        profiler(ProfilerEvent.DynamicComponentEnd);
-        leaveView();
+      const tracingService = environment2.tracingService;
+      if (tracingService && tracingService.componentCreate) {
+        return tracingService.componentCreate(getComponentName(cmpDef), () => this.createComponentRef(environment2, rootViewInjector, projectableNodes, rootSelectorOrNode, directives, componentBindings));
+      } else {
+        return this.createComponentRef(environment2, rootViewInjector, projectableNodes, rootSelectorOrNode, directives, componentBindings);
       }
-      return new ComponentRef2(this.componentType, rootLView, !!hasInputBindings);
     } finally {
       setActiveConsumer(prevConsumer);
     }
   }
+  createComponentRef(environment2, rootViewInjector, projectableNodes, rootSelectorOrNode, directives, componentBindings) {
+    const cmpDef = this.componentDef;
+    const rootTView = createRootTView(rootSelectorOrNode, cmpDef, componentBindings, directives);
+    const hostRenderer = environment2.rendererFactory.createRenderer(null, cmpDef);
+    const hostElement = rootSelectorOrNode ? locateHostElement(hostRenderer, rootSelectorOrNode, cmpDef.encapsulation, rootViewInjector) : createHostElement(cmpDef, hostRenderer);
+    const hasInputBindings = componentBindings?.some(isInputBinding) || directives?.some((d) => typeof d !== "function" && d.bindings.some(isInputBinding));
+    const rootLView = createLView(null, rootTView, null, 512 | getInitialLViewFlagsFromDef(cmpDef), null, null, environment2, hostRenderer, rootViewInjector, null, retrieveHydrationInfo(hostElement, rootViewInjector, true));
+    rootLView[HEADER_OFFSET] = hostElement;
+    enterView(rootLView);
+    let componentView = null;
+    try {
+      const hostTNode = directiveHostFirstCreatePass(HEADER_OFFSET, rootLView, 2, "#host", () => rootTView.directiveRegistry, true, 0);
+      setupStaticAttributes(hostRenderer, hostElement, hostTNode);
+      attachPatchData(hostElement, rootLView);
+      createDirectivesInstances(rootTView, rootLView, hostTNode);
+      executeContentQueries(rootTView, hostTNode, rootLView);
+      directiveHostEndFirstCreatePass(rootTView, hostTNode);
+      if (projectableNodes !== void 0) {
+        projectNodes(hostTNode, this.ngContentSelectors, projectableNodes);
+      }
+      componentView = getComponentLViewByIndex(hostTNode.index, rootLView);
+      rootLView[CONTEXT] = componentView[CONTEXT];
+      renderView(rootTView, rootLView, null);
+    } catch (e) {
+      if (componentView !== null) {
+        unregisterLView(componentView);
+      }
+      unregisterLView(rootLView);
+      throw e;
+    } finally {
+      profiler(ProfilerEvent.DynamicComponentEnd);
+      leaveView();
+    }
+    return new ComponentRef2(this.componentType, rootLView, !!hasInputBindings);
+  }
 };
 function createRootTView(rootSelectorOrNode, componentDef, componentBindings, directives) {
-  const tAttributes = rootSelectorOrNode ? ["ng-version", "21.1.3"] : extractAttrsAndClassesFromSelector(componentDef.selectors[0]);
+  const tAttributes = rootSelectorOrNode ? ["ng-version", "21.2.10"] : extractAttrsAndClassesFromSelector(componentDef.selectors[0]);
   let creationBindings = null;
   let updateBindings = null;
   let varsToAllocate = 0;
@@ -12027,8 +12480,7 @@ function injectViewContainerRef() {
   const previousTNode = getCurrentTNode();
   return createContainerRef(previousTNode, getLView());
 }
-var VE_ViewContainerRef = ViewContainerRef;
-var R3ViewContainerRef = class ViewContainerRef2 extends VE_ViewContainerRef {
+var R3ViewContainerRef = class _R3ViewContainerRef extends ViewContainerRef {
   _lContainer;
   _hostTNode;
   _hostLView;
@@ -12137,7 +12589,7 @@ var R3ViewContainerRef = class ViewContainerRef2 extends VE_ViewContainerRef {
       } else {
         const prevLContainer = lView[PARENT];
         ngDevMode && assertEqual(isLContainer(prevLContainer), true, "An attached view should have its PARENT point to a container.");
-        const prevVCRef = new R3ViewContainerRef(prevLContainer, prevLContainer[T_HOST], prevLContainer[PARENT]);
+        const prevVCRef = new _R3ViewContainerRef(prevLContainer, prevLContainer[T_HOST], prevLContainer[PARENT]);
         prevVCRef.detach(prevVCRef.indexOf(viewRef));
       }
     }
@@ -12976,6 +13428,7 @@ function getNgDirectiveDef(directiveDefinition) {
     setInput: null,
     resolveHostDirectives: null,
     hostDirectives: null,
+    controlDef: null,
     inputs: parseAndConvertInputsForDefinition(directiveDefinition.inputs, declaredInputs),
     outputs: parseAndConvertOutputsForDefinition(directiveDefinition.outputs),
     debugInfo: null
@@ -13026,6 +13479,19 @@ function getComponentId(componentDef) {
     }
   }
   return compId;
+}
+function \u0275\u0275ControlFeature(passThroughInput) {
+  return (definition) => {
+    definition.controlDef = {
+      create: (inst, host) => {
+        inst?.\u0275ngControlCreate(host);
+      },
+      update: (inst, host) => {
+        inst?.\u0275ngControlUpdate?.(host);
+      },
+      passThroughInput
+    };
+  };
 }
 function \u0275\u0275HostDirectivesFeature(rawHostDirectives) {
   const feature = (definition) => {
@@ -14289,6 +14755,7 @@ function findDeferBlocks(node, lView, results) {
         minimumTime: tDetails.placeholderBlockConfig?.[MINIMUM_SLOT] ?? null
       },
       triggers: tDetails.debug?.triggers ? Array.from(tDetails.debug.triggers).sort() : [],
+      hostNode: details.lContainer[HOST],
       rootNodes
     };
     results.push(data);
@@ -15356,13 +15823,13 @@ var ApplicationRef = class _ApplicationRef {
   }
   synchronizeOnce() {
     if (this.dirtyFlags & 16) {
-      this.dirtyFlags &= ~16;
+      this.dirtyFlags &= -17;
       this.rootEffectScheduler.flush();
     }
     let ranDetectChanges = false;
     if (this.dirtyFlags & 7) {
       const useGlobalCheck = Boolean(this.dirtyFlags & 1);
-      this.dirtyFlags &= ~7;
+      this.dirtyFlags &= -8;
       this.dirtyFlags |= 8;
       for (let {
         _lView
@@ -15374,7 +15841,7 @@ var ApplicationRef = class _ApplicationRef {
         detectChangesInternal(_lView, mode);
         ranDetectChanges = true;
       }
-      this.dirtyFlags &= ~4;
+      this.dirtyFlags &= -5;
       this.syncDirtyFlagsWithViews();
       if (this.dirtyFlags & (7 | 16)) {
         return;
@@ -15385,7 +15852,7 @@ var ApplicationRef = class _ApplicationRef {
       this._rendererFactory?.end?.();
     }
     if (this.dirtyFlags & 8) {
-      this.dirtyFlags &= ~8;
+      this.dirtyFlags &= -9;
       this.afterRenderManager.execute();
     }
     this.syncDirtyFlagsWithViews();
@@ -15397,7 +15864,7 @@ var ApplicationRef = class _ApplicationRef {
       this.dirtyFlags |= 2;
       return;
     } else {
-      this.dirtyFlags &= ~7;
+      this.dirtyFlags &= -8;
     }
   }
   attachView(viewRef) {
@@ -15561,9 +16028,11 @@ function triggerResourceLoading(tDetails, lView, tNode) {
   }
   tDetails.loadingPromise = Promise.allSettled(dependenciesFn()).then((results) => {
     let failed = false;
+    let failedReason = null;
     const directiveDefs = [];
     const pipeDefs = [];
-    for (const result of results) {
+    for (let i = 0; i < results.length; i++) {
+      const result = results[i];
       if (result.status === "fulfilled") {
         const dependency = result.value;
         const directiveDef = getComponentDef(dependency) || getDirectiveDef(dependency);
@@ -15577,6 +16046,7 @@ function triggerResourceLoading(tDetails, lView, tNode) {
         }
       } else {
         failed = true;
+        failedReason = result.reason instanceof Error ? result.reason : new Error(String(result.reason));
         break;
       }
     }
@@ -15584,7 +16054,32 @@ function triggerResourceLoading(tDetails, lView, tNode) {
       tDetails.loadingState = DeferDependenciesLoadingState.FAILED;
       if (tDetails.errorTmplIndex === null) {
         const templateLocation = ngDevMode ? getTemplateLocationDetails(lView) : "";
-        const error2 = new RuntimeError(-750, ngDevMode && `Loading dependencies for \`@defer\` block failed, but no \`@error\` block was configured${templateLocation}. Consider using the \`@error\` block to render an error state.`);
+        let errorMsg = "";
+        if (ngDevMode) {
+          errorMsg = `Loading dependencies for \`@defer\` block failed, but no \`@error\` block was configured${templateLocation}. Consider using the \`@error\` block to render an error state.`;
+          const depsFn = tDetails.dependencyResolverFn;
+          const errorReason = failedReason?.message;
+          if (depsFn) {
+            errorMsg += `
+
+Angular tried to invoke the following dependency function (compiler-generated):
+\`\`\`
+${depsFn.toString()}
+\`\`\``;
+          }
+          if (errorReason) {
+            errorMsg += depsFn ? `
+
+but it resulted in the following error:
+
+${errorReason}` : `
+
+The loading resulted in the following error:
+
+${errorReason}`;
+          }
+        }
+        const error2 = new RuntimeError(-750, errorMsg);
         handleUncaughtError(lView, error2);
       }
     } else {
@@ -16219,155 +16714,6 @@ function \u0275\u0275attribute(name, value, sanitizer, namespace) {
   }
   return \u0275\u0275attribute;
 }
-var ANIMATIONS_DISABLED = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "AnimationsDisabled" : "", {
-  factory: () => false
-});
-var MAX_ANIMATION_TIMEOUT = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "MaxAnimationTimeout" : "", {
-  factory: () => MAX_ANIMATION_TIMEOUT_DEFAULT
-});
-var MAX_ANIMATION_TIMEOUT_DEFAULT = 4e3;
-var DEFAULT_ANIMATIONS_DISABLED = false;
-var areAnimationSupported = typeof document !== "undefined" && typeof document?.documentElement?.getAnimations === "function";
-function areAnimationsDisabled(lView) {
-  const injector = lView[INJECTOR];
-  return injector.get(ANIMATIONS_DISABLED, DEFAULT_ANIMATIONS_DISABLED);
-}
-function assertAnimationTypes(value, instruction) {
-  if (value == null || typeof value !== "string" && typeof value !== "function") {
-    throw new RuntimeError(650, `'${instruction}' value must be a string of CSS classes or an animation function, got ${stringify(value)}`);
-  }
-}
-function assertElementNodes(nativeElement, instruction) {
-  if (nativeElement.nodeType !== Node.ELEMENT_NODE) {
-    throw new RuntimeError(650, `'${instruction}' can only be used on an element node, got ${stringify(nativeElement.nodeType)}`);
-  }
-}
-function trackEnterClasses(el, classList, cleanupFns) {
-  const elementData = enterClassMap.get(el);
-  if (elementData) {
-    for (const klass of classList) {
-      elementData.classList.push(klass);
-    }
-    for (const fn of cleanupFns) {
-      elementData.cleanupFns.push(fn);
-    }
-  } else {
-    enterClassMap.set(el, {
-      classList,
-      cleanupFns
-    });
-  }
-}
-function cleanupEnterClassData(element) {
-  const elementData = enterClassMap.get(element);
-  if (elementData) {
-    for (const fn of elementData.cleanupFns) {
-      fn();
-    }
-    enterClassMap.delete(element);
-  }
-  longestAnimations.delete(element);
-}
-var noOpAnimationComplete = () => {
-};
-var enterClassMap = /* @__PURE__ */ new WeakMap();
-var longestAnimations = /* @__PURE__ */ new WeakMap();
-var leavingNodes = /* @__PURE__ */ new WeakMap();
-function clearLeavingNodes(tNode, el) {
-  const nodes = leavingNodes.get(tNode);
-  if (nodes && nodes.length > 0) {
-    const ix = nodes.findIndex((node) => node === el);
-    if (ix > -1) nodes.splice(ix, 1);
-  }
-  if (nodes?.length === 0) {
-    leavingNodes.delete(tNode);
-  }
-}
-function cancelLeavingNodes(tNode, lView) {
-  const leavingEl = leavingNodes.get(tNode)?.shift();
-  const lContainer = lView[DECLARATION_LCONTAINER];
-  if (lContainer) {
-    const beforeNode = getBeforeNodeForView(tNode.index, lContainer);
-    const previousNode = beforeNode?.previousSibling;
-    if (leavingEl && previousNode && leavingEl === previousNode) {
-      leavingEl.dispatchEvent(new CustomEvent("animationend", {
-        detail: {
-          cancel: true
-        }
-      }));
-    }
-  }
-}
-function trackLeavingNodes(tNode, el) {
-  if (leavingNodes.has(tNode)) {
-    leavingNodes.get(tNode)?.push(el);
-  } else {
-    leavingNodes.set(tNode, [el]);
-  }
-}
-function getLViewEnterAnimations(lView) {
-  const animationData = lView[ANIMATIONS] ??= {};
-  return animationData.enter ??= /* @__PURE__ */ new Map();
-}
-function getLViewLeaveAnimations(lView) {
-  const animationData = lView[ANIMATIONS] ??= {};
-  return animationData.leave ??= /* @__PURE__ */ new Map();
-}
-function getClassListFromValue(value) {
-  const classes = typeof value === "function" ? value() : value;
-  let classList = Array.isArray(classes) ? classes : null;
-  if (typeof classes === "string") {
-    classList = classes.trim().split(/\s+/).filter((k) => k);
-  }
-  return classList;
-}
-function cancelAnimationsIfRunning(element, renderer) {
-  if (!areAnimationSupported) return;
-  const elementData = enterClassMap.get(element);
-  if (elementData && elementData.classList.length > 0 && elementHasClassList(element, elementData.classList)) {
-    for (const klass of elementData.classList) {
-      renderer.removeClass(element, klass);
-    }
-  }
-  cleanupEnterClassData(element);
-}
-function elementHasClassList(element, classList) {
-  for (const className of classList) {
-    if (element.classList.contains(className)) return true;
-  }
-  return false;
-}
-function isLongestAnimation(event, nativeElement) {
-  const longestAnimation = longestAnimations.get(nativeElement);
-  if (longestAnimation === void 0) return true;
-  return nativeElement === event.target && (longestAnimation.animationName !== void 0 && event.animationName === longestAnimation.animationName || longestAnimation.propertyName !== void 0 && event.propertyName === longestAnimation.propertyName);
-}
-function addAnimationToLView(animations, tNode, fn) {
-  const nodeAnimations = animations.get(tNode.index) ?? {
-    animateFns: []
-  };
-  nodeAnimations.animateFns.push(fn);
-  animations.set(tNode.index, nodeAnimations);
-}
-function cleanupAfterLeaveAnimations(resolvers, cleanupFns) {
-  if (resolvers) {
-    for (const fn of resolvers) {
-      fn();
-    }
-  }
-  for (const fn of cleanupFns) {
-    fn();
-  }
-}
-function clearLViewNodeAnimationResolvers(lView, tNode) {
-  const nodeAnimations = getLViewLeaveAnimations(lView).get(tNode.index);
-  if (nodeAnimations) nodeAnimations.resolvers = void 0;
-}
-function leaveAnimationFunctionCleanup(lView, tNode, nativeElement, resolvers, cleanupFns) {
-  clearLeavingNodes(tNode, nativeElement);
-  cleanupAfterLeaveAnimations(resolvers, cleanupFns);
-  clearLViewNodeAnimationResolvers(lView, tNode);
-}
 function \u0275\u0275animateEnter(value) {
   performanceMarkFeature("NgAnimateEnter");
   if (!areAnimationSupported) {
@@ -16379,28 +16725,31 @@ function \u0275\u0275animateEnter(value) {
     return \u0275\u0275animateEnter;
   }
   const tNode = getCurrentTNode();
-  cancelLeavingNodes(tNode, lView);
-  addAnimationToLView(getLViewEnterAnimations(lView), tNode, () => runEnterAnimation(lView, tNode, value));
+  const ngZone = lView[INJECTOR].get(NgZone);
+  addAnimationToLView(getLViewEnterAnimations(lView), tNode, () => runEnterAnimation(lView, tNode, value, ngZone));
   initializeAnimationQueueScheduler(lView[INJECTOR]);
   queueEnterAnimations(lView[INJECTOR], getLViewEnterAnimations(lView));
   return \u0275\u0275animateEnter;
 }
-function runEnterAnimation(lView, tNode, value) {
+function runEnterAnimation(lView, tNode, value, ngZone) {
   const nativeElement = getNativeByTNode(tNode, lView);
   ngDevMode && assertElementNodes(nativeElement, "animate.enter");
   const renderer = lView[RENDERER];
-  const ngZone = lView[INJECTOR].get(NgZone);
   const activeClasses = getClassListFromValue(value);
   const cleanupFns = [];
+  let hasCompleted = false;
   const handleEnterAnimationStart = (event) => {
-    if (event.target !== nativeElement) return;
+    if (getEventTarget(event) !== nativeElement) return;
     const eventName = event instanceof AnimationEvent ? "animationend" : "transitionend";
     ngZone.runOutsideAngular(() => {
       renderer.listen(nativeElement, eventName, handleEnterAnimationEnd);
     });
   };
   const handleEnterAnimationEnd = (event) => {
-    if (event.target !== nativeElement) return;
+    if (getEventTarget(event) !== nativeElement) return;
+    if (isLongestAnimation(event, nativeElement)) {
+      hasCompleted = true;
+    }
     enterAnimationEnd(event, nativeElement, renderer);
   };
   if (activeClasses && activeClasses.length > 0) {
@@ -16414,6 +16763,7 @@ function runEnterAnimation(lView, tNode, value) {
     }
     ngZone.runOutsideAngular(() => {
       requestAnimationFrame(() => {
+        if (hasCompleted) return;
         determineLongestAnimation(nativeElement, longestAnimations, areAnimationSupported);
         if (!longestAnimations.has(nativeElement)) {
           for (const klass of activeClasses) {
@@ -16427,9 +16777,9 @@ function runEnterAnimation(lView, tNode, value) {
 }
 function enterAnimationEnd(event, nativeElement, renderer) {
   const elementData = enterClassMap.get(nativeElement);
-  if (event.target !== nativeElement || !elementData) return;
+  if (getEventTarget(event) !== nativeElement || !elementData) return;
   if (isLongestAnimation(event, nativeElement)) {
-    event.stopImmediatePropagation();
+    event.stopPropagation();
     for (const klass of elementData.classList) {
       renderer.removeClass(nativeElement, klass);
     }
@@ -16447,7 +16797,6 @@ function \u0275\u0275animateEnterListener(value) {
     return \u0275\u0275animateEnterListener;
   }
   const tNode = getCurrentTNode();
-  cancelLeavingNodes(tNode, lView);
   addAnimationToLView(getLViewEnterAnimations(lView), tNode, () => runEnterAnimationFunction(lView, tNode, value));
   initializeAnimationQueueScheduler(lView[INJECTOR]);
   queueEnterAnimations(lView[INJECTOR], getLViewEnterAnimations(lView));
@@ -16473,12 +16822,12 @@ function \u0275\u0275animateLeave(value) {
     return \u0275\u0275animateLeave;
   }
   const tNode = getCurrentTNode();
-  cancelLeavingNodes(tNode, lView);
-  addAnimationToLView(getLViewLeaveAnimations(lView), tNode, () => runLeaveAnimations(lView, tNode, value));
+  const ngZone = lView[INJECTOR].get(NgZone);
+  addAnimationToLView(getLViewLeaveAnimations(lView), tNode, () => runLeaveAnimations(lView, tNode, value, ngZone));
   initializeAnimationQueueScheduler(lView[INJECTOR]);
   return \u0275\u0275animateLeave;
 }
-function runLeaveAnimations(lView, tNode, value) {
+function runLeaveAnimations(lView, tNode, value, ngZone) {
   const {
     promise,
     resolve
@@ -16486,7 +16835,6 @@ function runLeaveAnimations(lView, tNode, value) {
   const nativeElement = getNativeByTNode(tNode, lView);
   ngDevMode && assertElementNodes(nativeElement, "animate.leave");
   const renderer = lView[RENDERER];
-  const ngZone = lView[INJECTOR].get(NgZone);
   allLeavingAnimations.add(lView[ID]);
   (getLViewLeaveAnimations(lView).get(tNode.index).resolvers ??= []).push(resolve);
   const activeClasses = getClassListFromValue(value);
@@ -16503,11 +16851,16 @@ function runLeaveAnimations(lView, tNode, value) {
 function animateLeaveClassRunner(el, tNode, lView, classList, renderer, ngZone) {
   cancelAnimationsIfRunning(el, renderer);
   const cleanupFns = [];
-  const resolvers = getLViewLeaveAnimations(lView).get(tNode.index)?.resolvers;
+  const componentResolvers = getLViewLeaveAnimations(lView).get(tNode.index)?.resolvers;
+  let fallbackTimeoutId;
+  let hasCompleted = false;
   const handleOutAnimationEnd = (event) => {
-    if (event.target !== el) return;
-    if (event instanceof CustomEvent || isLongestAnimation(event, el)) {
-      event.stopImmediatePropagation();
+    const target = getEventTarget(event);
+    if (target !== el && event.type !== "animation-fallback") return;
+    if (event.type === "animation-fallback" || isLongestAnimation(event, el)) {
+      hasCompleted = true;
+      if (fallbackTimeoutId) clearTimeout(fallbackTimeoutId);
+      if (event.type !== "animation-fallback") event.stopPropagation();
       longestAnimations.delete(el);
       clearLeavingNodes(tNode, el);
       if (Array.isArray(tNode.projection)) {
@@ -16515,7 +16868,7 @@ function animateLeaveClassRunner(el, tNode, lView, classList, renderer, ngZone) 
           renderer.removeClass(el, item);
         }
       }
-      cleanupAfterLeaveAnimations(resolvers, cleanupFns);
+      cleanupAfterLeaveAnimations(componentResolvers, cleanupFns);
       clearLViewNodeAnimationResolvers(lView, tNode);
     }
   };
@@ -16529,11 +16882,18 @@ function animateLeaveClassRunner(el, tNode, lView, classList, renderer, ngZone) 
   }
   ngZone.runOutsideAngular(() => {
     requestAnimationFrame(() => {
+      if (hasCompleted) return;
       determineLongestAnimation(el, longestAnimations, areAnimationSupported);
-      if (!longestAnimations.has(el)) {
+      const longest = longestAnimations.get(el);
+      if (!longest) {
         clearLeavingNodes(tNode, el);
-        cleanupAfterLeaveAnimations(resolvers, cleanupFns);
+        cleanupAfterLeaveAnimations(componentResolvers, cleanupFns);
         clearLViewNodeAnimationResolvers(lView, tNode);
+      } else {
+        fallbackTimeoutId = setTimeout(() => {
+          handleOutAnimationEnd(new CustomEvent("animation-fallback"));
+        }, longest.duration + 50);
+        cleanupFns.push(() => clearTimeout(fallbackTimeoutId));
       }
     });
   });
@@ -16546,13 +16906,14 @@ function \u0275\u0275animateLeaveListener(value) {
   ngDevMode && assertAnimationTypes(value, "animate.leave");
   const lView = getLView();
   const tNode = getCurrentTNode();
-  cancelLeavingNodes(tNode, lView);
   allLeavingAnimations.add(lView[ID]);
-  addAnimationToLView(getLViewLeaveAnimations(lView), tNode, () => runLeaveAnimationFunction(lView, tNode, value));
+  const ngZone = lView[INJECTOR].get(NgZone);
+  const maxAnimationTimeout = lView[INJECTOR].get(MAX_ANIMATION_TIMEOUT);
+  addAnimationToLView(getLViewLeaveAnimations(lView), tNode, () => runLeaveAnimationFunction(lView, tNode, value, ngZone, maxAnimationTimeout));
   initializeAnimationQueueScheduler(lView[INJECTOR]);
   return \u0275\u0275animateLeaveListener;
 }
-function runLeaveAnimationFunction(lView, tNode, value) {
+function runLeaveAnimationFunction(lView, tNode, value, ngZone, maxAnimationTimeout) {
   const {
     promise,
     resolve
@@ -16562,8 +16923,6 @@ function runLeaveAnimationFunction(lView, tNode, value) {
   const cleanupFns = [];
   const renderer = lView[RENDERER];
   const animationsDisabled = areAnimationsDisabled(lView);
-  const ngZone = lView[INJECTOR].get(NgZone);
-  const maxAnimationTimeout = lView[INJECTOR].get(MAX_ANIMATION_TIMEOUT);
   (getLViewLeaveAnimations(lView).get(tNode.index).resolvers ??= []).push(resolve);
   const resolvers = getLViewLeaveAnimations(lView).get(tNode.index)?.resolvers;
   if (animationsDisabled) {
@@ -16597,509 +16956,6 @@ function \u0275\u0275componentInstance() {
   const instance = getLView()[DECLARATION_COMPONENT_VIEW][CONTEXT];
   ngDevMode && assertDefined(instance, "Expected component instance to be defined");
   return instance;
-}
-function \u0275\u0275controlCreate() {
-  const lView = getLView();
-  const tView = getTView();
-  const tNode = getCurrentTNode();
-  if (tView.firstCreatePass) {
-    initializeControlFirstCreatePass(tView, tNode, lView);
-  }
-  const fieldDirective = getFieldDirective(tNode, lView);
-  if (!fieldDirective) {
-    return;
-  }
-  performanceMarkFeature("NgSignalForms");
-  if (tNode.flags & 1024) {
-    initializeCustomControl(lView, tNode, fieldDirective, "value");
-  } else if (tNode.flags & 2048) {
-    initializeCustomControl(lView, tNode, fieldDirective, "checked");
-  } else if (tNode.flags & 4096) {
-    initializeInteropControl(fieldDirective);
-  } else if (tNode.flags & 8192) {
-    initializeNativeControl(lView, tNode, fieldDirective);
-  }
-  fieldDirective.registerAsBinding(getCustomControl(tNode, lView));
-}
-function \u0275\u0275control(value, name, sanitizer) {
-  const lView = getLView();
-  const tNode = getSelectedTNode();
-  const bindingIndex = nextBindingIndex();
-  if (bindingUpdated(lView, bindingIndex, value)) {
-    const tView = getTView();
-    setPropertyAndInputs(tNode, lView, name, value, lView[RENDERER], sanitizer);
-    ngDevMode && storePropertyBindingMetadata(tView.data, tNode, name, bindingIndex);
-  }
-  updateControl(lView, tNode);
-}
-function updateControl(lView, tNode) {
-  const fieldDirective = getFieldDirective(tNode, lView);
-  if (fieldDirective) {
-    updateControlClasses(lView, tNode, fieldDirective);
-    if (tNode.flags & 1024) {
-      updateCustomControl(tNode, lView, fieldDirective, "value");
-    } else if (tNode.flags & 2048) {
-      updateCustomControl(tNode, lView, fieldDirective, "checked");
-    } else if (tNode.flags & 4096) {
-      updateInteropControl(tNode, lView, fieldDirective);
-    } else {
-      updateNativeControl(tNode, lView, fieldDirective);
-    }
-  }
-  nextBindingIndex();
-}
-function initializeControlFirstCreatePass(tView, tNode, lView) {
-  ngDevMode && assertFirstCreatePass(tView);
-  const directiveIndices = tNode.inputs?.["formField"];
-  if (!directiveIndices) {
-    return;
-  }
-  if (isComponentHost(tNode) && directiveIndices.includes(tNode.directiveStart + tNode.componentOffset)) {
-    return;
-  }
-  const controlIndex = directiveIndices.find((index) => \u0275CONTROL in lView[index]);
-  if (controlIndex === void 0) {
-    return;
-  }
-  tNode.fieldIndex = controlIndex;
-  const foundControl = isInteropControlFirstCreatePass(tNode, lView) || isCustomControlFirstCreatePass(tView, tNode);
-  if (isNativeControlFirstCreatePass(tNode) || foundControl) {
-    return;
-  }
-  throw new RuntimeError(318, ngDevMode && `${describeElement(tView, tNode)} is an invalid [formField] directive host. The host must be a native form control (such as <input>', '<select>', or '<textarea>') or a custom form control with a 'value' or 'checked' model.`);
-}
-function describeElement(tView, tNode) {
-  if (ngDevMode && isComponentHost(tNode)) {
-    const componentIndex = tNode.directiveStart + tNode.componentOffset;
-    const componentDef = tView.data[componentIndex];
-    return `Component ${debugStringifyTypeForError(componentDef.type)}`;
-  }
-  return `<${tNode.value}>`;
-}
-function isInteropControlFirstCreatePass(tNode, lView) {
-  const control = lView[tNode.fieldIndex];
-  if (control.\u0275interopControl) {
-    tNode.flags |= 4096;
-    return true;
-  }
-  return false;
-}
-function isCustomControlFirstCreatePass(tView, tNode) {
-  for (let i = tNode.directiveStart; i < tNode.directiveEnd; i++) {
-    const directiveDef = tView.data[i];
-    if (hasModelInput(directiveDef, "value")) {
-      tNode.flags |= 1024;
-      tNode.customControlIndex = i;
-      return true;
-    }
-    if (hasModelInput(directiveDef, "checked")) {
-      tNode.flags |= 2048;
-      tNode.customControlIndex = i;
-      return true;
-    }
-  }
-  return false;
-}
-function isNativeControlFirstCreatePass(tNode) {
-  if (!isNativeControl(tNode)) {
-    return false;
-  }
-  tNode.flags |= 8192;
-  if (isNumericInput(tNode)) {
-    tNode.flags |= 16384;
-  }
-  if (isTextControl(tNode)) {
-    tNode.flags |= 32768;
-  }
-  return true;
-}
-function getFieldDirective(tNode, lView) {
-  const index = tNode.fieldIndex;
-  return index === -1 ? void 0 : lView[index];
-}
-function getCustomControl(tNode, lView) {
-  const index = tNode.customControlIndex;
-  return index === -1 ? void 0 : lView[index];
-}
-function hasModelInput(directiveDef, name) {
-  return hasInput(directiveDef, name) && hasOutput(directiveDef, name + "Change");
-}
-function hasInput(directiveDef, name) {
-  return name in directiveDef.inputs;
-}
-function hasOutput(directiveDef, name) {
-  return name in directiveDef.outputs;
-}
-function initializeCustomControl(lView, tNode, fieldDirective, modelName) {
-  const tView = getTView();
-  const directiveIndex = tNode.customControlIndex;
-  const outputName = modelName + "Change";
-  listenToOutput(tNode, lView, directiveIndex, outputName, outputName, wrapListener(tNode, lView, (value) => fieldDirective.state().setControlValue(value)));
-  const directiveDef = tView.data[directiveIndex];
-  const touchedOutputName = "touchedChange";
-  if (hasOutput(directiveDef, touchedOutputName)) {
-    listenToOutput(tNode, lView, directiveIndex, touchedOutputName, touchedOutputName, wrapListener(tNode, lView, () => fieldDirective.state().markAsTouched()));
-  }
-}
-function initializeInteropControl(fieldDirective) {
-  const interopControl = fieldDirective.\u0275interopControl;
-  interopControl.registerOnChange((value) => fieldDirective.state().setControlValue(value));
-  interopControl.registerOnTouched(() => fieldDirective.state().markAsTouched());
-}
-function isNativeControl(tNode) {
-  if (tNode.type !== 2) {
-    return false;
-  }
-  const tagName = tNode.value;
-  return tagName === "input" || tagName === "textarea" || tagName === "select";
-}
-function initializeNativeControl(lView, tNode, fieldDirective) {
-  const tView = getTView();
-  const renderer = lView[RENDERER];
-  const element = getNativeByTNode(tNode, lView);
-  const inputListener = () => {
-    const state2 = fieldDirective.state();
-    state2.setControlValue(getNativeControlValue(element, state2.value));
-  };
-  listenToDomEvent(tNode, tView, lView, void 0, renderer, "input", inputListener, wrapListener(tNode, lView, inputListener));
-  const blurListener = () => {
-    fieldDirective.state().markAsTouched();
-  };
-  listenToDomEvent(tNode, tView, lView, void 0, renderer, "blur", blurListener, wrapListener(tNode, lView, blurListener));
-  if (tNode.type === 2 && tNode.value === "select" && typeof MutationObserver === "function") {
-    const observer = observeSelectMutations(element, fieldDirective);
-    storeCleanupWithContext(tView, lView, observer, observer.disconnect);
-  }
-}
-function observeSelectMutations(select, controlDirective) {
-  const observer = new MutationObserver((mutations) => {
-    if (mutations.some((m) => isRelevantSelectMutation(m))) {
-      select.value = controlDirective.state().value();
-    }
-  });
-  observer.observe(select, {
-    attributes: true,
-    attributeFilter: ["value"],
-    characterData: true,
-    childList: true,
-    subtree: true
-  });
-  return observer;
-}
-function isRelevantSelectMutation(mutation) {
-  if (mutation.type === "childList" || mutation.type === "characterData") {
-    if (mutation.target instanceof Comment) {
-      return false;
-    }
-    for (const node of mutation.addedNodes) {
-      if (!(node instanceof Comment)) {
-        return true;
-      }
-    }
-    for (const node of mutation.removedNodes) {
-      if (!(node instanceof Comment)) {
-        return true;
-      }
-    }
-    return false;
-  }
-  if (mutation.type === "attributes" && mutation.target instanceof HTMLOptionElement) {
-    return true;
-  }
-  return false;
-}
-function updateControlClasses(lView, tNode, control) {
-  if (control.classes) {
-    const bindings = getControlBindings(lView);
-    bindings.classes ??= {};
-    control.state();
-    const renderer = lView[RENDERER];
-    const element = getNativeByTNode(tNode, lView);
-    for (const [className, enabled] of control.classes) {
-      const isEnabled = enabled();
-      if (controlClassBindingUpdated(bindings.classes, className, isEnabled)) {
-        if (isEnabled) {
-          renderer.addClass(element, className);
-        } else {
-          renderer.removeClass(element, className);
-        }
-      }
-    }
-  }
-}
-function updateCustomControl(tNode, lView, control, modelName) {
-  const tView = getTView();
-  const directiveIndex = tNode.customControlIndex;
-  const directive = lView[directiveIndex];
-  const directiveDef = tView.data[directiveIndex];
-  const state2 = control.state();
-  const bindings = getControlBindings(lView);
-  const controlValue = state2.controlValue();
-  if (controlBindingUpdated(bindings, CONTROL_VALUE, controlValue)) {
-    writeToDirectiveInput(directiveDef, directive, modelName, controlValue);
-  }
-  const isNative = (tNode.flags & 8192) !== 0;
-  const element = isNative ? getNativeByTNode(tNode, lView) : null;
-  const renderer = lView[RENDERER];
-  for (const key of CONTROL_BINDING_KEYS) {
-    const value = state2[key]?.();
-    if (controlBindingUpdated(bindings, key, value)) {
-      const inputName = CONTROL_BINDING_NAMES[key];
-      updateDirectiveInputs(tNode, lView, inputName, value);
-      if (isNative && !(inputName in directiveDef.inputs)) {
-        updateNativeProperty(tNode, renderer, element, key, value, inputName);
-      }
-    }
-  }
-}
-function updateInteropControl(tNode, lView, control) {
-  const interopControl = control.\u0275interopControl;
-  const bindings = getControlBindings(lView);
-  const state2 = control.state();
-  const isNative = (tNode.flags & 8192) !== 0;
-  const element = isNative ? getNativeByTNode(tNode, lView) : null;
-  const renderer = lView[RENDERER];
-  const value = state2.value();
-  if (controlBindingUpdated(bindings, CONTROL_VALUE, value)) {
-    untracked2(() => interopControl.writeValue(value));
-  }
-  for (const key of CONTROL_BINDING_KEYS) {
-    const value2 = state2[key]?.();
-    if (controlBindingUpdated(bindings, key, value2)) {
-      const inputName = CONTROL_BINDING_NAMES[key];
-      const didUpdateInput = updateDirectiveInputs(tNode, lView, inputName, value2);
-      if (key === DISABLED) {
-        if (interopControl.setDisabledState) {
-          untracked2(() => interopControl.setDisabledState(value2));
-        }
-      } else if (isNative && !didUpdateInput) {
-        updateNativeProperty(tNode, renderer, element, key, value2, inputName);
-      }
-    }
-  }
-}
-function updateNativeControl(tNode, lView, control) {
-  const element = getNativeByTNode(tNode, lView);
-  const renderer = lView[RENDERER];
-  const state2 = control.state();
-  const bindings = getControlBindings(lView);
-  const controlValue = state2.controlValue();
-  if (controlBindingUpdated(bindings, CONTROL_VALUE, controlValue)) {
-    setNativeControlValue(element, controlValue);
-  }
-  for (const key of CONTROL_BINDING_KEYS) {
-    const value = state2[key]?.();
-    if (controlBindingUpdated(bindings, key, value)) {
-      const inputName = CONTROL_BINDING_NAMES[key];
-      updateNativeProperty(tNode, renderer, element, key, value, inputName);
-      updateDirectiveInputs(tNode, lView, inputName, value);
-    }
-  }
-}
-function updateDirectiveInputs(tNode, lView, inputName, value) {
-  const directiveIndices = tNode.inputs?.[inputName];
-  if (directiveIndices) {
-    const tView = getTView();
-    for (const index of directiveIndices) {
-      const directiveDef = tView.data[index];
-      const directive = lView[index];
-      writeToDirectiveInput(directiveDef, directive, inputName, value);
-    }
-    return true;
-  }
-  return false;
-}
-function updateNativeProperty(tNode, renderer, element, key, value, name) {
-  switch (key) {
-    case NAME:
-      renderer.setAttribute(element, name, value);
-      break;
-    case DISABLED:
-    case READONLY:
-    case REQUIRED:
-      setBooleanAttribute(renderer, element, name, value);
-      break;
-    case MAX:
-    case MIN:
-      if (tNode.flags & 16384) {
-        setOptionalAttribute(renderer, element, name, value);
-      }
-      break;
-    case MAX_LENGTH:
-    case MIN_LENGTH:
-      if (tNode.flags & 32768) {
-        setOptionalAttribute(renderer, element, name, value);
-      }
-      break;
-  }
-}
-function isDateOrNull(value) {
-  return value === null || value instanceof Date;
-}
-function isNumericInput(tNode) {
-  if (!tNode.attrs || tNode.value !== "input") {
-    return false;
-  }
-  for (let i = 0; i < tNode.attrs.length; i += 2) {
-    const name = tNode.attrs[i];
-    if (isNameOnlyAttributeMarker(name)) {
-      break;
-    }
-    if (name === "type") {
-      const value = tNode.attrs[i + 1];
-      return value === "date" || value === "datetime-local" || value === "month" || value === "number" || value === "range" || value === "time" || value === "week";
-    }
-  }
-  return false;
-}
-function isTextControl(tNode) {
-  return tNode.value !== "select";
-}
-function getNativeControlValue(element, currentValue) {
-  switch (element.type) {
-    case "checkbox":
-      return element.checked;
-    case "number":
-    case "range":
-    case "datetime-local":
-      if (typeof currentValue() === "number") {
-        return element.valueAsNumber;
-      }
-      break;
-    case "date":
-    case "month":
-    case "time":
-    case "week":
-      const value = currentValue();
-      if (isDateOrNull(value)) {
-        return element.valueAsDate;
-      } else if (typeof value === "number") {
-        return element.valueAsNumber;
-      }
-      break;
-  }
-  return element.value;
-}
-function setNativeControlValue(element, value) {
-  switch (element.type) {
-    case "checkbox":
-      element.checked = value;
-      return;
-    case "radio":
-      element.checked = value === element.value;
-      return;
-    case "number":
-    case "range":
-    case "datetime-local":
-      if (typeof value === "number") {
-        setNativeNumberControlValue(element, value);
-        return;
-      }
-      break;
-    case "date":
-    case "month":
-    case "time":
-    case "week":
-      if (isDateOrNull(value)) {
-        element.valueAsDate = value;
-        return;
-      } else if (typeof value === "number") {
-        setNativeNumberControlValue(element, value);
-        return;
-      }
-  }
-  element.value = value;
-}
-function setNativeNumberControlValue(element, value) {
-  if (isNaN(value)) {
-    element.value = "";
-  } else {
-    element.valueAsNumber = value;
-  }
-}
-var DISABLED = /* @__PURE__ */ getClosureSafeProperty({
-  disabled: getClosureSafeProperty
-});
-var MAX = /* @__PURE__ */ getClosureSafeProperty({
-  max: getClosureSafeProperty
-});
-var MAX_LENGTH = /* @__PURE__ */ getClosureSafeProperty({
-  maxLength: getClosureSafeProperty
-});
-var MIN = /* @__PURE__ */ getClosureSafeProperty({
-  min: getClosureSafeProperty
-});
-var MIN_LENGTH = /* @__PURE__ */ getClosureSafeProperty({
-  minLength: getClosureSafeProperty
-});
-var NAME = /* @__PURE__ */ getClosureSafeProperty({
-  name: getClosureSafeProperty
-});
-var READONLY = /* @__PURE__ */ getClosureSafeProperty({
-  readonly: getClosureSafeProperty
-});
-var REQUIRED = /* @__PURE__ */ getClosureSafeProperty({
-  required: getClosureSafeProperty
-});
-var CONTROL_VALUE = /* @__PURE__ */ getClosureSafeProperty({
-  controlValue: getClosureSafeProperty
-});
-var CONTROL_BINDING_NAMES = {
-  disabled: "disabled",
-  disabledReasons: "disabledReasons",
-  dirty: "dirty",
-  errors: "errors",
-  hidden: "hidden",
-  invalid: "invalid",
-  max: "max",
-  maxLength: "maxLength",
-  min: "min",
-  minLength: "minLength",
-  name: "name",
-  pattern: "pattern",
-  pending: "pending",
-  readonly: "readonly",
-  required: "required",
-  touched: "touched"
-};
-var CONTROL_BINDING_KEYS = /* @__PURE__ */ (() => Object.keys(CONTROL_BINDING_NAMES))();
-function getControlBindings(lView) {
-  const bindingIndex = getBindingIndex();
-  let bindings = lView[bindingIndex];
-  if (bindings === NO_CHANGE) {
-    bindings = lView[bindingIndex] = {};
-  }
-  return bindings;
-}
-function controlBindingUpdated(bindings, key, value) {
-  const oldValue = bindings[key];
-  if (Object.is(oldValue, value)) {
-    return false;
-  }
-  bindings[key] = value;
-  return true;
-}
-function controlClassBindingUpdated(bindings, className, value) {
-  const oldValue = bindings[className];
-  if (Object.is(oldValue, value)) {
-    return false;
-  }
-  bindings[className] = value;
-  return true;
-}
-function setBooleanAttribute(renderer, element, name, value) {
-  if (value) {
-    renderer.setAttribute(element, name, "");
-  } else {
-    renderer.removeAttribute(element, name);
-  }
-}
-function setOptionalAttribute(renderer, element, name, value) {
-  if (value !== void 0) {
-    renderer.setAttribute(element, name, value.toString());
-  } else {
-    renderer.removeAttribute(element, name);
-  }
 }
 var LiveCollection = class {
   destroy(item) {
@@ -17635,11 +17491,25 @@ function \u0275\u0275elementStart(index, name, attrsIndex, localRefsIndex) {
   const tView = lView[TVIEW];
   const adjustedIndex = index + HEADER_OFFSET;
   const tNode = tView.firstCreatePass ? directiveHostFirstCreatePass(adjustedIndex, lView, 2, name, findDirectiveDefMatches, getBindingsEnabled(), attrsIndex, localRefsIndex) : tView.data[adjustedIndex];
+  if (isComponentHost(tNode)) {
+    const tracingService = lView[ENVIRONMENT].tracingService;
+    if (tracingService && tracingService.componentCreate) {
+      const def = tView.data[tNode.directiveStart + tNode.componentOffset];
+      return tracingService.componentCreate(getComponentName(def), () => {
+        initializeElement(index, name, lView, tNode, localRefsIndex);
+        return \u0275\u0275elementStart;
+      });
+    }
+  }
+  initializeElement(index, name, lView, tNode, localRefsIndex);
+  return \u0275\u0275elementStart;
+}
+function initializeElement(index, name, lView, tNode, localRefsIndex) {
   elementLikeStartShared(tNode, lView, index, name, _locateOrCreateElementNode);
   if (isDirectiveHost(tNode)) {
-    const tView2 = lView[TVIEW];
-    createDirectivesInstances(tView2, lView, tNode);
-    executeContentQueries(tView2, tNode, lView);
+    const tView = lView[TVIEW];
+    createDirectivesInstances(tView, lView, tNode);
+    executeContentQueries(tView, tNode, lView);
   }
   if (localRefsIndex != null) {
     saveResolvedLocalsInData(lView, tNode);
@@ -17647,7 +17517,6 @@ function \u0275\u0275elementStart(index, name, attrsIndex, localRefsIndex) {
   if (ngDevMode && lView[TVIEW].firstCreatePass) {
     validateElementIsKnown(lView, tNode);
   }
-  return \u0275\u0275elementStart;
 }
 function \u0275\u0275elementEnd() {
   const tView = getTView();
@@ -18437,7 +18306,7 @@ function i18nAttributesFirstPass(tView, index, values) {
         if (ICU_REGEXP.test(message)) {
           throw new Error(`ICU expressions are not supported in attributes. Message: "${message}".`);
         }
-        generateBindingUpdateOpCodes(updateOpCodes, message, previousElementIndex, attrName, countBindings(updateOpCodes), null);
+        generateBindingUpdateOpCodes(updateOpCodes, message, previousElementIndex, attrName, countBindings(updateOpCodes), SENSITIVE_ATTRS[attrName.toLowerCase()] ? _sanitizeUrl : null);
       }
     }
     tView.data[index] = updateOpCodes;
@@ -18669,16 +18538,23 @@ function walkIcuTree(ast, tView, tIcu, lView, sharedUpdateOpCodes, create, remov
             const hasBinding2 = !!attr.value.match(BINDING_REGEXP);
             if (hasBinding2) {
               if (VALID_ATTRS.hasOwnProperty(lowerAttrName)) {
-                if (URI_ATTRS[lowerAttrName]) {
-                  generateBindingUpdateOpCodes(update, attr.value, newIndex, attr.name, 0, _sanitizeUrl);
-                } else {
-                  generateBindingUpdateOpCodes(update, attr.value, newIndex, attr.name, 0, null);
-                }
+                generateBindingUpdateOpCodes(update, attr.value, newIndex, attr.name, 0, SENSITIVE_ATTRS[lowerAttrName] ? _sanitizeUrl : null);
               } else {
                 ngDevMode && console.warn(`WARNING: ignoring unsafe attribute value ${lowerAttrName} on element ${tagName} (see ${XSS_SECURITY_URL})`);
               }
+            } else if (VALID_ATTRS[lowerAttrName]) {
+              if (SENSITIVE_ATTRS[lowerAttrName]) {
+                if (typeof ngDevMode !== "undefined" && ngDevMode) {
+                  console.warn(`WARNING: ignoring unsafe attribute ${lowerAttrName} on element ${tagName} (see ${XSS_SECURITY_URL})`);
+                }
+                addCreateAttribute(create, newIndex, attr.name, "unsafe:blocked");
+              } else {
+                addCreateAttribute(create, newIndex, attr.name, attr.value);
+              }
             } else {
-              addCreateAttribute(create, newIndex, attr);
+              if (typeof ngDevMode !== "undefined" && ngDevMode) {
+                console.warn(`WARNING: ignoring unknown attribute name ${lowerAttrName} on element ${tagName} (see ${XSS_SECURITY_URL})`);
+              }
             }
           }
           const elementNode = {
@@ -18742,8 +18618,8 @@ function addCreateNodeAndAppend(create, marker, text, appendToParentIdx, createA
   }
   create.push(text, createAtIdx, icuCreateOpCode(0, appendToParentIdx, createAtIdx));
 }
-function addCreateAttribute(create, newIndex, attr) {
-  create.push(newIndex << 1 | 1, attr.name, attr.value);
+function addCreateAttribute(create, newIndex, attrName, attrValue) {
+  create.push(newIndex << 1 | 1, attrName, attrValue);
 }
 var ROOT_TEMPLATE_ID = 0;
 var PP_MULTI_VALUE_PLACEHOLDERS_REGEXP = /\[(�.+?�?)\]/;
@@ -19050,7 +18926,7 @@ function getTStylingRangePrevDuplicate(tStylingRange) {
 function setTStylingRangePrev(tStylingRange, previous) {
   ngDevMode && assertNumber(tStylingRange, "expected number");
   ngDevMode && assertNumberInRange(previous, 0, 32767);
-  return tStylingRange & ~4294836224 | previous << 17;
+  return tStylingRange & 131071 | previous << 17;
 }
 function setTStylingRangePrevDuplicate(tStylingRange) {
   ngDevMode && assertNumber(tStylingRange, "expected number");
@@ -19063,7 +18939,7 @@ function getTStylingRangeNext(tStylingRange) {
 function setTStylingRangeNext(tStylingRange, next) {
   ngDevMode && assertNumber(tStylingRange, "expected number");
   ngDevMode && assertNumberInRange(next, 0, 32767);
-  return tStylingRange & ~131068 | next << 2;
+  return tStylingRange & -131069 | next << 2;
 }
 function getTStylingRangeNextDuplicate(tStylingRange) {
   ngDevMode && assertNumber(tStylingRange, "expected number");
@@ -19817,14 +19693,14 @@ function \u0275\u0275attachSourceLocations(templatePath, locations) {
   const tView = getTView();
   const lView = getLView();
   const renderer = lView[RENDERER];
-  const attributeName2 = "data-ng-source-location";
+  const attributeName = "data-ng-source-location";
   for (const [index, offset, line, column] of locations) {
     const tNode = getTNode(tView, index + HEADER_OFFSET);
     ngDevMode && assertTNodeType(tNode, 2);
     const node = getNativeByIndex(index + HEADER_OFFSET, lView);
-    if (!node.hasAttribute(attributeName2)) {
+    if (!node.hasAttribute(attributeName)) {
       const attributeValue = `${templatePath}@o:${offset},l:${line},c:${column}`;
-      renderer.setAttribute(node, attributeName2, attributeValue);
+      renderer.setAttribute(node, attributeName, attributeValue);
     }
   }
 }
@@ -19857,6 +19733,11 @@ function \u0275\u0275interpolate8(prefix, v0, i0, v1, i1, v2, i2, v3, i3, v4, i4
 }
 function \u0275\u0275interpolateV(values) {
   return interpolationV(getLView(), values);
+}
+function \u0275\u0275arrowFunction(slotOffset, factory, context2) {
+  const bindingIndex = getBindingRoot() + slotOffset;
+  const lView = getLView();
+  return lView[bindingIndex] === NO_CHANGE ? updateBinding(lView, bindingIndex, factory(context2, lView)) : getBinding(lView, bindingIndex);
 }
 function providersResolver(def, providers, isViewProviders) {
   const tView = getTView();
@@ -20350,6 +20231,7 @@ function recreateLView(importMeta, id, newDef, oldDef, lView) {
     const newLView = createLView(parentLView, newTView, instance, getInitialLViewFlagsFromDef(newDef), host, tNode, null, null, null, null, null);
     replaceLViewInTree(parentLView, lView, newLView, tNode.index);
     destroyLView(lView[TVIEW], lView);
+    cleanupLView(lView);
     const rendererFactory = lView[ENVIRONMENT].rendererFactory;
     clearRendererCache(rendererFactory, oldDef);
     newLView[RENDERER] = rendererFactory.createRenderer(host, newDef);
@@ -20403,7 +20285,7 @@ function resetProjectionState(tNode) {
     for (const current of tNode.projection) {
       if (isTNodeShape(current)) {
         current.projectionNext = null;
-        current.flags &= ~2;
+        current.flags &= -3;
       }
     }
     tNode.projection = null;
@@ -20431,6 +20313,7 @@ var angularCoreEnv = /* @__PURE__ */ (() => ({
   "\u0275\u0275resetView": \u0275\u0275resetView,
   "\u0275\u0275HostDirectivesFeature": \u0275\u0275HostDirectivesFeature,
   "\u0275\u0275NgOnChangesFeature": \u0275\u0275NgOnChangesFeature,
+  "\u0275\u0275ControlFeature": \u0275\u0275ControlFeature,
   "\u0275\u0275ProvidersFeature": \u0275\u0275ProvidersFeature,
   "\u0275\u0275InheritDefinitionFeature": \u0275\u0275InheritDefinitionFeature,
   "\u0275\u0275ExternalStylesFeature": \u0275\u0275ExternalStylesFeature,
@@ -20556,6 +20439,7 @@ var angularCoreEnv = /* @__PURE__ */ (() => ({
   "\u0275setClassDebugInfo": \u0275setClassDebugInfo,
   "\u0275\u0275declareLet": \u0275\u0275declareLet,
   "\u0275\u0275storeLet": \u0275\u0275storeLet,
+  "\u0275\u0275arrowFunction": \u0275\u0275arrowFunction,
   "\u0275\u0275readContextLet": \u0275\u0275readContextLet,
   "\u0275\u0275attachSourceLocations": \u0275\u0275attachSourceLocations,
   "\u0275\u0275interpolate": \u0275\u0275interpolate,
@@ -20745,12 +20629,12 @@ function verifySemanticsOfNgModuleDef(moduleType, allowDuplicateDeclarationsInRo
     verifySemanticsOfNgModuleImport(modOrStandaloneCmpt, moduleType);
     verifySemanticsOfNgModuleDef(modOrStandaloneCmpt, false, moduleType);
   });
-  const exports = maybeUnwrapFn(ngModuleDef.exports);
+  const exports$1 = maybeUnwrapFn(ngModuleDef.exports);
   declarations.forEach(verifyDeclarationsHaveDefinitions);
   declarations.forEach(verifyDirectivesHaveSelector);
   declarations.forEach((declarationType) => verifyNotStandalone(declarationType, moduleType));
   const combinedDeclarations = [...declarations.map(resolveForwardRef), ...flatten(imports.map(computeCombinedExports)).map(resolveForwardRef)];
-  exports.forEach(verifyExportsAreDeclaredOrReExported);
+  exports$1.forEach(verifyExportsAreDeclaredOrReExported);
   declarations.forEach((decl) => verifyDeclarationIsUnique(decl, allowDuplicateDeclarationsInRoot));
   const ngModule = getAnnotation(moduleType, "NgModule");
   if (ngModule) {
@@ -21161,6 +21045,7 @@ function directiveMetadata(type, metadata) {
     lifecycle: {
       usesOnChanges: reflect.hasLifecycleHook(type, "ngOnChanges")
     },
+    controlCreate: null,
     typeSourceSpan: null,
     usesInheritance: !extendsDirectlyFromObject(type),
     exportAs: extractExportAs(metadata.exportAs),
@@ -21305,7 +21190,7 @@ function getPipeMetadata(type, meta) {
 }
 var Directive = makeDecorator("Directive", (dir = {}) => dir, void 0, void 0, (type, meta) => compileDirective(type, meta));
 var Component = makeDecorator("Component", (c = {}) => __spreadValues({
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Eager
 }, c), Directive, void 0, (type, meta) => compileComponent(type, meta));
 var Pipe = makeDecorator("Pipe", (p) => __spreadValues({
   pure: true
@@ -21615,6 +21500,11 @@ var MissingTranslationStrategy;
 })(MissingTranslationStrategy || (MissingTranslationStrategy = {}));
 
 // node_modules/@angular/core/fesm2022/_resource-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var OutputEmitterRef = class {
   destroyed = false;
   listeners = null;
@@ -21664,11 +21554,15 @@ var OutputEmitterRef = class {
     }
   }
 };
+function untracked2(nonReactiveReadsFn) {
+  return untracked(nonReactiveReadsFn);
+}
 function computed(computation, options) {
   const getter = createComputed(computation, options?.equal);
-  if (ngDevMode) {
-    getter.toString = () => `[Computed: ${getter()}]`;
-    getter[SIGNAL].debugName = options?.debugName;
+  if (typeof ngDevMode !== "undefined" && ngDevMode) {
+    const debugName = options?.debugName;
+    getter[SIGNAL].debugName = debugName;
+    getter.toString = () => `[Computed${debugName ? " (" + debugName + ")" : ""}: ${getter()}]`;
   }
   return getter;
 }
@@ -21683,9 +21577,9 @@ function linkedSignal(optionsOrComputation, options) {
   }
 }
 function upgradeLinkedSignalGetter(getter, debugName) {
-  if (ngDevMode) {
-    getter.toString = () => `[LinkedSignal: ${getter()}]`;
+  if (typeof ngDevMode !== "undefined" && ngDevMode) {
     getter[SIGNAL].debugName = debugName;
+    getter.toString = () => `[LinkedSignal${debugName ? " (" + debugName + ")" : ""}: ${getter()}]`;
   }
   const node = getter[SIGNAL];
   const upgradedGetter = getter;
@@ -21714,6 +21608,23 @@ var BaseWritableResource = class {
     }
     return this.value() !== void 0;
   });
+  _snapshot;
+  get snapshot() {
+    return this._snapshot ??= computed(() => {
+      const status = this.status();
+      if (status === "error") {
+        return {
+          status: "error",
+          error: this.error()
+        };
+      } else {
+        return {
+          status,
+          value: this.value()
+        };
+      }
+    });
+  }
   hasValue() {
     return this.isValueDefined();
   }
@@ -21735,7 +21646,7 @@ var ResourceImpl = class extends BaseWritableResource {
   unregisterOnDestroy;
   status;
   error;
-  constructor(request, loaderFn, defaultValue, equal, debugName, injector) {
+  constructor(request, loaderFn, defaultValue, equal, debugName, injector, getInitialStream) {
     super(computed(() => {
       const streamValue = this.state().stream?.();
       if (!streamValue) {
@@ -21764,15 +21675,18 @@ var ResourceImpl = class extends BaseWritableResource {
     this.state = linkedSignal(__spreadValues({
       source: this.extRequest,
       computation: (extRequest, previous) => {
-        const status = extRequest.request === void 0 ? "idle" : "loading";
         if (!previous) {
+          const initialStream = getInitialStream?.(extRequest.request);
+          getInitialStream = void 0;
+          const status = extRequest.request === void 0 ? "idle" : initialStream ? "resolved" : "loading";
           return {
             extRequest,
             status,
             previousStatus: "idle",
-            stream: void 0
+            stream: initialStream
           };
         } else {
+          const status = extRequest.request === void 0 ? "idle" : "loading";
           return {
             extRequest,
             status,
@@ -21868,7 +21782,6 @@ var ResourceImpl = class extends BaseWritableResource {
         const stream = yield untracked2(() => {
           return this.loaderFn({
             params: extRequest.request,
-            request: extRequest.request,
             abortSignal,
             previous: {
               status: previousStatus
@@ -21952,6 +21865,11 @@ var ResourceWrappedError = class extends Error {
 };
 
 // node_modules/@angular/core/fesm2022/core.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var REQUIRED_UNSET_VALUE = /* @__PURE__ */ Symbol("InputSignalNode#UNSET");
 var INPUT_SIGNAL_NODE = /* @__PURE__ */ (() => {
   return __spreadProps(__spreadValues({}, SIGNAL_NODE), {
@@ -22013,8 +21931,8 @@ var Framework;
 })(Framework || (Framework = {}));
 var HostAttributeToken = class {
   attributeName;
-  constructor(attributeName2) {
-    this.attributeName = attributeName2;
+  constructor(attributeName) {
+    this.attributeName = attributeName;
   }
   __NG_ELEMENT_ID__ = () => \u0275\u0275injectAttribute(this.attributeName);
   toString() {
@@ -23542,6 +23460,11 @@ var REQUEST_CONTEXT = new InjectionToken(typeof ngDevMode === "undefined" || ngD
 });
 
 // node_modules/@angular/common/fesm2022/_platform_location-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var _DOM = null;
 function getDOM() {
   return _DOM;
@@ -23658,6 +23581,11 @@ var BrowserPlatformLocation = class _BrowserPlatformLocation extends PlatformLoc
 })();
 
 // node_modules/@angular/common/fesm2022/_location-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 function joinWithSlash(start, end) {
   if (!start) return end;
   if (!end) return start;
@@ -23771,6 +23699,67 @@ var PathLocationStrategy = class _PathLocationStrategy extends LocationStrategy 
     }]
   }], null);
 })();
+var NoTrailingSlashPathLocationStrategy = class _NoTrailingSlashPathLocationStrategy extends PathLocationStrategy {
+  prepareExternalUrl(internal) {
+    const path = extractUrlPath(internal);
+    if (path.endsWith("/") && path.length > 1) {
+      internal = path.slice(0, -1) + internal.slice(path.length);
+    }
+    return super.prepareExternalUrl(internal);
+  }
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275NoTrailingSlashPathLocationStrategy_BaseFactory;
+    return function NoTrailingSlashPathLocationStrategy_Factory(__ngFactoryType__) {
+      return (\u0275NoTrailingSlashPathLocationStrategy_BaseFactory || (\u0275NoTrailingSlashPathLocationStrategy_BaseFactory = \u0275\u0275getInheritedFactory(_NoTrailingSlashPathLocationStrategy)))(__ngFactoryType__ || _NoTrailingSlashPathLocationStrategy);
+    };
+  })();
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _NoTrailingSlashPathLocationStrategy,
+    factory: _NoTrailingSlashPathLocationStrategy.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(NoTrailingSlashPathLocationStrategy, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+var TrailingSlashPathLocationStrategy = class _TrailingSlashPathLocationStrategy extends PathLocationStrategy {
+  prepareExternalUrl(internal) {
+    const path = extractUrlPath(internal);
+    if (!path.endsWith("/")) {
+      internal = path + "/" + internal.slice(path.length);
+    }
+    return super.prepareExternalUrl(internal);
+  }
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275TrailingSlashPathLocationStrategy_BaseFactory;
+    return function TrailingSlashPathLocationStrategy_Factory(__ngFactoryType__) {
+      return (\u0275TrailingSlashPathLocationStrategy_BaseFactory || (\u0275TrailingSlashPathLocationStrategy_BaseFactory = \u0275\u0275getInheritedFactory(_TrailingSlashPathLocationStrategy)))(__ngFactoryType__ || _TrailingSlashPathLocationStrategy);
+    };
+  })();
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _TrailingSlashPathLocationStrategy,
+    factory: _TrailingSlashPathLocationStrategy.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TrailingSlashPathLocationStrategy, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+function extractUrlPath(url) {
+  const questionMarkOrHashIndex = url.search(/[?#]/);
+  const pathEnd = questionMarkOrHashIndex > -1 ? questionMarkOrHashIndex : url.length;
+  return url.slice(0, pathEnd);
+}
 var Location = class _Location {
   _subject = new Subject();
   _basePath;
@@ -23902,6 +23891,11 @@ function _stripOrigin(baseHref) {
 }
 
 // node_modules/@angular/common/fesm2022/_common_module-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var HashLocationStrategy = class _HashLocationStrategy extends LocationStrategy {
   _platformLocation;
   _baseHref = "";
@@ -26010,6 +26004,7 @@ var NgTemplateOutlet = class _NgTemplateOutlet {
   ngTemplateOutletContext = null;
   ngTemplateOutlet = null;
   ngTemplateOutletInjector = null;
+  injector = inject2(Injector);
   constructor(_viewContainerRef) {
     this._viewContainerRef = _viewContainerRef;
   }
@@ -26025,9 +26020,15 @@ var NgTemplateOutlet = class _NgTemplateOutlet {
       }
       const viewContext = this._createContextForwardProxy();
       this._viewRef = viewContainerRef.createEmbeddedView(this.ngTemplateOutlet, viewContext, {
-        injector: this.ngTemplateOutletInjector ?? void 0
+        injector: this._getInjector()
       });
     }
+  }
+  _getInjector() {
+    if (this.ngTemplateOutletInjector === "outlet") {
+      return this.injector;
+    }
+    return this.ngTemplateOutletInjector ?? void 0;
   }
   _shouldRecreateView(changes) {
     return !!changes["ngTemplateOutlet"] || !!changes["ngTemplateOutletInjector"];
@@ -26085,6 +26086,11 @@ var NgTemplateOutlet = class _NgTemplateOutlet {
 var COMMON_DIRECTIVES = [NgClass, NgComponentOutlet, NgForOf, NgIf, NgTemplateOutlet, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault, NgPlural, NgPluralCase];
 function invalidPipeArgumentError(type, value) {
   return new RuntimeError(2100, ngDevMode && `InvalidPipeArgument: '${value}' for pipe '${stringify(type)}'`);
+}
+function warnIfSignal(pipeName, value) {
+  if (isSignal2(value)) {
+    console.warn(`The ${pipeName} does not unwrap signals. Received a signal with value:`, value());
+  }
 }
 var SubscribableStrategy = class {
   createSubscription(async, updateLatestValue, onError) {
@@ -26199,9 +26205,7 @@ var AsyncPipe = class _AsyncPipe {
 var LowerCasePipe = class _LowerCasePipe {
   transform(value) {
     if (value == null) return null;
-    if (typeof value !== "string") {
-      throw invalidPipeArgumentError(_LowerCasePipe, value);
-    }
+    assertPipeArgument(_LowerCasePipe, value);
     return value.toLowerCase();
   }
   static \u0275fac = function LowerCasePipe_Factory(__ngFactoryType__) {
@@ -26225,9 +26229,7 @@ var unicodeWordMatch = /(?:[0-9A-Za-z\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u02C1\u
 var TitleCasePipe = class _TitleCasePipe {
   transform(value) {
     if (value == null) return null;
-    if (typeof value !== "string") {
-      throw invalidPipeArgumentError(_TitleCasePipe, value);
-    }
+    assertPipeArgument(_TitleCasePipe, value);
     return value.replace(unicodeWordMatch, (txt) => txt[0].toUpperCase() + txt.slice(1).toLowerCase());
   }
   static \u0275fac = function TitleCasePipe_Factory(__ngFactoryType__) {
@@ -26250,9 +26252,7 @@ var TitleCasePipe = class _TitleCasePipe {
 var UpperCasePipe = class _UpperCasePipe {
   transform(value) {
     if (value == null) return null;
-    if (typeof value !== "string") {
-      throw invalidPipeArgumentError(_UpperCasePipe, value);
-    }
+    assertPipeArgument(_UpperCasePipe, value);
     return value.toUpperCase();
   }
   static \u0275fac = function UpperCasePipe_Factory(__ngFactoryType__) {
@@ -26272,6 +26272,11 @@ var UpperCasePipe = class _UpperCasePipe {
     }]
   }], null, null);
 })();
+function assertPipeArgument(pipe2, value) {
+  if (typeof value !== "string") {
+    throw invalidPipeArgumentError(pipe2, value);
+  }
+}
 var DEFAULT_DATE_FORMAT = "mediumDate";
 var DATE_PIPE_DEFAULT_TIMEZONE = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "DATE_PIPE_DEFAULT_TIMEZONE" : "");
 var DATE_PIPE_DEFAULT_OPTIONS = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "DATE_PIPE_DEFAULT_OPTIONS" : "");
@@ -26399,6 +26404,7 @@ var I18nSelectPipe = class _I18nSelectPipe {
 })();
 var JsonPipe = class _JsonPipe {
   transform(value) {
+    ngDevMode && warnIfSignal("JsonPipe", value);
     return JSON.stringify(value, null, 2);
   }
   static \u0275fac = function JsonPipe_Factory(__ngFactoryType__) {
@@ -26434,6 +26440,7 @@ var KeyValuePipe = class _KeyValuePipe {
   keyValues = [];
   compareFn = defaultComparator;
   transform(input2, compareFn = defaultComparator) {
+    ngDevMode && warnIfSignal("KeyValuePipe", input2);
     if (!input2 || !(input2 instanceof Map) && typeof input2 !== "object") {
       return null;
     }
@@ -26691,6 +26698,11 @@ var CommonModule = class _CommonModule {
 })();
 
 // node_modules/@angular/common/fesm2022/_platform_navigation-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var PRECOMMIT_HANDLER_SUPPORTED = new InjectionToken("", {
   factory: () => {
     return typeof window !== "undefined" && typeof window.NavigationPrecommitController !== "undefined";
@@ -26717,6 +26729,11 @@ var PlatformNavigation = class _PlatformNavigation {
 })();
 
 // node_modules/@angular/common/fesm2022/_xhr-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 function parseCookieValue(cookieStr, name) {
   name = encodeURIComponent(name);
   for (const cookie of cookieStr.split(";")) {
@@ -26732,6 +26749,11 @@ var XhrFactory = class {
 };
 
 // node_modules/@angular/common/fesm2022/common.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var NavigationAdapterForLocation = class _NavigationAdapterForLocation extends Location {
   navigation = inject2(PlatformNavigation);
   destroyRef = inject2(DestroyRef);
@@ -26940,6 +26962,9 @@ function createCloudflareUrl(path, config3) {
   if (config3.width) {
     params += `,width=${config3.width}`;
   }
+  if (config3.height) {
+    params += `,height=${config3.height}`;
+  }
   if (config3.isPlaceholder) {
     params += `,quality=${PLACEHOLDER_QUALITY}`;
   }
@@ -26963,6 +26988,9 @@ function createCloudinaryUrl(path, config3) {
   let params = `f_auto,${quality}`;
   if (config3.width) {
     params += `,w_${config3.width}`;
+  }
+  if (config3.height) {
+    params += `,h_${config3.height}`;
   }
   if (config3.loaderParams?.["rounded"]) {
     params += `,r_max`;
@@ -26991,6 +27019,9 @@ function createImagekitUrl(path, config3) {
   if (width) {
     params.push(`w-${width}`);
   }
+  if (config3.height) {
+    params.push(`h-${config3.height}`);
+  }
   if (config3.isPlaceholder) {
     params.push(`q-${PLACEHOLDER_QUALITY}`);
   }
@@ -27016,6 +27047,9 @@ function createImgixUrl(path, config3) {
   params.push("auto=format");
   if (config3.width) {
     params.push(`w=${config3.width}`);
+  }
+  if (config3.height) {
+    params.push(`h=${config3.height}`);
   }
   if (config3.isPlaceholder) {
     params.push(`q=${PLACEHOLDER_QUALITY}`);
@@ -27079,28 +27113,61 @@ var LCPImageObserver = class _LCPImageObserver {
     });
     return observer;
   }
-  registerImage(rewrittenSrc, originalNgSrc, isPriority) {
+  registerImage(rewrittenSrc, isPriority) {
     if (!this.observer) return;
-    const newObservedImageState = {
-      priority: isPriority,
-      modified: false,
-      alreadyWarnedModified: false,
-      alreadyWarnedPriority: false
-    };
-    this.images.set(getUrl(rewrittenSrc, this.window).href, newObservedImageState);
+    const url = getUrl(rewrittenSrc, this.window).href;
+    const existingState = this.images.get(url);
+    if (existingState) {
+      existingState.priority = existingState.priority || isPriority;
+      existingState.count++;
+    } else {
+      const newObservedImageState = {
+        priority: isPriority,
+        modified: false,
+        alreadyWarnedModified: false,
+        alreadyWarnedPriority: false,
+        count: 1
+      };
+      this.images.set(url, newObservedImageState);
+    }
   }
   unregisterImage(rewrittenSrc) {
     if (!this.observer) return;
-    this.images.delete(getUrl(rewrittenSrc, this.window).href);
+    const url = getUrl(rewrittenSrc, this.window).href;
+    const existingState = this.images.get(url);
+    if (existingState) {
+      existingState.count--;
+      if (existingState.count <= 0) {
+        this.images.delete(url);
+      }
+    }
   }
   updateImage(originalSrc, newSrc) {
     if (!this.observer) return;
     const originalUrl = getUrl(originalSrc, this.window).href;
-    const img = this.images.get(originalUrl);
-    if (img) {
-      img.modified = true;
-      this.images.set(getUrl(newSrc, this.window).href, img);
+    const newUrl = getUrl(newSrc, this.window).href;
+    if (originalUrl === newUrl) return;
+    const originalState = this.images.get(originalUrl);
+    if (!originalState) return;
+    originalState.count--;
+    if (originalState.count <= 0) {
       this.images.delete(originalUrl);
+    }
+    const newState = this.images.get(newUrl);
+    if (newState) {
+      newState.priority = newState.priority || originalState.priority;
+      newState.modified = true;
+      newState.alreadyWarnedPriority = newState.alreadyWarnedPriority || originalState.alreadyWarnedPriority;
+      newState.alreadyWarnedModified = newState.alreadyWarnedModified || originalState.alreadyWarnedModified;
+      newState.count++;
+    } else {
+      this.images.set(newUrl, {
+        priority: originalState.priority,
+        modified: true,
+        alreadyWarnedModified: originalState.alreadyWarnedModified,
+        alreadyWarnedPriority: originalState.alreadyWarnedPriority,
+        count: 1
+      });
     }
   }
   ngOnDestroy() {
@@ -27302,6 +27369,9 @@ var NgOptimizedImage = class _NgOptimizedImage {
         }
       });
     }
+    this.destroyRef.onDestroy(() => {
+      this.renderer.removeAttribute(this.imgElement, "loading");
+    });
   }
   ngOnInit() {
     performanceMarkFeature("NgOptimizedImage");
@@ -27338,7 +27408,7 @@ var NgOptimizedImage = class _NgOptimizedImage {
       assertNoNgSrcsetWithoutLoader(this, this.imageLoader);
       assertNoLoaderParamsWithoutLoader(this, this.imageLoader);
       ngZone.runOutsideAngular(() => {
-        this.lcpObserver.registerImage(this.getRewrittenSrc(), this.ngSrc, this.priority);
+        this.lcpObserver.registerImage(this.getRewrittenSrc(), this.priority);
       });
       if (this.priority) {
         const checker = this.injector.get(PreconnectLinkChecker);
@@ -27403,10 +27473,20 @@ var NgOptimizedImage = class _NgOptimizedImage {
       assertPlaceholderDimensions(this, this.imgElement);
     }
   }
+  getAspectRatio() {
+    if (this.width && this.height && this.height !== 0) {
+      return this.width / this.height;
+    }
+    return null;
+  }
   callImageLoader(configWithoutCustomParams) {
     let augmentedConfig = configWithoutCustomParams;
     if (this.loaderParams) {
       augmentedConfig.loaderParams = this.loaderParams;
+    }
+    const ratio = this.getAspectRatio();
+    if (ratio !== null && augmentedConfig.width) {
+      augmentedConfig.height = Math.round(augmentedConfig.width / ratio);
     }
     return this.imageLoader(augmentedConfig);
   }
@@ -27952,6 +28032,11 @@ function booleanOrUrlAttribute(value) {
 }
 
 // node_modules/@angular/platform-browser/fesm2022/_dom_renderer-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var EventManagerPlugin = class {
   _doc;
   constructor(_doc) {
@@ -28637,6 +28722,11 @@ var EmulatedEncapsulationDomRenderer2 = class extends NoneEncapsulationDomRender
 };
 
 // node_modules/@angular/platform-browser/fesm2022/_browser-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var BrowserDomAdapter = class _BrowserDomAdapter extends DomAdapter {
   supportsDOMEvents = true;
   static makeCurrent() {
@@ -28977,6 +29067,11 @@ var BrowserModule = class _BrowserModule {
 })();
 
 // node_modules/@angular/common/fesm2022/_module-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var HttpHeaders = class _HttpHeaders {
   headers;
   normalizedNames = /* @__PURE__ */ new Map();
@@ -30524,6 +30619,9 @@ var JsonpClientBackend = class _JsonpClientBackend {
   callbackMap;
   document;
   resolvedPromise = Promise.resolve();
+  nonce = inject2(CSP_NONCE, {
+    optional: true
+  });
   constructor(callbackMap, document2) {
     this.callbackMap = callbackMap;
     this.document = document2;
@@ -30545,6 +30643,9 @@ var JsonpClientBackend = class _JsonpClientBackend {
       const url = req.urlWithParams.replace(/=JSONP_CALLBACK(&|$)/, `=${callback}$1`);
       const node = this.document.createElement("script");
       node.src = url;
+      if (this.nonce) {
+        node.setAttribute("nonce", this.nonce);
+      }
       let body = null;
       let finished = false;
       this.callbackMap[callback] = (data) => {
@@ -30960,6 +31061,148 @@ var HttpClientJsonpModule = class _HttpClientJsonpModule {
 })();
 
 // node_modules/@angular/common/fesm2022/http.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
+var HTTP_TRANSFER_CACHE_ORIGIN_MAP = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "HTTP_TRANSFER_CACHE_ORIGIN_MAP" : "");
+var BODY = "b";
+var HEADERS = "h";
+var STATUS = "s";
+var STATUS_TEXT = "st";
+var REQ_URL = "u";
+var RESPONSE_TYPE = "rt";
+var CACHE_OPTIONS = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "HTTP_TRANSFER_STATE_CACHE_OPTIONS" : "");
+var ALLOWED_METHODS = ["GET", "HEAD"];
+function shouldCacheRequest(req, options) {
+  const _a = options, {
+    isCacheActive
+  } = _a, globalOptions = __objRest(_a, [
+    "isCacheActive"
+  ]);
+  const {
+    transferCache: requestOptions,
+    method: requestMethod
+  } = req;
+  if (!isCacheActive || requestOptions === false || requestMethod === "POST" && !globalOptions.includePostRequests && !requestOptions || requestMethod !== "POST" && !ALLOWED_METHODS.includes(requestMethod) || !globalOptions.includeRequestsWithAuthHeaders && hasAuthHeaders(req) || globalOptions.filter?.(req) === false) {
+    return false;
+  }
+  return true;
+}
+function getHeadersToInclude(options, requestOptions) {
+  const {
+    includeHeaders: globalHeaders
+  } = options;
+  let headersToInclude = globalHeaders;
+  if (typeof requestOptions === "object" && requestOptions.includeHeaders) {
+    headersToInclude = requestOptions.includeHeaders;
+  }
+  return headersToInclude;
+}
+function retrieveStateFromCache(req, options, transferState, originMap) {
+  const {
+    transferCache: requestOptions
+  } = req;
+  if (!shouldCacheRequest(req, options)) {
+    return null;
+  }
+  if (originMap) {
+    throw new RuntimeError(2803, ngDevMode && "Angular detected that the `HTTP_TRANSFER_CACHE_ORIGIN_MAP` token is configured and present in the client side code. Please ensure that this token is only provided in the server code of the application.");
+  }
+  const requestUrl = false ? mapRequestOriginUrl(req.url, originMap) : req.url;
+  const storeKey = makeCacheKey(req, requestUrl);
+  const response = transferState.get(storeKey, null);
+  const headersToInclude = getHeadersToInclude(options, requestOptions);
+  if (response) {
+    const {
+      [BODY]: undecodedBody,
+      [RESPONSE_TYPE]: responseType,
+      [HEADERS]: httpHeaders,
+      [STATUS]: status,
+      [STATUS_TEXT]: statusText,
+      [REQ_URL]: url
+    } = response;
+    let body = undecodedBody;
+    switch (responseType) {
+      case "arraybuffer":
+        body = fromBase64(undecodedBody);
+        break;
+      case "blob":
+        body = new Blob([fromBase64(undecodedBody)]);
+        break;
+    }
+    let headers = new HttpHeaders(httpHeaders);
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      headers = appendMissingHeadersDetection(req.url, headers, headersToInclude ?? []);
+    }
+    return new HttpResponse({
+      body,
+      headers,
+      status,
+      statusText,
+      url
+    });
+  }
+  return null;
+}
+function hasAuthHeaders(req) {
+  return req.headers.has("authorization") || req.headers.has("proxy-authorization");
+}
+function sortAndConcatParams(params) {
+  return [...params.keys()].sort().map((k) => `${k}=${params.getAll(k)}`).join("&");
+}
+function makeCacheKey(request, mappedRequestUrl) {
+  const {
+    params,
+    method,
+    responseType
+  } = request;
+  const encodedParams = sortAndConcatParams(params);
+  let serializedBody = request.serializeBody();
+  if (serializedBody instanceof URLSearchParams) {
+    serializedBody = sortAndConcatParams(serializedBody);
+  } else if (typeof serializedBody !== "string") {
+    serializedBody = "";
+  }
+  const key = [method, responseType, mappedRequestUrl, serializedBody, encodedParams].join("|");
+  const hash = generateHash(key);
+  return makeStateKey(hash);
+}
+function generateHash(value) {
+  let hash = 0;
+  for (const char of value) {
+    hash = Math.imul(31, hash) + char.charCodeAt(0) << 0;
+  }
+  hash += 2147483647 + 1;
+  return hash.toString();
+}
+function fromBase64(base64) {
+  const binary = atob(base64);
+  const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+  return bytes.buffer;
+}
+function appendMissingHeadersDetection(url, headers, headersToInclude) {
+  const warningProduced = /* @__PURE__ */ new Set();
+  return new Proxy(headers, {
+    get(target, prop) {
+      const value = Reflect.get(target, prop);
+      const methods = /* @__PURE__ */ new Set(["get", "has", "getAll"]);
+      if (typeof value !== "function" || !methods.has(prop)) {
+        return value;
+      }
+      return (headerName) => {
+        const key = (prop + ":" + headerName).toLowerCase();
+        if (!headersToInclude.includes(headerName) && !warningProduced.has(key)) {
+          warningProduced.add(key);
+          const truncatedUrl = truncateMiddle(url);
+          console.warn(formatRuntimeError(-2802, `Angular detected that the \`${headerName}\` header is accessed, but the value of the header was not transferred from the server to the client by the HttpTransferCache. To include the value of the \`${headerName}\` header for the \`${truncatedUrl}\` request, use the \`includeHeaders\` list. The \`includeHeaders\` can be defined either on a request level by adding the \`transferCache\` parameter, or on an application level by adding the \`httpCacheTransfer.includeHeaders\` argument to the \`provideClientHydration()\` call. `));
+        }
+        return value.apply(target, [headerName]);
+      };
+    }
+  });
+}
 var httpResource = (() => {
   const jsonFn = makeHttpResourceFn("json");
   jsonFn.arrayBuffer = makeHttpResourceFn("arraybuffer");
@@ -30973,7 +31216,35 @@ function makeHttpResourceFn(responseType) {
       assertInInjectionContext(httpResource2);
     }
     const injector = options?.injector ?? inject2(Injector);
-    return new HttpResourceImpl(injector, () => normalizeRequest(request, responseType), options?.defaultValue, options?.debugName, options?.parse, options?.equal);
+    const cacheOptions = injector.get(CACHE_OPTIONS, null, {
+      optional: true
+    });
+    const transferState = injector.get(TransferState, null, {
+      optional: true
+    });
+    const originMap = injector.get(HTTP_TRANSFER_CACHE_ORIGIN_MAP, null, {
+      optional: true
+    });
+    const getInitialStream = (req) => {
+      if (cacheOptions && transferState && req) {
+        const cachedResponse = retrieveStateFromCache(req, cacheOptions, transferState, originMap);
+        if (cachedResponse) {
+          try {
+            const body = cachedResponse.body;
+            const parsed = options?.parse ? options.parse(body) : body;
+            return signal({
+              value: parsed
+            });
+          } catch (e) {
+            if (typeof ngDevMode === "undefined" || ngDevMode) {
+              console.warn(`Angular detected an error while parsing the cached response for the httpResource at \`${req.url}\`. The resource will fall back to its default value and try again asynchronously.`, e);
+            }
+          }
+        }
+      }
+      return void 0;
+    };
+    return new HttpResourceImpl(injector, () => normalizeRequest(request, responseType), options?.defaultValue, options?.debugName, options?.parse, options?.equal, getInitialStream);
   };
 }
 function normalizeRequest(request, responseType) {
@@ -31034,7 +31305,7 @@ var HttpResourceImpl = class extends ResourceImpl {
   }] : []);
   progress = this._progress.asReadonly();
   statusCode = this._statusCode.asReadonly();
-  constructor(injector, request, defaultValue, debugName, parse, equal) {
+  constructor(injector, request, defaultValue, debugName, parse, equal, getInitialStream) {
     super(request, ({
       params: request2,
       abortSignal
@@ -31095,7 +31366,7 @@ var HttpResourceImpl = class extends ResourceImpl {
         }
       });
       return promise;
-    }, defaultValue, equal, debugName, injector);
+    }, defaultValue, equal, debugName, injector, getInitialStream);
     this.client = injector.get(HttpClient);
   }
   set(value) {
@@ -31105,10 +31376,13 @@ var HttpResourceImpl = class extends ResourceImpl {
     this._statusCode.set(void 0);
   }
 };
-var HTTP_TRANSFER_CACHE_ORIGIN_MAP = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "HTTP_TRANSFER_CACHE_ORIGIN_MAP" : "");
-var CACHE_OPTIONS = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "HTTP_TRANSFER_STATE_CACHE_OPTIONS" : "");
 
 // node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var Meta = class _Meta {
   _doc;
   _dom;
@@ -31566,11 +31840,292 @@ var HydrationFeatureKind;
   HydrationFeatureKind2[HydrationFeatureKind2["IncrementalHydration"] = 4] = "IncrementalHydration";
 })(HydrationFeatureKind || (HydrationFeatureKind = {}));
 
+// src/app/services/achievements.service.ts
+var AchievementsService = class _AchievementsService {
+  constructor() {
+    this.STORAGE_KEY = "portfolio_achievements";
+    this.achievements = [
+      { id: "explorer", title: "Explorer", description: "Viewed all sections", icon: "\u{1F3C6}", unlocked: false },
+      { id: "skill_hunter", title: "Skill Hunter", description: "Expanded 5 skill cards", icon: "\u{1F3AF}", unlocked: false },
+      { id: "ai_whisperer", title: "AI Whisperer", description: "Asked the avatar 3 questions", icon: "\u{1F5E3}\uFE0F", unlocked: false },
+      { id: "arcade_champion", title: "Arcade Champion", description: "Scored 500+ in the game", icon: "\u{1F3AE}", unlocked: false },
+      { id: "lore_master", title: "Lore Master", description: "Clicked all blog posts", icon: "\u{1F4DC}", unlocked: false },
+      { id: "code_breaker", title: "Code Breaker", description: "Entered the Konami code", icon: "\u{1F31F}", unlocked: false },
+      { id: "resume_reader", title: "Resume Reader", description: "Downloaded the resume", icon: "\u{1F4C4}", unlocked: false },
+      { id: "time_traveler", title: "Time Traveler", description: "Visited all experience stops", icon: "\u23F3", unlocked: false },
+      { id: "speed_runner", title: "Speed Runner", description: "Scrolled to bottom in under 30s", icon: "\u{1F3C3}", unlocked: false },
+      { id: "returner", title: "Welcome Back", description: "Visited the portfolio again", icon: "\u{1F44B}", unlocked: false },
+      { id: "deep_diver", title: "Deep Diver", description: "Spent 3+ minutes exploring", icon: "\u{1F93F}", unlocked: false },
+      { id: "night_owl", title: "Night Owl", description: "Visited between midnight and 5am", icon: "\u{1F989}", unlocked: false },
+      { id: "social_butterfly", title: "Social Butterfly", description: "Clicked 2+ social links", icon: "\u{1F98B}", unlocked: false }
+    ];
+    this.counters = {
+      skillsExpanded: 0,
+      aiQuestions: 0,
+      blogsClicked: 0,
+      experienceStops: 0,
+      sectionsViewed: 0,
+      socialClicks: 0
+    };
+    this.startTime = Date.now();
+    this.deepDiverTimer = null;
+    this.achievements$ = new BehaviorSubject([]);
+    this.toast$ = new Subject();
+    this.loadFromStorage();
+    this.achievements$.next([...this.achievements]);
+    this.checkReturnVisit();
+    this.checkNightOwl();
+    this.startDeepDiverTimer();
+  }
+  loadFromStorage() {
+    try {
+      const data = localStorage.getItem(this.STORAGE_KEY);
+      if (data) {
+        const saved = JSON.parse(data);
+        if (saved.achievements) {
+          saved.achievements.forEach((s) => {
+            const a = this.achievements.find((x) => x.id === s.id);
+            if (a) {
+              a.unlocked = s.unlocked;
+              a.unlockedAt = s.unlockedAt;
+            }
+          });
+        }
+        if (saved.counters) {
+          Object.assign(this.counters, saved.counters);
+        }
+      }
+    } catch (e) {
+    }
+  }
+  saveToStorage() {
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify({
+        achievements: this.achievements.map((a) => ({ id: a.id, unlocked: a.unlocked, unlockedAt: a.unlockedAt })),
+        counters: this.counters
+      }));
+    } catch (e) {
+    }
+  }
+  checkReturnVisit() {
+    const visitKey = "portfolio_visited";
+    if (localStorage.getItem(visitKey)) {
+      this.unlock("returner");
+    }
+    localStorage.setItem(visitKey, Date.now().toString());
+  }
+  checkNightOwl() {
+    const hour = (/* @__PURE__ */ new Date()).getHours();
+    if (hour >= 0 && hour < 5) {
+      this.unlock("night_owl");
+    }
+  }
+  startDeepDiverTimer() {
+    this.deepDiverTimer = setTimeout(() => {
+      this.unlock("deep_diver");
+    }, 3 * 60 * 1e3);
+  }
+  unlock(id) {
+    const achievement = this.achievements.find((a) => a.id === id);
+    if (!achievement || achievement.unlocked)
+      return false;
+    achievement.unlocked = true;
+    achievement.unlockedAt = Date.now();
+    this.achievements$.next([...this.achievements]);
+    this.toast$.next({ achievement, timestamp: Date.now() });
+    this.saveToStorage();
+    return true;
+  }
+  increment(counter2, threshold) {
+    this.counters[counter2] = (this.counters[counter2] || 0) + 1;
+    if (threshold && this.counters[counter2] >= threshold.count) {
+      this.unlock(threshold.achievementId);
+    }
+    this.saveToStorage();
+  }
+  trackSectionView() {
+    this.increment("sectionsViewed", { count: 8, achievementId: "explorer" });
+  }
+  trackSkillExpand() {
+    this.increment("skillsExpanded", { count: 5, achievementId: "skill_hunter" });
+  }
+  trackAiQuestion() {
+    this.increment("aiQuestions", { count: 3, achievementId: "ai_whisperer" });
+  }
+  trackBlogClick() {
+    this.increment("blogsClicked", { count: 3, achievementId: "lore_master" });
+  }
+  trackExperienceStop() {
+    this.increment("experienceStops", { count: 4, achievementId: "time_traveler" });
+  }
+  trackGameScore(score) {
+    if (score >= 500)
+      this.unlock("arcade_champion");
+  }
+  trackResumeDownload() {
+    this.unlock("resume_reader");
+  }
+  trackSocialClick() {
+    this.increment("socialClicks", { count: 2, achievementId: "social_butterfly" });
+  }
+  trackSpeedRun() {
+    const elapsed = Date.now() - this.startTime;
+    if (elapsed <= 3e4) {
+      this.unlock("speed_runner");
+    }
+  }
+  getUnlockedCount() {
+    return this.achievements.filter((a) => a.unlocked).length;
+  }
+  getTotalCount() {
+    return this.achievements.length;
+  }
+  static {
+    this.\u0275fac = function AchievementsService_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _AchievementsService)();
+    };
+  }
+  static {
+    this.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _AchievementsService, factory: _AchievementsService.\u0275fac, providedIn: "root" });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AchievementsService, [{
+    type: Injectable,
+    args: [{ providedIn: "root" }]
+  }], () => [], null);
+})();
+
+// src/app/services/scroll-xp.service.ts
+var ScrollXpService = class _ScrollXpService {
+  constructor(achievements) {
+    this.achievements = achievements;
+    this.sections = [
+      "about",
+      "avatar-3d",
+      "skill",
+      "experience",
+      "metrics",
+      "publications",
+      "blogs",
+      "ai-quiz-game",
+      "education",
+      "operating-style"
+    ];
+    this.levels = [
+      { threshold: 0, title: "Visitor" },
+      { threshold: 20, title: "Explorer" },
+      { threshold: 40, title: "Adventurer" },
+      { threshold: 60, title: "Veteran" },
+      { threshold: 80, title: "Champion" },
+      { threshold: 100, title: "Resume Master" }
+    ];
+    this.observer = null;
+    this.viewedSections = /* @__PURE__ */ new Set();
+    this.lastLevel = 0;
+    this.scrollHandler = null;
+    this.xp$ = new BehaviorSubject(0);
+    this.level$ = new BehaviorSubject({ level: 1, title: "Visitor" });
+    this.levelUp$ = new Subject();
+    if (typeof window !== "undefined" && typeof IntersectionObserver !== "undefined") {
+      this.observer = new IntersectionObserver((entries) => entries.forEach((e) => {
+        if (e.isIntersecting)
+          this.onSectionView(e.target.id);
+      }), { threshold: 0.05, rootMargin: "0px 0px -5% 0px" });
+      setTimeout(() => this.observeSections(), 800);
+      this.scrollHandler = () => this.checkBottomReached();
+      window.addEventListener("scroll", this.scrollHandler, { passive: true });
+    }
+  }
+  observeSections() {
+    this.sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el && this.observer)
+        this.observer.observe(el);
+    });
+  }
+  onSectionView(id) {
+    if (!this.sections.includes(id) || this.viewedSections.has(id))
+      return;
+    this.viewedSections.add(id);
+    this.recalcXp();
+  }
+  checkBottomReached() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+    if (scrollTop + windowHeight >= docHeight - 100) {
+      this.sections.forEach((id) => this.viewedSections.add(id));
+      this.recalcXp();
+    }
+  }
+  recalcXp() {
+    const pct = Math.round(this.viewedSections.size / this.sections.length * 100);
+    if (pct <= this.xp$.value)
+      return;
+    this.xp$.next(pct);
+    if (pct >= 100) {
+      this.achievements.trackSpeedRun();
+    }
+    const newLevel = this.getLevelForXp(pct);
+    if (newLevel > this.lastLevel) {
+      this.lastLevel = newLevel;
+      const info = this.levels[newLevel - 1] || this.levels[this.levels.length - 1];
+      this.level$.next({ level: newLevel, title: info.title });
+      this.levelUp$.next({ level: newLevel, title: info.title });
+    }
+  }
+  getLevelForXp(xp) {
+    let lvl = 1;
+    for (let i = this.levels.length - 1; i >= 0; i--) {
+      if (xp >= this.levels[i].threshold) {
+        lvl = i + 1;
+        break;
+      }
+    }
+    return lvl;
+  }
+  ngOnDestroy() {
+    this.observer?.disconnect();
+    if (this.scrollHandler) {
+      window.removeEventListener("scroll", this.scrollHandler);
+    }
+  }
+  static {
+    this.\u0275fac = function ScrollXpService_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _ScrollXpService)(\u0275\u0275inject(AchievementsService));
+    };
+  }
+  static {
+    this.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _ScrollXpService, factory: _ScrollXpService.\u0275fac, providedIn: "root" });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ScrollXpService, [{
+    type: Injectable,
+    args: [{ providedIn: "root" }]
+  }], () => [{ type: AchievementsService }], null);
+})();
+
 // src/app/profile/header/header.component.ts
 var HeaderComponent = class _HeaderComponent {
-  constructor() {
+  constructor(scrollXp) {
+    this.scrollXp = scrollXp;
     this.isScrolled = false;
     this.isMenuOpen = false;
+    this.xpPercent = 0;
+    this.levelTitle = "Visitor";
+    this.levelNum = 1;
+    this.subs = [];
+  }
+  ngOnInit() {
+    this.subs.push(this.scrollXp.xp$.subscribe((xp) => this.xpPercent = xp), this.scrollXp.level$.subscribe((l) => {
+      this.levelTitle = l.title;
+      this.levelNum = l.level;
+    }));
+  }
+  ngOnDestroy() {
+    this.subs.forEach((s) => s.unsubscribe());
   }
   onWindowScroll() {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
@@ -31627,7 +32182,7 @@ var HeaderComponent = class _HeaderComponent {
   }
   static {
     this.\u0275fac = function HeaderComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _HeaderComponent)();
+      return new (__ngFactoryType__ || _HeaderComponent)(\u0275\u0275directiveInject(ScrollXpService));
     };
   }
   static {
@@ -31637,7 +32192,7 @@ var HeaderComponent = class _HeaderComponent {
           return ctx2.onWindowScroll();
         }, \u0275\u0275resolveWindow);
       }
-    }, decls: 34, vars: 7, consts: [["role", "banner", 1, "site-header"], ["aria-label", "Main navigation", 1, "site-nav", "apple-container"], ["href", "", 1, "brand", 3, "click"], [1, "brand-mark"], [1, "brand-copy"], [1, "brand-name"], [1, "brand-role"], [1, "nav-links"], ["href", "", 1, "nav-link", 3, "click"], [1, "nav-actions"], [1, "status-pill"], ["aria-label", "Toggle navigation menu", 1, "mobile-menu-btn", 3, "click"], [1, "hamburger-line"]], template: function HeaderComponent_Template(rf, ctx2) {
+    }, decls: 39, vars: 13, consts: [["role", "banner", 1, "site-header"], ["aria-label", "Main navigation", 1, "site-nav", "apple-container"], ["href", "", 1, "brand", 3, "click"], [1, "brand-mark"], [1, "brand-copy"], [1, "brand-name"], [1, "brand-role"], [1, "nav-links"], ["href", "", 1, "nav-link", 3, "click"], [1, "nav-actions"], [1, "status-pill"], ["aria-label", "Toggle navigation menu", 1, "mobile-menu-btn", 3, "click"], [1, "hamburger-line"], [1, "xp-bar-container"], [1, "xp-bar-track"], [1, "xp-bar-fill"], [1, "xp-level-label"]], template: function HeaderComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "header", 0)(1, "nav", 1)(2, "a", 2);
         \u0275\u0275domListener("click", function HeaderComponent_Template_a_click_2_listener($event) {
@@ -31708,6 +32263,12 @@ var HeaderComponent = class _HeaderComponent {
           return ctx2.toggleMenu();
         });
         \u0275\u0275domElement(31, "span", 12)(32, "span", 12)(33, "span", 12);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(34, "div", 13)(35, "div", 14);
+        \u0275\u0275domElement(36, "div", 15);
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(37, "span", 16);
+        \u0275\u0275text(38);
         \u0275\u0275domElementEnd()()();
       }
       if (rf & 2) {
@@ -31717,14 +32278,20 @@ var HeaderComponent = class _HeaderComponent {
         \u0275\u0275advance(20);
         \u0275\u0275classProp("active", ctx2.isMenuOpen);
         \u0275\u0275attribute("aria-expanded", ctx2.isMenuOpen);
+        \u0275\u0275advance(4);
+        \u0275\u0275classProp("visible", ctx2.isScrolled);
+        \u0275\u0275advance(2);
+        \u0275\u0275styleProp("width", ctx2.xpPercent, "%");
+        \u0275\u0275advance(2);
+        \u0275\u0275textInterpolate2("LVL ", ctx2.levelNum, " \xB7 ", ctx2.levelTitle);
       }
-    }, styles: ["\n\n[_nghost-%COMP%] {\n  position: relative;\n  z-index: var(--z-fixed);\n}\n.site-header[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  padding-top: 0.85rem;\n  transition: padding var(--transition-normal);\n}\n.site-header.scrolled[_ngcontent-%COMP%] {\n  padding-top: 0.35rem;\n}\n.site-nav[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n  padding-block: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 999px;\n  background: rgba(9, 9, 26, 0.78);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 10px 30px rgba(0, 0, 10, 0.45), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.site-header.scrolled[_ngcontent-%COMP%]   .site-nav[_ngcontent-%COMP%] {\n  background: rgba(9, 9, 26, 0.92);\n  border-color: rgba(251, 191, 36, 0.22);\n}\n.brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-shrink: 0;\n}\n.brand-mark[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.5rem;\n  height: 2.5rem;\n  border-radius: 999px;\n  background: var(--gradient-primary);\n  color: #09091a;\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  font-weight: 800;\n  box-shadow: 0 0 16px rgba(251, 191, 36, 0.4);\n}\n.brand-copy[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.1rem;\n}\n.brand-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.brand-role[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  letter-spacing: 0.08em;\n  text-transform: uppercase;\n  color: var(--text-tertiary);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.3rem;\n  flex: 1;\n}\n.nav-link[_ngcontent-%COMP%] {\n  padding: 0.75rem 0.95rem;\n  border-radius: 999px;\n  font-size: 0.92rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  transition:\n    background var(--transition-normal),\n    color var(--transition-normal),\n    transform var(--transition-normal);\n}\n.nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--primary-color);\n  background: rgba(251, 191, 36, 0.08);\n}\n.nav-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-shrink: 0;\n}\n.status-pill[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.1);\n  color: #fde68a;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.04em;\n  white-space: nowrap;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.45);\n}\n.mobile-menu-btn[_ngcontent-%COMP%] {\n  display: none;\n  width: 2.9rem;\n  height: 2.9rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.04);\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  gap: 0.3rem;\n  cursor: pointer;\n  flex-shrink: 0;\n}\n.hamburger-line[_ngcontent-%COMP%] {\n  width: 1.1rem;\n  height: 2px;\n  border-radius: 999px;\n  background: var(--text-primary);\n  transition: transform var(--transition-normal), opacity var(--transition-normal);\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(1) {\n  transform: translateY(5px) rotate(45deg);\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(3) {\n  transform: translateY(-5px) rotate(-45deg);\n}\n@media (max-width: 1180px) {\n  .status-pill[_ngcontent-%COMP%] {\n    display: none;\n  }\n}\n@media (max-width: 960px) {\n  .site-nav[_ngcontent-%COMP%] {\n    padding-block: 0.7rem;\n  }\n  .nav-links[_ngcontent-%COMP%] {\n    position: fixed;\n    top: 5.2rem;\n    left: 1rem;\n    right: 1rem;\n    display: none;\n    flex-direction: column;\n    align-items: stretch;\n    gap: 0.35rem;\n    padding: 1rem;\n    border-radius: 1.5rem;\n    border: 1px solid rgba(251, 191, 36, 0.16);\n    background: rgba(9, 9, 26, 0.96);\n    backdrop-filter: blur(24px);\n    box-shadow: 0 18px 50px rgba(0, 0, 10, 0.55);\n  }\n  .nav-links.active[_ngcontent-%COMP%] {\n    display: flex;\n  }\n  .nav-link[_ngcontent-%COMP%] {\n    width: 100%;\n    text-align: left;\n  }\n  .mobile-menu-btn[_ngcontent-%COMP%] {\n    display: inline-flex;\n  }\n}\n@media (max-width: 680px) {\n  .brand-role[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .site-nav[_ngcontent-%COMP%] {\n    gap: 0.75rem;\n  }\n  .nav-actions[_ngcontent-%COMP%] {\n    margin-left: auto;\n  }\n}\n/*# sourceMappingURL=header.component.css.map */"] });
+    }, dependencies: [CommonModule], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  position: relative;\n  z-index: var(--z-fixed);\n}\n.site-header[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  padding-top: 0.85rem;\n  transition: padding var(--transition-normal);\n}\n.site-header.scrolled[_ngcontent-%COMP%] {\n  padding-top: 0.35rem;\n}\n.site-nav[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n  padding-block: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 999px;\n  background: rgba(9, 9, 26, 0.78);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 10px 30px rgba(0, 0, 10, 0.45), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.site-header.scrolled[_ngcontent-%COMP%]   .site-nav[_ngcontent-%COMP%] {\n  background: rgba(9, 9, 26, 0.92);\n  border-color: rgba(251, 191, 36, 0.22);\n}\n.brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-shrink: 0;\n}\n.brand-mark[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.5rem;\n  height: 2.5rem;\n  border-radius: 999px;\n  background: var(--gradient-primary);\n  color: #09091a;\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  font-weight: 800;\n  box-shadow: 0 0 16px rgba(251, 191, 36, 0.4);\n}\n.brand-copy[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.1rem;\n}\n.brand-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.brand-role[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  letter-spacing: 0.08em;\n  text-transform: uppercase;\n  color: var(--text-tertiary);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.3rem;\n  flex: 1;\n}\n.nav-link[_ngcontent-%COMP%] {\n  padding: 0.75rem 0.95rem;\n  border-radius: 999px;\n  font-size: 0.92rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  transition:\n    background var(--transition-normal),\n    color var(--transition-normal),\n    transform var(--transition-normal);\n}\n.nav-link[_ngcontent-%COMP%]:hover {\n  color: var(--primary-color);\n  background: rgba(251, 191, 36, 0.08);\n}\n.nav-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-shrink: 0;\n}\n.status-pill[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.1);\n  color: #fde68a;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.04em;\n  white-space: nowrap;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.45);\n}\n.mobile-menu-btn[_ngcontent-%COMP%] {\n  display: none;\n  width: 2.9rem;\n  height: 2.9rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.04);\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  gap: 0.3rem;\n  cursor: pointer;\n  flex-shrink: 0;\n}\n.hamburger-line[_ngcontent-%COMP%] {\n  width: 1.1rem;\n  height: 2px;\n  border-radius: 999px;\n  background: var(--text-primary);\n  transition: transform var(--transition-normal), opacity var(--transition-normal);\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(1) {\n  transform: translateY(5px) rotate(45deg);\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active[_ngcontent-%COMP%]   .hamburger-line[_ngcontent-%COMP%]:nth-child(3) {\n  transform: translateY(-5px) rotate(-45deg);\n}\n@media (max-width: 1340px) {\n  .status-pill[_ngcontent-%COMP%] {\n    font-size: 0.52rem;\n  }\n}\n@media (max-width: 960px) {\n  .status-pill[_ngcontent-%COMP%] {\n    display: none;\n  }\n}\n@media (max-width: 960px) {\n  .site-nav[_ngcontent-%COMP%] {\n    padding-block: 0.7rem;\n  }\n  .nav-links[_ngcontent-%COMP%] {\n    position: fixed;\n    top: 5.2rem;\n    left: 1rem;\n    right: 1rem;\n    display: none;\n    flex-direction: column;\n    align-items: stretch;\n    gap: 0.35rem;\n    padding: 1rem;\n    border-radius: 1.5rem;\n    border: 1px solid rgba(251, 191, 36, 0.16);\n    background: rgba(9, 9, 26, 0.96);\n    backdrop-filter: blur(24px);\n    box-shadow: 0 18px 50px rgba(0, 0, 10, 0.55);\n  }\n  .nav-links.active[_ngcontent-%COMP%] {\n    display: flex;\n  }\n  .nav-link[_ngcontent-%COMP%] {\n    width: 100%;\n    text-align: left;\n  }\n  .mobile-menu-btn[_ngcontent-%COMP%] {\n    display: inline-flex;\n  }\n}\n@media (max-width: 680px) {\n  .brand-role[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .site-nav[_ngcontent-%COMP%] {\n    gap: 0.75rem;\n  }\n  .nav-actions[_ngcontent-%COMP%] {\n    margin-left: auto;\n  }\n}\n.xp-bar-container[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  max-width: 72rem;\n  margin: 0.4rem auto 0;\n  padding: 0 1.5rem;\n  opacity: 0;\n  transform: translateY(-4px);\n  transition: opacity 0.35s, transform 0.35s;\n  pointer-events: none;\n}\n.xp-bar-container.visible[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: translateY(0);\n}\n.xp-bar-track[_ngcontent-%COMP%] {\n  flex: 1;\n  height: 6px;\n  border-radius: 999px;\n  background: rgba(255, 255, 255, 0.06);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  overflow: hidden;\n}\n.xp-bar-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 999px;\n  background:\n    linear-gradient(\n      90deg,\n      #22c55e 0%,\n      #fbbf24 60%,\n      #f59e0b 100%);\n  box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);\n  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);\n  position: relative;\n}\n.xp-bar-fill[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.4),\n      transparent);\n  animation: _ngcontent-%COMP%_xpShimmer 2s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_xpShimmer {\n  from {\n    transform: translateX(-100%);\n  }\n  to {\n    transform: translateX(100%);\n  }\n}\n.xp-level-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  white-space: nowrap;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.4);\n}\n@media (max-width: 680px) {\n  .xp-bar-container[_ngcontent-%COMP%] {\n    padding: 0 1rem;\n  }\n}\n/*# sourceMappingURL=header.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HeaderComponent, [{
     type: Component,
-    args: [{ selector: "app-header", standalone: true, template: `<header class="site-header" [class.scrolled]="isScrolled" role="banner">
+    args: [{ selector: "app-header", standalone: true, imports: [CommonModule], template: `<header class="site-header" [class.scrolled]="isScrolled" role="banner">
   <nav class="site-nav apple-container" aria-label="Main navigation">
     <a href="" class="brand" (click)="onNavLinkClick($event)">
       <span class="brand-mark">&lbrace;&rbrace;</span>
@@ -31761,15 +32328,23 @@ var HeaderComponent = class _HeaderComponent {
       <span class="hamburger-line"></span>
     </button>
   </nav>
+
+  <!-- XP Progress Bar -->
+  <div class="xp-bar-container" [class.visible]="isScrolled">
+    <div class="xp-bar-track">
+      <div class="xp-bar-fill" [style.width.%]="xpPercent"></div>
+    </div>
+    <span class="xp-level-label">LVL {{ levelNum }} \xB7 {{ levelTitle }}</span>
+  </div>
 </header>
-`, styles: ["/* src/app/profile/header/header.component.scss */\n:host {\n  position: relative;\n  z-index: var(--z-fixed);\n}\n.site-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  padding-top: 0.85rem;\n  transition: padding var(--transition-normal);\n}\n.site-header.scrolled {\n  padding-top: 0.35rem;\n}\n.site-nav {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n  padding-block: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 999px;\n  background: rgba(9, 9, 26, 0.78);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 10px 30px rgba(0, 0, 10, 0.45), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.site-header.scrolled .site-nav {\n  background: rgba(9, 9, 26, 0.92);\n  border-color: rgba(251, 191, 36, 0.22);\n}\n.brand {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-shrink: 0;\n}\n.brand-mark {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.5rem;\n  height: 2.5rem;\n  border-radius: 999px;\n  background: var(--gradient-primary);\n  color: #09091a;\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  font-weight: 800;\n  box-shadow: 0 0 16px rgba(251, 191, 36, 0.4);\n}\n.brand-copy {\n  display: flex;\n  flex-direction: column;\n  gap: 0.1rem;\n}\n.brand-name {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.brand-role {\n  font-size: 0.72rem;\n  letter-spacing: 0.08em;\n  text-transform: uppercase;\n  color: var(--text-tertiary);\n}\n.nav-links {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.3rem;\n  flex: 1;\n}\n.nav-link {\n  padding: 0.75rem 0.95rem;\n  border-radius: 999px;\n  font-size: 0.92rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  transition:\n    background var(--transition-normal),\n    color var(--transition-normal),\n    transform var(--transition-normal);\n}\n.nav-link:hover {\n  color: var(--primary-color);\n  background: rgba(251, 191, 36, 0.08);\n}\n.nav-actions {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-shrink: 0;\n}\n.status-pill {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.1);\n  color: #fde68a;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.04em;\n  white-space: nowrap;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.45);\n}\n.mobile-menu-btn {\n  display: none;\n  width: 2.9rem;\n  height: 2.9rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.04);\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  gap: 0.3rem;\n  cursor: pointer;\n  flex-shrink: 0;\n}\n.hamburger-line {\n  width: 1.1rem;\n  height: 2px;\n  border-radius: 999px;\n  background: var(--text-primary);\n  transition: transform var(--transition-normal), opacity var(--transition-normal);\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(1) {\n  transform: translateY(5px) rotate(45deg);\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(3) {\n  transform: translateY(-5px) rotate(-45deg);\n}\n@media (max-width: 1180px) {\n  .status-pill {\n    display: none;\n  }\n}\n@media (max-width: 960px) {\n  .site-nav {\n    padding-block: 0.7rem;\n  }\n  .nav-links {\n    position: fixed;\n    top: 5.2rem;\n    left: 1rem;\n    right: 1rem;\n    display: none;\n    flex-direction: column;\n    align-items: stretch;\n    gap: 0.35rem;\n    padding: 1rem;\n    border-radius: 1.5rem;\n    border: 1px solid rgba(251, 191, 36, 0.16);\n    background: rgba(9, 9, 26, 0.96);\n    backdrop-filter: blur(24px);\n    box-shadow: 0 18px 50px rgba(0, 0, 10, 0.55);\n  }\n  .nav-links.active {\n    display: flex;\n  }\n  .nav-link {\n    width: 100%;\n    text-align: left;\n  }\n  .mobile-menu-btn {\n    display: inline-flex;\n  }\n}\n@media (max-width: 680px) {\n  .brand-role {\n    display: none;\n  }\n  .site-nav {\n    gap: 0.75rem;\n  }\n  .nav-actions {\n    margin-left: auto;\n  }\n}\n/*# sourceMappingURL=header.component.css.map */\n"] }]
-  }], null, { onWindowScroll: [{
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/header/header.component.scss */\n:host {\n  position: relative;\n  z-index: var(--z-fixed);\n}\n.site-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: var(--z-fixed);\n  padding-top: 0.85rem;\n  transition: padding var(--transition-normal);\n}\n.site-header.scrolled {\n  padding-top: 0.35rem;\n}\n.site-nav {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n  padding-block: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 999px;\n  background: rgba(9, 9, 26, 0.78);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 10px 30px rgba(0, 0, 10, 0.45), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.site-header.scrolled .site-nav {\n  background: rgba(9, 9, 26, 0.92);\n  border-color: rgba(251, 191, 36, 0.22);\n}\n.brand {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-shrink: 0;\n}\n.brand-mark {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.5rem;\n  height: 2.5rem;\n  border-radius: 999px;\n  background: var(--gradient-primary);\n  color: #09091a;\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  font-weight: 800;\n  box-shadow: 0 0 16px rgba(251, 191, 36, 0.4);\n}\n.brand-copy {\n  display: flex;\n  flex-direction: column;\n  gap: 0.1rem;\n}\n.brand-name {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.brand-role {\n  font-size: 0.72rem;\n  letter-spacing: 0.08em;\n  text-transform: uppercase;\n  color: var(--text-tertiary);\n}\n.nav-links {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.3rem;\n  flex: 1;\n}\n.nav-link {\n  padding: 0.75rem 0.95rem;\n  border-radius: 999px;\n  font-size: 0.92rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  transition:\n    background var(--transition-normal),\n    color var(--transition-normal),\n    transform var(--transition-normal);\n}\n.nav-link:hover {\n  color: var(--primary-color);\n  background: rgba(251, 191, 36, 0.08);\n}\n.nav-actions {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-shrink: 0;\n}\n.status-pill {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.1);\n  color: #fde68a;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.04em;\n  white-space: nowrap;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.45);\n}\n.mobile-menu-btn {\n  display: none;\n  width: 2.9rem;\n  height: 2.9rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.04);\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n  gap: 0.3rem;\n  cursor: pointer;\n  flex-shrink: 0;\n}\n.hamburger-line {\n  width: 1.1rem;\n  height: 2px;\n  border-radius: 999px;\n  background: var(--text-primary);\n  transition: transform var(--transition-normal), opacity var(--transition-normal);\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(1) {\n  transform: translateY(5px) rotate(45deg);\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(2) {\n  opacity: 0;\n}\n.mobile-menu-btn.active .hamburger-line:nth-child(3) {\n  transform: translateY(-5px) rotate(-45deg);\n}\n@media (max-width: 1340px) {\n  .status-pill {\n    font-size: 0.52rem;\n  }\n}\n@media (max-width: 960px) {\n  .status-pill {\n    display: none;\n  }\n}\n@media (max-width: 960px) {\n  .site-nav {\n    padding-block: 0.7rem;\n  }\n  .nav-links {\n    position: fixed;\n    top: 5.2rem;\n    left: 1rem;\n    right: 1rem;\n    display: none;\n    flex-direction: column;\n    align-items: stretch;\n    gap: 0.35rem;\n    padding: 1rem;\n    border-radius: 1.5rem;\n    border: 1px solid rgba(251, 191, 36, 0.16);\n    background: rgba(9, 9, 26, 0.96);\n    backdrop-filter: blur(24px);\n    box-shadow: 0 18px 50px rgba(0, 0, 10, 0.55);\n  }\n  .nav-links.active {\n    display: flex;\n  }\n  .nav-link {\n    width: 100%;\n    text-align: left;\n  }\n  .mobile-menu-btn {\n    display: inline-flex;\n  }\n}\n@media (max-width: 680px) {\n  .brand-role {\n    display: none;\n  }\n  .site-nav {\n    gap: 0.75rem;\n  }\n  .nav-actions {\n    margin-left: auto;\n  }\n}\n.xp-bar-container {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  max-width: 72rem;\n  margin: 0.4rem auto 0;\n  padding: 0 1.5rem;\n  opacity: 0;\n  transform: translateY(-4px);\n  transition: opacity 0.35s, transform 0.35s;\n  pointer-events: none;\n}\n.xp-bar-container.visible {\n  opacity: 1;\n  transform: translateY(0);\n}\n.xp-bar-track {\n  flex: 1;\n  height: 6px;\n  border-radius: 999px;\n  background: rgba(255, 255, 255, 0.06);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  overflow: hidden;\n}\n.xp-bar-fill {\n  height: 100%;\n  border-radius: 999px;\n  background:\n    linear-gradient(\n      90deg,\n      #22c55e 0%,\n      #fbbf24 60%,\n      #f59e0b 100%);\n  box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);\n  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);\n  position: relative;\n}\n.xp-bar-fill::after {\n  content: "";\n  position: absolute;\n  inset: 0;\n  background:\n    linear-gradient(\n      90deg,\n      transparent,\n      rgba(255, 255, 255, 0.4),\n      transparent);\n  animation: xpShimmer 2s linear infinite;\n}\n@keyframes xpShimmer {\n  from {\n    transform: translateX(-100%);\n  }\n  to {\n    transform: translateX(100%);\n  }\n}\n.xp-level-label {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  white-space: nowrap;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.4);\n}\n@media (max-width: 680px) {\n  .xp-bar-container {\n    padding: 0 1rem;\n  }\n}\n/*# sourceMappingURL=header.component.css.map */\n'] }]
+  }], () => [{ type: ScrollXpService }], { onWindowScroll: [{
     type: HostListener,
     args: ["window:scroll", []]
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HeaderComponent, { className: "HeaderComponent", filePath: "src/app/profile/header/header.component.ts", lineNumber: 9 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HeaderComponent, { className: "HeaderComponent", filePath: "src/app/profile/header/header.component.ts", lineNumber: 13 });
 })();
 
 // src/app/config/profile-links.ts
@@ -31864,7 +32439,7 @@ var FooterComponent = class _FooterComponent {
         \u0275\u0275advance(3);
         \u0275\u0275domProperty("href", ctx2.analyticsLinks.flagCounterPage, \u0275\u0275sanitizeUrl);
       }
-    }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.footer-section[_ngcontent-%COMP%] {\n  position: relative;\n}\n.footer-ground[_ngcontent-%COMP%] {\n  height: 1.4rem;\n}\n.ground-grass[_ngcontent-%COMP%] {\n  height: 4px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #22c55e 0px,\n      #22c55e 28px,\n      #16a34a 28px,\n      #16a34a 32px);\n}\n.ground-brick[_ngcontent-%COMP%] {\n  height: calc(100% - 4px);\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #6b3e1c 0px,\n      #6b3e1c 30px,\n      #8b5e3c 30px,\n      #8b5e3c 32px);\n}\n.footer-bar[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.5rem;\n  background: rgba(5, 5, 15, 0.98);\n}\n.footer-left[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n}\n.footer-mario[_ngcontent-%COMP%] {\n  width: 24px;\n  height: 30px;\n  image-rendering: pixelated;\n  object-fit: contain;\n  animation: _ngcontent-%COMP%_marioWalk 1.6s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_marioWalk {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-3px);\n  }\n}\n.footer-text[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n}\n.footer-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: #fde68a;\n  font-weight: 700;\n}\n.game-tag[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.12em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n  vertical-align: middle;\n}\n.analytics-pill[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(251, 191, 36, 0.04);\n  color: var(--text-muted);\n  font-size: 0.75rem;\n  text-decoration: none;\n  transition: all 200ms ease;\n}\n.analytics-pill[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.35);\n  color: #fde68a;\n  box-shadow: 0 0 12px rgba(251, 191, 36, 0.08);\n}\n.pill-dot[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  background: #22c55e;\n  box-shadow: 0 0 6px rgba(34, 197, 94, 0.5);\n  animation: _ngcontent-%COMP%_dotPulse 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_dotPulse {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0.4;\n  }\n}\n@media (max-width: 480px) {\n  .footer-bar[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: 0.5rem;\n    padding: 0.65rem 1rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */'] });
+    }, styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.footer-section[_ngcontent-%COMP%] {\n  position: relative;\n}\n.footer-ground[_ngcontent-%COMP%] {\n  height: 1.4rem;\n}\n.ground-grass[_ngcontent-%COMP%] {\n  height: 4px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #22c55e 0px,\n      #22c55e 28px,\n      #16a34a 28px,\n      #16a34a 32px);\n}\n.ground-brick[_ngcontent-%COMP%] {\n  height: calc(100% - 4px);\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #6b3e1c 0px,\n      #6b3e1c 30px,\n      #8b5e3c 30px,\n      #8b5e3c 32px);\n}\n.footer-bar[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.5rem;\n  background: rgba(5, 5, 15, 0.98);\n}\n.footer-left[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n}\n.footer-mario[_ngcontent-%COMP%] {\n  width: 24px;\n  height: 30px;\n  image-rendering: pixelated;\n  object-fit: contain;\n  animation: _ngcontent-%COMP%_marioWalk 1.6s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_marioWalk {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(-3px);\n  }\n}\n.footer-text[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n}\n.footer-text[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: #fde68a;\n  font-weight: 700;\n}\n.game-tag[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.12em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n  vertical-align: middle;\n}\n.analytics-pill[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(251, 191, 36, 0.04);\n  color: var(--text-muted);\n  font-size: 0.75rem;\n  text-decoration: none;\n  transition: all 200ms ease;\n}\n.analytics-pill[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.35);\n  color: #fde68a;\n  box-shadow: 0 0 12px rgba(251, 191, 36, 0.08);\n}\n.pill-dot[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  background: #22c55e;\n  box-shadow: 0 0 6px rgba(34, 197, 94, 0.5);\n  animation: _ngcontent-%COMP%_dotPulse 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_dotPulse {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0.4;\n  }\n}\n@media (max-width: 480px) {\n  .footer-bar[_ngcontent-%COMP%] {\n    flex-direction: column;\n    gap: 0.5rem;\n    padding: 0.65rem 1rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */'] });
   }
 };
 (() => {
@@ -31882,70 +32457,77 @@ var _forTrack0 = ($index, $item) => $item.label;
 var _forTrack1 = ($index, $item) => $item.title;
 function IntroComponent_Conditional_33_Template(rf, ctx2) {
   if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
     \u0275\u0275domElementStart(0, "div", 14)(1, "a", 33);
+    \u0275\u0275domListener("click", function IntroComponent_Conditional_33_Template_a_click_1_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.trackResumeDownload());
+    });
     \u0275\u0275domElement(2, "i", 34);
     \u0275\u0275text(3, " Resume ");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(4, "a", 33);
-    \u0275\u0275domElement(5, "i", 35);
+    \u0275\u0275domElementStart(4, "a", 35);
+    \u0275\u0275domElement(5, "i", 36);
     \u0275\u0275text(6, " Cover Letter ");
     \u0275\u0275domElementEnd()();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275domProperty("href", ctx_r0.documentLinks.resume, \u0275\u0275sanitizeUrl);
+    \u0275\u0275domProperty("href", ctx_r1.documentLinks.resume, \u0275\u0275sanitizeUrl);
     \u0275\u0275advance(3);
-    \u0275\u0275domProperty("href", ctx_r0.documentLinks.coverLetter, \u0275\u0275sanitizeUrl);
+    \u0275\u0275domProperty("href", ctx_r1.documentLinks.coverLetter, \u0275\u0275sanitizeUrl);
   }
 }
 function IntroComponent_For_43_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 23)(1, "span", 36);
+    \u0275\u0275domElementStart(0, "div", 23)(1, "span", 37);
     \u0275\u0275text(2);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "span", 37);
+    \u0275\u0275domElementStart(3, "span", 38);
     \u0275\u0275text(4);
     \u0275\u0275domElementEnd()();
   }
   if (rf & 2) {
-    const metric_r2 = ctx2.$implicit;
+    const metric_r3 = ctx2.$implicit;
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(metric_r2.value);
+    \u0275\u0275textInterpolate(metric_r3.value);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(metric_r2.label);
+    \u0275\u0275textInterpolate(metric_r3.label);
   }
 }
 function IntroComponent_For_55_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "article", 32)(1, "div", 38);
+    \u0275\u0275domElementStart(0, "article", 32)(1, "div", 39);
     \u0275\u0275text(2);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "div", 39)(4, "div", 40)(5, "h3", 41);
+    \u0275\u0275domElementStart(3, "div", 40)(4, "div", 41)(5, "h3", 42);
     \u0275\u0275text(6);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "span", 42);
+    \u0275\u0275domElementStart(7, "span", 43);
     \u0275\u0275text(8);
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(9, "p", 43);
+    \u0275\u0275domElementStart(9, "p", 44);
     \u0275\u0275text(10);
     \u0275\u0275domElementEnd()()();
   }
   if (rf & 2) {
-    const area_r3 = ctx2.$implicit;
-    \u0275\u0275attribute("data-color", area_r3.color);
+    const area_r4 = ctx2.$implicit;
+    \u0275\u0275attribute("data-color", area_r4.color);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(area_r3.icon);
+    \u0275\u0275textInterpolate(area_r4.icon);
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(area_r3.title);
+    \u0275\u0275textInterpolate(area_r4.title);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(area_r3.tag);
+    \u0275\u0275textInterpolate(area_r4.tag);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(area_r3.description);
+    \u0275\u0275textInterpolate(area_r4.description);
   }
 }
 var IntroComponent = class _IntroComponent {
-  constructor() {
+  constructor(achievements) {
+    this.achievements = achievements;
     this.showDocumentDropdown = false;
     this.socialLinks = SOCIAL_LINKS;
     this.documentLinks = DOCUMENT_LINKS;
@@ -32002,16 +32584,22 @@ var IntroComponent = class _IntroComponent {
       document.getElementById("operating-style")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 0);
   }
+  trackResumeDownload() {
+    this.achievements.trackResumeDownload();
+  }
+  trackSocialClick() {
+    this.achievements.trackSocialClick();
+  }
   closeDropdown() {
     this.showDocumentDropdown = false;
   }
   static {
     this.\u0275fac = function IntroComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _IntroComponent)();
+      return new (__ngFactoryType__ || _IntroComponent)(\u0275\u0275directiveInject(AchievementsService));
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 56, vars: 6, consts: [[1, "hero-section"], [1, "apple-container", "hero-grid"], [1, "hero-copy"], [1, "section-kicker"], [1, "hero-title"], [1, "hero-summary"], [1, "hero-meta"], [1, "hero-chip"], [1, "hero-actions"], ["href", "", 1, "apple-btn", "apple-btn-primary", 3, "click"], [1, "fas", "fa-paper-plane"], [1, "document-menu"], [1, "apple-btn", "apple-btn-secondary", 3, "click"], [1, "fas", "fa-file-arrow-down"], [1, "document-dropdown"], [1, "hero-social"], ["target", "_blank", "rel", "noopener", "title", "LinkedIn", 1, "social-link", 3, "href"], [1, "fab", "fa-linkedin-in"], ["target", "_blank", "rel", "noopener", "title", "GitHub", 1, "social-link", 3, "href"], [1, "fab", "fa-github"], ["target", "_blank", "rel", "noopener", "title", "Stack Overflow", 1, "social-link", 3, "href"], [1, "fab", "fa-stack-overflow"], [1, "hero-metrics"], [1, "metric-card"], [1, "hero-panel", "apple-card"], [1, "hero-portrait"], ["alt", "Ankit Sharma", "src", "./assets/images/ankit.png"], [1, "hero-panel-content"], [1, "panel-header"], [1, "panel-eyebrow"], [1, "panel-status"], [1, "focus-list"], [1, "focus-card"], ["target", "_blank", "rel", "noopener", 3, "href"], [1, "fas", "fa-file-lines"], [1, "fas", "fa-envelope-open-text"], [1, "metric-value"], [1, "metric-label"], [1, "fc-icon"], [1, "fc-body"], [1, "fc-header"], [1, "fc-title"], [1, "fc-tag"], [1, "fc-desc"]], template: function IntroComponent_Template(rf, ctx2) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 56, vars: 6, consts: [[1, "hero-section"], [1, "apple-container", "hero-grid"], [1, "hero-copy"], [1, "section-kicker"], [1, "hero-title"], [1, "hero-summary"], [1, "hero-meta"], [1, "hero-chip"], [1, "hero-actions"], ["href", "", 1, "apple-btn", "apple-btn-primary", 3, "click"], [1, "fas", "fa-paper-plane"], [1, "document-menu"], [1, "apple-btn", "apple-btn-secondary", 3, "click"], [1, "fas", "fa-file-arrow-down"], [1, "document-dropdown"], [1, "hero-social"], ["target", "_blank", "rel", "noopener", "title", "LinkedIn", 1, "social-link", 3, "click", "href"], [1, "fab", "fa-linkedin-in"], ["target", "_blank", "rel", "noopener", "title", "GitHub", 1, "social-link", 3, "click", "href"], [1, "fab", "fa-github"], ["target", "_blank", "rel", "noopener", "title", "Stack Overflow", 1, "social-link", 3, "click", "href"], [1, "fab", "fa-stack-overflow"], [1, "hero-metrics"], [1, "metric-card"], [1, "hero-panel", "apple-card"], [1, "hero-portrait"], ["alt", "Ankit Sharma", "src", "./assets/images/ankit.png"], [1, "hero-panel-content"], [1, "panel-header"], [1, "panel-eyebrow"], [1, "panel-status"], [1, "focus-list"], [1, "focus-card"], ["target", "_blank", "rel", "noopener", 3, "click", "href"], [1, "fas", "fa-file-lines"], ["target", "_blank", "rel", "noopener", 3, "href"], [1, "fas", "fa-envelope-open-text"], [1, "metric-value"], [1, "metric-label"], [1, "fc-icon"], [1, "fc-body"], [1, "fc-header"], [1, "fc-title"], [1, "fc-tag"], [1, "fc-desc"]], template: function IntroComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "section", 0)(1, "div", 1)(2, "div", 2)(3, "span", 3);
         \u0275\u0275text(4, "Staff Software Engineer \u2022 Backend \u2022 Gen AI");
@@ -32060,12 +32648,21 @@ var IntroComponent = class _IntroComponent {
         \u0275\u0275conditionalCreate(33, IntroComponent_Conditional_33_Template, 7, 2, "div", 14);
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(34, "div", 15)(35, "a", 16);
+        \u0275\u0275domListener("click", function IntroComponent_Template_a_click_35_listener() {
+          return ctx2.trackSocialClick();
+        });
         \u0275\u0275domElement(36, "i", 17);
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(37, "a", 18);
+        \u0275\u0275domListener("click", function IntroComponent_Template_a_click_37_listener() {
+          return ctx2.trackSocialClick();
+        });
         \u0275\u0275domElement(38, "i", 19);
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(39, "a", 20);
+        \u0275\u0275domListener("click", function IntroComponent_Template_a_click_39_listener() {
+          return ctx2.trackSocialClick();
+        });
         \u0275\u0275domElement(40, "i", 21);
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(41, "div", 22);
@@ -32100,17 +32697,17 @@ var IntroComponent = class _IntroComponent {
         \u0275\u0275advance(12);
         \u0275\u0275repeater(ctx2.focusAreas);
       }
-    }, styles: ['\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.hero-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 8.5rem 0 4rem;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.hero-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);\n  gap: 2rem;\n  align-items: center;\n}\n.hero-copy[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 1.4rem;\n}\n.hero-title[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.08em;\n  font-size: clamp(2.8rem, 7vw, 5rem);\n  font-weight: 800;\n  line-height: 0.96;\n  letter-spacing: -0.05em;\n  max-width: 9ch;\n}\n.hero-title[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n}\n.hero-summary[_ngcontent-%COMP%] {\n  max-width: 62ch;\n  font-size: 1.08rem;\n  color: var(--text-tertiary);\n}\n.hero-meta[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.65rem;\n}\n.hero-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  font-size: 0.82rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n}\n.hero-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-wrap: wrap;\n}\n.document-menu[_ngcontent-%COMP%] {\n  position: relative;\n}\n.document-dropdown[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 0.75rem);\n  left: 0;\n  min-width: 200px;\n  padding: 0.65rem;\n  border-radius: 1rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(10, 16, 31, 0.96);\n  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.4);\n}\n.document-dropdown[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  padding: 0.8rem 0.9rem;\n  border-radius: 0.85rem;\n  color: var(--text-secondary);\n}\n.document-dropdown[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.05);\n  color: var(--text-primary);\n}\n.hero-social[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.social-link[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  transition:\n    transform var(--transition-normal),\n    border-color var(--transition-normal),\n    color var(--transition-normal);\n}\n.social-link[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  border-color: rgba(251, 191, 36, 0.45);\n  color: var(--primary-color);\n}\n.hero-metrics[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n  gap: 0.85rem;\n  margin-top: 0.5rem;\n}\n.metric-card[_ngcontent-%COMP%] {\n  padding: 1rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.03);\n}\n.metric-value[_ngcontent-%COMP%] {\n  display: block;\n  margin-bottom: 0.35rem;\n  font-family: var(--font-display);\n  font-size: 1.55rem;\n  font-weight: 800;\n  color: var(--text-primary);\n}\n.metric-label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 0.84rem;\n  color: var(--text-tertiary);\n}\n.hero-panel[_ngcontent-%COMP%] {\n  overflow: hidden;\n}\n.hero-portrait[_ngcontent-%COMP%] {\n  position: relative;\n  aspect-ratio: 1/1.08;\n  padding: 1.5rem;\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.2),\n      transparent 36%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(239, 68, 68, 0.14),\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.03),\n      rgba(255, 255, 255, 0));\n}\n.hero-portrait[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  border-radius: 1.5rem;\n}\n.hero-panel-content[_ngcontent-%COMP%] {\n  padding: 1.5rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.panel-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n}\n.panel-eyebrow[_ngcontent-%COMP%], \n.panel-status[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.panel-eyebrow[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n}\n.panel-status[_ngcontent-%COMP%] {\n  color: var(--accent-color);\n}\n.focus-list[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n}\n.focus-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.85rem;\n  padding: 0.9rem 1rem;\n  border-radius: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n  transition:\n    border-color 0.25s,\n    background 0.25s,\n    transform 0.25s;\n  position: relative;\n  overflow: hidden;\n}\n.focus-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n  border-radius: inherit;\n}\n.focus-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  background: rgba(255, 255, 255, 0.04);\n}\n.focus-card[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.focus-card[_ngcontent-%COMP%]:hover   .fc-icon[_ngcontent-%COMP%] {\n  transform: scale(1.15) rotate(-6deg);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.2);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%]   .fc-tag[_ngcontent-%COMP%] {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n  text-shadow: 0 0 12px rgba(239, 68, 68, 0.3);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%]   .fc-icon[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.12);\n  border-color: rgba(239, 68, 68, 0.25);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.2);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%]   .fc-tag[_ngcontent-%COMP%] {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n  text-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%]   .fc-icon[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.12);\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.2);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(34, 197, 94, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%]   .fc-tag[_ngcontent-%COMP%] {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n  text-shadow: 0 0 12px rgba(34, 197, 94, 0.3);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%]   .fc-icon[_ngcontent-%COMP%] {\n  background: rgba(34, 197, 94, 0.12);\n  border-color: rgba(34, 197, 94, 0.25);\n}\n.fc-icon[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  width: 2.6rem;\n  height: 2.6rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.25rem;\n  border-radius: 0.6rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.04);\n  transition: transform 0.3s;\n}\n.fc-body[_ngcontent-%COMP%] {\n  flex: 1;\n  min-width: 0;\n}\n.fc-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  margin-bottom: 0.35rem;\n}\n.fc-title[_ngcontent-%COMP%] {\n  font-size: 0.92rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.fc-tag[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.06em;\n  padding: 0.2rem 0.45rem;\n  border-radius: 4px;\n  border: 1px solid rgba(148, 163, 184, 0.15);\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n.fc-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n@media (max-width: 1024px) {\n  .hero-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .hero-title[_ngcontent-%COMP%] {\n    max-width: 100%;\n  }\n  .hero-metrics[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n}\n@media (max-width: 640px) {\n  .hero-section[_ngcontent-%COMP%] {\n    padding-top: 7.5rem;\n  }\n  .hero-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: stretch;\n  }\n  .document-dropdown[_ngcontent-%COMP%] {\n    position: static;\n    margin-top: 0.75rem;\n  }\n  .hero-metrics[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .panel-header[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */'] });
+    }, styles: ['\n[_nghost-%COMP%] {\n  display: block;\n}\n.hero-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 8.5rem 0 4rem;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.hero-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);\n  gap: 2rem;\n  align-items: center;\n}\n.hero-copy[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 1.4rem;\n}\n.hero-title[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.08em;\n  font-size: clamp(2.8rem, 7vw, 5rem);\n  font-weight: 800;\n  line-height: 0.96;\n  letter-spacing: -0.05em;\n  max-width: 9ch;\n}\n.hero-title[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n}\n.hero-summary[_ngcontent-%COMP%] {\n  max-width: 62ch;\n  font-size: 1.08rem;\n  color: var(--text-tertiary);\n}\n.hero-meta[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.65rem;\n}\n.hero-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  font-size: 0.82rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n}\n.hero-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-wrap: wrap;\n}\n.document-menu[_ngcontent-%COMP%] {\n  position: relative;\n}\n.document-dropdown[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 0.75rem);\n  left: 0;\n  min-width: 200px;\n  padding: 0.65rem;\n  border-radius: 1rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(10, 16, 31, 0.96);\n  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.4);\n}\n.document-dropdown[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  padding: 0.8rem 0.9rem;\n  border-radius: 0.85rem;\n  color: var(--text-secondary);\n}\n.document-dropdown[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.05);\n  color: var(--text-primary);\n}\n.hero-social[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.social-link[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  transition:\n    transform var(--transition-normal),\n    border-color var(--transition-normal),\n    color var(--transition-normal);\n}\n.social-link[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  border-color: rgba(251, 191, 36, 0.45);\n  color: var(--primary-color);\n}\n.hero-metrics[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n  gap: 0.85rem;\n  margin-top: 0.5rem;\n}\n.metric-card[_ngcontent-%COMP%] {\n  padding: 1rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.03);\n}\n.metric-value[_ngcontent-%COMP%] {\n  display: block;\n  margin-bottom: 0.35rem;\n  font-family: var(--font-display);\n  font-size: 1.55rem;\n  font-weight: 800;\n  color: var(--text-primary);\n}\n.metric-label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 0.84rem;\n  color: var(--text-tertiary);\n}\n.hero-panel[_ngcontent-%COMP%] {\n  overflow: hidden;\n}\n.hero-portrait[_ngcontent-%COMP%] {\n  position: relative;\n  aspect-ratio: 1/1.08;\n  padding: 1.5rem;\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.2),\n      transparent 36%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(239, 68, 68, 0.14),\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.03),\n      rgba(255, 255, 255, 0));\n}\n.hero-portrait[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  border-radius: 1.5rem;\n}\n.hero-panel-content[_ngcontent-%COMP%] {\n  padding: 1.5rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.panel-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n}\n.panel-eyebrow[_ngcontent-%COMP%], \n.panel-status[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.panel-eyebrow[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n}\n.panel-status[_ngcontent-%COMP%] {\n  color: var(--accent-color);\n}\n.focus-list[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n}\n.focus-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.85rem;\n  padding: 0.9rem 1rem;\n  border-radius: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n  transition:\n    border-color 0.25s,\n    background 0.25s,\n    transform 0.25s;\n  position: relative;\n  overflow: hidden;\n}\n.focus-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n  border-radius: inherit;\n}\n.focus-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  background: rgba(255, 255, 255, 0.04);\n}\n.focus-card[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.focus-card[_ngcontent-%COMP%]:hover   .fc-icon[_ngcontent-%COMP%] {\n  transform: scale(1.15) rotate(-6deg);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.2);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%]   .fc-tag[_ngcontent-%COMP%] {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n  text-shadow: 0 0 12px rgba(239, 68, 68, 0.3);\n}\n.focus-card[data-color=red][_ngcontent-%COMP%]   .fc-icon[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.12);\n  border-color: rgba(239, 68, 68, 0.25);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.2);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%]   .fc-tag[_ngcontent-%COMP%] {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n  text-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.focus-card[data-color=gold][_ngcontent-%COMP%]   .fc-icon[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.12);\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.2);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(34, 197, 94, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%]   .fc-tag[_ngcontent-%COMP%] {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n  text-shadow: 0 0 12px rgba(34, 197, 94, 0.3);\n}\n.focus-card[data-color=green][_ngcontent-%COMP%]   .fc-icon[_ngcontent-%COMP%] {\n  background: rgba(34, 197, 94, 0.12);\n  border-color: rgba(34, 197, 94, 0.25);\n}\n.fc-icon[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  width: 2.6rem;\n  height: 2.6rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.25rem;\n  border-radius: 0.6rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.04);\n  transition: transform 0.3s;\n}\n.fc-body[_ngcontent-%COMP%] {\n  flex: 1;\n  min-width: 0;\n}\n.fc-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  margin-bottom: 0.35rem;\n}\n.fc-title[_ngcontent-%COMP%] {\n  font-size: 0.92rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.fc-tag[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.06em;\n  padding: 0.2rem 0.45rem;\n  border-radius: 4px;\n  border: 1px solid rgba(148, 163, 184, 0.15);\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n.fc-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n@media (max-width: 1024px) {\n  .hero-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .hero-title[_ngcontent-%COMP%] {\n    max-width: 100%;\n  }\n  .hero-metrics[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n}\n@media (max-width: 640px) {\n  .hero-section[_ngcontent-%COMP%] {\n    padding-top: 7.5rem;\n  }\n  .hero-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: stretch;\n  }\n  .document-dropdown[_ngcontent-%COMP%] {\n    position: static;\n    margin-top: 0.75rem;\n  }\n  .hero-metrics[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .panel-header[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(IntroComponent, [{
     type: Component,
-    args: [{ selector: "app-intro", standalone: true, template: '<section class="hero-section">\n  <div class="apple-container hero-grid">\n    <div class="hero-copy">\n      <span class="section-kicker">Staff Software Engineer \u2022 Backend \u2022 Gen AI</span>\n\n      <h1 class="hero-title">\n        <span>Backend systems</span>\n        <span>that scale.</span>\n        <span>AI experiences</span>\n        <span>that ship.</span>\n      </h1>\n\n      <p class="hero-summary">\n        Staff-level engineer focused on distributed systems, real-time architectures, developer infrastructure, and Gen AI products\n        that need more than a demo to be useful.\n      </p>\n\n      <div class="hero-meta">\n        <span class="hero-chip">SMTS @ Salesforce</span>\n        <span class="hero-chip">ex-Games24x7</span>\n        <span class="hero-chip">ex-Walmart</span>\n        <span class="hero-chip">Java \u2022 Kafka \u2022 Redis \u2022 AI</span>\n      </div>\n\n      <div class="hero-actions">\n        <a class="apple-btn apple-btn-primary" href="" (click)="scrollToOperatingStyle($event)">\n          <i class="fas fa-paper-plane"></i>\n          How I work\n        </a>\n\n        <div class="document-menu" [class.open]="showDocumentDropdown">\n          <button class="apple-btn apple-btn-secondary" (click)="toggleDocumentDropdown($event)">\n            <i class="fas fa-file-arrow-down"></i>\n            Download docs\n          </button>\n\n          @if (showDocumentDropdown) {\n            <div class="document-dropdown">\n              <a [href]="documentLinks.resume" target="_blank" rel="noopener">\n                <i class="fas fa-file-lines"></i>\n                Resume\n              </a>\n              <a [href]="documentLinks.coverLetter" target="_blank" rel="noopener">\n                <i class="fas fa-envelope-open-text"></i>\n                Cover Letter\n              </a>\n            </div>\n          }\n        </div>\n      </div>\n\n      <div class="hero-social">\n        <a class="social-link" [href]="socialLinks.linkedin" target="_blank" rel="noopener" title="LinkedIn">\n          <i class="fab fa-linkedin-in"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.github" target="_blank" rel="noopener" title="GitHub">\n          <i class="fab fa-github"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.stackOverflow" target="_blank" rel="noopener" title="Stack Overflow">\n          <i class="fab fa-stack-overflow"></i>\n        </a>\n      </div>\n\n      <div class="hero-metrics">\n        @for (metric of heroMetrics; track metric.label) {\n          <div class="metric-card">\n            <span class="metric-value">{{ metric.value }}</span>\n            <span class="metric-label">{{ metric.label }}</span>\n          </div>\n        }\n      </div>\n    </div>\n\n    <div class="hero-panel apple-card">\n      <div class="hero-portrait">\n        <img alt="Ankit Sharma" src="./assets/images/ankit.png">\n      </div>\n\n      <div class="hero-panel-content">\n        <div class="panel-header">\n          <span class="panel-eyebrow">What I optimize for</span>\n          <span class="panel-status">Available for staff and lead roles</span>\n        </div>\n\n        <div class="focus-list">\n          @for (area of focusAreas; track area.title) {\n            <article class="focus-card" [attr.data-color]="area.color">\n              <div class="fc-icon">{{ area.icon }}</div>\n              <div class="fc-body">\n                <div class="fc-header">\n                  <h3 class="fc-title">{{ area.title }}</h3>\n                  <span class="fc-tag">{{ area.tag }}</span>\n                </div>\n                <p class="fc-desc">{{ area.description }}</p>\n              </div>\n            </article>\n          }\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n', styles: ['/* src/app/profile/intro/intro.component.scss */\n:host {\n  display: block;\n}\n.hero-section {\n  position: relative;\n  padding: 8.5rem 0 4rem;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.hero-grid {\n  display: grid;\n  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);\n  gap: 2rem;\n  align-items: center;\n}\n.hero-copy {\n  display: flex;\n  flex-direction: column;\n  gap: 1.4rem;\n}\n.hero-title {\n  display: grid;\n  gap: 0.08em;\n  font-size: clamp(2.8rem, 7vw, 5rem);\n  font-weight: 800;\n  line-height: 0.96;\n  letter-spacing: -0.05em;\n  max-width: 9ch;\n}\n.hero-title span {\n  display: block;\n}\n.hero-summary {\n  max-width: 62ch;\n  font-size: 1.08rem;\n  color: var(--text-tertiary);\n}\n.hero-meta {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.65rem;\n}\n.hero-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  font-size: 0.82rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n}\n.hero-actions {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-wrap: wrap;\n}\n.document-menu {\n  position: relative;\n}\n.document-dropdown {\n  position: absolute;\n  top: calc(100% + 0.75rem);\n  left: 0;\n  min-width: 200px;\n  padding: 0.65rem;\n  border-radius: 1rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(10, 16, 31, 0.96);\n  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.4);\n}\n.document-dropdown a {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  padding: 0.8rem 0.9rem;\n  border-radius: 0.85rem;\n  color: var(--text-secondary);\n}\n.document-dropdown a:hover {\n  background: rgba(255, 255, 255, 0.05);\n  color: var(--text-primary);\n}\n.hero-social {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.social-link {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  transition:\n    transform var(--transition-normal),\n    border-color var(--transition-normal),\n    color var(--transition-normal);\n}\n.social-link:hover {\n  transform: translateY(-2px);\n  border-color: rgba(251, 191, 36, 0.45);\n  color: var(--primary-color);\n}\n.hero-metrics {\n  display: grid;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n  gap: 0.85rem;\n  margin-top: 0.5rem;\n}\n.metric-card {\n  padding: 1rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.03);\n}\n.metric-value {\n  display: block;\n  margin-bottom: 0.35rem;\n  font-family: var(--font-display);\n  font-size: 1.55rem;\n  font-weight: 800;\n  color: var(--text-primary);\n}\n.metric-label {\n  display: block;\n  font-size: 0.84rem;\n  color: var(--text-tertiary);\n}\n.hero-panel {\n  overflow: hidden;\n}\n.hero-portrait {\n  position: relative;\n  aspect-ratio: 1/1.08;\n  padding: 1.5rem;\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.2),\n      transparent 36%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(239, 68, 68, 0.14),\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.03),\n      rgba(255, 255, 255, 0));\n}\n.hero-portrait img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  border-radius: 1.5rem;\n}\n.hero-panel-content {\n  padding: 1.5rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.panel-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n}\n.panel-eyebrow,\n.panel-status {\n  font-size: 0.8rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.panel-eyebrow {\n  color: var(--primary-color);\n}\n.panel-status {\n  color: var(--accent-color);\n}\n.focus-list {\n  display: grid;\n  gap: 0.75rem;\n}\n.focus-card {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.85rem;\n  padding: 0.9rem 1rem;\n  border-radius: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n  transition:\n    border-color 0.25s,\n    background 0.25s,\n    transform 0.25s;\n  position: relative;\n  overflow: hidden;\n}\n.focus-card::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n  border-radius: inherit;\n}\n.focus-card:hover {\n  transform: translateY(-2px);\n  background: rgba(255, 255, 255, 0.04);\n}\n.focus-card:hover::before {\n  opacity: 1;\n}\n.focus-card:hover .fc-icon {\n  transform: scale(1.15) rotate(-6deg);\n}\n.focus-card[data-color=red] {\n  border-color: rgba(239, 68, 68, 0.2);\n}\n.focus-card[data-color=red]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=red] .fc-tag {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n  text-shadow: 0 0 12px rgba(239, 68, 68, 0.3);\n}\n.focus-card[data-color=red] .fc-icon {\n  background: rgba(239, 68, 68, 0.12);\n  border-color: rgba(239, 68, 68, 0.25);\n}\n.focus-card[data-color=gold] {\n  border-color: rgba(251, 191, 36, 0.2);\n}\n.focus-card[data-color=gold]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=gold] .fc-tag {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n  text-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.focus-card[data-color=gold] .fc-icon {\n  background: rgba(251, 191, 36, 0.12);\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.focus-card[data-color=green] {\n  border-color: rgba(34, 197, 94, 0.2);\n}\n.focus-card[data-color=green]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(34, 197, 94, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=green] .fc-tag {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n  text-shadow: 0 0 12px rgba(34, 197, 94, 0.3);\n}\n.focus-card[data-color=green] .fc-icon {\n  background: rgba(34, 197, 94, 0.12);\n  border-color: rgba(34, 197, 94, 0.25);\n}\n.fc-icon {\n  flex-shrink: 0;\n  width: 2.6rem;\n  height: 2.6rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.25rem;\n  border-radius: 0.6rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.04);\n  transition: transform 0.3s;\n}\n.fc-body {\n  flex: 1;\n  min-width: 0;\n}\n.fc-header {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  margin-bottom: 0.35rem;\n}\n.fc-title {\n  font-size: 0.92rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.fc-tag {\n  flex-shrink: 0;\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.06em;\n  padding: 0.2rem 0.45rem;\n  border-radius: 4px;\n  border: 1px solid rgba(148, 163, 184, 0.15);\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n.fc-desc {\n  font-size: 0.82rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n@media (max-width: 1024px) {\n  .hero-grid {\n    grid-template-columns: 1fr;\n  }\n  .hero-title {\n    max-width: 100%;\n  }\n  .hero-metrics {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n}\n@media (max-width: 640px) {\n  .hero-section {\n    padding-top: 7.5rem;\n  }\n  .hero-actions {\n    flex-direction: column;\n    align-items: stretch;\n  }\n  .document-dropdown {\n    position: static;\n    margin-top: 0.75rem;\n  }\n  .hero-metrics {\n    grid-template-columns: 1fr;\n  }\n  .panel-header {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */\n'] }]
-  }], null, null);
+    args: [{ selector: "app-intro", standalone: true, template: '<section class="hero-section">\n  <div class="apple-container hero-grid">\n    <div class="hero-copy">\n      <span class="section-kicker">Staff Software Engineer \u2022 Backend \u2022 Gen AI</span>\n\n      <h1 class="hero-title">\n        <span>Backend systems</span>\n        <span>that scale.</span>\n        <span>AI experiences</span>\n        <span>that ship.</span>\n      </h1>\n\n      <p class="hero-summary">\n        Staff-level engineer focused on distributed systems, real-time architectures, developer infrastructure, and Gen AI products\n        that need more than a demo to be useful.\n      </p>\n\n      <div class="hero-meta">\n        <span class="hero-chip">SMTS @ Salesforce</span>\n        <span class="hero-chip">ex-Games24x7</span>\n        <span class="hero-chip">ex-Walmart</span>\n        <span class="hero-chip">Java \u2022 Kafka \u2022 Redis \u2022 AI</span>\n      </div>\n\n      <div class="hero-actions">\n        <a class="apple-btn apple-btn-primary" href="" (click)="scrollToOperatingStyle($event)">\n          <i class="fas fa-paper-plane"></i>\n          How I work\n        </a>\n\n        <div class="document-menu" [class.open]="showDocumentDropdown">\n          <button class="apple-btn apple-btn-secondary" (click)="toggleDocumentDropdown($event)">\n            <i class="fas fa-file-arrow-down"></i>\n            Download docs\n          </button>\n\n          @if (showDocumentDropdown) {\n            <div class="document-dropdown">\n              <a [href]="documentLinks.resume" target="_blank" rel="noopener" (click)="trackResumeDownload()">\n                <i class="fas fa-file-lines"></i>\n                Resume\n              </a>\n              <a [href]="documentLinks.coverLetter" target="_blank" rel="noopener">\n                <i class="fas fa-envelope-open-text"></i>\n                Cover Letter\n              </a>\n            </div>\n          }\n        </div>\n      </div>\n\n      <div class="hero-social">\n        <a class="social-link" [href]="socialLinks.linkedin" target="_blank" rel="noopener" title="LinkedIn" (click)="trackSocialClick()">\n          <i class="fab fa-linkedin-in"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.github" target="_blank" rel="noopener" title="GitHub" (click)="trackSocialClick()">\n          <i class="fab fa-github"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.stackOverflow" target="_blank" rel="noopener" title="Stack Overflow" (click)="trackSocialClick()">\n          <i class="fab fa-stack-overflow"></i>\n        </a>\n      </div>\n\n      <div class="hero-metrics">\n        @for (metric of heroMetrics; track metric.label) {\n          <div class="metric-card">\n            <span class="metric-value">{{ metric.value }}</span>\n            <span class="metric-label">{{ metric.label }}</span>\n          </div>\n        }\n      </div>\n    </div>\n\n    <div class="hero-panel apple-card">\n      <div class="hero-portrait">\n        <img alt="Ankit Sharma" src="./assets/images/ankit.png">\n      </div>\n\n      <div class="hero-panel-content">\n        <div class="panel-header">\n          <span class="panel-eyebrow">What I optimize for</span>\n          <span class="panel-status">Available for staff and lead roles</span>\n        </div>\n\n        <div class="focus-list">\n          @for (area of focusAreas; track area.title) {\n            <article class="focus-card" [attr.data-color]="area.color">\n              <div class="fc-icon">{{ area.icon }}</div>\n              <div class="fc-body">\n                <div class="fc-header">\n                  <h3 class="fc-title">{{ area.title }}</h3>\n                  <span class="fc-tag">{{ area.tag }}</span>\n                </div>\n                <p class="fc-desc">{{ area.description }}</p>\n              </div>\n            </article>\n          }\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n', styles: ['/* src/app/profile/intro/intro.component.scss */\n:host {\n  display: block;\n}\n.hero-section {\n  position: relative;\n  padding: 8.5rem 0 4rem;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.hero-grid {\n  display: grid;\n  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);\n  gap: 2rem;\n  align-items: center;\n}\n.hero-copy {\n  display: flex;\n  flex-direction: column;\n  gap: 1.4rem;\n}\n.hero-title {\n  display: grid;\n  gap: 0.08em;\n  font-size: clamp(2.8rem, 7vw, 5rem);\n  font-weight: 800;\n  line-height: 0.96;\n  letter-spacing: -0.05em;\n  max-width: 9ch;\n}\n.hero-title span {\n  display: block;\n}\n.hero-summary {\n  max-width: 62ch;\n  font-size: 1.08rem;\n  color: var(--text-tertiary);\n}\n.hero-meta {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.65rem;\n}\n.hero-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  font-size: 0.82rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n}\n.hero-actions {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-wrap: wrap;\n}\n.document-menu {\n  position: relative;\n}\n.document-dropdown {\n  position: absolute;\n  top: calc(100% + 0.75rem);\n  left: 0;\n  min-width: 200px;\n  padding: 0.65rem;\n  border-radius: 1rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(10, 16, 31, 0.96);\n  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.4);\n}\n.document-dropdown a {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  padding: 0.8rem 0.9rem;\n  border-radius: 0.85rem;\n  color: var(--text-secondary);\n}\n.document-dropdown a:hover {\n  background: rgba(255, 255, 255, 0.05);\n  color: var(--text-primary);\n}\n.hero-social {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.social-link {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  transition:\n    transform var(--transition-normal),\n    border-color var(--transition-normal),\n    color var(--transition-normal);\n}\n.social-link:hover {\n  transform: translateY(-2px);\n  border-color: rgba(251, 191, 36, 0.45);\n  color: var(--primary-color);\n}\n.hero-metrics {\n  display: grid;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n  gap: 0.85rem;\n  margin-top: 0.5rem;\n}\n.metric-card {\n  padding: 1rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.03);\n}\n.metric-value {\n  display: block;\n  margin-bottom: 0.35rem;\n  font-family: var(--font-display);\n  font-size: 1.55rem;\n  font-weight: 800;\n  color: var(--text-primary);\n}\n.metric-label {\n  display: block;\n  font-size: 0.84rem;\n  color: var(--text-tertiary);\n}\n.hero-panel {\n  overflow: hidden;\n}\n.hero-portrait {\n  position: relative;\n  aspect-ratio: 1/1.08;\n  padding: 1.5rem;\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.2),\n      transparent 36%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(239, 68, 68, 0.14),\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.03),\n      rgba(255, 255, 255, 0));\n}\n.hero-portrait img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  border-radius: 1.5rem;\n}\n.hero-panel-content {\n  padding: 1.5rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.panel-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n}\n.panel-eyebrow,\n.panel-status {\n  font-size: 0.8rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.panel-eyebrow {\n  color: var(--primary-color);\n}\n.panel-status {\n  color: var(--accent-color);\n}\n.focus-list {\n  display: grid;\n  gap: 0.75rem;\n}\n.focus-card {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.85rem;\n  padding: 0.9rem 1rem;\n  border-radius: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n  transition:\n    border-color 0.25s,\n    background 0.25s,\n    transform 0.25s;\n  position: relative;\n  overflow: hidden;\n}\n.focus-card::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n  border-radius: inherit;\n}\n.focus-card:hover {\n  transform: translateY(-2px);\n  background: rgba(255, 255, 255, 0.04);\n}\n.focus-card:hover::before {\n  opacity: 1;\n}\n.focus-card:hover .fc-icon {\n  transform: scale(1.15) rotate(-6deg);\n}\n.focus-card[data-color=red] {\n  border-color: rgba(239, 68, 68, 0.2);\n}\n.focus-card[data-color=red]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=red] .fc-tag {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n  text-shadow: 0 0 12px rgba(239, 68, 68, 0.3);\n}\n.focus-card[data-color=red] .fc-icon {\n  background: rgba(239, 68, 68, 0.12);\n  border-color: rgba(239, 68, 68, 0.25);\n}\n.focus-card[data-color=gold] {\n  border-color: rgba(251, 191, 36, 0.2);\n}\n.focus-card[data-color=gold]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=gold] .fc-tag {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n  text-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.focus-card[data-color=gold] .fc-icon {\n  background: rgba(251, 191, 36, 0.12);\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.focus-card[data-color=green] {\n  border-color: rgba(34, 197, 94, 0.2);\n}\n.focus-card[data-color=green]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(34, 197, 94, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=green] .fc-tag {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n  text-shadow: 0 0 12px rgba(34, 197, 94, 0.3);\n}\n.focus-card[data-color=green] .fc-icon {\n  background: rgba(34, 197, 94, 0.12);\n  border-color: rgba(34, 197, 94, 0.25);\n}\n.fc-icon {\n  flex-shrink: 0;\n  width: 2.6rem;\n  height: 2.6rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.25rem;\n  border-radius: 0.6rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.04);\n  transition: transform 0.3s;\n}\n.fc-body {\n  flex: 1;\n  min-width: 0;\n}\n.fc-header {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  margin-bottom: 0.35rem;\n}\n.fc-title {\n  font-size: 0.92rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.fc-tag {\n  flex-shrink: 0;\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.06em;\n  padding: 0.2rem 0.45rem;\n  border-radius: 4px;\n  border: 1px solid rgba(148, 163, 184, 0.15);\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n.fc-desc {\n  font-size: 0.82rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n@media (max-width: 1024px) {\n  .hero-grid {\n    grid-template-columns: 1fr;\n  }\n  .hero-title {\n    max-width: 100%;\n  }\n  .hero-metrics {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n}\n@media (max-width: 640px) {\n  .hero-section {\n    padding-top: 7.5rem;\n  }\n  .hero-actions {\n    flex-direction: column;\n    align-items: stretch;\n  }\n  .document-dropdown {\n    position: static;\n    margin-top: 0.75rem;\n  }\n  .hero-metrics {\n    grid-template-columns: 1fr;\n  }\n  .panel-header {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */\n'] }]
+  }], () => [{ type: AchievementsService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(IntroComponent, { className: "IntroComponent", filePath: "src/app/profile/intro/intro.component.ts", lineNumber: 10 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(IntroComponent, { className: "IntroComponent", filePath: "src/app/profile/intro/intro.component.ts", lineNumber: 11 });
 })();
 
 // src/app/profile/about/about.component.ts
@@ -32211,7 +32808,7 @@ var AboutComponent = class _AboutComponent {
         \u0275\u0275text(78, "Use AI where it improves product capability, not where it only adds novelty.");
         \u0275\u0275domElementEnd()()()()()()()();
       }
-    }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.about-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);\n  gap: 1.25rem;\n}\n.about-stack[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1.25rem;\n}\n.bio-panel[_ngcontent-%COMP%], \n.quest-panel[_ngcontent-%COMP%] {\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  transition: border-color 250ms ease, box-shadow 250ms ease;\n}\n.bio-panel[_ngcontent-%COMP%]:hover, \n.quest-panel[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 6px 28px rgba(251, 191, 36, 0.08);\n}\n.panel-flag[_ngcontent-%COMP%] {\n  padding: 0.55rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.flag-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.25);\n}\n.panel-body[_ngcontent-%COMP%] {\n  padding: 1.2rem 1.15rem;\n  display: grid;\n  gap: 0.85rem;\n}\n.panel-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.panel-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-size: 0.92rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.stat-highlight[_ngcontent-%COMP%] {\n  color: #fde68a;\n  font-weight: 700;\n}\n.bio-stats[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n  margin-top: 0.4rem;\n}\n.bio-stat[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.1rem;\n  justify-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 0.65rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background: rgba(251, 191, 36, 0.04);\n  min-width: 5.5rem;\n  transition: border-color 200ms ease, box-shadow 200ms ease;\n}\n.bio-stat[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.3);\n  box-shadow: 0 0 14px rgba(251, 191, 36, 0.08);\n}\n.bs-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.bs-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.06em;\n  color: #fde68a;\n}\n.bs-key[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.34rem;\n  letter-spacing: 0.12em;\n  color: var(--text-muted);\n}\n.achievement-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.65rem;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.5rem;\n  font-size: 0.88rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #fbbf24;\n  font-weight: bold;\n  font-size: 0.9rem;\n}\n@media (max-width: 900px) {\n  .about-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n@media (max-width: 480px) {\n  .bio-stats[_ngcontent-%COMP%] {\n    gap: 0.5rem;\n  }\n  .bio-stat[_ngcontent-%COMP%] {\n    min-width: 4.5rem;\n    padding: 0.45rem 0.6rem;\n  }\n}\n/*# sourceMappingURL=about.component.css.map */'] });
+    }, styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.about-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);\n  gap: 1.25rem;\n}\n.about-stack[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1.25rem;\n}\n.bio-panel[_ngcontent-%COMP%], \n.quest-panel[_ngcontent-%COMP%] {\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  transition: border-color 250ms ease, box-shadow 250ms ease;\n}\n.bio-panel[_ngcontent-%COMP%]:hover, \n.quest-panel[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 6px 28px rgba(251, 191, 36, 0.08);\n}\n.panel-flag[_ngcontent-%COMP%] {\n  padding: 0.55rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.flag-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.25);\n}\n.panel-body[_ngcontent-%COMP%] {\n  padding: 1.2rem 1.15rem;\n  display: grid;\n  gap: 0.85rem;\n}\n.panel-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.panel-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-size: 0.92rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.stat-highlight[_ngcontent-%COMP%] {\n  color: #fde68a;\n  font-weight: 700;\n}\n.bio-stats[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n  margin-top: 0.4rem;\n}\n.bio-stat[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.1rem;\n  justify-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 0.65rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background: rgba(251, 191, 36, 0.04);\n  min-width: 5.5rem;\n  transition: border-color 200ms ease, box-shadow 200ms ease;\n}\n.bio-stat[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.3);\n  box-shadow: 0 0 14px rgba(251, 191, 36, 0.08);\n}\n.bs-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.bs-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.06em;\n  color: #fde68a;\n}\n.bs-key[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.34rem;\n  letter-spacing: 0.12em;\n  color: var(--text-muted);\n}\n.achievement-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.65rem;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.5rem;\n  font-size: 0.88rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #fbbf24;\n  font-weight: bold;\n  font-size: 0.9rem;\n}\n@media (max-width: 900px) {\n  .about-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n@media (max-width: 480px) {\n  .bio-stats[_ngcontent-%COMP%] {\n    gap: 0.5rem;\n  }\n  .bio-stat[_ngcontent-%COMP%] {\n    min-width: 4.5rem;\n    padding: 0.45rem 0.6rem;\n  }\n}\n/*# sourceMappingURL=about.component.css.map */'] });
   }
 };
 (() => {
@@ -32521,7 +33118,7 @@ var ContactComponent = class _ContactComponent {
         \u0275\u0275advance(3);
         \u0275\u0275repeater(ctx2.emphasisAreas);
       }
-    }, dependencies: [CommonModule], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: #fbbf24;\n  text-shadow: 0 0 16px rgba(251, 191, 36, 0.35);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.style-panel[_ngcontent-%COMP%], \n.power-panel[_ngcontent-%COMP%] {\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  margin-bottom: 1.25rem;\n  transition: border-color 250ms ease, box-shadow 250ms ease;\n}\n.style-panel[_ngcontent-%COMP%]:hover, \n.power-panel[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 6px 28px rgba(251, 191, 36, 0.08);\n}\n.panel-flag[_ngcontent-%COMP%] {\n  padding: 0.55rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.flag-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: #fbbf24;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.25);\n}\n.panel-body[_ngcontent-%COMP%] {\n  padding: 1.15rem;\n}\n.style-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n}\n.style-card[_ngcontent-%COMP%] {\n  padding: 1rem;\n  border-radius: 0.8rem;\n  border: 1px solid rgba(255, 255, 255, 0.06);\n  background: rgba(255, 255, 255, 0.02);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  text-align: center;\n  position: relative;\n}\n.style-card[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  inset: 0;\n  border-radius: inherit;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n}\n.style-card.active[_ngcontent-%COMP%], \n.style-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.25);\n  background: rgba(255, 255, 255, 0.04);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);\n}\n.style-card.active[_ngcontent-%COMP%]::after, \n.style-card[_ngcontent-%COMP%]:hover::after {\n  opacity: 1;\n}\n.style-card.active[_ngcontent-%COMP%]   .sc-icon[_ngcontent-%COMP%], \n.style-card[_ngcontent-%COMP%]:hover   .sc-icon[_ngcontent-%COMP%] {\n  transform: scale(1.15) rotate(-5deg);\n}\n.style-card[data-color=gold].active[_ngcontent-%COMP%], \n.style-card[data-color=gold][_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.style-card[data-color=gold][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(251, 191, 36, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=red].active[_ngcontent-%COMP%], \n.style-card[data-color=red][_ngcontent-%COMP%]:hover {\n  border-color: rgba(239, 68, 68, 0.4);\n}\n.style-card[data-color=red][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(239, 68, 68, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=green].active[_ngcontent-%COMP%], \n.style-card[data-color=green][_ngcontent-%COMP%]:hover {\n  border-color: rgba(34, 197, 94, 0.4);\n}\n.style-card[data-color=green][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(34, 197, 94, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=blue].active[_ngcontent-%COMP%], \n.style-card[data-color=blue][_ngcontent-%COMP%]:hover {\n  border-color: rgba(96, 165, 250, 0.4);\n}\n.style-card[data-color=blue][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(96, 165, 250, 0.1),\n      transparent 60%);\n}\n.sc-icon[_ngcontent-%COMP%] {\n  font-size: 1.8rem;\n  margin-bottom: 0.6rem;\n  transition: transform 0.3s;\n  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));\n}\n.sc-name[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.35rem;\n}\n.sc-tag[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.08em;\n  padding: 0.18rem 0.4rem;\n  border-radius: 3px;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  margin-bottom: 0.6rem;\n}\n.sc-tag[data-color=gold][_ngcontent-%COMP%] {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n}\n.sc-tag[data-color=red][_ngcontent-%COMP%] {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n}\n.sc-tag[data-color=green][_ngcontent-%COMP%] {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n}\n.sc-tag[data-color=blue][_ngcontent-%COMP%] {\n  color: #60a5fa;\n  border-color: rgba(96, 165, 250, 0.3);\n}\n.sc-bar-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  margin-bottom: 0.6rem;\n}\n.sc-bar[_ngcontent-%COMP%] {\n  flex: 1;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 3px;\n  overflow: hidden;\n}\n.sc-bar-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 3px;\n  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);\n}\n.sc-bar-fill[data-color=gold][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #d4a017);\n  box-shadow: 0 0 6px rgba(251, 191, 36, 0.35);\n}\n.sc-bar-fill[data-color=red][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #ef4444,\n      #c82333);\n  box-shadow: 0 0 6px rgba(239, 68, 68, 0.35);\n}\n.sc-bar-fill[data-color=green][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #22c55e,\n      #16a34a);\n  box-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sc-bar-fill[data-color=blue][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #60a5fa,\n      #3b82f6);\n  box-shadow: 0 0 6px rgba(96, 165, 250, 0.35);\n}\n.sc-bar-pct[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.35rem;\n  color: rgba(255, 255, 255, 0.35);\n  flex-shrink: 0;\n}\n.sc-desc[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n.duo-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.25rem;\n}\n.duo-row[_ngcontent-%COMP%]   .power-panel[_ngcontent-%COMP%] {\n  margin-bottom: 0;\n}\n.power-panel--red[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.15);\n}\n.power-panel--red[_ngcontent-%COMP%]   .panel-flag[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.06);\n  border-color: rgba(239, 68, 68, 0.1);\n}\n.power-panel--red[_ngcontent-%COMP%]   .flag-label[_ngcontent-%COMP%] {\n  color: #ef4444;\n  text-shadow: 0 0 8px rgba(239, 68, 68, 0.3);\n}\n.power-panel--red[_ngcontent-%COMP%]:hover {\n  border-color: rgba(239, 68, 68, 0.3);\n  box-shadow: 0 6px 28px rgba(239, 68, 68, 0.06);\n}\n.power-panel--purple[_ngcontent-%COMP%] {\n  border-color: rgba(167, 139, 250, 0.15);\n}\n.power-panel--purple[_ngcontent-%COMP%]   .panel-flag[_ngcontent-%COMP%] {\n  background: rgba(167, 139, 250, 0.06);\n  border-color: rgba(167, 139, 250, 0.1);\n}\n.power-panel--purple[_ngcontent-%COMP%]   .flag-label[_ngcontent-%COMP%] {\n  color: #a78bfa;\n  text-shadow: 0 0 8px rgba(167, 139, 250, 0.3);\n}\n.power-panel--purple[_ngcontent-%COMP%]:hover {\n  border-color: rgba(167, 139, 250, 0.3);\n  box-shadow: 0 6px 28px rgba(167, 139, 250, 0.06);\n}\n.power-panel--orange[_ngcontent-%COMP%] {\n  margin-top: 1.25rem;\n  border-color: rgba(249, 115, 22, 0.15);\n}\n.power-panel--orange[_ngcontent-%COMP%]   .panel-flag[_ngcontent-%COMP%] {\n  background: rgba(249, 115, 22, 0.06);\n  border-color: rgba(249, 115, 22, 0.1);\n}\n.power-panel--orange[_ngcontent-%COMP%]   .flag-label[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 8px rgba(249, 115, 22, 0.3);\n}\n.power-panel--orange[_ngcontent-%COMP%]:hover {\n  border-color: rgba(249, 115, 22, 0.3);\n  box-shadow: 0 6px 28px rgba(249, 115, 22, 0.06);\n}\n.power-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.6rem;\n}\n.power-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 0.7rem 0.85rem 0.7rem 1.5rem;\n  border-radius: 0.6rem;\n  background: rgba(0, 0, 0, 0.2);\n  border: 1px solid rgba(255, 255, 255, 0.05);\n  font-size: 0.84rem;\n  line-height: 1.55;\n  color: var(--text-secondary);\n  transition: border-color 0.25s, background 0.25s;\n}\n.power-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0.55rem;\n  top: 0.7rem;\n  color: #fbbf24;\n  font-weight: bold;\n  font-size: 0.85rem;\n}\n.power-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 255, 255, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n}\n.principles[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.85rem;\n}\n.principle-card[_ngcontent-%COMP%] {\n  padding: 1rem 1.1rem;\n  border-radius: 0.6rem;\n  background: rgba(0, 0, 0, 0.2);\n  border: 1px solid rgba(255, 255, 255, 0.05);\n  transition: border-color 0.25s, transform 0.25s;\n}\n.principle-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(249, 115, 22, 0.25);\n  transform: translateY(-2px);\n}\n.principle-card[_ngcontent-%COMP%]   h5[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.35rem;\n}\n.principle-card[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  line-height: 1.55;\n  color: var(--text-tertiary);\n}\n.hud-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 1rem;\n  margin-top: 1.25rem;\n}\n.hud-card[_ngcontent-%COMP%] {\n  padding: 1rem 1.1rem;\n  border-radius: 0.85rem;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  transition:\n    border-color 250ms ease,\n    box-shadow 250ms ease,\n    transform 250ms ease;\n}\n.hud-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-3px);\n  border-color: rgba(251, 191, 36, 0.3);\n  box-shadow: 0 6px 24px rgba(251, 191, 36, 0.08);\n}\n.hud-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 3px;\n  margin-bottom: 0.75rem;\n  overflow: hidden;\n}\n.hud-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #f97316);\n  box-shadow: 0 0 8px rgba(251, 191, 36, 0.35);\n  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);\n}\n.hud-label[_ngcontent-%COMP%] {\n  display: block;\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  text-transform: uppercase;\n  margin-bottom: 0.3rem;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.2);\n}\n.hud-value[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 0.82rem;\n  color: var(--text-secondary);\n  line-height: 1.45;\n}\n@media (max-width: 960px) {\n  .style-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .duo-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .principles[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .hud-row[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n@media (max-width: 640px) {\n  .style-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .hud-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=contact.component.css.map */'] });
+    }, dependencies: [CommonModule], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: #fbbf24;\n  text-shadow: 0 0 16px rgba(251, 191, 36, 0.35);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.style-panel[_ngcontent-%COMP%], \n.power-panel[_ngcontent-%COMP%] {\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  margin-bottom: 1.25rem;\n  transition: border-color 250ms ease, box-shadow 250ms ease;\n}\n.style-panel[_ngcontent-%COMP%]:hover, \n.power-panel[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 6px 28px rgba(251, 191, 36, 0.08);\n}\n.panel-flag[_ngcontent-%COMP%] {\n  padding: 0.55rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.flag-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: #fbbf24;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.25);\n}\n.panel-body[_ngcontent-%COMP%] {\n  padding: 1.15rem;\n}\n.style-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n}\n.style-card[_ngcontent-%COMP%] {\n  padding: 1rem;\n  border-radius: 0.8rem;\n  border: 1px solid rgba(255, 255, 255, 0.06);\n  background: rgba(255, 255, 255, 0.02);\n  cursor: pointer;\n  transition: all 0.3s ease;\n  text-align: center;\n  position: relative;\n}\n.style-card[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  inset: 0;\n  border-radius: inherit;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n}\n.style-card.active[_ngcontent-%COMP%], \n.style-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.25);\n  background: rgba(255, 255, 255, 0.04);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);\n}\n.style-card.active[_ngcontent-%COMP%]::after, \n.style-card[_ngcontent-%COMP%]:hover::after {\n  opacity: 1;\n}\n.style-card.active[_ngcontent-%COMP%]   .sc-icon[_ngcontent-%COMP%], \n.style-card[_ngcontent-%COMP%]:hover   .sc-icon[_ngcontent-%COMP%] {\n  transform: scale(1.15) rotate(-5deg);\n}\n.style-card[data-color=gold].active[_ngcontent-%COMP%], \n.style-card[data-color=gold][_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.style-card[data-color=gold][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(251, 191, 36, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=red].active[_ngcontent-%COMP%], \n.style-card[data-color=red][_ngcontent-%COMP%]:hover {\n  border-color: rgba(239, 68, 68, 0.4);\n}\n.style-card[data-color=red][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(239, 68, 68, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=green].active[_ngcontent-%COMP%], \n.style-card[data-color=green][_ngcontent-%COMP%]:hover {\n  border-color: rgba(34, 197, 94, 0.4);\n}\n.style-card[data-color=green][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(34, 197, 94, 0.1),\n      transparent 60%);\n}\n.style-card[data-color=blue].active[_ngcontent-%COMP%], \n.style-card[data-color=blue][_ngcontent-%COMP%]:hover {\n  border-color: rgba(96, 165, 250, 0.4);\n}\n.style-card[data-color=blue][_ngcontent-%COMP%]::after {\n  background:\n    linear-gradient(\n      180deg,\n      rgba(96, 165, 250, 0.1),\n      transparent 60%);\n}\n.sc-icon[_ngcontent-%COMP%] {\n  font-size: 1.8rem;\n  margin-bottom: 0.6rem;\n  transition: transform 0.3s;\n  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));\n}\n.sc-name[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.35rem;\n}\n.sc-tag[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.08em;\n  padding: 0.18rem 0.4rem;\n  border-radius: 3px;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  margin-bottom: 0.6rem;\n}\n.sc-tag[data-color=gold][_ngcontent-%COMP%] {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n}\n.sc-tag[data-color=red][_ngcontent-%COMP%] {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n}\n.sc-tag[data-color=green][_ngcontent-%COMP%] {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n}\n.sc-tag[data-color=blue][_ngcontent-%COMP%] {\n  color: #60a5fa;\n  border-color: rgba(96, 165, 250, 0.3);\n}\n.sc-bar-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  margin-bottom: 0.6rem;\n}\n.sc-bar[_ngcontent-%COMP%] {\n  flex: 1;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 3px;\n  overflow: hidden;\n}\n.sc-bar-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 3px;\n  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);\n}\n.sc-bar-fill[data-color=gold][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #d4a017);\n  box-shadow: 0 0 6px rgba(251, 191, 36, 0.35);\n}\n.sc-bar-fill[data-color=red][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #ef4444,\n      #c82333);\n  box-shadow: 0 0 6px rgba(239, 68, 68, 0.35);\n}\n.sc-bar-fill[data-color=green][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #22c55e,\n      #16a34a);\n  box-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sc-bar-fill[data-color=blue][_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #60a5fa,\n      #3b82f6);\n  box-shadow: 0 0 6px rgba(96, 165, 250, 0.35);\n}\n.sc-bar-pct[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.35rem;\n  color: rgba(255, 255, 255, 0.35);\n  flex-shrink: 0;\n}\n.sc-desc[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n.duo-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.25rem;\n}\n.duo-row[_ngcontent-%COMP%]   .power-panel[_ngcontent-%COMP%] {\n  margin-bottom: 0;\n}\n.power-panel--red[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.15);\n}\n.power-panel--red[_ngcontent-%COMP%]   .panel-flag[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.06);\n  border-color: rgba(239, 68, 68, 0.1);\n}\n.power-panel--red[_ngcontent-%COMP%]   .flag-label[_ngcontent-%COMP%] {\n  color: #ef4444;\n  text-shadow: 0 0 8px rgba(239, 68, 68, 0.3);\n}\n.power-panel--red[_ngcontent-%COMP%]:hover {\n  border-color: rgba(239, 68, 68, 0.3);\n  box-shadow: 0 6px 28px rgba(239, 68, 68, 0.06);\n}\n.power-panel--purple[_ngcontent-%COMP%] {\n  border-color: rgba(167, 139, 250, 0.15);\n}\n.power-panel--purple[_ngcontent-%COMP%]   .panel-flag[_ngcontent-%COMP%] {\n  background: rgba(167, 139, 250, 0.06);\n  border-color: rgba(167, 139, 250, 0.1);\n}\n.power-panel--purple[_ngcontent-%COMP%]   .flag-label[_ngcontent-%COMP%] {\n  color: #a78bfa;\n  text-shadow: 0 0 8px rgba(167, 139, 250, 0.3);\n}\n.power-panel--purple[_ngcontent-%COMP%]:hover {\n  border-color: rgba(167, 139, 250, 0.3);\n  box-shadow: 0 6px 28px rgba(167, 139, 250, 0.06);\n}\n.power-panel--orange[_ngcontent-%COMP%] {\n  margin-top: 1.25rem;\n  border-color: rgba(249, 115, 22, 0.15);\n}\n.power-panel--orange[_ngcontent-%COMP%]   .panel-flag[_ngcontent-%COMP%] {\n  background: rgba(249, 115, 22, 0.06);\n  border-color: rgba(249, 115, 22, 0.1);\n}\n.power-panel--orange[_ngcontent-%COMP%]   .flag-label[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 8px rgba(249, 115, 22, 0.3);\n}\n.power-panel--orange[_ngcontent-%COMP%]:hover {\n  border-color: rgba(249, 115, 22, 0.3);\n  box-shadow: 0 6px 28px rgba(249, 115, 22, 0.06);\n}\n.power-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.6rem;\n}\n.power-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 0.7rem 0.85rem 0.7rem 1.5rem;\n  border-radius: 0.6rem;\n  background: rgba(0, 0, 0, 0.2);\n  border: 1px solid rgba(255, 255, 255, 0.05);\n  font-size: 0.84rem;\n  line-height: 1.55;\n  color: var(--text-secondary);\n  transition: border-color 0.25s, background 0.25s;\n}\n.power-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0.55rem;\n  top: 0.7rem;\n  color: #fbbf24;\n  font-weight: bold;\n  font-size: 0.85rem;\n}\n.power-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 255, 255, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n}\n.principles[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.85rem;\n}\n.principle-card[_ngcontent-%COMP%] {\n  padding: 1rem 1.1rem;\n  border-radius: 0.6rem;\n  background: rgba(0, 0, 0, 0.2);\n  border: 1px solid rgba(255, 255, 255, 0.05);\n  transition: border-color 0.25s, transform 0.25s;\n}\n.principle-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(249, 115, 22, 0.25);\n  transform: translateY(-2px);\n}\n.principle-card[_ngcontent-%COMP%]   h5[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin-bottom: 0.35rem;\n}\n.principle-card[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  line-height: 1.55;\n  color: var(--text-tertiary);\n}\n.hud-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 1rem;\n  margin-top: 1.25rem;\n}\n.hud-card[_ngcontent-%COMP%] {\n  padding: 1rem 1.1rem;\n  border-radius: 0.85rem;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  transition:\n    border-color 250ms ease,\n    box-shadow 250ms ease,\n    transform 250ms ease;\n}\n.hud-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-3px);\n  border-color: rgba(251, 191, 36, 0.3);\n  box-shadow: 0 6px 24px rgba(251, 191, 36, 0.08);\n}\n.hud-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 3px;\n  margin-bottom: 0.75rem;\n  overflow: hidden;\n}\n.hud-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #f97316);\n  box-shadow: 0 0 8px rgba(251, 191, 36, 0.35);\n  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);\n}\n.hud-label[_ngcontent-%COMP%] {\n  display: block;\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  text-transform: uppercase;\n  margin-bottom: 0.3rem;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.2);\n}\n.hud-value[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 0.82rem;\n  color: var(--text-secondary);\n  line-height: 1.45;\n}\n@media (max-width: 960px) {\n  .style-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .duo-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .principles[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .hud-row[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n@media (max-width: 640px) {\n  .style-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .hud-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=contact.component.css.map */'] });
   }
 };
 (() => {
@@ -32725,7 +33322,7 @@ var EducationComponent = class _EducationComponent {
         \u0275\u0275domElement(74, "div", 24);
         \u0275\u0275domElementEnd()()()()()();
       }
-    }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.training-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.25rem;\n}\n.level-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.level-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.35);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.1);\n}\n.level-card--gold[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.level-card--silver[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.2);\n}\n.level-card--bronze[_ngcontent-%COMP%] {\n  border-color: rgba(180, 120, 60, 0.2);\n}\n.level-flag[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  background: rgba(251, 191, 36, 0.06);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.level-number[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.12em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.level-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.1em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.level-card--gold[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.08);\n}\n.level-card--silver[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(148, 163, 184, 0.05);\n}\n.level-card--silver[_ngcontent-%COMP%]   .level-number[_ngcontent-%COMP%] {\n  color: #94a3b8;\n  text-shadow: 0 0 8px rgba(148, 163, 184, 0.25);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(180, 120, 60, 0.05);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .level-number[_ngcontent-%COMP%] {\n  color: #b4783c;\n  text-shadow: 0 0 8px rgba(180, 120, 60, 0.25);\n}\n.level-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1rem;\n  display: grid;\n  gap: 0.5rem;\n}\n.level-year[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.08em;\n  color: var(--text-muted);\n}\n.level-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.05rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.level-location[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  color: #fde68a;\n}\n.level-rewards[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.2rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.25rem;\n  padding: 0.25rem 0.6rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.04em;\n  color: var(--primary-color);\n}\n.level-xp[_ngcontent-%COMP%] {\n  padding: 0.6rem 1rem 0.8rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  display: grid;\n  gap: 0.35rem;\n}\n.xp-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.16em;\n  color: var(--text-muted);\n}\n.xp-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 6px;\n  border-radius: 3px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #f59e0b);\n  box-shadow: 0 0 6px rgba(251, 191, 36, 0.4);\n  transition: width 0.8s ease;\n}\n.level-card--silver[_ngcontent-%COMP%]   .xp-fill[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #94a3b8,\n      #cbd5e1);\n  box-shadow: 0 0 6px rgba(148, 163, 184, 0.35);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .xp-fill[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #b4783c,\n      #d4a574);\n  box-shadow: 0 0 6px rgba(180, 120, 60, 0.35);\n}\n@media (max-width: 900px) {\n  .training-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    max-width: 28rem;\n    margin-inline: auto;\n  }\n}\n/*# sourceMappingURL=education.component.css.map */'] });
+    }, styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.training-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.25rem;\n}\n.level-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.level-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.35);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.1);\n}\n.level-card--gold[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.level-card--silver[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.2);\n}\n.level-card--bronze[_ngcontent-%COMP%] {\n  border-color: rgba(180, 120, 60, 0.2);\n}\n.level-flag[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  background: rgba(251, 191, 36, 0.06);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.level-number[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.12em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.level-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.1em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.level-card--gold[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.08);\n}\n.level-card--silver[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(148, 163, 184, 0.05);\n}\n.level-card--silver[_ngcontent-%COMP%]   .level-number[_ngcontent-%COMP%] {\n  color: #94a3b8;\n  text-shadow: 0 0 8px rgba(148, 163, 184, 0.25);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .level-flag[_ngcontent-%COMP%] {\n  background: rgba(180, 120, 60, 0.05);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .level-number[_ngcontent-%COMP%] {\n  color: #b4783c;\n  text-shadow: 0 0 8px rgba(180, 120, 60, 0.25);\n}\n.level-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1rem;\n  display: grid;\n  gap: 0.5rem;\n}\n.level-year[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.08em;\n  color: var(--text-muted);\n}\n.level-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.05rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.level-location[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  color: #fde68a;\n}\n.level-rewards[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.2rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.25rem;\n  padding: 0.25rem 0.6rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.04em;\n  color: var(--primary-color);\n}\n.level-xp[_ngcontent-%COMP%] {\n  padding: 0.6rem 1rem 0.8rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  display: grid;\n  gap: 0.35rem;\n}\n.xp-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.38rem;\n  letter-spacing: 0.16em;\n  color: var(--text-muted);\n}\n.xp-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 6px;\n  border-radius: 3px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 3px;\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      #f59e0b);\n  box-shadow: 0 0 6px rgba(251, 191, 36, 0.4);\n  transition: width 0.8s ease;\n}\n.level-card--silver[_ngcontent-%COMP%]   .xp-fill[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #94a3b8,\n      #cbd5e1);\n  box-shadow: 0 0 6px rgba(148, 163, 184, 0.35);\n}\n.level-card--bronze[_ngcontent-%COMP%]   .xp-fill[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #b4783c,\n      #d4a574);\n  box-shadow: 0 0 6px rgba(180, 120, 60, 0.35);\n}\n@media (max-width: 900px) {\n  .training-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    max-width: 28rem;\n    margin-inline: auto;\n  }\n}\n/*# sourceMappingURL=education.component.css.map */'] });
   }
 };
 (() => {
@@ -33192,7 +33789,7 @@ var ExperienceComponent = class _ExperienceComponent {
         \u0275\u0275advance(4);
         \u0275\u0275conditional(ctx2.activeStop && ctx2.activeRole ? 19 : -1);
       }
-    }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.apple-section[_ngcontent-%COMP%] {\n  padding: clamp(4rem, 8vw, 7rem) 0;\n  background: var(--bg-primary);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3rem;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.xp-total[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.35);\n}\n.world-map[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n}\n.map-track[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n  gap: 0;\n  padding: 7rem 2rem 3rem;\n}\n.ground-layer[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 2.2rem;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #6b3e1c 0px,\n      #6b3e1c 30px,\n      #8b5e3c 30px,\n      #8b5e3c 32px);\n  border-top: 3px solid #9a6f4e;\n}\n.ground-layer[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -4px;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #22c55e 0px,\n      #22c55e 28px,\n      #16a34a 28px,\n      #16a34a 32px);\n}\n.trail-line[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 2rem;\n  right: 2rem;\n  bottom: 3.2rem;\n  height: 2px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      rgba(251, 191, 36, 0.5) 0px,\n      rgba(251, 191, 36, 0.5) 10px,\n      transparent 10px,\n      transparent 18px);\n}\n.map-stop[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.6rem;\n  flex: 1;\n  max-width: 14rem;\n  padding: 0 1.5rem;\n  background: transparent;\n  border: none;\n  cursor: pointer;\n  z-index: 2;\n  transition: transform 200ms ease;\n}\n.map-stop[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n}\n.map-stop[_ngcontent-%COMP%]:hover   .stop-block[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.5);\n  box-shadow: 0 0 24px rgba(251, 191, 36, 0.18);\n}\n.map-stop[_ngcontent-%COMP%]:hover   .flag-banner[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.map-stop.active[_ngcontent-%COMP%]   .stop-block[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.7);\n  box-shadow: 0 0 32px rgba(251, 191, 36, 0.25);\n}\n.map-stop.active[_ngcontent-%COMP%]   .flag-banner[_ngcontent-%COMP%] {\n  opacity: 1;\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.map-stop.active[_ngcontent-%COMP%]   .stop-name[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n}\n.flag-pole[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.flag-pole[_ngcontent-%COMP%]::before {\n  content: "";\n  display: block;\n  width: 2px;\n  height: 2.6rem;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(251, 191, 36, 0.6),\n      rgba(251, 191, 36, 0.2));\n}\n.flag-banner[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  right: calc(50% + 3px);\n  white-space: nowrap;\n  padding: 0.22rem 0.55rem;\n  border-radius: 4px 0 0 4px;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  background: rgba(251, 191, 36, 0.08);\n  opacity: 0.65;\n  transition: opacity 200ms ease, background 200ms ease;\n}\n.flag-current[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.4) !important;\n  background: rgba(239, 68, 68, 0.12) !important;\n  opacity: 1 !important;\n  animation: _ngcontent-%COMP%_flagPulse 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_flagPulse {\n  0%, 100% {\n    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);\n  }\n  50% {\n    box-shadow: 0 0 12px 2px rgba(239, 68, 68, 0.2);\n  }\n}\n.flag-year[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.06em;\n  color: #fde68a;\n}\n.flag-current[_ngcontent-%COMP%]   .flag-year[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.mario-sprite[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: calc(100% + 0.8rem);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 5;\n  animation: _ngcontent-%COMP%_marioJump 1.2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_marioJump {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  50% {\n    transform: translateX(-50%) translateY(-8px);\n  }\n}\n.mario-pixel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.mario-hat[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 5px;\n  background: #ef4444;\n  border-radius: 2px 2px 0 0;\n  position: relative;\n}\n.mario-hat[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: -2px;\n  width: 20px;\n  height: 3px;\n  background: #ef4444;\n  border-radius: 1px;\n}\n.mario-face[_ngcontent-%COMP%] {\n  width: 14px;\n  height: 6px;\n  background: #fbbf24;\n  border-radius: 0 0 2px 2px;\n}\n.mario-body[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 8px;\n  background: #ef4444;\n  border-radius: 0 0 3px 3px;\n  position: relative;\n}\n.mario-body[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -4px;\n  left: 1px;\n  width: 5px;\n  height: 4px;\n  background: #6b3e1c;\n  border-radius: 0 0 2px 2px;\n  box-shadow: 9px 0 0 #6b3e1c;\n}\n.stop-block[_ngcontent-%COMP%] {\n  width: 5.5rem;\n  height: 5.5rem;\n  border-radius: 1rem;\n  border: 2px solid rgba(251, 191, 36, 0.22);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.95),\n      rgba(13, 13, 34, 0.95));\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0.75rem;\n  transition: border-color 200ms ease, box-shadow 200ms ease;\n  box-shadow: 0 4px 16px rgba(0, 0, 10, 0.4);\n  position: relative;\n}\n.stop-block[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: -1px;\n  border-radius: 1rem;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.1),\n      transparent);\n  pointer-events: none;\n}\n.stop-logo[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n  border-radius: 0.5rem;\n}\n.stop-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 600;\n  letter-spacing: 0.01em;\n  color: var(--text-secondary);\n  text-align: center;\n  max-width: 10rem;\n  transition: color 200ms ease;\n}\n.coin-count[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.end-star[_ngcontent-%COMP%] {\n  font-size: 1.6rem;\n  margin-left: 1rem;\n  animation: _ngcontent-%COMP%_starSpin 3s linear infinite;\n  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5));\n}\n@keyframes _ngcontent-%COMP%_starSpin {\n  0% {\n    transform: rotate(0deg) scale(1);\n  }\n  25% {\n    transform: rotate(10deg) scale(1.1);\n  }\n  50% {\n    transform: rotate(0deg) scale(1);\n  }\n  75% {\n    transform: rotate(-10deg) scale(1.1);\n  }\n  100% {\n    transform: rotate(0deg) scale(1);\n  }\n}\n.quest-log[_ngcontent-%COMP%] {\n  margin-top: 2.5rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  overflow: hidden;\n  animation: _ngcontent-%COMP%_panelSlideUp 0.35s ease-out;\n}\n@keyframes _ngcontent-%COMP%_panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(14px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.quest-log-header[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.5rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n  background: rgba(251, 191, 36, 0.03);\n}\n.ql-title-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 0.75rem;\n}\n.ql-logo[_ngcontent-%COMP%] {\n  width: 3rem;\n  height: 3rem;\n  border-radius: 0.65rem;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 0.3rem;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n}\n.ql-company[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-period[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  color: var(--primary-color);\n  letter-spacing: 0.08em;\n  margin-top: 0.2rem;\n}\n.role-tabs[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n  flex-wrap: wrap;\n}\n.role-tab[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.15rem;\n  padding: 0.55rem 0.85rem;\n  border-radius: 0.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.02);\n  color: var(--text-secondary);\n  cursor: pointer;\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 600;\n  transition: all 200ms ease;\n}\n.role-tab[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.05);\n}\n.role-tab.active[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.5);\n  background: rgba(251, 191, 36, 0.1);\n  color: var(--primary-color);\n}\n.role-tab-period[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  color: var(--text-muted);\n  letter-spacing: 0.06em;\n}\n.role-tab.active[_ngcontent-%COMP%]   .role-tab-period[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.65);\n}\n.quest-log-body[_ngcontent-%COMP%] {\n  padding: 1.5rem;\n  display: grid;\n  gap: 1.25rem;\n}\n.ql-role-banner[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.ql-role-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-location[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n}\n.ql-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 0.92rem;\n  margin: 0;\n}\n.ql-section[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.6rem;\n}\n.ql-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ql-tech-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ql-tech[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.ql-achievements[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.5rem;\n}\n.ql-achievements[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  font-size: 0.88rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.ql-achievements[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #fbbf24;\n  font-weight: bold;\n}\n@media (max-width: 768px) {\n  .map-track[_ngcontent-%COMP%] {\n    padding: 6rem 1rem 2.5rem;\n  }\n  .map-stop[_ngcontent-%COMP%] {\n    padding: 0 0.75rem;\n  }\n  .stop-block[_ngcontent-%COMP%] {\n    width: 4.5rem;\n    height: 4.5rem;\n  }\n  .stop-name[_ngcontent-%COMP%] {\n    font-size: 0.75rem;\n  }\n  .quest-log-header[_ngcontent-%COMP%], \n   .quest-log-body[_ngcontent-%COMP%] {\n    padding: 1.15rem;\n  }\n  .ql-role-banner[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n@media (max-width: 480px) {\n  .map-track[_ngcontent-%COMP%] {\n    padding: 5.5rem 0.75rem 2.5rem;\n  }\n  .map-stop[_ngcontent-%COMP%] {\n    padding: 0 0.5rem;\n  }\n  .stop-block[_ngcontent-%COMP%] {\n    width: 3.5rem;\n    height: 3.5rem;\n  }\n  .stop-name[_ngcontent-%COMP%] {\n    font-size: 0.7rem;\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */'] });
+    }, styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.apple-section[_ngcontent-%COMP%] {\n  padding: clamp(4rem, 8vw, 7rem) 0;\n  background: var(--bg-primary);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3rem;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.xp-total[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.35);\n}\n.world-map[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n}\n.map-track[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n  gap: 0;\n  padding: 7rem 2rem 3rem;\n}\n.ground-layer[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 2.2rem;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #6b3e1c 0px,\n      #6b3e1c 30px,\n      #8b5e3c 30px,\n      #8b5e3c 32px);\n  border-top: 3px solid #9a6f4e;\n}\n.ground-layer[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: -4px;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      #22c55e 0px,\n      #22c55e 28px,\n      #16a34a 28px,\n      #16a34a 32px);\n}\n.trail-line[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 2rem;\n  right: 2rem;\n  bottom: 3.2rem;\n  height: 2px;\n  background:\n    repeating-linear-gradient(\n      90deg,\n      rgba(251, 191, 36, 0.5) 0px,\n      rgba(251, 191, 36, 0.5) 10px,\n      transparent 10px,\n      transparent 18px);\n}\n.map-stop[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.6rem;\n  flex: 1;\n  max-width: 14rem;\n  padding: 0 1.5rem;\n  background: transparent;\n  border: none;\n  cursor: pointer;\n  z-index: 2;\n  transition: transform 200ms ease;\n}\n.map-stop[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n}\n.map-stop[_ngcontent-%COMP%]:hover   .stop-block[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.5);\n  box-shadow: 0 0 24px rgba(251, 191, 36, 0.18);\n}\n.map-stop[_ngcontent-%COMP%]:hover   .flag-banner[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.map-stop.active[_ngcontent-%COMP%]   .stop-block[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.7);\n  box-shadow: 0 0 32px rgba(251, 191, 36, 0.25);\n}\n.map-stop.active[_ngcontent-%COMP%]   .flag-banner[_ngcontent-%COMP%] {\n  opacity: 1;\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.map-stop.active[_ngcontent-%COMP%]   .stop-name[_ngcontent-%COMP%] {\n  color: var(--primary-color);\n}\n.flag-pole[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.flag-pole[_ngcontent-%COMP%]::before {\n  content: "";\n  display: block;\n  width: 2px;\n  height: 2.6rem;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(251, 191, 36, 0.6),\n      rgba(251, 191, 36, 0.2));\n}\n.flag-banner[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  right: calc(50% + 3px);\n  white-space: nowrap;\n  padding: 0.22rem 0.55rem;\n  border-radius: 4px 0 0 4px;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  background: rgba(251, 191, 36, 0.08);\n  opacity: 0.65;\n  transition: opacity 200ms ease, background 200ms ease;\n}\n.flag-current[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.4) !important;\n  background: rgba(239, 68, 68, 0.12) !important;\n  opacity: 1 !important;\n  animation: _ngcontent-%COMP%_flagPulse 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_flagPulse {\n  0%, 100% {\n    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);\n  }\n  50% {\n    box-shadow: 0 0 12px 2px rgba(239, 68, 68, 0.2);\n  }\n}\n.flag-year[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.06em;\n  color: #fde68a;\n}\n.flag-current[_ngcontent-%COMP%]   .flag-year[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.mario-sprite[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: calc(100% + 0.8rem);\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 5;\n  animation: _ngcontent-%COMP%_marioJump 1.2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_marioJump {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  50% {\n    transform: translateX(-50%) translateY(-8px);\n  }\n}\n.mario-pixel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.mario-hat[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 5px;\n  background: #ef4444;\n  border-radius: 2px 2px 0 0;\n  position: relative;\n}\n.mario-hat[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: -2px;\n  width: 20px;\n  height: 3px;\n  background: #ef4444;\n  border-radius: 1px;\n}\n.mario-face[_ngcontent-%COMP%] {\n  width: 14px;\n  height: 6px;\n  background: #fbbf24;\n  border-radius: 0 0 2px 2px;\n}\n.mario-body[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 8px;\n  background: #ef4444;\n  border-radius: 0 0 3px 3px;\n  position: relative;\n}\n.mario-body[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: -4px;\n  left: 1px;\n  width: 5px;\n  height: 4px;\n  background: #6b3e1c;\n  border-radius: 0 0 2px 2px;\n  box-shadow: 9px 0 0 #6b3e1c;\n}\n.stop-block[_ngcontent-%COMP%] {\n  width: 5.5rem;\n  height: 5.5rem;\n  border-radius: 1rem;\n  border: 2px solid rgba(251, 191, 36, 0.22);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.95),\n      rgba(13, 13, 34, 0.95));\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0.75rem;\n  transition: border-color 200ms ease, box-shadow 200ms ease;\n  box-shadow: 0 4px 16px rgba(0, 0, 10, 0.4);\n  position: relative;\n}\n.stop-block[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: -1px;\n  border-radius: 1rem;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.1),\n      transparent);\n  pointer-events: none;\n}\n.stop-logo[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: contain;\n  border-radius: 0.5rem;\n}\n.stop-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 600;\n  letter-spacing: 0.01em;\n  color: var(--text-secondary);\n  text-align: center;\n  max-width: 10rem;\n  transition: color 200ms ease;\n}\n.coin-count[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.end-star[_ngcontent-%COMP%] {\n  font-size: 1.6rem;\n  margin-left: 1rem;\n  animation: _ngcontent-%COMP%_starSpin 3s linear infinite;\n  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5));\n}\n@keyframes _ngcontent-%COMP%_starSpin {\n  0% {\n    transform: rotate(0deg) scale(1);\n  }\n  25% {\n    transform: rotate(10deg) scale(1.1);\n  }\n  50% {\n    transform: rotate(0deg) scale(1);\n  }\n  75% {\n    transform: rotate(-10deg) scale(1.1);\n  }\n  100% {\n    transform: rotate(0deg) scale(1);\n  }\n}\n.quest-log[_ngcontent-%COMP%] {\n  margin-top: 2.5rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98),\n      rgba(13, 13, 34, 0.98));\n  overflow: hidden;\n  animation: _ngcontent-%COMP%_panelSlideUp 0.35s ease-out;\n}\n@keyframes _ngcontent-%COMP%_panelSlideUp {\n  from {\n    opacity: 0;\n    transform: translateY(14px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.quest-log-header[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.5rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n  background: rgba(251, 191, 36, 0.03);\n}\n.ql-title-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 0.75rem;\n}\n.ql-logo[_ngcontent-%COMP%] {\n  width: 3rem;\n  height: 3rem;\n  border-radius: 0.65rem;\n  object-fit: contain;\n  background: rgba(255, 255, 255, 0.9);\n  padding: 0.3rem;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n}\n.ql-company[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-period[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  color: var(--primary-color);\n  letter-spacing: 0.08em;\n  margin-top: 0.2rem;\n}\n.role-tabs[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n  flex-wrap: wrap;\n}\n.role-tab[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.15rem;\n  padding: 0.55rem 0.85rem;\n  border-radius: 0.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.02);\n  color: var(--text-secondary);\n  cursor: pointer;\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 600;\n  transition: all 200ms ease;\n}\n.role-tab[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.3);\n  background: rgba(251, 191, 36, 0.05);\n}\n.role-tab.active[_ngcontent-%COMP%] {\n  border-color: rgba(251, 191, 36, 0.5);\n  background: rgba(251, 191, 36, 0.1);\n  color: var(--primary-color);\n}\n.role-tab-period[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  color: var(--text-muted);\n  letter-spacing: 0.06em;\n}\n.role-tab.active[_ngcontent-%COMP%]   .role-tab-period[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.65);\n}\n.quest-log-body[_ngcontent-%COMP%] {\n  padding: 1.5rem;\n  display: grid;\n  gap: 1.25rem;\n}\n.ql-role-banner[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.ql-role-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.ql-location[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n}\n.ql-description[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  line-height: 1.7;\n  font-size: 0.92rem;\n  margin: 0;\n}\n.ql-section[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.6rem;\n}\n.ql-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ql-tech-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ql-tech[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.ql-achievements[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.5rem;\n}\n.ql-achievements[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  font-size: 0.88rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.ql-achievements[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #fbbf24;\n  font-weight: bold;\n}\n@media (max-width: 768px) {\n  .map-track[_ngcontent-%COMP%] {\n    padding: 6rem 1rem 2.5rem;\n  }\n  .map-stop[_ngcontent-%COMP%] {\n    padding: 0 0.75rem;\n  }\n  .stop-block[_ngcontent-%COMP%] {\n    width: 4.5rem;\n    height: 4.5rem;\n  }\n  .stop-name[_ngcontent-%COMP%] {\n    font-size: 0.75rem;\n  }\n  .quest-log-header[_ngcontent-%COMP%], \n   .quest-log-body[_ngcontent-%COMP%] {\n    padding: 1.15rem;\n  }\n  .ql-role-banner[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n@media (max-width: 480px) {\n  .map-track[_ngcontent-%COMP%] {\n    padding: 5.5rem 0.75rem 2.5rem;\n  }\n  .map-stop[_ngcontent-%COMP%] {\n    padding: 0 0.5rem;\n  }\n  .stop-block[_ngcontent-%COMP%] {\n    width: 3.5rem;\n    height: 3.5rem;\n  }\n  .stop-name[_ngcontent-%COMP%] {\n    font-size: 0.7rem;\n  }\n}\n/*# sourceMappingURL=experience.component.css.map */'] });
   }
 };
 (() => {
@@ -33889,6 +34486,122 @@ var SKILL_DETAILS = {
   }
 };
 
+// src/app/services/audio.service.ts
+var AudioService = class _AudioService {
+  constructor() {
+    this.STORAGE_KEY = "portfolio_sfx_enabled";
+    this.ctx = null;
+    this.enabled$ = new BehaviorSubject(false);
+    try {
+      this.enabled$.next(localStorage.getItem(this.STORAGE_KEY) === "true");
+    } catch (e) {
+    }
+  }
+  toggle() {
+    const next = !this.enabled$.value;
+    this.enabled$.next(next);
+    try {
+      localStorage.setItem(this.STORAGE_KEY, String(next));
+    } catch (e) {
+    }
+    if (next) {
+      this.ensureContext();
+      this.play("click");
+    }
+  }
+  get enabled() {
+    return this.enabled$.value;
+  }
+  ensureContext() {
+    if (!this.ctx) {
+      const Ctor = window.AudioContext || window.webkitAudioContext;
+      if (Ctor)
+        this.ctx = new Ctor();
+    }
+    if (this.ctx && this.ctx.state === "suspended") {
+      this.ctx.resume().catch(() => {
+      });
+    }
+  }
+  play(name) {
+    if (!this.enabled)
+      return;
+    this.ensureContext();
+    if (!this.ctx)
+      return;
+    switch (name) {
+      case "coin":
+        this.tone([988, 1319], 0.08, "square", 0.12);
+        break;
+      case "levelUp":
+        this.sequence([523, 659, 784, 1047], 0.1, "square", 0.12);
+        break;
+      case "powerUp":
+        this.sweep(440, 880, 0.18, "square", 0.1);
+        break;
+      case "pipe":
+        this.sweep(660, 220, 0.2, "sine", 0.1);
+        break;
+      case "jump":
+        this.sweep(330, 740, 0.14, "square", 0.1);
+        break;
+      case "star":
+        this.sequence([784, 988, 1319, 1568, 2093], 0.07, "triangle", 0.1);
+        break;
+      case "click":
+        this.tone([660], 0.05, "square", 0.08);
+        break;
+    }
+  }
+  tone(freqs, duration, type, gain) {
+    freqs.forEach((f, i) => this.beep(f, this.ctx.currentTime + i * duration, duration, type, gain));
+  }
+  sequence(freqs, step, type, gain) {
+    freqs.forEach((f, i) => this.beep(f, this.ctx.currentTime + i * step, step, type, gain));
+  }
+  sweep(from2, to, duration, type, gain) {
+    if (!this.ctx)
+      return;
+    const osc = this.ctx.createOscillator();
+    const g = this.ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(from2, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(to, this.ctx.currentTime + duration);
+    g.gain.setValueAtTime(gain, this.ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(1e-4, this.ctx.currentTime + duration);
+    osc.connect(g).connect(this.ctx.destination);
+    osc.start();
+    osc.stop(this.ctx.currentTime + duration);
+  }
+  beep(freq, startTime, duration, type, gain) {
+    if (!this.ctx)
+      return;
+    const osc = this.ctx.createOscillator();
+    const g = this.ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, startTime);
+    g.gain.setValueAtTime(gain, startTime);
+    g.gain.exponentialRampToValueAtTime(1e-4, startTime + duration);
+    osc.connect(g).connect(this.ctx.destination);
+    osc.start(startTime);
+    osc.stop(startTime + duration);
+  }
+  static {
+    this.\u0275fac = function AudioService_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _AudioService)();
+    };
+  }
+  static {
+    this.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _AudioService, factory: _AudioService.\u0275fac, providedIn: "root" });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AudioService, [{
+    type: Injectable,
+    args: [{ providedIn: "root" }]
+  }], () => [], null);
+})();
+
 // src/app/profile/skills/skills.component.ts
 var _c0 = (a0) => ({ "system-mode-toggle--active": a0 });
 var _c1 = (a0, a1, a2, a3, a4) => ({ "skill-card--primary": a0, "skill-card--secondary": a1, "skill-card--supporting": a2, "skill-card--expanded": a3, "skill-card--flow": a4 });
@@ -34082,7 +34795,9 @@ function SkillsComponent_For_37_Template(rf, ctx2) {
   }
 }
 var SkillsComponent = class _SkillsComponent {
-  constructor() {
+  constructor(achievements, audio) {
+    this.achievements = achievements;
+    this.audio = audio;
     this.constellations = [];
     this.expandedSkill = null;
     this.systemMode = false;
@@ -34257,13 +34972,15 @@ var SkillsComponent = class _SkillsComponent {
       return;
     }
     this.expandedSkill = skill;
+    this.achievements.trackSkillExpand();
+    this.audio.play("powerUp");
   }
   isExpanded(skill) {
     return this.expandedSkill === skill;
   }
   static {
     this.\u0275fac = function SkillsComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _SkillsComponent)();
+      return new (__ngFactoryType__ || _SkillsComponent)(\u0275\u0275directiveInject(AchievementsService), \u0275\u0275directiveInject(AudioService));
     };
   }
   static {
@@ -34349,7 +35066,7 @@ var SkillsComponent = class _SkillsComponent {
         \u0275\u0275advance();
         \u0275\u0275repeater(ctx2.constellations);
       }
-    }, dependencies: [NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.rpg-skills-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container[_ngcontent-%COMP%] {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls[_ngcontent-%COMP%] {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label[_ngcontent-%COMP%] {\n  white-space: nowrap;\n}\n.category-group[_ngcontent-%COMP%] {\n  margin-bottom: 2.5rem;\n}\n.category-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar[_ngcontent-%COMP%] {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.skill-card--primary[_ngcontent-%COMP%] {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded[_ngcontent-%COMP%]::before {\n  opacity: 1;\n}\n.skill-card--flow[_ngcontent-%COMP%] {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary[_ngcontent-%COMP%] {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track[_ngcontent-%COMP%] {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details[_ngcontent-%COMP%] {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: _ngcontent-%COMP%_detailSlideIn 0.3s ease-out;\n}\n@keyframes _ngcontent-%COMP%_detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section[_ngcontent-%COMP%] {\n  margin-bottom: 1.15rem;\n}\n.detail-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.detail-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.project-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.related-tags[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot[_ngcontent-%COMP%] {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary[_ngcontent-%COMP%] {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label[_ngcontent-%COMP%] {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 4rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.4rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item[_ngcontent-%COMP%] {\n    padding: 0;\n  }\n  .legend-divider[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 3.5rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
+    }, dependencies: [NgClass], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.rpg-skills-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container[_ngcontent-%COMP%] {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls[_ngcontent-%COMP%] {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label[_ngcontent-%COMP%] {\n  white-space: nowrap;\n}\n.category-group[_ngcontent-%COMP%] {\n  margin-bottom: 2.5rem;\n}\n.category-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar[_ngcontent-%COMP%] {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.skill-card--primary[_ngcontent-%COMP%] {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded[_ngcontent-%COMP%]::before {\n  opacity: 1;\n}\n.skill-card--flow[_ngcontent-%COMP%] {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary[_ngcontent-%COMP%] {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track[_ngcontent-%COMP%] {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details[_ngcontent-%COMP%] {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: _ngcontent-%COMP%_detailSlideIn 0.3s ease-out;\n}\n@keyframes _ngcontent-%COMP%_detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section[_ngcontent-%COMP%] {\n  margin-bottom: 1.15rem;\n}\n.detail-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.detail-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.project-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.related-tags[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot[_ngcontent-%COMP%] {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary[_ngcontent-%COMP%] {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label[_ngcontent-%COMP%] {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 4rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.4rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item[_ngcontent-%COMP%] {\n    padding: 0;\n  }\n  .legend-divider[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 3.5rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
   }
 };
 (() => {
@@ -34501,10 +35218,10 @@ var SkillsComponent = class _SkillsComponent {
   </div>
 </div>
 `, styles: ['@charset "UTF-8";\n\n/* src/app/profile/skills/skills.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.rpg-skills-section {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label {\n  white-space: nowrap;\n}\n.category-group {\n  margin-bottom: 2.5rem;\n}\n.category-header {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card:hover::before {\n  opacity: 1;\n}\n.skill-card--primary {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded::before {\n  opacity: 1;\n}\n.skill-card--flow {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: detailSlideIn 0.3s ease-out;\n}\n@keyframes detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section {\n  margin-bottom: 1.15rem;\n}\n.detail-section:last-child {\n  margin-bottom: 0;\n}\n.detail-heading {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list li {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list li:last-child {\n  margin-bottom: 0;\n}\n.project-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list li {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list li::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list li:last-child {\n  margin-bottom: 0;\n}\n.related-tags {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .rpg-skills-section {\n    padding: 4rem 0;\n  }\n  .section-title {\n    font-size: 2.4rem;\n  }\n  .skills-hud {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item {\n    padding: 0;\n  }\n  .legend-divider {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section {\n    padding: 3.5rem 0;\n  }\n  .section-title {\n    font-size: 2rem;\n  }\n  .skills-hud {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
-  }], null, null);
+  }], () => [{ type: AchievementsService }, { type: AudioService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(SkillsComponent, { className: "SkillsComponent", filePath: "src/app/profile/skills/skills.component.ts", lineNumber: 32 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(SkillsComponent, { className: "SkillsComponent", filePath: "src/app/profile/skills/skills.component.ts", lineNumber: 34 });
 })();
 
 // src/app/profile/publications/publications.component.ts
@@ -35406,7 +36123,7 @@ var PublicationsComponent = class _PublicationsComponent {
         \u0275\u0275advance(3);
         \u0275\u0275repeater(ctx2.filteredProjects);
       }
-    }, dependencies: [CommonModule, NgForOf, NgIf], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.quest-header[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover   .quest-rank-bar[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.boss-card[_ngcontent-%COMP%]   .quest-rank-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge[_ngcontent-%COMP%]:hover {\n  opacity: 0.85;\n}\n.world-games[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n}\n.quest-platform[_ngcontent-%COMP%] {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline[_ngcontent-%COMP%] {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.walmart-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #93c5fd;\n}\n.extramarks-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row[_ngcontent-%COMP%], \n.rewards-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label[_ngcontent-%COMP%], \n.rewards-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive[_ngcontent-%COMP%] {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: _ngcontent-%COMP%_rre-slide-in 0.4s ease;\n}\n@keyframes _ngcontent-%COMP%_rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner[_ngcontent-%COMP%] {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem[_ngcontent-%COMP%], \n.rre-impact[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link[_ngcontent-%COMP%] {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .rre-stats-row[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card[_ngcontent-%COMP%] {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link[_ngcontent-%COMP%] {\n  display: block;\n  text-decoration: none;\n}\n.game-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link[_ngcontent-%COMP%]:hover   .game-screen[_ngcontent-%COMP%] {\n  filter: brightness(1.12);\n}\n.screen-scanlines[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon[_ngcontent-%COMP%] {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press[_ngcontent-%COMP%] {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: _ngcontent-%COMP%_blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body[_ngcontent-%COMP%] {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge[_ngcontent-%COMP%] {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.game-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn[_ngcontent-%COMP%]:hover, \n.shop-filter-btn.active[_ngcontent-%COMP%] {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline[_ngcontent-%COMP%] {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge[_ngcontent-%COMP%] {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn[_ngcontent-%COMP%] {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
+    }, dependencies: [CommonModule, NgForOf, NgIf], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.quest-header[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover   .quest-rank-bar[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.boss-card[_ngcontent-%COMP%]   .quest-rank-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge[_ngcontent-%COMP%]:hover {\n  opacity: 0.85;\n}\n.world-games[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n}\n.quest-platform[_ngcontent-%COMP%] {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline[_ngcontent-%COMP%] {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.walmart-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #93c5fd;\n}\n.extramarks-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row[_ngcontent-%COMP%], \n.rewards-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label[_ngcontent-%COMP%], \n.rewards-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive[_ngcontent-%COMP%] {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: _ngcontent-%COMP%_rre-slide-in 0.4s ease;\n}\n@keyframes _ngcontent-%COMP%_rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner[_ngcontent-%COMP%] {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem[_ngcontent-%COMP%], \n.rre-impact[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link[_ngcontent-%COMP%] {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .rre-stats-row[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card[_ngcontent-%COMP%] {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link[_ngcontent-%COMP%] {\n  display: block;\n  text-decoration: none;\n}\n.game-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link[_ngcontent-%COMP%]:hover   .game-screen[_ngcontent-%COMP%] {\n  filter: brightness(1.12);\n}\n.screen-scanlines[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon[_ngcontent-%COMP%] {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press[_ngcontent-%COMP%] {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: _ngcontent-%COMP%_blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body[_ngcontent-%COMP%] {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge[_ngcontent-%COMP%] {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.game-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn[_ngcontent-%COMP%]:hover, \n.shop-filter-btn.active[_ngcontent-%COMP%] {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline[_ngcontent-%COMP%] {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge[_ngcontent-%COMP%] {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn[_ngcontent-%COMP%] {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
   }
 };
 (() => {
@@ -35866,15 +36583,15 @@ var PublicationsComponent = class _PublicationsComponent {
 // src/app/config/api-config.ts
 var API_CONFIG = {
   // Base URL for all APIs
-  BASE_URL: "https://epic-backend-f9tfcyn1d-beingmartinbmcs-projects.vercel.app",
+  BASE_URL: "https://ai-gateway-production-0388.up.railway.app",
   // API Endpoints
   ENDPOINTS: {
     // AI Chat API - used in environment files
-    AI_GENERIC: "/api/generic",
+    AI_GENERIC: "/api/v1/openai-proxy",
     // Text-to-Speech API
-    TEXT_TO_SPEECH: "/api/text-to-speech",
-    // Streaming Voice API
-    STREAMING_VOICE: "/api/stream-voice"
+    TEXT_TO_SPEECH: "/api/v1/tts",
+    // Combined chat + synthesized speech stream API
+    STREAMING_VOICE: "/api/v1/voice/stream"
     // Add other endpoints here as needed
     // MUSIC: '/api/music',
     // PROFILE: '/api/profile',
@@ -35887,6 +36604,36 @@ var API_CONFIG = {
 var AI_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.AI_GENERIC);
 var TTS_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.TEXT_TO_SPEECH);
 var STREAMING_VOICE_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.STREAMING_VOICE);
+function createOpenAiProxyRequest(messages, maxTokens = 1e3) {
+  return {
+    model: "gpt-5-nano",
+    maxTokens,
+    messages
+  };
+}
+function getAiResponseText(response) {
+  const candidates = [
+    response?.data?.choices?.[0]?.message?.content,
+    response?.choices?.[0]?.message?.content,
+    response?.data?.response,
+    response?.data?.message,
+    response?.data?.answer,
+    response?.data?.content,
+    response?.response,
+    response?.message,
+    response?.answer,
+    response?.content
+  ];
+  return candidates.find((candidate) => typeof candidate === "string" && candidate.trim().length > 0)?.trim() ?? null;
+}
+
+// src/environments/environment.ts
+var environment = {
+  production: false,
+  //baseUrl : `${window.location.protocol}//${window.location.hostname}/portfolio/`,
+  baseUrl: `http://localhost:4200/`,
+  aiApiUrl: AI_API_URL
+};
 
 // src/app/profile/ai-quiz-game/game/mario-entities.ts
 var TILE = 32;
@@ -37879,277 +38626,554 @@ var MarioEngine = class {
 
 // src/app/profile/ai-quiz-game/ai-quiz-game.component.ts
 var _c02 = ["gameCanvas"];
+var _c12 = () => [0, 1, 2];
 var _forTrack05 = ($index, $item) => $item.value;
+var _forTrack14 = ($index, $item) => $item.id;
 function AiQuizGameComponent_Conditional_2_For_14_Template(rf, ctx2) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 22);
+    \u0275\u0275elementStart(0, "button", 23);
     \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_14_Template_button_click_0_listener() {
-      const cat_r3 = \u0275\u0275restoreView(_r2).$implicit;
+      const mode_r3 = \u0275\u0275restoreView(_r2).$implicit;
       const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.selectedCategory = cat_r3.value);
+      return \u0275\u0275resetView(ctx_r3.selectGameMode(mode_r3.value));
     });
-    \u0275\u0275elementStart(1, "span", 23);
+    \u0275\u0275elementStart(1, "span", 24);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 24);
+    \u0275\u0275elementStart(3, "span", 25);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 25);
+    \u0275\u0275elementStart(5, "span", 26);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const cat_r3 = ctx2.$implicit;
+    const mode_r3 = ctx2.$implicit;
     const ctx_r3 = \u0275\u0275nextContext(2);
-    \u0275\u0275classProp("option-btn--active", ctx_r3.selectedCategory === cat_r3.value);
+    \u0275\u0275classProp("game-mode-btn--active", ctx_r3.selectedGameMode === mode_r3.value);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(cat_r3.icon);
+    \u0275\u0275textInterpolate(mode_r3.icon);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(cat_r3.label);
+    \u0275\u0275textInterpolate(mode_r3.label);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(cat_r3.description);
+    \u0275\u0275textInterpolate(mode_r3.description);
   }
 }
 function AiQuizGameComponent_Conditional_2_For_20_Template(rf, ctx2) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 26);
+    \u0275\u0275elementStart(0, "button", 27);
     \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_20_Template_button_click_0_listener() {
-      const d_r6 = \u0275\u0275restoreView(_r5).$implicit;
+      const cat_r6 = \u0275\u0275restoreView(_r5).$implicit;
       const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.selectedDifficulty = d_r6.value);
+      return \u0275\u0275resetView(ctx_r3.selectedCategory = cat_r6.value);
     });
-    \u0275\u0275elementStart(1, "span", 27);
+    \u0275\u0275elementStart(1, "span", 28);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 28);
+    \u0275\u0275elementStart(3, "span", 29);
     \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 30);
+    \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const d_r6 = ctx2.$implicit;
+    const cat_r6 = ctx2.$implicit;
     const ctx_r3 = \u0275\u0275nextContext(2);
-    \u0275\u0275classProp("diff-btn--active", ctx_r3.selectedDifficulty === d_r6.value);
-    \u0275\u0275property("ngClass", "diff-btn--" + d_r6.color);
+    \u0275\u0275classProp("option-btn--active", ctx_r3.selectedCategory === cat_r6.value);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(d_r6.label);
+    \u0275\u0275textInterpolate(cat_r6.icon);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(d_r6.description);
+    \u0275\u0275textInterpolate(cat_r6.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(cat_r6.description);
   }
 }
 function AiQuizGameComponent_Conditional_2_For_26_Template(rf, ctx2) {
   if (rf & 1) {
     const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 22);
+    \u0275\u0275elementStart(0, "button", 31);
     \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_26_Template_button_click_0_listener() {
-      const type_r8 = \u0275\u0275restoreView(_r7).$implicit;
+      const d_r8 = \u0275\u0275restoreView(_r7).$implicit;
       const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.selectedLevelType = type_r8.value);
+      return \u0275\u0275resetView(ctx_r3.selectedDifficulty = d_r8.value);
     });
-    \u0275\u0275elementStart(1, "span", 23);
+    \u0275\u0275elementStart(1, "span", 32);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 24);
+    \u0275\u0275elementStart(3, "span", 33);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const d_r8 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275classProp("diff-btn--active", ctx_r3.selectedDifficulty === d_r8.value);
+    \u0275\u0275property("ngClass", "diff-btn--" + d_r8.color);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(d_r8.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(d_r8.description);
+  }
+}
+function AiQuizGameComponent_Conditional_2_Conditional_27_For_5_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r9 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 27);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_Conditional_27_For_5_Template_button_click_0_listener() {
+      const type_r10 = \u0275\u0275restoreView(_r9).$implicit;
+      const ctx_r3 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r3.selectedLevelType = type_r10.value);
+    });
+    \u0275\u0275elementStart(1, "span", 28);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 29);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 25);
+    \u0275\u0275elementStart(5, "span", 30);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const type_r8 = ctx2.$implicit;
+    const type_r10 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275classProp("option-btn--active", ctx_r3.selectedLevelType === type_r10.value);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r10.icon);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r10.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r10.description);
+  }
+}
+function AiQuizGameComponent_Conditional_2_Conditional_27_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 12)(1, "h3", 13);
+    \u0275\u0275text(2, "Course Style");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 34);
+    \u0275\u0275repeaterCreate(4, AiQuizGameComponent_Conditional_2_Conditional_27_For_5_Template, 7, 5, "button", 17, _forTrack05);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
     const ctx_r3 = \u0275\u0275nextContext(2);
-    \u0275\u0275classProp("option-btn--active", ctx_r3.selectedLevelType === type_r8.value);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(type_r8.icon);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(type_r8.label);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(type_r8.description);
+    \u0275\u0275advance(4);
+    \u0275\u0275repeater(ctx_r3.levelTypes);
+  }
+}
+function AiQuizGameComponent_Conditional_2_Conditional_32_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span");
+    \u0275\u0275text(1, "Arrow keys / A-D to switch lanes \xB7 dodge bugs \xB7 collect AI concepts");
+    \u0275\u0275elementEnd();
+  }
+}
+function AiQuizGameComponent_Conditional_2_Conditional_33_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span");
+    \u0275\u0275text(1, "Swap adjacent tiles to match 3+ AI concepts before moves run out");
+    \u0275\u0275elementEnd();
+  }
+}
+function AiQuizGameComponent_Conditional_2_Conditional_34_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span");
+    \u0275\u0275text(1, "Arrow keys / WASD to move\u2002\xB7\u2002Space / Up to jump or swim stroke\u2002\xB7\u2002X / Z / Shift to throw fireballs (fire mode)");
+    \u0275\u0275elementEnd();
   }
 }
 function AiQuizGameComponent_Conditional_2_Template(rf, ctx2) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "div", 6)(1, "div", 7);
-    \u0275\u0275text(2, "\u{1F579} MARIO LAB");
+    \u0275\u0275text(2, "\u{1F579} AI GAME LAB");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "h2", 8);
-    \u0275\u0275text(4, "AI-Powered Platformer");
+    \u0275\u0275text(4, "AI-Powered Mini-Arcade");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(5, "p", 9);
-    \u0275\u0275text(6, " A real Mario game. The AI generates the entire level \u2014 platforms, enemies, coins, power-ups. You just play. ");
+    \u0275\u0275text(6, " Three Mario-inspired games. AI generates the lanes, levels, boards, concepts, bugs, rewards, and missions. You just play. ");
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(7, "div", 10)(8, "div", 11)(9, "div", 12)(10, "h3", 13);
-    \u0275\u0275text(11, "Choose your world");
+    \u0275\u0275text(11, "Choose your game");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(12, "div", 14);
     \u0275\u0275repeaterCreate(13, AiQuizGameComponent_Conditional_2_For_14_Template, 7, 5, "button", 15, _forTrack05);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(15, "div", 12)(16, "h3", 13);
-    \u0275\u0275text(17, "Difficulty");
+    \u0275\u0275text(17, "Choose your world");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(18, "div", 16);
-    \u0275\u0275repeaterCreate(19, AiQuizGameComponent_Conditional_2_For_20_Template, 5, 5, "button", 17, _forTrack05);
+    \u0275\u0275repeaterCreate(19, AiQuizGameComponent_Conditional_2_For_20_Template, 7, 5, "button", 17, _forTrack05);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(21, "div", 12)(22, "h3", 13);
-    \u0275\u0275text(23, "Course Style");
+    \u0275\u0275text(23, "Difficulty");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(24, "div", 18);
-    \u0275\u0275repeaterCreate(25, AiQuizGameComponent_Conditional_2_For_26_Template, 7, 5, "button", 15, _forTrack05);
+    \u0275\u0275repeaterCreate(25, AiQuizGameComponent_Conditional_2_For_26_Template, 5, 5, "button", 19, _forTrack05);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(27, "button", 19);
-    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_Template_button_click_27_listener() {
+    \u0275\u0275conditionalCreate(27, AiQuizGameComponent_Conditional_2_Conditional_27_Template, 6, 0, "div", 12);
+    \u0275\u0275elementStart(28, "button", 20);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_Template_button_click_28_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.startGame());
     });
-    \u0275\u0275element(28, "i", 20);
-    \u0275\u0275text(29, " Start Mission ");
+    \u0275\u0275element(29, "i", 21);
+    \u0275\u0275text(30, " Start Mission ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(30, "div", 21)(31, "span");
-    \u0275\u0275text(32, "Arrow keys / WASD to move\u2002\xB7\u2002Space / Up to jump or swim stroke\u2002\xB7\u2002X / Z / Shift to throw fireballs (fire mode)");
-    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(31, "div", 22);
+    \u0275\u0275conditionalCreate(32, AiQuizGameComponent_Conditional_2_Conditional_32_Template, 2, 0, "span")(33, AiQuizGameComponent_Conditional_2_Conditional_33_Template, 2, 0, "span")(34, AiQuizGameComponent_Conditional_2_Conditional_34_Template, 2, 0, "span");
+    \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
     const ctx_r3 = \u0275\u0275nextContext();
     \u0275\u0275advance(13);
+    \u0275\u0275repeater(ctx_r3.gameModes);
+    \u0275\u0275advance(6);
     \u0275\u0275repeater(ctx_r3.categories);
     \u0275\u0275advance(6);
     \u0275\u0275repeater(ctx_r3.difficulties);
-    \u0275\u0275advance(6);
-    \u0275\u0275repeater(ctx_r3.levelTypes);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "platformer" ? 27 : -1);
+    \u0275\u0275advance(5);
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "runner" ? 32 : ctx_r3.selectedGameMode === "match3" ? 33 : 34);
   }
 }
 function AiQuizGameComponent_Conditional_3_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 3)(1, "div", 29)(2, "div", 30);
+    \u0275\u0275elementStart(0, "div", 3)(1, "div", 35)(2, "div", 36);
     \u0275\u0275text(3, "\u{1F344}");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(4, "h3");
-    \u0275\u0275text(5, "Generating your level...");
+    \u0275\u0275text(5);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(6, "p");
-    \u0275\u0275text(7, "AI is building the world \u2014 platforms, enemies, and power-ups");
+    \u0275\u0275text(7, "AI is building the mission \u2014 concepts, bugs, rewards, and difficulty curve");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 31);
-    \u0275\u0275element(9, "div", 32);
+    \u0275\u0275elementStart(8, "div", 37);
+    \u0275\u0275element(9, "div", 38);
     \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1("Generating ", ctx_r3.getGameModeLabel(), "...");
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_20_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 44)(1, "span", 43);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.getLevelTypeLabel());
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_21_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r11 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 45);
+    \u0275\u0275element(1, "canvas", null, 0);
+    \u0275\u0275elementStart(3, "div", 48)(4, "div", 49)(5, "button", 50);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchstart_5_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchend_5_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mousedown_5_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mouseup_5_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
+    });
+    \u0275\u0275text(6, "\u25C0");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "button", 51);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchstart_7_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchRight(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchend_7_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchRight(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mousedown_7_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchRight(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mouseup_7_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchRight(false));
+    });
+    \u0275\u0275text(8, "\u25B6");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(9, "div", 52)(10, "button", 53);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchstart_10_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchJump(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchend_10_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchJump(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mousedown_10_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchJump(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mouseup_10_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchJump(false));
+    });
+    \u0275\u0275text(11, "\u25B2");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "button", 54);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchstart_12_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchFire(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchend_12_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchFire(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mousedown_12_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchFire(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mouseup_12_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchFire(false));
+    });
+    \u0275\u0275text(13, "\u{1F525}");
+    \u0275\u0275elementEnd()()()();
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_22_For_12_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "div", 66);
+  }
+  if (rf & 2) {
+    const lane_r13 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275classProp("runner-lane--active", ctx_r3.runnerLane === lane_r13);
+    \u0275\u0275property("ngClass", "runner-lane--" + lane_r13);
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_22_For_14_Conditional_5_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 69);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const item_r14 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(item_r14.avoidAction);
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_22_For_14_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 67)(1, "span", 68);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span");
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(5, AiQuizGameComponent_Conditional_4_Conditional_22_For_14_Conditional_5_Template, 2, 1, "span", 69);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const item_r14 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275styleProp("left", ctx_r3.getRunnerItemLeft(item_r14), "%")("top", item_r14.y, "%")("transform", ctx_r3.getRunnerItemTransform(item_r14))("opacity", ctx_r3.getRunnerItemOpacity(item_r14));
+    \u0275\u0275property("ngClass", "runner-item--" + item_r14.kind);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.getRunnerItemIcon(item_r14));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(item_r14.label);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(item_r14.kind === "bug" ? 5 : -1);
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_22_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r12 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 46)(1, "div", 55)(2, "span");
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "span");
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(6, "div", 56);
+    \u0275\u0275element(7, "div", 57);
+    \u0275\u0275elementStart(8, "div", 58);
+    \u0275\u0275text(9);
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(10, "div", 59);
+    \u0275\u0275repeaterCreate(11, AiQuizGameComponent_Conditional_4_Conditional_22_For_12_Template, 1, 3, "div", 60, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275repeaterCreate(13, AiQuizGameComponent_Conditional_4_Conditional_22_For_14_Template, 6, 12, "div", 61, _forTrack14);
+    \u0275\u0275elementStart(15, "div", 62)(16, "span");
+    \u0275\u0275text(17);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(18, "div", 63)(19, "button", 64);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_4_Conditional_22_Template_button_click_19_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.moveRunner(-1));
+    });
+    \u0275\u0275text(20, "\u25C0");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(21, "button", 65);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_4_Conditional_22_Template_button_click_21_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.runnerJump());
+    });
+    \u0275\u0275text(22, "\u25B2");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(23, "span");
+    \u0275\u0275text(24);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "button", 65);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_4_Conditional_22_Template_button_click_25_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.runnerSlide());
+    });
+    \u0275\u0275text(26, "\u25BC");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(27, "button", 64);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_4_Conditional_22_Template_button_click_27_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.moveRunner(1));
+    });
+    \u0275\u0275text(28, "\u25B6");
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.runnerTheme);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("Distance ", ctx_r3.runnerDistance);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1("Next station: ", ctx_r3.getCategoryLabel());
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(\u0275\u0275pureFunction0(11, _c12));
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(ctx_r3.runnerItems);
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("left", 50 + (ctx_r3.runnerLane - 1) * 29, "%");
+    \u0275\u0275classProp("runner-player--jump", ctx_r3.runnerAction === "jump")("runner-player--slide", ctx_r3.runnerAction === "slide");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.runnerAction === "slide" ? "\u{1F6DD}" : "\u{1F3C3}");
+    \u0275\u0275advance(7);
+    \u0275\u0275textInterpolate(ctx_r3.runnerMessage || "Switch lanes, jump barriers, slide under tunnels.");
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_23_For_8_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r15 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 74);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_4_Conditional_23_For_8_Template_button_click_0_listener() {
+      const \u0275$index_266_r16 = \u0275\u0275restoreView(_r15).$index;
+      const ctx_r3 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r3.onMatchTileClick(\u0275$index_266_r16));
+    });
+    \u0275\u0275elementStart(1, "span", 75);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 76);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const tile_r17 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275classProp("match3-tile--selected", tile_r17.selected)("match3-tile--blocked", tile_r17.blocked);
+    \u0275\u0275property("ngClass", "match3-tile--" + tile_r17.type);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.getMatchTileIcon(tile_r17));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(tile_r17.label);
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_23_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 47)(1, "div", 70)(2, "span");
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "span");
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(6, "div", 71);
+    \u0275\u0275repeaterCreate(7, AiQuizGameComponent_Conditional_4_Conditional_23_For_8_Template, 5, 7, "button", 72, _forTrack14);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "p", 73);
+    \u0275\u0275text(10);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.matchGoal);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate3("Moves ", ctx_r3.matchMovesRemaining, " \xB7 Combos ", ctx_r3.matchMatches, "/", ctx_r3.matchTarget);
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(ctx_r3.matchTiles);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.matchMessage || "Swap adjacent AI tiles to build 3+ matches.");
   }
 }
 function AiQuizGameComponent_Conditional_4_Template(rf, ctx2) {
   if (rf & 1) {
-    const _r9 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 4)(1, "div", 33)(2, "div", 34)(3, "span", 35);
+    \u0275\u0275elementStart(0, "div", 39)(1, "div", 40)(2, "div", 41)(3, "span", 42);
     \u0275\u0275text(4, "\u2764\uFE0F");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 36);
+    \u0275\u0275elementStart(5, "span", 43);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "div", 34)(8, "span", 35);
+    \u0275\u0275elementStart(7, "div", 41)(8, "span", 42);
     \u0275\u0275text(9, "\u{1FA99}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "span", 36);
+    \u0275\u0275elementStart(10, "span", 43);
     \u0275\u0275text(11);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(12, "div", 34)(13, "span", 35);
+    \u0275\u0275elementStart(12, "div", 41)(13, "span", 42);
     \u0275\u0275text(14, "\u2B50");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(15, "span", 36);
+    \u0275\u0275elementStart(15, "span", 43);
     \u0275\u0275text(16);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(17, "div", 37)(18, "span", 36);
+    \u0275\u0275elementStart(17, "div", 44)(18, "span", 43);
     \u0275\u0275text(19);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(20, "div", 37)(21, "span", 36);
-    \u0275\u0275text(22);
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(23, "div", 38);
-    \u0275\u0275element(24, "canvas", null, 0);
-    \u0275\u0275elementStart(26, "div", 39)(27, "div", 40)(28, "button", 41);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_28_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_28_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_28_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_28_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
-    });
-    \u0275\u0275text(29, "\u25C0");
+    \u0275\u0275conditionalCreate(20, AiQuizGameComponent_Conditional_4_Conditional_20_Template, 3, 1, "div", 44);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(30, "button", 42);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_30_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_30_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_30_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_30_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(false));
-    });
-    \u0275\u0275text(31, "\u25B6");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(32, "div", 43)(33, "button", 44);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(false));
-    });
-    \u0275\u0275text(34, "\u25B2");
+    \u0275\u0275conditionalCreate(21, AiQuizGameComponent_Conditional_4_Conditional_21_Template, 14, 0, "div", 45);
+    \u0275\u0275conditionalCreate(22, AiQuizGameComponent_Conditional_4_Conditional_22_Template, 29, 12, "div", 46);
+    \u0275\u0275conditionalCreate(23, AiQuizGameComponent_Conditional_4_Conditional_23_Template, 11, 5, "div", 47);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(35, "button", 45);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_35_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_35_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_35_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_35_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(false));
-    });
-    \u0275\u0275text(36, "\u{1F525}");
-    \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
     const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("game-wrapper--arcade", ctx_r3.selectedGameMode !== "platformer");
     \u0275\u0275advance(6);
     \u0275\u0275textInterpolate(ctx_r3.lives);
     \u0275\u0275advance(5);
@@ -38157,48 +39181,54 @@ function AiQuizGameComponent_Conditional_4_Template(rf, ctx2) {
     \u0275\u0275advance(5);
     \u0275\u0275textInterpolate(ctx_r3.score);
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r3.getCategoryLabel());
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r3.getLevelTypeLabel());
+    \u0275\u0275textInterpolate(ctx_r3.getGameModeLabel());
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "platformer" ? 20 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "platformer" ? 21 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "runner" ? 22 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "match3" ? 23 : -1);
   }
 }
 function AiQuizGameComponent_Conditional_5_Template(rf, ctx2) {
   if (rf & 1) {
-    const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 5)(1, "div", 46)(2, "div", 47);
+    const _r18 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 5)(1, "div", 77)(2, "div", 78);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "h3", 48);
+    \u0275\u0275elementStart(4, "h3", 79);
     \u0275\u0275text(5);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "p", 49);
+    \u0275\u0275elementStart(6, "p", 80);
     \u0275\u0275text(7);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 50)(9, "div", 51)(10, "span", 52);
+    \u0275\u0275elementStart(8, "div", 81)(9, "div", 82)(10, "span", 83);
     \u0275\u0275text(11, "Score");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "span", 53);
+    \u0275\u0275elementStart(12, "span", 84);
     \u0275\u0275text(13);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(14, "div", 51)(15, "span", 52);
+    \u0275\u0275elementStart(14, "div", 82)(15, "span", 83);
     \u0275\u0275text(16, "Coins");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "span", 53);
+    \u0275\u0275elementStart(17, "span", 84);
     \u0275\u0275text(18);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "div", 51)(20, "span", 52);
-    \u0275\u0275text(21, "Enemies");
+    \u0275\u0275elementStart(19, "div", 82)(20, "span", 83);
+    \u0275\u0275text(21);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "span", 53);
+    \u0275\u0275elementStart(22, "span", 84);
     \u0275\u0275text(23);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(24, "div", 54)(25, "button", 19);
+    \u0275\u0275elementStart(24, "div", 85)(25, "button", 20);
     \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_5_Template_button_click_25_listener() {
-      \u0275\u0275restoreView(_r10);
+      \u0275\u0275restoreView(_r18);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.restartGame());
     });
-    \u0275\u0275element(26, "i", 55);
+    \u0275\u0275element(26, "i", 86);
     \u0275\u0275text(27, " Play Again ");
     \u0275\u0275elementEnd()()()();
   }
@@ -38214,8 +39244,10 @@ function AiQuizGameComponent_Conditional_5_Template(rf, ctx2) {
     \u0275\u0275textInterpolate(ctx_r3.score);
     \u0275\u0275advance(5);
     \u0275\u0275textInterpolate(ctx_r3.coins);
-    \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r3.enemiesStomped);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.selectedGameMode === "match3" ? "Combos" : ctx_r3.selectedGameMode === "runner" ? "Distance" : "Enemies");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.selectedGameMode === "match3" ? ctx_r3.matchMatches : ctx_r3.selectedGameMode === "runner" ? ctx_r3.runnerDistance : ctx_r3.enemiesStomped);
   }
 }
 var AiQuizGameComponent = class _AiQuizGameComponent {
@@ -38224,6 +39256,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     this.zone = zone;
     this.cdr = cdr;
     this.viewState = "setup";
+    this.selectedGameMode = "runner";
     this.selectedCategory = "backend";
     this.selectedDifficulty = "Medium";
     this.selectedLevelType = "ground";
@@ -38234,6 +39267,16 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     this.enemiesStomped = 0;
     this.engine = null;
     this.resizeObserver = null;
+    this.runnerTimerId = null;
+    this.runnerActionTimerId = null;
+    this.runnerItemId = 0;
+    this.runnerTicks = 0;
+    this.matchTileId = 0;
+    this.gameModes = [
+      { value: "runner", label: "Mario Run", icon: "\u{1F3C3}", description: "Subway-surfer style lanes with AI-generated bug waves and reward paths" },
+      { value: "platformer", label: "Mario Gameplay", icon: "\u{1F344}", description: "The full AI-generated platformer: jumps, enemies, coins, and power-ups" },
+      { value: "match3", label: "Mario Match-3", icon: "\u{1F36C}", description: "Candy-crush style engineering puzzles with AI-generated goals and tiles" }
+    ];
     this.categories = [
       { value: "backend", label: "Backend Foundations", icon: "\u{1F344}", description: "APIs, data flows, idempotency, service design" },
       { value: "distributed", label: "Distributed Systems", icon: "\u{1F687}", description: "Kafka, queues, caching, consistency, resilience" },
@@ -38252,19 +39295,63 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
       { value: "sky", label: "Sky Jump", icon: "\u2601\uFE0F", description: "Airy platform chains, higher jumps, and floating routes" },
       { value: "water", label: "Water Swim", icon: "\u{1F30A}", description: "Underwater movement, dense coins, and safer seabed routes" }
     ];
+    this.runnerLane = 1;
+    this.runnerItems = [];
+    this.runnerDistance = 0;
+    this.runnerTheme = "AI systems sprint";
+    this.runnerMessage = "";
+    this.runnerAction = "run";
+    this.matchTiles = [];
+    this.matchGoal = "";
+    this.matchMovesRemaining = 0;
+    this.matchMatches = 0;
+    this.matchTarget = 6;
+    this.matchSelectedIndex = null;
+    this.matchMessage = "";
+    this.matchPlan = null;
   }
   ngOnDestroy() {
-    this.engine?.stop();
-    this.resizeObserver?.disconnect();
+    this.stopActiveGame();
+  }
+  onKeydown(event) {
+    if (this.viewState !== "playing" || this.selectedGameMode !== "runner")
+      return;
+    if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a") {
+      event.preventDefault();
+      this.moveRunner(-1);
+    }
+    if (event.key === "ArrowRight" || event.key.toLowerCase() === "d") {
+      event.preventDefault();
+      this.moveRunner(1);
+    }
+    if (event.key === "ArrowUp" || event.key.toLowerCase() === "w" || event.key === " ") {
+      event.preventDefault();
+      this.runnerJump();
+    }
+    if (event.key === "ArrowDown" || event.key.toLowerCase() === "s") {
+      event.preventDefault();
+      this.runnerSlide();
+    }
   }
   startGame() {
     return __async(this, null, function* () {
+      this.stopActiveGame();
       this.viewState = "loading";
       this.score = 0;
       this.coins = 0;
       this.lives = 3;
       this.won = false;
       this.enemiesStomped = 0;
+      this.runnerMessage = "";
+      this.matchMessage = "";
+      if (this.selectedGameMode === "runner") {
+        yield this.startRunnerGame();
+        return;
+      }
+      if (this.selectedGameMode === "match3") {
+        yield this.startMatch3Game();
+        return;
+      }
       const config3 = {
         difficulty: this.selectedDifficulty,
         category: this.selectedCategory,
@@ -38319,24 +39406,33 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     this.won = false;
     this.enemiesStomped = this.engine?.enemiesStomped ?? 0;
     this.viewState = "results";
-    this.engine?.stop();
+    this.stopActiveGame();
   }
   handleWin() {
     this.won = true;
     this.score = this.engine?.player.score ?? this.score;
     this.enemiesStomped = this.engine?.enemiesStomped ?? 0;
     this.viewState = "results";
-    this.engine?.stop();
+    this.stopActiveGame();
   }
   restartGame() {
-    this.engine?.stop();
-    this.resizeObserver?.disconnect();
+    this.stopActiveGame();
     this.viewState = "setup";
   }
   touchLeft(active) {
+    if (this.selectedGameMode === "runner") {
+      if (active)
+        this.moveRunner(-1);
+      return;
+    }
     this.engine?.getControls().setTouchLeft(active);
   }
   touchRight(active) {
+    if (this.selectedGameMode === "runner") {
+      if (active)
+        this.moveRunner(1);
+      return;
+    }
     this.engine?.getControls().setTouchRight(active);
   }
   touchJump(active) {
@@ -38345,26 +39441,26 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
   touchFire(active) {
     this.engine?.getControls().setTouchFire(active);
   }
+  selectGameMode(mode) {
+    this.selectedGameMode = mode;
+  }
   generateAILevel(config3) {
     return __async(this, null, function* () {
       const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty, this.selectedLevelType);
       try {
-        const response = yield firstValueFrom(this.http.post(AI_API_URL, {
-          prompt,
-          context: "Generate a Mario-style level layout as JSON that follows the provided layout blueprint and already passes the difficulty validation rules."
-        }, { headers: new HttpHeaders({ "Content-Type": "application/json" }) }));
-        if (response && typeof response === "object" && "data" in response) {
-          const responseData = response.data;
-          if (responseData?.choices?.length > 0) {
-            const content = responseData.choices[0].message.content;
-            const parsed = parseLevelFromAI(content);
-            if (parsed) {
-              const validation = validateAILevelData(parsed, config3);
-              if (validation.valid) {
-                return buildLevelFromData(parsed, config3);
-              }
-              console.warn("AI level rejected by validator:", validation.issues);
+        const response = yield firstValueFrom(this.http.post(environment.aiApiUrl, createOpenAiProxyRequest([
+          { role: "system", content: "Return only valid JSON. No markdown. No explanation." },
+          { role: "user", content: prompt }
+        ]), { headers: new HttpHeaders({ "Content-Type": "application/json" }) }));
+        const content = getAiResponseText(response);
+        if (content) {
+          const parsed = parseLevelFromAI(content);
+          if (parsed) {
+            const validation = validateAILevelData(parsed, config3);
+            if (validation.valid) {
+              return buildLevelFromData(parsed, config3);
             }
+            console.warn("AI level rejected by validator:", validation.issues);
           }
         }
       } catch (e) {
@@ -38373,14 +39469,496 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
       return null;
     });
   }
+  startRunnerGame() {
+    return __async(this, null, function* () {
+      const plan = (yield this.generateAIRunnerPlan()) ?? this.createFallbackRunnerPlan();
+      this.runnerTheme = plan.theme;
+      this.runnerLane = 1;
+      this.runnerItems = [];
+      this.runnerDistance = 0;
+      this.runnerAction = "run";
+      this.runnerTicks = 0;
+      this.runnerItemId = 0;
+      this.viewState = "playing";
+      this.cdr.detectChanges();
+      this.zone.runOutsideAngular(() => {
+        this.runnerTimerId = window.setInterval(() => this.zone.run(() => this.updateRunner(plan)), 95);
+      });
+    });
+  }
+  startMatch3Game() {
+    return __async(this, null, function* () {
+      const plan = (yield this.generateAIMatch3Plan()) ?? this.createFallbackMatch3Plan();
+      this.matchPlan = plan;
+      this.matchGoal = plan.goal;
+      this.matchMovesRemaining = plan.moves;
+      this.matchMatches = 0;
+      this.matchTarget = this.selectedDifficulty === "Easy" ? 5 : this.selectedDifficulty === "Hard" ? 10 : 7;
+      this.matchSelectedIndex = null;
+      this.matchTileId = 0;
+      this.matchTiles = this.createMatchTiles(plan);
+      this.viewState = "playing";
+      this.cdr.detectChanges();
+    });
+  }
+  generateAIRunnerPlan() {
+    return __async(this, null, function* () {
+      const cat = this.getCategoryLabel();
+      const prompt = `Create an AI-generated 3-lane endless runner plan for a Mario-themed "${cat}" world at "${this.selectedDifficulty}" difficulty.
+Return JSON only:
+{
+  "theme": "short arcade theme name",
+  "obstacles": ["8-12 short bug or anti-pattern labels"],
+  "coins": ["8-12 short reward/concept labels"],
+  "powerUps": ["3-5 short power-up concept labels"]
+}
+Labels must be engineering terms, 1-3 words each.`;
+      try {
+        const response = yield firstValueFrom(this.http.post(environment.aiApiUrl, createOpenAiProxyRequest([
+          { role: "system", content: "Return only valid JSON. No markdown. No explanation." },
+          { role: "user", content: prompt }
+        ]), { headers: new HttpHeaders({ "Content-Type": "application/json" }) }));
+        return this.normalizeRunnerPlan(this.parseAiJson(getAiResponseText(response)));
+      } catch (e) {
+        console.error("AI runner generation failed:", e);
+        return null;
+      }
+    });
+  }
+  generateAIMatch3Plan() {
+    return __async(this, null, function* () {
+      const cat = this.getCategoryLabel();
+      const prompt = `Create an AI-generated candy-crush style match-3 board plan for a Mario-themed "${cat}" world at "${this.selectedDifficulty}" difficulty.
+Return JSON only:
+{
+  "goal": "one short mission goal",
+  "tileLabels": ["6-8 short engineering concept labels"],
+  "blockerLabels": ["4-6 short bug or blocker labels"],
+  "moves": 18
+}
+Use realistic engineering terminology. Keep labels 1-2 words.`;
+      try {
+        const response = yield firstValueFrom(this.http.post(environment.aiApiUrl, createOpenAiProxyRequest([
+          { role: "system", content: "Return only valid JSON. No markdown. No explanation." },
+          { role: "user", content: prompt }
+        ]), { headers: new HttpHeaders({ "Content-Type": "application/json" }) }));
+        return this.normalizeMatch3Plan(this.parseAiJson(getAiResponseText(response)));
+      } catch (e) {
+        console.error("AI match-3 generation failed:", e);
+        return null;
+      }
+    });
+  }
+  updateRunner(plan) {
+    if (this.viewState !== "playing" || this.selectedGameMode !== "runner")
+      return;
+    this.runnerTicks++;
+    this.runnerDistance += 1;
+    this.score += 2;
+    if (this.runnerTicks % this.getRunnerSpawnRate() === 0) {
+      this.runnerItems.push(this.createRunnerItem(plan));
+    }
+    const speed = this.selectedDifficulty === "Hard" ? 4.9 : this.selectedDifficulty === "Easy" ? 3.3 : 4.1;
+    this.runnerItems = this.runnerItems.map((item) => __spreadProps(__spreadValues({}, item), { y: item.y + speed })).filter((item) => {
+      if (item.y >= 78 && item.y <= 96 && item.lane === this.runnerLane) {
+        this.resolveRunnerCollision(item);
+        return false;
+      }
+      return item.y < 112;
+    });
+    const finishDistance = this.selectedDifficulty === "Hard" ? 430 : this.selectedDifficulty === "Easy" ? 300 : 360;
+    if (this.runnerDistance >= finishDistance) {
+      this.handleWin();
+    }
+  }
+  createRunnerItem(plan) {
+    const roll = Math.random();
+    const kind = roll < 0.48 ? "coin" : roll < 0.88 ? "bug" : "power";
+    const source = kind === "coin" ? plan.coins : kind === "bug" ? plan.obstacles : plan.powerUps;
+    const avoidActions = ["dodge", "jump", "slide"];
+    return {
+      id: this.runnerItemId++,
+      lane: Math.floor(Math.random() * 3),
+      y: 8,
+      kind,
+      label: source[this.runnerItemId % source.length] ?? "Concept",
+      avoidAction: kind === "bug" ? avoidActions[this.runnerItemId % avoidActions.length] : void 0
+    };
+  }
+  resolveRunnerCollision(item) {
+    if (item.kind === "bug") {
+      if (item.avoidAction !== "dodge" && item.avoidAction === this.runnerAction) {
+        this.score += 140;
+        this.runnerMessage = item.avoidAction === "jump" ? `Jumped ${item.label}` : `Slid under ${item.label}`;
+        return;
+      }
+      this.lives -= 1;
+      this.runnerMessage = item.avoidAction === "jump" ? `Jump ${item.label}` : item.avoidAction === "slide" ? `Slide under ${item.label}` : `Dodge ${item.label}`;
+      if (this.lives <= 0) {
+        this.handleDeath();
+      }
+      return;
+    }
+    this.coins += item.kind === "coin" ? 1 : 3;
+    this.score += item.kind === "coin" ? 75 : 180;
+    this.runnerMessage = item.kind === "coin" ? `Collected ${item.label}` : `Power-up: ${item.label}`;
+  }
+  moveRunner(delta) {
+    this.runnerLane = Math.max(0, Math.min(2, this.runnerLane + delta));
+  }
+  runnerJump() {
+    this.setRunnerAction("jump", 520);
+  }
+  runnerSlide() {
+    this.setRunnerAction("slide", 560);
+  }
+  getRunnerItemIcon(item) {
+    if (item.kind === "coin")
+      return "\u{1FA99}";
+    if (item.kind === "power")
+      return "\u2B50";
+    if (item.avoidAction === "jump")
+      return "\u{1F6A7}";
+    if (item.avoidAction === "slide")
+      return "\u{1F687}";
+    return "\u{1F41B}";
+  }
+  getRunnerItemTransform(item) {
+    const scale = 0.22 + Math.min(item.y, 100) / 100 * 1.2;
+    return `translate(-50%, -50%) scale(${scale.toFixed(2)})`;
+  }
+  getRunnerItemLeft(item) {
+    const depth = Math.max(0, Math.min(1, item.y / 100));
+    const laneSpread = 5 + depth * 24;
+    return 50 + (item.lane - 1) * laneSpread;
+  }
+  getRunnerItemOpacity(item) {
+    return Math.max(0.28, Math.min(1, item.y / 42));
+  }
+  setRunnerAction(action, durationMs) {
+    this.runnerAction = action;
+    if (this.runnerActionTimerId !== null) {
+      window.clearTimeout(this.runnerActionTimerId);
+    }
+    this.runnerActionTimerId = window.setTimeout(() => {
+      this.runnerAction = "run";
+      this.runnerActionTimerId = null;
+    }, durationMs);
+  }
+  onMatchTileClick(index) {
+    if (this.viewState !== "playing" || this.selectedGameMode !== "match3")
+      return;
+    if (this.matchTiles[index]?.blocked) {
+      this.matchMessage = `Break ${this.matchTiles[index].label} by matching next to it.`;
+      return;
+    }
+    if (this.matchSelectedIndex === null) {
+      this.selectMatchTile(index);
+      return;
+    }
+    if (this.matchSelectedIndex === index) {
+      this.clearMatchSelection();
+      return;
+    }
+    if (!this.areAdjacent(this.matchSelectedIndex, index)) {
+      this.selectMatchTile(index);
+      return;
+    }
+    const firstIndex = this.matchSelectedIndex;
+    if (this.matchTiles[firstIndex]?.blocked || this.matchTiles[index]?.blocked) {
+      this.matchMessage = "Blockers cannot be swapped. Clear adjacent candies first.";
+      this.clearMatchSelection();
+      return;
+    }
+    this.swapTiles(firstIndex, index);
+    this.clearMatchSelection();
+    this.matchMovesRemaining--;
+    const matched = this.resolveMatch3Board();
+    if (!matched) {
+      this.swapTiles(firstIndex, index);
+      this.matchMessage = "No match. Try an adjacent swap.";
+    }
+    if (this.matchMatches >= this.matchTarget) {
+      this.handleWin();
+    } else if (this.matchMovesRemaining <= 0) {
+      this.handleDeath();
+    }
+  }
+  selectMatchTile(index) {
+    this.clearMatchSelection();
+    this.matchSelectedIndex = index;
+    this.matchTiles[index].selected = true;
+  }
+  clearMatchSelection() {
+    this.matchTiles.forEach((tile) => tile.selected = false);
+    this.matchSelectedIndex = null;
+  }
+  resolveMatch3Board() {
+    let totalCleared = 0;
+    let cascades = 0;
+    while (cascades < 4) {
+      const matches = this.findMatches();
+      if (matches.size === 0)
+        break;
+      const blockers = this.findAdjacentBlockers(matches);
+      const cleared = /* @__PURE__ */ new Set([...matches, ...blockers]);
+      totalCleared += cleared.size;
+      cascades++;
+      this.applyMatch3Gravity(cleared);
+    }
+    if (totalCleared === 0)
+      return false;
+    this.matchMatches += cascades;
+    this.score += totalCleared * 95 + Math.max(0, cascades - 1) * 250;
+    this.coins += Math.max(1, Math.floor(totalCleared / 3));
+    this.matchMessage = cascades > 1 ? `Sweet cascade x${cascades}! Cleared ${totalCleared} tiles.` : `Sweet! Cleared ${totalCleared} tiles.`;
+    return true;
+  }
+  findMatches() {
+    const matched = /* @__PURE__ */ new Set();
+    const size = 6;
+    for (let row = 0; row < size; row++) {
+      let runStart = 0;
+      for (let col = 1; col <= size; col++) {
+        const currentTile = col < size ? this.matchTiles[this.matchIndex(row, col)] : null;
+        const previousTile = this.matchTiles[this.matchIndex(row, col - 1)];
+        const current = currentTile && !currentTile.blocked ? currentTile.type : null;
+        const previous = !previousTile.blocked ? previousTile.type : null;
+        if (current !== previous) {
+          if (col - runStart >= 3) {
+            for (let c = runStart; c < col; c++)
+              matched.add(this.matchIndex(row, c));
+          }
+          runStart = col;
+        }
+      }
+    }
+    for (let col = 0; col < size; col++) {
+      let runStart = 0;
+      for (let row = 1; row <= size; row++) {
+        const currentTile = row < size ? this.matchTiles[this.matchIndex(row, col)] : null;
+        const previousTile = this.matchTiles[this.matchIndex(row - 1, col)];
+        const current = currentTile && !currentTile.blocked ? currentTile.type : null;
+        const previous = !previousTile.blocked ? previousTile.type : null;
+        if (current !== previous) {
+          if (row - runStart >= 3) {
+            for (let r = runStart; r < row; r++)
+              matched.add(this.matchIndex(r, col));
+          }
+          runStart = row;
+        }
+      }
+    }
+    return matched;
+  }
+  swapTiles(first2, second) {
+    const firstTile = this.matchTiles[first2];
+    const secondTile = this.matchTiles[second];
+    this.matchTiles[first2] = __spreadProps(__spreadValues({}, secondTile), { row: firstTile.row, col: firstTile.col, selected: false });
+    this.matchTiles[second] = __spreadProps(__spreadValues({}, firstTile), { row: secondTile.row, col: secondTile.col, selected: false });
+  }
+  areAdjacent(first2, second) {
+    const a = this.matchTiles[first2];
+    const b = this.matchTiles[second];
+    return Math.abs(a.row - b.row) + Math.abs(a.col - b.col) === 1;
+  }
+  createMatchTiles(plan) {
+    const types = ["api", "cache", "queue", "llm", "deploy", "data"];
+    const labels = plan.tileLabels.length ? plan.tileLabels : this.createFallbackMatch3Plan().tileLabels;
+    const blockers = plan.blockerLabels.length ? plan.blockerLabels : this.createFallbackMatch3Plan().blockerLabels;
+    const blockerCount = this.selectedDifficulty === "Hard" ? 7 : this.selectedDifficulty === "Easy" ? 3 : 5;
+    const blockerIndexes = /* @__PURE__ */ new Set();
+    while (blockerIndexes.size < blockerCount) {
+      const index = 6 + Math.floor(Math.random() * 24);
+      blockerIndexes.add(index);
+    }
+    return Array.from({ length: 36 }, (_, id) => {
+      const row = Math.floor(id / 6);
+      const col = id % 6;
+      if (blockerIndexes.has(id)) {
+        return {
+          id: this.matchTileId++,
+          row,
+          col,
+          type: "blocker",
+          label: blockers[id % blockers.length] ?? "Bug",
+          selected: false,
+          blocked: true
+        };
+      }
+      const type = types[(row * 2 + col + Math.floor(Math.random() * 3)) % types.length];
+      return {
+        id: this.matchTileId++,
+        row,
+        col,
+        type,
+        label: labels[id % labels.length],
+        selected: false
+      };
+    });
+  }
+  getMatchTileIcon(tile) {
+    if (tile.blocked)
+      return "\u{1F9F1}";
+    const icons = {
+      api: "\u{1F352}",
+      cache: "\u{1F34B}",
+      queue: "\u{1F347}",
+      llm: "\u{1F36C}",
+      deploy: "\u{1F34A}",
+      data: "\u{1F48E}"
+    };
+    return icons[tile.type] ?? "\u{1F36D}";
+  }
+  findAdjacentBlockers(matches) {
+    const blockers = /* @__PURE__ */ new Set();
+    matches.forEach((index) => {
+      const tile = this.matchTiles[index];
+      const neighbors = [
+        [tile.row - 1, tile.col],
+        [tile.row + 1, tile.col],
+        [tile.row, tile.col - 1],
+        [tile.row, tile.col + 1]
+      ];
+      neighbors.forEach(([row, col]) => {
+        if (row < 0 || row >= 6 || col < 0 || col >= 6)
+          return;
+        const neighborIndex = this.matchIndex(row, col);
+        if (this.matchTiles[neighborIndex]?.blocked)
+          blockers.add(neighborIndex);
+      });
+    });
+    return blockers;
+  }
+  applyMatch3Gravity(cleared) {
+    const nextTiles = [...this.matchTiles];
+    for (let col = 0; col < 6; col++) {
+      const survivors = [];
+      for (let row = 5; row >= 0; row--) {
+        const index = this.matchIndex(row, col);
+        if (!cleared.has(index)) {
+          survivors.push(this.matchTiles[index]);
+        }
+      }
+      for (let row = 5; row >= 0; row--) {
+        const index = this.matchIndex(row, col);
+        const survivor = survivors.shift();
+        nextTiles[index] = survivor ? __spreadProps(__spreadValues({}, survivor), { row, col, selected: false, clearing: false }) : this.createFreshMatchTile(row, col);
+      }
+    }
+    this.matchTiles = nextTiles;
+  }
+  createFreshMatchTile(row, col) {
+    const plan = this.matchPlan ?? this.createFallbackMatch3Plan();
+    const types = ["api", "cache", "queue", "llm", "deploy", "data"];
+    const labels = plan.tileLabels.length ? plan.tileLabels : this.createFallbackMatch3Plan().tileLabels;
+    const type = types[Math.floor(Math.random() * types.length)];
+    return {
+      id: this.matchTileId++,
+      row,
+      col,
+      type,
+      label: labels[(this.matchTileId + row + col) % labels.length] ?? "API",
+      selected: false
+    };
+  }
+  parseAiJson(content) {
+    if (!content)
+      return null;
+    try {
+      return JSON.parse(content);
+    } catch (e) {
+      const match2 = content.match(/\{[\s\S]*\}/);
+      if (!match2)
+        return null;
+      try {
+        return JSON.parse(match2[0]);
+      } catch (e2) {
+        return null;
+      }
+    }
+  }
+  normalizeRunnerPlan(value) {
+    if (!value)
+      return null;
+    const fallback = this.createFallbackRunnerPlan();
+    return {
+      theme: typeof value.theme === "string" ? value.theme : fallback.theme,
+      obstacles: this.normalizeStringList(value.obstacles, fallback.obstacles),
+      coins: this.normalizeStringList(value.coins, fallback.coins),
+      powerUps: this.normalizeStringList(value.powerUps, fallback.powerUps)
+    };
+  }
+  normalizeMatch3Plan(value) {
+    if (!value)
+      return null;
+    const fallback = this.createFallbackMatch3Plan();
+    const moves = Number.isFinite(value.moves) ? Number(value.moves) : fallback.moves;
+    return {
+      goal: typeof value.goal === "string" ? value.goal : fallback.goal,
+      tileLabels: this.normalizeStringList(value.tileLabels, fallback.tileLabels),
+      blockerLabels: this.normalizeStringList(value.blockerLabels, fallback.blockerLabels),
+      moves: Math.max(10, Math.min(28, moves))
+    };
+  }
+  normalizeStringList(value, fallback) {
+    if (!Array.isArray(value))
+      return fallback;
+    const list = value.filter((item) => typeof item === "string" && item.trim()).map((item) => item.trim()).slice(0, 12);
+    return list.length ? list : fallback;
+  }
+  createFallbackRunnerPlan() {
+    return {
+      theme: `${this.getCategoryLabel()} Sprint`,
+      obstacles: ["N+1 Query", "Timeout", "Drift", "Deadlock", "Bad Prompt", "Queue Lag", "OOM", "Rollback"],
+      coins: ["API", "Cache", "Retry", "Index", "RAG", "SLO", "Canary", "ADR"],
+      powerUps: ["Circuit Breaker", "Autoscale", "Guardrails", "Bulkhead"]
+    };
+  }
+  createFallbackMatch3Plan() {
+    return {
+      goal: `Clear ${this.getCategoryLabel()} combos before moves run out`,
+      tileLabels: ["API", "Cache", "Queue", "RAG", "Deploy", "Index", "SLO", "ADR"],
+      blockerLabels: ["Timeout", "Drift", "Bug", "Lag"],
+      moves: this.selectedDifficulty === "Easy" ? 22 : this.selectedDifficulty === "Hard" ? 16 : 19
+    };
+  }
+  getRunnerSpawnRate() {
+    return this.selectedDifficulty === "Hard" ? 9 : this.selectedDifficulty === "Easy" ? 14 : 11;
+  }
+  matchIndex(row, col) {
+    return row * 6 + col;
+  }
+  stopActiveGame() {
+    this.engine?.stop();
+    this.engine = null;
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = null;
+    if (this.runnerTimerId !== null) {
+      window.clearInterval(this.runnerTimerId);
+      this.runnerTimerId = null;
+    }
+    if (this.runnerActionTimerId !== null) {
+      window.clearTimeout(this.runnerActionTimerId);
+      this.runnerActionTimerId = null;
+    }
+    this.runnerAction = "run";
+  }
   getCategoryLabel() {
     return this.categories.find((c) => c.value === this.selectedCategory)?.label || "World";
   }
   getLevelTypeLabel() {
     return this.levelTypes.find((t) => t.value === this.selectedLevelType)?.label || "Ground Run";
   }
+  getGameModeLabel() {
+    return this.gameModes.find((mode) => mode.value === this.selectedGameMode)?.label || "AI Game";
+  }
   getResultMessage() {
     if (this.won) {
+      if (this.selectedGameMode === "runner")
+        return `Sprint complete. You survived ${this.runnerTheme}.`;
+      if (this.selectedGameMode === "match3")
+        return `Puzzle solved. ${this.matchGoal}`;
       if (this.score >= 1e3)
         return "Perfect run. That looked like staff-level platforming.";
       if (this.score >= 500)
@@ -38403,13 +39981,19 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
         let _t;
         \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.canvasRef = _t.first);
       }
-    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "option-grid", "option-grid--compact"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-actions"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-fire", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx2) {
+    }, hostBindings: function AiQuizGameComponent_HostBindings(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275listener("keydown", function AiQuizGameComponent_keydown_HostBindingHandler($event) {
+          return ctx2.onKeydown($event);
+        }, \u0275\u0275resolveWindow);
+      }
+    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper", 3, "game-wrapper--arcade"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "game-mode-grid"], [1, "game-mode-btn", 3, "game-mode-btn--active"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "game-mode-btn", 3, "click"], [1, "game-mode-icon"], [1, "game-mode-label"], [1, "game-mode-desc"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "option-grid", "option-grid--compact"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-wrapper"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "runner-arena", "apple-card"], [1, "match3-arena", "apple-card"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-actions"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-fire", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "runner-meta"], [1, "runner-track"], [1, "runner-skyline"], [1, "runner-horizon"], [1, "runner-rails"], [1, "runner-lane", 3, "ngClass", "runner-lane--active"], [1, "runner-item", 3, "ngClass", "left", "top", "transform", "opacity"], [1, "runner-player"], [1, "runner-controls"], [1, "touch-btn", 3, "click"], [1, "touch-btn", "runner-action-btn", 3, "click"], [1, "runner-lane", 3, "ngClass"], [1, "runner-item", 3, "ngClass"], [1, "runner-item-icon"], [1, "runner-item-action"], [1, "match3-meta"], [1, "match3-board"], [1, "match3-tile", 3, "ngClass", "match3-tile--selected", "match3-tile--blocked"], [1, "match3-message"], [1, "match3-tile", 3, "click", "ngClass"], [1, "match3-tile-icon"], [1, "match3-tile-label"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "section", 1)(1, "div", 2);
-        \u0275\u0275conditionalCreate(2, AiQuizGameComponent_Conditional_2_Template, 33, 0);
-        \u0275\u0275conditionalCreate(3, AiQuizGameComponent_Conditional_3_Template, 10, 0, "div", 3);
-        \u0275\u0275conditionalCreate(4, AiQuizGameComponent_Conditional_4_Template, 37, 5, "div", 4);
-        \u0275\u0275conditionalCreate(5, AiQuizGameComponent_Conditional_5_Template, 28, 6, "div", 5);
+        \u0275\u0275conditionalCreate(2, AiQuizGameComponent_Conditional_2_Template, 35, 2);
+        \u0275\u0275conditionalCreate(3, AiQuizGameComponent_Conditional_3_Template, 10, 1, "div", 3);
+        \u0275\u0275conditionalCreate(4, AiQuizGameComponent_Conditional_4_Template, 24, 10, "div", 4);
+        \u0275\u0275conditionalCreate(5, AiQuizGameComponent_Conditional_5_Template, 28, 7, "div", 5);
         \u0275\u0275elementEnd()();
       }
       if (rf & 2) {
@@ -38422,7 +40006,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
         \u0275\u0275advance();
         \u0275\u0275conditional(ctx2.viewState === "results" ? 5 : -1);
       }
-    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.mario-game-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card[_ngcontent-%COMP%] {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact[_ngcontent-%COMP%] {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n}\n.option-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active[_ngcontent-%COMP%] {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success[_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning[_ngcontent-%COMP%] {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card[_ngcontent-%COMP%] {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  animation: _ngcontent-%COMP%_bounce 0.6s ease infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: _ngcontent-%COMP%_loadProgress 3s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container[_ngcontent-%COMP%]   canvas[_ngcontent-%COMP%] {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn[_ngcontent-%COMP%]:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls[_ngcontent-%COMP%] {\n    display: flex;\n  }\n}\n.results-card[_ngcontent-%COMP%] {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge[_ngcontent-%COMP%] {\n  font-size: 3rem;\n}\n.results-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section[_ngcontent-%COMP%] {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .setup-card[_ngcontent-%COMP%] {\n    padding: 1.5rem;\n  }\n  .option-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .results-stats[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper[_ngcontent-%COMP%] {\n    margin: 0 -1rem;\n  }\n  .game-hud[_ngcontent-%COMP%] {\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin-left: 1rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.6rem;\n  }\n  .hud-icon[_ngcontent-%COMP%] {\n    font-size: 0.85rem;\n  }\n  .canvas-container[_ngcontent-%COMP%] {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls[_ngcontent-%COMP%] {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn[_ngcontent-%COMP%] {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump[_ngcontent-%COMP%] {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire[_ngcontent-%COMP%] {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card[_ngcontent-%COMP%] {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */'] });
+    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.mario-game-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card[_ngcontent-%COMP%] {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.game-mode-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.85rem;\n}\n.game-mode-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.35rem;\n  min-height: 9rem;\n  padding: 1rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background:\n    radial-gradient(\n      circle at 20% 0%,\n      rgba(255, 178, 36, 0.08),\n      transparent 34%),\n    rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.game-mode-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  border-color: rgba(255, 178, 36, 0.35);\n  background: rgba(255, 178, 36, 0.055);\n}\n.game-mode-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.55);\n  background: rgba(255, 178, 36, 0.09);\n  box-shadow: 0 0 18px rgba(255, 178, 36, 0.12);\n}\n.game-mode-icon[_ngcontent-%COMP%] {\n  font-size: 1.85rem;\n}\n.game-mode-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 800;\n}\n.game-mode-desc[_ngcontent-%COMP%] {\n  font-size: 0.74rem;\n  color: var(--text-muted);\n  line-height: 1.45;\n}\n.option-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact[_ngcontent-%COMP%] {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n}\n.option-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active[_ngcontent-%COMP%] {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success[_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning[_ngcontent-%COMP%] {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card[_ngcontent-%COMP%] {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  animation: _ngcontent-%COMP%_bounce 0.6s ease infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: _ngcontent-%COMP%_loadProgress 3s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n}\n.game-wrapper--arcade[_ngcontent-%COMP%] {\n  max-width: 58rem;\n  margin: 0 auto;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n  max-width: 100%;\n}\n.hud-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container[_ngcontent-%COMP%]   canvas[_ngcontent-%COMP%] {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn[_ngcontent-%COMP%]:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n.runner-arena[_ngcontent-%COMP%], \n.match3-arena[_ngcontent-%COMP%] {\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background:\n    radial-gradient(\n      circle at 20% 0%,\n      rgba(236, 72, 153, 0.14),\n      transparent 28%),\n    radial-gradient(\n      circle at 90% 30%,\n      rgba(59, 130, 246, 0.12),\n      transparent 24%),\n    var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 1.25rem;\n}\n.runner-meta[_ngcontent-%COMP%], \n.match3-meta[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  gap: 1rem;\n  margin-bottom: 0.85rem;\n  color: var(--text-tertiary);\n  font-size: 0.82rem;\n  font-weight: 700;\n}\n.runner-track[_ngcontent-%COMP%] {\n  position: relative;\n  height: min(62vh, 520px);\n  min-height: 380px;\n  overflow: hidden;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  perspective: 700px;\n  background:\n    radial-gradient(\n      circle at 50% 6%,\n      rgba(96, 165, 250, 0.26),\n      transparent 22%),\n    linear-gradient(\n      90deg,\n      rgba(15, 23, 42, 0.92) 0 15%,\n      transparent 28% 72%,\n      rgba(15, 23, 42, 0.92) 85% 100%),\n    linear-gradient(\n      180deg,\n      rgba(14, 165, 233, 0.2),\n      transparent 38%),\n    repeating-linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.05) 0 3px,\n      transparent 3px 38px),\n    #09091a;\n}\n.runner-lane[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 14%;\n  bottom: -6%;\n  z-index: 1;\n  border-inline: 1px solid rgba(255, 255, 255, 0.09);\n  background:\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 28px,\n      rgba(255, 255, 255, 0.08) 28px 31px),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.015),\n      rgba(255, 255, 255, 0.055));\n  transform-origin: bottom center;\n  clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);\n}\n.runner-lane--active[_ngcontent-%COMP%] {\n  background:\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 28px,\n      rgba(255, 255, 255, 0.1) 28px 31px),\n    linear-gradient(\n      180deg,\n      rgba(255, 178, 36, 0.08),\n      rgba(255, 178, 36, 0.16));\n}\n.runner-lane--0[_ngcontent-%COMP%] {\n  left: 5%;\n  width: 44%;\n  transform: skewX(-11deg);\n}\n.runner-lane--1[_ngcontent-%COMP%] {\n  left: 28%;\n  width: 44%;\n}\n.runner-lane--2[_ngcontent-%COMP%] {\n  right: 5%;\n  width: 44%;\n  transform: skewX(11deg);\n}\n.runner-skyline[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.runner-skyline[_ngcontent-%COMP%]::before, \n.runner-skyline[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: 6%;\n  bottom: 0;\n  width: 24%;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(30, 41, 59, 0.2),\n      rgba(15, 23, 42, 0.86)),\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 24px,\n      rgba(96, 165, 250, 0.12) 24px 28px);\n  clip-path: polygon(0 0, 100% 10%, 78% 100%, 0 100%);\n}\n.runner-skyline[_ngcontent-%COMP%]::before {\n  left: 0;\n}\n.runner-skyline[_ngcontent-%COMP%]::after {\n  right: 0;\n  transform: scaleX(-1);\n}\n.runner-horizon[_ngcontent-%COMP%] {\n  position: absolute;\n  z-index: 3;\n  top: 0.8rem;\n  left: 50%;\n  transform: translateX(-50%);\n  padding: 0.28rem 0.7rem;\n  border-radius: 999px;\n  background: rgba(0, 0, 0, 0.38);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  color: rgba(255, 255, 255, 0.76);\n  font-size: 0.68rem;\n  font-weight: 800;\n  white-space: nowrap;\n}\n.runner-rails[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 50%;\n  top: 9%;\n  bottom: -18%;\n  width: 68%;\n  z-index: 1;\n  pointer-events: none;\n  background:\n    linear-gradient(\n      102deg,\n      transparent 0 30%,\n      rgba(255, 255, 255, 0.16) 30.2% 30.8%,\n      transparent 31.2%),\n    linear-gradient(\n      78deg,\n      transparent 0 69%,\n      rgba(255, 255, 255, 0.16) 69.2% 69.8%,\n      transparent 70.2%),\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 30px,\n      rgba(255, 255, 255, 0.13) 30px 33px);\n  transform: translateX(-50%) perspective(620px) rotateX(59deg);\n  transform-origin: top center;\n  clip-path: polygon(46% 0%, 54% 0%, 100% 100%, 0% 100%);\n}\n.runner-item[_ngcontent-%COMP%] {\n  position: absolute;\n  z-index: 2;\n  display: grid;\n  gap: 0.1rem;\n  justify-items: center;\n  width: 7.5rem;\n  padding: 0.45rem;\n  border-radius: 12px;\n  transform: translate(-50%, -50%);\n  color: #fff;\n  font-size: 0.66rem;\n  font-weight: 800;\n  text-align: center;\n  border: 1px solid rgba(255, 255, 255, 0.16);\n  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);\n  transform-origin: center;\n  transition:\n    top 0.095s linear,\n    left 0.12s ease,\n    opacity 0.12s ease;\n}\n.runner-item--coin[_ngcontent-%COMP%] {\n  background: rgba(245, 158, 11, 0.8);\n}\n.runner-item--bug[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.86);\n}\n.runner-item--power[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.82);\n}\n.runner-item-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  line-height: 1;\n}\n.runner-item-action[_ngcontent-%COMP%] {\n  padding: 0.08rem 0.34rem;\n  border-radius: 999px;\n  background: rgba(0, 0, 0, 0.28);\n  font-size: 0.52rem;\n  letter-spacing: 0.08em;\n  text-transform: uppercase;\n}\n.runner-player[_ngcontent-%COMP%] {\n  position: absolute;\n  z-index: 3;\n  bottom: 5%;\n  width: 4.5rem;\n  height: 4.5rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  transform: translateX(-50%);\n  font-size: 2.25rem;\n  background: rgba(255, 255, 255, 0.11);\n  border: 2px solid rgba(255, 178, 36, 0.55);\n  box-shadow: 0 0 28px rgba(255, 178, 36, 0.18);\n  transition:\n    left 0.16s ease,\n    bottom 0.18s ease,\n    width 0.18s ease,\n    height 0.18s ease,\n    border-radius 0.18s ease;\n}\n.runner-player--jump[_ngcontent-%COMP%] {\n  bottom: 17%;\n  box-shadow: 0 0 34px rgba(96, 165, 250, 0.25);\n}\n.runner-player--slide[_ngcontent-%COMP%] {\n  width: 5.6rem;\n  height: 2.65rem;\n  border-radius: 999px;\n  background: rgba(59, 130, 246, 0.17);\n}\n.runner-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.7rem;\n  margin-top: 0.85rem;\n  color: var(--text-tertiary);\n  font-size: 0.78rem;\n  text-align: center;\n}\n.runner-controls[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  flex: 1;\n  max-width: 28rem;\n}\n.runner-action-btn[_ngcontent-%COMP%] {\n  border-color: rgba(96, 165, 250, 0.45);\n  background: rgba(37, 99, 235, 0.22);\n}\n.match3-board[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(6, minmax(0, 1fr));\n  gap: 0.45rem;\n  padding: 0.65rem;\n  border-radius: 18px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.08),\n      rgba(255, 255, 255, 0.025)),\n    rgba(15, 23, 42, 0.78);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.28);\n}\n.match3-tile[_ngcontent-%COMP%] {\n  min-height: 4.4rem;\n  display: grid;\n  gap: 0.12rem;\n  place-items: center;\n  padding: 0.3rem;\n  border-radius: 22px;\n  border: 2px solid rgba(255, 255, 255, 0.22);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 0.72rem;\n  font-weight: 800;\n  line-height: 1.15;\n  overflow-wrap: anywhere;\n  cursor: pointer;\n  box-shadow:\n    inset 0 3px 0 rgba(255, 255, 255, 0.28),\n    inset 0 -5px 10px rgba(0, 0, 0, 0.16),\n    0 7px 16px rgba(0, 0, 0, 0.24);\n  transition:\n    transform 0.16s ease,\n    border-color 0.16s ease,\n    box-shadow 0.16s ease,\n    filter 0.16s ease;\n}\n.match3-tile[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px) scale(1.03);\n  filter: brightness(1.08);\n}\n.match3-tile--selected[_ngcontent-%COMP%] {\n  border-color: rgba(255, 255, 255, 0.9);\n  box-shadow:\n    0 0 0 3px rgba(255, 178, 36, 0.36),\n    0 0 28px rgba(255, 178, 36, 0.28),\n    inset 0 3px 0 rgba(255, 255, 255, 0.34);\n}\n.match3-tile--api[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2563eb,\n      #0ea5e9);\n}\n.match3-tile--cache[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #16a34a,\n      #84cc16);\n}\n.match3-tile--queue[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #7c3aed,\n      #c084fc);\n}\n.match3-tile--llm[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #c026d3,\n      #f472b6);\n}\n.match3-tile--deploy[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ea580c,\n      #fbbf24);\n}\n.match3-tile--data[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f766e,\n      #2dd4bf);\n}\n.match3-tile--blocker[_ngcontent-%COMP%] {\n  background:\n    repeating-linear-gradient(\n      45deg,\n      rgba(255, 255, 255, 0.08) 0 8px,\n      transparent 8px 16px),\n    linear-gradient(\n      135deg,\n      #475569,\n      #1e293b);\n  cursor: not-allowed;\n  filter: saturate(0.8);\n}\n.match3-tile-icon[_ngcontent-%COMP%] {\n  font-size: 1.35rem;\n  line-height: 1;\n  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));\n}\n.match3-tile-label[_ngcontent-%COMP%] {\n  max-width: 100%;\n  font-size: 0.62rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.34);\n}\n.match3-message[_ngcontent-%COMP%] {\n  margin: 0.85rem 0 0;\n  color: var(--text-tertiary);\n  font-size: 0.8rem;\n  text-align: center;\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls[_ngcontent-%COMP%] {\n    display: flex;\n  }\n}\n.results-card[_ngcontent-%COMP%] {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge[_ngcontent-%COMP%] {\n  font-size: 3rem;\n}\n.results-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section[_ngcontent-%COMP%] {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .section-header[_ngcontent-%COMP%] {\n    margin-bottom: 1.5rem;\n  }\n  .section-subtitle[_ngcontent-%COMP%] {\n    max-width: 21rem;\n  }\n  .setup-card[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .setup-inner[_ngcontent-%COMP%] {\n    gap: 1.4rem;\n  }\n  .game-mode-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .game-mode-btn[_ngcontent-%COMP%] {\n    min-height: auto;\n    padding: 0.9rem;\n  }\n  .option-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .results-stats[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper[_ngcontent-%COMP%] {\n    margin: 0 -1rem;\n  }\n  .game-wrapper--arcade[_ngcontent-%COMP%] {\n    margin: 0;\n  }\n  .game-hud[_ngcontent-%COMP%] {\n    width: auto;\n    justify-content: center;\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin: 0 1rem 0.35rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-item[_ngcontent-%COMP%] {\n    flex: 0 1 auto;\n  }\n  .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.6rem;\n  }\n  .hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.68rem;\n  }\n  .hud-icon[_ngcontent-%COMP%] {\n    font-size: 0.85rem;\n  }\n  .canvas-container[_ngcontent-%COMP%] {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls[_ngcontent-%COMP%] {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn[_ngcontent-%COMP%] {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump[_ngcontent-%COMP%] {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire[_ngcontent-%COMP%] {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .runner-arena[_ngcontent-%COMP%], \n   .match3-arena[_ngcontent-%COMP%] {\n    padding: 1rem;\n    border-radius: 16px;\n  }\n  .runner-track[_ngcontent-%COMP%] {\n    height: 58vh;\n    min-height: 360px;\n    border-radius: 14px;\n  }\n  .runner-item[_ngcontent-%COMP%] {\n    width: clamp(4.5rem, 27vw, 5.6rem);\n    padding: 0.36rem 0.25rem;\n    font-size: 0.56rem;\n  }\n  .runner-player[_ngcontent-%COMP%] {\n    width: 3.8rem;\n    height: 3.8rem;\n    font-size: 1.9rem;\n  }\n  .runner-meta[_ngcontent-%COMP%], \n   .match3-meta[_ngcontent-%COMP%] {\n    gap: 0.35rem;\n    font-size: 0.72rem;\n  }\n  .runner-controls[_ngcontent-%COMP%] {\n    gap: 0.5rem;\n    font-size: 0.7rem;\n  }\n  .runner-controls[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    order: 5;\n    flex-basis: 100%;\n  }\n  .match3-board[_ngcontent-%COMP%] {\n    gap: 0.32rem;\n  }\n  .match3-tile[_ngcontent-%COMP%] {\n    min-height: 3.25rem;\n    border-radius: 14px;\n    font-size: 0.58rem;\n  }\n  .match3-tile-icon[_ngcontent-%COMP%] {\n    font-size: 1rem;\n  }\n  .match3-tile-label[_ngcontent-%COMP%] {\n    font-size: 0.5rem;\n  }\n  .results-card[_ngcontent-%COMP%] {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n@media (max-width: 400px) {\n  .game-hud[_ngcontent-%COMP%] {\n    gap: 0.45rem;\n    padding: 0.45rem 0.55rem;\n  }\n  .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.54rem;\n  }\n  .hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.62rem;\n  }\n  .runner-track[_ngcontent-%COMP%] {\n    min-height: 330px;\n  }\n  .match3-board[_ngcontent-%COMP%] {\n    gap: 0.24rem;\n  }\n  .match3-tile[_ngcontent-%COMP%] {\n    min-height: 2.85rem;\n    padding: 0.2rem;\n    font-size: 0.5rem;\n  }\n  .match3-tile-icon[_ngcontent-%COMP%] {\n    font-size: 0.9rem;\n  }\n  .match3-tile-label[_ngcontent-%COMP%] {\n    font-size: 0.44rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */'] });
   }
 };
 (() => {
@@ -38434,15 +40018,30 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     <!-- SETUP -->
     @if (viewState === 'setup') {
       <div class="section-header">
-        <div class="world-label">\u{1F579} MARIO LAB</div>
-        <h2 class="section-title">AI-Powered Platformer</h2>
+        <div class="world-label">\u{1F579} AI GAME LAB</div>
+        <h2 class="section-title">AI-Powered Mini-Arcade</h2>
         <p class="section-subtitle">
-          A real Mario game. The AI generates the entire level \u2014 platforms, enemies, coins, power-ups. You just play.
+          Three Mario-inspired games. AI generates the lanes, levels, boards, concepts, bugs, rewards, and missions. You just play.
         </p>
       </div>
 
       <div class="setup-card apple-card">
         <div class="setup-inner">
+          <div class="setup-section">
+            <h3 class="setup-heading">Choose your game</h3>
+            <div class="game-mode-grid">
+              @for (mode of gameModes; track mode.value) {
+                <button class="game-mode-btn"
+                        [class.game-mode-btn--active]="selectedGameMode === mode.value"
+                        (click)="selectGameMode(mode.value)">
+                  <span class="game-mode-icon">{{ mode.icon }}</span>
+                  <span class="game-mode-label">{{ mode.label }}</span>
+                  <span class="game-mode-desc">{{ mode.description }}</span>
+                </button>
+              }
+            </div>
+          </div>
+
           <div class="setup-section">
             <h3 class="setup-heading">Choose your world</h3>
             <div class="option-grid">
@@ -38473,27 +40072,35 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
             </div>
           </div>
 
-          <div class="setup-section">
-            <h3 class="setup-heading">Course Style</h3>
-            <div class="option-grid option-grid--compact">
-              @for (type of levelTypes; track type.value) {
-                <button class="option-btn"
-                        [class.option-btn--active]="selectedLevelType === type.value"
-                        (click)="selectedLevelType = type.value">
-                  <span class="option-icon">{{ type.icon }}</span>
-                  <span class="option-label">{{ type.label }}</span>
-                  <span class="option-desc">{{ type.description }}</span>
-                </button>
-              }
+          @if (selectedGameMode === 'platformer') {
+            <div class="setup-section">
+              <h3 class="setup-heading">Course Style</h3>
+              <div class="option-grid option-grid--compact">
+                @for (type of levelTypes; track type.value) {
+                  <button class="option-btn"
+                          [class.option-btn--active]="selectedLevelType === type.value"
+                          (click)="selectedLevelType = type.value">
+                    <span class="option-icon">{{ type.icon }}</span>
+                    <span class="option-label">{{ type.label }}</span>
+                    <span class="option-desc">{{ type.description }}</span>
+                  </button>
+                }
+              </div>
             </div>
-          </div>
+          }
 
           <button class="start-btn" (click)="startGame()">
             <i class="fas fa-play"></i> Start Mission
           </button>
 
           <div class="controls-hint">
-            <span>Arrow keys / WASD to move&ensp;\xB7&ensp;Space / Up to jump or swim stroke&ensp;\xB7&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
+            @if (selectedGameMode === 'runner') {
+              <span>Arrow keys / A-D to switch lanes \xB7 dodge bugs \xB7 collect AI concepts</span>
+            } @else if (selectedGameMode === 'match3') {
+              <span>Swap adjacent tiles to match 3+ AI concepts before moves run out</span>
+            } @else {
+              <span>Arrow keys / WASD to move&ensp;\xB7&ensp;Space / Up to jump or swim stroke&ensp;\xB7&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
+            }
           </div>
         </div>
       </div>
@@ -38504,8 +40111,8 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
       <div class="loading-card apple-card">
         <div class="loading-content">
           <div class="loader-icon">\u{1F344}</div>
-          <h3>Generating your level...</h3>
-          <p>AI is building the world \u2014 platforms, enemies, and power-ups</p>
+          <h3>Generating {{ getGameModeLabel() }}...</h3>
+          <p>AI is building the mission \u2014 concepts, bugs, rewards, and difficulty curve</p>
           <div class="loading-bar"><div class="loading-fill"></div></div>
         </div>
       </div>
@@ -38513,7 +40120,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
 
     <!-- PLAYING -->
     @if (viewState === 'playing') {
-      <div class="game-wrapper">
+      <div class="game-wrapper" [class.game-wrapper--arcade]="selectedGameMode !== 'platformer'">
         <div class="game-hud">
           <div class="hud-item">
             <span class="hud-icon">\u2764\uFE0F</span>
@@ -38528,36 +40135,108 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
             <span class="hud-val">{{ score }}</span>
           </div>
           <div class="hud-item hud-category">
-            <span class="hud-val">{{ getCategoryLabel() }}</span>
+            <span class="hud-val">{{ getGameModeLabel() }}</span>
           </div>
-          <div class="hud-item hud-category">
-            <span class="hud-val">{{ getLevelTypeLabel() }}</span>
-          </div>
+          @if (selectedGameMode === 'platformer') {
+            <div class="hud-item hud-category">
+              <span class="hud-val">{{ getLevelTypeLabel() }}</span>
+            </div>
+          }
         </div>
 
-        <div class="canvas-container">
-          <canvas #gameCanvas></canvas>
+        @if (selectedGameMode === 'platformer') {
+          <div class="canvas-container">
+            <canvas #gameCanvas></canvas>
 
-          <!-- Touch controls (mobile) -->
-          <div class="touch-controls">
-            <div class="touch-dpad">
-              <button class="touch-btn touch-left"
-                      (touchstart)="touchLeft(true)" (touchend)="touchLeft(false)"
-                      (mousedown)="touchLeft(true)" (mouseup)="touchLeft(false)">\u25C0</button>
-              <button class="touch-btn touch-right"
-                      (touchstart)="touchRight(true)" (touchend)="touchRight(false)"
-                      (mousedown)="touchRight(true)" (mouseup)="touchRight(false)">\u25B6</button>
-            </div>
-            <div class="touch-actions">
-              <button class="touch-btn touch-jump"
-                      (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
-                      (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">\u25B2</button>
-              <button class="touch-btn touch-fire"
-                      (touchstart)="touchFire(true)" (touchend)="touchFire(false)"
-                      (mousedown)="touchFire(true)" (mouseup)="touchFire(false)">\u{1F525}</button>
+            <!-- Touch controls (mobile) -->
+            <div class="touch-controls">
+              <div class="touch-dpad">
+                <button class="touch-btn touch-left"
+                        (touchstart)="touchLeft(true)" (touchend)="touchLeft(false)"
+                        (mousedown)="touchLeft(true)" (mouseup)="touchLeft(false)">\u25C0</button>
+                <button class="touch-btn touch-right"
+                        (touchstart)="touchRight(true)" (touchend)="touchRight(false)"
+                        (mousedown)="touchRight(true)" (mouseup)="touchRight(false)">\u25B6</button>
+              </div>
+              <div class="touch-actions">
+                <button class="touch-btn touch-jump"
+                        (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
+                        (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">\u25B2</button>
+                <button class="touch-btn touch-fire"
+                        (touchstart)="touchFire(true)" (touchend)="touchFire(false)"
+                        (mousedown)="touchFire(true)" (mouseup)="touchFire(false)">\u{1F525}</button>
+              </div>
             </div>
           </div>
-        </div>
+        }
+
+        @if (selectedGameMode === 'runner') {
+          <div class="runner-arena apple-card">
+            <div class="runner-meta">
+              <span>{{ runnerTheme }}</span>
+              <span>Distance {{ runnerDistance }}</span>
+            </div>
+            <div class="runner-track">
+              <div class="runner-skyline"></div>
+              <div class="runner-horizon">Next station: {{ getCategoryLabel() }}</div>
+              <div class="runner-rails"></div>
+              @for (lane of [0, 1, 2]; track lane) {
+                <div class="runner-lane"
+                     [ngClass]="'runner-lane--' + lane"
+                     [class.runner-lane--active]="runnerLane === lane"></div>
+              }
+              @for (item of runnerItems; track item.id) {
+                <div class="runner-item"
+                     [ngClass]="'runner-item--' + item.kind"
+                     [style.left.%]="getRunnerItemLeft(item)"
+                     [style.top.%]="item.y"
+                     [style.transform]="getRunnerItemTransform(item)"
+                     [style.opacity]="getRunnerItemOpacity(item)">
+                  <span class="runner-item-icon">{{ getRunnerItemIcon(item) }}</span>
+                  <span>{{ item.label }}</span>
+                  @if (item.kind === 'bug') {
+                    <span class="runner-item-action">{{ item.avoidAction }}</span>
+                  }
+                </div>
+              }
+              <div class="runner-player"
+                   [class.runner-player--jump]="runnerAction === 'jump'"
+                   [class.runner-player--slide]="runnerAction === 'slide'"
+                   [style.left.%]="50 + (runnerLane - 1) * 29">
+                <span>{{ runnerAction === 'slide' ? '\u{1F6DD}' : '\u{1F3C3}' }}</span>
+              </div>
+            </div>
+            <div class="runner-controls">
+              <button class="touch-btn" (click)="moveRunner(-1)">\u25C0</button>
+              <button class="touch-btn runner-action-btn" (click)="runnerJump()">\u25B2</button>
+              <span>{{ runnerMessage || 'Switch lanes, jump barriers, slide under tunnels.' }}</span>
+              <button class="touch-btn runner-action-btn" (click)="runnerSlide()">\u25BC</button>
+              <button class="touch-btn" (click)="moveRunner(1)">\u25B6</button>
+            </div>
+          </div>
+        }
+
+        @if (selectedGameMode === 'match3') {
+          <div class="match3-arena apple-card">
+            <div class="match3-meta">
+              <span>{{ matchGoal }}</span>
+              <span>Moves {{ matchMovesRemaining }} \xB7 Combos {{ matchMatches }}/{{ matchTarget }}</span>
+            </div>
+            <div class="match3-board">
+              @for (tile of matchTiles; track tile.id; let i = $index) {
+                <button class="match3-tile"
+                        [ngClass]="'match3-tile--' + tile.type"
+                        [class.match3-tile--selected]="tile.selected"
+                        [class.match3-tile--blocked]="tile.blocked"
+                        (click)="onMatchTileClick(i)">
+                  <span class="match3-tile-icon">{{ getMatchTileIcon(tile) }}</span>
+                  <span class="match3-tile-label">{{ tile.label }}</span>
+                </button>
+              }
+            </div>
+            <p class="match3-message">{{ matchMessage || 'Swap adjacent AI tiles to build 3+ matches.' }}</p>
+          </div>
+        }
       </div>
     }
 
@@ -38579,8 +40258,8 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
               <span class="stat-value">{{ coins }}</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">Enemies</span>
-              <span class="stat-value">{{ enemiesStomped }}</span>
+              <span class="stat-label">{{ selectedGameMode === 'match3' ? 'Combos' : selectedGameMode === 'runner' ? 'Distance' : 'Enemies' }}</span>
+              <span class="stat-value">{{ selectedGameMode === 'match3' ? matchMatches : selectedGameMode === 'runner' ? runnerDistance : enemiesStomped }}</span>
             </div>
           </div>
 
@@ -38594,28 +40273,37 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     }
   </div>
 </section>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/ai-quiz-game/ai-quiz-game.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.mario-game-section {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.option-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon {\n  font-size: 1.3rem;\n}\n.option-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon {\n  font-size: 2.5rem;\n  animation: bounce 0.6s ease infinite alternate;\n}\n@keyframes bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content h3 {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content p {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: loadProgress 3s ease-in-out infinite;\n}\n@keyframes loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper {\n  position: relative;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n}\n.hud-item {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon {\n  font-size: 1rem;\n}\n.hud-val {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category .hud-val {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container canvas {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls {\n    display: flex;\n  }\n}\n.results-card {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge {\n  font-size: 3rem;\n}\n.results-title {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .setup-card {\n    padding: 1.5rem;\n  }\n  .option-grid {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row {\n    grid-template-columns: 1fr;\n  }\n  .results-stats {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper {\n    margin: 0 -1rem;\n  }\n  .game-hud {\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin-left: 1rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-val {\n    font-size: 0.6rem;\n  }\n  .hud-icon {\n    font-size: 0.85rem;\n  }\n  .canvas-container {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/ai-quiz-game/ai-quiz-game.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.mario-game-section {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.game-mode-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.85rem;\n}\n.game-mode-btn {\n  display: grid;\n  gap: 0.35rem;\n  min-height: 9rem;\n  padding: 1rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background:\n    radial-gradient(\n      circle at 20% 0%,\n      rgba(255, 178, 36, 0.08),\n      transparent 34%),\n    rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.game-mode-btn:hover {\n  transform: translateY(-2px);\n  border-color: rgba(255, 178, 36, 0.35);\n  background: rgba(255, 178, 36, 0.055);\n}\n.game-mode-btn--active {\n  border-color: rgba(255, 178, 36, 0.55);\n  background: rgba(255, 178, 36, 0.09);\n  box-shadow: 0 0 18px rgba(255, 178, 36, 0.12);\n}\n.game-mode-icon {\n  font-size: 1.85rem;\n}\n.game-mode-label {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 800;\n}\n.game-mode-desc {\n  font-size: 0.74rem;\n  color: var(--text-muted);\n  line-height: 1.45;\n}\n.option-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon {\n  font-size: 1.3rem;\n}\n.option-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon {\n  font-size: 2.5rem;\n  animation: bounce 0.6s ease infinite alternate;\n}\n@keyframes bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content h3 {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content p {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: loadProgress 3s ease-in-out infinite;\n}\n@keyframes loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper {\n  position: relative;\n}\n.game-wrapper--arcade {\n  max-width: 58rem;\n  margin: 0 auto;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n  max-width: 100%;\n}\n.hud-item {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon {\n  font-size: 1rem;\n}\n.hud-val {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category .hud-val {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container canvas {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n.runner-arena,\n.match3-arena {\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background:\n    radial-gradient(\n      circle at 20% 0%,\n      rgba(236, 72, 153, 0.14),\n      transparent 28%),\n    radial-gradient(\n      circle at 90% 30%,\n      rgba(59, 130, 246, 0.12),\n      transparent 24%),\n    var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 1.25rem;\n}\n.runner-meta,\n.match3-meta {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  gap: 1rem;\n  margin-bottom: 0.85rem;\n  color: var(--text-tertiary);\n  font-size: 0.82rem;\n  font-weight: 700;\n}\n.runner-track {\n  position: relative;\n  height: min(62vh, 520px);\n  min-height: 380px;\n  overflow: hidden;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  perspective: 700px;\n  background:\n    radial-gradient(\n      circle at 50% 6%,\n      rgba(96, 165, 250, 0.26),\n      transparent 22%),\n    linear-gradient(\n      90deg,\n      rgba(15, 23, 42, 0.92) 0 15%,\n      transparent 28% 72%,\n      rgba(15, 23, 42, 0.92) 85% 100%),\n    linear-gradient(\n      180deg,\n      rgba(14, 165, 233, 0.2),\n      transparent 38%),\n    repeating-linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.05) 0 3px,\n      transparent 3px 38px),\n    #09091a;\n}\n.runner-lane {\n  position: absolute;\n  top: 14%;\n  bottom: -6%;\n  z-index: 1;\n  border-inline: 1px solid rgba(255, 255, 255, 0.09);\n  background:\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 28px,\n      rgba(255, 255, 255, 0.08) 28px 31px),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.015),\n      rgba(255, 255, 255, 0.055));\n  transform-origin: bottom center;\n  clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);\n}\n.runner-lane--active {\n  background:\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 28px,\n      rgba(255, 255, 255, 0.1) 28px 31px),\n    linear-gradient(\n      180deg,\n      rgba(255, 178, 36, 0.08),\n      rgba(255, 178, 36, 0.16));\n}\n.runner-lane--0 {\n  left: 5%;\n  width: 44%;\n  transform: skewX(-11deg);\n}\n.runner-lane--1 {\n  left: 28%;\n  width: 44%;\n}\n.runner-lane--2 {\n  right: 5%;\n  width: 44%;\n  transform: skewX(11deg);\n}\n.runner-skyline {\n  position: absolute;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.runner-skyline::before,\n.runner-skyline::after {\n  content: "";\n  position: absolute;\n  top: 6%;\n  bottom: 0;\n  width: 24%;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(30, 41, 59, 0.2),\n      rgba(15, 23, 42, 0.86)),\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 24px,\n      rgba(96, 165, 250, 0.12) 24px 28px);\n  clip-path: polygon(0 0, 100% 10%, 78% 100%, 0 100%);\n}\n.runner-skyline::before {\n  left: 0;\n}\n.runner-skyline::after {\n  right: 0;\n  transform: scaleX(-1);\n}\n.runner-horizon {\n  position: absolute;\n  z-index: 3;\n  top: 0.8rem;\n  left: 50%;\n  transform: translateX(-50%);\n  padding: 0.28rem 0.7rem;\n  border-radius: 999px;\n  background: rgba(0, 0, 0, 0.38);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  color: rgba(255, 255, 255, 0.76);\n  font-size: 0.68rem;\n  font-weight: 800;\n  white-space: nowrap;\n}\n.runner-rails {\n  position: absolute;\n  left: 50%;\n  top: 9%;\n  bottom: -18%;\n  width: 68%;\n  z-index: 1;\n  pointer-events: none;\n  background:\n    linear-gradient(\n      102deg,\n      transparent 0 30%,\n      rgba(255, 255, 255, 0.16) 30.2% 30.8%,\n      transparent 31.2%),\n    linear-gradient(\n      78deg,\n      transparent 0 69%,\n      rgba(255, 255, 255, 0.16) 69.2% 69.8%,\n      transparent 70.2%),\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 30px,\n      rgba(255, 255, 255, 0.13) 30px 33px);\n  transform: translateX(-50%) perspective(620px) rotateX(59deg);\n  transform-origin: top center;\n  clip-path: polygon(46% 0%, 54% 0%, 100% 100%, 0% 100%);\n}\n.runner-item {\n  position: absolute;\n  z-index: 2;\n  display: grid;\n  gap: 0.1rem;\n  justify-items: center;\n  width: 7.5rem;\n  padding: 0.45rem;\n  border-radius: 12px;\n  transform: translate(-50%, -50%);\n  color: #fff;\n  font-size: 0.66rem;\n  font-weight: 800;\n  text-align: center;\n  border: 1px solid rgba(255, 255, 255, 0.16);\n  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);\n  transform-origin: center;\n  transition:\n    top 0.095s linear,\n    left 0.12s ease,\n    opacity 0.12s ease;\n}\n.runner-item--coin {\n  background: rgba(245, 158, 11, 0.8);\n}\n.runner-item--bug {\n  background: rgba(239, 68, 68, 0.86);\n}\n.runner-item--power {\n  background: rgba(59, 130, 246, 0.82);\n}\n.runner-item-icon {\n  font-size: 1rem;\n  line-height: 1;\n}\n.runner-item-action {\n  padding: 0.08rem 0.34rem;\n  border-radius: 999px;\n  background: rgba(0, 0, 0, 0.28);\n  font-size: 0.52rem;\n  letter-spacing: 0.08em;\n  text-transform: uppercase;\n}\n.runner-player {\n  position: absolute;\n  z-index: 3;\n  bottom: 5%;\n  width: 4.5rem;\n  height: 4.5rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  transform: translateX(-50%);\n  font-size: 2.25rem;\n  background: rgba(255, 255, 255, 0.11);\n  border: 2px solid rgba(255, 178, 36, 0.55);\n  box-shadow: 0 0 28px rgba(255, 178, 36, 0.18);\n  transition:\n    left 0.16s ease,\n    bottom 0.18s ease,\n    width 0.18s ease,\n    height 0.18s ease,\n    border-radius 0.18s ease;\n}\n.runner-player--jump {\n  bottom: 17%;\n  box-shadow: 0 0 34px rgba(96, 165, 250, 0.25);\n}\n.runner-player--slide {\n  width: 5.6rem;\n  height: 2.65rem;\n  border-radius: 999px;\n  background: rgba(59, 130, 246, 0.17);\n}\n.runner-controls {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.7rem;\n  margin-top: 0.85rem;\n  color: var(--text-tertiary);\n  font-size: 0.78rem;\n  text-align: center;\n}\n.runner-controls span {\n  flex: 1;\n  max-width: 28rem;\n}\n.runner-action-btn {\n  border-color: rgba(96, 165, 250, 0.45);\n  background: rgba(37, 99, 235, 0.22);\n}\n.match3-board {\n  display: grid;\n  grid-template-columns: repeat(6, minmax(0, 1fr));\n  gap: 0.45rem;\n  padding: 0.65rem;\n  border-radius: 18px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.08),\n      rgba(255, 255, 255, 0.025)),\n    rgba(15, 23, 42, 0.78);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.28);\n}\n.match3-tile {\n  min-height: 4.4rem;\n  display: grid;\n  gap: 0.12rem;\n  place-items: center;\n  padding: 0.3rem;\n  border-radius: 22px;\n  border: 2px solid rgba(255, 255, 255, 0.22);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 0.72rem;\n  font-weight: 800;\n  line-height: 1.15;\n  overflow-wrap: anywhere;\n  cursor: pointer;\n  box-shadow:\n    inset 0 3px 0 rgba(255, 255, 255, 0.28),\n    inset 0 -5px 10px rgba(0, 0, 0, 0.16),\n    0 7px 16px rgba(0, 0, 0, 0.24);\n  transition:\n    transform 0.16s ease,\n    border-color 0.16s ease,\n    box-shadow 0.16s ease,\n    filter 0.16s ease;\n}\n.match3-tile:hover {\n  transform: translateY(-2px) scale(1.03);\n  filter: brightness(1.08);\n}\n.match3-tile--selected {\n  border-color: rgba(255, 255, 255, 0.9);\n  box-shadow:\n    0 0 0 3px rgba(255, 178, 36, 0.36),\n    0 0 28px rgba(255, 178, 36, 0.28),\n    inset 0 3px 0 rgba(255, 255, 255, 0.34);\n}\n.match3-tile--api {\n  background:\n    linear-gradient(\n      135deg,\n      #2563eb,\n      #0ea5e9);\n}\n.match3-tile--cache {\n  background:\n    linear-gradient(\n      135deg,\n      #16a34a,\n      #84cc16);\n}\n.match3-tile--queue {\n  background:\n    linear-gradient(\n      135deg,\n      #7c3aed,\n      #c084fc);\n}\n.match3-tile--llm {\n  background:\n    linear-gradient(\n      135deg,\n      #c026d3,\n      #f472b6);\n}\n.match3-tile--deploy {\n  background:\n    linear-gradient(\n      135deg,\n      #ea580c,\n      #fbbf24);\n}\n.match3-tile--data {\n  background:\n    linear-gradient(\n      135deg,\n      #0f766e,\n      #2dd4bf);\n}\n.match3-tile--blocker {\n  background:\n    repeating-linear-gradient(\n      45deg,\n      rgba(255, 255, 255, 0.08) 0 8px,\n      transparent 8px 16px),\n    linear-gradient(\n      135deg,\n      #475569,\n      #1e293b);\n  cursor: not-allowed;\n  filter: saturate(0.8);\n}\n.match3-tile-icon {\n  font-size: 1.35rem;\n  line-height: 1;\n  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));\n}\n.match3-tile-label {\n  max-width: 100%;\n  font-size: 0.62rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.34);\n}\n.match3-message {\n  margin: 0.85rem 0 0;\n  color: var(--text-tertiary);\n  font-size: 0.8rem;\n  text-align: center;\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls {\n    display: flex;\n  }\n}\n.results-card {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge {\n  font-size: 3rem;\n}\n.results-title {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .section-header {\n    margin-bottom: 1.5rem;\n  }\n  .section-subtitle {\n    max-width: 21rem;\n  }\n  .setup-card {\n    padding: 1.25rem;\n  }\n  .setup-inner {\n    gap: 1.4rem;\n  }\n  .game-mode-grid {\n    grid-template-columns: 1fr;\n  }\n  .game-mode-btn {\n    min-height: auto;\n    padding: 0.9rem;\n  }\n  .option-grid {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row {\n    grid-template-columns: 1fr;\n  }\n  .results-stats {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper {\n    margin: 0 -1rem;\n  }\n  .game-wrapper--arcade {\n    margin: 0;\n  }\n  .game-hud {\n    width: auto;\n    justify-content: center;\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin: 0 1rem 0.35rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-item {\n    flex: 0 1 auto;\n  }\n  .hud-val {\n    font-size: 0.6rem;\n  }\n  .hud-category .hud-val {\n    font-size: 0.68rem;\n  }\n  .hud-icon {\n    font-size: 0.85rem;\n  }\n  .canvas-container {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .runner-arena,\n  .match3-arena {\n    padding: 1rem;\n    border-radius: 16px;\n  }\n  .runner-track {\n    height: 58vh;\n    min-height: 360px;\n    border-radius: 14px;\n  }\n  .runner-item {\n    width: clamp(4.5rem, 27vw, 5.6rem);\n    padding: 0.36rem 0.25rem;\n    font-size: 0.56rem;\n  }\n  .runner-player {\n    width: 3.8rem;\n    height: 3.8rem;\n    font-size: 1.9rem;\n  }\n  .runner-meta,\n  .match3-meta {\n    gap: 0.35rem;\n    font-size: 0.72rem;\n  }\n  .runner-controls {\n    gap: 0.5rem;\n    font-size: 0.7rem;\n  }\n  .runner-controls span {\n    order: 5;\n    flex-basis: 100%;\n  }\n  .match3-board {\n    gap: 0.32rem;\n  }\n  .match3-tile {\n    min-height: 3.25rem;\n    border-radius: 14px;\n    font-size: 0.58rem;\n  }\n  .match3-tile-icon {\n    font-size: 1rem;\n  }\n  .match3-tile-label {\n    font-size: 0.5rem;\n  }\n  .results-card {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n@media (max-width: 400px) {\n  .game-hud {\n    gap: 0.45rem;\n    padding: 0.45rem 0.55rem;\n  }\n  .hud-val {\n    font-size: 0.54rem;\n  }\n  .hud-category .hud-val {\n    font-size: 0.62rem;\n  }\n  .runner-track {\n    min-height: 330px;\n  }\n  .match3-board {\n    gap: 0.24rem;\n  }\n  .match3-tile {\n    min-height: 2.85rem;\n    padding: 0.2rem;\n    font-size: 0.5rem;\n  }\n  .match3-tile-icon {\n    font-size: 0.9rem;\n  }\n  .match3-tile-label {\n    font-size: 0.44rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */\n'] }]
   }], () => [{ type: HttpClient }, { type: NgZone }, { type: ChangeDetectorRef }], { canvasRef: [{
     type: ViewChild,
     args: ["gameCanvas"]
+  }], onKeydown: [{
+    type: HostListener,
+    args: ["window:keydown", ["$event"]]
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 22 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 61 });
 })();
 
 // src/app/profile/blog/blog.component.ts
 var BlogComponent = class _BlogComponent {
-  constructor() {
+  constructor(achievements, audio) {
+    this.achievements = achievements;
+    this.audio = audio;
     this.blogLinks = BLOG_LINKS;
+  }
+  onBlogClick() {
+    this.achievements.trackBlogClick();
+    this.audio.play("pipe");
   }
   static {
     this.\u0275fac = function BlogComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _BlogComponent)();
+      return new (__ngFactoryType__ || _BlogComponent)(\u0275\u0275directiveInject(AchievementsService), \u0275\u0275directiveInject(AudioService));
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 64, vars: 3, consts: [["id", "blogs", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], ["data-stagger", "120", 1, "scroll-grid"], ["target", "_blank", "rel", "noopener", 1, "scroll-card", 3, "href"], [1, "scroll-seal"], [1, "scroll-header"], [1, "scroll-badge"], [1, "scroll-origin"], [1, "scroll-body"], [1, "scroll-title"], [1, "scroll-text"], [1, "scroll-footer"], [1, "scroll-xp"], [1, "scroll-action"]], template: function BlogComponent_Template(rf, ctx2) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BlogComponent, selectors: [["app-blog"]], decls: 64, vars: 3, consts: [["id", "blogs", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header"], [1, "world-label"], ["data-text-reveal", "", 1, "section-title"], [1, "section-subtitle"], ["data-stagger", "120", 1, "scroll-grid"], ["target", "_blank", "rel", "noopener", 1, "scroll-card", 3, "href"], [1, "scroll-seal"], [1, "scroll-header"], [1, "scroll-badge"], [1, "scroll-origin"], [1, "scroll-body"], [1, "scroll-title"], [1, "scroll-text"], [1, "scroll-footer"], [1, "scroll-xp"], [1, "scroll-action"], ["target", "_blank", "rel", "noopener", 1, "scroll-card", 3, "click", "href"]], template: function BlogComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
         \u0275\u0275text(4, "\u{1F4DC} QUEST SCROLLS");
@@ -38668,7 +40356,11 @@ var BlogComponent = class _BlogComponent {
         \u0275\u0275domElementStart(44, "span", 17);
         \u0275\u0275text(45, "\u{1F4D6} Read Scroll \u2192");
         \u0275\u0275domElementEnd()()();
-        \u0275\u0275domElementStart(46, "a", 7)(47, "div", 8);
+        \u0275\u0275domElementStart(46, "a", 18);
+        \u0275\u0275domListener("click", function BlogComponent_Template_a_click_46_listener() {
+          return ctx2.onBlogClick();
+        });
+        \u0275\u0275domElementStart(47, "div", 8);
         \u0275\u0275text(48, "\u{1F4DC}");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(49, "div", 9)(50, "span", 10);
@@ -38698,20 +40390,25 @@ var BlogComponent = class _BlogComponent {
         \u0275\u0275advance(18);
         \u0275\u0275domProperty("href", ctx2.blogLinks.trustMeetsGameplay, \u0275\u0275sanitizeUrl);
       }
-    }, styles: ['@charset "UTF-8";\n\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.scroll-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.25rem;\n}\n.scroll-card[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  text-decoration: none;\n  color: inherit;\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.scroll-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.4);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.12), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.scroll-card[_ngcontent-%COMP%]:hover   .scroll-action[_ngcontent-%COMP%] {\n  color: #fbbf24;\n}\n.scroll-card[_ngcontent-%COMP%]:hover   .scroll-seal[_ngcontent-%COMP%] {\n  transform: rotate(-8deg) scale(1.15);\n}\n.scroll-seal[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.75rem;\n  right: 0.75rem;\n  font-size: 1.6rem;\n  opacity: 0.35;\n  transition: transform 300ms ease;\n  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.3));\n}\n.scroll-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0.65rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n}\n.scroll-badge[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.14em;\n  padding: 0.2rem 0.5rem;\n  border-radius: 4px;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  color: #fbbf24;\n}\n.scroll-origin[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-muted);\n}\n.scroll-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1rem;\n  flex: 1;\n  display: grid;\n  gap: 0.5rem;\n}\n.scroll-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.scroll-text[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  line-height: 1.6;\n  margin: 0;\n}\n.scroll-footer[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.03);\n}\n.scroll-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.08em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.3);\n}\n.scroll-action[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.06em;\n  color: var(--text-muted);\n  transition: color 200ms ease;\n}\n@media (max-width: 640px) {\n  .scroll-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */'] });
+    }, styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.scroll-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.25rem;\n}\n.scroll-card[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  text-decoration: none;\n  color: inherit;\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.scroll-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.4);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.12), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.scroll-card[_ngcontent-%COMP%]:hover   .scroll-action[_ngcontent-%COMP%] {\n  color: #fbbf24;\n}\n.scroll-card[_ngcontent-%COMP%]:hover   .scroll-seal[_ngcontent-%COMP%] {\n  transform: rotate(-8deg) scale(1.15);\n}\n.scroll-seal[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.75rem;\n  right: 0.75rem;\n  font-size: 1.6rem;\n  opacity: 0.35;\n  transition: transform 300ms ease;\n  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.3));\n}\n.scroll-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0.65rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n}\n.scroll-badge[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.14em;\n  padding: 0.2rem 0.5rem;\n  border-radius: 4px;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  color: #fbbf24;\n}\n.scroll-origin[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-muted);\n}\n.scroll-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1rem;\n  flex: 1;\n  display: grid;\n  gap: 0.5rem;\n}\n.scroll-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.scroll-text[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  line-height: 1.6;\n  margin: 0;\n}\n.scroll-footer[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.03);\n}\n.scroll-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.08em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.3);\n}\n.scroll-action[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.06em;\n  color: var(--text-muted);\n  transition: color 200ms ease;\n}\n@media (max-width: 640px) {\n  .scroll-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */'] });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BlogComponent, [{
     type: Component,
-    args: [{ selector: "app-blog", standalone: true, template: '<div class="apple-section" id="blogs">\n  <div class="apple-container">\n    <div class="section-header" data-anim="fade-up">\n      <div class="world-label">\u{1F4DC} QUEST SCROLLS</div>\n      <h2 class="section-title" data-text-reveal>Technical Notes &amp; Stories</h2>\n      <p class="section-subtitle">Field reports from production. Published on Medium.</p>\n    </div>\n\n    <div class="scroll-grid" data-stagger="120">\n\n      <!-- Blog 1 -->\n      <a [href]="blogLinks.fortressOfFairPlay" class="scroll-card" target="_blank" rel="noopener">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h4>\n          <p class="scroll-text">\n            Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+120 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n      <!-- Blog 2 -->\n      <a [href]="blogLinks.neptuneNavigator" class="scroll-card" target="_blank" rel="noopener">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Neptune Navigator: Navigating Performance Challenges</h4>\n          <p class="scroll-text">\n            Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+100 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n      <!-- Blog 3 -->\n      <a [href]="blogLinks.trustMeetsGameplay" class="scroll-card" target="_blank" rel="noopener">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Games24x7: Where Trust Meets Gameplay</h4>\n          <p class="scroll-text">\n            Discover how we build trust and create engaging gaming experiences that keep players coming back.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+90 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n    </div>\n  </div>\n</div>\n', styles: ['@charset "UTF-8";\n\n/* src/app/profile/blog/blog.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.scroll-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.25rem;\n}\n.scroll-card {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  text-decoration: none;\n  color: inherit;\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.scroll-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.4);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.12), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.scroll-card:hover .scroll-action {\n  color: #fbbf24;\n}\n.scroll-card:hover .scroll-seal {\n  transform: rotate(-8deg) scale(1.15);\n}\n.scroll-seal {\n  position: absolute;\n  top: 0.75rem;\n  right: 0.75rem;\n  font-size: 1.6rem;\n  opacity: 0.35;\n  transition: transform 300ms ease;\n  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.3));\n}\n.scroll-header {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0.65rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n}\n.scroll-badge {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.14em;\n  padding: 0.2rem 0.5rem;\n  border-radius: 4px;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  color: #fbbf24;\n}\n.scroll-origin {\n  font-size: 0.78rem;\n  color: var(--text-muted);\n}\n.scroll-body {\n  padding: 1.1rem 1rem;\n  flex: 1;\n  display: grid;\n  gap: 0.5rem;\n}\n.scroll-title {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.scroll-text {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  line-height: 1.6;\n  margin: 0;\n}\n.scroll-footer {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.03);\n}\n.scroll-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.08em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.3);\n}\n.scroll-action {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.06em;\n  color: var(--text-muted);\n  transition: color 200ms ease;\n}\n@media (max-width: 640px) {\n  .scroll-grid {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */\n'] }]
-  }], () => [], null);
+    args: [{ selector: "app-blog", standalone: true, template: '<div class="apple-section" id="blogs">\n  <div class="apple-container">\n    <div class="section-header" data-anim="fade-up">\n      <div class="world-label">\u{1F4DC} QUEST SCROLLS</div>\n      <h2 class="section-title" data-text-reveal>Technical Notes &amp; Stories</h2>\n      <p class="section-subtitle">Field reports from production. Published on Medium.</p>\n    </div>\n\n    <div class="scroll-grid" data-stagger="120">\n\n      <!-- Blog 1 -->\n      <a [href]="blogLinks.fortressOfFairPlay" class="scroll-card" target="_blank" rel="noopener">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Fortress of Fair Play: Stopping Frauds at Games24x7</h4>\n          <p class="scroll-text">\n            Explore the sophisticated fraud detection systems and security measures implemented at Games24x7 to ensure fair gameplay.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+120 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n      <!-- Blog 2 -->\n      <a [href]="blogLinks.neptuneNavigator" class="scroll-card" target="_blank" rel="noopener">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Neptune Navigator: Navigating Performance Challenges</h4>\n          <p class="scroll-text">\n            Insights into how we tackle performance challenges and optimize systems for high-traffic gaming platforms.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+100 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n      <!-- Blog 3 -->\n      <a [href]="blogLinks.trustMeetsGameplay" class="scroll-card" target="_blank" rel="noopener" (click)="onBlogClick()">\n        <div class="scroll-seal">\u{1F4DC}</div>\n        <div class="scroll-header">\n          <span class="scroll-badge">MEDIUM</span>\n          <span class="scroll-origin">Games24x7 Tech</span>\n        </div>\n        <div class="scroll-body">\n          <h4 class="scroll-title">Games24x7: Where Trust Meets Gameplay</h4>\n          <p class="scroll-text">\n            Discover how we build trust and create engaging gaming experiences that keep players coming back.\n          </p>\n        </div>\n        <div class="scroll-footer">\n          <span class="scroll-xp">+90 XP</span>\n          <span class="scroll-action">\u{1F4D6} Read Scroll \u2192</span>\n        </div>\n      </a>\n\n    </div>\n  </div>\n</div>\n', styles: ['@charset "UTF-8";\n\n/* src/app/profile/blog/blog.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.section-title {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n}\n.scroll-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.25rem;\n}\n.scroll-card {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  text-decoration: none;\n  color: inherit;\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.scroll-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.4);\n  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.12), inset 0 1px 0 rgba(251, 191, 36, 0.08);\n}\n.scroll-card:hover .scroll-action {\n  color: #fbbf24;\n}\n.scroll-card:hover .scroll-seal {\n  transform: rotate(-8deg) scale(1.15);\n}\n.scroll-seal {\n  position: absolute;\n  top: 0.75rem;\n  right: 0.75rem;\n  font-size: 1.6rem;\n  opacity: 0.35;\n  transition: transform 300ms ease;\n  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.3));\n}\n.scroll-header {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  padding: 0.65rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n}\n.scroll-badge {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.14em;\n  padding: 0.2rem 0.5rem;\n  border-radius: 4px;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  color: #fbbf24;\n}\n.scroll-origin {\n  font-size: 0.78rem;\n  color: var(--text-muted);\n}\n.scroll-body {\n  padding: 1.1rem 1rem;\n  flex: 1;\n  display: grid;\n  gap: 0.5rem;\n}\n.scroll-title {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.scroll-text {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  line-height: 1.6;\n  margin: 0;\n}\n.scroll-footer {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.6rem 1rem;\n  border-top: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.03);\n}\n.scroll-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.08em;\n  color: #22c55e;\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.3);\n}\n.scroll-action {\n  font-family: var(--font-pixel);\n  font-size: 0.45rem;\n  letter-spacing: 0.06em;\n  color: var(--text-muted);\n  transition: color 200ms ease;\n}\n@media (max-width: 640px) {\n  .scroll-grid {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=blog.component.css.map */\n'] }]
+  }], () => [{ type: AchievementsService }, { type: AudioService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(BlogComponent, { className: "BlogComponent", filePath: "src/app/profile/blog/blog.component.ts", lineNumber: 10 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(BlogComponent, { className: "BlogComponent", filePath: "src/app/profile/blog/blog.component.ts", lineNumber: 12 });
 })();
 
 // node_modules/@angular/forms/fesm2022/forms.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var BaseControlValueAccessor = class _BaseControlValueAccessor {
   _renderer;
   _elementRef;
@@ -39179,7 +40876,7 @@ var AbstractControlDirective = class {
     this._onDestroyCallbacks = [];
   }
   reset(value = void 0) {
-    if (this.control) this.control.reset(value);
+    this.control?.reset(value);
   }
   hasError(errorCode, path) {
     return this.control ? this.control.hasError(errorCode, path) : false;
@@ -39368,7 +41065,7 @@ var ngModelWithFormGroupExample = `
       <input [(ngModel)]="showMoreControls" [ngModelOptions]="{standalone: true}">
   </div>
 `;
-var VERSION2 = /* @__PURE__ */ new Version("21.1.3");
+var VERSION2 = /* @__PURE__ */ new Version("21.2.10");
 function controlParentException(nameOrIndex) {
   return new RuntimeError(1050, `formControlName must be used with a parent formGroup or formArray directive. You'll want to add a formGroup/formArray
       directive and pass it an existing FormGroup/FormArray instance (you can create one in your class).
@@ -39482,7 +41179,7 @@ function missingControlValueError(isFormGroup, key) {
 var VALID = "VALID";
 var INVALID = "INVALID";
 var PENDING = "PENDING";
-var DISABLED2 = "DISABLED";
+var DISABLED = "DISABLED";
 var ControlEvent = class {
 };
 var ValueChangeEvent = class extends ControlEvent {
@@ -39568,7 +41265,7 @@ function assertControlPresent(parent, isGroup, key) {
 function assertAllValuesPresent(control, isGroup, value) {
   control._forEachChild((_, key) => {
     if (value[key] === void 0) {
-      throw new RuntimeError(1002, typeof ngDevMode === "undefined" || ngDevMode ? missingControlValueError(isGroup, key) : "");
+      throw new RuntimeError(-1002, typeof ngDevMode === "undefined" || ngDevMode ? missingControlValueError(isGroup, key) : "");
     }
   });
 }
@@ -39624,13 +41321,13 @@ var AbstractControl = class {
     return this.status === INVALID;
   }
   get pending() {
-    return this.status == PENDING;
+    return this.status === PENDING;
   }
   get disabled() {
-    return this.status === DISABLED2;
+    return this.status === DISABLED;
   }
   get enabled() {
-    return this.status !== DISABLED2;
+    return this.status !== DISABLED;
   }
   errors;
   get pristine() {
@@ -39704,8 +41401,8 @@ var AbstractControl = class {
     const changed = this.touched === false;
     this.touched = true;
     const sourceControl = opts.sourceControl ?? this;
-    if (this._parent && !opts.onlySelf) {
-      this._parent.markAsTouched(__spreadProps(__spreadValues({}, opts), {
+    if (!opts.onlySelf) {
+      this._parent?.markAsTouched(__spreadProps(__spreadValues({}, opts), {
         sourceControl
       }));
     }
@@ -39741,8 +41438,8 @@ var AbstractControl = class {
         sourceControl
       });
     });
-    if (this._parent && !opts.onlySelf) {
-      this._parent._updateTouched(opts, sourceControl);
+    if (!opts.onlySelf) {
+      this._parent?._updateTouched(opts, sourceControl);
     }
     if (changed && opts.emitEvent !== false) {
       this._events.next(new TouchedChangeEvent(false, sourceControl));
@@ -39752,8 +41449,8 @@ var AbstractControl = class {
     const changed = this.pristine === true;
     this.pristine = false;
     const sourceControl = opts.sourceControl ?? this;
-    if (this._parent && !opts.onlySelf) {
-      this._parent.markAsDirty(__spreadProps(__spreadValues({}, opts), {
+    if (!opts.onlySelf) {
+      this._parent?.markAsDirty(__spreadProps(__spreadValues({}, opts), {
         sourceControl
       }));
     }
@@ -39772,8 +41469,8 @@ var AbstractControl = class {
         emitEvent: opts.emitEvent
       });
     });
-    if (this._parent && !opts.onlySelf) {
-      this._parent._updatePristine(opts, sourceControl);
+    if (!opts.onlySelf) {
+      this._parent?._updatePristine(opts, sourceControl);
     }
     if (changed && opts.emitEvent !== false) {
       this._events.next(new PristineChangeEvent(true, sourceControl));
@@ -39786,15 +41483,15 @@ var AbstractControl = class {
       this._events.next(new StatusChangeEvent(this.status, sourceControl));
       this.statusChanges.emit(this.status);
     }
-    if (this._parent && !opts.onlySelf) {
-      this._parent.markAsPending(__spreadProps(__spreadValues({}, opts), {
+    if (!opts.onlySelf) {
+      this._parent?.markAsPending(__spreadProps(__spreadValues({}, opts), {
         sourceControl
       }));
     }
   }
   disable(opts = {}) {
     const skipPristineCheck = this._parentMarkedDirty(opts.onlySelf);
-    this.status = DISABLED2;
+    this.status = DISABLED;
     this.errors = null;
     this._forEachChild((control) => {
       control.disable(__spreadProps(__spreadValues({}, opts), {
@@ -39832,12 +41529,12 @@ var AbstractControl = class {
     this._onDisabledChange.forEach((changeFn) => changeFn(false));
   }
   _updateAncestors(opts, sourceControl) {
-    if (this._parent && !opts.onlySelf) {
-      this._parent.updateValueAndValidity(opts);
+    if (!opts.onlySelf) {
+      this._parent?.updateValueAndValidity(opts);
       if (!opts.skipPristineCheck) {
-        this._parent._updatePristine({}, sourceControl);
+        this._parent?._updatePristine({}, sourceControl);
       }
-      this._parent._updateTouched({}, sourceControl);
+      this._parent?._updateTouched({}, sourceControl);
     }
   }
   setParent(parent) {
@@ -39864,8 +41561,8 @@ var AbstractControl = class {
       this.valueChanges.emit(this.value);
       this.statusChanges.emit(this.status);
     }
-    if (this._parent && !opts.onlySelf) {
-      this._parent.updateValueAndValidity(__spreadProps(__spreadValues({}, opts), {
+    if (!opts.onlySelf) {
+      this._parent?.updateValueAndValidity(__spreadProps(__spreadValues({}, opts), {
         sourceControl
       }));
     }
@@ -39880,7 +41577,7 @@ var AbstractControl = class {
     });
   }
   _setInitialStatus() {
-    this.status = this._allControlsDisabled() ? DISABLED2 : VALID;
+    this.status = this._allControlsDisabled() ? DISABLED : VALID;
   }
   _runValidator() {
     return this.validator ? this.validator(this) : null;
@@ -39924,7 +41621,7 @@ var AbstractControl = class {
   }
   getError(errorCode, path) {
     const control = path ? this.get(path) : this;
-    return control && control.errors ? control.errors[errorCode] : null;
+    return control?.errors ? control.errors[errorCode] : null;
   }
   hasError(errorCode, path) {
     return !!this.getError(errorCode, path);
@@ -39953,7 +41650,7 @@ var AbstractControl = class {
     this.statusChanges = new EventEmitter();
   }
   _calculateStatus() {
-    if (this._allControlsDisabled()) return DISABLED2;
+    if (this._allControlsDisabled()) return DISABLED;
     if (this.errors) return INVALID;
     if (this._hasOwnPendingAsyncValidator || this._anyControlsHaveStatus(PENDING)) return PENDING;
     if (this._anyControlsHaveStatus(INVALID)) return INVALID;
@@ -39972,8 +41669,8 @@ var AbstractControl = class {
     const newPristine = !this._anyControlsDirty();
     const changed = this.pristine !== newPristine;
     this.pristine = newPristine;
-    if (this._parent && !opts.onlySelf) {
-      this._parent._updatePristine(opts, changedControl);
+    if (!opts.onlySelf) {
+      this._parent?._updatePristine(opts, changedControl);
     }
     if (changed) {
       this._events.next(new PristineChangeEvent(this.pristine, changedControl));
@@ -39982,8 +41679,8 @@ var AbstractControl = class {
   _updateTouched(opts = {}, changedControl) {
     this.touched = this._anyControlsTouched();
     this._events.next(new TouchedChangeEvent(this.touched, changedControl));
-    if (this._parent && !opts.onlySelf) {
-      this._parent._updateTouched(opts, changedControl);
+    if (!opts.onlySelf) {
+      this._parent?._updateTouched(opts, changedControl);
     }
   }
   _onDisabledChange = [];
@@ -39996,8 +41693,7 @@ var AbstractControl = class {
     }
   }
   _parentMarkedDirty(onlySelf) {
-    const parentDirty = this._parent && this._parent.dirty;
-    return !onlySelf && !!parentDirty && !this._parent._anyControlsDirty();
+    return !onlySelf && !!this._parent?.dirty && !this._parent._anyControlsDirty();
   }
   _find(name) {
     return null;
@@ -40200,10 +41896,8 @@ function cleanUpControl(control, dir, validateControlPresenceOnChange = true) {
       _noControlError(dir);
     }
   };
-  if (dir.valueAccessor) {
-    dir.valueAccessor.registerOnChange(noop5);
-    dir.valueAccessor.registerOnTouched(noop5);
-  }
+  dir?.valueAccessor?.registerOnChange(noop5);
+  dir?.valueAccessor?.registerOnTouched(noop5);
   cleanUpValidators(control, dir);
   if (control) {
     dir._invokeOnDestroyCallbacks();
@@ -40279,17 +41973,17 @@ function setUpViewChangePipeline(control, dir) {
     control._pendingValue = newValue;
     control._pendingChange = true;
     control._pendingDirty = true;
-    if (control.updateOn === "change") updateControl2(control, dir);
+    if (control.updateOn === "change") updateControl(control, dir);
   });
 }
 function setUpBlurPipeline(control, dir) {
   dir.valueAccessor.registerOnTouched(() => {
     control._pendingTouched = true;
-    if (control.updateOn === "blur" && control._pendingChange) updateControl2(control, dir);
+    if (control.updateOn === "blur" && control._pendingChange) updateControl(control, dir);
     if (control.updateOn !== "submit") control.markAsTouched();
   });
 }
-function updateControl2(control, dir) {
+function updateControl(control, dir) {
   if (control._pendingDirty) control.markAsDirty();
   control.setValue(control._pendingValue, {
     emitModelToViewChange: false
@@ -40448,9 +42142,7 @@ var NgForm = class _NgForm extends ControlContainer {
   removeControl(dir) {
     resolvedPromise$1.then(() => {
       const container = this._findContainer(dir.path);
-      if (container) {
-        container.removeControl(dir.name);
-      }
+      container?.removeControl(dir.name);
       this._directives.delete(dir);
     });
   }
@@ -40468,9 +42160,7 @@ var NgForm = class _NgForm extends ControlContainer {
   removeFormGroup(dir) {
     resolvedPromise$1.then(() => {
       const container = this._findContainer(dir.path);
-      if (container) {
-        container.removeControl(dir.name);
-      }
+      container?.removeControl?.(dir.name);
     });
   }
   getFormGroup(dir) {
@@ -40694,9 +42384,7 @@ var AbstractFormGroupDirective = class _AbstractFormGroupDirective extends Contr
     this.formDirective.addFormGroup(this);
   }
   ngOnDestroy() {
-    if (this.formDirective) {
-      this.formDirective.removeFormGroup(this);
-    }
+    this.formDirective?.removeFormGroup(this);
   }
   get control() {
     return this.formDirective.getFormGroup(this);
@@ -40897,7 +42585,7 @@ var NgModel = class _NgModel extends NgControl {
     }
   }
   ngOnDestroy() {
-    this.formDirective && this.formDirective.removeControl(this);
+    this.formDirective?.removeControl(this);
   }
   get path() {
     return this._getPath(this.name);
@@ -41646,24 +43334,20 @@ var AbstractFormDirective = class _AbstractFormDirective extends ControlContaine
     });
   }
   _cleanUpFormContainer(dir) {
-    if (this.form) {
-      const ctrl = this.form.get(dir.path);
-      if (ctrl) {
-        const isControlUpdated = cleanUpFormContainer(ctrl, dir);
-        if (isControlUpdated) {
-          ctrl.updateValueAndValidity({
-            emitEvent: false
-          });
-        }
+    const ctrl = this.form?.get(dir.path);
+    if (ctrl) {
+      const isControlUpdated = cleanUpFormContainer(ctrl, dir);
+      if (isControlUpdated) {
+        ctrl.updateValueAndValidity({
+          emitEvent: false
+        });
       }
     }
   }
   _updateRegistrations() {
     this.form._registerOnCollectionChange(this._onCollectionChange);
-    if (this._oldForm) {
-      this._oldForm._registerOnCollectionChange(() => {
-      });
-    }
+    this._oldForm?._registerOnCollectionChange(() => {
+    });
   }
   _updateValidators() {
     setUpValidators(this.form, this);
@@ -42139,9 +43823,7 @@ var FormControlName = class _FormControlName extends NgControl {
     }
   }
   ngOnDestroy() {
-    if (this.formDirective) {
-      this.formDirective.removeControl(this);
-    }
+    this.formDirective?.removeControl(this);
   }
   viewToModelUpdate(newValue) {
     this.viewModel = newValue;
@@ -42454,16 +44136,14 @@ var NgSelectOption = class _NgSelectOption {
   }
   set value(value) {
     this._setElementValue(value);
-    if (this._select) this._select._writeValueAfterRender();
+    this._select?._writeValueAfterRender();
   }
   _setElementValue(value) {
     this._renderer.setProperty(this._element.nativeElement, "value", value);
   }
   ngOnDestroy() {
-    if (this._select) {
-      this._select._optionMap.delete(this.id);
-      this._select._writeValueAfterRender();
-    }
+    this._select?._optionMap.delete(this.id);
+    this._select?._writeValueAfterRender();
   }
   static \u0275fac = function NgSelectOption_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _NgSelectOption)(\u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(Renderer2), \u0275\u0275directiveInject(SelectControlValueAccessor, 9));
@@ -42728,9 +44408,7 @@ var AbstractValidatorDirective = class _AbstractValidatorDirective {
       const input2 = this.normalizeInput(changes[this.inputName].currentValue);
       this._enabled = this.enabled(input2);
       this._validator = this._enabled ? this.createValidator(input2) : nullValidator;
-      if (this._onChange) {
-        this._onChange();
-      }
+      this._onChange?.();
     }
   }
   validate(control) {
@@ -43355,6 +45033,11 @@ var ReactiveFormsModule = class _ReactiveFormsModule {
 })();
 
 // node_modules/three/build/three.core.js
+/**
+ * @license
+ * Copyright 2010-2025 Three.js Authors
+ * SPDX-License-Identifier: MIT
+ */
 var REVISION = "181";
 var MOUSE = { LEFT: 0, MIDDLE: 1, RIGHT: 2, ROTATE: 0, DOLLY: 1, PAN: 2 };
 var TOUCH = { ROTATE: 0, PAN: 1, DOLLY_PAN: 2, DOLLY_ROTATE: 3 };
@@ -61563,6 +63246,11 @@ if (typeof window !== "undefined") {
 }
 
 // node_modules/three/build/three.module.js
+/**
+ * @license
+ * Copyright 2010-2025 Three.js Authors
+ * SPDX-License-Identifier: MIT
+ */
 function WebGLAnimation() {
   let context2 = null;
   let isAnimating = false;
@@ -74867,12 +76555,12 @@ var GLTFMeshGpuInstancing = class {
           }
           instancedMesh.setMatrixAt(i, m.compose(p, q, s));
         }
-        for (const attributeName2 in attributes) {
-          if (attributeName2 === "_COLOR_0") {
-            const attr = attributes[attributeName2];
+        for (const attributeName in attributes) {
+          if (attributeName === "_COLOR_0") {
+            const attr = attributes[attributeName];
             instancedMesh.instanceColor = new InstancedBufferAttribute(attr.array, attr.itemSize, attr.normalized);
-          } else if (attributeName2 !== "TRANSLATION" && attributeName2 !== "ROTATION" && attributeName2 !== "SCALE") {
-            mesh.geometry.setAttribute(attributeName2, attributes[attributeName2]);
+          } else if (attributeName !== "TRANSLATION" && attributeName !== "ROTATION" && attributeName !== "SCALE") {
+            mesh.geometry.setAttribute(attributeName, attributes[attributeName]);
           }
         }
         Object3D.prototype.copy.call(instancedMesh, mesh);
@@ -74948,14 +76636,14 @@ var GLTFDracoMeshCompressionExtension = class {
     const threeAttributeMap = {};
     const attributeNormalizedMap = {};
     const attributeTypeMap = {};
-    for (const attributeName2 in gltfAttributeMap) {
-      const threeAttributeName = ATTRIBUTES[attributeName2] || attributeName2.toLowerCase();
-      threeAttributeMap[threeAttributeName] = gltfAttributeMap[attributeName2];
+    for (const attributeName in gltfAttributeMap) {
+      const threeAttributeName = ATTRIBUTES[attributeName] || attributeName.toLowerCase();
+      threeAttributeMap[threeAttributeName] = gltfAttributeMap[attributeName];
     }
-    for (const attributeName2 in primitive.attributes) {
-      const threeAttributeName = ATTRIBUTES[attributeName2] || attributeName2.toLowerCase();
-      if (gltfAttributeMap[attributeName2] !== void 0) {
-        const accessorDef = json.accessors[primitive.attributes[attributeName2]];
+    for (const attributeName in primitive.attributes) {
+      const threeAttributeName = ATTRIBUTES[attributeName] || attributeName.toLowerCase();
+      if (gltfAttributeMap[attributeName] !== void 0) {
+        const accessorDef = json.accessors[primitive.attributes[attributeName]];
         const componentType = WEBGL_COMPONENT_TYPES[accessorDef.componentType];
         attributeTypeMap[threeAttributeName] = componentType.name;
         attributeNormalizedMap[threeAttributeName] = accessorDef.normalized === true;
@@ -74964,9 +76652,9 @@ var GLTFDracoMeshCompressionExtension = class {
     return parser.getDependency("bufferView", bufferViewIndex).then(function(bufferView) {
       return new Promise(function(resolve, reject) {
         dracoLoader.decodeDracoFile(bufferView, function(geometry) {
-          for (const attributeName2 in geometry.attributes) {
-            const attribute = geometry.attributes[attributeName2];
-            const normalized = attributeNormalizedMap[attributeName2];
+          for (const attributeName in geometry.attributes) {
+            const attribute = geometry.attributes[attributeName];
+            const normalized = attributeNormalizedMap[attributeName];
             if (normalized !== void 0) attribute.normalized = normalized;
           }
           resolve(geometry);
@@ -76506,9 +78194,9 @@ function computeBounds(geometry, primitiveDef, parser) {
 function addPrimitiveAttributes(geometry, primitiveDef, parser) {
   const attributes = primitiveDef.attributes;
   const pending = [];
-  function assignAttributeAccessor(accessorIndex, attributeName2) {
+  function assignAttributeAccessor(accessorIndex, attributeName) {
     return parser.getDependency("accessor", accessorIndex).then(function(accessor) {
-      geometry.setAttribute(attributeName2, accessor);
+      geometry.setAttribute(attributeName, accessor);
     });
   }
   for (const gltfAttributeName in attributes) {
@@ -77372,14 +79060,6 @@ function interceptControlUp(event) {
   }
 }
 
-// src/environments/environment.ts
-var environment = {
-  production: false,
-  //baseUrl : `${window.location.protocol}//${window.location.hostname}/portfolio/`,
-  baseUrl: `http://localhost:4200/`,
-  aiApiUrl: AI_API_URL
-};
-
 // src/app/ai-face/ai-context.ts
 var AI_CONTEXT = `You are Nova, a friendly AI assistant on Ankit Sharma's portfolio website.
 
@@ -77494,6 +79174,11 @@ var MarkdownPipe = class _MarkdownPipe {
 })();
 
 // node_modules/@angular/animations/fesm2022/_private_export-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var AnimationMetadataType;
 (function(AnimationMetadataType2) {
   AnimationMetadataType2[AnimationMetadataType2["State"] = 0] = "State";
@@ -77769,6 +79454,11 @@ var AnimationGroupPlayer = class {
 var \u0275PRE_STYLE = "!";
 
 // node_modules/@angular/animations/fesm2022/animations.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var AnimationBuilder = class _AnimationBuilder {
   static \u0275fac = function AnimationBuilder_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _AnimationBuilder)();
@@ -77946,255 +79636,9 @@ function cleanTextForSpeech(text) {
   }
 }
 
-// src/app/services/voice-streaming.service.ts
-var VoiceStreamingService = class _VoiceStreamingService {
-  constructor(http) {
-    this.http = http;
-    this.audioQueue = [];
-    this.isPlaying = false;
-  }
-  startVoiceStream(_0) {
-    return __async(this, arguments, function* (prompt, context2 = "You are a helpful 3D model assistant.", options = {}, callbacks = {}) {
-      this.stopStream();
-      const voiceSettings = __spreadValues({
-        audioFormat: "mp3",
-        voiceModel: "aura-2-draco-en",
-        sampleRate: 24e3,
-        naturalBreaks: true,
-        chunkSize: 30
-      }, options);
-      if (!this.audioContext) {
-        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      try {
-        const response = yield fetch(STREAMING_VOICE_API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "text/event-stream"
-          },
-          body: JSON.stringify({
-            prompt,
-            context: context2,
-            voiceSettings
-          })
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const reader = response.body?.getReader();
-        if (!reader) {
-          throw new Error("Failed to get response reader");
-        }
-        const decoder = new TextDecoder();
-        let buffer = "";
-        const processStream = () => __async(this, null, function* () {
-          try {
-            while (true) {
-              const { done, value } = yield reader.read();
-              if (done) {
-                console.log("\u2705 Stream completed");
-                callbacks.onComplete?.({ message: "Stream completed successfully" });
-                break;
-              }
-              const decodedChunk = decoder.decode(value, { stream: true });
-              buffer += decodedChunk;
-              const events = buffer.split("\n\n");
-              buffer = events.pop() || "";
-              for (const eventText of events) {
-                if (eventText && typeof eventText === "string" && eventText.trim()) {
-                  try {
-                    this.processSSEEvent(eventText.trim(), callbacks);
-                  } catch (error2) {
-                    console.error("Error processing SSE event:", error2);
-                  }
-                }
-              }
-            }
-          } catch (error2) {
-            console.error("Error reading stream:", error2);
-            callbacks.onError?.(error2);
-          }
-        });
-        processStream();
-      } catch (error2) {
-        console.error("Failed to start voice stream:", error2);
-        callbacks.onError?.(error2);
-        throw error2;
-      }
-    });
-  }
-  processSSEEvent(eventText, callbacks) {
-    if (!eventText || typeof eventText !== "string") {
-      return;
-    }
-    try {
-      const lines = eventText.split("\n");
-      let eventType = "";
-      let eventData = "";
-      for (const line of lines) {
-        if (line.startsWith("event:")) {
-          eventType = line.substring(6).trim();
-        } else if (line.startsWith("data:")) {
-          eventData = line.substring(5).trim();
-        }
-      }
-      if (!eventType || !eventData) {
-        return;
-      }
-      const data = JSON.parse(eventData);
-      switch (eventType) {
-        case "start":
-          callbacks.onStart?.(data);
-          break;
-        case "text":
-          callbacks.onText?.(data.content);
-          break;
-        case "audio":
-          if (!data.chunkIndex && data.chunkIndex !== 0) {
-            return;
-          }
-          if (!data.audio) {
-            return;
-          }
-          const audioChunk = {
-            chunkIndex: data.chunkIndex,
-            audioData: data.audio,
-            mimeType: data.mimeType || "audio/mp3",
-            estimatedDuration: data.estimatedDuration || 0,
-            text: data.text || "",
-            // Ensure we have a string, default to empty
-            timing: data.timing
-          };
-          this.queueAudioChunk(audioChunk);
-          callbacks.onAudio?.(audioChunk);
-          break;
-        case "done":
-          callbacks.onComplete?.(data);
-          break;
-        case "error":
-          callbacks.onError?.(data);
-          break;
-        case "fallback":
-          callbacks.onFallback?.(data);
-          break;
-        default:
-          break;
-      }
-    } catch (error2) {
-      console.error("Error parsing SSE event data:", error2);
-    }
-  }
-  queueAudioChunk(chunk) {
-    this.audioQueue.push(chunk);
-    this.audioQueue.sort((a, b) => a.chunkIndex - b.chunkIndex);
-    if (!this.isPlaying) {
-      this.playNextChunk();
-    }
-  }
-  playNextChunk() {
-    return __async(this, null, function* () {
-      if (this.audioQueue.length === 0) {
-        this.isPlaying = false;
-        return;
-      }
-      this.isPlaying = true;
-      const chunk = this.audioQueue.shift();
-      try {
-        const audioData = atob(chunk.audioData);
-        const arrayBuffer = new ArrayBuffer(audioData.length);
-        const view = new Uint8Array(arrayBuffer);
-        for (let i = 0; i < audioData.length; i++) {
-          view[i] = audioData.charCodeAt(i);
-        }
-        const blob = new Blob([arrayBuffer], { type: chunk.mimeType });
-        const audioUrl = URL.createObjectURL(blob);
-        this.currentAudio = new Audio(audioUrl);
-        this.currentAudio.preload = "auto";
-        this.currentAudio.volume = 1;
-        this.currentAudio.onended = () => {
-          this.cleanupCurrentAudio();
-          this.playNextChunk();
-        };
-        this.currentAudio.onerror = (error2) => {
-          console.error("Audio playback error:", error2);
-          this.cleanupCurrentAudio();
-          this.playNextChunk();
-        };
-        yield this.currentAudio.play();
-      } catch (error2) {
-        console.error("Error processing audio chunk:", error2);
-        this.playNextChunk();
-      }
-    });
-  }
-  cleanupCurrentAudio() {
-    if (this.currentAudio) {
-      if (this.currentAudio.src) {
-        URL.revokeObjectURL(this.currentAudio.src);
-      }
-      this.currentAudio = void 0;
-    }
-  }
-  stopStream() {
-    this.stopAudio();
-    this.audioQueue = [];
-  }
-  stopAudio() {
-    this.isPlaying = false;
-    if (this.currentAudio) {
-      this.currentAudio.pause();
-      this.currentAudio.currentTime = 0;
-      this.cleanupCurrentAudio();
-    }
-  }
-  isStreamActive() {
-    return this.isPlaying || this.audioQueue.length > 0;
-  }
-  isAudioPlaying() {
-    return this.isPlaying || this.currentAudio && !this.currentAudio.paused;
-  }
-  getAudioQueueLength() {
-    return this.audioQueue.length;
-  }
-  getStreamingStatus() {
-    return {
-      isActive: this.isStreamActive(),
-      isPlaying: this.isAudioPlaying(),
-      queueLength: this.getAudioQueueLength(),
-      hasErrors: false
-      // You can track errors here
-    };
-  }
-  retryLastStream() {
-    return __async(this, null, function* () {
-    });
-  }
-  clearAudioCache() {
-    this.audioQueue = [];
-    this.stopAudio();
-  }
-  static {
-    this.\u0275fac = function VoiceStreamingService_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _VoiceStreamingService)(\u0275\u0275inject(HttpClient));
-    };
-  }
-  static {
-    this.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _VoiceStreamingService, factory: _VoiceStreamingService.\u0275fac, providedIn: "root" });
-  }
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(VoiceStreamingService, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [{ type: HttpClient }], null);
-})();
-
 // src/app/profile/avatar-3d/avatar-3d.component.ts
 var _c03 = ["canvas"];
-var _c12 = ["chatMessages"];
+var _c13 = ["chatMessages"];
 var _c2 = ["messageInput"];
 function Avatar3dComponent_Conditional_46_Template(rf, ctx2) {
   if (rf & 1) {
@@ -78211,24 +79655,24 @@ function Avatar3dComponent_Conditional_46_Template(rf, ctx2) {
     \u0275\u0275elementEnd()()()();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r0 = \u0275\u0275nextContext();
     \u0275\u0275property("@chatAnimation", void 0);
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(ctx_r1.loadingText);
+    \u0275\u0275textInterpolate(ctx_r0.loadingText);
     \u0275\u0275advance(3);
-    \u0275\u0275styleProp("width", ctx_r1.loadingProgress, "%");
+    \u0275\u0275styleProp("width", ctx_r0.loadingProgress, "%");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("", ctx_r1.loadingProgress, "%");
+    \u0275\u0275textInterpolate1("", ctx_r0.loadingProgress, "%");
   }
 }
 function Avatar3dComponent_Conditional_54_Conditional_10_Template(rf, ctx2) {
   if (rf & 1) {
-    const _r4 = \u0275\u0275getCurrentView();
+    const _r3 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "button", 44);
     \u0275\u0275listener("click", function Avatar3dComponent_Conditional_54_Conditional_10_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r4);
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.stopSpeech());
+      \u0275\u0275restoreView(_r3);
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.stopSpeech());
     });
     \u0275\u0275text(1, " \u23F9 ");
     \u0275\u0275elementEnd();
@@ -78244,12 +79688,12 @@ function Avatar3dComponent_Conditional_54_For_16_Template(rf, ctx2) {
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const message_r5 = ctx2.$implicit;
-    \u0275\u0275classProp("user-message", message_r5.isUser)("ai-message", !message_r5.isUser);
+    const message_r4 = ctx2.$implicit;
+    \u0275\u0275classProp("user-message", message_r4.isUser)("ai-message", !message_r4.isUser);
     \u0275\u0275advance(2);
-    \u0275\u0275property("innerHTML", \u0275\u0275pipeBind1(3, 6, message_r5.text), \u0275\u0275sanitizeHtml);
+    \u0275\u0275property("innerHTML", \u0275\u0275pipeBind1(3, 6, message_r4.text), \u0275\u0275sanitizeHtml);
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(message_r5.time);
+    \u0275\u0275textInterpolate(message_r4.time);
   }
 }
 function Avatar3dComponent_Conditional_54_Conditional_17_Template(rf, ctx2) {
@@ -78261,7 +79705,7 @@ function Avatar3dComponent_Conditional_54_Conditional_17_Template(rf, ctx2) {
 }
 function Avatar3dComponent_Conditional_54_Template(rf, ctx2) {
   if (rf & 1) {
-    const _r3 = \u0275\u0275getCurrentView();
+    const _r2 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "div", 25)(1, "div", 33)(2, "div")(3, "h3");
     \u0275\u0275text(4, "AI chat");
     \u0275\u0275elementEnd();
@@ -78270,18 +79714,18 @@ function Avatar3dComponent_Conditional_54_Template(rf, ctx2) {
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(7, "div", 34)(8, "button", 35);
     \u0275\u0275listener("click", function Avatar3dComponent_Conditional_54_Template_button_click_8_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.toggleTTS());
+      \u0275\u0275restoreView(_r2);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.toggleTTS());
     });
     \u0275\u0275text(9);
     \u0275\u0275elementEnd();
     \u0275\u0275conditionalCreate(10, Avatar3dComponent_Conditional_54_Conditional_10_Template, 2, 0, "button", 36);
     \u0275\u0275elementStart(11, "button", 37);
     \u0275\u0275listener("click", function Avatar3dComponent_Conditional_54_Template_button_click_11_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.toggleChat());
+      \u0275\u0275restoreView(_r2);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.toggleChat());
     });
     \u0275\u0275text(12, "\u2715");
     \u0275\u0275elementEnd()()();
@@ -78291,52 +79735,53 @@ function Avatar3dComponent_Conditional_54_Template(rf, ctx2) {
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(18, "div", 41)(19, "input", 42, 2);
     \u0275\u0275twoWayListener("ngModelChange", function Avatar3dComponent_Conditional_54_Template_input_ngModelChange_19_listener($event) {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext();
-      \u0275\u0275twoWayBindingSet(ctx_r1.userInput, $event) || (ctx_r1.userInput = $event);
+      \u0275\u0275restoreView(_r2);
+      const ctx_r0 = \u0275\u0275nextContext();
+      \u0275\u0275twoWayBindingSet(ctx_r0.userInput, $event) || (ctx_r0.userInput = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275listener("keyup.enter", function Avatar3dComponent_Conditional_54_Template_input_keyup_enter_19_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.sendMessage());
+      \u0275\u0275restoreView(_r2);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.sendMessage());
     });
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(21, "button", 43);
     \u0275\u0275listener("click", function Avatar3dComponent_Conditional_54_Template_button_click_21_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.sendMessage());
+      \u0275\u0275restoreView(_r2);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.sendMessage());
     });
     \u0275\u0275text(22);
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r0 = \u0275\u0275nextContext();
     \u0275\u0275property("@chatAnimation", void 0);
     \u0275\u0275advance(8);
-    \u0275\u0275classProp("active", ctx_r1.ttsEnabled);
-    \u0275\u0275property("title", \u0275\u0275interpolate1("", ctx_r1.ttsEnabled ? "Disable" : "Enable", " Text-to-Speech"));
+    \u0275\u0275classProp("active", ctx_r0.ttsEnabled);
+    \u0275\u0275property("title", \u0275\u0275interpolate1("", ctx_r0.ttsEnabled ? "Disable" : "Enable", " Text-to-Speech"));
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r1.ttsEnabled ? "\u{1F50A}" : "\u{1F507}", " ");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.ttsEnabled ? "\u{1F50A}" : "\u{1F507}", " ");
     \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.isReallySpeaking ? 10 : -1);
+    \u0275\u0275conditional(ctx_r0.isReallySpeaking ? 10 : -1);
     \u0275\u0275advance(5);
-    \u0275\u0275repeater(ctx_r1.messages);
+    \u0275\u0275repeater(ctx_r0.messages);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r1.isReallyTyping ? 17 : -1);
+    \u0275\u0275conditional(ctx_r0.isReallyTyping ? 17 : -1);
     \u0275\u0275advance(2);
-    \u0275\u0275twoWayProperty("ngModel", ctx_r1.userInput);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r0.userInput);
     \u0275\u0275advance(2);
-    \u0275\u0275property("disabled", ctx_r1.isReallyTyping || !ctx_r1.userInput.trim());
+    \u0275\u0275property("disabled", ctx_r0.isReallyTyping || !ctx_r0.userInput.trim());
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r1.isReallyTyping ? "..." : "\u2192", " ");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.isReallyTyping ? "..." : "\u2192", " ");
   }
 }
 var Avatar3dComponent = class _Avatar3dComponent {
-  constructor(http, voiceStreamingService) {
+  constructor(http, achievementsService, audioService) {
     this.http = http;
-    this.voiceStreamingService = voiceStreamingService;
+    this.achievementsService = achievementsService;
+    this.audioService = audioService;
     this.boundResizeHandler = () => this.onWindowResize();
     this.isChatOpen = false;
     this.userInput = "";
@@ -78348,10 +79793,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.isSpeaking = false;
     this.ttsEnabled = true;
     this.ttsCache = /* @__PURE__ */ new Map();
-    this.streamingResponse = "";
-    this.retryCount = 0;
-    this.maxRetries = 3;
-    this.isStreaming = false;
     this.lastRequestTime = 0;
     this.minRequestInterval = 1e3;
     this.CONTEXT = AI_CONTEXT;
@@ -78374,7 +79815,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.controls?.dispose();
     this.renderer?.dispose();
     this.stopSpeech();
-    this.voiceStreamingService.stopStream();
   }
   initThreeJS() {
     const canvas = this.canvasRef.nativeElement;
@@ -78486,7 +79926,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }
   sendMessage() {
     return __async(this, null, function* () {
-      if (!this.userInput.trim() || this.isTyping || this.isStreaming)
+      if (!this.userInput.trim() || this.isTyping)
         return;
       const now = Date.now();
       if (now - this.lastRequestTime < this.minRequestInterval) {
@@ -78496,148 +79936,36 @@ var Avatar3dComponent = class _Avatar3dComponent {
       const userMessage = this.userInput.trim();
       this.addMessage(userMessage, true);
       this.userInput = "";
-      if (this.isTyping || this.isStreaming) {
+      this.achievementsService.trackAiQuestion();
+      this.audioService.play("jump");
+      if (this.isTyping) {
         return;
       }
       this.isTyping = true;
-      this.isStreaming = true;
-      this.streamingResponse = "";
-      this.retryCount = 0;
-      this.voiceStreamingService.stopStream();
-      try {
-        yield this.startVoiceStreaming(userMessage);
-      } catch (error2) {
-        console.error("Voice streaming failed:", error2);
-        yield this.fallbackToRegularAPI(userMessage);
-      }
-    });
-  }
-  startVoiceStreaming(userMessage) {
-    return __async(this, null, function* () {
-      const voiceOptions = {
-        audioFormat: "mp3",
-        voiceModel: "aura-2-draco-en",
-        sampleRate: 24e3,
-        naturalBreaks: true,
-        chunkSize: 30
-      };
-      const streamTimeout = setTimeout(() => {
-        this.fallbackToRegularAPI(userMessage);
-      }, 3e4);
-      try {
-        yield this.voiceStreamingService.startVoiceStream(userMessage, this.CONTEXT, voiceOptions, {
-          onStart: (data) => {
-            this.prepare3DModelForSpeech();
-            this.isSpeaking = false;
-            clearTimeout(streamTimeout);
-          },
-          onText: (content) => {
-            this.streamingResponse += content;
-            this.updateStreamingMessage(this.streamingResponse);
-          },
-          onAudio: (chunk) => {
-            this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
-          },
-          onComplete: (data) => {
-            clearTimeout(streamTimeout);
-            this.finalize3DModelAnimation(data.timing, data.performance);
-            this.isTyping = false;
-            this.isStreaming = false;
-            this.streamingResponse = "";
-            this.isSpeaking = this.voiceStreamingService.isAudioPlaying();
-          },
-          onError: (error2) => {
-            console.error("\u274C Voice streaming error:", error2);
-            clearTimeout(streamTimeout);
-            this.isTyping = false;
-            this.isStreaming = false;
-            this.streamingResponse = "";
-            if (error2?.message && error2.message.includes("text.split is not a function")) {
-              this.fallbackToRegularAPI(userMessage);
-            } else {
-              this.handleStreamingError(error2, userMessage);
-            }
-          },
-          onFallback: (data) => {
-            clearTimeout(streamTimeout);
-            this.fallbackToRegularAPI(userMessage);
-          }
-        });
-      } catch (error2) {
-        console.error("Failed to start voice streaming:", error2);
-        clearTimeout(streamTimeout);
-        throw error2;
-      }
-    });
-  }
-  updateStreamingMessage(content) {
-    const lastMessage = this.messages[this.messages.length - 1];
-    if (lastMessage && !lastMessage.isUser) {
-      lastMessage.text = content;
-    } else {
-      this.addMessage(content, false, false);
-    }
-    setTimeout(() => this.scrollToBottom(), 10);
-  }
-  handleStreamingError(error2, userMessage) {
-    return __async(this, null, function* () {
-      const backendErrors = [
-        "text.split is not a function",
-        "TypeError:",
-        "ReferenceError:",
-        "SyntaxError:"
-      ];
-      const isBackendCodeError = backendErrors.some((errorType) => error2?.message?.includes(errorType) || error2?.error?.includes(errorType));
-      if (isBackendCodeError) {
-        yield this.fallbackToRegularAPI(userMessage);
-        return;
-      }
-      if (error2.retryable && this.retryCount < this.maxRetries) {
-        this.retryCount++;
-        const delay = Math.pow(2, this.retryCount) * 1e3;
-        setTimeout(() => this.startVoiceStreaming(userMessage), delay);
-      } else {
-        yield this.fallbackToRegularAPI(userMessage);
-      }
+      yield this.fallbackToRegularAPI(userMessage);
     });
   }
   fallbackToRegularAPI(userMessage) {
     return __async(this, null, function* () {
-      if (!this.isTyping && !this.isStreaming) {
+      if (!this.isTyping) {
         return;
       }
       try {
-        const response = yield firstValueFrom(this.http.post(environment.aiApiUrl, {
-          prompt: userMessage,
-          context: this.CONTEXT
-        }));
-        let aiResponse = "Sorry, I couldn't process that. Please try again!";
-        if (response?.data?.choices?.[0]?.message?.content) {
-          aiResponse = response.data.choices[0].message.content;
-        } else if (response?.response) {
-          aiResponse = response.response;
-        } else if (response?.message) {
-          aiResponse = response.message;
-        }
-        if (this.streamingResponse) {
-          const lastMessage = this.messages[this.messages.length - 1];
-          if (lastMessage && !lastMessage.isUser && lastMessage.text === this.streamingResponse) {
-            this.messages.pop();
-          }
-          this.streamingResponse = "";
-        }
+        const response = yield firstValueFrom(this.http.post(environment.aiApiUrl, createOpenAiProxyRequest([
+          { role: "system", content: this.CONTEXT },
+          { role: "user", content: userMessage }
+        ])));
+        const aiResponse = getAiResponseText(response) ?? "Sorry, I couldn't process that. Please try again!";
+        this.addMessage(aiResponse, false, false);
+        this.isTyping = false;
         if (this.ttsEnabled) {
-          this.speakText(aiResponse, true);
-        } else {
-          this.addMessage(aiResponse, false, false);
-          this.isTyping = false;
+          this.speakText(aiResponse);
         }
       } catch (error2) {
         console.error("Fallback API Error:", error2);
         this.addMessage("Oops! Something went wrong. Please try again later. \u{1F605}", false);
         this.isTyping = false;
       }
-      this.isStreaming = false;
     });
   }
   addMessage(text, isUser, triggerTTS = true) {
@@ -78740,14 +80068,12 @@ var Avatar3dComponent = class _Avatar3dComponent {
     }
   }
   stopSpeech() {
-    this.voiceStreamingService.stopStream();
     if (this.currentAudio) {
       this.currentAudio.pause();
       this.currentAudio.currentTime = 0;
       this.cleanupAudio();
     }
     this.isSpeaking = false;
-    this.isStreaming = false;
   }
   cleanupAudio() {
     if (this.currentAudio) {
@@ -78763,17 +80089,10 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }
   // Getters for template bindings
   get isReallyTyping() {
-    return this.isTyping || this.isStreaming;
+    return this.isTyping;
   }
   get isReallySpeaking() {
-    return this.isSpeaking || this.voiceStreamingService.isAudioPlaying();
-  }
-  // Voice streaming status methods
-  isVoiceStreamActive() {
-    return this.voiceStreamingService.isStreamActive();
-  }
-  getAudioQueueLength() {
-    return this.voiceStreamingService.getAudioQueueLength();
+    return this.isSpeaking;
   }
   // 3D Model animation methods for voice synchronization
   prepare3DModelForSpeech() {
@@ -78806,13 +80125,13 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }
   static {
     this.\u0275fac = function Avatar3dComponent_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || _Avatar3dComponent)(\u0275\u0275directiveInject(HttpClient), \u0275\u0275directiveInject(VoiceStreamingService));
+      return new (__ngFactoryType__ || _Avatar3dComponent)(\u0275\u0275directiveInject(HttpClient), \u0275\u0275directiveInject(AchievementsService), \u0275\u0275directiveInject(AudioService));
     };
   }
   static {
     this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Avatar3dComponent, selectors: [["app-avatar-3d"]], viewQuery: function Avatar3dComponent_Query(rf, ctx2) {
       if (rf & 1) {
-        \u0275\u0275viewQuery(_c03, 7)(_c12, 5)(_c2, 5);
+        \u0275\u0275viewQuery(_c03, 7)(_c13, 5)(_c2, 5);
       }
       if (rf & 2) {
         let _t;
@@ -78828,7 +80147,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
       }
     }, decls: 55, vars: 7, consts: [["canvas", ""], ["chatMessages", ""], ["messageInput", ""], ["id", "avatar-3d", 1, "avatar-lab-section", "apple-section"], [1, "container"], [1, "avatar-lab-shell"], [1, "avatar-lab-copy"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "lab-capabilities"], [1, "capability-card"], [1, "capability-icon"], [1, "lab-actions"], [1, "apple-btn", "apple-btn-primary", 3, "click"], [1, "fas", "fa-robot"], [1, "tts-status"], [1, "tts-dot"], [1, "avatar-stage"], [1, "avatar-container"], [1, "avatar-canvas"], [1, "loading-overlay"], [1, "controls-hint"], [1, "hint-chip"], ["aria-label", "Open or close chat", 1, "chat-button", 3, "click"], ["role", "dialog", "aria-label", "Chat with AI assistant", 1, "chat-window"], [1, "loading-content"], [1, "loading-spinner"], [1, "loading-text"], [1, "loading-progress"], [1, "progress-bar"], [1, "progress-fill"], [1, "progress-percentage"], [1, "chat-header"], [1, "header-controls"], ["aria-label", "Toggle text-to-speech", 1, "tts-toggle-btn", 3, "click", "title"], ["aria-label", "Stop speech", "title", "Stop speech", 1, "stop-speech-btn"], ["aria-label", "Close chat", 1, "close-btn", 3, "click"], [1, "chat-messages"], [1, "message", 3, "user-message", "ai-message"], [1, "typing-indicator"], [1, "chat-input-container"], ["type", "text", "placeholder", "Ask me anything about my portfolio...", "aria-label", "Type your message", 1, "chat-input", 3, "ngModelChange", "keyup.enter", "ngModel"], ["aria-label", "Send message", 1, "send-btn", 3, "click", "disabled"], ["aria-label", "Stop speech", "title", "Stop speech", 1, "stop-speech-btn", 3, "click"], [1, "message"], [1, "message-content"], [1, "message-text", 3, "innerHTML"], [1, "message-time"]], template: function Avatar3dComponent_Template(rf, ctx2) {
       if (rf & 1) {
-        const _r1 = \u0275\u0275getCurrentView();
         \u0275\u0275elementStart(0, "section", 3)(1, "div", 4)(2, "div", 5)(3, "div", 6)(4, "div", 7);
         \u0275\u0275text(5, "\u{1F916} AI TWIN");
         \u0275\u0275elementEnd();
@@ -78867,8 +80185,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275elementEnd()()()();
         \u0275\u0275elementStart(35, "div", 13)(36, "button", 14);
         \u0275\u0275listener("click", function Avatar3dComponent_Template_button_click_36_listener() {
-          \u0275\u0275restoreView(_r1);
-          return \u0275\u0275resetView(ctx2.toggleChat());
+          return ctx2.toggleChat();
         });
         \u0275\u0275element(37, "i", 15);
         \u0275\u0275text(38);
@@ -78888,8 +80205,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(52, "button", 24);
         \u0275\u0275listener("click", function Avatar3dComponent_Template_button_click_52_listener() {
-          \u0275\u0275restoreView(_r1);
-          return \u0275\u0275resetView(ctx2.toggleChat());
+          return ctx2.toggleChat();
         });
         \u0275\u0275text(53);
         \u0275\u0275elementEnd()()()()();
@@ -78910,7 +80226,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275advance();
         \u0275\u0275conditional(ctx2.isChatOpen ? 54 : -1);
       }
-    }, dependencies: [FormsModule, DefaultValueAccessor, NgControlStatus, NgModel, MarkdownPipe], styles: ["\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.avatar-lab-shell[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);\n  gap: 1.5rem;\n  align-items: stretch;\n}\n.avatar-lab-copy[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  gap: 1.25rem;\n}\n.lab-capabilities[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.85rem;\n}\n.capability-card[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 3rem 1fr;\n  gap: 0.9rem;\n  padding: 1rem;\n  border-radius: 1.2rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.capability-icon[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  color: #fff;\n  font-size: 0.78rem;\n  font-weight: 800;\n  letter-spacing: 0.1em;\n}\n.capability-card[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.35rem;\n  font-size: 1rem;\n}\n.capability-card[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.lab-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  flex-wrap: wrap;\n}\n.tts-status[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  font-size: 0.92rem;\n  color: var(--text-tertiary);\n}\n.tts-status.on[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.tts-dot[_ngcontent-%COMP%] {\n  width: 0.65rem;\n  height: 0.65rem;\n  border-radius: 999px;\n  background: currentColor;\n  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.14);\n}\n.avatar-stage[_ngcontent-%COMP%] {\n  min-height: 100%;\n}\n.avatar-container[_ngcontent-%COMP%] {\n  position: relative;\n  height: 100%;\n  min-height: 680px;\n  overflow: hidden;\n  border-radius: 1.75rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.12),\n      transparent 28%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(34, 197, 94, 0.08),\n      transparent 26%),\n    linear-gradient(\n      180deg,\n      #09091a 0%,\n      #0e0e22 100%);\n  box-shadow: 0 30px 90px rgba(0, 0, 10, 0.55), 0 0 0 1px rgba(251, 191, 36, 0.06);\n}\n.avatar-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  min-height: 680px;\n  display: block;\n}\n.loading-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  display: grid;\n  place-items: center;\n  background: rgba(9, 9, 26, 0.94);\n  backdrop-filter: blur(12px);\n}\n.loading-content[_ngcontent-%COMP%] {\n  width: min(100%, 300px);\n  text-align: center;\n}\n.loading-spinner[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 1rem;\n  border: 3px solid rgba(255, 255, 255, 0.12);\n  border-top-color: var(--primary-color);\n  border-radius: 999px;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n.loading-text[_ngcontent-%COMP%] {\n  margin-bottom: 0.8rem;\n  font-weight: 700;\n}\n.progress-bar[_ngcontent-%COMP%] {\n  height: 0.45rem;\n  border-radius: 999px;\n  overflow: hidden;\n  background: rgba(255, 255, 255, 0.08);\n}\n.progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background: var(--gradient-primary);\n}\n.progress-percentage[_ngcontent-%COMP%] {\n  margin-top: 0.55rem;\n  font-size: 0.82rem;\n  color: var(--text-tertiary);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 1rem;\n  right: 1rem;\n  bottom: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.hint-chip[_ngcontent-%COMP%], \n.chat-button[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 2.7rem;\n  padding: 0.75rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(8, 13, 25, 0.68);\n  backdrop-filter: blur(14px);\n  color: var(--text-secondary);\n}\n.chat-button[_ngcontent-%COMP%] {\n  cursor: pointer;\n  color: var(--text-primary);\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.chat-window[_ngcontent-%COMP%] {\n  margin-top: 1.5rem;\n  border-radius: 1.5rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(8, 13, 25, 0.9);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 28px 80px rgba(2, 6, 23, 0.44);\n  overflow: hidden;\n}\n.chat-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 1rem;\n  padding: 1.25rem 1.25rem 1rem;\n  border-bottom: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.35rem;\n}\n.chat-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.header-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.tts-toggle-btn[_ngcontent-%COMP%], \n.stop-speech-btn[_ngcontent-%COMP%], \n.close-btn[_ngcontent-%COMP%], \n.send-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.8rem;\n  height: 2.8rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.04);\n  color: var(--text-primary);\n  cursor: pointer;\n}\n.tts-toggle-btn.active[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.32);\n}\n.stop-speech-btn[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.16);\n  border-color: rgba(239, 68, 68, 0.28);\n}\n.chat-messages[_ngcontent-%COMP%] {\n  padding: 1.25rem;\n  max-height: 420px;\n  overflow-y: auto;\n  display: grid;\n  gap: 0.85rem;\n}\n.message[_ngcontent-%COMP%] {\n  display: flex;\n}\n.message.user-message[_ngcontent-%COMP%] {\n  justify-content: flex-end;\n}\n.message.ai-message[_ngcontent-%COMP%] {\n  justify-content: flex-start;\n}\n.message-content[_ngcontent-%COMP%] {\n  max-width: min(100%, 720px);\n  padding: 0.95rem 1rem;\n  border-radius: 1.1rem;\n}\n.user-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #fff;\n}\n.ai-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n}\n.message-text[_ngcontent-%COMP%] {\n  display: block;\n  color: inherit;\n}\n.message-time[_ngcontent-%COMP%] {\n  display: block;\n  margin-top: 0.55rem;\n  font-size: 0.76rem;\n  opacity: 0.75;\n}\n.typing-indicator[_ngcontent-%COMP%] {\n  display: inline-flex;\n  gap: 0.35rem;\n  width: fit-content;\n  padding: 0.9rem 1rem;\n  border-radius: 1rem;\n  background: rgba(255, 255, 255, 0.04);\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 0.45rem;\n  height: 0.45rem;\n  border-radius: 999px;\n  background: var(--primary-color);\n  animation: _ngcontent-%COMP%_bounce 1.2s infinite ease-in-out;\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.15s;\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.chat-input-container[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.75rem;\n  padding: 1rem 1.25rem 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-input[_ngcontent-%COMP%] {\n  flex: 1;\n  min-width: 0;\n  padding: 0.95rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-primary);\n}\n.chat-input[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.send-btn[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.send-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  0%, 80%, 100% {\n    transform: translateY(0);\n    opacity: 0.5;\n  }\n  40% {\n    transform: translateY(-4px);\n    opacity: 1;\n  }\n}\n@media (max-width: 960px) {\n  .avatar-lab-shell[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .avatar-container[_ngcontent-%COMP%], \n   .avatar-canvas[_ngcontent-%COMP%] {\n    min-height: 540px;\n  }\n}\n@media (max-width: 640px) {\n  .controls-hint[_ngcontent-%COMP%] {\n    align-items: stretch;\n  }\n  .hint-chip[_ngcontent-%COMP%], \n   .chat-button[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n  .chat-header[_ngcontent-%COMP%], \n   .chat-input-container[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .header-controls[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: flex-end;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */"], data: { animation: [
+    }, dependencies: [FormsModule, DefaultValueAccessor, NgControlStatus, NgModel, MarkdownPipe], styles: ["\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.avatar-lab-shell[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);\n  gap: 1.5rem;\n  align-items: stretch;\n}\n.avatar-lab-copy[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  gap: 1.25rem;\n}\n.lab-capabilities[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.85rem;\n}\n.capability-card[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 3rem 1fr;\n  gap: 0.9rem;\n  padding: 1rem;\n  border-radius: 1.2rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.capability-icon[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  color: #fff;\n  font-size: 0.78rem;\n  font-weight: 800;\n  letter-spacing: 0.1em;\n}\n.capability-card[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.35rem;\n  font-size: 1rem;\n}\n.capability-card[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.lab-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  flex-wrap: wrap;\n}\n.tts-status[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  font-size: 0.92rem;\n  color: var(--text-tertiary);\n}\n.tts-status.on[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.tts-dot[_ngcontent-%COMP%] {\n  width: 0.65rem;\n  height: 0.65rem;\n  border-radius: 999px;\n  background: currentColor;\n  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.14);\n}\n.avatar-stage[_ngcontent-%COMP%] {\n  min-height: 100%;\n}\n.avatar-container[_ngcontent-%COMP%] {\n  position: relative;\n  height: 100%;\n  min-height: 680px;\n  overflow: hidden;\n  border-radius: 1.75rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.12),\n      transparent 28%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(34, 197, 94, 0.08),\n      transparent 26%),\n    linear-gradient(\n      180deg,\n      #09091a 0%,\n      #0e0e22 100%);\n  box-shadow: 0 30px 90px rgba(0, 0, 10, 0.55), 0 0 0 1px rgba(251, 191, 36, 0.06);\n}\n.avatar-canvas[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  min-height: 680px;\n  display: block;\n}\n.loading-overlay[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  display: grid;\n  place-items: center;\n  background: rgba(9, 9, 26, 0.94);\n  backdrop-filter: blur(12px);\n}\n.loading-content[_ngcontent-%COMP%] {\n  width: min(100%, 300px);\n  text-align: center;\n}\n.loading-spinner[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 1rem;\n  border: 3px solid rgba(255, 255, 255, 0.12);\n  border-top-color: var(--primary-color);\n  border-radius: 999px;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n.loading-text[_ngcontent-%COMP%] {\n  margin-bottom: 0.8rem;\n  font-weight: 700;\n}\n.progress-bar[_ngcontent-%COMP%] {\n  height: 0.45rem;\n  border-radius: 999px;\n  overflow: hidden;\n  background: rgba(255, 255, 255, 0.08);\n}\n.progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  background: var(--gradient-primary);\n}\n.progress-percentage[_ngcontent-%COMP%] {\n  margin-top: 0.55rem;\n  font-size: 0.82rem;\n  color: var(--text-tertiary);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 1rem;\n  right: 1rem;\n  bottom: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.hint-chip[_ngcontent-%COMP%], \n.chat-button[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 2.7rem;\n  padding: 0.75rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(8, 13, 25, 0.68);\n  backdrop-filter: blur(14px);\n  color: var(--text-secondary);\n}\n.chat-button[_ngcontent-%COMP%] {\n  cursor: pointer;\n  color: var(--text-primary);\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.chat-window[_ngcontent-%COMP%] {\n  margin-top: 1.5rem;\n  border-radius: 1.5rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(8, 13, 25, 0.9);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 28px 80px rgba(2, 6, 23, 0.44);\n  overflow: hidden;\n}\n.chat-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 1rem;\n  padding: 1.25rem 1.25rem 1rem;\n  border-bottom: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-header[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-bottom: 0.35rem;\n}\n.chat-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.header-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.tts-toggle-btn[_ngcontent-%COMP%], \n.stop-speech-btn[_ngcontent-%COMP%], \n.close-btn[_ngcontent-%COMP%], \n.send-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.8rem;\n  height: 2.8rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.04);\n  color: var(--text-primary);\n  cursor: pointer;\n}\n.tts-toggle-btn.active[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.32);\n}\n.stop-speech-btn[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.16);\n  border-color: rgba(239, 68, 68, 0.28);\n}\n.chat-messages[_ngcontent-%COMP%] {\n  padding: 1.25rem;\n  max-height: 420px;\n  overflow-y: auto;\n  display: grid;\n  gap: 0.85rem;\n}\n.message[_ngcontent-%COMP%] {\n  display: flex;\n}\n.message.user-message[_ngcontent-%COMP%] {\n  justify-content: flex-end;\n}\n.message.ai-message[_ngcontent-%COMP%] {\n  justify-content: flex-start;\n}\n.message-content[_ngcontent-%COMP%] {\n  max-width: min(100%, 720px);\n  padding: 0.95rem 1rem;\n  border-radius: 1.1rem;\n}\n.user-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #fff;\n}\n.ai-message[_ngcontent-%COMP%]   .message-content[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n}\n.message-text[_ngcontent-%COMP%] {\n  display: block;\n  color: inherit;\n}\n.message-time[_ngcontent-%COMP%] {\n  display: block;\n  margin-top: 0.55rem;\n  font-size: 0.76rem;\n  opacity: 0.75;\n}\n.typing-indicator[_ngcontent-%COMP%] {\n  display: inline-flex;\n  gap: 0.35rem;\n  width: fit-content;\n  padding: 0.9rem 1rem;\n  border-radius: 1rem;\n  background: rgba(255, 255, 255, 0.04);\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 0.45rem;\n  height: 0.45rem;\n  border-radius: 999px;\n  background: var(--primary-color);\n  animation: _ngcontent-%COMP%_bounce 1.2s infinite ease-in-out;\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.15s;\n}\n.typing-indicator[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.chat-input-container[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.75rem;\n  padding: 1rem 1.25rem 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-input[_ngcontent-%COMP%] {\n  flex: 1;\n  min-width: 0;\n  padding: 0.95rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-primary);\n}\n.chat-input[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.send-btn[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.send-btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  0%, 80%, 100% {\n    transform: translateY(0);\n    opacity: 0.5;\n  }\n  40% {\n    transform: translateY(-4px);\n    opacity: 1;\n  }\n}\n@media (max-width: 960px) {\n  .avatar-lab-shell[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .avatar-container[_ngcontent-%COMP%], \n   .avatar-canvas[_ngcontent-%COMP%] {\n    min-height: 540px;\n  }\n}\n@media (max-width: 640px) {\n  .controls-hint[_ngcontent-%COMP%] {\n    align-items: stretch;\n  }\n  .hint-chip[_ngcontent-%COMP%], \n   .chat-button[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n  .chat-header[_ngcontent-%COMP%], \n   .chat-input-container[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .header-controls[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: flex-end;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */"], data: { animation: [
       trigger("chatAnimation", [
         transition(":enter", [
           style({ opacity: 0, transform: "scale(0.8) translateY(20px)" }),
@@ -79086,7 +80402,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
   </div>
 </section>
 `, styles: ["/* src/app/profile/avatar-3d/avatar-3d.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.avatar-lab-shell {\n  display: grid;\n  grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);\n  gap: 1.5rem;\n  align-items: stretch;\n}\n.avatar-lab-copy {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  gap: 1.25rem;\n}\n.lab-capabilities {\n  display: grid;\n  gap: 0.85rem;\n}\n.capability-card {\n  display: grid;\n  grid-template-columns: 3rem 1fr;\n  gap: 0.9rem;\n  padding: 1rem;\n  border-radius: 1.2rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.capability-icon {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 1rem;\n  background: var(--gradient-primary);\n  color: #fff;\n  font-size: 0.78rem;\n  font-weight: 800;\n  letter-spacing: 0.1em;\n}\n.capability-card h3 {\n  margin-bottom: 0.35rem;\n  font-size: 1rem;\n}\n.capability-card p {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.lab-actions {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  flex-wrap: wrap;\n}\n.tts-status {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  font-size: 0.92rem;\n  color: var(--text-tertiary);\n}\n.tts-status.on {\n  color: #fde68a;\n}\n.tts-dot {\n  width: 0.65rem;\n  height: 0.65rem;\n  border-radius: 999px;\n  background: currentColor;\n  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.14);\n}\n.avatar-stage {\n  min-height: 100%;\n}\n.avatar-container {\n  position: relative;\n  height: 100%;\n  min-height: 680px;\n  overflow: hidden;\n  border-radius: 1.75rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.12),\n      transparent 28%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(34, 197, 94, 0.08),\n      transparent 26%),\n    linear-gradient(\n      180deg,\n      #09091a 0%,\n      #0e0e22 100%);\n  box-shadow: 0 30px 90px rgba(0, 0, 10, 0.55), 0 0 0 1px rgba(251, 191, 36, 0.06);\n}\n.avatar-canvas {\n  width: 100%;\n  height: 100%;\n  min-height: 680px;\n  display: block;\n}\n.loading-overlay {\n  position: absolute;\n  inset: 0;\n  display: grid;\n  place-items: center;\n  background: rgba(9, 9, 26, 0.94);\n  backdrop-filter: blur(12px);\n}\n.loading-content {\n  width: min(100%, 300px);\n  text-align: center;\n}\n.loading-spinner {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 1rem;\n  border: 3px solid rgba(255, 255, 255, 0.12);\n  border-top-color: var(--primary-color);\n  border-radius: 999px;\n  animation: spin 1s linear infinite;\n}\n.loading-text {\n  margin-bottom: 0.8rem;\n  font-weight: 700;\n}\n.progress-bar {\n  height: 0.45rem;\n  border-radius: 999px;\n  overflow: hidden;\n  background: rgba(255, 255, 255, 0.08);\n}\n.progress-fill {\n  height: 100%;\n  background: var(--gradient-primary);\n}\n.progress-percentage {\n  margin-top: 0.55rem;\n  font-size: 0.82rem;\n  color: var(--text-tertiary);\n}\n.controls-hint {\n  position: absolute;\n  left: 1rem;\n  right: 1rem;\n  bottom: 1rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.hint-chip,\n.chat-button {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 2.7rem;\n  padding: 0.75rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(8, 13, 25, 0.68);\n  backdrop-filter: blur(14px);\n  color: var(--text-secondary);\n}\n.chat-button {\n  cursor: pointer;\n  color: var(--text-primary);\n  background: rgba(251, 191, 36, 0.14);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.chat-window {\n  margin-top: 1.5rem;\n  border-radius: 1.5rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(8, 13, 25, 0.9);\n  backdrop-filter: blur(20px);\n  box-shadow: 0 28px 80px rgba(2, 6, 23, 0.44);\n  overflow: hidden;\n}\n.chat-header {\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 1rem;\n  padding: 1.25rem 1.25rem 1rem;\n  border-bottom: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-header h3 {\n  margin-bottom: 0.35rem;\n}\n.chat-header p {\n  color: var(--text-tertiary);\n  font-size: 0.92rem;\n}\n.header-controls {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.tts-toggle-btn,\n.stop-speech-btn,\n.close-btn,\n.send-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.8rem;\n  height: 2.8rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.04);\n  color: var(--text-primary);\n  cursor: pointer;\n}\n.tts-toggle-btn.active {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.32);\n}\n.stop-speech-btn {\n  background: rgba(239, 68, 68, 0.16);\n  border-color: rgba(239, 68, 68, 0.28);\n}\n.chat-messages {\n  padding: 1.25rem;\n  max-height: 420px;\n  overflow-y: auto;\n  display: grid;\n  gap: 0.85rem;\n}\n.message {\n  display: flex;\n}\n.message.user-message {\n  justify-content: flex-end;\n}\n.message.ai-message {\n  justify-content: flex-start;\n}\n.message-content {\n  max-width: min(100%, 720px);\n  padding: 0.95rem 1rem;\n  border-radius: 1.1rem;\n}\n.user-message .message-content {\n  background: var(--gradient-primary);\n  color: #fff;\n}\n.ai-message .message-content {\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n}\n.message-text {\n  display: block;\n  color: inherit;\n}\n.message-time {\n  display: block;\n  margin-top: 0.55rem;\n  font-size: 0.76rem;\n  opacity: 0.75;\n}\n.typing-indicator {\n  display: inline-flex;\n  gap: 0.35rem;\n  width: fit-content;\n  padding: 0.9rem 1rem;\n  border-radius: 1rem;\n  background: rgba(255, 255, 255, 0.04);\n}\n.typing-indicator span {\n  width: 0.45rem;\n  height: 0.45rem;\n  border-radius: 999px;\n  background: var(--primary-color);\n  animation: bounce 1.2s infinite ease-in-out;\n}\n.typing-indicator span:nth-child(2) {\n  animation-delay: 0.15s;\n}\n.typing-indicator span:nth-child(3) {\n  animation-delay: 0.3s;\n}\n.chat-input-container {\n  display: flex;\n  gap: 0.75rem;\n  padding: 1rem 1.25rem 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.12);\n}\n.chat-input {\n  flex: 1;\n  min-width: 0;\n  padding: 0.95rem 1rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-primary);\n}\n.chat-input:focus {\n  outline: none;\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.send-btn {\n  background: rgba(251, 191, 36, 0.16);\n  border-color: rgba(251, 191, 36, 0.28);\n}\n.send-btn:disabled {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes bounce {\n  0%, 80%, 100% {\n    transform: translateY(0);\n    opacity: 0.5;\n  }\n  40% {\n    transform: translateY(-4px);\n    opacity: 1;\n  }\n}\n@media (max-width: 960px) {\n  .avatar-lab-shell {\n    grid-template-columns: 1fr;\n  }\n  .avatar-container,\n  .avatar-canvas {\n    min-height: 540px;\n  }\n}\n@media (max-width: 640px) {\n  .controls-hint {\n    align-items: stretch;\n  }\n  .hint-chip,\n  .chat-button {\n    width: 100%;\n  }\n  .chat-header,\n  .chat-input-container {\n    flex-direction: column;\n  }\n  .header-controls {\n    width: 100%;\n    justify-content: flex-end;\n  }\n}\n/*# sourceMappingURL=avatar-3d.component.css.map */\n"] }]
-  }], () => [{ type: HttpClient }, { type: VoiceStreamingService }], { canvasRef: [{
+  }], () => [{ type: HttpClient }, { type: AchievementsService }, { type: AudioService }], { canvasRef: [{
     type: ViewChild,
     args: ["canvas", { static: true }]
   }], chatMessages: [{
@@ -79101,7 +80417,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Avatar3dComponent, { className: "Avatar3dComponent", filePath: "src/app/profile/avatar-3d/avatar-3d.component.ts", lineNumber: 41 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Avatar3dComponent, { className: "Avatar3dComponent", filePath: "src/app/profile/avatar-3d/avatar-3d.component.ts", lineNumber: 42 });
 })();
 
 // src/app/profile/metrics-dashboard/metrics-dashboard.component.ts
@@ -79224,7 +80540,7 @@ var MetricsDashboardComponent = class _MetricsDashboardComponent {
         \u0275\u0275advance(9);
         \u0275\u0275property("ngForOf", ctx2.metrics);
       }
-    }, dependencies: [CommonModule, NgForOf], styles: ['\n\n.metrics-section[_ngcontent-%COMP%] {\n  max-width: 1100px;\n  margin: 0 auto;\n  padding: 5rem 1.5rem 4rem;\n}\n.metrics-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3rem;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: "Press Start 2P", monospace;\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: #fbbf24;\n  text-shadow: 0 0 16px rgba(251, 191, 36, 0.35);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n  font-size: 0.95rem;\n  color: rgba(255, 255, 255, 0.5);\n  max-width: 480px;\n  margin-inline: auto;\n}\n.dashboard-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1rem;\n}\n.metric-panel[_ngcontent-%COMP%] {\n  position: relative;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 42, 0.98) 0%,\n      rgba(10, 10, 30, 0.95) 100%);\n  border: 1px solid rgba(255, 255, 255, 0.06);\n  border-radius: 12px;\n  overflow: hidden;\n  opacity: 0;\n  transform: translateY(20px);\n  transition:\n    opacity 0.5s ease,\n    transform 0.5s ease,\n    border-color 0.3s ease,\n    box-shadow 0.3s ease;\n}\n.metric-panel.animated[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: translateY(0);\n}\n.metric-panel[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 255, 255, 0.12);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);\n}\n.panel-accent[_ngcontent-%COMP%] {\n  height: 3px;\n  width: 100%;\n}\n.accent-green[_ngcontent-%COMP%]   .panel-accent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #34d399,\n      rgba(52, 211, 153, 0.3));\n  box-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n}\n.accent-gold[_ngcontent-%COMP%]   .panel-accent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      rgba(251, 191, 36, 0.3));\n  box-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.panel-body[_ngcontent-%COMP%] {\n  padding: 1.5rem 1.25rem 1.25rem;\n}\n.metric-value[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 0.15rem;\n  margin-bottom: 0.6rem;\n}\n.counter[_ngcontent-%COMP%] {\n  font-family: "Press Start 2P", monospace;\n  font-size: clamp(1.5rem, 3vw, 2rem);\n  font-weight: 700;\n  line-height: 1;\n}\n.accent-green[_ngcontent-%COMP%]   .counter[_ngcontent-%COMP%] {\n  color: #34d399;\n  text-shadow: 0 0 20px rgba(52, 211, 153, 0.3);\n}\n.accent-gold[_ngcontent-%COMP%]   .counter[_ngcontent-%COMP%] {\n  color: #fbbf24;\n  text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);\n}\n.suffix[_ngcontent-%COMP%] {\n  font-family: "Press Start 2P", monospace;\n  font-size: clamp(0.75rem, 1.5vw, 1rem);\n  opacity: 0.7;\n}\n.accent-green[_ngcontent-%COMP%]   .suffix[_ngcontent-%COMP%] {\n  color: #34d399;\n}\n.accent-gold[_ngcontent-%COMP%]   .suffix[_ngcontent-%COMP%] {\n  color: #fbbf24;\n}\n.metric-label[_ngcontent-%COMP%] {\n  font-family: "Press Start 2P", monospace;\n  font-size: 0.55rem;\n  letter-spacing: 0.15em;\n  text-transform: uppercase;\n  color: rgba(255, 255, 255, 0.7);\n  margin-bottom: 0.25rem;\n}\n.metric-sublabel[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.35);\n  margin-bottom: 1rem;\n}\n.sparkline-track[_ngcontent-%COMP%] {\n  height: 4px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 2px;\n  overflow: hidden;\n}\n.sparkline-bar[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  width: 0%;\n  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.accent-green[_ngcontent-%COMP%]   .sparkline-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #34d399,\n      rgba(52, 211, 153, 0.6));\n  box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);\n}\n.accent-gold[_ngcontent-%COMP%]   .sparkline-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      rgba(251, 191, 36, 0.6));\n  box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);\n}\n@media (max-width: 768px) {\n  .dashboard-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .metrics-section[_ngcontent-%COMP%] {\n    padding: 3rem 1rem 2.5rem;\n  }\n}\n@media (max-width: 480px) {\n  .dashboard-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n    gap: 0.75rem;\n  }\n  .panel-body[_ngcontent-%COMP%] {\n    padding: 1rem 0.85rem 0.85rem;\n  }\n  .counter[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n}\n/*# sourceMappingURL=metrics-dashboard.component.css.map */'] });
+    }, dependencies: [CommonModule, NgForOf], styles: ['\n.metrics-section[_ngcontent-%COMP%] {\n  max-width: 1100px;\n  margin: 0 auto;\n  padding: 5rem 1.5rem 4rem;\n}\n.metrics-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3rem;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: "Press Start 2P", monospace;\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: #fbbf24;\n  text-shadow: 0 0 16px rgba(251, 191, 36, 0.35);\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.4rem, 5.5vw, 4rem);\n  font-weight: 800;\n  line-height: 1.2;\n  padding-block: 0.1em;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n  font-size: 0.95rem;\n  color: rgba(255, 255, 255, 0.5);\n  max-width: 480px;\n  margin-inline: auto;\n}\n.dashboard-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1rem;\n}\n.metric-panel[_ngcontent-%COMP%] {\n  position: relative;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 42, 0.98) 0%,\n      rgba(10, 10, 30, 0.95) 100%);\n  border: 1px solid rgba(255, 255, 255, 0.06);\n  border-radius: 12px;\n  overflow: hidden;\n  opacity: 0;\n  transform: translateY(20px);\n  transition:\n    opacity 0.5s ease,\n    transform 0.5s ease,\n    border-color 0.3s ease,\n    box-shadow 0.3s ease;\n}\n.metric-panel.animated[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: translateY(0);\n}\n.metric-panel[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 255, 255, 0.12);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);\n}\n.panel-accent[_ngcontent-%COMP%] {\n  height: 3px;\n  width: 100%;\n}\n.accent-green[_ngcontent-%COMP%]   .panel-accent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #34d399,\n      rgba(52, 211, 153, 0.3));\n  box-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n}\n.accent-gold[_ngcontent-%COMP%]   .panel-accent[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      rgba(251, 191, 36, 0.3));\n  box-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.panel-body[_ngcontent-%COMP%] {\n  padding: 1.5rem 1.25rem 1.25rem;\n}\n.metric-value[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 0.15rem;\n  margin-bottom: 0.6rem;\n}\n.counter[_ngcontent-%COMP%] {\n  font-family: "Press Start 2P", monospace;\n  font-size: clamp(1.5rem, 3vw, 2rem);\n  font-weight: 700;\n  line-height: 1;\n}\n.accent-green[_ngcontent-%COMP%]   .counter[_ngcontent-%COMP%] {\n  color: #34d399;\n  text-shadow: 0 0 20px rgba(52, 211, 153, 0.3);\n}\n.accent-gold[_ngcontent-%COMP%]   .counter[_ngcontent-%COMP%] {\n  color: #fbbf24;\n  text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);\n}\n.suffix[_ngcontent-%COMP%] {\n  font-family: "Press Start 2P", monospace;\n  font-size: clamp(0.75rem, 1.5vw, 1rem);\n  opacity: 0.7;\n}\n.accent-green[_ngcontent-%COMP%]   .suffix[_ngcontent-%COMP%] {\n  color: #34d399;\n}\n.accent-gold[_ngcontent-%COMP%]   .suffix[_ngcontent-%COMP%] {\n  color: #fbbf24;\n}\n.metric-label[_ngcontent-%COMP%] {\n  font-family: "Press Start 2P", monospace;\n  font-size: 0.55rem;\n  letter-spacing: 0.15em;\n  text-transform: uppercase;\n  color: rgba(255, 255, 255, 0.7);\n  margin-bottom: 0.25rem;\n}\n.metric-sublabel[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.35);\n  margin-bottom: 1rem;\n}\n.sparkline-track[_ngcontent-%COMP%] {\n  height: 4px;\n  background: rgba(255, 255, 255, 0.06);\n  border-radius: 2px;\n  overflow: hidden;\n}\n.sparkline-bar[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  width: 0%;\n  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.accent-green[_ngcontent-%COMP%]   .sparkline-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #34d399,\n      rgba(52, 211, 153, 0.6));\n  box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);\n}\n.accent-gold[_ngcontent-%COMP%]   .sparkline-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      90deg,\n      #fbbf24,\n      rgba(251, 191, 36, 0.6));\n  box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);\n}\n@media (max-width: 768px) {\n  .dashboard-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .metrics-section[_ngcontent-%COMP%] {\n    padding: 3rem 1rem 2.5rem;\n  }\n}\n@media (max-width: 480px) {\n  .dashboard-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n    gap: 0.75rem;\n  }\n  .panel-body[_ngcontent-%COMP%] {\n    padding: 1rem 0.85rem 0.85rem;\n  }\n  .counter[_ngcontent-%COMP%] {\n    font-size: 1.25rem;\n  }\n}\n/*# sourceMappingURL=metrics-dashboard.component.css.map */'] });
   }
 };
 (() => {
@@ -79273,6 +80589,11 @@ var MetricsDashboardComponent = class _MetricsDashboardComponent {
 })();
 
 // node_modules/@angular/router/fesm2022/_router-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var PRIMARY_OUTLET = "primary";
 var RouteTitleKey = /* @__PURE__ */ Symbol("RouteTitle");
 var ParamsAsMap = class {
@@ -79430,9 +80751,21 @@ var paramCompareMap = {
   "subset": containsParams,
   "ignored": () => true
 };
+var exactMatchOptions = {
+  paths: "exact",
+  fragment: "ignored",
+  matrixParams: "ignored",
+  queryParams: "exact"
+};
+var subsetMatchOptions = {
+  paths: "subset",
+  fragment: "ignored",
+  matrixParams: "ignored",
+  queryParams: "subset"
+};
 function isActive(url, router, matchOptions) {
   const urlTree = url instanceof UrlTree ? url : router.parseUrl(url);
-  return computed(() => containsTree(router.lastSuccessfulNavigation()?.finalUrl ?? new UrlTree(), urlTree, matchOptions));
+  return computed(() => containsTree(router.lastSuccessfulNavigation()?.finalUrl ?? new UrlTree(), urlTree, __spreadValues(__spreadValues({}, subsetMatchOptions), matchOptions)));
 }
 function containsTree(container, containee, options) {
   return pathCompareMap[options.paths](container.root, containee.root, options.matrixParams) && paramCompareMap[options.queryParams](container.queryParams, containee.queryParams) && !(options.fragment === "exact" && container.fragment !== containee.fragment);
@@ -79687,7 +81020,8 @@ var UrlParser = class {
     this.remaining = url;
   }
   parseRootSegment() {
-    this.consumeOptional("/");
+    while (this.consumeOptional("/")) {
+    }
     if (this.remaining === "" || this.peekStartsWith("?") || this.peekStartsWith("#")) {
       return new UrlSegmentGroup([], {});
     }
@@ -80428,6 +81762,8 @@ var Scroll = class {
 };
 var BeforeActivateRoutes = class {
 };
+var BeforeRoutesRecognized = class {
+};
 var RedirectRequest = class {
   url;
   navigationBehaviorOptions;
@@ -80437,7 +81773,7 @@ var RedirectRequest = class {
   }
 };
 function isPublicRouterEvent(e) {
-  return !(e instanceof BeforeActivateRoutes) && !(e instanceof RedirectRequest);
+  return !(e instanceof BeforeActivateRoutes) && !(e instanceof RedirectRequest) && !(e instanceof BeforeRoutesRecognized);
 }
 function stringifyEvent(routerEvent) {
   switch (routerEvent.type) {
@@ -81127,7 +82463,8 @@ var \u0275EmptyOutletComponent = class _\u0275EmptyOutletComponent {
     args: [{
       template: `<router-outlet />`,
       imports: [RouterOutlet],
-      exportAs: "emptyRouterOutlet"
+      exportAs: "emptyRouterOutlet",
+      changeDetection: ChangeDetectionStrategy.Eager
     }]
   }], null, null);
 })();
@@ -81652,12 +82989,12 @@ function redirectIfUrlTree(urlSerializer) {
     throw redirectingNavigationError(urlSerializer, result);
   }), map((result) => result === true));
 }
-function runCanMatchGuards(injector, route, segments, urlSerializer, abortSignal) {
+function runCanMatchGuards(injector, route, segments, urlSerializer, currentSnapshot, abortSignal) {
   const canMatch = route.canMatch;
   if (!canMatch || canMatch.length === 0) return of(true);
   const canMatchObservables = canMatch.map((injectionToken) => {
     const guard = getTokenOrFunctionIdentity(injectionToken, injector);
-    const guardVal = isCanMatch(guard) ? guard.canMatch(route, segments) : runInInjectionContext(injector, () => guard(route, segments));
+    const guardVal = isCanMatch(guard) ? guard.canMatch(route, segments, currentSnapshot) : runInInjectionContext(injector, () => guard(route, segments, currentSnapshot));
     return wrapIntoObservable(guardVal).pipe(takeUntilAbort(abortSignal));
   });
   return of(canMatchObservables).pipe(prioritizedGuardValue(), redirectIfUrlTree(urlSerializer));
@@ -81770,30 +83107,7 @@ function getRedirectResult(redirectTo, currentSnapshot, injector) {
     return Promise.resolve(redirectTo);
   }
   const redirectToFn = redirectTo;
-  const {
-    queryParams,
-    fragment: fragment2,
-    routeConfig,
-    url,
-    outlet,
-    params,
-    data,
-    title,
-    paramMap,
-    queryParamMap
-  } = currentSnapshot;
-  return firstValueFrom2(wrapIntoObservable(runInInjectionContext(injector, () => redirectToFn({
-    params,
-    data,
-    queryParams,
-    fragment: fragment2,
-    routeConfig,
-    url,
-    outlet,
-    title,
-    paramMap,
-    queryParamMap
-  }))));
+  return firstValueFrom2(wrapIntoObservable(runInInjectionContext(injector, () => redirectToFn(currentSnapshot))));
 }
 function getOrCreateRouteInjectorIfNeeded(route, currentInjector) {
   if (route.providers && !route._injector) {
@@ -81909,13 +83223,28 @@ var noMatch = {
   parameters: {},
   positionalParamSegments: {}
 };
-function matchWithChecks(segmentGroup, route, segments, injector, urlSerializer, abortSignal) {
+function createPreMatchRouteSnapshot(snapshot) {
+  return {
+    routeConfig: snapshot.routeConfig,
+    url: snapshot.url,
+    params: snapshot.params,
+    queryParams: snapshot.queryParams,
+    fragment: snapshot.fragment,
+    data: snapshot.data,
+    outlet: snapshot.outlet,
+    title: snapshot.title,
+    paramMap: snapshot.paramMap,
+    queryParamMap: snapshot.queryParamMap
+  };
+}
+function matchWithChecks(segmentGroup, route, segments, injector, urlSerializer, createSnapshot, abortSignal) {
   const result = match(segmentGroup, route, segments);
   if (!result.matched) {
     return of(result);
   }
+  const currentSnapshot = createPreMatchRouteSnapshot(createSnapshot(result));
   injector = getOrCreateRouteInjectorIfNeeded(route, injector);
-  return runCanMatchGuards(injector, route, segments, urlSerializer, abortSignal).pipe(map((v) => v === true ? result : __spreadValues({}, noMatch)));
+  return runCanMatchGuards(injector, route, segments, urlSerializer, currentSnapshot, abortSignal).pipe(map((v) => v === true ? result : __spreadValues({}, noMatch)));
 }
 function match(segmentGroup, route, segments) {
   if (route.path === "") {
@@ -81946,8 +83275,8 @@ function match(segmentGroup, route, segments) {
     positionalParamSegments: res.posParams ?? {}
   };
 }
-function split(segmentGroup, consumedSegments, slicedSegments, config3) {
-  if (slicedSegments.length > 0 && containsEmptyPathMatchesWithNamedOutlets(segmentGroup, slicedSegments, config3)) {
+function split(segmentGroup, consumedSegments, slicedSegments, config3, outlet) {
+  if (slicedSegments.length > 0 && containsEmptyPathMatchesWithNamedOutlets(segmentGroup, slicedSegments, config3, outlet)) {
     const s2 = new UrlSegmentGroup(consumedSegments, createChildrenForEmptyPaths(config3, new UrlSegmentGroup(slicedSegments, segmentGroup.children)));
     return {
       segmentGroup: s2,
@@ -81988,8 +83317,15 @@ function createChildrenForEmptyPaths(routes2, primarySegment) {
   }
   return res;
 }
-function containsEmptyPathMatchesWithNamedOutlets(segmentGroup, slicedSegments, routes2) {
-  return routes2.some((r) => emptyPathMatch(segmentGroup, slicedSegments, r) && getOutlet(r) !== PRIMARY_OUTLET);
+function containsEmptyPathMatchesWithNamedOutlets(segmentGroup, slicedSegments, routes2, outlet) {
+  return routes2.some((r) => {
+    const matchesEmpty = emptyPathMatch(segmentGroup, slicedSegments, r);
+    if (!matchesEmpty) return false;
+    const isNamedOutlet = getOutlet(r) !== PRIMARY_OUTLET;
+    if (!isNamedOutlet) return false;
+    const isSelfEvaluating = outlet !== void 0 && getOutlet(r) === outlet;
+    return !isSelfEvaluating;
+  });
 }
 function containsEmptyPathMatches(segmentGroup, slicedSegments, routes2) {
   return routes2.some((r) => emptyPathMatch(segmentGroup, slicedSegments, r));
@@ -82162,24 +83498,29 @@ This is currently a dev mode only error but will become a call stack size exceed
           this.allowRedirects = false;
         }
       }
-      const currentSnapshot = new ActivatedRouteSnapshot(segments, parameters, Object.freeze(__spreadValues({}, this.urlTree.queryParams)), this.urlTree.fragment, getData(route), getOutlet(route), route.component ?? route._loadedComponent ?? null, route, getResolve(route), injector);
-      const inherited = getInherited(currentSnapshot, parentRoute, this.paramsInheritanceStrategy);
-      currentSnapshot.params = Object.freeze(inherited.params);
-      currentSnapshot.data = Object.freeze(inherited.data);
+      const currentSnapshot = this.createSnapshot(injector, route, segments, parameters, parentRoute);
       if (this.abortSignal.aborted) {
         throw new Error(this.abortSignal.reason);
       }
-      const newTree = yield this.applyRedirects.applyRedirectCommands(consumedSegments, route.redirectTo, positionalParamSegments, currentSnapshot, injector);
+      const newTree = yield this.applyRedirects.applyRedirectCommands(consumedSegments, route.redirectTo, positionalParamSegments, createPreMatchRouteSnapshot(currentSnapshot), injector);
       const newSegments = yield this.applyRedirects.lineralizeSegments(route, newTree);
       return this.processSegment(injector, routes2, segmentGroup, newSegments.concat(remainingSegments), outlet, false, parentRoute);
     });
+  }
+  createSnapshot(injector, route, segments, parameters, parentRoute) {
+    const snapshot = new ActivatedRouteSnapshot(segments, parameters, Object.freeze(__spreadValues({}, this.urlTree.queryParams)), this.urlTree.fragment, getData(route), getOutlet(route), route.component ?? route._loadedComponent ?? null, route, getResolve(route), injector);
+    const inherited = getInherited(snapshot, parentRoute, this.paramsInheritanceStrategy);
+    snapshot.params = Object.freeze(inherited.params);
+    snapshot.data = Object.freeze(inherited.data);
+    return snapshot;
   }
   matchSegmentAgainstRoute(injector, rawSegment, route, segments, outlet, parentRoute) {
     return __async(this, null, function* () {
       if (this.abortSignal.aborted) {
         throw new Error(this.abortSignal.reason);
       }
-      const result = yield firstValueFrom2(matchWithChecks(rawSegment, route, segments, injector, this.urlSerializer, this.abortSignal));
+      const createSnapshot = (result2) => this.createSnapshot(injector, route, result2.consumedSegments, result2.parameters, parentRoute);
+      const result = yield firstValueFrom2(matchWithChecks(rawSegment, route, segments, injector, this.urlSerializer, createSnapshot, this.abortSignal));
       if (route.path === "**") {
         rawSegment.children = {};
       }
@@ -82196,14 +83537,11 @@ This is currently a dev mode only error but will become a call stack size exceed
         consumedSegments,
         remainingSegments
       } = result;
-      const snapshot = new ActivatedRouteSnapshot(consumedSegments, parameters, Object.freeze(__spreadValues({}, this.urlTree.queryParams)), this.urlTree.fragment, getData(route), getOutlet(route), route.component ?? route._loadedComponent ?? null, route, getResolve(route), injector);
-      const inherited = getInherited(snapshot, parentRoute, this.paramsInheritanceStrategy);
-      snapshot.params = Object.freeze(inherited.params);
-      snapshot.data = Object.freeze(inherited.data);
+      const snapshot = this.createSnapshot(injector, route, consumedSegments, parameters, parentRoute);
       const {
         segmentGroup,
         slicedSegments
-      } = split(rawSegment, consumedSegments, remainingSegments, childConfig);
+      } = split(rawSegment, consumedSegments, remainingSegments, childConfig, outlet);
       if (slicedSegments.length === 0 && segmentGroup.hasChildren()) {
         const children = yield this.processChildren(childInjector, childConfig, segmentGroup, snapshot);
         return new TreeNode(snapshot, children);
@@ -82762,7 +84100,9 @@ var NavigationTransitions = class _NavigationTransitions {
           canDeactivateChecks: []
         },
         guardsResult: null,
-        id
+        id,
+        routesRecognizeHandler: {},
+        beforeActivateHandler: {}
       }));
     });
   }
@@ -82792,7 +84132,9 @@ var NavigationTransitions = class _NavigationTransitions {
           previousNavigation: !lastSuccessfulNavigation ? null : __spreadProps(__spreadValues({}, lastSuccessfulNavigation), {
             previousNavigation: null
           }),
-          abort: () => abortController.abort()
+          abort: () => abortController.abort(),
+          routesRecognizeHandler: t.routesRecognizeHandler,
+          beforeActivateHandler: t.beforeActivateHandler
         });
         const urlTransition = !router.navigated || this.isUpdatingInternalState() || this.isUpdatedBrowserUrl();
         const onSameUrlNavigation = t.extras.onSameUrlNavigation ?? router.onSameUrlNavigation;
@@ -82816,7 +84158,9 @@ var NavigationTransitions = class _NavigationTransitions {
               nav.finalUrl = t2.urlAfterRedirects;
               return nav;
             });
-            const routesRecognized = new RoutesRecognized(t2.id, this.urlSerializer.serialize(t2.extractedUrl), this.urlSerializer.serialize(t2.urlAfterRedirects), t2.targetSnapshot);
+            this.events.next(new BeforeRoutesRecognized());
+          }), switchMap((value) => from(overallTransitionState.routesRecognizeHandler.deferredHandle ?? of(void 0)).pipe(map(() => value))), tap(() => {
+            const routesRecognized = new RoutesRecognized(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects), t.targetSnapshot);
             this.events.next(routesRecognized);
           }));
         } else if (urlTransition && this.urlHandlingStrategy.shouldProcessUrl(t.currentRawUrl)) {
@@ -82916,7 +84260,7 @@ var NavigationTransitions = class _NavigationTransitions {
         } = overallTransitionState;
         const viewTransitionStarted = this.createViewTransition?.(this.environmentInjector, currentSnapshot.root, targetSnapshot.root);
         return viewTransitionStarted ? from(viewTransitionStarted).pipe(map(() => overallTransitionState)) : of(overallTransitionState);
-      }), take(1), map((t) => {
+      }), take(1), switchMap((t) => {
         const targetRouterState = createRouterState(router.routeReuseStrategy, t.targetSnapshot, t.currentRouterState);
         this.currentTransition = overallTransitionState = t = __spreadProps(__spreadValues({}, t), {
           targetRouterState
@@ -82926,9 +84270,9 @@ var NavigationTransitions = class _NavigationTransitions {
           return nav;
         });
         this.events.next(new BeforeActivateRoutes());
-        if (!shouldContinueNavigation()) {
-          return;
-        }
+        const deferred = overallTransitionState.beforeActivateHandler.deferredHandle;
+        return deferred ? from(deferred.then(() => t)) : of(t);
+      }), tap((t) => {
         new ActivateRoutes(router.routeReuseStrategy, overallTransitionState.targetRouterState, overallTransitionState.currentRouterState, (evt) => this.events.next(evt), this.inputBindingEnabled).activate(this.rootContexts);
         if (!shouldContinueNavigation()) {
           return;
@@ -83121,6 +84465,14 @@ var StateManager = class _StateManager {
     const path = url instanceof UrlTree ? this.urlSerializer.serialize(url) : url;
     return path;
   }
+  routerUrlState(navigation) {
+    if (navigation?.targetBrowserUrl === void 0 || navigation?.finalUrl === void 0) {
+      return {};
+    }
+    return {
+      \u0275routerUrl: this.urlSerializer.serialize(navigation.finalUrl)
+    };
+  }
   commitTransition({
     targetRouterState,
     finalUrl,
@@ -83186,7 +84538,9 @@ var HistoryStateManager = class _HistoryStateManager extends StateManager {
     return this.location.subscribe((event) => {
       if (event["type"] === "popstate") {
         setTimeout(() => {
-          listener(event["url"], event.state, "popstate");
+          listener(event["url"], event.state, "popstate", {
+            replaceUrl: true
+          });
         });
       }
     });
@@ -83216,20 +84570,21 @@ var HistoryStateManager = class _HistoryStateManager extends StateManager {
       this.currentPageId = this.browserPageId;
     }
   }
-  setBrowserUrl(path, {
-    extras,
-    id
-  }) {
+  setBrowserUrl(path, navigation) {
+    const {
+      extras,
+      id
+    } = navigation;
     const {
       replaceUrl,
       state: state2
     } = extras;
     if (this.location.isCurrentPathEqualTo(path) || !!replaceUrl) {
       const currentBrowserPageId = this.browserPageId;
-      const newState = __spreadValues(__spreadValues({}, state2), this.generateNgRouterState(id, currentBrowserPageId));
+      const newState = __spreadValues(__spreadValues({}, state2), this.generateNgRouterState(id, currentBrowserPageId, navigation));
       this.location.replaceState(path, "", newState);
     } else {
-      const newState = __spreadValues(__spreadValues({}, state2), this.generateNgRouterState(id, this.browserPageId + 1));
+      const newState = __spreadValues(__spreadValues({}, state2), this.generateNgRouterState(id, this.browserPageId + 1, navigation));
       this.location.go(path, "", newState);
     }
   }
@@ -83260,16 +84615,16 @@ var HistoryStateManager = class _HistoryStateManager extends StateManager {
   resetUrlToCurrentUrlTree() {
     this.location.replaceState(this.urlSerializer.serialize(this.getRawUrlTree()), "", this.generateNgRouterState(this.lastSuccessfulId, this.currentPageId));
   }
-  generateNgRouterState(navigationId, routerPageId) {
+  generateNgRouterState(navigationId, routerPageId, navigation) {
     if (this.canceledNavigationResolution === "computed") {
-      return {
+      return __spreadValues({
         navigationId,
         \u0275routerPageId: routerPageId
-      };
+      }, this.routerUrlState(navigation));
     }
-    return {
+    return __spreadValues({
       navigationId
-    };
+    }, this.routerUrlState(navigation));
   }
   static \u0275fac = /* @__PURE__ */ (() => {
     let \u0275HistoryStateManager_BaseFactory;
@@ -83302,18 +84657,6 @@ function afterNextNavigation(router, action) {
     action();
   });
 }
-var exactMatchOptions = {
-  paths: "exact",
-  fragment: "ignored",
-  matrixParams: "ignored",
-  queryParams: "exact"
-};
-var subsetMatchOptions = {
-  paths: "subset",
-  fragment: "ignored",
-  matrixParams: "ignored",
-  queryParams: "subset"
-};
 var Router = class _Router {
   get currentUrlTree() {
     return this.stateManager.getCurrentUrlTree();
@@ -83409,28 +84752,34 @@ var Router = class _Router {
   initialNavigation() {
     this.setUpLocationChangeListener();
     if (!this.navigationTransitions.hasRequestedNavigation) {
-      this.navigateToSyncWithBrowser(this.location.path(true), IMPERATIVE_NAVIGATION, this.stateManager.restoredState());
+      this.navigateToSyncWithBrowser(this.location.path(true), IMPERATIVE_NAVIGATION, this.stateManager.restoredState(), {
+        replaceUrl: true
+      });
     }
   }
   setUpLocationChangeListener() {
-    this.nonRouterCurrentEntryChangeSubscription ??= this.stateManager.registerNonRouterCurrentEntryChangeListener((url, state2, source) => {
-      this.navigateToSyncWithBrowser(url, source, state2);
+    this.nonRouterCurrentEntryChangeSubscription ??= this.stateManager.registerNonRouterCurrentEntryChangeListener((url, state2, source, extras) => {
+      this.navigateToSyncWithBrowser(url, source, state2, extras);
     });
   }
-  navigateToSyncWithBrowser(url, source, state2) {
-    const extras = {
-      replaceUrl: true
-    };
+  navigateToSyncWithBrowser(url, source, state2, extras) {
     const restoredState = state2?.navigationId ? state2 : null;
+    const routerUrl = state2?.\u0275routerUrl ?? url;
+    if (state2?.\u0275routerUrl) {
+      extras = __spreadProps(__spreadValues({}, extras), {
+        browserUrl: url
+      });
+    }
     if (state2) {
       const stateCopy = __spreadValues({}, state2);
       delete stateCopy.navigationId;
       delete stateCopy.\u0275routerPageId;
+      delete stateCopy.\u0275routerUrl;
       if (Object.keys(stateCopy).length !== 0) {
         extras.state = stateCopy;
       }
     }
-    const urlTree = this.parseUrl(url);
+    const urlTree = this.parseUrl(routerUrl);
     this.scheduleNavigation(urlTree, source, restoredState, extras).catch((e) => {
       if (this.disposed) {
         return;
@@ -83530,7 +84879,7 @@ var Router = class _Router {
     } else if (matchOptions === false) {
       options = __spreadValues({}, subsetMatchOptions);
     } else {
-      options = matchOptions;
+      options = __spreadValues(__spreadValues({}, subsetMatchOptions), matchOptions);
     }
     if (isUrlTree(url)) {
       return containsTree(this.currentUrlTree, url, options);
@@ -83609,6 +84958,59 @@ function validateCommands(commands) {
 }
 
 // node_modules/@angular/router/fesm2022/_router_module-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
+var ReactiveRouterState = class _ReactiveRouterState {
+  router = inject2(Router);
+  stateManager = inject2(StateManager);
+  fragment = signal("", ...ngDevMode ? [{
+    debugName: "fragment"
+  }] : []);
+  queryParams = signal({}, ...ngDevMode ? [{
+    debugName: "queryParams"
+  }] : []);
+  path = signal("", ...ngDevMode ? [{
+    debugName: "path"
+  }] : []);
+  serializer = inject2(UrlSerializer);
+  constructor() {
+    this.updateState();
+    this.router.events?.subscribe((e) => {
+      if (e instanceof NavigationEnd) {
+        this.updateState();
+      }
+    });
+  }
+  updateState() {
+    const {
+      fragment: fragment2,
+      root,
+      queryParams
+    } = this.stateManager.getCurrentUrlTree();
+    this.fragment.set(fragment2);
+    this.queryParams.set(queryParams);
+    this.path.set(this.serializer.serialize(new UrlTree(root)));
+  }
+  static \u0275fac = function ReactiveRouterState_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ReactiveRouterState)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _ReactiveRouterState,
+    factory: _ReactiveRouterState.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ReactiveRouterState, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
 var RouterLink = class _RouterLink {
   router;
   route;
@@ -83616,7 +85018,15 @@ var RouterLink = class _RouterLink {
   renderer;
   el;
   locationStrategy;
-  reactiveHref = signal(null, ...ngDevMode ? [{
+  hrefAttributeValue = inject2(new HostAttributeToken("href"), {
+    optional: true
+  });
+  reactiveHref = linkedSignal(() => {
+    if (!this.isAnchorElement) {
+      return this.hrefAttributeValue;
+    }
+    return this.computeHref(this._urlTree());
+  }, ...ngDevMode ? [{
     debugName: "reactiveHref"
   }] : []);
   get href() {
@@ -83625,20 +85035,109 @@ var RouterLink = class _RouterLink {
   set href(value) {
     this.reactiveHref.set(value);
   }
-  target;
-  queryParams;
-  fragment;
-  queryParamsHandling;
-  state;
-  info;
-  relativeTo;
+  set target(value) {
+    this._target.set(value);
+  }
+  get target() {
+    return untracked2(this._target);
+  }
+  _target = signal(void 0, ...ngDevMode ? [{
+    debugName: "_target"
+  }] : []);
+  set queryParams(value) {
+    this._queryParams.set(value);
+  }
+  get queryParams() {
+    return untracked2(this._queryParams);
+  }
+  _queryParams = signal(void 0, __spreadProps(__spreadValues({}, ngDevMode ? {
+    debugName: "_queryParams"
+  } : {}), {
+    equal: () => false
+  }));
+  set fragment(value) {
+    this._fragment.set(value);
+  }
+  get fragment() {
+    return untracked2(this._fragment);
+  }
+  _fragment = signal(void 0, ...ngDevMode ? [{
+    debugName: "_fragment"
+  }] : []);
+  set queryParamsHandling(value) {
+    this._queryParamsHandling.set(value);
+  }
+  get queryParamsHandling() {
+    return untracked2(this._queryParamsHandling);
+  }
+  _queryParamsHandling = signal(void 0, ...ngDevMode ? [{
+    debugName: "_queryParamsHandling"
+  }] : []);
+  set state(value) {
+    this._state.set(value);
+  }
+  get state() {
+    return untracked2(this._state);
+  }
+  _state = signal(void 0, __spreadProps(__spreadValues({}, ngDevMode ? {
+    debugName: "_state"
+  } : {}), {
+    equal: () => false
+  }));
+  set info(value) {
+    this._info.set(value);
+  }
+  get info() {
+    return untracked2(this._info);
+  }
+  _info = signal(void 0, __spreadProps(__spreadValues({}, ngDevMode ? {
+    debugName: "_info"
+  } : {}), {
+    equal: () => false
+  }));
+  set relativeTo(value) {
+    this._relativeTo.set(value);
+  }
+  get relativeTo() {
+    return untracked2(this._relativeTo);
+  }
+  _relativeTo = signal(void 0, ...ngDevMode ? [{
+    debugName: "_relativeTo"
+  }] : []);
+  set preserveFragment(value) {
+    this._preserveFragment.set(value);
+  }
+  get preserveFragment() {
+    return untracked2(this._preserveFragment);
+  }
+  _preserveFragment = signal(false, ...ngDevMode ? [{
+    debugName: "_preserveFragment"
+  }] : []);
+  set skipLocationChange(value) {
+    this._skipLocationChange.set(value);
+  }
+  get skipLocationChange() {
+    return untracked2(this._skipLocationChange);
+  }
+  _skipLocationChange = signal(false, ...ngDevMode ? [{
+    debugName: "_skipLocationChange"
+  }] : []);
+  set replaceUrl(value) {
+    this._replaceUrl.set(value);
+  }
+  get replaceUrl() {
+    return untracked2(this._replaceUrl);
+  }
+  _replaceUrl = signal(false, ...ngDevMode ? [{
+    debugName: "_replaceUrl"
+  }] : []);
   isAnchorElement;
-  subscription;
   onChanges = new Subject();
   applicationErrorHandler = inject2(INTERNAL_APPLICATION_ERROR_HANDLER);
   options = inject2(ROUTER_CONFIGURATION, {
     optional: true
   });
+  reactiveRouterState = inject2(ReactiveRouterState);
   constructor(router, route, tabIndexAttribute, renderer, el, locationStrategy) {
     this.router = router;
     this.route = route;
@@ -83646,29 +85145,16 @@ var RouterLink = class _RouterLink {
     this.renderer = renderer;
     this.el = el;
     this.locationStrategy = locationStrategy;
-    this.reactiveHref.set(inject2(new HostAttributeToken("href"), {
-      optional: true
-    }));
     const tagName = el.nativeElement.tagName?.toLowerCase();
     this.isAnchorElement = tagName === "a" || tagName === "area" || !!(typeof customElements === "object" && customElements.get(tagName)?.observedAttributes?.includes?.("href"));
-    if (this.isAnchorElement) {
-      this.setTabIndexIfNotOnNativeEl("0");
-      this.subscribeToNavigationEventsIfNecessary();
+    if (typeof ngDevMode !== "undefined" && ngDevMode) {
+      effect(() => {
+        if (isUrlTree(this.routerLinkInput()) && (this._fragment() !== void 0 || this._queryParams() || this._queryParamsHandling() || this._preserveFragment() || this._relativeTo())) {
+          throw new RuntimeError(4017, "Cannot configure queryParams or fragment when using a UrlTree as the routerLink input value.");
+        }
+      });
     }
   }
-  subscribeToNavigationEventsIfNecessary() {
-    if (this.subscription !== void 0) {
-      return;
-    }
-    this.subscription = this.router.events.subscribe((s) => {
-      if (s instanceof NavigationEnd) {
-        this.updateHref();
-      }
-    });
-  }
-  preserveFragment = false;
-  skipLocationChange = false;
-  replaceUrl = false;
   setTabIndexIfNotOnNativeEl(newTabIndex) {
     if (this.tabIndexAttribute != null || this.isAnchorElement) {
       return;
@@ -83676,30 +85162,26 @@ var RouterLink = class _RouterLink {
     this.applyAttributeValue("tabindex", newTabIndex);
   }
   ngOnChanges(changes) {
-    if (ngDevMode && isUrlTree(this.routerLinkInput) && (this.fragment !== void 0 || this.queryParams || this.queryParamsHandling || this.preserveFragment || this.relativeTo)) {
-      throw new RuntimeError(4017, "Cannot configure queryParams or fragment when using a UrlTree as the routerLink input value.");
-    }
-    if (this.isAnchorElement) {
-      this.updateHref();
-    }
     this.onChanges.next(this);
   }
-  routerLinkInput = null;
+  routerLinkInput = signal(null, ...ngDevMode ? [{
+    debugName: "routerLinkInput"
+  }] : []);
   set routerLink(commandsOrUrlTree) {
     if (commandsOrUrlTree == null) {
-      this.routerLinkInput = null;
+      this.routerLinkInput.set(null);
       this.setTabIndexIfNotOnNativeEl(null);
     } else {
       if (isUrlTree(commandsOrUrlTree)) {
-        this.routerLinkInput = commandsOrUrlTree;
+        this.routerLinkInput.set(commandsOrUrlTree);
       } else {
-        this.routerLinkInput = Array.isArray(commandsOrUrlTree) ? commandsOrUrlTree : [commandsOrUrlTree];
+        this.routerLinkInput.set(Array.isArray(commandsOrUrlTree) ? commandsOrUrlTree : [commandsOrUrlTree]);
       }
       this.setTabIndexIfNotOnNativeEl("0");
     }
   }
   onClick(button, ctrlKey, shiftKey, altKey, metaKey) {
-    const urlTree = this.urlTree;
+    const urlTree = this._urlTree();
     if (urlTree === null) {
       return true;
     }
@@ -83723,11 +85205,6 @@ var RouterLink = class _RouterLink {
     return !this.isAnchorElement;
   }
   ngOnDestroy() {
-    this.subscription?.unsubscribe();
-  }
-  updateHref() {
-    const urlTree = this.urlTree;
-    this.reactiveHref.set(urlTree !== null && this.locationStrategy ? this.locationStrategy?.prepareExternalUrl(this.router.serializeUrl(urlTree)) ?? "" : null);
   }
   applyAttributeValue(attrName, attrValue) {
     const renderer = this.renderer;
@@ -83738,19 +85215,38 @@ var RouterLink = class _RouterLink {
       renderer.removeAttribute(nativeElement, attrName);
     }
   }
-  get urlTree() {
-    if (this.routerLinkInput === null) {
-      return null;
-    } else if (isUrlTree(this.routerLinkInput)) {
-      return this.routerLinkInput;
+  _urlTree = computed(() => {
+    this.reactiveRouterState.path();
+    if (this._preserveFragment()) {
+      this.reactiveRouterState.fragment();
     }
-    return this.router.createUrlTree(this.routerLinkInput, {
-      relativeTo: this.relativeTo !== void 0 ? this.relativeTo : this.route,
-      queryParams: this.queryParams,
-      fragment: this.fragment,
-      queryParamsHandling: this.queryParamsHandling,
-      preserveFragment: this.preserveFragment
+    const shouldTrackParams = (handling) => handling === "preserve" || handling === "merge";
+    if (shouldTrackParams(this._queryParamsHandling()) || shouldTrackParams(this.options?.defaultQueryParamsHandling)) {
+      this.reactiveRouterState.queryParams();
+    }
+    const routerLinkInput = this.routerLinkInput();
+    if (routerLinkInput === null || !this.router.createUrlTree) {
+      return null;
+    } else if (isUrlTree(routerLinkInput)) {
+      return routerLinkInput;
+    }
+    return this.router.createUrlTree(routerLinkInput, {
+      relativeTo: this._relativeTo() !== void 0 ? this._relativeTo() : this.route,
+      queryParams: this._queryParams(),
+      fragment: this._fragment(),
+      queryParamsHandling: this._queryParamsHandling(),
+      preserveFragment: this._preserveFragment()
     });
+  }, __spreadProps(__spreadValues({}, ngDevMode ? {
+    debugName: "_urlTree"
+  } : {}), {
+    equal: (a, b) => this.computeHref(a) === this.computeHref(b)
+  }));
+  get urlTree() {
+    return untracked2(this._urlTree);
+  }
+  computeHref(urlTree) {
+    return urlTree !== null && this.locationStrategy ? this.locationStrategy?.prepareExternalUrl(this.router.serializeUrl(urlTree)) ?? "" : null;
   }
   static \u0275fac = function RouterLink_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _RouterLink)(\u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275injectAttribute("tabindex"), \u0275\u0275directiveInject(Renderer2), \u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(LocationStrategy));
@@ -83766,7 +85262,7 @@ var RouterLink = class _RouterLink {
         });
       }
       if (rf & 2) {
-        \u0275\u0275attribute("href", ctx2.reactiveHref(), \u0275\u0275sanitizeUrlOrResourceUrl)("target", ctx2.target);
+        \u0275\u0275attribute("href", ctx2.reactiveHref(), \u0275\u0275sanitizeUrlOrResourceUrl)("target", ctx2._target());
       }
     },
     inputs: {
@@ -83791,7 +85287,8 @@ var RouterLink = class _RouterLink {
     args: [{
       selector: "[routerLink]",
       host: {
-        "[attr.href]": "reactiveHref()"
+        "[attr.href]": "reactiveHref()",
+        "[attr.target]": "_target()"
       }
     }]
   }], () => [{
@@ -83812,9 +85309,6 @@ var RouterLink = class _RouterLink {
     type: LocationStrategy
   }], {
     target: [{
-      type: HostBinding,
-      args: ["attr.target"]
-    }, {
       type: Input
     }],
     queryParams: [{
@@ -84018,7 +85512,8 @@ var RouterLinkActive = class _RouterLinkActive {
   });
 })();
 function isActiveMatchOptions(options) {
-  return !!options.paths;
+  const o = options;
+  return !!(o.paths || o.matrixParams || o.queryParams || o.fragment);
 }
 var PreloadingStrategy = class {
 };
@@ -84284,7 +85779,9 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
       path,
       state: state2
     }) => {
-      listener(path, state2, "popstate");
+      listener(path, state2, "popstate", !this.precommitHandlerSupported ? {
+        replaceUrl: true
+      } : {});
     });
     return this.nonRouterEntryChangeListener;
   }
@@ -84295,19 +85792,42 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
       });
       if (e instanceof NavigationStart) {
         this.updateStateMemento();
+        if (this.precommitHandlerSupported) {
+          this.maybeCreateNavigationForTransition(transition2);
+        }
       } else if (e instanceof NavigationSkipped) {
         this.finishNavigation();
         this.commitTransition(transition2);
-      } else if (e instanceof RoutesRecognized) {
-        if (this.urlUpdateStrategy === "eager" && !transition2.extras.skipLocationChange) {
-          this.createNavigationForTransition(transition2);
-        }
+      } else if (e instanceof BeforeRoutesRecognized) {
+        transition2.routesRecognizeHandler.deferredHandle = new Promise((resolve) => __async(this, null, function* () {
+          if (this.urlUpdateStrategy === "eager") {
+            try {
+              this.maybeCreateNavigationForTransition(transition2);
+              yield this.currentNavigation.commitUrl?.();
+            } catch (e2) {
+              return;
+            }
+          }
+          resolve();
+        }));
       } else if (e instanceof BeforeActivateRoutes) {
-        this.commitTransition(transition2);
-        if (this.urlUpdateStrategy === "deferred" && !transition2.extras.skipLocationChange) {
-          this.createNavigationForTransition(transition2);
-        }
+        transition2.beforeActivateHandler.deferredHandle = new Promise((resolve) => __async(this, null, function* () {
+          if (this.urlUpdateStrategy === "deferred") {
+            try {
+              this.maybeCreateNavigationForTransition(transition2);
+              yield this.currentNavigation.commitUrl?.();
+            } catch (e2) {
+              return;
+            }
+          }
+          this.commitTransition(transition2);
+          resolve();
+        }));
       } else if (e instanceof NavigationCancel || e instanceof NavigationError) {
+        const redirectingBeforeUrlCommit = e instanceof NavigationCancel && e.code === NavigationCancellationCode.Redirect && !!this.currentNavigation.commitUrl;
+        if (redirectingBeforeUrlCommit) {
+          return;
+        }
         void this.cancel(transition2, e);
       } else if (e instanceof NavigationEnd) {
         const {
@@ -84325,11 +85845,12 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
       }
     });
   }
-  createNavigationForTransition(transition2) {
+  maybeCreateNavigationForTransition(transition2) {
     const {
-      navigationEvent
+      navigationEvent,
+      commitUrl
     } = this.currentNavigation;
-    if (navigationEvent && navigationEvent.navigationType === "traverse" && this.eventAndRouterDestinationsMatch(navigationEvent, transition2)) {
+    if (commitUrl || navigationEvent && navigationEvent.navigationType === "traverse" && this.eventAndRouterDestinationsMatch(navigationEvent, transition2)) {
       return;
     }
     this.currentNavigation.removeAbortListener?.();
@@ -84338,9 +85859,7 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
   }
   navigate(internalPath, transition2) {
     const path = transition2.extras.skipLocationChange ? this.navigation.currentEntry.url : this.location.prepareExternalUrl(internalPath);
-    const state2 = __spreadProps(__spreadValues({}, transition2.extras.state), {
-      navigationId: transition2.id
-    });
+    const state2 = __spreadValues(__spreadValues({}, transition2.extras.state), this.generateNgRouterState(transition2));
     const info = {
       \u0275routerInfo: {
         intercept: true
@@ -84357,6 +85876,7 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
     }));
   }
   finishNavigation() {
+    this.currentNavigation.commitUrl?.();
     this.currentNavigation?.resolveHandler?.();
     this.currentNavigation = {};
   }
@@ -84439,17 +85959,54 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
       resolve: resolveHandler,
       reject: rejectHandler
     } = promiseWithResolvers();
+    const {
+      promise: precommitHandlerPromise,
+      resolve: resolvePrecommitHandler,
+      reject: rejectPrecommitHandler
+    } = promiseWithResolvers();
+    this.currentNavigation.rejectNavigateEvent = () => {
+      event.signal.removeEventListener("abort", abortHandler);
+      rejectPrecommitHandler();
+      rejectHandler();
+    };
     this.currentNavigation.resolveHandler = () => {
       this.currentNavigation.removeAbortListener?.();
       resolveHandler();
     };
-    this.currentNavigation.rejectNavigateEvent = () => {
-      this.currentNavigation.removeAbortListener?.();
-      rejectHandler();
-    };
     handlerPromise.catch(() => {
     });
+    precommitHandlerPromise.catch(() => {
+    });
     interceptOptions.handler = () => handlerPromise;
+    if (this.deferredCommitSupported(event)) {
+      const redirect = new Promise((resolve) => {
+        interceptOptions.precommitHandler = (controller) => {
+          if (this.navigation.transition?.navigationType === "traverse") {
+            resolve(() => {
+            });
+          } else {
+            resolve(controller.redirect.bind(controller));
+          }
+          return precommitHandlerPromise;
+        };
+      });
+      this.currentNavigation.commitUrl = () => __async(this, null, function* () {
+        this.currentNavigation.commitUrl = void 0;
+        const transition2 = this.currentNavigation.routerTransition;
+        if (transition2 && !transition2.extras.skipLocationChange) {
+          const internalPath = this.createBrowserPath(transition2);
+          const history = this.location.isCurrentPathEqualTo(internalPath) || !!transition2.extras.replaceUrl ? "replace" : "push";
+          const state2 = __spreadValues(__spreadValues({}, transition2.extras.state), this.generateNgRouterState(transition2));
+          const pathOrUrl = this.location.prepareExternalUrl(internalPath);
+          (yield redirect)(pathOrUrl, {
+            state: state2,
+            history
+          });
+        }
+        resolvePrecommitHandler();
+        return yield this.navigation.transition?.committed;
+      });
+    }
     event.intercept(interceptOptions);
     if (!isTriggeredByRouterTransition) {
       this.handleNavigateEventTriggeredOutsideRouterAPIs(event);
@@ -84469,6 +86026,14 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
     const routerDestination = this.location.prepareExternalUrl(internalPath);
     return new URL(routerDestination, eventDestination.origin).href === eventDestination.href;
   }
+  generateNgRouterState(transition2) {
+    return __spreadProps(__spreadValues({}, this.routerUrlState(transition2)), {
+      navigationId: transition2.id
+    });
+  }
+  deferredCommitSupported(event) {
+    return this.precommitHandlerSupported && event.cancelable;
+  }
   static \u0275fac = function NavigationStateManager_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _NavigationStateManager)();
   };
@@ -84487,9 +86052,9 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
   }], () => [], null);
 })();
 function handleResultRejections(result) {
-  result.finished.catch(() => {
+  result.finished?.catch(() => {
   });
-  result.committed.catch(() => {
+  result.committed?.catch(() => {
   });
   return result;
 }
@@ -84745,6 +86310,13 @@ function provideRouterInitializer() {
   }];
 }
 
+// node_modules/@angular/router/fesm2022/router.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
+
 // src/app/profile/profile.component.ts
 var ProfileComponent = class _ProfileComponent {
   constructor(route) {
@@ -84800,7 +86372,7 @@ var ProfileComponent = class _ProfileComponent {
       AiQuizGameComponent,
       BlogComponent,
       MetricsDashboardComponent
-    ], styles: ['\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.portfolio-shell[_ngcontent-%COMP%] {\n  position: relative;\n  overflow-x: clip;\n  overflow-y: visible;\n}\n.portfolio-shell[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    radial-gradient(\n      circle at 12% 24%,\n      rgba(251, 191, 36, 0.08),\n      transparent 22%),\n    radial-gradient(\n      circle at 85% 18%,\n      rgba(239, 68, 68, 0.06),\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 72%,\n      rgba(34, 197, 94, 0.05),\n      transparent 24%);\n}\n/*# sourceMappingURL=profile.component.css.map */'] });
+    ], styles: ['\n[_nghost-%COMP%] {\n  display: block;\n}\n.portfolio-shell[_ngcontent-%COMP%] {\n  position: relative;\n  overflow-x: clip;\n  overflow-y: visible;\n}\n.portfolio-shell[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    radial-gradient(\n      circle at 12% 24%,\n      rgba(251, 191, 36, 0.08),\n      transparent 22%),\n    radial-gradient(\n      circle at 85% 18%,\n      rgba(239, 68, 68, 0.06),\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 72%,\n      rgba(34, 197, 94, 0.05),\n      transparent 24%);\n}\n/*# sourceMappingURL=profile.component.css.map */'] });
   }
 };
 (() => {
@@ -84827,6 +86399,574 @@ var ProfileComponent = class _ProfileComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProfileComponent, { className: "ProfileComponent", filePath: "src/app/profile/profile.component.ts", lineNumber: 40 });
 })();
 
+// src/app/shared/achievement-toast/achievement-toast.component.ts
+var _forTrack06 = ($index, $item) => $item.timestamp;
+function AchievementToastComponent_For_2_For_3_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElement(0, "span", 10);
+  }
+  if (rf & 2) {
+    const p_r1 = ctx2.$implicit;
+    \u0275\u0275styleProp("--i", p_r1);
+  }
+}
+function AchievementToastComponent_For_2_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 2)(1, "div", 3);
+    \u0275\u0275repeaterCreate(2, AchievementToastComponent_For_2_For_3_Template, 1, 2, "span", 4, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(4, "div", 5);
+    \u0275\u0275text(5);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(6, "div", 6)(7, "span", 7);
+    \u0275\u0275text(8, "ACHIEVEMENT UNLOCKED");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(9, "span", 8);
+    \u0275\u0275text(10);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(11, "span", 9);
+    \u0275\u0275text(12);
+    \u0275\u0275domElementEnd()()();
+  }
+  if (rf & 2) {
+    const toast_r2 = ctx2.$implicit;
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("exiting", toast_r2.exiting);
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(ctx_r2.confettiParticles);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(toast_r2.achievement.icon);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(toast_r2.achievement.title);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(toast_r2.achievement.description);
+  }
+}
+var AchievementToastComponent = class _AchievementToastComponent {
+  constructor(achievements) {
+    this.achievements = achievements;
+    this.visibleToasts = [];
+    this.confettiParticles = Array.from({ length: 10 }, (_, i) => i);
+  }
+  ngOnInit() {
+    this.sub = this.achievements.toast$.subscribe((toast) => {
+      this.visibleToasts.push(__spreadProps(__spreadValues({}, toast), { exiting: false }));
+      setTimeout(() => {
+        const t = this.visibleToasts.find((x) => x.timestamp === toast.timestamp);
+        if (t)
+          t.exiting = true;
+        setTimeout(() => {
+          this.visibleToasts = this.visibleToasts.filter((x) => x.timestamp !== toast.timestamp);
+        }, 400);
+      }, 4e3);
+    });
+  }
+  ngOnDestroy() {
+    this.sub?.unsubscribe();
+  }
+  static {
+    this.\u0275fac = function AchievementToastComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _AchievementToastComponent)(\u0275\u0275directiveInject(AchievementsService));
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AchievementToastComponent, selectors: [["app-achievement-toast"]], decls: 3, vars: 0, consts: [[1, "toast-container"], [1, "achievement-toast", 3, "exiting"], [1, "achievement-toast"], [1, "toast-confetti"], [1, "confetti-piece", 3, "--i"], [1, "toast-icon"], [1, "toast-body"], [1, "toast-label"], [1, "toast-title"], [1, "toast-desc"], [1, "confetti-piece"]], template: function AchievementToastComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275domElementStart(0, "div", 0);
+        \u0275\u0275repeaterCreate(1, AchievementToastComponent_For_2_Template, 13, 5, "div", 1, _forTrack06);
+        \u0275\u0275domElementEnd();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance();
+        \u0275\u0275repeater(ctx2.visibleToasts);
+      }
+    }, dependencies: [CommonModule], styles: ["\n.toast-container[_ngcontent-%COMP%] {\n  position: fixed;\n  bottom: 1.5rem;\n  right: 1.5rem;\n  z-index: 10000;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  pointer-events: none;\n}\n.achievement-toast[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  padding: 1rem 1.4rem;\n  border-radius: 16px;\n  background: rgba(14, 14, 34, 0.95);\n  border: 1.5px solid rgba(251, 191, 36, 0.5);\n  box-shadow: 0 0 32px rgba(251, 191, 36, 0.25), 0 8px 32px rgba(0, 0, 0, 0.5);\n  animation: _ngcontent-%COMP%_toastIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;\n  overflow: hidden;\n  pointer-events: auto;\n}\n.achievement-toast.exiting[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_toastOut 0.4s ease-in forwards;\n}\n@keyframes _ngcontent-%COMP%_toastIn {\n  from {\n    opacity: 0;\n    transform: translateX(100%) scale(0.8);\n  }\n  to {\n    opacity: 1;\n    transform: translateX(0) scale(1);\n  }\n}\n@keyframes _ngcontent-%COMP%_toastOut {\n  from {\n    opacity: 1;\n    transform: translateX(0) scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: translateX(100%) scale(0.8);\n  }\n}\n.toast-icon[_ngcontent-%COMP%] {\n  font-size: 2rem;\n  animation: _ngcontent-%COMP%_iconBounce 0.6s 0.3s ease both;\n}\n@keyframes _ngcontent-%COMP%_iconBounce {\n  0%, 100% {\n    transform: scale(1);\n  }\n  50% {\n    transform: scale(1.4) rotate(-5deg);\n  }\n}\n.toast-body[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.15rem;\n}\n.toast-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.2em;\n  color: #fbbf24;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.toast-title[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 700;\n  color: #f8fafc;\n}\n.toast-desc[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: #94a3b8;\n}\n.toast-confetti[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  overflow: hidden;\n}\n.confetti-piece[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  top: 50%;\n  left: 20%;\n  animation: _ngcontent-%COMP%_confettiBurst 1s ease-out forwards;\n  animation-delay: calc(var(--i) * 0.05s);\n  opacity: 0;\n}\n.confetti-piece[_ngcontent-%COMP%]:nth-child(odd) {\n  background: #fbbf24;\n}\n.confetti-piece[_ngcontent-%COMP%]:nth-child(even) {\n  background: #ef4444;\n}\n.confetti-piece[_ngcontent-%COMP%]:nth-child(3n) {\n  background: #22c55e;\n}\n@keyframes _ngcontent-%COMP%_confettiBurst {\n  0% {\n    opacity: 1;\n    transform: translate(0, 0) scale(1);\n  }\n  100% {\n    opacity: 0;\n    transform: translate(calc((var(--i) - 5) * 18px), calc(-30px + var(--i) * 8px)) scale(0.4) rotate(360deg);\n  }\n}\n@media (max-width: 600px) {\n  .toast-container[_ngcontent-%COMP%] {\n    right: 0.75rem;\n    left: 0.75rem;\n    bottom: 1rem;\n  }\n}\n/*# sourceMappingURL=achievement-toast.component.css.map */"] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AchievementToastComponent, [{
+    type: Component,
+    args: [{ selector: "app-achievement-toast", standalone: true, imports: [CommonModule], template: `
+    <div class="toast-container">
+      @for (toast of visibleToasts; track toast.timestamp) {
+        <div class="achievement-toast" [class.exiting]="toast.exiting">
+          <div class="toast-confetti">
+            @for (p of confettiParticles; track p) {
+              <span class="confetti-piece" [style.--i]="p"></span>
+            }
+          </div>
+          <div class="toast-icon">{{ toast.achievement.icon }}</div>
+          <div class="toast-body">
+            <span class="toast-label">ACHIEVEMENT UNLOCKED</span>
+            <span class="toast-title">{{ toast.achievement.title }}</span>
+            <span class="toast-desc">{{ toast.achievement.description }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  `, styles: ["/* angular:styles/component:css;f32481775a17e62acd22b7857269942eaa1b8a07981b959ee3feada05028458c;/Users/sharma.ankit2/repositories/personal/Portfolio/src/app/shared/achievement-toast/achievement-toast.component.ts */\n.toast-container {\n  position: fixed;\n  bottom: 1.5rem;\n  right: 1.5rem;\n  z-index: 10000;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  pointer-events: none;\n}\n.achievement-toast {\n  position: relative;\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  padding: 1rem 1.4rem;\n  border-radius: 16px;\n  background: rgba(14, 14, 34, 0.95);\n  border: 1.5px solid rgba(251, 191, 36, 0.5);\n  box-shadow: 0 0 32px rgba(251, 191, 36, 0.25), 0 8px 32px rgba(0, 0, 0, 0.5);\n  animation: toastIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;\n  overflow: hidden;\n  pointer-events: auto;\n}\n.achievement-toast.exiting {\n  animation: toastOut 0.4s ease-in forwards;\n}\n@keyframes toastIn {\n  from {\n    opacity: 0;\n    transform: translateX(100%) scale(0.8);\n  }\n  to {\n    opacity: 1;\n    transform: translateX(0) scale(1);\n  }\n}\n@keyframes toastOut {\n  from {\n    opacity: 1;\n    transform: translateX(0) scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: translateX(100%) scale(0.8);\n  }\n}\n.toast-icon {\n  font-size: 2rem;\n  animation: iconBounce 0.6s 0.3s ease both;\n}\n@keyframes iconBounce {\n  0%, 100% {\n    transform: scale(1);\n  }\n  50% {\n    transform: scale(1.4) rotate(-5deg);\n  }\n}\n.toast-body {\n  display: flex;\n  flex-direction: column;\n  gap: 0.15rem;\n}\n.toast-label {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.2em;\n  color: #fbbf24;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.toast-title {\n  font-size: 1rem;\n  font-weight: 700;\n  color: #f8fafc;\n}\n.toast-desc {\n  font-size: 0.75rem;\n  color: #94a3b8;\n}\n.toast-confetti {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  overflow: hidden;\n}\n.confetti-piece {\n  position: absolute;\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  top: 50%;\n  left: 20%;\n  animation: confettiBurst 1s ease-out forwards;\n  animation-delay: calc(var(--i) * 0.05s);\n  opacity: 0;\n}\n.confetti-piece:nth-child(odd) {\n  background: #fbbf24;\n}\n.confetti-piece:nth-child(even) {\n  background: #ef4444;\n}\n.confetti-piece:nth-child(3n) {\n  background: #22c55e;\n}\n@keyframes confettiBurst {\n  0% {\n    opacity: 1;\n    transform: translate(0, 0) scale(1);\n  }\n  100% {\n    opacity: 0;\n    transform: translate(calc((var(--i) - 5) * 18px), calc(-30px + var(--i) * 8px)) scale(0.4) rotate(360deg);\n  }\n}\n@media (max-width: 600px) {\n  .toast-container {\n    right: 0.75rem;\n    left: 0.75rem;\n    bottom: 1rem;\n  }\n}\n/*# sourceMappingURL=achievement-toast.component.css.map */\n"] }]
+  }], () => [{ type: AchievementsService }], null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AchievementToastComponent, { className: "AchievementToastComponent", filePath: "src/app/shared/achievement-toast/achievement-toast.component.ts", lineNumber: 148 });
+})();
+
+// src/app/shared/mini-map/mini-map.component.ts
+var _forTrack07 = ($index, $item) => $item.id;
+function MiniMapComponent_For_3_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 8);
+    \u0275\u0275domListener("click", function MiniMapComponent_For_3_Template_button_click_0_listener() {
+      const node_r2 = \u0275\u0275restoreView(_r1).$implicit;
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.scrollTo(node_r2.id));
+    });
+    \u0275\u0275domElementStart(1, "span", 5);
+    \u0275\u0275text(2);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "span", 6);
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd()();
+  }
+  if (rf & 2) {
+    const node_r2 = ctx2.$implicit;
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("active", ctx_r2.currentSection === node_r2.id);
+    \u0275\u0275attribute("aria-label", "Go to " + node_r2.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(node_r2.icon);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(node_r2.label);
+  }
+}
+var MiniMapComponent = class _MiniMapComponent {
+  constructor(audio) {
+    this.audio = audio;
+    this.nodes = [
+      { id: "about", icon: "\u{1F5E1}", label: "About" },
+      { id: "avatar-3d", icon: "\u{1F916}", label: "AI Twin" },
+      { id: "skill", icon: "\u2694", label: "Skills" },
+      { id: "experience", icon: "\u{1F5FA}", label: "Experience" },
+      { id: "metrics", icon: "\u{1F4CA}", label: "Metrics" },
+      { id: "publications", icon: "\u{1F3F0}", label: "Projects" },
+      { id: "blogs", icon: "\u{1F4DC}", label: "Writing" },
+      { id: "ai-quiz-game", icon: "\u{1F579}", label: "Game" },
+      { id: "education", icon: "\u{1F3EB}", label: "Education" },
+      { id: "operating-style", icon: "\u{1F3AE}", label: "Profile" }
+    ];
+    this.currentSection = "";
+    this.marioTop = 0;
+    this.hideMap = true;
+    this.sfxEnabled = false;
+    this.observer = null;
+    this.scrollListener = null;
+    this.audioSub = null;
+  }
+  ngOnInit() {
+    this.audioSub = this.audio.enabled$.subscribe((e) => this.sfxEnabled = e);
+    if (typeof window === "undefined")
+      return;
+    this.observer = new IntersectionObserver((entries) => {
+      const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      if (visible.length) {
+        this.currentSection = visible[0].target.id;
+        const idx = this.nodes.findIndex((n) => n.id === this.currentSection);
+        if (idx >= 0)
+          this.marioTop = idx / (this.nodes.length - 1) * 92;
+      }
+    }, { threshold: 0.2 });
+    setTimeout(() => {
+      this.nodes.forEach((n) => {
+        const el = document.getElementById(n.id);
+        if (el && this.observer)
+          this.observer.observe(el);
+      });
+    }, 500);
+    this.scrollListener = () => {
+      this.hideMap = window.scrollY < 400;
+    };
+    window.addEventListener("scroll", this.scrollListener, { passive: true });
+  }
+  ngOnDestroy() {
+    this.observer?.disconnect();
+    if (this.scrollListener)
+      window.removeEventListener("scroll", this.scrollListener);
+    this.audioSub?.unsubscribe();
+  }
+  scrollTo(id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  toggleSfx() {
+    this.audio.toggle();
+  }
+  static {
+    this.\u0275fac = function MiniMapComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _MiniMapComponent)(\u0275\u0275directiveInject(AudioService));
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _MiniMapComponent, selectors: [["app-mini-map"]], decls: 12, vars: 10, consts: [["aria-label", "Section navigator", 1, "mini-map"], [1, "map-rail"], [1, "map-node", 3, "active"], [1, "rail-divider"], [1, "map-node", "sfx-node", 3, "click", "title"], [1, "node-icon"], [1, "node-tooltip"], [1, "mario-indicator"], [1, "map-node", 3, "click"]], template: function MiniMapComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275domElementStart(0, "nav", 0)(1, "div", 1);
+        \u0275\u0275repeaterCreate(2, MiniMapComponent_For_3_Template, 5, 5, "button", 2, _forTrack07);
+        \u0275\u0275domElement(4, "div", 3);
+        \u0275\u0275domElementStart(5, "button", 4);
+        \u0275\u0275domListener("click", function MiniMapComponent_Template_button_click_5_listener() {
+          return ctx2.toggleSfx();
+        });
+        \u0275\u0275domElementStart(6, "span", 5);
+        \u0275\u0275text(7);
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(8, "span", 6);
+        \u0275\u0275text(9);
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(10, "div", 7);
+        \u0275\u0275text(11, "\u{1F344}");
+        \u0275\u0275domElementEnd()()();
+      }
+      if (rf & 2) {
+        \u0275\u0275classProp("mini-map--hidden", ctx2.hideMap);
+        \u0275\u0275advance(2);
+        \u0275\u0275repeater(ctx2.nodes);
+        \u0275\u0275advance(3);
+        \u0275\u0275classProp("sfx-on", ctx2.sfxEnabled);
+        \u0275\u0275domProperty("title", ctx2.sfxEnabled ? "Sound ON" : "Sound OFF");
+        \u0275\u0275attribute("aria-label", ctx2.sfxEnabled ? "Disable sound effects" : "Enable sound effects");
+        \u0275\u0275advance(2);
+        \u0275\u0275textInterpolate(ctx2.sfxEnabled ? "\u{1F50A}" : "\u{1F507}");
+        \u0275\u0275advance(2);
+        \u0275\u0275textInterpolate(ctx2.sfxEnabled ? "Mute" : "Unmute");
+        \u0275\u0275advance();
+        \u0275\u0275styleProp("top", ctx2.marioTop, "%");
+      }
+    }, dependencies: [CommonModule], styles: ['\n.mini-map[_ngcontent-%COMP%] {\n  position: fixed;\n  right: 1.25rem;\n  top: 50%;\n  transform: translateY(-50%);\n  z-index: 900;\n  transition: opacity 0.3s, transform 0.3s;\n}\n.mini-map--hidden[_ngcontent-%COMP%] {\n  opacity: 0;\n  pointer-events: none;\n  transform: translateY(-50%) translateX(20px);\n}\n.map-rail[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.75rem 0.5rem;\n  border-radius: 20px;\n  background: rgba(14, 14, 34, 0.85);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  backdrop-filter: blur(8px);\n}\n.map-node[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  border: none;\n  background: transparent;\n  cursor: pointer;\n  font-size: 0.85rem;\n  border-radius: 50%;\n  transition: all 0.25s;\n}\n.map-node[_ngcontent-%COMP%]:hover, \n.map-node.active[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.15);\n  transform: scale(1.2);\n}\n.map-node.active[_ngcontent-%COMP%]   .node-icon[_ngcontent-%COMP%] {\n  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.8));\n}\n.map-node.active[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  inset: -3px;\n  border-radius: 50%;\n  border: 1.5px solid rgba(251, 191, 36, 0.5);\n  animation: _ngcontent-%COMP%_ringPulse 2s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_ringPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.3);\n    opacity: 0.3;\n  }\n}\n.node-tooltip[_ngcontent-%COMP%] {\n  position: absolute;\n  right: calc(100% + 10px);\n  white-space: nowrap;\n  font-size: 0.65rem;\n  font-weight: 600;\n  color: #f8fafc;\n  background: rgba(14, 14, 34, 0.95);\n  padding: 0.25rem 0.5rem;\n  border-radius: 6px;\n  opacity: 0;\n  pointer-events: none;\n  transition: opacity 0.2s;\n}\n.map-node[_ngcontent-%COMP%]:hover   .node-tooltip[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.rail-divider[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 1px;\n  background: rgba(251, 191, 36, 0.2);\n  margin: 0.15rem 0;\n}\n.sfx-node.sfx-on[_ngcontent-%COMP%] {\n  background: rgba(34, 197, 94, 0.15);\n}\n.sfx-node.sfx-on[_ngcontent-%COMP%]   .node-icon[_ngcontent-%COMP%] {\n  filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.7));\n}\n.mario-indicator[_ngcontent-%COMP%] {\n  position: absolute;\n  left: -16px;\n  font-size: 1rem;\n  transition: top 0.4s cubic-bezier(0.22, 1, 0.36, 1);\n  pointer-events: none;\n  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.5));\n}\n@media (max-width: 768px) {\n  .mini-map[_ngcontent-%COMP%] {\n    display: none;\n  }\n}\n/*# sourceMappingURL=mini-map.component.css.map */'] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MiniMapComponent, [{
+    type: Component,
+    args: [{ selector: "app-mini-map", standalone: true, imports: [CommonModule], template: `
+    <nav class="mini-map" [class.mini-map--hidden]="hideMap" aria-label="Section navigator">
+      <div class="map-rail">
+        @for (node of nodes; track node.id) {
+          <button class="map-node"
+                  [class.active]="currentSection === node.id"
+                  [attr.aria-label]="'Go to ' + node.label"
+                  (click)="scrollTo(node.id)">
+            <span class="node-icon">{{ node.icon }}</span>
+            <span class="node-tooltip">{{ node.label }}</span>
+          </button>
+        }
+
+        <!-- Divider -->
+        <div class="rail-divider"></div>
+
+        <!-- SFX Toggle -->
+        <button class="map-node sfx-node" [class.sfx-on]="sfxEnabled"
+                (click)="toggleSfx()"
+                [attr.aria-label]="sfxEnabled ? 'Disable sound effects' : 'Enable sound effects'"
+                [title]="sfxEnabled ? 'Sound ON' : 'Sound OFF'">
+          <span class="node-icon">{{ sfxEnabled ? '\u{1F50A}' : '\u{1F507}' }}</span>
+          <span class="node-tooltip">{{ sfxEnabled ? 'Mute' : 'Unmute' }}</span>
+        </button>
+
+        <div class="mario-indicator" [style.top.%]="marioTop">\u{1F344}</div>
+      </div>
+    </nav>
+  `, styles: ['/* angular:styles/component:css;b01338aa6de32cf450fee822218b5322a9271174fd826e11ddbcd7d3aa989fee;/Users/sharma.ankit2/repositories/personal/Portfolio/src/app/shared/mini-map/mini-map.component.ts */\n.mini-map {\n  position: fixed;\n  right: 1.25rem;\n  top: 50%;\n  transform: translateY(-50%);\n  z-index: 900;\n  transition: opacity 0.3s, transform 0.3s;\n}\n.mini-map--hidden {\n  opacity: 0;\n  pointer-events: none;\n  transform: translateY(-50%) translateX(20px);\n}\n.map-rail {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.75rem 0.5rem;\n  border-radius: 20px;\n  background: rgba(14, 14, 34, 0.85);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  backdrop-filter: blur(8px);\n}\n.map-node {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  border: none;\n  background: transparent;\n  cursor: pointer;\n  font-size: 0.85rem;\n  border-radius: 50%;\n  transition: all 0.25s;\n}\n.map-node:hover,\n.map-node.active {\n  background: rgba(251, 191, 36, 0.15);\n  transform: scale(1.2);\n}\n.map-node.active .node-icon {\n  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.8));\n}\n.map-node.active::after {\n  content: "";\n  position: absolute;\n  inset: -3px;\n  border-radius: 50%;\n  border: 1.5px solid rgba(251, 191, 36, 0.5);\n  animation: ringPulse 2s ease-in-out infinite;\n}\n@keyframes ringPulse {\n  0%, 100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n  50% {\n    transform: scale(1.3);\n    opacity: 0.3;\n  }\n}\n.node-tooltip {\n  position: absolute;\n  right: calc(100% + 10px);\n  white-space: nowrap;\n  font-size: 0.65rem;\n  font-weight: 600;\n  color: #f8fafc;\n  background: rgba(14, 14, 34, 0.95);\n  padding: 0.25rem 0.5rem;\n  border-radius: 6px;\n  opacity: 0;\n  pointer-events: none;\n  transition: opacity 0.2s;\n}\n.map-node:hover .node-tooltip {\n  opacity: 1;\n}\n.rail-divider {\n  width: 16px;\n  height: 1px;\n  background: rgba(251, 191, 36, 0.2);\n  margin: 0.15rem 0;\n}\n.sfx-node.sfx-on {\n  background: rgba(34, 197, 94, 0.15);\n}\n.sfx-node.sfx-on .node-icon {\n  filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.7));\n}\n.mario-indicator {\n  position: absolute;\n  left: -16px;\n  font-size: 1rem;\n  transition: top 0.4s cubic-bezier(0.22, 1, 0.36, 1);\n  pointer-events: none;\n  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.5));\n}\n@media (max-width: 768px) {\n  .mini-map {\n    display: none;\n  }\n}\n/*# sourceMappingURL=mini-map.component.css.map */\n'] }]
+  }], () => [{ type: AudioService }], null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(MiniMapComponent, { className: "MiniMapComponent", filePath: "src/app/shared/mini-map/mini-map.component.ts", lineNumber: 159 });
+})();
+
+// src/app/shared/level-up-overlay/level-up-overlay.component.ts
+function LevelUpOverlayComponent_Conditional_0_For_4_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "span", 8);
+    \u0275\u0275text(1, "\u2B50");
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const s_r1 = ctx2.$implicit;
+    \u0275\u0275styleProp("--i", s_r1);
+  }
+}
+function LevelUpOverlayComponent_Conditional_0_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2);
+    \u0275\u0275repeaterCreate(3, LevelUpOverlayComponent_Conditional_0_For_4_Template, 2, 2, "span", 3, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(5, "div", 4);
+    \u0275\u0275text(6, "\u{1F344}");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(7, "div", 5);
+    \u0275\u0275text(8, "LEVEL UP!");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(9, "div", 6);
+    \u0275\u0275text(10);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(11, "div", 7);
+    \u0275\u0275text(12);
+    \u0275\u0275domElementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(3);
+    \u0275\u0275repeater(ctx_r1.stars);
+    \u0275\u0275advance(7);
+    \u0275\u0275textInterpolate1("LVL ", ctx_r1.level);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.title);
+  }
+}
+var LevelUpOverlayComponent = class _LevelUpOverlayComponent {
+  constructor(scrollXp, audio) {
+    this.scrollXp = scrollXp;
+    this.audio = audio;
+    this.show = false;
+    this.level = 1;
+    this.title = "";
+    this.stars = Array.from({ length: 8 }, (_, i) => i);
+  }
+  ngOnInit() {
+    this.sub = this.scrollXp.levelUp$.subscribe((event) => {
+      this.level = event.level;
+      this.title = event.title;
+      this.show = true;
+      this.audio.play("levelUp");
+      setTimeout(() => {
+        this.show = false;
+      }, 2500);
+    });
+  }
+  ngOnDestroy() {
+    this.sub?.unsubscribe();
+  }
+  static {
+    this.\u0275fac = function LevelUpOverlayComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _LevelUpOverlayComponent)(\u0275\u0275directiveInject(ScrollXpService), \u0275\u0275directiveInject(AudioService));
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LevelUpOverlayComponent, selectors: [["app-level-up-overlay"]], decls: 1, vars: 1, consts: [[1, "levelup-overlay"], [1, "levelup-card"], [1, "levelup-stars"], [1, "lu-star", 3, "--i"], [1, "levelup-icon"], [1, "levelup-label"], [1, "levelup-level"], [1, "levelup-title"], [1, "lu-star"]], template: function LevelUpOverlayComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275conditionalCreate(0, LevelUpOverlayComponent_Conditional_0_Template, 13, 2, "div", 0);
+      }
+      if (rf & 2) {
+        \u0275\u0275conditional(ctx2.show ? 0 : -1);
+      }
+    }, dependencies: [CommonModule], styles: ["\n.levelup-overlay[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 9999;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  pointer-events: none;\n  animation: _ngcontent-%COMP%_overlayFade 2.5s ease forwards;\n}\n@keyframes _ngcontent-%COMP%_overlayFade {\n  0% {\n    background: rgba(9, 9, 26, 0);\n  }\n  15% {\n    background: rgba(9, 9, 26, 0.4);\n  }\n  85% {\n    background: rgba(9, 9, 26, 0.4);\n  }\n  100% {\n    background: rgba(9, 9, 26, 0);\n  }\n}\n.levelup-card[_ngcontent-%COMP%] {\n  position: relative;\n  text-align: center;\n  animation: _ngcontent-%COMP%_cardPop 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;\n}\n@keyframes _ngcontent-%COMP%_cardPop {\n  0% {\n    transform: scale(0.5);\n    opacity: 0;\n  }\n  60% {\n    transform: scale(1.1);\n  }\n  100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n}\n.levelup-icon[_ngcontent-%COMP%] {\n  font-size: 3.5rem;\n  animation: _ngcontent-%COMP%_iconSpin 0.8s ease;\n}\n@keyframes _ngcontent-%COMP%_iconSpin {\n  from {\n    transform: rotate(-20deg) scale(0.5);\n  }\n  to {\n    transform: rotate(0) scale(1);\n  }\n}\n.levelup-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 1.4rem;\n  color: #fbbf24;\n  text-shadow: 0 0 20px rgba(251, 191, 36, 0.8), 3px 3px 0 #d97706;\n  letter-spacing: 0.1em;\n  margin: 0.5rem 0;\n  animation: _ngcontent-%COMP%_labelGlow 1s ease-in-out infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_labelGlow {\n  from {\n    text-shadow: 0 0 20px rgba(251, 191, 36, 0.8), 3px 3px 0 #d97706;\n  }\n  to {\n    text-shadow: 0 0 32px rgba(251, 191, 36, 1), 3px 3px 0 #d97706;\n  }\n}\n.levelup-level[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.8rem;\n  color: #22c55e;\n  margin-bottom: 0.25rem;\n}\n.levelup-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: #f8fafc;\n}\n.levelup-stars[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n}\n.lu-star[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  font-size: 1.2rem;\n  animation: _ngcontent-%COMP%_starBurst 1.2s ease-out forwards;\n  animation-delay: calc(var(--i) * 0.06s);\n  opacity: 0;\n}\n@keyframes _ngcontent-%COMP%_starBurst {\n  0% {\n    opacity: 1;\n    transform: translate(-50%, -50%) scale(0.5);\n  }\n  100% {\n    opacity: 0;\n    transform: translate(calc(-50% + cos(calc(var(--i) * 45deg)) * 140px), calc(-50% + sin(calc(var(--i) * 45deg)) * 140px)) scale(1.2);\n  }\n}\n/*# sourceMappingURL=level-up-overlay.component.css.map */"] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LevelUpOverlayComponent, [{
+    type: Component,
+    args: [{ selector: "app-level-up-overlay", standalone: true, imports: [CommonModule], template: `
+    @if (show) {
+      <div class="levelup-overlay">
+        <div class="levelup-card">
+          <div class="levelup-stars">
+            @for (s of stars; track s) {
+              <span class="lu-star" [style.--i]="s">\u2B50</span>
+            }
+          </div>
+          <div class="levelup-icon">\u{1F344}</div>
+          <div class="levelup-label">LEVEL UP!</div>
+          <div class="levelup-level">LVL {{ level }}</div>
+          <div class="levelup-title">{{ title }}</div>
+        </div>
+      </div>
+    }
+  `, styles: ["/* angular:styles/component:css;91ad1e50867a00d905518c9c8861e8c85d186a958dbf1238789f41287702cb35;/Users/sharma.ankit2/repositories/personal/Portfolio/src/app/shared/level-up-overlay/level-up-overlay.component.ts */\n.levelup-overlay {\n  position: fixed;\n  inset: 0;\n  z-index: 9999;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  pointer-events: none;\n  animation: overlayFade 2.5s ease forwards;\n}\n@keyframes overlayFade {\n  0% {\n    background: rgba(9, 9, 26, 0);\n  }\n  15% {\n    background: rgba(9, 9, 26, 0.4);\n  }\n  85% {\n    background: rgba(9, 9, 26, 0.4);\n  }\n  100% {\n    background: rgba(9, 9, 26, 0);\n  }\n}\n.levelup-card {\n  position: relative;\n  text-align: center;\n  animation: cardPop 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;\n}\n@keyframes cardPop {\n  0% {\n    transform: scale(0.5);\n    opacity: 0;\n  }\n  60% {\n    transform: scale(1.1);\n  }\n  100% {\n    transform: scale(1);\n    opacity: 1;\n  }\n}\n.levelup-icon {\n  font-size: 3.5rem;\n  animation: iconSpin 0.8s ease;\n}\n@keyframes iconSpin {\n  from {\n    transform: rotate(-20deg) scale(0.5);\n  }\n  to {\n    transform: rotate(0) scale(1);\n  }\n}\n.levelup-label {\n  font-family: var(--font-pixel);\n  font-size: 1.4rem;\n  color: #fbbf24;\n  text-shadow: 0 0 20px rgba(251, 191, 36, 0.8), 3px 3px 0 #d97706;\n  letter-spacing: 0.1em;\n  margin: 0.5rem 0;\n  animation: labelGlow 1s ease-in-out infinite alternate;\n}\n@keyframes labelGlow {\n  from {\n    text-shadow: 0 0 20px rgba(251, 191, 36, 0.8), 3px 3px 0 #d97706;\n  }\n  to {\n    text-shadow: 0 0 32px rgba(251, 191, 36, 1), 3px 3px 0 #d97706;\n  }\n}\n.levelup-level {\n  font-family: var(--font-pixel);\n  font-size: 0.8rem;\n  color: #22c55e;\n  margin-bottom: 0.25rem;\n}\n.levelup-title {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: #f8fafc;\n}\n.levelup-stars {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n}\n.lu-star {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  font-size: 1.2rem;\n  animation: starBurst 1.2s ease-out forwards;\n  animation-delay: calc(var(--i) * 0.06s);\n  opacity: 0;\n}\n@keyframes starBurst {\n  0% {\n    opacity: 1;\n    transform: translate(-50%, -50%) scale(0.5);\n  }\n  100% {\n    opacity: 0;\n    transform: translate(calc(-50% + cos(calc(var(--i) * 45deg)) * 140px), calc(-50% + sin(calc(var(--i) * 45deg)) * 140px)) scale(1.2);\n  }\n}\n/*# sourceMappingURL=level-up-overlay.component.css.map */\n"] }]
+  }], () => [{ type: ScrollXpService }, { type: AudioService }], null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LevelUpOverlayComponent, { className: "LevelUpOverlayComponent", filePath: "src/app/shared/level-up-overlay/level-up-overlay.component.ts", lineNumber: 125 });
+})();
+
+// src/app/shared/konami/konami.component.ts
+function KonamiComponent_Conditional_0_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 0);
+    \u0275\u0275domElement(1, "div", 1);
+    \u0275\u0275domElementStart(2, "div", 2)(3, "span", 3);
+    \u0275\u0275text(4, "\u{1F31F}");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(5, "span", 4);
+    \u0275\u0275text(6, "GOD MODE ACTIVATED");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(7, "span", 5);
+    \u0275\u0275text(8, "All stats maxed");
+    \u0275\u0275domElementEnd()()();
+  }
+}
+var KonamiComponent = class _KonamiComponent {
+  constructor(achievements, audio) {
+    this.achievements = achievements;
+    this.audio = audio;
+    this.godMode = false;
+    this.sequence = [];
+    this.code = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+    this.timer = null;
+  }
+  onKeydown(event) {
+    this.sequence.push(event.key);
+    if (this.sequence.length > this.code.length) {
+      this.sequence.shift();
+    }
+    if (JSON.stringify(this.sequence) === JSON.stringify(this.code)) {
+      this.activateGodMode();
+      this.sequence = [];
+    }
+  }
+  activateGodMode() {
+    this.godMode = true;
+    this.audio.play("star");
+    this.achievements.unlock("code_breaker");
+    document.body.classList.add("god-mode");
+    this.timer = setTimeout(() => {
+      this.godMode = false;
+      document.body.classList.remove("god-mode");
+    }, 1e4);
+  }
+  ngOnDestroy() {
+    if (this.timer)
+      clearTimeout(this.timer);
+    document.body.classList.remove("god-mode");
+  }
+  static {
+    this.\u0275fac = function KonamiComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _KonamiComponent)(\u0275\u0275directiveInject(AchievementsService), \u0275\u0275directiveInject(AudioService));
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _KonamiComponent, selectors: [["app-konami"]], hostBindings: function KonamiComponent_HostBindings(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275listener("keydown", function KonamiComponent_keydown_HostBindingHandler($event) {
+          return ctx2.onKeydown($event);
+        }, \u0275\u0275resolveWindow);
+      }
+    }, decls: 1, vars: 1, consts: [[1, "god-mode-overlay"], [1, "god-mode-flash"], [1, "god-mode-text"], [1, "gm-star"], [1, "gm-label"], [1, "gm-sub"]], template: function KonamiComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275conditionalCreate(0, KonamiComponent_Conditional_0_Template, 9, 0, "div", 0);
+      }
+      if (rf & 2) {
+        \u0275\u0275conditional(ctx2.godMode ? 0 : -1);
+      }
+    }, dependencies: [CommonModule], styles: ["\n.god-mode-overlay[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 99999;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  pointer-events: none;\n  animation: _ngcontent-%COMP%_gmFade 10s ease forwards;\n}\n@keyframes _ngcontent-%COMP%_gmFade {\n  0% {\n    opacity: 1;\n  }\n  80% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n.god-mode-flash[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  animation: _ngcontent-%COMP%_rainbowFlash 0.5s ease 3;\n}\n@keyframes _ngcontent-%COMP%_rainbowFlash {\n  0% {\n    background: rgba(239, 68, 68, 0.15);\n  }\n  16% {\n    background: rgba(251, 191, 36, 0.15);\n  }\n  33% {\n    background: rgba(34, 197, 94, 0.15);\n  }\n  50% {\n    background: rgba(56, 189, 248, 0.15);\n  }\n  66% {\n    background: rgba(168, 85, 247, 0.15);\n  }\n  83% {\n    background: rgba(236, 72, 153, 0.15);\n  }\n  100% {\n    background: rgba(239, 68, 68, 0.15);\n  }\n}\n.god-mode-text[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  animation: _ngcontent-%COMP%_textPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;\n}\n@keyframes _ngcontent-%COMP%_textPop {\n  from {\n    transform: scale(0.3);\n  }\n  to {\n    transform: scale(1);\n  }\n}\n.gm-star[_ngcontent-%COMP%] {\n  font-size: 4rem;\n  animation: _ngcontent-%COMP%_starSpin 2s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_starSpin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n.gm-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 1.2rem;\n  letter-spacing: 0.15em;\n  background:\n    linear-gradient(\n      90deg,\n      #ef4444,\n      #fbbf24,\n      #22c55e,\n      #38bdf8,\n      #a855f7,\n      #ec4899);\n  background-size: 300% 100%;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  animation: _ngcontent-%COMP%_rainbowText 2s linear infinite;\n  margin-top: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_rainbowText {\n  from {\n    background-position: 0% 50%;\n  }\n  to {\n    background-position: 300% 50%;\n  }\n}\n.gm-sub[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: #f8fafc;\n  margin-top: 0.3rem;\n}\n/*# sourceMappingURL=konami.component.css.map */"] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(KonamiComponent, [{
+    type: Component,
+    args: [{ selector: "app-konami", standalone: true, imports: [CommonModule], template: `
+    @if (godMode) {
+      <div class="god-mode-overlay">
+        <div class="god-mode-flash"></div>
+        <div class="god-mode-text">
+          <span class="gm-star">\u{1F31F}</span>
+          <span class="gm-label">GOD MODE ACTIVATED</span>
+          <span class="gm-sub">All stats maxed</span>
+        </div>
+      </div>
+    }
+  `, styles: ["/* angular:styles/component:css;c8b4064849f4aa7d5b9a40bc183145f330115bdfd581a3c4a07002e4e15eb4e1;/Users/sharma.ankit2/repositories/personal/Portfolio/src/app/shared/konami/konami.component.ts */\n.god-mode-overlay {\n  position: fixed;\n  inset: 0;\n  z-index: 99999;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  pointer-events: none;\n  animation: gmFade 10s ease forwards;\n}\n@keyframes gmFade {\n  0% {\n    opacity: 1;\n  }\n  80% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n.god-mode-flash {\n  position: absolute;\n  inset: 0;\n  animation: rainbowFlash 0.5s ease 3;\n}\n@keyframes rainbowFlash {\n  0% {\n    background: rgba(239, 68, 68, 0.15);\n  }\n  16% {\n    background: rgba(251, 191, 36, 0.15);\n  }\n  33% {\n    background: rgba(34, 197, 94, 0.15);\n  }\n  50% {\n    background: rgba(56, 189, 248, 0.15);\n  }\n  66% {\n    background: rgba(168, 85, 247, 0.15);\n  }\n  83% {\n    background: rgba(236, 72, 153, 0.15);\n  }\n  100% {\n    background: rgba(239, 68, 68, 0.15);\n  }\n}\n.god-mode-text {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  animation: textPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;\n}\n@keyframes textPop {\n  from {\n    transform: scale(0.3);\n  }\n  to {\n    transform: scale(1);\n  }\n}\n.gm-star {\n  font-size: 4rem;\n  animation: starSpin 2s linear infinite;\n}\n@keyframes starSpin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n.gm-label {\n  font-family: var(--font-pixel);\n  font-size: 1.2rem;\n  letter-spacing: 0.15em;\n  background:\n    linear-gradient(\n      90deg,\n      #ef4444,\n      #fbbf24,\n      #22c55e,\n      #38bdf8,\n      #a855f7,\n      #ec4899);\n  background-size: 300% 100%;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  animation: rainbowText 2s linear infinite;\n  margin-top: 0.5rem;\n}\n@keyframes rainbowText {\n  from {\n    background-position: 0% 50%;\n  }\n  to {\n    background-position: 300% 50%;\n  }\n}\n.gm-sub {\n  font-size: 0.9rem;\n  color: #f8fafc;\n  margin-top: 0.3rem;\n}\n/*# sourceMappingURL=konami.component.css.map */\n"] }]
+  }], () => [{ type: AchievementsService }, { type: AudioService }], { onKeydown: [{
+    type: HostListener,
+    args: ["window:keydown", ["$event"]]
+  }] });
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(KonamiComponent, { className: "KonamiComponent", filePath: "src/app/shared/konami/konami.component.ts", lineNumber: 104 });
+})();
+
+// src/app/shared/cursor-trail/cursor-trail.component.ts
+var _forTrack08 = ($index, $item) => $item.id;
+function CursorTrailComponent_For_2_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "span", 2);
+    \u0275\u0275text(1, "\u2726");
+    \u0275\u0275domElementEnd();
+  }
+  if (rf & 2) {
+    const p_r1 = ctx2.$implicit;
+    \u0275\u0275styleProp("left", p_r1.x, "px")("top", p_r1.y, "px");
+    \u0275\u0275classProp("dying", p_r1.dying);
+  }
+}
+var CursorTrailComponent = class _CursorTrailComponent {
+  constructor() {
+    this.particles = [];
+    this.nextId = 0;
+    this.moveHandler = null;
+    this.frameCount = 0;
+  }
+  ngOnInit() {
+    if (typeof window === "undefined")
+      return;
+    if (window.matchMedia("(pointer: coarse)").matches)
+      return;
+    this.moveHandler = (e) => {
+      this.frameCount++;
+      if (this.frameCount % 3 !== 0)
+        return;
+      this.spawn(e.clientX, e.clientY);
+    };
+    window.addEventListener("mousemove", this.moveHandler, { passive: true });
+  }
+  ngOnDestroy() {
+    if (this.moveHandler) {
+      window.removeEventListener("mousemove", this.moveHandler);
+    }
+  }
+  spawn(x, y) {
+    const id = this.nextId++;
+    this.particles.push({ id, x: x - 4, y: y - 4, dying: false });
+    if (this.particles.length > 20) {
+      this.particles.shift();
+    }
+    setTimeout(() => {
+      this.particles = this.particles.filter((p) => p.id !== id);
+    }, 600);
+  }
+  static {
+    this.\u0275fac = function CursorTrailComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _CursorTrailComponent)();
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _CursorTrailComponent, selectors: [["app-cursor-trail"]], decls: 3, vars: 0, consts: [[1, "trail-layer"], [1, "trail-particle", 3, "dying", "left", "top"], [1, "trail-particle"]], template: function CursorTrailComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275domElementStart(0, "div", 0);
+        \u0275\u0275repeaterCreate(1, CursorTrailComponent_For_2_Template, 2, 6, "span", 1, _forTrack08);
+        \u0275\u0275domElementEnd();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance();
+        \u0275\u0275repeater(ctx2.particles);
+      }
+    }, dependencies: [CommonModule], styles: ["\n.trail-layer[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  pointer-events: none;\n  z-index: 99998;\n  overflow: hidden;\n}\n.trail-particle[_ngcontent-%COMP%] {\n  position: absolute;\n  font-size: 0.6rem;\n  color: #fbbf24;\n  opacity: 0.8;\n  animation: _ngcontent-%COMP%_particleFade 0.6s ease-out forwards;\n  pointer-events: none;\n  text-shadow: 0 0 4px rgba(251, 191, 36, 0.6);\n}\n.trail-particle.dying[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_particleDie 0.3s ease-out forwards;\n}\n@keyframes _ngcontent-%COMP%_particleFade {\n  0% {\n    opacity: 0.8;\n    transform: scale(1) translateY(0);\n  }\n  100% {\n    opacity: 0;\n    transform: scale(0.3) translateY(-8px);\n  }\n}\n@keyframes _ngcontent-%COMP%_particleDie {\n  to {\n    opacity: 0;\n    transform: scale(0);\n  }\n}\n@media (pointer: coarse) {\n  .trail-layer[_ngcontent-%COMP%] {\n    display: none;\n  }\n}\n/*# sourceMappingURL=cursor-trail.component.css.map */"] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CursorTrailComponent, [{
+    type: Component,
+    args: [{ selector: "app-cursor-trail", standalone: true, imports: [CommonModule], template: `
+    <div class="trail-layer">
+      @for (p of particles; track p.id) {
+        <span class="trail-particle" [class.dying]="p.dying"
+              [style.left.px]="p.x" [style.top.px]="p.y">\u2726</span>
+      }
+    </div>
+  `, styles: ["/* angular:styles/component:css;a5c72dacf51e2fe702f4ba963fbae304bca4fc50bf706273789f26aa8b05aaba;/Users/sharma.ankit2/repositories/personal/Portfolio/src/app/shared/cursor-trail/cursor-trail.component.ts */\n.trail-layer {\n  position: fixed;\n  inset: 0;\n  pointer-events: none;\n  z-index: 99998;\n  overflow: hidden;\n}\n.trail-particle {\n  position: absolute;\n  font-size: 0.6rem;\n  color: #fbbf24;\n  opacity: 0.8;\n  animation: particleFade 0.6s ease-out forwards;\n  pointer-events: none;\n  text-shadow: 0 0 4px rgba(251, 191, 36, 0.6);\n}\n.trail-particle.dying {\n  animation: particleDie 0.3s ease-out forwards;\n}\n@keyframes particleFade {\n  0% {\n    opacity: 0.8;\n    transform: scale(1) translateY(0);\n  }\n  100% {\n    opacity: 0;\n    transform: scale(0.3) translateY(-8px);\n  }\n}\n@keyframes particleDie {\n  to {\n    opacity: 0;\n    transform: scale(0);\n  }\n}\n@media (pointer: coarse) {\n  .trail-layer {\n    display: none;\n  }\n}\n/*# sourceMappingURL=cursor-trail.component.css.map */\n"] }]
+  }], null, null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CursorTrailComponent, { className: "CursorTrailComponent", filePath: "src/app/shared/cursor-trail/cursor-trail.component.ts", lineNumber: 60 });
+})();
+
 // src/app/app.component.ts
 var AppComponent = class _AppComponent {
   constructor() {
@@ -84838,24 +86978,43 @@ var AppComponent = class _AppComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AppComponent, selectors: [["app-root"]], decls: 1, vars: 0, template: function AppComponent_Template(rf, ctx2) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AppComponent, selectors: [["app-root"]], decls: 6, vars: 0, template: function AppComponent_Template(rf, ctx2) {
       if (rf & 1) {
-        \u0275\u0275element(0, "app-profile");
+        \u0275\u0275element(0, "app-profile")(1, "app-achievement-toast")(2, "app-mini-map")(3, "app-level-up-overlay")(4, "app-konami")(5, "app-cursor-trail");
       }
-    }, dependencies: [ProfileComponent], encapsulation: 2 });
+    }, dependencies: [
+      ProfileComponent,
+      AchievementToastComponent,
+      MiniMapComponent,
+      LevelUpOverlayComponent,
+      KonamiComponent,
+      CursorTrailComponent
+    ], encapsulation: 2 });
   }
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AppComponent, [{
     type: Component,
-    args: [{ selector: "app-root", standalone: true, imports: [ProfileComponent], template: "<app-profile></app-profile>" }]
+    args: [{ selector: "app-root", standalone: true, imports: [
+      ProfileComponent,
+      AchievementToastComponent,
+      MiniMapComponent,
+      LevelUpOverlayComponent,
+      KonamiComponent,
+      CursorTrailComponent
+    ], template: "<app-profile></app-profile>\n\n<!-- Gamification Overlay Layer -->\n<app-achievement-toast></app-achievement-toast>\n<app-mini-map></app-mini-map>\n<app-level-up-overlay></app-level-up-overlay>\n<app-konami></app-konami>\n<app-cursor-trail></app-cursor-trail>" }]
   }], null, null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src/app/app.component.ts", lineNumber: 11 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src/app/app.component.ts", lineNumber: 23 });
 })();
 
 // node_modules/@angular/animations/fesm2022/_util-chunk.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var LINE_START = "\n - ";
 function invalidTimingValue(exp) {
   return new RuntimeError(3e3, ngDevMode && `The provided timing value "${exp}" is invalid.`);
@@ -85312,6 +87471,11 @@ function computeStyle(element, prop) {
 }
 
 // node_modules/@angular/animations/fesm2022/browser.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var NoopAnimationDriver = class _NoopAnimationDriver {
   validateStyleProperty(prop) {
     return validateStyleProperty(prop);
@@ -88839,6 +91003,11 @@ var AnimationRendererFactory = class {
 };
 
 // node_modules/@angular/platform-browser/fesm2022/animations.mjs
+/**
+ * @license Angular v21.2.10
+ * (c) 2010-2026 Google LLC. https://angular.dev/
+ * License: MIT
+ */
 var InjectableAnimationEngine = class _InjectableAnimationEngine extends AnimationEngine {
   constructor(doc, driver, normalizer) {
     super(doc, driver, normalizer);
@@ -89007,49 +91176,4 @@ if (environment.production) {
   enableProdMode();
 }
 platformBrowser().bootstrapModule(AppModule, { applicationProviders: [provideZoneChangeDetection()] }).catch((err) => console.error(err));
-/*! Bundled license information:
-
-@angular/core/fesm2022/_effect-chunk.mjs:
-@angular/core/fesm2022/_not_found-chunk.mjs:
-@angular/core/fesm2022/_linked_signal-chunk.mjs:
-@angular/core/fesm2022/primitives-signals.mjs:
-@angular/core/fesm2022/primitives-di.mjs:
-@angular/core/fesm2022/_untracked-chunk.mjs:
-@angular/core/fesm2022/_debug_node-chunk.mjs:
-@angular/core/fesm2022/_resource-chunk.mjs:
-@angular/core/fesm2022/core.mjs:
-@angular/common/fesm2022/_platform_location-chunk.mjs:
-@angular/common/fesm2022/_location-chunk.mjs:
-@angular/common/fesm2022/_common_module-chunk.mjs:
-@angular/common/fesm2022/_platform_navigation-chunk.mjs:
-@angular/common/fesm2022/_xhr-chunk.mjs:
-@angular/common/fesm2022/common.mjs:
-@angular/platform-browser/fesm2022/_dom_renderer-chunk.mjs:
-@angular/platform-browser/fesm2022/_browser-chunk.mjs:
-@angular/common/fesm2022/_module-chunk.mjs:
-@angular/common/fesm2022/http.mjs:
-@angular/platform-browser/fesm2022/platform-browser.mjs:
-@angular/forms/fesm2022/forms.mjs:
-@angular/animations/fesm2022/_private_export-chunk.mjs:
-@angular/animations/fesm2022/animations.mjs:
-@angular/router/fesm2022/_router-chunk.mjs:
-@angular/router/fesm2022/_router_module-chunk.mjs:
-@angular/router/fesm2022/router.mjs:
-@angular/animations/fesm2022/_util-chunk.mjs:
-@angular/animations/fesm2022/browser.mjs:
-@angular/platform-browser/fesm2022/animations.mjs:
-  (**
-   * @license Angular v21.1.3
-   * (c) 2010-2026 Google LLC. https://angular.dev/
-   * License: MIT
-   *)
-
-three/build/three.core.js:
-three/build/three.module.js:
-  (**
-   * @license
-   * Copyright 2010-2025 Three.js Authors
-   * SPDX-License-Identifier: MIT
-   *)
-*/
 //# sourceMappingURL=main.js.map

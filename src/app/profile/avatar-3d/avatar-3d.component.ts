@@ -12,6 +12,8 @@ import { createOpenAiProxyRequest, getAiResponseText, TTS_API_URL } from '../../
 import { trigger, style, transition, animate } from '@angular/animations';
 import { firstValueFrom } from 'rxjs';
 import { cleanTextForSpeech } from '../../utils/text-utils';
+import { AchievementsService } from '../../services/achievements.service';
+import { AudioService } from '../../services/audio.service';
 
 interface Message {
   text: string;
@@ -73,7 +75,9 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private readonly CONTEXT = AI_CONTEXT;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private achievementsService: AchievementsService,
+    private audioService: AudioService
   ) {
   }
 
@@ -278,6 +282,8 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     const userMessage = this.userInput.trim();
     this.addMessage(userMessage, true);
     this.userInput = '';
+    this.achievementsService.trackAiQuestion();
+    this.audioService.play('jump');
     
     // Prevent multiple concurrent requests
     if (this.isTyping) {
