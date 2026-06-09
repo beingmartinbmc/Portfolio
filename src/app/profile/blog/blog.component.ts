@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { BLOG_LINKS } from '../../config/profile-links';
+import { AchievementsService } from '../../services/achievements.service';
+import { AudioService } from '../../services/audio.service';
 
 @Component({
   selector: 'app-blog',
@@ -9,5 +11,14 @@ import { BLOG_LINKS } from '../../config/profile-links';
 })
 export class BlogComponent {
   readonly blogLinks = BLOG_LINKS;
-  constructor() { }
-} 
+
+  constructor(
+    private achievements: AchievementsService,
+    private audio: AudioService
+  ) {}
+
+  onBlogClick(): void {
+    this.achievements.trackBlogClick();
+    this.audio.play('pipe');
+  }
+}

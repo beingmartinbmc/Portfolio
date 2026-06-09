@@ -1,5 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {DOCUMENT_LINKS, SOCIAL_LINKS} from '../../config/profile-links';
+import {AchievementsService} from '../../services/achievements.service';
 
 @Component({
   selector: 'app-intro',
@@ -45,6 +46,8 @@ export class IntroComponent implements OnDestroy {
 
   private boundCloseDropdown = this.closeDropdown.bind(this);
 
+  constructor(private achievements: AchievementsService) {}
+
   ngOnDestroy(): void {
     document.removeEventListener('click', this.boundCloseDropdown);
   }
@@ -69,6 +72,14 @@ export class IntroComponent implements OnDestroy {
     window.setTimeout(() => {
       document.getElementById('operating-style')?.scrollIntoView({behavior: 'smooth', block: 'start'});
     }, 0);
+  }
+
+  trackResumeDownload(): void {
+    this.achievements.trackResumeDownload();
+  }
+
+  trackSocialClick(): void {
+    this.achievements.trackSocialClick();
   }
 
   private closeDropdown(): void {

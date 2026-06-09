@@ -1,14 +1,39 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, HostListener, OnInit, OnDestroy} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ScrollXpService} from '../../services/scroll-xp.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  standalone: true
+  standalone: true,
+  imports: [CommonModule]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   isScrolled = false;
   isMenuOpen = false;
+
+  xpPercent = 0;
+  levelTitle = 'Visitor';
+  levelNum = 1;
+
+  private subs: Subscription[] = [];
+
+  constructor(
+    private scrollXp: ScrollXpService
+  ) {}
+
+  ngOnInit(): void {
+    this.subs.push(
+      this.scrollXp.xp$.subscribe(xp => this.xpPercent = xp),
+      this.scrollXp.level$.subscribe(l => { this.levelTitle = l.title; this.levelNum = l.level; }),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(s => s.unsubscribe());
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

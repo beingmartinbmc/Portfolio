@@ -1191,7 +1191,7 @@ html {
 }
 .mdc-list-group__subheader {
   font: 400 16px / 28px Roboto, sans-serif;
-  letter-spacing: .009375em;
+  letter-spacing: 0.009375em;
 }
 html {
   --mat-paginator-page-size-select-width: 84px;
@@ -2219,7 +2219,7 @@ html {
 .mat-typography .mat-h1,
 .mat-typography .mat-headline-5,
 .mat-typography h1 {
-  font: 400 24px/32px Roboto, sans-serif;
+  font: 400 24px / 32px Roboto, sans-serif;
   letter-spacing: normal;
   margin: 0 0 16px;
 }
@@ -2228,8 +2228,8 @@ html {
 .mat-typography .mat-h2,
 .mat-typography .mat-headline-6,
 .mat-typography h2 {
-  font: 500 20px/32px Roboto, sans-serif;
-  letter-spacing: .0125em;
+  font: 500 20px / 32px Roboto, sans-serif;
+  letter-spacing: 0.0125em;
   margin: 0 0 16px;
 }
 .mat-h3,
@@ -2237,8 +2237,8 @@ html {
 .mat-typography .mat-h3,
 .mat-typography .mat-subtitle-1,
 .mat-typography h3 {
-  font: 400 16px/28px Roboto, sans-serif;
-  letter-spacing: .009375em;
+  font: 400 16px / 28px Roboto, sans-serif;
+  letter-spacing: 0.009375em;
   margin: 0 0 16px;
 }
 .mat-h4,
@@ -2246,36 +2246,36 @@ html {
 .mat-typography .mat-h4,
 .mat-typography .mat-body-1,
 .mat-typography h4 {
-  font: 400 16px/24px Roboto, sans-serif;
-  letter-spacing: .03125em;
+  font: 400 16px / 24px Roboto, sans-serif;
+  letter-spacing: 0.03125em;
   margin: 0 0 16px;
 }
 .mat-h5,
 .mat-typography .mat-h5,
 .mat-typography h5 {
-  font: 400 calc(14px*.83)/20px Roboto, sans-serif;
+  font: 400 calc(14px * 0.83) / 20px Roboto, sans-serif;
   margin: 0 0 12px;
 }
 .mat-h6,
 .mat-typography .mat-h6,
 .mat-typography h6 {
-  font: 400 calc(14px*.67)/20px Roboto, sans-serif;
+  font: 400 calc(14px * 0.67) / 20px Roboto, sans-serif;
   margin: 0 0 12px;
 }
 .mat-body-strong,
 .mat-subtitle-2,
 .mat-typography .mat-body-strong,
 .mat-typography .mat-subtitle-2 {
-  font: 500 14px/22px Roboto, sans-serif;
-  letter-spacing: .0071428571em;
+  font: 500 14px / 22px Roboto, sans-serif;
+  letter-spacing: 0.0071428571em;
 }
 .mat-body,
 .mat-body-2,
 .mat-typography .mat-body,
 .mat-typography .mat-body-2,
 .mat-typography {
-  font: 400 14px/20px Roboto, sans-serif;
-  letter-spacing: .0178571429em;
+  font: 400 14px / 20px Roboto, sans-serif;
+  letter-spacing: 0.0178571429em;
 }
 .mat-body p,
 .mat-body-2 p,
@@ -2288,31 +2288,31 @@ html {
 .mat-caption,
 .mat-typography .mat-small,
 .mat-typography .mat-caption {
-  font: 400 12px/20px Roboto, sans-serif;
-  letter-spacing: .0333333333em;
+  font: 400 12px / 20px Roboto, sans-serif;
+  letter-spacing: 0.0333333333em;
 }
 .mat-headline-1,
 .mat-typography .mat-headline-1 {
-  font: 300 96px/96px Roboto, sans-serif;
+  font: 300 96px / 96px Roboto, sans-serif;
   letter-spacing: -0.015625em;
   margin: 0 0 56px;
 }
 .mat-headline-2,
 .mat-typography .mat-headline-2 {
-  font: 300 60px/60px Roboto, sans-serif;
-  letter-spacing: -.0083333333em;
+  font: 300 60px / 60px Roboto, sans-serif;
+  letter-spacing: -0.0083333333em;
   margin: 0 0 64px;
 }
 .mat-headline-3,
 .mat-typography .mat-headline-3 {
-  font: 400 48px/50px Roboto, sans-serif;
+  font: 400 48px / 50px Roboto, sans-serif;
   letter-spacing: normal;
   margin: 0 0 64px;
 }
 .mat-headline-4,
 .mat-typography .mat-headline-4 {
-  font: 400 34px/40px Roboto, sans-serif;
-  letter-spacing: .0073529412em;
+  font: 400 34px / 40px Roboto, sans-serif;
+  letter-spacing: 0.0073529412em;
   margin: 0 0 64px;
 }
 
@@ -2833,6 +2833,48 @@ img {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+.reveal-init {
+  opacity: 0;
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal-fade-up {
+  transform: translateY(40px);
+}
+.reveal-slide-left {
+  transform: translateX(-60px);
+}
+.reveal-scale-in {
+  transform: scale(0.85);
+}
+.reveal-pipe {
+  clip-path: circle(0% at 50% 50%);
+}
+.reveal-shake {
+  transform: scale(0.9);
+}
+.reveal-active {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: circle(100% at 50% 50%) !important;
+}
+body.god-mode {
+  animation: godModeBody 2s linear infinite;
+}
+body.god-mode * {
+  border-color: rgba(251, 191, 36, 0.4) !important;
+}
+@keyframes godModeBody {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
   }
 }
 

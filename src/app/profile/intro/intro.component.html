@@ -36,7 +36,7 @@
 
           @if (showDocumentDropdown) {
             <div class="document-dropdown">
-              <a [href]="documentLinks.resume" target="_blank" rel="noopener">
+              <a [href]="documentLinks.resume" target="_blank" rel="noopener" (click)="trackResumeDownload()">
                 <i class="fas fa-file-lines"></i>
                 Resume
               </a>
@@ -50,13 +50,13 @@
       </div>
 
       <div class="hero-social">
-        <a class="social-link" [href]="socialLinks.linkedin" target="_blank" rel="noopener" title="LinkedIn">
+        <a class="social-link" [href]="socialLinks.linkedin" target="_blank" rel="noopener" title="LinkedIn" (click)="trackSocialClick()">
           <i class="fab fa-linkedin-in"></i>
         </a>
-        <a class="social-link" [href]="socialLinks.github" target="_blank" rel="noopener" title="GitHub">
+        <a class="social-link" [href]="socialLinks.github" target="_blank" rel="noopener" title="GitHub" (click)="trackSocialClick()">
           <i class="fab fa-github"></i>
         </a>
-        <a class="social-link" [href]="socialLinks.stackOverflow" target="_blank" rel="noopener" title="Stack Overflow">
+        <a class="social-link" [href]="socialLinks.stackOverflow" target="_blank" rel="noopener" title="Stack Overflow" (click)="trackSocialClick()">
           <i class="fab fa-stack-overflow"></i>
         </a>
       </div>
