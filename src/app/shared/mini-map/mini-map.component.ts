@@ -90,6 +90,13 @@ interface MapNode {
       transform: scale(1.2);
     }
 
+    /* Force a visible color so monochrome glyphs (e.g. crossed swords)
+       don't render dark-on-dark. Full-color emoji ignore this. */
+    .node-icon {
+      color: #fbbf24;
+      line-height: 1;
+    }
+
     .map-node.active .node-icon {
       filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.8));
     }
@@ -161,7 +168,7 @@ export class MiniMapComponent implements OnInit, OnDestroy {
     { id: 'about', icon: '🗡', label: 'About' },
     { id: 'avatar-3d', icon: '🤖', label: 'AI Twin' },
     { id: 'skill', icon: '⚔', label: 'Skills' },
-    { id: 'experience', icon: '🗺', label: 'Experience' },
+    { id: 'experience', icon: '🗺️', label: 'Experience' },
     { id: 'metrics', icon: '📊', label: 'Metrics' },
     { id: 'publications', icon: '🏰', label: 'Projects' },
     { id: 'blogs', icon: '📜', label: 'Writing' },
