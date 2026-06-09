@@ -527,3 +527,56 @@ img {
     scroll-behavior: auto !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════
+   SCROLL REVEAL ANIMATIONS (used by ScrollRevealDirective)
+══════════════════════════════════════════════════════ */
+.reveal-init {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-fade-up {
+  transform: translateY(40px);
+}
+
+.reveal-slide-left {
+  transform: translateX(-60px);
+}
+
+.reveal-scale-in {
+  transform: scale(0.85);
+}
+
+.reveal-pipe {
+  clip-path: circle(0% at 50% 50%);
+}
+
+.reveal-shake {
+  transform: scale(0.9);
+}
+
+.reveal-active {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: circle(100% at 50% 50%) !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   KONAMI CODE GOD MODE
+══════════════════════════════════════════════════════ */
+body.god-mode {
+  animation: godModeBody 2s linear infinite;
+}
+
+body.god-mode * {
+  border-color: rgba(251, 191, 36, 0.4) !important;
+}
+
+@keyframes godModeBody {
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}

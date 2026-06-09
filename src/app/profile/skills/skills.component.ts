@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {SKILL_DETAILS, SkillDetail} from './skills.data';
 import {NgClass} from '@angular/common';
+import {AchievementsService} from '../../services/achievements.service';
+import {AudioService} from '../../services/audio.service';
 
 type SkillLevel = 'primary' | 'secondary' | 'supporting';
 
@@ -36,6 +38,11 @@ export class SkillsComponent implements OnInit {
   expandedSkill: Skill | null = null;
 
   systemMode = false;
+
+  constructor(
+    private achievements: AchievementsService,
+    private audio: AudioService
+  ) {}
   readonly systemModeLabels: Record<string, string> = {
     'Kafka': 'Event Bus',
     'Redis': 'Cache Layer',
@@ -190,6 +197,8 @@ export class SkillsComponent implements OnInit {
       return;
     }
     this.expandedSkill = skill;
+    this.achievements.trackSkillExpand();
+    this.audio.play('powerUp');
   }
 
   isExpanded(skill: Skill): boolean {
