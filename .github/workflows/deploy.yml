@@ -8,16 +8,11 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -29,7 +24,7 @@ jobs:
         cache: 'npm'
         
     - name: Install dependencies
-      run: npm install
+      run: npm ci
       
     - name: Build application
       run: npm run build
@@ -37,38 +32,30 @@ jobs:
     - name: Create .nojekyll and 404.html for SPA routing
       run: |
         touch docs/.nojekyll
-        cat > docs/404.html << 'EOF'
-        <!doctype html>
-        <html lang="en">
-        <head>
-          <meta charset="utf-8">
-          <title>Ankit Sharma - Software Developer</title>
-          <base href="/Portfolio/">
-          <meta content="width=device-width, initial-scale=1" name="viewport">
-          <script>
-            var pathSegmentsToKeep = 1;
-            var l = window.location;
-            l.replace(
-              l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-              l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-              l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-              (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-              l.hash
-            );
-          </script>
-        </head>
-        <body></body>
-        </html>
-        EOF
+        cp src/404.html docs/404.html
       
     - name: Setup Pages
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       uses: actions/configure-pages@v4
       
     - name: Upload artifact
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       uses: actions/upload-pages-artifact@v3
       with:
         path: './docs'
-        
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
