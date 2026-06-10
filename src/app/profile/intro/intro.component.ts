@@ -22,25 +22,25 @@ export class IntroComponent implements OnDestroy {
 
   readonly focusAreas = [
     {
-      icon: '🍄',
-      title: 'Backend Systems',
-      tag: 'POWER-UP',
-      description: 'Java, Kafka, Redis, APIs, event-driven workflows, and the operational edges that make systems reliable.',
-      color: 'red'
-    },
-    {
-      icon: '⭐',
-      title: 'Staff-Level Execution',
+      icon: '🤖',
+      title: 'AI Agents & LLMs',
       tag: 'STAR MODE',
-      description: 'Shaping architecture, unblocking teams, and turning ambiguous product goals into durable technical plans.',
+      description: 'Tool-calling agents and Slack bots — including an on-call bot that debugs across Splunk, GitHub, Confluence, Drive, and Slack.',
       color: 'gold'
     },
     {
       icon: '🔥',
-      title: 'Gen AI in Production',
+      title: 'RAG & Gen AI in Production',
       tag: 'FIRE FLOWER',
-      description: 'Voice interfaces, prompt workflows, AI copilots, and product experiences that have to work outside the demo.',
+      description: 'Retrieval pipelines, prompt and context work, evals, and guardrails — the stuff that keeps AI useful past the demo.',
       color: 'green'
+    },
+    {
+      icon: '🍄',
+      title: 'Backend Systems',
+      tag: 'POWER-UP',
+      description: 'Java, Kafka, Redis, APIs, and event-driven workflows — plus the messy operational edges that keep high-traffic systems up.',
+      color: 'red'
     }
   ];
 
