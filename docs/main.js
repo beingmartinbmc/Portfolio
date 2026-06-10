@@ -32539,25 +32539,25 @@ var IntroComponent = class _IntroComponent {
     ];
     this.focusAreas = [
       {
-        icon: "\u{1F344}",
-        title: "Backend Systems",
-        tag: "POWER-UP",
-        description: "Java, Kafka, Redis, APIs, event-driven workflows, and the operational edges that make systems reliable.",
-        color: "red"
-      },
-      {
-        icon: "\u2B50",
-        title: "Staff-Level Execution",
+        icon: "\u{1F916}",
+        title: "AI Agents & LLMs",
         tag: "STAR MODE",
-        description: "Shaping architecture, unblocking teams, and turning ambiguous product goals into durable technical plans.",
+        description: "Tool-calling agents and Slack bots \u2014 including an on-call bot that debugs across Splunk, GitHub, Confluence, Drive, and Slack.",
         color: "gold"
       },
       {
         icon: "\u{1F525}",
-        title: "Gen AI in Production",
+        title: "RAG & Gen AI in Production",
         tag: "FIRE FLOWER",
-        description: "Voice interfaces, prompt workflows, AI copilots, and product experiences that have to work outside the demo.",
+        description: "Retrieval pipelines, prompt and context work, evals, and guardrails \u2014 the stuff that keeps AI useful past the demo.",
         color: "green"
+      },
+      {
+        icon: "\u{1F344}",
+        title: "Backend Systems",
+        tag: "POWER-UP",
+        description: "Java, Kafka, Redis, APIs, and event-driven workflows \u2014 plus the messy operational edges that keep high-traffic systems up.",
+        color: "red"
       }
     ];
     this.boundCloseDropdown = this.closeDropdown.bind(this);
@@ -32602,22 +32602,22 @@ var IntroComponent = class _IntroComponent {
     this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IntroComponent, selectors: [["app-intro"]], decls: 56, vars: 6, consts: [[1, "hero-section"], [1, "apple-container", "hero-grid"], [1, "hero-copy"], [1, "section-kicker"], [1, "hero-title"], [1, "hero-summary"], [1, "hero-meta"], [1, "hero-chip"], [1, "hero-actions"], ["href", "", 1, "apple-btn", "apple-btn-primary", 3, "click"], [1, "fas", "fa-paper-plane"], [1, "document-menu"], [1, "apple-btn", "apple-btn-secondary", 3, "click"], [1, "fas", "fa-file-arrow-down"], [1, "document-dropdown"], [1, "hero-social"], ["target", "_blank", "rel", "noopener", "title", "LinkedIn", 1, "social-link", 3, "click", "href"], [1, "fab", "fa-linkedin-in"], ["target", "_blank", "rel", "noopener", "title", "GitHub", 1, "social-link", 3, "click", "href"], [1, "fab", "fa-github"], ["target", "_blank", "rel", "noopener", "title", "Stack Overflow", 1, "social-link", 3, "click", "href"], [1, "fab", "fa-stack-overflow"], [1, "hero-metrics"], [1, "metric-card"], [1, "hero-panel", "apple-card"], [1, "hero-portrait"], ["alt", "Ankit Sharma", "src", "./assets/images/ankit.png"], [1, "hero-panel-content"], [1, "panel-header"], [1, "panel-eyebrow"], [1, "panel-status"], [1, "focus-list"], [1, "focus-card"], ["target", "_blank", "rel", "noopener", 3, "click", "href"], [1, "fas", "fa-file-lines"], ["target", "_blank", "rel", "noopener", 3, "href"], [1, "fas", "fa-envelope-open-text"], [1, "metric-value"], [1, "metric-label"], [1, "fc-icon"], [1, "fc-body"], [1, "fc-header"], [1, "fc-title"], [1, "fc-tag"], [1, "fc-desc"]], template: function IntroComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "section", 0)(1, "div", 1)(2, "div", 2)(3, "span", 3);
-        \u0275\u0275text(4, "Staff Software Engineer \u2022 Backend \u2022 Gen AI");
+        \u0275\u0275text(4, "Staff Software Engineer \u2022 AI Agents \u2022 LLMs \u2022 Backend");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(5, "h1", 4)(6, "span");
-        \u0275\u0275text(7, "Backend systems");
+        \u0275\u0275text(7, "AI agents");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(8, "span");
-        \u0275\u0275text(9, "that scale.");
+        \u0275\u0275text(9, "that ship.");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(10, "span");
-        \u0275\u0275text(11, "AI experiences");
+        \u0275\u0275text(11, "Backend systems");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(12, "span");
-        \u0275\u0275text(13, "that ship.");
+        \u0275\u0275text(13, "that scale.");
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(14, "p", 5);
-        \u0275\u0275text(15, " Staff-level engineer focused on distributed systems, real-time architectures, developer infrastructure, and Gen AI products that need more than a demo to be useful. ");
+        \u0275\u0275text(15, " Staff-level engineer. I build AI agents \u2014 LLM assistants, Slack bots, and RAG pipelines \u2014 and the backend systems underneath them. Mostly the kind of work that has to hold up in production, not just in a demo. ");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(16, "div", 6)(17, "span", 7);
         \u0275\u0275text(18, "SMTS @ Salesforce");
@@ -32629,7 +32629,7 @@ var IntroComponent = class _IntroComponent {
         \u0275\u0275text(22, "ex-Walmart");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(23, "span", 7);
-        \u0275\u0275text(24, "Java \u2022 Kafka \u2022 Redis \u2022 AI");
+        \u0275\u0275text(24, "LLMs \u2022 RAG \u2022 Agents \u2022 Java \u2022 Kafka");
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(25, "div", 8)(26, "a", 9);
         \u0275\u0275domListener("click", function IntroComponent_Template_a_click_26_listener($event) {
@@ -32703,7 +32703,7 @@ var IntroComponent = class _IntroComponent {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(IntroComponent, [{
     type: Component,
-    args: [{ selector: "app-intro", standalone: true, template: '<section class="hero-section">\n  <div class="apple-container hero-grid">\n    <div class="hero-copy">\n      <span class="section-kicker">Staff Software Engineer \u2022 Backend \u2022 Gen AI</span>\n\n      <h1 class="hero-title">\n        <span>Backend systems</span>\n        <span>that scale.</span>\n        <span>AI experiences</span>\n        <span>that ship.</span>\n      </h1>\n\n      <p class="hero-summary">\n        Staff-level engineer focused on distributed systems, real-time architectures, developer infrastructure, and Gen AI products\n        that need more than a demo to be useful.\n      </p>\n\n      <div class="hero-meta">\n        <span class="hero-chip">SMTS @ Salesforce</span>\n        <span class="hero-chip">ex-Games24x7</span>\n        <span class="hero-chip">ex-Walmart</span>\n        <span class="hero-chip">Java \u2022 Kafka \u2022 Redis \u2022 AI</span>\n      </div>\n\n      <div class="hero-actions">\n        <a class="apple-btn apple-btn-primary" href="" (click)="scrollToOperatingStyle($event)">\n          <i class="fas fa-paper-plane"></i>\n          How I work\n        </a>\n\n        <div class="document-menu" [class.open]="showDocumentDropdown">\n          <button class="apple-btn apple-btn-secondary" (click)="toggleDocumentDropdown($event)">\n            <i class="fas fa-file-arrow-down"></i>\n            Download docs\n          </button>\n\n          @if (showDocumentDropdown) {\n            <div class="document-dropdown">\n              <a [href]="documentLinks.resume" target="_blank" rel="noopener" (click)="trackResumeDownload()">\n                <i class="fas fa-file-lines"></i>\n                Resume\n              </a>\n              <a [href]="documentLinks.coverLetter" target="_blank" rel="noopener">\n                <i class="fas fa-envelope-open-text"></i>\n                Cover Letter\n              </a>\n            </div>\n          }\n        </div>\n      </div>\n\n      <div class="hero-social">\n        <a class="social-link" [href]="socialLinks.linkedin" target="_blank" rel="noopener" title="LinkedIn" (click)="trackSocialClick()">\n          <i class="fab fa-linkedin-in"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.github" target="_blank" rel="noopener" title="GitHub" (click)="trackSocialClick()">\n          <i class="fab fa-github"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.stackOverflow" target="_blank" rel="noopener" title="Stack Overflow" (click)="trackSocialClick()">\n          <i class="fab fa-stack-overflow"></i>\n        </a>\n      </div>\n\n      <div class="hero-metrics">\n        @for (metric of heroMetrics; track metric.label) {\n          <div class="metric-card">\n            <span class="metric-value">{{ metric.value }}</span>\n            <span class="metric-label">{{ metric.label }}</span>\n          </div>\n        }\n      </div>\n    </div>\n\n    <div class="hero-panel apple-card">\n      <div class="hero-portrait">\n        <img alt="Ankit Sharma" src="./assets/images/ankit.png">\n      </div>\n\n      <div class="hero-panel-content">\n        <div class="panel-header">\n          <span class="panel-eyebrow">What I optimize for</span>\n          <span class="panel-status">Available for staff and lead roles</span>\n        </div>\n\n        <div class="focus-list">\n          @for (area of focusAreas; track area.title) {\n            <article class="focus-card" [attr.data-color]="area.color">\n              <div class="fc-icon">{{ area.icon }}</div>\n              <div class="fc-body">\n                <div class="fc-header">\n                  <h3 class="fc-title">{{ area.title }}</h3>\n                  <span class="fc-tag">{{ area.tag }}</span>\n                </div>\n                <p class="fc-desc">{{ area.description }}</p>\n              </div>\n            </article>\n          }\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n', styles: ['/* src/app/profile/intro/intro.component.scss */\n:host {\n  display: block;\n}\n.hero-section {\n  position: relative;\n  padding: 8.5rem 0 4rem;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.hero-grid {\n  display: grid;\n  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);\n  gap: 2rem;\n  align-items: center;\n}\n.hero-copy {\n  display: flex;\n  flex-direction: column;\n  gap: 1.4rem;\n}\n.hero-title {\n  display: grid;\n  gap: 0.08em;\n  font-size: clamp(2.8rem, 7vw, 5rem);\n  font-weight: 800;\n  line-height: 0.96;\n  letter-spacing: -0.05em;\n  max-width: 9ch;\n}\n.hero-title span {\n  display: block;\n}\n.hero-summary {\n  max-width: 62ch;\n  font-size: 1.08rem;\n  color: var(--text-tertiary);\n}\n.hero-meta {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.65rem;\n}\n.hero-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  font-size: 0.82rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n}\n.hero-actions {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-wrap: wrap;\n}\n.document-menu {\n  position: relative;\n}\n.document-dropdown {\n  position: absolute;\n  top: calc(100% + 0.75rem);\n  left: 0;\n  min-width: 200px;\n  padding: 0.65rem;\n  border-radius: 1rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(10, 16, 31, 0.96);\n  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.4);\n}\n.document-dropdown a {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  padding: 0.8rem 0.9rem;\n  border-radius: 0.85rem;\n  color: var(--text-secondary);\n}\n.document-dropdown a:hover {\n  background: rgba(255, 255, 255, 0.05);\n  color: var(--text-primary);\n}\n.hero-social {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.social-link {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  transition:\n    transform var(--transition-normal),\n    border-color var(--transition-normal),\n    color var(--transition-normal);\n}\n.social-link:hover {\n  transform: translateY(-2px);\n  border-color: rgba(251, 191, 36, 0.45);\n  color: var(--primary-color);\n}\n.hero-metrics {\n  display: grid;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n  gap: 0.85rem;\n  margin-top: 0.5rem;\n}\n.metric-card {\n  padding: 1rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.03);\n}\n.metric-value {\n  display: block;\n  margin-bottom: 0.35rem;\n  font-family: var(--font-display);\n  font-size: 1.55rem;\n  font-weight: 800;\n  color: var(--text-primary);\n}\n.metric-label {\n  display: block;\n  font-size: 0.84rem;\n  color: var(--text-tertiary);\n}\n.hero-panel {\n  overflow: hidden;\n}\n.hero-portrait {\n  position: relative;\n  aspect-ratio: 1/1.08;\n  padding: 1.5rem;\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.2),\n      transparent 36%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(239, 68, 68, 0.14),\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.03),\n      rgba(255, 255, 255, 0));\n}\n.hero-portrait img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  border-radius: 1.5rem;\n}\n.hero-panel-content {\n  padding: 1.5rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.panel-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n}\n.panel-eyebrow,\n.panel-status {\n  font-size: 0.8rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.panel-eyebrow {\n  color: var(--primary-color);\n}\n.panel-status {\n  color: var(--accent-color);\n}\n.focus-list {\n  display: grid;\n  gap: 0.75rem;\n}\n.focus-card {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.85rem;\n  padding: 0.9rem 1rem;\n  border-radius: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n  transition:\n    border-color 0.25s,\n    background 0.25s,\n    transform 0.25s;\n  position: relative;\n  overflow: hidden;\n}\n.focus-card::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n  border-radius: inherit;\n}\n.focus-card:hover {\n  transform: translateY(-2px);\n  background: rgba(255, 255, 255, 0.04);\n}\n.focus-card:hover::before {\n  opacity: 1;\n}\n.focus-card:hover .fc-icon {\n  transform: scale(1.15) rotate(-6deg);\n}\n.focus-card[data-color=red] {\n  border-color: rgba(239, 68, 68, 0.2);\n}\n.focus-card[data-color=red]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=red] .fc-tag {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n  text-shadow: 0 0 12px rgba(239, 68, 68, 0.3);\n}\n.focus-card[data-color=red] .fc-icon {\n  background: rgba(239, 68, 68, 0.12);\n  border-color: rgba(239, 68, 68, 0.25);\n}\n.focus-card[data-color=gold] {\n  border-color: rgba(251, 191, 36, 0.2);\n}\n.focus-card[data-color=gold]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=gold] .fc-tag {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n  text-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.focus-card[data-color=gold] .fc-icon {\n  background: rgba(251, 191, 36, 0.12);\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.focus-card[data-color=green] {\n  border-color: rgba(34, 197, 94, 0.2);\n}\n.focus-card[data-color=green]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(34, 197, 94, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=green] .fc-tag {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n  text-shadow: 0 0 12px rgba(34, 197, 94, 0.3);\n}\n.focus-card[data-color=green] .fc-icon {\n  background: rgba(34, 197, 94, 0.12);\n  border-color: rgba(34, 197, 94, 0.25);\n}\n.fc-icon {\n  flex-shrink: 0;\n  width: 2.6rem;\n  height: 2.6rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.25rem;\n  border-radius: 0.6rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.04);\n  transition: transform 0.3s;\n}\n.fc-body {\n  flex: 1;\n  min-width: 0;\n}\n.fc-header {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  margin-bottom: 0.35rem;\n}\n.fc-title {\n  font-size: 0.92rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.fc-tag {\n  flex-shrink: 0;\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.06em;\n  padding: 0.2rem 0.45rem;\n  border-radius: 4px;\n  border: 1px solid rgba(148, 163, 184, 0.15);\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n.fc-desc {\n  font-size: 0.82rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n@media (max-width: 1024px) {\n  .hero-grid {\n    grid-template-columns: 1fr;\n  }\n  .hero-title {\n    max-width: 100%;\n  }\n  .hero-metrics {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n}\n@media (max-width: 640px) {\n  .hero-section {\n    padding-top: 7.5rem;\n  }\n  .hero-actions {\n    flex-direction: column;\n    align-items: stretch;\n  }\n  .document-dropdown {\n    position: static;\n    margin-top: 0.75rem;\n  }\n  .hero-metrics {\n    grid-template-columns: 1fr;\n  }\n  .panel-header {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */\n'] }]
+    args: [{ selector: "app-intro", standalone: true, template: '<section class="hero-section">\n  <div class="apple-container hero-grid">\n    <div class="hero-copy">\n      <span class="section-kicker">Staff Software Engineer \u2022 AI Agents \u2022 LLMs \u2022 Backend</span>\n\n      <h1 class="hero-title">\n        <span>AI agents</span>\n        <span>that ship.</span>\n        <span>Backend systems</span>\n        <span>that scale.</span>\n      </h1>\n\n      <p class="hero-summary">\n        Staff-level engineer. I build AI agents \u2014 LLM assistants, Slack bots, and RAG pipelines \u2014 and the backend systems\n        underneath them. Mostly the kind of work that has to hold up in production, not just in a demo.\n      </p>\n\n      <div class="hero-meta">\n        <span class="hero-chip">SMTS @ Salesforce</span>\n        <span class="hero-chip">ex-Games24x7</span>\n        <span class="hero-chip">ex-Walmart</span>\n        <span class="hero-chip">LLMs \u2022 RAG \u2022 Agents \u2022 Java \u2022 Kafka</span>\n      </div>\n\n      <div class="hero-actions">\n        <a class="apple-btn apple-btn-primary" href="" (click)="scrollToOperatingStyle($event)">\n          <i class="fas fa-paper-plane"></i>\n          How I work\n        </a>\n\n        <div class="document-menu" [class.open]="showDocumentDropdown">\n          <button class="apple-btn apple-btn-secondary" (click)="toggleDocumentDropdown($event)">\n            <i class="fas fa-file-arrow-down"></i>\n            Download docs\n          </button>\n\n          @if (showDocumentDropdown) {\n            <div class="document-dropdown">\n              <a [href]="documentLinks.resume" target="_blank" rel="noopener" (click)="trackResumeDownload()">\n                <i class="fas fa-file-lines"></i>\n                Resume\n              </a>\n              <a [href]="documentLinks.coverLetter" target="_blank" rel="noopener">\n                <i class="fas fa-envelope-open-text"></i>\n                Cover Letter\n              </a>\n            </div>\n          }\n        </div>\n      </div>\n\n      <div class="hero-social">\n        <a class="social-link" [href]="socialLinks.linkedin" target="_blank" rel="noopener" title="LinkedIn" (click)="trackSocialClick()">\n          <i class="fab fa-linkedin-in"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.github" target="_blank" rel="noopener" title="GitHub" (click)="trackSocialClick()">\n          <i class="fab fa-github"></i>\n        </a>\n        <a class="social-link" [href]="socialLinks.stackOverflow" target="_blank" rel="noopener" title="Stack Overflow" (click)="trackSocialClick()">\n          <i class="fab fa-stack-overflow"></i>\n        </a>\n      </div>\n\n      <div class="hero-metrics">\n        @for (metric of heroMetrics; track metric.label) {\n          <div class="metric-card">\n            <span class="metric-value">{{ metric.value }}</span>\n            <span class="metric-label">{{ metric.label }}</span>\n          </div>\n        }\n      </div>\n    </div>\n\n    <div class="hero-panel apple-card">\n      <div class="hero-portrait">\n        <img alt="Ankit Sharma" src="./assets/images/ankit.png">\n      </div>\n\n      <div class="hero-panel-content">\n        <div class="panel-header">\n          <span class="panel-eyebrow">What I optimize for</span>\n          <span class="panel-status">Available for staff and lead roles</span>\n        </div>\n\n        <div class="focus-list">\n          @for (area of focusAreas; track area.title) {\n            <article class="focus-card" [attr.data-color]="area.color">\n              <div class="fc-icon">{{ area.icon }}</div>\n              <div class="fc-body">\n                <div class="fc-header">\n                  <h3 class="fc-title">{{ area.title }}</h3>\n                  <span class="fc-tag">{{ area.tag }}</span>\n                </div>\n                <p class="fc-desc">{{ area.description }}</p>\n              </div>\n            </article>\n          }\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n', styles: ['/* src/app/profile/intro/intro.component.scss */\n:host {\n  display: block;\n}\n.hero-section {\n  position: relative;\n  padding: 8.5rem 0 4rem;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n}\n.hero-grid {\n  display: grid;\n  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);\n  gap: 2rem;\n  align-items: center;\n}\n.hero-copy {\n  display: flex;\n  flex-direction: column;\n  gap: 1.4rem;\n}\n.hero-title {\n  display: grid;\n  gap: 0.08em;\n  font-size: clamp(2.8rem, 7vw, 5rem);\n  font-weight: 800;\n  line-height: 0.96;\n  letter-spacing: -0.05em;\n  max-width: 9ch;\n}\n.hero-title span {\n  display: block;\n}\n.hero-summary {\n  max-width: 62ch;\n  font-size: 1.08rem;\n  color: var(--text-tertiary);\n}\n.hero-meta {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.65rem;\n}\n.hero-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  font-size: 0.82rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n}\n.hero-actions {\n  display: flex;\n  align-items: center;\n  gap: 0.85rem;\n  flex-wrap: wrap;\n}\n.document-menu {\n  position: relative;\n}\n.document-dropdown {\n  position: absolute;\n  top: calc(100% + 0.75rem);\n  left: 0;\n  min-width: 200px;\n  padding: 0.65rem;\n  border-radius: 1rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  background: rgba(10, 16, 31, 0.96);\n  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.4);\n}\n.document-dropdown a {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  padding: 0.8rem 0.9rem;\n  border-radius: 0.85rem;\n  color: var(--text-secondary);\n}\n.document-dropdown a:hover {\n  background: rgba(255, 255, 255, 0.05);\n  color: var(--text-primary);\n}\n.hero-social {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.social-link {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 3rem;\n  height: 3rem;\n  border-radius: 999px;\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  transition:\n    transform var(--transition-normal),\n    border-color var(--transition-normal),\n    color var(--transition-normal);\n}\n.social-link:hover {\n  transform: translateY(-2px);\n  border-color: rgba(251, 191, 36, 0.45);\n  color: var(--primary-color);\n}\n.hero-metrics {\n  display: grid;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n  gap: 0.85rem;\n  margin-top: 0.5rem;\n}\n.metric-card {\n  padding: 1rem;\n  border-radius: 1.25rem;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.03);\n}\n.metric-value {\n  display: block;\n  margin-bottom: 0.35rem;\n  font-family: var(--font-display);\n  font-size: 1.55rem;\n  font-weight: 800;\n  color: var(--text-primary);\n}\n.metric-label {\n  display: block;\n  font-size: 0.84rem;\n  color: var(--text-tertiary);\n}\n.hero-panel {\n  overflow: hidden;\n}\n.hero-portrait {\n  position: relative;\n  aspect-ratio: 1/1.08;\n  padding: 1.5rem;\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.2),\n      transparent 36%),\n    radial-gradient(\n      circle at bottom right,\n      rgba(239, 68, 68, 0.14),\n      transparent 34%),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.03),\n      rgba(255, 255, 255, 0));\n}\n.hero-portrait img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  border-radius: 1.5rem;\n}\n.hero-panel-content {\n  padding: 1.5rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.panel-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 1rem;\n}\n.panel-eyebrow,\n.panel-status {\n  font-size: 0.8rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.panel-eyebrow {\n  color: var(--primary-color);\n}\n.panel-status {\n  color: var(--accent-color);\n}\n.focus-list {\n  display: grid;\n  gap: 0.75rem;\n}\n.focus-card {\n  display: flex;\n  align-items: flex-start;\n  gap: 0.85rem;\n  padding: 0.9rem 1rem;\n  border-radius: 0.85rem;\n  border: 1px solid rgba(251, 191, 36, 0.12);\n  background: rgba(255, 255, 255, 0.025);\n  transition:\n    border-color 0.25s,\n    background 0.25s,\n    transform 0.25s;\n  position: relative;\n  overflow: hidden;\n}\n.focus-card::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  opacity: 0;\n  transition: opacity 0.3s;\n  pointer-events: none;\n  border-radius: inherit;\n}\n.focus-card:hover {\n  transform: translateY(-2px);\n  background: rgba(255, 255, 255, 0.04);\n}\n.focus-card:hover::before {\n  opacity: 1;\n}\n.focus-card:hover .fc-icon {\n  transform: scale(1.15) rotate(-6deg);\n}\n.focus-card[data-color=red] {\n  border-color: rgba(239, 68, 68, 0.2);\n}\n.focus-card[data-color=red]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=red] .fc-tag {\n  color: #ef4444;\n  border-color: rgba(239, 68, 68, 0.3);\n  text-shadow: 0 0 12px rgba(239, 68, 68, 0.3);\n}\n.focus-card[data-color=red] .fc-icon {\n  background: rgba(239, 68, 68, 0.12);\n  border-color: rgba(239, 68, 68, 0.25);\n}\n.focus-card[data-color=gold] {\n  border-color: rgba(251, 191, 36, 0.2);\n}\n.focus-card[data-color=gold]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=gold] .fc-tag {\n  color: #fbbf24;\n  border-color: rgba(251, 191, 36, 0.3);\n  text-shadow: 0 0 12px rgba(251, 191, 36, 0.3);\n}\n.focus-card[data-color=gold] .fc-icon {\n  background: rgba(251, 191, 36, 0.12);\n  border-color: rgba(251, 191, 36, 0.25);\n}\n.focus-card[data-color=green] {\n  border-color: rgba(34, 197, 94, 0.2);\n}\n.focus-card[data-color=green]::before {\n  background:\n    linear-gradient(\n      135deg,\n      rgba(34, 197, 94, 0.06),\n      transparent 60%);\n}\n.focus-card[data-color=green] .fc-tag {\n  color: #22c55e;\n  border-color: rgba(34, 197, 94, 0.3);\n  text-shadow: 0 0 12px rgba(34, 197, 94, 0.3);\n}\n.focus-card[data-color=green] .fc-icon {\n  background: rgba(34, 197, 94, 0.12);\n  border-color: rgba(34, 197, 94, 0.25);\n}\n.fc-icon {\n  flex-shrink: 0;\n  width: 2.6rem;\n  height: 2.6rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.25rem;\n  border-radius: 0.6rem;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.04);\n  transition: transform 0.3s;\n}\n.fc-body {\n  flex: 1;\n  min-width: 0;\n}\n.fc-header {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  margin-bottom: 0.35rem;\n}\n.fc-title {\n  font-size: 0.92rem;\n  font-weight: 700;\n  color: var(--text-primary);\n}\n.fc-tag {\n  flex-shrink: 0;\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.06em;\n  padding: 0.2rem 0.45rem;\n  border-radius: 4px;\n  border: 1px solid rgba(148, 163, 184, 0.15);\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n.fc-desc {\n  font-size: 0.82rem;\n  line-height: 1.5;\n  color: var(--text-tertiary);\n}\n@media (max-width: 1024px) {\n  .hero-grid {\n    grid-template-columns: 1fr;\n  }\n  .hero-title {\n    max-width: 100%;\n  }\n  .hero-metrics {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n}\n@media (max-width: 640px) {\n  .hero-section {\n    padding-top: 7.5rem;\n  }\n  .hero-actions {\n    flex-direction: column;\n    align-items: stretch;\n  }\n  .document-dropdown {\n    position: static;\n    margin-top: 0.75rem;\n  }\n  .hero-metrics {\n    grid-template-columns: 1fr;\n  }\n  .panel-header {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n/*# sourceMappingURL=intro.component.css.map */\n'] }]
   }], () => [{ type: AchievementsService }], null);
 })();
 (() => {
@@ -32718,94 +32718,133 @@ var AboutComponent = class _AboutComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AboutComponent, selectors: [["app-about"]], decls: 79, vars: 0, consts: [["id", "about", 1, "apple-section", "about-section"], [1, "apple-container"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "about-grid"], [1, "bio-panel"], [1, "panel-flag"], [1, "flag-label"], [1, "panel-body"], [1, "panel-title"], [1, "panel-text"], [1, "stat-highlight"], [1, "bio-stats"], [1, "bio-stat"], [1, "bs-icon"], [1, "bs-val"], [1, "bs-key"], [1, "about-stack"], [1, "quest-panel"], [1, "achievement-list"]], template: function AboutComponent_Template(rf, ctx2) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AboutComponent, selectors: [["app-about"]], decls: 108, vars: 0, consts: [["id", "about", 1, "apple-section", "about-section"], [1, "apple-container"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "about-grid"], [1, "bio-panel"], [1, "panel-flag"], [1, "flag-label"], [1, "panel-body"], [1, "panel-title"], [1, "panel-text"], [1, "stat-highlight"], [1, "bio-stats"], [1, "bio-stat"], [1, "bs-icon"], [1, "bs-val"], [1, "bs-key"], [1, "about-stack"], [1, "quest-panel"], [1, "achievement-list"]], template: function AboutComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275domElementStart(0, "section", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
         \u0275\u0275text(4, "\u{1F5E1} CHARACTER BIO");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(5, "h2", 4);
-        \u0275\u0275text(6, "Staff-minded engineering across reliability, scale, and AI.");
+        \u0275\u0275text(6, "I build AI agents on top of backend systems that actually have to work.");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(7, "p", 5);
-        \u0275\u0275text(8, " I enjoy ambiguous problems, high-traffic systems, and product bets that need strong backend fundamentals as much as thoughtful AI integration. ");
+        \u0275\u0275text(8, " Most of my time goes into LLM assistants, Slack bots, and RAG pipelines \u2014 the kind that have to give the right answer fast, not just look good in a demo. The rest goes into the backend they run on. ");
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(9, "div", 6)(10, "div", 7)(11, "div", 8)(12, "span", 9);
         \u0275\u0275text(13, "\u{1F4CB} BACKSTORY");
         \u0275\u0275domElementEnd()();
         \u0275\u0275domElementStart(14, "div", 10)(15, "h3", 11);
-        \u0275\u0275text(16, "Systems first, with product judgment.");
+        \u0275\u0275text(16, "AI work, grounded in real systems.");
         \u0275\u0275domElementEnd();
         \u0275\u0275domElementStart(17, "p", 12);
-        \u0275\u0275text(18, " I've spent the last 6+ years building backend systems where latency, correctness, throughput, and operational visibility all matter at the same time. That includes event-driven workflows, fraud systems, KYC automation, predictive autoscaling, and platform infrastructure used by other teams. ");
+        \u0275\u0275text(18, " Lately I spend most of my time on ");
+        \u0275\u0275domElementStart(19, "strong", 13);
+        \u0275\u0275text(20, "AI agents and LLM systems");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(19, "p", 12);
-        \u0275\u0275text(20, " Today I'm an SMTS at Salesforce. Earlier at Games24x7, I worked on systems that handled ");
-        \u0275\u0275domElementStart(21, "strong", 13);
-        \u0275\u0275text(22, "2.7K RPS during IPL");
+        \u0275\u0275text(21, " \u2014 agents that call tools, RAG pipelines, and Slack bots that do actual work. The interesting problems aren't the prompts; they're getting retrieval to surface the right thing, keeping answers grounded so the model doesn't make stuff up, writing evals so I know when something breaks, and keeping cost and latency sane under load. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(23, ", processed ");
+        \u0275\u0275domElementStart(22, "p", 12);
+        \u0275\u0275text(23, " Right now I'm an SMTS at Salesforce, building LLM-backed services and an ");
         \u0275\u0275domElementStart(24, "strong", 13);
-        \u0275\u0275text(25, "200K+ verifications a day");
+        \u0275\u0275text(25, "on-call AI bot");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(26, ", and supported ");
+        \u0275\u0275text(26, " that handles the first pass of root-cause analysis. When something breaks, it digs through logs in ");
         \u0275\u0275domElementStart(27, "strong", 13);
-        \u0275\u0275text(28, "10M concurrent users");
+        \u0275\u0275text(28, "Splunk");
         \u0275\u0275domElementEnd();
-        \u0275\u0275text(29, " with zero-downtime thinking. ");
+        \u0275\u0275text(29, ", traces the code in ");
+        \u0275\u0275domElementStart(30, "strong", 13);
+        \u0275\u0275text(31, "GitHub");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(30, "p", 12);
-        \u0275\u0275text(31, " I'm increasingly interested in the overlap between backend engineering and Gen AI: voice interfaces, AI assistants, retrieval and prompt workflows, and the production concerns around latency, failure modes, and evaluation. ");
+        \u0275\u0275text(32, ", and pulls in context from ");
+        \u0275\u0275domElementStart(33, "strong", 13);
+        \u0275\u0275text(34, "Google Drive, Confluence, and Slack");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(32, "div", 14)(33, "div", 15)(34, "span", 16);
-        \u0275\u0275text(35, "\u26A1");
+        \u0275\u0275text(35, " \u2014 then hands the on-call engineer a single summary of what likely went wrong. It holds up at ");
+        \u0275\u0275domElementStart(36, "strong", 13);
+        \u0275\u0275text(37, "~1.5K RPS");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(36, "span", 17);
-        \u0275\u0275text(37, "2.7K");
+        \u0275\u0275text(38, " with sub-second p95 on retrieval. ");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(38, "span", 18);
-        \u0275\u0275text(39, "RPS Peak");
+        \u0275\u0275domElementStart(39, "p", 12);
+        \u0275\u0275text(40, " All of that sits on 6+ years of backend work where things fall over if you get them wrong. At Games24x7 I built systems that took ");
+        \u0275\u0275domElementStart(41, "strong", 13);
+        \u0275\u0275text(42, "2.7K RPS during the IPL");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(43, ", ran ");
+        \u0275\u0275domElementStart(44, "strong", 13);
+        \u0275\u0275text(45, "200K+ KYC checks a day");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(46, ", and held up for ");
+        \u0275\u0275domElementStart(47, "strong", 13);
+        \u0275\u0275text(48, "10M concurrent users");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275text(49, " \u2014 event-driven pipelines, fraud detection, KYC automation, and autoscaling, all built to stay up. ");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(50, "div", 14)(51, "div", 15)(52, "span", 16);
+        \u0275\u0275text(53, "\u{1F916}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(54, "span", 17);
+        \u0275\u0275text(55, "AI");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(56, "span", 18);
+        \u0275\u0275text(57, "On-call RCA bot");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(40, "div", 15)(41, "span", 16);
-        \u0275\u0275text(42, "\u{1F50D}");
+        \u0275\u0275domElementStart(58, "div", 15)(59, "span", 16);
+        \u0275\u0275text(60, "\u26A1");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(43, "span", 17);
-        \u0275\u0275text(44, "200K+");
+        \u0275\u0275domElementStart(61, "span", 17);
+        \u0275\u0275text(62, "2.7K");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(45, "span", 18);
-        \u0275\u0275text(46, "Verif/day");
+        \u0275\u0275domElementStart(63, "span", 18);
+        \u0275\u0275text(64, "RPS Peak");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(47, "div", 15)(48, "span", 16);
-        \u0275\u0275text(49, "\u{1F465}");
+        \u0275\u0275domElementStart(65, "div", 15)(66, "span", 16);
+        \u0275\u0275text(67, "\u{1F50D}");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(50, "span", 17);
-        \u0275\u0275text(51, "10M");
+        \u0275\u0275domElementStart(68, "span", 17);
+        \u0275\u0275text(69, "200K+");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(52, "span", 18);
-        \u0275\u0275text(53, "Concurrent");
+        \u0275\u0275domElementStart(70, "span", 18);
+        \u0275\u0275text(71, "Verif/day");
+        \u0275\u0275domElementEnd()();
+        \u0275\u0275domElementStart(72, "div", 15)(73, "span", 16);
+        \u0275\u0275text(74, "\u{1F465}");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(75, "span", 17);
+        \u0275\u0275text(76, "10M");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(77, "span", 18);
+        \u0275\u0275text(78, "Concurrent");
         \u0275\u0275domElementEnd()()()()();
-        \u0275\u0275domElementStart(54, "div", 19)(55, "div", 20)(56, "div", 8)(57, "span", 9);
-        \u0275\u0275text(58, "\u{1F3C6} IMPACT LOG");
+        \u0275\u0275domElementStart(79, "div", 19)(80, "div", 20)(81, "div", 8)(82, "span", 9);
+        \u0275\u0275text(83, "\u{1F3C6} IMPACT LOG");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(59, "div", 10)(60, "ul", 21)(61, "li");
-        \u0275\u0275text(62, "Built distributed systems for trust, risk, onboarding, and real-time decisioning.");
+        \u0275\u0275domElementStart(84, "div", 10)(85, "ul", 21)(86, "li");
+        \u0275\u0275text(87, "Built an on-call AI bot that does first-level RCA across Splunk, GitHub, Confluence, Drive, and Slack.");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(63, "li");
-        \u0275\u0275text(64, "Published open-source packages for tracing, diagnostics, and developer tooling.");
+        \u0275\u0275domElementStart(88, "li");
+        \u0275\u0275text(89, "Set up RAG pipelines and tool-calling agents with grounding, evals, and guardrails to keep them honest.");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(65, "li");
-        \u0275\u0275text(66, "Worked across architecture, implementation, debugging, and cross-team delivery.");
+        \u0275\u0275domElementStart(90, "li");
+        \u0275\u0275text(91, "Built distributed systems for trust, risk, onboarding, and real-time decisions.");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(92, "li");
+        \u0275\u0275text(93, "Shipped open-source packages for tracing, diagnostics, and dev tooling.");
         \u0275\u0275domElementEnd()()()();
-        \u0275\u0275domElementStart(67, "div", 20)(68, "div", 8)(69, "span", 9);
-        \u0275\u0275text(70, "\u2699 PLAY STYLE");
+        \u0275\u0275domElementStart(94, "div", 20)(95, "div", 8)(96, "span", 9);
+        \u0275\u0275text(97, "\u2699 PLAY STYLE");
         \u0275\u0275domElementEnd()();
-        \u0275\u0275domElementStart(71, "div", 10)(72, "ul", 21)(73, "li");
-        \u0275\u0275text(74, "Start with constraints, then design for reliability and leverage.");
+        \u0275\u0275domElementStart(98, "div", 10)(99, "ul", 21)(100, "li");
+        \u0275\u0275text(101, "Treat agents like systems \u2014 figure out the tools, evals, and failure modes before piling on prompts.");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(75, "li");
-        \u0275\u0275text(76, "Prefer boring infrastructure choices when they keep systems understandable.");
+        \u0275\u0275domElementStart(102, "li");
+        \u0275\u0275text(103, "Keep LLMs grounded in real data, and trust numbers over a demo that happened to work once.");
         \u0275\u0275domElementEnd();
-        \u0275\u0275domElementStart(77, "li");
-        \u0275\u0275text(78, "Use AI where it improves product capability, not where it only adds novelty.");
+        \u0275\u0275domElementStart(104, "li");
+        \u0275\u0275text(105, "Start with the constraints, then build for reliability and latency.");
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElementStart(106, "li");
+        \u0275\u0275text(107, "Pick boring infrastructure when it keeps things easy to reason about.");
         \u0275\u0275domElementEnd()()()()()()()();
       }
     }, styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.about-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);\n  gap: 1.25rem;\n}\n.about-stack[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1.25rem;\n}\n.bio-panel[_ngcontent-%COMP%], \n.quest-panel[_ngcontent-%COMP%] {\n  border-radius: 1rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 2px solid rgba(251, 191, 36, 0.12);\n  transition: border-color 250ms ease, box-shadow 250ms ease;\n}\n.bio-panel[_ngcontent-%COMP%]:hover, \n.quest-panel[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 6px 28px rgba(251, 191, 36, 0.08);\n}\n.panel-flag[_ngcontent-%COMP%] {\n  padding: 0.55rem 1rem;\n  background: rgba(251, 191, 36, 0.05);\n  border-bottom: 1px solid rgba(251, 191, 36, 0.1);\n}\n.flag-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.48rem;\n  letter-spacing: 0.14em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.25);\n}\n.panel-body[_ngcontent-%COMP%] {\n  padding: 1.2rem 1.15rem;\n  display: grid;\n  gap: 0.85rem;\n}\n.panel-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.35;\n}\n.panel-text[_ngcontent-%COMP%] {\n  color: var(--text-secondary);\n  font-size: 0.92rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.stat-highlight[_ngcontent-%COMP%] {\n  color: #fde68a;\n  font-weight: 700;\n}\n.bio-stats[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n  margin-top: 0.4rem;\n}\n.bio-stat[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.1rem;\n  justify-items: center;\n  padding: 0.55rem 0.85rem;\n  border-radius: 0.65rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  background: rgba(251, 191, 36, 0.04);\n  min-width: 5.5rem;\n  transition: border-color 200ms ease, box-shadow 200ms ease;\n}\n.bio-stat[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.3);\n  box-shadow: 0 0 14px rgba(251, 191, 36, 0.08);\n}\n.bs-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.bs-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.06em;\n  color: #fde68a;\n}\n.bs-key[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.34rem;\n  letter-spacing: 0.12em;\n  color: var(--text-muted);\n}\n.achievement-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  gap: 0.65rem;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.5rem;\n  font-size: 0.88rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: #fbbf24;\n  font-weight: bold;\n  font-size: 0.9rem;\n}\n@media (max-width: 900px) {\n  .about-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n@media (max-width: 480px) {\n  .bio-stats[_ngcontent-%COMP%] {\n    gap: 0.5rem;\n  }\n  .bio-stat[_ngcontent-%COMP%] {\n    min-width: 4.5rem;\n    padding: 0.45rem 0.6rem;\n  }\n}\n/*# sourceMappingURL=about.component.css.map */'] });
@@ -32818,10 +32857,10 @@ var AboutComponent = class _AboutComponent {
   <div class="apple-container">
     <div class="section-header">
       <div class="world-label">\u{1F5E1} CHARACTER BIO</div>
-      <h2 class="section-title">Staff-minded engineering across reliability, scale, and AI.</h2>
+      <h2 class="section-title">I build AI agents on top of backend systems that actually have to work.</h2>
       <p class="section-subtitle">
-        I enjoy ambiguous problems, high-traffic systems, and product bets that need strong backend fundamentals as much as
-        thoughtful AI integration.
+        Most of my time goes into LLM assistants, Slack bots, and RAG pipelines \u2014 the kind that have to give the right
+        answer fast, not just look good in a demo. The rest goes into the backend they run on.
       </p>
     </div>
 
@@ -32833,25 +32872,37 @@ var AboutComponent = class _AboutComponent {
           <span class="flag-label">\u{1F4CB} BACKSTORY</span>
         </div>
         <div class="panel-body">
-          <h3 class="panel-title">Systems first, with product judgment.</h3>
+          <h3 class="panel-title">AI work, grounded in real systems.</h3>
           <p class="panel-text">
-            I've spent the last 6+ years building backend systems where latency, correctness, throughput, and operational
-            visibility all matter at the same time. That includes event-driven workflows, fraud systems, KYC automation,
-            predictive autoscaling, and platform infrastructure used by other teams.
+            Lately I spend most of my time on <strong class="stat-highlight">AI agents and LLM systems</strong> \u2014 agents
+            that call tools, RAG pipelines, and Slack bots that do actual work. The interesting problems aren't the prompts;
+            they're getting retrieval to surface the right thing, keeping answers grounded so the model doesn't make stuff
+            up, writing evals so I know when something breaks, and keeping cost and latency sane under load.
           </p>
           <p class="panel-text">
-            Today I'm an SMTS at Salesforce. Earlier at Games24x7, I worked on systems that handled
-            <strong class="stat-highlight">2.7K RPS during IPL</strong>,
-            processed <strong class="stat-highlight">200K+ verifications a day</strong>, and supported
-            <strong class="stat-highlight">10M concurrent users</strong> with zero-downtime thinking.
+            Right now I'm an SMTS at Salesforce, building LLM-backed services and an
+            <strong class="stat-highlight">on-call AI bot</strong> that handles the first pass of root-cause analysis.
+            When something breaks, it digs through logs in <strong class="stat-highlight">Splunk</strong>, traces the code
+            in <strong class="stat-highlight">GitHub</strong>, and pulls in context from
+            <strong class="stat-highlight">Google Drive, Confluence, and Slack</strong> \u2014 then hands the on-call engineer a
+            single summary of what likely went wrong. It holds up at <strong class="stat-highlight">~1.5K RPS</strong> with
+            sub-second p95 on retrieval.
           </p>
           <p class="panel-text">
-            I'm increasingly interested in the overlap between backend engineering and Gen AI: voice interfaces, AI assistants,
-            retrieval and prompt workflows, and the production concerns around latency, failure modes, and evaluation.
+            All of that sits on 6+ years of backend work where things fall over if you get them wrong. At Games24x7 I built
+            systems that took <strong class="stat-highlight">2.7K RPS during the IPL</strong>, ran
+            <strong class="stat-highlight">200K+ KYC checks a day</strong>, and held up for
+            <strong class="stat-highlight">10M concurrent users</strong> \u2014 event-driven pipelines, fraud detection, KYC
+            automation, and autoscaling, all built to stay up.
           </p>
 
           <!-- Inline stat chips -->
           <div class="bio-stats">
+            <div class="bio-stat">
+              <span class="bs-icon">\u{1F916}</span>
+              <span class="bs-val">AI</span>
+              <span class="bs-key">On-call RCA bot</span>
+            </div>
             <div class="bio-stat">
               <span class="bs-icon">\u26A1</span>
               <span class="bs-val">2.7K</span>
@@ -32881,9 +32932,10 @@ var AboutComponent = class _AboutComponent {
           </div>
           <div class="panel-body">
             <ul class="achievement-list">
-              <li>Built distributed systems for trust, risk, onboarding, and real-time decisioning.</li>
-              <li>Published open-source packages for tracing, diagnostics, and developer tooling.</li>
-              <li>Worked across architecture, implementation, debugging, and cross-team delivery.</li>
+              <li>Built an on-call AI bot that does first-level RCA across Splunk, GitHub, Confluence, Drive, and Slack.</li>
+              <li>Set up RAG pipelines and tool-calling agents with grounding, evals, and guardrails to keep them honest.</li>
+              <li>Built distributed systems for trust, risk, onboarding, and real-time decisions.</li>
+              <li>Shipped open-source packages for tracing, diagnostics, and dev tooling.</li>
             </ul>
           </div>
         </div>
@@ -32895,9 +32947,10 @@ var AboutComponent = class _AboutComponent {
           </div>
           <div class="panel-body">
             <ul class="achievement-list">
-              <li>Start with constraints, then design for reliability and leverage.</li>
-              <li>Prefer boring infrastructure choices when they keep systems understandable.</li>
-              <li>Use AI where it improves product capability, not where it only adds novelty.</li>
+              <li>Treat agents like systems \u2014 figure out the tools, evals, and failure modes before piling on prompts.</li>
+              <li>Keep LLMs grounded in real data, and trust numbers over a demo that happened to work once.</li>
+              <li>Start with the constraints, then build for reliability and latency.</li>
+              <li>Pick boring infrastructure when it keeps things easy to reason about.</li>
             </ul>
           </div>
         </div>
@@ -33034,31 +33087,31 @@ var ContactComponent = class _ContactComponent {
   constructor() {
     this.selectedCard = 0;
     this.fitCards = [
-      { icon: "\u{1F9E0}", title: "Best fit", tag: "QUEST MATCH", color: "gold", stat: 95, body: "Staff and lead roles spanning backend platforms, distributed systems, and practical AI products." },
-      { icon: "\u2699\uFE0F", title: "Operating mode", tag: "LEVEL FLOW", color: "red", stat: 92, body: "Architecture clarity, delivery momentum, and execution that turns ambiguity into shipped systems." },
-      { icon: "\u{1F91D}", title: "Team style", tag: "CO-OP MODE", color: "green", stat: 90, body: "Works best with product-minded teams that want fast iteration without losing engineering rigor." },
-      { icon: "\u{1F4CD}", title: "Collab shape", tag: "WORLD MAP", color: "blue", stat: 93, body: "Comfortable leading across distributed teams, ambiguous problem spaces, and high-leverage technical decisions." }
+      { icon: "\u{1F9E0}", title: "Best fit", tag: "QUEST MATCH", color: "gold", stat: 95, body: "Staff and lead roles across AI products, backend platforms, and distributed systems." },
+      { icon: "\u2699\uFE0F", title: "Operating mode", tag: "LEVEL FLOW", color: "red", stat: 92, body: "Clear architecture, steady delivery, and actually shipping things instead of debating them." },
+      { icon: "\u{1F91D}", title: "Team style", tag: "CO-OP MODE", color: "green", stat: 90, body: "I do my best work with product-minded teams that move fast but still care about the engineering." },
+      { icon: "\u{1F4CD}", title: "Collab shape", tag: "WORLD MAP", color: "blue", stat: 93, body: "Comfortable leading across distributed teams and figuring out messy, half-defined problems." }
     ];
     this.collaborationTracks = [
-      "Platform and backend architecture for systems that need reliability under real traffic.",
-      "0\u21921 or scaling Gen AI product work where quality, UX, and operational constraints all matter.",
-      "Staff-level execution: technical direction, prioritization, system design, and cross-team leverage."
+      "AI agent and LLM work \u2014 tool-calling agents, Slack bots, RAG pipelines, and the evals that keep them honest.",
+      "Backend and platform architecture for systems that need to stay up under real traffic.",
+      "Staff-level work: setting technical direction, prioritizing, system design, and unblocking other teams."
     ];
     this.firstWeekOutcomes = [
-      "Pressure-test the system shape, product constraints, and delivery risks.",
-      "Identify the technical decisions that unblock product speed the most.",
-      "Turn broad goals into an execution plan the team can actually ship against."
+      "Get a real read on the system, the product constraints, and where delivery is most likely to slip.",
+      "Find the few technical calls that would unblock the team the most.",
+      "Turn broad goals into a plan the team can actually start shipping against."
     ];
     this.operatingPrinciples = [
-      { title: "Reduce ambiguity fast", body: "Turning fuzzy goals into system shapes, trade-offs, and concrete execution paths early." },
-      { title: "Bias toward durable systems", body: "Optimizing for systems that hold up in production, not just on architecture diagrams." },
-      { title: "Create leverage, not noise", body: "Better decisions, faster teams, and a clearer technical direction that compounds." }
+      { title: "Cut the ambiguity early", body: "Take fuzzy goals and turn them into something concrete \u2014 trade-offs, decisions, and a path forward." },
+      { title: "Build things that last", body: "Optimize for systems that hold up in production, not ones that only look clean on a diagram." },
+      { title: "Make the team faster", body: "Better decisions and clearer direction so the whole team moves quicker, not just me." }
     ];
     this.emphasisAreas = [
       { label: "Reliability", value: "production-first systems", pct: 96 },
-      { label: "Speed", value: "high-signal execution", pct: 93 },
-      { label: "Leadership", value: "cross-team leverage", pct: 91 },
-      { label: "Product sense", value: "useful AI + platform outcomes", pct: 94 }
+      { label: "Speed", value: "ship without the noise", pct: 93 },
+      { label: "Leadership", value: "unblocking other teams", pct: 91 },
+      { label: "Product sense", value: "AI + platform that ships", pct: 94 }
     ];
   }
   static {
@@ -33421,12 +33474,14 @@ var EXPERIENCE_ITEMS = [
     location: "Hybrid in Hyderabad, India",
     duration: "Current",
     period: "2025 - Present",
-    description: "Senior Member of Technical Staff working on Slack. Powering Salesforce Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration.",
-    technologies: ["Java", "Slack Platform", "Agentforce", "Thunderbird", "Einstein AI", "Microservices"],
+    description: "Senior Member of Technical Staff on Slack. I build AI agents and LLM-backed services \u2014 including an on-call bot that handles first-level RCA \u2014 and work on the Thunderbird architecture and Slackbot/Einstein with Agentforce.",
+    technologies: ["Java", "AI Agents", "LLMs", "RAG", "Agentforce", "Slack Platform", "Splunk", "Einstein AI", "Thunderbird", "Microservices"],
     achievements: [
-      "Powering Salesforce Thunderbird architecture for Slack",
-      "Enhancing Slackbot & Einstein with Agentforce integration",
-      "Driving engineering best practices and code quality across the team"
+      "Built an on-call AI bot for first-level RCA \u2014 it reads logs in Splunk, traces code in GitHub, pulls context from Drive, Confluence, and Slack, and hands the engineer one summary of what likely broke",
+      "Set up RAG pipelines and tool-calling agents with grounding, evals, and guardrails to keep them from hallucinating",
+      "AI services hold up at ~1.5K RPS with sub-second p95 on retrieval",
+      "Working on the Thunderbird architecture for Slack and on Slackbot/Einstein with Agentforce",
+      "Pushing on engineering practices and code quality across the team"
     ]
   },
   {
@@ -79093,6 +79148,9 @@ ABOUT ANKIT SHARMA:
 
 PROFESSIONAL BACKGROUND:
 - Currently at Salesforce working on Slack, powering Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration
+- Builds agentic AI and LLM-backed services in production: tool-calling agents, Slack bots, and RAG pipelines
+- Built an on-call AI bot that automates first-level RCA (root cause analysis): it debugs logs via Splunk, traces code through GitHub, and pulls references from Google Drive, Confluence, and Slack, then consolidates everything into a single root-cause summary for the on-call engineer
+- His AI services sustain ~1.5K RPS with sub-second p95 latency on the retrieval path
 - Previously: SDE-2 at Games24x7 (3 years, 2022-2025) working on RummyCircle and My11Circle platforms
 - Built Risk Rule Engine for fraud detection in real-time
 - Scaled My11Circle to 2.7K RPS during IPL 2025 with 10M concurrent users
@@ -79100,15 +79158,18 @@ PROFESSIONAL BACKGROUND:
 - Also worked at: Walmart Global Tech (2021), Extramarks Education (2020-2021)
 
 TECHNICAL SKILLS:
+- AI/Gen AI: Agentic AI, LLMs, RAG (retrieval-augmented generation), tool-calling agents, prompt & context engineering, eval harnesses, guardrails, vector retrieval, Agentforce
 - Backend: Java 21, Spring Boot, Microservices (95%)
 - Data Structures & Algorithms: Expert level (95%)
 - System Design: High Level Design (95%), Low Level Design (90%)
 - Databases: MySQL, PostgreSQL, MongoDB, Neptune DB, Redis (95%)
 - Cloud: AWS (Sage Maker, Cognito, Graviton K8s), Salesforce Platform
-- Tools: Kafka, RabbitMQ, Docker, Kubernetes, Grafana, Prometheus
-- Other: LLMs, OAuth2.0, JWT, Gremlin, OCR
+- Tools: Kafka, RabbitMQ, Docker, Kubernetes, Grafana, Prometheus, Splunk
+- Other: OAuth2.0, JWT, Gremlin, OCR
 
 KEY ACHIEVEMENTS:
+- Built an on-call AI bot that automates first-level RCA across Splunk (logs), GitHub (code), and Google Drive/Confluence/Slack (references), consolidating findings into a single root-cause summary
+- Designed RAG pipelines and tool-calling agents with retrieval grounding, eval harnesses, and hallucination guardrails
 - KYC platform: 200k+ verifications/day, 99.95% uptime
 - Real-time ML fraud detection protecting millions of transactions
 - Scaled My11Circle to 2.7K RPS during IPL 2025
@@ -79131,7 +79192,7 @@ OPEN SOURCE PACKAGES:
 - git-history-ui (${PACKAGE_LINKS.gitHistoryUi}): A beautiful, modern web UI for visualizing git history with interactive commit graphs, search, filtering, and diff visualization - NPM
 
 PERSONAL:
-- Passionate about backend development and Large Language Models (LLMs)
+- Passionate about agentic AI, Large Language Models (LLMs), RAG systems, and backend development
 - Avid traveler and adventure seeker - completed solo trips across 7 countries
 - Believes in continuous learning and creating meaningful impact
 - Strong problem-solving mindset with focus on elegant solutions
@@ -79710,7 +79771,7 @@ function Avatar3dComponent_Conditional_54_Template(rf, ctx2) {
     \u0275\u0275text(4, "AI chat");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(5, "p");
-    \u0275\u0275text(6, "Ask about backend systems, projects, open source, or Gen AI work.");
+    \u0275\u0275text(6, "Ask about the AI agents, RAG work, backend systems, projects, or open source.");
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(7, "div", 34)(8, "button", 35);
     \u0275\u0275listener("click", function Avatar3dComponent_Conditional_54_Template_button_click_8_listener() {
@@ -80151,10 +80212,10 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275text(5, "\u{1F916} AI TWIN");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(6, "h2", 8);
-        \u0275\u0275text(7, "3D avatar, live chat, and text-to-audio in one product-style demo.");
+        \u0275\u0275text(7, "An AI twin that actually knows my work \u2014 3D avatar, chat, and voice.");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(8, "p", 9);
-        \u0275\u0275text(9, " The core functionality stays intact: a 3D model, portfolio-aware assistant, and voice playback pipeline. The presentation is rebuilt to feel more like a modern AI interface than a portfolio widget. ");
+        \u0275\u0275text(9, " It's a chat assistant backed by an LLM and retrieval over my real experience, so the answers come from what I've actually done instead of made-up filler. There's a 3D avatar to play with and voice output if you'd rather listen than read. ");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(10, "div", 10)(11, "article", 11)(12, "span", 12);
         \u0275\u0275text(13, "3D");
@@ -80163,25 +80224,25 @@ var Avatar3dComponent = class _Avatar3dComponent {
         \u0275\u0275text(16, "Interactive model");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(17, "p");
-        \u0275\u0275text(18, "Rotate, inspect, and explore the avatar with smooth camera controls.");
+        \u0275\u0275text(18, "Rotate, zoom, and poke around the avatar with smooth camera controls.");
         \u0275\u0275elementEnd()()();
         \u0275\u0275elementStart(19, "article", 11)(20, "span", 12);
-        \u0275\u0275text(21, "AI");
+        \u0275\u0275text(21, "RAG");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(22, "div")(23, "h3");
-        \u0275\u0275text(24, "Portfolio-aware chat");
+        \u0275\u0275text(24, "Chat that knows my work");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(25, "p");
-        \u0275\u0275text(26, "Ask about projects, architecture decisions, backend systems, or career highlights.");
+        \u0275\u0275text(26, "An LLM grounded in my real experience \u2014 ask about my projects, the backend systems, or the AI work.");
         \u0275\u0275elementEnd()()();
         \u0275\u0275elementStart(27, "article", 11)(28, "span", 12);
         \u0275\u0275text(29, "VO");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(30, "div")(31, "h3");
-        \u0275\u0275text(32, "Text-to-audio responses");
+        \u0275\u0275text(32, "Voice responses");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(33, "p");
-        \u0275\u0275text(34, "Toggle voice output on demand and listen to answers instead of reading them.");
+        \u0275\u0275text(34, "Flip on voice output and listen to the answers instead of reading them.");
         \u0275\u0275elementEnd()()()();
         \u0275\u0275elementStart(35, "div", 13)(36, "button", 14);
         \u0275\u0275listener("click", function Avatar3dComponent_Template_button_click_36_listener() {
@@ -80257,10 +80318,11 @@ var Avatar3dComponent = class _Avatar3dComponent {
     <div class="avatar-lab-shell">
       <div class="avatar-lab-copy">
         <div class="world-label">\u{1F916} AI TWIN</div>
-        <h2 class="section-title">3D avatar, live chat, and text-to-audio in one product-style demo.</h2>
+        <h2 class="section-title">An AI twin that actually knows my work \u2014 3D avatar, chat, and voice.</h2>
         <p class="section-subtitle">
-          The core functionality stays intact: a 3D model, portfolio-aware assistant, and voice playback pipeline. The
-          presentation is rebuilt to feel more like a modern AI interface than a portfolio widget.
+          It's a chat assistant backed by an LLM and retrieval over my real experience, so the answers come from what I've
+          actually done instead of made-up filler. There's a 3D avatar to play with and voice output if you'd rather listen
+          than read.
         </p>
 
         <div class="lab-capabilities">
@@ -80268,23 +80330,23 @@ var Avatar3dComponent = class _Avatar3dComponent {
             <span class="capability-icon">3D</span>
             <div>
               <h3>Interactive model</h3>
-              <p>Rotate, inspect, and explore the avatar with smooth camera controls.</p>
+              <p>Rotate, zoom, and poke around the avatar with smooth camera controls.</p>
             </div>
           </article>
 
           <article class="capability-card">
-            <span class="capability-icon">AI</span>
+            <span class="capability-icon">RAG</span>
             <div>
-              <h3>Portfolio-aware chat</h3>
-              <p>Ask about projects, architecture decisions, backend systems, or career highlights.</p>
+              <h3>Chat that knows my work</h3>
+              <p>An LLM grounded in my real experience \u2014 ask about my projects, the backend systems, or the AI work.</p>
             </div>
           </article>
 
           <article class="capability-card">
             <span class="capability-icon">VO</span>
             <div>
-              <h3>Text-to-audio responses</h3>
-              <p>Toggle voice output on demand and listen to answers instead of reading them.</p>
+              <h3>Voice responses</h3>
+              <p>Flip on voice output and listen to the answers instead of reading them.</p>
             </div>
           </article>
         </div>
@@ -80337,7 +80399,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
         <div class="chat-header">
           <div>
             <h3>AI chat</h3>
-            <p>Ask about backend systems, projects, open source, or Gen AI work.</p>
+            <p>Ask about the AI agents, RAG work, backend systems, projects, or open source.</p>
           </div>
 
           <div class="header-controls">
