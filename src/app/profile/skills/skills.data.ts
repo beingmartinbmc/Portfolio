@@ -432,6 +432,69 @@ export const SKILL_DETAILS: Record<string, SkillDetail> = {
     relatedSkills: ['RAG', 'LLM', 'Generative AI']
   },
 
+  'Semantic Caching': {
+    description: 'Embedding-based caching for LLM workloads that serves answers to semantically similar prompts from cache instead of hitting the model, cutting cost and latency.',
+    experience: [
+      'Built a semantic cache that embeds incoming prompts and matches them against prior responses by similarity threshold',
+      'Tuned similarity thresholds, TTLs, and namespace partitioning to balance hit rate against staleness',
+      'Backed the cache with a vector store plus Redis for metadata and fast lookups',
+      'Added cache-hit/miss metrics and guardrails to avoid serving stale or low-confidence matches'
+    ],
+    projects: [
+      'Semantic cache layer in front of the on-call AI agent',
+      'Cost-reduction layer for high-traffic LLM endpoints',
+      'Prompt deduplication for repeated support questions'
+    ],
+    achievements: [
+      'Reduced LLM spend and tail latency by serving repeated and near-duplicate queries from cache',
+      'Kept answer quality high with confidence thresholds and selective invalidation',
+      'Sustained sub-second p95 on cached retrieval paths under production load'
+    ],
+    relatedSkills: ['RAG', 'VectorDB', 'Redis']
+  },
+
+  'MCP Servers': {
+    description: 'Hands-on experience exposing tools and data to LLM agents through the Model Context Protocol, giving models a standard, secure way to call external systems.',
+    experience: [
+      'Built MCP servers that expose logs, code, and documentation as agent-callable tools',
+      'Designed tool schemas, auth, and input validation so agents call systems safely',
+      'Wired MCP tool-calling into RAG and agent workflows for grounded, action-capable responses',
+      'Handled timeouts, retries, and result shaping to keep tool calls reliable inside agent loops'
+    ],
+    projects: [
+      'MCP tool layer for the on-call AI agent (Splunk, GitHub, Drive, Confluence, Slack)',
+      'Standardized tool gateway shared across multiple agents',
+      'Secure data-access tools for grounded LLM workflows'
+    ],
+    achievements: [
+      'Let agents pull live context from many systems through one consistent protocol',
+      'Reduced bespoke integration glue by standardizing on MCP tool contracts',
+      'Improved agent safety with validated, scoped, auditable tool access'
+    ],
+    relatedSkills: ['LLM', 'RAG', 'Generative AI']
+  },
+
+  'Bedrock': {
+    description: 'Experience building on Amazon Bedrock to run multiple foundation models behind one managed API, with grounding, guardrails, and provider fallback.',
+    experience: [
+      'Integrated Bedrock-hosted models (including Anthropic Claude and Titan) into backend AI services',
+      'Used Bedrock alongside OpenAI and Anthropic APIs with a provider-abstraction and fallback layer',
+      'Applied Bedrock Guardrails and grounding to keep responses safe and on-policy',
+      'Tuned model selection, token budgets, and streaming for cost and latency targets'
+    ],
+    projects: [
+      'Multi-model inference layer for the on-call AI agent',
+      'Provider-agnostic LLM gateway with Bedrock as a backend',
+      'Grounded RCA summarization running across Bedrock, Anthropic, and OpenAI'
+    ],
+    achievements: [
+      'Ran production AI features across multiple model providers with graceful fallback',
+      'Kept inference within cost and latency budgets through model and token tuning',
+      'Improved safety and compliance using managed guardrails and grounding'
+    ],
+    relatedSkills: ['Generative AI', 'LLM', 'AWS']
+  },
+
   // ─── Queues ───────────────────────────────────────────
   'Kafka': {
     description: 'Strong working experience with Apache Kafka for event-driven systems, asynchronous processing, and real-time data pipelines.',

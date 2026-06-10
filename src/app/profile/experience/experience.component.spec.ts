@@ -8,7 +8,7 @@ describe('ExperienceComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ExperienceComponent]
+      imports: [ExperienceComponent]
     })
       .compileComponents();
   }));
