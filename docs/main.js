@@ -35280,22 +35280,22 @@ var SkillsComponent = class _SkillsComponent {
 })();
 
 // src/app/profile/publications/publications.component.ts
-function PublicationsComponent_div_98_div_9_div_6_Template(rf, ctx2) {
+function PublicationsComponent_div_146_div_9_div_6_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 84)(1, "span", 85);
+    \u0275\u0275elementStart(0, "div", 86)(1, "span", 87);
     \u0275\u0275text(2, "\u25B8");
     \u0275\u0275elementEnd()();
   }
 }
-function PublicationsComponent_div_98_div_9_Template(rf, ctx2) {
+function PublicationsComponent_div_146_div_9_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 79)(1, "div", 80)(2, "span", 81);
+    \u0275\u0275elementStart(0, "div", 81)(1, "div", 82)(2, "span", 83);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "span", 82);
+    \u0275\u0275elementStart(4, "span", 84);
     \u0275\u0275text(5);
     \u0275\u0275elementEnd()();
-    \u0275\u0275template(6, PublicationsComponent_div_98_div_9_div_6_Template, 3, 0, "div", 83);
+    \u0275\u0275template(6, PublicationsComponent_div_146_div_9_div_6_Template, 3, 0, "div", 85);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -35311,12 +35311,12 @@ function PublicationsComponent_div_98_div_9_Template(rf, ctx2) {
     \u0275\u0275property("ngIf", !last_r2);
   }
 }
-function PublicationsComponent_div_98_div_13_Template(rf, ctx2) {
+function PublicationsComponent_div_146_div_13_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 86)(1, "div", 87);
+    \u0275\u0275elementStart(0, "div", 88)(1, "div", 89);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 88);
+    \u0275\u0275elementStart(3, "div", 90);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()();
   }
@@ -35328,9 +35328,9 @@ function PublicationsComponent_div_98_div_13_Template(rf, ctx2) {
     \u0275\u0275textInterpolate(stat_r3.label);
   }
 }
-function PublicationsComponent_div_98_span_17_Template(rf, ctx2) {
+function PublicationsComponent_div_146_span_17_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 89);
+    \u0275\u0275elementStart(0, "span", 91);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -35340,39 +35340,39 @@ function PublicationsComponent_div_98_span_17_Template(rf, ctx2) {
     \u0275\u0275textInterpolate(tech_r4);
   }
 }
-function PublicationsComponent_div_98_Template(rf, ctx2) {
+function PublicationsComponent_div_146_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 67)(1, "div", 68)(2, "div", 69);
+    \u0275\u0275elementStart(0, "div", 69)(1, "div", 70)(2, "div", 71);
     \u0275\u0275text(3, "\u{1F50D} THE PROBLEM");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "p", 70);
+    \u0275\u0275elementStart(4, "p", 72);
     \u0275\u0275text(5, " Fraud investigation relied on agents manually sifting through logs and daily cron jobs. Static JBPM rules needed developer cycles for every change, creating a bottleneck that let fraudulent activity slip through during high-traffic windows. ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "div", 69);
+    \u0275\u0275elementStart(6, "div", 71);
     \u0275\u0275text(7, "\u{1F3D7}\uFE0F ARCHITECTURE");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 71);
-    \u0275\u0275template(9, PublicationsComponent_div_98_div_9_Template, 7, 5, "div", 72);
+    \u0275\u0275elementStart(8, "div", 73);
+    \u0275\u0275template(9, PublicationsComponent_div_146_div_9_Template, 7, 5, "div", 74);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "div", 69);
+    \u0275\u0275elementStart(10, "div", 71);
     \u0275\u0275text(11, "\u{1F4C8} SCALE");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "div", 73);
-    \u0275\u0275template(13, PublicationsComponent_div_98_div_13_Template, 5, 2, "div", 74);
+    \u0275\u0275elementStart(12, "div", 75);
+    \u0275\u0275template(13, PublicationsComponent_div_146_div_13_Template, 5, 2, "div", 76);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "div", 69);
+    \u0275\u0275elementStart(14, "div", 71);
     \u0275\u0275text(15, "\u26A1 TECH STACK");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(16, "div", 75);
-    \u0275\u0275template(17, PublicationsComponent_div_98_span_17_Template, 2, 1, "span", 76);
+    \u0275\u0275elementStart(16, "div", 77);
+    \u0275\u0275template(17, PublicationsComponent_div_146_span_17_Template, 2, 1, "span", 78);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "div", 69);
+    \u0275\u0275elementStart(18, "div", 71);
     \u0275\u0275text(19, "\u{1F3C6} IMPACT");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(20, "p", 77);
+    \u0275\u0275elementStart(20, "p", 79);
     \u0275\u0275text(21, " Real-time detection replaced manual processes. Agents got self-service rule creation via Agent UI \u2014 no more developer cycles for rule changes. Fraud networks mapped via graph analysis caught previously invisible collusion patterns. ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "a", 78);
+    \u0275\u0275elementStart(22, "a", 80);
     \u0275\u0275text(23, " \u{1F4D6}\xA0 Read the Full Case Study on Medium ");
     \u0275\u0275elementEnd()()();
   }
@@ -35386,11 +35386,11 @@ function PublicationsComponent_div_98_Template(rf, ctx2) {
     \u0275\u0275property("ngForOf", ctx_r4.rreTech);
   }
 }
-function PublicationsComponent_For_394_Template(rf, ctx2) {
+function PublicationsComponent_For_442_Template(rf, ctx2) {
   if (rf & 1) {
     const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 90);
-    \u0275\u0275listener("click", function PublicationsComponent_For_394_Template_button_click_0_listener() {
+    \u0275\u0275elementStart(0, "button", 92);
+    \u0275\u0275listener("click", function PublicationsComponent_For_442_Template_button_click_0_listener() {
       const category_r7 = \u0275\u0275restoreView(_r6).$implicit;
       const ctx_r4 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r4.filterByCategory(category_r7));
@@ -35400,81 +35400,81 @@ function PublicationsComponent_For_394_Template(rf, ctx2) {
   }
   if (rf & 2) {
     const category_r7 = ctx2.$implicit;
-    const \u0275$index_701_r8 = ctx2.$index;
+    const \u0275$index_777_r8 = ctx2.$index;
     const ctx_r4 = \u0275\u0275nextContext();
     \u0275\u0275classProp("active", ctx_r4.selectedCategory === category_r7);
-    \u0275\u0275attribute("data-aos-delay", (\u0275$index_701_r8 + 1) * 100);
+    \u0275\u0275attribute("data-aos-delay", (\u0275$index_777_r8 + 1) * 100);
     \u0275\u0275advance();
     \u0275\u0275textInterpolate1(" ", category_r7, " ");
   }
 }
-function PublicationsComponent_For_397_Conditional_15_Template(rf, ctx2) {
+function PublicationsComponent_For_445_Conditional_15_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 100);
+    \u0275\u0275element(0, "img", 102);
   }
   if (rf & 2) {
     const project_r9 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r9.badges.version, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_397_Conditional_16_Template(rf, ctx2) {
+function PublicationsComponent_For_445_Conditional_16_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 101);
+    \u0275\u0275element(0, "img", 103);
   }
   if (rf & 2) {
     const project_r9 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r9.badges.downloads, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_397_Conditional_17_Template(rf, ctx2) {
+function PublicationsComponent_For_445_Conditional_17_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 102);
+    \u0275\u0275element(0, "img", 104);
   }
   if (rf & 2) {
     const project_r9 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r9.badges.total, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_397_Conditional_18_Template(rf, ctx2) {
+function PublicationsComponent_For_445_Conditional_18_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275element(0, "img", 103);
+    \u0275\u0275element(0, "img", 105);
   }
   if (rf & 2) {
     const project_r9 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275property("src", project_r9.badges.java, \u0275\u0275sanitizeUrl);
   }
 }
-function PublicationsComponent_For_397_Template(rf, ctx2) {
+function PublicationsComponent_For_445_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 66)(1, "div", 91)(2, "div", 92)(3, "span", 93);
+    \u0275\u0275elementStart(0, "div", 68)(1, "div", 93)(2, "div", 94)(3, "span", 95);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(5, "div", 94);
+    \u0275\u0275elementStart(5, "div", 96);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "div", 95)(8, "h5", 96);
+    \u0275\u0275elementStart(7, "div", 97)(8, "h5", 98);
     \u0275\u0275text(9);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "p", 97);
+    \u0275\u0275elementStart(10, "p", 99);
     \u0275\u0275text(11);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "p", 98);
+    \u0275\u0275elementStart(12, "p", 100);
     \u0275\u0275text(13);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "div", 99);
-    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_397_Conditional_15_Template, 1, 1, "img", 100);
-    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_397_Conditional_16_Template, 1, 1, "img", 101);
-    \u0275\u0275conditionalCreate(17, PublicationsComponent_For_397_Conditional_17_Template, 1, 1, "img", 102);
-    \u0275\u0275conditionalCreate(18, PublicationsComponent_For_397_Conditional_18_Template, 1, 1, "img", 103);
+    \u0275\u0275elementStart(14, "div", 101);
+    \u0275\u0275conditionalCreate(15, PublicationsComponent_For_445_Conditional_15_Template, 1, 1, "img", 102);
+    \u0275\u0275conditionalCreate(16, PublicationsComponent_For_445_Conditional_16_Template, 1, 1, "img", 103);
+    \u0275\u0275conditionalCreate(17, PublicationsComponent_For_445_Conditional_17_Template, 1, 1, "img", 104);
+    \u0275\u0275conditionalCreate(18, PublicationsComponent_For_445_Conditional_18_Template, 1, 1, "img", 105);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(19, "a", 104);
+    \u0275\u0275elementStart(19, "a", 106);
     \u0275\u0275text(20);
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
     const project_r9 = ctx2.$implicit;
-    const \u0275$index_707_r10 = ctx2.$index;
-    \u0275\u0275attribute("data-delay", (\u0275$index_707_r10 + 1) * 100);
+    const \u0275$index_783_r10 = ctx2.$index;
+    \u0275\u0275attribute("data-delay", (\u0275$index_783_r10 + 1) * 100);
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate(project_r9.category === "NPM" ? "\u{1F4E6}" : project_r9.category === "Maven Central" ? "\u2615" : "\u2B50");
     \u0275\u0275advance(2);
@@ -35657,7 +35657,7 @@ var PublicationsComponent = class _PublicationsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 398, vars: 14, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header", "quest-header"], [1, "quest-world-label"], ["data-text-reveal", "", 1, "section-title", "quest-title"], [1, "section-subtitle"], ["data-stagger", "150", 1, "pro-projects-grid"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card"], [1, "quest-rank-bar"], [1, "quest-inner"], [1, "quest-header-row"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-games", 3, "href"], [1, "world-icon"], [1, "quest-platform"], [1, "quest-status"], [1, "quest-name"], [1, "quest-tagline"], [1, "pro-card-desc"], [1, "abilities-row"], [1, "abilities-label"], [1, "ability-chips"], [1, "rewards-row"], [1, "rewards-label"], [1, "reward-chips"], [1, "reward-chip"], [1, "game-btn", "game-btn-secondary", "rre-toggle-btn", 3, "click"], ["class", "rre-deepdive", "data-anim", "fade-up", 4, "ngIf"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card", "boss-card"], [1, "quest-status", "boss-status"], [1, "reward-chip", "legendary"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "walmart-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-walmart", 3, "href"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "extramarks-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-extramarks", 3, "href"], ["data-anim", "fade-up", 1, "section-header", "quest-header", 2, "margin-top", "6rem"], ["data-stagger", "150", 1, "projects-grid", "side-quests-grid"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "algo-card"], ["target", "_blank", "rel", "noopener", 1, "game-screen-link", 3, "href"], [1, "game-screen", "algo-screen"], [1, "screen-scanlines"], [1, "screen-content"], [1, "screen-icon"], [1, "screen-title"], [1, "screen-subtitle"], [1, "screen-tags"], [1, "screen-press"], [1, "card-body", "side-quest-body"], [1, "sq-type-row"], [1, "sq-type-badge"], [1, "sq-xp"], [1, "sq-title"], [1, "card-text"], [1, "sq-tech-row"], [1, "tech-badge"], [1, "sq-action"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-primary", 3, "href"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "divine-card"], [1, "game-screen", "divine-screen"], [1, "screen-press", "powered"], [1, "sq-type-badge", "ai-badge"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "datesense-card"], [1, "game-screen", "datesense-screen"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "shop-filters"], [1, "shop-filter-btn", 3, "active"], [1, "open-source-grid", "powerup-grid"], ["data-anim", "fade-up", 1, "open-source-card", "powerup-card"], ["data-anim", "fade-up", 1, "rre-deepdive"], [1, "rre-deepdive-inner"], [1, "rre-section-label"], [1, "rre-problem"], [1, "rre-arch-flow"], ["class", "rre-arch-segment", 4, "ngFor", "ngForOf"], [1, "rre-stats-row"], ["class", "rre-stat-card", 4, "ngFor", "ngForOf"], [1, "rre-tech-row"], ["class", "rre-tech-chip", 4, "ngFor", "ngForOf"], [1, "rre-impact"], ["href", "https://beingmartinbmc.medium.com/creating-a-real-time-rule-engine-with-graph-integration-and-ml-models-cd2e2365d19", "target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-primary", "rre-blog-link"], [1, "rre-arch-segment"], [1, "rre-arch-node"], [1, "rre-arch-icon"], [1, "rre-arch-label"], ["class", "rre-pipe", 4, "ngIf"], [1, "rre-pipe"], [1, "pipe-arrow"], [1, "rre-stat-card"], [1, "rre-stat-value"], [1, "rre-stat-label"], [1, "rre-tech-chip"], [1, "shop-filter-btn", 3, "click"], [1, "powerup-top"], [1, "powerup-icon-wrap"], [1, "powerup-icon"], [1, "powerup-category"], [1, "card-body", "powerup-body"], [1, "powerup-name"], [1, "powerup-tagline"], [1, "card-text", "powerup-desc"], [1, "powerup-badges"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-secondary", "powerup-btn", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx2) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PublicationsComponent, selectors: [["app-publications"]], decls: 446, vars: 15, consts: [["id", "publications", 1, "apple-section"], [1, "apple-container"], ["data-anim", "fade-up", 1, "section-header", "quest-header"], [1, "quest-world-label"], ["data-text-reveal", "", 1, "section-title", "quest-title"], [1, "section-subtitle"], ["data-stagger", "150", 1, "pro-projects-grid"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "salesforce-card"], [1, "quest-rank-bar"], [1, "quest-inner"], [1, "quest-header-row"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-salesforce", 3, "href"], [1, "world-icon"], [1, "quest-platform"], [1, "quest-status"], [1, "quest-name"], [1, "quest-tagline"], [1, "pro-card-desc"], [1, "abilities-row"], [1, "abilities-label"], [1, "ability-chips"], [1, "rewards-row"], [1, "rewards-label"], [1, "reward-chips"], [1, "reward-chip"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-games", 3, "href"], [1, "game-btn", "game-btn-secondary", "rre-toggle-btn", 3, "click"], ["class", "rre-deepdive", "data-anim", "fade-up", 4, "ngIf"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "games-card", "boss-card"], [1, "quest-status", "boss-status"], [1, "reward-chip", "legendary"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "walmart-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-walmart", 3, "href"], ["data-anim", "fade-up", 1, "pro-project-card", "quest-card", "extramarks-card"], ["target", "_blank", "rel", "noopener", 1, "world-badge", "world-extramarks", 3, "href"], ["data-anim", "fade-up", 1, "section-header", "quest-header", 2, "margin-top", "6rem"], ["data-stagger", "150", 1, "projects-grid", "side-quests-grid"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "algo-card"], ["target", "_blank", "rel", "noopener", 1, "game-screen-link", 3, "href"], [1, "game-screen", "algo-screen"], [1, "screen-scanlines"], [1, "screen-content"], [1, "screen-icon"], [1, "screen-title"], [1, "screen-subtitle"], [1, "screen-tags"], [1, "screen-press"], [1, "card-body", "side-quest-body"], [1, "sq-type-row"], [1, "sq-type-badge"], [1, "sq-xp"], [1, "sq-title"], [1, "card-text"], [1, "sq-tech-row"], [1, "tech-badge"], [1, "sq-action"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-primary", 3, "href"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "divine-card"], [1, "game-screen", "divine-screen"], [1, "screen-press", "powered"], [1, "sq-type-badge", "ai-badge"], ["data-anim", "fade-up", 1, "project-card", "side-quest-card", "datesense-card"], [1, "game-screen", "datesense-screen"], ["id", "open-source", 1, "apple-container", 2, "margin-top", "6rem"], ["data-anim", "fade-up", "data-delay", "100", 1, "shop-filters"], [1, "shop-filter-btn", 3, "active"], [1, "open-source-grid", "powerup-grid"], ["data-anim", "fade-up", 1, "open-source-card", "powerup-card"], ["data-anim", "fade-up", 1, "rre-deepdive"], [1, "rre-deepdive-inner"], [1, "rre-section-label"], [1, "rre-problem"], [1, "rre-arch-flow"], ["class", "rre-arch-segment", 4, "ngFor", "ngForOf"], [1, "rre-stats-row"], ["class", "rre-stat-card", 4, "ngFor", "ngForOf"], [1, "rre-tech-row"], ["class", "rre-tech-chip", 4, "ngFor", "ngForOf"], [1, "rre-impact"], ["href", "https://beingmartinbmc.medium.com/creating-a-real-time-rule-engine-with-graph-integration-and-ml-models-cd2e2365d19", "target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-primary", "rre-blog-link"], [1, "rre-arch-segment"], [1, "rre-arch-node"], [1, "rre-arch-icon"], [1, "rre-arch-label"], ["class", "rre-pipe", 4, "ngIf"], [1, "rre-pipe"], [1, "pipe-arrow"], [1, "rre-stat-card"], [1, "rre-stat-value"], [1, "rre-stat-label"], [1, "rre-tech-chip"], [1, "shop-filter-btn", 3, "click"], [1, "powerup-top"], [1, "powerup-icon-wrap"], [1, "powerup-icon"], [1, "powerup-category"], [1, "card-body", "powerup-body"], [1, "powerup-name"], [1, "powerup-tagline"], [1, "card-text", "powerup-desc"], [1, "powerup-badges"], ["alt", "version", 1, "package-badge", 3, "src"], ["alt", "downloads", 1, "package-badge", 3, "src"], ["alt", "total downloads", 1, "package-badge", 3, "src"], ["alt", "java version", 1, "package-badge", 3, "src"], ["target", "_blank", "rel", "noopener", 1, "game-btn", "game-btn-secondary", "powerup-btn", 3, "href"]], template: function PublicationsComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
         \u0275\u0275text(4, "\u2694 WORLD MAP");
@@ -35671,481 +35671,544 @@ var PublicationsComponent = class _PublicationsComponent {
         \u0275\u0275elementStart(9, "div", 6)(10, "div", 7);
         \u0275\u0275element(11, "div", 8);
         \u0275\u0275elementStart(12, "div", 9)(13, "div", 10)(14, "a", 11)(15, "span", 12);
-        \u0275\u0275text(16, "\u{1F3AE}");
+        \u0275\u0275text(16, "\u2601\uFE0F");
         \u0275\u0275elementEnd();
-        \u0275\u0275text(17, " Games24x7 ");
+        \u0275\u0275text(17, " Salesforce ");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(18, "span", 13);
-        \u0275\u0275text(19, "My11Circle \xB7 RummyCircle");
+        \u0275\u0275text(19, "Thunderbird");
         \u0275\u0275elementEnd()();
         \u0275\u0275elementStart(20, "div", 14);
-        \u0275\u0275text(21, "MISSION CLEARED \u2713");
+        \u0275\u0275text(21, "ACTIVE QUEST \u2694");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(22, "h4", 15);
-        \u0275\u0275text(23, "Automated KYC Platform");
+        \u0275\u0275text(23, "On-call AI Agent");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(24, "p", 16);
-        \u0275\u0275text(25, "Identity verification at scale \u2014 built from scratch");
+        \u0275\u0275text(25, "Autonomous first-level RCA for on-call engineers");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(26, "p", 17);
-        \u0275\u0275text(27, " Manual identity checks were slow, error-prone, and couldn't keep up with onboarding volume. Built an automated end-to-end pipeline \u2014 Digilocker, Aadhaar Lite, PAN validation, OCR extraction \u2014 processing 200K+ verifications daily across two platforms with 99.95% uptime via a distributed Kafka pipeline. ");
+        \u0275\u0275text(27, " On-call engineers burned hours digging through logs, code, and docs before they could even start a fix. Built an LLM agent on the Thunderbird platform that grounds answers with RAG and semantic caching, calls tools through MCP servers, and runs across Bedrock, Anthropic, and OpenAI models, handing the engineer one consolidated root-cause summary. ");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(28, "div", 18)(29, "span", 19);
         \u0275\u0275text(30, "\u26A1 ABILITIES USED");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(31, "div", 20)(32, "span");
-        \u0275\u0275text(33, "Java");
+        \u0275\u0275text(33, "RAG");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(34, "span");
-        \u0275\u0275text(35, "Spring Boot");
+        \u0275\u0275text(35, "Bedrock");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(36, "span");
-        \u0275\u0275text(37, "Kafka");
+        \u0275\u0275text(37, "AWS");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(38, "span");
-        \u0275\u0275text(39, "Redis");
+        \u0275\u0275text(39, "Anthropic");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(40, "span");
-        \u0275\u0275text(41, "OCR");
+        \u0275\u0275text(41, "OpenAI");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(42, "span");
-        \u0275\u0275text(43, "Digilocker API");
+        \u0275\u0275text(43, "Semantic Caching");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(44, "span");
-        \u0275\u0275text(45, "AWS");
+        \u0275\u0275text(45, "MCP Servers");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(46, "span");
+        \u0275\u0275text(47, "Redis");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(48, "span");
+        \u0275\u0275text(49, "Spring AI");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(46, "div", 21)(47, "span", 22);
-        \u0275\u0275text(48, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275elementStart(50, "div", 21)(51, "span", 22);
+        \u0275\u0275text(52, "\u{1F3C6} REWARDS EARNED");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(49, "div", 23)(50, "span", 24);
-        \u0275\u0275text(51, "\u{1FA99} 200K+ verifications/day");
+        \u0275\u0275elementStart(53, "div", 23)(54, "span", 24);
+        \u0275\u0275text(55, "\u{1FA99} 1.7 RPS queries");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(52, "span", 24);
-        \u0275\u0275text(53, "\u2B50 99.95% uptime");
+        \u0275\u0275elementStart(56, "span", 24);
+        \u0275\u0275text(57, "\u2B50 99% uptime");
         \u0275\u0275elementEnd()()()()();
-        \u0275\u0275elementStart(54, "div", 7);
-        \u0275\u0275element(55, "div", 8);
-        \u0275\u0275elementStart(56, "div", 9)(57, "div", 10)(58, "a", 11)(59, "span", 12);
-        \u0275\u0275text(60, "\u{1F3AE}");
+        \u0275\u0275elementStart(58, "div", 25);
+        \u0275\u0275element(59, "div", 8);
+        \u0275\u0275elementStart(60, "div", 9)(61, "div", 10)(62, "a", 26)(63, "span", 12);
+        \u0275\u0275text(64, "\u{1F3AE}");
         \u0275\u0275elementEnd();
-        \u0275\u0275text(61, " Games24x7 ");
+        \u0275\u0275text(65, " Games24x7 ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(62, "span", 13);
-        \u0275\u0275text(63, "My11Circle \xB7 RummyCircle");
+        \u0275\u0275elementStart(66, "span", 13);
+        \u0275\u0275text(67, "My11Circle \xB7 RummyCircle");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(64, "div", 14);
-        \u0275\u0275text(65, "MISSION CLEARED \u2713");
+        \u0275\u0275elementStart(68, "div", 14);
+        \u0275\u0275text(69, "MISSION CLEARED \u2713");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(66, "h4", 15);
-        \u0275\u0275text(67, "Risk Rule Engine");
+        \u0275\u0275elementStart(70, "h4", 15);
+        \u0275\u0275text(71, "Automated KYC Platform");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(68, "p", 16);
-        \u0275\u0275text(69, "Real-time fraud detection powered by ML + graph analysis");
+        \u0275\u0275elementStart(72, "p", 16);
+        \u0275\u0275text(73, "Identity verification at scale \u2014 built from scratch");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(70, "p", 17);
-        \u0275\u0275text(71, " Agents manually sifted through logs to investigate fraud \u2014 static JBPM rules needed dev cycles for every change. Built a real-time rule engine consuming millions of Kafka events, running ML scoring through SageMaker, and mapping fraud networks via Neptune graph DB \u2014 replacing manual processes with instant, self-service detection at scale. ");
+        \u0275\u0275elementStart(74, "p", 17);
+        \u0275\u0275text(75, " Manual identity checks were slow, error-prone, and couldn't keep up with onboarding volume. Built an automated end-to-end pipeline \u2014 Digilocker, Aadhaar Lite, PAN validation, OCR extraction \u2014 processing 200K+ verifications daily across two platforms with 99.95% uptime via a distributed Kafka pipeline. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(72, "div", 18)(73, "span", 19);
-        \u0275\u0275text(74, "\u26A1 ABILITIES USED");
+        \u0275\u0275elementStart(76, "div", 18)(77, "span", 19);
+        \u0275\u0275text(78, "\u26A1 ABILITIES USED");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(75, "div", 20)(76, "span");
-        \u0275\u0275text(77, "Java");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(78, "span");
-        \u0275\u0275text(79, "Kafka");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(80, "span");
-        \u0275\u0275text(81, "SageMaker");
+        \u0275\u0275elementStart(79, "div", 20)(80, "span");
+        \u0275\u0275text(81, "Java");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(82, "span");
-        \u0275\u0275text(83, "Neptune DB");
+        \u0275\u0275text(83, "Spring Boot");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(84, "span");
-        \u0275\u0275text(85, "Gremlin");
+        \u0275\u0275text(85, "Kafka");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(86, "span");
-        \u0275\u0275text(87, "Spring Cloud");
-        \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(88, "div", 21)(89, "span", 22);
-        \u0275\u0275text(90, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275text(87, "Redis");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(91, "div", 23)(92, "span", 24);
-        \u0275\u0275text(93, "\u{1FA99} Millions of events/day");
+        \u0275\u0275elementStart(88, "span");
+        \u0275\u0275text(89, "OCR");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(94, "span", 24);
-        \u0275\u0275text(95, "\u2B50 Real-time detection");
+        \u0275\u0275elementStart(90, "span");
+        \u0275\u0275text(91, "Digilocker API");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(92, "span");
+        \u0275\u0275text(93, "AWS");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(96, "button", 25);
-        \u0275\u0275listener("click", function PublicationsComponent_Template_button_click_96_listener() {
+        \u0275\u0275elementStart(94, "div", 21)(95, "span", 22);
+        \u0275\u0275text(96, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(97, "div", 23)(98, "span", 24);
+        \u0275\u0275text(99, "\u{1FA99} 200K+ verifications/day");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(100, "span", 24);
+        \u0275\u0275text(101, "\u2B50 99.95% uptime");
+        \u0275\u0275elementEnd()()()()();
+        \u0275\u0275elementStart(102, "div", 25);
+        \u0275\u0275element(103, "div", 8);
+        \u0275\u0275elementStart(104, "div", 9)(105, "div", 10)(106, "a", 26)(107, "span", 12);
+        \u0275\u0275text(108, "\u{1F3AE}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275text(109, " Games24x7 ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(110, "span", 13);
+        \u0275\u0275text(111, "My11Circle \xB7 RummyCircle");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(112, "div", 14);
+        \u0275\u0275text(113, "MISSION CLEARED \u2713");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(114, "h4", 15);
+        \u0275\u0275text(115, "Risk Rule Engine");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(116, "p", 16);
+        \u0275\u0275text(117, "Real-time fraud detection powered by ML + graph analysis");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(118, "p", 17);
+        \u0275\u0275text(119, " Agents manually sifted through logs to investigate fraud \u2014 static JBPM rules needed dev cycles for every change. Built a real-time rule engine consuming millions of Kafka events, running ML scoring through SageMaker, and mapping fraud networks via Neptune graph DB \u2014 replacing manual processes with instant, self-service detection at scale. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(120, "div", 18)(121, "span", 19);
+        \u0275\u0275text(122, "\u26A1 ABILITIES USED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(123, "div", 20)(124, "span");
+        \u0275\u0275text(125, "Java");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(126, "span");
+        \u0275\u0275text(127, "Kafka");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(128, "span");
+        \u0275\u0275text(129, "SageMaker");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(130, "span");
+        \u0275\u0275text(131, "Neptune DB");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(132, "span");
+        \u0275\u0275text(133, "Gremlin");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(134, "span");
+        \u0275\u0275text(135, "Spring Cloud");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(136, "div", 21)(137, "span", 22);
+        \u0275\u0275text(138, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(139, "div", 23)(140, "span", 24);
+        \u0275\u0275text(141, "\u{1FA99} Millions of events/day");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(142, "span", 24);
+        \u0275\u0275text(143, "\u2B50 Real-time detection");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(144, "button", 27);
+        \u0275\u0275listener("click", function PublicationsComponent_Template_button_click_144_listener() {
           return ctx2.showRREDeepDive = !ctx2.showRREDeepDive;
         });
-        \u0275\u0275text(97);
+        \u0275\u0275text(145);
         \u0275\u0275elementEnd()()();
-        \u0275\u0275template(98, PublicationsComponent_div_98_Template, 24, 3, "div", 26);
-        \u0275\u0275elementStart(99, "div", 27);
-        \u0275\u0275element(100, "div", 8);
-        \u0275\u0275elementStart(101, "div", 9)(102, "div", 10)(103, "a", 11)(104, "span", 12);
-        \u0275\u0275text(105, "\u{1F3AE}");
+        \u0275\u0275template(146, PublicationsComponent_div_146_Template, 24, 3, "div", 28);
+        \u0275\u0275elementStart(147, "div", 29);
+        \u0275\u0275element(148, "div", 8);
+        \u0275\u0275elementStart(149, "div", 9)(150, "div", 10)(151, "a", 26)(152, "span", 12);
+        \u0275\u0275text(153, "\u{1F3AE}");
         \u0275\u0275elementEnd();
-        \u0275\u0275text(106, " Games24x7 ");
+        \u0275\u0275text(154, " Games24x7 ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(107, "span", 13);
-        \u0275\u0275text(108, "My11Circle");
+        \u0275\u0275elementStart(155, "span", 13);
+        \u0275\u0275text(156, "My11Circle");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(109, "div", 28);
-        \u0275\u0275text(110, "\u{1F47E} BOSS BATTLE CLEARED");
+        \u0275\u0275elementStart(157, "div", 30);
+        \u0275\u0275text(158, "\u{1F47E} BOSS BATTLE CLEARED");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(111, "h4", 15);
-        \u0275\u0275text(112, "Fantasy Autoscaler");
+        \u0275\u0275elementStart(159, "h4", 15);
+        \u0275\u0275text(160, "Fantasy Autoscaler");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(113, "p", 16);
-        \u0275\u0275text(114, "ML-powered predictive autoscaling for IPL-level traffic");
+        \u0275\u0275elementStart(161, "p", 16);
+        \u0275\u0275text(162, "ML-powered predictive autoscaling for IPL-level traffic");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(115, "p", 17);
-        \u0275\u0275text(116, " IPL traffic spikes were unpredictable and crashed infrastructure during peak moments. Built a predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting \u2014 pre-scaling infrastructure ahead of toss time. Handled 10M concurrent users during IPL 2025 with zero downtime. ");
+        \u0275\u0275elementStart(163, "p", 17);
+        \u0275\u0275text(164, " IPL traffic spikes were unpredictable and crashed infrastructure during peak moments. Built a predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting \u2014 pre-scaling infrastructure ahead of toss time. Handled 10M concurrent users during IPL 2025 with zero downtime. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(117, "div", 18)(118, "span", 19);
-        \u0275\u0275text(119, "\u26A1 ABILITIES USED");
+        \u0275\u0275elementStart(165, "div", 18)(166, "span", 19);
+        \u0275\u0275text(167, "\u26A1 ABILITIES USED");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(120, "div", 20)(121, "span");
-        \u0275\u0275text(122, "Kubernetes");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(123, "span");
-        \u0275\u0275text(124, "AWS ASG");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(125, "span");
-        \u0275\u0275text(126, "ML");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(127, "span");
-        \u0275\u0275text(128, "Grafana");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(129, "span");
-        \u0275\u0275text(130, "Prometheus");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(131, "span");
-        \u0275\u0275text(132, "Java");
-        \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(133, "div", 21)(134, "span", 22);
-        \u0275\u0275text(135, "\u{1F3C6} REWARDS EARNED");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(136, "div", 23)(137, "span", 29);
-        \u0275\u0275text(138, "\u{1F48E} 10M concurrent users");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(139, "span", 29);
-        \u0275\u0275text(140, "\u{1F3C6} Zero downtime @ IPL 2025");
-        \u0275\u0275elementEnd()()()()();
-        \u0275\u0275elementStart(141, "div", 7);
-        \u0275\u0275element(142, "div", 8);
-        \u0275\u0275elementStart(143, "div", 9)(144, "div", 10)(145, "a", 11)(146, "span", 12);
-        \u0275\u0275text(147, "\u{1F3AE}");
-        \u0275\u0275elementEnd();
-        \u0275\u0275text(148, " Games24x7 ");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(149, "span", 13);
-        \u0275\u0275text(150, "My11Circle \xB7 RummyCircle");
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(151, "div", 14);
-        \u0275\u0275text(152, "MISSION CLEARED \u2713");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(153, "h4", 15);
-        \u0275\u0275text(154, "PAJ3 \u2014 Single Sign-On");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(155, "p", 16);
-        \u0275\u0275text(156, "Frictionless mobile-first user onboarding");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(157, "p", 17);
-        \u0275\u0275text(158, " Traditional email + password registration caused high drop-off and fragmented sessions across platforms. Replaced it with a mobile-number OTP-based single sign-on flow \u2014 dramatically reducing onboarding friction and improving user conversion across both gaming platforms with seamless session management. ");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(159, "div", 18)(160, "span", 19);
-        \u0275\u0275text(161, "\u26A1 ABILITIES USED");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(162, "div", 20)(163, "span");
-        \u0275\u0275text(164, "Java");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(165, "span");
-        \u0275\u0275text(166, "Spring Security");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(167, "span");
-        \u0275\u0275text(168, "Redis");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(169, "span");
-        \u0275\u0275text(170, "OTP");
+        \u0275\u0275elementStart(168, "div", 20)(169, "span");
+        \u0275\u0275text(170, "Kubernetes");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(171, "span");
-        \u0275\u0275text(172, "JWT");
+        \u0275\u0275text(172, "AWS ASG");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(173, "span");
-        \u0275\u0275text(174, "Microservices");
+        \u0275\u0275text(174, "ML");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(175, "span");
+        \u0275\u0275text(176, "Grafana");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(177, "span");
+        \u0275\u0275text(178, "Prometheus");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(179, "span");
+        \u0275\u0275text(180, "Java");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(175, "div", 21)(176, "span", 22);
-        \u0275\u0275text(177, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275elementStart(181, "div", 21)(182, "span", 22);
+        \u0275\u0275text(183, "\u{1F3C6} REWARDS EARNED");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(178, "div", 23)(179, "span", 24);
-        \u0275\u0275text(180, "\u{1FA99} 2 platforms");
+        \u0275\u0275elementStart(184, "div", 23)(185, "span", 31);
+        \u0275\u0275text(186, "\u{1F48E} 10M concurrent users");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(181, "span", 24);
-        \u0275\u0275text(182, "\u2B50 Mobile-first auth");
+        \u0275\u0275elementStart(187, "span", 31);
+        \u0275\u0275text(188, "\u{1F3C6} Zero downtime @ IPL 2025");
         \u0275\u0275elementEnd()()()()();
-        \u0275\u0275elementStart(183, "div", 30);
-        \u0275\u0275element(184, "div", 8);
-        \u0275\u0275elementStart(185, "div", 9)(186, "div", 10)(187, "a", 31)(188, "span", 12);
-        \u0275\u0275text(189, "\u{1F3EA}");
+        \u0275\u0275elementStart(189, "div", 25);
+        \u0275\u0275element(190, "div", 8);
+        \u0275\u0275elementStart(191, "div", 9)(192, "div", 10)(193, "a", 26)(194, "span", 12);
+        \u0275\u0275text(195, "\u{1F3AE}");
         \u0275\u0275elementEnd();
-        \u0275\u0275text(190, " Walmart ");
+        \u0275\u0275text(196, " Games24x7 ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(191, "span", 13);
-        \u0275\u0275text(192, "Stores");
+        \u0275\u0275elementStart(197, "span", 13);
+        \u0275\u0275text(198, "My11Circle \xB7 RummyCircle");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(193, "div", 14);
-        \u0275\u0275text(194, "MISSION CLEARED \u2713");
+        \u0275\u0275elementStart(199, "div", 14);
+        \u0275\u0275text(200, "MISSION CLEARED \u2713");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(195, "h4", 15);
-        \u0275\u0275text(196, "Annual Enrollment");
+        \u0275\u0275elementStart(201, "h4", 15);
+        \u0275\u0275text(202, "PAJ3 \u2014 Single Sign-On");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(197, "p", 16);
-        \u0275\u0275text(198, "Benefits enrollment for 2.2M+ Walmart associates");
+        \u0275\u0275elementStart(203, "p", 16);
+        \u0275\u0275text(204, "Frictionless mobile-first user onboarding");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(199, "p", 17);
-        \u0275\u0275text(200, " 2.2M Walmart associates needed a self-service way to enroll in benefits without relying on HR workflows. Built an automated dashboard for eligibility checks and enrollment \u2014 dental, life insurance, bonuses, and more \u2014 serving every US store with a streamlined, zero-friction experience. ");
+        \u0275\u0275elementStart(205, "p", 17);
+        \u0275\u0275text(206, " Traditional email + password registration caused high drop-off and fragmented sessions across platforms. Replaced it with a mobile-number OTP-based single sign-on flow \u2014 dramatically reducing onboarding friction and improving user conversion across both gaming platforms with seamless session management. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(201, "div", 18)(202, "span", 19);
-        \u0275\u0275text(203, "\u26A1 ABILITIES USED");
+        \u0275\u0275elementStart(207, "div", 18)(208, "span", 19);
+        \u0275\u0275text(209, "\u26A1 ABILITIES USED");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(204, "div", 20)(205, "span");
-        \u0275\u0275text(206, "Java 8");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(207, "span");
-        \u0275\u0275text(208, "Angular");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(209, "span");
-        \u0275\u0275text(210, "JSP");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(211, "span");
-        \u0275\u0275text(212, "OneOps");
+        \u0275\u0275elementStart(210, "div", 20)(211, "span");
+        \u0275\u0275text(212, "Java");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(213, "span");
-        \u0275\u0275text(214, "Jenkins");
+        \u0275\u0275text(214, "Spring Security");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(215, "span");
+        \u0275\u0275text(216, "Redis");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(217, "span");
+        \u0275\u0275text(218, "OTP");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(219, "span");
+        \u0275\u0275text(220, "JWT");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(221, "span");
+        \u0275\u0275text(222, "Microservices");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(215, "div", 21)(216, "span", 22);
-        \u0275\u0275text(217, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275elementStart(223, "div", 21)(224, "span", 22);
+        \u0275\u0275text(225, "\u{1F3C6} REWARDS EARNED");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(218, "div", 23)(219, "span", 24);
-        \u0275\u0275text(220, "\u{1FA99} 2.2M+ associates");
+        \u0275\u0275elementStart(226, "div", 23)(227, "span", 24);
+        \u0275\u0275text(228, "\u{1FA99} 2 platforms");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(221, "span", 24);
-        \u0275\u0275text(222, "\u2B50 US-wide rollout");
+        \u0275\u0275elementStart(229, "span", 24);
+        \u0275\u0275text(230, "\u2B50 Mobile-first auth");
         \u0275\u0275elementEnd()()()()();
-        \u0275\u0275elementStart(223, "div", 32);
-        \u0275\u0275element(224, "div", 8);
-        \u0275\u0275elementStart(225, "div", 9)(226, "div", 10)(227, "a", 33)(228, "span", 12);
-        \u0275\u0275text(229, "\u{1F4DA}");
+        \u0275\u0275elementStart(231, "div", 32);
+        \u0275\u0275element(232, "div", 8);
+        \u0275\u0275elementStart(233, "div", 9)(234, "div", 10)(235, "a", 33)(236, "span", 12);
+        \u0275\u0275text(237, "\u{1F3EA}");
         \u0275\u0275elementEnd();
-        \u0275\u0275text(230, " Extramarks ");
+        \u0275\u0275text(238, " Walmart ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(231, "span", 13);
-        \u0275\u0275text(232, "Elsa");
+        \u0275\u0275elementStart(239, "span", 13);
+        \u0275\u0275text(240, "Stores");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(233, "div", 14);
-        \u0275\u0275text(234, "MISSION CLEARED \u2713");
+        \u0275\u0275elementStart(241, "div", 14);
+        \u0275\u0275text(242, "MISSION CLEARED \u2713");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(235, "h4", 15);
-        \u0275\u0275text(236, "NEMR \u2014 Personalized K-12 Courses");
+        \u0275\u0275elementStart(243, "h4", 15);
+        \u0275\u0275text(244, "Annual Enrollment");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(237, "p", 16);
-        \u0275\u0275text(238, "Modular course purchasing for students");
+        \u0275\u0275elementStart(245, "p", 16);
+        \u0275\u0275text(246, "Benefits enrollment for 2.2M+ Walmart associates");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(239, "p", 17);
-        \u0275\u0275text(240, " Students were forced to buy entire curriculums even when they needed just one subject. Enabled granular subject-level purchasing \u2014 breaking the monolithic course structure into flexible, affordable modules and building a personalized K-12 learning experience with fine-grained content access. ");
+        \u0275\u0275elementStart(247, "p", 17);
+        \u0275\u0275text(248, " 2.2M Walmart associates needed a self-service way to enroll in benefits without relying on HR workflows. Built an automated dashboard for eligibility checks and enrollment \u2014 dental, life insurance, bonuses, and more \u2014 serving every US store with a streamlined, zero-friction experience. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(241, "div", 18)(242, "span", 19);
-        \u0275\u0275text(243, "\u26A1 ABILITIES USED");
+        \u0275\u0275elementStart(249, "div", 18)(250, "span", 19);
+        \u0275\u0275text(251, "\u26A1 ABILITIES USED");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(244, "div", 20)(245, "span");
-        \u0275\u0275text(246, "Java 11");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(247, "span");
-        \u0275\u0275text(248, "Spring Boot");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(249, "span");
-        \u0275\u0275text(250, "MySQL");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(251, "span");
-        \u0275\u0275text(252, "Docker");
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(253, "span");
-        \u0275\u0275text(254, "AWS Cognito");
+        \u0275\u0275elementStart(252, "div", 20)(253, "span");
+        \u0275\u0275text(254, "Java 8");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(255, "span");
-        \u0275\u0275text(256, "OAuth2.0");
+        \u0275\u0275text(256, "Angular");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(257, "span");
+        \u0275\u0275text(258, "JSP");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(259, "span");
+        \u0275\u0275text(260, "OneOps");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(261, "span");
+        \u0275\u0275text(262, "Jenkins");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(257, "div", 21)(258, "span", 22);
-        \u0275\u0275text(259, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275elementStart(263, "div", 21)(264, "span", 22);
+        \u0275\u0275text(265, "\u{1F3C6} REWARDS EARNED");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(260, "div", 23)(261, "span", 24);
-        \u0275\u0275text(262, "\u{1FA99} K-12 platform");
+        \u0275\u0275elementStart(266, "div", 23)(267, "span", 24);
+        \u0275\u0275text(268, "\u{1FA99} 2.2M+ associates");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(263, "span", 24);
-        \u0275\u0275text(264, "\u2B50 Modular pricing");
+        \u0275\u0275elementStart(269, "span", 24);
+        \u0275\u0275text(270, "\u2B50 US-wide rollout");
+        \u0275\u0275elementEnd()()()()();
+        \u0275\u0275elementStart(271, "div", 34);
+        \u0275\u0275element(272, "div", 8);
+        \u0275\u0275elementStart(273, "div", 9)(274, "div", 10)(275, "a", 35)(276, "span", 12);
+        \u0275\u0275text(277, "\u{1F4DA}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275text(278, " Extramarks ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(279, "span", 13);
+        \u0275\u0275text(280, "Elsa");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(281, "div", 14);
+        \u0275\u0275text(282, "MISSION CLEARED \u2713");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(283, "h4", 15);
+        \u0275\u0275text(284, "NEMR \u2014 Personalized K-12 Courses");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(285, "p", 16);
+        \u0275\u0275text(286, "Modular course purchasing for students");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(287, "p", 17);
+        \u0275\u0275text(288, " Students were forced to buy entire curriculums even when they needed just one subject. Enabled granular subject-level purchasing \u2014 breaking the monolithic course structure into flexible, affordable modules and building a personalized K-12 learning experience with fine-grained content access. ");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(289, "div", 18)(290, "span", 19);
+        \u0275\u0275text(291, "\u26A1 ABILITIES USED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(292, "div", 20)(293, "span");
+        \u0275\u0275text(294, "Java 11");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(295, "span");
+        \u0275\u0275text(296, "Spring Boot");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(297, "span");
+        \u0275\u0275text(298, "MySQL");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(299, "span");
+        \u0275\u0275text(300, "Docker");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(301, "span");
+        \u0275\u0275text(302, "AWS Cognito");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(303, "span");
+        \u0275\u0275text(304, "OAuth2.0");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(305, "div", 21)(306, "span", 22);
+        \u0275\u0275text(307, "\u{1F3C6} REWARDS EARNED");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(308, "div", 23)(309, "span", 24);
+        \u0275\u0275text(310, "\u{1FA99} K-12 platform");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(311, "span", 24);
+        \u0275\u0275text(312, "\u2B50 Modular pricing");
         \u0275\u0275elementEnd()()()()()();
-        \u0275\u0275elementStart(265, "div", 34)(266, "div", 3);
-        \u0275\u0275text(267, "\u{1F3AE} SIDE QUESTS");
+        \u0275\u0275elementStart(313, "div", 36)(314, "div", 3);
+        \u0275\u0275text(315, "\u{1F3AE} SIDE QUESTS");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(268, "h2", 4);
-        \u0275\u0275text(269, "Side Projects & AI Experiments");
+        \u0275\u0275elementStart(316, "h2", 4);
+        \u0275\u0275text(317, "Side Projects & AI Experiments");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(270, "p", 5);
-        \u0275\u0275text(271, "Passion builds. Shipped for fun, learning, and the love of craft.");
+        \u0275\u0275elementStart(318, "p", 5);
+        \u0275\u0275text(319, "Passion builds. Shipped for fun, learning, and the love of craft.");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(272, "div", 35)(273, "div", 36)(274, "a", 37)(275, "div", 38);
-        \u0275\u0275element(276, "div", 39);
-        \u0275\u0275elementStart(277, "div", 40)(278, "div", 41);
-        \u0275\u0275text(279, "\u{1F9E0}");
+        \u0275\u0275elementStart(320, "div", 37)(321, "div", 38)(322, "a", 39)(323, "div", 40);
+        \u0275\u0275element(324, "div", 41);
+        \u0275\u0275elementStart(325, "div", 42)(326, "div", 43);
+        \u0275\u0275text(327, "\u{1F9E0}");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(280, "div", 42);
-        \u0275\u0275text(281, "ALGORITHM VISUALIZER");
+        \u0275\u0275elementStart(328, "div", 44);
+        \u0275\u0275text(329, "ALGORITHM VISUALIZER");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(282, "div", 43);
-        \u0275\u0275text(283, "DSA Visualizer \xB7 Step-by-Step");
+        \u0275\u0275elementStart(330, "div", 45);
+        \u0275\u0275text(331, "DSA Visualizer \xB7 Step-by-Step");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(284, "div", 44);
-        \u0275\u0275text(285, "Sorting \xB7 Trees \xB7 Graphs \xB7 Backtracking");
+        \u0275\u0275elementStart(332, "div", 46);
+        \u0275\u0275text(333, "Sorting \xB7 Trees \xB7 Graphs \xB7 Backtracking");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(286, "div", 45);
-        \u0275\u0275text(287, "\u25B6 PRESS TO PLAY");
+        \u0275\u0275elementStart(334, "div", 47);
+        \u0275\u0275text(335, "\u25B6 PRESS TO PLAY");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(288, "div", 46)(289, "div", 47)(290, "span", 48);
-        \u0275\u0275text(291, "\u{1F3AF} WEB APP");
+        \u0275\u0275elementStart(336, "div", 48)(337, "div", 49)(338, "span", 50);
+        \u0275\u0275text(339, "\u{1F3AF} WEB APP");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(292, "span", 49);
-        \u0275\u0275text(293, "+500 XP");
+        \u0275\u0275elementStart(340, "span", 51);
+        \u0275\u0275text(341, "+500 XP");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(294, "h5", 50);
-        \u0275\u0275text(295, "Algorithm Visualizer");
+        \u0275\u0275elementStart(342, "h5", 52);
+        \u0275\u0275text(343, "Algorithm Visualizer");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(296, "p", 51);
-        \u0275\u0275text(297, " A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles. ");
+        \u0275\u0275elementStart(344, "p", 53);
+        \u0275\u0275text(345, " A DSA visualizer with step-by-step animation and audio effects that makes learning algorithms fun. Covers sorting, graph/tree/trie traversals, balanced trees, and backtracking solvers. Includes gamified challenges like pathfinding battles and Fibonacci puzzles. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(298, "div", 52)(299, "span", 53);
-        \u0275\u0275text(300, "JavaScript");
+        \u0275\u0275elementStart(346, "div", 54)(347, "span", 55);
+        \u0275\u0275text(348, "JavaScript");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(301, "span", 53);
-        \u0275\u0275text(302, "React");
+        \u0275\u0275elementStart(349, "span", 55);
+        \u0275\u0275text(350, "React");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(303, "span", 53);
-        \u0275\u0275text(304, "Tailwind");
+        \u0275\u0275elementStart(351, "span", 55);
+        \u0275\u0275text(352, "Tailwind");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(305, "span", 53);
-        \u0275\u0275text(306, "Web Audio API");
+        \u0275\u0275elementStart(353, "span", 55);
+        \u0275\u0275text(354, "Web Audio API");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(307, "div", 54)(308, "a", 55);
-        \u0275\u0275text(309, " \u25B6\xA0 Play Demo ");
+        \u0275\u0275elementStart(355, "div", 56)(356, "a", 57);
+        \u0275\u0275text(357, " \u25B6\xA0 Play Demo ");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(310, "div", 56)(311, "a", 37)(312, "div", 57);
-        \u0275\u0275element(313, "div", 39);
-        \u0275\u0275elementStart(314, "div", 40)(315, "div", 41);
-        \u0275\u0275text(316, "\u{1F549}\uFE0F");
+        \u0275\u0275elementStart(358, "div", 58)(359, "a", 39)(360, "div", 59);
+        \u0275\u0275element(361, "div", 41);
+        \u0275\u0275elementStart(362, "div", 42)(363, "div", 43);
+        \u0275\u0275text(364, "\u{1F549}\uFE0F");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(317, "div", 42);
-        \u0275\u0275text(318, "RELIGIOUS GPT");
+        \u0275\u0275elementStart(365, "div", 44);
+        \u0275\u0275text(366, "RELIGIOUS GPT");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(319, "div", 43);
-        \u0275\u0275text(320, "Learn Religion the AI Way");
+        \u0275\u0275elementStart(367, "div", 45);
+        \u0275\u0275text(368, "Learn Religion the AI Way");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(321, "div", 44);
-        \u0275\u0275text(322, "Gita \xB7 Quran \xB7 Bible \xB7 Vedas \xB7 Tripitaka");
+        \u0275\u0275elementStart(369, "div", 46);
+        \u0275\u0275text(370, "Gita \xB7 Quran \xB7 Bible \xB7 Vedas \xB7 Tripitaka");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(323, "div", 58);
-        \u0275\u0275text(324, "Powered by GPT-4.1");
+        \u0275\u0275elementStart(371, "div", 60);
+        \u0275\u0275text(372, "Powered by GPT-4.1");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(325, "div", 46)(326, "div", 47)(327, "span", 59);
-        \u0275\u0275text(328, "\u{1F916} AI APP");
+        \u0275\u0275elementStart(373, "div", 48)(374, "div", 49)(375, "span", 61);
+        \u0275\u0275text(376, "\u{1F916} AI APP");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(329, "span", 49);
-        \u0275\u0275text(330, "+750 XP");
+        \u0275\u0275elementStart(377, "span", 51);
+        \u0275\u0275text(378, "+750 XP");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(331, "h5", 50);
-        \u0275\u0275text(332, "Religious GPT");
+        \u0275\u0275elementStart(379, "h5", 52);
+        \u0275\u0275text(380, "Religious GPT");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(333, "p", 51);
-        \u0275\u0275text(334, " Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, and more. ");
+        \u0275\u0275elementStart(381, "p", 53);
+        \u0275\u0275text(382, " Learn religion in an AI way. Ask questions, explore teachings, and gain wisdom from the world's most revered scriptures \u2014 The Bhagavad Gita, The Vedas, The Holy Quran, The Holy Bible, The Guru Granth Sahib, The Tripitaka, and more. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(335, "div", 52)(336, "span", 53);
-        \u0275\u0275text(337, "React");
+        \u0275\u0275elementStart(383, "div", 54)(384, "span", 55);
+        \u0275\u0275text(385, "React");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(338, "span", 53);
-        \u0275\u0275text(339, "Node.js");
+        \u0275\u0275elementStart(386, "span", 55);
+        \u0275\u0275text(387, "Node.js");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(340, "span", 53);
-        \u0275\u0275text(341, "GPT-4.1");
+        \u0275\u0275elementStart(388, "span", 55);
+        \u0275\u0275text(389, "GPT-4.1");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(342, "span", 53);
-        \u0275\u0275text(343, "Vercel");
+        \u0275\u0275elementStart(390, "span", 55);
+        \u0275\u0275text(391, "Vercel");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(344, "div", 54)(345, "a", 55);
-        \u0275\u0275text(346, " \u25B6\xA0 Play Demo ");
+        \u0275\u0275elementStart(392, "div", 56)(393, "a", 57);
+        \u0275\u0275text(394, " \u25B6\xA0 Play Demo ");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(347, "div", 60)(348, "a", 37)(349, "div", 61);
-        \u0275\u0275element(350, "div", 39);
-        \u0275\u0275elementStart(351, "div", 40)(352, "div", 41);
-        \u0275\u0275text(353, "\u{1F498}");
+        \u0275\u0275elementStart(395, "div", 62)(396, "a", 39)(397, "div", 63);
+        \u0275\u0275element(398, "div", 41);
+        \u0275\u0275elementStart(399, "div", 42)(400, "div", 43);
+        \u0275\u0275text(401, "\u{1F498}");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(354, "div", 42);
-        \u0275\u0275text(355, "DATESENSE");
+        \u0275\u0275elementStart(402, "div", 44);
+        \u0275\u0275text(403, "DATESENSE");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(356, "div", 43);
-        \u0275\u0275text(357, "AI Dating Conversation Analyst");
+        \u0275\u0275elementStart(404, "div", 45);
+        \u0275\u0275text(405, "AI Dating Conversation Analyst");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(358, "div", 44);
-        \u0275\u0275text(359, "Attraction Score \xB7 Ghosting Risk \xB7 Scam Detection");
+        \u0275\u0275elementStart(406, "div", 46);
+        \u0275\u0275text(407, "Attraction Score \xB7 Ghosting Risk \xB7 Scam Detection");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(360, "div", 58);
-        \u0275\u0275text(361, "Powered by GPT-4.1 Nano");
+        \u0275\u0275elementStart(408, "div", 60);
+        \u0275\u0275text(409, "Powered by GPT-4.1 Nano");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(362, "div", 46)(363, "div", 47)(364, "span", 59);
-        \u0275\u0275text(365, "\u{1F916} AI APP");
+        \u0275\u0275elementStart(410, "div", 48)(411, "div", 49)(412, "span", 61);
+        \u0275\u0275text(413, "\u{1F916} AI APP");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(366, "span", 49);
-        \u0275\u0275text(367, "+800 XP");
+        \u0275\u0275elementStart(414, "span", 51);
+        \u0275\u0275text(415, "+800 XP");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(368, "h5", 50);
-        \u0275\u0275text(369, "DateSense");
+        \u0275\u0275elementStart(416, "h5", 52);
+        \u0275\u0275text(417, "DateSense");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(370, "p", 51);
-        \u0275\u0275text(371, " An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Detects potential scam or manipulative patterns through GPT-4.1 Nano. ");
+        \u0275\u0275elementStart(418, "p", 53);
+        \u0275\u0275text(419, " An AI-powered dating conversation analysis tool that processes chat screenshots to predict attraction probability, ghosting risk, and overall conversation health. Detects potential scam or manipulative patterns through GPT-4.1 Nano. ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(372, "div", 52)(373, "span", 53);
-        \u0275\u0275text(374, "Angular");
+        \u0275\u0275elementStart(420, "div", 54)(421, "span", 55);
+        \u0275\u0275text(422, "Angular");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(375, "span", 53);
-        \u0275\u0275text(376, "GPT-4.1 Nano");
+        \u0275\u0275elementStart(423, "span", 55);
+        \u0275\u0275text(424, "GPT-4.1 Nano");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(377, "span", 53);
-        \u0275\u0275text(378, "OCR");
+        \u0275\u0275elementStart(425, "span", 55);
+        \u0275\u0275text(426, "OCR");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(379, "span", 53);
-        \u0275\u0275text(380, "Vercel");
+        \u0275\u0275elementStart(427, "span", 55);
+        \u0275\u0275text(428, "Vercel");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(381, "div", 54)(382, "a", 55);
-        \u0275\u0275text(383, " \u25B6\xA0 Play Demo ");
+        \u0275\u0275elementStart(429, "div", 56)(430, "a", 57);
+        \u0275\u0275text(431, " \u25B6\xA0 Play Demo ");
         \u0275\u0275elementEnd()()()()()();
-        \u0275\u0275elementStart(384, "div", 62)(385, "div", 2)(386, "div", 3);
-        \u0275\u0275text(387, "\u{1F4E6} ITEM SHOP");
+        \u0275\u0275elementStart(432, "div", 64)(433, "div", 2)(434, "div", 3);
+        \u0275\u0275text(435, "\u{1F4E6} ITEM SHOP");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(388, "h2", 4);
-        \u0275\u0275text(389, "Open Source Power-Ups");
+        \u0275\u0275elementStart(436, "h2", 4);
+        \u0275\u0275text(437, "Open Source Power-Ups");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(390, "p", 5);
-        \u0275\u0275text(391, "Free collectibles. Pick up and drop into your stack.");
+        \u0275\u0275elementStart(438, "p", 5);
+        \u0275\u0275text(439, "Free collectibles. Pick up and drop into your stack.");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(392, "div", 63);
-        \u0275\u0275repeaterCreate(393, PublicationsComponent_For_394_Template, 2, 4, "button", 64, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementStart(440, "div", 65);
+        \u0275\u0275repeaterCreate(441, PublicationsComponent_For_442_Template, 2, 4, "button", 66, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(395, "div", 65);
-        \u0275\u0275repeaterCreate(396, PublicationsComponent_For_397_Template, 21, 12, "div", 66, \u0275\u0275repeaterTrackByIdentity);
+        \u0275\u0275elementStart(443, "div", 67);
+        \u0275\u0275repeaterCreate(444, PublicationsComponent_For_445_Template, 21, 12, "div", 68, \u0275\u0275repeaterTrackByIdentity);
         \u0275\u0275elementEnd()()();
       }
       if (rf & 2) {
         \u0275\u0275advance(14);
+        \u0275\u0275property("href", ctx2.companyLinks.salesforce, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(48);
         \u0275\u0275property("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(44);
         \u0275\u0275property("href", ctx2.companyLinks.games24x7, \u0275\u0275sanitizeUrl);
@@ -36178,7 +36241,7 @@ var PublicationsComponent = class _PublicationsComponent {
         \u0275\u0275advance(3);
         \u0275\u0275repeater(ctx2.filteredProjects);
       }
-    }, dependencies: [CommonModule, NgForOf, NgIf], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.quest-header[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover   .quest-rank-bar[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.boss-card[_ngcontent-%COMP%]   .quest-rank-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge[_ngcontent-%COMP%]:hover {\n  opacity: 0.85;\n}\n.world-games[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n}\n.quest-platform[_ngcontent-%COMP%] {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline[_ngcontent-%COMP%] {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.walmart-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #93c5fd;\n}\n.extramarks-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row[_ngcontent-%COMP%], \n.rewards-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label[_ngcontent-%COMP%], \n.rewards-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive[_ngcontent-%COMP%] {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: _ngcontent-%COMP%_rre-slide-in 0.4s ease;\n}\n@keyframes _ngcontent-%COMP%_rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner[_ngcontent-%COMP%] {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem[_ngcontent-%COMP%], \n.rre-impact[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link[_ngcontent-%COMP%] {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .rre-stats-row[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card[_ngcontent-%COMP%] {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link[_ngcontent-%COMP%] {\n  display: block;\n  text-decoration: none;\n}\n.game-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link[_ngcontent-%COMP%]:hover   .game-screen[_ngcontent-%COMP%] {\n  filter: brightness(1.12);\n}\n.screen-scanlines[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon[_ngcontent-%COMP%] {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press[_ngcontent-%COMP%] {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: _ngcontent-%COMP%_blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body[_ngcontent-%COMP%] {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge[_ngcontent-%COMP%] {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.game-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn[_ngcontent-%COMP%]:hover, \n.shop-filter-btn.active[_ngcontent-%COMP%] {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline[_ngcontent-%COMP%] {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge[_ngcontent-%COMP%] {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn[_ngcontent-%COMP%] {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
+    }, dependencies: [CommonModule, NgForOf, NgIf], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.quest-header[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover   .quest-rank-bar[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.boss-card[_ngcontent-%COMP%]   .quest-rank-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge[_ngcontent-%COMP%]:hover {\n  opacity: 0.85;\n}\n.world-games[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n}\n.quest-platform[_ngcontent-%COMP%] {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline[_ngcontent-%COMP%] {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.walmart-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #93c5fd;\n}\n.extramarks-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.salesforce-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #7dd3fc;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row[_ngcontent-%COMP%], \n.rewards-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label[_ngcontent-%COMP%], \n.rewards-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive[_ngcontent-%COMP%] {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: _ngcontent-%COMP%_rre-slide-in 0.4s ease;\n}\n@keyframes _ngcontent-%COMP%_rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner[_ngcontent-%COMP%] {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem[_ngcontent-%COMP%], \n.rre-impact[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link[_ngcontent-%COMP%] {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .rre-stats-row[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card[_ngcontent-%COMP%] {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link[_ngcontent-%COMP%] {\n  display: block;\n  text-decoration: none;\n}\n.game-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link[_ngcontent-%COMP%]:hover   .game-screen[_ngcontent-%COMP%] {\n  filter: brightness(1.12);\n}\n.screen-scanlines[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon[_ngcontent-%COMP%] {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press[_ngcontent-%COMP%] {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: _ngcontent-%COMP%_blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body[_ngcontent-%COMP%] {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge[_ngcontent-%COMP%] {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.game-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn[_ngcontent-%COMP%]:hover, \n.shop-filter-btn.active[_ngcontent-%COMP%] {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline[_ngcontent-%COMP%] {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge[_ngcontent-%COMP%] {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn[_ngcontent-%COMP%] {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
   }
 };
 (() => {
@@ -36195,6 +36258,40 @@ var PublicationsComponent = class _PublicationsComponent {
     </div>
 
     <div class="pro-projects-grid" data-stagger="150">
+
+      <div class="pro-project-card quest-card salesforce-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-salesforce" [href]="companyLinks.salesforce" target="_blank" rel="noopener">
+              <span class="world-icon">\u2601\uFE0F</span> Salesforce
+            </a>
+            <span class="quest-platform">Thunderbird</span>
+          </div>
+          <div class="quest-status">ACTIVE QUEST \u2694</div>
+          <h4 class="quest-name">On-call AI Agent</h4>
+          <p class="quest-tagline">Autonomous first-level RCA for on-call engineers</p>
+          <p class="pro-card-desc">
+            On-call engineers burned hours digging through logs, code, and docs before they could even start a fix.
+            Built an LLM agent on the Thunderbird platform that grounds answers with RAG and semantic caching, calls tools
+            through MCP servers, and runs across Bedrock, Anthropic, and OpenAI models, handing the engineer one consolidated
+            root-cause summary.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">\u26A1 ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>RAG</span><span>Bedrock</span><span>AWS</span><span>Anthropic</span><span>OpenAI</span><span>Semantic Caching</span><span>MCP Servers</span><span>Redis</span><span>Spring AI</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">\u{1F3C6} REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">\u{1FA99} 1.7 RPS queries</span>
+              <span class="reward-chip">\u2B50 99% uptime</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="pro-project-card quest-card games-card" data-anim="fade-up">
         <div class="quest-rank-bar"></div>
@@ -36628,7 +36725,7 @@ var PublicationsComponent = class _PublicationsComponent {
     </div>
   </div>
 </div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n:host {\n  display: block;\n}\n.quest-header {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card:hover .quest-rank-bar {\n  opacity: 1;\n}\n.boss-card .quest-rank-bar {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge:hover {\n  opacity: 0.85;\n}\n.world-games {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon {\n  font-size: 0.75rem;\n}\n.quest-platform {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card .quest-tagline {\n  color: #fca5a5;\n}\n.walmart-card .quest-tagline {\n  color: #93c5fd;\n}\n.extramarks-card .quest-tagline {\n  color: #fde68a;\n}\n.pro-card-desc {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row,\n.rewards-row {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label,\n.rewards-label {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips span {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: rre-slide-in 0.4s ease;\n}\n@keyframes rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem,\n.rre-impact {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow {\n    justify-content: center;\n  }\n  .rre-stats-row {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link {\n  display: block;\n  text-decoration: none;\n}\n.game-screen {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link:hover .game-screen {\n  filter: brightness(1.12);\n}\n.screen-scanlines {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action {\n  margin-top: auto;\n}\n.game-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn:hover,\n.shop-filter-btn.active {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n:host {\n  display: block;\n}\n.quest-header {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card:hover .quest-rank-bar {\n  opacity: 1;\n}\n.boss-card .quest-rank-bar {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge:hover {\n  opacity: 0.85;\n}\n.world-games {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon {\n  font-size: 0.75rem;\n}\n.quest-platform {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card .quest-tagline {\n  color: #fca5a5;\n}\n.walmart-card .quest-tagline {\n  color: #93c5fd;\n}\n.extramarks-card .quest-tagline {\n  color: #fde68a;\n}\n.salesforce-card .quest-tagline {\n  color: #7dd3fc;\n}\n.pro-card-desc {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row,\n.rewards-row {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label,\n.rewards-label {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips span {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: rre-slide-in 0.4s ease;\n}\n@keyframes rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem,\n.rre-impact {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow {\n    justify-content: center;\n  }\n  .rre-stats-row {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link {\n  display: block;\n  text-decoration: none;\n}\n.game-screen {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link:hover .game-screen {\n  filter: brightness(1.12);\n}\n.screen-scanlines {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action {\n  margin-top: auto;\n}\n.game-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn:hover,\n.shop-filter-btn.active {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
   }], null, null);
 })();
 (() => {
@@ -79148,6 +79245,7 @@ ABOUT ANKIT SHARMA:
 
 PROFESSIONAL BACKGROUND:
 - Currently at Salesforce working on Slack, powering Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration
+- Built the On-call AI Agent on the Thunderbird platform (Salesforce): an autonomous LLM agent that handles first-level RCA for on-call engineers. It grounds answers with RAG and semantic caching, calls tools through MCP servers, and runs across AWS Bedrock, Anthropic, and OpenAI models, using Redis and Spring AI under the hood. Sustains 1.7 RPS on queries with 99% uptime
 - Builds agentic AI and LLM-backed services in production: tool-calling agents, Slack bots, and RAG pipelines
 - Built an on-call AI bot that automates first-level RCA (root cause analysis): it debugs logs via Splunk, traces code through GitHub, and pulls references from Google Drive, Confluence, and Slack, then consolidates everything into a single root-cause summary for the on-call engineer
 - His AI services sustain ~1.5K RPS with sub-second p95 latency on the retrieval path
@@ -79158,7 +79256,8 @@ PROFESSIONAL BACKGROUND:
 - Also worked at: Walmart Global Tech (2021), Extramarks Education (2020-2021)
 
 TECHNICAL SKILLS:
-- AI/Gen AI: Agentic AI, LLMs, RAG (retrieval-augmented generation), tool-calling agents, prompt & context engineering, eval harnesses, guardrails, vector retrieval, Agentforce
+- AI/Gen AI: Agentic AI, LLMs, RAG (retrieval-augmented generation), tool-calling agents, MCP servers, semantic caching, prompt & context engineering, eval harnesses, guardrails, vector retrieval, Agentforce, Spring AI
+- Cloud / LLM platforms: AWS Bedrock, Anthropic, OpenAI
 - Backend: Java 21, Spring Boot, Microservices (95%)
 - Data Structures & Algorithms: Expert level (95%)
 - System Design: High Level Design (95%), Low Level Design (90%)
@@ -79168,6 +79267,7 @@ TECHNICAL SKILLS:
 - Other: OAuth2.0, JWT, Gremlin, OCR
 
 KEY ACHIEVEMENTS:
+- Built the On-call AI Agent on Salesforce's Thunderbird platform: an autonomous LLM agent for first-level RCA using RAG, semantic caching, MCP servers, AWS Bedrock/Anthropic/OpenAI, Redis, and Spring AI; sustains 1.7 RPS with 99% uptime
 - Built an on-call AI bot that automates first-level RCA across Splunk (logs), GitHub (code), and Google Drive/Confluence/Slack (references), consolidating findings into a single root-cause summary
 - Designed RAG pipelines and tool-calling agents with retrieval grounding, eval harnesses, and hallucination guardrails
 - KYC platform: 200k+ verifications/day, 99.95% uptime
