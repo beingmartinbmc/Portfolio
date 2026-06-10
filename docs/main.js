@@ -86967,6 +86967,392 @@ var CursorTrailComponent = class _CursorTrailComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CursorTrailComponent, { className: "CursorTrailComponent", filePath: "src/app/shared/cursor-trail/cursor-trail.component.ts", lineNumber: 60 });
 })();
 
+// src/app/shared/loader/loader.component.ts
+function LoaderComponent_Conditional_0_Case_10_For_2_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 19);
+    \u0275\u0275text(1, "\u{1FA99}");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const c_r1 = ctx2.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275styleProp("left", c_r1, "%");
+    \u0275\u0275classProp("collected", ctx_r1.progress >= c_r1);
+  }
+}
+function LoaderComponent_Conditional_0_Case_10_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 15);
+    \u0275\u0275repeaterCreate(1, LoaderComponent_Conditional_0_Case_10_For_2_Template, 2, 4, "span", 16, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 17);
+    \u0275\u0275text(4, "\u{1F344}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "div", 18);
+    \u0275\u0275text(6, "\u{1F6A9}");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r1.marks);
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("left", ctx_r1.progress, "%");
+    \u0275\u0275classProp("cheer", ctx_r1.done);
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("raised", ctx_r1.done);
+  }
+}
+function LoaderComponent_Conditional_0_Case_11_For_2_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "span", 23);
+  }
+  if (rf & 2) {
+    const c_r3 = ctx2.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275styleProp("left", c_r3, "%");
+    \u0275\u0275classProp("eaten", ctx_r1.progress >= c_r3);
+  }
+}
+function LoaderComponent_Conditional_0_Case_11_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 15);
+    \u0275\u0275repeaterCreate(1, LoaderComponent_Conditional_0_Case_11_For_2_Template, 1, 4, "span", 20, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 21);
+    \u0275\u0275text(4, "\u{1F47B}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(5, "div", 22);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r1.marks);
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("left", ctx_r1.ghostLeft, "%");
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("left", ctx_r1.progress, "%");
+    \u0275\u0275classProp("cheer", ctx_r1.done);
+  }
+}
+function LoaderComponent_Conditional_0_Case_12_For_2_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 26);
+    \u0275\u0275text(1, "\u{1F47E}");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const c_r4 = ctx2.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275styleProp("left", c_r4, "%");
+    \u0275\u0275classProp("cleared", ctx_r1.progress >= c_r4);
+  }
+}
+function LoaderComponent_Conditional_0_Case_12_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 15);
+    \u0275\u0275repeaterCreate(1, LoaderComponent_Conditional_0_Case_12_For_2_Template, 2, 4, "span", 24, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 25);
+    \u0275\u0275text(4, "\u{1F680}");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r1.marks);
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("left", ctx_r1.progress, "%");
+    \u0275\u0275classProp("fire", !ctx_r1.done);
+  }
+}
+function LoaderComponent_Conditional_0_Case_13_For_4_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 30);
+    \u0275\u0275text(1, "\u26A1");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const b_r5 = ctx2.$implicit;
+    \u0275\u0275styleProp("--i", b_r5);
+  }
+}
+function LoaderComponent_Conditional_0_Case_13_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 27)(1, "span", 28);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275repeaterCreate(3, LoaderComponent_Conditional_0_Case_13_For_4_Template, 2, 2, "span", 29, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275classProp("full", ctx_r1.done);
+    \u0275\u0275advance();
+    \u0275\u0275styleProp("transform", ctx_r1.coreScale);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r1.done ? "\u{1F31F}" : "\u2B50");
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r1.bolts);
+  }
+}
+function LoaderComponent_Conditional_0_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 1);
+    \u0275\u0275element(1, "div", 2);
+    \u0275\u0275elementStart(2, "div", 3)(3, "div", 4);
+    \u0275\u0275text(4, "{}");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "div", 5);
+    \u0275\u0275text(6, "ANKIT SHARMA");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "div", 6);
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "div", 7);
+    \u0275\u0275conditionalCreate(10, LoaderComponent_Conditional_0_Case_10_Template, 7, 6)(11, LoaderComponent_Conditional_0_Case_11_Template, 6, 6)(12, LoaderComponent_Conditional_0_Case_12_Template, 5, 4)(13, LoaderComponent_Conditional_0_Case_13_Template, 5, 5, "div", 8);
+    \u0275\u0275elementStart(14, "div", 9)(15, "div", 10);
+    \u0275\u0275element(16, "span", 11);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(17, "div", 12)(18, "span", 13);
+    \u0275\u0275text(19);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(20, "span", 14);
+    \u0275\u0275text(21);
+    \u0275\u0275elementEnd()()()();
+  }
+  if (rf & 2) {
+    let tmp_5_0;
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("hiding", ctx_r1.hiding);
+    \u0275\u0275property("ngClass", "theme-" + ctx_r1.variant);
+    \u0275\u0275attribute("aria-label", "Loading " + ctx_r1.progress + "%");
+    \u0275\u0275advance(8);
+    \u0275\u0275textInterpolate(ctx_r1.sub);
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional((tmp_5_0 = ctx_r1.variant) === "mario" ? 10 : tmp_5_0 === "pacman" ? 11 : tmp_5_0 === "invaders" ? 12 : tmp_5_0 === "powerup" ? 13 : -1);
+    \u0275\u0275advance(5);
+    \u0275\u0275styleProp("width", ctx_r1.progress, "%");
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1("", ctx_r1.progress, "%");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.phase);
+  }
+}
+var VARIANT_META = {
+  mario: {
+    sub: "NOW LOADING",
+    subDone: "WORLD CLEAR",
+    phases: ["Warping pipes...", "Collecting coins...", "Spawning power-ups...", "Loading world 1-1...", "Almost there..."],
+    ready: "Ready!"
+  },
+  pacman: {
+    sub: "READY!",
+    subDone: "GAME CLEAR",
+    phases: ["Waka waka...", "Chomping dots...", "Dodging ghosts...", "Clearing the maze...", "One more dot..."],
+    ready: "Cleared!"
+  },
+  invaders: {
+    sub: "INSERT COIN",
+    subDone: "VICTORY",
+    phases: ["Booting cabinet...", "Targeting invaders...", "Charging lasers...", "Defending base...", "Final wave..."],
+    ready: "Defended!"
+  },
+  powerup: {
+    sub: "CHARGING",
+    subDone: "MAX POWER",
+    phases: ["Gathering energy...", "Charging core...", "Stabilizing flux...", "Overdrive...", "Almost full..."],
+    ready: "Powered up!"
+  }
+};
+var LoaderComponent = class _LoaderComponent {
+  constructor() {
+    this.variant = "mario";
+    this.progress = 0;
+    this.visible = true;
+    this.hiding = false;
+    this.done = false;
+    this.marks = [20, 40, 60, 80];
+    this.bolts = [0, 1, 2, 3];
+    this.rafId = null;
+    this.timers = [];
+    this.duration = 2200;
+  }
+  static {
+    this.LAST_KEY = "portfolio_loader_last";
+  }
+  static {
+    this.VARIANTS = ["mario", "pacman", "invaders", "powerup"];
+  }
+  ngOnInit() {
+    this.variant = this.pickVariant();
+    if (typeof window === "undefined" || typeof requestAnimationFrame === "undefined") {
+      this.progress = 100;
+      this.hide();
+      return;
+    }
+    document.body.style.overflow = "hidden";
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    const dur = reduce ? 600 : this.duration;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      this.progress = Math.min(100, Math.round(eased * 100));
+      if (t < 1) {
+        this.rafId = requestAnimationFrame(tick);
+      } else {
+        this.progress = 100;
+        this.complete();
+      }
+    };
+    this.rafId = requestAnimationFrame(tick);
+  }
+  get sub() {
+    const meta = VARIANT_META[this.variant];
+    return this.done ? meta.subDone : meta.sub;
+  }
+  get phase() {
+    const meta = VARIANT_META[this.variant];
+    if (this.done)
+      return meta.ready;
+    const p = this.progress;
+    const i = p < 25 ? 0 : p < 50 ? 1 : p < 75 ? 2 : p < 95 ? 3 : 4;
+    return meta.phases[i];
+  }
+  get ghostLeft() {
+    return Math.max(0, this.progress - 14);
+  }
+  get coreScale() {
+    return `scale(${(0.6 + this.progress / 100 * 0.7).toFixed(3)})`;
+  }
+  pickVariant() {
+    const all = _LoaderComponent.VARIANTS;
+    if (typeof window !== "undefined") {
+      const forced = new URLSearchParams(window.location.search).get("loader");
+      if (forced && all.includes(forced)) {
+        return forced;
+      }
+    }
+    let last3 = null;
+    try {
+      last3 = sessionStorage.getItem(_LoaderComponent.LAST_KEY);
+    } catch (e) {
+    }
+    const pool = all.length > 1 && last3 ? all.filter((v) => v !== last3) : all;
+    const chosen = pool[Math.floor(Math.random() * pool.length)];
+    try {
+      sessionStorage.setItem(_LoaderComponent.LAST_KEY, chosen);
+    } catch (e) {
+    }
+    return chosen;
+  }
+  complete() {
+    this.done = true;
+    this.timers.push(setTimeout(() => this.hiding = true, 520));
+    this.timers.push(setTimeout(() => this.hide(), 1080));
+  }
+  hide() {
+    this.visible = false;
+    document.body.style.overflow = "";
+  }
+  ngOnDestroy() {
+    if (this.rafId)
+      cancelAnimationFrame(this.rafId);
+    this.timers.forEach(clearTimeout);
+    document.body.style.overflow = "";
+  }
+  static {
+    this.\u0275fac = function LoaderComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _LoaderComponent)();
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LoaderComponent, selectors: [["app-loader"]], decls: 1, vars: 1, consts: [["role", "status", "aria-live", "polite", 1, "loader", 3, "ngClass", "hiding"], ["role", "status", "aria-live", "polite", 1, "loader", 3, "ngClass"], [1, "loader-stars"], [1, "loader-inner"], [1, "brand-mark"], [1, "loader-title"], [1, "loader-sub"], [1, "track-wrap"], [1, "orb", 3, "full"], [1, "track"], [1, "fill"], [1, "fill-shine"], [1, "loader-meta"], [1, "pct"], [1, "phase"], [1, "coins"], [1, "coin", 3, "collected", "left"], [1, "runner"], [1, "flag"], [1, "coin"], [1, "pdot", 3, "eaten", "left"], [1, "ghost"], [1, "pac"], [1, "pdot"], [1, "invader", 3, "cleared", "left"], [1, "cannon"], [1, "invader"], [1, "orb"], [1, "core"], [1, "bolt", 3, "--i"], [1, "bolt"]], template: function LoaderComponent_Template(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275conditionalCreate(0, LoaderComponent_Conditional_0_Template, 22, 10, "div", 0);
+      }
+      if (rf & 2) {
+        \u0275\u0275conditional(ctx2.visible ? 0 : -1);
+      }
+    }, dependencies: [CommonModule, NgClass], styles: ['\n.loader[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 100001;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.14),\n      transparent 30%),\n    radial-gradient(\n      circle at top right,\n      rgba(239, 68, 68, 0.10),\n      transparent 28%),\n    radial-gradient(\n      circle at bottom center,\n      rgba(34, 197, 94, 0.08),\n      transparent 32%),\n    var(--gradient-dark, linear-gradient(180deg, #09091a 0%, #0e0e22 45%, #09091a 100%));\n  transition: opacity 0.5s ease, transform 0.5s ease;\n  --accent: #fbbf24;\n  --accent-grad:\n    linear-gradient(\n      90deg,\n      #d97706 0%,\n      #fbbf24 50%,\n      #fde047 100%);\n  --glow: rgba(251, 191, 36, 0.6);\n}\n.theme-mario[_ngcontent-%COMP%] {\n  --accent: #fbbf24;\n  --accent-grad:\n    linear-gradient(\n      90deg,\n      #d97706,\n      #fbbf24,\n      #fde047);\n  --glow: rgba(251, 191, 36, 0.6);\n}\n.theme-pacman[_ngcontent-%COMP%] {\n  --accent: #fde047;\n  --accent-grad:\n    linear-gradient(\n      90deg,\n      #eab308,\n      #fde047,\n      #fff59d);\n  --glow: rgba(253, 224, 71, 0.6);\n}\n.theme-invaders[_ngcontent-%COMP%] {\n  --accent: #22c55e;\n  --accent-grad:\n    linear-gradient(\n      90deg,\n      #15803d,\n      #22c55e,\n      #4ade80);\n  --glow: rgba(34, 197, 94, 0.55);\n}\n.theme-powerup[_ngcontent-%COMP%] {\n  --accent: #f97316;\n  --accent-grad:\n    linear-gradient(\n      90deg,\n      #dc2626,\n      #f97316,\n      #fbbf24);\n  --glow: rgba(249, 115, 22, 0.6);\n}\n.loader.hiding[_ngcontent-%COMP%] {\n  opacity: 0;\n  transform: scale(1.04);\n  pointer-events: none;\n}\n.loader-stars[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  background-image:\n    radial-gradient(\n      1.5px 1.5px at 12% 22%,\n      rgba(255, 255, 255, 0.7),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 78% 16%,\n      rgba(255, 255, 255, 0.5),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 34% 72%,\n      rgba(255, 255, 255, 0.5),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 64% 60%,\n      rgba(255, 255, 255, 0.45),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 90% 80%,\n      rgba(255, 255, 255, 0.4),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 22% 50%,\n      rgba(255, 255, 255, 0.35),\n      transparent);\n  opacity: 0.6;\n  animation: _ngcontent-%COMP%_twinkle 3s ease-in-out infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_twinkle {\n  from {\n    opacity: 0.35;\n  }\n  to {\n    opacity: 0.7;\n  }\n}\n.loader-inner[_ngcontent-%COMP%] {\n  position: relative;\n  width: min(440px, 84vw);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n}\n.brand-mark[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 2.2rem;\n  color: var(--accent);\n  text-shadow: 0 0 18px var(--glow), 3px 3px 0 rgba(0, 0, 0, 0.45);\n  animation: _ngcontent-%COMP%_markBob 1.4s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_markBob {\n  0%, 100% {\n    transform: translateY(0) rotate(-2deg);\n  }\n  50% {\n    transform: translateY(-6px) rotate(2deg);\n  }\n}\n.loader-title[_ngcontent-%COMP%] {\n  margin-top: 0.85rem;\n  font-family: var(--font-pixel);\n  font-size: 0.78rem;\n  letter-spacing: 0.16em;\n  color: #f8fafc;\n}\n.loader-sub[_ngcontent-%COMP%] {\n  margin-top: 0.55rem;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.34em;\n  color: var(--accent);\n  animation: _ngcontent-%COMP%_blink 1s steps(2, start) infinite;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  50% {\n    opacity: 0.25;\n  }\n}\n.track-wrap[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  margin-top: 2.6rem;\n  padding-bottom: 0.4rem;\n}\n.theme-powerup[_ngcontent-%COMP%]   .track-wrap[_ngcontent-%COMP%] {\n  margin-top: 4.4rem;\n}\n.track[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  height: 22px;\n  border-radius: 6px;\n  background: rgba(9, 9, 26, 0.9);\n  border: 2px solid color-mix(in srgb, var(--accent) 38%, transparent);\n  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);\n  overflow: hidden;\n}\n.fill[_ngcontent-%COMP%] {\n  position: relative;\n  height: 100%;\n  border-radius: 3px;\n  background: var(--accent-grad);\n  box-shadow: 0 0 14px var(--glow);\n  transition: width 0.12s linear;\n  overflow: hidden;\n}\n.fill-shine[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  background:\n    linear-gradient(\n      100deg,\n      transparent 20%,\n      rgba(255, 255, 255, 0.55) 50%,\n      transparent 80%);\n  transform: translateX(-100%);\n  animation: _ngcontent-%COMP%_shine 1.1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_shine {\n  to {\n    transform: translateX(100%);\n  }\n}\n.coins[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0 0 auto 0;\n  height: 0;\n}\n.coin[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -1.55rem;\n  transform: translateX(-50%);\n  font-size: 0.85rem;\n  filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.6));\n  transition: opacity 0.25s ease, transform 0.25s ease;\n  animation: _ngcontent-%COMP%_coinSpin 1.4s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_coinSpin {\n  0%, 100% {\n    transform: translateX(-50%) scaleX(1);\n  }\n  50% {\n    transform: translateX(-50%) scaleX(0.25);\n  }\n}\n.coin.collected[_ngcontent-%COMP%] {\n  opacity: 0;\n  transform: translateX(-50%) translateY(-14px) scale(1.4);\n  animation: none;\n}\n.runner[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -1.65rem;\n  transform: translateX(-50%);\n  font-size: 1.35rem;\n  transition: left 0.12s linear;\n  animation: _ngcontent-%COMP%_hop 0.5s ease-in-out infinite;\n  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.4));\n  z-index: 2;\n}\n@keyframes _ngcontent-%COMP%_hop {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  40% {\n    transform: translateX(-50%) translateY(-7px);\n  }\n}\n.runner.cheer[_ngcontent-%COMP%] {\n  animation: _ngcontent-%COMP%_cheer 0.6s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_cheer {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0) rotate(-6deg) scale(1.15);\n  }\n  50% {\n    transform: translateX(-50%) translateY(-10px) rotate(6deg) scale(1.15);\n  }\n}\n.flag[_ngcontent-%COMP%] {\n  position: absolute;\n  right: -0.4rem;\n  top: -1.5rem;\n  font-size: 1.1rem;\n  opacity: 0.5;\n  transform: translateY(4px);\n  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);\n}\n.flag.raised[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: translateY(-6px) scale(1.2);\n  filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.7));\n}\n.pdot[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -1.35rem;\n  transform: translateX(-50%);\n  width: 7px;\n  height: 7px;\n  border-radius: 50%;\n  background: var(--accent);\n  box-shadow: 0 0 6px var(--glow);\n  transition: opacity 0.15s ease, transform 0.15s ease;\n}\n.pdot.eaten[_ngcontent-%COMP%] {\n  opacity: 0;\n  transform: translateX(-50%) scale(0.2);\n}\n.pac[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -1.7rem;\n  transform: translateX(-50%);\n  width: 22px;\n  height: 22px;\n  border-radius: 50%;\n  z-index: 2;\n  transition: left 0.12s linear;\n  background:\n    conic-gradient(\n      from 55deg at 50% 50%,\n      transparent 0 70deg,\n      #fde047 70deg 360deg);\n  filter: drop-shadow(0 0 6px rgba(253, 224, 71, 0.7));\n  animation: _ngcontent-%COMP%_chomp 0.32s steps(1) infinite;\n}\n@keyframes _ngcontent-%COMP%_chomp {\n  50% {\n    background:\n      conic-gradient(\n        from 85deg at 50% 50%,\n        transparent 0 12deg,\n        #fde047 12deg 360deg);\n  }\n}\n.pac.cheer[_ngcontent-%COMP%] {\n  animation: none;\n  background:\n    radial-gradient(\n      circle,\n      #fff59d,\n      #fde047 70%);\n}\n.ghost[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -1.65rem;\n  transform: translateX(-50%);\n  font-size: 1.2rem;\n  transition: left 0.12s linear;\n  animation: _ngcontent-%COMP%_floaty 0.6s ease-in-out infinite;\n  filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.5));\n}\n@keyframes _ngcontent-%COMP%_floaty {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  50% {\n    transform: translateX(-50%) translateY(-4px);\n  }\n}\n.invader[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -1.6rem;\n  transform: translateX(-50%);\n  font-size: 1.05rem;\n  filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.55));\n  animation: _ngcontent-%COMP%_marchY 0.6s steps(2) infinite;\n  transition: opacity 0.2s ease, transform 0.2s ease;\n}\n@keyframes _ngcontent-%COMP%_marchY {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  50% {\n    transform: translateX(-50%) translateY(3px);\n  }\n}\n.invader.cleared[_ngcontent-%COMP%] {\n  opacity: 0;\n  transform: translateX(-50%) scale(1.6) rotate(20deg);\n  animation: none;\n}\n.cannon[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -1.7rem;\n  transform: translateX(-50%) rotate(-90deg);\n  font-size: 1.3rem;\n  transition: left 0.12s linear;\n  z-index: 2;\n  filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.6));\n}\n.cannon.fire[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  left: 50%;\n  top: -10px;\n  width: 2px;\n  height: 12px;\n  transform: translateX(-50%);\n  background:\n    linear-gradient(\n      to top,\n      var(--accent),\n      transparent);\n  animation: _ngcontent-%COMP%_laser 0.4s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_laser {\n  0% {\n    opacity: 1;\n    height: 4px;\n  }\n  100% {\n    opacity: 0;\n    height: 16px;\n  }\n}\n.orb[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 50%;\n  top: -3.4rem;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 60px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.orb[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      var(--glow),\n      transparent 65%);\n  animation: _ngcontent-%COMP%_pulse 1.1s ease-in-out infinite;\n}\n.orb.full[_ngcontent-%COMP%]::before {\n  animation: _ngcontent-%COMP%_pulse 0.4s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_pulse {\n  0%, 100% {\n    transform: scale(0.85);\n    opacity: 0.7;\n  }\n  50% {\n    transform: scale(1.2);\n    opacity: 1;\n  }\n}\n.core[_ngcontent-%COMP%] {\n  position: relative;\n  font-size: 1.8rem;\n  z-index: 2;\n  transition: transform 0.15s linear;\n  filter: drop-shadow(0 0 10px var(--glow));\n}\n.bolt[_ngcontent-%COMP%] {\n  position: absolute;\n  font-size: 0.8rem;\n  left: 50%;\n  top: 50%;\n  transform: rotate(calc(var(--i) * 90deg)) translateX(34px);\n  animation: _ngcontent-%COMP%_boltFlash 0.7s ease-in-out infinite;\n  animation-delay: calc(var(--i) * 0.12s);\n}\n@keyframes _ngcontent-%COMP%_boltFlash {\n  0%, 100% {\n    opacity: 0.2;\n  }\n  50% {\n    opacity: 1;\n  }\n}\n.loader-meta[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  justify-content: space-between;\n  width: 100%;\n  margin-top: 1rem;\n}\n.pct[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 1rem;\n  color: var(--accent);\n  text-shadow: 0 0 12px var(--glow);\n}\n.phase[_ngcontent-%COMP%] {\n  font-family: var(--font-mono);\n  font-size: 0.72rem;\n  color: var(--text-tertiary, #94a3b8);\n  letter-spacing: 0.04em;\n}\n@media (max-width: 600px) {\n  .brand-mark[_ngcontent-%COMP%] {\n    font-size: 1.8rem;\n  }\n  .loader-title[_ngcontent-%COMP%] {\n    font-size: 0.62rem;\n  }\n  .pct[_ngcontent-%COMP%] {\n    font-size: 0.85rem;\n  }\n  .phase[_ngcontent-%COMP%] {\n    font-size: 0.62rem;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .loader-stars[_ngcontent-%COMP%], \n   .brand-mark[_ngcontent-%COMP%], \n   .loader-sub[_ngcontent-%COMP%], \n   .coin[_ngcontent-%COMP%], \n   .runner[_ngcontent-%COMP%], \n   .runner.cheer[_ngcontent-%COMP%], \n   .fill-shine[_ngcontent-%COMP%], \n   .pac[_ngcontent-%COMP%], \n   .ghost[_ngcontent-%COMP%], \n   .invader[_ngcontent-%COMP%], \n   .cannon.fire[_ngcontent-%COMP%]::after, \n   .orb[_ngcontent-%COMP%]::before, \n   .bolt[_ngcontent-%COMP%] {\n    animation: none;\n  }\n}\n/*# sourceMappingURL=loader.component.css.map */'] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LoaderComponent, [{
+    type: Component,
+    args: [{ selector: "app-loader", standalone: true, imports: [CommonModule], template: `
+    @if (visible) {
+      <div class="loader" [ngClass]="'theme-' + variant" [class.hiding]="hiding"
+           role="status" aria-live="polite"
+           [attr.aria-label]="'Loading ' + progress + '%'">
+        <div class="loader-stars"></div>
+
+        <div class="loader-inner">
+          <div class="brand-mark">&lbrace;&rbrace;</div>
+          <div class="loader-title">ANKIT SHARMA</div>
+          <div class="loader-sub">{{ sub }}</div>
+
+          <div class="track-wrap">
+            @switch (variant) {
+              @case ('mario') {
+                <div class="coins">
+                  @for (c of marks; track c) {
+                    <span class="coin" [class.collected]="progress >= c" [style.left.%]="c">\u{1FA99}</span>
+                  }
+                </div>
+                <div class="runner" [class.cheer]="done" [style.left.%]="progress">\u{1F344}</div>
+                <div class="flag" [class.raised]="done">\u{1F6A9}</div>
+              }
+              @case ('pacman') {
+                <div class="coins">
+                  @for (c of marks; track c) {
+                    <span class="pdot" [class.eaten]="progress >= c" [style.left.%]="c"></span>
+                  }
+                </div>
+                <div class="ghost" [style.left.%]="ghostLeft">\u{1F47B}</div>
+                <div class="pac" [class.cheer]="done" [style.left.%]="progress"></div>
+              }
+              @case ('invaders') {
+                <div class="coins">
+                  @for (c of marks; track c) {
+                    <span class="invader" [class.cleared]="progress >= c" [style.left.%]="c">\u{1F47E}</span>
+                  }
+                </div>
+                <div class="cannon" [class.fire]="!done" [style.left.%]="progress">\u{1F680}</div>
+              }
+              @case ('powerup') {
+                <div class="orb" [class.full]="done">
+                  <span class="core" [style.transform]="coreScale">{{ done ? '\u{1F31F}' : '\u2B50' }}</span>
+                  @for (b of bolts; track b) {
+                    <span class="bolt" [style.--i]="b">\u26A1</span>
+                  }
+                </div>
+              }
+            }
+
+            <div class="track">
+              <div class="fill" [style.width.%]="progress">
+                <span class="fill-shine"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="loader-meta">
+            <span class="pct">{{ progress }}%</span>
+            <span class="phase">{{ phase }}</span>
+          </div>
+        </div>
+      </div>
+    }
+  `, styles: ['/* angular:styles/component:css;955794c1948621650dff66b34e2ed625c5d446b86cb2b307ac46ff3b0cd7cdc8;/Users/sharma.ankit2/repositories/personal/Portfolio/src/app/shared/loader/loader.component.ts */\n.loader {\n  position: fixed;\n  inset: 0;\n  z-index: 100001;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background:\n    radial-gradient(\n      circle at top left,\n      rgba(251, 191, 36, 0.14),\n      transparent 30%),\n    radial-gradient(\n      circle at top right,\n      rgba(239, 68, 68, 0.10),\n      transparent 28%),\n    radial-gradient(\n      circle at bottom center,\n      rgba(34, 197, 94, 0.08),\n      transparent 32%),\n    var(--gradient-dark, linear-gradient(180deg, #09091a 0%, #0e0e22 45%, #09091a 100%));\n  transition: opacity 0.5s ease, transform 0.5s ease;\n  --accent: #fbbf24;\n  --accent-grad:\n    linear-gradient(\n      90deg,\n      #d97706 0%,\n      #fbbf24 50%,\n      #fde047 100%);\n  --glow: rgba(251, 191, 36, 0.6);\n}\n.theme-mario {\n  --accent: #fbbf24;\n  --accent-grad:\n    linear-gradient(\n      90deg,\n      #d97706,\n      #fbbf24,\n      #fde047);\n  --glow: rgba(251, 191, 36, 0.6);\n}\n.theme-pacman {\n  --accent: #fde047;\n  --accent-grad:\n    linear-gradient(\n      90deg,\n      #eab308,\n      #fde047,\n      #fff59d);\n  --glow: rgba(253, 224, 71, 0.6);\n}\n.theme-invaders {\n  --accent: #22c55e;\n  --accent-grad:\n    linear-gradient(\n      90deg,\n      #15803d,\n      #22c55e,\n      #4ade80);\n  --glow: rgba(34, 197, 94, 0.55);\n}\n.theme-powerup {\n  --accent: #f97316;\n  --accent-grad:\n    linear-gradient(\n      90deg,\n      #dc2626,\n      #f97316,\n      #fbbf24);\n  --glow: rgba(249, 115, 22, 0.6);\n}\n.loader.hiding {\n  opacity: 0;\n  transform: scale(1.04);\n  pointer-events: none;\n}\n.loader-stars {\n  position: absolute;\n  inset: 0;\n  background-image:\n    radial-gradient(\n      1.5px 1.5px at 12% 22%,\n      rgba(255, 255, 255, 0.7),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 78% 16%,\n      rgba(255, 255, 255, 0.5),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 34% 72%,\n      rgba(255, 255, 255, 0.5),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 64% 60%,\n      rgba(255, 255, 255, 0.45),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 90% 80%,\n      rgba(255, 255, 255, 0.4),\n      transparent),\n    radial-gradient(\n      1.5px 1.5px at 22% 50%,\n      rgba(255, 255, 255, 0.35),\n      transparent);\n  opacity: 0.6;\n  animation: twinkle 3s ease-in-out infinite alternate;\n}\n@keyframes twinkle {\n  from {\n    opacity: 0.35;\n  }\n  to {\n    opacity: 0.7;\n  }\n}\n.loader-inner {\n  position: relative;\n  width: min(440px, 84vw);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n}\n.brand-mark {\n  font-family: var(--font-pixel);\n  font-size: 2.2rem;\n  color: var(--accent);\n  text-shadow: 0 0 18px var(--glow), 3px 3px 0 rgba(0, 0, 0, 0.45);\n  animation: markBob 1.4s ease-in-out infinite;\n}\n@keyframes markBob {\n  0%, 100% {\n    transform: translateY(0) rotate(-2deg);\n  }\n  50% {\n    transform: translateY(-6px) rotate(2deg);\n  }\n}\n.loader-title {\n  margin-top: 0.85rem;\n  font-family: var(--font-pixel);\n  font-size: 0.78rem;\n  letter-spacing: 0.16em;\n  color: #f8fafc;\n}\n.loader-sub {\n  margin-top: 0.55rem;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.34em;\n  color: var(--accent);\n  animation: blink 1s steps(2, start) infinite;\n}\n@keyframes blink {\n  50% {\n    opacity: 0.25;\n  }\n}\n.track-wrap {\n  position: relative;\n  width: 100%;\n  margin-top: 2.6rem;\n  padding-bottom: 0.4rem;\n}\n.theme-powerup .track-wrap {\n  margin-top: 4.4rem;\n}\n.track {\n  position: relative;\n  width: 100%;\n  height: 22px;\n  border-radius: 6px;\n  background: rgba(9, 9, 26, 0.9);\n  border: 2px solid color-mix(in srgb, var(--accent) 38%, transparent);\n  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);\n  overflow: hidden;\n}\n.fill {\n  position: relative;\n  height: 100%;\n  border-radius: 3px;\n  background: var(--accent-grad);\n  box-shadow: 0 0 14px var(--glow);\n  transition: width 0.12s linear;\n  overflow: hidden;\n}\n.fill-shine {\n  position: absolute;\n  inset: 0;\n  background:\n    linear-gradient(\n      100deg,\n      transparent 20%,\n      rgba(255, 255, 255, 0.55) 50%,\n      transparent 80%);\n  transform: translateX(-100%);\n  animation: shine 1.1s linear infinite;\n}\n@keyframes shine {\n  to {\n    transform: translateX(100%);\n  }\n}\n.coins {\n  position: absolute;\n  inset: 0 0 auto 0;\n  height: 0;\n}\n.coin {\n  position: absolute;\n  top: -1.55rem;\n  transform: translateX(-50%);\n  font-size: 0.85rem;\n  filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.6));\n  transition: opacity 0.25s ease, transform 0.25s ease;\n  animation: coinSpin 1.4s linear infinite;\n}\n@keyframes coinSpin {\n  0%, 100% {\n    transform: translateX(-50%) scaleX(1);\n  }\n  50% {\n    transform: translateX(-50%) scaleX(0.25);\n  }\n}\n.coin.collected {\n  opacity: 0;\n  transform: translateX(-50%) translateY(-14px) scale(1.4);\n  animation: none;\n}\n.runner {\n  position: absolute;\n  top: -1.65rem;\n  transform: translateX(-50%);\n  font-size: 1.35rem;\n  transition: left 0.12s linear;\n  animation: hop 0.5s ease-in-out infinite;\n  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.4));\n  z-index: 2;\n}\n@keyframes hop {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  40% {\n    transform: translateX(-50%) translateY(-7px);\n  }\n}\n.runner.cheer {\n  animation: cheer 0.6s ease-in-out infinite;\n}\n@keyframes cheer {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0) rotate(-6deg) scale(1.15);\n  }\n  50% {\n    transform: translateX(-50%) translateY(-10px) rotate(6deg) scale(1.15);\n  }\n}\n.flag {\n  position: absolute;\n  right: -0.4rem;\n  top: -1.5rem;\n  font-size: 1.1rem;\n  opacity: 0.5;\n  transform: translateY(4px);\n  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);\n}\n.flag.raised {\n  opacity: 1;\n  transform: translateY(-6px) scale(1.2);\n  filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.7));\n}\n.pdot {\n  position: absolute;\n  top: -1.35rem;\n  transform: translateX(-50%);\n  width: 7px;\n  height: 7px;\n  border-radius: 50%;\n  background: var(--accent);\n  box-shadow: 0 0 6px var(--glow);\n  transition: opacity 0.15s ease, transform 0.15s ease;\n}\n.pdot.eaten {\n  opacity: 0;\n  transform: translateX(-50%) scale(0.2);\n}\n.pac {\n  position: absolute;\n  top: -1.7rem;\n  transform: translateX(-50%);\n  width: 22px;\n  height: 22px;\n  border-radius: 50%;\n  z-index: 2;\n  transition: left 0.12s linear;\n  background:\n    conic-gradient(\n      from 55deg at 50% 50%,\n      transparent 0 70deg,\n      #fde047 70deg 360deg);\n  filter: drop-shadow(0 0 6px rgba(253, 224, 71, 0.7));\n  animation: chomp 0.32s steps(1) infinite;\n}\n@keyframes chomp {\n  50% {\n    background:\n      conic-gradient(\n        from 85deg at 50% 50%,\n        transparent 0 12deg,\n        #fde047 12deg 360deg);\n  }\n}\n.pac.cheer {\n  animation: none;\n  background:\n    radial-gradient(\n      circle,\n      #fff59d,\n      #fde047 70%);\n}\n.ghost {\n  position: absolute;\n  top: -1.65rem;\n  transform: translateX(-50%);\n  font-size: 1.2rem;\n  transition: left 0.12s linear;\n  animation: floaty 0.6s ease-in-out infinite;\n  filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.5));\n}\n@keyframes floaty {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  50% {\n    transform: translateX(-50%) translateY(-4px);\n  }\n}\n.invader {\n  position: absolute;\n  top: -1.6rem;\n  transform: translateX(-50%);\n  font-size: 1.05rem;\n  filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.55));\n  animation: marchY 0.6s steps(2) infinite;\n  transition: opacity 0.2s ease, transform 0.2s ease;\n}\n@keyframes marchY {\n  0%, 100% {\n    transform: translateX(-50%) translateY(0);\n  }\n  50% {\n    transform: translateX(-50%) translateY(3px);\n  }\n}\n.invader.cleared {\n  opacity: 0;\n  transform: translateX(-50%) scale(1.6) rotate(20deg);\n  animation: none;\n}\n.cannon {\n  position: absolute;\n  top: -1.7rem;\n  transform: translateX(-50%) rotate(-90deg);\n  font-size: 1.3rem;\n  transition: left 0.12s linear;\n  z-index: 2;\n  filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.6));\n}\n.cannon.fire::after {\n  content: "";\n  position: absolute;\n  left: 50%;\n  top: -10px;\n  width: 2px;\n  height: 12px;\n  transform: translateX(-50%);\n  background:\n    linear-gradient(\n      to top,\n      var(--accent),\n      transparent);\n  animation: laser 0.4s linear infinite;\n}\n@keyframes laser {\n  0% {\n    opacity: 1;\n    height: 4px;\n  }\n  100% {\n    opacity: 0;\n    height: 16px;\n  }\n}\n.orb {\n  position: absolute;\n  left: 50%;\n  top: -3.4rem;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 60px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.orb::before {\n  content: "";\n  position: absolute;\n  inset: 0;\n  border-radius: 50%;\n  background:\n    radial-gradient(\n      circle,\n      var(--glow),\n      transparent 65%);\n  animation: pulse 1.1s ease-in-out infinite;\n}\n.orb.full::before {\n  animation: pulse 0.4s ease-in-out infinite;\n}\n@keyframes pulse {\n  0%, 100% {\n    transform: scale(0.85);\n    opacity: 0.7;\n  }\n  50% {\n    transform: scale(1.2);\n    opacity: 1;\n  }\n}\n.core {\n  position: relative;\n  font-size: 1.8rem;\n  z-index: 2;\n  transition: transform 0.15s linear;\n  filter: drop-shadow(0 0 10px var(--glow));\n}\n.bolt {\n  position: absolute;\n  font-size: 0.8rem;\n  left: 50%;\n  top: 50%;\n  transform: rotate(calc(var(--i) * 90deg)) translateX(34px);\n  animation: boltFlash 0.7s ease-in-out infinite;\n  animation-delay: calc(var(--i) * 0.12s);\n}\n@keyframes boltFlash {\n  0%, 100% {\n    opacity: 0.2;\n  }\n  50% {\n    opacity: 1;\n  }\n}\n.loader-meta {\n  display: flex;\n  align-items: baseline;\n  justify-content: space-between;\n  width: 100%;\n  margin-top: 1rem;\n}\n.pct {\n  font-family: var(--font-pixel);\n  font-size: 1rem;\n  color: var(--accent);\n  text-shadow: 0 0 12px var(--glow);\n}\n.phase {\n  font-family: var(--font-mono);\n  font-size: 0.72rem;\n  color: var(--text-tertiary, #94a3b8);\n  letter-spacing: 0.04em;\n}\n@media (max-width: 600px) {\n  .brand-mark {\n    font-size: 1.8rem;\n  }\n  .loader-title {\n    font-size: 0.62rem;\n  }\n  .pct {\n    font-size: 0.85rem;\n  }\n  .phase {\n    font-size: 0.62rem;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .loader-stars,\n  .brand-mark,\n  .loader-sub,\n  .coin,\n  .runner,\n  .runner.cheer,\n  .fill-shine,\n  .pac,\n  .ghost,\n  .invader,\n  .cannon.fire::after,\n  .orb::before,\n  .bolt {\n    animation: none;\n  }\n}\n/*# sourceMappingURL=loader.component.css.map */\n'] }]
+  }], null, null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LoaderComponent, { className: "LoaderComponent", filePath: "src/app/shared/loader/loader.component.ts", lineNumber: 421 });
+})();
+
 // src/app/app.component.ts
 var AppComponent = class _AppComponent {
   constructor() {
@@ -86978,9 +87364,9 @@ var AppComponent = class _AppComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AppComponent, selectors: [["app-root"]], decls: 6, vars: 0, template: function AppComponent_Template(rf, ctx2) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AppComponent, selectors: [["app-root"]], decls: 7, vars: 0, template: function AppComponent_Template(rf, ctx2) {
       if (rf & 1) {
-        \u0275\u0275element(0, "app-profile")(1, "app-achievement-toast")(2, "app-mini-map")(3, "app-level-up-overlay")(4, "app-konami")(5, "app-cursor-trail");
+        \u0275\u0275element(0, "app-loader")(1, "app-profile")(2, "app-achievement-toast")(3, "app-mini-map")(4, "app-level-up-overlay")(5, "app-konami")(6, "app-cursor-trail");
       }
     }, dependencies: [
       ProfileComponent,
@@ -86988,7 +87374,8 @@ var AppComponent = class _AppComponent {
       MiniMapComponent,
       LevelUpOverlayComponent,
       KonamiComponent,
-      CursorTrailComponent
+      CursorTrailComponent,
+      LoaderComponent
     ], encapsulation: 2 });
   }
 };
@@ -87001,12 +87388,13 @@ var AppComponent = class _AppComponent {
       MiniMapComponent,
       LevelUpOverlayComponent,
       KonamiComponent,
-      CursorTrailComponent
-    ], template: "<app-profile></app-profile>\n\n<!-- Gamification Overlay Layer -->\n<app-achievement-toast></app-achievement-toast>\n<app-mini-map></app-mini-map>\n<app-level-up-overlay></app-level-up-overlay>\n<app-konami></app-konami>\n<app-cursor-trail></app-cursor-trail>" }]
+      CursorTrailComponent,
+      LoaderComponent
+    ], template: "<app-loader></app-loader>\n\n<app-profile></app-profile>\n\n<!-- Gamification Overlay Layer -->\n<app-achievement-toast></app-achievement-toast>\n<app-mini-map></app-mini-map>\n<app-level-up-overlay></app-level-up-overlay>\n<app-konami></app-konami>\n<app-cursor-trail></app-cursor-trail>" }]
   }], null, null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src/app/app.component.ts", lineNumber: 23 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src/app/app.component.ts", lineNumber: 25 });
 })();
 
 // node_modules/@angular/animations/fesm2022/_util-chunk.mjs

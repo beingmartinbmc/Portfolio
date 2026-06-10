@@ -5,6 +5,7 @@ import {MiniMapComponent} from './shared/mini-map/mini-map.component';
 import {LevelUpOverlayComponent} from './shared/level-up-overlay/level-up-overlay.component';
 import {KonamiComponent} from './shared/konami/konami.component';
 import {CursorTrailComponent} from './shared/cursor-trail/cursor-trail.component';
+import {LoaderComponent} from './shared/loader/loader.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import {CursorTrailComponent} from './shared/cursor-trail/cursor-trail.component
     LevelUpOverlayComponent,
     KonamiComponent,
     CursorTrailComponent,
+    LoaderComponent,
   ]
 })
 export class AppComponent {
