@@ -32,6 +32,7 @@ ABOUT ANKIT SHARMA:
 
 PROFESSIONAL BACKGROUND:
 - Currently at Salesforce working on Slack, powering Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration
+- Built the On-call AI Agent on the Thunderbird platform (Salesforce): an autonomous LLM agent that handles first-level RCA for on-call engineers. It grounds answers with RAG and semantic caching, calls tools through MCP servers, and runs across AWS Bedrock, Anthropic, and OpenAI models, using Redis and Spring AI under the hood. Sustains 1.7 RPS on queries with 99% uptime
 - Builds agentic AI and LLM-backed services in production: tool-calling agents, Slack bots, and RAG pipelines
 - Built an on-call AI bot that automates first-level RCA (root cause analysis): it debugs logs via Splunk, traces code through GitHub, and pulls references from Google Drive, Confluence, and Slack, then consolidates everything into a single root-cause summary for the on-call engineer
 - His AI services sustain ~1.5K RPS with sub-second p95 latency on the retrieval path
@@ -42,7 +43,8 @@ PROFESSIONAL BACKGROUND:
 - Also worked at: Walmart Global Tech (2021), Extramarks Education (2020-2021)
 
 TECHNICAL SKILLS:
-- AI/Gen AI: Agentic AI, LLMs, RAG (retrieval-augmented generation), tool-calling agents, prompt & context engineering, eval harnesses, guardrails, vector retrieval, Agentforce
+- AI/Gen AI: Agentic AI, LLMs, RAG (retrieval-augmented generation), tool-calling agents, MCP servers, semantic caching, prompt & context engineering, eval harnesses, guardrails, vector retrieval, Agentforce, Spring AI
+- Cloud / LLM platforms: AWS Bedrock, Anthropic, OpenAI
 - Backend: Java 21, Spring Boot, Microservices (95%)
 - Data Structures & Algorithms: Expert level (95%)
 - System Design: High Level Design (95%), Low Level Design (90%)
@@ -52,6 +54,7 @@ TECHNICAL SKILLS:
 - Other: OAuth2.0, JWT, Gremlin, OCR
 
 KEY ACHIEVEMENTS:
+- Built the On-call AI Agent on Salesforce's Thunderbird platform: an autonomous LLM agent for first-level RCA using RAG, semantic caching, MCP servers, AWS Bedrock/Anthropic/OpenAI, Redis, and Spring AI; sustains 1.7 RPS with 99% uptime
 - Built an on-call AI bot that automates first-level RCA across Splunk (logs), GitHub (code), and Google Drive/Confluence/Slack (references), consolidating findings into a single root-cause summary
 - Designed RAG pipelines and tool-calling agents with retrieval grounding, eval harnesses, and hallucination guardrails
 - KYC platform: 200k+ verifications/day, 99.95% uptime
