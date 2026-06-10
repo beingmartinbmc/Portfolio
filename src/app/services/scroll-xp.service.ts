@@ -23,7 +23,9 @@ export class ScrollXpService implements OnDestroy {
 
   private observer: IntersectionObserver | null = null;
   private viewedSections = new Set<string>();
-  private lastLevel = 0;
+  // Visitors begin at level 1 (Visitor), so treat that as the baseline and only
+  // emit a level-up event when they actually climb above it.
+  private lastLevel = 1;
   private scrollHandler: (() => void) | null = null;
 
   readonly xp$ = new BehaviorSubject<number>(0);
