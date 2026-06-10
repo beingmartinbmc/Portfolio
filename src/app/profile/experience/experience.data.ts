@@ -34,12 +34,14 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     location: 'Hybrid in Hyderabad, India',
     duration: 'Current',
     period: '2025 - Present',
-    description: 'Senior Member of Technical Staff working on Slack. Powering Salesforce Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration.',
-    technologies: ['Java', 'Slack Platform', 'Agentforce', 'Thunderbird', 'Einstein AI', 'Microservices'],
+    description: 'Senior Member of Technical Staff on Slack. I build AI agents and LLM-backed services — including an on-call bot that handles first-level RCA — and work on the Thunderbird architecture and Slackbot/Einstein with Agentforce.',
+    technologies: ['Java', 'AI Agents', 'LLMs', 'RAG', 'Agentforce', 'Slack Platform', 'Splunk', 'Einstein AI', 'Thunderbird', 'Microservices'],
     achievements: [
-      'Powering Salesforce Thunderbird architecture for Slack',
-      'Enhancing Slackbot & Einstein with Agentforce integration',
-      'Driving engineering best practices and code quality across the team'
+      'Built an on-call AI bot for first-level RCA — it reads logs in Splunk, traces code in GitHub, pulls context from Drive, Confluence, and Slack, and hands the engineer one summary of what likely broke',
+      'Set up RAG pipelines and tool-calling agents with grounding, evals, and guardrails to keep them from hallucinating',
+      'AI services hold up at ~1.5K RPS with sub-second p95 on retrieval',
+      'Working on the Thunderbird architecture for Slack and on Slackbot/Einstein with Agentforce',
+      'Pushing on engineering practices and code quality across the team'
     ]
   },
   {
