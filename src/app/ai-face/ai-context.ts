@@ -32,6 +32,9 @@ ABOUT ANKIT SHARMA:
 
 PROFESSIONAL BACKGROUND:
 - Currently at Salesforce working on Slack, powering Thunderbird architecture and enhancing Slackbot & Einstein with Agentforce integration
+- Builds agentic AI and LLM-backed services in production: tool-calling agents, Slack bots, and RAG pipelines
+- Built an on-call AI bot that automates first-level RCA (root cause analysis): it debugs logs via Splunk, traces code through GitHub, and pulls references from Google Drive, Confluence, and Slack, then consolidates everything into a single root-cause summary for the on-call engineer
+- His AI services sustain ~1.5K RPS with sub-second p95 latency on the retrieval path
 - Previously: SDE-2 at Games24x7 (3 years, 2022-2025) working on RummyCircle and My11Circle platforms
 - Built Risk Rule Engine for fraud detection in real-time
 - Scaled My11Circle to 2.7K RPS during IPL 2025 with 10M concurrent users
@@ -39,15 +42,18 @@ PROFESSIONAL BACKGROUND:
 - Also worked at: Walmart Global Tech (2021), Extramarks Education (2020-2021)
 
 TECHNICAL SKILLS:
+- AI/Gen AI: Agentic AI, LLMs, RAG (retrieval-augmented generation), tool-calling agents, prompt & context engineering, eval harnesses, guardrails, vector retrieval, Agentforce
 - Backend: Java 21, Spring Boot, Microservices (95%)
 - Data Structures & Algorithms: Expert level (95%)
 - System Design: High Level Design (95%), Low Level Design (90%)
 - Databases: MySQL, PostgreSQL, MongoDB, Neptune DB, Redis (95%)
 - Cloud: AWS (Sage Maker, Cognito, Graviton K8s), Salesforce Platform
-- Tools: Kafka, RabbitMQ, Docker, Kubernetes, Grafana, Prometheus
-- Other: LLMs, OAuth2.0, JWT, Gremlin, OCR
+- Tools: Kafka, RabbitMQ, Docker, Kubernetes, Grafana, Prometheus, Splunk
+- Other: OAuth2.0, JWT, Gremlin, OCR
 
 KEY ACHIEVEMENTS:
+- Built an on-call AI bot that automates first-level RCA across Splunk (logs), GitHub (code), and Google Drive/Confluence/Slack (references), consolidating findings into a single root-cause summary
+- Designed RAG pipelines and tool-calling agents with retrieval grounding, eval harnesses, and hallucination guardrails
 - KYC platform: 200k+ verifications/day, 99.95% uptime
 - Real-time ML fraud detection protecting millions of transactions
 - Scaled My11Circle to 2.7K RPS during IPL 2025
@@ -70,7 +76,7 @@ OPEN SOURCE PACKAGES:
 - git-history-ui (${PACKAGE_LINKS.gitHistoryUi}): A beautiful, modern web UI for visualizing git history with interactive commit graphs, search, filtering, and diff visualization - NPM
 
 PERSONAL:
-- Passionate about backend development and Large Language Models (LLMs)
+- Passionate about agentic AI, Large Language Models (LLMs), RAG systems, and backend development
 - Avid traveler and adventure seeker - completed solo trips across 7 countries
 - Believes in continuous learning and creating meaningful impact
 - Strong problem-solving mindset with focus on elegant solutions

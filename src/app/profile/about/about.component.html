@@ -2,10 +2,10 @@
   <div class="apple-container">
     <div class="section-header">
       <div class="world-label">🗡 CHARACTER BIO</div>
-      <h2 class="section-title">Staff-minded engineering across reliability, scale, and AI.</h2>
+      <h2 class="section-title">I build AI agents on top of backend systems that actually have to work.</h2>
       <p class="section-subtitle">
-        I enjoy ambiguous problems, high-traffic systems, and product bets that need strong backend fundamentals as much as
-        thoughtful AI integration.
+        Most of my time goes into LLM assistants, Slack bots, and RAG pipelines — the kind that have to give the right
+        answer fast, not just look good in a demo. The rest goes into the backend they run on.
       </p>
     </div>
 
@@ -17,25 +17,37 @@
           <span class="flag-label">📋 BACKSTORY</span>
         </div>
         <div class="panel-body">
-          <h3 class="panel-title">Systems first, with product judgment.</h3>
+          <h3 class="panel-title">AI work, grounded in real systems.</h3>
           <p class="panel-text">
-            I've spent the last 6+ years building backend systems where latency, correctness, throughput, and operational
-            visibility all matter at the same time. That includes event-driven workflows, fraud systems, KYC automation,
-            predictive autoscaling, and platform infrastructure used by other teams.
+            Lately I spend most of my time on <strong class="stat-highlight">AI agents and LLM systems</strong> — agents
+            that call tools, RAG pipelines, and Slack bots that do actual work. The interesting problems aren't the prompts;
+            they're getting retrieval to surface the right thing, keeping answers grounded so the model doesn't make stuff
+            up, writing evals so I know when something breaks, and keeping cost and latency sane under load.
           </p>
           <p class="panel-text">
-            Today I'm an SMTS at Salesforce. Earlier at Games24x7, I worked on systems that handled
-            <strong class="stat-highlight">2.7K RPS during IPL</strong>,
-            processed <strong class="stat-highlight">200K+ verifications a day</strong>, and supported
-            <strong class="stat-highlight">10M concurrent users</strong> with zero-downtime thinking.
+            Right now I'm an SMTS at Salesforce, building LLM-backed services and an
+            <strong class="stat-highlight">on-call AI bot</strong> that handles the first pass of root-cause analysis.
+            When something breaks, it digs through logs in <strong class="stat-highlight">Splunk</strong>, traces the code
+            in <strong class="stat-highlight">GitHub</strong>, and pulls in context from
+            <strong class="stat-highlight">Google Drive, Confluence, and Slack</strong> — then hands the on-call engineer a
+            single summary of what likely went wrong. It holds up at <strong class="stat-highlight">~1.5K RPS</strong> with
+            sub-second p95 on retrieval.
           </p>
           <p class="panel-text">
-            I'm increasingly interested in the overlap between backend engineering and Gen AI: voice interfaces, AI assistants,
-            retrieval and prompt workflows, and the production concerns around latency, failure modes, and evaluation.
+            All of that sits on 6+ years of backend work where things fall over if you get them wrong. At Games24x7 I built
+            systems that took <strong class="stat-highlight">2.7K RPS during the IPL</strong>, ran
+            <strong class="stat-highlight">200K+ KYC checks a day</strong>, and held up for
+            <strong class="stat-highlight">10M concurrent users</strong> — event-driven pipelines, fraud detection, KYC
+            automation, and autoscaling, all built to stay up.
           </p>
 
           <!-- Inline stat chips -->
           <div class="bio-stats">
+            <div class="bio-stat">
+              <span class="bs-icon">🤖</span>
+              <span class="bs-val">AI</span>
+              <span class="bs-key">On-call RCA bot</span>
+            </div>
             <div class="bio-stat">
               <span class="bs-icon">⚡</span>
               <span class="bs-val">2.7K</span>
@@ -65,9 +77,10 @@
           </div>
           <div class="panel-body">
             <ul class="achievement-list">
-              <li>Built distributed systems for trust, risk, onboarding, and real-time decisioning.</li>
-              <li>Published open-source packages for tracing, diagnostics, and developer tooling.</li>
-              <li>Worked across architecture, implementation, debugging, and cross-team delivery.</li>
+              <li>Built an on-call AI bot that does first-level RCA across Splunk, GitHub, Confluence, Drive, and Slack.</li>
+              <li>Set up RAG pipelines and tool-calling agents with grounding, evals, and guardrails to keep them honest.</li>
+              <li>Built distributed systems for trust, risk, onboarding, and real-time decisions.</li>
+              <li>Shipped open-source packages for tracing, diagnostics, and dev tooling.</li>
             </ul>
           </div>
         </div>
@@ -79,9 +92,10 @@
           </div>
           <div class="panel-body">
             <ul class="achievement-list">
-              <li>Start with constraints, then design for reliability and leverage.</li>
-              <li>Prefer boring infrastructure choices when they keep systems understandable.</li>
-              <li>Use AI where it improves product capability, not where it only adds novelty.</li>
+              <li>Treat agents like systems — figure out the tools, evals, and failure modes before piling on prompts.</li>
+              <li>Keep LLMs grounded in real data, and trust numbers over a demo that happened to work once.</li>
+              <li>Start with the constraints, then build for reliability and latency.</li>
+              <li>Pick boring infrastructure when it keeps things easy to reason about.</li>
             </ul>
           </div>
         </div>
