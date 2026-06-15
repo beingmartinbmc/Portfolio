@@ -51,6 +51,8 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private model!: THREE.Group;
   private animationFrameId?: number;
   private boundResizeHandler = () => this.onWindowResize();
+  /** False when the browser/environment cannot create a WebGL context (e.g. headless CI). */
+  public webglAvailable = true;
 
   // Chat functionality
   public isChatOpen = false;
@@ -89,10 +91,14 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.initThreeJS();
+    if (!this.initThreeJS()) {
+      // WebGL unavailable — skip the 3D scene but keep the chat usable.
+      this.isLoading = false;
+      return;
+    }
     this.loadAvatar();
     this.animate();
-    
+
   }
 
   ngOnDestroy(): void {
@@ -107,8 +113,17 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     this.stopSpeech();
   }
 
-  private initThreeJS(): void {
+  private initThreeJS(): boolean {
     const canvas = this.canvasRef.nativeElement;
+
+    // Bail out early if the environment has no WebGL support (e.g. headless CI,
+    // older browsers, GPU disabled). Three.js would otherwise throw on renderer
+    // construction and break the whole component.
+    const probe = canvas.getContext('webgl2') || canvas.getContext('webgl');
+    if (!probe) {
+      this.webglAvailable = false;
+      return false;
+    }
 
     // Scene
     this.scene = new THREE.Scene();
@@ -124,11 +139,16 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     this.camera.position.set(0, 1, 2);
 
     // Renderer
-    this.renderer = new THREE.WebGLRenderer({
-      canvas: canvas,
-      antialias: true,
-      alpha: true
-    });
+    try {
+      this.renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: true
+      });
+    } catch {
+      this.webglAvailable = false;
+      return false;
+    }
     this.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.shadowMap.enabled = true;
@@ -159,6 +179,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
 
     // Handle window resize
     window.addEventListener('resize', this.boundResizeHandler);
+    return true;
   }
 
   private loadAvatar(): void {
@@ -240,8 +261,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   private animate(): void {
+    if (!this.renderer) {
+      return;
+    }
     this.animationFrameId = requestAnimationFrame(() => this.animate());
-    
+
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
   }
@@ -484,6 +508,9 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   private onWindowResize(): void {
+    if (!this.renderer) {
+      return;
+    }
     const canvas = this.canvasRef.nativeElement;
     this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
     this.camera.updateProjectionMatrix();

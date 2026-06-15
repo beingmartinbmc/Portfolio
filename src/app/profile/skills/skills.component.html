@@ -34,6 +34,60 @@
       </div>
     </div>
 
+    <!-- ══════ ARCHITECTURE MAP (system mode) ══════ -->
+    @if (systemMode) {
+      <div class="arch-map">
+        <div class="arch-flow-hint">
+          <span class="arch-flow-hint-pill">▼ A REQUEST FLOWS DOWN THE STACK ▼</span>
+        </div>
+
+        @for (layer of architectureLayers; track layer.id; let lastLayer = $last) {
+          <div class="arch-layer" [style.--layer-color]="layer.color">
+            <div class="arch-layer-rail"></div>
+            <div class="arch-layer-head">
+              <span class="arch-layer-icon">{{ layer.icon }}</span>
+              <div class="arch-layer-title">
+                <span class="arch-layer-name">{{ layer.name }}</span>
+                <span class="arch-layer-role">{{ layer.role }}</span>
+              </div>
+              <span class="arch-layer-count">{{ layer.skills.length }}</span>
+            </div>
+
+            <div class="arch-nodes">
+              @for (skill of layer.skills; track skill.name) {
+                <div class="arch-node"
+                     [ngClass]="{
+                       'arch-node--boss': skill.level === 'primary',
+                       'arch-node--flow': isSystemFlowNode(skill)
+                     }"
+                     [attr.title]="skill.tooltip">
+                  @if (isSystemFlowNode(skill)) {
+                    <span class="arch-flow-num">{{ getSystemFlowIndex(skill) + 1 }}</span>
+                  }
+                  <span class="arch-node-name">{{ getDisplayName(skill) }}</span>
+                  <span class="arch-node-xp">{{ skill.proficiency }}</span>
+                </div>
+              }
+            </div>
+          </div>
+
+          @if (!lastLayer) {
+            <div class="arch-pipe" aria-hidden="true">
+              <span class="arch-pipe-dot"></span>
+              <span class="arch-pipe-dot"></span>
+              <span class="arch-pipe-dot"></span>
+            </div>
+          }
+        }
+
+        <div class="arch-legend">
+          <span class="arch-legend-item"><span class="arch-legend-key arch-legend-key--boss">★</span> Boss skill</span>
+          <span class="arch-legend-item"><span class="arch-legend-key arch-legend-key--flow">1</span> Request path</span>
+          <span class="arch-legend-item">XP&nbsp;=&nbsp;proficiency</span>
+        </div>
+      </div>
+    } @else {
+
     <!-- Category groups -->
     @for (constellation of constellations; track constellation.id) {
       <div class="category-group">
@@ -141,5 +195,6 @@
         <span class="legend-label">Support Tool</span>
       </div>
     </div>
+    }
   </div>
 </div>

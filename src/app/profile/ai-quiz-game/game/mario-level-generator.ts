@@ -71,7 +71,7 @@ function getLayoutGuide(difficulty: string, levelType: LevelType = 'ground'): La
       pipeCount: { min: 4, max: 4 },
       brickCount: { min: 8, max: 10 },
       questionCount: { min: 5, max: 7 },
-      enemyCount: { min: 20, max: 24 },
+      enemyCount: { min: 19, max: 25 },
       coinCount: { min: 30, max: 38 },
       gapCount: { min: 4, max: 5 },
       maxGapWidth: 3,
@@ -92,7 +92,7 @@ function getLayoutGuide(difficulty: string, levelType: LevelType = 'ground'): La
       pipeCount: { min: 3, max: 3 },
       brickCount: { min: 6, max: 8 },
       questionCount: { min: 7, max: 9 },
-      enemyCount: { min: 14, max: 18 },
+      enemyCount: { min: 13, max: 18 },
       coinCount: { min: 26, max: 34 },
       gapCount: { min: 3, max: 4 },
       maxGapWidth: 3,
@@ -113,7 +113,7 @@ function getLayoutGuide(difficulty: string, levelType: LevelType = 'ground'): La
       pipeCount: { min: 2, max: 3 },
       brickCount: { min: 4, max: 6 },
       questionCount: { min: 8, max: 10 },
-      enemyCount: { min: 9, max: 12 },
+      enemyCount: { min: 8, max: 13 },
       coinCount: { min: 22, max: 30 },
       gapCount: { min: 2, max: 3 },
       maxGapWidth: 2,
@@ -201,6 +201,24 @@ function shuffleKeywords(pool: string[]): string[] {
   return arr;
 }
 
+/**
+ * Pick a keyword from the (shuffled) pool that has not been used yet. When the
+ * pool is smaller than the number of enemies, fall back to a numbered suffix so
+ * every keyword stays unique — the level validator requires distinct enemy
+ * keywords.
+ */
+function uniqueKeyword(pool: string[], index: number, used: Set<string>): string {
+  const base = pool[index % pool.length];
+  let candidate = base;
+  let suffix = 2;
+  while (used.has(candidate)) {
+    candidate = `${base} ${suffix}`;
+    suffix++;
+  }
+  used.add(candidate);
+  return candidate;
+}
+
 interface RawLevelData {
   levelType?: string;
   platforms?: { x: number; y: number; width: number; type?: string; label?: string }[];
@@ -231,7 +249,9 @@ export function parseLevelFromAI(raw: string): RawLevelData | null {
 }
 
 export function validateAILevelData(data: RawLevelData, config: LevelConfig): LevelValidationResult {
-  const levelType = resolveLevelType(data.levelType ?? config.levelType);
+  // Validate the AI output against the requested config first; a level that
+  // declares a different levelType than was asked for is a mismatch.
+  const levelType = resolveLevelType(config.levelType ?? data.levelType);
   const guide = getLayoutGuide(config.difficulty, levelType);
   const issues: string[] = [];
   const platforms = data.platforms ?? [];
@@ -471,7 +491,7 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   const flagX = data.flagPole?.x ? data.flagPole.x * TILE : FLAG_POLE_X * TILE;
   const flagPole = new FlagPole(flagX, 3 * TILE, (GROUND_ROW - 3) * TILE);
 
-  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], particles: [], width: levelW, height: levelH, category, levelType };
 }
 
 export function generateProceduralLevel(config: LevelConfig): Level {
@@ -486,6 +506,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
   const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS['backend']);
   let kwIdx = 0;
   let bugIdx = 0;
+  const usedBugKeywords = new Set<string>();
 
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
@@ -532,6 +553,9 @@ export function generateProceduralLevel(config: LevelConfig): Level {
 
   const isNearPipe = (tx: number): boolean =>
     pipePositions.some(px => tx >= px - 2 && tx <= px + 3);
+
+  const isOverGap = (tx: number): boolean =>
+    plannedGaps.some(g => tx >= g.start && tx < g.start + g.width);
 
   // Floating brick platforms with category labels
   const brickCount = getTargetCount(guide.brickCount);
@@ -594,12 +618,29 @@ export function generateProceduralLevel(config: LevelConfig): Level {
     for (let i = 0; i < zone.count; i++) {
       let ex = zone.start + step * (i + 1) + Math.floor(Math.random() * 2 - 1);
       ex = Math.max(zone.start, Math.min(zone.end - 1, ex));
-      if (isNearPipe(ex)) ex += 3;
-      if (ex > zone.end) ex = zone.end - 2;
+      // Ensure the enemy lands on solid, pipe-free ground (matching the
+      // validator's placement rules). If the preferred spot is on a pipe or
+      // over a gap, scan the rest of the zone for the nearest valid tile.
+      if (isNearPipe(ex) || isOverGap(ex)) {
+        let placed = -1;
+        for (let off = 1; off <= zoneWidth; off++) {
+          const right = ex + off;
+          const left = ex - off;
+          if (right <= zone.end - 1 && !isNearPipe(right) && !isOverGap(right)) {
+            placed = right;
+            break;
+          }
+          if (left >= zone.start && !isNearPipe(left) && !isOverGap(left)) {
+            placed = left;
+            break;
+          }
+        }
+        if (placed >= 0) ex = placed;
+      }
       const mustUseKoopa = zone.requireKoopa && !koopaPlaced && i === zone.count - 1;
       const type = mustUseKoopa || Math.random() < zone.koopaChance ? 'koopa' : 'goomba';
       const enemy = new Enemy(ex * TILE, (GROUND_ROW - 1) * TILE, type as any);
-      enemy.keyword = bugKw[bugIdx % bugKw.length];
+      enemy.keyword = uniqueKeyword(bugKw, bugIdx, usedBugKeywords);
       bugIdx++;
       enemies.push(enemy);
       koopaPlaced = koopaPlaced || type === 'koopa';
@@ -619,7 +660,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
 
   const flagPole = new FlagPole(FLAG_POLE_X * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
 
-  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], particles: [], width: levelW, height: levelH, category, levelType };
 }
 
 export function createPlayer(): Player {
