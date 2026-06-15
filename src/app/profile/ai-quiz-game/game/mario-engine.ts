@@ -256,6 +256,15 @@ export class MarioEngine {
         new Particle(cx, cy, -p.vx * 0.3, -0.5, 'rgba(210,210,200,0.6)', 2.5, 14, 'dust', 0.1),
       );
     }
+
+    // Flight wing-flutter trail (Air mode)
+    if (p.flying && this.elapsedFrames % 3 === 0) {
+      const cx = p.x + p.w / 2;
+      const cy = p.y + p.h * 0.8;
+      this.level.particles.push(
+        new Particle(cx, cy, -p.vx * 0.2 + (Math.random() - 0.5), 0.6 + Math.random() * 0.6, 'rgba(255,255,255,0.65)', 2 + Math.random() * 1.5, 16, 'puff', 0.02),
+      );
+    }
   }
 
   private handleCollisionResult(result: CollisionResult): void {
