@@ -7,8 +7,6 @@ describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
 
   beforeEach(waitForAsync(() => {
-
-  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [HeaderComponent],
     }).compileComponents();
@@ -17,7 +15,6 @@ describe('HeaderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
     fixture.detectChanges();
   });
 
@@ -90,7 +87,10 @@ describe('HeaderComponent', () => {
     const scrollSpy = spyOn(window, 'scrollTo');
     component.onNavLinkClick();
     tick(0);
-    expect(scrollSpy).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
+    // window.scrollTo is overloaded ((x,y) | (options)); inspect the args
+    // directly to avoid TS resolving to the wrong overload signature.
+    expect(scrollSpy).toHaveBeenCalled();
+    expect(scrollSpy.calls.mostRecent().args[0] as any).toEqual({ top: 0, behavior: 'smooth' });
   }));
 
   it('onNavLinkClick closes an open menu first', fakeAsync(() => {

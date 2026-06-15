@@ -54,6 +54,8 @@ describe('Avatar3dComponent', () => {
   });
 
   describe('chat panel', () => {
+    beforeEach(() => { component.ttsEnabled = false; });
+
     it('toggleChat opens the panel and seeds a welcome message', fakeAsync(() => {
       expect(component.isChatOpen).toBeFalse();
       component.toggleChat();
@@ -150,6 +152,7 @@ describe('Avatar3dComponent', () => {
     }));
 
     it('shows an error bubble when the API fails', fakeAsync(() => {
+      component.ttsEnabled = false;
       component.userInput = 'Hi';
       component.sendMessage();
       const aiReq = httpMock.expectOne(environment.aiApiUrl);
@@ -229,7 +232,7 @@ describe('Avatar3dComponent', () => {
       component.isSpeaking = true;
       (component as any).speakTextRegular('clean', 'orig', true);
       const req = httpMock.expectOne(TTS_API_URL);
-      req.flush('err', { status: 0, statusText: 'Unknown' });
+      req.error(new ProgressEvent('error'), { status: 0, statusText: 'Unknown' });
       tick();
       expect(component.isTyping).toBeFalse();
     }));
