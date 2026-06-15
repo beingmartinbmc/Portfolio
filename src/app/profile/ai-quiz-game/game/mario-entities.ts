@@ -14,6 +14,13 @@ export const COYOTE_FRAMES = 6;       // grace window to still jump after leavin
 export const JUMP_BUFFER_FRAMES = 6;  // remember a jump press made just before landing
 export const JUMP_CUT_MULTIPLIER = 0.42; // releasing jump early shortens the hop
 
+// Flight tuning (Air mode) — hold jump/up to gain altitude, gentle gravity otherwise
+export const FLY_THRUST = 0.62;          // upward acceleration while ascending
+export const FLY_MAX_RISE = -5.4;        // cap on upward flight speed
+export const FLY_GRAVITY = GRAVITY * 0.4; // soft pull so gliding feels floaty
+export const FLY_MAX_FALL = MAX_FALL * 0.55; // gentle terminal velocity while flying
+export const FLY_DIVE = 0.9;             // extra downward pull when holding down
+
 export interface AABB {
   x: number;
   y: number;
@@ -52,6 +59,7 @@ export class Player {
   isJumping = false;      // currently in an ascent we can cut short
   skidding = false;       // pressing opposite to current velocity on the ground
   running = false;        // run modifier engaged this frame
+  flying = false;         // actively gaining altitude in Air mode
   walkPhase = 0;          // animation accumulator driven by movement speed
 
   constructor(x: number, y: number) {
