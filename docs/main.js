@@ -32022,7 +32022,7 @@ var ScrollXpService = class _ScrollXpService {
     ];
     this.observer = null;
     this.viewedSections = /* @__PURE__ */ new Set();
-    this.lastLevel = 1;
+    this.lastLevel = 0;
     this.scrollHandler = null;
     this.xp$ = new BehaviorSubject(0);
     this.level$ = new BehaviorSubject({ level: 1, title: "Visitor" });
@@ -34396,66 +34396,6 @@ var SKILL_DETAILS = {
     ],
     relatedSkills: ["RAG", "LLM", "Generative AI"]
   },
-  "Semantic Caching": {
-    description: "Embedding-based caching for LLM workloads that serves answers to semantically similar prompts from cache instead of hitting the model, cutting cost and latency.",
-    experience: [
-      "Built a semantic cache that embeds incoming prompts and matches them against prior responses by similarity threshold",
-      "Tuned similarity thresholds, TTLs, and namespace partitioning to balance hit rate against staleness",
-      "Backed the cache with a vector store plus Redis for metadata and fast lookups",
-      "Added cache-hit/miss metrics and guardrails to avoid serving stale or low-confidence matches"
-    ],
-    projects: [
-      "Semantic cache layer in front of the on-call AI agent",
-      "Cost-reduction layer for high-traffic LLM endpoints",
-      "Prompt deduplication for repeated support questions"
-    ],
-    achievements: [
-      "Reduced LLM spend and tail latency by serving repeated and near-duplicate queries from cache",
-      "Kept answer quality high with confidence thresholds and selective invalidation",
-      "Sustained sub-second p95 on cached retrieval paths under production load"
-    ],
-    relatedSkills: ["RAG", "VectorDB", "Redis"]
-  },
-  "MCP Servers": {
-    description: "Hands-on experience exposing tools and data to LLM agents through the Model Context Protocol, giving models a standard, secure way to call external systems.",
-    experience: [
-      "Built MCP servers that expose logs, code, and documentation as agent-callable tools",
-      "Designed tool schemas, auth, and input validation so agents call systems safely",
-      "Wired MCP tool-calling into RAG and agent workflows for grounded, action-capable responses",
-      "Handled timeouts, retries, and result shaping to keep tool calls reliable inside agent loops"
-    ],
-    projects: [
-      "MCP tool layer for the on-call AI agent (Splunk, GitHub, Drive, Confluence, Slack)",
-      "Standardized tool gateway shared across multiple agents",
-      "Secure data-access tools for grounded LLM workflows"
-    ],
-    achievements: [
-      "Let agents pull live context from many systems through one consistent protocol",
-      "Reduced bespoke integration glue by standardizing on MCP tool contracts",
-      "Improved agent safety with validated, scoped, auditable tool access"
-    ],
-    relatedSkills: ["LLM", "RAG", "Generative AI"]
-  },
-  "Bedrock": {
-    description: "Experience building on Amazon Bedrock to run multiple foundation models behind one managed API, with grounding, guardrails, and provider fallback.",
-    experience: [
-      "Integrated Bedrock-hosted models (including Anthropic Claude and Titan) into backend AI services",
-      "Used Bedrock alongside OpenAI and Anthropic APIs with a provider-abstraction and fallback layer",
-      "Applied Bedrock Guardrails and grounding to keep responses safe and on-policy",
-      "Tuned model selection, token budgets, and streaming for cost and latency targets"
-    ],
-    projects: [
-      "Multi-model inference layer for the on-call AI agent",
-      "Provider-agnostic LLM gateway with Bedrock as a backend",
-      "Grounded RCA summarization running across Bedrock, Anthropic, and OpenAI"
-    ],
-    achievements: [
-      "Ran production AI features across multiple model providers with graceful fallback",
-      "Kept inference within cost and latency budgets through model and token tuning",
-      "Improved safety and compliance using managed guardrails and grounding"
-    ],
-    relatedSkills: ["Generative AI", "LLM", "AWS"]
-  },
   // ─── Queues ───────────────────────────────────────────
   "Kafka": {
     description: "Strong working experience with Apache Kafka for event-driven systems, asynchronous processing, and real-time data pipelines.",
@@ -34719,331 +34659,194 @@ var AudioService = class _AudioService {
 
 // src/app/profile/skills/skills.component.ts
 var _c0 = (a0) => ({ "system-mode-toggle--active": a0 });
-var _c1 = (a0, a1) => ({ "arch-node--boss": a0, "arch-node--flow": a1 });
-var _c2 = (a0, a1, a2, a3, a4) => ({ "skill-card--primary": a0, "skill-card--secondary": a1, "skill-card--supporting": a2, "skill-card--expanded": a3, "skill-card--flow": a4 });
+var _c1 = (a0, a1, a2, a3, a4) => ({ "skill-card--primary": a0, "skill-card--secondary": a1, "skill-card--supporting": a2, "skill-card--expanded": a3, "skill-card--flow": a4 });
 var _forTrack04 = ($index, $item) => $item.id;
 var _forTrack13 = ($index, $item) => $item.name;
-function SkillsComponent_Conditional_36_For_5_For_14_Conditional_1_Template(rf, ctx2) {
+function SkillsComponent_For_37_For_9_Conditional_1_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 32);
+    \u0275\u0275elementStart(0, "div", 29);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const skill_r1 = \u0275\u0275nextContext().$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(3);
+    const skill_r2 = \u0275\u0275nextContext().$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(2);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.getSystemFlowIndex(skill_r1) + 1);
+    \u0275\u0275textInterpolate(ctx_r3.getSystemFlowIndex(skill_r2) + 1);
   }
 }
-function SkillsComponent_Conditional_36_For_5_For_14_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 30);
-    \u0275\u0275conditionalCreate(1, SkillsComponent_Conditional_36_For_5_For_14_Conditional_1_Template, 2, 1, "span", 32);
-    \u0275\u0275elementStart(2, "span", 33);
-    \u0275\u0275text(3);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "span", 34);
-    \u0275\u0275text(5);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const skill_r1 = ctx2.$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction2(5, _c1, skill_r1.level === "primary", ctx_r1.isSystemFlowNode(skill_r1)));
-    \u0275\u0275attribute("title", skill_r1.tooltip);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.isSystemFlowNode(skill_r1) ? 1 : -1);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.getDisplayName(skill_r1));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(skill_r1.proficiency);
-  }
-}
-function SkillsComponent_Conditional_36_For_5_Conditional_15_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 31);
-    \u0275\u0275element(1, "span", 35)(2, "span", 35)(3, "span", 35);
-    \u0275\u0275elementEnd();
-  }
-}
-function SkillsComponent_Conditional_36_For_5_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 21);
-    \u0275\u0275element(1, "div", 22);
-    \u0275\u0275elementStart(2, "div", 23)(3, "span", 24);
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "div", 25)(6, "span", 26);
-    \u0275\u0275text(7);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "span", 27);
-    \u0275\u0275text(9);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(10, "span", 28);
-    \u0275\u0275text(11);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(12, "div", 29);
-    \u0275\u0275repeaterCreate(13, SkillsComponent_Conditional_36_For_5_For_14_Template, 6, 8, "div", 30, _forTrack13);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275conditionalCreate(15, SkillsComponent_Conditional_36_For_5_Conditional_15_Template, 4, 0, "div", 31);
-  }
-  if (rf & 2) {
-    const layer_r3 = ctx2.$implicit;
-    const \u0275$index_68_r4 = ctx2.$index;
-    const \u0275$count_68_r5 = ctx2.$count;
-    \u0275\u0275styleProp("--layer-color", layer_r3.color);
-    \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(layer_r3.icon);
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(layer_r3.name);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(layer_r3.role);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(layer_r3.skills.length);
-    \u0275\u0275advance(2);
-    \u0275\u0275repeater(layer_r3.skills);
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(!(\u0275$index_68_r4 === \u0275$count_68_r5 - 1) ? 15 : -1);
-  }
-}
-function SkillsComponent_Conditional_36_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 14)(1, "div", 15)(2, "span", 16);
-    \u0275\u0275text(3, "\u25BC A REQUEST FLOWS DOWN THE STACK \u25BC");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275repeaterCreate(4, SkillsComponent_Conditional_36_For_5_Template, 16, 7, null, null, _forTrack04);
-    \u0275\u0275elementStart(6, "div", 17)(7, "span", 18)(8, "span", 19);
-    \u0275\u0275text(9, "\u2605");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(10, " Boss skill");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "span", 18)(12, "span", 20);
-    \u0275\u0275text(13, "1");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(14, " Request path");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(15, "span", 18);
-    \u0275\u0275text(16, "XP\xA0=\xA0proficiency");
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(4);
-    \u0275\u0275repeater(ctx_r1.architectureLayers);
-  }
-}
-function SkillsComponent_Conditional_37_For_1_For_9_Conditional_1_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 51);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const skill_r7 = \u0275\u0275nextContext().$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.getSystemFlowIndex(skill_r7) + 1);
-  }
-}
-function SkillsComponent_Conditional_37_For_1_For_9_Conditional_13_For_8_Template(rf, ctx2) {
+function SkillsComponent_For_37_For_9_Conditional_13_For_8_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "li");
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const exp_r9 = ctx2.$implicit;
+    const exp_r5 = ctx2.$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(exp_r9);
+    \u0275\u0275textInterpolate(exp_r5);
   }
 }
-function SkillsComponent_Conditional_37_For_1_For_9_Conditional_13_For_14_Template(rf, ctx2) {
+function SkillsComponent_For_37_For_9_Conditional_13_For_14_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 65);
+    \u0275\u0275elementStart(0, "span", 43);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const project_r10 = ctx2.$implicit;
+    const project_r6 = ctx2.$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(project_r10);
+    \u0275\u0275textInterpolate(project_r6);
   }
 }
-function SkillsComponent_Conditional_37_For_1_For_9_Conditional_13_For_20_Template(rf, ctx2) {
+function SkillsComponent_For_37_For_9_Conditional_13_For_20_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "li");
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const achievement_r11 = ctx2.$implicit;
+    const achievement_r7 = ctx2.$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(achievement_r11);
+    \u0275\u0275textInterpolate(achievement_r7);
   }
 }
-function SkillsComponent_Conditional_37_For_1_For_9_Conditional_13_For_26_Template(rf, ctx2) {
+function SkillsComponent_For_37_For_9_Conditional_13_For_26_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 68);
+    \u0275\u0275elementStart(0, "span", 46);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const rs_r12 = ctx2.$implicit;
+    const rs_r8 = ctx2.$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(rs_r12);
+    \u0275\u0275textInterpolate(rs_r8);
   }
 }
-function SkillsComponent_Conditional_37_For_1_For_9_Conditional_13_Template(rf, ctx2) {
+function SkillsComponent_For_37_For_9_Conditional_13_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 59)(1, "p", 60);
+    \u0275\u0275elementStart(0, "div", 37)(1, "p", 38);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 61)(4, "h5", 62);
+    \u0275\u0275elementStart(3, "div", 39)(4, "h5", 40);
     \u0275\u0275text(5, "Experience");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "ul", 63);
-    \u0275\u0275repeaterCreate(7, SkillsComponent_Conditional_37_For_1_For_9_Conditional_13_For_8_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementStart(6, "ul", 41);
+    \u0275\u0275repeaterCreate(7, SkillsComponent_For_37_For_9_Conditional_13_For_8_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIndex);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "div", 61)(10, "h5", 62);
+    \u0275\u0275elementStart(9, "div", 39)(10, "h5", 40);
     \u0275\u0275text(11, "Key Projects");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "div", 64);
-    \u0275\u0275repeaterCreate(13, SkillsComponent_Conditional_37_For_1_For_9_Conditional_13_For_14_Template, 2, 1, "span", 65, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementStart(12, "div", 42);
+    \u0275\u0275repeaterCreate(13, SkillsComponent_For_37_For_9_Conditional_13_For_14_Template, 2, 1, "span", 43, \u0275\u0275repeaterTrackByIndex);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(15, "div", 61)(16, "h5", 62);
+    \u0275\u0275elementStart(15, "div", 39)(16, "h5", 40);
     \u0275\u0275text(17, "Achievements");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "ul", 66);
-    \u0275\u0275repeaterCreate(19, SkillsComponent_Conditional_37_For_1_For_9_Conditional_13_For_20_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementStart(18, "ul", 44);
+    \u0275\u0275repeaterCreate(19, SkillsComponent_For_37_For_9_Conditional_13_For_20_Template, 2, 1, "li", null, \u0275\u0275repeaterTrackByIndex);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(21, "div", 61)(22, "h5", 62);
+    \u0275\u0275elementStart(21, "div", 39)(22, "h5", 40);
     \u0275\u0275text(23, "Related");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "div", 67);
-    \u0275\u0275repeaterCreate(25, SkillsComponent_Conditional_37_For_1_For_9_Conditional_13_For_26_Template, 2, 1, "span", 68, \u0275\u0275repeaterTrackByIndex);
+    \u0275\u0275elementStart(24, "div", 45);
+    \u0275\u0275repeaterCreate(25, SkillsComponent_For_37_For_9_Conditional_13_For_26_Template, 2, 1, "span", 46, \u0275\u0275repeaterTrackByIndex);
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const skill_r7 = \u0275\u0275nextContext().$implicit;
+    const skill_r2 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(skill_r7.details.description);
+    \u0275\u0275textInterpolate(skill_r2.details.description);
     \u0275\u0275advance(5);
-    \u0275\u0275repeater(skill_r7.details.experience);
+    \u0275\u0275repeater(skill_r2.details.experience);
     \u0275\u0275advance(6);
-    \u0275\u0275repeater(skill_r7.details.projects);
+    \u0275\u0275repeater(skill_r2.details.projects);
     \u0275\u0275advance(6);
-    \u0275\u0275repeater(skill_r7.details.achievements);
+    \u0275\u0275repeater(skill_r2.details.achievements);
     \u0275\u0275advance(6);
-    \u0275\u0275repeater(skill_r7.details.relatedSkills);
+    \u0275\u0275repeater(skill_r2.details.relatedSkills);
   }
 }
-function SkillsComponent_Conditional_37_For_1_For_9_Template(rf, ctx2) {
+function SkillsComponent_For_37_For_9_Template(rf, ctx2) {
   if (rf & 1) {
-    const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 50);
-    \u0275\u0275listener("click", function SkillsComponent_Conditional_37_For_1_For_9_Template_div_click_0_listener() {
-      const skill_r7 = \u0275\u0275restoreView(_r6).$implicit;
-      const constellation_r8 = \u0275\u0275nextContext().$implicit;
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.toggleCard(skill_r7, constellation_r8));
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 28);
+    \u0275\u0275listener("click", function SkillsComponent_For_37_For_9_Template_div_click_0_listener() {
+      const skill_r2 = \u0275\u0275restoreView(_r1).$implicit;
+      const constellation_r3 = \u0275\u0275nextContext().$implicit;
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.toggleCard(skill_r2, constellation_r3));
     });
-    \u0275\u0275conditionalCreate(1, SkillsComponent_Conditional_37_For_1_For_9_Conditional_1_Template, 2, 1, "div", 51);
-    \u0275\u0275elementStart(2, "div", 52)(3, "span", 53);
+    \u0275\u0275conditionalCreate(1, SkillsComponent_For_37_For_9_Conditional_1_Template, 2, 1, "div", 29);
+    \u0275\u0275elementStart(2, "div", 30)(3, "span", 31);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 54);
+    \u0275\u0275elementStart(5, "span", 32);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "h4", 55);
+    \u0275\u0275elementStart(7, "h4", 33);
     \u0275\u0275text(8);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "p", 56);
+    \u0275\u0275elementStart(9, "p", 34);
     \u0275\u0275text(10);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "div", 57);
-    \u0275\u0275element(12, "div", 58);
+    \u0275\u0275elementStart(11, "div", 35);
+    \u0275\u0275element(12, "div", 36);
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(13, SkillsComponent_Conditional_37_For_1_For_9_Conditional_13_Template, 27, 1, "div", 59);
+    \u0275\u0275conditionalCreate(13, SkillsComponent_For_37_For_9_Conditional_13_Template, 27, 1, "div", 37);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const skill_r7 = ctx2.$implicit;
-    const constellation_r8 = \u0275\u0275nextContext().$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction5(14, _c2, skill_r7.level === "primary", skill_r7.level === "secondary", skill_r7.level === "supporting", ctx_r1.isExpanded(skill_r7), ctx_r1.isSystemFlowNode(skill_r7)));
+    const skill_r2 = ctx2.$implicit;
+    const constellation_r3 = \u0275\u0275nextContext().$implicit;
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction5(14, _c1, skill_r2.level === "primary", skill_r2.level === "secondary", skill_r2.level === "supporting", ctx_r3.isExpanded(skill_r2), ctx_r3.isSystemFlowNode(skill_r2)));
     \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.isSystemFlowNode(skill_r7) ? 1 : -1);
+    \u0275\u0275conditional(ctx_r3.isSystemFlowNode(skill_r2) ? 1 : -1);
     \u0275\u0275advance(2);
-    \u0275\u0275property("ngClass", "level-tag--" + skill_r7.level);
+    \u0275\u0275property("ngClass", "level-tag--" + skill_r2.level);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r1.getLevelTag(skill_r7.level), " ");
+    \u0275\u0275textInterpolate1(" ", ctx_r3.getLevelTag(skill_r2.level), " ");
     \u0275\u0275advance();
-    \u0275\u0275styleProp("color", constellation_r8.color);
+    \u0275\u0275styleProp("color", constellation_r3.color);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1("", skill_r7.proficiency, " XP");
+    \u0275\u0275textInterpolate1("", skill_r2.proficiency, " XP");
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.getDisplayName(skill_r7));
+    \u0275\u0275textInterpolate(ctx_r3.getDisplayName(skill_r2));
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(skill_r7.tooltip);
+    \u0275\u0275textInterpolate(skill_r2.tooltip);
     \u0275\u0275advance(2);
-    \u0275\u0275styleProp("width", skill_r7.proficiency, "%")("background", constellation_r8.color);
+    \u0275\u0275styleProp("width", skill_r2.proficiency, "%")("background", constellation_r3.color);
     \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r1.isExpanded(skill_r7) && skill_r7.details ? 13 : -1);
+    \u0275\u0275conditional(ctx_r3.isExpanded(skill_r2) && skill_r2.details ? 13 : -1);
   }
 }
-function SkillsComponent_Conditional_37_For_1_Template(rf, ctx2) {
+function SkillsComponent_For_37_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 36)(1, "div", 44);
-    \u0275\u0275element(2, "div", 45);
-    \u0275\u0275elementStart(3, "h3", 46);
+    \u0275\u0275elementStart(0, "div", 14)(1, "div", 22);
+    \u0275\u0275element(2, "div", 23);
+    \u0275\u0275elementStart(3, "h3", 24);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 47);
+    \u0275\u0275elementStart(5, "span", 25);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "div", 48);
-    \u0275\u0275repeaterCreate(8, SkillsComponent_Conditional_37_For_1_For_9_Template, 14, 20, "div", 49, _forTrack13);
+    \u0275\u0275elementStart(7, "div", 26);
+    \u0275\u0275repeaterCreate(8, SkillsComponent_For_37_For_9_Template, 14, 20, "div", 27, _forTrack13);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const constellation_r8 = ctx2.$implicit;
+    const constellation_r3 = ctx2.$implicit;
     \u0275\u0275advance(2);
-    \u0275\u0275styleProp("background", constellation_r8.color);
+    \u0275\u0275styleProp("background", constellation_r3.color);
     \u0275\u0275advance();
-    \u0275\u0275styleProp("color", constellation_r8.color);
+    \u0275\u0275styleProp("color", constellation_r3.color);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(constellation_r8.name);
+    \u0275\u0275textInterpolate(constellation_r3.name);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("", constellation_r8.skills.length, " skills");
+    \u0275\u0275textInterpolate1("", constellation_r3.skills.length, " skills");
     \u0275\u0275advance(2);
-    \u0275\u0275repeater(constellation_r8.skills);
-  }
-}
-function SkillsComponent_Conditional_37_Template(rf, ctx2) {
-  if (rf & 1) {
-    \u0275\u0275repeaterCreate(0, SkillsComponent_Conditional_37_For_1_Template, 10, 6, "div", 36, _forTrack04);
-    \u0275\u0275elementStart(2, "div", 37)(3, "div", 38);
-    \u0275\u0275element(4, "span", 39);
-    \u0275\u0275elementStart(5, "span", 40);
-    \u0275\u0275text(6, "Boss Skill");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275element(7, "div", 41);
-    \u0275\u0275elementStart(8, "div", 38);
-    \u0275\u0275element(9, "span", 42);
-    \u0275\u0275elementStart(10, "span", 40);
-    \u0275\u0275text(11, "Main Class");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275element(12, "div", 41);
-    \u0275\u0275elementStart(13, "div", 38);
-    \u0275\u0275element(14, "span", 43);
-    \u0275\u0275elementStart(15, "span", 40);
-    \u0275\u0275text(16, "Support Tool");
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275repeater(ctx_r1.constellations);
+    \u0275\u0275repeater(constellation_r3.skills);
   }
 }
 var SkillsComponent = class _SkillsComponent {
@@ -35061,13 +34864,9 @@ var SkillsComponent = class _SkillsComponent {
       "Microservices": "Service Mesh",
       "Spring Boot": "API Framework",
       "High Level Design": "System Design",
-      "Generative AI": "GenAI Core",
       "LLM": "AI Engine",
       "RAG": "Knowledge Retrieval",
       "VectorDB": "Embedding Store",
-      "Semantic Caching": "Semantic Cache",
-      "MCP Servers": "Tool Gateway",
-      "Bedrock": "Model Host",
       "Elasti-Cache": "Cache Cluster",
       "RabbitMQ": "Task Queue",
       "AmazonSQS": "Managed Queue",
@@ -35081,24 +34880,6 @@ var SkillsComponent = class _SkillsComponent {
       "Redis",
       "MySQL"
     ];
-    this.archLayerMeta = [
-      { id: "languages", icon: "\u2699\uFE0F", role: "Runtime & languages powering every service" },
-      { id: "frameworks", icon: "\u{1F9E9}", role: "API frameworks that expose the services" },
-      { id: "architecture", icon: "\u{1F3DB}\uFE0F", role: "How services are decomposed & scaled" },
-      { id: "queues", icon: "\u{1F4E8}", role: "Async backbone moving events between services" },
-      { id: "cache", icon: "\u26A1", role: "Hot-path reads & low-latency shared state" },
-      { id: "databases", icon: "\u{1F5C4}\uFE0F", role: "Source-of-truth & specialised data stores" },
-      { id: "ai", icon: "\u{1F916}", role: "Generative AI layer grounded on the platform" },
-      { id: "core", icon: "\u{1F9E0}", role: "Fundamentals underpinning the whole stack" }
-    ];
-  }
-  get architectureLayers() {
-    return this.archLayerMeta.map((meta) => {
-      const c = this.constellations.find((x) => x.id === meta.id);
-      if (!c)
-        return null;
-      return { id: c.id, name: c.name, color: c.color, icon: meta.icon, role: meta.role, skills: c.skills };
-    }).filter((layer) => layer !== null);
   }
   ngOnInit() {
     this.buildConstellations();
@@ -35163,10 +34944,7 @@ var SkillsComponent = class _SkillsComponent {
           { name: "Generative AI", proficiency: 90, level: "primary", tooltip: "Cut manual triage effort by 50%", x: 38, y: 46 },
           { name: "LLM", proficiency: 90, level: "primary", tooltip: "API integration \xB7 tool-calling", x: 54, y: 40 },
           { name: "RAG", proficiency: 92, level: "secondary", tooltip: "Rerank pipelines \xB7 less hallucination", x: 42, y: 60 },
-          { name: "VectorDB", proficiency: 90, level: "secondary", tooltip: "Pinecone \xB7 pgvector \xB7 semantic search", x: 60, y: 56 },
-          { name: "Semantic Caching", proficiency: 89, level: "secondary", tooltip: "Embedding cache \xB7 cut LLM cost & latency", x: 46, y: 70 },
-          { name: "MCP Servers", proficiency: 88, level: "secondary", tooltip: "Model Context Protocol \xB7 tool gateways", x: 64, y: 66 },
-          { name: "Bedrock", proficiency: 88, level: "supporting", tooltip: "AWS Bedrock \xB7 multi-model hosting", x: 56, y: 74 }
+          { name: "VectorDB", proficiency: 90, level: "secondary", tooltip: "Pinecone \xB7 pgvector \xB7 semantic search", x: 60, y: 56 }
         ]
       },
       {
@@ -35261,7 +35039,7 @@ var SkillsComponent = class _SkillsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 38, vars: 10, consts: [["id", "skill", 1, "rpg-skills-section"], [1, "rpg-container"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "skills-hud"], [1, "hud-card"], [1, "hud-label"], [1, "hud-value"], [1, "skills-controls"], [1, "system-mode-toggle", 3, "click", "ngClass"], [1, "system-mode-icon"], [1, "system-mode-label"], [1, "arch-map"], [1, "arch-flow-hint"], [1, "arch-flow-hint-pill"], [1, "arch-legend"], [1, "arch-legend-item"], [1, "arch-legend-key", "arch-legend-key--boss"], [1, "arch-legend-key", "arch-legend-key--flow"], [1, "arch-layer"], [1, "arch-layer-rail"], [1, "arch-layer-head"], [1, "arch-layer-icon"], [1, "arch-layer-title"], [1, "arch-layer-name"], [1, "arch-layer-role"], [1, "arch-layer-count"], [1, "arch-nodes"], [1, "arch-node", 3, "ngClass"], ["aria-hidden", "true", 1, "arch-pipe"], [1, "arch-flow-num"], [1, "arch-node-name"], [1, "arch-node-xp"], [1, "arch-pipe-dot"], [1, "category-group"], [1, "legend-strip"], [1, "legend-item"], [1, "legend-dot", "legend-dot--primary"], [1, "legend-label"], [1, "legend-divider"], [1, "legend-dot", "legend-dot--secondary"], [1, "legend-dot", "legend-dot--supporting"], [1, "category-header"], [1, "category-color-bar"], [1, "category-name"], [1, "category-count"], [1, "skill-card-grid"], [1, "skill-card", 3, "ngClass"], [1, "skill-card", 3, "click", "ngClass"], [1, "flow-badge"], [1, "card-top"], [1, "level-tag", 3, "ngClass"], [1, "xp-number"], [1, "skill-name"], [1, "skill-tooltip"], [1, "xp-bar-track"], [1, "xp-bar-fill"], [1, "card-details"], [1, "detail-description"], [1, "detail-section"], [1, "detail-heading"], [1, "detail-list"], [1, "project-chips"], [1, "project-chip"], [1, "achievement-list"], [1, "related-tags"], [1, "related-tag"]], template: function SkillsComponent_Template(rf, ctx2) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _SkillsComponent, selectors: [["app-skills"]], decls: 53, vars: 9, consts: [["id", "skill", 1, "rpg-skills-section"], [1, "rpg-container"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "skills-hud"], [1, "hud-card"], [1, "hud-label"], [1, "hud-value"], [1, "skills-controls"], [1, "system-mode-toggle", 3, "click", "ngClass"], [1, "system-mode-icon"], [1, "system-mode-label"], [1, "category-group"], [1, "legend-strip"], [1, "legend-item"], [1, "legend-dot", "legend-dot--primary"], [1, "legend-label"], [1, "legend-divider"], [1, "legend-dot", "legend-dot--secondary"], [1, "legend-dot", "legend-dot--supporting"], [1, "category-header"], [1, "category-color-bar"], [1, "category-name"], [1, "category-count"], [1, "skill-card-grid"], [1, "skill-card", 3, "ngClass"], [1, "skill-card", 3, "click", "ngClass"], [1, "flow-badge"], [1, "card-top"], [1, "level-tag", 3, "ngClass"], [1, "xp-number"], [1, "skill-name"], [1, "skill-tooltip"], [1, "xp-bar-track"], [1, "xp-bar-fill"], [1, "card-details"], [1, "detail-description"], [1, "detail-section"], [1, "detail-heading"], [1, "detail-list"], [1, "project-chips"], [1, "project-chip"], [1, "achievement-list"], [1, "related-tags"], [1, "related-tag"]], template: function SkillsComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
         \u0275\u0275text(4, "\u2694 SKILL INVENTORY");
@@ -35306,8 +35084,24 @@ var SkillsComponent = class _SkillsComponent {
         \u0275\u0275elementStart(34, "span", 13);
         \u0275\u0275text(35);
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275conditionalCreate(36, SkillsComponent_Conditional_36_Template, 17, 0, "div", 14)(37, SkillsComponent_Conditional_37_Template, 17, 0);
+        \u0275\u0275repeaterCreate(36, SkillsComponent_For_37_Template, 10, 6, "div", 14, _forTrack04);
+        \u0275\u0275elementStart(38, "div", 15)(39, "div", 16);
+        \u0275\u0275element(40, "span", 17);
+        \u0275\u0275elementStart(41, "span", 18);
+        \u0275\u0275text(42, "Boss Skill");
         \u0275\u0275elementEnd()();
+        \u0275\u0275element(43, "div", 19);
+        \u0275\u0275elementStart(44, "div", 16);
+        \u0275\u0275element(45, "span", 20);
+        \u0275\u0275elementStart(46, "span", 18);
+        \u0275\u0275text(47, "Main Class");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275element(48, "div", 19);
+        \u0275\u0275elementStart(49, "div", 16);
+        \u0275\u0275element(50, "span", 21);
+        \u0275\u0275elementStart(51, "span", 18);
+        \u0275\u0275text(52, "Support Tool");
+        \u0275\u0275elementEnd()()()()();
       }
       if (rf & 2) {
         \u0275\u0275advance(8);
@@ -35321,13 +35115,13 @@ var SkillsComponent = class _SkillsComponent {
         \u0275\u0275advance(5);
         \u0275\u0275textInterpolate1("", ctx2.averageProficiency, "%");
         \u0275\u0275advance(2);
-        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(8, _c0, ctx2.systemMode));
+        \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(7, _c0, ctx2.systemMode));
         \u0275\u0275advance(4);
         \u0275\u0275textInterpolate(ctx2.systemMode ? "Skill inventory" : "Architecture route");
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx2.systemMode ? 36 : 37);
+        \u0275\u0275repeater(ctx2.constellations);
       }
-    }, dependencies: [NgClass], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.rpg-skills-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container[_ngcontent-%COMP%] {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls[_ngcontent-%COMP%] {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label[_ngcontent-%COMP%] {\n  white-space: nowrap;\n}\n.category-group[_ngcontent-%COMP%] {\n  margin-bottom: 2.5rem;\n}\n.category-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar[_ngcontent-%COMP%] {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.skill-card--primary[_ngcontent-%COMP%] {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded[_ngcontent-%COMP%]::before {\n  opacity: 1;\n}\n.skill-card--flow[_ngcontent-%COMP%] {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary[_ngcontent-%COMP%] {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track[_ngcontent-%COMP%] {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details[_ngcontent-%COMP%] {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: _ngcontent-%COMP%_detailSlideIn 0.3s ease-out;\n}\n@keyframes _ngcontent-%COMP%_detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section[_ngcontent-%COMP%] {\n  margin-bottom: 1.15rem;\n}\n.detail-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.detail-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.project-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.related-tags[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot[_ngcontent-%COMP%] {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary[_ngcontent-%COMP%] {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label[_ngcontent-%COMP%] {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n.arch-map[_ngcontent-%COMP%] {\n  max-width: 60rem;\n  margin: 0 auto;\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  animation: _ngcontent-%COMP%_detailSlideIn 0.35s ease-out;\n}\n.arch-flow-hint[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  margin-bottom: 1.4rem;\n}\n.arch-flow-hint-pill[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.14em;\n  color: #fca5a5;\n  padding: 0.5rem 1rem;\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  border-radius: 999px;\n  background: rgba(239, 68, 68, 0.08);\n  animation: _ngcontent-%COMP%_archHintPulse 2.4s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_archHintPulse {\n  0%, 100% {\n    opacity: 0.55;\n    transform: translateY(0);\n  }\n  50% {\n    opacity: 1;\n    transform: translateY(2px);\n  }\n}\n.arch-layer[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 1.1rem 1.25rem 1.2rem 1.5rem;\n  border-radius: 16px;\n  border: 1px solid color-mix(in srgb, var(--layer-color) 40%, transparent);\n  background:\n    linear-gradient(\n      135deg,\n      color-mix(in srgb, var(--layer-color) 12%, transparent) 0%,\n      rgba(255, 255, 255, 0.025) 60%);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);\n  overflow: hidden;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.arch-layer[_ngcontent-%COMP%]:hover {\n  transform: translateY(-3px);\n  box-shadow: 0 14px 38px color-mix(in srgb, var(--layer-color) 22%, transparent);\n}\n.arch-layer-rail[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  width: 4px;\n  background: var(--layer-color);\n  box-shadow: 0 0 14px var(--layer-color);\n}\n.arch-layer-head[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.8rem;\n  margin-bottom: 0.9rem;\n}\n.arch-layer-icon[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  width: 2.4rem;\n  height: 2.4rem;\n  display: grid;\n  place-items: center;\n  font-size: 1.25rem;\n  border-radius: 12px;\n  border: 1px solid color-mix(in srgb, var(--layer-color) 40%, transparent);\n  background: color-mix(in srgb, var(--layer-color) 14%, rgba(0, 0, 0, 0.2));\n}\n.arch-layer-title[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.1rem;\n  min-width: 0;\n}\n.arch-layer-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.02rem;\n  font-weight: 800;\n  color: var(--layer-color);\n  letter-spacing: -0.01em;\n}\n.arch-layer-role[_ngcontent-%COMP%] {\n  font-size: 0.74rem;\n  color: var(--text-muted);\n  line-height: 1.35;\n}\n.arch-layer-count[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  margin-left: auto;\n  align-self: flex-start;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  padding: 0.3rem 0.55rem;\n  border-radius: 8px;\n  color: var(--layer-color);\n  border: 1px solid color-mix(in srgb, var(--layer-color) 35%, transparent);\n  background: color-mix(in srgb, var(--layer-color) 10%, transparent);\n}\n.arch-nodes[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.55rem;\n}\n.arch-node[_ngcontent-%COMP%] {\n  position: relative;\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.5rem 0.8rem;\n  border-radius: 10px;\n  border: 1px solid rgba(148, 163, 184, 0.18);\n  background: rgba(255, 255, 255, 0.03);\n  cursor: default;\n  transition:\n    transform 0.2s ease,\n    border-color 0.2s ease,\n    box-shadow 0.2s ease,\n    background 0.2s ease;\n}\n.arch-node[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  border-color: color-mix(in srgb, var(--layer-color) 55%, transparent);\n  background: color-mix(in srgb, var(--layer-color) 10%, rgba(255, 255, 255, 0.03));\n  box-shadow: 0 6px 18px color-mix(in srgb, var(--layer-color) 22%, transparent);\n}\n.arch-node-name[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n}\n.arch-node-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.7rem;\n  font-weight: 700;\n  color: var(--layer-color);\n  opacity: 0.85;\n}\n.arch-node-xp[_ngcontent-%COMP%]::after {\n  content: " XP";\n  font-size: 0.6rem;\n  opacity: 0.7;\n}\n.arch-node--boss[_ngcontent-%COMP%] {\n  border-color: rgba(255, 213, 79, 0.42);\n  background: rgba(255, 200, 80, 0.07);\n}\n.arch-node--boss[_ngcontent-%COMP%]::after {\n  content: "\\2605";\n  position: absolute;\n  top: -0.5rem;\n  right: -0.4rem;\n  font-size: 0.7rem;\n  color: #FFD54F;\n  text-shadow: 0 0 6px rgba(255, 213, 79, 0.7);\n}\n.arch-node--boss[_ngcontent-%COMP%]   .arch-node-name[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.arch-node--flow[_ngcontent-%COMP%] {\n  border-color: rgba(76, 175, 80, 0.5);\n  background: rgba(76, 175, 80, 0.1);\n  box-shadow: 0 0 14px rgba(76, 175, 80, 0.14);\n}\n.arch-flow-num[_ngcontent-%COMP%] {\n  width: 1.25rem;\n  height: 1.25rem;\n  flex-shrink: 0;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.92);\n  color: #04210a;\n  font-size: 0.66rem;\n  font-weight: 800;\n  display: grid;\n  place-items: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.55);\n}\n.arch-pipe[_ngcontent-%COMP%] {\n  position: relative;\n  height: 2.2rem;\n  width: 4px;\n  margin: 0.15rem auto;\n  border-radius: 2px;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(148, 163, 184, 0.05),\n      rgba(148, 163, 184, 0.22),\n      rgba(148, 163, 184, 0.05));\n}\n.arch-pipe-dot[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 50%;\n  top: 0;\n  width: 7px;\n  height: 7px;\n  margin-left: -3.5px;\n  border-radius: 50%;\n  background: #fbbf24;\n  box-shadow: 0 0 8px rgba(251, 191, 36, 0.7);\n  animation: _ngcontent-%COMP%_archPipeFlow 1.6s linear infinite;\n}\n.arch-pipe-dot[_ngcontent-%COMP%]:nth-child(2) {\n  animation-delay: 0.53s;\n}\n.arch-pipe-dot[_ngcontent-%COMP%]:nth-child(3) {\n  animation-delay: 1.06s;\n}\n@keyframes _ngcontent-%COMP%_archPipeFlow {\n  0% {\n    transform: translateY(-2px);\n    opacity: 0;\n  }\n  20% {\n    opacity: 1;\n  }\n  80% {\n    opacity: 1;\n  }\n  100% {\n    transform: translateY(2.2rem);\n    opacity: 0;\n  }\n}\n.arch-legend[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  gap: 1.2rem;\n  margin-top: 1.6rem;\n  padding: 0.7rem 1.2rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  border-radius: 16px;\n  background: rgba(255, 255, 255, 0.02);\n}\n.arch-legend-item[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.45rem;\n  font-size: 0.76rem;\n  color: rgba(220, 232, 214, 0.72);\n}\n.arch-legend-key[_ngcontent-%COMP%] {\n  display: grid;\n  place-items: center;\n  width: 1.2rem;\n  height: 1.2rem;\n  border-radius: 6px;\n  font-size: 0.62rem;\n  font-weight: 800;\n}\n.arch-legend-key--boss[_ngcontent-%COMP%] {\n  color: #FFD54F;\n  background: rgba(255, 200, 80, 0.12);\n  border: 1px solid rgba(255, 213, 79, 0.35);\n}\n.arch-legend-key--flow[_ngcontent-%COMP%] {\n  color: #04210a;\n  background: rgba(76, 175, 80, 0.9);\n  border-radius: 50%;\n}\n@media (prefers-reduced-motion: reduce) {\n  .arch-flow-hint-pill[_ngcontent-%COMP%], \n   .arch-pipe-dot[_ngcontent-%COMP%] {\n    animation: none;\n  }\n  .arch-pipe-dot[_ngcontent-%COMP%] {\n    opacity: 0.9;\n    top: 40%;\n  }\n}\n@media (max-width: 768px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 4rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.4rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item[_ngcontent-%COMP%] {\n    padding: 0;\n  }\n  .legend-divider[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 1px;\n  }\n  .arch-legend[_ngcontent-%COMP%] {\n    gap: 0.8rem 1.2rem;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 3.5rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .arch-layer-role[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .arch-layer[_ngcontent-%COMP%] {\n    padding: 0.95rem 1rem 1rem 1.25rem;\n  }\n  .arch-node[_ngcontent-%COMP%] {\n    padding: 0.45rem 0.65rem;\n  }\n  .arch-node-name[_ngcontent-%COMP%] {\n    font-size: 0.78rem;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
+    }, dependencies: [NgClass], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.rpg-skills-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container[_ngcontent-%COMP%] {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls[_ngcontent-%COMP%] {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle[_ngcontent-%COMP%]:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label[_ngcontent-%COMP%] {\n  white-space: nowrap;\n}\n.category-group[_ngcontent-%COMP%] {\n  margin-bottom: 2.5rem;\n}\n.category-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar[_ngcontent-%COMP%] {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card[_ngcontent-%COMP%] {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card[_ngcontent-%COMP%]:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card[_ngcontent-%COMP%]:hover::before {\n  opacity: 1;\n}\n.skill-card--primary[_ngcontent-%COMP%] {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting[_ngcontent-%COMP%]::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded[_ngcontent-%COMP%]::before {\n  opacity: 1;\n}\n.skill-card--flow[_ngcontent-%COMP%] {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary[_ngcontent-%COMP%] {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary[_ngcontent-%COMP%] {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track[_ngcontent-%COMP%] {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details[_ngcontent-%COMP%] {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: _ngcontent-%COMP%_detailSlideIn 0.3s ease-out;\n}\n@keyframes _ngcontent-%COMP%_detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section[_ngcontent-%COMP%] {\n  margin-bottom: 1.15rem;\n}\n.detail-section[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.detail-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.project-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0;\n}\n.related-tags[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider[_ngcontent-%COMP%] {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot[_ngcontent-%COMP%] {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary[_ngcontent-%COMP%] {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting[_ngcontent-%COMP%] {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label[_ngcontent-%COMP%] {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 4rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2.4rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item[_ngcontent-%COMP%] {\n    padding: 0;\n  }\n  .legend-divider[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section[_ngcontent-%COMP%] {\n    padding: 3.5rem 0;\n  }\n  .section-title[_ngcontent-%COMP%] {\n    font-size: 2rem;\n  }\n  .skills-hud[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */'] });
   }
 };
 (() => {
@@ -35368,60 +35162,6 @@ var SkillsComponent = class _SkillsComponent {
         </button>
       </div>
     </div>
-
-    <!-- \u2550\u2550\u2550\u2550\u2550\u2550 ARCHITECTURE MAP (system mode) \u2550\u2550\u2550\u2550\u2550\u2550 -->
-    @if (systemMode) {
-      <div class="arch-map">
-        <div class="arch-flow-hint">
-          <span class="arch-flow-hint-pill">\u25BC A REQUEST FLOWS DOWN THE STACK \u25BC</span>
-        </div>
-
-        @for (layer of architectureLayers; track layer.id; let lastLayer = $last) {
-          <div class="arch-layer" [style.--layer-color]="layer.color">
-            <div class="arch-layer-rail"></div>
-            <div class="arch-layer-head">
-              <span class="arch-layer-icon">{{ layer.icon }}</span>
-              <div class="arch-layer-title">
-                <span class="arch-layer-name">{{ layer.name }}</span>
-                <span class="arch-layer-role">{{ layer.role }}</span>
-              </div>
-              <span class="arch-layer-count">{{ layer.skills.length }}</span>
-            </div>
-
-            <div class="arch-nodes">
-              @for (skill of layer.skills; track skill.name) {
-                <div class="arch-node"
-                     [ngClass]="{
-                       'arch-node--boss': skill.level === 'primary',
-                       'arch-node--flow': isSystemFlowNode(skill)
-                     }"
-                     [attr.title]="skill.tooltip">
-                  @if (isSystemFlowNode(skill)) {
-                    <span class="arch-flow-num">{{ getSystemFlowIndex(skill) + 1 }}</span>
-                  }
-                  <span class="arch-node-name">{{ getDisplayName(skill) }}</span>
-                  <span class="arch-node-xp">{{ skill.proficiency }}</span>
-                </div>
-              }
-            </div>
-          </div>
-
-          @if (!lastLayer) {
-            <div class="arch-pipe" aria-hidden="true">
-              <span class="arch-pipe-dot"></span>
-              <span class="arch-pipe-dot"></span>
-              <span class="arch-pipe-dot"></span>
-            </div>
-          }
-        }
-
-        <div class="arch-legend">
-          <span class="arch-legend-item"><span class="arch-legend-key arch-legend-key--boss">\u2605</span> Boss skill</span>
-          <span class="arch-legend-item"><span class="arch-legend-key arch-legend-key--flow">1</span> Request path</span>
-          <span class="arch-legend-item">XP&nbsp;=&nbsp;proficiency</span>
-        </div>
-      </div>
-    } @else {
 
     <!-- Category groups -->
     @for (constellation of constellations; track constellation.id) {
@@ -35530,10 +35270,9 @@ var SkillsComponent = class _SkillsComponent {
         <span class="legend-label">Support Tool</span>
       </div>
     </div>
-    }
   </div>
 </div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/skills/skills.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.rpg-skills-section {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label {\n  white-space: nowrap;\n}\n.category-group {\n  margin-bottom: 2.5rem;\n}\n.category-header {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card:hover::before {\n  opacity: 1;\n}\n.skill-card--primary {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded::before {\n  opacity: 1;\n}\n.skill-card--flow {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: detailSlideIn 0.3s ease-out;\n}\n@keyframes detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section {\n  margin-bottom: 1.15rem;\n}\n.detail-section:last-child {\n  margin-bottom: 0;\n}\n.detail-heading {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list li {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list li:last-child {\n  margin-bottom: 0;\n}\n.project-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list li {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list li::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list li:last-child {\n  margin-bottom: 0;\n}\n.related-tags {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n.arch-map {\n  max-width: 60rem;\n  margin: 0 auto;\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  animation: detailSlideIn 0.35s ease-out;\n}\n.arch-flow-hint {\n  display: flex;\n  justify-content: center;\n  margin-bottom: 1.4rem;\n}\n.arch-flow-hint-pill {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.14em;\n  color: #fca5a5;\n  padding: 0.5rem 1rem;\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  border-radius: 999px;\n  background: rgba(239, 68, 68, 0.08);\n  animation: archHintPulse 2.4s ease-in-out infinite;\n}\n@keyframes archHintPulse {\n  0%, 100% {\n    opacity: 0.55;\n    transform: translateY(0);\n  }\n  50% {\n    opacity: 1;\n    transform: translateY(2px);\n  }\n}\n.arch-layer {\n  position: relative;\n  padding: 1.1rem 1.25rem 1.2rem 1.5rem;\n  border-radius: 16px;\n  border: 1px solid color-mix(in srgb, var(--layer-color) 40%, transparent);\n  background:\n    linear-gradient(\n      135deg,\n      color-mix(in srgb, var(--layer-color) 12%, transparent) 0%,\n      rgba(255, 255, 255, 0.025) 60%);\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);\n  overflow: hidden;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.arch-layer:hover {\n  transform: translateY(-3px);\n  box-shadow: 0 14px 38px color-mix(in srgb, var(--layer-color) 22%, transparent);\n}\n.arch-layer-rail {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  width: 4px;\n  background: var(--layer-color);\n  box-shadow: 0 0 14px var(--layer-color);\n}\n.arch-layer-head {\n  display: flex;\n  align-items: center;\n  gap: 0.8rem;\n  margin-bottom: 0.9rem;\n}\n.arch-layer-icon {\n  flex-shrink: 0;\n  width: 2.4rem;\n  height: 2.4rem;\n  display: grid;\n  place-items: center;\n  font-size: 1.25rem;\n  border-radius: 12px;\n  border: 1px solid color-mix(in srgb, var(--layer-color) 40%, transparent);\n  background: color-mix(in srgb, var(--layer-color) 14%, rgba(0, 0, 0, 0.2));\n}\n.arch-layer-title {\n  display: flex;\n  flex-direction: column;\n  gap: 0.1rem;\n  min-width: 0;\n}\n.arch-layer-name {\n  font-family: var(--font-display);\n  font-size: 1.02rem;\n  font-weight: 800;\n  color: var(--layer-color);\n  letter-spacing: -0.01em;\n}\n.arch-layer-role {\n  font-size: 0.74rem;\n  color: var(--text-muted);\n  line-height: 1.35;\n}\n.arch-layer-count {\n  flex-shrink: 0;\n  margin-left: auto;\n  align-self: flex-start;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  padding: 0.3rem 0.55rem;\n  border-radius: 8px;\n  color: var(--layer-color);\n  border: 1px solid color-mix(in srgb, var(--layer-color) 35%, transparent);\n  background: color-mix(in srgb, var(--layer-color) 10%, transparent);\n}\n.arch-nodes {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.55rem;\n}\n.arch-node {\n  position: relative;\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.5rem 0.8rem;\n  border-radius: 10px;\n  border: 1px solid rgba(148, 163, 184, 0.18);\n  background: rgba(255, 255, 255, 0.03);\n  cursor: default;\n  transition:\n    transform 0.2s ease,\n    border-color 0.2s ease,\n    box-shadow 0.2s ease,\n    background 0.2s ease;\n}\n.arch-node:hover {\n  transform: translateY(-2px);\n  border-color: color-mix(in srgb, var(--layer-color) 55%, transparent);\n  background: color-mix(in srgb, var(--layer-color) 10%, rgba(255, 255, 255, 0.03));\n  box-shadow: 0 6px 18px color-mix(in srgb, var(--layer-color) 22%, transparent);\n}\n.arch-node-name {\n  font-size: 0.82rem;\n  font-weight: 600;\n  color: var(--text-secondary);\n  white-space: nowrap;\n}\n.arch-node-xp {\n  font-family: var(--font-display);\n  font-size: 0.7rem;\n  font-weight: 700;\n  color: var(--layer-color);\n  opacity: 0.85;\n}\n.arch-node-xp::after {\n  content: " XP";\n  font-size: 0.6rem;\n  opacity: 0.7;\n}\n.arch-node--boss {\n  border-color: rgba(255, 213, 79, 0.42);\n  background: rgba(255, 200, 80, 0.07);\n}\n.arch-node--boss::after {\n  content: "\\2605";\n  position: absolute;\n  top: -0.5rem;\n  right: -0.4rem;\n  font-size: 0.7rem;\n  color: #FFD54F;\n  text-shadow: 0 0 6px rgba(255, 213, 79, 0.7);\n}\n.arch-node--boss .arch-node-name {\n  color: #fde68a;\n}\n.arch-node--flow {\n  border-color: rgba(76, 175, 80, 0.5);\n  background: rgba(76, 175, 80, 0.1);\n  box-shadow: 0 0 14px rgba(76, 175, 80, 0.14);\n}\n.arch-flow-num {\n  width: 1.25rem;\n  height: 1.25rem;\n  flex-shrink: 0;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.92);\n  color: #04210a;\n  font-size: 0.66rem;\n  font-weight: 800;\n  display: grid;\n  place-items: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.55);\n}\n.arch-pipe {\n  position: relative;\n  height: 2.2rem;\n  width: 4px;\n  margin: 0.15rem auto;\n  border-radius: 2px;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(148, 163, 184, 0.05),\n      rgba(148, 163, 184, 0.22),\n      rgba(148, 163, 184, 0.05));\n}\n.arch-pipe-dot {\n  position: absolute;\n  left: 50%;\n  top: 0;\n  width: 7px;\n  height: 7px;\n  margin-left: -3.5px;\n  border-radius: 50%;\n  background: #fbbf24;\n  box-shadow: 0 0 8px rgba(251, 191, 36, 0.7);\n  animation: archPipeFlow 1.6s linear infinite;\n}\n.arch-pipe-dot:nth-child(2) {\n  animation-delay: 0.53s;\n}\n.arch-pipe-dot:nth-child(3) {\n  animation-delay: 1.06s;\n}\n@keyframes archPipeFlow {\n  0% {\n    transform: translateY(-2px);\n    opacity: 0;\n  }\n  20% {\n    opacity: 1;\n  }\n  80% {\n    opacity: 1;\n  }\n  100% {\n    transform: translateY(2.2rem);\n    opacity: 0;\n  }\n}\n.arch-legend {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  gap: 1.2rem;\n  margin-top: 1.6rem;\n  padding: 0.7rem 1.2rem;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  border-radius: 16px;\n  background: rgba(255, 255, 255, 0.02);\n}\n.arch-legend-item {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.45rem;\n  font-size: 0.76rem;\n  color: rgba(220, 232, 214, 0.72);\n}\n.arch-legend-key {\n  display: grid;\n  place-items: center;\n  width: 1.2rem;\n  height: 1.2rem;\n  border-radius: 6px;\n  font-size: 0.62rem;\n  font-weight: 800;\n}\n.arch-legend-key--boss {\n  color: #FFD54F;\n  background: rgba(255, 200, 80, 0.12);\n  border: 1px solid rgba(255, 213, 79, 0.35);\n}\n.arch-legend-key--flow {\n  color: #04210a;\n  background: rgba(76, 175, 80, 0.9);\n  border-radius: 50%;\n}\n@media (prefers-reduced-motion: reduce) {\n  .arch-flow-hint-pill,\n  .arch-pipe-dot {\n    animation: none;\n  }\n  .arch-pipe-dot {\n    opacity: 0.9;\n    top: 40%;\n  }\n}\n@media (max-width: 768px) {\n  .rpg-skills-section {\n    padding: 4rem 0;\n  }\n  .section-title {\n    font-size: 2.4rem;\n  }\n  .skills-hud {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item {\n    padding: 0;\n  }\n  .legend-divider {\n    width: 100%;\n    height: 1px;\n  }\n  .arch-legend {\n    gap: 0.8rem 1.2rem;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section {\n    padding: 3.5rem 0;\n  }\n  .section-title {\n    font-size: 2rem;\n  }\n  .skills-hud {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid {\n    grid-template-columns: 1fr;\n  }\n  .arch-layer-role {\n    display: none;\n  }\n  .arch-layer {\n    padding: 0.95rem 1rem 1rem 1.25rem;\n  }\n  .arch-node {\n    padding: 0.45rem 0.65rem;\n  }\n  .arch-node-name {\n    font-size: 0.78rem;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/skills/skills.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.rpg-skills-section {\n  position: relative;\n  padding: clamp(5rem, 9vw, 7rem) 0;\n  overflow: hidden;\n  background:\n    radial-gradient(\n      circle at 16% 18%,\n      rgba(251, 191, 36, 0.1) 0%,\n      transparent 24%),\n    radial-gradient(\n      circle at 84% 14%,\n      rgba(239, 68, 68, 0.06) 0%,\n      transparent 22%),\n    radial-gradient(\n      circle at 50% 78%,\n      rgba(34, 197, 94, 0.06) 0%,\n      transparent 28%),\n    linear-gradient(\n      180deg,\n      rgba(9, 9, 26, 0.98) 0%,\n      rgba(14, 14, 34, 0.94) 48%,\n      rgba(9, 9, 26, 0.98) 100%);\n}\n.rpg-container {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1.5rem;\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 3.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.65rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.6rem, 5.5vw, 4.2rem);\n  font-weight: 800;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 30%,\n      #f59e0b 55%,\n      #ef4444 80%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.04em;\n  line-height: 1.08;\n}\n.section-subtitle {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  margin: 0;\n}\n.skills-hud {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.85rem;\n  margin-top: 1.4rem;\n}\n.hud-card {\n  display: grid;\n  gap: 0.2rem;\n  padding: 0.95rem 1rem;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: rgba(255, 255, 255, 0.03);\n}\n.hud-label {\n  font-size: 0.7rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: rgba(220, 232, 214, 0.68);\n}\n.hud-value {\n  font-family: var(--font-display);\n  font-size: 1.45rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.skills-controls {\n  margin-top: 1rem;\n  display: flex;\n  justify-content: center;\n}\n.system-mode-toggle {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.2rem;\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.9),\n      rgba(19, 19, 46, 0.72));\n  color: rgba(253, 230, 138, 0.8);\n  font-size: 0.78rem;\n  font-weight: 600;\n  letter-spacing: 0.04em;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  backdrop-filter: blur(8px);\n}\n.system-mode-toggle:hover {\n  border-color: rgba(251, 191, 36, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(251, 191, 36, 0.12),\n      rgba(19, 19, 46, 0.82));\n  color: #fff;\n  box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);\n}\n.system-mode-toggle--active {\n  border-color: rgba(239, 68, 68, 0.5);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(239, 68, 68, 0.14),\n      rgba(19, 19, 46, 0.78));\n  color: #fca5a5;\n  box-shadow: 0 0 24px rgba(239, 68, 68, 0.14), inset 0 0 12px rgba(239, 68, 68, 0.06);\n}\n.system-mode-icon {\n  font-size: 1rem;\n  line-height: 1;\n}\n.system-mode-label {\n  white-space: nowrap;\n}\n.category-group {\n  margin-bottom: 2.5rem;\n}\n.category-header {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  margin-bottom: 1rem;\n  padding-left: 0.25rem;\n}\n.category-color-bar {\n  width: 4px;\n  height: 1.6rem;\n  border-radius: 2px;\n  flex-shrink: 0;\n}\n.category-name {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  margin: 0;\n  letter-spacing: -0.01em;\n}\n.category-count {\n  font-size: 0.72rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin-left: auto;\n}\n.skill-card-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n.skill-card {\n  position: relative;\n  padding: 1.25rem 1.35rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  cursor: pointer;\n  transition: all 0.28s ease;\n  overflow: hidden;\n}\n.skill-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 2px;\n  opacity: 0;\n  transition: opacity 0.3s ease;\n}\n.skill-card:hover {\n  border-color: rgba(148, 163, 184, 0.22);\n  background: rgba(255, 255, 255, 0.04);\n  transform: translateY(-2px);\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);\n}\n.skill-card:hover::before {\n  opacity: 1;\n}\n.skill-card--primary {\n  border-color: rgba(255, 213, 79, 0.18);\n}\n.skill-card--primary::before {\n  background:\n    linear-gradient(\n      90deg,\n      #FFD54F,\n      #FFB300);\n}\n.skill-card--primary:hover {\n  border-color: rgba(255, 213, 79, 0.35);\n  box-shadow: 0 8px 32px rgba(255, 213, 79, 0.08);\n}\n.skill-card--secondary::before {\n  background:\n    linear-gradient(\n      90deg,\n      #64B5F6,\n      #42A5F5);\n}\n.skill-card--supporting::before {\n  background:\n    linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0.2),\n      rgba(255, 255, 255, 0.08));\n}\n.skill-card--expanded {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(255, 255, 255, 0.05);\n  grid-column: 1/-1;\n}\n.skill-card--expanded::before {\n  opacity: 1;\n}\n.skill-card--flow {\n  border-color: rgba(76, 175, 80, 0.35);\n  box-shadow: 0 0 16px rgba(76, 175, 80, 0.08);\n}\n.flow-badge {\n  position: absolute;\n  top: 0.6rem;\n  right: 0.6rem;\n  width: 1.6rem;\n  height: 1.6rem;\n  border-radius: 50%;\n  background: rgba(76, 175, 80, 0.9);\n  color: #fff;\n  font-size: 0.7rem;\n  font-weight: 800;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);\n}\n.card-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 0.55rem;\n}\n.level-tag {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.12em;\n  padding: 0.25rem 0.6rem;\n  border-radius: 6px;\n  text-transform: uppercase;\n}\n.level-tag--primary {\n  background: rgba(255, 200, 80, 0.16);\n  color: #FFD54F;\n  border: 1px solid rgba(255, 213, 79, 0.3);\n}\n.level-tag--secondary {\n  background: rgba(100, 181, 246, 0.12);\n  color: #90CAF9;\n  border: 1px solid rgba(100, 181, 246, 0.25);\n}\n.level-tag--supporting {\n  background: rgba(255, 255, 255, 0.05);\n  color: rgba(255, 255, 255, 0.45);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n}\n.xp-number {\n  font-family: var(--font-display);\n  font-size: 0.85rem;\n  font-weight: 700;\n}\n.skill-name {\n  font-family: var(--font-display);\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.3rem;\n  letter-spacing: -0.01em;\n}\n.skill-tooltip {\n  font-size: 0.78rem;\n  color: var(--text-tertiary);\n  margin: 0 0 0.75rem;\n  line-height: 1.4;\n}\n.xp-bar-track {\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n}\n.xp-bar-fill {\n  height: 100%;\n  border-radius: 2px;\n  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);\n  box-shadow: 0 0 6px currentColor;\n}\n.card-details {\n  margin-top: 1.25rem;\n  padding-top: 1.25rem;\n  border-top: 1px solid rgba(148, 163, 184, 0.1);\n  animation: detailSlideIn 0.3s ease-out;\n}\n@keyframes detailSlideIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.detail-description {\n  font-size: 0.88rem;\n  line-height: 1.65;\n  color: var(--text-secondary);\n  margin: 0 0 1.25rem;\n}\n.detail-section {\n  margin-bottom: 1.15rem;\n}\n.detail-section:last-child {\n  margin-bottom: 0;\n}\n.detail-heading {\n  font-family: var(--font-display);\n  font-size: 0.82rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n  margin: 0 0 0.6rem;\n}\n.detail-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.detail-list li {\n  position: relative;\n  padding-left: 1.2rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.detail-list li::before {\n  content: "\\25b8";\n  position: absolute;\n  left: 0;\n  color: var(--primary-color);\n}\n.detail-list li:last-child {\n  margin-bottom: 0;\n}\n.project-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}\n.project-chip {\n  font-size: 0.78rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 8px;\n  background: rgba(255, 255, 255, 0.04);\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  color: var(--text-secondary);\n}\n.achievement-list {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.achievement-list li {\n  position: relative;\n  padding-left: 1.4rem;\n  margin-bottom: 0.5rem;\n  font-size: 0.84rem;\n  color: var(--text-secondary);\n  line-height: 1.55;\n}\n.achievement-list li::before {\n  content: "\\2b50";\n  position: absolute;\n  left: 0;\n  font-size: 0.72rem;\n}\n.achievement-list li:last-child {\n  margin-bottom: 0;\n}\n.related-tags {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.related-tag {\n  font-size: 0.75rem;\n  padding: 0.3rem 0.65rem;\n  border-radius: 12px;\n  background: rgba(251, 191, 36, 0.08);\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  color: #fde68a;\n}\n.legend-strip {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0;\n  width: fit-content;\n  max-width: 100%;\n  margin: 1.5rem auto 0;\n  padding: 0.8rem 1.5rem;\n  border: 1px solid rgba(251, 191, 36, 0.14);\n  border-radius: 24px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(9, 9, 26, 0.82),\n      rgba(19, 19, 46, 0.6));\n  backdrop-filter: blur(12px);\n}\n.legend-item {\n  display: flex;\n  align-items: center;\n  gap: 0.55rem;\n  padding: 0 1.1rem;\n}\n.legend-divider {\n  width: 1px;\n  height: 16px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.legend-dot {\n  display: block;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.legend-dot--primary {\n  width: 10px;\n  height: 10px;\n  background:\n    radial-gradient(\n      circle,\n      #FFD54F,\n      #FFB300);\n  box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);\n}\n.legend-dot--secondary {\n  width: 8px;\n  height: 8px;\n  background:\n    radial-gradient(\n      circle,\n      #90CAF9,\n      #42A5F5);\n  box-shadow: 0 0 6px rgba(100, 181, 246, 0.4);\n}\n.legend-dot--supporting {\n  width: 6px;\n  height: 6px;\n  background: rgba(255, 255, 255, 0.3);\n  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);\n}\n.legend-label {\n  font-size: 0.76rem;\n  font-weight: 500;\n  color: rgba(220, 232, 214, 0.72);\n  white-space: nowrap;\n}\n@media (max-width: 768px) {\n  .rpg-skills-section {\n    padding: 4rem 0;\n  }\n  .section-title {\n    font-size: 2.4rem;\n  }\n  .skills-hud {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .skill-card-grid {\n    grid-template-columns: 1fr 1fr;\n  }\n  .legend-strip {\n    flex-direction: column;\n    align-items: flex-start;\n    width: 100%;\n    padding: 0.8rem 1rem;\n    gap: 0.4rem;\n  }\n  .legend-item {\n    padding: 0;\n  }\n  .legend-divider {\n    width: 100%;\n    height: 1px;\n  }\n}\n@media (max-width: 480px) {\n  .rpg-skills-section {\n    padding: 3.5rem 0;\n  }\n  .section-title {\n    font-size: 2rem;\n  }\n  .skills-hud {\n    grid-template-columns: 1fr;\n  }\n  .skill-card-grid {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=skills.component.css.map */\n'] }]
   }], () => [{ type: AchievementsService }, { type: AudioService }], null);
 })();
 (() => {
@@ -36502,7 +36241,7 @@ var PublicationsComponent = class _PublicationsComponent {
         \u0275\u0275advance(3);
         \u0275\u0275repeater(ctx2.filteredProjects);
       }
-    }, dependencies: [CommonModule, NgForOf, NgIf], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.quest-header[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover   .quest-rank-bar[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.boss-card[_ngcontent-%COMP%]   .quest-rank-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge[_ngcontent-%COMP%]:hover {\n  opacity: 0.85;\n}\n.world-salesforce[_ngcontent-%COMP%] {\n  background: rgba(56, 189, 248, 0.14);\n  border: 1px solid rgba(56, 189, 248, 0.34);\n  color: #7dd3fc;\n}\n.world-games[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n}\n.quest-platform[_ngcontent-%COMP%] {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline[_ngcontent-%COMP%] {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.walmart-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #93c5fd;\n}\n.extramarks-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.salesforce-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #7dd3fc;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row[_ngcontent-%COMP%], \n.rewards-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label[_ngcontent-%COMP%], \n.rewards-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive[_ngcontent-%COMP%] {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: _ngcontent-%COMP%_rre-slide-in 0.4s ease;\n}\n@keyframes _ngcontent-%COMP%_rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner[_ngcontent-%COMP%] {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem[_ngcontent-%COMP%], \n.rre-impact[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link[_ngcontent-%COMP%] {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .rre-stats-row[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card[_ngcontent-%COMP%] {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link[_ngcontent-%COMP%] {\n  display: block;\n  text-decoration: none;\n}\n.game-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link[_ngcontent-%COMP%]:hover   .game-screen[_ngcontent-%COMP%] {\n  filter: brightness(1.12);\n}\n.screen-scanlines[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon[_ngcontent-%COMP%] {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press[_ngcontent-%COMP%] {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: _ngcontent-%COMP%_blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body[_ngcontent-%COMP%] {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge[_ngcontent-%COMP%] {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.game-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn[_ngcontent-%COMP%]:hover, \n.shop-filter-btn.active[_ngcontent-%COMP%] {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline[_ngcontent-%COMP%] {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge[_ngcontent-%COMP%] {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn[_ngcontent-%COMP%] {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
+    }, dependencies: [CommonModule, NgForOf, NgIf], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.quest-header[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card[_ngcontent-%COMP%]:hover   .quest-rank-bar[_ngcontent-%COMP%] {\n  opacity: 1;\n}\n.boss-card[_ngcontent-%COMP%]   .quest-rank-bar[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner[_ngcontent-%COMP%] {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge[_ngcontent-%COMP%]:hover {\n  opacity: 0.85;\n}\n.world-games[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n}\n.quest-platform[_ngcontent-%COMP%] {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status[_ngcontent-%COMP%] {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name[_ngcontent-%COMP%] {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline[_ngcontent-%COMP%] {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fca5a5;\n}\n.walmart-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #93c5fd;\n}\n.extramarks-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #fde68a;\n}\n.salesforce-card[_ngcontent-%COMP%]   .quest-tagline[_ngcontent-%COMP%] {\n  color: #7dd3fc;\n}\n.pro-card-desc[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row[_ngcontent-%COMP%], \n.rewards-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label[_ngcontent-%COMP%], \n.rewards-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive[_ngcontent-%COMP%] {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: _ngcontent-%COMP%_rre-slide-in 0.4s ease;\n}\n@keyframes _ngcontent-%COMP%_rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner[_ngcontent-%COMP%] {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem[_ngcontent-%COMP%], \n.rre-impact[_ngcontent-%COMP%] {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node[_ngcontent-%COMP%]:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow[_ngcontent-%COMP%] {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link[_ngcontent-%COMP%] {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .rre-stats-row[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card[_ngcontent-%COMP%] {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link[_ngcontent-%COMP%] {\n  display: block;\n  text-decoration: none;\n}\n.game-screen[_ngcontent-%COMP%] {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link[_ngcontent-%COMP%]:hover   .game-screen[_ngcontent-%COMP%] {\n  filter: brightness(1.12);\n}\n.screen-scanlines[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon[_ngcontent-%COMP%] {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press[_ngcontent-%COMP%] {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: _ngcontent-%COMP%_blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes _ngcontent-%COMP%_blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body[_ngcontent-%COMP%] {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge[_ngcontent-%COMP%] {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action[_ngcontent-%COMP%] {\n  margin-top: auto;\n}\n.game-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary[_ngcontent-%COMP%] {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary[_ngcontent-%COMP%] {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary[_ngcontent-%COMP%]:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn[_ngcontent-%COMP%]:hover, \n.shop-filter-btn.active[_ngcontent-%COMP%] {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body[_ngcontent-%COMP%] {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline[_ngcontent-%COMP%] {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge[_ngcontent-%COMP%] {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn[_ngcontent-%COMP%] {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner[_ngcontent-%COMP%] {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */'] });
   }
 };
 (() => {
@@ -36986,7 +36725,7 @@ var PublicationsComponent = class _PublicationsComponent {
     </div>
   </div>
 </div>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n:host {\n  display: block;\n}\n.quest-header {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card:hover .quest-rank-bar {\n  opacity: 1;\n}\n.boss-card .quest-rank-bar {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge:hover {\n  opacity: 0.85;\n}\n.world-salesforce {\n  background: rgba(56, 189, 248, 0.14);\n  border: 1px solid rgba(56, 189, 248, 0.34);\n  color: #7dd3fc;\n}\n.world-games {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon {\n  font-size: 0.75rem;\n}\n.quest-platform {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card .quest-tagline {\n  color: #fca5a5;\n}\n.walmart-card .quest-tagline {\n  color: #93c5fd;\n}\n.extramarks-card .quest-tagline {\n  color: #fde68a;\n}\n.salesforce-card .quest-tagline {\n  color: #7dd3fc;\n}\n.pro-card-desc {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row,\n.rewards-row {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label,\n.rewards-label {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips span {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: rre-slide-in 0.4s ease;\n}\n@keyframes rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem,\n.rre-impact {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow {\n    justify-content: center;\n  }\n  .rre-stats-row {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link {\n  display: block;\n  text-decoration: none;\n}\n.game-screen {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link:hover .game-screen {\n  filter: brightness(1.12);\n}\n.screen-scanlines {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action {\n  margin-top: auto;\n}\n.game-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn:hover,\n.shop-filter-btn.active {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/publications/publications.component.scss */\n:host {\n  display: block;\n}\n.quest-header {\n  position: relative;\n  overflow: visible;\n  padding-bottom: 0.5rem;\n}\n.quest-world-label {\n  display: inline-block;\n  margin-bottom: 0.75rem;\n  font-family: var(--font-pixel);\n  font-size: 0.62rem;\n  font-weight: 700;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.quest-title {\n  font-size: clamp(2rem, 5.5vw, 4rem) !important;\n  line-height: 1.25 !important;\n  padding-block: 0.15em;\n  overflow: visible;\n  background:\n    linear-gradient(\n      120deg,\n      #fef3c7 0%,\n      #fbbf24 35%,\n      #f59e0b 60%,\n      #ef4444 85%,\n      #fde68a 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  letter-spacing: -0.04em;\n  margin-bottom: 0.5rem;\n}\n.pro-projects-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));\n  gap: 1.25rem;\n}\n.quest-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n}\n.quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.quest-rank-bar {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 4px;\n  height: 100%;\n  background: var(--gradient-primary);\n  opacity: 0.5;\n  transition: opacity 250ms ease;\n}\n.quest-card:hover .quest-rank-bar {\n  opacity: 1;\n}\n.boss-card .quest-rank-bar {\n  background:\n    linear-gradient(\n      180deg,\n      #ef4444,\n      #fbbf24);\n}\n.quest-inner {\n  padding: 1.4rem 1.4rem 1.4rem 1.7rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.7rem;\n  height: 100%;\n}\n.quest-header-row {\n  display: flex;\n  align-items: center;\n  gap: 0.65rem;\n  flex-wrap: wrap;\n}\n.world-badge {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.32rem 0.7rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  font-weight: 700;\n  letter-spacing: 0.05em;\n  text-decoration: none;\n  transition: opacity 200ms;\n}\n.world-badge:hover {\n  opacity: 0.85;\n}\n.world-games {\n  background: rgba(239, 68, 68, 0.14);\n  border: 1px solid rgba(239, 68, 68, 0.32);\n  color: #fca5a5;\n}\n.world-walmart {\n  background: rgba(59, 130, 246, 0.14);\n  border: 1px solid rgba(59, 130, 246, 0.32);\n  color: #93c5fd;\n}\n.world-extramarks {\n  background: rgba(251, 191, 36, 0.14);\n  border: 1px solid rgba(251, 191, 36, 0.32);\n  color: #fde68a;\n}\n.world-icon {\n  font-size: 0.75rem;\n}\n.quest-platform {\n  color: var(--text-muted);\n  font-size: 0.78rem;\n}\n.quest-status {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.12em;\n  color: var(--accent-color);\n  text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);\n}\n.boss-status {\n  color: #f97316;\n  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);\n}\n.quest-name {\n  font-size: 1.15rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n  line-height: 1.25;\n}\n.quest-tagline {\n  color: #a5b4fc;\n  font-size: 0.88rem;\n  margin: 0;\n}\n.games-card .quest-tagline {\n  color: #fca5a5;\n}\n.walmart-card .quest-tagline {\n  color: #93c5fd;\n}\n.extramarks-card .quest-tagline {\n  color: #fde68a;\n}\n.salesforce-card .quest-tagline {\n  color: #7dd3fc;\n}\n.pro-card-desc {\n  color: var(--text-tertiary);\n  font-size: 0.88rem;\n  line-height: 1.65;\n  margin: 0;\n}\n.abilities-row,\n.rewards-row {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  margin-top: 0.35rem;\n}\n.abilities-label,\n.rewards-label {\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  letter-spacing: 0.14em;\n  color: var(--text-muted);\n}\n.ability-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.ability-chips span {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.3rem 0.65rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.18);\n  background: rgba(251, 191, 36, 0.06);\n  color: var(--text-secondary);\n  font-size: 0.76rem;\n  font-weight: 600;\n}\n.reward-chips {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.reward-chip {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3rem;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.25);\n  background: rgba(251, 191, 36, 0.08);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 700;\n}\n.reward-chip.legendary {\n  border-color: rgba(239, 68, 68, 0.35);\n  background: rgba(239, 68, 68, 0.1);\n  color: #fca5a5;\n  text-shadow: 0 0 6px rgba(239, 68, 68, 0.3);\n}\n.rre-toggle-btn {\n  margin-top: 0.5rem;\n  width: 100%;\n  font-size: 0.52rem !important;\n}\n.rre-deepdive {\n  grid-column: 1/-1;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(15, 15, 38, 0.98) 0%,\n      rgba(10, 10, 28, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.15);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.5), inset 0 1px 0 rgba(251, 191, 36, 0.06);\n  animation: rre-slide-in 0.4s ease;\n}\n@keyframes rre-slide-in {\n  from {\n    opacity: 0;\n    transform: translateY(-12px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.rre-deepdive-inner {\n  padding: 2rem 2rem 2.25rem;\n  display: flex;\n  flex-direction: column;\n  gap: 1.25rem;\n}\n.rre-section-label {\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.16em;\n  color: var(--primary-color);\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);\n}\n.rre-problem,\n.rre-impact {\n  color: var(--text-tertiary);\n  font-size: 0.9rem;\n  line-height: 1.7;\n  margin: 0;\n}\n.rre-arch-flow {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 0;\n  padding: 1rem 0;\n}\n.rre-arch-segment {\n  display: flex;\n  align-items: center;\n}\n.rre-arch-node {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.75rem 0.85rem;\n  border-radius: 0.75rem;\n  border: 1px solid;\n  background: rgba(255, 255, 255, 0.03);\n  min-width: 80px;\n  transition: background 200ms ease, box-shadow 200ms ease;\n}\n.rre-arch-node:hover {\n  background: rgba(255, 255, 255, 0.06);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);\n}\n.rre-arch-icon {\n  font-size: 1.3rem;\n  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));\n}\n.rre-arch-label {\n  font-family: var(--font-pixel);\n  font-size: 0.42rem;\n  letter-spacing: 0.08em;\n  color: rgba(255, 255, 255, 0.8);\n  text-align: center;\n  white-space: nowrap;\n}\n.rre-pipe {\n  display: flex;\n  align-items: center;\n  padding: 0 0.25rem;\n}\n.pipe-arrow {\n  color: rgba(251, 191, 36, 0.5);\n  font-size: 1.1rem;\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.rre-stats-row {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 0.75rem;\n}\n.rre-stat-card {\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(52, 211, 153, 0.12);\n  border-radius: 0.75rem;\n  padding: 1rem;\n  text-align: center;\n  border-top: 3px solid rgba(52, 211, 153, 0.5);\n}\n.rre-stat-value {\n  font-family: var(--font-pixel);\n  font-size: clamp(0.9rem, 2vw, 1.25rem);\n  color: #34d399;\n  text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);\n  margin-bottom: 0.35rem;\n}\n.rre-stat-label {\n  font-size: 0.72rem;\n  color: rgba(255, 255, 255, 0.45);\n}\n.rre-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.45rem;\n}\n.rre-tech-chip {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.35rem 0.75rem;\n  border-radius: 999px;\n  border: 1px solid rgba(251, 191, 36, 0.2);\n  background: rgba(251, 191, 36, 0.06);\n  color: #fde68a;\n  font-size: 0.78rem;\n  font-weight: 600;\n}\n.rre-blog-link {\n  align-self: flex-start;\n  margin-top: 0.5rem;\n}\n@media (max-width: 768px) {\n  .rre-deepdive-inner {\n    padding: 1.25rem;\n  }\n  .rre-arch-flow {\n    justify-content: center;\n  }\n  .rre-stats-row {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n.side-quests-grid {\n  margin-top: 2rem;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 1.4rem;\n}\n.side-quest-card {\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.side-quest-card:hover {\n  transform: translateY(-5px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 20px 60px rgba(0, 0, 10, 0.6), 0 0 24px rgba(251, 191, 36, 0.08);\n}\n.game-screen-link {\n  display: block;\n  text-decoration: none;\n}\n.game-screen {\n  position: relative;\n  min-height: 220px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  border-bottom: 2px solid rgba(251, 191, 36, 0.12);\n  cursor: pointer;\n  transition: filter 250ms ease;\n}\n.game-screen-link:hover .game-screen {\n  filter: brightness(1.12);\n}\n.screen-scanlines {\n  position: absolute;\n  inset: 0;\n  pointer-events: none;\n  background:\n    repeating-linear-gradient(\n      0deg,\n      transparent,\n      transparent 3px,\n      rgba(0, 0, 0, 0.12) 3px,\n      rgba(0, 0, 0, 0.12) 4px);\n  z-index: 2;\n}\n.screen-content {\n  position: relative;\n  z-index: 3;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 1.75rem 1.5rem;\n}\n.screen-icon {\n  font-size: 2.6rem;\n  line-height: 1;\n  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));\n}\n.screen-title {\n  font-family: var(--font-pixel);\n  font-size: 0.72rem;\n  letter-spacing: 0.1em;\n  color: #ffffff;\n  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);\n}\n.screen-subtitle {\n  font-size: 0.82rem;\n  color: rgba(255, 255, 255, 0.8);\n}\n.screen-tags {\n  font-size: 0.75rem;\n  color: rgba(255, 255, 255, 0.65);\n}\n.screen-press {\n  margin-top: 0.3rem;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.1em;\n  color: #fbbf24;\n  animation: blink 1.2s step-end infinite;\n  text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);\n}\n.screen-press.powered {\n  color: rgba(255, 255, 255, 0.55);\n  animation: none;\n  font-size: 0.5rem;\n}\n@keyframes blink {\n  0%, 100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0;\n  }\n}\n.algo-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #0f1f45 0%,\n      #1e1b4b 50%,\n      #0c2030 100%);\n}\n.divine-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d1000 0%,\n      #5c2600 55%,\n      #3d1f00 100%);\n}\n.datesense-screen {\n  background:\n    linear-gradient(\n      135deg,\n      #2d0a1e 0%,\n      #6b1541 55%,\n      #3d0c2e 100%);\n}\n.side-quest-body {\n  padding: 1.25rem 1.35rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.75rem;\n  flex: 1;\n}\n.sq-type-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 0.65rem;\n}\n.sq-type-badge {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.28rem 0.65rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.5rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  background: rgba(251, 191, 36, 0.12);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.sq-type-badge.ai-badge {\n  background: rgba(139, 92, 246, 0.14);\n  border-color: rgba(139, 92, 246, 0.32);\n  color: #c4b5fd;\n}\n.sq-xp {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  color: var(--accent-color);\n  text-shadow: 0 0 6px rgba(34, 197, 94, 0.35);\n}\n.sq-title {\n  font-size: 1.1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0;\n}\n.sq-tech-row {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n}\n.sq-action {\n  margin-top: auto;\n}\n.game-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  padding: 0.7rem 1.4rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.58rem;\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  cursor: pointer;\n  border: none;\n  text-decoration: none;\n  transition:\n    transform 200ms ease,\n    box-shadow 200ms ease,\n    filter 200ms ease;\n}\n.game-btn:hover {\n  transform: translateY(-2px);\n}\n.game-btn-primary {\n  background: var(--gradient-primary);\n  color: #09091a;\n  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);\n}\n.game-btn-primary:hover {\n  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.42);\n  filter: brightness(1.08);\n}\n.game-btn-secondary {\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.28);\n  color: #fde68a;\n}\n.game-btn-secondary:hover {\n  background: rgba(251, 191, 36, 0.18);\n}\n.shop-filters {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 0.6rem;\n  margin: 1.5rem 0;\n}\n.shop-filter-btn {\n  display: inline-flex;\n  align-items: center;\n  padding: 0.5rem 1rem;\n  border-radius: 999px;\n  font-family: var(--font-pixel);\n  font-size: 0.55rem;\n  letter-spacing: 0.08em;\n  border: 1px solid rgba(251, 191, 36, 0.16);\n  background: rgba(255, 255, 255, 0.03);\n  color: var(--text-secondary);\n  cursor: pointer;\n  transition: all 220ms ease;\n}\n.shop-filter-btn:hover,\n.shop-filter-btn.active {\n  color: #09091a;\n  border-color: rgba(251, 191, 36, 0.7);\n  background: rgba(251, 191, 36, 0.82);\n  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.22);\n}\n.powerup-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1.2rem;\n  margin-top: 0.5rem;\n}\n.powerup-card {\n  position: relative;\n  border-radius: 1.25rem;\n  overflow: hidden;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(19, 19, 46, 0.98) 0%,\n      rgba(13, 13, 34, 0.98) 100%);\n  border: 1px solid rgba(251, 191, 36, 0.1);\n  transition:\n    transform 250ms ease,\n    border-color 250ms ease,\n    box-shadow 250ms ease;\n  display: flex;\n  flex-direction: column;\n}\n.powerup-card:hover {\n  transform: translateY(-4px);\n  border-color: rgba(251, 191, 36, 0.28);\n  box-shadow: 0 16px 48px rgba(0, 0, 10, 0.55), 0 0 20px rgba(251, 191, 36, 0.07);\n}\n.powerup-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1rem 1.2rem 0.75rem;\n  border-bottom: 1px solid rgba(251, 191, 36, 0.08);\n  background: rgba(251, 191, 36, 0.04);\n}\n.powerup-icon-wrap {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 2.6rem;\n  height: 2.6rem;\n  border-radius: 0.75rem;\n  background: rgba(251, 191, 36, 0.1);\n  border: 1px solid rgba(251, 191, 36, 0.22);\n  font-size: 1.2rem;\n}\n.powerup-category {\n  font-family: var(--font-pixel);\n  font-size: 0.52rem;\n  letter-spacing: 0.1em;\n  color: var(--primary-color);\n  text-shadow: 0 0 6px rgba(251, 191, 36, 0.3);\n}\n.powerup-body {\n  padding: 1.1rem 1.2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  flex: 1;\n}\n.powerup-name {\n  font-size: 0.95rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  font-family: var(--font-mono);\n  margin: 0;\n}\n.powerup-tagline {\n  font-size: 0.84rem;\n  color: var(--primary-color);\n  opacity: 0.85;\n  margin: 0;\n}\n.powerup-desc {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  line-height: 1.6;\n}\n.powerup-badges {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.4rem;\n  margin-top: 0.25rem;\n}\n.package-badge {\n  height: 20px;\n  border-radius: 4px;\n}\n.powerup-btn {\n  margin-top: auto;\n  width: 100%;\n  padding: 0.65rem;\n}\n@media (max-width: 768px) {\n  .pro-projects-grid {\n    grid-template-columns: 1fr;\n  }\n  .side-quests-grid {\n    grid-template-columns: 1fr;\n  }\n  .powerup-grid {\n    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));\n  }\n  .quest-inner {\n    padding: 1.2rem 1.2rem 1.2rem 1.5rem;\n  }\n}\n/*# sourceMappingURL=publications.component.css.map */\n'] }]
   }], null, null);
 })();
 (() => {
@@ -37053,20 +36792,7 @@ var TILE = 32;
 var GRAVITY = 0.52;
 var JUMP_FORCE = -11;
 var MOVE_SPEED = 3.8;
-var RUN_SPEED = 5.4;
 var MAX_FALL = 12;
-var GROUND_ACCEL = 0.65;
-var AIR_ACCEL = 0.42;
-var GROUND_FRICTION = 0.8;
-var SKID_FRICTION = 0.6;
-var COYOTE_FRAMES = 6;
-var JUMP_BUFFER_FRAMES = 6;
-var JUMP_CUT_MULTIPLIER = 0.42;
-var FLY_THRUST = 0.62;
-var FLY_MAX_RISE = -5.4;
-var FLY_GRAVITY = GRAVITY * 0.4;
-var FLY_MAX_FALL = MAX_FALL * 0.55;
-var FLY_DIVE = 0.9;
 var Player = class {
   constructor(x, y) {
     this.vx = 0;
@@ -37083,14 +36809,6 @@ var Player = class {
     this.starTimer = 0;
     this.fireCooldown = 0;
     this.swimStrokeCooldown = 0;
-    this.coyoteTimer = 0;
-    this.jumpBufferTimer = 0;
-    this.jumpHeld = false;
-    this.isJumping = false;
-    this.skidding = false;
-    this.running = false;
-    this.flying = false;
-    this.walkPhase = 0;
     this.x = x;
     this.y = y;
   }
@@ -37238,33 +36956,6 @@ var Debris = class {
     this.life--;
   }
 };
-var Particle = class {
-  constructor(x, y, vx, vy, color, size = 3, life = 24, kind = "dust", gravity = 0.18) {
-    this.x = x;
-    this.y = y;
-    this.vx = vx;
-    this.vy = vy;
-    this.color = color;
-    this.size = size;
-    this.life = life;
-    this.maxLife = life;
-    this.kind = kind;
-    this.gravity = gravity;
-  }
-  get alive() {
-    return this.life > 0;
-  }
-  get fade() {
-    return Math.max(0, this.life / this.maxLife);
-  }
-  tick() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.vy += this.gravity;
-    this.vx *= 0.96;
-    this.life--;
-  }
-};
 var CATEGORY_KEYWORDS = {
   backend: ["REST API", "CRUD", "Auth", "DB Index", "ORM", "Retry", "Timeout", "Circuit Breaker", "Rate Limit", "Idempotent", "Webhook", "gRPC", "Middleware", "Connection Pool", "Thread Pool"],
   distributed: ["Kafka", "Partition", "Replication", "Consensus", "Raft", "Shard", "Quorum", "CAP", "Saga", "Event Bus", "Dead Letter", "Backpressure", "Fan-out", "Exactly Once", "Leader Election"],
@@ -37328,9 +37019,6 @@ var MarioRenderer = class {
     this.frameCount = 0;
     this.categoryKey = "backend";
     this.levelType = "ground";
-    this.shakeMag = 0;
-    this.shakeOffX = 0;
-    this.shakeOffY = 0;
     this.ctx = canvas.getContext("2d");
     this.canvasW = canvas.width;
     this.canvasH = canvas.height;
@@ -37338,21 +37026,6 @@ var MarioRenderer = class {
   }
   setCategory(cat) {
     this.categoryKey = cat;
-  }
-  /** Trigger a screen shake; magnitude decays each frame. */
-  shake(magnitude) {
-    this.shakeMag = Math.min(Math.max(this.shakeMag, magnitude), 10);
-  }
-  updateShake() {
-    if (this.shakeMag > 0.1) {
-      this.shakeOffX = (Math.random() * 2 - 1) * this.shakeMag;
-      this.shakeOffY = (Math.random() * 2 - 1) * this.shakeMag;
-      this.shakeMag *= 0.82;
-    } else {
-      this.shakeMag = 0;
-      this.shakeOffX = 0;
-      this.shakeOffY = 0;
-    }
   }
   setLevelType(levelType) {
     this.levelType = levelType;
@@ -37366,13 +37039,12 @@ var MarioRenderer = class {
   }
   render(player, level) {
     this.frameCount++;
-    this.updateShake();
     const camX = Math.max(0, Math.min(player.x - this.canvasW / 2 + player.w / 2, level.width - this.canvasW));
     const camY = 0;
     this.drawBackdrop(camX);
     this.drawCategoryBanner(level.category);
     this.ctx.save();
-    this.ctx.translate(-camX + this.shakeOffX, -camY + this.shakeOffY);
+    this.ctx.translate(-camX, -camY);
     for (const p of level.platforms) {
       if (!p.destroyed)
         this.drawPlatform(p);
@@ -37387,37 +37059,10 @@ var MarioRenderer = class {
       this.drawFireball(fb);
     for (const d of level.debris)
       this.drawDebris(d);
-    if (level.particles) {
-      for (const part of level.particles)
-        this.drawParticle(part);
-    }
     for (const ft of level.floatingTexts)
       this.drawFloatingText(ft);
     this.drawFlagPole(level.flagPole);
     this.drawPlayer(player);
-    this.ctx.restore();
-  }
-  drawParticle(part) {
-    this.ctx.save();
-    this.ctx.globalAlpha = part.fade;
-    this.ctx.fillStyle = part.color;
-    if (part.kind === "spark") {
-      this.ctx.shadowColor = part.color;
-      this.ctx.shadowBlur = 4;
-      this.ctx.beginPath();
-      this.ctx.arc(part.x, part.y, part.size, 0, Math.PI * 2);
-      this.ctx.fill();
-    } else if (part.kind === "ring") {
-      this.ctx.strokeStyle = part.color;
-      this.ctx.lineWidth = 2;
-      this.ctx.beginPath();
-      this.ctx.arc(part.x, part.y, part.size * (1.4 - part.fade) * 6, 0, Math.PI * 2);
-      this.ctx.stroke();
-    } else {
-      this.ctx.beginPath();
-      this.ctx.arc(part.x, part.y, part.size, 0, Math.PI * 2);
-      this.ctx.fill();
-    }
     this.ctx.restore();
   }
   drawBackdrop(camX) {
@@ -37794,9 +37439,8 @@ var MarioRenderer = class {
     this.ctx.fillStyle = overallColor;
     const legW = w * 0.3;
     const legY = headH + bodyH;
+    const walkCycle = Math.sin(this.frameCount * 0.2) * 3;
     const moving = Math.abs(player.vx) > 0.5;
-    const airborne = !player.onGround;
-    const walkCycle = airborne ? 2 : Math.sin(player.walkPhase * Math.PI) * 3;
     this.ctx.fillRect(w * 0.1, legY + (moving ? walkCycle : 0), legW, legH);
     this.ctx.fillRect(w * 0.6, legY + (moving ? -walkCycle : 0), legW, legH);
     this.ctx.fillStyle = "#7c2d12";
@@ -37813,7 +37457,7 @@ var MarioRenderer = class {
 // src/app/profile/ai-quiz-game/game/mario-controls.ts
 var MarioControls = class {
   constructor() {
-    this.state = { left: false, right: false, jump: false, fire: false, run: false, down: false };
+    this.state = { left: false, right: false, jump: false, fire: false };
     this.keydownHandler = (e) => this.onKeyDown(e);
     this.keyupHandler = (e) => this.onKeyUp(e);
   }
@@ -37827,7 +37471,7 @@ var MarioControls = class {
     this.reset();
   }
   reset() {
-    this.state = { left: false, right: false, jump: false, fire: false, run: false, down: false };
+    this.state = { left: false, right: false, jump: false, fire: false };
   }
   getState() {
     return __spreadValues({}, this.state);
@@ -37843,13 +37487,6 @@ var MarioControls = class {
   }
   setTouchFire(active) {
     this.state.fire = active;
-    this.state.run = active;
-  }
-  setTouchRun(active) {
-    this.state.run = active;
-  }
-  setTouchDown(active) {
-    this.state.down = active;
   }
   onKeyDown(e) {
     switch (e.code) {
@@ -37874,12 +37511,6 @@ var MarioControls = class {
       case "ShiftLeft":
       case "ShiftRight":
         this.state.fire = true;
-        this.state.run = true;
-        e.preventDefault();
-        break;
-      case "ArrowDown":
-      case "KeyS":
-        this.state.down = true;
         e.preventDefault();
         break;
     }
@@ -37904,11 +37535,6 @@ var MarioControls = class {
       case "ShiftLeft":
       case "ShiftRight":
         this.state.fire = false;
-        this.state.run = false;
-        break;
-      case "ArrowDown":
-      case "KeyS":
-        this.state.down = false;
         break;
     }
   }
@@ -37946,57 +37572,19 @@ function updatePhysics(player, level, keys) {
     coinCollected: false
   };
   const isWater = level.levelType === "water";
-  const isFlight = level.levelType === "sky";
-  const wantsRun = !!keys.run && !isWater && !isFlight;
-  const topSpeed = isWater ? MOVE_SPEED * 0.72 : wantsRun ? RUN_SPEED : MOVE_SPEED;
-  const fallLimit = isWater ? MAX_FALL * 0.35 : isFlight ? FLY_MAX_FALL : MAX_FALL;
-  const accel = player.onGround ? GROUND_ACCEL : AIR_ACCEL;
-  player.running = wantsRun && Math.abs(player.vx) > MOVE_SPEED * 0.6;
-  player.skidding = false;
-  if (isWater) {
-    if (keys.left) {
-      player.vx = -topSpeed;
-      player.facing = "left";
-    } else if (keys.right) {
-      player.vx = topSpeed;
-      player.facing = "right";
-    } else {
-      player.vx *= 0.84;
-      if (Math.abs(player.vx) < 0.2)
-        player.vx = 0;
-    }
-  } else if (keys.left) {
+  const moveSpeed = isWater ? MOVE_SPEED * 0.72 : MOVE_SPEED;
+  const fallLimit = isWater ? MAX_FALL * 0.35 : MAX_FALL;
+  if (keys.left) {
+    player.vx = -moveSpeed;
     player.facing = "left";
-    if (player.vx > 0) {
-      player.vx *= SKID_FRICTION;
-      player.skidding = player.onGround;
-    }
-    player.vx -= accel;
-    if (player.vx < -topSpeed)
-      player.vx = -topSpeed;
   } else if (keys.right) {
+    player.vx = moveSpeed;
     player.facing = "right";
-    if (player.vx < 0) {
-      player.vx *= SKID_FRICTION;
-      player.skidding = player.onGround;
-    }
-    player.vx += accel;
-    if (player.vx > topSpeed)
-      player.vx = topSpeed;
   } else {
-    player.vx *= player.onGround ? GROUND_FRICTION : 0.94;
-    if (Math.abs(player.vx) < 0.15)
+    player.vx *= isWater ? 0.84 : 0.7;
+    if (Math.abs(player.vx) < 0.2)
       player.vx = 0;
   }
-  if (player.vx > topSpeed)
-    player.vx = topSpeed;
-  if (player.vx < -topSpeed)
-    player.vx = -topSpeed;
-  if (player.onGround && Math.abs(player.vx) > 0.4) {
-    player.walkPhase += Math.abs(player.vx) * 0.06;
-  }
-  const jumpPressed = keys.jump && !player.jumpHeld;
-  player.jumpHeld = keys.jump;
   if (isWater) {
     if (player.swimStrokeCooldown > 0)
       player.swimStrokeCooldown--;
@@ -38006,55 +37594,14 @@ function updatePhysics(player, level, keys) {
       player.swimStrokeCooldown = 10;
       result.jumped = true;
     }
-  } else if (isFlight) {
-    player.flying = false;
-    if (keys.jump) {
-      player.vy -= FLY_THRUST;
-      if (player.vy < FLY_MAX_RISE)
-        player.vy = FLY_MAX_RISE;
-      player.onGround = false;
-      player.flying = true;
-      if (jumpPressed)
-        result.jumped = true;
-    }
-    if (keys.down) {
-      player.vy += FLY_DIVE;
-    }
-  } else {
-    if (player.onGround)
-      player.coyoteTimer = COYOTE_FRAMES;
-    else if (player.coyoteTimer > 0)
-      player.coyoteTimer--;
-    if (jumpPressed)
-      player.jumpBufferTimer = JUMP_BUFFER_FRAMES;
-    else if (player.jumpBufferTimer > 0)
-      player.jumpBufferTimer--;
-    const canJump = player.coyoteTimer > 0 && player.jumpBufferTimer > 0;
-    if (canJump) {
-      const speedBonus = Math.min(Math.abs(player.vx) / RUN_SPEED, 1) * 1.6;
-      player.vy = JUMP_FORCE - speedBonus;
-      player.onGround = false;
-      player.isJumping = true;
-      player.coyoteTimer = 0;
-      player.jumpBufferTimer = 0;
-      result.jumped = true;
-    }
-    if (player.isJumping && !keys.jump && player.vy < 0) {
-      player.vy *= JUMP_CUT_MULTIPLIER;
-      player.isJumping = false;
-    }
-    if (player.vy >= 0)
-      player.isJumping = false;
+  } else if (keys.jump && player.onGround) {
+    player.vy = JUMP_FORCE;
+    player.onGround = false;
+    result.jumped = true;
   }
-  if (isWater) {
-    player.vy += GRAVITY * 0.22;
+  player.vy += isWater ? GRAVITY * 0.22 : GRAVITY;
+  if (isWater)
     player.vy *= 0.94;
-  } else if (isFlight) {
-    player.vy += player.flying ? FLY_GRAVITY * 0.35 : FLY_GRAVITY;
-    player.vy *= 0.985;
-  } else {
-    player.vy += GRAVITY;
-  }
   if (player.vy > fallLimit)
     player.vy = fallLimit;
   if (player.fireCooldown > 0)
@@ -38281,7 +37828,7 @@ function getLayoutGuide(difficulty, levelType = "ground") {
       pipeCount: { min: 4, max: 4 },
       brickCount: { min: 8, max: 10 },
       questionCount: { min: 5, max: 7 },
-      enemyCount: { min: 19, max: 25 },
+      enemyCount: { min: 20, max: 24 },
       coinCount: { min: 30, max: 38 },
       gapCount: { min: 4, max: 5 },
       maxGapWidth: 3,
@@ -38302,7 +37849,7 @@ function getLayoutGuide(difficulty, levelType = "ground") {
       pipeCount: { min: 3, max: 3 },
       brickCount: { min: 6, max: 8 },
       questionCount: { min: 7, max: 9 },
-      enemyCount: { min: 13, max: 18 },
+      enemyCount: { min: 14, max: 18 },
       coinCount: { min: 26, max: 34 },
       gapCount: { min: 3, max: 4 },
       maxGapWidth: 3,
@@ -38323,7 +37870,7 @@ function getLayoutGuide(difficulty, levelType = "ground") {
       pipeCount: { min: 2, max: 3 },
       brickCount: { min: 4, max: 6 },
       questionCount: { min: 8, max: 10 },
-      enemyCount: { min: 8, max: 13 },
+      enemyCount: { min: 9, max: 12 },
       coinCount: { min: 22, max: 30 },
       gapCount: { min: 2, max: 3 },
       maxGapWidth: 2,
@@ -38399,17 +37946,6 @@ function shuffleKeywords(pool) {
   }
   return arr;
 }
-function uniqueKeyword(pool, index, used) {
-  const base = pool[index % pool.length];
-  let candidate = base;
-  let suffix = 2;
-  while (used.has(candidate)) {
-    candidate = `${base} ${suffix}`;
-    suffix++;
-  }
-  used.add(candidate);
-  return candidate;
-}
 function markCoveredTiles(tiles, startX, width) {
   const from2 = Math.max(0, Math.floor(startX));
   const to = Math.min(tiles.length, Math.ceil(startX + Math.max(1, width)));
@@ -38431,7 +37967,7 @@ function parseLevelFromAI(raw) {
   }
 }
 function validateAILevelData(data, config3) {
-  const levelType = resolveLevelType(config3.levelType ?? data.levelType);
+  const levelType = resolveLevelType(data.levelType ?? config3.levelType);
   const guide = getLayoutGuide(config3.difficulty, levelType);
   const issues = [];
   const platforms = data.platforms ?? [];
@@ -38646,7 +38182,7 @@ function buildLevelFromData(data, config3) {
   }
   const flagX = data.flagPole?.x ? data.flagPole.x * TILE : FLAG_POLE_X * TILE;
   const flagPole = new FlagPole(flagX, 3 * TILE, (GROUND_ROW - 3) * TILE);
-  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], particles: [], width: levelW, height: levelH, category, levelType };
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
 }
 function generateProceduralLevel(config3) {
   const platforms = [];
@@ -38660,7 +38196,6 @@ function generateProceduralLevel(config3) {
   const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS["backend"]);
   let kwIdx = 0;
   let bugIdx = 0;
-  const usedBugKeywords = /* @__PURE__ */ new Set();
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
   const gY = GROUND_ROW * TILE;
@@ -38698,7 +38233,6 @@ function generateProceduralLevel(config3) {
     pipePositions.push(px);
   }
   const isNearPipe = (tx) => pipePositions.some((px) => tx >= px - 2 && tx <= px + 3);
-  const isOverGap = (tx) => plannedGaps.some((g) => tx >= g.start && tx < g.start + g.width);
   const brickCount = getTargetCount(guide.brickCount);
   for (let i = 0; i < brickCount; i++) {
     let bx;
@@ -38754,27 +38288,14 @@ function generateProceduralLevel(config3) {
     for (let i = 0; i < zone.count; i++) {
       let ex = zone.start + step * (i + 1) + Math.floor(Math.random() * 2 - 1);
       ex = Math.max(zone.start, Math.min(zone.end - 1, ex));
-      if (isNearPipe(ex) || isOverGap(ex)) {
-        let placed = -1;
-        for (let off = 1; off <= zoneWidth; off++) {
-          const right = ex + off;
-          const left = ex - off;
-          if (right <= zone.end - 1 && !isNearPipe(right) && !isOverGap(right)) {
-            placed = right;
-            break;
-          }
-          if (left >= zone.start && !isNearPipe(left) && !isOverGap(left)) {
-            placed = left;
-            break;
-          }
-        }
-        if (placed >= 0)
-          ex = placed;
-      }
+      if (isNearPipe(ex))
+        ex += 3;
+      if (ex > zone.end)
+        ex = zone.end - 2;
       const mustUseKoopa = zone.requireKoopa && !koopaPlaced && i === zone.count - 1;
       const type = mustUseKoopa || Math.random() < zone.koopaChance ? "koopa" : "goomba";
       const enemy = new Enemy(ex * TILE, (GROUND_ROW - 1) * TILE, type);
-      enemy.keyword = uniqueKeyword(bugKw, bugIdx, usedBugKeywords);
+      enemy.keyword = bugKw[bugIdx % bugKw.length];
       bugIdx++;
       enemies.push(enemy);
       koopaPlaced = koopaPlaced || type === "koopa";
@@ -38792,7 +38313,7 @@ function generateProceduralLevel(config3) {
     coins.push(new Coin(cx * TILE + TILE * 0.25, cy * TILE + TILE * 0.25));
   }
   const flagPole = new FlagPole(FLAG_POLE_X * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
-  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], particles: [], width: levelW, height: levelH, category, levelType };
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
 }
 function createPlayer() {
   return new Player(PLAYER_START_X * TILE, PLAYER_START_Y * TILE - TILE);
@@ -39037,8 +38558,6 @@ var MarioEngine = class {
     this.bugKeywordIndex = 0;
     this.elapsedFrames = 0;
     this.enemiesStomped = 0;
-    this.wasOnGround = true;
-    this.prevVy = 0;
     this.loop = (time) => {
       if (this.state !== "running")
         return;
@@ -39150,8 +38669,6 @@ var MarioEngine = class {
         break;
     }
     this.level.floatingTexts.push(new FloatingText(qb.x, qb.y - 10, kw, color, 80));
-    this.emitSparkle(qb.x + qb.w / 2, qb.y, color, qb.reward === "star" ? 16 : 8);
-    this.renderer.shake(qb.reward === "star" ? 4 : 1.5);
     this.notifyScore();
   }
   handleBrickBreak(brick) {
@@ -39162,64 +38679,15 @@ var MarioEngine = class {
     if (brick.label) {
       this.level.floatingTexts.push(new FloatingText(brick.x, brick.y - 8, brick.label, "#ef4444", 70));
     }
-    this.emitSparkle(cx, cy, "#d97706", 10);
-    this.renderer.shake(3);
     this.notifyScore();
-  }
-  /** Radial burst of glittering particles. */
-  emitSparkle(x, y, color, count) {
-    for (let i = 0; i < count; i++) {
-      const angle = Math.PI * 2 * i / count + Math.random() * 0.4;
-      const speed = 1.5 + Math.random() * 2.4;
-      this.level.particles.push(new Particle(x, y, Math.cos(angle) * speed, Math.sin(angle) * speed - 0.5, color, 2 + Math.random() * 2, 20 + Math.random() * 12, "spark", 0.12));
-    }
-  }
-  /** Soft puff used when an enemy is squashed. */
-  emitPuff(x, y, color) {
-    for (let i = 0; i < 8; i++) {
-      const angle = Math.PI + (i - 4) * 0.32;
-      this.level.particles.push(new Particle(x, y, Math.cos(angle) * 1.6, Math.sin(angle) * 1.6, color, 3 + Math.random() * 2, 16 + Math.random() * 8, "puff", 0.05));
-    }
   }
   tick() {
     if (this.state !== "running")
       return;
     this.elapsedFrames++;
     const keys = this.controls.getState();
-    this.wasOnGround = this.player.onGround;
-    this.prevVy = this.player.vy;
     const result = updatePhysics(this.player, this.level, keys);
-    this.handleLandingAndDust();
     this.handleCollisionResult(result);
-    for (const part of this.level.particles)
-      part.tick();
-    if (this.level.particles.length > 0) {
-      this.level.particles = this.level.particles.filter((part) => part.alive);
-    }
-  }
-  /** Kicks up dust when landing hard and trailing dust while sprinting. */
-  handleLandingAndDust() {
-    const p = this.player;
-    if (!this.wasOnGround && p.onGround && this.prevVy > 4) {
-      const cx = p.x + p.w / 2;
-      const cy = p.y + p.h;
-      const strength = Math.min(this.prevVy / 12, 1);
-      this.renderer.shake(2 + strength * 4);
-      for (let i = 0; i < 6; i++) {
-        const dir = (i - 3) * 0.55;
-        this.level.particles.push(new Particle(cx, cy, dir, -0.6 - Math.random() * 0.8, "rgba(220,220,210,0.85)", 3 + Math.random() * 2, 18 + Math.random() * 8, "dust", 0.08));
-      }
-    }
-    if (p.onGround && p.running && this.elapsedFrames % 5 === 0) {
-      const cx = p.x + p.w / 2;
-      const cy = p.y + p.h;
-      this.level.particles.push(new Particle(cx, cy, -p.vx * 0.3, -0.5, "rgba(210,210,200,0.6)", 2.5, 14, "dust", 0.1));
-    }
-    if (p.flying && this.elapsedFrames % 3 === 0) {
-      const cx = p.x + p.w / 2;
-      const cy = p.y + p.h * 0.8;
-      this.level.particles.push(new Particle(cx, cy, -p.vx * 0.2 + (Math.random() - 0.5), 0.6 + Math.random() * 0.6, "rgba(255,255,255,0.65)", 2 + Math.random() * 1.5, 16, "puff", 0.02));
-    }
   }
   handleCollisionResult(result) {
     if (result.jumped)
@@ -39239,7 +38707,6 @@ var MarioEngine = class {
     }
     if (result.hitEnemy) {
       MarioAudio.hit();
-      this.renderer.shake(5);
       if (this.player.state === "fire") {
         this.player.shrink();
       } else if (this.player.state === "big") {
@@ -39261,15 +38728,12 @@ var MarioEngine = class {
     if (result.stompedEnemy) {
       MarioAudio.stomp();
       this.enemiesStomped++;
-      this.emitPuff(result.stompedEnemy.x + result.stompedEnemy.w / 2, result.stompedEnemy.y + result.stompedEnemy.h / 2, "rgba(180,120,70,0.85)");
-      this.renderer.shake(2);
       this.spawnEnemyKeyword(result.stompedEnemy);
       this.notifyScore();
     }
     for (const enemy of result.fireballKilledEnemies) {
       MarioAudio.fireHit();
       this.enemiesStomped++;
-      this.emitSparkle(enemy.x + enemy.w / 2, enemy.y + enemy.h / 2, "#f97316", 10);
       this.spawnEnemyKeyword(enemy);
       this.notifyScore();
     }
@@ -39314,15 +38778,17 @@ var MarioEngine = class {
 
 // src/app/profile/ai-quiz-game/ai-quiz-game.component.ts
 var _c02 = ["gameCanvas"];
+var _c12 = () => [0, 1, 2];
 var _forTrack05 = ($index, $item) => $item.value;
+var _forTrack14 = ($index, $item) => $item.id;
 function AiQuizGameComponent_Conditional_2_For_14_Template(rf, ctx2) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "button", 23);
     \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_For_14_Template_button_click_0_listener() {
-      const type_r3 = \u0275\u0275restoreView(_r2).$implicit;
+      const mode_r3 = \u0275\u0275restoreView(_r2).$implicit;
       const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.selectLevelType(type_r3.value));
+      return \u0275\u0275resetView(ctx_r3.selectGameMode(mode_r3.value));
     });
     \u0275\u0275elementStart(1, "span", 24);
     \u0275\u0275text(2);
@@ -39335,15 +38801,15 @@ function AiQuizGameComponent_Conditional_2_For_14_Template(rf, ctx2) {
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const type_r3 = ctx2.$implicit;
+    const mode_r3 = ctx2.$implicit;
     const ctx_r3 = \u0275\u0275nextContext(2);
-    \u0275\u0275classProp("game-mode-btn--active", ctx_r3.selectedLevelType === type_r3.value);
+    \u0275\u0275classProp("game-mode-btn--active", ctx_r3.selectedGameMode === mode_r3.value);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(type_r3.icon);
+    \u0275\u0275textInterpolate(mode_r3.icon);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(type_r3.label);
+    \u0275\u0275textInterpolate(mode_r3.label);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(type_r3.description);
+    \u0275\u0275textInterpolate(mode_r3.description);
   }
 }
 function AiQuizGameComponent_Conditional_2_For_20_Template(rf, ctx2) {
@@ -39404,6 +38870,73 @@ function AiQuizGameComponent_Conditional_2_For_26_Template(rf, ctx2) {
     \u0275\u0275textInterpolate(d_r8.description);
   }
 }
+function AiQuizGameComponent_Conditional_2_Conditional_27_For_5_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r9 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 27);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_Conditional_27_For_5_Template_button_click_0_listener() {
+      const type_r10 = \u0275\u0275restoreView(_r9).$implicit;
+      const ctx_r3 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r3.selectedLevelType = type_r10.value);
+    });
+    \u0275\u0275elementStart(1, "span", 28);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 29);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "span", 30);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const type_r10 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275classProp("option-btn--active", ctx_r3.selectedLevelType === type_r10.value);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r10.icon);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r10.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(type_r10.description);
+  }
+}
+function AiQuizGameComponent_Conditional_2_Conditional_27_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 12)(1, "h3", 13);
+    \u0275\u0275text(2, "Course Style");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 34);
+    \u0275\u0275repeaterCreate(4, AiQuizGameComponent_Conditional_2_Conditional_27_For_5_Template, 7, 5, "button", 17, _forTrack05);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(4);
+    \u0275\u0275repeater(ctx_r3.levelTypes);
+  }
+}
+function AiQuizGameComponent_Conditional_2_Conditional_32_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span");
+    \u0275\u0275text(1, "Arrow keys / A-D to switch lanes \xB7 dodge bugs \xB7 collect AI concepts");
+    \u0275\u0275elementEnd();
+  }
+}
+function AiQuizGameComponent_Conditional_2_Conditional_33_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span");
+    \u0275\u0275text(1, "Swap adjacent tiles to match 3+ AI concepts before moves run out");
+    \u0275\u0275elementEnd();
+  }
+}
+function AiQuizGameComponent_Conditional_2_Conditional_34_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span");
+    \u0275\u0275text(1, "Arrow keys / WASD to move\u2002\xB7\u2002Space / Up to jump or swim stroke\u2002\xB7\u2002X / Z / Shift to throw fireballs (fire mode)");
+    \u0275\u0275elementEnd();
+  }
+}
 function AiQuizGameComponent_Conditional_2_Template(rf, ctx2) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
@@ -39411,13 +38944,13 @@ function AiQuizGameComponent_Conditional_2_Template(rf, ctx2) {
     \u0275\u0275text(2, "\u{1F579} AI GAME LAB");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "h2", 8);
-    \u0275\u0275text(4, "AI-Powered Mario Platformer");
+    \u0275\u0275text(4, "AI-Powered Mini-Arcade");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(5, "p", 9);
-    \u0275\u0275text(6, " One Mario-inspired platformer, three ways to move \u2014 run on land, swim through the sea, or fly through the sky. AI generates the levels, concepts, enemies, and rewards. You just play. ");
+    \u0275\u0275text(6, " Three Mario-inspired games. AI generates the lanes, levels, boards, concepts, bugs, rewards, and missions. You just play. ");
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(7, "div", 10)(8, "div", 11)(9, "div", 12)(10, "h3", 13);
-    \u0275\u0275text(11, "Choose your mode");
+    \u0275\u0275text(11, "Choose your game");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(12, "div", 14);
     \u0275\u0275repeaterCreate(13, AiQuizGameComponent_Conditional_2_For_14_Template, 7, 5, "button", 15, _forTrack05);
@@ -39434,188 +38967,365 @@ function AiQuizGameComponent_Conditional_2_Template(rf, ctx2) {
     \u0275\u0275elementStart(24, "div", 18);
     \u0275\u0275repeaterCreate(25, AiQuizGameComponent_Conditional_2_For_26_Template, 5, 5, "button", 19, _forTrack05);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(27, "button", 20);
-    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_Template_button_click_27_listener() {
+    \u0275\u0275conditionalCreate(27, AiQuizGameComponent_Conditional_2_Conditional_27_Template, 6, 0, "div", 12);
+    \u0275\u0275elementStart(28, "button", 20);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_2_Template_button_click_28_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.startGame());
     });
-    \u0275\u0275element(28, "i", 21);
-    \u0275\u0275text(29, " Start Mission ");
+    \u0275\u0275element(29, "i", 21);
+    \u0275\u0275text(30, " Start Mission ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(30, "div", 22)(31, "span");
-    \u0275\u0275text(32);
-    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(31, "div", 22);
+    \u0275\u0275conditionalCreate(32, AiQuizGameComponent_Conditional_2_Conditional_32_Template, 2, 0, "span")(33, AiQuizGameComponent_Conditional_2_Conditional_33_Template, 2, 0, "span")(34, AiQuizGameComponent_Conditional_2_Conditional_34_Template, 2, 0, "span");
+    \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
     const ctx_r3 = \u0275\u0275nextContext();
     \u0275\u0275advance(13);
-    \u0275\u0275repeater(ctx_r3.levelTypes);
+    \u0275\u0275repeater(ctx_r3.gameModes);
     \u0275\u0275advance(6);
     \u0275\u0275repeater(ctx_r3.categories);
     \u0275\u0275advance(6);
     \u0275\u0275repeater(ctx_r3.difficulties);
-    \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate(ctx_r3.getControlsHint());
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "platformer" ? 27 : -1);
+    \u0275\u0275advance(5);
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "runner" ? 32 : ctx_r3.selectedGameMode === "match3" ? 33 : 34);
   }
 }
 function AiQuizGameComponent_Conditional_3_Template(rf, ctx2) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 3)(1, "div", 34)(2, "div", 35);
+    \u0275\u0275elementStart(0, "div", 3)(1, "div", 35)(2, "div", 36);
     \u0275\u0275text(3, "\u{1F344}");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(4, "h3");
     \u0275\u0275text(5);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(6, "p");
-    \u0275\u0275text(7, "AI is building the course \u2014 concepts, enemies, rewards, and difficulty curve");
+    \u0275\u0275text(7, "AI is building the mission \u2014 concepts, bugs, rewards, and difficulty curve");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 36);
-    \u0275\u0275element(9, "div", 37);
+    \u0275\u0275elementStart(8, "div", 37);
+    \u0275\u0275element(9, "div", 38);
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
     const ctx_r3 = \u0275\u0275nextContext();
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate1("Generating ", ctx_r3.getLevelTypeLabel(), " level...");
+    \u0275\u0275textInterpolate1("Generating ", ctx_r3.getGameModeLabel(), "...");
   }
 }
-function AiQuizGameComponent_Conditional_4_Conditional_30_Template(rf, ctx2) {
+function AiQuizGameComponent_Conditional_4_Conditional_20_Template(rf, ctx2) {
   if (rf & 1) {
-    const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 52);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Conditional_30_Template_button_touchstart_0_listener() {
-      \u0275\u0275restoreView(_r10);
+    \u0275\u0275elementStart(0, "div", 44)(1, "span", 43);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.getLevelTypeLabel());
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_21_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r11 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 45);
+    \u0275\u0275element(1, "canvas", null, 0);
+    \u0275\u0275elementStart(3, "div", 48)(4, "div", 49)(5, "button", 50);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchstart_5_listener() {
+      \u0275\u0275restoreView(_r11);
       const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.touchDown(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Conditional_30_Template_button_touchend_0_listener() {
-      \u0275\u0275restoreView(_r10);
+      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchend_5_listener() {
+      \u0275\u0275restoreView(_r11);
       const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.touchDown(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Conditional_30_Template_button_mousedown_0_listener() {
-      \u0275\u0275restoreView(_r10);
+      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mousedown_5_listener() {
+      \u0275\u0275restoreView(_r11);
       const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.touchDown(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Conditional_30_Template_button_mouseup_0_listener() {
-      \u0275\u0275restoreView(_r10);
+      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mouseup_5_listener() {
+      \u0275\u0275restoreView(_r11);
       const ctx_r3 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r3.touchDown(false));
+      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
     });
-    \u0275\u0275text(1, "\u25BC");
+    \u0275\u0275text(6, "\u25C0");
     \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "button", 51);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchstart_7_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchRight(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchend_7_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchRight(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mousedown_7_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchRight(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mouseup_7_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchRight(false));
+    });
+    \u0275\u0275text(8, "\u25B6");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(9, "div", 52)(10, "button", 53);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchstart_10_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchJump(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchend_10_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchJump(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mousedown_10_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchJump(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mouseup_10_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchJump(false));
+    });
+    \u0275\u0275text(11, "\u25B2");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "button", 54);
+    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchstart_12_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchFire(true));
+    })("touchend", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_touchend_12_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchFire(false));
+    })("mousedown", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mousedown_12_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchFire(true));
+    })("mouseup", function AiQuizGameComponent_Conditional_4_Conditional_21_Template_button_mouseup_12_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.touchFire(false));
+    });
+    \u0275\u0275text(13, "\u{1F525}");
+    \u0275\u0275elementEnd()()()();
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_22_For_12_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "div", 66);
+  }
+  if (rf & 2) {
+    const lane_r13 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275classProp("runner-lane--active", ctx_r3.runnerLane === lane_r13);
+    \u0275\u0275property("ngClass", "runner-lane--" + lane_r13);
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_22_For_14_Conditional_5_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 69);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const item_r14 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(item_r14.avoidAction);
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_22_For_14_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 67)(1, "span", 68);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span");
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(5, AiQuizGameComponent_Conditional_4_Conditional_22_For_14_Conditional_5_Template, 2, 1, "span", 69);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const item_r14 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275styleProp("left", ctx_r3.getRunnerItemLeft(item_r14), "%")("top", item_r14.y, "%")("transform", ctx_r3.getRunnerItemTransform(item_r14))("opacity", ctx_r3.getRunnerItemOpacity(item_r14));
+    \u0275\u0275property("ngClass", "runner-item--" + item_r14.kind);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.getRunnerItemIcon(item_r14));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(item_r14.label);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(item_r14.kind === "bug" ? 5 : -1);
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_22_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r12 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 46)(1, "div", 55)(2, "span");
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "span");
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(6, "div", 56);
+    \u0275\u0275element(7, "div", 57);
+    \u0275\u0275elementStart(8, "div", 58);
+    \u0275\u0275text(9);
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(10, "div", 59);
+    \u0275\u0275repeaterCreate(11, AiQuizGameComponent_Conditional_4_Conditional_22_For_12_Template, 1, 3, "div", 60, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275repeaterCreate(13, AiQuizGameComponent_Conditional_4_Conditional_22_For_14_Template, 6, 12, "div", 61, _forTrack14);
+    \u0275\u0275elementStart(15, "div", 62)(16, "span");
+    \u0275\u0275text(17);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(18, "div", 63)(19, "button", 64);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_4_Conditional_22_Template_button_click_19_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.moveRunner(-1));
+    });
+    \u0275\u0275text(20, "\u25C0");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(21, "button", 65);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_4_Conditional_22_Template_button_click_21_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.runnerJump());
+    });
+    \u0275\u0275text(22, "\u25B2");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(23, "span");
+    \u0275\u0275text(24);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "button", 65);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_4_Conditional_22_Template_button_click_25_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.runnerSlide());
+    });
+    \u0275\u0275text(26, "\u25BC");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(27, "button", 64);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_4_Conditional_22_Template_button_click_27_listener() {
+      \u0275\u0275restoreView(_r12);
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.moveRunner(1));
+    });
+    \u0275\u0275text(28, "\u25B6");
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.runnerTheme);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("Distance ", ctx_r3.runnerDistance);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1("Next station: ", ctx_r3.getCategoryLabel());
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(\u0275\u0275pureFunction0(11, _c12));
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(ctx_r3.runnerItems);
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("left", 50 + (ctx_r3.runnerLane - 1) * 29, "%");
+    \u0275\u0275classProp("runner-player--jump", ctx_r3.runnerAction === "jump")("runner-player--slide", ctx_r3.runnerAction === "slide");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.runnerAction === "slide" ? "\u{1F6DD}" : "\u{1F3C3}");
+    \u0275\u0275advance(7);
+    \u0275\u0275textInterpolate(ctx_r3.runnerMessage || "Switch lanes, jump barriers, slide under tunnels.");
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_23_For_8_Template(rf, ctx2) {
+  if (rf & 1) {
+    const _r15 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 74);
+    \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_4_Conditional_23_For_8_Template_button_click_0_listener() {
+      const \u0275$index_266_r16 = \u0275\u0275restoreView(_r15).$index;
+      const ctx_r3 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r3.onMatchTileClick(\u0275$index_266_r16));
+    });
+    \u0275\u0275elementStart(1, "span", 75);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 76);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const tile_r17 = ctx2.$implicit;
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275classProp("match3-tile--selected", tile_r17.selected)("match3-tile--blocked", tile_r17.blocked);
+    \u0275\u0275property("ngClass", "match3-tile--" + tile_r17.type);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.getMatchTileIcon(tile_r17));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(tile_r17.label);
+  }
+}
+function AiQuizGameComponent_Conditional_4_Conditional_23_Template(rf, ctx2) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 47)(1, "div", 70)(2, "span");
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "span");
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(6, "div", 71);
+    \u0275\u0275repeaterCreate(7, AiQuizGameComponent_Conditional_4_Conditional_23_For_8_Template, 5, 7, "button", 72, _forTrack14);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "p", 73);
+    \u0275\u0275text(10);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.matchGoal);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate3("Moves ", ctx_r3.matchMovesRemaining, " \xB7 Combos ", ctx_r3.matchMatches, "/", ctx_r3.matchTarget);
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(ctx_r3.matchTiles);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.matchMessage || "Swap adjacent AI tiles to build 3+ matches.");
   }
 }
 function AiQuizGameComponent_Conditional_4_Template(rf, ctx2) {
   if (rf & 1) {
-    const _r9 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 4)(1, "div", 38)(2, "div", 39)(3, "span", 40);
+    \u0275\u0275elementStart(0, "div", 39)(1, "div", 40)(2, "div", 41)(3, "span", 42);
     \u0275\u0275text(4, "\u2764\uFE0F");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 41);
+    \u0275\u0275elementStart(5, "span", 43);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "div", 39)(8, "span", 40);
+    \u0275\u0275elementStart(7, "div", 41)(8, "span", 42);
     \u0275\u0275text(9, "\u{1FA99}");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "span", 41);
+    \u0275\u0275elementStart(10, "span", 43);
     \u0275\u0275text(11);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(12, "div", 39)(13, "span", 40);
+    \u0275\u0275elementStart(12, "div", 41)(13, "span", 42);
     \u0275\u0275text(14, "\u2B50");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(15, "span", 41);
+    \u0275\u0275elementStart(15, "span", 43);
     \u0275\u0275text(16);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(17, "div", 42)(18, "span", 41);
+    \u0275\u0275elementStart(17, "div", 44)(18, "span", 43);
     \u0275\u0275text(19);
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(20, "div", 43);
-    \u0275\u0275element(21, "canvas", null, 0);
-    \u0275\u0275elementStart(23, "div", 44)(24, "div", 45)(25, "button", 46);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_25_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_25_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_25_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_25_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchLeft(false));
-    });
-    \u0275\u0275text(26, "\u25C0");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(27, "button", 47);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_27_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_27_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_27_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_27_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchRight(false));
-    });
-    \u0275\u0275text(28, "\u25B6");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(29, "div", 48);
-    \u0275\u0275conditionalCreate(30, AiQuizGameComponent_Conditional_4_Conditional_30_Template, 2, 0, "button", 49);
-    \u0275\u0275elementStart(31, "button", 50);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_31_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_31_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_31_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_31_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchJump(false));
-    });
-    \u0275\u0275text(32, "\u25B2");
+    \u0275\u0275conditionalCreate(20, AiQuizGameComponent_Conditional_4_Conditional_20_Template, 3, 1, "div", 44);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(33, "button", 51);
-    \u0275\u0275listener("touchstart", function AiQuizGameComponent_Conditional_4_Template_button_touchstart_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(true));
-    })("touchend", function AiQuizGameComponent_Conditional_4_Template_button_touchend_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(false));
-    })("mousedown", function AiQuizGameComponent_Conditional_4_Template_button_mousedown_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(true));
-    })("mouseup", function AiQuizGameComponent_Conditional_4_Template_button_mouseup_33_listener() {
-      \u0275\u0275restoreView(_r9);
-      const ctx_r3 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r3.touchFire(false));
-    });
-    \u0275\u0275text(34, "\u{1F525}");
-    \u0275\u0275elementEnd()()()()();
+    \u0275\u0275conditionalCreate(21, AiQuizGameComponent_Conditional_4_Conditional_21_Template, 14, 0, "div", 45);
+    \u0275\u0275conditionalCreate(22, AiQuizGameComponent_Conditional_4_Conditional_22_Template, 29, 12, "div", 46);
+    \u0275\u0275conditionalCreate(23, AiQuizGameComponent_Conditional_4_Conditional_23_Template, 11, 5, "div", 47);
+    \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("game-wrapper--arcade", ctx_r3.selectedGameMode !== "platformer");
     \u0275\u0275advance(6);
     \u0275\u0275textInterpolate(ctx_r3.lives);
     \u0275\u0275advance(5);
@@ -39623,48 +39333,54 @@ function AiQuizGameComponent_Conditional_4_Template(rf, ctx2) {
     \u0275\u0275advance(5);
     \u0275\u0275textInterpolate(ctx_r3.score);
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r3.getLevelTypeLabel());
-    \u0275\u0275advance(11);
-    \u0275\u0275conditional(ctx_r3.selectedLevelType === "sky" ? 30 : -1);
+    \u0275\u0275textInterpolate(ctx_r3.getGameModeLabel());
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "platformer" ? 20 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "platformer" ? 21 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "runner" ? 22 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r3.selectedGameMode === "match3" ? 23 : -1);
   }
 }
 function AiQuizGameComponent_Conditional_5_Template(rf, ctx2) {
   if (rf & 1) {
-    const _r11 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 5)(1, "div", 53)(2, "div", 54);
+    const _r18 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 5)(1, "div", 77)(2, "div", 78);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "h3", 55);
+    \u0275\u0275elementStart(4, "h3", 79);
     \u0275\u0275text(5);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "p", 56);
+    \u0275\u0275elementStart(6, "p", 80);
     \u0275\u0275text(7);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 57)(9, "div", 58)(10, "span", 59);
+    \u0275\u0275elementStart(8, "div", 81)(9, "div", 82)(10, "span", 83);
     \u0275\u0275text(11, "Score");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "span", 60);
+    \u0275\u0275elementStart(12, "span", 84);
     \u0275\u0275text(13);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(14, "div", 58)(15, "span", 59);
+    \u0275\u0275elementStart(14, "div", 82)(15, "span", 83);
     \u0275\u0275text(16, "Coins");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(17, "span", 60);
+    \u0275\u0275elementStart(17, "span", 84);
     \u0275\u0275text(18);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "div", 58)(20, "span", 59);
-    \u0275\u0275text(21, "Enemies");
+    \u0275\u0275elementStart(19, "div", 82)(20, "span", 83);
+    \u0275\u0275text(21);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "span", 60);
+    \u0275\u0275elementStart(22, "span", 84);
     \u0275\u0275text(23);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(24, "div", 61)(25, "button", 20);
+    \u0275\u0275elementStart(24, "div", 85)(25, "button", 20);
     \u0275\u0275listener("click", function AiQuizGameComponent_Conditional_5_Template_button_click_25_listener() {
-      \u0275\u0275restoreView(_r11);
+      \u0275\u0275restoreView(_r18);
       const ctx_r3 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r3.restartGame());
     });
-    \u0275\u0275element(26, "i", 62);
+    \u0275\u0275element(26, "i", 86);
     \u0275\u0275text(27, " Play Again ");
     \u0275\u0275elementEnd()()()();
   }
@@ -39680,8 +39396,10 @@ function AiQuizGameComponent_Conditional_5_Template(rf, ctx2) {
     \u0275\u0275textInterpolate(ctx_r3.score);
     \u0275\u0275advance(5);
     \u0275\u0275textInterpolate(ctx_r3.coins);
-    \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r3.enemiesStomped);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r3.selectedGameMode === "match3" ? "Combos" : ctx_r3.selectedGameMode === "runner" ? "Distance" : "Enemies");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r3.selectedGameMode === "match3" ? ctx_r3.matchMatches : ctx_r3.selectedGameMode === "runner" ? ctx_r3.runnerDistance : ctx_r3.enemiesStomped);
   }
 }
 var AiQuizGameComponent = class _AiQuizGameComponent {
@@ -39690,6 +39408,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     this.zone = zone;
     this.cdr = cdr;
     this.viewState = "setup";
+    this.selectedGameMode = "runner";
     this.selectedCategory = "backend";
     this.selectedDifficulty = "Medium";
     this.selectedLevelType = "ground";
@@ -39700,6 +39419,16 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     this.enemiesStomped = 0;
     this.engine = null;
     this.resizeObserver = null;
+    this.runnerTimerId = null;
+    this.runnerActionTimerId = null;
+    this.runnerItemId = 0;
+    this.runnerTicks = 0;
+    this.matchTileId = 0;
+    this.gameModes = [
+      { value: "runner", label: "Mario Run", icon: "\u{1F3C3}", description: "Subway-surfer style lanes with AI-generated bug waves and reward paths" },
+      { value: "platformer", label: "Mario Gameplay", icon: "\u{1F344}", description: "The full AI-generated platformer: jumps, enemies, coins, and power-ups" },
+      { value: "match3", label: "Mario Match-3", icon: "\u{1F36C}", description: "Candy-crush style engineering puzzles with AI-generated goals and tiles" }
+    ];
     this.categories = [
       { value: "backend", label: "Backend Foundations", icon: "\u{1F344}", description: "APIs, data flows, idempotency, service design" },
       { value: "distributed", label: "Distributed Systems", icon: "\u{1F687}", description: "Kafka, queues, caching, consistency, resilience" },
@@ -39714,13 +39443,47 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
       { value: "Hard", label: "Boss Fight", description: "Dense enemies, big gaps", color: "danger" }
     ];
     this.levelTypes = [
-      { value: "ground", label: "Land", icon: "\u{1F33F}", description: "Classic overworld \u2014 run, jump, and stomp across staged gaps" },
-      { value: "water", label: "Sea", icon: "\u{1F30A}", description: "Dive underwater \u2014 swim with buoyant strokes through dense coin trails" },
-      { value: "sky", label: "Sky", icon: "\u2601\uFE0F", description: "Take flight \u2014 hold jump to soar and dive across floating routes" }
+      { value: "ground", label: "Ground Run", icon: "\u{1F33F}", description: "Classic overworld with staged gaps and grounded enemy waves" },
+      { value: "sky", label: "Sky Jump", icon: "\u2601\uFE0F", description: "Airy platform chains, higher jumps, and floating routes" },
+      { value: "water", label: "Water Swim", icon: "\u{1F30A}", description: "Underwater movement, dense coins, and safer seabed routes" }
     ];
+    this.runnerLane = 1;
+    this.runnerItems = [];
+    this.runnerDistance = 0;
+    this.runnerTheme = "AI systems sprint";
+    this.runnerMessage = "";
+    this.runnerAction = "run";
+    this.matchTiles = [];
+    this.matchGoal = "";
+    this.matchMovesRemaining = 0;
+    this.matchMatches = 0;
+    this.matchTarget = 6;
+    this.matchSelectedIndex = null;
+    this.matchMessage = "";
+    this.matchPlan = null;
   }
   ngOnDestroy() {
     this.stopActiveGame();
+  }
+  onKeydown(event) {
+    if (this.viewState !== "playing" || this.selectedGameMode !== "runner")
+      return;
+    if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a") {
+      event.preventDefault();
+      this.moveRunner(-1);
+    }
+    if (event.key === "ArrowRight" || event.key.toLowerCase() === "d") {
+      event.preventDefault();
+      this.moveRunner(1);
+    }
+    if (event.key === "ArrowUp" || event.key.toLowerCase() === "w" || event.key === " ") {
+      event.preventDefault();
+      this.runnerJump();
+    }
+    if (event.key === "ArrowDown" || event.key.toLowerCase() === "s") {
+      event.preventDefault();
+      this.runnerSlide();
+    }
   }
   startGame() {
     return __async(this, null, function* () {
@@ -39731,6 +39494,16 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
       this.lives = 3;
       this.won = false;
       this.enemiesStomped = 0;
+      this.runnerMessage = "";
+      this.matchMessage = "";
+      if (this.selectedGameMode === "runner") {
+        yield this.startRunnerGame();
+        return;
+      }
+      if (this.selectedGameMode === "match3") {
+        yield this.startMatch3Game();
+        return;
+      }
       const config3 = {
         difficulty: this.selectedDifficulty,
         category: this.selectedCategory,
@@ -39799,9 +39572,19 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     this.viewState = "setup";
   }
   touchLeft(active) {
+    if (this.selectedGameMode === "runner") {
+      if (active)
+        this.moveRunner(-1);
+      return;
+    }
     this.engine?.getControls().setTouchLeft(active);
   }
   touchRight(active) {
+    if (this.selectedGameMode === "runner") {
+      if (active)
+        this.moveRunner(1);
+      return;
+    }
     this.engine?.getControls().setTouchRight(active);
   }
   touchJump(active) {
@@ -39810,11 +39593,8 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
   touchFire(active) {
     this.engine?.getControls().setTouchFire(active);
   }
-  touchDown(active) {
-    this.engine?.getControls().setTouchDown(active);
-  }
-  selectLevelType(type) {
-    this.selectedLevelType = type;
+  selectGameMode(mode) {
+    this.selectedGameMode = mode;
   }
   generateAILevel(config3) {
     return __async(this, null, function* () {
@@ -39841,29 +39621,496 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
       return null;
     });
   }
+  startRunnerGame() {
+    return __async(this, null, function* () {
+      const plan = (yield this.generateAIRunnerPlan()) ?? this.createFallbackRunnerPlan();
+      this.runnerTheme = plan.theme;
+      this.runnerLane = 1;
+      this.runnerItems = [];
+      this.runnerDistance = 0;
+      this.runnerAction = "run";
+      this.runnerTicks = 0;
+      this.runnerItemId = 0;
+      this.viewState = "playing";
+      this.cdr.detectChanges();
+      this.zone.runOutsideAngular(() => {
+        this.runnerTimerId = window.setInterval(() => this.zone.run(() => this.updateRunner(plan)), 95);
+      });
+    });
+  }
+  startMatch3Game() {
+    return __async(this, null, function* () {
+      const plan = (yield this.generateAIMatch3Plan()) ?? this.createFallbackMatch3Plan();
+      this.matchPlan = plan;
+      this.matchGoal = plan.goal;
+      this.matchMovesRemaining = plan.moves;
+      this.matchMatches = 0;
+      this.matchTarget = this.selectedDifficulty === "Easy" ? 5 : this.selectedDifficulty === "Hard" ? 10 : 7;
+      this.matchSelectedIndex = null;
+      this.matchTileId = 0;
+      this.matchTiles = this.createMatchTiles(plan);
+      this.viewState = "playing";
+      this.cdr.detectChanges();
+    });
+  }
+  generateAIRunnerPlan() {
+    return __async(this, null, function* () {
+      const cat = this.getCategoryLabel();
+      const prompt = `Create an AI-generated 3-lane endless runner plan for a Mario-themed "${cat}" world at "${this.selectedDifficulty}" difficulty.
+Return JSON only:
+{
+  "theme": "short arcade theme name",
+  "obstacles": ["8-12 short bug or anti-pattern labels"],
+  "coins": ["8-12 short reward/concept labels"],
+  "powerUps": ["3-5 short power-up concept labels"]
+}
+Labels must be engineering terms, 1-3 words each.`;
+      try {
+        const response = yield firstValueFrom(this.http.post(environment.aiApiUrl, createOpenAiProxyRequest([
+          { role: "system", content: "Return only valid JSON. No markdown. No explanation." },
+          { role: "user", content: prompt }
+        ]), { headers: new HttpHeaders({ "Content-Type": "application/json" }) }));
+        return this.normalizeRunnerPlan(this.parseAiJson(getAiResponseText(response)));
+      } catch (e) {
+        console.error("AI runner generation failed:", e);
+        return null;
+      }
+    });
+  }
+  generateAIMatch3Plan() {
+    return __async(this, null, function* () {
+      const cat = this.getCategoryLabel();
+      const prompt = `Create an AI-generated candy-crush style match-3 board plan for a Mario-themed "${cat}" world at "${this.selectedDifficulty}" difficulty.
+Return JSON only:
+{
+  "goal": "one short mission goal",
+  "tileLabels": ["6-8 short engineering concept labels"],
+  "blockerLabels": ["4-6 short bug or blocker labels"],
+  "moves": 18
+}
+Use realistic engineering terminology. Keep labels 1-2 words.`;
+      try {
+        const response = yield firstValueFrom(this.http.post(environment.aiApiUrl, createOpenAiProxyRequest([
+          { role: "system", content: "Return only valid JSON. No markdown. No explanation." },
+          { role: "user", content: prompt }
+        ]), { headers: new HttpHeaders({ "Content-Type": "application/json" }) }));
+        return this.normalizeMatch3Plan(this.parseAiJson(getAiResponseText(response)));
+      } catch (e) {
+        console.error("AI match-3 generation failed:", e);
+        return null;
+      }
+    });
+  }
+  updateRunner(plan) {
+    if (this.viewState !== "playing" || this.selectedGameMode !== "runner")
+      return;
+    this.runnerTicks++;
+    this.runnerDistance += 1;
+    this.score += 2;
+    if (this.runnerTicks % this.getRunnerSpawnRate() === 0) {
+      this.runnerItems.push(this.createRunnerItem(plan));
+    }
+    const speed = this.selectedDifficulty === "Hard" ? 4.9 : this.selectedDifficulty === "Easy" ? 3.3 : 4.1;
+    this.runnerItems = this.runnerItems.map((item) => __spreadProps(__spreadValues({}, item), { y: item.y + speed })).filter((item) => {
+      if (item.y >= 78 && item.y <= 96 && item.lane === this.runnerLane) {
+        this.resolveRunnerCollision(item);
+        return false;
+      }
+      return item.y < 112;
+    });
+    const finishDistance = this.selectedDifficulty === "Hard" ? 430 : this.selectedDifficulty === "Easy" ? 300 : 360;
+    if (this.runnerDistance >= finishDistance) {
+      this.handleWin();
+    }
+  }
+  createRunnerItem(plan) {
+    const roll = Math.random();
+    const kind = roll < 0.48 ? "coin" : roll < 0.88 ? "bug" : "power";
+    const source = kind === "coin" ? plan.coins : kind === "bug" ? plan.obstacles : plan.powerUps;
+    const avoidActions = ["dodge", "jump", "slide"];
+    return {
+      id: this.runnerItemId++,
+      lane: Math.floor(Math.random() * 3),
+      y: 8,
+      kind,
+      label: source[this.runnerItemId % source.length] ?? "Concept",
+      avoidAction: kind === "bug" ? avoidActions[this.runnerItemId % avoidActions.length] : void 0
+    };
+  }
+  resolveRunnerCollision(item) {
+    if (item.kind === "bug") {
+      if (item.avoidAction !== "dodge" && item.avoidAction === this.runnerAction) {
+        this.score += 140;
+        this.runnerMessage = item.avoidAction === "jump" ? `Jumped ${item.label}` : `Slid under ${item.label}`;
+        return;
+      }
+      this.lives -= 1;
+      this.runnerMessage = item.avoidAction === "jump" ? `Jump ${item.label}` : item.avoidAction === "slide" ? `Slide under ${item.label}` : `Dodge ${item.label}`;
+      if (this.lives <= 0) {
+        this.handleDeath();
+      }
+      return;
+    }
+    this.coins += item.kind === "coin" ? 1 : 3;
+    this.score += item.kind === "coin" ? 75 : 180;
+    this.runnerMessage = item.kind === "coin" ? `Collected ${item.label}` : `Power-up: ${item.label}`;
+  }
+  moveRunner(delta) {
+    this.runnerLane = Math.max(0, Math.min(2, this.runnerLane + delta));
+  }
+  runnerJump() {
+    this.setRunnerAction("jump", 520);
+  }
+  runnerSlide() {
+    this.setRunnerAction("slide", 560);
+  }
+  getRunnerItemIcon(item) {
+    if (item.kind === "coin")
+      return "\u{1FA99}";
+    if (item.kind === "power")
+      return "\u2B50";
+    if (item.avoidAction === "jump")
+      return "\u{1F6A7}";
+    if (item.avoidAction === "slide")
+      return "\u{1F687}";
+    return "\u{1F41B}";
+  }
+  getRunnerItemTransform(item) {
+    const scale = 0.22 + Math.min(item.y, 100) / 100 * 1.2;
+    return `translate(-50%, -50%) scale(${scale.toFixed(2)})`;
+  }
+  getRunnerItemLeft(item) {
+    const depth = Math.max(0, Math.min(1, item.y / 100));
+    const laneSpread = 5 + depth * 24;
+    return 50 + (item.lane - 1) * laneSpread;
+  }
+  getRunnerItemOpacity(item) {
+    return Math.max(0.28, Math.min(1, item.y / 42));
+  }
+  setRunnerAction(action, durationMs) {
+    this.runnerAction = action;
+    if (this.runnerActionTimerId !== null) {
+      window.clearTimeout(this.runnerActionTimerId);
+    }
+    this.runnerActionTimerId = window.setTimeout(() => {
+      this.runnerAction = "run";
+      this.runnerActionTimerId = null;
+    }, durationMs);
+  }
+  onMatchTileClick(index) {
+    if (this.viewState !== "playing" || this.selectedGameMode !== "match3")
+      return;
+    if (this.matchTiles[index]?.blocked) {
+      this.matchMessage = `Break ${this.matchTiles[index].label} by matching next to it.`;
+      return;
+    }
+    if (this.matchSelectedIndex === null) {
+      this.selectMatchTile(index);
+      return;
+    }
+    if (this.matchSelectedIndex === index) {
+      this.clearMatchSelection();
+      return;
+    }
+    if (!this.areAdjacent(this.matchSelectedIndex, index)) {
+      this.selectMatchTile(index);
+      return;
+    }
+    const firstIndex = this.matchSelectedIndex;
+    if (this.matchTiles[firstIndex]?.blocked || this.matchTiles[index]?.blocked) {
+      this.matchMessage = "Blockers cannot be swapped. Clear adjacent candies first.";
+      this.clearMatchSelection();
+      return;
+    }
+    this.swapTiles(firstIndex, index);
+    this.clearMatchSelection();
+    this.matchMovesRemaining--;
+    const matched = this.resolveMatch3Board();
+    if (!matched) {
+      this.swapTiles(firstIndex, index);
+      this.matchMessage = "No match. Try an adjacent swap.";
+    }
+    if (this.matchMatches >= this.matchTarget) {
+      this.handleWin();
+    } else if (this.matchMovesRemaining <= 0) {
+      this.handleDeath();
+    }
+  }
+  selectMatchTile(index) {
+    this.clearMatchSelection();
+    this.matchSelectedIndex = index;
+    this.matchTiles[index].selected = true;
+  }
+  clearMatchSelection() {
+    this.matchTiles.forEach((tile) => tile.selected = false);
+    this.matchSelectedIndex = null;
+  }
+  resolveMatch3Board() {
+    let totalCleared = 0;
+    let cascades = 0;
+    while (cascades < 4) {
+      const matches = this.findMatches();
+      if (matches.size === 0)
+        break;
+      const blockers = this.findAdjacentBlockers(matches);
+      const cleared = /* @__PURE__ */ new Set([...matches, ...blockers]);
+      totalCleared += cleared.size;
+      cascades++;
+      this.applyMatch3Gravity(cleared);
+    }
+    if (totalCleared === 0)
+      return false;
+    this.matchMatches += cascades;
+    this.score += totalCleared * 95 + Math.max(0, cascades - 1) * 250;
+    this.coins += Math.max(1, Math.floor(totalCleared / 3));
+    this.matchMessage = cascades > 1 ? `Sweet cascade x${cascades}! Cleared ${totalCleared} tiles.` : `Sweet! Cleared ${totalCleared} tiles.`;
+    return true;
+  }
+  findMatches() {
+    const matched = /* @__PURE__ */ new Set();
+    const size = 6;
+    for (let row = 0; row < size; row++) {
+      let runStart = 0;
+      for (let col = 1; col <= size; col++) {
+        const currentTile = col < size ? this.matchTiles[this.matchIndex(row, col)] : null;
+        const previousTile = this.matchTiles[this.matchIndex(row, col - 1)];
+        const current = currentTile && !currentTile.blocked ? currentTile.type : null;
+        const previous = !previousTile.blocked ? previousTile.type : null;
+        if (current !== previous) {
+          if (col - runStart >= 3) {
+            for (let c = runStart; c < col; c++)
+              matched.add(this.matchIndex(row, c));
+          }
+          runStart = col;
+        }
+      }
+    }
+    for (let col = 0; col < size; col++) {
+      let runStart = 0;
+      for (let row = 1; row <= size; row++) {
+        const currentTile = row < size ? this.matchTiles[this.matchIndex(row, col)] : null;
+        const previousTile = this.matchTiles[this.matchIndex(row - 1, col)];
+        const current = currentTile && !currentTile.blocked ? currentTile.type : null;
+        const previous = !previousTile.blocked ? previousTile.type : null;
+        if (current !== previous) {
+          if (row - runStart >= 3) {
+            for (let r = runStart; r < row; r++)
+              matched.add(this.matchIndex(r, col));
+          }
+          runStart = row;
+        }
+      }
+    }
+    return matched;
+  }
+  swapTiles(first2, second) {
+    const firstTile = this.matchTiles[first2];
+    const secondTile = this.matchTiles[second];
+    this.matchTiles[first2] = __spreadProps(__spreadValues({}, secondTile), { row: firstTile.row, col: firstTile.col, selected: false });
+    this.matchTiles[second] = __spreadProps(__spreadValues({}, firstTile), { row: secondTile.row, col: secondTile.col, selected: false });
+  }
+  areAdjacent(first2, second) {
+    const a = this.matchTiles[first2];
+    const b = this.matchTiles[second];
+    return Math.abs(a.row - b.row) + Math.abs(a.col - b.col) === 1;
+  }
+  createMatchTiles(plan) {
+    const types = ["api", "cache", "queue", "llm", "deploy", "data"];
+    const labels = plan.tileLabels.length ? plan.tileLabels : this.createFallbackMatch3Plan().tileLabels;
+    const blockers = plan.blockerLabels.length ? plan.blockerLabels : this.createFallbackMatch3Plan().blockerLabels;
+    const blockerCount = this.selectedDifficulty === "Hard" ? 7 : this.selectedDifficulty === "Easy" ? 3 : 5;
+    const blockerIndexes = /* @__PURE__ */ new Set();
+    while (blockerIndexes.size < blockerCount) {
+      const index = 6 + Math.floor(Math.random() * 24);
+      blockerIndexes.add(index);
+    }
+    return Array.from({ length: 36 }, (_, id) => {
+      const row = Math.floor(id / 6);
+      const col = id % 6;
+      if (blockerIndexes.has(id)) {
+        return {
+          id: this.matchTileId++,
+          row,
+          col,
+          type: "blocker",
+          label: blockers[id % blockers.length] ?? "Bug",
+          selected: false,
+          blocked: true
+        };
+      }
+      const type = types[(row * 2 + col + Math.floor(Math.random() * 3)) % types.length];
+      return {
+        id: this.matchTileId++,
+        row,
+        col,
+        type,
+        label: labels[id % labels.length],
+        selected: false
+      };
+    });
+  }
+  getMatchTileIcon(tile) {
+    if (tile.blocked)
+      return "\u{1F9F1}";
+    const icons = {
+      api: "\u{1F352}",
+      cache: "\u{1F34B}",
+      queue: "\u{1F347}",
+      llm: "\u{1F36C}",
+      deploy: "\u{1F34A}",
+      data: "\u{1F48E}"
+    };
+    return icons[tile.type] ?? "\u{1F36D}";
+  }
+  findAdjacentBlockers(matches) {
+    const blockers = /* @__PURE__ */ new Set();
+    matches.forEach((index) => {
+      const tile = this.matchTiles[index];
+      const neighbors = [
+        [tile.row - 1, tile.col],
+        [tile.row + 1, tile.col],
+        [tile.row, tile.col - 1],
+        [tile.row, tile.col + 1]
+      ];
+      neighbors.forEach(([row, col]) => {
+        if (row < 0 || row >= 6 || col < 0 || col >= 6)
+          return;
+        const neighborIndex = this.matchIndex(row, col);
+        if (this.matchTiles[neighborIndex]?.blocked)
+          blockers.add(neighborIndex);
+      });
+    });
+    return blockers;
+  }
+  applyMatch3Gravity(cleared) {
+    const nextTiles = [...this.matchTiles];
+    for (let col = 0; col < 6; col++) {
+      const survivors = [];
+      for (let row = 5; row >= 0; row--) {
+        const index = this.matchIndex(row, col);
+        if (!cleared.has(index)) {
+          survivors.push(this.matchTiles[index]);
+        }
+      }
+      for (let row = 5; row >= 0; row--) {
+        const index = this.matchIndex(row, col);
+        const survivor = survivors.shift();
+        nextTiles[index] = survivor ? __spreadProps(__spreadValues({}, survivor), { row, col, selected: false, clearing: false }) : this.createFreshMatchTile(row, col);
+      }
+    }
+    this.matchTiles = nextTiles;
+  }
+  createFreshMatchTile(row, col) {
+    const plan = this.matchPlan ?? this.createFallbackMatch3Plan();
+    const types = ["api", "cache", "queue", "llm", "deploy", "data"];
+    const labels = plan.tileLabels.length ? plan.tileLabels : this.createFallbackMatch3Plan().tileLabels;
+    const type = types[Math.floor(Math.random() * types.length)];
+    return {
+      id: this.matchTileId++,
+      row,
+      col,
+      type,
+      label: labels[(this.matchTileId + row + col) % labels.length] ?? "API",
+      selected: false
+    };
+  }
+  parseAiJson(content) {
+    if (!content)
+      return null;
+    try {
+      return JSON.parse(content);
+    } catch (e) {
+      const match2 = content.match(/\{[\s\S]*\}/);
+      if (!match2)
+        return null;
+      try {
+        return JSON.parse(match2[0]);
+      } catch (e2) {
+        return null;
+      }
+    }
+  }
+  normalizeRunnerPlan(value) {
+    if (!value)
+      return null;
+    const fallback = this.createFallbackRunnerPlan();
+    return {
+      theme: typeof value.theme === "string" ? value.theme : fallback.theme,
+      obstacles: this.normalizeStringList(value.obstacles, fallback.obstacles),
+      coins: this.normalizeStringList(value.coins, fallback.coins),
+      powerUps: this.normalizeStringList(value.powerUps, fallback.powerUps)
+    };
+  }
+  normalizeMatch3Plan(value) {
+    if (!value)
+      return null;
+    const fallback = this.createFallbackMatch3Plan();
+    const moves = Number.isFinite(value.moves) ? Number(value.moves) : fallback.moves;
+    return {
+      goal: typeof value.goal === "string" ? value.goal : fallback.goal,
+      tileLabels: this.normalizeStringList(value.tileLabels, fallback.tileLabels),
+      blockerLabels: this.normalizeStringList(value.blockerLabels, fallback.blockerLabels),
+      moves: Math.max(10, Math.min(28, moves))
+    };
+  }
+  normalizeStringList(value, fallback) {
+    if (!Array.isArray(value))
+      return fallback;
+    const list = value.filter((item) => typeof item === "string" && item.trim()).map((item) => item.trim()).slice(0, 12);
+    return list.length ? list : fallback;
+  }
+  createFallbackRunnerPlan() {
+    return {
+      theme: `${this.getCategoryLabel()} Sprint`,
+      obstacles: ["N+1 Query", "Timeout", "Drift", "Deadlock", "Bad Prompt", "Queue Lag", "OOM", "Rollback"],
+      coins: ["API", "Cache", "Retry", "Index", "RAG", "SLO", "Canary", "ADR"],
+      powerUps: ["Circuit Breaker", "Autoscale", "Guardrails", "Bulkhead"]
+    };
+  }
+  createFallbackMatch3Plan() {
+    return {
+      goal: `Clear ${this.getCategoryLabel()} combos before moves run out`,
+      tileLabels: ["API", "Cache", "Queue", "RAG", "Deploy", "Index", "SLO", "ADR"],
+      blockerLabels: ["Timeout", "Drift", "Bug", "Lag"],
+      moves: this.selectedDifficulty === "Easy" ? 22 : this.selectedDifficulty === "Hard" ? 16 : 19
+    };
+  }
+  getRunnerSpawnRate() {
+    return this.selectedDifficulty === "Hard" ? 9 : this.selectedDifficulty === "Easy" ? 14 : 11;
+  }
+  matchIndex(row, col) {
+    return row * 6 + col;
+  }
   stopActiveGame() {
     this.engine?.stop();
     this.engine = null;
     this.resizeObserver?.disconnect();
     this.resizeObserver = null;
+    if (this.runnerTimerId !== null) {
+      window.clearInterval(this.runnerTimerId);
+      this.runnerTimerId = null;
+    }
+    if (this.runnerActionTimerId !== null) {
+      window.clearTimeout(this.runnerActionTimerId);
+      this.runnerActionTimerId = null;
+    }
+    this.runnerAction = "run";
   }
   getCategoryLabel() {
     return this.categories.find((c) => c.value === this.selectedCategory)?.label || "World";
   }
   getLevelTypeLabel() {
-    return this.levelTypes.find((t) => t.value === this.selectedLevelType)?.label || "Land";
+    return this.levelTypes.find((t) => t.value === this.selectedLevelType)?.label || "Ground Run";
   }
-  getControlsHint() {
-    if (this.selectedLevelType === "water") {
-      return "Arrow keys / WASD to move \xB7 Space / Up to swim stroke \xB7 X / Z / Shift to throw fireballs (fire mode)";
-    }
-    if (this.selectedLevelType === "sky") {
-      return "Arrow keys / WASD to move \xB7 hold Space / Up to fly higher \xB7 Down to dive \xB7 X / Z / Shift to throw fireballs (fire mode)";
-    }
-    return "Arrow keys / WASD to move \xB7 Space / Up to jump \xB7 X / Z / Shift to throw fireballs (fire mode)";
+  getGameModeLabel() {
+    return this.gameModes.find((mode) => mode.value === this.selectedGameMode)?.label || "AI Game";
   }
   getResultMessage() {
     if (this.won) {
+      if (this.selectedGameMode === "runner")
+        return `Sprint complete. You survived ${this.runnerTheme}.`;
+      if (this.selectedGameMode === "match3")
+        return `Puzzle solved. ${this.matchGoal}`;
       if (this.score >= 1e3)
         return "Perfect run. That looked like staff-level platforming.";
       if (this.score >= 500)
@@ -39886,13 +40133,19 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
         let _t;
         \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx2.canvasRef = _t.first);
       }
-    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "game-mode-grid"], [1, "game-mode-btn", 3, "game-mode-btn--active"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "game-mode-btn", 3, "click"], [1, "game-mode-icon"], [1, "game-mode-label"], [1, "game-mode-desc"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-actions"], [1, "touch-btn", "touch-down"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-fire", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-down", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx2) {
+    }, hostBindings: function AiQuizGameComponent_HostBindings(rf, ctx2) {
+      if (rf & 1) {
+        \u0275\u0275listener("keydown", function AiQuizGameComponent_keydown_HostBindingHandler($event) {
+          return ctx2.onKeydown($event);
+        }, \u0275\u0275resolveWindow);
+      }
+    }, decls: 6, vars: 4, consts: [["gameCanvas", ""], ["id", "ai-quiz-game", 1, "mario-game-section", "apple-section"], [1, "apple-container"], [1, "loading-card", "apple-card"], [1, "game-wrapper", 3, "game-wrapper--arcade"], [1, "results-card", "apple-card"], [1, "section-header"], [1, "world-label"], [1, "section-title"], [1, "section-subtitle"], [1, "setup-card", "apple-card"], [1, "setup-inner"], [1, "setup-section"], [1, "setup-heading"], [1, "game-mode-grid"], [1, "game-mode-btn", 3, "game-mode-btn--active"], [1, "option-grid"], [1, "option-btn", 3, "option-btn--active"], [1, "difficulty-row"], [1, "diff-btn", 3, "diff-btn--active", "ngClass"], [1, "start-btn", 3, "click"], [1, "fas", "fa-play"], [1, "controls-hint"], [1, "game-mode-btn", 3, "click"], [1, "game-mode-icon"], [1, "game-mode-label"], [1, "game-mode-desc"], [1, "option-btn", 3, "click"], [1, "option-icon"], [1, "option-label"], [1, "option-desc"], [1, "diff-btn", 3, "click", "ngClass"], [1, "diff-label"], [1, "diff-desc"], [1, "option-grid", "option-grid--compact"], [1, "loading-content"], [1, "loader-icon"], [1, "loading-bar"], [1, "loading-fill"], [1, "game-wrapper"], [1, "game-hud"], [1, "hud-item"], [1, "hud-icon"], [1, "hud-val"], [1, "hud-item", "hud-category"], [1, "canvas-container"], [1, "runner-arena", "apple-card"], [1, "match3-arena", "apple-card"], [1, "touch-controls"], [1, "touch-dpad"], [1, "touch-btn", "touch-left", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-right", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-actions"], [1, "touch-btn", "touch-jump", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "touch-btn", "touch-fire", 3, "touchstart", "touchend", "mousedown", "mouseup"], [1, "runner-meta"], [1, "runner-track"], [1, "runner-skyline"], [1, "runner-horizon"], [1, "runner-rails"], [1, "runner-lane", 3, "ngClass", "runner-lane--active"], [1, "runner-item", 3, "ngClass", "left", "top", "transform", "opacity"], [1, "runner-player"], [1, "runner-controls"], [1, "touch-btn", 3, "click"], [1, "touch-btn", "runner-action-btn", 3, "click"], [1, "runner-lane", 3, "ngClass"], [1, "runner-item", 3, "ngClass"], [1, "runner-item-icon"], [1, "runner-item-action"], [1, "match3-meta"], [1, "match3-board"], [1, "match3-tile", 3, "ngClass", "match3-tile--selected", "match3-tile--blocked"], [1, "match3-message"], [1, "match3-tile", 3, "click", "ngClass"], [1, "match3-tile-icon"], [1, "match3-tile-label"], [1, "results-inner"], [1, "results-badge"], [1, "results-title"], [1, "results-msg"], [1, "results-stats"], [1, "stat-item"], [1, "stat-label"], [1, "stat-value"], [1, "results-actions"], [1, "fas", "fa-redo"]], template: function AiQuizGameComponent_Template(rf, ctx2) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "section", 1)(1, "div", 2);
-        \u0275\u0275conditionalCreate(2, AiQuizGameComponent_Conditional_2_Template, 33, 1);
+        \u0275\u0275conditionalCreate(2, AiQuizGameComponent_Conditional_2_Template, 35, 2);
         \u0275\u0275conditionalCreate(3, AiQuizGameComponent_Conditional_3_Template, 10, 1, "div", 3);
-        \u0275\u0275conditionalCreate(4, AiQuizGameComponent_Conditional_4_Template, 35, 5, "div", 4);
-        \u0275\u0275conditionalCreate(5, AiQuizGameComponent_Conditional_5_Template, 28, 6, "div", 5);
+        \u0275\u0275conditionalCreate(4, AiQuizGameComponent_Conditional_4_Template, 24, 10, "div", 4);
+        \u0275\u0275conditionalCreate(5, AiQuizGameComponent_Conditional_5_Template, 28, 7, "div", 5);
         \u0275\u0275elementEnd()();
       }
       if (rf & 2) {
@@ -39905,7 +40158,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
         \u0275\u0275advance();
         \u0275\u0275conditional(ctx2.viewState === "results" ? 5 : -1);
       }
-    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.mario-game-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card[_ngcontent-%COMP%] {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.game-mode-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.85rem;\n}\n.game-mode-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.35rem;\n  min-height: 9rem;\n  padding: 1rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background:\n    radial-gradient(\n      circle at 20% 0%,\n      rgba(255, 178, 36, 0.08),\n      transparent 34%),\n    rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.game-mode-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  border-color: rgba(255, 178, 36, 0.35);\n  background: rgba(255, 178, 36, 0.055);\n}\n.game-mode-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.55);\n  background: rgba(255, 178, 36, 0.09);\n  box-shadow: 0 0 18px rgba(255, 178, 36, 0.12);\n}\n.game-mode-icon[_ngcontent-%COMP%] {\n  font-size: 1.85rem;\n}\n.game-mode-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 800;\n}\n.game-mode-desc[_ngcontent-%COMP%] {\n  font-size: 0.74rem;\n  color: var(--text-muted);\n  line-height: 1.45;\n}\n.option-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact[_ngcontent-%COMP%] {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n}\n.option-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active[_ngcontent-%COMP%] {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success[_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning[_ngcontent-%COMP%] {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card[_ngcontent-%COMP%] {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  animation: _ngcontent-%COMP%_bounce 0.6s ease infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: _ngcontent-%COMP%_loadProgress 3s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n  max-width: 100%;\n}\n.hud-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container[_ngcontent-%COMP%]   canvas[_ngcontent-%COMP%] {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn[_ngcontent-%COMP%]:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n.touch-down[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(96, 165, 250, 0.5);\n  background: rgba(96, 165, 250, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls[_ngcontent-%COMP%] {\n    display: flex;\n  }\n}\n.results-card[_ngcontent-%COMP%] {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge[_ngcontent-%COMP%] {\n  font-size: 3rem;\n}\n.results-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section[_ngcontent-%COMP%] {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .section-header[_ngcontent-%COMP%] {\n    margin-bottom: 1.5rem;\n  }\n  .section-subtitle[_ngcontent-%COMP%] {\n    max-width: 21rem;\n  }\n  .setup-card[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .setup-inner[_ngcontent-%COMP%] {\n    gap: 1.4rem;\n  }\n  .game-mode-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .game-mode-btn[_ngcontent-%COMP%] {\n    min-height: auto;\n    padding: 0.9rem;\n  }\n  .option-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .results-stats[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper[_ngcontent-%COMP%] {\n    margin: 0 -1rem;\n  }\n  .game-hud[_ngcontent-%COMP%] {\n    width: auto;\n    justify-content: center;\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin: 0 1rem 0.35rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-item[_ngcontent-%COMP%] {\n    flex: 0 1 auto;\n  }\n  .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.6rem;\n  }\n  .hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.68rem;\n  }\n  .hud-icon[_ngcontent-%COMP%] {\n    font-size: 0.85rem;\n  }\n  .canvas-container[_ngcontent-%COMP%] {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls[_ngcontent-%COMP%] {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn[_ngcontent-%COMP%] {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump[_ngcontent-%COMP%] {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire[_ngcontent-%COMP%] {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card[_ngcontent-%COMP%] {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n@media (max-width: 400px) {\n  .game-hud[_ngcontent-%COMP%] {\n    gap: 0.45rem;\n    padding: 0.45rem 0.55rem;\n  }\n  .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.54rem;\n  }\n  .hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.62rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */'] });
+    }, dependencies: [CommonModule, NgClass], styles: ['@charset "UTF-8";\n\n\n[_nghost-%COMP%] {\n  display: block;\n}\n.world-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.mario-game-section[_ngcontent-%COMP%] {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title[_ngcontent-%COMP%] {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card[_ngcontent-%COMP%] {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.game-mode-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.85rem;\n}\n.game-mode-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.35rem;\n  min-height: 9rem;\n  padding: 1rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background:\n    radial-gradient(\n      circle at 20% 0%,\n      rgba(255, 178, 36, 0.08),\n      transparent 34%),\n    rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.game-mode-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  border-color: rgba(255, 178, 36, 0.35);\n  background: rgba(255, 178, 36, 0.055);\n}\n.game-mode-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.55);\n  background: rgba(255, 178, 36, 0.09);\n  box-shadow: 0 0 18px rgba(255, 178, 36, 0.12);\n}\n.game-mode-icon[_ngcontent-%COMP%] {\n  font-size: 1.85rem;\n}\n.game-mode-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 800;\n}\n.game-mode-desc[_ngcontent-%COMP%] {\n  font-size: 0.74rem;\n  color: var(--text-muted);\n  line-height: 1.45;\n}\n.option-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact[_ngcontent-%COMP%] {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn[_ngcontent-%COMP%]:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active[_ngcontent-%COMP%] {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n}\n.option-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active[_ngcontent-%COMP%] {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success[_ngcontent-%COMP%] {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning[_ngcontent-%COMP%] {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger[_ngcontent-%COMP%] {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc[_ngcontent-%COMP%] {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card[_ngcontent-%COMP%] {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  animation: _ngcontent-%COMP%_bounce 0.6s ease infinite alternate;\n}\n@keyframes _ngcontent-%COMP%_bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: _ngcontent-%COMP%_loadProgress 3s ease-in-out infinite;\n}\n@keyframes _ngcontent-%COMP%_loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n}\n.game-wrapper--arcade[_ngcontent-%COMP%] {\n  max-width: 58rem;\n  margin: 0 auto;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n  max-width: 100%;\n}\n.hud-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container[_ngcontent-%COMP%] {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container[_ngcontent-%COMP%]   canvas[_ngcontent-%COMP%] {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn[_ngcontent-%COMP%]:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump[_ngcontent-%COMP%] {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n.runner-arena[_ngcontent-%COMP%], \n.match3-arena[_ngcontent-%COMP%] {\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background:\n    radial-gradient(\n      circle at 20% 0%,\n      rgba(236, 72, 153, 0.14),\n      transparent 28%),\n    radial-gradient(\n      circle at 90% 30%,\n      rgba(59, 130, 246, 0.12),\n      transparent 24%),\n    var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 1.25rem;\n}\n.runner-meta[_ngcontent-%COMP%], \n.match3-meta[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  gap: 1rem;\n  margin-bottom: 0.85rem;\n  color: var(--text-tertiary);\n  font-size: 0.82rem;\n  font-weight: 700;\n}\n.runner-track[_ngcontent-%COMP%] {\n  position: relative;\n  height: min(62vh, 520px);\n  min-height: 380px;\n  overflow: hidden;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  perspective: 700px;\n  background:\n    radial-gradient(\n      circle at 50% 6%,\n      rgba(96, 165, 250, 0.26),\n      transparent 22%),\n    linear-gradient(\n      90deg,\n      rgba(15, 23, 42, 0.92) 0 15%,\n      transparent 28% 72%,\n      rgba(15, 23, 42, 0.92) 85% 100%),\n    linear-gradient(\n      180deg,\n      rgba(14, 165, 233, 0.2),\n      transparent 38%),\n    repeating-linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.05) 0 3px,\n      transparent 3px 38px),\n    #09091a;\n}\n.runner-lane[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 14%;\n  bottom: -6%;\n  z-index: 1;\n  border-inline: 1px solid rgba(255, 255, 255, 0.09);\n  background:\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 28px,\n      rgba(255, 255, 255, 0.08) 28px 31px),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.015),\n      rgba(255, 255, 255, 0.055));\n  transform-origin: bottom center;\n  clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);\n}\n.runner-lane--active[_ngcontent-%COMP%] {\n  background:\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 28px,\n      rgba(255, 255, 255, 0.1) 28px 31px),\n    linear-gradient(\n      180deg,\n      rgba(255, 178, 36, 0.08),\n      rgba(255, 178, 36, 0.16));\n}\n.runner-lane--0[_ngcontent-%COMP%] {\n  left: 5%;\n  width: 44%;\n  transform: skewX(-11deg);\n}\n.runner-lane--1[_ngcontent-%COMP%] {\n  left: 28%;\n  width: 44%;\n}\n.runner-lane--2[_ngcontent-%COMP%] {\n  right: 5%;\n  width: 44%;\n  transform: skewX(11deg);\n}\n.runner-skyline[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.runner-skyline[_ngcontent-%COMP%]::before, \n.runner-skyline[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  top: 6%;\n  bottom: 0;\n  width: 24%;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(30, 41, 59, 0.2),\n      rgba(15, 23, 42, 0.86)),\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 24px,\n      rgba(96, 165, 250, 0.12) 24px 28px);\n  clip-path: polygon(0 0, 100% 10%, 78% 100%, 0 100%);\n}\n.runner-skyline[_ngcontent-%COMP%]::before {\n  left: 0;\n}\n.runner-skyline[_ngcontent-%COMP%]::after {\n  right: 0;\n  transform: scaleX(-1);\n}\n.runner-horizon[_ngcontent-%COMP%] {\n  position: absolute;\n  z-index: 3;\n  top: 0.8rem;\n  left: 50%;\n  transform: translateX(-50%);\n  padding: 0.28rem 0.7rem;\n  border-radius: 999px;\n  background: rgba(0, 0, 0, 0.38);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  color: rgba(255, 255, 255, 0.76);\n  font-size: 0.68rem;\n  font-weight: 800;\n  white-space: nowrap;\n}\n.runner-rails[_ngcontent-%COMP%] {\n  position: absolute;\n  left: 50%;\n  top: 9%;\n  bottom: -18%;\n  width: 68%;\n  z-index: 1;\n  pointer-events: none;\n  background:\n    linear-gradient(\n      102deg,\n      transparent 0 30%,\n      rgba(255, 255, 255, 0.16) 30.2% 30.8%,\n      transparent 31.2%),\n    linear-gradient(\n      78deg,\n      transparent 0 69%,\n      rgba(255, 255, 255, 0.16) 69.2% 69.8%,\n      transparent 70.2%),\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 30px,\n      rgba(255, 255, 255, 0.13) 30px 33px);\n  transform: translateX(-50%) perspective(620px) rotateX(59deg);\n  transform-origin: top center;\n  clip-path: polygon(46% 0%, 54% 0%, 100% 100%, 0% 100%);\n}\n.runner-item[_ngcontent-%COMP%] {\n  position: absolute;\n  z-index: 2;\n  display: grid;\n  gap: 0.1rem;\n  justify-items: center;\n  width: 7.5rem;\n  padding: 0.45rem;\n  border-radius: 12px;\n  transform: translate(-50%, -50%);\n  color: #fff;\n  font-size: 0.66rem;\n  font-weight: 800;\n  text-align: center;\n  border: 1px solid rgba(255, 255, 255, 0.16);\n  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);\n  transform-origin: center;\n  transition:\n    top 0.095s linear,\n    left 0.12s ease,\n    opacity 0.12s ease;\n}\n.runner-item--coin[_ngcontent-%COMP%] {\n  background: rgba(245, 158, 11, 0.8);\n}\n.runner-item--bug[_ngcontent-%COMP%] {\n  background: rgba(239, 68, 68, 0.86);\n}\n.runner-item--power[_ngcontent-%COMP%] {\n  background: rgba(59, 130, 246, 0.82);\n}\n.runner-item-icon[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  line-height: 1;\n}\n.runner-item-action[_ngcontent-%COMP%] {\n  padding: 0.08rem 0.34rem;\n  border-radius: 999px;\n  background: rgba(0, 0, 0, 0.28);\n  font-size: 0.52rem;\n  letter-spacing: 0.08em;\n  text-transform: uppercase;\n}\n.runner-player[_ngcontent-%COMP%] {\n  position: absolute;\n  z-index: 3;\n  bottom: 5%;\n  width: 4.5rem;\n  height: 4.5rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  transform: translateX(-50%);\n  font-size: 2.25rem;\n  background: rgba(255, 255, 255, 0.11);\n  border: 2px solid rgba(255, 178, 36, 0.55);\n  box-shadow: 0 0 28px rgba(255, 178, 36, 0.18);\n  transition:\n    left 0.16s ease,\n    bottom 0.18s ease,\n    width 0.18s ease,\n    height 0.18s ease,\n    border-radius 0.18s ease;\n}\n.runner-player--jump[_ngcontent-%COMP%] {\n  bottom: 17%;\n  box-shadow: 0 0 34px rgba(96, 165, 250, 0.25);\n}\n.runner-player--slide[_ngcontent-%COMP%] {\n  width: 5.6rem;\n  height: 2.65rem;\n  border-radius: 999px;\n  background: rgba(59, 130, 246, 0.17);\n}\n.runner-controls[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.7rem;\n  margin-top: 0.85rem;\n  color: var(--text-tertiary);\n  font-size: 0.78rem;\n  text-align: center;\n}\n.runner-controls[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  flex: 1;\n  max-width: 28rem;\n}\n.runner-action-btn[_ngcontent-%COMP%] {\n  border-color: rgba(96, 165, 250, 0.45);\n  background: rgba(37, 99, 235, 0.22);\n}\n.match3-board[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(6, minmax(0, 1fr));\n  gap: 0.45rem;\n  padding: 0.65rem;\n  border-radius: 18px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.08),\n      rgba(255, 255, 255, 0.025)),\n    rgba(15, 23, 42, 0.78);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.28);\n}\n.match3-tile[_ngcontent-%COMP%] {\n  min-height: 4.4rem;\n  display: grid;\n  gap: 0.12rem;\n  place-items: center;\n  padding: 0.3rem;\n  border-radius: 22px;\n  border: 2px solid rgba(255, 255, 255, 0.22);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 0.72rem;\n  font-weight: 800;\n  line-height: 1.15;\n  overflow-wrap: anywhere;\n  cursor: pointer;\n  box-shadow:\n    inset 0 3px 0 rgba(255, 255, 255, 0.28),\n    inset 0 -5px 10px rgba(0, 0, 0, 0.16),\n    0 7px 16px rgba(0, 0, 0, 0.24);\n  transition:\n    transform 0.16s ease,\n    border-color 0.16s ease,\n    box-shadow 0.16s ease,\n    filter 0.16s ease;\n}\n.match3-tile[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px) scale(1.03);\n  filter: brightness(1.08);\n}\n.match3-tile--selected[_ngcontent-%COMP%] {\n  border-color: rgba(255, 255, 255, 0.9);\n  box-shadow:\n    0 0 0 3px rgba(255, 178, 36, 0.36),\n    0 0 28px rgba(255, 178, 36, 0.28),\n    inset 0 3px 0 rgba(255, 255, 255, 0.34);\n}\n.match3-tile--api[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #2563eb,\n      #0ea5e9);\n}\n.match3-tile--cache[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #16a34a,\n      #84cc16);\n}\n.match3-tile--queue[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #7c3aed,\n      #c084fc);\n}\n.match3-tile--llm[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #c026d3,\n      #f472b6);\n}\n.match3-tile--deploy[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #ea580c,\n      #fbbf24);\n}\n.match3-tile--data[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #0f766e,\n      #2dd4bf);\n}\n.match3-tile--blocker[_ngcontent-%COMP%] {\n  background:\n    repeating-linear-gradient(\n      45deg,\n      rgba(255, 255, 255, 0.08) 0 8px,\n      transparent 8px 16px),\n    linear-gradient(\n      135deg,\n      #475569,\n      #1e293b);\n  cursor: not-allowed;\n  filter: saturate(0.8);\n}\n.match3-tile-icon[_ngcontent-%COMP%] {\n  font-size: 1.35rem;\n  line-height: 1;\n  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));\n}\n.match3-tile-label[_ngcontent-%COMP%] {\n  max-width: 100%;\n  font-size: 0.62rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.34);\n}\n.match3-message[_ngcontent-%COMP%] {\n  margin: 0.85rem 0 0;\n  color: var(--text-tertiary);\n  font-size: 0.8rem;\n  text-align: center;\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls[_ngcontent-%COMP%] {\n    display: flex;\n  }\n}\n.results-card[_ngcontent-%COMP%] {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge[_ngcontent-%COMP%] {\n  font-size: 3rem;\n}\n.results-title[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg[_ngcontent-%COMP%] {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label[_ngcontent-%COMP%] {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section[_ngcontent-%COMP%] {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .section-header[_ngcontent-%COMP%] {\n    margin-bottom: 1.5rem;\n  }\n  .section-subtitle[_ngcontent-%COMP%] {\n    max-width: 21rem;\n  }\n  .setup-card[_ngcontent-%COMP%] {\n    padding: 1.25rem;\n  }\n  .setup-inner[_ngcontent-%COMP%] {\n    gap: 1.4rem;\n  }\n  .game-mode-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .game-mode-btn[_ngcontent-%COMP%] {\n    min-height: auto;\n    padding: 0.9rem;\n  }\n  .option-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .results-stats[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper[_ngcontent-%COMP%] {\n    margin: 0 -1rem;\n  }\n  .game-wrapper--arcade[_ngcontent-%COMP%] {\n    margin: 0;\n  }\n  .game-hud[_ngcontent-%COMP%] {\n    width: auto;\n    justify-content: center;\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin: 0 1rem 0.35rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-item[_ngcontent-%COMP%] {\n    flex: 0 1 auto;\n  }\n  .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.6rem;\n  }\n  .hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.68rem;\n  }\n  .hud-icon[_ngcontent-%COMP%] {\n    font-size: 0.85rem;\n  }\n  .canvas-container[_ngcontent-%COMP%] {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls[_ngcontent-%COMP%] {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn[_ngcontent-%COMP%] {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump[_ngcontent-%COMP%] {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire[_ngcontent-%COMP%] {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .runner-arena[_ngcontent-%COMP%], \n   .match3-arena[_ngcontent-%COMP%] {\n    padding: 1rem;\n    border-radius: 16px;\n  }\n  .runner-track[_ngcontent-%COMP%] {\n    height: 58vh;\n    min-height: 360px;\n    border-radius: 14px;\n  }\n  .runner-item[_ngcontent-%COMP%] {\n    width: clamp(4.5rem, 27vw, 5.6rem);\n    padding: 0.36rem 0.25rem;\n    font-size: 0.56rem;\n  }\n  .runner-player[_ngcontent-%COMP%] {\n    width: 3.8rem;\n    height: 3.8rem;\n    font-size: 1.9rem;\n  }\n  .runner-meta[_ngcontent-%COMP%], \n   .match3-meta[_ngcontent-%COMP%] {\n    gap: 0.35rem;\n    font-size: 0.72rem;\n  }\n  .runner-controls[_ngcontent-%COMP%] {\n    gap: 0.5rem;\n    font-size: 0.7rem;\n  }\n  .runner-controls[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    order: 5;\n    flex-basis: 100%;\n  }\n  .match3-board[_ngcontent-%COMP%] {\n    gap: 0.32rem;\n  }\n  .match3-tile[_ngcontent-%COMP%] {\n    min-height: 3.25rem;\n    border-radius: 14px;\n    font-size: 0.58rem;\n  }\n  .match3-tile-icon[_ngcontent-%COMP%] {\n    font-size: 1rem;\n  }\n  .match3-tile-label[_ngcontent-%COMP%] {\n    font-size: 0.5rem;\n  }\n  .results-card[_ngcontent-%COMP%] {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n@media (max-width: 400px) {\n  .game-hud[_ngcontent-%COMP%] {\n    gap: 0.45rem;\n    padding: 0.45rem 0.55rem;\n  }\n  .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.54rem;\n  }\n  .hud-category[_ngcontent-%COMP%]   .hud-val[_ngcontent-%COMP%] {\n    font-size: 0.62rem;\n  }\n  .runner-track[_ngcontent-%COMP%] {\n    min-height: 330px;\n  }\n  .match3-board[_ngcontent-%COMP%] {\n    gap: 0.24rem;\n  }\n  .match3-tile[_ngcontent-%COMP%] {\n    min-height: 2.85rem;\n    padding: 0.2rem;\n    font-size: 0.5rem;\n  }\n  .match3-tile-icon[_ngcontent-%COMP%] {\n    font-size: 0.9rem;\n  }\n  .match3-tile-label[_ngcontent-%COMP%] {\n    font-size: 0.44rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */'] });
   }
 };
 (() => {
@@ -39918,25 +40171,24 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     @if (viewState === 'setup') {
       <div class="section-header">
         <div class="world-label">\u{1F579} AI GAME LAB</div>
-        <h2 class="section-title">AI-Powered Mario Platformer</h2>
+        <h2 class="section-title">AI-Powered Mini-Arcade</h2>
         <p class="section-subtitle">
-          One Mario-inspired platformer, three ways to move \u2014 run on land, swim through the sea, or fly through the sky.
-          AI generates the levels, concepts, enemies, and rewards. You just play.
+          Three Mario-inspired games. AI generates the lanes, levels, boards, concepts, bugs, rewards, and missions. You just play.
         </p>
       </div>
 
       <div class="setup-card apple-card">
         <div class="setup-inner">
           <div class="setup-section">
-            <h3 class="setup-heading">Choose your mode</h3>
+            <h3 class="setup-heading">Choose your game</h3>
             <div class="game-mode-grid">
-              @for (type of levelTypes; track type.value) {
+              @for (mode of gameModes; track mode.value) {
                 <button class="game-mode-btn"
-                        [class.game-mode-btn--active]="selectedLevelType === type.value"
-                        (click)="selectLevelType(type.value)">
-                  <span class="game-mode-icon">{{ type.icon }}</span>
-                  <span class="game-mode-label">{{ type.label }}</span>
-                  <span class="game-mode-desc">{{ type.description }}</span>
+                        [class.game-mode-btn--active]="selectedGameMode === mode.value"
+                        (click)="selectGameMode(mode.value)">
+                  <span class="game-mode-icon">{{ mode.icon }}</span>
+                  <span class="game-mode-label">{{ mode.label }}</span>
+                  <span class="game-mode-desc">{{ mode.description }}</span>
                 </button>
               }
             </div>
@@ -39972,12 +40224,35 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
             </div>
           </div>
 
+          @if (selectedGameMode === 'platformer') {
+            <div class="setup-section">
+              <h3 class="setup-heading">Course Style</h3>
+              <div class="option-grid option-grid--compact">
+                @for (type of levelTypes; track type.value) {
+                  <button class="option-btn"
+                          [class.option-btn--active]="selectedLevelType === type.value"
+                          (click)="selectedLevelType = type.value">
+                    <span class="option-icon">{{ type.icon }}</span>
+                    <span class="option-label">{{ type.label }}</span>
+                    <span class="option-desc">{{ type.description }}</span>
+                  </button>
+                }
+              </div>
+            </div>
+          }
+
           <button class="start-btn" (click)="startGame()">
             <i class="fas fa-play"></i> Start Mission
           </button>
 
           <div class="controls-hint">
-            <span>{{ getControlsHint() }}</span>
+            @if (selectedGameMode === 'runner') {
+              <span>Arrow keys / A-D to switch lanes \xB7 dodge bugs \xB7 collect AI concepts</span>
+            } @else if (selectedGameMode === 'match3') {
+              <span>Swap adjacent tiles to match 3+ AI concepts before moves run out</span>
+            } @else {
+              <span>Arrow keys / WASD to move&ensp;\xB7&ensp;Space / Up to jump or swim stroke&ensp;\xB7&ensp;X / Z / Shift to throw fireballs (fire mode)</span>
+            }
           </div>
         </div>
       </div>
@@ -39988,8 +40263,8 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
       <div class="loading-card apple-card">
         <div class="loading-content">
           <div class="loader-icon">\u{1F344}</div>
-          <h3>Generating {{ getLevelTypeLabel() }} level...</h3>
-          <p>AI is building the course \u2014 concepts, enemies, rewards, and difficulty curve</p>
+          <h3>Generating {{ getGameModeLabel() }}...</h3>
+          <p>AI is building the mission \u2014 concepts, bugs, rewards, and difficulty curve</p>
           <div class="loading-bar"><div class="loading-fill"></div></div>
         </div>
       </div>
@@ -39997,7 +40272,7 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
 
     <!-- PLAYING -->
     @if (viewState === 'playing') {
-      <div class="game-wrapper">
+      <div class="game-wrapper" [class.game-wrapper--arcade]="selectedGameMode !== 'platformer'">
         <div class="game-hud">
           <div class="hud-item">
             <span class="hud-icon">\u2764\uFE0F</span>
@@ -40012,38 +40287,108 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
             <span class="hud-val">{{ score }}</span>
           </div>
           <div class="hud-item hud-category">
-            <span class="hud-val">{{ getLevelTypeLabel() }}</span>
+            <span class="hud-val">{{ getGameModeLabel() }}</span>
           </div>
+          @if (selectedGameMode === 'platformer') {
+            <div class="hud-item hud-category">
+              <span class="hud-val">{{ getLevelTypeLabel() }}</span>
+            </div>
+          }
         </div>
 
-        <div class="canvas-container">
-          <canvas #gameCanvas></canvas>
+        @if (selectedGameMode === 'platformer') {
+          <div class="canvas-container">
+            <canvas #gameCanvas></canvas>
 
-          <!-- Touch controls (mobile) -->
-          <div class="touch-controls">
-            <div class="touch-dpad">
-              <button class="touch-btn touch-left"
-                      (touchstart)="touchLeft(true)" (touchend)="touchLeft(false)"
-                      (mousedown)="touchLeft(true)" (mouseup)="touchLeft(false)">\u25C0</button>
-              <button class="touch-btn touch-right"
-                      (touchstart)="touchRight(true)" (touchend)="touchRight(false)"
-                      (mousedown)="touchRight(true)" (mouseup)="touchRight(false)">\u25B6</button>
+            <!-- Touch controls (mobile) -->
+            <div class="touch-controls">
+              <div class="touch-dpad">
+                <button class="touch-btn touch-left"
+                        (touchstart)="touchLeft(true)" (touchend)="touchLeft(false)"
+                        (mousedown)="touchLeft(true)" (mouseup)="touchLeft(false)">\u25C0</button>
+                <button class="touch-btn touch-right"
+                        (touchstart)="touchRight(true)" (touchend)="touchRight(false)"
+                        (mousedown)="touchRight(true)" (mouseup)="touchRight(false)">\u25B6</button>
+              </div>
+              <div class="touch-actions">
+                <button class="touch-btn touch-jump"
+                        (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
+                        (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">\u25B2</button>
+                <button class="touch-btn touch-fire"
+                        (touchstart)="touchFire(true)" (touchend)="touchFire(false)"
+                        (mousedown)="touchFire(true)" (mouseup)="touchFire(false)">\u{1F525}</button>
+              </div>
             </div>
-            <div class="touch-actions">
-              @if (selectedLevelType === 'sky') {
-                <button class="touch-btn touch-down"
-                        (touchstart)="touchDown(true)" (touchend)="touchDown(false)"
-                        (mousedown)="touchDown(true)" (mouseup)="touchDown(false)">\u25BC</button>
+          </div>
+        }
+
+        @if (selectedGameMode === 'runner') {
+          <div class="runner-arena apple-card">
+            <div class="runner-meta">
+              <span>{{ runnerTheme }}</span>
+              <span>Distance {{ runnerDistance }}</span>
+            </div>
+            <div class="runner-track">
+              <div class="runner-skyline"></div>
+              <div class="runner-horizon">Next station: {{ getCategoryLabel() }}</div>
+              <div class="runner-rails"></div>
+              @for (lane of [0, 1, 2]; track lane) {
+                <div class="runner-lane"
+                     [ngClass]="'runner-lane--' + lane"
+                     [class.runner-lane--active]="runnerLane === lane"></div>
               }
-              <button class="touch-btn touch-jump"
-                      (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
-                      (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">\u25B2</button>
-              <button class="touch-btn touch-fire"
-                      (touchstart)="touchFire(true)" (touchend)="touchFire(false)"
-                      (mousedown)="touchFire(true)" (mouseup)="touchFire(false)">\u{1F525}</button>
+              @for (item of runnerItems; track item.id) {
+                <div class="runner-item"
+                     [ngClass]="'runner-item--' + item.kind"
+                     [style.left.%]="getRunnerItemLeft(item)"
+                     [style.top.%]="item.y"
+                     [style.transform]="getRunnerItemTransform(item)"
+                     [style.opacity]="getRunnerItemOpacity(item)">
+                  <span class="runner-item-icon">{{ getRunnerItemIcon(item) }}</span>
+                  <span>{{ item.label }}</span>
+                  @if (item.kind === 'bug') {
+                    <span class="runner-item-action">{{ item.avoidAction }}</span>
+                  }
+                </div>
+              }
+              <div class="runner-player"
+                   [class.runner-player--jump]="runnerAction === 'jump'"
+                   [class.runner-player--slide]="runnerAction === 'slide'"
+                   [style.left.%]="50 + (runnerLane - 1) * 29">
+                <span>{{ runnerAction === 'slide' ? '\u{1F6DD}' : '\u{1F3C3}' }}</span>
+              </div>
+            </div>
+            <div class="runner-controls">
+              <button class="touch-btn" (click)="moveRunner(-1)">\u25C0</button>
+              <button class="touch-btn runner-action-btn" (click)="runnerJump()">\u25B2</button>
+              <span>{{ runnerMessage || 'Switch lanes, jump barriers, slide under tunnels.' }}</span>
+              <button class="touch-btn runner-action-btn" (click)="runnerSlide()">\u25BC</button>
+              <button class="touch-btn" (click)="moveRunner(1)">\u25B6</button>
             </div>
           </div>
-        </div>
+        }
+
+        @if (selectedGameMode === 'match3') {
+          <div class="match3-arena apple-card">
+            <div class="match3-meta">
+              <span>{{ matchGoal }}</span>
+              <span>Moves {{ matchMovesRemaining }} \xB7 Combos {{ matchMatches }}/{{ matchTarget }}</span>
+            </div>
+            <div class="match3-board">
+              @for (tile of matchTiles; track tile.id; let i = $index) {
+                <button class="match3-tile"
+                        [ngClass]="'match3-tile--' + tile.type"
+                        [class.match3-tile--selected]="tile.selected"
+                        [class.match3-tile--blocked]="tile.blocked"
+                        (click)="onMatchTileClick(i)">
+                  <span class="match3-tile-icon">{{ getMatchTileIcon(tile) }}</span>
+                  <span class="match3-tile-label">{{ tile.label }}</span>
+                </button>
+              }
+            </div>
+            <p class="match3-message">{{ matchMessage || 'Swap adjacent AI tiles to build 3+ matches.' }}</p>
+          </div>
+        }
       </div>
     }
 
@@ -40065,8 +40410,8 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
               <span class="stat-value">{{ coins }}</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">Enemies</span>
-              <span class="stat-value">{{ enemiesStomped }}</span>
+              <span class="stat-label">{{ selectedGameMode === 'match3' ? 'Combos' : selectedGameMode === 'runner' ? 'Distance' : 'Enemies' }}</span>
+              <span class="stat-value">{{ selectedGameMode === 'match3' ? matchMatches : selectedGameMode === 'runner' ? runnerDistance : enemiesStomped }}</span>
             </div>
           </div>
 
@@ -40080,14 +40425,17 @@ var AiQuizGameComponent = class _AiQuizGameComponent {
     }
   </div>
 </section>
-`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/ai-quiz-game/ai-quiz-game.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.mario-game-section {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.game-mode-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.85rem;\n}\n.game-mode-btn {\n  display: grid;\n  gap: 0.35rem;\n  min-height: 9rem;\n  padding: 1rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background:\n    radial-gradient(\n      circle at 20% 0%,\n      rgba(255, 178, 36, 0.08),\n      transparent 34%),\n    rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.game-mode-btn:hover {\n  transform: translateY(-2px);\n  border-color: rgba(255, 178, 36, 0.35);\n  background: rgba(255, 178, 36, 0.055);\n}\n.game-mode-btn--active {\n  border-color: rgba(255, 178, 36, 0.55);\n  background: rgba(255, 178, 36, 0.09);\n  box-shadow: 0 0 18px rgba(255, 178, 36, 0.12);\n}\n.game-mode-icon {\n  font-size: 1.85rem;\n}\n.game-mode-label {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 800;\n}\n.game-mode-desc {\n  font-size: 0.74rem;\n  color: var(--text-muted);\n  line-height: 1.45;\n}\n.option-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon {\n  font-size: 1.3rem;\n}\n.option-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon {\n  font-size: 2.5rem;\n  animation: bounce 0.6s ease infinite alternate;\n}\n@keyframes bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content h3 {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content p {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: loadProgress 3s ease-in-out infinite;\n}\n@keyframes loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper {\n  position: relative;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n  max-width: 100%;\n}\n.hud-item {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon {\n  font-size: 1rem;\n}\n.hud-val {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category .hud-val {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container canvas {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n.touch-down {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(96, 165, 250, 0.5);\n  background: rgba(96, 165, 250, 0.2);\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls {\n    display: flex;\n  }\n}\n.results-card {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge {\n  font-size: 3rem;\n}\n.results-title {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .section-header {\n    margin-bottom: 1.5rem;\n  }\n  .section-subtitle {\n    max-width: 21rem;\n  }\n  .setup-card {\n    padding: 1.25rem;\n  }\n  .setup-inner {\n    gap: 1.4rem;\n  }\n  .game-mode-grid {\n    grid-template-columns: 1fr;\n  }\n  .game-mode-btn {\n    min-height: auto;\n    padding: 0.9rem;\n  }\n  .option-grid {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row {\n    grid-template-columns: 1fr;\n  }\n  .results-stats {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper {\n    margin: 0 -1rem;\n  }\n  .game-hud {\n    width: auto;\n    justify-content: center;\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin: 0 1rem 0.35rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-item {\n    flex: 0 1 auto;\n  }\n  .hud-val {\n    font-size: 0.6rem;\n  }\n  .hud-category .hud-val {\n    font-size: 0.68rem;\n  }\n  .hud-icon {\n    font-size: 0.85rem;\n  }\n  .canvas-container {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .results-card {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n@media (max-width: 400px) {\n  .game-hud {\n    gap: 0.45rem;\n    padding: 0.45rem 0.55rem;\n  }\n  .hud-val {\n    font-size: 0.54rem;\n  }\n  .hud-category .hud-val {\n    font-size: 0.62rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */\n'] }]
+`, styles: ['@charset "UTF-8";\n\n/* src/app/profile/ai-quiz-game/ai-quiz-game.component.scss */\n:host {\n  display: block;\n}\n.world-label {\n  display: inline-block;\n  margin-bottom: 0.65rem;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  color: var(--primary-color);\n  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);\n}\n.mario-game-section {\n  position: relative;\n  padding: clamp(4rem, 8vw, 6rem) 0;\n  background:\n    radial-gradient(\n      circle at 20% 30%,\n      rgba(255, 91, 61, 0.08),\n      transparent 30%),\n    radial-gradient(\n      circle at 80% 70%,\n      rgba(255, 178, 36, 0.06),\n      transparent 30%),\n    linear-gradient(\n      180deg,\n      var(--bg-primary) 0%,\n      rgba(26, 26, 46, 0.95) 50%,\n      var(--bg-primary) 100%);\n}\n.section-header {\n  text-align: center;\n  margin-bottom: 2.5rem;\n}\n.section-kicker {\n  display: inline-block;\n  font-family: var(--font-pixel);\n  font-size: 0.6rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  color: var(--accent-color);\n  margin-bottom: 0.75rem;\n}\n.section-title {\n  font-size: clamp(2.2rem, 5vw, 3.6rem);\n  font-weight: 800;\n  background: var(--gradient-mario);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0 0 0.5rem;\n  letter-spacing: -0.03em;\n}\n.section-subtitle {\n  font-size: 0.9rem;\n  color: var(--text-tertiary);\n  max-width: 36rem;\n  margin: 0 auto;\n}\n.setup-card {\n  max-width: 54rem;\n  margin: 0 auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 2.5rem;\n}\n.setup-inner {\n  display: grid;\n  gap: 2rem;\n}\n.setup-heading {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  color: var(--text-primary);\n  margin: 0 0 0.75rem;\n  text-transform: uppercase;\n  letter-spacing: 0.08em;\n}\n.game-mode-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.85rem;\n}\n.game-mode-btn {\n  display: grid;\n  gap: 0.35rem;\n  min-height: 9rem;\n  padding: 1rem;\n  border-radius: 16px;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background:\n    radial-gradient(\n      circle at 20% 0%,\n      rgba(255, 178, 36, 0.08),\n      transparent 34%),\n    rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.game-mode-btn:hover {\n  transform: translateY(-2px);\n  border-color: rgba(255, 178, 36, 0.35);\n  background: rgba(255, 178, 36, 0.055);\n}\n.game-mode-btn--active {\n  border-color: rgba(255, 178, 36, 0.55);\n  background: rgba(255, 178, 36, 0.09);\n  box-shadow: 0 0 18px rgba(255, 178, 36, 0.12);\n}\n.game-mode-icon {\n  font-size: 1.85rem;\n}\n.game-mode-label {\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 800;\n}\n.game-mode-desc {\n  font-size: 0.74rem;\n  color: var(--text-muted);\n  line-height: 1.45;\n}\n.option-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));\n  gap: 0.75rem;\n}\n.option-grid--compact {\n  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n}\n.option-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: left;\n  transition: all 0.25s ease;\n}\n.option-btn:hover {\n  border-color: rgba(255, 178, 36, 0.3);\n  background: rgba(255, 178, 36, 0.04);\n}\n.option-btn--active {\n  border-color: rgba(255, 178, 36, 0.5);\n  background: rgba(255, 178, 36, 0.08);\n  box-shadow: 0 0 12px rgba(255, 178, 36, 0.1);\n}\n.option-icon {\n  font-size: 1.3rem;\n}\n.option-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.option-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.difficulty-row {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n}\n.diff-btn {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 1rem;\n  border-radius: 12px;\n  border: 1px solid rgba(148, 163, 184, 0.1);\n  background: rgba(255, 255, 255, 0.025);\n  color: var(--text-primary);\n  cursor: pointer;\n  text-align: center;\n  transition: all 0.25s ease;\n}\n.diff-btn--active {\n  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);\n}\n.diff-btn--active.diff-btn--success {\n  border-color: rgba(34, 197, 94, 0.5);\n  background: rgba(34, 197, 94, 0.1);\n}\n.diff-btn--active.diff-btn--warning {\n  border-color: rgba(245, 158, 11, 0.5);\n  background: rgba(245, 158, 11, 0.1);\n}\n.diff-btn--active.diff-btn--danger {\n  border-color: rgba(239, 68, 68, 0.5);\n  background: rgba(239, 68, 68, 0.1);\n}\n.diff-label {\n  font-family: var(--font-display);\n  font-size: 0.88rem;\n  font-weight: 700;\n}\n.diff-desc {\n  font-size: 0.72rem;\n  color: var(--text-muted);\n}\n.start-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.85rem 2rem;\n  border-radius: 12px;\n  border: none;\n  background: var(--gradient-mario);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.25s ease;\n  justify-self: center;\n}\n.start-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 24px rgba(255, 91, 61, 0.3);\n}\n.controls-hint {\n  text-align: center;\n  font-size: 0.72rem;\n  color: var(--text-muted);\n  letter-spacing: 0.04em;\n}\n.loading-card {\n  max-width: 28rem;\n  margin: 4rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n  text-align: center;\n}\n.loading-content {\n  display: grid;\n  gap: 0.75rem;\n  justify-items: center;\n}\n.loader-icon {\n  font-size: 2.5rem;\n  animation: bounce 0.6s ease infinite alternate;\n}\n@keyframes bounce {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(-10px);\n  }\n}\n.loading-content h3 {\n  font-family: var(--font-display);\n  font-size: 1.2rem;\n  color: var(--text-primary);\n  margin: 0;\n}\n.loading-content p {\n  font-size: 0.82rem;\n  color: var(--text-muted);\n  margin: 0;\n}\n.loading-bar {\n  width: 100%;\n  height: 4px;\n  border-radius: 2px;\n  background: rgba(255, 255, 255, 0.06);\n  overflow: hidden;\n  margin-top: 0.5rem;\n}\n.loading-fill {\n  height: 100%;\n  border-radius: 2px;\n  background: var(--gradient-mario);\n  animation: loadProgress 3s ease-in-out infinite;\n}\n@keyframes loadProgress {\n  0% {\n    width: 0%;\n  }\n  50% {\n    width: 70%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n.game-wrapper {\n  position: relative;\n}\n.game-wrapper--arcade {\n  max-width: 58rem;\n  margin: 0 auto;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1.5rem;\n  padding: 0.75rem 1.25rem;\n  margin-bottom: 0.5rem;\n  border-radius: 14px;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(8px);\n  width: fit-content;\n  max-width: 100%;\n}\n.hud-item {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n}\n.hud-icon {\n  font-size: 1rem;\n}\n.hud-val {\n  font-family: var(--font-pixel);\n  font-size: 0.7rem;\n  color: #fff;\n}\n.hud-category .hud-val {\n  font-family: var(--font-display);\n  font-size: 0.78rem;\n  color: var(--accent-color);\n}\n.canvas-container {\n  position: relative;\n  border-radius: 16px;\n  overflow: hidden;\n  border: 1px solid rgba(148, 163, 184, 0.12);\n  background: #09091a;\n  width: 100%;\n}\n.canvas-container canvas {\n  display: block;\n  max-width: 100%;\n}\n.touch-controls {\n  display: none;\n  position: absolute;\n  bottom: 1rem;\n  left: 1rem;\n  right: 1rem;\n  justify-content: space-between;\n  align-items: flex-end;\n  pointer-events: none;\n}\n.touch-dpad {\n  display: flex;\n  gap: 0.5rem;\n}\n.touch-btn {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  border: 2px solid rgba(255, 255, 255, 0.25);\n  background: rgba(0, 0, 0, 0.45);\n  color: rgba(255, 255, 255, 0.7);\n  font-size: 1.2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  pointer-events: all;\n  -webkit-tap-highlight-color: transparent;\n  touch-action: none;\n}\n.touch-btn:active {\n  background: rgba(255, 255, 255, 0.15);\n}\n.touch-actions {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  align-items: center;\n}\n.touch-jump {\n  width: 64px;\n  height: 64px;\n  font-size: 1.4rem;\n}\n.touch-fire {\n  width: 52px;\n  height: 52px;\n  font-size: 1.2rem;\n  border-color: rgba(249, 115, 22, 0.5);\n  background: rgba(249, 115, 22, 0.2);\n}\n.runner-arena,\n.match3-arena {\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background:\n    radial-gradient(\n      circle at 20% 0%,\n      rgba(236, 72, 153, 0.14),\n      transparent 28%),\n    radial-gradient(\n      circle at 90% 30%,\n      rgba(59, 130, 246, 0.12),\n      transparent 24%),\n    var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 1.25rem;\n}\n.runner-meta,\n.match3-meta {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  gap: 1rem;\n  margin-bottom: 0.85rem;\n  color: var(--text-tertiary);\n  font-size: 0.82rem;\n  font-weight: 700;\n}\n.runner-track {\n  position: relative;\n  height: min(62vh, 520px);\n  min-height: 380px;\n  overflow: hidden;\n  border-radius: 18px;\n  border: 1px solid rgba(148, 163, 184, 0.14);\n  perspective: 700px;\n  background:\n    radial-gradient(\n      circle at 50% 6%,\n      rgba(96, 165, 250, 0.26),\n      transparent 22%),\n    linear-gradient(\n      90deg,\n      rgba(15, 23, 42, 0.92) 0 15%,\n      transparent 28% 72%,\n      rgba(15, 23, 42, 0.92) 85% 100%),\n    linear-gradient(\n      180deg,\n      rgba(14, 165, 233, 0.2),\n      transparent 38%),\n    repeating-linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.05) 0 3px,\n      transparent 3px 38px),\n    #09091a;\n}\n.runner-lane {\n  position: absolute;\n  top: 14%;\n  bottom: -6%;\n  z-index: 1;\n  border-inline: 1px solid rgba(255, 255, 255, 0.09);\n  background:\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 28px,\n      rgba(255, 255, 255, 0.08) 28px 31px),\n    linear-gradient(\n      180deg,\n      rgba(255, 255, 255, 0.015),\n      rgba(255, 255, 255, 0.055));\n  transform-origin: bottom center;\n  clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);\n}\n.runner-lane--active {\n  background:\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 28px,\n      rgba(255, 255, 255, 0.1) 28px 31px),\n    linear-gradient(\n      180deg,\n      rgba(255, 178, 36, 0.08),\n      rgba(255, 178, 36, 0.16));\n}\n.runner-lane--0 {\n  left: 5%;\n  width: 44%;\n  transform: skewX(-11deg);\n}\n.runner-lane--1 {\n  left: 28%;\n  width: 44%;\n}\n.runner-lane--2 {\n  right: 5%;\n  width: 44%;\n  transform: skewX(11deg);\n}\n.runner-skyline {\n  position: absolute;\n  inset: 0;\n  z-index: 0;\n  pointer-events: none;\n}\n.runner-skyline::before,\n.runner-skyline::after {\n  content: "";\n  position: absolute;\n  top: 6%;\n  bottom: 0;\n  width: 24%;\n  background:\n    linear-gradient(\n      180deg,\n      rgba(30, 41, 59, 0.2),\n      rgba(15, 23, 42, 0.86)),\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 24px,\n      rgba(96, 165, 250, 0.12) 24px 28px);\n  clip-path: polygon(0 0, 100% 10%, 78% 100%, 0 100%);\n}\n.runner-skyline::before {\n  left: 0;\n}\n.runner-skyline::after {\n  right: 0;\n  transform: scaleX(-1);\n}\n.runner-horizon {\n  position: absolute;\n  z-index: 3;\n  top: 0.8rem;\n  left: 50%;\n  transform: translateX(-50%);\n  padding: 0.28rem 0.7rem;\n  border-radius: 999px;\n  background: rgba(0, 0, 0, 0.38);\n  border: 1px solid rgba(255, 255, 255, 0.12);\n  color: rgba(255, 255, 255, 0.76);\n  font-size: 0.68rem;\n  font-weight: 800;\n  white-space: nowrap;\n}\n.runner-rails {\n  position: absolute;\n  left: 50%;\n  top: 9%;\n  bottom: -18%;\n  width: 68%;\n  z-index: 1;\n  pointer-events: none;\n  background:\n    linear-gradient(\n      102deg,\n      transparent 0 30%,\n      rgba(255, 255, 255, 0.16) 30.2% 30.8%,\n      transparent 31.2%),\n    linear-gradient(\n      78deg,\n      transparent 0 69%,\n      rgba(255, 255, 255, 0.16) 69.2% 69.8%,\n      transparent 70.2%),\n    repeating-linear-gradient(\n      180deg,\n      transparent 0 30px,\n      rgba(255, 255, 255, 0.13) 30px 33px);\n  transform: translateX(-50%) perspective(620px) rotateX(59deg);\n  transform-origin: top center;\n  clip-path: polygon(46% 0%, 54% 0%, 100% 100%, 0% 100%);\n}\n.runner-item {\n  position: absolute;\n  z-index: 2;\n  display: grid;\n  gap: 0.1rem;\n  justify-items: center;\n  width: 7.5rem;\n  padding: 0.45rem;\n  border-radius: 12px;\n  transform: translate(-50%, -50%);\n  color: #fff;\n  font-size: 0.66rem;\n  font-weight: 800;\n  text-align: center;\n  border: 1px solid rgba(255, 255, 255, 0.16);\n  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);\n  transform-origin: center;\n  transition:\n    top 0.095s linear,\n    left 0.12s ease,\n    opacity 0.12s ease;\n}\n.runner-item--coin {\n  background: rgba(245, 158, 11, 0.8);\n}\n.runner-item--bug {\n  background: rgba(239, 68, 68, 0.86);\n}\n.runner-item--power {\n  background: rgba(59, 130, 246, 0.82);\n}\n.runner-item-icon {\n  font-size: 1rem;\n  line-height: 1;\n}\n.runner-item-action {\n  padding: 0.08rem 0.34rem;\n  border-radius: 999px;\n  background: rgba(0, 0, 0, 0.28);\n  font-size: 0.52rem;\n  letter-spacing: 0.08em;\n  text-transform: uppercase;\n}\n.runner-player {\n  position: absolute;\n  z-index: 3;\n  bottom: 5%;\n  width: 4.5rem;\n  height: 4.5rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  transform: translateX(-50%);\n  font-size: 2.25rem;\n  background: rgba(255, 255, 255, 0.11);\n  border: 2px solid rgba(255, 178, 36, 0.55);\n  box-shadow: 0 0 28px rgba(255, 178, 36, 0.18);\n  transition:\n    left 0.16s ease,\n    bottom 0.18s ease,\n    width 0.18s ease,\n    height 0.18s ease,\n    border-radius 0.18s ease;\n}\n.runner-player--jump {\n  bottom: 17%;\n  box-shadow: 0 0 34px rgba(96, 165, 250, 0.25);\n}\n.runner-player--slide {\n  width: 5.6rem;\n  height: 2.65rem;\n  border-radius: 999px;\n  background: rgba(59, 130, 246, 0.17);\n}\n.runner-controls {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.7rem;\n  margin-top: 0.85rem;\n  color: var(--text-tertiary);\n  font-size: 0.78rem;\n  text-align: center;\n}\n.runner-controls span {\n  flex: 1;\n  max-width: 28rem;\n}\n.runner-action-btn {\n  border-color: rgba(96, 165, 250, 0.45);\n  background: rgba(37, 99, 235, 0.22);\n}\n.match3-board {\n  display: grid;\n  grid-template-columns: repeat(6, minmax(0, 1fr));\n  gap: 0.45rem;\n  padding: 0.65rem;\n  border-radius: 18px;\n  background:\n    linear-gradient(\n      135deg,\n      rgba(255, 255, 255, 0.08),\n      rgba(255, 255, 255, 0.025)),\n    rgba(15, 23, 42, 0.78);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.28);\n}\n.match3-tile {\n  min-height: 4.4rem;\n  display: grid;\n  gap: 0.12rem;\n  place-items: center;\n  padding: 0.3rem;\n  border-radius: 22px;\n  border: 2px solid rgba(255, 255, 255, 0.22);\n  color: #fff;\n  font-family: var(--font-display);\n  font-size: 0.72rem;\n  font-weight: 800;\n  line-height: 1.15;\n  overflow-wrap: anywhere;\n  cursor: pointer;\n  box-shadow:\n    inset 0 3px 0 rgba(255, 255, 255, 0.28),\n    inset 0 -5px 10px rgba(0, 0, 0, 0.16),\n    0 7px 16px rgba(0, 0, 0, 0.24);\n  transition:\n    transform 0.16s ease,\n    border-color 0.16s ease,\n    box-shadow 0.16s ease,\n    filter 0.16s ease;\n}\n.match3-tile:hover {\n  transform: translateY(-2px) scale(1.03);\n  filter: brightness(1.08);\n}\n.match3-tile--selected {\n  border-color: rgba(255, 255, 255, 0.9);\n  box-shadow:\n    0 0 0 3px rgba(255, 178, 36, 0.36),\n    0 0 28px rgba(255, 178, 36, 0.28),\n    inset 0 3px 0 rgba(255, 255, 255, 0.34);\n}\n.match3-tile--api {\n  background:\n    linear-gradient(\n      135deg,\n      #2563eb,\n      #0ea5e9);\n}\n.match3-tile--cache {\n  background:\n    linear-gradient(\n      135deg,\n      #16a34a,\n      #84cc16);\n}\n.match3-tile--queue {\n  background:\n    linear-gradient(\n      135deg,\n      #7c3aed,\n      #c084fc);\n}\n.match3-tile--llm {\n  background:\n    linear-gradient(\n      135deg,\n      #c026d3,\n      #f472b6);\n}\n.match3-tile--deploy {\n  background:\n    linear-gradient(\n      135deg,\n      #ea580c,\n      #fbbf24);\n}\n.match3-tile--data {\n  background:\n    linear-gradient(\n      135deg,\n      #0f766e,\n      #2dd4bf);\n}\n.match3-tile--blocker {\n  background:\n    repeating-linear-gradient(\n      45deg,\n      rgba(255, 255, 255, 0.08) 0 8px,\n      transparent 8px 16px),\n    linear-gradient(\n      135deg,\n      #475569,\n      #1e293b);\n  cursor: not-allowed;\n  filter: saturate(0.8);\n}\n.match3-tile-icon {\n  font-size: 1.35rem;\n  line-height: 1;\n  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));\n}\n.match3-tile-label {\n  max-width: 100%;\n  font-size: 0.62rem;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.34);\n}\n.match3-message {\n  margin: 0.85rem 0 0;\n  color: var(--text-tertiary);\n  font-size: 0.8rem;\n  text-align: center;\n}\n@media (hover: none) and (pointer: coarse) {\n  .touch-controls {\n    display: flex;\n  }\n}\n.results-card {\n  max-width: 32rem;\n  margin: 2rem auto;\n  border-radius: 20px;\n  border: 1px solid var(--glass-border);\n  background: var(--bg-glass);\n  backdrop-filter: blur(16px);\n  padding: 3rem 2rem;\n}\n.results-inner {\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  text-align: center;\n}\n.results-badge {\n  font-size: 3rem;\n}\n.results-title {\n  font-family: var(--font-display);\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--text-primary);\n  margin: 0;\n}\n.results-msg {\n  font-size: 0.88rem;\n  color: var(--text-tertiary);\n  margin: 0;\n  max-width: 26rem;\n}\n.results-stats {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 0.75rem;\n  width: 100%;\n  margin: 0.5rem 0;\n}\n.stat-item {\n  display: grid;\n  gap: 0.15rem;\n  padding: 0.85rem 0.5rem;\n  border-radius: 12px;\n  background: rgba(255, 255, 255, 0.03);\n  border: 1px solid rgba(148, 163, 184, 0.1);\n}\n.stat-label {\n  font-size: 0.65rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  color: var(--text-muted);\n}\n.stat-value {\n  font-family: var(--font-display);\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: #fef3c7;\n}\n.results-actions {\n  margin-top: 0.5rem;\n}\n@media (max-width: 640px) {\n  .mario-game-section {\n    padding: clamp(2rem, 4vw, 3rem) 0;\n  }\n  .section-header {\n    margin-bottom: 1.5rem;\n  }\n  .section-subtitle {\n    max-width: 21rem;\n  }\n  .setup-card {\n    padding: 1.25rem;\n  }\n  .setup-inner {\n    gap: 1.4rem;\n  }\n  .game-mode-grid {\n    grid-template-columns: 1fr;\n  }\n  .game-mode-btn {\n    min-height: auto;\n    padding: 0.9rem;\n  }\n  .option-grid {\n    grid-template-columns: 1fr;\n  }\n  .option-grid--compact {\n    grid-template-columns: 1fr;\n  }\n  .difficulty-row {\n    grid-template-columns: 1fr;\n  }\n  .results-stats {\n    grid-template-columns: repeat(3, 1fr);\n  }\n  .game-wrapper {\n    margin: 0 -1rem;\n  }\n  .game-wrapper--arcade {\n    margin: 0;\n  }\n  .game-hud {\n    width: auto;\n    justify-content: center;\n    gap: 0.6rem;\n    padding: 0.5rem 0.75rem;\n    margin: 0 1rem 0.35rem;\n    margin-bottom: 0.25rem;\n    font-size: 0.85rem;\n  }\n  .hud-item {\n    flex: 0 1 auto;\n  }\n  .hud-val {\n    font-size: 0.6rem;\n  }\n  .hud-category .hud-val {\n    font-size: 0.68rem;\n  }\n  .hud-icon {\n    font-size: 0.85rem;\n  }\n  .canvas-container {\n    border-radius: 0;\n    border-left: none;\n    border-right: none;\n  }\n  .touch-controls {\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n  }\n  .touch-btn {\n    width: 48px;\n    height: 48px;\n    font-size: 1rem;\n  }\n  .touch-jump {\n    width: 56px;\n    height: 56px;\n    font-size: 1.2rem;\n  }\n  .touch-fire {\n    width: 44px;\n    height: 44px;\n    font-size: 1rem;\n  }\n  .runner-arena,\n  .match3-arena {\n    padding: 1rem;\n    border-radius: 16px;\n  }\n  .runner-track {\n    height: 58vh;\n    min-height: 360px;\n    border-radius: 14px;\n  }\n  .runner-item {\n    width: clamp(4.5rem, 27vw, 5.6rem);\n    padding: 0.36rem 0.25rem;\n    font-size: 0.56rem;\n  }\n  .runner-player {\n    width: 3.8rem;\n    height: 3.8rem;\n    font-size: 1.9rem;\n  }\n  .runner-meta,\n  .match3-meta {\n    gap: 0.35rem;\n    font-size: 0.72rem;\n  }\n  .runner-controls {\n    gap: 0.5rem;\n    font-size: 0.7rem;\n  }\n  .runner-controls span {\n    order: 5;\n    flex-basis: 100%;\n  }\n  .match3-board {\n    gap: 0.32rem;\n  }\n  .match3-tile {\n    min-height: 3.25rem;\n    border-radius: 14px;\n    font-size: 0.58rem;\n  }\n  .match3-tile-icon {\n    font-size: 1rem;\n  }\n  .match3-tile-label {\n    font-size: 0.5rem;\n  }\n  .results-card {\n    margin: 1rem;\n    padding: 2rem 1.5rem;\n  }\n}\n@media (max-width: 400px) {\n  .game-hud {\n    gap: 0.45rem;\n    padding: 0.45rem 0.55rem;\n  }\n  .hud-val {\n    font-size: 0.54rem;\n  }\n  .hud-category .hud-val {\n    font-size: 0.62rem;\n  }\n  .runner-track {\n    min-height: 330px;\n  }\n  .match3-board {\n    gap: 0.24rem;\n  }\n  .match3-tile {\n    min-height: 2.85rem;\n    padding: 0.2rem;\n    font-size: 0.5rem;\n  }\n  .match3-tile-icon {\n    font-size: 0.9rem;\n  }\n  .match3-tile-label {\n    font-size: 0.44rem;\n  }\n}\n/*# sourceMappingURL=ai-quiz-game.component.css.map */\n'] }]
   }], () => [{ type: HttpClient }, { type: NgZone }, { type: ChangeDetectorRef }], { canvasRef: [{
     type: ViewChild,
     args: ["gameCanvas"]
+  }], onKeydown: [{
+    type: HostListener,
+    args: ["window:keydown", ["$event"]]
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 23 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AiQuizGameComponent, { className: "AiQuizGameComponent", filePath: "src/app/profile/ai-quiz-game/ai-quiz-game.component.ts", lineNumber: 61 });
 })();
 
 // src/app/profile/blog/blog.component.ts
@@ -79451,8 +79799,8 @@ function cleanTextForSpeech(text) {
 
 // src/app/profile/avatar-3d/avatar-3d.component.ts
 var _c03 = ["canvas"];
-var _c12 = ["chatMessages"];
-var _c22 = ["messageInput"];
+var _c13 = ["chatMessages"];
+var _c2 = ["messageInput"];
 function Avatar3dComponent_Conditional_46_Template(rf, ctx2) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 21)(1, "div", 26);
@@ -79596,7 +79944,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
     this.achievementsService = achievementsService;
     this.audioService = audioService;
     this.boundResizeHandler = () => this.onWindowResize();
-    this.webglAvailable = true;
     this.isChatOpen = false;
     this.userInput = "";
     this.messages = [];
@@ -79617,10 +79964,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
     }
   }
   ngOnInit() {
-    if (!this.initThreeJS()) {
-      this.isLoading = false;
-      return;
-    }
+    this.initThreeJS();
     this.loadAvatar();
     this.animate();
   }
@@ -79635,25 +79979,15 @@ var Avatar3dComponent = class _Avatar3dComponent {
   }
   initThreeJS() {
     const canvas = this.canvasRef.nativeElement;
-    const probe = canvas.getContext("webgl2") || canvas.getContext("webgl");
-    if (!probe) {
-      this.webglAvailable = false;
-      return false;
-    }
     this.scene = new Scene();
     this.scene.background = new Color(592154);
     this.camera = new PerspectiveCamera(50, canvas.clientWidth / canvas.clientHeight, 0.1, 1e3);
     this.camera.position.set(0, 1, 2);
-    try {
-      this.renderer = new WebGLRenderer({
-        canvas,
-        antialias: true,
-        alpha: true
-      });
-    } catch (e) {
-      this.webglAvailable = false;
-      return false;
-    }
+    this.renderer = new WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true
+    });
     this.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.shadowMap.enabled = true;
@@ -79676,7 +80010,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
     fillLight.position.set(-5, 5, -5);
     this.scene.add(fillLight);
     window.addEventListener("resize", this.boundResizeHandler);
-    return true;
   }
   loadAvatar() {
     const loader = new GLTFLoader();
@@ -79731,9 +80064,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
     });
   }
   animate() {
-    if (!this.renderer) {
-      return;
-    }
     this.animationFrameId = requestAnimationFrame(() => this.animate());
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
@@ -79913,9 +80243,6 @@ var Avatar3dComponent = class _Avatar3dComponent {
     }
   }
   onWindowResize() {
-    if (!this.renderer) {
-      return;
-    }
     const canvas = this.canvasRef.nativeElement;
     this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
     this.camera.updateProjectionMatrix();
@@ -79965,7 +80292,7 @@ var Avatar3dComponent = class _Avatar3dComponent {
   static {
     this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Avatar3dComponent, selectors: [["app-avatar-3d"]], viewQuery: function Avatar3dComponent_Query(rf, ctx2) {
       if (rf & 1) {
-        \u0275\u0275viewQuery(_c03, 7)(_c12, 5)(_c22, 5);
+        \u0275\u0275viewQuery(_c03, 7)(_c13, 5)(_c2, 5);
       }
       if (rf & 2) {
         let _t;
