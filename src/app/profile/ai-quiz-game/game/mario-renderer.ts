@@ -1,4 +1,4 @@
-import { TILE, Player, Platform, Enemy, Coin, QuestionBlock, Fireball, FlagPole, Level, FloatingText, Debris } from './mario-entities';
+import { TILE, Player, Platform, Enemy, Coin, QuestionBlock, Fireball, FlagPole, Level, FloatingText, Debris, Particle } from './mario-entities';
 
 const SKY_TOP = '#09091a';
 const SKY_BOT = '#16213e';
@@ -48,6 +48,9 @@ export class MarioRenderer {
   private frameCount = 0;
   private categoryKey = 'backend';
   private levelType: Level['levelType'] = 'ground';
+  private shakeMag = 0;
+  private shakeOffX = 0;
+  private shakeOffY = 0;
 
   constructor(private canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d')!;
@@ -58,6 +61,23 @@ export class MarioRenderer {
 
   setCategory(cat: string): void {
     this.categoryKey = cat;
+  }
+
+  /** Trigger a screen shake; magnitude decays each frame. */
+  shake(magnitude: number): void {
+    this.shakeMag = Math.min(Math.max(this.shakeMag, magnitude), 10);
+  }
+
+  private updateShake(): void {
+    if (this.shakeMag > 0.1) {
+      this.shakeOffX = (Math.random() * 2 - 1) * this.shakeMag;
+      this.shakeOffY = (Math.random() * 2 - 1) * this.shakeMag;
+      this.shakeMag *= 0.82;
+    } else {
+      this.shakeMag = 0;
+      this.shakeOffX = 0;
+      this.shakeOffY = 0;
+    }
   }
 
   setLevelType(levelType: Level['levelType']): void {
@@ -74,6 +94,7 @@ export class MarioRenderer {
 
   render(player: Player, level: Level): void {
     this.frameCount++;
+    this.updateShake();
     const camX = Math.max(0, Math.min(player.x - this.canvasW / 2 + player.w / 2, level.width - this.canvasW));
     const camY = 0;
 
@@ -81,7 +102,7 @@ export class MarioRenderer {
     this.drawCategoryBanner(level.category);
 
     this.ctx.save();
-    this.ctx.translate(-camX, -camY);
+    this.ctx.translate(-camX + this.shakeOffX, -camY + this.shakeOffY);
 
     for (const p of level.platforms) {
       if (!p.destroyed) this.drawPlatform(p);
@@ -91,10 +112,38 @@ export class MarioRenderer {
     for (const enemy of level.enemies) this.drawEnemy(enemy);
     for (const fb of level.fireballs) this.drawFireball(fb);
     for (const d of level.debris) this.drawDebris(d);
+    if (level.particles) {
+      for (const part of level.particles) this.drawParticle(part);
+    }
     for (const ft of level.floatingTexts) this.drawFloatingText(ft);
     this.drawFlagPole(level.flagPole);
     this.drawPlayer(player);
 
+    this.ctx.restore();
+  }
+
+  private drawParticle(part: Particle): void {
+    this.ctx.save();
+    this.ctx.globalAlpha = part.fade;
+    this.ctx.fillStyle = part.color;
+    if (part.kind === 'spark') {
+      this.ctx.shadowColor = part.color;
+      this.ctx.shadowBlur = 4;
+      this.ctx.beginPath();
+      this.ctx.arc(part.x, part.y, part.size, 0, Math.PI * 2);
+      this.ctx.fill();
+    } else if (part.kind === 'ring') {
+      this.ctx.strokeStyle = part.color;
+      this.ctx.lineWidth = 2;
+      this.ctx.beginPath();
+      this.ctx.arc(part.x, part.y, part.size * (1.4 - part.fade) * 6, 0, Math.PI * 2);
+      this.ctx.stroke();
+    } else {
+      // dust / puff
+      this.ctx.beginPath();
+      this.ctx.arc(part.x, part.y, part.size, 0, Math.PI * 2);
+      this.ctx.fill();
+    }
     this.ctx.restore();
   }
 
@@ -522,8 +571,10 @@ export class MarioRenderer {
     this.ctx.fillStyle = overallColor;
     const legW = w * 0.3;
     const legY = headH + bodyH;
-    const walkCycle = Math.sin(this.frameCount * 0.2) * 3;
     const moving = Math.abs(player.vx) > 0.5;
+    const airborne = !player.onGround;
+    // Walk cycle driven by actual ground speed; legs tuck when airborne
+    const walkCycle = airborne ? 2 : Math.sin(player.walkPhase * Math.PI) * 3;
     this.ctx.fillRect(w * 0.1, legY + (moving ? walkCycle : 0), legW, legH);
     this.ctx.fillRect(w * 0.6, legY + (moving ? -walkCycle : 0), legW, legH);
 

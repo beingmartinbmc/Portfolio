@@ -471,7 +471,7 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   const flagX = data.flagPole?.x ? data.flagPole.x * TILE : FLAG_POLE_X * TILE;
   const flagPole = new FlagPole(flagX, 3 * TILE, (GROUND_ROW - 3) * TILE);
 
-  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], particles: [], width: levelW, height: levelH, category, levelType };
 }
 
 export function generateProceduralLevel(config: LevelConfig): Level {
@@ -619,7 +619,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
 
   const flagPole = new FlagPole(FLAG_POLE_X * TILE, 3 * TILE, (GROUND_ROW - 3) * TILE);
 
-  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], width: levelW, height: levelH, category, levelType };
+  return { platforms, enemies, coins, questionBlocks, fireballs: [], flagPole, floatingTexts: [], debris: [], particles: [], width: levelW, height: levelH, category, levelType };
 }
 
 export function createPlayer(): Player {
