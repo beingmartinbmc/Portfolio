@@ -20,7 +20,7 @@ describe('MarioControls', () => {
   });
 
   it('starts with no keys pressed', () => {
-    expect(controls.getState()).toEqual({ left: false, right: false, jump: false, fire: false, run: false });
+    expect(controls.getState()).toEqual({ left: false, right: false, jump: false, fire: false, run: false, down: false });
   });
 
   it('returns a copy of state (not a live reference)', () => {
@@ -30,11 +30,12 @@ describe('MarioControls', () => {
   });
 
   describe('keyboard mapping', () => {
-    const cases: { codes: string[]; key: 'left' | 'right' | 'jump' | 'fire' }[] = [
+    const cases: { codes: string[]; key: 'left' | 'right' | 'jump' | 'fire' | 'down' }[] = [
       { codes: ['ArrowLeft', 'KeyA'], key: 'left' },
       { codes: ['ArrowRight', 'KeyD'], key: 'right' },
       { codes: ['ArrowUp', 'KeyW', 'Space'], key: 'jump' },
       { codes: ['KeyX', 'KeyZ', 'ShiftLeft', 'ShiftRight'], key: 'fire' },
+      { codes: ['ArrowDown', 'KeyS'], key: 'down' },
     ];
 
     cases.forEach(({ codes, key }) => {
@@ -50,7 +51,7 @@ describe('MarioControls', () => {
 
     it('ignores unmapped keys', () => {
       press('KeyQ');
-      expect(controls.getState()).toEqual({ left: false, right: false, jump: false, fire: false, run: false });
+      expect(controls.getState()).toEqual({ left: false, right: false, jump: false, fire: false, run: false, down: false });
     });
   });
 
@@ -60,7 +61,7 @@ describe('MarioControls', () => {
       controls.setTouchRight(true);
       controls.setTouchJump(true);
       controls.setTouchFire(true);
-      expect(controls.getState()).toEqual({ left: true, right: true, jump: true, fire: true, run: true });
+      expect(controls.getState()).toEqual({ left: true, right: true, jump: true, fire: true, run: true, down: false });
     });
   });
 

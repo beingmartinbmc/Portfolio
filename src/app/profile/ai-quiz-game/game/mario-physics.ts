@@ -2,6 +2,7 @@ import {
   AABB, GRAVITY, MAX_FALL, MOVE_SPEED, RUN_SPEED, JUMP_FORCE, TILE,
   GROUND_ACCEL, AIR_ACCEL, GROUND_FRICTION, SKID_FRICTION,
   COYOTE_FRAMES, JUMP_BUFFER_FRAMES, JUMP_CUT_MULTIPLIER,
+  FLY_THRUST, FLY_MAX_RISE, FLY_GRAVITY, FLY_MAX_FALL, FLY_DIVE,
   Player, Platform, Enemy, Coin, QuestionBlock, Fireball, Level
 } from './mario-entities';
 
@@ -40,7 +41,7 @@ function solidPlatforms(level: Level): Platform[] {
 export function updatePhysics(
   player: Player,
   level: Level,
-  keys: { left: boolean; right: boolean; jump: boolean; fire: boolean; run?: boolean }
+  keys: { left: boolean; right: boolean; jump: boolean; fire: boolean; run?: boolean; down?: boolean }
 ): CollisionResult {
   const result: CollisionResult = {
     hitQuestionBlock: null,
@@ -57,9 +58,10 @@ export function updatePhysics(
   };
 
   const isWater = level.levelType === 'water';
-  const wantsRun = !!keys.run && !isWater;
+  const isFlight = level.levelType === 'sky';
+  const wantsRun = !!keys.run && !isWater && !isFlight;
   const topSpeed = isWater ? MOVE_SPEED * 0.72 : (wantsRun ? RUN_SPEED : MOVE_SPEED);
-  const fallLimit = isWater ? MAX_FALL * 0.35 : MAX_FALL;
+  const fallLimit = isWater ? MAX_FALL * 0.35 : isFlight ? FLY_MAX_FALL : MAX_FALL;
   const accel = player.onGround ? GROUND_ACCEL : AIR_ACCEL;
 
   // --- Horizontal movement with acceleration, friction and skidding ---
@@ -110,6 +112,20 @@ export function updatePhysics(
       player.swimStrokeCooldown = 10;
       result.jumped = true;
     }
+  } else if (isFlight) {
+    // Air mode: hold jump/up to fly upward, hold down to dive, glide otherwise.
+    player.flying = false;
+    if (keys.jump) {
+      player.vy -= FLY_THRUST;
+      if (player.vy < FLY_MAX_RISE) player.vy = FLY_MAX_RISE;
+      player.onGround = false;
+      player.flying = true;
+      // A fresh tap registers as a flap for audio/feedback
+      if (jumpPressed) result.jumped = true;
+    }
+    if (keys.down) {
+      player.vy += FLY_DIVE;
+    }
   } else {
     // Update timers
     if (player.onGround) player.coyoteTimer = COYOTE_FRAMES;
@@ -139,8 +155,16 @@ export function updatePhysics(
   }
 
   // Gravity
-  player.vy += isWater ? GRAVITY * 0.22 : GRAVITY;
-  if (isWater) player.vy *= 0.94;
+  if (isWater) {
+    player.vy += GRAVITY * 0.22;
+    player.vy *= 0.94;
+  } else if (isFlight) {
+    // Soft gravity so flight feels floaty; lighter still while actively flying
+    player.vy += player.flying ? FLY_GRAVITY * 0.35 : FLY_GRAVITY;
+    player.vy *= 0.985;
+  } else {
+    player.vy += GRAVITY;
+  }
   if (player.vy > fallLimit) player.vy = fallLimit;
 
   // Fire cooldown
