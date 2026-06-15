@@ -1,4 +1,4 @@
-import { Player, Level, QuestionBlock, Enemy, FloatingText, Debris, CATEGORY_KEYWORDS, CATEGORY_BUG_KEYWORDS } from './mario-entities';
+import { Player, Level, QuestionBlock, Enemy, FloatingText, Debris, Particle, CATEGORY_KEYWORDS, CATEGORY_BUG_KEYWORDS } from './mario-entities';
 import { MarioRenderer } from './mario-renderer';
 import { MarioControls } from './mario-controls';
 import { updatePhysics, CollisionResult } from './mario-physics';
@@ -31,6 +31,8 @@ export class MarioEngine {
   private callbacks: GameCallbacks;
   elapsedFrames = 0;
   enemiesStomped = 0;
+  private wasOnGround = true;
+  private prevVy = 0;
 
   constructor(canvas: HTMLCanvasElement, callbacks: GameCallbacks) {
     this.renderer = new MarioRenderer(canvas);
@@ -144,6 +146,8 @@ export class MarioEngine {
     this.level.floatingTexts.push(
       new FloatingText(qb.x, qb.y - 10, kw, color, 80)
     );
+    this.emitSparkle(qb.x + qb.w / 2, qb.y, color, qb.reward === 'star' ? 16 : 8);
+    this.renderer.shake(qb.reward === 'star' ? 4 : 1.5);
     this.notifyScore();
   }
 
@@ -163,7 +167,35 @@ export class MarioEngine {
         new FloatingText(brick.x, brick.y - 8, brick.label, '#ef4444', 70)
       );
     }
+    this.emitSparkle(cx, cy, '#d97706', 10);
+    this.renderer.shake(3);
     this.notifyScore();
+  }
+
+  /** Radial burst of glittering particles. */
+  private emitSparkle(x: number, y: number, color: string, count: number): void {
+    for (let i = 0; i < count; i++) {
+      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
+      const speed = 1.5 + Math.random() * 2.4;
+      this.level.particles.push(
+        new Particle(
+          x, y,
+          Math.cos(angle) * speed,
+          Math.sin(angle) * speed - 0.5,
+          color, 2 + Math.random() * 2, 20 + Math.random() * 12, 'spark', 0.12,
+        ),
+      );
+    }
+  }
+
+  /** Soft puff used when an enemy is squashed. */
+  private emitPuff(x: number, y: number, color: string): void {
+    for (let i = 0; i < 8; i++) {
+      const angle = Math.PI + (i - 4) * 0.32;
+      this.level.particles.push(
+        new Particle(x, y, Math.cos(angle) * 1.6, Math.sin(angle) * 1.6, color, 3 + Math.random() * 2, 16 + Math.random() * 8, 'puff', 0.05),
+      );
+    }
   }
 
   private loop = (time: number): void => {
@@ -186,9 +218,44 @@ export class MarioEngine {
     if (this.state !== 'running') return;
     this.elapsedFrames++;
     const keys = this.controls.getState();
+    this.wasOnGround = this.player.onGround;
+    this.prevVy = this.player.vy;
     const result = updatePhysics(this.player, this.level, keys);
 
+    this.handleLandingAndDust();
     this.handleCollisionResult(result);
+
+    // Advance and cull particles
+    for (const part of this.level.particles) part.tick();
+    if (this.level.particles.length > 0) {
+      this.level.particles = this.level.particles.filter(part => part.alive);
+    }
+  }
+
+  /** Kicks up dust when landing hard and trailing dust while sprinting. */
+  private handleLandingAndDust(): void {
+    const p = this.player;
+    if (!this.wasOnGround && p.onGround && this.prevVy > 4) {
+      const cx = p.x + p.w / 2;
+      const cy = p.y + p.h;
+      const strength = Math.min(this.prevVy / 12, 1);
+      this.renderer.shake(2 + strength * 4);
+      for (let i = 0; i < 6; i++) {
+        const dir = (i - 3) * 0.55;
+        this.level.particles.push(
+          new Particle(cx, cy, dir, -0.6 - Math.random() * 0.8, 'rgba(220,220,210,0.85)', 3 + Math.random() * 2, 18 + Math.random() * 8, 'dust', 0.08),
+        );
+      }
+    }
+
+    // Running dust trail
+    if (p.onGround && p.running && this.elapsedFrames % 5 === 0) {
+      const cx = p.x + p.w / 2;
+      const cy = p.y + p.h;
+      this.level.particles.push(
+        new Particle(cx, cy, -p.vx * 0.3, -0.5, 'rgba(210,210,200,0.6)', 2.5, 14, 'dust', 0.1),
+      );
+    }
   }
 
   private handleCollisionResult(result: CollisionResult): void {
@@ -212,6 +279,7 @@ export class MarioEngine {
 
     if (result.hitEnemy) {
       MarioAudio.hit();
+      this.renderer.shake(5);
       if (this.player.state === 'fire') {
         this.player.shrink();
       } else if (this.player.state === 'big') {
@@ -234,6 +302,8 @@ export class MarioEngine {
     if (result.stompedEnemy) {
       MarioAudio.stomp();
       this.enemiesStomped++;
+      this.emitPuff(result.stompedEnemy.x + result.stompedEnemy.w / 2, result.stompedEnemy.y + result.stompedEnemy.h / 2, 'rgba(180,120,70,0.85)');
+      this.renderer.shake(2);
       this.spawnEnemyKeyword(result.stompedEnemy);
       this.notifyScore();
     }
@@ -241,6 +311,7 @@ export class MarioEngine {
     for (const enemy of result.fireballKilledEnemies) {
       MarioAudio.fireHit();
       this.enemiesStomped++;
+      this.emitSparkle(enemy.x + enemy.w / 2, enemy.y + enemy.h / 2, '#f97316', 10);
       this.spawnEnemyKeyword(enemy);
       this.notifyScore();
     }

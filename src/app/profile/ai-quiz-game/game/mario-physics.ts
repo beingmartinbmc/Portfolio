@@ -1,5 +1,7 @@
 import {
-  AABB, GRAVITY, MAX_FALL, MOVE_SPEED, JUMP_FORCE, TILE,
+  AABB, GRAVITY, MAX_FALL, MOVE_SPEED, RUN_SPEED, JUMP_FORCE, TILE,
+  GROUND_ACCEL, AIR_ACCEL, GROUND_FRICTION, SKID_FRICTION,
+  COYOTE_FRAMES, JUMP_BUFFER_FRAMES, JUMP_CUT_MULTIPLIER,
   Player, Platform, Enemy, Coin, QuestionBlock, Fireball, Level
 } from './mario-entities';
 
@@ -38,7 +40,7 @@ function solidPlatforms(level: Level): Platform[] {
 export function updatePhysics(
   player: Player,
   level: Level,
-  keys: { left: boolean; right: boolean; jump: boolean; fire: boolean }
+  keys: { left: boolean; right: boolean; jump: boolean; fire: boolean; run?: boolean }
 ): CollisionResult {
   const result: CollisionResult = {
     hitQuestionBlock: null,
@@ -55,22 +57,51 @@ export function updatePhysics(
   };
 
   const isWater = level.levelType === 'water';
-  const moveSpeed = isWater ? MOVE_SPEED * 0.72 : MOVE_SPEED;
+  const wantsRun = !!keys.run && !isWater;
+  const topSpeed = isWater ? MOVE_SPEED * 0.72 : (wantsRun ? RUN_SPEED : MOVE_SPEED);
   const fallLimit = isWater ? MAX_FALL * 0.35 : MAX_FALL;
+  const accel = player.onGround ? GROUND_ACCEL : AIR_ACCEL;
 
-  // Horizontal movement
-  if (keys.left) {
-    player.vx = -moveSpeed;
+  // --- Horizontal movement with acceleration, friction and skidding ---
+  player.running = wantsRun && Math.abs(player.vx) > MOVE_SPEED * 0.6;
+  player.skidding = false;
+
+  if (isWater) {
+    // Water keeps the simpler, floaty feel
+    if (keys.left) { player.vx = -topSpeed; player.facing = 'left'; }
+    else if (keys.right) { player.vx = topSpeed; player.facing = 'right'; }
+    else {
+      player.vx *= 0.84;
+      if (Math.abs(player.vx) < 0.2) player.vx = 0;
+    }
+  } else if (keys.left) {
     player.facing = 'left';
+    if (player.vx > 0) { player.vx *= SKID_FRICTION; player.skidding = player.onGround; }
+    player.vx -= accel;
+    if (player.vx < -topSpeed) player.vx = -topSpeed;
   } else if (keys.right) {
-    player.vx = moveSpeed;
     player.facing = 'right';
+    if (player.vx < 0) { player.vx *= SKID_FRICTION; player.skidding = player.onGround; }
+    player.vx += accel;
+    if (player.vx > topSpeed) player.vx = topSpeed;
   } else {
-    player.vx *= isWater ? 0.84 : 0.7;
-    if (Math.abs(player.vx) < 0.2) player.vx = 0;
+    player.vx *= player.onGround ? GROUND_FRICTION : 0.94;
+    if (Math.abs(player.vx) < 0.15) player.vx = 0;
   }
 
-  // Jump
+  // Clamp to the active top speed (walk cap when run released mid-stride)
+  if (player.vx > topSpeed) player.vx = topSpeed;
+  if (player.vx < -topSpeed) player.vx = -topSpeed;
+
+  // Drive the walk-cycle animation phase from actual ground speed
+  if (player.onGround && Math.abs(player.vx) > 0.4) {
+    player.walkPhase += Math.abs(player.vx) * 0.06;
+  }
+
+  // --- Jump: coyote time + input buffering + variable height ---
+  const jumpPressed = keys.jump && !player.jumpHeld;
+  player.jumpHeld = keys.jump;
+
   if (isWater) {
     if (player.swimStrokeCooldown > 0) player.swimStrokeCooldown--;
     if (keys.jump && player.swimStrokeCooldown <= 0) {
@@ -79,10 +110,32 @@ export function updatePhysics(
       player.swimStrokeCooldown = 10;
       result.jumped = true;
     }
-  } else if (keys.jump && player.onGround) {
-    player.vy = JUMP_FORCE;
-    player.onGround = false;
-    result.jumped = true;
+  } else {
+    // Update timers
+    if (player.onGround) player.coyoteTimer = COYOTE_FRAMES;
+    else if (player.coyoteTimer > 0) player.coyoteTimer--;
+
+    if (jumpPressed) player.jumpBufferTimer = JUMP_BUFFER_FRAMES;
+    else if (player.jumpBufferTimer > 0) player.jumpBufferTimer--;
+
+    const canJump = player.coyoteTimer > 0 && player.jumpBufferTimer > 0;
+    if (canJump) {
+      // Faster horizontal travel gives a slightly higher hop, classic Mario feel
+      const speedBonus = Math.min(Math.abs(player.vx) / RUN_SPEED, 1) * 1.6;
+      player.vy = JUMP_FORCE - speedBonus;
+      player.onGround = false;
+      player.isJumping = true;
+      player.coyoteTimer = 0;
+      player.jumpBufferTimer = 0;
+      result.jumped = true;
+    }
+
+    // Variable height: releasing jump while rising cuts the ascent short
+    if (player.isJumping && !keys.jump && player.vy < 0) {
+      player.vy *= JUMP_CUT_MULTIPLIER;
+      player.isJumping = false;
+    }
+    if (player.vy >= 0) player.isJumping = false;
   }
 
   // Gravity
