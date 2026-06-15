@@ -618,13 +618,24 @@ export function generateProceduralLevel(config: LevelConfig): Level {
     for (let i = 0; i < zone.count; i++) {
       let ex = zone.start + step * (i + 1) + Math.floor(Math.random() * 2 - 1);
       ex = Math.max(zone.start, Math.min(zone.end - 1, ex));
-      if (isNearPipe(ex)) ex += 3;
-      if (ex > zone.end) ex = zone.end - 2;
-      // Never strand an enemy over a gap — nudge it onto solid ground.
-      let gapGuard = 0;
-      while (isOverGap(ex) && gapGuard < zoneWidth) {
-        ex = Math.max(zone.start, Math.min(zone.end - 1, ex + 1));
-        gapGuard++;
+      // Ensure the enemy lands on solid, pipe-free ground (matching the
+      // validator's placement rules). If the preferred spot is on a pipe or
+      // over a gap, scan the rest of the zone for the nearest valid tile.
+      if (isNearPipe(ex) || isOverGap(ex)) {
+        let placed = -1;
+        for (let off = 1; off <= zoneWidth; off++) {
+          const right = ex + off;
+          const left = ex - off;
+          if (right <= zone.end - 1 && !isNearPipe(right) && !isOverGap(right)) {
+            placed = right;
+            break;
+          }
+          if (left >= zone.start && !isNearPipe(left) && !isOverGap(left)) {
+            placed = left;
+            break;
+          }
+        }
+        if (placed >= 0) ex = placed;
       }
       const mustUseKoopa = zone.requireKoopa && !koopaPlaced && i === zone.count - 1;
       const type = mustUseKoopa || Math.random() < zone.koopaChance ? 'koopa' : 'goomba';
