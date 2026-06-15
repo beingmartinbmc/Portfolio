@@ -201,6 +201,24 @@ function shuffleKeywords(pool: string[]): string[] {
   return arr;
 }
 
+/**
+ * Pick a keyword from the (shuffled) pool that has not been used yet. When the
+ * pool is smaller than the number of enemies, fall back to a numbered suffix so
+ * every keyword stays unique — the level validator requires distinct enemy
+ * keywords.
+ */
+function uniqueKeyword(pool: string[], index: number, used: Set<string>): string {
+  const base = pool[index % pool.length];
+  let candidate = base;
+  let suffix = 2;
+  while (used.has(candidate)) {
+    candidate = `${base} ${suffix}`;
+    suffix++;
+  }
+  used.add(candidate);
+  return candidate;
+}
+
 interface RawLevelData {
   levelType?: string;
   platforms?: { x: number; y: number; width: number; type?: string; label?: string }[];
@@ -231,7 +249,9 @@ export function parseLevelFromAI(raw: string): RawLevelData | null {
 }
 
 export function validateAILevelData(data: RawLevelData, config: LevelConfig): LevelValidationResult {
-  const levelType = resolveLevelType(data.levelType ?? config.levelType);
+  // Validate the AI output against the requested config first; a level that
+  // declares a different levelType than was asked for is a mismatch.
+  const levelType = resolveLevelType(config.levelType ?? data.levelType);
   const guide = getLayoutGuide(config.difficulty, levelType);
   const issues: string[] = [];
   const platforms = data.platforms ?? [];
@@ -486,6 +506,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
   const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS['backend']);
   let kwIdx = 0;
   let bugIdx = 0;
+  const usedBugKeywords = new Set<string>();
 
   const levelW = LEVEL_TILES_WIDE * TILE;
   const levelH = LEVEL_ROWS * TILE;
@@ -599,7 +620,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
       const mustUseKoopa = zone.requireKoopa && !koopaPlaced && i === zone.count - 1;
       const type = mustUseKoopa || Math.random() < zone.koopaChance ? 'koopa' : 'goomba';
       const enemy = new Enemy(ex * TILE, (GROUND_ROW - 1) * TILE, type as any);
-      enemy.keyword = bugKw[bugIdx % bugKw.length];
+      enemy.keyword = uniqueKeyword(bugKw, bugIdx, usedBugKeywords);
       bugIdx++;
       enemies.push(enemy);
       koopaPlaced = koopaPlaced || type === 'koopa';
