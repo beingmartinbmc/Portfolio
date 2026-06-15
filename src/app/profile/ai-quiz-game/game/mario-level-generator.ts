@@ -554,6 +554,9 @@ export function generateProceduralLevel(config: LevelConfig): Level {
   const isNearPipe = (tx: number): boolean =>
     pipePositions.some(px => tx >= px - 2 && tx <= px + 3);
 
+  const isOverGap = (tx: number): boolean =>
+    plannedGaps.some(g => tx >= g.start && tx < g.start + g.width);
+
   // Floating brick platforms with category labels
   const brickCount = getTargetCount(guide.brickCount);
   for (let i = 0; i < brickCount; i++) {
@@ -617,6 +620,12 @@ export function generateProceduralLevel(config: LevelConfig): Level {
       ex = Math.max(zone.start, Math.min(zone.end - 1, ex));
       if (isNearPipe(ex)) ex += 3;
       if (ex > zone.end) ex = zone.end - 2;
+      // Never strand an enemy over a gap — nudge it onto solid ground.
+      let gapGuard = 0;
+      while (isOverGap(ex) && gapGuard < zoneWidth) {
+        ex = Math.max(zone.start, Math.min(zone.end - 1, ex + 1));
+        gapGuard++;
+      }
       const mustUseKoopa = zone.requireKoopa && !koopaPlaced && i === zone.count - 1;
       const type = mustUseKoopa || Math.random() < zone.koopaChance ? 'koopa' : 'goomba';
       const enemy = new Enemy(ex * TILE, (GROUND_ROW - 1) * TILE, type as any);
