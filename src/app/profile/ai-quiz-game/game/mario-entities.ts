@@ -2,7 +2,17 @@ export const TILE = 32;
 export const GRAVITY = 0.52;
 export const JUMP_FORCE = -11;
 export const MOVE_SPEED = 3.8;
+export const RUN_SPEED = 5.4;
 export const MAX_FALL = 12;
+
+// Feel tuning — momentum-based movement
+export const GROUND_ACCEL = 0.65;
+export const AIR_ACCEL = 0.42;
+export const GROUND_FRICTION = 0.8;
+export const SKID_FRICTION = 0.6;
+export const COYOTE_FRAMES = 6;       // grace window to still jump after leaving a ledge
+export const JUMP_BUFFER_FRAMES = 6;  // remember a jump press made just before landing
+export const JUMP_CUT_MULTIPLIER = 0.42; // releasing jump early shortens the hop
 
 export interface AABB {
   x: number;
@@ -34,6 +44,15 @@ export class Player {
   starTimer = 0;
   fireCooldown = 0;
   swimStrokeCooldown = 0;
+
+  // Momentum / feel state
+  coyoteTimer = 0;        // frames since last grounded (grace jump)
+  jumpBufferTimer = 0;    // frames since a jump was pressed (buffered jump)
+  jumpHeld = false;       // is the jump key currently held (for variable height)
+  isJumping = false;      // currently in an ascent we can cut short
+  skidding = false;       // pressing opposite to current velocity on the ground
+  running = false;        // run modifier engaged this frame
+  walkPhase = 0;          // animation accumulator driven by movement speed
 
   constructor(x: number, y: number) {
     this.x = x;
@@ -240,6 +259,48 @@ export class Debris {
   }
 }
 
+export type ParticleKind = 'dust' | 'spark' | 'puff' | 'ring';
+
+export class Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+  maxLife: number;
+  size: number;
+  color: string;
+  kind: ParticleKind;
+  gravity: number;
+
+  constructor(
+    x: number, y: number, vx: number, vy: number,
+    color: string, size = 3, life = 24, kind: ParticleKind = 'dust', gravity = 0.18,
+  ) {
+    this.x = x;
+    this.y = y;
+    this.vx = vx;
+    this.vy = vy;
+    this.color = color;
+    this.size = size;
+    this.life = life;
+    this.maxLife = life;
+    this.kind = kind;
+    this.gravity = gravity;
+  }
+
+  get alive(): boolean { return this.life > 0; }
+  get fade(): number { return Math.max(0, this.life / this.maxLife); }
+
+  tick(): void {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += this.gravity;
+    this.vx *= 0.96;
+    this.life--;
+  }
+}
+
 export interface Level {
   platforms: Platform[];
   enemies: Enemy[];
@@ -249,6 +310,7 @@ export interface Level {
   flagPole: FlagPole;
   floatingTexts: FloatingText[];
   debris: Debris[];
+  particles: Particle[];
   width: number;
   height: number;
   category: string;

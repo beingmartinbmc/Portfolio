@@ -51,9 +51,13 @@ export class SkillsComponent implements OnInit {
     'Microservices': 'Service Mesh',
     'Spring Boot': 'API Framework',
     'High Level Design': 'System Design',
+    'Generative AI': 'GenAI Core',
     'LLM': 'AI Engine',
     'RAG': 'Knowledge Retrieval',
     'VectorDB': 'Embedding Store',
+    'Semantic Caching': 'Semantic Cache',
+    'MCP Servers': 'Tool Gateway',
+    'Bedrock': 'Model Host',
     'Elasti-Cache': 'Cache Cluster',
     'RabbitMQ': 'Task Queue',
     'AmazonSQS': 'Managed Queue',
@@ -64,6 +68,29 @@ export class SkillsComponent implements OnInit {
   readonly systemModeFlow = [
     'Spring Boot', 'Microservices', 'Kafka', 'Redis', 'MySQL'
   ];
+
+  // Ordered top-to-bottom architecture stack used by the graphical "Architecture route" view.
+  // Each entry maps a constellation id to a tier icon + a one-line role for the layer.
+  private readonly archLayerMeta: { id: string; icon: string; role: string }[] = [
+    { id: 'languages',    icon: '\u2699\uFE0F', role: 'Runtime & languages powering every service' },
+    { id: 'frameworks',   icon: '\uD83E\uDDE9', role: 'API frameworks that expose the services' },
+    { id: 'architecture', icon: '\uD83C\uDFDB\uFE0F', role: 'How services are decomposed & scaled' },
+    { id: 'queues',       icon: '\uD83D\uDCE8', role: 'Async backbone moving events between services' },
+    { id: 'cache',        icon: '\u26A1', role: 'Hot-path reads & low-latency shared state' },
+    { id: 'databases',    icon: '\uD83D\uDDC4\uFE0F', role: 'Source-of-truth & specialised data stores' },
+    { id: 'ai',           icon: '\uD83E\uDD16', role: 'Generative AI layer grounded on the platform' },
+    { id: 'core',         icon: '\uD83E\uDDE0', role: 'Fundamentals underpinning the whole stack' },
+  ];
+
+  get architectureLayers(): { id: string; name: string; color: string; icon: string; role: string; skills: Skill[] }[] {
+    return this.archLayerMeta
+      .map(meta => {
+        const c = this.constellations.find(x => x.id === meta.id);
+        if (!c) return null;
+        return { id: c.id, name: c.name, color: c.color, icon: meta.icon, role: meta.role, skills: c.skills };
+      })
+      .filter((layer): layer is { id: string; name: string; color: string; icon: string; role: string; skills: Skill[] } => layer !== null);
+  }
 
   ngOnInit(): void {
     this.buildConstellations();
@@ -111,10 +138,13 @@ export class SkillsComponent implements OnInit {
       {
         id: 'ai', name: 'AI / ML', color: '#F48FB1', glowColor: 'rgba(244,143,177,0.6)',
         skills: [
-          { name: 'Generative AI', proficiency: 90, level: 'primary',   tooltip: 'Cut manual triage effort by 50%',      x: 38, y: 46 },
-          { name: 'LLM',           proficiency: 90, level: 'primary',   tooltip: 'API integration · tool-calling',       x: 54, y: 40 },
-          { name: 'RAG',           proficiency: 92, level: 'secondary', tooltip: 'Rerank pipelines · less hallucination', x: 42, y: 60 },
-          { name: 'VectorDB',      proficiency: 90, level: 'secondary', tooltip: 'Pinecone · pgvector · semantic search', x: 60, y: 56 },
+          { name: 'Generative AI',    proficiency: 90, level: 'primary',   tooltip: 'Cut manual triage effort by 50%',      x: 38, y: 46 },
+          { name: 'LLM',              proficiency: 90, level: 'primary',   tooltip: 'API integration · tool-calling',       x: 54, y: 40 },
+          { name: 'RAG',              proficiency: 92, level: 'secondary', tooltip: 'Rerank pipelines · less hallucination', x: 42, y: 60 },
+          { name: 'VectorDB',         proficiency: 90, level: 'secondary', tooltip: 'Pinecone · pgvector · semantic search', x: 60, y: 56 },
+          { name: 'Semantic Caching', proficiency: 89, level: 'secondary', tooltip: 'Embedding cache · cut LLM cost & latency', x: 46, y: 70 },
+          { name: 'MCP Servers',      proficiency: 88, level: 'secondary', tooltip: 'Model Context Protocol · tool gateways', x: 64, y: 66 },
+          { name: 'Bedrock',          proficiency: 88, level: 'supporting', tooltip: 'AWS Bedrock · multi-model hosting',     x: 56, y: 74 },
         ]
       },
       {

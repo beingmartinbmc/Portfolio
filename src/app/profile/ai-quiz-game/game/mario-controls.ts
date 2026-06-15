@@ -3,10 +3,11 @@ export interface InputState {
   right: boolean;
   jump: boolean;
   fire: boolean;
+  run: boolean;
 }
 
 export class MarioControls {
-  private state: InputState = { left: false, right: false, jump: false, fire: false };
+  private state: InputState = { left: false, right: false, jump: false, fire: false, run: false };
   private keydownHandler: (e: KeyboardEvent) => void;
   private keyupHandler: (e: KeyboardEvent) => void;
 
@@ -27,7 +28,7 @@ export class MarioControls {
   }
 
   reset(): void {
-    this.state = { left: false, right: false, jump: false, fire: false };
+    this.state = { left: false, right: false, jump: false, fire: false, run: false };
   }
 
   getState(): InputState {
@@ -37,7 +38,8 @@ export class MarioControls {
   setTouchLeft(active: boolean): void { this.state.left = active; }
   setTouchRight(active: boolean): void { this.state.right = active; }
   setTouchJump(active: boolean): void { this.state.jump = active; }
-  setTouchFire(active: boolean): void { this.state.fire = active; }
+  setTouchFire(active: boolean): void { this.state.fire = active; this.state.run = active; }
+  setTouchRun(active: boolean): void { this.state.run = active; }
 
   private onKeyDown(e: KeyboardEvent): void {
     switch (e.code) {
@@ -62,6 +64,7 @@ export class MarioControls {
       case 'ShiftLeft':
       case 'ShiftRight':
         this.state.fire = true;
+        this.state.run = true;
         e.preventDefault();
         break;
     }
@@ -87,6 +90,7 @@ export class MarioControls {
       case 'ShiftLeft':
       case 'ShiftRight':
         this.state.fire = false;
+        this.state.run = false;
         break;
     }
   }

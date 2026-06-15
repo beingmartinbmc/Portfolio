@@ -1,4 +1,6 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -8,6 +10,12 @@ describe('AppComponent', () => {
       imports: [
         AppComponent,
         HttpClientTestingModule
+      ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: { fragment: of(null), params: of({}), queryParams: of({}) },
+        },
       ],
     }).compileComponents();
   }));

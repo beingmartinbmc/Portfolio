@@ -8,6 +8,7 @@
     "build:prod": "ng build --base-href /Portfolio/ --configuration production",
     "deploy": "npm run build && touch docs/.nojekyll && cp src/404.html docs/404.html",
     "test": "ng test",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
