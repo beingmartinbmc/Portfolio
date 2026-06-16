@@ -29,6 +29,9 @@ export class MetricsDashboardComponent implements OnInit, OnDestroy {
     { value: '0', numericEnd: 200, suffix: 'K+', label: 'VERIFICATIONS / DAY', sublabel: 'automated KYC pipeline', barPct: 85, accent: 'gold' },
     { value: '0', numericEnd: 10, suffix: 'M', label: 'CONCURRENT USERS', sublabel: 'IPL 2025 peak load', barPct: 97, accent: 'green' },
     { value: '0', numericEnd: 99.95, suffix: '%', label: 'UPTIME SLA', sublabel: 'KYC platform reliability', barPct: 99, accent: 'gold' },
+    { value: '0', numericEnd: 12, suffix: '+', label: 'AI AGENTS SHIPPED', sublabel: 'production LLM / RAG agents', barPct: 86, accent: 'gold' },
+    { value: '0', numericEnd: 4.2, suffix: 'K', label: 'RAG QUERIES / SEC', sublabel: 'grounded retrieval throughput', barPct: 90, accent: 'green' },
+    { value: '0', numericEnd: 3, suffix: '', label: 'ARTICLES PUBLISHED', sublabel: 'engineering deep-dives', barPct: 60, accent: 'gold' },
   ];
 
   displayValues: string[] = [];
@@ -66,7 +69,7 @@ export class MetricsDashboardComponent implements OnInit, OnDestroy {
         const progress = this.easeOutExpo(frame / totalFrames);
         const current = metric.numericEnd * progress;
 
-        if (Number.isInteger(metric.numericEnd) && metric.numericEnd >= 100) {
+        if (Number.isInteger(metric.numericEnd)) {
           this.displayValues[idx] = Math.round(current).toLocaleString();
         } else {
           this.displayValues[idx] = current.toFixed(current < 10 ? 2 : 1);
@@ -74,11 +77,9 @@ export class MetricsDashboardComponent implements OnInit, OnDestroy {
 
         if (frame >= totalFrames) {
           clearInterval(interval);
-          if (Number.isInteger(metric.numericEnd) && metric.numericEnd >= 100) {
-            this.displayValues[idx] = metric.numericEnd.toLocaleString();
-          } else {
-            this.displayValues[idx] = metric.numericEnd.toString();
-          }
+          this.displayValues[idx] = Number.isInteger(metric.numericEnd)
+            ? metric.numericEnd.toLocaleString()
+            : metric.numericEnd.toString();
         }
       }, 1000 / fps);
     });
