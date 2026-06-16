@@ -14,17 +14,60 @@
     <div class="world-map" data-anim="fade-up">
 
       <!-- Scrollable track -->
-      <div class="map-track">
+      <div class="map-track" #mapTrack>
 
         <!-- Ground / brick path -->
         <div class="ground-layer"></div>
 
-        <!-- Dotted trail connecting stops -->
-        <div class="trail-line"></div>
+        <!-- Dotted trail connecting stops — doubles as a Pac-Man maze line -->
+        <div class="trail-line">
+          <!-- Pac-Man chomps along the trail, eating the dots -->
+          <div class="pacman-runner">
+            <div class="pacman"></div>
+          </div>
+          <!-- A ghost gives chase a little behind Pac-Man -->
+          <div class="ghost-runner">
+            <div class="ghost">
+              <span class="ghost-eye left"></span>
+              <span class="ghost-eye right"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Travelling Mario — runs between stops on selection -->
+        <div
+          class="mario-sprite"
+          [class.running]="marioRunning"
+          [class.facing-left]="marioFacingLeft"
+          [style.left.px]="marioLeft">
+          <div class="mario-pixel">
+            <div class="mario-cap">
+              <span class="cap-emblem">M</span>
+              <span class="cap-brim"></span>
+            </div>
+            <div class="mario-head">
+              <span class="mario-hair left"></span>
+              <span class="mario-hair right"></span>
+              <span class="mario-eye"></span>
+              <span class="mario-nose"></span>
+              <span class="mario-mustache"></span>
+            </div>
+            <div class="mario-torso">
+              <span class="mario-arm"></span>
+              <span class="mario-overall-strap"></span>
+              <span class="mario-button"></span>
+            </div>
+            <div class="mario-legs">
+              <span class="mario-leg left"></span>
+              <span class="mario-leg right"></span>
+            </div>
+          </div>
+        </div>
 
         <!-- Stops -->
         @for (stop of stops; track stop.id; let i = $index; let last = $last) {
           <button
+            #stopEl
             class="map-stop"
             [class.active]="isStopActive(stop)"
             [class.current]="stop.isCurrent"
@@ -39,17 +82,6 @@
                 <span class="flag-year">{{ getStopPeriod(stop) }}</span>
               </div>
             </div>
-
-            <!-- Mario sprite (shows at active position) -->
-            @if (marioPosition === i) {
-              <div class="mario-sprite">
-                <div class="mario-pixel">
-                  <div class="mario-hat"></div>
-                  <div class="mario-face"></div>
-                  <div class="mario-body"></div>
-                </div>
-              </div>
-            }
 
             <!-- Platform block with logo -->
             <div class="stop-block">

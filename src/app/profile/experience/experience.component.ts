@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import { EXPERIENCE_ITEMS, EXPERIENCE_START_DATE, ExperienceItem } from './experience.data';
 
 interface TimelineStop {
@@ -16,19 +16,40 @@ interface TimelineStop {
   standalone: true,
   imports: []
 })
-export class ExperienceComponent implements OnInit {
+export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('mapTrack') mapTrack?: ElementRef<HTMLElement>;
+  @ViewChildren('stopEl') stopEls?: QueryList<ElementRef<HTMLElement>>;
+
   totalExperience = '0.0';
   stops: TimelineStop[] = [];
   activeStop: TimelineStop | null = null;
   activeRole: ExperienceItem | null = null;
   marioPosition = -1; // index of the stop Mario is at
 
+  // Travelling-Mario state (Mario actually runs between stops)
+  marioLeft = 0;          // px offset within the track
+  marioRunning = false;   // toggles the run-cycle animation
+  marioFacingLeft = false;
+
+  private runTimer: any = null;
+
   private readonly experienceItems: ExperienceItem[] = EXPERIENCE_ITEMS;
+
+  constructor(private zone: NgZone) {}
 
   ngOnInit(): void {
     this.calculateTotalExperience();
     this.buildTimeline();
     this.marioPosition = this.stops.length - 1;
+  }
+
+  ngAfterViewInit(): void {
+    // Place Mario at the most recent role once the layout is measured.
+    requestAnimationFrame(() => this.moveMarioTo(this.marioPosition, false));
+  }
+
+  ngOnDestroy(): void {
+    if (this.runTimer) clearTimeout(this.runTimer);
   }
 
   private calculateTotalExperience(): void {
@@ -70,7 +91,36 @@ export class ExperienceComponent implements OnInit {
     }
     this.activeStop = stop;
     this.activeRole = stop.roles[0];
+    this.moveMarioTo(idx, true);
+  }
+
+  /**
+   * Moves Mario to the centre of the stop at `idx` by measuring real DOM
+   * positions, so the run animation always lands precisely on the platform
+   * regardless of how the flex layout distributes the stops.
+   */
+  private moveMarioTo(idx: number, animate: boolean): void {
     this.marioPosition = idx;
+    const track = this.mapTrack?.nativeElement;
+    const stopEl = this.stopEls?.get(idx)?.nativeElement;
+    if (!track || !stopEl) return;
+
+    const trackRect = track.getBoundingClientRect();
+    const stopRect = stopEl.getBoundingClientRect();
+    const targetLeft = stopRect.left - trackRect.left + stopRect.width / 2;
+
+    if (animate && targetLeft !== this.marioLeft) {
+      this.marioFacingLeft = targetLeft < this.marioLeft;
+      this.marioRunning = true;
+      if (this.runTimer) clearTimeout(this.runTimer);
+      // Match the CSS travel transition duration (0.9s).
+      this.zone.runOutsideAngular(() => {
+        this.runTimer = setTimeout(() => {
+          this.zone.run(() => { this.marioRunning = false; });
+        }, 950);
+      });
+    }
+    this.marioLeft = targetLeft;
   }
 
   selectRole(role: ExperienceItem): void {
