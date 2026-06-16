@@ -22,6 +22,7 @@ type ViewState = 'setup' | 'loading' | 'playing' | 'results';
 })
 export class AiQuizGameComponent implements OnDestroy {
   @ViewChild('gameCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('gameWrapper') wrapperRef!: ElementRef<HTMLElement>;
 
   viewState: ViewState = 'setup';
   selectedCategory = 'backend';
@@ -34,9 +35,12 @@ export class AiQuizGameComponent implements OnDestroy {
 
   won = false;
   enemiesStomped = 0;
+  isFullscreen = false;
 
   private engine: MarioEngine | null = null;
   private resizeObserver: ResizeObserver | null = null;
+  private fullscreenHandler: (() => void) | null = null;
+  private canvasResize: (() => void) | null = null;
 
   categories = [
     { value: 'backend', label: 'Backend Foundations', icon: '🍄', description: 'APIs, data flows, idempotency, service design' },
@@ -113,7 +117,9 @@ export class AiQuizGameComponent implements OnDestroy {
 
     const resize = () => {
       const w = container.clientWidth;
-      const h = Math.round(Math.min(w * 0.5625, 480));
+      const h = this.isFullscreen
+        ? container.clientHeight
+        : Math.round(Math.min(w * 0.5625, 480));
       canvas.width = w;
       canvas.height = h;
       canvas.style.width = w + 'px';
@@ -124,9 +130,16 @@ export class AiQuizGameComponent implements OnDestroy {
     resize();
     this.resizeObserver = new ResizeObserver(resize);
     this.resizeObserver.observe(container);
+    this.canvasResize = resize;
 
     this.engine.loadLevel(level);
     setTimeout(() => this.engine?.start(), 200);
+
+    if (!this.fullscreenHandler) {
+      this.fullscreenHandler = () => this.handleFullscreenChange();
+      document.addEventListener('fullscreenchange', this.fullscreenHandler);
+      document.addEventListener('webkitfullscreenchange', this.fullscreenHandler);
+    }
   }
 
   private handleDeath(): void {
@@ -157,6 +170,37 @@ export class AiQuizGameComponent implements OnDestroy {
 
   selectLevelType(type: LevelType): void {
     this.selectedLevelType = type;
+  }
+
+  async toggleFullscreen(): Promise<void> {
+    const el = this.wrapperRef?.nativeElement as any;
+    if (!el) return;
+
+    if (!document.fullscreenElement) {
+      try {
+        if (el.requestFullscreen) await el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
+      } catch {
+        // Fullscreen API unavailable / blocked — silently ignore
+      }
+    } else {
+      try {
+        if (document.exitFullscreen) await document.exitFullscreen();
+        else if ((document as any).webkitExitFullscreen) await (document as any).webkitExitFullscreen();
+      } catch {
+        // ignore
+      }
+    }
+  }
+
+  private handleFullscreenChange(): void {
+    const fsEl = document.fullscreenElement || (document as any).webkitFullscreenElement;
+    this.zone.run(() => {
+      this.isFullscreen = !!fsEl;
+      this.cdr.detectChanges();
+    });
+    // Re-fit the canvas to the new container size after the layout settles
+    requestAnimationFrame(() => this.canvasResize?.());
   }
 
   private async generateAILevel(config: LevelConfig): Promise<any> {
@@ -193,6 +237,17 @@ export class AiQuizGameComponent implements OnDestroy {
     this.engine = null;
     this.resizeObserver?.disconnect();
     this.resizeObserver = null;
+    this.canvasResize = null;
+
+    if (this.fullscreenHandler) {
+      document.removeEventListener('fullscreenchange', this.fullscreenHandler);
+      document.removeEventListener('webkitfullscreenchange', this.fullscreenHandler);
+      this.fullscreenHandler = null;
+    }
+    if (document.fullscreenElement) {
+      document.exitFullscreen?.().catch(() => {});
+    }
+    this.isFullscreen = false;
   }
 
   getCategoryLabel(): string {

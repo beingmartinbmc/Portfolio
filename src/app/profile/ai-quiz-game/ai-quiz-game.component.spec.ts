@@ -80,6 +80,45 @@ describe('AiQuizGameComponent', () => {
     expect(component.viewState).toBe('setup');
   });
 
+  it('starts with fullscreen disabled', () => {
+    expect(component.isFullscreen).toBeFalse();
+  });
+
+  it('toggleFullscreen is a no-op when the wrapper ref is missing', async () => {
+    component.wrapperRef = undefined as any;
+    await expectAsync(component.toggleFullscreen()).toBeResolved();
+  });
+
+  it('toggleFullscreen requests fullscreen on the wrapper element when not active', async () => {
+    const el = document.createElement('div');
+    const requestSpy = jasmine.createSpy('requestFullscreen').and.resolveTo();
+    (el as any).requestFullscreen = requestSpy;
+    component.wrapperRef = new ElementRef(el);
+
+    // Ensure document is treated as not currently in fullscreen.
+    spyOnProperty(document, 'fullscreenElement', 'get').and.returnValue(null);
+
+    await component.toggleFullscreen();
+    expect(requestSpy).toHaveBeenCalled();
+  });
+
+  it('toggleFullscreen exits fullscreen when already active', async () => {
+    const el = document.createElement('div');
+    component.wrapperRef = new ElementRef(el);
+
+    spyOnProperty(document, 'fullscreenElement', 'get').and.returnValue(el);
+    const exitSpy = spyOn(document, 'exitFullscreen').and.resolveTo();
+
+    await component.toggleFullscreen();
+    expect(exitSpy).toHaveBeenCalled();
+  });
+
+  it('handleFullscreenChange syncs the isFullscreen flag from the document', () => {
+    spyOnProperty(document, 'fullscreenElement', 'get').and.returnValue(document.createElement('div'));
+    (component as any).handleFullscreenChange();
+    expect(component.isFullscreen).toBeTrue();
+  });
+
   it('touch controls are safe to call without an active engine', () => {
     expect(() => {
       component.touchLeft(true);

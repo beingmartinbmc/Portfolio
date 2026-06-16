@@ -84,7 +84,7 @@
 
     <!-- PLAYING -->
     @if (viewState === 'playing') {
-      <div class="game-wrapper">
+      <div class="game-wrapper" #gameWrapper [class.game-wrapper--fullscreen]="isFullscreen">
         <div class="game-hud">
           <div class="hud-item">
             <span class="hud-icon">❤️</span>
@@ -101,6 +101,13 @@
           <div class="hud-item hud-category">
             <span class="hud-val">{{ getLevelTypeLabel() }}</span>
           </div>
+          <button class="hud-fullscreen"
+                  type="button"
+                  [attr.aria-label]="isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'"
+                  (click)="toggleFullscreen()">
+            <i class="fas" [class.fa-expand]="!isFullscreen" [class.fa-compress]="isFullscreen"></i>
+            <span class="hud-fullscreen-label">{{ isFullscreen ? 'Exit' : 'Fullscreen' }}</span>
+          </button>
         </div>
 
         <div class="canvas-container">

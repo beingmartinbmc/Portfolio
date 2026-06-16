@@ -93,7 +93,7 @@
   }
 }
 
-/* ── Dotted trail ───────────────────────────────────── */
+/* ── Dotted trail — also the Pac-Man maze line ──────── */
 .trail-line {
   position: absolute;
   left: 2rem;
@@ -107,7 +107,105 @@
     transparent 10px,
     transparent 18px
   );
+  overflow: visible;
 }
+
+/* Pac-Man chomps left→right along the trail, eating the dots */
+.pacman-runner {
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  animation: pacTravel 9s linear infinite;
+}
+
+.ghost-runner {
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  animation: pacTravel 9s linear infinite;
+  animation-delay: -0.85s;   /* trails just behind Pac-Man */
+}
+
+@keyframes pacTravel {
+  0%   { left: -3%; }
+  100% { left: 103%; }
+}
+
+.pacman {
+  width: 16px;
+  height: 16px;
+  background: #ffd23f;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 4px rgba(255, 210, 63, 0.5));
+  /* chomping mouth via clip-path animation */
+  animation: pacChomp 0.32s linear infinite;
+}
+
+@keyframes pacChomp {
+  0%, 100% {
+    clip-path: polygon(100% 25%, 44% 50%, 100% 75%, 100% 100%, 0 100%, 0 0, 100% 0);
+  }
+  50% {
+    clip-path: polygon(100% 50%, 44% 50%, 100% 50%, 100% 100%, 0 100%, 0 0, 100% 0);
+  }
+}
+
+.ghost {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  background: #ff5d5d;
+  border-radius: 7px 7px 0 0;
+  filter: drop-shadow(0 0 4px rgba(255, 93, 93, 0.45));
+  animation: ghostBob 0.6s ease-in-out infinite;
+
+  /* wavy skirt at the bottom */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background:
+      radial-gradient(circle at 2px 0, transparent 2px, #ff5d5d 2px) 0 0 / 5px 3px repeat-x;
+  }
+}
+
+.ghost-eye {
+  position: absolute;
+  top: 4px;
+  width: 4px;
+  height: 5px;
+  background: #fff;
+  border-radius: 50%;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: #2c3aa8;
+  }
+
+  &.left  { left: 2px; }
+  &.right { right: 2px; }
+}
+
+@keyframes ghostBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pacman-runner,
+  .ghost-runner { animation: none; display: none; }
+  .mario-sprite { transition: none; }
+}
+
 
 /* ══════════════════════════════════════════════════════
    MAP STOPS
@@ -192,71 +290,232 @@
   color: #fca5a5;
 }
 
-/* ── Mario sprite (CSS pixel art) ──────────────────── */
+/* ── Travelling Mario sprite (CSS pixel art) ────────── */
 .mario-sprite {
   position: absolute;
-  bottom: calc(100% + 0.8rem);
-  left: 50%;
+  bottom: 3.4rem;            /* sits just above the trail line */
+  left: 0;
   transform: translateX(-50%);
   z-index: 5;
-  animation: marioJump 1.2s ease-in-out infinite;
+  transition: left 0.9s cubic-bezier(0.45, 0.05, 0.35, 1);
+  will-change: left;
 }
 
-@keyframes marioJump {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-8px); }
-}
-
+/* idle bob when standing on a platform */
 .mario-pixel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.mario-hat {
-  width: 16px;
-  height: 5px;
-  background: #ef4444;
-  border-radius: 2px 2px 0 0;
   position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: -2px;
-    width: 20px;
-    height: 3px;
-    background: #ef4444;
-    border-radius: 1px;
-  }
+  width: 24px;
+  height: 34px;
+  animation: marioIdle 1.6s ease-in-out infinite;
 }
 
-.mario-face {
-  width: 14px;
-  height: 6px;
-  background: #fbbf24;
-  border-radius: 0 0 2px 2px;
+.mario-sprite.facing-left .mario-pixel {
+  transform: scaleX(-1);
 }
 
-.mario-body {
+/* running state: faster bob + leg pumping */
+.mario-sprite.running .mario-pixel {
+  animation: marioRun 0.22s steps(2, end) infinite;
+}
+
+@keyframes marioIdle {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}
+
+@keyframes marioRun {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+
+.mario-sprite.facing-left.running .mario-pixel {
+  animation: marioRunFlipped 0.22s steps(2, end) infinite;
+}
+
+@keyframes marioRunFlipped {
+  0%   { transform: scaleX(-1) translateY(0); }
+  50%  { transform: scaleX(-1) translateY(-3px); }
+  100% { transform: scaleX(-1) translateY(0); }
+}
+
+/* Cap */
+.mario-cap {
+  position: absolute;
+  top: 0;
+  left: 3px;
+  width: 18px;
+  height: 7px;
+  background: #e52521;
+  border-radius: 7px 7px 0 0;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.cap-emblem {
+  position: absolute;
+  top: 1px;
+  left: 6px;
+  width: 7px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+  color: #e52521;
+  font-family: var(--font-pixel);
+  font-size: 3.5px;
+  line-height: 5px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.cap-brim {
+  position: absolute;
+  bottom: -2px;
+  left: -3px;
+  width: 22px;
+  height: 3px;
+  background: #c41e1a;
+  border-radius: 2px;
+}
+
+/* Head / face */
+.mario-head {
+  position: absolute;
+  top: 6px;
+  left: 4px;
+  width: 16px;
+  height: 12px;
+  background: #f8b878;
+  border-radius: 3px;
+}
+
+.mario-hair {
+  position: absolute;
+  top: 1px;
+  width: 3px;
+  height: 4px;
+  background: #5a2d0c;
+  border-radius: 1px;
+
+  &.left  { left: -1px; }
+  &.right { right: -1px; }
+}
+
+.mario-eye {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  width: 2px;
+  height: 4px;
+  background: #2a2a3a;
+  border-radius: 1px;
+}
+
+.mario-nose {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  width: 4px;
+  height: 4px;
+  background: #f6a35c;
+  border-radius: 50%;
+}
+
+.mario-mustache {
+  position: absolute;
+  bottom: 1px;
+  left: 3px;
+  width: 11px;
+  height: 3px;
+  background: #5a2d0c;
+  border-radius: 2px;
+}
+
+/* Torso / overalls */
+.mario-torso {
+  position: absolute;
+  top: 17px;
+  left: 3px;
+  width: 18px;
+  height: 10px;
+  background: #2c6fd6;       /* overalls blue */
+  border-radius: 3px 3px 2px 2px;
+}
+
+.mario-arm {
+  position: absolute;
+  top: 1px;
+  left: -2px;
+  width: 4px;
+  height: 7px;
+  background: #e52521;       /* red shirt sleeve */
+  border-radius: 2px;
+}
+
+.mario-overall-strap {
+  position: absolute;
+  top: -1px;
+  left: 4px;
+  width: 3px;
+  height: 5px;
+  background: #2c6fd6;
+  box-shadow: 7px 0 0 #2c6fd6;
+}
+
+.mario-button {
+  position: absolute;
+  top: 3px;
+  left: 7px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ffd23f;
+  box-shadow: 0 0 0 0.5px rgba(0,0,0,0.15);
+}
+
+/* Legs / boots */
+.mario-legs {
+  position: absolute;
+  top: 26px;
+  left: 4px;
   width: 16px;
   height: 8px;
-  background: #ef4444;
-  border-radius: 0 0 3px 3px;
-  position: relative;
+}
+
+.mario-leg {
+  position: absolute;
+  top: 0;
+  width: 6px;
+  height: 7px;
+  background: #2c6fd6;
+  border-radius: 0 0 2px 2px;
 
   &::after {
     content: '';
     position: absolute;
-    bottom: -4px;
-    left: 1px;
-    width: 5px;
-    height: 4px;
-    background: #6b3e1c;
-    border-radius: 0 0 2px 2px;
-    box-shadow: 9px 0 0 #6b3e1c;
+    bottom: -2px;
+    left: -1px;
+    width: 8px;
+    height: 3px;
+    background: #6b3e1c;       /* boot */
+    border-radius: 2px;
   }
+
+  &.left  { left: 0; }
+  &.right { right: 0; }
+}
+
+/* leg pumping while running */
+.mario-sprite.running .mario-leg.left  { animation: legPumpA 0.22s steps(2) infinite; }
+.mario-sprite.running .mario-leg.right { animation: legPumpB 0.22s steps(2) infinite; }
+
+@keyframes legPumpA {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-1px) rotate(-12deg); }
+}
+
+@keyframes legPumpB {
+  0%, 100% { transform: translateY(-1px) rotate(12deg); }
+  50%      { transform: translateY(0) rotate(0deg); }
 }
 
 /* ── Stop block (? block style) ────────────────────── */
