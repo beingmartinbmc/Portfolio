@@ -10,6 +10,7 @@ import {
   getLevelGenerationPrompt, validateAILevelData, LevelConfig
 } from './game/mario-level-generator';
 import { LevelType } from './game/mario-entities';
+import { QUIZ_CATEGORIES, QUIZ_DIFFICULTIES, QUIZ_LEVEL_TYPES } from './ai-quiz-game.data';
 
 type ViewState = 'setup' | 'loading' | 'playing' | 'results';
 
@@ -42,27 +43,12 @@ export class AiQuizGameComponent implements OnDestroy {
   private fullscreenHandler: (() => void) | null = null;
   private canvasResize: (() => void) | null = null;
 
-  categories = [
-    { value: 'backend', label: 'Backend Foundations', icon: '🍄', description: 'APIs, data flows, idempotency, service design' },
-    { value: 'distributed', label: 'Distributed Systems', icon: '🚇', description: 'Kafka, queues, caching, consistency, resilience' },
-    { value: 'genai', label: 'Gen AI Systems', icon: '🤖', description: 'RAG, evals, prompts, agents, product quality' },
-    { value: 'platform', label: 'Platform Engineering', icon: '🛠️', description: 'Observability, CI/CD, reliability, tooling leverage' },
-    { value: 'architecture', label: 'System Design', icon: '🏰', description: 'Trade-offs, scale paths, fault tolerance, throughput' },
-    { value: 'leadership', label: 'Staff Engineering', icon: '⭐', description: 'Cross-team influence, prioritization, technical leadership' }
-  ];
+  categories = QUIZ_CATEGORIES;
 
-  difficulties = [
-    { value: 'Easy', label: 'Warm-Up', description: 'Fewer enemies, more power-ups', color: 'success' },
-    { value: 'Medium', label: 'Speed Run', description: 'Balanced challenge', color: 'warning' },
-    { value: 'Hard', label: 'Boss Fight', description: 'Dense enemies, big gaps', color: 'danger' }
-  ];
+  difficulties = QUIZ_DIFFICULTIES;
 
   // The three play modes: each is a full Mario platformer with its own movement style.
-  levelTypes: { value: LevelType; label: string; icon: string; description: string }[] = [
-    { value: 'ground', label: 'Land', icon: '🌿', description: 'Classic overworld — run, jump, and stomp across staged gaps' },
-    { value: 'water', label: 'Sea', icon: '🌊', description: 'Dive underwater — swim with buoyant strokes through dense coin trails' },
-    { value: 'sky', label: 'Sky', icon: '☁️', description: 'Take flight — hold jump to soar and dive across floating routes' },
-  ];
+  levelTypes = QUIZ_LEVEL_TYPES;
 
   constructor(private http: HttpClient, private zone: NgZone, private cdr: ChangeDetectorRef) {}
 
