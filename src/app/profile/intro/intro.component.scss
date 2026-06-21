@@ -1,3 +1,5 @@
+@use 'shared' as *;
+
 :host {
   display: block;
 }
@@ -54,8 +56,8 @@
   align-items: center;
   padding: 0.55rem 0.85rem;
   border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid slate(0.16);
+  background: white(0.03);
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -79,7 +81,7 @@
   min-width: 200px;
   padding: 0.65rem;
   border-radius: 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.14);
+  border: 1px solid slate(0.14);
   background: rgba(10, 16, 31, 0.96);
   box-shadow: 0 24px 60px rgba(2, 6, 23, 0.4);
 }
@@ -94,7 +96,7 @@
 }
 
 .document-dropdown a:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: white(0.05);
   color: var(--text-primary);
 }
 
@@ -111,15 +113,15 @@
   width: 3rem;
   height: 3rem;
   border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid slate(0.16);
+  background: white(0.03);
   color: var(--text-secondary);
   transition: transform var(--transition-normal), border-color var(--transition-normal), color var(--transition-normal);
 }
 
 .social-link:hover {
   transform: translateY(-2px);
-  border-color: rgba(251, 191, 36, 0.45);
+  border-color: gold(0.45);
   color: var(--primary-color);
 }
 
@@ -133,8 +135,8 @@
 .metric-card {
   padding: 1rem;
   border-radius: 1.25rem;
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid slate(0.1);
+  background: white(0.03);
 }
 
 .metric-value {
@@ -161,9 +163,9 @@
   aspect-ratio: 1 / 1.08;
   padding: 1.5rem;
   background:
-    radial-gradient(circle at top left,    rgba(251, 191, 36, 0.20), transparent 36%),
-    radial-gradient(circle at bottom right, rgba(239, 68, 68, 0.14), transparent 34%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+    radial-gradient(circle at top left,    gold(0.20), transparent 36%),
+    radial-gradient(circle at bottom right, red(0.14), transparent 34%),
+    linear-gradient(180deg, white(0.03), white(0));
 }
 
 .hero-portrait img {
@@ -214,8 +216,8 @@
   gap: 0.85rem;
   padding: 0.9rem 1rem;
   border-radius: 0.85rem;
-  border: 1px solid rgba(251, 191, 36, 0.12);
-  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid gold(0.12);
+  background: white(0.025);
   transition: border-color 0.25s, background 0.25s, transform 0.25s;
   position: relative;
   overflow: hidden;
@@ -232,7 +234,7 @@
 
   &:hover {
     transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.04);
+    background: white(0.04);
 
     &::before { opacity: 1; }
 
@@ -240,24 +242,24 @@
   }
 
   &[data-color="red"] {
-    border-color: rgba(239, 68, 68, 0.2);
-    &::before { background: linear-gradient(135deg, rgba(239, 68, 68, 0.06), transparent 60%); }
-    .fc-tag { color: #ef4444; border-color: rgba(239, 68, 68, 0.3); text-shadow: 0 0 12px rgba(239, 68, 68, 0.3); }
-    .fc-icon { background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.25); }
+    border-color: red(0.2);
+    &::before { background: linear-gradient(135deg, red(0.06), transparent 60%); }
+    .fc-tag { color: #ef4444; border-color: red(0.3); text-shadow: 0 0 12px red(0.3); }
+    .fc-icon { background: red(0.12); border-color: red(0.25); }
   }
 
   &[data-color="gold"] {
-    border-color: rgba(251, 191, 36, 0.2);
-    &::before { background: linear-gradient(135deg, rgba(251, 191, 36, 0.06), transparent 60%); }
-    .fc-tag { color: #fbbf24; border-color: rgba(251, 191, 36, 0.3); text-shadow: 0 0 12px rgba(251, 191, 36, 0.3); }
-    .fc-icon { background: rgba(251, 191, 36, 0.12); border-color: rgba(251, 191, 36, 0.25); }
+    border-color: gold(0.2);
+    &::before { background: linear-gradient(135deg, gold(0.06), transparent 60%); }
+    .fc-tag { color: #fbbf24; border-color: gold(0.3); text-shadow: 0 0 12px gold(0.3); }
+    .fc-icon { background: gold(0.12); border-color: gold(0.25); }
   }
 
   &[data-color="green"] {
-    border-color: rgba(34, 197, 94, 0.2);
-    &::before { background: linear-gradient(135deg, rgba(34, 197, 94, 0.06), transparent 60%); }
-    .fc-tag { color: #22c55e; border-color: rgba(34, 197, 94, 0.3); text-shadow: 0 0 12px rgba(34, 197, 94, 0.3); }
-    .fc-icon { background: rgba(34, 197, 94, 0.12); border-color: rgba(34, 197, 94, 0.25); }
+    border-color: green(0.2);
+    &::before { background: linear-gradient(135deg, green(0.06), transparent 60%); }
+    .fc-tag { color: #22c55e; border-color: green(0.3); text-shadow: 0 0 12px green(0.3); }
+    .fc-icon { background: green(0.12); border-color: green(0.25); }
   }
 }
 
@@ -270,8 +272,8 @@
   justify-content: center;
   font-size: 1.25rem;
   border-radius: 0.6rem;
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid slate(0.12);
+  background: white(0.04);
   transition: transform 0.3s;
 }
 
@@ -300,7 +302,7 @@
   letter-spacing: 0.06em;
   padding: 0.2rem 0.45rem;
   border-radius: 4px;
-  border: 1px solid rgba(148, 163, 184, 0.15);
+  border: 1px solid slate(0.15);
   text-transform: uppercase;
   white-space: nowrap;
 }
