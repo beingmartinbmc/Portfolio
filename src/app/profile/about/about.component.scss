@@ -1,3 +1,5 @@
+@use 'shared' as *;
+
 :host { display: block; }
 
 /* ── Section header ──────────────────────────────────── */
@@ -8,7 +10,7 @@
   font-size: 0.6rem;
   letter-spacing: 0.18em;
   color: var(--primary-color);
-  text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);
+  text-shadow: 0 0 10px gold(0.45);
 }
 
 /* ── Grid ────────────────────────────────────────────── */
@@ -29,20 +31,20 @@
   border-radius: 1rem;
   overflow: hidden;
   background: linear-gradient(180deg, rgba(19, 19, 46, 0.98) 0%, rgba(13, 13, 34, 0.98) 100%);
-  border: 2px solid rgba(251, 191, 36, 0.12);
+  border: 2px solid gold(0.12);
   transition: border-color 250ms ease, box-shadow 250ms ease;
 
   &:hover {
-    border-color: rgba(251, 191, 36, 0.28);
-    box-shadow: 0 6px 28px rgba(251, 191, 36, 0.08);
+    border-color: gold(0.28);
+    box-shadow: 0 6px 28px gold(0.08);
   }
 }
 
 /* ── Flag header strip ───────────────────────────────── */
 .panel-flag {
   padding: 0.55rem 1rem;
-  background: rgba(251, 191, 36, 0.05);
-  border-bottom: 1px solid rgba(251, 191, 36, 0.10);
+  background: gold(0.05);
+  border-bottom: 1px solid gold(0.10);
 }
 
 .flag-label {
@@ -50,7 +52,7 @@
   font-size: 0.48rem;
   letter-spacing: 0.14em;
   color: var(--primary-color);
-  text-shadow: 0 0 8px rgba(251, 191, 36, 0.25);
+  text-shadow: 0 0 8px gold(0.25);
 }
 
 /* ── Panel body ──────────────────────────────────────── */
@@ -95,14 +97,14 @@
   justify-items: center;
   padding: 0.55rem 0.85rem;
   border-radius: 0.65rem;
-  border: 1px solid rgba(251, 191, 36, 0.14);
-  background: rgba(251, 191, 36, 0.04);
+  border: 1px solid gold(0.14);
+  background: gold(0.04);
   min-width: 5.5rem;
   transition: border-color 200ms ease, box-shadow 200ms ease;
 
   &:hover {
-    border-color: rgba(251, 191, 36, 0.30);
-    box-shadow: 0 0 14px rgba(251, 191, 36, 0.08);
+    border-color: gold(0.30);
+    box-shadow: 0 0 14px gold(0.08);
   }
 }
 
