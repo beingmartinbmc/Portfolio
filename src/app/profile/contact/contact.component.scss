@@ -15,12 +15,7 @@ $pixel: var(--font-pixel);
 .world-label {
   display: inline-block;
   margin-bottom: 0.65rem;
-  font-family: $pixel;
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: $gold;
-  text-shadow: 0 0 16px rgba($gold, 0.35);
+  @include pixel-label(0.6rem);
 }
 
 .section-title {
