@@ -1,0 +1,32 @@
+// ══════════════════════════════════════════════════════
+//  SHARED ANIMATIONS
+//  Generic keyframes that recur across components. Component
+//  stylesheets can @use 'animations' and reference these by
+//  the public name (sass keyframe scoping note below).
+//
+//  NOTE: @keyframes declared inside a module are emitted with
+//  their literal names into whichever stylesheet @use-s this
+//  partial, so referencing `animation: spin ...` works as long
+//  as the component also @use-s this file. Component-specific
+//  keyframes (marioRun, pacChomp, …) intentionally stay local
+//  to their component to preserve encapsulation.
+// ══════════════════════════════════════════════════════
+
+@keyframes shared-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shared-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+
+@keyframes shared-slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shared-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}

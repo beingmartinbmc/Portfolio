@@ -1,0 +1,8 @@
+// ══════════════════════════════════════════════════════
+//  SHARED ENTRYPOINT
+//  Components do:  @use 'shared' as *;
+//  to pull in tokens, alpha helpers and mixins in one line.
+// ══════════════════════════════════════════════════════
+
+@forward 'tokens';
+@forward 'mixins';
