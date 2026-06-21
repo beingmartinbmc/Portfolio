@@ -13,6 +13,7 @@
   font-family: var(--font-pixel);
   font-size: $size;
   letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: $color;
   @if $glow > 0 {
     text-shadow: 0 0 10px gold($glow);

@@ -6,11 +6,7 @@
 .world-label {
   display: inline-block;
   margin-bottom: 0.65rem;
-  font-family: var(--font-pixel);
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  color: var(--primary-color);
-  text-shadow: 0 0 10px gold(0.45);
+  @include pixel-label(0.6rem);
 }
 
 /* ── Grid ────────────────────────────────────────────── */
