@@ -1,3 +1,5 @@
+@use 'shared' as *;
+
 $gold: #fbbf24;
 $gold-pale: #fde68a;
 $red: #ef4444;
@@ -80,8 +82,8 @@ $pixel: var(--font-pixel);
 .style-card {
   padding: 1rem;
   border-radius: 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid white(0.06);
+  background: white(0.02);
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
@@ -100,7 +102,7 @@ $pixel: var(--font-pixel);
   &.active, &:hover {
     transform: translateY(-4px);
     border-color: rgba($gold, 0.25);
-    background: rgba(255, 255, 255, 0.04);
+    background: white(0.04);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     &::after { opacity: 1; }
     .sc-icon { transform: scale(1.15) rotate(-5deg); }
@@ -145,7 +147,7 @@ $pixel: var(--font-pixel);
   letter-spacing: 0.08em;
   padding: 0.18rem 0.4rem;
   border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid white(0.1);
   margin-bottom: 0.6rem;
 
   &[data-color="gold"]  { color: $gold; border-color: rgba($gold, 0.3); }
@@ -164,7 +166,7 @@ $pixel: var(--font-pixel);
 .sc-bar {
   flex: 1;
   height: 6px;
-  background: rgba(255, 255, 255, 0.06);
+  background: white(0.06);
   border-radius: 3px;
   overflow: hidden;
 }
@@ -183,7 +185,7 @@ $pixel: var(--font-pixel);
 .sc-bar-pct {
   font-family: $pixel;
   font-size: 0.35rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: white(0.35);
   flex-shrink: 0;
 }
 
@@ -243,7 +245,7 @@ $pixel: var(--font-pixel);
     padding: 0.7rem 0.85rem 0.7rem 1.5rem;
     border-radius: 0.6rem;
     background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid white(0.05);
     font-size: 0.84rem;
     line-height: 1.55;
     color: var(--text-secondary);
@@ -260,8 +262,8 @@ $pixel: var(--font-pixel);
     }
 
     &:hover {
-      border-color: rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.025);
+      border-color: white(0.12);
+      background: white(0.025);
     }
   }
 }
@@ -279,7 +281,7 @@ $pixel: var(--font-pixel);
   padding: 1rem 1.1rem;
   border-radius: 0.6rem;
   background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid white(0.05);
   transition: border-color 0.25s, transform 0.25s;
 
   &:hover {
@@ -328,7 +330,7 @@ $pixel: var(--font-pixel);
 .hud-bar {
   width: 100%;
   height: 6px;
-  background: rgba(255, 255, 255, 0.06);
+  background: white(0.06);
   border-radius: 3px;
   margin-bottom: 0.75rem;
   overflow: hidden;

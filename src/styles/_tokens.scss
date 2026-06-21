@@ -1,0 +1,44 @@
+// ══════════════════════════════════════════════════════
+//  SHARED DESIGN TOKENS
+//  Single source of truth for the Mario palette and common
+//  alpha shades that were previously hardcoded across every
+//  component stylesheet. Reference these instead of literals.
+// ══════════════════════════════════════════════════════
+
+// ── Brand / palette ──────────────────────────────────
+$coin-gold:    #fbbf24; // --primary-color
+$coin-gold-lt: #fde68a;
+$coin-amber:   #f59e0b;
+$pipe-green:   #22c55e; // --accent-color
+$pipe-green-dk:#16a34a;
+$mario-red:    #ef4444; // --secondary-color
+$mario-red-dk: #c41e1a;
+$mario-red-hi: #e52521; // sprite cap/shirt red
+$overall-blue: #2c6fd6;
+$sky-cyan:     #38bdf8;
+$accent-pink:  #ec4899;
+
+// ── Sprite / pixel-art incidentals ───────────────────
+$skin:         #f8b878;
+$skin-shadow:  #f6a35c;
+$hair-brown:   #5a2d0c;
+$boot-brown:   #6b3e1c;
+$brick-brown:  #8b5e3c;
+$brick-edge:   #9a6f4e;
+$pac-yellow:   #ffd23f;
+$ghost-red:    #ff5d5d;
+$ghost-iris:   #2c3aa8;
+
+// ── Common alpha shades ──────────────────────────────
+// gold
+@function gold($a) { @return rgba(251, 191, 36, $a); }
+// red
+@function red($a)  { @return rgba(239, 68, 68, $a); }
+// green
+@function green($a){ @return rgba(34, 197, 94, $a); }
+// slate (neutral borders / muted)
+@function slate($a){ @return rgba(148, 163, 184, $a); }
+// white overlay
+@function white($a){ @return rgba(255, 255, 255, $a); }
+// deep shadow
+@function ink($a)  { @return rgba(0, 0, 10, $a); }
