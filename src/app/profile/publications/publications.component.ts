@@ -1,12 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PROJECT_LINKS, COMPANY_LINKS} from '../../config/profile-links';
 import {CommonModule} from '@angular/common';
 import {
   OpenSourceProject,
-  OPEN_SOURCE_PROJECTS,
-  RRE_ARCH_NODES,
-  RRE_STATS,
-  RRE_TECH
+  OPEN_SOURCE_PROJECTS
 } from './publications.data';
 
 @Component({
@@ -14,16 +11,13 @@ import {
   templateUrl: './publications.component.html',
   styleUrls: ['./publications.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule]
 })
 export class PublicationsComponent implements OnInit {
   readonly projectLinks = PROJECT_LINKS;
   readonly companyLinks = COMPANY_LINKS;
-  showRREDeepDive = false;
 
-  readonly rreArchNodes = RRE_ARCH_NODES;
-  readonly rreStats = RRE_STATS;
-  readonly rreTech = RRE_TECH;
   openSourceProjects: OpenSourceProject[] = OPEN_SOURCE_PROJECTS;
 
   availableCategories: string[] = [];

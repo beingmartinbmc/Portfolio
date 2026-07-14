@@ -9,7 +9,7 @@
     <div class="scroll-grid" data-stagger="120">
 
       <!-- Blog 1 -->
-      <a [href]="blogLinks.fortressOfFairPlay" class="scroll-card" target="_blank" rel="noopener">
+      <a [href]="blogLinks.fortressOfFairPlay" class="scroll-card" target="_blank" rel="noopener" (click)="onBlogClick('fortress')">
         <div class="scroll-seal">📜</div>
         <div class="scroll-header">
           <span class="scroll-badge">MEDIUM</span>
@@ -28,7 +28,7 @@
       </a>
 
       <!-- Blog 2 -->
-      <a [href]="blogLinks.neptuneNavigator" class="scroll-card" target="_blank" rel="noopener">
+      <a [href]="blogLinks.neptuneNavigator" class="scroll-card" target="_blank" rel="noopener" (click)="onBlogClick('neptune')">
         <div class="scroll-seal">📜</div>
         <div class="scroll-header">
           <span class="scroll-badge">MEDIUM</span>
@@ -47,7 +47,7 @@
       </a>
 
       <!-- Blog 3 -->
-      <a [href]="blogLinks.trustMeetsGameplay" class="scroll-card" target="_blank" rel="noopener" (click)="onBlogClick()">
+      <a [href]="blogLinks.trustMeetsGameplay" class="scroll-card" target="_blank" rel="noopener" (click)="onBlogClick('trust')">
         <div class="scroll-seal">📜</div>
         <div class="scroll-header">
           <span class="scroll-badge">MEDIUM</span>

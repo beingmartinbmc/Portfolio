@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ANALYTICS_LINKS } from '../../config/profile-links';
 
 
@@ -7,19 +7,10 @@ import { ANALYTICS_LINKS } from '../../config/profile-links';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: []
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   readonly analyticsLinks = ANALYTICS_LINKS;
   readonly currentYear = new Date().getFullYear();
-
-  ngOnInit(): void {
-    this.incrementFlagCounter();
-  }
-
-  private incrementFlagCounter(): void {
-    // Load the flag counter image to increment the counter
-    const img = new Image();
-    img.src = ANALYTICS_LINKS.flagCounterPixel;
-  }
 }

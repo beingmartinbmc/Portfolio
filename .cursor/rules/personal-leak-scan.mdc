@@ -1,0 +1,19 @@
+---
+description: Require a full personal-repository leak scan before publishing changes
+alwaysApply: true
+---
+
+# Personal Repository Leak Gate
+
+This is a public personal repository.
+
+Before every commit, push, release, or publication:
+
+1. Read and follow `~/.cursor/skills/personal-repo-leak-scan/SKILL.md`.
+2. Run:
+   `bash ~/.cursor/skills/personal-repo-leak-scan/scripts/scan.sh "$PWD"`
+3. Review every non-zero result. Stop on confirmed internal data or secrets; document legitimate public references as false positives.
+4. Verify generated lockfiles contain no internal registries, corporate hostnames, or private package URLs.
+5. Use the public npm registry for lockfiles committed to this repository.
+
+Do not bypass this gate because application tests pass; tests do not detect information leaks.

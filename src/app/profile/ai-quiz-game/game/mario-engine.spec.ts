@@ -1,7 +1,7 @@
 import { MarioEngine, GameCallbacks } from './mario-engine';
 import { generateProceduralLevel } from './mario-level-generator';
 import {
-  TILE, Player, Enemy, QuestionBlock, Platform, Level,
+  TILE, Enemy, QuestionBlock, Platform, Level,
 } from './mario-entities';
 import { CollisionResult } from './mario-physics';
 

@@ -85,15 +85,16 @@ describe('Avatar3dComponent', () => {
       expect(component.messages.length).toBe(1);
     }));
 
-    it('escape key closes an open chat', () => {
+    it('escape key closes an open chat', fakeAsync(() => {
       component.isChatOpen = true;
-      component.onEscapeKey();
+      component.onDocumentKeydown(new KeyboardEvent('keydown', { key: 'Escape' }));
+      tick();
       expect(component.isChatOpen).toBeFalse();
-    });
+    }));
 
     it('escape key does nothing when chat is closed', () => {
       component.isChatOpen = false;
-      component.onEscapeKey();
+      component.onDocumentKeydown(new KeyboardEvent('keydown', { key: 'Escape' }));
       expect(component.isChatOpen).toBeFalse();
     });
   });
@@ -158,7 +159,7 @@ describe('Avatar3dComponent', () => {
       const aiReq = httpMock.expectOne(environment.aiApiUrl);
       aiReq.flush('boom', { status: 500, statusText: 'Server Error' });
       tick(200);
-      expect(component.messages.some(m => m.text.includes('went wrong'))).toBeTrue();
+      expect(component.messages.some(m => m.text.includes('temporarily unavailable'))).toBeTrue();
       expect(component.isTyping).toBeFalse();
     }));
 
@@ -179,14 +180,15 @@ describe('Avatar3dComponent', () => {
   });
 
   describe('text-to-speech', () => {
-    it('toggleTTS flips the flag and stops speech when disabling', () => {
+    it('toggleTTS opts in, then stops speech when disabling', () => {
       const stopSpy = spyOn(component, 'stopSpeech').and.callThrough();
+      expect(component.ttsEnabled).toBeFalse();
+      component.toggleTTS();
       expect(component.ttsEnabled).toBeTrue();
+      expect(stopSpy).not.toHaveBeenCalled();
       component.toggleTTS();
       expect(component.ttsEnabled).toBeFalse();
       expect(stopSpy).toHaveBeenCalled();
-      component.toggleTTS();
-      expect(component.ttsEnabled).toBeTrue();
     });
 
     it('stopSpeech tears down any active audio', () => {

@@ -8,7 +8,10 @@ describe('ScrollXpService', () => {
   let achievements: jasmine.SpyObj<AchievementsService>;
 
   beforeEach(() => {
-    achievements = jasmine.createSpyObj<AchievementsService>('AchievementsService', ['trackSpeedRun']);
+    achievements = jasmine.createSpyObj<AchievementsService>(
+      'AchievementsService',
+      ['trackSpeedRun', 'trackSectionView'],
+    );
     TestBed.configureTestingModule({
       providers: [
         ScrollXpService,
@@ -38,6 +41,13 @@ describe('ScrollXpService', () => {
     expect(snapshot(service.xp$)).toBe(10);
     view('skill');
     expect(snapshot(service.xp$)).toBe(20);
+  });
+
+  it('tracks each unique section for the explorer achievement', () => {
+    view('about');
+    view('about');
+    view('skill');
+    expect(achievements.trackSectionView).toHaveBeenCalledTimes(2);
   });
 
   it('ignores repeated views of the same section', () => {

@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AchievementsService } from '../../services/achievements.service';
 import { AudioService } from '../../services/audio.service';
@@ -19,6 +19,7 @@ import { AudioService } from '../../services/audio.service';
       </div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     .god-mode-overlay {
       position: fixed;

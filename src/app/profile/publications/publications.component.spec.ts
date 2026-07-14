@@ -73,10 +73,10 @@ describe('PublicationsComponent', () => {
       expect(badge.getAttribute('rel')).toContain('noopener');
     });
 
-    it('shows the On-call AI Agent quest name and key abilities', () => {
+    it('shows the AI-assisted incident triage quest and public-safe abilities', () => {
       const card: HTMLElement = fixture.nativeElement.querySelector('.salesforce-card');
-      expect(card.textContent).toContain('On-call AI Agent');
-      ['RAG', 'Bedrock', 'MCP Servers', 'Spring AI'].forEach(ability => {
+      expect(card.textContent).toContain('AI-assisted Incident Triage');
+      ['RAG', 'Tool Calling', 'Evaluation', 'Guardrails'].forEach(ability => {
         expect(card.textContent).toContain(ability);
       });
     });
@@ -86,19 +86,4 @@ describe('PublicationsComponent', () => {
     });
   });
 
-  describe('RRE deep dive data', () => {
-    it('exposes architecture nodes, stats and tech for the boss fight', () => {
-      expect(component.rreArchNodes.length).toBeGreaterThan(0);
-      expect(component.rreStats.length).toBeGreaterThan(0);
-      expect(component.rreTech.length).toBeGreaterThan(0);
-      component.rreArchNodes.forEach(n => {
-        expect(n.label.trim().length).toBeGreaterThan(0);
-        expect(n.color).toMatch(/^#/);
-      });
-    });
-
-    it('defaults the deep dive panel to collapsed', () => {
-      expect(component.showRREDeepDive).toBeFalse();
-    });
-  });
 });

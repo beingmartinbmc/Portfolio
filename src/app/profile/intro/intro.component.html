@@ -24,24 +24,24 @@
 
       <div class="hero-actions">
         <a class="apple-btn apple-btn-primary" href="" (click)="scrollToOperatingStyle($event)">
-          <i class="fas fa-paper-plane"></i>
+          <span aria-hidden="true">↗</span>
           How I work
         </a>
 
         <div class="document-menu" [class.open]="showDocumentDropdown">
           <button class="apple-btn apple-btn-secondary" (click)="toggleDocumentDropdown($event)">
-            <i class="fas fa-file-arrow-down"></i>
+            <span aria-hidden="true">↓</span>
             Download docs
           </button>
 
           @if (showDocumentDropdown) {
             <div class="document-dropdown">
               <a [href]="documentLinks.resume" target="_blank" rel="noopener" (click)="trackResumeDownload()">
-                <i class="fas fa-file-lines"></i>
+                <span aria-hidden="true">▤</span>
                 Resume
               </a>
               <a [href]="documentLinks.coverLetter" target="_blank" rel="noopener">
-                <i class="fas fa-envelope-open-text"></i>
+                <span aria-hidden="true">✉</span>
                 Cover Letter
               </a>
             </div>
@@ -50,14 +50,14 @@
       </div>
 
       <div class="hero-social">
-        <a class="social-link" [href]="socialLinks.linkedin" target="_blank" rel="noopener" title="LinkedIn" (click)="trackSocialClick()">
-          <i class="fab fa-linkedin-in"></i>
+        <a class="social-link" [href]="socialLinks.linkedin" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn profile" (click)="trackSocialClick()">
+          <span aria-hidden="true">in</span>
         </a>
-        <a class="social-link" [href]="socialLinks.github" target="_blank" rel="noopener" title="GitHub" (click)="trackSocialClick()">
-          <i class="fab fa-github"></i>
+        <a class="social-link" [href]="socialLinks.github" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub profile" (click)="trackSocialClick()">
+          <span aria-hidden="true">GH</span>
         </a>
-        <a class="social-link" [href]="socialLinks.stackOverflow" target="_blank" rel="noopener" title="Stack Overflow" (click)="trackSocialClick()">
-          <i class="fab fa-stack-overflow"></i>
+        <a class="social-link" [href]="socialLinks.stackOverflow" target="_blank" rel="noopener" title="Stack Overflow" aria-label="Stack Overflow profile" (click)="trackSocialClick()">
+          <span aria-hidden="true">SO</span>
         </a>
       </div>
 
@@ -73,7 +73,13 @@
 
     <div class="hero-panel apple-card">
       <div class="hero-portrait">
-        <img alt="Ankit Sharma" src="./assets/images/ankit.png">
+        <img
+          alt="Ankit Sharma"
+          src="assets/images/ankit.webp"
+          width="768"
+          height="1152"
+          fetchpriority="high"
+          decoding="async">
       </div>
 
       <div class="hero-panel-content">

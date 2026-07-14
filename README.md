@@ -1,120 +1,74 @@
-# Personal Portfolio - Angular
+# Ankit Sharma — Portfolio
 
-A modern personal portfolio application built with **Angular 21** and **Angular Material**.
+An Angular 22 portfolio focused on backend engineering, AI agents, writing, and open-source work.
 
-## Features
+## Highlights
 
-- **Angular 21** with TypeScript
-- **Angular Material & CDK** for UI components
-- **Angular Router** for navigation
-- **Bootstrap 5** for layout and styling
-- **Three.js** for 3D avatar rendering
-- **Audio visualizer** with Web Audio API
-- **AI Quiz Game** and **AI Code Review** interactive sections
-- **Particle effects** background
-- **Responsive design** for mobile and desktop
+- Standalone Angular application with responsive, custom SCSS
+- Deferred Three.js avatar and AI-generated platform game
+- Portfolio-aware AI chat with optional text-to-speech
+- Keyboard-accessible interactive cards and game controls
+- Gamified achievements, experience map, and progress tracking
+- Production build deployed to GitHub Pages
 
-## Project Structure
+The AI chat sends messages—and voice text when enabled—to third-party AI services. Do not submit sensitive information.
 
-```
-src/
-├── app/
-│   ├── ai-face/                 # AI face component
-│   ├── config/                  # App configuration
-│   ├── profile/
-│   │   ├── about/               # About section
-│   │   ├── ai-code-review/      # AI code review feature
-│   │   ├── ai-quiz-game/        # AI quiz game feature
-│   │   ├── avatar-3d/           # 3D avatar with Three.js
-│   │   ├── blog/                # Blog section
-│   │   ├── contact/             # Contact form
-│   │   ├── education/           # Education section
-│   │   ├── experience/          # Experience section
-│   │   ├── footer/              # Footer
-│   │   ├── header/              # Navigation header with audio visualizer
-│   │   ├── intro/               # Hero/intro section
-│   │   ├── particle/            # Particle effects
-│   │   ├── publications/        # Publications section
-│   │   └── skills/              # Skills section
-│   ├── services/                # Shared services
-│   ├── app.module.ts            # Root module
-│   └── app-routing.module.ts    # Route definitions
-├── assets/                      # Static assets (images, audio, 3D models, CSS, JS)
-├── environments/                # Environment configurations
-├── styles.scss                  # Global styles
-└── main.ts                      # Application entry point
-```
+## Requirements
 
-## Development
-
-### Prerequisites
-
-- Node.js (v18 or higher)
+- Node.js 24
 - npm
 
-### Installation
+## Local development
 
 ```bash
-npm install
-```
-
-### Development Server
-
-```bash
+npm ci
 npm start
 ```
 
-The application will be available at `http://localhost:4200`
+The development server runs at `http://localhost:4200`.
 
-### Build
+## Quality checks
 
 ```bash
-npm run build
+npm run lint
+npm run test:ci
+npm run build:prod
+npm run e2e:install  # first Playwright run only
+npm run e2e
 ```
 
-### Production Build
+Unit-test coverage is enforced in `karma.conf.js`. Playwright covers the critical render and keyboard-interaction paths.
+
+## Production and deployment
 
 ```bash
 npm run build:prod
 ```
 
-### Deploy (GitHub Pages)
+Optimized output is written to `dist/portfolio/`. GitHub Actions validates the application and deploys that artifact to GitHub Pages; generated output is not committed.
 
-```bash
-npm run deploy
+## Structure
+
+```text
+src/
+├── app/
+│   ├── config/          # Public client configuration and links
+│   ├── profile/         # Portfolio sections, avatar, and game
+│   ├── services/        # Achievements, audio, and scroll progress
+│   ├── shared/          # Reusable UI and markdown rendering
+│   └── app.component.*  # Standalone root component
+├── assets/              # Images, audio, and optimized 3D model
+├── environments/        # Environment-specific API endpoints
+├── styles.scss          # Global design system
+└── main.ts              # bootstrapApplication entry point
 ```
 
-Output is generated in the `docs/` directory.
+## Core stack
 
-### Test
-
-```bash
-npm test
-```
-
-### Lint
-
-```bash
-npm run lint
-```
-
-## Dependencies
-
-### Core
-- Angular 21.1.3
-- TypeScript 5.9.3
-- RxJS 7.8.2
-- Zone.js 0.15.1
-
-### UI & Styling
-- Angular Material 21.1.3
-- Angular CDK 21.1.3
-- Bootstrap 5.3.7
-- ngx-spinner 19.0.0
-
-### 3D & Graphics
-- Three.js 0.181.1
-
-### Testing
-- Karma 6.4.4
-- Jasmine 4.6.1
+- Angular 22.0.6
+- TypeScript 6.0
+- RxJS 7.8
+- Three.js 0.185
+- Jasmine/Karma for unit tests
+- Angular ESLint
+- Playwright

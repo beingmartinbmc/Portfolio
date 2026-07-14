@@ -34,14 +34,14 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     location: 'Hybrid in Hyderabad, India',
     duration: 'Current',
     period: '2025 - Present',
-    description: 'Senior Member of Technical Staff on Slack. I build AI agents and LLM-backed services — including an on-call bot that handles first-level RCA — and work on the Thunderbird architecture and Slackbot/Einstein with Agentforce.',
-    technologies: ['Java', 'AI Agents', 'LLMs', 'RAG', 'Agentforce', 'Slack Platform', 'Splunk', 'Einstein AI', 'Thunderbird', 'Microservices'],
+    description: 'Senior Member of Technical Staff building AI agents and LLM-backed services for enterprise collaboration and engineering workflows.',
+    technologies: ['Java', 'AI Agents', 'LLMs', 'RAG', 'Tool Calling', 'Evaluation', 'Observability', 'Microservices'],
     achievements: [
-      'Built an on-call AI bot for first-level RCA — it reads logs in Splunk, traces code in GitHub, pulls context from Drive, Confluence, and Slack, and hands the engineer one summary of what likely broke',
-      'Set up RAG pipelines and tool-calling agents with grounding, evals, and guardrails to keep them from hallucinating',
-      'AI services hold up at ~1.5K RPS with sub-second p95 on retrieval',
-      'Working on the Thunderbird architecture for Slack and on Slackbot/Einstein with Agentforce',
-      'Pushing on engineering practices and code quality across the team'
+      'Built AI-assisted operational workflows that synthesize approved engineering context into reviewable summaries',
+      'Set up retrieval and tool-calling patterns with grounding, evaluations, and guardrails',
+      'Improved reliability, latency, and failure handling for LLM-backed services',
+      'Contributed to enterprise collaboration and assistant experiences',
+      'Raised engineering practices and code quality across the team'
     ]
   },
   {
@@ -56,8 +56,8 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     description: 'Worked as a backend developer in Platform services, for both RummyCircle and My11Circle. Led critical platform initiatives and mentored junior developers.',
     technologies: ['Kafka', 'Spring Cloud', 'LLM', 'AWS Sage Maker', 'Google AD APIs', 'Elasti-cache', 'JDK 21', 'Neptune DB', 'Gremlin', 'Grafana', 'Prometheus', 'Pager Duty'],
     achievements: [
-      'Developed Risk Rule Engine for Games24x7 that works in My11Circle and RummyCircle, that identifies Fraud done by users in real time',
-      'Developed Google ad monitoring service which keeps on monitoring the campaign spends done by the marketing team',
+      'Developed a real-time, configurable risk evaluation platform for consumer gaming products',
+      'Developed an advertising spend monitoring service for the marketing team',
       'Standardized and migrated services from EC2 to Graviton in K8s',
       'Set up proper alerting for business dashboards and created PD alerts',
       'Mentored a team of 3 junior developers'
@@ -72,13 +72,13 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     location: 'Bangalore, India',
     duration: '1.1 years',
     period: '2021 - 2022',
-    description: 'Working as a backend developer in My11Circle team. Developed scalable solutions for high-traffic gaming platform.',
+    description: 'Worked as a backend developer on scalable solutions for a high-traffic consumer gaming platform.',
     technologies: ['Java 11', 'Microservices', 'AWS', 'OCR', 'Redis', 'Kafka', 'RabbitMQ', 'MySQL', 'Spring Boot', 'Spring Cloud', 'Distributed Locking'],
     achievements: [
-      'Helped My11Circle grow and scale to achieve 10 Million concurrent users',
-      'Worked on several projects for My11Circle and RummyCircle',
-      'Developed Automated KYC system of Games24x7 from scratch',
-      'Developed Club upgradation to turn to VIP users, features for My11Circle users'
+      'Helped a high-traffic gaming platform scale through major seasonal events',
+      'Worked on shared backend capabilities across multiple gaming products',
+      'Developed an automated identity-verification platform from scratch',
+      'Shipped customer progression and membership features'
     ]
   },
   {
@@ -90,11 +90,11 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     location: 'Bangalore, India',
     duration: '4 months',
     period: '2021',
-    description: 'Built features for Walmart\'s Annual Enrollment platform — the system employees use to enroll in health benefits (life insurance, dental, health coverage) for 2.2M+ associates.',
+    description: 'Built features for Walmart\'s employee benefits enrollment platform.',
     technologies: ['Java 8', 'Angular', 'JSP', 'OneOps', 'WCNP', 'Jenkins'],
     achievements: [
-      'Developed enrollment features serving 2.2M+ Walmart associates across the US',
-      'Built on Walmart\'s private cloud (OneOps/WCNP) with CI/CD via Jenkins',
+      'Developed benefits-enrollment features for a large US associate population',
+      'Built on enterprise cloud infrastructure with CI/CD via Jenkins',
       'Shipped production code within first month, collaborating across US and India teams'
     ]
   },
@@ -113,7 +113,7 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
       'Broke Monolithic architecture to Microservices and discussed the whole architecture with the team',
       'Developed and deployed 5+ production-ready applications',
       'Implemented OAuth2.0 authentication system',
-      'Reduced system downtime by 80% through improved architecture'
+      'Improved system reliability through service-oriented architecture'
     ]
   }
 ];

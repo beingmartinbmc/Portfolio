@@ -1,7 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+import {Component, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {IntroComponent} from './intro/intro.component';
@@ -21,6 +18,7 @@ import {MetricsDashboardComponent} from './metrics-dashboard/metrics-dashboard.c
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     HeaderComponent,
     FooterComponent,
@@ -38,28 +36,22 @@ import {MetricsDashboardComponent} from './metrics-dashboard/metrics-dashboard.c
   ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-
-  private destroy$ = new Subject<void>();
-
-  constructor(
-    private route: ActivatedRoute
-  ) {
-  }
+  private readonly hashChangeHandler = () => this.scrollToCurrentHash();
 
   ngOnInit() {
-    // Handle navigation and scroll to fragments
-    this.route.fragment.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(fragment => {
-      if (fragment) {
-        this.scrollToFragment(fragment);
-      }
-    });
+    window.addEventListener('hashchange', this.hashChangeHandler);
+    this.scrollToCurrentHash();
   }
 
   ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+    window.removeEventListener('hashchange', this.hashChangeHandler);
+  }
+
+  private scrollToCurrentHash(): void {
+    const fragment = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+    if (fragment) {
+      this.scrollToFragment(fragment);
+    }
   }
 
   private scrollToFragment(fragment: string) {

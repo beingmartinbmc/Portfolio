@@ -1,7 +1,7 @@
-import { Component, OnDestroy, ViewChild, ElementRef, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ElementRef, NgZone, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subject, takeUntil, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { createOpenAiProxyRequest, getAiResponseText } from '../../config/api-config';
 import { MarioEngine } from './game/mario-engine';
@@ -11,6 +11,7 @@ import {
 } from './game/mario-level-generator';
 import { LevelType } from './game/mario-entities';
 import { QUIZ_CATEGORIES, QUIZ_DIFFICULTIES, QUIZ_LEVEL_TYPES } from './ai-quiz-game.data';
+import { AchievementsService } from '../../services/achievements.service';
 
 type ViewState = 'setup' | 'loading' | 'playing' | 'results';
 
@@ -19,6 +20,7 @@ type ViewState = 'setup' | 'loading' | 'playing' | 'results';
   templateUrl: './ai-quiz-game.component.html',
   styleUrls: ['./ai-quiz-game.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule]
 })
 export class AiQuizGameComponent implements OnDestroy {
@@ -42,6 +44,8 @@ export class AiQuizGameComponent implements OnDestroy {
   private resizeObserver: ResizeObserver | null = null;
   private fullscreenHandler: (() => void) | null = null;
   private canvasResize: (() => void) | null = null;
+  private readonly destroy$ = new Subject<void>();
+  private destroyed = false;
 
   categories = QUIZ_CATEGORIES;
 
@@ -50,9 +54,17 @@ export class AiQuizGameComponent implements OnDestroy {
   // The three play modes: each is a full Mario platformer with its own movement style.
   levelTypes = QUIZ_LEVEL_TYPES;
 
-  constructor(private http: HttpClient, private zone: NgZone, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private http: HttpClient,
+    private zone: NgZone,
+    private cdr: ChangeDetectorRef,
+    private achievementsService: AchievementsService,
+  ) {}
 
   ngOnDestroy(): void {
+    this.destroyed = true;
+    this.destroy$.next();
+    this.destroy$.complete();
     this.stopActiveGame();
   }
 
@@ -81,6 +93,10 @@ export class AiQuizGameComponent implements OnDestroy {
       }
     } catch {
       level = generateProceduralLevel(config);
+    }
+
+    if (this.destroyed) {
+      return;
     }
 
     this.viewState = 'playing';
@@ -131,6 +147,7 @@ export class AiQuizGameComponent implements OnDestroy {
   private handleDeath(): void {
     this.won = false;
     this.enemiesStomped = this.engine?.enemiesStomped ?? 0;
+    this.achievementsService.trackGameScore(this.score);
     this.viewState = 'results';
     this.stopActiveGame();
   }
@@ -139,6 +156,7 @@ export class AiQuizGameComponent implements OnDestroy {
     this.won = true;
     this.score = this.engine?.player.score ?? this.score;
     this.enemiesStomped = this.engine?.enemiesStomped ?? 0;
+    this.achievementsService.trackGameScore(this.score);
     this.viewState = 'results';
     this.stopActiveGame();
   }
@@ -199,6 +217,9 @@ export class AiQuizGameComponent implements OnDestroy {
           { role: 'user', content: prompt },
         ]),
         { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) },
+      ).pipe(
+        timeout({ first: 12_000 }),
+        takeUntil(this.destroy$),
       ));
 
       const content = getAiResponseText(response);
@@ -216,6 +237,25 @@ export class AiQuizGameComponent implements OnDestroy {
       console.error('AI level generation failed:', e);
     }
     return null;
+  }
+
+  handleControlKey(
+    event: KeyboardEvent,
+    control: 'left' | 'right' | 'jump' | 'fire' | 'down',
+    active: boolean,
+  ): void {
+    if (event.key !== ' ' && event.key !== 'Enter') {
+      return;
+    }
+    event.preventDefault();
+    const handlers = {
+      left: (pressed: boolean) => this.touchLeft(pressed),
+      right: (pressed: boolean) => this.touchRight(pressed),
+      jump: (pressed: boolean) => this.touchJump(pressed),
+      fire: (pressed: boolean) => this.touchFire(pressed),
+      down: (pressed: boolean) => this.touchDown(pressed),
+    };
+    handlers[control](active);
   }
 
   private stopActiveGame(): void {

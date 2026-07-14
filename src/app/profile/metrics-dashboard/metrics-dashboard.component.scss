@@ -1,6 +1,6 @@
 @use 'shared' as *;
 
-$pixel: 'Press Start 2P', monospace;
+$pixel: var(--font-pixel);
 $gold: #fbbf24;
 $green: #34d399;
 $bg-deep: #0a0a1e;

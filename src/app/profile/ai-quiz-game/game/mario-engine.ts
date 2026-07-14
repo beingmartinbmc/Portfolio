@@ -114,7 +114,7 @@ export class MarioEngine {
   private handlePowerUp(qb: QuestionBlock): void {
     MarioAudio.questionBlock();
     const kw = qb.keyword || this.nextKeyword();
-    let color = '#fbbf24';
+    let color: string;
 
     switch (qb.reward) {
       case 'star':

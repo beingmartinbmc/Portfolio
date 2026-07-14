@@ -1,5 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef, NgZone, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef, NgZone, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { EXPERIENCE_ITEMS, EXPERIENCE_START_DATE, ExperienceItem } from './experience.data';
+import { AchievementsService } from '../../services/achievements.service';
 
 interface TimelineStop {
   id: string;
@@ -14,6 +15,7 @@ interface TimelineStop {
   templateUrl: './experience.component.html',
   styleUrls: ['./experience.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: []
 })
 export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -32,10 +34,14 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
   marioFacingLeft = false;
 
   private runTimer: any = null;
+  private readonly visitedStopIds = new Set<string>();
 
   private readonly experienceItems: ExperienceItem[] = EXPERIENCE_ITEMS;
 
-  constructor(private zone: NgZone) {}
+  constructor(
+    private zone: NgZone,
+    private achievements: AchievementsService,
+  ) {}
 
   ngOnInit(): void {
     this.calculateTotalExperience();
@@ -91,6 +97,10 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.activeStop = stop;
     this.activeRole = stop.roles[0];
+    if (!this.visitedStopIds.has(stop.id)) {
+      this.visitedStopIds.add(stop.id);
+      this.achievements.trackExperienceStop();
+    }
     this.moveMarioTo(idx, true);
   }
 

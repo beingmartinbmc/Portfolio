@@ -20,10 +20,10 @@ export function cleanTextForSpeech(text: string): string {
       .replace(/`(.*?)`/g, '$1')           // Remove inline code `text`
       .replace(/```[\s\S]*?```/g, '')      // Remove code blocks
       .replace(/#{1,6}\s*/g, '')           // Remove headers
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links, keep text
       .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1') // Remove images, keep alt text
-      .replace(/[#*`_~\[\]()]/g, '')       // Remove remaining markdown chars
-      .replace(/[👋😅🤖💡🔊🔇⏹️⏳]/g, '') // Remove emojis
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links, keep text
+      .replace(/[#*`_~()[\]]/g, '')       // Remove remaining markdown chars
+      .replace(/\p{Extended_Pictographic}|\uFE0F/gu, '') // Remove emojis
       .replace(/\s+/g, ' ')                // Normalize whitespace
       .trim();
   } catch (error) {

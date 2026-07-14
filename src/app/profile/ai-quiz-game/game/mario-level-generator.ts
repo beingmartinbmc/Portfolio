@@ -1,4 +1,4 @@
-import { TILE, Platform, Enemy, Coin, QuestionBlock, FlagPole, Level, Player, PowerUpType, FloatingText, Debris, LevelType, CATEGORY_KEYWORDS, CATEGORY_BUG_KEYWORDS } from './mario-entities';
+import { TILE, Platform, Enemy, Coin, QuestionBlock, FlagPole, Level, Player, PowerUpType, LevelType, EnemyType, CATEGORY_KEYWORDS, CATEGORY_BUG_KEYWORDS } from './mario-entities';
 
 const LEVEL_TILES_WIDE = 96;
 const GROUND_ROW = 12;
@@ -611,7 +611,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
     requireKoopa: zone.requireKoopa === true,
   }));
 
-  zones.forEach((zone, zoneIndex) => {
+  zones.forEach(zone => {
     const zoneWidth = zone.end - zone.start;
     const step = Math.max(3, Math.floor(zoneWidth / (zone.count + 1)));
     let koopaPlaced = false;
@@ -637,9 +637,9 @@ export function generateProceduralLevel(config: LevelConfig): Level {
         }
         if (placed >= 0) ex = placed;
       }
-      const mustUseKoopa = zone.requireKoopa && !koopaPlaced && i === zone.count - 1;
-      const type = mustUseKoopa || Math.random() < zone.koopaChance ? 'koopa' : 'goomba';
-      const enemy = new Enemy(ex * TILE, (GROUND_ROW - 1) * TILE, type as any);
+      const mustUseKoopa: boolean = zone.requireKoopa && !koopaPlaced && i === zone.count - 1;
+      const type: EnemyType = mustUseKoopa || Math.random() < zone.koopaChance ? 'koopa' : 'goomba';
+      const enemy = new Enemy(ex * TILE, (GROUND_ROW - 1) * TILE, type);
       enemy.keyword = uniqueKeyword(bugKw, bugIdx, usedBugKeywords);
       bugIdx++;
       enemies.push(enemy);

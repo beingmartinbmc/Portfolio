@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {SKILL_DETAILS, SkillDetail} from './skills.data';
 import {NgClass} from '@angular/common';
 import {AchievementsService} from '../../services/achievements.service';
@@ -29,6 +29,7 @@ export interface Constellation {
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgClass]
 })
 export class SkillsComponent implements OnInit {
@@ -205,6 +206,10 @@ export class SkillsComponent implements OnInit {
     return level === 'primary' ? 'BOSS' : level === 'secondary' ? 'MAIN' : 'SUPPORT';
   }
 
+  getSkillDetailsId(skill: Skill): string {
+    return `skill-${skill.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-details`;
+  }
+
   get totalSkillCount(): number {
     return this.constellations.reduce((sum, c) => sum + c.skills.length, 0);
   }
@@ -221,7 +226,7 @@ export class SkillsComponent implements OnInit {
     return Math.round(all.reduce((sum, s) => sum + s.proficiency, 0) / all.length);
   }
 
-  toggleCard(skill: Skill, constellation: Constellation): void {
+  toggleCard(skill: Skill): void {
     if (this.expandedSkill === skill) {
       this.expandedSkill = null;
       return;

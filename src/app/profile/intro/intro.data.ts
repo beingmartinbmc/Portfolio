@@ -13,9 +13,9 @@ export interface FocusArea {
 
 export const HERO_METRICS: HeroMetric[] = [
   { value: '6+', label: 'years building backend platforms' },
-  { value: '2.7K', label: 'RPS handled on production systems' },
-  { value: '200K+', label: 'daily verifications automated' },
-  { value: '10M', label: 'concurrent users supported' }
+  { value: '4', label: 'product organizations' },
+  { value: '3', label: 'engineering articles published' },
+  { value: '8', label: 'open-source packages shipped' }
 ];
 
 export const FOCUS_AREAS: FocusArea[] = [
@@ -23,7 +23,7 @@ export const FOCUS_AREAS: FocusArea[] = [
     icon: '🤖',
     title: 'AI Agents & LLMs',
     tag: 'STAR MODE',
-    description: 'Tool-calling agents and Slack bots — including an on-call bot that debugs across Splunk, GitHub, Confluence, Drive, and Slack.',
+    description: 'Tool-calling agents and Slack bots that combine approved operational and knowledge sources into useful workflows.',
     color: 'gold'
   },
   {

@@ -61,6 +61,7 @@ export class ScrollXpService implements OnDestroy {
   private onSectionView(id: string): void {
     if (!this.sections.includes(id) || this.viewedSections.has(id)) return;
     this.viewedSections.add(id);
+    this.achievements.trackSectionView();
     this.recalcXp();
   }
 
@@ -72,7 +73,12 @@ export class ScrollXpService implements OnDestroy {
     // If user is within 100px of the page bottom, grant full XP
     if (scrollTop + windowHeight >= docHeight - 100) {
       // Mark all sections as viewed
-      this.sections.forEach(id => this.viewedSections.add(id));
+      this.sections.forEach(id => {
+        if (!this.viewedSections.has(id)) {
+          this.viewedSections.add(id);
+          this.achievements.trackSectionView();
+        }
+      });
       this.recalcXp();
     }
   }

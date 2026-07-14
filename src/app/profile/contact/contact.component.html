@@ -16,7 +16,17 @@
       <div class="panel-body">
         <div class="style-grid">
           @for (card of fitCards; track card.title; let i = $index) {
-            <div class="style-card" [attr.data-color]="card.color" [class.active]="selectedCard === i" (mouseenter)="selectedCard = i">
+            <div
+              class="style-card"
+              role="button"
+              tabindex="0"
+              [attr.aria-pressed]="selectedCard === i"
+              [attr.data-color]="card.color"
+              [class.active]="selectedCard === i"
+              (click)="selectedCard = i"
+              (keydown.enter)="selectedCard = i"
+              (keydown.space)="selectedCard = i; $event.preventDefault()"
+              (mouseenter)="selectedCard = i">
               <div class="sc-icon">{{ card.icon }}</div>
               <h4 class="sc-name">{{ card.title }}</h4>
               <span class="sc-tag" [attr.data-color]="card.color">{{ card.tag }}</span>

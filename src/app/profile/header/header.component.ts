@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, OnDestroy} from '@angular/core';
+import {Component, HostListener, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ScrollXpService} from '../../services/scroll-xp.service';
 import {Subscription} from 'rxjs';
@@ -8,6 +8,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule]
 })
 export class HeaderComponent implements OnInit, OnDestroy {

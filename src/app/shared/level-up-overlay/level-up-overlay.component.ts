@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollXpService } from '../../services/scroll-xp.service';
 import { AudioService } from '../../services/audio.service';
@@ -25,6 +25,7 @@ import { Subscription } from 'rxjs';
       </div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     .levelup-overlay {
       position: fixed;

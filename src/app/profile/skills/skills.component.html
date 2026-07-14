@@ -27,7 +27,11 @@
       </div>
 
       <div class="skills-controls">
-        <button class="system-mode-toggle" [ngClass]="{'system-mode-toggle--active': systemMode}" (click)="toggleSystemMode()">
+        <button
+          class="system-mode-toggle"
+          [ngClass]="{'system-mode-toggle--active': systemMode}"
+          [attr.aria-pressed]="systemMode"
+          (click)="toggleSystemMode()">
           <span class="system-mode-icon">&#x1f3ae;</span>
           <span class="system-mode-label">{{ systemMode ? 'Skill inventory' : 'Architecture route' }}</span>
         </button>
@@ -100,6 +104,10 @@
         <div class="skill-card-grid">
           @for (skill of constellation.skills; track skill.name) {
             <div class="skill-card"
+                 role="button"
+                 tabindex="0"
+                 [attr.aria-expanded]="isExpanded(skill)"
+                 [attr.aria-controls]="skill.details ? getSkillDetailsId(skill) : null"
                  [ngClass]="{
                    'skill-card--primary': skill.level === 'primary',
                    'skill-card--secondary': skill.level === 'secondary',
@@ -107,7 +115,9 @@
                    'skill-card--expanded': isExpanded(skill),
                    'skill-card--flow': isSystemFlowNode(skill)
                  }"
-                 (click)="toggleCard(skill, constellation)">
+                 (click)="toggleCard(skill)"
+                 (keydown.enter)="toggleCard(skill)"
+                 (keydown.space)="toggleCard(skill); $event.preventDefault()">
 
               <!-- Flow badge for system mode -->
               @if (isSystemFlowNode(skill)) {
@@ -133,7 +143,7 @@
 
               <!-- Expanded detail panel -->
               @if (isExpanded(skill) && skill.details) {
-                <div class="card-details">
+                <div class="card-details" [id]="getSkillDetailsId(skill)">
                   <p class="detail-description">{{ skill.details.description }}</p>
 
                   <div class="detail-section">

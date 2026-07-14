@@ -1,5 +1,4 @@
-import {Component, ElementRef, OnInit, OnDestroy} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {Component, ElementRef, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 
 interface MetricCard {
   value: string;
@@ -15,23 +14,24 @@ interface MetricCard {
   selector: 'app-metrics-dashboard',
   templateUrl: './metrics-dashboard.component.html',
   styleUrls: ['./metrics-dashboard.component.scss'],
-  standalone: true,
-  imports: [CommonModule]
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: true
 })
 export class MetricsDashboardComponent implements OnInit, OnDestroy {
   private observer?: IntersectionObserver;
+  private animationFrameId?: number;
   animated = false;
 
   readonly metrics: MetricCard[] = [
-    { value: '0', numericEnd: 5547, suffix: '', label: 'PEAK THROUGHPUT', sublabel: 'requests per second', barPct: 92, accent: 'green' },
-    { value: '0', numericEnd: 19.9, suffix: 'M', label: 'REQUESTS / HOUR', sublabel: 'fraud rule evaluations', barPct: 88, accent: 'green' },
-    { value: '0', numericEnd: 7.16, suffix: 'M', label: 'HAND-HISTORY OPS/SEC', sublabel: 'real-time card tracking', barPct: 95, accent: 'gold' },
-    { value: '0', numericEnd: 200, suffix: 'K+', label: 'VERIFICATIONS / DAY', sublabel: 'automated KYC pipeline', barPct: 85, accent: 'gold' },
-    { value: '0', numericEnd: 10, suffix: 'M', label: 'CONCURRENT USERS', sublabel: 'IPL 2025 peak load', barPct: 97, accent: 'green' },
-    { value: '0', numericEnd: 99.95, suffix: '%', label: 'UPTIME SLA', sublabel: 'KYC platform reliability', barPct: 99, accent: 'gold' },
-    { value: '0', numericEnd: 12, suffix: '+', label: 'AI AGENTS SHIPPED', sublabel: 'production LLM / RAG agents', barPct: 86, accent: 'gold' },
-    { value: '0', numericEnd: 4.2, suffix: 'K', label: 'RAG QUERIES / SEC', sublabel: 'grounded retrieval throughput', barPct: 90, accent: 'green' },
+    { value: '0', numericEnd: 6, suffix: '+', label: 'YEARS OF EXPERIENCE', sublabel: 'backend and AI engineering', barPct: 84, accent: 'green' },
+    { value: '0', numericEnd: 4, suffix: '', label: 'PRODUCT ORGANIZATIONS', sublabel: 'enterprise and consumer platforms', barPct: 72, accent: 'green' },
     { value: '0', numericEnd: 3, suffix: '', label: 'ARTICLES PUBLISHED', sublabel: 'engineering deep-dives', barPct: 60, accent: 'gold' },
+    { value: '0', numericEnd: 8, suffix: '', label: 'OPEN-SOURCE PACKAGES', sublabel: 'developer tools and experiments', barPct: 78, accent: 'gold' },
+    { value: '0', numericEnd: 7, suffix: '', label: 'AI / ML SKILL AREAS', sublabel: 'agents, retrieval, evals, and tooling', barPct: 86, accent: 'green' },
+    { value: '0', numericEnd: 8, suffix: '', label: 'ARCHITECTURE LAYERS', sublabel: 'from runtime to AI systems', barPct: 82, accent: 'gold' },
+    { value: '0', numericEnd: 3, suffix: '', label: 'PLAYABLE GAME MODES', sublabel: 'ground, sea, and sky', barPct: 58, accent: 'gold' },
+    { value: '0', numericEnd: 21, suffix: '', label: 'MODERN JAVA', sublabel: 'experience through Java 21', barPct: 90, accent: 'green' },
+    { value: '0', numericEnd: 500, suffix: '+', label: 'DSA PROBLEMS', sublabel: 'problem-solving practice', barPct: 88, accent: 'gold' },
   ];
 
   displayValues: string[] = [];
@@ -55,18 +55,20 @@ export class MetricsDashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
+    if (this.animationFrameId !== undefined) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
   }
 
   private animateCounters(): void {
     const duration = 1800;
-    const fps = 60;
-    const totalFrames = Math.round(duration / (1000 / fps));
+    const startedAt = performance.now();
 
-    this.metrics.forEach((metric, idx) => {
-      let frame = 0;
-      const interval = setInterval(() => {
-        frame++;
-        const progress = this.easeOutExpo(frame / totalFrames);
+    const update = (now: number) => {
+      const elapsed = Math.min(now - startedAt, duration);
+      const progress = this.easeOutExpo(elapsed / duration);
+
+      this.metrics.forEach((metric, idx) => {
         const current = metric.numericEnd * progress;
 
         if (Number.isInteger(metric.numericEnd)) {
@@ -74,15 +76,22 @@ export class MetricsDashboardComponent implements OnInit, OnDestroy {
         } else {
           this.displayValues[idx] = current.toFixed(current < 10 ? 2 : 1);
         }
+      });
 
-        if (frame >= totalFrames) {
-          clearInterval(interval);
-          this.displayValues[idx] = Number.isInteger(metric.numericEnd)
-            ? metric.numericEnd.toLocaleString()
-            : metric.numericEnd.toString();
-        }
-      }, 1000 / fps);
-    });
+      if (elapsed < duration) {
+        this.animationFrameId = requestAnimationFrame(update);
+        return;
+      }
+
+      this.animationFrameId = undefined;
+      this.displayValues = this.metrics.map(metric =>
+        Number.isInteger(metric.numericEnd)
+          ? metric.numericEnd.toLocaleString()
+          : metric.numericEnd.toString()
+      );
+    };
+
+    this.animationFrameId = requestAnimationFrame(update);
   }
 
   private easeOutExpo(t: number): number {

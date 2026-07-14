@@ -20,3 +20,12 @@
     radial-gradient(circle at 85% 18%, red(0.06), transparent 22%),
     radial-gradient(circle at 50% 72%, green(0.05), transparent 24%);
 }
+
+.deferred-section-placeholder {
+  min-height: 18rem;
+  display: grid;
+  place-items: center;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  text-align: center;
+}

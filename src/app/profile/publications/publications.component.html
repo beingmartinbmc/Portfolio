@@ -17,28 +17,26 @@
             <a class="world-badge world-salesforce" [href]="companyLinks.salesforce" target="_blank" rel="noopener">
               <span class="world-icon">☁️</span> Salesforce
             </a>
-            <span class="quest-platform">Thunderbird</span>
+            <span class="quest-platform">Enterprise AI</span>
           </div>
           <div class="quest-status">ACTIVE QUEST ⚔</div>
-          <h4 class="quest-name">On-call AI Agent</h4>
-          <p class="quest-tagline">Autonomous first-level RCA for on-call engineers</p>
+          <h4 class="quest-name">AI-assisted Incident Triage</h4>
+          <p class="quest-tagline">Grounded engineering context for faster investigation</p>
           <p class="pro-card-desc">
-            On-call engineers burned hours digging through logs, code, and docs before they could even start a fix.
-            Built an LLM agent on the Thunderbird platform that grounds answers with RAG and semantic caching, calls tools
-            through MCP servers, and runs across Bedrock, Anthropic, and OpenAI models, handing the engineer one consolidated
-            root-cause summary.
+            Built an LLM-backed workflow that gathers approved operational context, grounds responses with retrieval,
+            and produces concise summaries for an engineer to review.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
             <div class="ability-chips">
-              <span>RAG</span><span>Bedrock</span><span>AWS</span><span>Anthropic</span><span>OpenAI</span><span>Semantic Caching</span><span>MCP Servers</span><span>Redis</span><span>Spring AI</span>
+              <span>RAG</span><span>Tool Calling</span><span>Evaluation</span><span>Guardrails</span><span>Observability</span><span>Java</span>
             </div>
           </div>
           <div class="rewards-row">
             <span class="rewards-label">🏆 REWARDS EARNED</span>
             <div class="reward-chips">
-              <span class="reward-chip">🪙 1.7 RPS queries</span>
-              <span class="reward-chip">⭐ 99% uptime</span>
+              <span class="reward-chip">🪙 Grounded answers</span>
+              <span class="reward-chip">⭐ Human review</span>
             </div>
           </div>
         </div>
@@ -58,20 +56,20 @@
           <p class="quest-tagline">Identity verification at scale — built from scratch</p>
           <p class="pro-card-desc">
             Manual identity checks were slow, error-prone, and couldn't keep up with onboarding volume.
-            Built an automated end-to-end pipeline — Digilocker, Aadhaar Lite, PAN validation, OCR extraction —
-            processing 200K+ verifications daily across two platforms with 99.95% uptime via a distributed Kafka pipeline.
+            Built an automated end-to-end identity verification pipeline with document validation, OCR extraction,
+            asynchronous processing, and reliability controls.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
             <div class="ability-chips">
-              <span>Java</span><span>Spring Boot</span><span>Kafka</span><span>Redis</span><span>OCR</span><span>Digilocker API</span><span>AWS</span>
+              <span>Java</span><span>Spring Boot</span><span>Kafka</span><span>Redis</span><span>OCR</span><span>AWS</span>
             </div>
           </div>
           <div class="rewards-row">
             <span class="rewards-label">🏆 REWARDS EARNED</span>
             <div class="reward-chips">
-              <span class="reward-chip">🪙 200K+ verifications/day</span>
-              <span class="reward-chip">⭐ 99.95% uptime</span>
+              <span class="reward-chip">🪙 Automated workflow</span>
+              <span class="reward-chip">⭐ Reliability-focused</span>
             </div>
           </div>
         </div>
@@ -91,8 +89,8 @@
           <p class="quest-tagline">Real-time fraud detection powered by ML + graph analysis</p>
           <p class="pro-card-desc">
             Agents manually sifted through logs to investigate fraud — static JBPM rules needed dev cycles for every change.
-            Built a real-time rule engine consuming millions of Kafka events, running ML scoring through SageMaker, and mapping
-            fraud networks via Neptune graph DB — replacing manual processes with instant, self-service detection at scale.
+            Built a real-time rule engine combining event streams, ML scoring, and graph analysis — replacing manual
+            processes with configurable, self-service detection.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
@@ -103,62 +101,10 @@
           <div class="rewards-row">
             <span class="rewards-label">🏆 REWARDS EARNED</span>
             <div class="reward-chips">
-              <span class="reward-chip">🪙 Millions of events/day</span>
+              <span class="reward-chip">🪙 Event-driven decisions</span>
               <span class="reward-chip">⭐ Real-time detection</span>
             </div>
           </div>
-          <button class="game-btn game-btn-secondary rre-toggle-btn" (click)="showRREDeepDive = !showRREDeepDive">
-            {{ showRREDeepDive ? '▲ HIDE ARCHITECTURE' : '▼ VIEW ARCHITECTURE' }}
-          </button>
-        </div>
-      </div>
-
-      <!-- RRE Deep-Dive Panel -->
-      <div class="rre-deepdive" *ngIf="showRREDeepDive" data-anim="fade-up">
-        <div class="rre-deepdive-inner">
-          <div class="rre-section-label">🔍 THE PROBLEM</div>
-          <p class="rre-problem">
-            Fraud investigation relied on agents manually sifting through logs and daily cron jobs.
-            Static JBPM rules needed developer cycles for every change, creating a bottleneck that let
-            fraudulent activity slip through during high-traffic windows.
-          </p>
-
-          <div class="rre-section-label">🏗️ ARCHITECTURE</div>
-          <div class="rre-arch-flow">
-            <div *ngFor="let node of rreArchNodes; let last = last" class="rre-arch-segment">
-              <div class="rre-arch-node" [style.border-color]="node.color">
-                <span class="rre-arch-icon">{{ node.icon }}</span>
-                <span class="rre-arch-label">{{ node.label }}</span>
-              </div>
-              <div class="rre-pipe" *ngIf="!last">
-                <span class="pipe-arrow">▸</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="rre-section-label">📈 SCALE</div>
-          <div class="rre-stats-row">
-            <div *ngFor="let stat of rreStats" class="rre-stat-card">
-              <div class="rre-stat-value">{{ stat.value }}</div>
-              <div class="rre-stat-label">{{ stat.label }}</div>
-            </div>
-          </div>
-
-          <div class="rre-section-label">⚡ TECH STACK</div>
-          <div class="rre-tech-row">
-            <span *ngFor="let tech of rreTech" class="rre-tech-chip">{{ tech }}</span>
-          </div>
-
-          <div class="rre-section-label">🏆 IMPACT</div>
-          <p class="rre-impact">
-            Real-time detection replaced manual processes. Agents got self-service rule creation via Agent UI —
-            no more developer cycles for rule changes. Fraud networks mapped via graph analysis caught previously
-            invisible collusion patterns.
-          </p>
-
-          <a href="https://beingmartinbmc.medium.com/creating-a-real-time-rule-engine-with-graph-integration-and-ml-models-cd2e2365d19" target="_blank" rel="noopener" class="game-btn game-btn-primary rre-blog-link">
-            📖&nbsp; Read the Full Case Study on Medium
-          </a>
         </div>
       </div>
 
@@ -176,8 +122,8 @@
           <p class="quest-tagline">ML-powered predictive autoscaling for IPL-level traffic</p>
           <p class="pro-card-desc">
             IPL traffic spikes were unpredictable and crashed infrastructure during peak moments.
-            Built a predictive autoscaler combining Kubernetes HPA and AWS ASG with ML-based load forecasting —
-            pre-scaling infrastructure ahead of toss time. Handled 10M concurrent users during IPL 2025 with zero downtime.
+            Built a predictive autoscaler combining Kubernetes HPA and AWS ASG with load forecasting,
+            pre-scaling infrastructure ahead of major seasonal traffic spikes.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
@@ -188,8 +134,8 @@
           <div class="rewards-row">
             <span class="rewards-label">🏆 REWARDS EARNED</span>
             <div class="reward-chips">
-              <span class="reward-chip legendary">💎 10M concurrent users</span>
-              <span class="reward-chip legendary">🏆 Zero downtime &#64; IPL 2025</span>
+              <span class="reward-chip legendary">💎 Seasonal scale</span>
+              <span class="reward-chip legendary">🏆 Proactive capacity</span>
             </div>
           </div>
         </div>
@@ -205,7 +151,7 @@
             <span class="quest-platform">My11Circle · RummyCircle</span>
           </div>
           <div class="quest-status">MISSION CLEARED ✓</div>
-          <h4 class="quest-name">PAJ3 — Single Sign-On</h4>
+          <h4 class="quest-name">Mobile Single Sign-On</h4>
           <p class="quest-tagline">Frictionless mobile-first user onboarding</p>
           <p class="pro-card-desc">
             Traditional email + password registration caused high drop-off and fragmented sessions across platforms.
@@ -239,22 +185,21 @@
           </div>
           <div class="quest-status">MISSION CLEARED ✓</div>
           <h4 class="quest-name">Annual Enrollment</h4>
-          <p class="quest-tagline">Benefits enrollment for 2.2M+ Walmart associates</p>
+          <p class="quest-tagline">Self-service benefits enrollment for US associates</p>
           <p class="pro-card-desc">
-            2.2M Walmart associates needed a self-service way to enroll in benefits without relying on HR workflows.
-            Built an automated dashboard for eligibility checks and enrollment — dental, life insurance, bonuses, and more —
-            serving every US store with a streamlined, zero-friction experience.
+            Built features for a self-service dashboard supporting eligibility checks and benefits enrollment
+            across US stores.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
             <div class="ability-chips">
-              <span>Java 8</span><span>Angular</span><span>JSP</span><span>OneOps</span><span>Jenkins</span>
+              <span>Java 8</span><span>Angular</span><span>JSP</span><span>CI/CD</span><span>Jenkins</span>
             </div>
           </div>
           <div class="rewards-row">
             <span class="rewards-label">🏆 REWARDS EARNED</span>
             <div class="reward-chips">
-              <span class="reward-chip">🪙 2.2M+ associates</span>
+              <span class="reward-chip">🪙 Enterprise reach</span>
               <span class="reward-chip">⭐ US-wide rollout</span>
             </div>
           </div>
@@ -268,10 +213,10 @@
             <a class="world-badge world-extramarks" [href]="companyLinks.extramarks" target="_blank" rel="noopener">
               <span class="world-icon">📚</span> Extramarks
             </a>
-            <span class="quest-platform">Elsa</span>
+            <span class="quest-platform">K-12 Learning</span>
           </div>
           <div class="quest-status">MISSION CLEARED ✓</div>
-          <h4 class="quest-name">NEMR — Personalized K-12 Courses</h4>
+          <h4 class="quest-name">Personalized K-12 Courses</h4>
           <p class="quest-tagline">Modular course purchasing for students</p>
           <p class="pro-card-desc">
             Students were forced to buy entire curriculums even when they needed just one subject.
@@ -453,20 +398,6 @@
             <h5 class="powerup-name">{{ project.title }}</h5>
             <p class="powerup-tagline">{{ project.tagline }}</p>
             <p class="card-text powerup-desc">{{ project.description }}</p>
-            <div class="powerup-badges">
-              @if (project.badges.version) {
-                <img [src]="project.badges.version" alt="version" class="package-badge">
-              }
-              @if (project.badges.downloads) {
-                <img [src]="project.badges.downloads" alt="downloads" class="package-badge">
-              }
-              @if (project.badges.total) {
-                <img [src]="project.badges.total" alt="total downloads" class="package-badge">
-              }
-              @if (project.badges.java) {
-                <img [src]="project.badges.java" alt="java version" class="package-badge">
-              }
-            </div>
             <a [href]="project.link" class="game-btn game-btn-secondary powerup-btn" target="_blank" rel="noopener">
               ⬇&nbsp; {{ project.linkText }}
             </a>

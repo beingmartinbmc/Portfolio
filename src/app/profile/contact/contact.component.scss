@@ -103,6 +103,11 @@ $pixel: var(--font-pixel);
     .sc-icon { transform: scale(1.15) rotate(-5deg); }
   }
 
+  &:focus-visible {
+    outline: 3px solid rgba($gold, 0.65);
+    outline-offset: 3px;
+  }
+
   &[data-color="gold"] {
     &.active, &:hover { border-color: rgba($gold, 0.4); }
     &::after { background: linear-gradient(180deg, rgba($gold, 0.1), transparent 60%); }

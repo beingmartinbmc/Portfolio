@@ -11,8 +11,13 @@
   "include": [
     "src/**/*.d.ts"
   ],
-  "angularCompilerOptions":{
-    "enableIvy":false
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    },
+    "strictTemplates": true
   }
-
 }

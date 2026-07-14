@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
 
 import { ProfileComponent } from './profile.component';
 
@@ -12,12 +10,6 @@ describe('ProfileComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ProfileComponent, HttpClientTestingModule],
-      providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { fragment: of(null), params: of({}), queryParams: of({}) },
-        },
-      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileComponent);
@@ -31,7 +23,7 @@ describe('ProfileComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('subscribes to the route fragment on init and cleans up on destroy', () => {
+  it('registers hash navigation on init and cleans up on destroy', () => {
     component.ngOnInit();
     expect(() => component.ngOnDestroy()).not.toThrow();
   });

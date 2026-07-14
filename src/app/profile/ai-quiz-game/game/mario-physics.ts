@@ -3,7 +3,7 @@ import {
   GROUND_ACCEL, AIR_ACCEL, GROUND_FRICTION, SKID_FRICTION,
   COYOTE_FRAMES, JUMP_BUFFER_FRAMES, JUMP_CUT_MULTIPLIER,
   FLY_THRUST, FLY_MAX_RISE, FLY_GRAVITY, FLY_MAX_FALL, FLY_DIVE,
-  Player, Platform, Enemy, Coin, QuestionBlock, Fireball, Level
+  Player, Platform, Enemy, QuestionBlock, Fireball, Level
 } from './mario-entities';
 
 export function aabbOverlap(a: AABB, b: AABB): boolean {

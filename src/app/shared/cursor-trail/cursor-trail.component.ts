@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Particle {
@@ -20,6 +20,7 @@ interface Particle {
       }
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     .trail-layer {
       position: fixed;
@@ -62,11 +63,15 @@ export class CursorTrailComponent implements OnInit, OnDestroy {
   private nextId = 0;
   private moveHandler: ((e: MouseEvent) => void) | null = null;
   private frameCount = 0;
+  private readonly removalTimers = new Set<ReturnType<typeof setTimeout>>();
 
   ngOnInit(): void {
     if (typeof window === 'undefined') return;
-    // Only run on non-touch devices
-    if (window.matchMedia('(pointer: coarse)').matches) return;
+    // Only run when pointer and motion preferences make the effect appropriate.
+    if (
+      window.matchMedia('(pointer: coarse)').matches
+      || window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) return;
 
     this.moveHandler = (e: MouseEvent) => {
       this.frameCount++;
@@ -80,6 +85,8 @@ export class CursorTrailComponent implements OnInit, OnDestroy {
     if (this.moveHandler) {
       window.removeEventListener('mousemove', this.moveHandler);
     }
+    this.removalTimers.forEach(timer => clearTimeout(timer));
+    this.removalTimers.clear();
   }
 
   private spawn(x: number, y: number): void {
@@ -92,8 +99,10 @@ export class CursorTrailComponent implements OnInit, OnDestroy {
     }
 
     // Auto-remove after animation
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       this.particles = this.particles.filter(p => p.id !== id);
+      this.removalTimers.delete(timer);
     }, 600);
+    this.removalTimers.add(timer);
   }
 }

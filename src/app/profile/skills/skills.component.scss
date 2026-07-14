@@ -209,6 +209,11 @@
     &::before { opacity: 1; }
   }
 
+  &:focus-visible {
+    outline: 3px solid gold(0.55);
+    outline-offset: 3px;
+  }
+
   &--primary {
     border-color: rgba(255, 213, 79, 0.18);
     &::before { background: linear-gradient(90deg, #FFD54F, #FFB300); }

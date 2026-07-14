@@ -1,16 +1,16 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, HostListener, NgZone, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 import { environment } from '../../../environments/environment';
 import { AI_CONTEXT } from '../../ai-face/ai-context';
-import { MarkdownPipe } from '../../ai-face/markdown.pipe';
+import { MarkdownPipe } from '../../shared/markdown.pipe';
 import { createOpenAiProxyRequest, getAiResponseText, TTS_API_URL } from '../../config/api-config';
-import { trigger, style, transition, animate } from '@angular/animations';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subject, Subscription, takeUntil, timeout, TimeoutError } from 'rxjs';
 import { cleanTextForSpeech } from '../../utils/text-utils';
 import { AchievementsService } from '../../services/achievements.service';
 import { AudioService } from '../../services/audio.service';
@@ -26,23 +26,14 @@ interface Message {
   standalone: true,
   imports: [FormsModule, MarkdownPipe],
   templateUrl: './avatar-3d.component.html',
-  styleUrls: ['./avatar-3d.component.scss'],
-  animations: [
-    trigger('chatAnimation', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'scale(0.8) translateY(20px)' }),
-        animate('300ms ease-out', style({ opacity: 1, transform: 'scale(1) translateY(0)' }))
-      ]),
-      transition(':leave', [
-        animate('200ms ease-in', style({ opacity: 0, transform: 'scale(0.8) translateY(20px)' }))
-      ])
-    ])
-  ]
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrls: ['./avatar-3d.component.scss']
 })
 export class Avatar3dComponent implements OnInit, OnDestroy {
   @ViewChild('canvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('chatMessages') chatMessages!: ElementRef;
   @ViewChild('messageInput') messageInput!: ElementRef;
+  @ViewChild('chatWindow') chatWindow?: ElementRef<HTMLElement>;
 
   private scene!: THREE.Scene;
   private camera!: THREE.PerspectiveCamera;
@@ -50,7 +41,10 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private controls!: OrbitControls;
   private model!: THREE.Group;
   private animationFrameId?: number;
+  private renderObserver?: IntersectionObserver;
+  private isInViewport = true;
   private boundResizeHandler = () => this.onWindowResize();
+  private boundVisibilityHandler = () => this.updateAnimationState();
   /** False when the browser/environment cannot create a WebGL context (e.g. headless CI). */
   public webglAvailable = true;
 
@@ -67,26 +61,61 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   
   // Text-to-Speech functionality
   public isSpeaking = false;
-  public ttsEnabled = true;
+  public ttsEnabled = false;
   private currentAudio?: HTMLAudioElement;
-  private ttsCache = new Map<string, Blob>(); // Cache for faster repeated phrases
+  private ttsRequest?: Subscription;
+  private readonly ttsCache = new Map<string, Blob>();
+  private ttsCacheBytes = 0;
+  private readonly maxTtsCacheEntries = 12;
+  private readonly maxTtsCacheBytes = 8 * 1024 * 1024;
+  private readonly destroy$ = new Subject<void>();
+  private destroyed = false;
   
   private lastRequestTime = 0;
   private minRequestInterval = 1000; // Minimum 1 second between requests
   
   private readonly CONTEXT = AI_CONTEXT;
+  private chatTrigger?: HTMLElement;
 
   constructor(
     private http: HttpClient,
     private achievementsService: AchievementsService,
-    private audioService: AudioService
+    private audioService: AudioService,
+    private zone: NgZone,
   ) {
   }
 
-  @HostListener('document:keydown.escape')
-  onEscapeKey(): void {
-    if (this.isChatOpen) {
-      this.isChatOpen = false;
+  @HostListener('document:keydown', ['$event'])
+  onDocumentKeydown(event: KeyboardEvent): void {
+    if (!this.isChatOpen) {
+      return;
+    }
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.closeChat();
+      return;
+    }
+
+    if (event.key !== 'Tab' || !this.chatWindow) {
+      return;
+    }
+
+    const focusable = Array.from(this.chatWindow.nativeElement.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+    ));
+    if (focusable.length === 0) {
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
     }
   }
 
@@ -97,14 +126,21 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       return;
     }
     this.loadAvatar();
-    this.animate();
+    this.observeRenderVisibility();
+    this.updateAnimationState();
 
   }
 
   ngOnDestroy(): void {
+    this.destroyed = true;
+    this.destroy$.next();
+    this.destroy$.complete();
     window.removeEventListener('resize', this.boundResizeHandler);
+    document.removeEventListener('visibilitychange', this.boundVisibilityHandler);
+    this.renderObserver?.disconnect();
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = undefined;
     }
     this.controls?.dispose();
     this.renderer?.dispose();
@@ -184,13 +220,14 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
 
   private loadAvatar(): void {
     const loader = new GLTFLoader();
+    loader.setMeshoptDecoder(MeshoptDecoder);
     
     this.isLoading = true;
     this.loadingProgress = 0;
     this.loadingText = 'Loading 3D Avatar...';
     
     loader.load(
-      'assets/3d/avatar.glb',
+      'assets/3d/avatar.optimized.glb',
       (gltf) => {
         this.model = gltf.scene;
         
@@ -261,22 +298,55 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   private animate(): void {
-    if (!this.renderer) {
+    if (!this.renderer || !this.isInViewport || document.hidden) {
+      this.animationFrameId = undefined;
       return;
     }
-    this.animationFrameId = requestAnimationFrame(() => this.animate());
 
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
+    this.animationFrameId = requestAnimationFrame(() => this.animate());
+  }
+
+  private observeRenderVisibility(): void {
+    document.addEventListener('visibilitychange', this.boundVisibilityHandler);
+
+    if (typeof IntersectionObserver === 'undefined') {
+      return;
+    }
+
+    this.renderObserver = new IntersectionObserver(([entry]) => {
+      this.isInViewport = entry.isIntersecting;
+      this.updateAnimationState();
+    }, { threshold: 0.01 });
+    this.renderObserver.observe(this.canvasRef.nativeElement);
+  }
+
+  private updateAnimationState(): void {
+    const shouldAnimate = this.isInViewport && !document.hidden && !!this.renderer;
+    if (shouldAnimate && this.animationFrameId === undefined) {
+      this.zone.runOutsideAngular(() => this.animate());
+      return;
+    }
+
+    if (!shouldAnimate && this.animationFrameId !== undefined) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = undefined;
+    }
   }
 
 
 
   // Chat functionality
-  public toggleChat(): void {
-    this.isChatOpen = !this.isChatOpen;
-    
+  public toggleChat(event?: Event): void {
     if (this.isChatOpen) {
+      this.closeChat();
+      return;
+    }
+
+    this.chatTrigger = event?.currentTarget as HTMLElement | undefined;
+    this.isChatOpen = true;
+
       // Add welcome message when first opening chat
       if (this.messages.length === 0) {
         this.addMessage('Hi! 👋 I\'m your AI assistant. Ask me anything about my portfolio!', false);
@@ -290,7 +360,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           this.messageInput.nativeElement.focus();
         }
       }, 100);
-    }
+  }
+
+  private closeChat(): void {
+    this.isChatOpen = false;
+    setTimeout(() => this.chatTrigger?.focus());
   }
 
   public async sendMessage(): Promise<void> {
@@ -332,6 +406,9 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           { role: 'system', content: this.CONTEXT },
           { role: 'user', content: userMessage },
         ]),
+      ).pipe(
+        timeout({ first: 15_000 }),
+        takeUntil(this.destroy$),
       ));
       
       const aiResponse = getAiResponseText(response) ?? 'Sorry, I couldn\'t process that. Please try again!';
@@ -345,8 +422,14 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       }
       
     } catch (error) {
-      console.error('Fallback API Error:', error);
-      this.addMessage('Oops! Something went wrong. Please try again later. 😅', false);
+      if (this.destroyed) {
+        return;
+      }
+      console.error('AI request failed:', error);
+      const message = error instanceof TimeoutError
+        ? 'The AI assistant took too long to respond. Please try again.'
+        : 'The AI assistant is temporarily unavailable. Please try again later.';
+      this.addMessage(message, false);
       this.isTyping = false;
     }
   }
@@ -387,7 +470,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     const cleanText = cleanTextForSpeech(text);
     
     // Check cache first for instant playback
-    const cachedAudio = this.ttsCache.get(cleanText);
+    const cachedAudio = this.getCachedAudio(cleanText);
     if (cachedAudio) {
       // If we have cached audio, add message immediately since there's no API delay
       if (addMessageAfterTTS) {
@@ -403,18 +486,19 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   private speakTextRegular(cleanText: string, originalText: string, addMessageAfterTTS: boolean): void {
-    // Fire TTS API call immediately
-    this.http.post(TTS_API_URL, {
+    this.ttsRequest = this.http.post(TTS_API_URL, {
       text: cleanText
     }, {
       responseType: 'blob'
-    }).subscribe({
+    }).pipe(
+      timeout({ first: 15_000 }),
+      takeUntil(this.destroy$),
+    ).subscribe({
       next: (response) => {
         if (response && this.isSpeaking) { // Check if still needed
           const audioBlob = response as Blob;
           
-          // Cache the audio for faster future playback
-          this.ttsCache.set(cleanText, audioBlob);
+          this.cacheAudio(cleanText, audioBlob);
           
           // Add message to UI now that TTS response is ready
           if (addMessageAfterTTS) {
@@ -427,15 +511,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         }
       },
       error: (error) => {
-        console.error('Regular TTS Error:', error);
-        if (error.status === 0 || error.status === undefined) {
-          console.error('CORS or network error detected. API might be unreachable.');
-          console.error('TTS API URL:', TTS_API_URL);
-        } else if (error.status === 404) {
-          console.error('TTS API endpoint not found. Check API configuration.');
-        } else if (error.status >= 500) {
-          console.error('TTS API server error. Service might be down.');
-        }
+        console.error('TTS request failed:', error);
         
         // Add message even if TTS fails
         if (addMessageAfterTTS) {
@@ -444,8 +520,48 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         }
         
         this.isSpeaking = false;
-      }
+      },
+      complete: () => {
+        this.ttsRequest = undefined;
+      },
     });
+  }
+
+  private getCachedAudio(text: string): Blob | undefined {
+    const audio = this.ttsCache.get(text);
+    if (audio) {
+      this.ttsCache.delete(text);
+      this.ttsCache.set(text, audio);
+    }
+    return audio;
+  }
+
+  private cacheAudio(text: string, audio: Blob): void {
+    if (audio.size > this.maxTtsCacheBytes) {
+      return;
+    }
+
+    const existing = this.ttsCache.get(text);
+    if (existing) {
+      this.ttsCacheBytes -= existing.size;
+      this.ttsCache.delete(text);
+    }
+
+    while (
+      this.ttsCache.size >= this.maxTtsCacheEntries
+      || this.ttsCacheBytes + audio.size > this.maxTtsCacheBytes
+    ) {
+      const oldestKey = this.ttsCache.keys().next().value as string | undefined;
+      if (!oldestKey) {
+        break;
+      }
+      const oldestAudio = this.ttsCache.get(oldestKey);
+      this.ttsCache.delete(oldestKey);
+      this.ttsCacheBytes -= oldestAudio?.size ?? 0;
+    }
+
+    this.ttsCache.set(text, audio);
+    this.ttsCacheBytes += audio.size;
   }
 
   private playAudioBlob(audioBlob: Blob): void {
@@ -489,6 +605,8 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   public stopSpeech(): void {
+    this.ttsRequest?.unsubscribe();
+    this.ttsRequest = undefined;
     // Stop regular audio
     if (this.currentAudio) {
       this.currentAudio.pause();
@@ -535,7 +653,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
   }
 
-  public finalize3DModelAnimation(timing?: any, performance?: any): void {
+  public finalize3DModelAnimation(): void {
     if (this.model) {
       this.removeSpeakingAnimation();
     }

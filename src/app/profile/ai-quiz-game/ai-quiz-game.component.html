@@ -20,6 +20,7 @@
               @for (type of levelTypes; track type.value) {
                 <button class="game-mode-btn"
                         [class.game-mode-btn--active]="selectedLevelType === type.value"
+                        [attr.aria-pressed]="selectedLevelType === type.value"
                         (click)="selectLevelType(type.value)">
                   <span class="game-mode-icon">{{ type.icon }}</span>
                   <span class="game-mode-label">{{ type.label }}</span>
@@ -35,6 +36,7 @@
               @for (cat of categories; track cat.value) {
                 <button class="option-btn"
                         [class.option-btn--active]="selectedCategory === cat.value"
+                        [attr.aria-pressed]="selectedCategory === cat.value"
                         (click)="selectedCategory = cat.value">
                   <span class="option-icon">{{ cat.icon }}</span>
                   <span class="option-label">{{ cat.label }}</span>
@@ -50,6 +52,7 @@
               @for (d of difficulties; track d.value) {
                 <button class="diff-btn"
                         [class.diff-btn--active]="selectedDifficulty === d.value"
+                        [attr.aria-pressed]="selectedDifficulty === d.value"
                         [ngClass]="'diff-btn--' + d.color"
                         (click)="selectedDifficulty = d.value">
                   <span class="diff-label">{{ d.label }}</span>
@@ -60,7 +63,7 @@
           </div>
 
           <button class="start-btn" (click)="startGame()">
-            <i class="fas fa-play"></i> Start Mission
+            <span aria-hidden="true">▶</span> Start Mission
           </button>
 
           <div class="controls-hint">
@@ -72,7 +75,7 @@
 
     <!-- LOADING -->
     @if (viewState === 'loading') {
-      <div class="loading-card apple-card">
+      <div class="loading-card apple-card" role="status" aria-live="polite">
         <div class="loading-content">
           <div class="loader-icon">🍄</div>
           <h3>Generating {{ getLevelTypeLabel() }} level...</h3>
@@ -105,36 +108,50 @@
                   type="button"
                   [attr.aria-label]="isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'"
                   (click)="toggleFullscreen()">
-            <i class="fas" [class.fa-expand]="!isFullscreen" [class.fa-compress]="isFullscreen"></i>
+            <span aria-hidden="true">{{ isFullscreen ? '↙' : '↗' }}</span>
             <span class="hud-fullscreen-label">{{ isFullscreen ? 'Exit' : 'Fullscreen' }}</span>
           </button>
         </div>
 
         <div class="canvas-container">
-          <canvas #gameCanvas></canvas>
+          <canvas
+            #gameCanvas
+            tabindex="0"
+            role="application"
+            [attr.aria-label]="'Platform game. ' + getControlsHint()"></canvas>
 
           <!-- Touch controls (mobile) -->
           <div class="touch-controls">
             <div class="touch-dpad">
               <button class="touch-btn touch-left"
-                      (touchstart)="touchLeft(true)" (touchend)="touchLeft(false)"
-                      (mousedown)="touchLeft(true)" (mouseup)="touchLeft(false)">◀</button>
+                      aria-label="Move left"
+                      (pointerdown)="touchLeft(true)" (pointerup)="touchLeft(false)" (pointercancel)="touchLeft(false)"
+                      (keydown)="handleControlKey($event, 'left', true)"
+                      (keyup)="handleControlKey($event, 'left', false)">◀</button>
               <button class="touch-btn touch-right"
-                      (touchstart)="touchRight(true)" (touchend)="touchRight(false)"
-                      (mousedown)="touchRight(true)" (mouseup)="touchRight(false)">▶</button>
+                      aria-label="Move right"
+                      (pointerdown)="touchRight(true)" (pointerup)="touchRight(false)" (pointercancel)="touchRight(false)"
+                      (keydown)="handleControlKey($event, 'right', true)"
+                      (keyup)="handleControlKey($event, 'right', false)">▶</button>
             </div>
             <div class="touch-actions">
               @if (selectedLevelType === 'sky') {
                 <button class="touch-btn touch-down"
-                        (touchstart)="touchDown(true)" (touchend)="touchDown(false)"
-                        (mousedown)="touchDown(true)" (mouseup)="touchDown(false)">▼</button>
+                        aria-label="Move down"
+                        (pointerdown)="touchDown(true)" (pointerup)="touchDown(false)" (pointercancel)="touchDown(false)"
+                        (keydown)="handleControlKey($event, 'down', true)"
+                        (keyup)="handleControlKey($event, 'down', false)">▼</button>
               }
               <button class="touch-btn touch-jump"
-                      (touchstart)="touchJump(true)" (touchend)="touchJump(false)"
-                      (mousedown)="touchJump(true)" (mouseup)="touchJump(false)">▲</button>
+                      aria-label="Jump or move up"
+                      (pointerdown)="touchJump(true)" (pointerup)="touchJump(false)" (pointercancel)="touchJump(false)"
+                      (keydown)="handleControlKey($event, 'jump', true)"
+                      (keyup)="handleControlKey($event, 'jump', false)">▲</button>
               <button class="touch-btn touch-fire"
-                      (touchstart)="touchFire(true)" (touchend)="touchFire(false)"
-                      (mousedown)="touchFire(true)" (mouseup)="touchFire(false)">🔥</button>
+                      aria-label="Use fire power"
+                      (pointerdown)="touchFire(true)" (pointerup)="touchFire(false)" (pointercancel)="touchFire(false)"
+                      (keydown)="handleControlKey($event, 'fire', true)"
+                      (keyup)="handleControlKey($event, 'fire', false)">🔥</button>
             </div>
           </div>
         </div>
@@ -143,7 +160,7 @@
 
     <!-- RESULTS -->
     @if (viewState === 'results') {
-      <div class="results-card apple-card">
+      <div class="results-card apple-card" role="status" aria-live="polite">
         <div class="results-inner">
           <div class="results-badge">{{ won ? '🏆' : '💀' }}</div>
           <h3 class="results-title">{{ won ? 'Level Complete!' : 'Game Over' }}</h3>
@@ -166,7 +183,7 @@
 
           <div class="results-actions">
             <button class="start-btn" (click)="restartGame()">
-              <i class="fas fa-redo"></i> Play Again
+              <span aria-hidden="true">↻</span> Play Again
             </button>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AudioService } from '../../services/audio.service';
 
@@ -41,6 +41,7 @@ interface MapNode {
       </div>
     </nav>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     .mini-map {
       position: fixed;

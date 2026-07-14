@@ -5,9 +5,8 @@
         <div class="world-label">🤖 AI TWIN</div>
         <h2 class="section-title">An AI twin that actually knows my work — 3D avatar, chat, and voice.</h2>
         <p class="section-subtitle">
-          It's a chat assistant backed by an LLM and retrieval over my real experience, so the answers come from what I've
-          actually done instead of made-up filler. There's a 3D avatar to play with and voice output if you'd rather listen
-          than read.
+          It's a chat assistant backed by an LLM with curated context from this portfolio. There's a 3D avatar to explore
+          and optional voice output if you'd rather listen than read.
         </p>
 
         <div class="lab-capabilities">
@@ -20,10 +19,10 @@
           </article>
 
           <article class="capability-card">
-            <span class="capability-icon">RAG</span>
+            <span class="capability-icon">CTX</span>
             <div>
-              <h3>Chat that knows my work</h3>
-              <p>An LLM grounded in my real experience — ask about my projects, the backend systems, or the AI work.</p>
+              <h3>Portfolio-aware chat</h3>
+              <p>An LLM receives curated portfolio context about my projects, backend systems, and AI work.</p>
             </div>
           </article>
 
@@ -37,8 +36,8 @@
         </div>
 
         <div class="lab-actions">
-          <button class="apple-btn apple-btn-primary" (click)="toggleChat()">
-            <i class="fas fa-robot"></i>
+          <button class="apple-btn apple-btn-primary" (click)="toggleChat($event)">
+            <span aria-hidden="true">🤖</span>
             {{ isChatOpen ? 'Hide AI chat' : 'Open AI chat' }}
           </button>
 
@@ -51,10 +50,10 @@
 
       <div class="avatar-stage">
         <div class="avatar-container">
-          <canvas #canvas class="avatar-canvas"></canvas>
+          <canvas #canvas class="avatar-canvas" role="img" aria-label="Interactive 3D avatar"></canvas>
 
           @if (isLoading) {
-            <div class="loading-overlay" [@chatAnimation]>
+            <div class="loading-overlay">
               <div class="loading-content">
                 <div class="loading-spinner"></div>
                 <div class="loading-text">{{ loadingText }}</div>
@@ -71,7 +70,7 @@
           <div class="controls-hint">
             <span class="hint-chip">Drag to rotate</span>
             <span class="hint-chip">Scroll to zoom</span>
-            <button class="chat-button" (click)="toggleChat()" aria-label="Open or close chat">
+            <button class="chat-button" (click)="toggleChat($event)" aria-label="Open or close chat">
               {{ isChatOpen ? 'Close chat' : 'Chat with the avatar' }}
             </button>
           </div>
@@ -80,11 +79,17 @@
     </div>
 
     @if (isChatOpen) {
-      <div class="chat-window" [@chatAnimation] role="dialog" aria-label="Chat with AI assistant">
+      <div
+        #chatWindow
+        class="chat-window"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="ai-chat-title"
+        aria-describedby="ai-privacy-note">
         <div class="chat-header">
           <div>
-            <h3>AI chat</h3>
-            <p>Ask about the AI agents, RAG work, backend systems, projects, or open source.</p>
+            <h3 id="ai-chat-title">AI chat</h3>
+            <p>Ask about the AI agents, backend systems, projects, or open source.</p>
           </div>
 
           <div class="header-controls">
@@ -108,7 +113,7 @@
           </div>
         </div>
 
-        <div class="chat-messages" #chatMessages>
+        <div class="chat-messages" #chatMessages role="log" aria-live="polite" aria-relevant="additions">
           @for (message of messages; track message) {
             <div [class.user-message]="message.isUser" [class.ai-message]="!message.isUser" class="message">
               <div class="message-content">
@@ -119,7 +124,7 @@
           }
 
           @if (isReallyTyping) {
-            <div class="typing-indicator">
+            <div class="typing-indicator" role="status" aria-label="AI assistant is responding">
               <span></span><span></span><span></span>
             </div>
           }
@@ -132,6 +137,7 @@
             (keyup.enter)="sendMessage()"
             placeholder="Ask me anything about my portfolio..."
             aria-label="Type your message"
+            aria-describedby="ai-privacy-note"
             #messageInput
             class="chat-input"
           >
@@ -144,6 +150,9 @@
             {{ isReallyTyping ? '...' : '→' }}
           </button>
         </div>
+        <p id="ai-privacy-note" class="ai-privacy-note">
+          Messages and optional voice text are sent to third-party AI services. Do not include sensitive information.
+        </p>
       </div>
     }
   </div>

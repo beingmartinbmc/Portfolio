@@ -4,14 +4,26 @@
   <app-intro></app-intro>
 
   <div class="page-content">
-    <app-avatar-3d></app-avatar-3d>
+    @defer (on viewport) {
+      <app-avatar-3d></app-avatar-3d>
+    } @placeholder {
+      <section id="avatar-3d" class="deferred-section-placeholder apple-section" aria-label="AI twin loads when visible">
+        <div class="apple-container">AI twin ready to load</div>
+      </section>
+    }
     <app-about></app-about>
     <app-skills></app-skills>
     <app-experience></app-experience>
     <app-metrics-dashboard></app-metrics-dashboard>
     <app-publications></app-publications>
     <app-blog></app-blog>
-    <app-ai-quiz-game></app-ai-quiz-game>
+    @defer (on viewport) {
+      <app-ai-quiz-game></app-ai-quiz-game>
+    } @placeholder {
+      <section id="ai-quiz-game" class="deferred-section-placeholder apple-section" aria-label="AI game loads when visible">
+        <div class="apple-container">AI game ready to load</div>
+      </section>
+    }
     <app-education></app-education>
     <app-contact></app-contact>
   </div>
