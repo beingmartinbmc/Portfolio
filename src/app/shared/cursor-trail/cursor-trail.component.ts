@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Particle {
@@ -20,7 +20,7 @@ interface Particle {
       }
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
     .trail-layer {
       position: fixed;
@@ -63,7 +63,11 @@ export class CursorTrailComponent implements OnInit, OnDestroy {
   private nextId = 0;
   private moveHandler: ((e: MouseEvent) => void) | null = null;
   private frameCount = 0;
+  private animationFrameId: number | null = null;
+  private pendingPointer: { x: number; y: number } | null = null;
   private readonly removalTimers = new Set<ReturnType<typeof setTimeout>>();
+
+  constructor(private zone: NgZone, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     if (typeof window === 'undefined') return;
@@ -73,18 +77,28 @@ export class CursorTrailComponent implements OnInit, OnDestroy {
       || window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ) return;
 
-    this.moveHandler = (e: MouseEvent) => {
-      this.frameCount++;
-      if (this.frameCount % 3 !== 0) return; // throttle
-      this.spawn(e.clientX, e.clientY);
-    };
-    window.addEventListener('mousemove', this.moveHandler, { passive: true });
+    this.zone.runOutsideAngular(() => {
+      this.moveHandler = (e: MouseEvent) => {
+        this.frameCount++;
+        if (this.frameCount % 3 !== 0) return;
+        this.pendingPointer = { x: e.clientX, y: e.clientY };
+        if (this.animationFrameId !== null) return;
+        this.animationFrameId = requestAnimationFrame(() => {
+          this.animationFrameId = null;
+          const pointer = this.pendingPointer;
+          this.pendingPointer = null;
+          if (pointer) this.spawn(pointer.x, pointer.y);
+        });
+      };
+      window.addEventListener('mousemove', this.moveHandler, { passive: true });
+    });
   }
 
   ngOnDestroy(): void {
     if (this.moveHandler) {
       window.removeEventListener('mousemove', this.moveHandler);
     }
+    if (this.animationFrameId !== null) cancelAnimationFrame(this.animationFrameId);
     this.removalTimers.forEach(timer => clearTimeout(timer));
     this.removalTimers.clear();
   }
@@ -102,7 +116,9 @@ export class CursorTrailComponent implements OnInit, OnDestroy {
     const timer = setTimeout(() => {
       this.particles = this.particles.filter(p => p.id !== id);
       this.removalTimers.delete(timer);
+      this.cdr.detectChanges();
     }, 600);
     this.removalTimers.add(timer);
+    this.cdr.detectChanges();
   }
 }

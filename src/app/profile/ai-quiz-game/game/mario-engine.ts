@@ -1,4 +1,4 @@
-import { Player, Level, QuestionBlock, Enemy, FloatingText, Debris, Particle, CATEGORY_KEYWORDS, CATEGORY_BUG_KEYWORDS } from './mario-entities';
+import { Player, Level, QuestionBlock, Enemy, FloatingText, Debris, Particle, getCategoryKeywords, getCategoryBugKeywords } from './mario-entities';
 import { MarioRenderer } from './mario-renderer';
 import { MarioControls } from './mario-controls';
 import { updatePhysics, CollisionResult } from './mario-physics';
@@ -52,8 +52,8 @@ export class MarioEngine {
     this.enemiesStomped = 0;
     this.state = 'idle';
 
-    this.keywords = CATEGORY_KEYWORDS[level.category] ?? CATEGORY_KEYWORDS['backend'];
-    this.bugKeywords = CATEGORY_BUG_KEYWORDS[level.category] ?? CATEGORY_BUG_KEYWORDS['backend'];
+    this.keywords = getCategoryKeywords(level.category);
+    this.bugKeywords = getCategoryBugKeywords(level.category);
     this.keywordIndex = 0;
     this.bugKeywordIndex = 0;
     this.renderer.setCategory(level.category);
@@ -95,13 +95,13 @@ export class MarioEngine {
   private nextKeyword(): string {
     const kw = this.keywords[this.keywordIndex % this.keywords.length];
     this.keywordIndex++;
-    return kw;
+    return kw ?? '';
   }
 
   private nextBugKeyword(): string {
     const kw = this.bugKeywords[this.bugKeywordIndex % this.bugKeywords.length];
     this.bugKeywordIndex++;
-    return kw;
+    return kw ?? '';
   }
 
   private spawnEnemyKeyword(enemy: Enemy): void {

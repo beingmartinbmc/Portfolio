@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
+import {Component, ElementRef, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 interface MetricCard {
   value: string;
@@ -14,7 +14,7 @@ interface MetricCard {
   selector: 'app-metrics-dashboard',
   templateUrl: './metrics-dashboard.component.html',
   styleUrls: ['./metrics-dashboard.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
 export class MetricsDashboardComponent implements OnInit, OnDestroy {
@@ -36,16 +36,17 @@ export class MetricsDashboardComponent implements OnInit, OnDestroy {
 
   displayValues: string[] = [];
 
-  constructor(private el: ElementRef) {
+  constructor(private el: ElementRef, private cdr: ChangeDetectorRef) {
     this.displayValues = this.metrics.map(() => '0');
   }
 
   ngOnInit(): void {
     this.observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !this.animated) {
+        if (entry?.isIntersecting && !this.animated) {
           this.animated = true;
           this.animateCounters();
+          this.cdr.markForCheck();
         }
       },
       { threshold: 0.3 }
@@ -78,6 +79,8 @@ export class MetricsDashboardComponent implements OnInit, OnDestroy {
         }
       });
 
+      this.cdr.markForCheck();
+
       if (elapsed < duration) {
         this.animationFrameId = requestAnimationFrame(update);
         return;
@@ -89,6 +92,7 @@ export class MetricsDashboardComponent implements OnInit, OnDestroy {
           ? metric.numericEnd.toLocaleString()
           : metric.numericEnd.toString()
       );
+      this.cdr.markForCheck();
     };
 
     this.animationFrameId = requestAnimationFrame(update);

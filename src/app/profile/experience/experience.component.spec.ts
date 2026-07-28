@@ -30,7 +30,7 @@ describe('ExperienceComponent', () => {
   it('builds a non-empty timeline with the current role at the end', () => {
     expect(component.stops.length).toBeGreaterThan(0);
     // The data is reversed so Mario starts at the most recent (current) role.
-    expect(component.stops[component.stops.length - 1].isCurrent).toBeTrue();
+    expect(component.stops[component.stops.length - 1]!.isCurrent).toBeTrue();
   });
 
   it('places Mario at the most recent stop initially', () => {
@@ -38,15 +38,15 @@ describe('ExperienceComponent', () => {
   });
 
   it('selectStop activates a stop and selects its first role', () => {
-    const stop = component.stops[0];
+    const stop = component.stops[0]!;
     component.selectStop(stop, 0);
     expect(component.activeStop).toBe(stop);
-    expect(component.activeRole).toBe(stop.roles[0]);
+    expect(component.activeRole).toBe(stop.roles[0]!);
     expect(component.isStopActive(stop)).toBeTrue();
   });
 
   it('selectStop toggles the active stop off when re-selected', () => {
-    const stop = component.stops[0];
+    const stop = component.stops[0]!;
     component.selectStop(stop, 0);
     component.selectStop(stop, 0);
     expect(component.activeStop).toBeNull();
@@ -55,13 +55,13 @@ describe('ExperienceComponent', () => {
 
   it('selectStop updates marioPosition to the chosen index', () => {
     const idx = component.stops.length - 1;
-    component.selectStop(component.stops[idx], idx);
+    component.selectStop(component.stops[idx]!, idx);
     expect(component.marioPosition).toBe(idx);
   });
 
   it('selectRole sets the active role', () => {
-    const stop = component.stops[0];
-    const role = stop.roles[0];
+    const stop = component.stops[0]!;
+    const role = stop.roles[0]!;
     component.selectRole(role);
     expect(component.activeRole).toBe(role);
   });
@@ -69,7 +69,7 @@ describe('ExperienceComponent', () => {
   it('getStopPeriod returns a single role period directly', () => {
     const single = component.stops.find(s => s.roles.length === 1);
     if (single) {
-      expect(component.getStopPeriod(single)).toBe(single.roles[0].period);
+      expect(component.getStopPeriod(single)).toBe(single.roles[0]!.period);
     } else {
       expect(true).toBeTrue();
     }

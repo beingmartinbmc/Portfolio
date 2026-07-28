@@ -9,18 +9,27 @@ import {
   generateProceduralLevel, parseLevelFromAI, buildLevelFromData,
   getLevelGenerationPrompt, validateAILevelData, LevelConfig
 } from './game/mario-level-generator';
-import { LevelType } from './game/mario-entities';
+import { Level, LevelType } from './game/mario-entities';
 import { QUIZ_CATEGORIES, QUIZ_DIFFICULTIES, QUIZ_LEVEL_TYPES } from './ai-quiz-game.data';
 import { AchievementsService } from '../../services/achievements.service';
 
 type ViewState = 'setup' | 'loading' | 'playing' | 'results';
+
+interface WebkitFullscreenElement extends HTMLElement {
+  webkitRequestFullscreen?: () => Promise<void> | void;
+}
+
+interface WebkitFullscreenDocument extends Document {
+  webkitExitFullscreen?: () => Promise<void> | void;
+  readonly webkitFullscreenElement?: Element | null;
+}
 
 @Component({
   selector: 'app-ai-quiz-game',
   templateUrl: './ai-quiz-game.component.html',
   styleUrls: ['./ai-quiz-game.component.scss'],
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule]
 })
 export class AiQuizGameComponent implements OnDestroy {
@@ -76,6 +85,7 @@ export class AiQuizGameComponent implements OnDestroy {
     this.lives = 3;
     this.won = false;
     this.enemiesStomped = 0;
+    this.cdr.markForCheck();
 
     const config: LevelConfig = {
       difficulty: this.selectedDifficulty,
@@ -107,14 +117,19 @@ export class AiQuizGameComponent implements OnDestroy {
     });
   }
 
-  private initGame(level: any): void {
+  private initGame(level: Level): void {
     const canvas = this.canvasRef.nativeElement;
     const container = canvas.parentElement!;
 
     this.engine = new MarioEngine(canvas, {
       onDeath: () => this.zone.run(() => this.handleDeath()),
       onWin: () => this.zone.run(() => this.handleWin()),
-      onScoreChange: (s, c, l) => this.zone.run(() => { this.score = s; this.coins = c; this.lives = l; }),
+      onScoreChange: (s, c, l) => this.zone.run(() => {
+        this.score = s;
+        this.coins = c;
+        this.lives = l;
+        this.cdr.markForCheck();
+      }),
     });
 
     const resize = () => {
@@ -150,6 +165,7 @@ export class AiQuizGameComponent implements OnDestroy {
     this.achievementsService.trackGameScore(this.score);
     this.viewState = 'results';
     this.stopActiveGame();
+    this.cdr.markForCheck();
   }
 
   private handleWin(): void {
@@ -159,11 +175,13 @@ export class AiQuizGameComponent implements OnDestroy {
     this.achievementsService.trackGameScore(this.score);
     this.viewState = 'results';
     this.stopActiveGame();
+    this.cdr.markForCheck();
   }
 
   restartGame(): void {
     this.stopActiveGame();
     this.viewState = 'setup';
+    this.cdr.markForCheck();
   }
 
   touchLeft(active: boolean): void { this.engine?.getControls().setTouchLeft(active); }
@@ -177,8 +195,10 @@ export class AiQuizGameComponent implements OnDestroy {
   }
 
   async toggleFullscreen(): Promise<void> {
-    const el = this.wrapperRef?.nativeElement as any;
+    const el = this.wrapperRef?.nativeElement as WebkitFullscreenElement | undefined;
     if (!el) return;
+
+    const fullscreenDocument = document as WebkitFullscreenDocument;
 
     if (!document.fullscreenElement) {
       try {
@@ -190,7 +210,7 @@ export class AiQuizGameComponent implements OnDestroy {
     } else {
       try {
         if (document.exitFullscreen) await document.exitFullscreen();
-        else if ((document as any).webkitExitFullscreen) await (document as any).webkitExitFullscreen();
+        else if (fullscreenDocument.webkitExitFullscreen) await fullscreenDocument.webkitExitFullscreen();
       } catch {
         // ignore
       }
@@ -198,7 +218,8 @@ export class AiQuizGameComponent implements OnDestroy {
   }
 
   private handleFullscreenChange(): void {
-    const fsEl = document.fullscreenElement || (document as any).webkitFullscreenElement;
+    const fsEl = document.fullscreenElement
+      || (document as WebkitFullscreenDocument).webkitFullscreenElement;
     this.zone.run(() => {
       this.isFullscreen = !!fsEl;
       this.cdr.detectChanges();
@@ -207,7 +228,7 @@ export class AiQuizGameComponent implements OnDestroy {
     requestAnimationFrame(() => this.canvasResize?.());
   }
 
-  private async generateAILevel(config: LevelConfig): Promise<any> {
+  private async generateAILevel(config: LevelConfig): Promise<Level | null> {
     const prompt = getLevelGenerationPrompt(this.selectedCategory, this.selectedDifficulty, this.selectedLevelType);
     try {
       const response = await firstValueFrom(this.http.post(

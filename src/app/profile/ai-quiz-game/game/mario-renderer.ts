@@ -41,6 +41,13 @@ const CATEGORY_COLORS: Record<string, { accent: string; qIcon: string }> = {
   leadership:   { accent: '#f43f5e', qIcon: '⭐' },
 };
 
+const DEFAULT_CATEGORY_COLORS = { accent: '#f97316', qIcon: '🍄' } as const;
+
+/** Always resolves to a usable palette, even for unknown categories. */
+function categoryColors(category: string): { accent: string; qIcon: string } {
+  return CATEGORY_COLORS[category] ?? DEFAULT_CATEGORY_COLORS;
+}
+
 export class MarioRenderer {
   private ctx: CanvasRenderingContext2D;
   private canvasW: number;
@@ -245,7 +252,7 @@ export class MarioRenderer {
   }
 
   private drawCategoryBanner(category: string): void {
-    const catCfg = CATEGORY_COLORS[category] ?? CATEGORY_COLORS['backend'];
+    const catCfg = categoryColors(category);
     const label = `${catCfg.qIcon} ${category.toUpperCase()} · ${this.levelType.toUpperCase()}`;
     this.ctx.save();
     this.ctx.globalAlpha = 0.4;
@@ -271,7 +278,7 @@ export class MarioRenderer {
         this.ctx.strokeRect(tx, p.y, TILE, p.h);
       }
     } else if (p.type === 'brick') {
-      const catCfg = CATEGORY_COLORS[this.categoryKey] ?? CATEGORY_COLORS['backend'];
+      const catCfg = categoryColors(this.categoryKey);
       this.ctx.fillStyle = BRICK_FILL;
       this.ctx.fillRect(p.x, p.y, p.w, p.h);
       this.ctx.strokeStyle = BRICK_LINE;

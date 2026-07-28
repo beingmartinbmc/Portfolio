@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ScrollXpService} from '../../services/scroll-xp.service';
 import {Subscription} from 'rxjs';
@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
@@ -20,26 +20,45 @@ export class HeaderComponent implements OnInit, OnDestroy {
   levelNum = 1;
 
   private subs: Subscription[] = [];
+  private scrollFrame: number | null = null;
+  private readonly scrollHandler = () => {
+    if (this.scrollFrame !== null) return;
+    this.scrollFrame = requestAnimationFrame(() => {
+      this.scrollFrame = null;
+      this.onWindowScroll();
+    });
+  };
 
   constructor(
-    private scrollXp: ScrollXpService
+    private scrollXp: ScrollXpService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    window.addEventListener('scroll', this.scrollHandler, { passive: true });
+    this.onWindowScroll();
     this.subs.push(
-      this.scrollXp.xp$.subscribe(xp => this.xpPercent = xp),
-      this.scrollXp.level$.subscribe(l => { this.levelTitle = l.title; this.levelNum = l.level; }),
+      this.scrollXp.xp$.subscribe(xp => { this.xpPercent = xp; this.cdr.markForCheck(); }),
+      this.scrollXp.level$.subscribe(l => {
+        this.levelTitle = l.title;
+        this.levelNum = l.level;
+        this.cdr.markForCheck();
+      }),
     );
   }
 
   ngOnDestroy(): void {
+    window.removeEventListener('scroll', this.scrollHandler);
+    if (this.scrollFrame !== null) cancelAnimationFrame(this.scrollFrame);
     this.subs.forEach(s => s.unsubscribe());
   }
 
-  @HostListener('window:scroll', [])
   onWindowScroll() {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    this.isScrolled = scrollPosition > 100;
+    const scrolled = scrollPosition > 100;
+    if (scrolled === this.isScrolled) return;
+    this.isScrolled = scrolled;
+    this.cdr.markForCheck();
   }
 
   toggleMenu() {

@@ -165,7 +165,7 @@ describe('MarioEngine', () => {
     it('uses a generated keyword when the question block has none', () => {
       const qb = new QuestionBlock(5 * TILE, 8 * TILE, 'coin');
       handle({ hitQuestionBlock: qb });
-      const text = level.floatingTexts[level.floatingTexts.length - 1];
+      const text = level.floatingTexts[level.floatingTexts.length - 1]!;
       expect(text.text.length).toBeGreaterThan(0);
     });
 

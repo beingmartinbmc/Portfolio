@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AchievementsService, AchievementToast } from '../../services/achievements.service';
 import { Subscription } from 'rxjs';
@@ -26,7 +26,7 @@ import { Subscription } from 'rxjs';
       }
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
     .toast-container {
       position: fixed;
@@ -151,16 +151,19 @@ export class AchievementToastComponent implements OnInit, OnDestroy {
   confettiParticles = Array.from({ length: 10 }, (_, i) => i);
   private sub!: Subscription;
 
-  constructor(private achievements: AchievementsService) {}
+  constructor(private achievements: AchievementsService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.sub = this.achievements.toast$.subscribe(toast => {
       this.visibleToasts.push({ ...toast, exiting: false });
+      this.cdr.markForCheck();
       setTimeout(() => {
         const t = this.visibleToasts.find(x => x.timestamp === toast.timestamp);
         if (t) t.exiting = true;
+        this.cdr.markForCheck();
         setTimeout(() => {
           this.visibleToasts = this.visibleToasts.filter(x => x.timestamp !== toast.timestamp);
+          this.cdr.markForCheck();
         }, 400);
       }, 4000);
     });

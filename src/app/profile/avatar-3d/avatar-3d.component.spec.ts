@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { ElementRef } from '@angular/core';
 
 import { Avatar3dComponent } from './avatar-3d.component';
 import { AchievementsService } from '../../services/achievements.service';
@@ -62,16 +61,15 @@ describe('Avatar3dComponent', () => {
       tick(100);
       expect(component.isChatOpen).toBeTrue();
       expect(component.messages.length).toBe(1);
-      expect(component.messages[0].isUser).toBeFalse();
+      expect(component.messages[0]!.isUser).toBeFalse();
     }));
 
     it('toggleChat focuses the input when refs are present', fakeAsync(() => {
-      const input = document.createElement('input');
-      const msgs = document.createElement('div');
-      component.messageInput = new ElementRef(input);
-      component.chatMessages = new ElementRef(msgs);
-      const focusSpy = spyOn(input, 'focus');
       component.toggleChat();
+      // Render the panel so the real @ViewChild refs resolve, then spy on the
+      // actual input the deferred focus call will target.
+      fixture.detectChanges();
+      const focusSpy = spyOn(component.messageInput.nativeElement, 'focus');
       tick(100);
       expect(focusSpy).toHaveBeenCalled();
     }));

@@ -208,8 +208,8 @@ describe('mario-entities', () => {
   describe('keyword tables', () => {
     it('provides keyword pools for every category', () => {
       for (const cat of Object.keys(CATEGORY_KEYWORDS)) {
-        expect(CATEGORY_KEYWORDS[cat].length).toBeGreaterThan(0);
-        expect(CATEGORY_BUG_KEYWORDS[cat].length).toBeGreaterThan(0);
+        expect(CATEGORY_KEYWORDS[cat]!.length).toBeGreaterThan(0);
+        expect(CATEGORY_BUG_KEYWORDS[cat]!.length).toBeGreaterThan(0);
       }
     });
   });

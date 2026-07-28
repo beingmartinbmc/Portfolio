@@ -528,6 +528,13 @@ img {
   }
 }
 
+/* Backgrounded tabs should not burn GPU/CPU on decorative animation. */
+body.is-hidden-tab *,
+body.is-hidden-tab *::before,
+body.is-hidden-tab *::after {
+  animation-play-state: paused !important;
+}
+
 /* ══════════════════════════════════════════════════════
    KONAMI CODE GOD MODE
 ══════════════════════════════════════════════════════ */
@@ -544,17 +551,31 @@ body.god-mode * {
   100% { filter: hue-rotate(360deg); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+
+/* Keyboard and rendering safeguards shared across the portfolio. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100000;
+  padding: 0.65rem 1rem;
+  color: var(--text-inverse);
+  background: var(--primary-color);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 3px solid var(--accent-cyan);
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px), (prefers-reduced-transparency: reduce) {
+  .apple-card,
+  .site-header,
+  .map-rail { backdrop-filter: none !important; }
 }

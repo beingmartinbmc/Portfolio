@@ -62,14 +62,27 @@ export class AchievementsService {
     try {
       const data = localStorage.getItem(this.STORAGE_KEY);
       if (data) {
-        const saved = JSON.parse(data);
-        if (saved.achievements) {
-          saved.achievements.forEach((s: any) => {
-            const a = this.achievements.find(x => x.id === s.id);
-            if (a) { a.unlocked = s.unlocked; a.unlockedAt = s.unlockedAt; }
-          });
+        const saved: unknown = JSON.parse(data);
+        const root = typeof saved === 'object' && saved !== null ? saved as Record<string, unknown> : null;
+        const savedAchievements = root?.['achievements'];
+        if (Array.isArray(savedAchievements)) {
+          for (const entry of savedAchievements) {
+            if (typeof entry !== 'object' || entry === null) { continue; }
+            const s = entry as Record<string, unknown>;
+            const a = this.achievements.find(x => x.id === s['id']);
+            if (!a) { continue; }
+            a.unlocked = s['unlocked'] === true;
+            a.unlockedAt = typeof s['unlockedAt'] === 'number' ? s['unlockedAt'] : undefined;
+          }
         }
-        if (saved.counters) { Object.assign(this.counters, saved.counters); }
+        const savedCounters = root?.['counters'];
+        if (typeof savedCounters === 'object' && savedCounters !== null) {
+          for (const [key, value] of Object.entries(savedCounters)) {
+            if (key in this.counters && typeof value === 'number' && Number.isFinite(value)) {
+              this.counters[key] = value;
+            }
+          }
+        }
       }
     } catch { /* ignore */ }
   }

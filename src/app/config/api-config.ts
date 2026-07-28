@@ -44,19 +44,35 @@ export function createOpenAiProxyRequest(messages: OpenAiProxyMessage[], maxToke
   };
 }
 
-export function getAiResponseText(response: any): string | null {
-  const candidates = [
-    response?.data?.choices?.[0]?.message?.content,
-    response?.choices?.[0]?.message?.content,
-    response?.data?.response,
-    response?.data?.message,
-    response?.data?.answer,
-    response?.data?.content,
-    response?.response,
-    response?.message,
-    response?.answer,
-    response?.content,
+export function getAiResponseText(response: unknown): string | null {
+  const root = asRecord(response);
+  const data = asRecord(root?.['data']);
+  const dataChoices = asArray(data?.['choices']);
+  const rootChoices = asArray(root?.['choices']);
+
+  const candidates: unknown[] = [
+    asRecord(asRecord(dataChoices?.[0])?.['message'])?.['content'],
+    asRecord(asRecord(rootChoices?.[0])?.['message'])?.['content'],
+    data?.['response'],
+    data?.['message'],
+    data?.['answer'],
+    data?.['content'],
+    root?.['response'],
+    root?.['message'],
+    root?.['answer'],
+    root?.['content'],
   ];
 
-  return candidates.find((candidate) => typeof candidate === 'string' && candidate.trim().length > 0)?.trim() ?? null;
+  const result = candidates.find(
+    (candidate): candidate is string => typeof candidate === 'string' && candidate.trim().length > 0,
+  );
+  return result?.trim() ?? null;
+}
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return typeof value === 'object' && value !== null ? value as Record<string, unknown> : null;
+}
+
+function asArray(value: unknown): unknown[] | null {
+  return Array.isArray(value) ? value : null;
 }

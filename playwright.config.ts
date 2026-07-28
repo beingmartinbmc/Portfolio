@@ -15,6 +15,17 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    // Cross-engine smoke only: full suite on Chromium, @smoke subset elsewhere.
+    {
+      name: 'firefox',
+      grep: /@smoke/,
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      grep: /@smoke/,
+      use: { ...devices['Desktop Safari'] },
+    },
   ],
   webServer: {
     command: 'npm start -- --host 127.0.0.1 --port 4200',

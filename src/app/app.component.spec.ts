@@ -30,4 +30,23 @@ describe('AppComponent', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('app-profile')).toBeTruthy();
   });
+
+  it('toggles is-hidden-tab on document visibility changes and cleans up on destroy', () => {
+    const visibility = { value: 'hidden' as DocumentVisibilityState };
+    spyOnProperty(document, 'visibilityState', 'get').and.callFake(() => visibility.value);
+
+    const fixture = TestBed.createComponent(AppComponent);
+
+    document.dispatchEvent(new Event('visibilitychange'));
+    expect(document.body.classList.contains('is-hidden-tab')).toBeTrue();
+
+    visibility.value = 'visible';
+    document.dispatchEvent(new Event('visibilitychange'));
+    expect(document.body.classList.contains('is-hidden-tab')).toBeFalse();
+
+    fixture.destroy();
+    visibility.value = 'hidden';
+    document.dispatchEvent(new Event('visibilitychange'));
+    expect(document.body.classList.contains('is-hidden-tab')).toBeFalse();
+  });
 });
