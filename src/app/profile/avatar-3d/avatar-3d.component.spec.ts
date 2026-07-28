@@ -18,6 +18,10 @@ describe('Avatar3dComponent', () => {
     achievements = jasmine.createSpyObj('AchievementsService', ['trackAiQuestion']);
     audio = jasmine.createSpyObj('AudioService', ['play']);
 
+    // Headless Chrome may expose software WebGL on Linux but not macOS. Keep
+    // component tests deterministic and exercise the unavailable-WebGL path.
+    spyOn(HTMLCanvasElement.prototype, 'getContext').and.returnValue(null);
+
     await TestBed.configureTestingModule({
       imports: [Avatar3dComponent, HttpClientTestingModule],
       providers: [
@@ -41,7 +45,7 @@ describe('Avatar3dComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('degrades gracefully when WebGL is unavailable (headless CI)', () => {
+  it('degrades gracefully when WebGL is unavailable', () => {
     expect(component.webglAvailable).toBeFalse();
     expect(component.isLoading).toBeFalse();
   });
