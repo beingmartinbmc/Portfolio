@@ -1,4 +1,4 @@
-import {Component, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {DOCUMENT_LINKS, SOCIAL_LINKS} from '../../config/profile-links';
 import {AchievementsService} from '../../services/achievements.service';
 import {HERO_METRICS, FOCUS_AREAS} from './intro.data';
@@ -7,7 +7,7 @@ import {HERO_METRICS, FOCUS_AREAS} from './intro.data';
   selector: 'app-intro',
   templateUrl: './intro.component.html',
   styleUrls: ['./intro.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
 export class IntroComponent implements OnDestroy {
@@ -20,7 +20,7 @@ export class IntroComponent implements OnDestroy {
 
   private boundCloseDropdown = this.closeDropdown.bind(this);
 
-  constructor(private achievements: AchievementsService) {}
+  constructor(private achievements: AchievementsService, private cdr: ChangeDetectorRef) {}
 
   ngOnDestroy(): void {
     document.removeEventListener('click', this.boundCloseDropdown);
@@ -58,5 +58,6 @@ export class IntroComponent implements OnDestroy {
 
   private closeDropdown(): void {
     this.showDocumentDropdown = false;
+    this.cdr.markForCheck();
   }
 }

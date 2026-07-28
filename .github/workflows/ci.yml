@@ -1,20 +1,21 @@
-name: CI
+name: CI and Deploy
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: portfolio-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-and-test:
-    name: Lint, Test & Build
+  validate:
+    name: Lint, Test, Build & E2E
     runs-on: ubuntu-latest
 
     steps:
@@ -25,25 +26,33 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-          cache: 'npm'
+          cache: npm
+          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify public npm registry in lockfile
+        run: |
+          if grep -Eiq '(nexus|artifactory|\.internal|sfdc\.net|git\.soma)' package-lock.json; then
+            echo 'Internal package registry found in package-lock.json' >&2
+            exit 1
+          fi
+
       - name: Audit production dependencies
-        run: npm audit --omit=dev
+        run: npm audit --omit=dev --registry=https://registry.npmjs.org
 
       - name: Lint application
         run: npm run lint
 
-      - name: Build application
-        run: npm run build:prod
-
       - name: Run unit tests with coverage
         run: npm run test:ci
 
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+      - name: Build deployable artifact
+        run: npm run deploy
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - name: Run end-to-end tests
         run: npm run e2e
@@ -55,3 +64,26 @@ jobs:
           name: coverage
           path: coverage/
           if-no-files-found: warn
+
+      - name: Upload validated Pages artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/portfolio
+
+  deploy:
+    name: Deploy validated artifact
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

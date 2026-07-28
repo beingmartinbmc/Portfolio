@@ -1,12 +1,7 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AudioService } from '../../services/audio.service';
-
-interface MapNode {
-  id: string;
-  icon: string;
-  label: string;
-}
+import { PORTFOLIO_SECTIONS, PortfolioSection } from '../../config/portfolio-sections';
 
 @Component({
   selector: 'app-mini-map',
@@ -41,7 +36,7 @@ interface MapNode {
       </div>
     </nav>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
     .mini-map {
       position: fixed;
@@ -131,7 +126,8 @@ interface MapNode {
       transition: opacity 0.2s;
     }
 
-    .map-node:hover .node-tooltip {
+    .map-node:hover .node-tooltip,
+    .map-node:focus-visible .node-tooltip {
       opacity: 1;
     }
 
@@ -165,18 +161,7 @@ interface MapNode {
   `]
 })
 export class MiniMapComponent implements OnInit, OnDestroy {
-  readonly nodes: MapNode[] = [
-    { id: 'about', icon: '🗡', label: 'About' },
-    { id: 'avatar-3d', icon: '🤖', label: 'AI Twin' },
-    { id: 'skill', icon: '⚔', label: 'Skills' },
-    { id: 'experience', icon: '🗺️', label: 'Experience' },
-    { id: 'metrics', icon: '📊', label: 'Metrics' },
-    { id: 'publications', icon: '🏰', label: 'Projects' },
-    { id: 'blogs', icon: '📜', label: 'Writing' },
-    { id: 'ai-quiz-game', icon: '🕹', label: 'Game' },
-    { id: 'education', icon: '🏫', label: 'Education' },
-    { id: 'operating-style', icon: '🎮', label: 'Profile' },
-  ];
+  readonly nodes: readonly PortfolioSection[] = PORTFOLIO_SECTIONS;
 
   currentSection = '';
   marioTop = 0;
@@ -187,10 +172,13 @@ export class MiniMapComponent implements OnInit, OnDestroy {
   private scrollListener: (() => void) | null = null;
   private audioSub: { unsubscribe(): void } | null = null;
 
-  constructor(private audio: AudioService) {}
+  constructor(private audio: AudioService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.audioSub = this.audio.enabled$.subscribe(e => this.sfxEnabled = e);
+    this.audioSub = this.audio.enabled$.subscribe(e => {
+      this.sfxEnabled = e;
+      this.cdr.markForCheck();
+    });
 
     if (typeof window === 'undefined') return;
 
@@ -200,9 +188,13 @@ export class MiniMapComponent implements OnInit, OnDestroy {
           .filter(e => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
         if (visible.length) {
-          this.currentSection = visible[0].target.id;
+          const top = visible[0];
+          if (!top) return;
+          if (this.currentSection === top.target.id) return;
+          this.currentSection = top.target.id;
           const idx = this.nodes.findIndex(n => n.id === this.currentSection);
           if (idx >= 0) this.marioTop = (idx / (this.nodes.length - 1)) * 92;
+          this.cdr.markForCheck();
         }
       },
       { threshold: 0.2 }
@@ -216,8 +208,13 @@ export class MiniMapComponent implements OnInit, OnDestroy {
     }, 500);
 
     // Show after scrolling past hero
+    // Scroll fires constantly, so only run change detection when the
+    // visibility actually flips rather than on every event.
     this.scrollListener = () => {
-      this.hideMap = window.scrollY < 400;
+      const hidden = window.scrollY < 400;
+      if (hidden === this.hideMap) return;
+      this.hideMap = hidden;
+      this.cdr.markForCheck();
     };
     window.addEventListener('scroll', this.scrollListener, { passive: true });
   }

@@ -112,15 +112,18 @@ describe('ScrollXpService', () => {
     });
   });
 
-  it('cleans up its observer and scroll handler on destroy', () => {
+  it('cleans up its observer and bottom sentinel on destroy', () => {
     const observer = (service as any).observer;
     const disconnectSpy = observer ? spyOn(observer, 'disconnect').and.callThrough() : null;
-    const removeSpy = spyOn(window, 'removeEventListener').and.callThrough();
+    const sentinel = document.createElement('span');
+    document.body.appendChild(sentinel);
+    (service as any).bottomSentinel = sentinel;
 
     service.ngOnDestroy();
 
     if (disconnectSpy) expect(disconnectSpy).toHaveBeenCalled();
-    expect(removeSpy).toHaveBeenCalledWith('scroll', jasmine.any(Function));
+    expect(sentinel.isConnected).toBeFalse();
+    expect((service as any).bottomSentinel).toBeNull();
   });
 
   function snapshot<T>(stream: { pipe: Function }): T {

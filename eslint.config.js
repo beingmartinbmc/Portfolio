@@ -47,5 +47,13 @@ module.exports = defineConfig([
       angular.configs.templateAccessibility,
     ],
     rules: {},
+  },
+  {
+    // Specs operate on known-populated fixtures, so asserting non-null on
+    // indexed reads is clearer than defensive branching that can never run.
+    files: ["**/*.spec.ts"],
+    rules: {
+      "@typescript-eslint/no-non-null-assertion": "off",
+    },
   }
 ]);

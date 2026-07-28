@@ -29,7 +29,7 @@ export interface Constellation {
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss'],
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass]
 })
 export class SkillsComponent implements OnInit {
@@ -83,19 +83,32 @@ export class SkillsComponent implements OnInit {
     { id: 'core',         icon: '\uD83E\uDDE0', role: 'Fundamentals underpinning the whole stack' },
   ];
 
-  get architectureLayers(): { id: string; name: string; color: string; icon: string; role: string; skills: Skill[] }[] {
-    return this.archLayerMeta
+  architectureLayers: { id: string; name: string; color: string; icon: string; role: string; skills: Skill[] }[] = [];
+  totalSkillCount = 0;
+  primarySkillCount = 0;
+  averageProficiency = 0;
+
+  ngOnInit(): void {
+    this.buildConstellations();
+    this.addSkillDetails();
+    this.computeDerivedStats();
+  }
+
+  private computeDerivedStats(): void {
+    this.architectureLayers = this.archLayerMeta
       .map(meta => {
         const c = this.constellations.find(x => x.id === meta.id);
         if (!c) return null;
         return { id: c.id, name: c.name, color: c.color, icon: meta.icon, role: meta.role, skills: c.skills };
       })
       .filter((layer): layer is { id: string; name: string; color: string; icon: string; role: string; skills: Skill[] } => layer !== null);
-  }
 
-  ngOnInit(): void {
-    this.buildConstellations();
-    this.addSkillDetails();
+    const all = this.constellations.flatMap(c => c.skills);
+    this.totalSkillCount = all.length;
+    this.primarySkillCount = all.filter(s => s.level === 'primary').length;
+    this.averageProficiency = all.length
+      ? Math.round(all.reduce((sum, s) => sum + s.proficiency, 0) / all.length)
+      : 0;
   }
 
   private buildConstellations(): void {
@@ -184,8 +197,9 @@ export class SkillsComponent implements OnInit {
   }
 
   getDisplayName(skill: Skill): string {
-    if (this.systemMode && this.systemModeLabels[skill.name]) {
-      return this.systemModeLabels[skill.name];
+    const systemLabel = this.systemModeLabels[skill.name];
+    if (this.systemMode && systemLabel) {
+      return systemLabel;
     }
     return skill.name;
   }
@@ -208,22 +222,6 @@ export class SkillsComponent implements OnInit {
 
   getSkillDetailsId(skill: Skill): string {
     return `skill-${skill.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-details`;
-  }
-
-  get totalSkillCount(): number {
-    return this.constellations.reduce((sum, c) => sum + c.skills.length, 0);
-  }
-
-  get primarySkillCount(): number {
-    return this.constellations.reduce(
-      (sum, c) => sum + c.skills.filter(s => s.level === 'primary').length, 0
-    );
-  }
-
-  get averageProficiency(): number {
-    const all = this.constellations.flatMap(c => c.skills);
-    if (!all.length) return 0;
-    return Math.round(all.reduce((sum, s) => sum + s.proficiency, 0) / all.length);
   }
 
   toggleCard(skill: Skill): void {

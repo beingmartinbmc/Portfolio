@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef, NgZone, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef, NgZone, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { EXPERIENCE_ITEMS, EXPERIENCE_START_DATE, ExperienceItem } from './experience.data';
 import { AchievementsService } from '../../services/achievements.service';
 
@@ -15,7 +15,7 @@ interface TimelineStop {
   templateUrl: './experience.component.html',
   styleUrls: ['./experience.component.scss'],
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: []
 })
 export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -33,7 +33,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
   marioRunning = false;   // toggles the run-cycle animation
   marioFacingLeft = false;
 
-  private runTimer: any = null;
+  private runTimer: ReturnType<typeof setTimeout> | null = null;
   private readonly visitedStopIds = new Set<string>();
 
   private readonly experienceItems: ExperienceItem[] = EXPERIENCE_ITEMS;
@@ -41,6 +41,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private zone: NgZone,
     private achievements: AchievementsService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +52,10 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     // Place Mario at the most recent role once the layout is measured.
-    requestAnimationFrame(() => this.moveMarioTo(this.marioPosition, false));
+requestAnimationFrame(() => {
+      this.moveMarioTo(this.marioPosition, false);
+      this.cdr.markForCheck();
+    });
   }
 
   ngOnDestroy(): void {
@@ -82,7 +86,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
       return {
         id: company.toLowerCase().replace(/\s+/g, '-'),
         company,
-        logo: roles[0].logo,
+        logo: roles[0]?.logo ?? '',
         roles,
         isCurrent: roles.some(r => r.duration === 'Current')
       };
@@ -96,7 +100,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.activeStop = stop;
-    this.activeRole = stop.roles[0];
+    this.activeRole = stop.roles[0] ?? null;
     if (!this.visitedStopIds.has(stop.id)) {
       this.visitedStopIds.add(stop.id);
       this.achievements.trackExperienceStop();
@@ -126,7 +130,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
       // Match the CSS travel transition duration (0.9s).
       this.zone.runOutsideAngular(() => {
         this.runTimer = setTimeout(() => {
-          this.zone.run(() => { this.marioRunning = false; });
+          this.zone.run(() => { this.marioRunning = false; this.cdr.markForCheck(); });
         }, 950);
       });
     }
@@ -142,11 +146,12 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getStopPeriod(stop: TimelineStop): string {
-    if (stop.roles.length === 1) return stop.roles[0].period;
     const periods = stop.roles.map(r => r.period);
     const first = periods[periods.length - 1];
     const last = periods[0];
-    const startYear = first.split(' - ')[0].split(' ')[0];
+    if (!first || !last) return '';
+    if (periods.length === 1) return first;
+    const startYear = first.split(' - ')[0]?.split(' ')[0] ?? first;
     const endPart = last.includes('Present') ? 'Present' : last.split(' - ')[1]?.trim() || last;
     return `${startYear} - ${endPart}`;
   }

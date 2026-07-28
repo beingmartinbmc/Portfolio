@@ -17,7 +17,7 @@ export const DOCUMENT_LINKS = {
 
 // ── Portfolio & Projects ──────────────────────────────────────
 export const PROJECT_LINKS = {
-  portfolio: 'https://beingmartinbmc.github.io/portfolio/',
+  portfolio: 'https://beingmartinbmc.github.io/Portfolio/',
   algorithmVisualizer: 'https://beingmartinbmc.github.io/algorithm-visualizer/',
   religiousGpt: 'https://beingmartinbmc.github.io/epic/',
   dateSense: 'https://beingmartinbmc.github.io/DateSense/#/',

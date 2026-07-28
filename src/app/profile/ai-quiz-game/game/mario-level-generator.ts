@@ -1,4 +1,4 @@
-import { TILE, Platform, Enemy, Coin, QuestionBlock, FlagPole, Level, Player, PowerUpType, LevelType, EnemyType, CATEGORY_KEYWORDS, CATEGORY_BUG_KEYWORDS } from './mario-entities';
+import { TILE, Platform, Enemy, Coin, QuestionBlock, FlagPole, Level, Player, PowerUpType, LevelType, EnemyType, getCategoryKeywords, getCategoryBugKeywords } from './mario-entities';
 
 const LEVEL_TILES_WIDE = 96;
 const GROUND_ROW = 12;
@@ -196,9 +196,18 @@ function shuffleKeywords(pool: string[]): string[] {
   const arr = [...pool];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    const a = arr[i];
+    const b = arr[j];
+    if (a === undefined || b === undefined) continue;
+    arr[i] = b;
+    arr[j] = a;
   }
   return arr;
+}
+
+/** Reads a pool entry by cycling index, tolerating an empty pool. */
+function keywordAt(pool: string[], index: number): string {
+  return pool.length ? pool[index % pool.length] ?? '' : '';
 }
 
 /**
@@ -208,7 +217,7 @@ function shuffleKeywords(pool: string[]): string[] {
  * keywords.
  */
 function uniqueKeyword(pool: string[], index: number, used: Set<string>): string {
-  const base = pool[index % pool.length];
+  const base = pool.length ? pool[index % pool.length] ?? '' : '';
   let candidate = base;
   let suffix = 2;
   while (used.has(candidate)) {
@@ -408,15 +417,16 @@ export function validateAILevelData(data: RawLevelData, config: LevelConfig): Le
       return;
     }
 
-    zoneCounts[zoneIndex]++;
-    if (guide.enemyZones[zoneIndex].requireKoopa && enemy.type === 'koopa') {
-      requiredKoopas[zoneIndex]++;
+    zoneCounts[zoneIndex] = (zoneCounts[zoneIndex] ?? 0) + 1;
+    if (guide.enemyZones[zoneIndex]?.requireKoopa && enemy.type === 'koopa') {
+      requiredKoopas[zoneIndex] = (requiredKoopas[zoneIndex] ?? 0) + 1;
     }
   });
 
   guide.enemyZones.forEach((zone, index) => {
-    if (!inRange(zoneCounts[index], { min: zone.min, max: zone.max })) {
-      issues.push(`${zone.label} enemy count ${zoneCounts[index]} is outside the expected ${zone.min}-${zone.max}.`);
+    const zoneCount = zoneCounts[index] ?? 0;
+    if (!inRange(zoneCount, { min: zone.min, max: zone.max })) {
+      issues.push(`${zone.label} enemy count ${zoneCount} is outside the expected ${zone.min}-${zone.max}.`);
     }
     if (zone.requireKoopa && requiredKoopas[index] === 0) {
       issues.push(`${zone.label} requires at least one koopa.`);
@@ -437,8 +447,8 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   const questionBlocks: QuestionBlock[] = [];
   const category = config.category || 'backend';
   const levelType = resolveLevelType(data.levelType ?? config.levelType);
-  const fallbackKw = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS['backend']);
-  const fallbackBug = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS['backend']);
+  const fallbackKw = shuffleKeywords(getCategoryKeywords(category));
+  const fallbackBug = shuffleKeywords(getCategoryBugKeywords(category));
   let kwIdx = 0;
   let bugIdx = 0;
 
@@ -451,10 +461,10 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
       const plat = new Platform(
         p.x * TILE, p.y * TILE,
         (p.width || 1) * TILE, TILE * (type === 'ground' ? 2 : 1),
-        type as any
+        type
       );
       if (type === 'brick') {
-        plat.label = p.label || fallbackKw[kwIdx++ % fallbackKw.length];
+        plat.label = p.label || keywordAt(fallbackKw, kwIdx++);
       }
       platforms.push(plat);
     }
@@ -463,12 +473,12 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   if (data.questionBlocks) {
     const fallbackRewards = assignRewards(data.questionBlocks.length);
     data.questionBlocks.forEach((qb, i) => {
-      let reward: PowerUpType = fallbackRewards[i];
+      let reward: PowerUpType = fallbackRewards[i] ?? 'coin';
       if (qb.reward === 'star' || qb.reward === 'mushroom' || qb.reward === 'coin') {
         reward = qb.reward;
       }
       const q = new QuestionBlock(qb.x * TILE, qb.y * TILE, reward);
-      q.keyword = qb.keyword || fallbackKw[kwIdx++ % fallbackKw.length];
+      q.keyword = qb.keyword || keywordAt(fallbackKw, kwIdx++);
       questionBlocks.push(q);
     });
   }
@@ -476,8 +486,8 @@ export function buildLevelFromData(data: RawLevelData, config: LevelConfig): Lev
   if (data.enemies) {
     for (const e of data.enemies) {
       const type = e.type === 'koopa' ? 'koopa' : 'goomba';
-      const enemy = new Enemy(e.x * TILE, e.y * TILE, type as any);
-      enemy.keyword = e.keyword || fallbackBug[bugIdx++ % fallbackBug.length];
+      const enemy = new Enemy(e.x * TILE, e.y * TILE, type);
+      enemy.keyword = e.keyword || keywordAt(fallbackBug, bugIdx++);
       enemies.push(enemy);
     }
   }
@@ -502,8 +512,8 @@ export function generateProceduralLevel(config: LevelConfig): Level {
   const category = config.category || 'backend';
   const levelType = resolveLevelType(config.levelType);
   const guide = getLayoutGuide(config.difficulty, levelType);
-  const keywords = shuffleKeywords(CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS['backend']);
-  const bugKw = shuffleKeywords(CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS['backend']);
+  const keywords = shuffleKeywords(getCategoryKeywords(category));
+  const bugKw = shuffleKeywords(getCategoryBugKeywords(category));
   let kwIdx = 0;
   let bugIdx = 0;
   const usedBugKeywords = new Set<string>();
@@ -567,7 +577,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
     const by = guide.brickRows.min + Math.floor(Math.random() * (guide.brickRows.max - guide.brickRows.min + 1));
     const bw = 2 + Math.floor(Math.random() * 3);
     const brick = new Platform(bx * TILE, by * TILE, bw * TILE, TILE, 'brick');
-    brick.label = keywords[kwIdx % keywords.length];
+    brick.label = keywordAt(keywords, kwIdx);
     kwIdx++;
     platforms.push(brick);
   }
@@ -582,7 +592,7 @@ export function generateProceduralLevel(config: LevelConfig): Level {
         : Math.min(GROUND_ROW - 1, guide.brickRows.max - (i % 2));
       const bw = levelType === 'sky' ? 4 * TILE : 3 * TILE;
       const accentPlatform = new Platform(bx * TILE, by * TILE, bw, TILE, 'brick');
-      accentPlatform.label = keywords[kwIdx % keywords.length];
+      accentPlatform.label = keywordAt(keywords, kwIdx);
       kwIdx++;
       platforms.push(accentPlatform);
     }
@@ -596,8 +606,8 @@ export function generateProceduralLevel(config: LevelConfig): Level {
     let qx = 6 + spacing * (i + 1) + Math.floor(Math.random() * 3 - 1);
     if (isNearPipe(qx)) qx += 4;
     const qy = guide.questionRows.min + Math.floor(Math.random() * (guide.questionRows.max - guide.questionRows.min + 1));
-    const qb = new QuestionBlock(qx * TILE, qy * TILE, rewards[i]);
-    qb.keyword = keywords[kwIdx % keywords.length];
+    const qb = new QuestionBlock(qx * TILE, qy * TILE, rewards[i] ?? 'coin');
+    qb.keyword = keywordAt(keywords, kwIdx);
     kwIdx++;
     questionBlocks.push(qb);
   }
@@ -700,8 +710,22 @@ const CATEGORY_DESCRIPTIONS: Record<string, { domain: string; techExamples: stri
   },
 };
 
+interface CategoryDescription { domain: string; techExamples: string; bugExamples: string }
+
+const DEFAULT_CATEGORY_DESCRIPTION: CategoryDescription = {
+  domain: 'Backend Engineering — APIs, databases, caching, auth, service design',
+  techExamples: 'REST API, Circuit Breaker, Connection Pool, Rate Limit, DB Index, gRPC, Middleware, ORM, Idempotent, Retry',
+  bugExamples: 'N+1 Query, SQL Injection, Deadlock, Race Condition, Null Ref, Memory Leak, 500 Error, Auth Bypass, OOM, Stale Cache',
+};
+
+/** Always resolves to a usable prompt description, even for unknown categories. */
+function categoryDescription(category: string): CategoryDescription {
+  return CATEGORY_DESCRIPTIONS[category] ?? DEFAULT_CATEGORY_DESCRIPTION;
+}
+
 export function getLevelGenerationPrompt(category: string, difficulty: string, requestedLevelType: LevelType = 'ground'): string {
-  const cat = CATEGORY_DESCRIPTIONS[category] ?? CATEGORY_DESCRIPTIONS['backend'];
+  const cat = categoryDescription(category);
+  const domainLabel = cat.domain.split('—')[0]?.trim() ?? cat.domain;
   const levelType = resolveLevelType(requestedLevelType);
   const guide = getLayoutGuide(difficulty, levelType);
   const coursePrompt = getLevelTypePrompt(levelType);
@@ -741,7 +765,7 @@ PLACE THESE ELEMENTS (all x/y in tile units):
 2. PIPES (type "pipe"): ${getGuideLabel(guide.pipeCount)} pipes, each 2 tiles wide, placed on the ground and spread across the middle of the level.
 
 3. BRICK PLATFORMS (type "brick"): ${getGuideLabel(guide.brickCount)} floating brick rows at y=${guide.brickRows.min}-${guide.brickRows.max}, each 2-4 tiles wide.
-   Each brick gets a "label" — a short ${cat.domain.split('—')[0].trim()} concept (1-2 words max).
+   Each brick gets a "label" — a short ${domainLabel} concept (1-2 words max).
    Examples: ${cat.techExamples}
 
 4. QUESTION BLOCKS: ${getGuideLabel(guide.questionCount)} blocks at y=${guide.questionRows.min}-${guide.questionRows.max} (hittable from below).
@@ -756,7 +780,7 @@ ${zoneGuide}
    Never put more than 3 enemies within a 6-tile span.
    Keep the breather tiles between zones comparatively light.
    Each enemy gets a "keyword" — a bug/anti-pattern that the player "squashes" by stomping it.
-   Make these realistic ${cat.domain.split('—')[0].trim()} bugs. Examples: ${cat.bugExamples}
+   Make these realistic ${domainLabel} bugs. Examples: ${cat.bugExamples}
    Every enemy MUST have a unique keyword.
 
 6. COINS: ${getGuideLabel(guide.coinCount)} coins at y=${guide.coinRows.min}-${guide.coinRows.max}. Scatter them across the full route.
@@ -790,6 +814,6 @@ SELF-CHECK BEFORE RESPONDING (do not output this checklist):
 - Finish zone x=${SAFE_FINISH_START_X}-${LEVEL_TILES_WIDE - 1} must stay safe and flat.
 - Enemy totals and per-zone counts must match the difficulty blueprint above.
 - Every enemy, brick, and question block must include its keyword/label field.
-- Keywords should be real ${cat.domain.split('—')[0].trim()} terminology, not generic.
+- Keywords should be real ${domainLabel} terminology, not generic.
 - If any rule fails, fix the layout before emitting the final JSON.`;
 }

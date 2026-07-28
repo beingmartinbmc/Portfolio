@@ -92,12 +92,12 @@ describe('mario-level-generator', () => {
       };
       const level = buildLevelFromData(data, config);
       expect(level.platforms.length).toBe(3);
-      expect(level.platforms[0].x).toBe(0);
-      expect(level.platforms[1].label).toBe('Cache');
-      expect(level.questionBlocks[0].reward).toBe('mushroom');
-      expect(level.questionBlocks[0].keyword).toBe('Retry');
-      expect(level.enemies[0].type).toBe('koopa');
-      expect(level.coins[0].x).toBe(12 * TILE);
+      expect(level.platforms[0]!.x).toBe(0);
+      expect(level.platforms[1]!.label).toBe('Cache');
+      expect(level.questionBlocks[0]!.reward).toBe('mushroom');
+      expect(level.questionBlocks[0]!.keyword).toBe('Retry');
+      expect(level.enemies[0]!.type).toBe('koopa');
+      expect(level.coins[0]!.x).toBe(12 * TILE);
       expect(level.flagPole.x).toBe(FLAG_POLE_X * TILE);
     });
 
@@ -108,10 +108,10 @@ describe('mario-level-generator', () => {
         enemies: [{ x: 12, y: 11 }],
       };
       const level = buildLevelFromData(data, config);
-      expect(level.platforms[0].label).toBeTruthy();
-      expect(level.questionBlocks[0].keyword).toBeTruthy();
-      expect(level.enemies[0].keyword).toBeTruthy();
-      expect(level.enemies[0].type).toBe('goomba'); // default
+      expect(level.platforms[0]!.label).toBeTruthy();
+      expect(level.questionBlocks[0]!.keyword).toBeTruthy();
+      expect(level.enemies[0]!.keyword).toBeTruthy();
+      expect(level.enemies[0]!.type).toBe('goomba'); // default
     });
 
     it('uses the default flag position when none is provided', () => {

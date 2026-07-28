@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostListener, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AchievementsService } from '../../services/achievements.service';
 import { AudioService } from '../../services/audio.service';
@@ -19,7 +19,7 @@ import { AudioService } from '../../services/audio.service';
       </div>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
     .god-mode-overlay {
       position: fixed;
@@ -106,9 +106,9 @@ export class KonamiComponent implements OnDestroy {
   godMode = false;
   private sequence: string[] = [];
   private readonly code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-  private timer: any = null;
+  private timer: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(private achievements: AchievementsService, private audio: AudioService) {}
+  constructor(private achievements: AchievementsService, private audio: AudioService, private cdr: ChangeDetectorRef) {}
 
   @HostListener('window:keydown', ['$event'])
   onKeydown(event: KeyboardEvent): void {
@@ -134,6 +134,7 @@ export class KonamiComponent implements OnDestroy {
     this.timer = setTimeout(() => {
       this.godMode = false;
       document.body.classList.remove('god-mode');
+      this.cdr.markForCheck();
     }, 10000);
   }
 

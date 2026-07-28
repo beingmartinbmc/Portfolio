@@ -70,6 +70,28 @@ describe('AchievementsService', () => {
     });
   });
 
+  describe('saved state validation', () => {
+    it('restores valid values and ignores malformed persisted values', () => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        achievements: [
+          { id: 'resume_reader', unlocked: true, unlockedAt: 123 },
+          { id: 'skill_hunter', unlocked: 'yes', unlockedAt: 'invalid' },
+          null,
+        ],
+        counters: { skillsExpanded: 4, aiQuestions: 'invalid', unknown: 99 },
+      }));
+
+      const service = makeService();
+
+      expect(isUnlocked(service, 'resume_reader')).toBeTrue();
+      expect(isUnlocked(service, 'skill_hunter')).toBeFalse();
+      service.trackSkillExpand();
+      expect(isUnlocked(service, 'skill_hunter')).toBeTrue();
+      service.trackAiQuestion();
+      expect(isUnlocked(service, 'ai_whisperer')).toBeFalse();
+    });
+  });
+
   describe('counter thresholds', () => {
     it('only unlocks Skill Hunter after 5 skill expansions', () => {
       const service = makeService();

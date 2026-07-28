@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, HostListener, NgZone, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, HostListener, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -26,7 +26,7 @@ interface Message {
   standalone: true,
   imports: [FormsModule, MarkdownPipe],
   templateUrl: './avatar-3d.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./avatar-3d.component.scss']
 })
 export class Avatar3dComponent implements OnInit, OnDestroy {
@@ -82,6 +82,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     private achievementsService: AchievementsService,
     private audioService: AudioService,
     private zone: NgZone,
+    private cdr: ChangeDetectorRef,
   ) {
   }
 
@@ -110,6 +111,9 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
 
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
+    if (!first || !last) {
+      return;
+    }
     if (event.shiftKey && document.activeElement === first) {
       event.preventDefault();
       last.focus();
@@ -123,6 +127,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     if (!this.initThreeJS()) {
       // WebGL unavailable — skip the 3D scene but keep the chat usable.
       this.isLoading = false;
+      this.cdr.markForCheck();
       return;
     }
     this.loadAvatar();
@@ -234,10 +239,12 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         // Update loading text and progress smoothly
         this.loadingProgress = 85; // Ensure we're at 85% before setup
         this.loadingText = 'Setting up 3D scene...';
-        
+        this.cdr.markForCheck();
+
         // Use setTimeout to make progress visible
         setTimeout(() => {
           this.loadingProgress = 90;
+          this.cdr.markForCheck();
         }, 100);
         
         // Center the model
@@ -265,15 +272,18 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.loadingProgress = 95;
           this.loadingText = 'Almost ready...';
+          this.cdr.markForCheck();
         }, 200);
         
         setTimeout(() => {
           this.loadingProgress = 100;
           this.loadingText = 'Ready!';
-          
+          this.cdr.markForCheck();
+
           // Hide loading after final delay
           setTimeout(() => {
             this.isLoading = false;
+            this.cdr.markForCheck();
           }, 300);
         }, 400);
       },
@@ -283,15 +293,18 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           const rawProgress = (progress.loaded / progress.total) * 85; // Reserve 85% for actual loading
           this.loadingProgress = Math.min(Math.round(rawProgress), 85); // Ensure it never exceeds 85%
           this.loadingText = `Loading 3D Avatar... ${this.loadingProgress}%`;
+          this.cdr.markForCheck();
         }
       },
       (error) => {
         console.error('Error loading 3D model:', error);
         this.loadingText = 'Failed to load 3D Avatar';
         this.loadingProgress = 0;
+        this.cdr.markForCheck();
         // Hide loading on error after delay
         setTimeout(() => {
           this.isLoading = false;
+          this.cdr.markForCheck();
         }, 2000);
       }
     );
@@ -316,6 +329,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
 
     this.renderObserver = new IntersectionObserver(([entry]) => {
+      if (!entry) return;
       this.isInViewport = entry.isIntersecting;
       this.updateAnimationState();
     }, { threshold: 0.01 });
@@ -346,6 +360,9 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
 
     this.chatTrigger = event?.currentTarget as HTMLElement | undefined;
     this.isChatOpen = true;
+    // The click that opened the panel already triggers a CD pass, and the
+    // focus below is deferred, so marking dirty is enough here.
+    this.cdr.markForCheck();
 
       // Add welcome message when first opening chat
       if (this.messages.length === 0) {
@@ -364,6 +381,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
 
   private closeChat(): void {
     this.isChatOpen = false;
+    this.cdr.markForCheck();
     setTimeout(() => this.chatTrigger?.focus());
   }
 
@@ -400,7 +418,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
     
     try {
-      const response = await firstValueFrom(this.http.post<any>(
+      const response = await firstValueFrom(this.http.post(
         environment.aiApiUrl,
         createOpenAiProxyRequest([
           { role: 'system', content: this.CONTEXT },
@@ -416,6 +434,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       // Render the answer as soon as chat returns; TTS should not block the chat bubble.
       this.addMessage(aiResponse, false, false);
       this.isTyping = false;
+      this.cdr.markForCheck();
 
       if (this.ttsEnabled) {
         this.speakText(aiResponse);
@@ -431,6 +450,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         : 'The AI assistant is temporarily unavailable. Please try again later.';
       this.addMessage(message, false);
       this.isTyping = false;
+      this.cdr.markForCheck();
     }
   }
 
@@ -441,6 +461,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     });
     
     this.messages.push({ text, isUser, time });
+    this.cdr.markForCheck();
     
     // If it's an AI message and TTS is enabled, speak it (only if triggerTTS is true)
     if (!isUser && this.ttsEnabled && triggerTTS) {
@@ -465,6 +486,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     // Stop any current speech
     this.stopSpeech();
     this.isSpeaking = true;
+    this.cdr.markForCheck();
     
     // Clean text for speech (remove markdown and special characters)
     const cleanText = cleanTextForSpeech(text);
@@ -476,6 +498,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       if (addMessageAfterTTS) {
         this.addMessage(text, false, false);
         this.isTyping = false; // Stop typing indicator
+        this.cdr.markForCheck();
       }
       this.playAudioBlob(cachedAudio);
       return;
@@ -504,6 +527,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           if (addMessageAfterTTS) {
             this.addMessage(originalText, false, false);
             this.isTyping = false; // Stop typing indicator
+            this.cdr.markForCheck();
           }
           
           // Play immediately
@@ -518,8 +542,9 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           this.addMessage(originalText, false, false);
           this.isTyping = false; // Stop typing indicator even on error
         }
-        
+
         this.isSpeaking = false;
+        this.cdr.markForCheck();
       },
       complete: () => {
         this.ttsRequest = undefined;
@@ -575,17 +600,20 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     // Set up event handlers
     this.currentAudio.onplay = () => {
       this.isSpeaking = true;
+      this.cdr.markForCheck();
     };
-    
+
     this.currentAudio.onended = () => {
       this.isSpeaking = false;
       this.cleanupAudio();
+      this.cdr.markForCheck();
     };
-    
+
     this.currentAudio.onerror = (error) => {
       console.error('Audio playback error:', error);
       this.isSpeaking = false;
       this.cleanupAudio();
+      this.cdr.markForCheck();
     };
     
     // Play immediately - no await
@@ -593,6 +621,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       console.error('Audio play error:', error);
       this.isSpeaking = false;
       this.cleanupAudio();
+      this.cdr.markForCheck();
     });
   }
 
@@ -615,6 +644,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
     
     this.isSpeaking = false;
+    this.cdr.markForCheck();
   }
 
   private cleanupAudio(): void {

@@ -3,6 +3,10 @@ import { BehaviorSubject } from 'rxjs';
 
 type SfxName = 'coin' | 'levelUp' | 'powerUp' | 'pipe' | 'jump' | 'star' | 'click';
 
+interface WebkitAudioWindow extends Window {
+  webkitAudioContext?: typeof AudioContext;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AudioService {
   private readonly STORAGE_KEY = 'portfolio_sfx_enabled';
@@ -32,7 +36,7 @@ export class AudioService {
 
   private ensureContext(): void {
     if (!this.ctx) {
-      const Ctor = window.AudioContext || (window as any).webkitAudioContext;
+      const Ctor = window.AudioContext || (window as WebkitAudioWindow).webkitAudioContext;
       if (Ctor) this.ctx = new Ctor();
     }
     if (this.ctx && this.ctx.state === 'suspended') {

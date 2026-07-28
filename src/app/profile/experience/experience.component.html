@@ -86,7 +86,7 @@
 
             <!-- Platform block with logo -->
             <div class="stop-block">
-              <img [src]="stop.logo" [alt]="stop.company + ' logo'" class="stop-logo" loading="lazy" />
+              <img [src]="stop.logo" [alt]="stop.company + ' logo'" class="stop-logo" loading="lazy" decoding="async" width="48" height="48" />
             </div>
 
             <!-- Company name -->
@@ -109,7 +109,7 @@
       <div class="quest-log" data-anim="fade-up">
         <div class="quest-log-header">
           <div class="ql-title-row">
-            <img [src]="activeStop.logo" [alt]="activeStop.company" class="ql-logo" />
+            <img [src]="activeStop.logo" [alt]="activeStop.company" class="ql-logo" loading="lazy" decoding="async" width="56" height="56" />
             <div>
               <div class="ql-company">{{ activeStop.company }}</div>
               <div class="ql-period">{{ getStopPeriod(activeStop) }}</div>

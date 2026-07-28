@@ -342,3 +342,18 @@ export const CATEGORY_BUG_KEYWORDS: Record<string, string[]> = {
   architecture: ['Circular Dep', 'Tight Couple', 'N+1 Svc', 'God Class', 'Leaky Abs', 'Big Ball', 'Spaghetti', 'Overfit', 'Premature', 'Bottleneck', 'Single Point', 'Tech Debt'],
   leadership: ['Scope Creep', 'Bike Shed', 'Silo', 'Bus Factor', 'Gold Plate', 'YAGNI', 'Not Invented', 'Cargo Cult', 'Burnout', 'Hero Code', 'Tunnel Vision', 'Stale RFC'],
 };
+
+/** Category used whenever a level requests one we do not have keywords for. */
+export const DEFAULT_CATEGORY = 'backend';
+
+/**
+ * Category keyword lookups always resolve to a non-empty list so callers do not
+ * have to re-check the fallback entry on every access.
+ */
+export function getCategoryKeywords(category: string): string[] {
+  return CATEGORY_KEYWORDS[category] ?? CATEGORY_KEYWORDS[DEFAULT_CATEGORY] ?? [];
+}
+
+export function getCategoryBugKeywords(category: string): string[] {
+  return CATEGORY_BUG_KEYWORDS[category] ?? CATEGORY_BUG_KEYWORDS[DEFAULT_CATEGORY] ?? [];
+}

@@ -18,7 +18,7 @@ import {MetricsDashboardComponent} from './metrics-dashboard/metrics-dashboard.c
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     HeaderComponent,
     FooterComponent,

@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { AchievementsService } from './achievements.service';
+import { PORTFOLIO_SECTION_IDS } from '../config/portfolio-sections';
 
 export interface LevelUpEvent {
   level: number;
@@ -9,9 +10,7 @@ export interface LevelUpEvent {
 
 @Injectable({ providedIn: 'root' })
 export class ScrollXpService implements OnDestroy {
-  private readonly sections = [
-    'about', 'avatar-3d', 'skill', 'experience', 'metrics', 'publications', 'blogs', 'ai-quiz-game', 'education', 'operating-style'
-  ];
+  private readonly sections = PORTFOLIO_SECTION_IDS;
   private readonly levels = [
     { threshold: 0, title: 'Visitor' },
     { threshold: 20, title: 'Explorer' },
@@ -26,7 +25,7 @@ export class ScrollXpService implements OnDestroy {
   // Visitors begin at level 1 (Visitor), so treat that as the baseline and only
   // emit a level-up event when they actually climb above it.
   private lastLevel = 1;
-  private scrollHandler: (() => void) | null = null;
+  private bottomSentinel: HTMLElement | null = null;
 
   readonly xp$ = new BehaviorSubject<number>(0);
   readonly level$ = new BehaviorSubject<{ level: number; title: string }>({ level: 1, title: 'Visitor' });
@@ -37,7 +36,12 @@ export class ScrollXpService implements OnDestroy {
       // Use a very low threshold so even partially-visible sections count
       this.observer = new IntersectionObserver(
         entries => entries.forEach(e => {
-          if (e.isIntersecting) this.onSectionView(e.target.id);
+          if (!e.isIntersecting) return;
+          if (e.target.id === 'portfolio-end-sentinel') {
+            this.markAllSectionsViewed();
+          } else {
+            this.onSectionView(e.target.id);
+          }
         }),
         { threshold: 0.05, rootMargin: '0px 0px -5% 0px' }
       );
@@ -45,9 +49,6 @@ export class ScrollXpService implements OnDestroy {
       // Observe after DOM is ready
       setTimeout(() => this.observeSections(), 800);
 
-      // Fallback: if user scrolls to the very bottom, grant 100%
-      this.scrollHandler = () => this.checkBottomReached();
-      window.addEventListener('scroll', this.scrollHandler, { passive: true });
     }
   }
 
@@ -56,6 +57,15 @@ export class ScrollXpService implements OnDestroy {
       const el = document.getElementById(id);
       if (el && this.observer) this.observer.observe(el);
     });
+
+    // A sentinel avoids a permanent global scroll listener while preserving
+    // the existing behavior of awarding full XP at the end of the page.
+    this.bottomSentinel = document.createElement('span');
+    this.bottomSentinel.id = 'portfolio-end-sentinel';
+    this.bottomSentinel.setAttribute('aria-hidden', 'true');
+    this.bottomSentinel.style.cssText = 'display:block;height:1px;pointer-events:none';
+    document.body.appendChild(this.bottomSentinel);
+    this.observer?.observe(this.bottomSentinel);
   }
 
   private onSectionView(id: string): void {
@@ -65,22 +75,14 @@ export class ScrollXpService implements OnDestroy {
     this.recalcXp();
   }
 
-  private checkBottomReached(): void {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const windowHeight = window.innerHeight;
-    const docHeight = document.documentElement.scrollHeight;
-
-    // If user is within 100px of the page bottom, grant full XP
-    if (scrollTop + windowHeight >= docHeight - 100) {
-      // Mark all sections as viewed
-      this.sections.forEach(id => {
-        if (!this.viewedSections.has(id)) {
-          this.viewedSections.add(id);
-          this.achievements.trackSectionView();
-        }
-      });
-      this.recalcXp();
-    }
+  private markAllSectionsViewed(): void {
+    this.sections.forEach(id => {
+      if (!this.viewedSections.has(id)) {
+        this.viewedSections.add(id);
+        this.achievements.trackSectionView();
+      }
+    });
+    this.recalcXp();
   }
 
   private recalcXp(): void {
@@ -97,24 +99,25 @@ export class ScrollXpService implements OnDestroy {
     const newLevel = this.getLevelForXp(pct);
     if (newLevel > this.lastLevel) {
       this.lastLevel = newLevel;
-      const info = this.levels[newLevel - 1] || this.levels[this.levels.length - 1];
-      this.level$.next({ level: newLevel, title: info.title });
-      this.levelUp$.next({ level: newLevel, title: info.title });
+      const info = this.levels[newLevel - 1] ?? this.levels[this.levels.length - 1];
+      const title = info?.title ?? 'Visitor';
+      this.level$.next({ level: newLevel, title });
+      this.levelUp$.next({ level: newLevel, title });
     }
   }
 
   private getLevelForXp(xp: number): number {
     let lvl = 1;
     for (let i = this.levels.length - 1; i >= 0; i--) {
-      if (xp >= this.levels[i].threshold) { lvl = i + 1; break; }
+      const level = this.levels[i];
+      if (level && xp >= level.threshold) { lvl = i + 1; break; }
     }
     return lvl;
   }
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
-    if (this.scrollHandler) {
-      window.removeEventListener('scroll', this.scrollHandler);
-    }
+    this.bottomSentinel?.remove();
+    this.bottomSentinel = null;
   }
 }

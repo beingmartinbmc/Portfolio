@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollXpService } from '../../services/scroll-xp.service';
 import { AudioService } from '../../services/audio.service';
@@ -25,7 +25,7 @@ import { Subscription } from 'rxjs';
       </div>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
     .levelup-overlay {
       position: fixed;
@@ -130,7 +130,7 @@ export class LevelUpOverlayComponent implements OnInit, OnDestroy {
   stars = Array.from({ length: 8 }, (_, i) => i);
   private sub!: Subscription;
 
-  constructor(private scrollXp: ScrollXpService, private audio: AudioService) {}
+  constructor(private scrollXp: ScrollXpService, private audio: AudioService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.sub = this.scrollXp.levelUp$.subscribe(event => {
@@ -138,7 +138,8 @@ export class LevelUpOverlayComponent implements OnInit, OnDestroy {
       this.title = event.title;
       this.show = true;
       this.audio.play('levelUp');
-      setTimeout(() => { this.show = false; }, 2500);
+      this.cdr.markForCheck();
+      setTimeout(() => { this.show = false; this.cdr.markForCheck(); }, 2500);
     });
   }
 
