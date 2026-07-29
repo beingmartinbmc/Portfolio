@@ -68,6 +68,13 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private ttsCacheBytes = 0;
   private readonly maxTtsCacheEntries = 12;
   private readonly maxTtsCacheBytes = 8 * 1024 * 1024;
+  /**
+   * Every chat reply is also billed as Deepgram speech (~$0.03 per 1k characters), so the
+   * reply length is capped here rather than left to the shared default. ~600 tokens is roughly
+   * 2.4k characters, which also keeps us clear of the gateway's per-request TTS character limit.
+   * The system prompt asks for a much shorter answer; this is the backstop if it is ignored.
+   */
+  private readonly MAX_SPOKEN_REPLY_TOKENS = 600;
   private readonly destroy$ = new Subject<void>();
   private destroyed = false;
   
@@ -423,7 +430,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         createOpenAiProxyRequest([
           { role: 'system', content: this.CONTEXT },
           { role: 'user', content: userMessage },
-        ]),
+        ], this.MAX_SPOKEN_REPLY_TOKENS),
       ).pipe(
         timeout({ first: 15_000 }),
         takeUntil(this.destroy$),

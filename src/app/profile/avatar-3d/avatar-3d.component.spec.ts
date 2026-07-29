@@ -165,6 +165,17 @@ describe('Avatar3dComponent', () => {
       expect(component.isTyping).toBeFalse();
     }));
 
+    it('caps the reply token budget so spoken replies stay cheap', fakeAsync(() => {
+      component.ttsEnabled = false;
+      component.userInput = 'Tell me absolutely everything about your career';
+      component.sendMessage();
+
+      const aiReq = httpMock.expectOne(environment.aiApiUrl);
+      expect(aiReq.request.body.maxTokens).toBe(600);
+      aiReq.flush({ choices: [{ message: { content: 'Short answer.' } }] });
+      tick(200);
+    }));
+
     it('debounces rapid successive requests', fakeAsync(() => {
       component.ttsEnabled = false;
       component.userInput = 'first';
