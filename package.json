@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build --base-href /Portfolio/ --configuration production",
     "build:dev": "ng build --base-href /Portfolio/ --configuration development",
-    "build:prod": "ng build --base-href /Portfolio/ --configuration production",
+    "build:prod": "ng build --base-href /Portfolio/ --configuration production --define AI_GATEWAY_API_KEY=\"'$AI_GATEWAY_API_KEY'\"",
     "deploy": "npm run build:prod && touch dist/portfolio/.nojekyll && cp src/404.html dist/portfolio/404.html",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage",
