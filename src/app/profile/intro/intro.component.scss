@@ -61,6 +61,16 @@
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-secondary);
+  transition:
+    transform var(--transition-normal),
+    border-color var(--transition-normal),
+    color var(--transition-normal);
+}
+
+.hero-chip:hover {
+  transform: translateY(-2px);
+  border-color: gold(0.35);
+  color: var(--text-primary);
 }
 
 .hero-actions {
@@ -137,6 +147,16 @@
   border-radius: 1.25rem;
   border: 1px solid slate(0.1);
   background: white(0.03);
+  transition:
+    transform 260ms var(--ease-spring),
+    border-color var(--transition-normal),
+    background var(--transition-normal);
+}
+
+.metric-card:hover {
+  transform: translateY(-3px);
+  border-color: gold(0.3);
+  background: gold(0.05);
 }
 
 .metric-value {
