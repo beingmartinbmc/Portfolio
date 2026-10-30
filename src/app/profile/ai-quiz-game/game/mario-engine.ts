@@ -272,7 +272,10 @@ export class MarioEngine {
 
     if (result.firedFireball) MarioAudio.fireball();
 
-    if (result.coinCollected) MarioAudio.coin();
+    if (result.coinCollected) {
+      MarioAudio.coin();
+      this.notifyScore();
+    }
 
     if (result.hitQuestionBlock) {
       this.handlePowerUp(result.hitQuestionBlock);

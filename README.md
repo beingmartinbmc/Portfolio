@@ -65,7 +65,7 @@ src/
 
 ## Core stack
 
-- Angular 22.0.6
+- Angular 22.2.4
 - TypeScript 6.0
 - RxJS 7.8
 - Three.js 0.185

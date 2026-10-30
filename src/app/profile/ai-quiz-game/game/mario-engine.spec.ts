@@ -128,8 +128,11 @@ describe('MarioEngine', () => {
       (engine as any).handleCollisionResult({ ...emptyResult(), ...result });
     }
 
-    it('handles coin pickup audio cue', () => {
-      expect(() => handle({ coinCollected: true, jumped: true, firedFireball: true })).not.toThrow();
+    it('publishes a coin pickup to the HUD immediately', () => {
+      engine.player.coins = 4;
+      engine.player.score = 40;
+      handle({ coinCollected: true });
+      expect(cbs.scores).toContain([40, 4, engine.player.lives]);
     });
 
     it('handles a coin reward question block', () => {
