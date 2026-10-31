@@ -3,48 +3,14 @@
 
     <!-- Header -->
     <div class="section-header" data-anim="fade-up">
-      <div class="world-label"><span class="pro-only">EXPERIENCE</span><span class="play-only">⚔ WORLD MAP</span></div>
+      <div class="world-label">⚔ WORLD MAP</div>
       <h2 class="section-title" data-text-reveal>Professional Experience</h2>
       <p class="section-subtitle">
-        <span class="pro-only">{{ totalExperience }} years across {{ stops.length }} companies</span><span class="play-only"><span class="xp-total">{{ totalExperience }} YRS</span> of quests completed across {{ stops.length }} worlds</span>
+        <span class="xp-total">{{ totalExperience }} YRS</span> of quests completed across {{ stops.length }} worlds
       </p>
     </div>
 
-    <!-- ═══════ PRO VIEW: every role readable without interaction ═══════ -->
-    <ol class="career-timeline pro-only">
-      @for (stop of stopsNewestFirst; track stop.id) {
-        <li class="ct-company" [class.ct-company--current]="stop.isCurrent">
-          <div class="ct-head">
-            <img [src]="stop.logo" alt="" class="ct-logo" loading="lazy" decoding="async" width="44" height="44" />
-            <div>
-              <h3 class="ct-company-name">{{ stop.company }}</h3>
-              <span class="ct-period">{{ getStopPeriod(stop) }}</span>
-            </div>
-          </div>
-          @for (role of stop.roles; track role.id) {
-            <article class="ct-role">
-              <div class="ct-role-head">
-                <h4 class="ct-role-title">{{ role.title }}</h4>
-                <span class="ct-role-meta">{{ role.period }} · {{ role.location }}</span>
-              </div>
-              <ul class="ct-achievements">
-                @for (ach of role.achievements; track ach) {
-                  <li>{{ ach }}</li>
-                }
-              </ul>
-              <div class="ct-tech">
-                @for (tech of role.technologies; track tech) {
-                  <span>{{ tech }}</span>
-                }
-              </div>
-            </article>
-          }
-        </li>
-      }
-    </ol>
-
-    <!-- ═══════ PLAY VIEW: world map timeline ═══════ -->
-    <div class="play-only">
+    <!-- ═══════ WORLD MAP TIMELINE ═══════ -->
     <div class="world-map" data-anim="fade-up">
 
       <!-- Scrollable track -->
@@ -175,7 +141,7 @@
           <p class="ql-description">{{ activeRole.description }}</p>
 
           <div class="ql-section">
-            <div class="ql-section-label"><span class="pro-only">STACK</span><span class="play-only">⚡ ABILITIES USED</span></div>
+            <div class="ql-section-label">⚡ ABILITIES USED</div>
             <div class="ql-tech-chips">
               @for (tech of activeRole.technologies; track tech) {
                 <span class="ql-tech">{{ tech }}</span>
@@ -194,7 +160,6 @@
         </div>
       </div>
     }
-    </div>
 
   </div>
 </div>
