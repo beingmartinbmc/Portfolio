@@ -151,7 +151,7 @@ requestAnimationFrame(() => {
     const last = periods[0];
     if (!first || !last) return '';
     if (periods.length === 1) return first;
-    const startYear = first.split(' - ')[0]?.split(' ')[0] ?? first;
+    const startYear = first.split(' - ')[0] ?? first;
     const endPart = last.includes('Present') ? 'Present' : last.split(' - ')[1]?.trim() || last;
     return `${startYear} - ${endPart}`;
   }

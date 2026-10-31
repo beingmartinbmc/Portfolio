@@ -12,32 +12,32 @@ export interface FocusArea {
 }
 
 export const HERO_METRICS: HeroMetric[] = [
-  { value: '6+', label: 'years building backend platforms' },
-  { value: '4', label: 'product organizations' },
-  { value: '3', label: 'engineering articles published' },
-  { value: '8', label: 'open-source packages shipped' }
+  { value: '6+', label: 'years building distributed systems' },
+  { value: '50K+', label: 'concurrent telephony sessions' },
+  { value: '2M+', label: 'daily transactions screened for fraud' },
+  { value: '65%', label: 'support workflows automated with LLMs' }
 ];
 
 export const FOCUS_AREAS: FocusArea[] = [
   {
+    icon: '🍄',
+    title: 'Distributed Systems',
+    tag: 'POWER-UP',
+    description: 'Java and Go services on Kafka, Redis, and AWS: 10K+ events/sec at sub-200ms P99, plus the on-call ownership that keeps them up.',
+    color: 'red'
+  },
+  {
     icon: '🤖',
-    title: 'AI Agents & LLMs',
+    title: 'AI Platforms & LLM Workflows',
     tag: 'STAR MODE',
-    description: 'Tool-calling agents and Slack bots that combine approved operational and knowledge sources into useful workflows.',
+    description: 'LLM-driven Slack automation, RAG, vector and semantic search, and MCP tooling, built to give grounded answers in production.',
     color: 'gold'
   },
   {
     icon: '🔥',
-    title: 'RAG & Gen AI in Production',
+    title: 'Risk, Payments & Onboarding',
     tag: 'FIRE FLOWER',
-    description: 'Retrieval pipelines, prompt and context work, evals, and guardrails — the stuff that keeps AI useful past the demo.',
+    description: 'Low-latency fraud detection and KYC pipelines for consumer platforms with millions of daily transactions.',
     color: 'green'
-  },
-  {
-    icon: '🍄',
-    title: 'Backend Systems',
-    tag: 'POWER-UP',
-    description: 'Java, Kafka, Redis, APIs, and event-driven workflows — plus the messy operational edges that keep high-traffic systems up.',
-    color: 'red'
   }
 ];

@@ -13,6 +13,7 @@ export const SOCIAL_LINKS = {
 export const DOCUMENT_LINKS = {
   resume: 'https://drive.google.com/file/d/1Xkef0oWDOhrktcCD6T67ObXp25Rx8AYq/view?usp=drive_link',
   coverLetter: 'https://drive.google.com/file/d/1-TqW3YrJQWNsmY6kiKb-w7hl1LNxTkh3/view?usp=sharing',
+  umpirePosePaper: 'http://sersc.org/journals/index.php/IJCA/article/view/18866',
 } as const;
 
 // ── Portfolio & Projects ──────────────────────────────────────
@@ -32,6 +33,7 @@ export const BLOG_LINKS = {
 
 // ── Open-source package pages ─────────────────────────────────
 export const PACKAGE_LINKS = {
+  jambavan: 'https://www.npmjs.com/package/jambavan',
   nodeActuatorLite: 'https://www.npmjs.com/package/node-actuator-lite',
   nodeRequestTrace: 'https://www.npmjs.com/package/node-request-trace',
   nodeEventloopWatchdog: 'https://www.npmjs.com/package/node-eventloop-watchdog',

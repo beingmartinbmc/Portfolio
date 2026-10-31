@@ -23,15 +23,15 @@ export class MetricsDashboardComponent implements OnInit, OnDestroy {
   animated = false;
 
   readonly metrics: MetricCard[] = [
-    { value: '0', numericEnd: 6, suffix: '+', label: 'YEARS OF EXPERIENCE', sublabel: 'backend and AI engineering', barPct: 84, accent: 'green' },
-    { value: '0', numericEnd: 4, suffix: '', label: 'PRODUCT ORGANIZATIONS', sublabel: 'enterprise and consumer platforms', barPct: 72, accent: 'green' },
-    { value: '0', numericEnd: 3, suffix: '', label: 'ARTICLES PUBLISHED', sublabel: 'engineering deep-dives', barPct: 60, accent: 'gold' },
-    { value: '0', numericEnd: 8, suffix: '', label: 'OPEN-SOURCE PACKAGES', sublabel: 'developer tools and experiments', barPct: 78, accent: 'gold' },
-    { value: '0', numericEnd: 7, suffix: '', label: 'AI / ML SKILL AREAS', sublabel: 'agents, retrieval, evals, and tooling', barPct: 86, accent: 'green' },
-    { value: '0', numericEnd: 8, suffix: '', label: 'ARCHITECTURE LAYERS', sublabel: 'from runtime to AI systems', barPct: 82, accent: 'gold' },
-    { value: '0', numericEnd: 3, suffix: '', label: 'PLAYABLE GAME MODES', sublabel: 'ground, sea, and sky', barPct: 58, accent: 'gold' },
-    { value: '0', numericEnd: 21, suffix: '', label: 'MODERN JAVA', sublabel: 'experience through Java 21', barPct: 90, accent: 'green' },
-    { value: '0', numericEnd: 500, suffix: '+', label: 'DSA PROBLEMS', sublabel: 'problem-solving practice', barPct: 88, accent: 'gold' },
+    { value: '0', numericEnd: 6, suffix: '+', label: 'YEARS OF EXPERIENCE', sublabel: 'distributed systems and AI platforms', barPct: 84, accent: 'green' },
+    { value: '0', numericEnd: 50, suffix: 'K+', label: 'CONCURRENT SESSIONS', sublabel: 'Go SIP/PSTN telephony platform', barPct: 90, accent: 'gold' },
+    { value: '0', numericEnd: 10, suffix: 'K+', label: 'EVENTS PER SECOND', sublabel: 'Kafka + AWS at sub-200ms P99', barPct: 86, accent: 'green' },
+    { value: '0', numericEnd: 2, suffix: 'M+', label: 'DAILY TRANSACTIONS', sublabel: 'screened by real-time fraud pipelines', barPct: 88, accent: 'gold' },
+    { value: '0', numericEnd: 2, suffix: '%', label: 'FRAUD FALSE NEGATIVES', sublabel: 'down from 12%', barPct: 92, accent: 'green' },
+    { value: '0', numericEnd: 40, suffix: '%', label: 'KYC CONVERSION LIFT', sublabel: '100K+ daily users onboarding', barPct: 80, accent: 'gold' },
+    { value: '0', numericEnd: 65, suffix: '%', label: 'SUPPORT WORKFLOWS AUTOMATED', sublabel: 'LLM-driven Slack bot', barPct: 82, accent: 'green' },
+    { value: '0', numericEnd: 43, suffix: '%', label: 'SCHOOL ADOPTION GROWTH', sublabel: 'personalized learning systems', barPct: 72, accent: 'gold' },
+    { value: '0', numericEnd: 9, suffix: '', label: 'OPEN-SOURCE PROJECTS', sublabel: 'npm, Maven Central, and MCP', barPct: 78, accent: 'green' },
   ];
 
   displayValues: string[] = [];

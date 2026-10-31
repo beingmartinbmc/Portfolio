@@ -1,4 +1,5 @@
 import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {DOCUMENT_LINKS} from '../../config/profile-links';
 
 @Component({
   selector: 'app-education',
@@ -7,4 +8,6 @@ import {Component, ChangeDetectionStrategy} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
-export class EducationComponent {}
+export class EducationComponent {
+  readonly documentLinks = DOCUMENT_LINKS;
+}

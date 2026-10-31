@@ -92,6 +92,7 @@
   border-radius: 999px;
   font-size: 0.92rem;
   font-weight: 600;
+  white-space: nowrap;
   color: var(--text-secondary);
   transition: background var(--transition-normal), color var(--transition-normal), transform var(--transition-normal);
 }

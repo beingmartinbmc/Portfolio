@@ -17,26 +17,59 @@
             <a class="world-badge world-salesforce" [href]="companyLinks.salesforce" target="_blank" rel="noopener">
               <span class="world-icon">☁️</span> Salesforce
             </a>
-            <span class="quest-platform">Enterprise AI</span>
+            <span class="quest-platform">Telephony</span>
           </div>
           <div class="quest-status">ACTIVE QUEST ⚔</div>
-          <h4 class="quest-name">AI-assisted Incident Triage</h4>
-          <p class="quest-tagline">Grounded engineering context for faster investigation</p>
+          <h4 class="quest-name">SIP/PSTN Telephony Platform</h4>
+          <p class="quest-tagline">Architecture and on-call for 50K+ concurrent sessions</p>
           <p class="pro-card-desc">
-            Built an LLM-backed workflow that gathers approved operational context, grounds responses with retrieval,
-            and produces concise summaries for an engineer to review.
+            Drive architecture and on-call operations for a Go-based SIP/PSTN telephony platform, alongside Kafka and AWS
+            event-processing services that handle 10K+ events/sec with sub-200ms P99 latency.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
             <div class="ability-chips">
-              <span>RAG</span><span>Tool Calling</span><span>Evaluation</span><span>Guardrails</span><span>Observability</span><span>Java</span>
+              <span>Go</span><span>SIP</span><span>PSTN</span><span>Kafka</span><span>AWS</span><span>Observability</span>
             </div>
           </div>
           <div class="rewards-row">
             <span class="rewards-label">🏆 REWARDS EARNED</span>
             <div class="reward-chips">
-              <span class="reward-chip">🪙 Grounded answers</span>
-              <span class="reward-chip">⭐ Human review</span>
+              <span class="reward-chip legendary">💎 50K+ concurrent sessions</span>
+              <span class="reward-chip">⭐ 10K+ events/sec</span>
+              <span class="reward-chip">🪙 Sub-200ms P99</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pro-project-card quest-card salesforce-card" data-anim="fade-up">
+        <div class="quest-rank-bar"></div>
+        <div class="quest-inner">
+          <div class="quest-header-row">
+            <a class="world-badge world-salesforce" [href]="companyLinks.salesforce" target="_blank" rel="noopener">
+              <span class="world-icon">☁️</span> Salesforce
+            </a>
+            <span class="quest-platform">Enterprise AI</span>
+          </div>
+          <div class="quest-status">ACTIVE QUEST ⚔</div>
+          <h4 class="quest-name">AI Support Automation Bot</h4>
+          <p class="quest-tagline">LLM-driven Slack bot for internal support</p>
+          <p class="pro-card-desc">
+            Built an LLM-driven Slack bot in Java and Spring Boot that gathers approved operational context, grounds
+            responses with retrieval, and now automates 65% of internal support workflows.
+          </p>
+          <div class="abilities-row">
+            <span class="abilities-label">⚡ ABILITIES USED</span>
+            <div class="ability-chips">
+              <span>Java</span><span>Spring Boot</span><span>RAG</span><span>Tool Calling</span><span>Evaluation</span><span>Guardrails</span>
+            </div>
+          </div>
+          <div class="rewards-row">
+            <span class="rewards-label">🏆 REWARDS EARNED</span>
+            <div class="reward-chips">
+              <span class="reward-chip">🪙 65% workflows automated</span>
+              <span class="reward-chip">⭐ Grounded answers</span>
             </div>
           </div>
         </div>
@@ -56,20 +89,20 @@
           <p class="quest-tagline">Identity verification at scale — built from scratch</p>
           <p class="pro-card-desc">
             Manual identity checks were slow, error-prone, and couldn't keep up with onboarding volume.
-            Built an automated end-to-end identity verification pipeline with document validation, OCR extraction,
-            asynchronous processing, and reliability controls.
+            Built an automated identity verification pipeline with document validation, OCR extraction, and
+            asynchronous processing, then scaled a Partial KYC flow that lifted onboarding conversion by 40%.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
             <div class="ability-chips">
-              <span>Java</span><span>Spring Boot</span><span>Kafka</span><span>Redis</span><span>OCR</span><span>AWS</span>
+              <span>Java</span><span>Spring WebFlux</span><span>Kafka</span><span>Redis</span><span>AWS Textract</span><span>OCR</span>
             </div>
           </div>
           <div class="rewards-row">
             <span class="rewards-label">🏆 REWARDS EARNED</span>
             <div class="reward-chips">
-              <span class="reward-chip">🪙 Automated workflow</span>
-              <span class="reward-chip">⭐ Reliability-focused</span>
+              <span class="reward-chip">🪙 +40% conversion</span>
+              <span class="reward-chip">⭐ 100K+ daily users</span>
             </div>
           </div>
         </div>
@@ -95,14 +128,14 @@
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
             <div class="ability-chips">
-              <span>Java</span><span>Kafka</span><span>SageMaker</span><span>Neptune DB</span><span>Gremlin</span><span>Spring Cloud</span>
+              <span>Java 21</span><span>Kafka</span><span>Redis</span><span>SageMaker</span><span>Neptune DB</span><span>Gremlin</span>
             </div>
           </div>
           <div class="rewards-row">
             <span class="rewards-label">🏆 REWARDS EARNED</span>
             <div class="reward-chips">
-              <span class="reward-chip">🪙 Event-driven decisions</span>
-              <span class="reward-chip">⭐ Real-time detection</span>
+              <span class="reward-chip">🪙 12% → 2% false negatives</span>
+              <span class="reward-chip">⭐ 2M+ daily transactions</span>
             </div>
           </div>
         </div>
@@ -187,19 +220,19 @@
           <h4 class="quest-name">Annual Enrollment</h4>
           <p class="quest-tagline">Self-service benefits enrollment for US associates</p>
           <p class="pro-card-desc">
-            Built features for a self-service dashboard supporting eligibility checks and benefits enrollment
-            across US stores.
+            Built an end-to-end, self-service benefits enrollment workflow with eligibility checks for US associates,
+            increasing completion rates by 65%.
           </p>
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
             <div class="ability-chips">
-              <span>Java 8</span><span>Angular</span><span>JSP</span><span>CI/CD</span><span>Jenkins</span>
+              <span>React</span><span>Node.js</span><span>CI/CD</span><span>Jenkins</span>
             </div>
           </div>
           <div class="rewards-row">
             <span class="rewards-label">🏆 REWARDS EARNED</span>
             <div class="reward-chips">
-              <span class="reward-chip">🪙 Enterprise reach</span>
+              <span class="reward-chip">🪙 +65% completion</span>
               <span class="reward-chip">⭐ US-wide rollout</span>
             </div>
           </div>
@@ -226,14 +259,14 @@
           <div class="abilities-row">
             <span class="abilities-label">⚡ ABILITIES USED</span>
             <div class="ability-chips">
-              <span>Java 11</span><span>Spring Boot</span><span>MySQL</span><span>Docker</span><span>AWS Cognito</span><span>OAuth2.0</span>
+              <span>Node.js</span><span>MongoDB</span><span>Redis</span>
             </div>
           </div>
           <div class="rewards-row">
             <span class="rewards-label">🏆 REWARDS EARNED</span>
             <div class="reward-chips">
-              <span class="reward-chip">🪙 K-12 platform</span>
-              <span class="reward-chip">⭐ Modular pricing</span>
+              <span class="reward-chip">🪙 +43% adoption</span>
+              <span class="reward-chip">⭐ −20% support tickets</span>
             </div>
           </div>
         </div>
