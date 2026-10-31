@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ANALYTICS_LINKS } from '../../config/profile-links';
+import { CONTACT_LINKS, DOCUMENT_LINKS, SOCIAL_LINKS } from '../../config/profile-links';
 
 
 @Component({
@@ -11,6 +11,8 @@ import { ANALYTICS_LINKS } from '../../config/profile-links';
   imports: []
 })
 export class FooterComponent {
-  readonly analyticsLinks = ANALYTICS_LINKS;
+  readonly documentLinks = DOCUMENT_LINKS;
+  readonly contactLinks = CONTACT_LINKS;
+  readonly socialLinks = SOCIAL_LINKS;
   readonly currentYear = new Date().getFullYear();
 }

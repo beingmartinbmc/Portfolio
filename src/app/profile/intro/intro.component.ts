@@ -1,5 +1,5 @@
-import {Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import {DOCUMENT_LINKS, SOCIAL_LINKS} from '../../config/profile-links';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {CONTACT_LINKS, DOCUMENT_LINKS, SOCIAL_LINKS} from '../../config/profile-links';
 import {AchievementsService} from '../../services/achievements.service';
 import {HERO_METRICS, FOCUS_AREAS} from './intro.data';
 
@@ -10,43 +10,14 @@ import {HERO_METRICS, FOCUS_AREAS} from './intro.data';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
-export class IntroComponent implements OnDestroy {
-  showDocumentDropdown = false;
-
+export class IntroComponent {
   readonly socialLinks = SOCIAL_LINKS;
   readonly documentLinks = DOCUMENT_LINKS;
+  readonly contactLinks = CONTACT_LINKS;
   readonly heroMetrics = HERO_METRICS;
   readonly focusAreas = FOCUS_AREAS;
 
-  private boundCloseDropdown = this.closeDropdown.bind(this);
-
-  constructor(private achievements: AchievementsService, private cdr: ChangeDetectorRef) {}
-
-  ngOnDestroy(): void {
-    document.removeEventListener('click', this.boundCloseDropdown);
-  }
-
-  toggleDocumentDropdown(event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.showDocumentDropdown = !this.showDocumentDropdown;
-
-    if (this.showDocumentDropdown) {
-      document.removeEventListener('click', this.boundCloseDropdown);
-      setTimeout(() => {
-        document.addEventListener('click', this.boundCloseDropdown, { once: true });
-      }, 0);
-    } else {
-      document.removeEventListener('click', this.boundCloseDropdown);
-    }
-  }
-
-  scrollToOperatingStyle(event: Event): void {
-    event.preventDefault();
-    window.setTimeout(() => {
-      document.getElementById('operating-style')?.scrollIntoView({behavior: 'smooth', block: 'start'});
-    }, 0);
-  }
+  constructor(private achievements: AchievementsService) {}
 
   trackResumeDownload(): void {
     this.achievements.trackResumeDownload();
@@ -54,10 +25,5 @@ export class IntroComponent implements OnDestroy {
 
   trackSocialClick(): void {
     this.achievements.trackSocialClick();
-  }
-
-  private closeDropdown(): void {
-    this.showDocumentDropdown = false;
-    this.cdr.markForCheck();
   }
 }

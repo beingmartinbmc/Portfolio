@@ -108,20 +108,12 @@
         <div class="skill-card-grid">
           @for (skill of constellation.skills; track skill.name) {
             <div class="skill-card"
-                 role="button"
-                 tabindex="0"
-                 [attr.aria-expanded]="isExpanded(skill)"
-                 [attr.aria-controls]="skill.details ? getSkillDetailsId(skill) : null"
                  [ngClass]="{
                    'skill-card--primary': skill.level === 'primary',
                    'skill-card--secondary': skill.level === 'secondary',
                    'skill-card--supporting': skill.level === 'supporting',
-                   'skill-card--expanded': isExpanded(skill),
                    'skill-card--flow': isSystemFlowNode(skill)
-                 }"
-                 (click)="toggleCard(skill)"
-                 (keydown.enter)="toggleCard(skill)"
-                 (keydown.space)="toggleCard(skill); $event.preventDefault()">
+                 }">
 
               <!-- Flow badge for system mode -->
               @if (isSystemFlowNode(skill)) {
@@ -145,48 +137,6 @@
                 </div>
               </div>
 
-              <!-- Expanded detail panel -->
-              @if (isExpanded(skill) && skill.details) {
-                <div class="card-details" [id]="getSkillDetailsId(skill)">
-                  <p class="detail-description">{{ skill.details.description }}</p>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Experience</h5>
-                    <ul class="detail-list">
-                      @for (exp of skill.details.experience; track $index) {
-                        <li>{{ exp }}</li>
-                      }
-                    </ul>
-                  </div>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Key Projects</h5>
-                    <div class="project-chips">
-                      @for (project of skill.details.projects; track $index) {
-                        <span class="project-chip">{{ project }}</span>
-                      }
-                    </div>
-                  </div>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Achievements</h5>
-                    <ul class="achievement-list">
-                      @for (achievement of skill.details.achievements; track $index) {
-                        <li>{{ achievement }}</li>
-                      }
-                    </ul>
-                  </div>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Related</h5>
-                    <div class="related-tags">
-                      @for (rs of skill.details.relatedSkills; track $index) {
-                        <span class="related-tag">{{ rs }}</span>
-                      }
-                    </div>
-                  </div>
-                </div>
-              }
             </div>
           }
         </div>

@@ -69,39 +69,22 @@
   vertical-align: middle;
 }
 
-/* ── Analytics pill ──────────────────────────────────── */
-.analytics-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid gold(0.12);
-  background: gold(0.04);
-  color: var(--text-muted);
-  font-size: 0.75rem;
+/* ── Document and contact links ─────────────────────── */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.1rem;
+}
+
+.footer-links a {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
   text-decoration: none;
-  transition: all 200ms ease;
+  transition: color 200ms ease;
 
   &:hover {
-    border-color: gold(0.35);
-    color: #fde68a;
-    box-shadow: 0 0 12px gold(0.08);
+    color: var(--primary-color);
   }
-}
-
-.pill-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 6px green(0.5);
-  animation: dotPulse 2s ease-in-out infinite;
-}
-
-@keyframes dotPulse {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.4; }
 }
 
 /* ── Responsive ──────────────────────────────────────── */

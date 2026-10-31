@@ -49,11 +49,6 @@ export const CONTACT_LINKS = {
   email: 'ankit.sharma199803@gmail.com',
 } as const;
 
-// ── Analytics ─────────────────────────────────────────────────
-export const ANALYTICS_LINKS = {
-  flagCounterPage: 'https://s05.flagcounter.com/more/hZ3l/',
-} as const;
-
 // ── Company URLs (used in experience data) ────────────────────
 export const COMPANY_LINKS = {
   salesforce: 'https://www.salesforce.com/',

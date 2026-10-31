@@ -5,13 +5,12 @@ import {
   BLOG_LINKS,
   PACKAGE_LINKS,
   CONTACT_LINKS,
-  ANALYTICS_LINKS,
   COMPANY_LINKS,
 } from './profile-links';
 
 describe('profile-links', () => {
   const collectUrls = (obj: Record<string, string>) => Object.values(obj);
-  const allLinkGroups = [SOCIAL_LINKS, DOCUMENT_LINKS, PROJECT_LINKS, BLOG_LINKS, PACKAGE_LINKS, ANALYTICS_LINKS, COMPANY_LINKS];
+  const allLinkGroups = [SOCIAL_LINKS, DOCUMENT_LINKS, PROJECT_LINKS, BLOG_LINKS, PACKAGE_LINKS, COMPANY_LINKS];
 
   it('exposes only well-formed http(s) URLs across every link group', () => {
     allLinkGroups.forEach(group => {

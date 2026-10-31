@@ -4,10 +4,8 @@
       <span class="section-kicker">Senior Backend Engineer • Distributed Systems • AI Platforms</span>
 
       <h1 class="hero-title">
-        <span>Backend systems</span>
-        <span>that scale.</span>
-        <span>AI platforms</span>
-        <span>that ship.</span>
+        <span>Backend systems that scale.</span>
+        <span>AI platforms that ship.</span>
       </h1>
 
       <p class="hero-summary">
@@ -15,6 +13,15 @@
         gaming. Java and Go, event-driven architectures, low-latency pipelines, and LLM workflows. Currently driving
         telephony infrastructure and support automation at Salesforce.
       </p>
+
+      <div class="hero-metrics">
+        @for (metric of heroMetrics; track metric.label) {
+          <div class="metric-card">
+            <span class="metric-value">{{ metric.value }}</span>
+            <span class="metric-label">{{ metric.label }}</span>
+          </div>
+        }
+      </div>
 
       <div class="hero-meta">
         <span class="hero-chip">SMTS @ Salesforce</span>
@@ -24,30 +31,14 @@
       </div>
 
       <div class="hero-actions">
-        <a class="apple-btn apple-btn-primary" href="#operating-style" (click)="scrollToOperatingStyle($event)">
+        <a class="apple-btn apple-btn-primary" [href]="documentLinks.resume" target="_blank" rel="noopener" (click)="trackResumeDownload()">
           <span aria-hidden="true">↗</span>
-          How I work
+          View resume
         </a>
-
-        <div class="document-menu" [class.open]="showDocumentDropdown">
-          <button class="apple-btn apple-btn-secondary" (click)="toggleDocumentDropdown($event)">
-            <span aria-hidden="true">↓</span>
-            Download docs
-          </button>
-
-          @if (showDocumentDropdown) {
-            <div class="document-dropdown">
-              <a [href]="documentLinks.resume" target="_blank" rel="noopener" (click)="trackResumeDownload()">
-                <span aria-hidden="true">▤</span>
-                Resume
-              </a>
-              <a [href]="documentLinks.coverLetter" target="_blank" rel="noopener">
-                <span aria-hidden="true">✉</span>
-                Cover Letter
-              </a>
-            </div>
-          }
-        </div>
+        <a class="apple-btn apple-btn-secondary" [href]="'mailto:' + contactLinks.email">
+          <span aria-hidden="true">✉</span>
+          Email me
+        </a>
       </div>
 
       <div class="hero-social">
@@ -62,14 +53,6 @@
         </a>
       </div>
 
-      <div class="hero-metrics">
-        @for (metric of heroMetrics; track metric.label) {
-          <div class="metric-card">
-            <span class="metric-value">{{ metric.value }}</span>
-            <span class="metric-label">{{ metric.label }}</span>
-          </div>
-        }
-      </div>
     </div>
 
     <div class="hero-panel apple-card">

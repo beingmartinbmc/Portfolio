@@ -29,3 +29,17 @@
   font-family: var(--font-mono);
   text-align: center;
 }
+
+.deferred-cta {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  font-family: var(--font-primary);
+  color: var(--text-secondary);
+}
+
+.deferred-title {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--text-primary);
+}

@@ -5,7 +5,7 @@ test('renders the portfolio immediately with optimized hero media @smoke', async
 
   await expect(page).toHaveTitle(/Ankit Sharma/);
   await expect(page.locator('app-loader')).toHaveCount(0);
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('AI agents');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Backend systems');
 
   const portrait = page.getByAltText('Ankit Sharma');
   await expect(portrait).toBeVisible();
@@ -13,15 +13,24 @@ test('renders the portfolio immediately with optimized hero media @smoke', async
   await expect.poll(() => portrait.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
 });
 
-test('supports keyboard interaction for expandable skill cards', async ({ page }) => {
-  await page.goto('/#skill');
+test('defaults to the professional view and toggles play mode from the keyboard', async ({ page }) => {
+  await page.goto('/');
 
-  const firstSkill = page.locator('.skill-card').first();
-  await firstSkill.scrollIntoViewIfNeeded();
-  await firstSkill.focus();
-  await firstSkill.press('Enter');
+  await expect(page.locator('html')).not.toHaveClass(/play-mode/);
+  await expect(page.locator('app-mini-map')).toHaveCount(0);
+  await expect(page.locator('.quest-status').first()).toBeHidden();
 
-  await expect(firstSkill).toHaveAttribute('aria-expanded', 'true');
+  const toggle = page.getByRole('button', { name: 'Play mode' });
+  await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+  await toggle.focus();
+  await toggle.press('Enter');
+
+  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('html')).toHaveClass(/play-mode/);
+  await expect(page.locator('app-mini-map')).toHaveCount(1);
+
+  await page.reload();
+  await expect(page.locator('html')).toHaveClass(/play-mode/);
 });
 
 test('exposes semantic navigation and SEO discovery files', async ({ page, request }) => {

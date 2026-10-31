@@ -1,8 +1,5 @@
 import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {SKILL_DETAILS, SkillDetail} from './skills.data';
 import {NgClass} from '@angular/common';
-import {AchievementsService} from '../../services/achievements.service';
-import {AudioService} from '../../services/audio.service';
 
 type SkillLevel = 'primary' | 'secondary' | 'supporting';
 
@@ -13,7 +10,6 @@ export interface Skill {
   tooltip: string;
   x: number;
   y: number;
-  details?: SkillDetail;
 }
 
 export interface Constellation {
@@ -36,14 +32,8 @@ export class SkillsComponent implements OnInit {
 
   constellations: Constellation[] = [];
 
-  expandedSkill: Skill | null = null;
-
   systemMode = false;
 
-  constructor(
-    private achievements: AchievementsService,
-    private audio: AudioService
-  ) {}
   readonly systemModeLabels: Record<string, string> = {
     'Kafka': 'Event Bus',
     'Redis': 'Cache Layer',
@@ -91,7 +81,6 @@ export class SkillsComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildConstellations();
-    this.addSkillDetails();
     this.computeDerivedStats();
   }
 
@@ -202,11 +191,6 @@ export class SkillsComponent implements OnInit {
     ];
   }
 
-  private addSkillDetails(): void {
-    this.constellations.forEach(c => {
-      c.skills.forEach(s => { if (SKILL_DETAILS[s.name]) s.details = SKILL_DETAILS[s.name]; });
-    });
-  }
 
   toggleSystemMode(): void {
     this.systemMode = !this.systemMode;
@@ -239,23 +223,4 @@ export class SkillsComponent implements OnInit {
   getLevelTag(level: SkillLevel): string {
     return level === 'primary' ? 'BOSS' : level === 'secondary' ? 'MAIN' : 'SUPPORT';
   }
-
-  getSkillDetailsId(skill: Skill): string {
-    return `skill-${skill.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-details`;
-  }
-
-  toggleCard(skill: Skill): void {
-    if (this.expandedSkill === skill) {
-      this.expandedSkill = null;
-      return;
-    }
-    this.expandedSkill = skill;
-    this.achievements.trackSkillExpand();
-    this.audio.play('powerUp');
-  }
-
-  isExpanded(skill: Skill): boolean {
-    return this.expandedSkill === skill;
-  }
-
 }

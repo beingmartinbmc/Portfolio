@@ -10,7 +10,41 @@
       </p>
     </div>
 
-    <!-- ═══════ WORLD MAP TIMELINE ═══════ -->
+    <!-- ═══════ PRO VIEW: every role readable without interaction ═══════ -->
+    <ol class="career-timeline pro-only">
+      @for (stop of stopsNewestFirst; track stop.id) {
+        <li class="ct-company" [class.ct-company--current]="stop.isCurrent">
+          <div class="ct-head">
+            <img [src]="stop.logo" alt="" class="ct-logo" loading="lazy" decoding="async" width="44" height="44" />
+            <div>
+              <h3 class="ct-company-name">{{ stop.company }}</h3>
+              <span class="ct-period">{{ getStopPeriod(stop) }}</span>
+            </div>
+          </div>
+          @for (role of stop.roles; track role.id) {
+            <article class="ct-role">
+              <div class="ct-role-head">
+                <h4 class="ct-role-title">{{ role.title }}</h4>
+                <span class="ct-role-meta">{{ role.period }} · {{ role.location }}</span>
+              </div>
+              <ul class="ct-achievements">
+                @for (ach of role.achievements; track ach) {
+                  <li>{{ ach }}</li>
+                }
+              </ul>
+              <div class="ct-tech">
+                @for (tech of role.technologies; track tech) {
+                  <span>{{ tech }}</span>
+                }
+              </div>
+            </article>
+          }
+        </li>
+      }
+    </ol>
+
+    <!-- ═══════ PLAY VIEW: world map timeline ═══════ -->
+    <div class="play-only">
     <div class="world-map" data-anim="fade-up">
 
       <!-- Scrollable track -->
@@ -160,6 +194,7 @@
         </div>
       </div>
     }
+    </div>
 
   </div>
 </div>
