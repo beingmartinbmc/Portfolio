@@ -31,7 +31,7 @@ describe('KonamiComponent', () => {
 
   afterEach(() => {
     component.ngOnDestroy();
-    document.body.classList.remove('god-mode');
+    document.documentElement.classList.remove('god-mode');
   });
 
   function type(keys: string[]): void {
@@ -48,7 +48,7 @@ describe('KonamiComponent', () => {
     expect(component.godMode).toBeTrue();
     expect(audio.play).toHaveBeenCalledWith('star');
     expect(achievements.unlock).toHaveBeenCalledWith('code_breaker');
-    expect(document.body.classList.contains('god-mode')).toBeTrue();
+    expect(document.documentElement.classList.contains('god-mode')).toBeTrue();
   });
 
   it('does not activate on a wrong sequence', () => {
@@ -67,13 +67,13 @@ describe('KonamiComponent', () => {
     expect(component.godMode).toBeTrue();
     tick(10000);
     expect(component.godMode).toBeFalse();
-    expect(document.body.classList.contains('god-mode')).toBeFalse();
+    expect(document.documentElement.classList.contains('god-mode')).toBeFalse();
   }));
 
   it('clears the timer and god-mode class on destroy', fakeAsync(() => {
     type(CODE);
     component.ngOnDestroy();
-    expect(document.body.classList.contains('god-mode')).toBeFalse();
+    expect(document.documentElement.classList.contains('god-mode')).toBeFalse();
     tick(10000);
   }));
 });

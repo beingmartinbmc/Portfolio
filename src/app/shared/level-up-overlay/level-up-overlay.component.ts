@@ -9,21 +9,23 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   template: `
+    <div role="status" aria-live="polite">
     @if (show) {
       <div class="levelup-overlay">
         <div class="levelup-card">
-          <div class="levelup-stars">
+          <div class="levelup-stars" aria-hidden="true">
             @for (s of stars; track s) {
               <span class="lu-star" [style.--i]="s">⭐</span>
             }
           </div>
-          <div class="levelup-icon">🍄</div>
+          <div class="levelup-icon" aria-hidden="true">🍄</div>
           <div class="levelup-label">LEVEL UP!</div>
           <div class="levelup-level">LVL {{ level }}</div>
           <div class="levelup-title">{{ title }}</div>
         </div>
       </div>
     }
+    </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`

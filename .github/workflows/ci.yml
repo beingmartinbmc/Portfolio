@@ -50,13 +50,17 @@ jobs:
 
       - name: Build deployable artifact
         # build:prod passes this through `ng build --define`, so an unset value expands
-        # to '' and the interceptor quietly drops the header. Fail here instead, in the
-        # same shell the value is actually set in.
+        # to '' and the interceptor quietly drops the header. Fail the deploy build in the
+        # same shell the value is set in; PRs (incl. forks/Dependabot, which get no secrets)
+        # still build and test without it.
         run: |
-          test -n "$AI_GATEWAY_API_KEY" || { echo "::error::AI_GATEWAY_API_KEY secret is not set"; exit 1; }
+          if [ "$DEPLOYING" = "true" ]; then
+            test -n "$AI_GATEWAY_API_KEY" || { echo "::error::AI_GATEWAY_API_KEY secret is not set"; exit 1; }
+          fi
           npm run deploy
         env:
           AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
+          DEPLOYING: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium firefox webkit

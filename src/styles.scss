@@ -552,11 +552,11 @@ body.is-hidden-tab *::after {
 /* ══════════════════════════════════════════════════════
    KONAMI CODE GOD MODE
 ══════════════════════════════════════════════════════ */
-body.god-mode {
+html.god-mode {
   animation: godModeBody 2s linear infinite;
 }
 
-body.god-mode * {
+html.god-mode * {
   border-color: rgba(251, 191, 36, 0.4) !important;
 }
 

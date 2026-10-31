@@ -72,6 +72,7 @@ export class MarioRenderer {
 
   /** Trigger a screen shake; magnitude decays each frame. */
   shake(magnitude: number): void {
+    if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     this.shakeMag = Math.min(Math.max(this.shakeMag, magnitude), 10);
   }
 

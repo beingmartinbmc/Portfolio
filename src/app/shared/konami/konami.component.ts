@@ -128,18 +128,18 @@ export class KonamiComponent implements OnDestroy {
     this.audio.play('star');
     this.achievements.unlock('code_breaker');
 
-    // Add rainbow class to body
-    document.body.classList.add('god-mode');
+    // On <html>, not <body>: a filter on body would re-anchor every position:fixed element to it.
+    document.documentElement.classList.add('god-mode');
 
     this.timer = setTimeout(() => {
       this.godMode = false;
-      document.body.classList.remove('god-mode');
+      document.documentElement.classList.remove('god-mode');
       this.cdr.markForCheck();
     }, 10000);
   }
 
   ngOnDestroy(): void {
     if (this.timer) clearTimeout(this.timer);
-    document.body.classList.remove('god-mode');
+    document.documentElement.classList.remove('god-mode');
   }
 }

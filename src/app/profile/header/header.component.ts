@@ -110,11 +110,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     window.setTimeout(() => {
       if (sectionId) {
-        document.getElementById(sectionId)?.scrollIntoView({behavior: 'smooth', block: 'start'});
+        document.getElementById(sectionId)?.scrollIntoView({block: 'start'});
         return;
       }
 
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({top: 0});
     }, 0);
   }
 }

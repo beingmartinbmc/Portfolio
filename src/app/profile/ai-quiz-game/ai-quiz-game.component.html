@@ -106,6 +106,13 @@
           </div>
           <button class="hud-fullscreen"
                   type="button"
+                  aria-label="Game sound"
+                  [attr.aria-pressed]="soundOn"
+                  (click)="toggleSound()">
+            <span aria-hidden="true">{{ soundOn ? '🔊' : '🔇' }}</span>
+          </button>
+          <button class="hud-fullscreen"
+                  type="button"
                   [attr.aria-label]="isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'"
                   (click)="toggleFullscreen()">
             <span aria-hidden="true">{{ isFullscreen ? '↙' : '↗' }}</span>

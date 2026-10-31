@@ -5,6 +5,7 @@ import { firstValueFrom, Subject, takeUntil, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { createOpenAiProxyRequest, getAiResponseText } from '../../config/api-config';
 import { MarioEngine } from './game/mario-engine';
+import { setMarioAudioMuted } from './game/mario-audio';
 import {
   generateProceduralLevel, parseLevelFromAI, buildLevelFromData,
   getLevelGenerationPrompt, validateAILevelData, LevelConfig
@@ -12,6 +13,7 @@ import {
 import { Level, LevelType } from './game/mario-entities';
 import { QUIZ_CATEGORIES, QUIZ_DIFFICULTIES, QUIZ_LEVEL_TYPES } from './ai-quiz-game.data';
 import { AchievementsService } from '../../services/achievements.service';
+import { AudioService } from '../../services/audio.service';
 
 type ViewState = 'setup' | 'loading' | 'playing' | 'results';
 
@@ -69,7 +71,21 @@ export class AiQuizGameComponent implements OnDestroy {
     private zone: NgZone,
     private cdr: ChangeDetectorRef,
     private achievementsService: AchievementsService,
-  ) {}
+    private audio: AudioService,
+  ) {
+    this.audio.enabled$.pipe(takeUntil(this.destroy$)).subscribe(enabled => {
+      setMarioAudioMuted(!enabled);
+      this.cdr.markForCheck();
+    });
+  }
+
+  get soundOn(): boolean {
+    return this.audio.enabled;
+  }
+
+  toggleSound(): void {
+    this.audio.toggle();
+  }
 
   ngOnDestroy(): void {
     this.destroyed = true;

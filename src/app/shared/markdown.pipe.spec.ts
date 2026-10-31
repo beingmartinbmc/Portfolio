@@ -33,6 +33,17 @@ describe('MarkdownPipe', () => {
     expect(result).toContain('unsafe');
   });
 
+  it('keeps angle brackets and ampersands as literal text', () => {
+    const out = String(pipe.transform('Use `List<String>` & Map<K, V>'));
+    expect(out).toContain('<code>List&lt;String&gt;</code>');
+    expect(out).toContain('&amp; Map&lt;K, V&gt;');
+  });
+
+  it('keeps query strings intact in link URLs', () => {
+    const out = String(pipe.transform('[docs](https://example.com/?a=1&b=2)'));
+    expect(out).toContain('href="https://example.com/?a=1&amp;b=2"');
+  });
+
   it('converts bold, italic, inline code, and newlines', () => {
     const result = html('**bold** *italic* `code`\nnext');
     expect(result).toContain('<strong>bold</strong>');

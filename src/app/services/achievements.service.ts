@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 export interface Achievement {
   id: string;
@@ -46,7 +46,9 @@ export class AchievementsService {
   private deepDiverTimer: ReturnType<typeof setTimeout> | null = null;
 
   readonly achievements$ = new BehaviorSubject<Achievement[]>([]);
-  readonly toast$ = new Subject<AchievementToast>();
+  // Replays the last few seconds so unlocks fired in the constructor (Welcome Back, Night Owl)
+  // still reach the toast component, which subscribes after this service is created.
+  readonly toast$ = new ReplaySubject<AchievementToast>(5, 10_000);
 
   constructor() {
     this.loadFromStorage();

@@ -28,7 +28,7 @@
               (keydown.space)="selectedCard = i; $event.preventDefault()"
               (mouseenter)="selectedCard = i">
               <div class="sc-icon">{{ card.icon }}</div>
-              <h4 class="sc-name">{{ card.title }}</h4>
+              <h3 class="sc-name">{{ card.title }}</h3>
               <span class="sc-tag play-only" [attr.data-color]="card.color">{{ card.tag }}</span>
               <div class="sc-bar-wrap play-only">
                 <div class="sc-bar">
@@ -81,7 +81,7 @@
         <div class="principles">
           @for (p of operatingPrinciples; track p.title) {
             <div class="principle-card">
-              <h5>{{ p.title }}</h5>
+              <h3>{{ p.title }}</h3>
               <p>{{ p.body }}</p>
             </div>
           }

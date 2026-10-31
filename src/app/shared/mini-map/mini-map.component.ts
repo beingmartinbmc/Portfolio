@@ -225,8 +225,9 @@ export class MiniMapComponent implements OnInit, OnDestroy {
     this.audioSub?.unsubscribe();
   }
 
+  // No explicit behavior: the html scroll-behavior (smooth, or auto under reduced motion) applies.
   scrollTo(id: string): void {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById(id)?.scrollIntoView({ block: 'start' });
   }
 
   toggleSfx(): void {

@@ -8,15 +8,15 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="toast-container">
-      @for (toast of visibleToasts; track toast.timestamp) {
+    <div class="toast-container" role="status" aria-live="polite">
+      @for (toast of visibleToasts; track toast.achievement.id) {
         <div class="achievement-toast" [class.exiting]="toast.exiting">
-          <div class="toast-confetti">
+          <div class="toast-confetti" aria-hidden="true">
             @for (p of confettiParticles; track p) {
               <span class="confetti-piece" [style.--i]="p"></span>
             }
           </div>
-          <div class="toast-icon">{{ toast.achievement.icon }}</div>
+          <div class="toast-icon" aria-hidden="true">{{ toast.achievement.icon }}</div>
           <div class="toast-body">
             <span class="toast-label">ACHIEVEMENT UNLOCKED</span>
             <span class="toast-title">{{ toast.achievement.title }}</span>
@@ -158,11 +158,11 @@ export class AchievementToastComponent implements OnInit, OnDestroy {
       this.visibleToasts.push({ ...toast, exiting: false });
       this.cdr.markForCheck();
       setTimeout(() => {
-        const t = this.visibleToasts.find(x => x.timestamp === toast.timestamp);
+        const t = this.visibleToasts.find(x => x.achievement.id === toast.achievement.id);
         if (t) t.exiting = true;
         this.cdr.markForCheck();
         setTimeout(() => {
-          this.visibleToasts = this.visibleToasts.filter(x => x.timestamp !== toast.timestamp);
+          this.visibleToasts = this.visibleToasts.filter(x => x.achievement.id !== toast.achievement.id);
           this.cdr.markForCheck();
         }, 400);
       }, 4000);

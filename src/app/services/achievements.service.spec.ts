@@ -54,6 +54,14 @@ describe('AchievementsService', () => {
       expect(toastCount).toBe(1);
     });
 
+    it('delivers constructor-time unlocks to a subscriber that arrives later', () => {
+      localStorage.setItem(VISIT_KEY, '1');
+      const service = makeService();
+      const ids: string[] = [];
+      service.toast$.subscribe(t => ids.push(t.achievement.id));
+      expect(ids).toEqual(['returner']);
+    });
+
     it('returns false for an unknown achievement id', () => {
       const service = makeService();
       expect(service.unlock('does_not_exist')).toBeFalse();
