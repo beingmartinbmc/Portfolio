@@ -19,16 +19,16 @@ export interface EmphasisArea {
 }
 
 export const FIT_CARDS: FitCard[] = [
-  { icon: '🧠', title: 'Best fit', tag: 'QUEST MATCH', color: 'gold', stat: 95, body: 'Staff and lead roles across AI products, backend platforms, and distributed systems.' },
+  { icon: '🧠', title: 'Best fit', tag: 'QUEST MATCH', color: 'gold', stat: 95, body: 'Senior and lead backend roles across distributed systems, event-driven platforms, and AI platforms.' },
   { icon: '⚙️', title: 'Operating mode', tag: 'LEVEL FLOW', color: 'red', stat: 92, body: 'Clear architecture, steady delivery, and actually shipping things instead of debating them.' },
   { icon: '🤝', title: 'Team style', tag: 'CO-OP MODE', color: 'green', stat: 90, body: 'I do my best work with product-minded teams that move fast but still care about the engineering.' },
   { icon: '📍', title: 'Collab shape', tag: 'WORLD MAP', color: 'blue', stat: 93, body: 'Comfortable leading across distributed teams and figuring out messy, half-defined problems.' },
 ];
 
 export const COLLABORATION_TRACKS: string[] = [
-  'AI agent and LLM work — tool-calling agents, Slack bots, RAG pipelines, and the evals that keep them honest.',
-  'Backend and platform architecture for systems that need to stay up under real traffic.',
-  'Staff-level work: setting technical direction, prioritizing, system design, and unblocking other teams.',
+  'Backend and platform architecture for low-latency, event-driven systems that need to stay up under real traffic.',
+  'AI platform work: LLM workflows, Slack automation, RAG, and the evals that keep them honest.',
+  'Technical leadership: setting direction, system design, on-call ownership, and unblocking other teams.',
 ];
 
 export const FIRST_WEEK_OUTCOMES: string[] = [

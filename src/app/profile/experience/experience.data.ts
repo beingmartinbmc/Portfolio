@@ -22,7 +22,7 @@ export interface OrbitPlanet {
   isExpanded: boolean;
 }
 
-export const EXPERIENCE_START_DATE = '2019-12-20';
+export const EXPERIENCE_START_DATE = '2020-01-01';
 
 export const EXPERIENCE_ITEMS: ExperienceItem[] = [
   {
@@ -31,89 +31,88 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     company: 'Salesforce',
     companyUrl: COMPANY_LINKS.salesforce,
     logo: 'assets/images/salesforce.webp',
-    location: 'Hybrid in Hyderabad, India',
+    location: 'Bengaluru, India',
     duration: 'Current',
-    period: '2025 - Present',
-    description: 'Senior Member of Technical Staff building AI agents and LLM-backed services for enterprise collaboration and engineering workflows.',
-    technologies: ['Java', 'AI Agents', 'LLMs', 'RAG', 'Tool Calling', 'Evaluation', 'Observability', 'Microservices'],
+    period: 'Nov 2025 - Present',
+    description: 'Driving telephony infrastructure and support automation: architecture and on-call ownership for a Go-based SIP/PSTN platform, plus LLM-driven support tooling.',
+    technologies: ['Go', 'Java', 'Spring Boot', 'SIP / PSTN', 'Kafka', 'AWS', 'LLMs', 'Slack', 'Observability'],
     achievements: [
-      'Built AI-assisted operational workflows that synthesize approved engineering context into reviewable summaries',
-      'Set up retrieval and tool-calling patterns with grounding, evaluations, and guardrails',
-      'Improved reliability, latency, and failure handling for LLM-backed services',
-      'Contributed to enterprise collaboration and assistant experiences',
-      'Raised engineering practices and code quality across the team'
+      'Drive architecture and on-call operations for a Go-based SIP/PSTN telephony platform handling 50K+ concurrent sessions',
+      'Built an LLM-driven Slack bot in Java and Spring Boot that automates 65% of internal support workflows',
+      'Designed Kafka and AWS event-processing services that handle 10K+ events/sec with sub-200ms P99 latency'
     ]
   },
   {
-    id: 'sde2-games24x7',
-    title: 'SDE-2',
+    id: 'sse-games24x7',
+    title: 'Senior Software Engineer',
     company: 'Games24x7',
     companyUrl: COMPANY_LINKS.games24x7,
     logo: 'assets/images/games24x7.webp',
-    location: 'Bangalore, India',
+    location: 'Bengaluru, India',
     duration: '3 years',
-    period: '2022 - 2025',
-    description: 'Worked as a backend developer in Platform services, for both RummyCircle and My11Circle. Led critical platform initiatives and mentored junior developers.',
-    technologies: ['Kafka', 'Spring Cloud', 'LLM', 'AWS Sage Maker', 'Google AD APIs', 'Elasti-cache', 'JDK 21', 'Neptune DB', 'Gremlin', 'Grafana', 'Prometheus', 'Pager Duty'],
+    period: 'Oct 2022 - Oct 2025',
+    description: 'Backend engineer on platform services shared by RummyCircle and My11Circle (risk, KYC, payments, and onboarding). Led critical platform initiatives and mentored junior developers.',
+    technologies: ['Java 21', 'Spring WebFlux', 'Kafka', 'Redis', 'AWS Textract', 'AWS SageMaker', 'Neptune DB', 'Gremlin', 'ElastiCache', 'Google Ads APIs', 'Grafana', 'Prometheus', 'PagerDuty'],
     achievements: [
-      'Developed a real-time, configurable risk evaluation platform for consumer gaming products',
+      'Cut fraud false negatives from 12% to 2% across 2M+ daily transactions with low-latency detection pipelines in Java 21, Kafka, and Redis',
+      'Boosted KYC onboarding conversion by 40% (100K+ daily users) by scaling a Partial KYC flow on Spring WebFlux, Redis, and AWS Textract',
       'Developed an advertising spend monitoring service for the marketing team',
       'Standardized and migrated services from EC2 to Graviton in K8s',
-      'Set up proper alerting for business dashboards and created PD alerts',
+      'Set up alerting for business dashboards and PagerDuty alerts',
       'Mentored a team of 3 junior developers'
     ]
   },
   {
-    id: 'sde1-games24x7',
-    title: 'SDE-1',
+    id: 'swe-games24x7',
+    title: 'Software Engineer',
     company: 'Games24x7',
     companyUrl: COMPANY_LINKS.games24x7,
     logo: 'assets/images/games24x7.webp',
-    location: 'Bangalore, India',
-    duration: '1.1 years',
-    period: '2021 - 2022',
-    description: 'Worked as a backend developer on scalable solutions for a high-traffic consumer gaming platform.',
+    location: 'Bengaluru, India',
+    duration: '1 year',
+    period: 'Oct 2021 - Oct 2022',
+    description: 'Backend developer on high-throughput payment and gaming microservices for a high-traffic consumer gaming platform.',
     technologies: ['Java 11', 'Microservices', 'AWS', 'OCR', 'Redis', 'Kafka', 'RabbitMQ', 'MySQL', 'Spring Boot', 'Spring Cloud', 'Distributed Locking'],
     achievements: [
-      'Helped a high-traffic gaming platform scale through major seasonal events',
-      'Worked on shared backend capabilities across multiple gaming products',
+      'Developed high-throughput payment and gaming microservices using Kafka and Redis',
+      'Earned a promotion to Senior Software Engineer within 12 months',
       'Developed an automated identity-verification platform from scratch',
+      'Helped the platform scale through major seasonal traffic events',
       'Shipped customer progression and membership features'
     ]
   },
   {
     id: 'swe-walmart',
-    title: 'SWE IN2',
+    title: 'Software Engineer',
     company: 'Walmart Global Tech',
     companyUrl: COMPANY_LINKS.walmart,
     logo: 'assets/images/walmart.webp',
-    location: 'Bangalore, India',
-    duration: '4 months',
-    period: '2021',
-    description: 'Built features for Walmart\'s employee benefits enrollment platform.',
-    technologies: ['Java 8', 'Angular', 'JSP', 'OneOps', 'WCNP', 'Jenkins'],
+    location: 'Bengaluru, India',
+    duration: '6 months',
+    period: 'May 2021 - Oct 2021',
+    description: 'Built an end-to-end benefits enrollment workflow for Walmart\'s US associates.',
+    technologies: ['React', 'Node.js', 'WCNP', 'OneOps', 'Jenkins'],
     achievements: [
-      'Developed benefits-enrollment features for a large US associate population',
-      'Built on enterprise cloud infrastructure with CI/CD via Jenkins',
-      'Shipped production code within first month, collaborating across US and India teams'
+      'Built an end-to-end benefits enrollment workflow with React and Node.js, increasing completion rates by 65%',
+      'Delivered benefits-enrollment features for a large US associate population',
+      'Shipped production code within the first month, collaborating across US and India teams'
     ]
   },
   {
-    id: 'sde1-extramarks',
-    title: 'SDE 1',
+    id: 'swe-extramarks',
+    title: 'Software Engineer',
     company: 'Extramarks Education',
     companyUrl: COMPANY_LINKS.extramarks,
     logo: 'assets/images/extramarks.webp',
-    location: 'Noida, India',
-    duration: '1.3 years',
-    period: '2020 - 2021',
-    description: 'Got hands on project experience, worked in a collaborative environment. Created from scratch projects and deployed it into production environment.',
-    technologies: ['Java 8/11', 'Spring Boot', 'OAuth2.0 + JWT', 'AWS Cognito', 'Docker', 'MySQL 8+'],
+    location: 'New Delhi, India',
+    duration: '1.2 years',
+    period: 'Jan 2020 - Mar 2021',
+    description: 'Built personalized K-12 learning systems and real-time backend operations for school platforms.',
+    technologies: ['Node.js', 'MongoDB', 'Redis'],
     achievements: [
-      'Broke Monolithic architecture to Microservices and discussed the whole architecture with the team',
-      'Developed and deployed 5+ production-ready applications',
-      'Implemented OAuth2.0 authentication system',
-      'Improved system reliability through service-oriented architecture'
+      'Launched personalized learning systems in Node.js and MongoDB, growing school platform adoption by 43%',
+      'Automated real-time backend operations with Redis, reducing manual support tickets by 20%',
+      'Developed and deployed 5+ production-ready applications'
     ]
   }
 ];

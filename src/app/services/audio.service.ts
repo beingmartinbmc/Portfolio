@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { PlayModeService } from './play-mode.service';
 
 type SfxName = 'coin' | 'levelUp' | 'powerUp' | 'pipe' | 'jump' | 'star' | 'click';
 
@@ -11,6 +12,7 @@ interface WebkitAudioWindow extends Window {
 export class AudioService {
   private readonly STORAGE_KEY = 'portfolio_sfx_enabled';
   private ctx: AudioContext | null = null;
+  private readonly playMode = inject(PlayModeService);
 
   readonly enabled$ = new BehaviorSubject<boolean>(false);
 
@@ -45,7 +47,7 @@ export class AudioService {
   }
 
   play(name: SfxName): void {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.playMode.enabled()) return;
     this.ensureContext();
     if (!this.ctx) return;
 

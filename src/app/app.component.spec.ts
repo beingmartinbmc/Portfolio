@@ -18,10 +18,19 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'personal-portfolio-angular'`, () => {
+  it('renders the game overlays only in play mode', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('personal-portfolio-angular');
+    app.playMode.set(false);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('app-mini-map')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-level-up-overlay')).toBeNull();
+
+    app.playMode.set(true);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('app-mini-map')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('app-level-up-overlay')).toBeTruthy();
+    app.playMode.set(false);
   });
 
   it('should render the profile component', () => {

@@ -8,7 +8,8 @@ An Angular 22 portfolio focused on backend engineering, AI agents, writing, and 
 - Deferred Three.js avatar and AI-generated platform game
 - Portfolio-aware AI chat with optional text-to-speech
 - Keyboard-accessible interactive cards and game controls
-- Gamified achievements, experience map, and progress tracking
+- Professional view by default; an opt-in play mode (header 🎮 toggle) adds achievements, the experience world map, XP progress, and sounds
+- Zoneless change detection (zone.js is only loaded for unit tests)
 - Production build deployed to GitHub Pages
 
 The AI chat sends messages—and voice text when enabled—to third-party AI services. Do not submit sensitive information.

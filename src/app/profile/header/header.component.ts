@@ -1,6 +1,7 @@
-import {Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ScrollXpService} from '../../services/scroll-xp.service';
+import {PlayModeService} from '../../services/play-mode.service';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -12,6 +13,7 @@ import {Subscription} from 'rxjs';
   imports: [CommonModule]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  readonly playMode = inject(PlayModeService);
   isScrolled = false;
   isMenuOpen = false;
 
@@ -108,11 +110,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     window.setTimeout(() => {
       if (sectionId) {
-        document.getElementById(sectionId)?.scrollIntoView({behavior: 'smooth', block: 'start'});
+        document.getElementById(sectionId)?.scrollIntoView({block: 'start'});
         return;
       }
 
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({top: 0});
     }, 0);
   }
 }

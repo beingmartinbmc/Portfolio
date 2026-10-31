@@ -79,7 +79,7 @@ describe('HeaderComponent', () => {
     tick(0);
 
     expect(preventSpy).toHaveBeenCalled();
-    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
+    expect(scrollIntoView).toHaveBeenCalledWith({ block: 'start' });
     document.body.removeChild(section);
   }));
 
@@ -90,7 +90,7 @@ describe('HeaderComponent', () => {
     // window.scrollTo is overloaded ((x,y) | (options)); inspect the args
     // directly to avoid TS resolving to the wrong overload signature.
     expect(scrollSpy).toHaveBeenCalled();
-    expect(scrollSpy.calls.mostRecent().args[0] as any).toEqual({ top: 0, behavior: 'smooth' });
+    expect(scrollSpy.calls.mostRecent().args[0] as any).toEqual({ top: 0 });
   }));
 
   it('onNavLinkClick closes an open menu first', fakeAsync(() => {

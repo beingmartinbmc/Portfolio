@@ -1,8 +1,8 @@
 <section class="metrics-section" id="metrics">
   <div class="metrics-header">
-    <div class="world-label">📊 SYSTEM METRICS</div>
-    <h2 class="section-title">Portfolio Signals</h2>
-    <p class="section-subtitle">Public, portfolio-level indicators of experience, writing, and shipped work.</p>
+    <div class="world-label"><span class="pro-only">IMPACT</span><span class="play-only">📊 SYSTEM METRICS</span></div>
+    <h2 class="section-title">Impact in Numbers</h2>
+    <p class="section-subtitle">Production numbers from systems I've built and run.</p>
   </div>
 
   <div class="dashboard-grid">
@@ -22,7 +22,7 @@
           </div>
           <div class="metric-label">{{ metric.label }}</div>
           <div class="metric-sublabel">{{ metric.sublabel }}</div>
-          <div class="sparkline-track">
+          <div class="sparkline-track play-only">
             <div
               class="sparkline-bar"
               [style.width]="animated ? metric.barPct + '%' : '0%'"

@@ -5,28 +5,38 @@
   <app-intro></app-intro>
 
   <div class="page-content">
-    @defer (on viewport) {
-      <app-avatar-3d></app-avatar-3d>
-    } @placeholder {
-      <section id="avatar-3d" class="deferred-section-placeholder apple-section" aria-label="AI twin loads when visible">
-        <div class="apple-container">AI twin ready to load</div>
-      </section>
-    }
     <app-about></app-about>
-    <app-skills></app-skills>
     <app-experience></app-experience>
     <app-metrics-dashboard></app-metrics-dashboard>
     <app-publications></app-publications>
+    <app-skills></app-skills>
     <app-blog></app-blog>
-    @defer (on viewport) {
-      <app-ai-quiz-game></app-ai-quiz-game>
-    } @placeholder {
-      <section id="ai-quiz-game" class="deferred-section-placeholder apple-section" aria-label="AI game loads when visible">
-        <div class="apple-container">AI game ready to load</div>
-      </section>
-    }
+    <!-- Section ids live on these wrappers so anchors and the mini-map survive @defer swapping its content. -->
+    <div id="avatar-3d">
+      <!-- The twin pulls ~3.6 MB (three.js + model), so it loads on request, not on scroll. -->
+      @defer (on interaction) {
+        <app-avatar-3d></app-avatar-3d>
+      } @placeholder {
+        <section class="deferred-section-placeholder apple-section" aria-label="AI twin">
+          <div class="apple-container deferred-cta">
+            <h2 class="deferred-title">Ask my AI twin</h2>
+            <p>An LLM chat with curated context about my work, a 3D avatar, and optional voice.</p>
+            <button type="button" class="apple-btn apple-btn-primary">Load the AI twin (~3.6 MB)</button>
+          </div>
+        </section>
+      }
+    </div>
     <app-education></app-education>
     <app-contact></app-contact>
+    <div id="ai-quiz-game">
+      @defer (on viewport) {
+        <app-ai-quiz-game></app-ai-quiz-game>
+      } @placeholder {
+        <section class="deferred-section-placeholder apple-section" aria-label="AI game loads when visible">
+          <div class="apple-container">AI game ready to load</div>
+        </section>
+      }
+    </div>
   </div>
 </main>
 

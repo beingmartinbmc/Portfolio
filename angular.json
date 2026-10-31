@@ -22,9 +22,6 @@
               "browser": ""
             },
             "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/assets",
@@ -68,8 +65,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "650kb",
-                  "maximumError": "850kb"
+                  "maximumWarning": "450kb",
+                  "maximumError": "600kb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -107,7 +104,7 @@
           "options": {
             "main": "src/test.ts",
             "polyfills": [
-              "src/polyfills.ts"
+              "zone.js"
             ],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",

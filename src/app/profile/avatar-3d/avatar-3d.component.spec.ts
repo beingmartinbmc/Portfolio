@@ -87,11 +87,24 @@ describe('Avatar3dComponent', () => {
       expect(component.messages.length).toBe(1);
     }));
 
-    it('escape key closes an open chat', fakeAsync(() => {
-      component.isChatOpen = true;
+    it('escape closes the chat when focus is inside it', fakeAsync(() => {
+      component.toggleChat();
+      fixture.detectChanges();
+      tick(100);
+      component.messageInput.nativeElement.focus();
       component.onDocumentKeydown(new KeyboardEvent('keydown', { key: 'Escape' }));
       tick();
       expect(component.isChatOpen).toBeFalse();
+    }));
+
+    it('escape elsewhere on the page leaves the in-page chat open', fakeAsync(() => {
+      component.toggleChat();
+      fixture.detectChanges();
+      tick(100);
+      component.messageInput.nativeElement.blur();
+      component.onDocumentKeydown(new KeyboardEvent('keydown', { key: 'Escape' }));
+      tick();
+      expect(component.isChatOpen).toBeTrue();
     }));
 
     it('escape key does nothing when chat is closed', () => {
@@ -171,7 +184,7 @@ describe('Avatar3dComponent', () => {
       component.sendMessage();
 
       const aiReq = httpMock.expectOne(environment.aiApiUrl);
-      expect(aiReq.request.body.maxTokens).toBe(600);
+      expect(aiReq.request.body.maxTokens).toBe(550);
       aiReq.flush({ choices: [{ message: { content: 'Short answer.' } }] });
       tick(200);
     }));
@@ -234,7 +247,7 @@ describe('Avatar3dComponent', () => {
     it('speakTextRegular caches and plays the TTS response', fakeAsync(() => {
       const playSpy = spyOn<any>(component, 'playAudioBlob');
       component.isSpeaking = true;
-      (component as any).speakTextRegular('clean text', 'orig', false);
+      (component as any).speakTextRegular('clean text');
       const req = httpMock.expectOne(TTS_API_URL);
       const blob = new Blob(['audio'], { type: 'audio/mpeg' });
       req.flush(blob);
@@ -245,33 +258,11 @@ describe('Avatar3dComponent', () => {
 
     it('speakTextRegular handles a TTS network error gracefully', fakeAsync(() => {
       component.isSpeaking = true;
-      (component as any).speakTextRegular('clean', 'orig', true);
+      (component as any).speakTextRegular('clean');
       const req = httpMock.expectOne(TTS_API_URL);
       req.error(new ProgressEvent('error'), { status: 0, statusText: 'Unknown' });
       tick();
-      expect(component.isTyping).toBeFalse();
+      expect(component.isSpeaking).toBeFalse();
     }));
-  });
-
-  describe('3D model animation hooks', () => {
-    it('prepare/finalize are safe no-ops when no model is loaded', () => {
-      expect(() => component.prepare3DModelForSpeech()).not.toThrow();
-      expect(() => component.finalize3DModelAnimation()).not.toThrow();
-    });
-
-    it('isReallyTyping / isReallySpeaking reflect internal flags', () => {
-      component.isTyping = true;
-      component.isSpeaking = true;
-      expect(component.isReallyTyping).toBeTrue();
-      expect(component.isReallySpeaking).toBeTrue();
-    });
-
-    it('prepare3DModelForSpeech animates a present model', () => {
-      (component as any).model = { position: { y: 1 } };
-      component.isSpeaking = true;
-      expect(() => component.prepare3DModelForSpeech()).not.toThrow();
-      component.isSpeaking = false;
-      expect(() => component.finalize3DModelAnimation()).not.toThrow();
-    });
   });
 });

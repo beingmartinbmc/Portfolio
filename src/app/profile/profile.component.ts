@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       const element = document.getElementById(fragment);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ block: 'start' });
       }
     }, 100);
   }

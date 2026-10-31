@@ -185,7 +185,6 @@
   border-radius: 16px;
   border: 1px solid slate(0.1);
   background: white(0.025);
-  cursor: pointer;
   transition: all 0.28s ease;
   overflow: hidden;
 
@@ -226,13 +225,6 @@
 
   &--supporting {
     &::before { background: linear-gradient(90deg, white(0.2), white(0.08)); }
-  }
-
-  &--expanded {
-    border-color: slate(0.25);
-    background: white(0.05);
-    grid-column: 1 / -1;
-    &::before { opacity: 1; }
   }
 
   &--flow {
@@ -333,118 +325,6 @@
 }
 
 /* ── Expanded card details ───────────────────────────── */
-.card-details {
-  margin-top: 1.25rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid slate(0.1);
-  animation: detailSlideIn 0.3s ease-out;
-}
-
-@keyframes detailSlideIn {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.detail-description {
-  font-size: 0.88rem;
-  line-height: 1.65;
-  color: var(--text-secondary);
-  margin: 0 0 1.25rem;
-}
-
-.detail-section {
-  margin-bottom: 1.15rem;
-  &:last-child { margin-bottom: 0; }
-}
-
-.detail-heading {
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-  margin: 0 0 0.6rem;
-}
-
-.detail-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  li {
-    position: relative;
-    padding-left: 1.2rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.84rem;
-    color: var(--text-secondary);
-    line-height: 1.55;
-
-    &::before {
-      content: '▸';
-      position: absolute;
-      left: 0;
-      color: var(--primary-color);
-    }
-
-    &:last-child { margin-bottom: 0; }
-  }
-}
-
-.project-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.project-chip {
-  font-size: 0.78rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 8px;
-  background: white(0.04);
-  border: 1px solid slate(0.12);
-  color: var(--text-secondary);
-}
-
-.achievement-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  li {
-    position: relative;
-    padding-left: 1.4rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.84rem;
-    color: var(--text-secondary);
-    line-height: 1.55;
-
-    &::before {
-      content: '⭐';
-      position: absolute;
-      left: 0;
-      font-size: 0.72rem;
-    }
-
-    &:last-child { margin-bottom: 0; }
-  }
-}
-
-.related-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.related-tag {
-  font-size: 0.75rem;
-  padding: 0.3rem 0.65rem;
-  border-radius: 12px;
-  background: gold(0.08);
-  border: 1px solid gold(0.18);
-  color: #fde68a;
-}
-
 /* ── Legend strip ────────────────────────────────────── */
 .legend-strip {
   display: flex;

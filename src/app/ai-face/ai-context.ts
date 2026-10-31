@@ -17,8 +17,9 @@ IMPORTANT INSTRUCTIONS:
 
 ABOUT ANKIT SHARMA:
 - Name: Ankit Sharma
-- Current Role: SMTS (Senior Member of Technical Staff) at Salesforce (2025 - Present)
-- Location: India
+- Current Role: SMTS (Senior Member of Technical Staff) at Salesforce (Nov 2025 - Present)
+- Headline: Senior Backend Engineer | Distributed Systems & AI Platforms
+- Location: Bengaluru, India
 - Total Experience: 6+ years in software development
 - Email: ${CONTACT_LINKS.email}
 - LinkedIn: ${SOCIAL_LINKS.linkedin}
@@ -27,43 +28,33 @@ ABOUT ANKIT SHARMA:
 - Resume: ${DOCUMENT_LINKS.resume}
 - Cover Letter: ${DOCUMENT_LINKS.coverLetter}
 - Portfolio: ${PROJECT_LINKS.portfolio}
-- Available for: Full-time opportunities
+- Open to: conversations about senior and lead backend / AI platform roles
 
 PROFESSIONAL BACKGROUND:
-- Currently at Salesforce building AI agents and LLM-backed services for enterprise collaboration and engineering workflows
-- Builds tool-calling agents, Slack bots, retrieval pipelines, evaluations, and guardrails
-- Has built AI-assisted operational workflows that gather approved engineering context and produce reviewable summaries
-- Focuses on grounded answers, measurable quality, reliable failure handling, latency, and cost
-- Previously: SDE-2 at Games24x7 (3 years, 2022-2025) working on RummyCircle and My11Circle platforms
-- Built real-time risk evaluation, automated identity verification, and high-traffic backend systems
-- Worked on event-driven architecture, predictive scaling, observability, and reliability
-- Also worked at: Walmart Global Tech (2021), Extramarks Education (2020-2021)
+- Salesforce, SMTS (Nov 2025 - Present, Bengaluru): drives architecture and on-call operations for a Go-based SIP/PSTN telephony platform handling 50K+ concurrent sessions; built an LLM-driven Slack bot in Java and Spring Boot that automates 65% of internal support workflows; designed Kafka and AWS event-processing services handling 10K+ events/sec with sub-200ms P99 latency
+- Games24x7, Senior Software Engineer (Oct 2022 - Oct 2025) on RummyCircle and My11Circle: cut fraud false negatives from 12% to 2% across 2M+ daily transactions with low-latency detection pipelines (Java 21, Kafka, Redis); boosted KYC onboarding conversion by 40% for 100K+ daily users by scaling a Partial KYC flow (Spring WebFlux, Redis, AWS Textract); migrated services to Graviton on K8s; mentored 3 junior developers
+- Games24x7, Software Engineer (Oct 2021 - Oct 2022): high-throughput payment and gaming microservices with Kafka and Redis; promoted to Senior within 12 months
+- Walmart Global Tech, Software Engineer (May 2021 - Oct 2021): built an end-to-end benefits enrollment workflow with React and Node.js, increasing completion rates by 65%
+- Extramarks Education, Software Engineer (Jan 2020 - Mar 2021, New Delhi): personalized learning systems in Node.js and MongoDB that grew school platform adoption by 43%; Redis-based automation that cut manual support tickets by 20%
 
 TECHNICAL SKILLS:
-- AI/Gen AI: Agentic AI, LLMs, RAG (retrieval-augmented generation), tool-calling agents, MCP servers, semantic caching, prompt & context engineering, eval harnesses, guardrails, vector retrieval, Agentforce, Spring AI
-- Cloud / LLM platforms: AWS Bedrock, Anthropic, OpenAI
-- Backend: Java 21, Spring Boot, Microservices
-- Data Structures & Algorithms: strong practical foundation and 500+ problems completed
-- System Design: high-level and low-level design
-- Databases: MySQL, PostgreSQL, MongoDB, graph databases, Redis
-- Cloud: AWS (Sage Maker, Cognito, Graviton K8s), Salesforce Platform
-- Tools: Kafka, RabbitMQ, Docker, Kubernetes, Grafana, Prometheus, Splunk
-- Other: OAuth2.0, JWT, Gremlin, OCR
+- Languages & Frameworks: Java (8-21), Go, Python, Node.js, Express, Spring Boot, Spring WebFlux
+- Backend: distributed systems, microservices, event-driven architecture, system design, concurrency, REST, gRPC
+- AI / LLM: LLM APIs, RAG, vector databases, semantic search, LangChain, tool-calling agents, MCP servers, AWS Bedrock
+- Data & Messaging: PostgreSQL, MySQL, MongoDB, Cassandra, DynamoDB, Neptune, Kafka, Redis, Elasticsearch, SQS, RabbitMQ
+- Infrastructure & DevOps: AWS, GCP, Docker, Kubernetes, Terraform, Jenkins, GitHub Actions
+- Observability: Splunk, Datadog, Last9, Sumo Logic, Prometheus/Grafana
 
-KEY ACHIEVEMENTS:
-- Built AI-assisted engineering workflows that synthesize approved operational context
-- Designed retrieval pipelines and tool-calling agents with grounding, evaluations, and guardrails
-- Built automated identity-verification and real-time risk systems
-- Helped high-traffic consumer platforms scale through major seasonal events
-- Developed Google ad monitoring service for campaign spend tracking
-- Mentored team of 3 junior developers
-- Improved system reliability through architecture and operational practices
+EDUCATION:
+- B.Tech in Computer Science (Honors), GLA University, Mathura (2016 - 2020), CGPA 8.03/10
+- Publication: "Real Time Region-Based Umpire Pose Identification", International Journal of Control and Automation, 2020
 
 PROJECTS:
 - Algorithm Visualizer (${PROJECT_LINKS.algorithmVisualizer}): DSA visualizer with step-by-step animation and audio effects. Gamified challenges to learn sorting, trees, graphs, and backtracking in a fun way - JavaScript, React, Tailwind, Web Audio API
 - Religious GPT (${PROJECT_LINKS.religiousGpt}): Learn religion in an AI way. Explore teachings from Bhagavad Gita, Vedas, Quran, Bible, Tripitaka, and more - React, Node.js, GPT-4.1, Vercel
 
 OPEN SOURCE PACKAGES:
+- jambavan (${PACKAGE_LINKS.jambavan}): MCP server that gives AI coding agents a live AST-based code index, ranked context retrieval, and durable cross-session memory; local-first - NPM
 - node-actuator-lite (${PACKAGE_LINKS.nodeActuatorLite}): A lightweight Node.js actuator similar to Spring Boot actuator with Prometheus integration, built with minimal external dependencies - NPM
 - node-request-trace (${PACKAGE_LINKS.nodeRequestTrace}): Request tracing and performance visualization library for Node.js. Inspect execution lifecycle, detect bottlenecks, identify slow middleware - NPM
 - node-eventloop-watchdog (${PACKAGE_LINKS.nodeEventloopWatchdog}): Lightweight Node.js event loop blocking detector with automatic code identification, blocking heatmaps, and production-safe diagnostics - NPM

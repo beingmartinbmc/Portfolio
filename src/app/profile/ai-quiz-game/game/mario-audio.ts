@@ -1,4 +1,10 @@
 let audioCtx: AudioContext | null = null;
+let muted = false;
+
+/** Game sounds follow the site-wide sound toggle (AudioService), which is off by default. */
+export function setMarioAudioMuted(value: boolean): void {
+  muted = value;
+}
 
 function ctx(): AudioContext {
   if (!audioCtx) audioCtx = new AudioContext();
@@ -7,6 +13,7 @@ function ctx(): AudioContext {
 }
 
 function playTone(freq: number, duration: number, type: OscillatorType = 'square', vol = 0.12): void {
+  if (muted) return;
   try {
     const ac = ctx();
     const osc = ac.createOscillator();
@@ -22,6 +29,7 @@ function playTone(freq: number, duration: number, type: OscillatorType = 'square
 }
 
 function playSequence(notes: [number, number][], type: OscillatorType = 'square', vol = 0.10): void {
+  if (muted) return;
   try {
     const ac = ctx();
     let t = ac.currentTime;

@@ -10,9 +10,6 @@ export const API_CONFIG = {
     // Text-to-Speech API
     TEXT_TO_SPEECH: '/api/v1/tts',
 
-    // Combined chat + synthesized speech stream API
-    STREAMING_VOICE: '/api/v1/voice/stream',
-
     // Add other endpoints here as needed
     // MUSIC: '/api/music',
     // PROFILE: '/api/profile',
@@ -27,7 +24,6 @@ export const API_CONFIG = {
 // Export specific URLs for convenience
 export const AI_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.AI_GENERIC);
 export const TTS_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.TEXT_TO_SPEECH);
-export const STREAMING_VOICE_API_URL = API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.STREAMING_VOICE);
 
 type OpenAiProxyRole = 'system' | 'user' | 'assistant';
 

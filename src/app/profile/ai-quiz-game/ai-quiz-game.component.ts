@@ -5,6 +5,7 @@ import { firstValueFrom, Subject, takeUntil, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { createOpenAiProxyRequest, getAiResponseText } from '../../config/api-config';
 import { MarioEngine } from './game/mario-engine';
+import { setMarioAudioMuted } from './game/mario-audio';
 import {
   generateProceduralLevel, parseLevelFromAI, buildLevelFromData,
   getLevelGenerationPrompt, validateAILevelData, LevelConfig
@@ -12,6 +13,7 @@ import {
 import { Level, LevelType } from './game/mario-entities';
 import { QUIZ_CATEGORIES, QUIZ_DIFFICULTIES, QUIZ_LEVEL_TYPES } from './ai-quiz-game.data';
 import { AchievementsService } from '../../services/achievements.service';
+import { AudioService } from '../../services/audio.service';
 
 type ViewState = 'setup' | 'loading' | 'playing' | 'results';
 
@@ -51,6 +53,7 @@ export class AiQuizGameComponent implements OnDestroy {
 
   private engine: MarioEngine | null = null;
   private resizeObserver: ResizeObserver | null = null;
+  private visibilityObserver: IntersectionObserver | null = null;
   private fullscreenHandler: (() => void) | null = null;
   private canvasResize: (() => void) | null = null;
   private readonly destroy$ = new Subject<void>();
@@ -68,7 +71,21 @@ export class AiQuizGameComponent implements OnDestroy {
     private zone: NgZone,
     private cdr: ChangeDetectorRef,
     private achievementsService: AchievementsService,
-  ) {}
+    private audio: AudioService,
+  ) {
+    this.audio.enabled$.pipe(takeUntil(this.destroy$)).subscribe(enabled => {
+      setMarioAudioMuted(!enabled);
+      this.cdr.markForCheck();
+    });
+  }
+
+  get soundOn(): boolean {
+    return this.audio.enabled;
+  }
+
+  toggleSound(): void {
+    this.audio.toggle();
+  }
 
   ngOnDestroy(): void {
     this.destroyed = true;
@@ -151,6 +168,13 @@ export class AiQuizGameComponent implements OnDestroy {
 
     this.engine.loadLevel(level);
     setTimeout(() => this.engine?.start(), 200);
+
+    // Pause (and hand the keyboard back to the page) while the game is scrolled out of view.
+    this.visibilityObserver = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) this.engine?.resume();
+      else this.engine?.pause();
+    }, { threshold: 0.2 });
+    this.visibilityObserver.observe(container);
 
     if (!this.fullscreenHandler) {
       this.fullscreenHandler = () => this.handleFullscreenChange();
@@ -284,6 +308,8 @@ export class AiQuizGameComponent implements OnDestroy {
     this.engine = null;
     this.resizeObserver?.disconnect();
     this.resizeObserver = null;
+    this.visibilityObserver?.disconnect();
+    this.visibilityObserver = null;
     this.canvasResize = null;
 
     if (this.fullscreenHandler) {

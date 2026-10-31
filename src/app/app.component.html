@@ -1,8 +1,10 @@
 <app-profile></app-profile>
 
-<!-- Gamification Overlay Layer -->
-<app-achievement-toast></app-achievement-toast>
-<app-mini-map></app-mini-map>
-<app-level-up-overlay></app-level-up-overlay>
+<!-- Game layer: opt-in via the header's play-mode toggle -->
+@if (playMode.enabled()) {
+  <app-achievement-toast></app-achievement-toast>
+  <app-mini-map></app-mini-map>
+  <app-level-up-overlay></app-level-up-overlay>
+  <app-cursor-trail></app-cursor-trail>
+}
 <app-konami></app-konami>
-<app-cursor-trail></app-cursor-trail>

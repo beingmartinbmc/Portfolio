@@ -1,13 +1,17 @@
 <div class="rpg-skills-section" id="skill">
   <div class="rpg-container">
     <div class="section-header">
-      <div class="world-label">⚔ SKILL INVENTORY</div>
+      <div class="world-label"><span class="pro-only">SKILLS</span><span class="play-only">⚔ SKILL INVENTORY</span></div>
       <h2 class="section-title">Backend, Platform &amp; Gen AI</h2>
       <p class="section-subtitle">
-        {{ systemMode ? 'Architecture route — how these skills connect in production' : 'RPG inventory — tap any card for project proof' }}
+        @if (systemMode) {
+          Architecture route — how these skills connect in production
+        } @else {
+          <span class="pro-only">Grouped by where they sit in the stack.</span><span class="play-only">RPG inventory — every card is a skill earned in production.</span>
+        }
       </p>
 
-      <div class="skills-hud">
+      <div class="skills-hud play-only">
         <div class="hud-card">
           <span class="hud-label">zones</span>
           <span class="hud-value">{{ constellations.length }}</span>
@@ -85,9 +89,9 @@
         }
 
         <div class="arch-legend">
-          <span class="arch-legend-item"><span class="arch-legend-key arch-legend-key--boss">★</span> Boss skill</span>
+          <span class="arch-legend-item"><span class="arch-legend-key arch-legend-key--boss">★</span> <span class="pro-only">Core skill</span><span class="play-only">Boss skill</span></span>
           <span class="arch-legend-item"><span class="arch-legend-key arch-legend-key--flow">1</span> Request path</span>
-          <span class="arch-legend-item">XP&nbsp;=&nbsp;proficiency</span>
+          <span class="arch-legend-item play-only">XP&nbsp;=&nbsp;proficiency</span>
         </div>
       </div>
     } @else {
@@ -104,20 +108,12 @@
         <div class="skill-card-grid">
           @for (skill of constellation.skills; track skill.name) {
             <div class="skill-card"
-                 role="button"
-                 tabindex="0"
-                 [attr.aria-expanded]="isExpanded(skill)"
-                 [attr.aria-controls]="skill.details ? getSkillDetailsId(skill) : null"
                  [ngClass]="{
                    'skill-card--primary': skill.level === 'primary',
                    'skill-card--secondary': skill.level === 'secondary',
                    'skill-card--supporting': skill.level === 'supporting',
-                   'skill-card--expanded': isExpanded(skill),
                    'skill-card--flow': isSystemFlowNode(skill)
-                 }"
-                 (click)="toggleCard(skill)"
-                 (keydown.enter)="toggleCard(skill)"
-                 (keydown.space)="toggleCard(skill); $event.preventDefault()">
+                 }">
 
               <!-- Flow badge for system mode -->
               @if (isSystemFlowNode(skill)) {
@@ -126,63 +122,21 @@
 
               <div class="card-top">
                 <span class="level-tag" [ngClass]="'level-tag--' + skill.level">
-                  {{ getLevelTag(skill.level) }}
+                  <span class="pro-only">{{ getProLevelLabel(skill.level) }}</span><span class="play-only">{{ getLevelTag(skill.level) }}</span>
                 </span>
-                <span class="xp-number" [style.color]="constellation.color">{{ skill.proficiency }} XP</span>
+                <span class="xp-number play-only" [style.color]="constellation.color">{{ skill.proficiency }} XP</span>
               </div>
 
               <h4 class="skill-name">{{ getDisplayName(skill) }}</h4>
               <p class="skill-tooltip">{{ skill.tooltip }}</p>
 
-              <div class="xp-bar-track">
+              <div class="xp-bar-track play-only">
                 <div class="xp-bar-fill"
                      [style.width.%]="skill.proficiency"
                      [style.background]="constellation.color">
                 </div>
               </div>
 
-              <!-- Expanded detail panel -->
-              @if (isExpanded(skill) && skill.details) {
-                <div class="card-details" [id]="getSkillDetailsId(skill)">
-                  <p class="detail-description">{{ skill.details.description }}</p>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Experience</h5>
-                    <ul class="detail-list">
-                      @for (exp of skill.details.experience; track $index) {
-                        <li>{{ exp }}</li>
-                      }
-                    </ul>
-                  </div>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Key Projects</h5>
-                    <div class="project-chips">
-                      @for (project of skill.details.projects; track $index) {
-                        <span class="project-chip">{{ project }}</span>
-                      }
-                    </div>
-                  </div>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Achievements</h5>
-                    <ul class="achievement-list">
-                      @for (achievement of skill.details.achievements; track $index) {
-                        <li>{{ achievement }}</li>
-                      }
-                    </ul>
-                  </div>
-
-                  <div class="detail-section">
-                    <h5 class="detail-heading">Related</h5>
-                    <div class="related-tags">
-                      @for (rs of skill.details.relatedSkills; track $index) {
-                        <span class="related-tag">{{ rs }}</span>
-                      }
-                    </div>
-                  </div>
-                </div>
-              }
             </div>
           }
         </div>
@@ -192,17 +146,17 @@
     <div class="legend-strip">
       <div class="legend-item">
         <span class="legend-dot legend-dot--primary"></span>
-        <span class="legend-label">Boss Skill</span>
+        <span class="legend-label"><span class="pro-only">Core</span><span class="play-only">Boss Skill</span></span>
       </div>
       <div class="legend-divider"></div>
       <div class="legend-item">
         <span class="legend-dot legend-dot--secondary"></span>
-        <span class="legend-label">Main Class</span>
+        <span class="legend-label"><span class="pro-only">Proficient</span><span class="play-only">Main Class</span></span>
       </div>
       <div class="legend-divider"></div>
       <div class="legend-item">
         <span class="legend-dot legend-dot--supporting"></span>
-        <span class="legend-label">Support Tool</span>
+        <span class="legend-label"><span class="pro-only">Familiar</span><span class="play-only">Support Tool</span></span>
       </div>
     </div>
     }

@@ -11,10 +11,11 @@ export class MarkdownPipe implements PipeTransform {
   transform(value: string): SafeHtml {
     if (!value) return '';
 
-    let html = value;
+    // Escape first so model text like `List<String>` renders literally instead of being eaten as a tag.
+    let html = value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label: string, rawUrl: string) => {
-      const url = this.safeExternalUrl(rawUrl);
+      const url = this.safeExternalUrl(rawUrl.replace(/&amp;/g, '&'));
       return url
         ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="message-link">${label}</a>`
         : label;

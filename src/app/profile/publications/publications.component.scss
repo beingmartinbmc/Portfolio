@@ -798,3 +798,27 @@
     padding: 1.2rem 1.2rem 1.2rem 1.5rem;
   }
 }
+/* ── Secondary work, collapsed by default ─────────────── */
+.more-work {
+  margin-top: 1.5rem;
+}
+
+.more-work > summary {
+  cursor: pointer;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  font-weight: 600;
+  list-style-position: inside;
+}
+
+.more-work > summary:hover {
+  color: var(--primary-color);
+}
+
+.more-work[open] > summary {
+  margin-bottom: 1.5rem;
+}

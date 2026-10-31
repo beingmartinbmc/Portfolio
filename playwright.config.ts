@@ -28,7 +28,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm start -- --host 127.0.0.1 --port 4200',
+    // CI tests the production build configuration (optimized, no dev-mode checks), like the shipped artifact.
+    command: `npm start -- --host 127.0.0.1 --port 4200${process.env['CI'] ? ' --configuration production' : ''}`,
     url: 'http://127.0.0.1:4200',
     reuseExistingServer: !process.env['CI'],
     timeout: 120_000,

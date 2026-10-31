@@ -4,23 +4,32 @@
       <span class="brand-mark">&lbrace;&rbrace;</span>
       <span class="brand-copy">
         <span class="brand-name">Ankit Sharma</span>
-        <span class="brand-role">Staff Software Engineer • Backend + Gen AI</span>
+        <span class="brand-role">Senior Backend Engineer</span>
       </span>
     </a>
 
     <div class="nav-links" [class.active]="isMenuOpen">
       <a href="#about" class="nav-link" (click)="onNavLinkClick($event, 'about')">About</a>
-      <a href="#avatar-3d" class="nav-link" (click)="onNavLinkClick($event, 'avatar-3d')">AI Twin</a>
-      <a href="#skill" class="nav-link" (click)="onNavLinkClick($event, 'skill')">Skills</a>
       <a href="#experience" class="nav-link" (click)="onNavLinkClick($event, 'experience')">Work</a>
       <a href="#publications" class="nav-link" (click)="onNavLinkClick($event, 'publications')">Projects</a>
+      <a href="#skill" class="nav-link" (click)="onNavLinkClick($event, 'skill')">Skills</a>
       <a href="#blogs" class="nav-link" (click)="onNavLinkClick($event, 'blogs')">Writing</a>
+      <a href="#avatar-3d" class="nav-link" (click)="onNavLinkClick($event, 'avatar-3d')">AI Twin</a>
+      <a href="#operating-style" class="nav-link" (click)="onNavLinkClick($event, 'operating-style')">Approach</a>
       <a href="#ai-quiz-game" class="nav-link" (click)="onNavLinkClick($event, 'ai-quiz-game')">Game</a>
-      <a href="#operating-style" class="nav-link" (click)="onNavLinkClick($event, 'operating-style')">Profile</a>
     </div>
 
     <div class="nav-actions">
-      <div class="status-pill">&#x2605; Available for Staff Roles</div>
+      <div class="status-pill">&#x2605; Open to conversations</div>
+      <button
+        type="button"
+        class="play-toggle"
+        aria-label="Play mode"
+        [attr.aria-pressed]="playMode.enabled()"
+        [title]="playMode.enabled() ? 'Play mode is on: XP, achievements and sounds' : 'Play mode: turn on the game layer'"
+        (click)="playMode.toggle()">
+        <span aria-hidden="true">🎮</span>
+      </button>
     </div>
 
     <button
@@ -36,11 +45,13 @@
     </button>
   </nav>
 
-  <!-- XP Progress Bar -->
-  <div class="xp-bar-container" [class.visible]="isScrolled">
-    <div class="xp-bar-track">
-      <div class="xp-bar-fill" [style.width.%]="xpPercent"></div>
+  @if (playMode.enabled()) {
+    <!-- XP Progress Bar -->
+    <div class="xp-bar-container" [class.visible]="isScrolled">
+      <div class="xp-bar-track">
+        <div class="xp-bar-fill" [style.width.%]="xpPercent"></div>
+      </div>
+      <span class="xp-level-label">LVL {{ levelNum }} · {{ levelTitle }}</span>
     </div>
-    <span class="xp-level-label">LVL {{ levelNum }} · {{ levelTitle }}</span>
-  </div>
+  }
 </header>

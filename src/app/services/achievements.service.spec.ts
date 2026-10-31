@@ -25,7 +25,7 @@ describe('AchievementsService', () => {
 
   it('is created with all achievements locked on a first visit', () => {
     const service = makeService();
-    expect(service.getTotalCount()).toBe(13);
+    expect(service.getTotalCount()).toBe(12);
     expect(service.getUnlockedCount()).toBe(0);
   });
 
@@ -54,6 +54,14 @@ describe('AchievementsService', () => {
       expect(toastCount).toBe(1);
     });
 
+    it('delivers constructor-time unlocks to a subscriber that arrives later', () => {
+      localStorage.setItem(VISIT_KEY, '1');
+      const service = makeService();
+      const ids: string[] = [];
+      service.toast$.subscribe(t => ids.push(t.achievement.id));
+      expect(ids).toEqual(['returner']);
+    });
+
     it('returns false for an unknown achievement id', () => {
       const service = makeService();
       expect(service.unlock('does_not_exist')).toBeFalse();
@@ -75,32 +83,24 @@ describe('AchievementsService', () => {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
         achievements: [
           { id: 'resume_reader', unlocked: true, unlockedAt: 123 },
-          { id: 'skill_hunter', unlocked: 'yes', unlockedAt: 'invalid' },
+          { id: 'lore_master', unlocked: 'yes', unlockedAt: 'invalid' },
           null,
         ],
-        counters: { skillsExpanded: 4, aiQuestions: 'invalid', unknown: 99 },
+        counters: { blogsClicked: 2, aiQuestions: 'invalid', unknown: 99 },
       }));
 
       const service = makeService();
 
       expect(isUnlocked(service, 'resume_reader')).toBeTrue();
-      expect(isUnlocked(service, 'skill_hunter')).toBeFalse();
-      service.trackSkillExpand();
-      expect(isUnlocked(service, 'skill_hunter')).toBeTrue();
+      expect(isUnlocked(service, 'lore_master')).toBeFalse();
+      service.trackBlogClick();
+      expect(isUnlocked(service, 'lore_master')).toBeTrue();
       service.trackAiQuestion();
       expect(isUnlocked(service, 'ai_whisperer')).toBeFalse();
     });
   });
 
   describe('counter thresholds', () => {
-    it('only unlocks Skill Hunter after 5 skill expansions', () => {
-      const service = makeService();
-      for (let i = 0; i < 4; i++) service.trackSkillExpand();
-      expect(isUnlocked(service, 'skill_hunter')).toBeFalse();
-      service.trackSkillExpand();
-      expect(isUnlocked(service, 'skill_hunter')).toBeTrue();
-    });
-
     it('only unlocks AI Whisperer after 3 questions', () => {
       const service = makeService();
       service.trackAiQuestion();
@@ -168,13 +168,19 @@ describe('AchievementsService', () => {
     it('restores unlocked achievements from localStorage', () => {
       const first = makeService();
       first.unlock('resume_reader');
-      first.trackSkillExpand();
+      first.trackBlogClick();
 
       const reloaded = makeService();
       expect(isUnlocked(reloaded, 'resume_reader')).toBeTrue();
-      // counter persisted: 4 more expansions should now cross the threshold
-      for (let i = 0; i < 4; i++) reloaded.trackSkillExpand();
-      expect(isUnlocked(reloaded, 'skill_hunter')).toBeTrue();
+      // counter persisted: 2 more clicks should now cross the threshold of 3
+      for (let i = 0; i < 2; i++) reloaded.trackBlogClick();
+      expect(isUnlocked(reloaded, 'lore_master')).toBeTrue();
+    });
+
+    it('constructs when storage access throws, so the app still bootstraps', () => {
+      spyOn(Storage.prototype, 'getItem').and.throwError('SecurityError');
+      spyOn(Storage.prototype, 'setItem').and.throwError('SecurityError');
+      expect(() => makeService()).not.toThrow();
     });
 
     it('survives corrupted localStorage data without throwing', () => {

@@ -12,6 +12,15 @@ export interface OpenSourceProject {
 
 export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
   {
+    id: 'jambavan',
+    title: 'jambavan',
+    tagline: 'Local-first code context and memory for AI coding agents',
+    description: 'MCP server that gives AI coding agents a live AST-based code index, ranked context retrieval, and durable cross-session memory. Local-first: it never calls an LLM or uploads code.',
+    category: 'NPM',
+    link: PACKAGE_LINKS.jambavan,
+    linkText: 'View on NPM'
+  },
+  {
     id: 'node-actuator-lite',
     title: 'node-actuator-lite',
     tagline: 'Spring Boot-style health checks for Node.js — zero deps',

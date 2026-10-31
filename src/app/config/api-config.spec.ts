@@ -2,7 +2,6 @@ import {
   API_CONFIG,
   AI_API_URL,
   TTS_API_URL,
-  STREAMING_VOICE_API_URL,
   createOpenAiProxyRequest,
   getAiResponseText,
 } from './api-config';
@@ -16,7 +15,6 @@ describe('api-config', () => {
     it('exposes fully-qualified URLs derived from the config', () => {
       expect(AI_API_URL).toBe(API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.AI_GENERIC));
       expect(TTS_API_URL).toBe(API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.TEXT_TO_SPEECH));
-      expect(STREAMING_VOICE_API_URL).toBe(API_CONFIG.getUrl(API_CONFIG.ENDPOINTS.STREAMING_VOICE));
     });
 
     it('uses an https base URL (no plaintext transport)', () => {

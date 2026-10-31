@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 export interface Achievement {
   id: string;
@@ -21,7 +21,6 @@ export class AchievementsService {
 
   private achievements: Achievement[] = [
     { id: 'explorer', title: 'Explorer', description: 'Viewed all sections', icon: '🏆', unlocked: false },
-    { id: 'skill_hunter', title: 'Skill Hunter', description: 'Expanded 5 skill cards', icon: '🎯', unlocked: false },
     { id: 'ai_whisperer', title: 'AI Whisperer', description: 'Asked the avatar 3 questions', icon: '🗣️', unlocked: false },
     { id: 'arcade_champion', title: 'Arcade Champion', description: 'Scored 500+ in the game', icon: '🎮', unlocked: false },
     { id: 'lore_master', title: 'Lore Master', description: 'Clicked all blog posts', icon: '📜', unlocked: false },
@@ -36,7 +35,6 @@ export class AchievementsService {
   ];
 
   private counters: Record<string, number> = {
-    skillsExpanded: 0,
     aiQuestions: 0,
     blogsClicked: 0,
     experienceStops: 0,
@@ -48,7 +46,9 @@ export class AchievementsService {
   private deepDiverTimer: ReturnType<typeof setTimeout> | null = null;
 
   readonly achievements$ = new BehaviorSubject<Achievement[]>([]);
-  readonly toast$ = new Subject<AchievementToast>();
+  // Replays the last few seconds so unlocks fired in the constructor (Welcome Back, Night Owl)
+  // still reach the toast component, which subscribes after this service is created.
+  readonly toast$ = new ReplaySubject<AchievementToast>(5, 10_000);
 
   constructor() {
     this.loadFromStorage();
@@ -98,10 +98,12 @@ export class AchievementsService {
 
   private checkReturnVisit(): void {
     const visitKey = 'portfolio_visited';
-    if (localStorage.getItem(visitKey)) {
-      this.unlock('returner');
-    }
-    localStorage.setItem(visitKey, Date.now().toString());
+    try {
+      if (localStorage.getItem(visitKey)) {
+        this.unlock('returner');
+      }
+      localStorage.setItem(visitKey, Date.now().toString());
+    } catch { /* storage blocked (privacy mode, sandboxed iframe): treat as a first visit */ }
   }
 
   private checkNightOwl(): void {
@@ -140,10 +142,6 @@ export class AchievementsService {
 
   trackSectionView(): void {
     this.increment('sectionsViewed', { count: 8, achievementId: 'explorer' });
-  }
-
-  trackSkillExpand(): void {
-    this.increment('skillsExpanded', { count: 5, achievementId: 'skill_hunter' });
   }
 
   trackAiQuestion(): void {

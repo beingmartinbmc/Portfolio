@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { take } from 'rxjs/operators';
 import { AudioService } from './audio.service';
+import { PlayModeService } from './play-mode.service';
 
 describe('AudioService', () => {
   const STORAGE_KEY = 'portfolio_sfx_enabled';
@@ -54,8 +55,18 @@ describe('AudioService', () => {
     }).not.toThrow();
   });
 
+  it('stays silent outside play mode even when enabled', () => {
+    const service = makeService();
+    TestBed.inject(PlayModeService).set(false);
+    service.toggle();
+    const ctxSpy = spyOn(service as unknown as { ensureContext(): void }, 'ensureContext');
+    service.play('coin');
+    expect(ctxSpy).not.toHaveBeenCalled();
+  });
+
   it('plays sound effects without throwing once enabled', () => {
     const service = makeService();
+    TestBed.inject(PlayModeService).set(true);
     service.toggle(); // enables + plays a click
     expect(() => {
       (['coin', 'levelUp', 'powerUp', 'pipe', 'jump', 'star', 'click'] as const)

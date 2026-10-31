@@ -61,7 +61,7 @@ describe('PublicationsComponent', () => {
     });
   });
 
-  describe('On-call AI Agent quest card', () => {
+  describe('Salesforce quest cards', () => {
     it('renders the Salesforce quest card linked to the official site', () => {
       const card: HTMLElement = fixture.nativeElement.querySelector('.salesforce-card');
       expect(card).toBeTruthy();
@@ -73,11 +73,13 @@ describe('PublicationsComponent', () => {
       expect(badge.getAttribute('rel')).toContain('noopener');
     });
 
-    it('shows the AI-assisted incident triage quest and public-safe abilities', () => {
-      const card: HTMLElement = fixture.nativeElement.querySelector('.salesforce-card');
-      expect(card.textContent).toContain('AI-assisted Incident Triage');
-      ['RAG', 'Tool Calling', 'Evaluation', 'Guardrails'].forEach(ability => {
-        expect(card.textContent).toContain(ability);
+    it('shows the telephony platform and AI support bot quests with resume metrics', () => {
+      const [telephony, bot] = Array.from(fixture.nativeElement.querySelectorAll('.salesforce-card')) as HTMLElement[];
+      expect(telephony!.textContent).toContain('SIP/PSTN Telephony Platform');
+      expect(telephony!.textContent).toContain('50K+ concurrent sessions');
+      expect(bot!.textContent).toContain('AI Support Automation Bot');
+      ['RAG', 'Tool Calling', 'Evaluation', 'Guardrails', '65% workflows automated'].forEach(ability => {
+        expect(bot!.textContent).toContain(ability);
       });
     });
 
