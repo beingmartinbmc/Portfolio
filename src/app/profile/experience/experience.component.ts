@@ -1,7 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef, NgZone, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, effect, inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef, NgZone, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { EXPERIENCE_ITEMS, EXPERIENCE_START_DATE, ExperienceItem } from './experience.data';
 import { AchievementsService } from '../../services/achievements.service';
-import { PlayModeService } from '../../services/play-mode.service';
 
 interface TimelineStop {
   id: string;
@@ -25,7 +24,6 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
 
   totalExperience = '0.0';
   stops: TimelineStop[] = [];
-  stopsNewestFirst: TimelineStop[] = [];
   activeStop: TimelineStop | null = null;
   activeRole: ExperienceItem | null = null;
   marioPosition = -1; // index of the stop Mario is at
@@ -39,11 +37,6 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly visitedStopIds = new Set<string>();
 
   private readonly experienceItems: ExperienceItem[] = EXPERIENCE_ITEMS;
-  private readonly playMode = inject(PlayModeService);
-  /** The map is display:none outside play mode, so re-measure whenever it becomes visible. */
-  private readonly replaceMarioOnPlay = effect(() => {
-    if (this.playMode.enabled()) this.placeMario();
-  });
 
   constructor(
     private zone: NgZone,
@@ -59,11 +52,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     // Place Mario at the most recent role once the layout is measured.
-    this.placeMario();
-  }
-
-  private placeMario(): void {
-    requestAnimationFrame(() => {
+requestAnimationFrame(() => {
       this.moveMarioTo(this.marioPosition, false);
       this.cdr.markForCheck();
     });
@@ -102,7 +91,6 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
         isCurrent: roles.some(r => r.duration === 'Current')
       };
     });
-    this.stopsNewestFirst = [...this.stops].reverse();
   }
 
   selectStop(stop: TimelineStop, idx: number): void {
