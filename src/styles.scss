@@ -567,6 +567,12 @@ body.god-mode * {
 
 
 
+/* Professional view by default; PlayModeService adds `play-mode` to <html> for the game layer. */
+html:not(.play-mode) .play-only,
+html.play-mode .pro-only {
+  display: none !important;
+}
+
 /* Keyboard and rendering safeguards shared across the portfolio. */
 .skip-link {
   position: fixed;

@@ -1,10 +1,11 @@
-import {Component, ChangeDetectionStrategy, OnDestroy, NgZone} from '@angular/core';
+import {Component, ChangeDetectionStrategy, OnDestroy, NgZone, inject} from '@angular/core';
 import {ProfileComponent} from './profile/profile.component';
 import {AchievementToastComponent} from './shared/achievement-toast/achievement-toast.component';
 import {MiniMapComponent} from './shared/mini-map/mini-map.component';
 import {LevelUpOverlayComponent} from './shared/level-up-overlay/level-up-overlay.component';
 import {KonamiComponent} from './shared/konami/konami.component';
 import {CursorTrailComponent} from './shared/cursor-trail/cursor-trail.component';
+import {PlayModeService} from './services/play-mode.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ import {CursorTrailComponent} from './shared/cursor-trail/cursor-trail.component
   ]
 })
 export class AppComponent implements OnDestroy {
-  title = 'personal-portfolio-angular';
+  readonly playMode = inject(PlayModeService);
 
   private readonly onVisibilityChange = (): void => {
     document.body.classList.toggle('is-hidden-tab', document.visibilityState === 'hidden');

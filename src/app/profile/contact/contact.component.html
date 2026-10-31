@@ -1,17 +1,17 @@
 <section class="apple-section" id="operating-style">
   <div class="apple-container">
     <div class="section-header">
-      <div class="world-label">🎮 CHARACTER SELECT</div>
-      <h2 class="section-title">Player Profile</h2>
+      <div class="world-label"><span class="pro-only">HOW I WORK</span><span class="play-only">🎮 CHARACTER SELECT</span></div>
+      <h2 class="section-title"><span class="pro-only">How I Work</span><span class="play-only">Player Profile</span></h2>
       <p class="section-subtitle">
-        Select a trait to inspect. Every stat is earned from real quests.
+        <span class="pro-only">What I'm best at, how I operate, and what my first week looks like.</span><span class="play-only">Select a trait to inspect. Every stat is earned from real quests.</span>
       </p>
     </div>
 
     <!-- ═══ Work Style: 4 cards in a row ═══ -->
     <div class="style-panel">
       <div class="panel-flag">
-        <span class="flag-label">⬛ WORK STYLE — SELECT YOUR CO-OP PARTNER</span>
+        <span class="flag-label"><span class="pro-only">WORK STYLE</span><span class="play-only">⬛ WORK STYLE — SELECT YOUR CO-OP PARTNER</span></span>
       </div>
       <div class="panel-body">
         <div class="style-grid">
@@ -29,8 +29,8 @@
               (mouseenter)="selectedCard = i">
               <div class="sc-icon">{{ card.icon }}</div>
               <h4 class="sc-name">{{ card.title }}</h4>
-              <span class="sc-tag" [attr.data-color]="card.color">{{ card.tag }}</span>
-              <div class="sc-bar-wrap">
+              <span class="sc-tag play-only" [attr.data-color]="card.color">{{ card.tag }}</span>
+              <div class="sc-bar-wrap play-only">
                 <div class="sc-bar">
                   <div class="sc-bar-fill" [attr.data-color]="card.color" [style.width]="card.stat + '%'"></div>
                 </div>
@@ -47,7 +47,7 @@
     <div class="duo-row">
       <div class="power-panel power-panel--red">
         <div class="panel-flag">
-          <span class="flag-label">🍄 STRONGEST FIT — POWER-UP</span>
+          <span class="flag-label"><span class="pro-only">STRONGEST FIT</span><span class="play-only">🍄 STRONGEST FIT — POWER-UP</span></span>
         </div>
         <div class="panel-body">
           <ul class="power-list">
@@ -60,7 +60,7 @@
 
       <div class="power-panel power-panel--purple">
         <div class="panel-flag">
-          <span class="flag-label">⭐ FIRST-WEEK OUTCOMES — STAR MODE</span>
+          <span class="flag-label"><span class="pro-only">FIRST-WEEK OUTCOMES</span><span class="play-only">⭐ FIRST-WEEK OUTCOMES — STAR MODE</span></span>
         </div>
         <div class="panel-body">
           <ul class="power-list">
@@ -75,7 +75,7 @@
     <!-- ═══ Full-width: Operating Principles ═══ -->
     <div class="power-panel power-panel--orange">
       <div class="panel-flag">
-        <span class="flag-label">🔥 OPERATING PRINCIPLES — FIRE FLOWER</span>
+        <span class="flag-label"><span class="pro-only">OPERATING PRINCIPLES</span><span class="play-only">🔥 OPERATING PRINCIPLES — FIRE FLOWER</span></span>
       </div>
       <div class="panel-body">
         <div class="principles">
@@ -93,7 +93,7 @@
     <div class="hud-row">
       @for (item of emphasisAreas; track item.label) {
         <div class="hud-card">
-          <div class="hud-bar">
+          <div class="hud-bar play-only">
             <div class="hud-fill" [style.width]="item.pct + '%'"></div>
           </div>
           <span class="hud-label">{{ item.label }}</span>

@@ -3,10 +3,10 @@
 
     <!-- Header -->
     <div class="section-header" data-anim="fade-up">
-      <div class="world-label">⚔ WORLD MAP</div>
+      <div class="world-label"><span class="pro-only">EXPERIENCE</span><span class="play-only">⚔ WORLD MAP</span></div>
       <h2 class="section-title" data-text-reveal>Professional Experience</h2>
       <p class="section-subtitle">
-        <span class="xp-total">{{ totalExperience }} YRS</span> of quests completed across {{ stops.length }} worlds
+        <span class="pro-only">{{ totalExperience }} years across {{ stops.length }} companies</span><span class="play-only"><span class="xp-total">{{ totalExperience }} YRS</span> of quests completed across {{ stops.length }} worlds</span>
       </p>
     </div>
 
@@ -141,7 +141,7 @@
           <p class="ql-description">{{ activeRole.description }}</p>
 
           <div class="ql-section">
-            <div class="ql-section-label">⚡ ABILITIES USED</div>
+            <div class="ql-section-label"><span class="pro-only">STACK</span><span class="play-only">⚡ ABILITIES USED</span></div>
             <div class="ql-tech-chips">
               @for (tech of activeRole.technologies; track tech) {
                 <span class="ql-tech">{{ tech }}</span>

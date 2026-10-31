@@ -15,7 +15,7 @@ export const PORTFOLIO_SECTIONS: readonly PortfolioSection[] = [
   { id: 'blogs', icon: '📜', label: 'Writing' },
   { id: 'ai-quiz-game', icon: '🕹', label: 'Game' },
   { id: 'education', icon: '🏫', label: 'Education' },
-  { id: 'operating-style', icon: '🎮', label: 'Profile' },
+  { id: 'operating-style', icon: '🎮', label: 'Approach' },
 ];
 
 export const PORTFOLIO_SECTION_IDS = PORTFOLIO_SECTIONS.map(section => section.id);

@@ -232,6 +232,10 @@ export class SkillsComponent implements OnInit {
     return level === 'primary' ? 'Boss' : level === 'secondary' ? 'Main' : 'Support';
   }
 
+  getProLevelLabel(level: SkillLevel): string {
+    return level === 'primary' ? 'Core' : level === 'secondary' ? 'Proficient' : 'Familiar';
+  }
+
   getLevelTag(level: SkillLevel): string {
     return level === 'primary' ? 'BOSS' : level === 'secondary' ? 'MAIN' : 'SUPPORT';
   }
