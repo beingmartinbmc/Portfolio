@@ -82,8 +82,7 @@
       <div
         #chatWindow
         class="chat-window"
-        role="dialog"
-        aria-modal="true"
+        role="region"
         aria-labelledby="ai-chat-title"
         aria-describedby="ai-privacy-note">
         <div class="chat-header">
@@ -103,7 +102,7 @@
               {{ ttsEnabled ? '🔊' : '🔇' }}
             </button>
 
-            @if (isReallySpeaking) {
+            @if (isSpeaking) {
               <button class="stop-speech-btn" (click)="stopSpeech()" aria-label="Stop speech" title="Stop speech">
                 ⏹
               </button>
@@ -123,7 +122,7 @@
             </div>
           }
 
-          @if (isReallyTyping) {
+          @if (isTyping) {
             <div class="typing-indicator" role="status" aria-label="AI assistant is responding">
               <span></span><span></span><span></span>
             </div>
@@ -144,10 +143,10 @@
           <button
             (click)="sendMessage()"
             aria-label="Send message"
-            [disabled]="isReallyTyping || !userInput.trim()"
+            [disabled]="isTyping || !userInput.trim()"
             class="send-btn"
           >
-            {{ isReallyTyping ? '...' : '→' }}
+            {{ isTyping ? '...' : '→' }}
           </button>
         </div>
         <p id="ai-privacy-note" class="ai-privacy-note">

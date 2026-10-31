@@ -44,6 +44,8 @@ export class MarioControls {
   setTouchDown(active: boolean): void { this.state.down = active; }
 
   private onKeyDown(e: KeyboardEvent): void {
+    // Listeners are window-wide: never steal keys from text fields or browser shortcuts.
+    if (isTypingTarget(e.target) || e.metaKey || e.ctrlKey || e.altKey) return;
     switch (e.code) {
       case 'ArrowLeft':
       case 'KeyA':
@@ -105,4 +107,9 @@ export class MarioControls {
         break;
     }
   }
+}
+
+function isTypingTarget(target: EventTarget | null): boolean {
+  const el = target as HTMLElement | null;
+  return !!el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName ?? ''));
 }

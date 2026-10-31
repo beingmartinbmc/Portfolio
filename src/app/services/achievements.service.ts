@@ -96,10 +96,12 @@ export class AchievementsService {
 
   private checkReturnVisit(): void {
     const visitKey = 'portfolio_visited';
-    if (localStorage.getItem(visitKey)) {
-      this.unlock('returner');
-    }
-    localStorage.setItem(visitKey, Date.now().toString());
+    try {
+      if (localStorage.getItem(visitKey)) {
+        this.unlock('returner');
+      }
+      localStorage.setItem(visitKey, Date.now().toString());
+    } catch { /* storage blocked (privacy mode, sandboxed iframe): treat as a first visit */ }
   }
 
   private checkNightOwl(): void {

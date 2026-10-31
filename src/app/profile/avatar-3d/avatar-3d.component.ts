@@ -70,11 +70,11 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   private readonly maxTtsCacheBytes = 8 * 1024 * 1024;
   /**
    * Every chat reply is also billed as Deepgram speech (~$0.03 per 1k characters), so the
-   * reply length is capped here rather than left to the shared default. ~600 tokens is roughly
-   * 2.4k characters, which also keeps us clear of the gateway's per-request TTS character limit.
+   * reply length is capped here rather than left to the shared default. ~550 tokens is roughly
+   * 2.2k characters, which keeps us clear of the gateway's 2500-character TTS limit.
    * The system prompt asks for a much shorter answer; this is the backstop if it is ignored.
    */
-  private readonly MAX_SPOKEN_REPLY_TOKENS = 600;
+  private readonly MAX_SPOKEN_REPLY_TOKENS = 550;
   private readonly destroy$ = new Subject<void>();
   private destroyed = false;
   
@@ -99,34 +99,10 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (event.key === 'Escape') {
+    // The chat is an in-page panel, not a modal: no focus trap, but Escape closes it from inside.
+    if (event.key === 'Escape' && this.chatWindow?.nativeElement.contains(document.activeElement)) {
       event.preventDefault();
       this.closeChat();
-      return;
-    }
-
-    if (event.key !== 'Tab' || !this.chatWindow) {
-      return;
-    }
-
-    const focusable = Array.from(this.chatWindow.nativeElement.querySelectorAll<HTMLElement>(
-      'button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
-    ));
-    if (focusable.length === 0) {
-      return;
-    }
-
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (!first || !last) {
-      return;
-    }
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
     }
   }
 
@@ -199,8 +175,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     }
     this.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     // Controls
     this.controls = new OrbitControls(this.camera, canvas);
@@ -209,6 +183,8 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     this.controls.minDistance = 0.5;
     this.controls.maxDistance = 5;
     this.controls.target.set(0, 0.5, 0);
+    // Render on demand: damping keeps emitting 'change' until the camera settles.
+    this.controls.addEventListener('change', this.requestRender);
 
     // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -216,9 +192,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight.position.set(5, 10, 5);
-    directionalLight.castShadow = true;
-    directionalLight.shadow.mapSize.width = 2048;
-    directionalLight.shadow.mapSize.height = 2048;
     this.scene.add(directionalLight);
 
     const fillLight = new THREE.DirectionalLight(0xffd580, 0.20);
@@ -265,15 +238,8 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
         const scale = 2.275 / maxDim; // 65% of the original 3.5 scale
         this.model.scale.setScalar(scale);
         
-        // Enable shadows
-        this.model.traverse((child) => {
-          if ((child as THREE.Mesh).isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
-          }
-        });
-
         this.scene.add(this.model);
+        this.requestRender();
         
         // Complete loading with smooth transition
         setTimeout(() => {
@@ -317,16 +283,17 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     );
   }
 
-  private animate(): void {
-    if (!this.renderer || !this.isInViewport || document.hidden) {
-      this.animationFrameId = undefined;
-      return;
-    }
-
-    this.controls.update();
-    this.renderer.render(this.scene, this.camera);
-    this.animationFrameId = requestAnimationFrame(() => this.animate());
-  }
+  /** Draw one frame on the next tick; repeated calls before then coalesce into a single render. */
+  private readonly requestRender = (): void => {
+    if (!this.renderer || !this.isInViewport || document.hidden || this.animationFrameId !== undefined) return;
+    this.zone.runOutsideAngular(() => {
+      this.animationFrameId = requestAnimationFrame(() => {
+        this.animationFrameId = undefined;
+        this.controls.update();
+        this.renderer.render(this.scene, this.camera);
+      });
+    });
+  };
 
   private observeRenderVisibility(): void {
     document.addEventListener('visibilitychange', this.boundVisibilityHandler);
@@ -344,13 +311,13 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   private updateAnimationState(): void {
-    const shouldAnimate = this.isInViewport && !document.hidden && !!this.renderer;
-    if (shouldAnimate && this.animationFrameId === undefined) {
-      this.zone.runOutsideAngular(() => this.animate());
+    const visible = this.isInViewport && !document.hidden && !!this.renderer;
+    if (visible) {
+      this.requestRender();
       return;
     }
 
-    if (!shouldAnimate && this.animationFrameId !== undefined) {
+    if (this.animationFrameId !== undefined) {
       cancelAnimationFrame(this.animationFrameId);
       this.animationFrameId = undefined;
     }
@@ -407,12 +374,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     this.userInput = '';
     this.achievementsService.trackAiQuestion();
     this.audioService.play('jump');
-    
-    // Prevent multiple concurrent requests
-    if (this.isTyping) {
-      return;
-    }
-    
+
     this.isTyping = true;
     
     await this.fallbackToRegularAPI(userMessage);
@@ -487,7 +449,7 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
   }
 
   // Text-to-Speech methods - Simple TTS implementation
-  private speakText(text: string, addMessageAfterTTS: boolean = false): void {
+  private speakText(text: string): void {
     if (!text.trim()) return;
 
     // Stop any current speech
@@ -501,21 +463,14 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     // Check cache first for instant playback
     const cachedAudio = this.getCachedAudio(cleanText);
     if (cachedAudio) {
-      // If we have cached audio, add message immediately since there's no API delay
-      if (addMessageAfterTTS) {
-        this.addMessage(text, false, false);
-        this.isTyping = false; // Stop typing indicator
-        this.cdr.markForCheck();
-      }
       this.playAudioBlob(cachedAudio);
       return;
     }
-    
-    // Use regular TTS
-    this.speakTextRegular(cleanText, text, addMessageAfterTTS);
+
+    this.speakTextRegular(cleanText);
   }
 
-  private speakTextRegular(cleanText: string, originalText: string, addMessageAfterTTS: boolean): void {
+  private speakTextRegular(cleanText: string): void {
     this.ttsRequest = this.http.post(TTS_API_URL, {
       text: cleanText
     }, {
@@ -529,27 +484,13 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
           const audioBlob = response as Blob;
           
           this.cacheAudio(cleanText, audioBlob);
-          
-          // Add message to UI now that TTS response is ready
-          if (addMessageAfterTTS) {
-            this.addMessage(originalText, false, false);
-            this.isTyping = false; // Stop typing indicator
-            this.cdr.markForCheck();
-          }
-          
+
           // Play immediately
           this.playAudioBlob(audioBlob);
         }
       },
       error: (error) => {
         console.error('TTS request failed:', error);
-        
-        // Add message even if TTS fails
-        if (addMessageAfterTTS) {
-          this.addMessage(originalText, false, false);
-          this.isTyping = false; // Stop typing indicator even on error
-        }
-
         this.isSpeaking = false;
         this.cdr.markForCheck();
       },
@@ -670,54 +611,6 @@ export class Avatar3dComponent implements OnInit, OnDestroy {
     this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-  }
-
-  // Getters for template bindings
-  public get isReallyTyping(): boolean {
-    return this.isTyping;
-  }
-
-  public get isReallySpeaking(): boolean {
-    return this.isSpeaking;
-  }
-
-  // 3D Model animation methods for voice synchronization
-  public prepare3DModelForSpeech(): void {
-    if (this.model) {
-      // Add subtle animation to indicate the avatar is preparing to speak
-      // You can enhance this with actual mouth animation or other visual cues
-      this.addSubtleSpeakingAnimation();
-    }
-  }
-
-  public finalize3DModelAnimation(): void {
-    if (this.model) {
-      this.removeSpeakingAnimation();
-    }
-  }
-
-  private addSubtleSpeakingAnimation(): void {
-    // Simple breathing or idle animation while speaking
-    // You can expand this to include mouth movements, eye blinking, etc.
-    if (this.model) {
-      const originalY = this.model.position.y;
-      const amplitude = 0.005; // Very subtle movement
-      const frequency = 0.02;
-      
-      const animate = () => {
-        if (this.isReallySpeaking && this.model) {
-          this.model.position.y = originalY + Math.sin(Date.now() * frequency) * amplitude;
-          requestAnimationFrame(animate);
-        } else if (this.model) {
-          // Return to original position
-          this.model.position.y = originalY;
-        }
-      };
-      animate();
-    }
-  }
-
-  private removeSpeakingAnimation(): void {
-    // No-op: extensible for future model animation resets
+    this.requestRender();
   }
 }

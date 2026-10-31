@@ -70,13 +70,16 @@ export class MarioEngine {
   }
 
   pause(): void {
+    if (this.state !== 'running') return;
     this.state = 'paused';
-    this.controls.reset();
+    // Release the window-wide key listeners so arrows/Space scroll the page again.
+    this.controls.unbind();
   }
 
   resume(): void {
     if (this.state === 'paused') {
       this.state = 'running';
+      this.controls.bind();
       this.lastTime = performance.now();
       this.accumulator = 0;
       this.loop(this.lastTime);

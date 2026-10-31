@@ -49,6 +49,24 @@ describe('MarioControls', () => {
       });
     });
 
+    it('ignores keys typed into text fields and browser shortcuts', () => {
+      const input = document.createElement('textarea');
+      document.body.appendChild(input);
+      input.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyA', bubbles: true, cancelable: true }));
+      window.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyD', metaKey: true }));
+      expect(controls.getState().left).toBeFalse();
+      expect(controls.getState().right).toBeFalse();
+      input.remove();
+    });
+
+    it('does not block page scrolling keys after unbind', () => {
+      controls.unbind();
+      const event = new KeyboardEvent('keydown', { code: 'Space', cancelable: true });
+      window.dispatchEvent(event);
+      expect(event.defaultPrevented).toBeFalse();
+      controls.bind();
+    });
+
     it('ignores unmapped keys', () => {
       press('KeyQ');
       expect(controls.getState()).toEqual({ left: false, right: false, jump: false, fire: false, run: false, down: false });

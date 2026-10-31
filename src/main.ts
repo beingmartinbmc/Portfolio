@@ -1,18 +1,14 @@
-import {enableProdMode, provideZoneChangeDetection} from '@angular/core';
+import {provideZonelessChangeDetection} from '@angular/core';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 
 import {AppComponent} from './app/app.component';
 import {gatewayAuthInterceptor} from './app/config/gateway-auth.interceptor';
-import {environment} from './environments/environment';
 
-if (environment.production) {
-  enableProdMode();
-}
-
+// Zoneless: every component is OnPush and marks itself for check after async work.
 bootstrapApplication(AppComponent, {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZonelessChangeDetection(),
     provideHttpClient(withInterceptors([gatewayAuthInterceptor])),
   ],
 })

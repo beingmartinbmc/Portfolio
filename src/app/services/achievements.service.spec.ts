@@ -169,6 +169,12 @@ describe('AchievementsService', () => {
       expect(isUnlocked(reloaded, 'lore_master')).toBeTrue();
     });
 
+    it('constructs when storage access throws, so the app still bootstraps', () => {
+      spyOn(Storage.prototype, 'getItem').and.throwError('SecurityError');
+      spyOn(Storage.prototype, 'setItem').and.throwError('SecurityError');
+      expect(() => makeService()).not.toThrow();
+    });
+
     it('survives corrupted localStorage data without throwing', () => {
       localStorage.setItem(STORAGE_KEY, '{not valid json');
       expect(() => makeService()).not.toThrow();
