@@ -260,10 +260,12 @@ export class AiQuizGameComponent implements OnDestroy {
         createOpenAiProxyRequest([
           { role: 'system', content: 'Return only valid JSON. No markdown. No explanation.' },
           { role: 'user', content: prompt },
-        ]),
+        ], 2500),
         { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) },
       ).pipe(
-        timeout({ first: 12_000 }),
+        // A complete level is ~1,200 tokens and about 15s. 1,000 tokens comes back
+        // truncated, and gpt-5-nano can spend that whole cap on hidden reasoning.
+        timeout({ first: 25_000 }),
         takeUntil(this.destroy$),
       ));
 
