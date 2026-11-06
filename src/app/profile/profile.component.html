@@ -13,17 +13,11 @@
     <app-blog></app-blog>
     <!-- Section ids live on these wrappers so anchors and the mini-map survive @defer swapping its content. -->
     <div id="avatar-3d">
-      <!-- The twin pulls ~3.6 MB (three.js + model), so it loads on request, not on scroll. -->
-      @defer (on interaction) {
+      <!-- The twin pulls ~3.6 MB (three.js + model). Its code is prefetched once the browser is idle, so it mounts as soon as it scrolls into view. No click-to-load banner. -->
+      @defer (on viewport; prefetch on idle) {
         <app-avatar-3d></app-avatar-3d>
       } @placeholder {
-        <section class="deferred-section-placeholder apple-section" aria-label="AI twin">
-          <div class="apple-container deferred-cta">
-            <h2 class="deferred-title">Ask my AI twin</h2>
-            <p>An LLM chat with curated context about my work, a 3D avatar, and optional voice.</p>
-            <button type="button" class="apple-btn apple-btn-primary">Load the AI twin (~3.6 MB)</button>
-          </div>
-        </section>
+        <section class="deferred-section-placeholder apple-section" aria-label="AI twin loads when visible"></section>
       }
     </div>
     <app-education></app-education>

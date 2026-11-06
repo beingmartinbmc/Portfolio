@@ -28,6 +28,7 @@
 .hero-title {
   display: grid;
   gap: 0.08em;
+  transition: translate 180ms var(--ease-out);
   font-size: clamp(2.1rem, 4.4vw, 3.6rem);
   font-weight: 800;
   line-height: 1.04;
@@ -118,12 +119,13 @@
   background: white(0.03);
   transition:
     transform 260ms var(--ease-spring),
+    translate 260ms var(--ease-spring),
     border-color var(--transition-normal),
     background var(--transition-normal);
 }
 
 .metric-card:hover {
-  transform: translateY(-3px);
+  translate: 0 -3px;
   border-color: gold(0.3);
   background: gold(0.05);
 }
@@ -207,7 +209,7 @@
   border-radius: 0.85rem;
   border: 1px solid gold(0.12);
   background: white(0.025);
-  transition: border-color 0.25s, background 0.25s, transform 0.25s;
+  transition: border-color 0.25s, background 0.25s, transform 0.25s, translate 0.25s;
   position: relative;
   overflow: hidden;
 
@@ -222,7 +224,7 @@
   }
 
   &:hover {
-    transform: translateY(-2px);
+    translate: 0 -2px;
     background: white(0.04);
 
     &::before { opacity: 1; }

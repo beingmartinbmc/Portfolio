@@ -28,7 +28,7 @@
   overflow: hidden;
   background: linear-gradient(180deg, rgba(19, 19, 46, 0.98) 0%, rgba(13, 13, 34, 0.98) 100%);
   border: 2px solid gold(0.12);
-  transition: border-color 250ms ease, box-shadow 250ms ease;
+  transition: border-color 250ms ease, box-shadow 250ms ease, transform 180ms ease;
 
   &:hover {
     border-color: gold(0.28);

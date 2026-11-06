@@ -89,6 +89,81 @@ describe('ExperienceComponent', () => {
     expect(() => component.ngOnDestroy()).not.toThrow();
   });
 
+  it('walks Mario to the current stop once the map has scrolled into place', () => {
+    const track = document.createElement('div');
+    const first = document.createElement('button');
+    const last = document.createElement('button');
+    spyOn(track, 'getBoundingClientRect').and.returnValue({ top: 0, left: 0, width: 800, height: 200 } as DOMRect);
+    spyOn(first, 'getBoundingClientRect').and.returnValue({ left: 0, width: 40 } as DOMRect);
+    spyOn(last, 'getBoundingClientRect').and.returnValue({ left: 400, width: 40 } as DOMRect);
+    (component as any).mapTrack = { nativeElement: track };
+    (component as any).stopEls = {
+      length: component.stops.length,
+      get: (i: number) => ({ nativeElement: i === 0 ? first : last }),
+    };
+    spyOnProperty(window, 'innerHeight', 'get').and.returnValue(800);
+
+    (component as any).scrubMario();
+
+    expect(component.marioScrubbing).toBeTrue();
+    expect(component.marioLeft).toBe(420);
+    expect(component.marioPosition).toBe(component.stops.length - 1);
+  });
+
+  it('keeps a clicked-on Mario on his stop when the layout moves under him', fakeAsync(() => {
+    const track = document.createElement('div');
+    const stop = document.createElement('button');
+    let stopLeft = 100;
+    spyOn(track, 'getBoundingClientRect').and.returnValue({ top: 0, left: 0, width: 800 } as DOMRect);
+    spyOn(stop, 'getBoundingClientRect').and.callFake(() => ({ left: stopLeft, width: 40 } as DOMRect));
+    (component as any).mapTrack = { nativeElement: track };
+    (component as any).stopEls = { length: component.stops.length, get: () => ({ nativeElement: stop }) };
+
+    component.selectStop(component.stops[1]!, 1);
+    expect(component.marioLeft).toBe(120);
+
+    stopLeft = 300; // e.g. a resize re-flows the map; scrollY has not moved
+    (component as any).scrubMario();
+
+    expect(component.marioLeft).toBe(320);
+    expect(component.marioScrubbing).toBeFalse(); // still held, not handed back to the scroll
+    expect(component.marioPosition).toBe(1);
+
+    // Flush last: a tick lets the zoneless fixture re-run change detection, which rebinds @ViewChild to the real DOM.
+    tick(1000);
+  }));
+
+  it('glides a released Mario to the scroll position instead of snapping, then scrubs instantly', fakeAsync(() => {
+    const track = document.createElement('div');
+    const first = document.createElement('button');
+    const last = document.createElement('button');
+    spyOn(track, 'getBoundingClientRect').and.returnValue({ top: 0, left: 0, width: 800 } as DOMRect);
+    spyOn(first, 'getBoundingClientRect').and.returnValue({ left: 0, width: 40 } as DOMRect);
+    spyOn(last, 'getBoundingClientRect').and.returnValue({ left: 400, width: 40 } as DOMRect);
+    (component as any).mapTrack = { nativeElement: track };
+    (component as any).stopEls = { length: component.stops.length, get: (i: number) => ({ nativeElement: i === 0 ? first : last }) };
+    spyOnProperty(window, 'innerHeight', 'get').and.returnValue(800);
+    let scrollY = 0;
+    let now = 1000;
+    spyOnProperty(window, 'scrollY', 'get').and.callFake(() => scrollY);
+    spyOn(performance, 'now').and.callFake(() => now);
+
+    component.selectStop(component.stops[0]!, 0); // held at the first stop
+    expect(component.marioLeft).toBe(20);
+
+    scrollY = 50; // past the 12px hold
+    now = 2000;
+    (component as any).scrubMario();
+    expect(component.marioLeft).toBe(420);
+    expect(component.marioScrubbing).toBeFalse(); // the CSS transition runs him there
+
+    now = 3000; // glide is over
+    (component as any).scrubMario();
+    expect(component.marioScrubbing).toBeTrue();
+
+    tick(1000); // flush last: a tick lets the zoneless fixture rebind @ViewChild
+  }));
+
   it('selecting a different stop triggers and then clears the running flag', fakeAsync(() => {
     // Force measurable positions so moveMarioTo animates.
     const track = document.createElement('div');

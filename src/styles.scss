@@ -531,6 +531,81 @@ img {
   }
 }
 
+/* Pointer tilt is an inline transform set by StageMotionService (hover lifts use `translate`, so they compose). */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Grid drifts with scroll progress. A CSS timeline, not a JS-written var on <html> (that restyled the whole page per frame). */
+  @supports (animation-timeline: scroll()) {
+    body::before {
+      animation: grid-drift linear both;
+      animation-timeline: scroll(root);
+      animation-duration: auto;
+    }
+  }
+
+  /* Hero metric cards are left out: they sit at the fold and would load half-faded on laptop viewports. */
+  @supports (animation-timeline: view()) {
+    :where(
+      .section-header,
+      .quest-card,
+      .side-quest-card,
+      .powerup-card,
+      .focus-card,
+      .scroll-card,
+      .level-card,
+      .skill-card,
+      .style-card,
+      .bio-panel,
+      .quest-panel
+    ) {
+      animation: stage-rise linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0% cover 24%;
+      animation-duration: auto;
+    }
+  }
+
+  html.play-mode.is-scrolling .world-label {
+    animation: stage-bob 0.42s steps(2, end) infinite;
+  }
+
+  html.play-mode.is-scrolling .footer-mario {
+    animation-duration: 0.28s;
+  }
+
+  @supports (animation-timeline: view()) {
+    html.play-mode :where(.xp-bar-fill, .xp-fill, .hud-fill) {
+      transform-origin: left center;
+      animation: stage-bar linear backwards;
+      animation-timeline: view();
+      animation-range: entry 8% cover 34%;
+      animation-duration: auto;
+    }
+  }
+
+  .hero-title {
+    translate: calc((var(--spot-x, 50) - 50) * 0.07px) calc((var(--spot-y, 16) - 16) * 0.04px);
+  }
+}
+
+@keyframes grid-drift {
+  to { background-position: -1000px -600px, -1000px -600px; }
+}
+
+@keyframes stage-rise {
+  from { opacity: 0; translate: 0 1.75rem; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes stage-bob {
+  50% { translate: 0 -3px; }
+}
+
+@keyframes stage-bar {
+  from { scale: 0 1; }
+  to { scale: 1 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

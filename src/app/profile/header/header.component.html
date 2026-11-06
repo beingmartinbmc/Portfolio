@@ -9,14 +9,14 @@
     </a>
 
     <div class="nav-links" [class.active]="isMenuOpen">
-      <a href="#about" class="nav-link" (click)="onNavLinkClick($event, 'about')">About</a>
-      <a href="#experience" class="nav-link" (click)="onNavLinkClick($event, 'experience')">Work</a>
-      <a href="#publications" class="nav-link" (click)="onNavLinkClick($event, 'publications')">Projects</a>
-      <a href="#skill" class="nav-link" (click)="onNavLinkClick($event, 'skill')">Skills</a>
-      <a href="#blogs" class="nav-link" (click)="onNavLinkClick($event, 'blogs')">Writing</a>
-      <a href="#avatar-3d" class="nav-link" (click)="onNavLinkClick($event, 'avatar-3d')">AI Twin</a>
-      <a href="#operating-style" class="nav-link" (click)="onNavLinkClick($event, 'operating-style')">Approach</a>
-      <a href="#ai-quiz-game" class="nav-link" (click)="onNavLinkClick($event, 'ai-quiz-game')">Game</a>
+      @for (link of navLinks; track link.id) {
+        <a
+          class="nav-link"
+          [href]="'#' + link.id"
+          [class.is-current]="activeSection === link.id"
+          [attr.aria-current]="activeSection === link.id ? 'true' : null"
+          (click)="onNavLinkClick($event, link.id)">{{ link.label }}</a>
+      }
     </div>
 
     <div class="nav-actions">
