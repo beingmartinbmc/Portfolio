@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {PORTFOLIO_SECTION_IDS} from '../../config/portfolio-sections';
 import {ScrollXpService} from '../../services/scroll-xp.service';
 import {PlayModeService} from '../../services/play-mode.service';
 import {Subscription} from 'rxjs';
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   xpPercent = 0;
   levelTitle = 'Visitor';
   levelNum = 1;
+  activeSection = '';
 
   private subs: Subscription[] = [];
   private scrollFrame: number | null = null;
@@ -58,9 +60,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onWindowScroll() {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     const scrolled = scrollPosition > 100;
-    if (scrolled === this.isScrolled) return;
+    const section = this.sectionAt(scrollPosition);
+    if (scrolled === this.isScrolled && section === this.activeSection) return;
     this.isScrolled = scrolled;
+    this.activeSection = section;
     this.cdr.markForCheck();
+  }
+
+  private sectionAt(scrollPosition: number): string {
+    const marker = scrollPosition + 140;
+    let current = '';
+    for (const id of PORTFOLIO_SECTION_IDS) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      const top = el.getBoundingClientRect().top + (window.scrollY || scrollPosition);
+      if (top <= marker) current = id;
+    }
+    return current;
   }
 
   toggleMenu() {

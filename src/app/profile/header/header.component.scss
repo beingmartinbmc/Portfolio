@@ -97,9 +97,14 @@
   transition: background var(--transition-normal), color var(--transition-normal), transform var(--transition-normal);
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link.is-current {
   color: var(--primary-color);
   background: gold(0.08);
+}
+
+.nav-link.is-current {
+  box-shadow: inset 0 0 0 1px gold(0.28);
 }
 
 .nav-actions {

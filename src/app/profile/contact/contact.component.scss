@@ -95,7 +95,7 @@ $pixel: var(--font-pixel);
   }
 
   &.active, &:hover {
-    transform: translateY(-4px);
+    translate: 0 -4px;
     border-color: rgba($gold, 0.25);
     background: white(0.04);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
@@ -282,11 +282,11 @@ $pixel: var(--font-pixel);
   border-radius: 0.6rem;
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid white(0.05);
-  transition: border-color 0.25s, transform 0.25s;
+  transition: border-color 0.25s, transform 0.25s, translate 0.25s;
 
   &:hover {
     border-color: rgba($fire, 0.25);
-    transform: translateY(-2px);
+    translate: 0 -2px;
   }
 
   h3 {
@@ -318,10 +318,10 @@ $pixel: var(--font-pixel);
   border-radius: 0.85rem;
   background: linear-gradient(180deg, rgba(19, 19, 46, 0.98), rgba(13, 13, 34, 0.98));
   border: 1px solid rgba($gold, 0.12);
-  transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
+  transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease, translate 250ms ease;
 
   &:hover {
-    transform: translateY(-3px);
+    translate: 0 -3px;
     border-color: rgba($gold, 0.3);
     box-shadow: 0 6px 24px rgba($gold, 0.08);
   }

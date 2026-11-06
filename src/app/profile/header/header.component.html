@@ -9,14 +9,14 @@
     </a>
 
     <div class="nav-links" [class.active]="isMenuOpen">
-      <a href="#about" class="nav-link" (click)="onNavLinkClick($event, 'about')">About</a>
-      <a href="#experience" class="nav-link" (click)="onNavLinkClick($event, 'experience')">Work</a>
-      <a href="#publications" class="nav-link" (click)="onNavLinkClick($event, 'publications')">Projects</a>
-      <a href="#skill" class="nav-link" (click)="onNavLinkClick($event, 'skill')">Skills</a>
-      <a href="#blogs" class="nav-link" (click)="onNavLinkClick($event, 'blogs')">Writing</a>
-      <a href="#avatar-3d" class="nav-link" (click)="onNavLinkClick($event, 'avatar-3d')">AI Twin</a>
-      <a href="#operating-style" class="nav-link" (click)="onNavLinkClick($event, 'operating-style')">Approach</a>
-      <a href="#ai-quiz-game" class="nav-link" (click)="onNavLinkClick($event, 'ai-quiz-game')">Game</a>
+      <a href="#about" class="nav-link" [class.is-current]="activeSection === 'about'" [attr.aria-current]="activeSection === 'about' ? 'true' : null" (click)="onNavLinkClick($event, 'about')">About</a>
+      <a href="#experience" class="nav-link" [class.is-current]="activeSection === 'experience'" [attr.aria-current]="activeSection === 'experience' ? 'true' : null" (click)="onNavLinkClick($event, 'experience')">Work</a>
+      <a href="#publications" class="nav-link" [class.is-current]="activeSection === 'publications'" [attr.aria-current]="activeSection === 'publications' ? 'true' : null" (click)="onNavLinkClick($event, 'publications')">Projects</a>
+      <a href="#skill" class="nav-link" [class.is-current]="activeSection === 'skill'" [attr.aria-current]="activeSection === 'skill' ? 'true' : null" (click)="onNavLinkClick($event, 'skill')">Skills</a>
+      <a href="#blogs" class="nav-link" [class.is-current]="activeSection === 'blogs'" [attr.aria-current]="activeSection === 'blogs' ? 'true' : null" (click)="onNavLinkClick($event, 'blogs')">Writing</a>
+      <a href="#avatar-3d" class="nav-link" [class.is-current]="activeSection === 'avatar-3d'" [attr.aria-current]="activeSection === 'avatar-3d' ? 'true' : null" (click)="onNavLinkClick($event, 'avatar-3d')">AI Twin</a>
+      <a href="#operating-style" class="nav-link" [class.is-current]="activeSection === 'operating-style'" [attr.aria-current]="activeSection === 'operating-style' ? 'true' : null" (click)="onNavLinkClick($event, 'operating-style')">Approach</a>
+      <a href="#ai-quiz-game" class="nav-link" [class.is-current]="activeSection === 'ai-quiz-game'" [attr.aria-current]="activeSection === 'ai-quiz-game' ? 'true' : null" (click)="onNavLinkClick($event, 'ai-quiz-game')">Game</a>
     </div>
 
     <div class="nav-actions">

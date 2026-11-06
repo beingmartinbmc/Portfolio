@@ -32,9 +32,22 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
   marioLeft = 0;          // px offset within the track
   marioRunning = false;   // toggles the run-cycle animation
   marioFacingLeft = false;
+  marioScrubbing = false; // scroll-driven travel skips the click transition
 
   private runTimer: ReturnType<typeof setTimeout> | null = null;
+  private idleTimer: ReturnType<typeof setTimeout> | null = null;
+  private scrollFrame = 0;
+  private pinned = false;
+  private pinY = 0;
+  private listening = false;
   private readonly visitedStopIds = new Set<string>();
+  private readonly onMapScroll = (): void => {
+    if (this.scrollFrame) return;
+    this.scrollFrame = requestAnimationFrame(() => {
+      this.scrollFrame = 0;
+      this.scrubMario();
+    });
+  };
 
   private readonly experienceItems: ExperienceItem[] = EXPERIENCE_ITEMS;
 
@@ -51,15 +64,28 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // Place Mario at the most recent role once the layout is measured.
-requestAnimationFrame(() => {
-      this.moveMarioTo(this.marioPosition, false);
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    requestAnimationFrame(() => {
+      if (reduce) this.moveMarioTo(this.stops.length - 1, false);
+      else this.scrubMario();
       this.cdr.markForCheck();
+    });
+    if (reduce) return;
+    this.listening = true;
+    this.zone.runOutsideAngular(() => {
+      window.addEventListener('scroll', this.onMapScroll, { passive: true });
+      window.addEventListener('resize', this.onMapScroll, { passive: true });
     });
   }
 
   ngOnDestroy(): void {
     if (this.runTimer) clearTimeout(this.runTimer);
+    if (this.idleTimer) clearTimeout(this.idleTimer);
+    if (this.scrollFrame) cancelAnimationFrame(this.scrollFrame);
+    if (this.listening) {
+      window.removeEventListener('scroll', this.onMapScroll);
+      window.removeEventListener('resize', this.onMapScroll);
+    }
   }
 
   private calculateTotalExperience(): void {
@@ -105,23 +131,74 @@ requestAnimationFrame(() => {
       this.visitedStopIds.add(stop.id);
       this.achievements.trackExperienceStop();
     }
+    this.pinned = true;
+    this.pinY = window.scrollY || 0;
     this.moveMarioTo(idx, true);
   }
 
   /**
-   * Moves Mario to the centre of the stop at `idx` by measuring real DOM
-   * positions, so the run animation always lands precisely on the platform
-   * regardless of how the flex layout distributes the stops.
+   * Scroll progress across the map: 0 as the track enters from below,
+   * 1 once it has settled in the upper part of the viewport.
+   * rin: one linear map, not a per-stop timeline.
    */
-  private moveMarioTo(idx: number, animate: boolean): void {
-    this.marioPosition = idx;
+  private scrubMario(): void {
+    if (this.pinned && Math.abs((window.scrollY || 0) - this.pinY) < 12) return;
+    this.pinned = false;
+
+    const track = this.mapTrack?.nativeElement;
+    const max = this.stops.length - 1;
+    if (!track || max < 0) return;
+
+    const view = window.innerHeight || 1;
+    const raw = (view * 0.92 - track.getBoundingClientRect().top) / (view * 0.7);
+    const progress = Math.min(1, Math.max(0, raw));
+    const pos = progress * max;
+    const index = Math.min(max, Math.floor(pos));
+    const next = Math.min(max, index + 1);
+    const start = this.stopCenter(index);
+    const end = this.stopCenter(next);
+    if (start == null || end == null) return;
+
+    const left = start + (end - start) * (pos - index);
+    const delta = left - this.marioLeft;
+    const moved = Math.abs(delta) > 0.5;
+    const facing = moved ? delta < 0 : this.marioFacingLeft;
+    const position = (pos - index) < 0.5 ? index : next;
+    const changed = !this.marioScrubbing || moved || facing !== this.marioFacingLeft || position !== this.marioPosition;
+    this.marioScrubbing = true;
+    this.marioLeft = left;
+    this.marioFacingLeft = facing;
+    this.marioPosition = position;
+    if (moved) {
+      this.marioRunning = true;
+      if (this.idleTimer) clearTimeout(this.idleTimer);
+      this.zone.runOutsideAngular(() => {
+        this.idleTimer = setTimeout(() => {
+          this.zone.run(() => {
+            this.marioRunning = false;
+            this.cdr.markForCheck();
+          });
+        }, 140);
+      });
+    }
+    if (changed) this.cdr.markForCheck();
+  }
+
+  private stopCenter(idx: number): number | null {
     const track = this.mapTrack?.nativeElement;
     const stopEl = this.stopEls?.get(idx)?.nativeElement;
-    if (!track || !stopEl) return;
-
+    if (!track || !stopEl) return null;
     const trackRect = track.getBoundingClientRect();
     const stopRect = stopEl.getBoundingClientRect();
-    const targetLeft = stopRect.left - trackRect.left + stopRect.width / 2;
+    return stopRect.left - trackRect.left + stopRect.width / 2;
+  }
+
+  /** Click travel. Measures the stop so the run lands on the platform. */
+  private moveMarioTo(idx: number, animate: boolean): void {
+    this.marioPosition = idx;
+    this.marioScrubbing = false;
+    const targetLeft = this.stopCenter(idx);
+    if (targetLeft == null) return;
 
     if (animate && targetLeft !== this.marioLeft) {
       this.marioFacingLeft = targetLeft < this.marioLeft;

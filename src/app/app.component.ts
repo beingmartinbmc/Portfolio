@@ -6,6 +6,7 @@ import {LevelUpOverlayComponent} from './shared/level-up-overlay/level-up-overla
 import {KonamiComponent} from './shared/konami/konami.component';
 import {CursorTrailComponent} from './shared/cursor-trail/cursor-trail.component';
 import {PlayModeService} from './services/play-mode.service';
+import {StageMotionService} from './services/stage-motion.service';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ import {PlayModeService} from './services/play-mode.service';
 })
 export class AppComponent implements OnDestroy {
   readonly playMode = inject(PlayModeService);
+  private readonly stageMotion = inject(StageMotionService);
 
   private readonly onVisibilityChange = (): void => {
     document.body.classList.toggle('is-hidden-tab', document.visibilityState === 'hidden');
@@ -34,9 +36,11 @@ export class AppComponent implements OnDestroy {
     zone.runOutsideAngular(() => {
       document.addEventListener('visibilitychange', this.onVisibilityChange);
     });
+    this.stageMotion.start(zone);
   }
 
   ngOnDestroy(): void {
     document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    this.stageMotion.stop();
   }
 }

@@ -162,6 +162,9 @@ body::before {
     linear-gradient(rgba(251, 191, 36, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(251, 191, 36, 0.025) 1px, transparent 1px);
   background-size: 32px 32px;  /* tile-sized grid */
+  background-position:
+    calc(var(--scroll-y, 0) * -0.08px) calc(var(--scroll-y, 0) * -0.05px),
+    calc(var(--scroll-y, 0) * -0.08px) calc(var(--scroll-y, 0) * -0.05px);
   mask-image: radial-gradient(circle at center, black, transparent 80%);
   opacity: 0.6;
 }
@@ -529,6 +532,89 @@ img {
   .card-body {
     padding: 1.25rem;
   }
+}
+
+/* Pointer tilt. Hover lifts use `translate`, so this composes instead of replacing them. */
+:where(
+  .quest-card,
+  .side-quest-card,
+  .powerup-card,
+  .focus-card,
+  .scroll-card,
+  .level-card,
+  .skill-card,
+  .style-card,
+  .principle-card,
+  .hud-card,
+  .metric-card,
+  .metric-panel,
+  .arch-layer,
+  .map-stop,
+  .bio-panel,
+  .quest-panel
+) {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    :where(
+      .section-header,
+      .quest-card,
+      .side-quest-card,
+      .powerup-card,
+      .focus-card,
+      .scroll-card,
+      .level-card,
+      .skill-card,
+      .style-card,
+      .bio-panel,
+      .quest-panel,
+      .metric-card
+    ) {
+      animation: stage-rise linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0% cover 24%;
+      animation-duration: auto;
+    }
+  }
+
+  html.play-mode.is-scrolling .world-label {
+    animation: stage-bob 0.42s steps(2, end) infinite;
+  }
+
+  html.play-mode.is-scrolling .footer-mario {
+    animation-duration: 0.28s;
+  }
+
+  @supports (animation-timeline: view()) {
+    html.play-mode :where(.xp-bar-fill, .xp-fill, .hud-fill) {
+      transform-origin: left center;
+      animation: stage-bar linear backwards;
+      animation-timeline: view();
+      animation-range: entry 8% cover 34%;
+      animation-duration: auto;
+    }
+  }
+
+  .hero-title {
+    translate: calc((var(--spot-x, 50) - 50) * 0.07px) calc((var(--spot-y, 16) - 16) * 0.04px);
+  }
+}
+
+@keyframes stage-rise {
+  from { opacity: 0; translate: 0 1.75rem; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes stage-bob {
+  50% { translate: 0 -3px; }
+}
+
+@keyframes stage-bar {
+  from { scale: 0 1; }
+  to { scale: 1 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

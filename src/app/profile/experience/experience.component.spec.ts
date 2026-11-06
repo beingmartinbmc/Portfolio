@@ -89,6 +89,27 @@ describe('ExperienceComponent', () => {
     expect(() => component.ngOnDestroy()).not.toThrow();
   });
 
+  it('walks Mario to the current stop once the map has scrolled into place', () => {
+    const track = document.createElement('div');
+    const first = document.createElement('button');
+    const last = document.createElement('button');
+    spyOn(track, 'getBoundingClientRect').and.returnValue({ top: 0, left: 0, width: 800, height: 200 } as DOMRect);
+    spyOn(first, 'getBoundingClientRect').and.returnValue({ left: 0, width: 40 } as DOMRect);
+    spyOn(last, 'getBoundingClientRect').and.returnValue({ left: 400, width: 40 } as DOMRect);
+    (component as any).mapTrack = { nativeElement: track };
+    (component as any).stopEls = {
+      length: component.stops.length,
+      get: (i: number) => ({ nativeElement: i === 0 ? first : last }),
+    };
+    spyOnProperty(window, 'innerHeight', 'get').and.returnValue(800);
+
+    (component as any).scrubMario();
+
+    expect(component.marioScrubbing).toBeTrue();
+    expect(component.marioLeft).toBe(420);
+    expect(component.marioPosition).toBe(component.stops.length - 1);
+  });
+
   it('selecting a different stop triggers and then clears the running flag', fakeAsync(() => {
     // Force measurable positions so moveMarioTo animates.
     const track = document.createElement('div');

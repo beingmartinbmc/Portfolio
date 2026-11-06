@@ -56,12 +56,12 @@ $border-dim: white(0.06);
   border-radius: 12px;
   overflow: hidden;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  translate: 0 20px;
+  transition: opacity 0.5s ease, translate 0.5s ease, transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 
   &.animated {
     opacity: 1;
-    transform: translateY(0);
+    translate: 0 0;
   }
 
   &:hover {
