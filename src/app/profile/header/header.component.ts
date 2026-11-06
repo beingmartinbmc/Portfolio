@@ -1,6 +1,5 @@
 import {Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PORTFOLIO_SECTION_IDS} from '../../config/portfolio-sections';
 import {ScrollXpService} from '../../services/scroll-xp.service';
 import {PlayModeService} from '../../services/play-mode.service';
 import {Subscription} from 'rxjs';
@@ -14,6 +13,18 @@ import {Subscription} from 'rxjs';
   imports: [CommonModule]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  /** In page order. Impact and Education have no link, so the nearest link above them stays lit. */
+  readonly navLinks = [
+    {id: 'about', label: 'About'},
+    {id: 'experience', label: 'Work'},
+    {id: 'publications', label: 'Projects'},
+    {id: 'skill', label: 'Skills'},
+    {id: 'blogs', label: 'Writing'},
+    {id: 'avatar-3d', label: 'AI Twin'},
+    {id: 'operating-style', label: 'Approach'},
+    {id: 'ai-quiz-game', label: 'Game'},
+  ] as const;
+
   readonly playMode = inject(PlayModeService);
   isScrolled = false;
   isMenuOpen = false;
@@ -25,6 +36,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subs: Subscription[] = [];
   private scrollFrame: number | null = null;
+  private holdTimer: ReturnType<typeof setTimeout> | null = null;
+  private holding = false;
   private readonly scrollHandler = () => {
     if (this.scrollFrame !== null) return;
     this.scrollFrame = requestAnimationFrame(() => {
@@ -54,23 +67,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     window.removeEventListener('scroll', this.scrollHandler);
     if (this.scrollFrame !== null) cancelAnimationFrame(this.scrollFrame);
+    if (this.holdTimer) clearTimeout(this.holdTimer);
     this.subs.forEach(s => s.unsubscribe());
   }
 
   onWindowScroll() {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     const scrolled = scrollPosition > 100;
-    const section = this.sectionAt(scrollPosition);
+    const section = this.holding ? this.activeSection : this.sectionAt(scrollPosition);
+    if (this.holding) this.holdUntilIdle();
     if (scrolled === this.isScrolled && section === this.activeSection) return;
     this.isScrolled = scrolled;
     this.activeSection = section;
     this.cdr.markForCheck();
   }
 
+  /**
+   * A nav click owns the highlight until its scroll settles. A deferred section (the quiz) can grow the page
+   * after the jump lands, stranding the target below the marker; the next scroll after the hold re-reads the page.
+   */
+  private holdUntilIdle(): void {
+    this.holding = true;
+    if (this.holdTimer) clearTimeout(this.holdTimer);
+    this.holdTimer = setTimeout(() => {
+      this.holding = false;
+      this.holdTimer = null;
+    }, 150);
+  }
+
   private sectionAt(scrollPosition: number): string {
     const marker = scrollPosition + 140;
     let current = '';
-    for (const id of PORTFOLIO_SECTION_IDS) {
+    for (const {id} of this.navLinks) {
       const el = document.getElementById(id);
       if (!el) continue;
       const top = el.getBoundingClientRect().top + (window.scrollY || scrollPosition);
@@ -123,6 +151,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.isMenuOpen) {
       this.closeMenu();
     }
+
+    this.activeSection = sectionId ?? '';
+    this.holdUntilIdle();
+    this.cdr.markForCheck();
 
     window.setTimeout(() => {
       if (sectionId) {

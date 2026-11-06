@@ -39,7 +39,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
   private scrollFrame = 0;
   private pinned = false;
   private pinY = 0;
-  private listening = false;
+  private glideUntil = 0; // a released Mario runs to the scroll position (the 0.9s CSS transition) instead of snapping there
   private readonly visitedStopIds = new Set<string>();
   private readonly onMapScroll = (): void => {
     if (this.scrollFrame) return;
@@ -71,7 +71,6 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
       this.cdr.markForCheck();
     });
     if (reduce) return;
-    this.listening = true;
     this.zone.runOutsideAngular(() => {
       window.addEventListener('scroll', this.onMapScroll, { passive: true });
       window.addEventListener('resize', this.onMapScroll, { passive: true });
@@ -82,10 +81,8 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.runTimer) clearTimeout(this.runTimer);
     if (this.idleTimer) clearTimeout(this.idleTimer);
     if (this.scrollFrame) cancelAnimationFrame(this.scrollFrame);
-    if (this.listening) {
-      window.removeEventListener('scroll', this.onMapScroll);
-      window.removeEventListener('resize', this.onMapScroll);
-    }
+    window.removeEventListener('scroll', this.onMapScroll);
+    window.removeEventListener('resize', this.onMapScroll);
   }
 
   private calculateTotalExperience(): void {
@@ -139,11 +136,23 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * Scroll progress across the map: 0 as the track enters from below,
    * 1 once it has settled in the upper part of the viewport.
-   * rin: one linear map, not a per-stop timeline.
+   * One linear map, not a per-stop timeline.
    */
   private scrubMario(): void {
-    if (this.pinned && Math.abs((window.scrollY || 0) - this.pinY) < 12) return;
-    this.pinned = false;
+    const now = performance.now();
+    if (this.pinned && Math.abs((window.scrollY || 0) - this.pinY) < 12) {
+      // Held on a clicked stop, but the layout may have moved under him (resize).
+      const left = this.stopCenter(this.marioPosition);
+      if (left != null && left !== this.marioLeft) {
+        this.marioLeft = left;
+        this.cdr.markForCheck();
+      }
+      return;
+    }
+    if (this.pinned) {
+      this.pinned = false;
+      this.glideUntil = now + 900;
+    }
 
     const track = this.mapTrack?.nativeElement;
     const max = this.stops.length - 1;
@@ -164,8 +173,9 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
     const moved = Math.abs(delta) > 0.5;
     const facing = moved ? delta < 0 : this.marioFacingLeft;
     const position = (pos - index) < 0.5 ? index : next;
-    const changed = !this.marioScrubbing || moved || facing !== this.marioFacingLeft || position !== this.marioPosition;
-    this.marioScrubbing = true;
+    const scrubbing = now >= this.glideUntil;
+    const changed = scrubbing !== this.marioScrubbing || moved || facing !== this.marioFacingLeft || position !== this.marioPosition;
+    this.marioScrubbing = scrubbing;
     this.marioLeft = left;
     this.marioFacingLeft = facing;
     this.marioPosition = position;
@@ -178,7 +188,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit, OnDestroy {
             this.marioRunning = false;
             this.cdr.markForCheck();
           });
-        }, 140);
+        }, Math.max(140, this.glideUntil - now));
       });
     }
     if (changed) this.cdr.markForCheck();

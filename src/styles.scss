@@ -162,9 +162,6 @@ body::before {
     linear-gradient(rgba(251, 191, 36, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(251, 191, 36, 0.025) 1px, transparent 1px);
   background-size: 32px 32px;  /* tile-sized grid */
-  background-position:
-    calc(var(--scroll-y, 0) * -0.08px) calc(var(--scroll-y, 0) * -0.05px),
-    calc(var(--scroll-y, 0) * -0.08px) calc(var(--scroll-y, 0) * -0.05px);
   mask-image: radial-gradient(circle at center, black, transparent 80%);
   opacity: 0.6;
 }
@@ -534,30 +531,19 @@ img {
   }
 }
 
-/* Pointer tilt. Hover lifts use `translate`, so this composes instead of replacing them. */
-:where(
-  .quest-card,
-  .side-quest-card,
-  .powerup-card,
-  .focus-card,
-  .scroll-card,
-  .level-card,
-  .skill-card,
-  .style-card,
-  .principle-card,
-  .hud-card,
-  .metric-card,
-  .metric-panel,
-  .arch-layer,
-  .map-stop,
-  .bio-panel,
-  .quest-panel
-) {
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transform-style: preserve-3d;
-}
+/* Pointer tilt is an inline transform set by StageMotionService (hover lifts use `translate`, so they compose). */
 
 @media (prefers-reduced-motion: no-preference) {
+  /* Grid drifts with scroll progress. A CSS timeline, not a JS-written var on <html> (that restyled the whole page per frame). */
+  @supports (animation-timeline: scroll()) {
+    body::before {
+      animation: grid-drift linear both;
+      animation-timeline: scroll(root);
+      animation-duration: auto;
+    }
+  }
+
+  /* Hero metric cards are left out: they sit at the fold and would load half-faded on laptop viewports. */
   @supports (animation-timeline: view()) {
     :where(
       .section-header,
@@ -570,8 +556,7 @@ img {
       .skill-card,
       .style-card,
       .bio-panel,
-      .quest-panel,
-      .metric-card
+      .quest-panel
     ) {
       animation: stage-rise linear backwards;
       animation-timeline: view();
@@ -601,6 +586,10 @@ img {
   .hero-title {
     translate: calc((var(--spot-x, 50) - 50) * 0.07px) calc((var(--spot-y, 16) - 16) * 0.04px);
   }
+}
+
+@keyframes grid-drift {
+  to { background-position: -1000px -600px, -1000px -600px; }
 }
 
 @keyframes stage-rise {

@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 
-/** Cards that tilt toward the pointer. Hover lift uses `translate`, so this `transform` can compose with it. */
+/** Cards that tilt toward the pointer. Hover lift uses `translate`, so the inline tilt `transform` composes with it. */
 export const STAGE_REACTIVE_SELECTOR = [
   '.quest-card',
   '.side-quest-card',
@@ -24,6 +24,7 @@ export const STAGE_REACTIVE_SELECTOR = [
 export class StageMotionService {
   private started = false;
   private tiltTarget: HTMLElement | null = null;
+  private spotTargets: HTMLElement[] = [];
   private frame = 0;
   private scrollIdle = 0;
 
@@ -31,8 +32,7 @@ export class StageMotionService {
     const root = document.documentElement;
     const w = window.innerWidth || 1;
     const h = window.innerHeight || 1;
-    root.style.setProperty('--spot-x', ((event.clientX / w) * 100).toFixed(2));
-    root.style.setProperty('--spot-y', ((event.clientY / h) * 100).toFixed(2));
+    this.setSpot(((event.clientX / w) * 100).toFixed(2), ((event.clientY / h) * 100).toFixed(2));
 
     if (event.pointerType !== 'mouse') {
       this.clearTilt();
@@ -54,8 +54,8 @@ export class StageMotionService {
     const x = (event.clientX - rect.left) / rect.width - 0.5;
     const y = (event.clientY - rect.top) / rect.height - 0.5;
     const mag = root.classList.contains('play-mode') ? 1 : 0.45;
-    card.style.setProperty('--rx', `${(-y * 8 * mag).toFixed(2)}deg`);
-    card.style.setProperty('--ry', `${(x * 10 * mag).toFixed(2)}deg`);
+    // Inline, so a card only leaves its normal rendering path while it is actually tilted.
+    card.style.transform = `perspective(900px) rotateX(${(-y * 8 * mag).toFixed(2)}deg) rotateY(${(x * 10 * mag).toFixed(2)}deg)`;
   };
 
   private readonly onScroll = (): void => {
@@ -63,12 +63,28 @@ export class StageMotionService {
     this.frame = requestAnimationFrame(() => {
       this.frame = 0;
       const root = document.documentElement;
-      root.style.setProperty('--scroll-y', String(Math.round(window.scrollY || 0)));
       root.classList.add('is-scrolling');
       window.clearTimeout(this.scrollIdle);
       this.scrollIdle = window.setTimeout(() => root.classList.remove('is-scrolling'), 140);
     });
   };
+
+  /** Pointer left the window: no pointermove will follow to un-tilt the last card. */
+  private readonly onLeave = (): void => this.clearTilt();
+
+  /**
+   * The light and the hero title are the only readers. Set the vars on them, not on <html>:
+   * an inherited custom property on the root restyles the whole document on every pointermove.
+   */
+  private setSpot(x: string, y: string): void {
+    if (!this.spotTargets[0]?.isConnected) {
+      this.spotTargets = Array.from(document.querySelectorAll<HTMLElement>('.stage-light, .hero-title'));
+    }
+    for (const el of this.spotTargets) {
+      el.style.setProperty('--spot-x', x);
+      el.style.setProperty('--spot-y', y);
+    }
+  }
 
   start(zone: NgZone): void {
     if (this.started || typeof window === 'undefined') return;
@@ -76,6 +92,7 @@ export class StageMotionService {
     this.started = true;
     zone.runOutsideAngular(() => {
       document.addEventListener('pointermove', this.onPointer, { passive: true });
+      document.documentElement.addEventListener('pointerleave', this.onLeave);
       window.addEventListener('scroll', this.onScroll, { passive: true });
       this.onScroll();
     });
@@ -85,6 +102,7 @@ export class StageMotionService {
     if (!this.started) return;
     this.started = false;
     document.removeEventListener('pointermove', this.onPointer);
+    document.documentElement.removeEventListener('pointerleave', this.onLeave);
     window.removeEventListener('scroll', this.onScroll);
     if (this.frame) cancelAnimationFrame(this.frame);
     this.frame = 0;
@@ -95,8 +113,7 @@ export class StageMotionService {
 
   private clearTilt(): void {
     if (!this.tiltTarget) return;
-    this.tiltTarget.style.removeProperty('--rx');
-    this.tiltTarget.style.removeProperty('--ry');
+    this.tiltTarget.style.removeProperty('transform');
     this.tiltTarget = null;
   }
 }
