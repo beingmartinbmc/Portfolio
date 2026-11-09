@@ -1,0 +1,88 @@
+<div class="code-world" role="presentation">
+  <div class="code-rain" aria-hidden="true">
+    @for (col of rain; track $index) {
+      <pre class="rain-col" [class.is-up]="col.up" [style.--dur]="col.duration + 's'" [style.--delay]="col.delay + 's'">{{ col.text }}</pre>
+    }
+  </div>
+
+  <div
+    class="world-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="code-world-title"
+    tabindex="-1">
+    <header class="world-bar">
+      <span class="bar-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div class="bar-title">
+        <p class="world-kicker">// {{ index + 1 }} / {{ realms.length }} realms</p>
+        <h2 id="code-world-title">Code world</h2>
+      </div>
+      <span class="bar-path" aria-hidden="true">ankit / portfolio / {{ realm.file }}</span>
+      <button type="button" class="world-close" (click)="closed.emit()"><kbd aria-hidden="true">esc</kbd> Close</button>
+    </header>
+
+    <div class="world-layout">
+      <div class="realm-map" aria-label="Portfolio map">
+        <div class="map-gutter" aria-hidden="true">
+          @for (n of gutter; track n) {
+            <span>{{ n }}</span>
+          }
+        </div>
+        <svg class="realm-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <polyline class="path-all" [attr.points]="path"></polyline>
+          <polyline class="path-done" [attr.points]="travelled"></polyline>
+        </svg>
+        <span class="world-token" aria-hidden="true" [style.left.%]="realm.x" [style.top.%]="realm.y">&lbrace;&rbrace;</span>
+        @for (item of realms; track item.id; let i = $index) {
+          <button
+            type="button"
+            class="realm-node"
+            [class.is-on]="i === index"
+            [class.is-past]="i < index"
+            [style.left.%]="item.x"
+            [style.top.%]="item.y"
+            [attr.aria-current]="i === index ? 'true' : null"
+            (click)="select(i)">
+            <span class="node-top">
+              <span class="node-glyph" aria-hidden="true">{{ item.glyph }}</span>
+              <span class="node-n" aria-hidden="true">{{ pad(i + 1) }}</span>
+            </span>
+            <span class="node-file">{{ item.file }}</span>
+            <span class="node-sig"><span class="tok-kw">fn</span> {{ fnName(item.title) }}()</span>
+          </button>
+        }
+      </div>
+
+      <section class="source-panel" [attr.aria-label]="realm.file">
+        <div class="file-tabs" aria-hidden="true">
+          @for (item of realms; track item.id; let i = $index) {
+            <button type="button" tabindex="-1" class="file-tab" [class.is-on]="i === index" (click)="select(i)">{{ item.file }}</button>
+          }
+        </div>
+        <div class="source-tab">
+          <span>{{ realm.file }}</span>
+          <span class="source-title">{{ realm.title }}</span>
+        </div>
+        <pre class="source-code" [class.flip]="index % 2 === 1"><code>@for (line of lines; track $index; let n = $index) {<span class="source-line" [style.--i]="n"><span class="line-no" aria-hidden="true">{{ n + 1 }}</span>@for (token of line; track $index) {<span [class]="'tok-' + token.kind">{{ token.text }}</span>}</span>
+}</code></pre>
+        <div class="terminal" aria-hidden="true">
+          @for (run of history; track $index) {
+            <p><span class="tok-key">$</span> ts-node {{ run.file }}</p>
+            <p class="term-ok">&check; {{ run.title }} compiled &middot; {{ run.lines }} lines</p>
+          }
+          <p>&rarr; press <kbd>Enter</kbd> to open #{{ realm.id }}<span class="term-caret"></span></p>
+        </div>
+        <button type="button" class="world-enter" (click)="enter()">Open {{ realm.title }}</button>
+        <p class="world-hint">Arrows move. Enter opens. Esc closes.</p>
+      </section>
+    </div>
+
+    <footer class="world-status" aria-hidden="true">
+      <span>&lbrace;&rbrace; main</span>
+      <span>TypeScript</span>
+      <span>UTF-8</span>
+      <span>Ln {{ lines.length }}, Col 1</span>
+      <span class="status-end">{{ index + 1 }}/{{ realms.length }}</span>
+    </footer>
+  </div>
+</div>

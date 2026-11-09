@@ -162,6 +162,13 @@ describe('HeaderComponent', () => {
     expect(closeSpy).toHaveBeenCalled();
   }));
 
+  it('opens the code world from the brace mark', () => {
+    fixture.nativeElement.querySelector('.brand-mark').click();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.code-world')).toBeTruthy();
+    expect(document.body.style.overflow).toBe('hidden');
+  });
+
   it('unsubscribes on destroy', () => {
     expect(() => component.ngOnDestroy()).not.toThrow();
   });
