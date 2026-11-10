@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef
 import {CommonModule} from '@angular/common';
 import {ScrollXpService} from '../../services/scroll-xp.service';
 import {PlayModeService} from '../../services/play-mode.service';
+import {CodeWorldComponent} from '../code-world/code-world.component';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -10,7 +11,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./header.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule]
+  imports: [CommonModule, CodeWorldComponent]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   /** In page order. Impact and Education have no link, so the nearest link above them stays lit. */
@@ -28,6 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   readonly playMode = inject(PlayModeService);
   isScrolled = false;
   isMenuOpen = false;
+  codeWorldOpen = false;
 
   xpPercent = 0;
   levelTitle = 'Visitor';
@@ -105,6 +107,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (top <= marker) current = id;
     }
     return current;
+  }
+
+  openCodeWorld(): void {
+    if (this.isMenuOpen) this.closeMenu();
+    this.codeWorldOpen = true;
+    document.body.style.overflow = 'hidden';
+    this.cdr.markForCheck();
+  }
+
+  closeCodeWorld(): void {
+    this.codeWorldOpen = false;
+    document.body.style.overflow = '';
+    this.cdr.markForCheck();
+  }
+
+  visitRealm(id: string): void {
+    this.closeCodeWorld();
+    this.onNavLinkClick(undefined, id === 'top' ? undefined : id);
   }
 
   toggleMenu() {

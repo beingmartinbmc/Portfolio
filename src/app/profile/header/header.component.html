@@ -1,12 +1,19 @@
 <header class="site-header" [class.scrolled]="isScrolled" role="banner">
   <nav class="site-nav apple-container" aria-label="Main navigation">
-    <a href="#top" class="brand" (click)="onNavLinkClick($event)">
-      <span class="brand-mark">&lbrace;&rbrace;</span>
-      <span class="brand-copy">
-        <span class="brand-name">Ankit Sharma</span>
-        <span class="brand-role">Senior Backend Engineer</span>
-      </span>
-    </a>
+    <div class="brand">
+      <button
+        type="button"
+        class="brand-mark"
+        aria-label="Open the code world"
+        [attr.aria-expanded]="codeWorldOpen"
+        (click)="openCodeWorld()">&lbrace;&rbrace;</button>
+      <a href="#top" class="brand-home" (click)="onNavLinkClick($event)">
+        <span class="brand-copy">
+          <span class="brand-name">Ankit Sharma</span>
+          <span class="brand-role">Senior Backend Engineer</span>
+        </span>
+      </a>
+    </div>
 
     <div class="nav-links" [class.active]="isMenuOpen">
       @for (link of navLinks; track link.id) {
@@ -55,3 +62,7 @@
     </div>
   }
 </header>
+
+@if (codeWorldOpen) {
+  <app-code-world (closed)="closeCodeWorld()" (visit)="visitRealm($event)"></app-code-world>
+}
