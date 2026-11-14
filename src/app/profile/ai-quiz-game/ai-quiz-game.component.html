@@ -121,23 +121,26 @@
         </div>
 
         <div class="canvas-container">
-          <canvas
-            #gameCanvas
-            tabindex="0"
-            role="application"
-            [attr.aria-label]="'Platform game. ' + getControlsHint()"></canvas>
+          <div class="canvas-stage">
+            <canvas
+              #gameCanvas
+              tabindex="0"
+              role="application"
+              [attr.aria-label]="'Platform game. ' + getControlsHint()"></canvas>
+          </div>
 
           <!-- Touch controls (mobile) -->
-          <div class="touch-controls">
-            <div class="touch-dpad">
-              <button class="touch-btn touch-left"
+          <div class="touch-controls" (contextmenu)="$event.preventDefault()">
+            <!-- One pad owns both arrows: a thumb can slide ◀ → ▶ without lifting. -->
+            <div class="touch-dpad" role="group" aria-label="Move"
+                 (pointerdown)="padMove($event)" (pointermove)="padMove($event)"
+                 (pointerup)="padRelease()" (pointercancel)="padRelease()" (lostpointercapture)="padRelease()">
+              <button class="touch-btn touch-left" [class.touch-btn--on]="padDir === -1"
                       aria-label="Move left"
-                      (pointerdown)="touchLeft(true)" (pointerup)="touchLeft(false)" (pointercancel)="touchLeft(false)"
                       (keydown)="handleControlKey($event, 'left', true)"
                       (keyup)="handleControlKey($event, 'left', false)">◀</button>
-              <button class="touch-btn touch-right"
+              <button class="touch-btn touch-right" [class.touch-btn--on]="padDir === 1"
                       aria-label="Move right"
-                      (pointerdown)="touchRight(true)" (pointerup)="touchRight(false)" (pointercancel)="touchRight(false)"
                       (keydown)="handleControlKey($event, 'right', true)"
                       (keyup)="handleControlKey($event, 'right', false)">▶</button>
             </div>

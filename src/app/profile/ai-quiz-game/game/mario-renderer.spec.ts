@@ -189,6 +189,22 @@ describe('MarioRenderer', () => {
     }
   });
 
+  it('scales the world down to fit a canvas shorter than the level (phones in landscape)', () => {
+    const level = buildLevel('ground'); // 448px tall
+    renderer.resize(320, level.height / 2);
+    const scale = spyOn(canvas.getContext('2d')!, 'scale').and.callThrough();
+    renderer.render(new Player(2 * TILE, 10 * TILE), level);
+    expect(scale).toHaveBeenCalledWith(0.5, 0.5);
+  });
+
+  it('anchors the floor to the bottom of a canvas taller than the level (phones in portrait)', () => {
+    const level = buildLevel('ground');
+    renderer.resize(320, level.height + 152);
+    const translate = spyOn(canvas.getContext('2d')!, 'translate').and.callThrough();
+    renderer.render(new Player(2 * TILE, 10 * TILE), level);
+    expect(translate).toHaveBeenCalledWith(jasmine.any(Number), 152);
+  });
+
   it('clamps the camera at the right edge of a wide level', () => {
     const level = buildLevel('ground');
     const player = new Player(level.width - TILE, 10 * TILE);

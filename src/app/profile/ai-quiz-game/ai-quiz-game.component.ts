@@ -49,7 +49,10 @@ export class AiQuizGameComponent implements OnDestroy {
 
   won = false;
   enemiesStomped = 0;
+  /** Game fills the viewport. Plain CSS (not only the Fullscreen API), because iPhone Safari can't fullscreen a div. */
   isFullscreen = false;
+  /** Direction currently held on the touch pad: -1 left, 1 right, 0 none. */
+  padDir: -1 | 0 | 1 = 0;
 
   private engine: MarioEngine | null = null;
   private resizeObserver: ResizeObserver | null = null;
@@ -128,6 +131,8 @@ export class AiQuizGameComponent implements OnDestroy {
 
     this.viewState = 'playing';
     this.cdr.detectChanges();
+    // A phone-sized inline canvas is too small to play on, so touch devices start expanded.
+    if (typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches) this.setExpanded(true);
 
     this.zone.runOutsideAngular(() => {
       requestAnimationFrame(() => this.initGame(level));
@@ -214,6 +219,30 @@ export class AiQuizGameComponent implements OnDestroy {
   touchFire(active: boolean): void { this.engine?.getControls().setTouchFire(active); }
   touchDown(active: boolean): void { this.engine?.getControls().setTouchDown(active); }
 
+  /**
+   * The ◀ ▶ pad tracks one finger by position, not by which button it landed on, so sliding the
+   * thumb across the middle reverses direction without lifting. Pointer capture keeps the events
+   * flowing when the finger drifts off the pad.
+   */
+  padMove(event: PointerEvent): void {
+    const pad = event.currentTarget as HTMLElement;
+    if (event.type === 'pointerdown') pad.setPointerCapture?.(event.pointerId);
+    else if (!pad.hasPointerCapture?.(event.pointerId)) return;
+    const rect = pad.getBoundingClientRect();
+    const offset = (event.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+    // ponytail: fixed 10% dead zone in the middle; widen it if thumbs jitter between directions.
+    this.setPadDir(offset < -0.1 ? -1 : offset > 0.1 ? 1 : 0);
+  }
+
+  padRelease(): void { this.setPadDir(0); }
+
+  private setPadDir(dir: -1 | 0 | 1): void {
+    if (dir === this.padDir) return;
+    this.padDir = dir;
+    this.touchLeft(dir === -1);
+    this.touchRight(dir === 1);
+  }
+
   selectLevelType(type: LevelType): void {
     this.selectedLevelType = type;
   }
@@ -224,15 +253,20 @@ export class AiQuizGameComponent implements OnDestroy {
 
     const fullscreenDocument = document as WebkitFullscreenDocument;
 
-    if (!document.fullscreenElement) {
+    // The expanded layout is plain CSS, so it works even where the Fullscreen API is missing
+    // (iPhone Safari) or denied; the API below is a best-effort extra that hides browser chrome.
+    if (!document.fullscreenElement && !this.isFullscreen) {
+      this.setExpanded(true);
       try {
         if (el.requestFullscreen) await el.requestFullscreen();
         else if (el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
       } catch {
-        // Fullscreen API unavailable / blocked — silently ignore
+        // Fullscreen API unavailable / blocked — the CSS-expanded layout still applies
       }
     } else {
+      this.setExpanded(false);
       try {
+        if (!document.fullscreenElement) return;
         if (document.exitFullscreen) await document.exitFullscreen();
         else if (fullscreenDocument.webkitExitFullscreen) await fullscreenDocument.webkitExitFullscreen();
       } catch {
@@ -244,10 +278,14 @@ export class AiQuizGameComponent implements OnDestroy {
   private handleFullscreenChange(): void {
     const fsEl = document.fullscreenElement
       || (document as WebkitFullscreenDocument).webkitFullscreenElement;
-    this.zone.run(() => {
-      this.isFullscreen = !!fsEl;
-      this.cdr.detectChanges();
-    });
+    this.zone.run(() => this.setExpanded(!!fsEl));
+  }
+
+  /** Fills (or releases) the viewport and locks page scroll so a thumb on the game never drags the page. */
+  private setExpanded(on: boolean): void {
+    this.isFullscreen = on;
+    document.documentElement.classList.toggle('mario-immersive', on);
+    this.cdr.detectChanges();
     // Re-fit the canvas to the new container size after the layout settles
     requestAnimationFrame(() => this.canvasResize?.());
   }
@@ -323,6 +361,8 @@ export class AiQuizGameComponent implements OnDestroy {
       document.exitFullscreen?.().catch(() => {});
     }
     this.isFullscreen = false;
+    this.padDir = 0;
+    document.documentElement.classList.remove('mario-immersive');
   }
 
   getCategoryLabel(): string {

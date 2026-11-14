@@ -129,6 +129,45 @@ describe('AiQuizGameComponent', () => {
     }).not.toThrow();
   });
 
+  it('the touch pad follows one finger: slide reverses direction, centre and release stop', () => {
+    const controls = jasmine.createSpyObj('controls', ['setTouchLeft', 'setTouchRight']);
+    (component as any).engine = { getControls: () => controls, stop: () => {} };
+    let captured = false;
+    const pad = {
+      setPointerCapture: () => { captured = true; },
+      hasPointerCapture: () => captured,
+      getBoundingClientRect: () => ({ left: 0, width: 100 }),
+    } as unknown as HTMLElement;
+    const event = (type: string, clientX: number) =>
+      ({ type, pointerId: 1, clientX, currentTarget: pad }) as unknown as PointerEvent;
+
+    component.padMove(event('pointerdown', 10));
+    expect(component.padDir).toBe(-1);
+    expect(controls.setTouchLeft).toHaveBeenCalledWith(true);
+
+    component.padMove(event('pointermove', 90)); // slid across without lifting
+    expect(component.padDir).toBe(1);
+    expect(controls.setTouchLeft).toHaveBeenCalledWith(false);
+    expect(controls.setTouchRight).toHaveBeenCalledWith(true);
+
+    component.padMove(event('pointermove', 52)); // inside the 10% dead zone
+    expect(component.padDir).toBe(0);
+
+    component.padMove(event('pointermove', 5));
+    component.padRelease();
+    expect(component.padDir).toBe(0);
+    expect(controls.setTouchLeft.calls.mostRecent().args).toEqual([false]);
+  });
+
+  it('a pad move without pointer capture is ignored (mouse hovering over the pad)', () => {
+    const pad = {
+      hasPointerCapture: () => false,
+      getBoundingClientRect: () => ({ left: 0, width: 100 }),
+    } as unknown as HTMLElement;
+    component.padMove({ type: 'pointermove', pointerId: 1, clientX: 5, currentTarget: pad } as unknown as PointerEvent);
+    expect(component.padDir).toBe(0);
+  });
+
   it('startGame falls back to a procedural level when the AI request fails', fakeAsync(() => {
     // Provide a canvas so initGame can run.
     const canvas = document.createElement('canvas');

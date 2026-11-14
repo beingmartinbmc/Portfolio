@@ -302,11 +302,14 @@
 .game-wrapper--fullscreen {
   position: fixed;
   inset: 0;
+  height: 100vh;
+  height: 100dvh; /* the visible viewport, not the one behind the mobile URL bar */
   z-index: 9999;
   display: flex;
   flex-direction: column;
   background: #05050f;
   padding: 0.5rem;
+  overscroll-behavior: none;
 
   .game-hud {
     width: 100%;
@@ -317,11 +320,18 @@
 
   .canvas-container {
     flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
     border-radius: 0;
     border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  }
+
+  /* The stage takes whatever the controls band leaves; the canvas is sized to it in JS. */
+  .canvas-stage {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow: hidden;
   }
 
   canvas {
@@ -334,6 +344,62 @@
   @media (hover: none) and (pointer: coarse) {
     .touch-controls { display: flex; }
   }
+
+  /* Phones held upright: put the controls in a band under the playfield instead of over it. */
+  @media (orientation: portrait) {
+    .touch-controls {
+      position: static;
+      flex: 0 0 auto;
+      padding: 0.75rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
+  /* Thumb-sized targets. The inline game keeps the smaller ones. */
+  .touch-btn { width: 68px; height: 68px; font-size: 1.5rem; }
+  .touch-jump { width: 84px; height: 84px; font-size: 1.7rem; }
+  .touch-fire,
+  .touch-down { width: 64px; height: 64px; font-size: 1.4rem; }
+
+  /* Narrow phones: pad + fire + ▼ (sky) + jump must all fit on one row (375px wide → ~340px usable). */
+  @media (max-width: 400px) {
+    .touch-actions { gap: 0.5rem; }
+    .touch-btn { width: 58px; height: 58px; font-size: 1.3rem; }
+    .touch-jump { width: 74px; height: 74px; }
+    .touch-fire,
+    .touch-down { width: 54px; height: 54px; }
+  }
+
+  @media (max-width: 340px) {
+    .touch-btn { width: 48px; height: 48px; font-size: 1.1rem; }
+    .touch-jump { width: 62px; height: 62px; }
+    .touch-fire,
+    .touch-down { width: 46px; height: 46px; }
+  }
+
+  /* Landscape phones are ~390px tall: keep the controls from eating the playfield. */
+  @media (max-height: 430px) {
+    padding: 0.25rem;
+
+    .game-hud {
+      gap: 0.6rem;
+      padding: 0.3rem 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .touch-controls { bottom: 0.4rem; left: 0.75rem; right: 0.75rem; }
+    .touch-btn { width: 58px; height: 58px; font-size: 1.3rem; }
+    .touch-jump { width: 70px; height: 70px; }
+    .touch-fire,
+    .touch-down { width: 54px; height: 54px; }
+  }
+
+  /* iPhone SE-class landscape (~320px tall). */
+  @media (max-height: 360px) {
+    .touch-btn { width: 50px; height: 50px; font-size: 1.15rem; }
+    .touch-jump { width: 60px; height: 60px; }
+    .touch-fire,
+    .touch-down { width: 46px; height: 46px; }
+  }
 }
 
 .canvas-container {
@@ -343,11 +409,19 @@
   border: 1px solid slate(0.12);
   background: #09091a;
   width: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 
   canvas {
     display: block;
     max-width: 100%;
   }
+}
+
+/* A finger on the game plays it; it never scrolls or zooms the page behind. */
+@media (pointer: coarse) {
+  .canvas-stage { touch-action: none; }
 }
 
 /* ── Touch controls ──────────────────────────────────── */
@@ -362,12 +436,23 @@
   pointer-events: none;
 }
 
+.touch-controls,
+.touch-controls * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* One touch surface for both arrows (see padMove); the buttons inside are just the visuals. */
 .touch-dpad {
   display: flex;
   gap: 0.5rem;
+  pointer-events: all;
+  touch-action: none;
 }
 
 .touch-btn {
+  flex-shrink: 0; /* a squeezed row must not turn the round buttons into ovals */
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -383,23 +468,27 @@
   -webkit-tap-highlight-color: transparent;
   touch-action: none;
 
-  &:active { background: white(0.15); }
+  &:active,
+  &.touch-btn--on { background: white(0.15); }
 }
 
+/* Thumb reaches fire then jump along the bottom edge instead of a tall stack. */
 .touch-actions {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: center;
+  flex-direction: row;
+  gap: 0.75rem;
+  align-items: flex-end;
 }
 
 .touch-jump {
+  order: 3; /* far right, under the thumb */
   width: 64px;
   height: 64px;
   font-size: 1.4rem;
 }
 
 .touch-fire {
+  order: 1;
   width: 52px;
   height: 52px;
   font-size: 1.2rem;
@@ -408,6 +497,7 @@
 }
 
 .touch-down {
+  order: 2;
   width: 52px;
   height: 52px;
   font-size: 1.2rem;
@@ -489,7 +579,7 @@
   .difficulty-row { grid-template-columns: 1fr; }
   .results-stats { grid-template-columns: repeat(3, 1fr); }
 
-  .game-wrapper {
+  .game-wrapper:not(.game-wrapper--fullscreen) {
     margin: 0 -1rem;
   }
 
