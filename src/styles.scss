@@ -152,6 +152,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* The Mario game fills the viewport on phones (ai-quiz-game): the page must not scroll underneath it. */
+html.mario-immersive,
+html.mario-immersive body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 /* Pixel-grid overlay – evokes the Mario tile world */
 body::before {
   content: "";

@@ -100,17 +100,31 @@ export class MarioRenderer {
     this.ctx.imageSmoothingEnabled = false;
   }
 
+  /**
+   * The level is a fixed number of pixels tall (TILE × rows) and the camera never scrolls
+   * vertically, so a canvas shorter than the level (any phone) would crop off the floor and
+   * the player. Shrink the world to fit the canvas height; never enlarge it, so desktop is 1:1.
+   */
+  private worldScale(level: Level): number {
+    return level.height > 0 && this.canvasH > 0 ? Math.min(1, this.canvasH / level.height) : 1;
+  }
+
   render(player: Player, level: Level): void {
     this.frameCount++;
     this.updateShake();
-    const camX = Math.max(0, Math.min(player.x - this.canvasW / 2 + player.w / 2, level.width - this.canvasW));
-    const camY = 0;
+    const scale = this.worldScale(level);
+    const viewW = this.canvasW / scale;
+    const camX = Math.max(0, Math.min(player.x - viewW / 2 + player.w / 2, level.width - viewW));
+    // A canvas taller than the level (portrait phones, fullscreen) anchors the floor to the bottom edge.
+    const camY = level.height > 0 ? Math.min(0, level.height - this.canvasH / scale) : 0;
 
     this.drawBackdrop(camX);
     this.drawCategoryBanner(level.category);
 
     this.ctx.save();
-    this.ctx.translate(-camX + this.shakeOffX, -camY + this.shakeOffY);
+    this.ctx.translate(this.shakeOffX, this.shakeOffY);
+    this.ctx.scale(scale, scale);
+    this.ctx.translate(-camX, -camY);
 
     for (const p of level.platforms) {
       if (!p.destroyed) this.drawPlatform(p);
